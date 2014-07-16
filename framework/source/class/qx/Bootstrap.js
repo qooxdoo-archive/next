@@ -111,7 +111,7 @@ qx.Bootstrap = {
 
     qx.Bootstrap.setDisplayNames(config.statics, name);
 
-    if (config.members || config.extend)
+    if (config.members || config.extend || config.properties)
     {
       qx.Bootstrap.setDisplayNames(config.members, name + ".prototype");
 
@@ -149,6 +149,10 @@ qx.Bootstrap = {
 
         proto[key] = member;
       }
+
+
+      // property handling
+      qx.Bootstrap.__addProperties(proto, config.properties);
     }
     else
     {
@@ -226,6 +230,34 @@ qx.Bootstrap.define("qx.Bootstrap",
        }
        return debug;
      })(),
+
+
+     __addProperties : function(proto, properties) {
+       for (var name in properties) {
+         var def = properties[name];
+
+         Object.defineProperty(proto, name, {
+           get : (function(name, def) {
+             return function() {
+               var value = this["$$" + name];
+               if (value === undefined) {
+                 return def.init;
+               }
+               return value;
+             }
+           })(name, def),
+           set : (function(name, def) {
+             return function(value) {
+               if (def.apply) {
+                 this[def.apply].call(this, value, this["$$" + name], name);
+               }
+               // TODO handle inline function
+               this["$$" + name] = value;
+             }
+           }(name, def))
+         });
+       }
+     },
 
 
      /**
