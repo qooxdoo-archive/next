@@ -26,6 +26,7 @@
 qx.Class.define("qx.test.Bootstrap",
 {
   extend : qx.dev.unit.TestCase,
+  include : qx.dev.unit.MMock,
 
   members :
   {
@@ -363,7 +364,7 @@ qx.Class.define("qx.test.Bootstrap",
     {
       var undef;
       var callback = function(undef, arg) {
-        this.assertTrue(arg)
+        this.assertTrue(arg);
       }
       var bound = qx.Bootstrap.bind(callback, this, undef, true);
       bound();
@@ -414,6 +415,177 @@ qx.Class.define("qx.test.Bootstrap",
       this.assertEquals(14, qx.test.Construct.valueOf);
 
       qx.Class.undefine("qx.test.Construct");
+    },
+
+
+    testPropertyInit : function() {
+      var C = qx.Bootstrap.define(null, {
+        properties : {
+          a: {
+            init: 11
+          },
+          b: {
+            init: 12
+          },
+          c : {}
+        }
+      });
+
+      var c = new C();
+      this.assertEquals(11, c.a);
+      this.assertEquals(12, c.b);
+      this.assertUndefined(c.c);
+
+      c.a = 0;
+      this.assertEquals(0, c.a);
+    },
+
+
+    testPropertyReset : function() {
+      var C = qx.Bootstrap.define(null, {
+        properties : {
+          a: {
+            init: 11
+          }
+        }
+      });
+
+      var c = new C();
+      this.assertEquals(11, c.a);
+      c.a = "A";
+      this.assertEquals("A", c.a);
+      c.a = undefined;
+      this.assertEquals(11, c.a);
+    },
+
+
+    testPropertyNullable : function() {
+      var C = qx.Bootstrap.define(null, {
+        properties : {
+          a: {
+            nullable: true
+          },
+          b: {
+            init: 12,
+            nullable: false
+          },
+          c: {}
+        }
+      });
+
+      var c = new C();
+
+      this.assertUndefined(c.a);
+      c.a = null;
+      this.assertNull(c.a);
+
+      this.assertException(function() {
+        c.b = null;
+      });
+
+      this.assertException(function() {
+        c.c = null;
+      });
+    },
+
+
+    testPropertyApply : function() {
+      var applyA = this.spy();
+      var applyB = this.spy();
+      var C = qx.Bootstrap.define(null, {
+        properties : {
+          a: {
+            apply : "_applyA"
+          },
+          b: {
+            apply : applyB,
+            init: "b"
+          }
+        },
+        members : {
+          _applyA : applyA
+        }
+      });
+
+      var c = new C();
+
+      c.a = 11;
+      this.assertCalledOnce(applyA);
+      this.assertCalledWith(applyA, 11, undefined, "a");
+
+      c.a = 12;
+      this.assertCalledTwice(applyA);
+      this.assertCalledWith(applyA, 12, 11, "a");
+
+      c.b = 11;
+      this.assertCalledOnce(applyB);
+      this.assertCalledWith(applyB, 11, "b", "b");
+
+      c.b = undefined;
+      this.assertCalledTwice(applyB);
+      this.assertCalledWith(applyB, "b", 11, "b");
+    },
+
+
+    testPropertyEventEmitter : function() {
+      var C = qx.Bootstrap.define(null, {
+        extend : qx.event.Emitter,
+        properties : {
+          a: {
+            event : true,
+            init: 11
+          }
+        }
+      });
+
+      var c = new C();
+
+      var handler = this.spy();
+      c.on("changeA", handler);
+      c.a = 12;
+
+      this.assertCalledOnce(handler);
+      this.assertCalledWith(handler, {value: 12, old: 11});
+    },
+
+
+    testPropertyEventCoreObject : function() {
+      var C = qx.Bootstrap.define(null, {
+        extend : qx.core.Object,
+        properties : {
+          a: {
+            event : true,
+            init: 11
+          }
+        }
+      });
+
+      var c = new C();
+
+      var handler = this.spy();
+      c.addListener("changeA", handler);
+      c.a = 12;
+
+      this.assertCalledOnce(handler);
+      this.assertEquals(12, handler.args[0][0].getData());
+      this.assertEquals(11, handler.args[0][0].getOldData());
+    },
+
+
+    testPropertyEventFail : function() {
+      var C = qx.Bootstrap.define(null, {
+        properties : {
+          a: {
+            event : true,
+            init: 11
+          }
+        }
+      });
+
+      var c = new C();
+      this.assertException(function() {
+        c.a = 1213123;
+      });
     }
   }
 });

@@ -25,6 +25,7 @@
  * @ignore(qx.data)
  * @ignore(qx.data.IListData)
  * @ignore(qx.util.OOUtil)
+ * @ignore(qx.event.type.Data)
  */
 if (!window.qx) {
   window.qx = {};
@@ -237,6 +238,7 @@ qx.Bootstrap.define("qx.Bootstrap",
          var def = properties[name];
 
          Object.defineProperty(proto, name, {
+
            get : (function(name, def) {
              return function() {
                var value = this["$$" + name];
@@ -246,12 +248,41 @@ qx.Bootstrap.define("qx.Bootstrap",
                return value;
              }
            })(name, def),
+
            set : (function(name, def) {
              return function(value) {
-               if (def.apply) {
-                 this[def.apply].call(this, value, this["$$" + name], name);
+               // nullable
+               if (!def.nullable && value === null) {
+                 throw new Error("Error in property '" + name + "' of class '" + this.classname + "': Null value is not allowed!");
                }
-               // TODO handle inline function
+
+               // init value normalization
+               var old = this["$$" + name];
+               if (old === undefined) {
+                 old = def.init;
+               }
+               if (value === undefined) {
+                 value = def.init;
+               }
+
+               // apply
+               if (def.apply) {
+                 var applyMethod = def.apply instanceof Function ? def.apply : this[def.apply];
+                 applyMethod.call(this, value, old, name);
+               }
+
+               // event
+               if (def.event) {
+                 var eventName = "change" + qx.Bootstrap.firstUp(name);
+                 if (this.emit) {
+                   this.emit(eventName, {value: value, old: old});
+                 } else if (this.fireEvent && qx.event && qx.event.type && qx.event.type.Data) {
+                   this.fireEvent(eventName, qx.event.type.Data, [value, old]);
+                 } else {
+                   throw new Error("Error in property " + name + " of class '" + this.classname + "': Event could not be fired.");
+                 }
+               }
+
                this["$$" + name] = value;
              }
            }(name, def))
