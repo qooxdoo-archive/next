@@ -258,7 +258,7 @@ qx.Bootstrap.define("qx.Bootstrap",
                  throw new Error("Error in property '" + name + "' of class '" + this.classname + "': Not (yet) initialized!");
                }
                return value;
-             }
+             };
            })(name, def),
 
            set : (function(name, def) {
@@ -319,7 +319,7 @@ qx.Bootstrap.define("qx.Bootstrap",
                }
 
                this["$$" + name] = value;
-             }
+             };
            }(name, def))
          });
        }
