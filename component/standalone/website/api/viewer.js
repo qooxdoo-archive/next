@@ -846,7 +846,7 @@ q.ready(function() {
         //  "  <li>item 2</li>",
         //  "</ul>"],
 
-        var isArray = q.$$qx.Bootstrap.isArray;
+        var isArray = q.$$qx.lang.Type.isArray;
         if (isArray && isArray(snippet)) {
             return snippet.join('\n');
         }
