@@ -586,6 +586,108 @@ qx.Class.define("qx.test.Bootstrap",
       this.assertException(function() {
         c.a = 1213123;
       });
+    },
+
+
+    testPropertyChecks : function() {
+      var C = qx.Bootstrap.define(null, {
+        properties : {
+          s: {
+            check : "String"
+          },
+          b: {
+            check : "Boolean"
+          },
+          n : {
+            check: "Number"
+          },
+          o : {
+            check: "Object"
+          },
+          a : {
+            check : "Array"
+          },
+          f : {
+            check : "Function"
+          },
+          d : {
+            check : "Date"
+          },
+          e : {
+            check : "Error"
+          },
+          r : {
+            check : "RegExp"
+          }
+        }
+      });
+
+      var c = new C();
+      c.s = "string";
+      c.b = true;
+      c.n = 12321.32423;
+      c.o = {};
+      c.a = [];
+      c.f = function() {};
+      c.d = new Date();
+      c.e = new Error();
+      c.r = /./g;
+
+      this.assertException(function() {
+        c.s = true;
+      });
+      this.assertException(function() {
+        c.b = "string";
+      });
+      this.assertException(function() {
+        c.n = {};
+      });
+      this.assertException(function() {
+        c.o = 213;
+      });
+      this.assertException(function() {
+        c.a = {};
+      });
+      this.assertException(function() {
+        c.f = true;
+      });
+      this.assertException(function() {
+        c.d = {};
+      });
+      this.assertException(function() {
+        c.e = {};
+      });
+      this.assertException(function() {
+        c.r = 83924;
+      });
+    },
+
+
+    testPropertyCheckFunction : function() {
+      var checkA = this.spy(function() {return true;});
+      var checkB = this.spy(function() {return true;});
+      var C = qx.Bootstrap.define(null, {
+        properties : {
+          a : {
+            check : checkA
+          },
+          b : {
+            check : "_checkB"
+          }
+        },
+        members : {
+          _checkB : checkB
+        }
+      });
+
+      var c = new C();
+      c.a = "a";
+      c.b = "b";
+
+      this.assertCalledOnce(checkA);
+      this.assertCalledWith(checkA, "a");
+      this.assertCalledOnce(checkB);
+      this.assertCalledWith(checkB, "b");
     }
   }
 });

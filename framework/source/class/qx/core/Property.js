@@ -48,7 +48,7 @@
  *       <li>a class name e.g. <code>qx.ui.form.Button</code></li>
  *       <li>a name of an interface the value must implement</li>
  *       <li>an array of all valid values</li>
- *       <li>one of the predefined checks: Boolean, String, Number, Integer, Float, Double,
+ *       <li>one of the predefined checks: Boolean, String, Number, Integer,
  *           Object, Array, Map, Class, Mixin, Interface, Theme, Error, RegExp, Function,
  *           Date, Node, Element, Document, Window, Event
  *       </li>

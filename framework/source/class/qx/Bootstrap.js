@@ -25,7 +25,7 @@
  * @ignore(qx.data)
  * @ignore(qx.data.IListData)
  * @ignore(qx.util.OOUtil)
- * @ignore(qx.event.type.Data)
+ * @ignore(qx.event.*)
  */
 if (!window.qx) {
   window.qx = {};
@@ -116,7 +116,7 @@ qx.Bootstrap = {
     {
       qx.Bootstrap.setDisplayNames(config.members, name + ".prototype");
 
-      clazz = config.construct || new Function;
+      clazz = config.construct || new Function();
 
       if (config.extend) {
         this.extendClass(clazz, clazz, config.extend, name, basename);
@@ -254,6 +254,27 @@ qx.Bootstrap.define("qx.Bootstrap",
                // nullable
                if (!def.nullable && value === null) {
                  throw new Error("Error in property '" + name + "' of class '" + this.classname + "': Null value is not allowed!");
+               }
+
+               // check
+               if (def.check) {
+                 var ok = true;
+                 if (typeof def.check == "string") {
+                   if (this[def.check] instanceof Function) {
+                     ok = this[def.check].call(this, value);
+                   } else {
+                     var type = qx.Bootstrap.getClass(value);
+                     if (type !== def.check) {
+                       throw new Error("Error in property '" + name + "' of class '" + this.classname + "': Value must be '" + def.check + "' but is '" + type + "'!");
+                     }
+                   }
+                 } else if (def.check instanceof Function) {
+                   ok = def.check.call(this, value);
+                 }
+
+                 if (!ok) {
+                   throw new Error("Error in property '" + name + "' of class '" + this.classname + "': Custom check failed'!");
+                 }
                }
 
                // init value normalization
