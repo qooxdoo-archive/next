@@ -1248,7 +1248,7 @@ qx.Bootstrap.define("qx.Class",
         {
           if (
             !qx.lang.Type.isString(config.check) &&
-            !qx.Bootstrap.isArray(config.check) &&
+            !qx.lang.Type.isArray(config.check) &&
             !qx.Bootstrap.isFunction(config.check)
           ) {
             throw new Error('Invalid check definition of property "' + name + '" in class "' + clazz.classname + '"! Needs to be a String, Array or Function.');

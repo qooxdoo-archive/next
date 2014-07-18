@@ -309,7 +309,7 @@ qx.Bootstrap.define("qxWeb", {
         return -1;
       }
 
-      if (qx.Bootstrap.isArray(elem)) {
+      if (qx.lang.Type.isArray(elem)) {
         elem = elem[0];
       }
 

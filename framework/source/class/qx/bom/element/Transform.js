@@ -289,7 +289,7 @@ qx.Bootstrap.define("qx.bom.element.Transform",
 
         var params = transforms[func];
         // if an array is given
-        if (qx.Bootstrap.isArray(params)) {
+        if (qx.lang.Type.isArray(params)) {
           for (var i=0; i < params.length; i++) {
             if (params[i] == undefined ||
               (i == 2 && !qx.core.Environment.get("css.transform.3d"))) {

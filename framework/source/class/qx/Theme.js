@@ -135,7 +135,7 @@ qx.Bootstrap.define("qx.Theme",
         return [];
       }
 
-      if (qx.Bootstrap.isArray(objectOrArray)) {
+      if (qx.lang.Type.isArray(objectOrArray)) {
         return objectOrArray;
       } else {
         return [objectOrArray];

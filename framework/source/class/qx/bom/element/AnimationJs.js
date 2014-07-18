@@ -273,8 +273,8 @@ qx.Bootstrap.define("qx.bom.element.AnimationJs",
               transforms = {};
             }
 
-            if (qx.Bootstrap.isArray(last[name])) {
-              if (!qx.Bootstrap.isArray(next[name])) {
+            if (qx.lang.Type.isArray(last[name])) {
+              if (!qx.lang.Type.isArray(next[name])) {
                 next[name] = [next[name]];
               }
               transforms[name] = [];

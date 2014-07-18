@@ -366,7 +366,7 @@ qx.Bootstrap.define("qx.ui.website.Calendar", {
      */
     getValue : function() {
       var value = this.getProperty("value");
-      return value ? (qx.Bootstrap.isArray(value) ? value : new Date(value)) : null;
+      return value ? (qx.lang.Type.isArray(value) ? value : new Date(value)) : null;
     },
 
 
@@ -379,7 +379,7 @@ qx.Bootstrap.define("qx.ui.website.Calendar", {
     showValue : function(value) {
 
       // If value is an array, show the last selected date
-      value = qx.Bootstrap.isArray(value) ? value[value.length -1] : value;
+      value = qx.lang.Type.isArray(value) ? value[value.length -1] : value;
 
       this.setProperty("shownValue", value);
       var cssPrefix = this.getCssPrefix();
@@ -547,7 +547,7 @@ qx.Bootstrap.define("qx.ui.website.Calendar", {
      */
     _getWeekRows : function(date) {
 
-      date = qx.Bootstrap.isArray(date) ? date[date.length -1] : date;
+      date = qx.lang.Type.isArray(date) ? date[date.length -1] : date;
 
       var weeks = [];
       var value = null, valueString = null;
@@ -565,7 +565,7 @@ qx.Bootstrap.define("qx.ui.website.Calendar", {
         this._normalizeDate(maxDate);
       }
 
-      if (qx.Bootstrap.isArray(this.getProperty("value"))) {
+      if (qx.lang.Type.isArray(this.getProperty("value"))) {
         valueString = this.getProperty("value").map(function(currentDate){ return currentDate.toDateString(); });
       }
 
@@ -575,7 +575,7 @@ qx.Bootstrap.define("qx.ui.website.Calendar", {
 
         for (var i=0; i<7; i++) {
           var cssClasses = helpDate.getMonth() !== date.getMonth() ? cssPrefix + "-othermonth" : "";
-          if((this.getConfig("selectionMode") == "range")  && qx.Bootstrap.isArray(this.getProperty("value"))){
+          if((this.getConfig("selectionMode") == "range")  && qx.lang.Type.isArray(this.getProperty("value"))){
             if(valueString.indexOf(helpDate.toDateString()) != -1){
               cssClasses += cssPrefix + "-selected";
             }

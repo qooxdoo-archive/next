@@ -62,11 +62,24 @@ qx.Bootstrap.define("qx.lang.Type",
     /**
      * Whether the value is an array.
      *
-     * @signature function(value)
      * @param value {var} Value to check.
      * @return {Boolean} Whether the value is an array.
      */
-    isArray : qx.Bootstrap.isArray,
+    isArray : function(value)
+    {
+      // Added "value !== null" because IE throws an exception "Object expected"
+      // by executing "value instanceof Array" if value is a DOM element that
+      // doesn't exist. It seems that there is an internal difference between a
+      // JavaScript null and a null returned from calling DOM.
+      // e.q. by document.getElementById("ReturnedNull").
+      return (
+        value !== null && (
+        value instanceof Array ||
+        (value && qx.data && qx.data.IListData && qx.util.OOUtil.hasInterface(value.constructor, qx.data.IListData) ) ||
+        qx.Bootstrap.getClass(value) == "Array" ||
+        (!!value && !!value.$$isArray))
+      );
+    },
 
 
     /**
