@@ -198,7 +198,7 @@ qx.Bootstrap.define("qx.Theme",
      * @return {Number} the number of classes
      */
     getTotalNumber : function() {
-      return qx.Bootstrap.objectGetLength(this.$$registry);
+      return Object.keys(this.$$registry).length;
     },
 
 

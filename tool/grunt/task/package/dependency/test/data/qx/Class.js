@@ -290,7 +290,7 @@ qx.Bootstrap.define("qx.Class",
       for (var i = objects.length - 1; i >= 1; i--) {
         var last = objects[i];
         var parent = objects[i - 1];
-        if (qx.lang.Type.isFunction(last) || qx.Bootstrap.objectGetLength(last) === 0) {
+        if (qx.lang.Type.isFunction(last) || Object.keys(last).length === 0) {
           delete parent[ns[i - 1]];
         } else {
           break;
@@ -315,7 +315,7 @@ qx.Bootstrap.define("qx.Class",
      * @return {Number} the total number of classes
      */
     getTotalNumber : function() {
-      return qx.Bootstrap.objectGetLength(this.$$registry);
+      return Object.keys(this.$$registry).length;
     },
 
 

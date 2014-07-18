@@ -84,16 +84,6 @@ qx.Bootstrap.define("qx.lang.Object",
 
 
     /**
-     * Get the number of objects in the map
-     *
-     * @signature function(map)
-     * @param map {Object} the map
-     * @return {Integer} number of objects in the map
-     */
-    getLength : qx.Bootstrap.objectGetLength,
-
-
-    /**
      * Get the values of a map as array
      *
      * @param map {Object} the map

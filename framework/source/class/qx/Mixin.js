@@ -270,7 +270,7 @@ qx.Bootstrap.define("qx.Mixin",
      * @return {Number} the number of mixins
      */
     getTotalNumber : function() {
-      return qx.Bootstrap.objectGetLength(this.$$registry);
+      return Object.keys(this.$$registry).length;
     },
 
 

@@ -124,7 +124,7 @@ qx.Bootstrap = {
 
       var statics = config.statics || {};
       // use keys to include the shadowed in IE
-      for (var i=0, keys=qx.Bootstrap.keys(statics), l=keys.length; i<l; i++) {
+      for (var i=0, keys=Object.keys(statics), l=keys.length; i<l; i++) {
         var key = keys[i];
         clazz[key] = statics[key];
       }
@@ -138,7 +138,7 @@ qx.Bootstrap = {
       var key, member;
 
       // use keys to include the shadowed in IE
-      for (var i=0, keys=qx.Bootstrap.keys(members), l=keys.length; i<l; i++) {
+      for (var i=0, keys=Object.keys(members), l=keys.length; i<l; i++) {
         key = keys[i];
         member = members[key];
 
@@ -482,17 +482,6 @@ qx.Bootstrap.define("qx.Bootstrap",
     ---------------------------------------------------------------------------
     */
 
-    /**
-     * Get the number of own properties in the object.
-     *
-     * @param map {Object} the map
-     * @return {Integer} number of objects in the map
-     * @lint ignoreUnused(key)
-     */
-    objectGetLength : function(map) {
-      return qx.Bootstrap.keys(map).length;
-    },
-
 
     /**
      * Inserts all keys of the source object into the
@@ -518,88 +507,6 @@ qx.Bootstrap.define("qx.Bootstrap",
 
       return target;
     },
-
-
-    /**
-     * IE does not return "shadowed" keys even if they are defined directly
-     * in the object.
-     *
-     * @internal
-     * @type {String[]}
-     */
-    __shadowedKeys :
-    [
-      "isPrototypeOf",
-      "hasOwnProperty",
-      "toLocaleString",
-      "toString",
-      "valueOf",
-      "propertyIsEnumerable",
-      "constructor"
-    ],
-
-
-    /**
-     * Get the keys of a map as array as returned by a "for ... in" statement.
-     *
-     * @signature function(map)
-     * @internal
-     * @param map {Object} the map
-     * @return {Array} array of the keys of the map
-     */
-    keys :
-    ({
-      "ES5" : Object.keys,
-
-      "BROKEN_IE" : function(map)
-      {
-        if (map === null || (typeof map != "object" && typeof map != "function")) {
-            throw new TypeError("Object.keys requires an object as argument.");
-        }
-
-        var arr = [];
-        var hasOwnProperty = Object.prototype.hasOwnProperty;
-        for (var key in map) {
-          if (hasOwnProperty.call(map, key)) {
-            arr.push(key);
-          }
-        }
-
-        // IE does not return "shadowed" keys even if they are defined directly
-        // in the object. This is incompatible with the ECMA standard!!
-        // This is why this checks are needed.
-        var shadowedKeys = qx.Bootstrap.__shadowedKeys;
-        for (var i=0, a=shadowedKeys, l=a.length; i<l; i++)
-        {
-          if (hasOwnProperty.call(map, a[i])) {
-            arr.push(a[i]);
-          }
-        }
-
-        return arr;
-      },
-
-      "default" : function(map)
-      {
-        if (map === null || (typeof map != "object" && typeof map != "function")) {
-            throw new TypeError("Object.keys requires an object as argument.");
-        }
-
-        var arr = [];
-
-        var hasOwnProperty = Object.prototype.hasOwnProperty;
-        for (var key in map) {
-          if (hasOwnProperty.call(map, key)) {
-            arr.push(key);
-          }
-        }
-
-        return arr;
-      }
-    })[
-      typeof(Object.keys) == "function" ? "ES5" :
-        (function() {for (var key in {toString : 1}) { return key }})() !== "toString" ? "BROKEN_IE" : "default"
-    ],
 
 
     /**
