@@ -793,7 +793,7 @@ qx.Bootstrap.define("qx.Class",
           var key = maps[i];
 
           if (config[key] !== undefined && (
-            config[key].$$hash !== undefined || !qx.Bootstrap.isObject(config[key])
+            config[key].$$hash !== undefined || !qx.lang.Type.isObject(config[key])
           )) {
             throw new Error('Invalid key "' + key + '" in class "' + name + '"! The value needs to be a map!');
           }

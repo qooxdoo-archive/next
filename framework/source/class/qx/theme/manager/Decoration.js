@@ -117,7 +117,7 @@ qx.Class.define("qx.theme.manager.Decoration",
       for (var key in styles) {
 
         // if we find a map value, use it as pseudo class
-        if (qx.Bootstrap.isObject(styles[key])) {
+        if (qx.lang.Type.isObject(styles[key])) {
           var innerCss = "";
           var innerStyles = styles[key];
           var inner = false;

@@ -86,11 +86,16 @@ qx.Bootstrap.define("qx.lang.Type",
      * Whether the value is an object. Note that built-in types like Window are
      * not reported to be objects.
      *
-     * @signature function(value)
      * @param value {var} Value to check.
      * @return {Boolean} Whether the value is an object.
      */
-     isObject : qx.Bootstrap.isObject,
+    isObject : function(value) {
+      return (
+        value !== undefined &&
+        value !== null &&
+        qx.Bootstrap.getClass(value) == "Object"
+      );
+    },
 
 
     /**
