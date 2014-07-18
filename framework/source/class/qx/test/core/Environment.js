@@ -445,7 +445,6 @@ qx.Class.define("qx.test.core.Environment",
       var stackTrace = qx.core.Environment.get("ecmascript.error.stacktrace");
       this.assert(typeof stackTrace == "string" || stackTrace === null);
 
-      this.assertBoolean(qx.core.Environment.get("ecmascript.date.now"));
       this.assertBoolean(qx.core.Environment.get("ecmascript.error.toString"));
     },
 

@@ -69,15 +69,6 @@ qx.Bootstrap.define("qx.bom.client.EcmaScript",
 
 
     /**
-     * Checks if 'now' is supported on the Date object.
-     * @internal
-     * @return {Boolean} <code>true</code>, if the method is available.
-     */
-    getDateNow : function() {
-      return !!Date.now;
-    },
-
-    /**
      * Checks if 'trim' is supported on the String object.
      * @internal
      * @return {Boolean} <code>true</code>, if the method is available.

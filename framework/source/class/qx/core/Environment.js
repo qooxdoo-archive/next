@@ -231,10 +231,6 @@
  *       <td>{@link qx.bom.client.EcmaScript#getStackTrace}</td>
  *     </tr>
  *     <tr>
- *       <td>ecmascript.date.now<td><i>Boolean</i></td><td><code>true</code></td>
- *       <td>{@link qx.bom.client.EcmaScript#getDateNow}</td>
- *     </tr>
- *     <tr>
  *       <td>ecmascript.error.toString</td><td><i>Boolean</i></td><td><code>true</code></td>
  *       <td>{@link qx.bom.client.EcmaScript#getErrorToString}</td>
  *     </tr>
@@ -815,7 +811,6 @@ qx.Bootstrap.define("qx.core.Environment",
       "event.mouseevent" : "qx.bom.client.Event.getMouseEvent",
       "event.mousewheel" : "qx.bom.client.Event.getMouseWheel",
       "ecmascript.error.stacktrace"       : "qx.bom.client.EcmaScript.getStackTrace",
-      "ecmascript.date.now" : "qx.bom.client.EcmaScript.getDateNow",
       "ecmascript.error.toString" : "qx.bom.client.EcmaScript.getErrorToString",
       "ecmascript.string.trim" : "qx.bom.client.EcmaScript.getStringTrim",
       "html.webworker" : "qx.bom.client.Html.getWebWorker",
