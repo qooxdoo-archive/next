@@ -40,7 +40,7 @@ qx.Mixin.define("qx.core.MProperty",
     {
       var setter = qx.core.Property.$$method.set;
 
-      if (qx.Bootstrap.isString(data))
+      if (qx.lang.Type.isString(data))
       {
         if (!this[setter[data]])
         {

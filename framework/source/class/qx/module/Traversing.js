@@ -596,7 +596,7 @@ qx.Bootstrap.define("qx.module.Traversing", {
     __getElementFromArgument : function(arg) {
       if (arg instanceof qxWeb) {
         return arg[0];
-      } else if (qx.Bootstrap.isString(arg)) {
+      } else if (qx.lang.Type.isString(arg)) {
         return qxWeb(arg)[0];
       }
       return arg;

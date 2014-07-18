@@ -226,7 +226,7 @@ qx.Bootstrap.define("qx.Part",
       var callback = callback || function() {};
       var self = self || window;
 
-      if (qx.Bootstrap.isString(partNames)) {
+      if (qx.lang.Type.isString(partNames)) {
         partNames = [partNames];
       }
 
@@ -273,7 +273,7 @@ qx.Bootstrap.define("qx.Part",
      */
     preload : function(partNames, callback, self)
     {
-      if (qx.Bootstrap.isString(partNames)) {
+      if (qx.lang.Type.isString(partNames)) {
         partNames = [partNames];
       }
 

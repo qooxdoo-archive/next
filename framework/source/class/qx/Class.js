@@ -1247,7 +1247,7 @@ qx.Bootstrap.define("qx.Class",
         if (config.check != null)
         {
           if (
-            !qx.Bootstrap.isString(config.check) &&
+            !qx.lang.Type.isString(config.check) &&
             !qx.Bootstrap.isArray(config.check) &&
             !qx.Bootstrap.isFunction(config.check)
           ) {

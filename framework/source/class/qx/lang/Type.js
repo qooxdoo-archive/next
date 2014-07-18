@@ -39,11 +39,24 @@ qx.Bootstrap.define("qx.lang.Type",
     /**
      * Whether the value is a string.
      *
-     * @signature function(value)
      * @param value {var} Value to check.
      * @return {Boolean} Whether the value is a string.
      */
-    isString : qx.Bootstrap.isString,
+    isString : function(value)
+    {
+      // Added "value !== null" because IE throws an exception "Object expected"
+      // by executing "value instanceof String" if value is a DOM element that
+      // doesn't exist. It seems that there is an internal difference between a
+      // JavaScript null and a null returned from calling DOM.
+      // e.q. by document.getElementById("ReturnedNull").
+      return (
+        value !== null && (
+        typeof value === "string" ||
+        qx.Bootstrap.getClass(value) == "String" ||
+        value instanceof String ||
+        (!!value && !!value.$$isString))
+      );
+    },
 
 
     /**

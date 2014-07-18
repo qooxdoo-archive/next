@@ -190,7 +190,7 @@ qx.Bootstrap.define("qxWeb", {
     if (!selector) {
       selector = [];
     }
-    else if (qx.Bootstrap.isString(selector)) {
+    else if (qx.lang.Type.isString(selector)) {
       if (context instanceof qxWeb) {
         context = context[0];
       }
