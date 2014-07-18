@@ -434,7 +434,9 @@ qx.Class.define("qx.test.Bootstrap",
       var c = new C();
       this.assertEquals(11, c.a);
       this.assertEquals(12, c.b);
-      this.assertUndefined(c.c);
+      this.assertException(function() {
+        c.c;
+      });
 
       c.a = 0;
       this.assertEquals(0, c.a);
@@ -446,6 +448,9 @@ qx.Class.define("qx.test.Bootstrap",
         properties : {
           a: {
             init: 11
+          },
+          b : {
+            nullable : false
           }
         }
       });
@@ -456,6 +461,12 @@ qx.Class.define("qx.test.Bootstrap",
       this.assertEquals("A", c.a);
       c.a = undefined;
       this.assertEquals(11, c.a);
+
+      c.b = 12;
+      c.b = undefined;
+      this.assertException(function() {
+        c.b;
+      });
     },
 
 
@@ -478,6 +489,8 @@ qx.Class.define("qx.test.Bootstrap",
       this.assertUndefined(c.a);
       c.a = null;
       this.assertNull(c.a);
+      c.a = undefined;
+      this.assertUndefined(c.a);
 
       this.assertException(function() {
         c.b = null;
@@ -688,6 +701,28 @@ qx.Class.define("qx.test.Bootstrap",
       this.assertCalledWith(checkA, "a");
       this.assertCalledOnce(checkB);
       this.assertCalledWith(checkB, "b");
+    },
+
+    testPropertyRefine : function() {
+      var C = qx.Bootstrap.define(null, {
+        properties : {
+          a: {
+            init: 11
+          }
+        }
+      });
+
+      var D = qx.Bootstrap.define(null, {
+        extend : C,
+        properties : {
+          a: {
+            init: 12
+          }
+        }
+      });
+
+      var d = new D();
+      this.assertEquals(12, d.a);
     }
   }
 });

@@ -192,7 +192,17 @@ qx.Bootstrap = {
     // Store names in constructor/object
     clazz.name = clazz.classname = name;
     clazz.basename = basename;
-    clazz.$$events = config.events;
+    clazz.$$events = config.events || {};
+
+    // add property events
+    if (config.properties) {
+      for (var name in config.properties) {
+        var def = config.properties[name];
+        if (def.event) {
+          clazz.$$events["change" + qx.Bootstrap.firstUp(name)] = "qx.event.type.Data"
+        }
+      }
+    }
 
     // Execute defer section
     if (config.defer) {
@@ -242,8 +252,10 @@ qx.Bootstrap.define("qx.Bootstrap",
            get : (function(name, def) {
              return function() {
                var value = this["$$" + name];
-               if (value === undefined) {
+               if (value === undefined && def.init !== undefined) {
                  return def.init;
+               } else if (value === undefined && !def.nullable) {
+                 throw new Error("Error in property '" + name + "' of class '" + this.classname + "': Not (yet) initialized!");
                }
                return value;
              }
@@ -253,7 +265,9 @@ qx.Bootstrap.define("qx.Bootstrap",
              return function(value) {
                // nullable
                if (!def.nullable && value === null) {
-                 throw new Error("Error in property '" + name + "' of class '" + this.classname + "': Null value is not allowed!");
+                 if (!def.init || value !== undefined) {
+                   throw new Error("Error in property '" + name + "' of class '" + this.classname + "': Null value is not allowed!");
+                 }
                }
 
                // check
