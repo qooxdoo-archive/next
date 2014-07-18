@@ -231,42 +231,6 @@
  *       <td>{@link qx.bom.client.EcmaScript#getStackTrace}</td>
  *     </tr>
  *     <tr>
- *       <td>ecmascript.array.indexof<td><i>Boolean</i></td><td><code>true</code></td>
- *       <td>{@link qx.bom.client.EcmaScript#getArrayIndexOf}</td>
- *     </tr>
- *     <tr>
- *       <td>ecmascript.array.lastindexof<td><i>Boolean</i></td><td><code>true</code></td>
- *       <td>{@link qx.bom.client.EcmaScript#getArrayLastIndexOf}</td>
- *     </tr>
- *     <tr>
- *       <td>ecmascript.array.foreach<td><i>Boolean</i></td><td><code>true</code></td>
- *       <td>{@link qx.bom.client.EcmaScript#getArrayForEach}</td>
- *     </tr>
- *     <tr>
- *       <td>ecmascript.array.filter<td><i>Boolean</i></td><td><code>true</code></td>
- *       <td>{@link qx.bom.client.EcmaScript#getArrayFilter}</td>
- *     </tr>
- *     <tr>
- *       <td>ecmascript.array.map<td><i>Boolean</i></td><td><code>true</code></td>
- *       <td>{@link qx.bom.client.EcmaScript#getArrayMap}</td>
- *     </tr>
- *     <tr>
- *       <td>ecmascript.array.some<td><i>Boolean</i></td><td><code>true</code></td>
- *       <td>{@link qx.bom.client.EcmaScript#getArraySome}</td>
- *     </tr>
- *     <tr>
- *       <td>ecmascript.array.every<td><i>Boolean</i></td><td><code>true</code></td>
- *       <td>{@link qx.bom.client.EcmaScript#getArrayEvery}</td>
- *     </tr>
- *     <tr>
- *       <td>ecmascript.array.reduce<td><i>Boolean</i></td><td><code>true</code></td>
- *       <td>{@link qx.bom.client.EcmaScript#getArrayReduce}</td>
- *     </tr>
- *     <tr>
- *       <td>ecmascript.array.reduceright<td><i>Boolean</i></td><td><code>true</code></td>
- *       <td>{@link qx.bom.client.EcmaScript#getArrayReduceRight}</td>
- *     </tr>
- *     <tr>
  *       <td>ecmascript.date.now<td><i>Boolean</i></td><td><code>true</code></td>
  *       <td>{@link qx.bom.client.EcmaScript#getDateNow}</td>
  *     </tr>
@@ -851,15 +815,6 @@ qx.Bootstrap.define("qx.core.Environment",
       "event.mouseevent" : "qx.bom.client.Event.getMouseEvent",
       "event.mousewheel" : "qx.bom.client.Event.getMouseWheel",
       "ecmascript.error.stacktrace"       : "qx.bom.client.EcmaScript.getStackTrace",
-      "ecmascript.array.indexof" : "qx.bom.client.EcmaScript.getArrayIndexOf",
-      "ecmascript.array.lastindexof" : "qx.bom.client.EcmaScript.getArrayLastIndexOf",
-      "ecmascript.array.foreach" : "qx.bom.client.EcmaScript.getArrayForEach",
-      "ecmascript.array.filter" : "qx.bom.client.EcmaScript.getArrayFilter",
-      "ecmascript.array.map" : "qx.bom.client.EcmaScript.getArrayMap",
-      "ecmascript.array.some" : "qx.bom.client.EcmaScript.getArraySome",
-      "ecmascript.array.every" : "qx.bom.client.EcmaScript.getArrayEvery",
-      "ecmascript.array.reduce" : "qx.bom.client.EcmaScript.getArrayReduce",
-      "ecmascript.array.reduceright" : "qx.bom.client.EcmaScript.getArrayReduceRight",
       "ecmascript.date.now" : "qx.bom.client.EcmaScript.getDateNow",
       "ecmascript.error.toString" : "qx.bom.client.EcmaScript.getErrorToString",
       "ecmascript.string.trim" : "qx.bom.client.EcmaScript.getStringTrim",
