@@ -563,7 +563,7 @@ qx.Class.define("qx.test.Bootstrap",
 
 
     testPropertyEventCoreObject : function() {
-      var C = qx.Bootstrap.define(null, {
+      C = qx.Bootstrap.define("C", {
         extend : qx.core.Object,
         properties : {
           a: {
