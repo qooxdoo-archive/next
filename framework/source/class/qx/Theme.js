@@ -153,7 +153,7 @@ qx.Bootstrap.define("qx.Theme",
     {
       var aliases = config.aliases || {};
       if (config.extend && config.extend.aliases) {
-        qx.Bootstrap.objectMergeWith(aliases, config.extend.aliases, false);
+        qx.lang.Object.mergeWith(aliases, config.extend.aliases, false);
       }
 
       theme.aliases = aliases;

@@ -110,13 +110,26 @@ qx.Bootstrap.define("qx.lang.Object",
      * Inserts all keys of the source object into the
      * target objects. Attention: The target map gets modified.
      *
-     * @signature function(target, source, overwrite)
      * @param target {Object} target object
      * @param source {Object} object to be merged
      * @param overwrite {Boolean ? true} If enabled existing keys will be overwritten
      * @return {Object} Target with merged values from the source object
      */
-    mergeWith : qx.Bootstrap.objectMergeWith,
+    mergeWith : function(target, source, overwrite)
+    {
+      if (overwrite === undefined) {
+        overwrite = true;
+      }
+
+      for (var key in source)
+      {
+        if (overwrite || target[key] === undefined) {
+          target[key] = source[key];
+        }
+      }
+
+      return target;
+    },
 
 
     /**
