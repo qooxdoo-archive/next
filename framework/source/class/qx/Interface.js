@@ -228,9 +228,9 @@ qx.Bootstrap.define("qx.Interface",
       var members = iface.$$members;
       if (members) {
         for (var key in members) {
-          if (qx.Bootstrap.isFunction(members[key])) {
+          if (qx.lang.Type.isFunction(members[key])) {
             var isPropertyMethod = this.__isPropertyMethod(clazz, key);
-            var hasMemberFunction = isPropertyMethod || qx.Bootstrap.isFunction(object[key]);
+            var hasMemberFunction = isPropertyMethod || qx.lang.Type.isFunction(object[key]);
 
             if (!hasMemberFunction) {
               if (shouldThrow) {

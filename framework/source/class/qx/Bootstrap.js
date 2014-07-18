@@ -85,7 +85,7 @@ qx.Bootstrap = {
   base : function(args, varargs)
   {
     if (qx.Bootstrap.DEBUG) {
-      if (!qx.Bootstrap.isFunction(args.callee.base)) {
+      if (!(args.callee.base instanceof Function)) {
         throw new Error(
           "Cannot call super class. Method is not derived: " +
           args.callee.displayName
@@ -755,16 +755,6 @@ qx.Bootstrap.define("qx.Bootstrap",
       );
     },
 
-
-    /**
-     * Whether the value is a function.
-     *
-     * @param value {var} Value to check.
-     * @return {Boolean} Whether the value is a function.
-     */
-    isFunction : function(value) {
-      return qx.Bootstrap.getClass(value) == "Function";
-    },
 
 
     /*

@@ -290,7 +290,7 @@ qx.Bootstrap.define("qx.Class",
       for (var i = objects.length - 1; i >= 1; i--) {
         var last = objects[i];
         var parent = objects[i - 1];
-        if (qx.Bootstrap.isFunction(last) || qx.Bootstrap.objectGetLength(last) === 0) {
+        if (qx.lang.Type.isFunction(last) || qx.Bootstrap.objectGetLength(last) === 0) {
           delete parent[ns[i - 1]];
         } else {
           break;
@@ -1249,7 +1249,7 @@ qx.Bootstrap.define("qx.Class",
           if (
             !qx.lang.Type.isString(config.check) &&
             !qx.lang.Type.isArray(config.check) &&
-            !qx.Bootstrap.isFunction(config.check)
+            !qx.lang.Type.isFunction(config.check)
           ) {
             throw new Error('Invalid check definition of property "' + name + '" in class "' + clazz.classname + '"! Needs to be a String, Array or Function.');
           }

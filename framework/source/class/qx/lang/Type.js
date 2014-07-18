@@ -101,11 +101,12 @@ qx.Bootstrap.define("qx.lang.Type",
     /**
      * Whether the value is a function.
      *
-     * @signature function(value)
      * @param value {var} Value to check.
      * @return {Boolean} Whether the value is a function.
      */
-    isFunction : qx.Bootstrap.isFunction,
+    isFunction : function(value) {
+      return qx.Bootstrap.getClass(value) == "Function";
+    },
 
 
     /**

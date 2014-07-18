@@ -235,8 +235,8 @@ qx.Bootstrap.define("qx.lang.Object",
       // from different frames are.
       var aCtor = object1.constructor,
         bCtor = object2.constructor;
-      if (aCtor !== bCtor && !(qx.Bootstrap.isFunction(aCtor) && (aCtor instanceof aCtor) &&
-        qx.Bootstrap.isFunction(bCtor) && (bCtor instanceof bCtor)) && ('constructor' in object1 && 'constructor' in object2)) {
+      if (aCtor !== bCtor && !(qx.lang.Type.isFunction(aCtor) && (aCtor instanceof aCtor) &&
+        qx.lang.Type.isFunction(bCtor) && (bCtor instanceof bCtor)) && ('constructor' in object1 && 'constructor' in object2)) {
         return false;
       }
       // Add the first object to the stack of traversed objects.
