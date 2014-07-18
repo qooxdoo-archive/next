@@ -357,6 +357,7 @@ qx.Bootstrap.define("qx.Bootstrap",
      * @param args {arguments} the arguments variable of the calling method
      * @param varargs {var} variable number of arguments passed to the overwritten function
      * @return {var} the return value of the method of the base class.
+     * @internal
      */
     base : qx.Bootstrap.base,
 
@@ -389,6 +390,7 @@ qx.Bootstrap.define("qx.Bootstrap",
      * @param fcn {Function} the function to set the display name for
      * @param classname {String} the name of the class the function is defined in
      * @param name {String} the function name
+     * @internal
      */
     setDisplayName : qx.Bootstrap.setDisplayName,
 
@@ -400,6 +402,7 @@ qx.Bootstrap.define("qx.Bootstrap",
      * @param functionMap {Object} a map with functions as values
      * @param classname {String} the name of the class, the functions are
      *   defined in
+     * @internal
      */
     setDisplayNames : qx.Bootstrap.setDisplayNames,
 
@@ -427,6 +430,7 @@ qx.Bootstrap.define("qx.Bootstrap",
      * @param superClass {Function} The super class
      * @param name {Function} fully qualified class name
      * @param basename {Function} the base name
+     * @internal
      */
     extendClass : function(clazz, construct, superClass, name, basename)
     {
