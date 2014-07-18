@@ -62,9 +62,9 @@ qx.Bootstrap.define("qx.bom.request.Script",
   {
     this.__initXhrProperties();
 
-    this.__onNativeLoadBound = qx.Bootstrap.bind(this._onNativeLoad, this);
-    this.__onNativeErrorBound = qx.Bootstrap.bind(this._onNativeError, this);
-    this.__onTimeoutBound = qx.Bootstrap.bind(this._onTimeout, this);
+    this.__onNativeLoadBound = this._onNativeLoad.bind(this);
+    this.__onNativeErrorBound = this._onNativeError.bind(this);
+    this.__onTimeoutBound = this._onTimeout.bind(this);
 
     this.__headElement = document.head || document.getElementsByTagName( "head" )[0] ||
                          document.documentElement;

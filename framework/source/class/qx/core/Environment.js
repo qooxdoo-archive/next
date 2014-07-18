@@ -267,14 +267,6 @@
  *       <td>{@link qx.bom.client.EcmaScript#getArrayReduceRight}</td>
  *     </tr>
  *     <tr>
- *       <td>ecmascript.function.bind<td><i>Boolean</i></td><td><code>true</code></td>
- *       <td>{@link qx.bom.client.EcmaScript#getFunctionBind}</td>
- *     </tr>
- *     <tr>
- *       <td>ecmascript.object.keys<td><i>Boolean</i></td><td><code>true</code></td>
- *       <td>{@link qx.bom.client.EcmaScript#getObjectKeys}</td>
- *     </tr>
- *     <tr>
  *       <td>ecmascript.date.now<td><i>Boolean</i></td><td><code>true</code></td>
  *       <td>{@link qx.bom.client.EcmaScript#getDateNow}</td>
  *     </tr>
@@ -868,8 +860,6 @@ qx.Bootstrap.define("qx.core.Environment",
       "ecmascript.array.every" : "qx.bom.client.EcmaScript.getArrayEvery",
       "ecmascript.array.reduce" : "qx.bom.client.EcmaScript.getArrayReduce",
       "ecmascript.array.reduceright" : "qx.bom.client.EcmaScript.getArrayReduceRight",
-      "ecmascript.function.bind" : "qx.bom.client.EcmaScript.getFunctionBind",
-      "ecmascript.object.keys" : "qx.bom.client.EcmaScript.getObjectKeys",
       "ecmascript.date.now" : "qx.bom.client.EcmaScript.getDateNow",
       "ecmascript.error.toString" : "qx.bom.client.EcmaScript.getErrorToString",
       "ecmascript.string.trim" : "qx.bom.client.EcmaScript.getStringTrim",
@@ -1377,9 +1367,9 @@ qx.Bootstrap.define("qx.core.Environment",
      * @return {Function} A function which could be used by a test.
      */
     __createCheck : function(value) {
-      return qx.Bootstrap.bind(function(value) {
+      return function(value) {
         return value;
-      }, null, value);
+      }.bind(null, value);
     }
   },
 

@@ -476,68 +476,6 @@ qx.Bootstrap.define("qx.Bootstrap",
     $$registry : {},
 
 
-    /**
-     * Mapping from JavaScript string representation of objects to names
-     * @internal
-     * @type {Map}
-     */
-    __classToTypeMap :
-    {
-      "[object String]": "String",
-      "[object Array]": "Array",
-      "[object Object]": "Object",
-      "[object RegExp]": "RegExp",
-      "[object Number]": "Number",
-      "[object Boolean]": "Boolean",
-      "[object Date]": "Date",
-      "[object Function]": "Function",
-      "[object Error]": "Error"
-    },
-
-
-    /*
-    ---------------------------------------------------------------------------
-      FUNCTION UTILITY FUNCTIONS
-    ---------------------------------------------------------------------------
-    */
-
-
-    /**
-     * Returns a function whose "this" is altered.
-     *
-     * *Syntax*
-     *
-     * <pre class='javascript'>qx.Bootstrap.bind(myFunction, [self, [varargs...]]);</pre>
-     *
-     * *Example*
-     *
-     * <pre class='javascript'>
-     * function myFunction()
-     * {
-     *   this.setStyle('color', 'red');
-     *   // note that 'this' here refers to myFunction, not an element
-     *   // we'll need to bind this function to the element we want to alter
-     * };
-     *
-     * var myBoundFunction = qx.Bootstrap.bind(myFunction, myElement);
-     * myBoundFunction(); // this will make the element myElement red.
-     * </pre>
-     *
-     * @param func {Function} Original function to wrap
-     * @param self {Object ? null} The object that the "this" of the function will refer to.
-     * @param varargs {arguments ? null} The arguments to pass to the function.
-     * @return {Function} The bound function.
-     */
-    bind : function(func, self, varargs)
-    {
-      var fixedArgs = Array.prototype.slice.call(arguments, 2, arguments.length);
-      return function() {
-        var args = Array.prototype.slice.call(arguments, 0, arguments.length);
-        return func.apply(self, fixedArgs.concat(args));
-      };
-    },
-
-
     /*
     ---------------------------------------------------------------------------
       STRING UTILITY FUNCTIONS
@@ -564,6 +502,25 @@ qx.Bootstrap.define("qx.Bootstrap",
      */
     firstLow : function(str) {
       return str.charAt(0).toLowerCase() + str.substr(1);
+    },
+
+
+    /**
+     * Mapping from JavaScript string representation of objects to names
+     * @internal
+     * @type {Map}
+     */
+    __classToTypeMap :
+    {
+      "[object String]": "String",
+      "[object Array]": "Array",
+      "[object Object]": "Object",
+      "[object RegExp]": "RegExp",
+      "[object Number]": "Number",
+      "[object Boolean]": "Boolean",
+      "[object Date]": "Date",
+      "[object Function]": "Function",
+      "[object Error]": "Error"
     },
 
 

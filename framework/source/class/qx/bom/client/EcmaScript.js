@@ -159,26 +159,6 @@ qx.Bootstrap.define("qx.bom.client.EcmaScript",
 
 
     /**
-     * Checks if 'bind' is supported on the Function object.
-     * @internal
-     * @return {Boolean} <code>true</code>, if the method is available.
-     */
-    getFunctionBind : function() {
-      return typeof Function.prototype.bind === "function";
-    },
-
-
-    /**
-     * Checks if 'keys' is supported on the Object object.
-     * @internal
-     * @return {Boolean} <code>true</code>, if the method is available.
-     */
-    getObjectKeys : function() {
-      return !!Object.keys;
-    },
-
-
-    /**
      * Checks if 'now' is supported on the Date object.
      * @internal
      * @return {Boolean} <code>true</code>, if the method is available.
@@ -216,12 +196,6 @@ qx.Bootstrap.define("qx.bom.client.EcmaScript",
     // error bugfix
     qx.core.Environment.add("ecmascript.error.toString", statics.getErrorToString);
     qx.core.Environment.add("ecmascript.error.stacktrace", statics.getStackTrace);
-
-    // function polyfill
-    qx.core.Environment.add("ecmascript.function.bind", statics.getFunctionBind);
-
-    // object polyfill
-    qx.core.Environment.add("ecmascript.object.keys", statics.getObjectKeys);
 
     // string polyfill
     qx.core.Environment.add("ecmascript.string.trim", statics.getStringTrim);

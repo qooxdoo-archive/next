@@ -66,7 +66,7 @@ qx.Bootstrap.define("qx.bom.request.Xhr",
   extend: Object,
 
   construct: function() {
-    var boundFunc = qx.Bootstrap.bind(this.__onNativeReadyStateChange, this);
+    var boundFunc = this.__onNativeReadyStateChange.bind(this);
 
     // GlobalError shouldn't be included in qx.Website builds so use it
     // if it's available but otherwise ignore it (see ignore stated above).
@@ -76,8 +76,8 @@ qx.Bootstrap.define("qx.bom.request.Xhr",
       this.__onNativeReadyStateChangeBound = boundFunc;
     }
 
-    this.__onNativeAbortBound = qx.Bootstrap.bind(this.__onNativeAbort, this);
-    this.__onTimeoutBound = qx.Bootstrap.bind(this.__onTimeout, this);
+    this.__onNativeAbortBound = this.__onNativeAbort.bind(this);
+    this.__onTimeoutBound = this.__onTimeout.bind(this);
 
     this.__initNativeXhr();
     this._emitter = new qx.event.Emitter();
@@ -85,7 +85,7 @@ qx.Bootstrap.define("qx.bom.request.Xhr",
     // BUGFIX: IE
     // IE keeps connections alive unless aborted on unload
     if (window.attachEvent) {
-      this.__onUnloadBound = qx.Bootstrap.bind(this.__onUnload, this);
+      this.__onUnloadBound = this.__onUnload.bind(this);
       window.attachEvent("onunload", this.__onUnloadBound);
     }
   },
@@ -261,11 +261,11 @@ qx.Bootstrap.define("qx.bom.request.Xhr",
           if (window.XDomainRequest) {
             this.readyState = 4;
             this.__nativeXhr = new XDomainRequest();
-            this.__nativeXhr.onerror = qx.Bootstrap.bind(function() {
+            this.__nativeXhr.onerror = function() {
               this._emit("readystatechange");
               this._emit("error");
               this._emit("loadend");
-            }, this);
+            }.bind(this);
 
             if (qx.core.Environment.get("qx.debug.io")) {
               qx.Bootstrap.debug(qx.bom.request.Xhr, "Retry open native request with method: " +
@@ -279,7 +279,7 @@ qx.Bootstrap.define("qx.bom.request.Xhr",
           // - IE 6: -2146828218
           // - IE 7: -2147024891
           // - Legacy Firefox
-          window.setTimeout(qx.Bootstrap.bind(function() {
+          window.setTimeout(function() {
             if (this.__disposed) {
               return;
             }
@@ -287,7 +287,7 @@ qx.Bootstrap.define("qx.bom.request.Xhr",
             this._emit("readystatechange");
             this._emit("error");
             this._emit("loadend");
-          }, this));
+          }.bind(this));
         }
 
       }
