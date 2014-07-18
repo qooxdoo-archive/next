@@ -418,7 +418,7 @@ qx.Bootstrap.define("qx.core.Property",
      */
     __attachGroupMethods : function(clazz, config, name)
     {
-      var upname = qx.Bootstrap.firstUp(name);
+      var upname = qx.lang.String.firstUp(name);
       var members = clazz.prototype;
       var themeable = config.themeable === true;
 
@@ -512,7 +512,7 @@ qx.Bootstrap.define("qx.core.Property",
      */
     __attachPropertyMethods : function(clazz, config, name)
     {
-      var upname = qx.Bootstrap.firstUp(name);
+      var upname = qx.lang.String.firstUp(name);
       var members = clazz.prototype;
 
       if (qx.core.Environment.get("qx.debug"))

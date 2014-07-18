@@ -2221,7 +2221,7 @@ qx.Class.define("qx.ui.core.Widget",
       var decorator = this.getDecorator();
       decorator = qx.theme.manager.Decoration.getInstance().resolve(decorator);
       if (decorator) {
-        var direction = qx.Bootstrap.firstLow(style.replace("padding", ""));
+        var direction = qx.lang.String.firstLow(style.replace("padding", ""));
         value += decorator.getPadding()[direction] || 0;
       }
       content.setStyle(style, value + "px");

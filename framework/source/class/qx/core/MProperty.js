@@ -44,8 +44,8 @@ qx.Mixin.define("qx.core.MProperty",
       {
         if (!this[setter[data]])
         {
-          if (this["set" + qx.Bootstrap.firstUp(data)] != undefined) {
-            this["set" + qx.Bootstrap.firstUp(data)](value);
+          if (this["set" + qx.lang.String.firstUp(data)] != undefined) {
+            this["set" + qx.lang.String.firstUp(data)](value);
             return this;
           }
 
@@ -60,8 +60,8 @@ qx.Mixin.define("qx.core.MProperty",
         {
           if (!this[setter[prop]])
           {
-            if (this["set" + qx.Bootstrap.firstUp(prop)] != undefined) {
-              this["set" + qx.Bootstrap.firstUp(prop)](data[prop]);
+            if (this["set" + qx.lang.String.firstUp(prop)] != undefined) {
+              this["set" + qx.lang.String.firstUp(prop)](data[prop]);
               continue;
             }
 
@@ -90,8 +90,8 @@ qx.Mixin.define("qx.core.MProperty",
 
       if (!this[getter[prop]])
       {
-        if (this["get" + qx.Bootstrap.firstUp(prop)] != undefined) {
-          return this["get" + qx.Bootstrap.firstUp(prop)]();
+        if (this["get" + qx.lang.String.firstUp(prop)] != undefined) {
+          return this["get" + qx.lang.String.firstUp(prop)]();
         }
 
         throw new Error("No such property: " + prop);
@@ -115,8 +115,8 @@ qx.Mixin.define("qx.core.MProperty",
 
       if (!this[resetter[prop]])
       {
-        if (this["reset" + qx.Bootstrap.firstUp(prop)] != undefined) {
-          this["reset" + qx.Bootstrap.firstUp(prop)]();
+        if (this["reset" + qx.lang.String.firstUp(prop)] != undefined) {
+          this["reset" + qx.lang.String.firstUp(prop)]();
           return;
         }
 
