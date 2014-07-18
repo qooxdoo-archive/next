@@ -47,7 +47,7 @@ qx.Bootstrap.define("qx.event.GlobalError",
       if (qx.core && qx.core.Environment) {
         return qx.core.Environment.get("qx.globalErrorHandling");
       } else {
-        return !!qx.Bootstrap.getEnvironmentSetting("qx.globalErrorHandling");
+        return qx.$$environment && !!qx.$$environment["qx.globalErrorHandling"];
       }
     },
 
@@ -162,11 +162,14 @@ qx.Bootstrap.define("qx.event.GlobalError",
 
   defer : function(statics)
   {
+    var key = "qx.globalErrorHandling";
     // only use the environment class if already loaded
     if (qx.core && qx.core.Environment) {
-      qx.core.Environment.add("qx.globalErrorHandling", true);
+      qx.core.Environment.add(key, true);
     } else {
-      qx.Bootstrap.setEnvironmentSetting("qx.globalErrorHandling", true);
+      if (qx.$$environment[key] === undefined) {
+        qx.$$environment[key] = true;
+      }
     }
 
     statics.setErrorHandler(null, null);
