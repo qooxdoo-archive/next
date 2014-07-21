@@ -1286,9 +1286,9 @@ qx.Bootstrap.define("qx.core.Environment",
      * @return {Function} A function which could be used by a test.
      */
     __createCheck : function(value) {
-      return qx.Bootstrap.bind(function(value) {
+      return function(value) {
         return value;
-      }, null, value);
+      }.bind(null, value);
     }
   },
 

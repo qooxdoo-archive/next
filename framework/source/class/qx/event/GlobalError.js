@@ -68,7 +68,7 @@ qx.Bootstrap.define("qx.event.GlobalError",
       {
         // wrap the original onerror
         if (callback && window.onerror) {
-          var wrappedHandler = qx.Bootstrap.bind(this.__onErrorWindow, this);
+          var wrappedHandler = this.__onErrorWindow.bind(this);
           if (this.__originalOnError == null) {
             this.__originalOnError = window.onerror;
           }
@@ -80,7 +80,7 @@ qx.Bootstrap.define("qx.event.GlobalError",
         }
 
         if (callback && !window.onerror) {
-          window.onerror = qx.Bootstrap.bind(this.__onErrorWindow, this);
+          window.onerror = this.__onErrorWindow.bind(this);
         }
 
         // reset

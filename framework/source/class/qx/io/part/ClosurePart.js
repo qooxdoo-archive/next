@@ -107,7 +107,7 @@ qx.Bootstrap.define("qx.io.part.ClosurePart",
         {
           this._loader.addPackageListener(
             pkg,
-            qx.Bootstrap.bind(this._onPackageLoad, this, pkg)
+            this._onPackageLoad.bind(this, pkg)
           );
         }
         else if (pkgReadyState == "error")

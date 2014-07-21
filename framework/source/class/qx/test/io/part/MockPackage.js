@@ -81,7 +81,7 @@ qx.Bootstrap.define("qx.test.io.part.MockPackage",
 
       this._loadWithClosure = true;
 
-      this.__notifyPackageResult = qx.Bootstrap.bind(notifyPackageResult, self);
+      this.__notifyPackageResult = notifyPackageResult.bind(self);
 
       pkg.readyState = "loading";
       setTimeout(function()

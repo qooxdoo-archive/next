@@ -347,27 +347,16 @@ qx.Class.define("qx.test.Bootstrap",
       this.assertEquals(3, result);
 
       context = null;
-      var boundAdd = qx.Bootstrap.bind(add, this);
+      var boundAdd = add.bind(this);
       result = boundAdd(1, 3);
       this.assertEquals(context, this);
       this.assertEquals(4, result);
 
       context = null;
-      var addOne = qx.Bootstrap.bind(add, this, 1);
+      var addOne = add.bind(this, 1);
       result = addOne(4);
       this.assertEquals(context, this);
       this.assertEquals(5, result);
-    },
-
-
-    testBindWithUndefinedArguments : function()
-    {
-      var undef;
-      var callback = function(undef, arg) {
-        this.assertTrue(arg);
-      }
-      var bound = qx.Bootstrap.bind(callback, this, undef, true);
-      bound();
     },
 
 
