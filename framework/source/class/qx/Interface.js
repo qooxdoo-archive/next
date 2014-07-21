@@ -163,17 +163,6 @@ qx.Bootstrap.define("qx.Interface",
 
 
     /**
-     * Determine if interface exists
-     *
-     * @param name {String} Interface name to check
-     * @return {Boolean} true if interface exists
-     */
-    isDefined : function(name) {
-      return this.getByName(name) !== undefined;
-    },
-
-
-    /**
      * Determine the number of interfaces which are defined
      *
      * @return {Number} the number of interfaces
