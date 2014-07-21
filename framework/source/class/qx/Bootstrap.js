@@ -176,7 +176,7 @@ qx.Bootstrap = {
         var formerClass = qx.Bootstrap.$$registry[name];
 
         // Add/overwrite properties and return early if necessary
-        if (this.keys(clazz).length !== 0) {
+        if (Object.keys(clazz).length !== 0) {
           // Execute defer to prevent too early overrides
           if (config.defer) {
             config.defer(clazz, proto);
