@@ -863,8 +863,18 @@ qx.Class.define("qx.test.Bootstrap",
           qux: {}
         }
       });
+    },
 
 
+    testDefer : function() {
+      var defer = this.spy();
+      var C = qx.Bootstrap.define(null, {
+        extend: Object,
+        defer: defer
+      });
+
+      new C();
+      this.assertCalledOnce(defer);
     }
   }
 });
