@@ -26,6 +26,8 @@
  * @ignore(qx.data.IListData)
  * @ignore(qx.util.OOUtil)
  * @ignore(qx.event.*)
+ * @ignore(qx.Interface.*)
+ * @ignore(qx.Mixin.*)
  */
 if (!window.qx) {
   window.qx = {};
@@ -112,8 +114,7 @@ qx.Bootstrap = {
 
     qx.Bootstrap.setDisplayNames(config.statics, name);
 
-    if (config.members || config.extend || config.properties)
-    {
+    if (config.members || config.extend || config.properties) {
       qx.Bootstrap.setDisplayNames(config.members, name + ".prototype");
 
       clazz = config.construct || new Function();
@@ -151,9 +152,20 @@ qx.Bootstrap = {
         proto[key] = member;
       }
 
-
       // property handling
       qx.Bootstrap.__addProperties(proto, config.properties);
+
+      // Include mixins
+      // Must be the last here to detect conflicts
+      if (config.include) {
+        if (qx.Mixin) {
+          for (var i=0, l=config.include.length; i<l; i++) {
+            qx.Mixin.add(clazz, config.include[i], false);
+          }
+        } else {
+          throw new Error("Class definition for '" + name + "' contains key 'include' but qx.Mixin is not available.");
+        }
+      }
     }
     else
     {
@@ -196,11 +208,23 @@ qx.Bootstrap = {
 
     // add property events
     if (config.properties) {
-      for (var name in config.properties) {
-        var def = config.properties[name];
+      for (var propName in config.properties) {
+        var def = config.properties[propName];
         if (def.event) {
-          clazz.$$events["change" + qx.Bootstrap.firstUp(name)] = "qx.event.type.Data"
+          clazz.$$events["change" + qx.Bootstrap.firstUp(propName)] = "qx.event.type.Data";
         }
+      }
+    }
+
+    // Interface support
+    if (config.implement) {
+      if (qx.Interface) {
+        for (var i=0, l=config.implement.length; i<l; i++) {
+          qx.Interface.add(clazz, config.implement[i]);
+        }
+      }
+      else {
+        throw new Error("Class definition for '" + name + "' contains key 'implements' but qx.Interface is not available.");
       }
     }
 

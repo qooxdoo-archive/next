@@ -150,6 +150,34 @@ qx.Bootstrap.define("qx.Interface",
 
 
     /**
+     * Add a single interface to a class
+     *
+     * @param clazz {Class} class to add interface to
+     * @param iface {Interface} the Interface to add
+     */
+    add : function(clazz, iface)
+    {
+      if (qx.core.Environment.get("qx.debug")) {
+        // Check interface and wrap members
+        if (clazz.$$classtype !== "abstract") {
+          qx.Interface.assert(clazz, iface, true);
+        }
+      }
+
+      // Store interface reference
+      var list = qx.Interface.flatten([iface]);
+      if (clazz.$$implements) {
+        clazz.$$implements.push(iface);
+        clazz.$$flatImplements.push.apply(clazz.$$flatImplements, list);
+      }
+      else {
+        clazz.$$implements = [iface];
+        clazz.$$flatImplements = list;
+      }
+    },
+
+
+    /**
      * Returns an interface by name
      *
      * @param name {String} class name to resolve
@@ -161,21 +189,12 @@ qx.Bootstrap.define("qx.Interface",
 
 
     /**
-     * Determine the number of interfaces which are defined
-     *
-     * @return {Number} the number of interfaces
-     */
-    getTotalNumber : function() {
-      return qx.Bootstrap.objectGetLength(this.$$registry);
-    },
-
-
-    /**
      * Generates a list of all interfaces including their super interfaces
      * (resolved recursively)
      *
      * @param ifaces {Interface[] ? []} List of interfaces to be resolved
      * @return {Array} List of all interfaces
+     * @internal
      */
     flatten : function(ifaces)
     {
