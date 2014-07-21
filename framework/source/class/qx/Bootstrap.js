@@ -118,6 +118,7 @@ qx.Bootstrap = {
       qx.Bootstrap.setDisplayNames(config.members, name + ".prototype");
 
       clazz = config.construct || new Function();
+      clazz.name = clazz.classname = name;
 
       if (config.extend) {
         this.extendClass(clazz, clazz, config.extend, name, basename);
@@ -135,25 +136,12 @@ qx.Bootstrap = {
       proto.base = qx.Bootstrap.base;
       proto.name = proto.classname = name;
 
-      var members = config.members || {};
-      var key, member;
-
-      // use keys to include the shadowed in IE
-      for (var i=0, keys=Object.keys(members), l=keys.length; i<l; i++) {
-        key = keys[i];
-        member = members[key];
-
-        // Enable basecalls for methods
-        // Hint: proto[key] is not yet overwritten here
-        if (member instanceof Function && proto[key]) {
-          member.base = proto[key];
-        }
-
-        proto[key] = member;
+      if (config.members) {
+        qx.Bootstrap.addMembers(proto, config.members);
       }
 
       // property handling
-      qx.Bootstrap.__addProperties(proto, config.properties);
+      qx.Bootstrap.addProperties(proto, config.properties);
 
       // Include mixins
       // Must be the last here to detect conflicts
@@ -170,6 +158,7 @@ qx.Bootstrap = {
     else
     {
       clazz = config.statics || {};
+      clazz.name = clazz.classname = name;
 
       // Merge class into former class (needed for 'optimize: ["statics"]')
       if (qx.Bootstrap.$$registry && qx.Bootstrap.$$registry[name]) {
@@ -200,11 +189,11 @@ qx.Bootstrap = {
 
     // Create namespace
     var basename = name ? this.createNamespace(name, clazz) : "";
-
-    // Store names in constructor/object
-    clazz.name = clazz.classname = name;
     clazz.basename = basename;
-    clazz.$$events = config.events || {};
+
+    if (config.events) {
+      //this.addEvents(clazz, config.events); TODO?
+    }
 
     // add property events
     if (config.properties) {
@@ -257,97 +246,116 @@ qx.Bootstrap.define("qx.Bootstrap",
     /**
      * Mapping for early use of the qx.debug environment setting.
      */
-     DEBUG : (function() {
-       // make sure to reflect all changes here to the environment class!
-       var debug = true;
-       if (qx.$$environment && qx.$$environment["qx.debug"] === false) {
-         debug = false;
-       }
-       return debug;
-     })(),
+    DEBUG : (function() {
+      // make sure to reflect all changes here to the environment class!
+      var debug = true;
+      if (qx.$$environment && qx.$$environment["qx.debug"] === false) {
+        debug = false;
+      }
+      return debug;
+    })(),
 
 
-     __addProperties : function(proto, properties) {
-       for (var name in properties) {
-         var def = properties[name];
+    addMembers : function(proto, members) {
+      var key, member;
 
-         Object.defineProperty(proto, name, {
+      // use keys to include the shadowed in IE
+      for (var i=0, keys=Object.keys(members), l=keys.length; i<l; i++) {
+        key = keys[i];
+        member = members[key];
 
-           get : (function(name, def) {
-             return function() {
-               var value = this["$$" + name];
-               if (value === undefined && def.init !== undefined) {
-                 return def.init;
-               } else if (value === undefined && !def.nullable) {
-                 throw new Error("Error in property '" + name + "' of class '" + this.classname + "': Not (yet) initialized!");
-               }
-               return value;
-             };
-           })(name, def),
+        // Enable basecalls for methods
+        // Hint: proto[key] is not yet overwritten here
+        if (member instanceof Function && proto[key]) {
+          member.base = proto[key];
+        }
 
-           set : (function(name, def) {
-             return function(value) {
-               // nullable
-               if (!def.nullable && value === null) {
-                 if (!def.init || value !== undefined) {
-                   throw new Error("Error in property '" + name + "' of class '" + this.classname + "': Null value is not allowed!");
-                 }
-               }
+        proto[key] = member;
+      }
+    },
 
-               // check
-               if (def.check) {
-                 var ok = true;
-                 if (typeof def.check == "string") {
-                   if (this[def.check] instanceof Function) {
-                     ok = this[def.check].call(this, value);
-                   } else {
-                     var type = qx.Bootstrap.getClass(value);
-                     if (type !== def.check) {
-                       throw new Error("Error in property '" + name + "' of class '" + this.classname + "': Value must be '" + def.check + "' but is '" + type + "'!");
-                     }
-                   }
-                 } else if (def.check instanceof Function) {
-                   ok = def.check.call(this, value);
-                 }
+    addProperties : function(proto, properties) {
+      for (var name in properties) {
+        var def = properties[name];
 
-                 if (!ok) {
-                   throw new Error("Error in property '" + name + "' of class '" + this.classname + "': Custom check failed'!");
-                 }
-               }
+        Object.defineProperty(proto, name, {
 
-               // init value normalization
-               var old = this["$$" + name];
-               if (old === undefined) {
-                 old = def.init;
-               }
-               if (value === undefined) {
-                 value = def.init;
-               }
+          get : (function(name, def) {
+            return function() {
+              var value = this["$$" + name];
+              if (value === undefined && def.init !== undefined) {
+                return def.init;
+              } else if (value === undefined && !def.nullable) {
+                throw new Error("Error in property '" + name + "' of class '" + this.classname + "': Not (yet) initialized!");
+              }
+              return value;
+            };
+          })(name, def),
 
-               // apply
-               if (def.apply) {
-                 var applyMethod = def.apply instanceof Function ? def.apply : this[def.apply];
-                 applyMethod.call(this, value, old, name);
-               }
+          set : (function(name, def) {
+            return function(value) {
+              // nullable
+              if (!def.nullable && value === null) {
+                if (!def.init || value !== undefined) {
+                  throw new Error("Error in property '" + name + "' of class '" + this.classname + "': Null value is not allowed!");
+                }
+              }
 
-               // event
-               if (def.event) {
-                 var eventName = "change" + qx.Bootstrap.firstUp(name);
-                 if (this.emit) {
-                   this.emit(eventName, {value: value, old: old});
-                 } else if (this.fireEvent && qx.event && qx.event.type && qx.event.type.Data) {
-                   this.fireEvent(eventName, qx.event.type.Data, [value, old]);
-                 } else {
-                   throw new Error("Error in property " + name + " of class '" + this.classname + "': Event could not be fired.");
-                 }
-               }
+              // check
+              if (def.check) {
+                // TODO: classes and interfaces
+                var ok = true;
+                if (typeof def.check == "string") {
+                  if (this[def.check] instanceof Function) {
+                    ok = this[def.check].call(this, value);
+                  } else {
+                    var type = qx.Bootstrap.getClass(value);
+                    if (type !== def.check) {
+                      throw new Error("Error in property '" + name + "' of class '" + this.classname + "': Value must be '" + def.check + "' but is '" + type + "'!");
+                    }
+                  }
+                } else if (def.check instanceof Function) {
+                  ok = def.check.call(this, value);
+                }
 
-               this["$$" + name] = value;
-             };
-           }(name, def))
-         });
-       }
-     },
+                if (!ok) {
+                  throw new Error("Error in property '" + name + "' of class '" + this.classname + "': Custom check failed'!");
+                }
+              }
+
+              // init value normalization
+              var old = this["$$" + name];
+              if (old === undefined) {
+                old = def.init;
+              }
+              if (value === undefined) {
+                value = def.init;
+              }
+
+              // apply
+              if (def.apply) {
+                var applyMethod = def.apply instanceof Function ? def.apply : this[def.apply];
+                applyMethod.call(this, value, old, name);
+              }
+
+              // event
+              if (def.event) {
+                var eventName = "change" + qx.Bootstrap.firstUp(name);
+                if (this.emit) {
+                  this.emit(eventName, {value: value, old: old});
+                } else if (this.fireEvent && qx.event && qx.event.type && qx.event.type.Data) {
+                  this.fireEvent(eventName, qx.event.type.Data, [value, old]);
+                } else {
+                  throw new Error("Error in property " + name + " of class '" + this.classname + "': Event could not be fired.");
+                }
+              }
+
+              this["$$" + name] = value;
+            };
+          }(name, def))
+        });
+      }
+    },
 
 
     /**

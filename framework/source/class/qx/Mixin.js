@@ -166,6 +166,102 @@ qx.Bootstrap.define("qx.Mixin",
       return mixin;
     },
 
+    /**
+     * Include all features of the mixin into the given class, recursively.
+     *
+     * @param clazz {Class} The class onto which the mixin should be attached.
+     * @param mixin {Mixin} Include all features of this mixin
+     * @param patch {Boolean} Overwrite existing fields, functions and properties
+     */
+    add : function(clazz, mixin, patch)
+    {
+      if (qx.core.Environment.get("qx.debug"))
+      {
+        if (!clazz || !mixin) {
+          throw new Error("Incomplete parameters!");
+        }
+      }
+
+      if (this.getClassByMixin(clazz, mixin)) {
+        return;
+      }
+
+      var isConstructorWrapped = clazz.$$original;
+      if (mixin.$$constructor && !isConstructorWrapped) {
+        clazz = this.__retrospectWrapConstruct(clazz);
+      }
+
+      // Attach content
+      var list = qx.Mixin.flatten([mixin]);
+      var entry;
+
+      for (var i=0, l=list.length; i<l; i++)
+      {
+        entry = list[i];
+
+        // Attach events
+        if (entry.$$events) {
+          //this.__addEvents(clazz, entry.$$events, patch); TODO?
+        }
+
+        // Attach properties (Properties are already readonly themselves, no patch handling needed)
+        if (entry.$$properties) {
+          qx.Bootstrap.addProperties(clazz.prototype, entry.$$properties, patch);
+        }
+
+        // Attach members (Respect patch setting, but dont apply base variables)
+        if (entry.$$members) {
+          qx.Bootstrap.addMembers(clazz.prototype, entry.$$members, patch, patch, patch);
+        }
+      }
+
+      // Store mixin reference
+      if (clazz.$$includes)
+      {
+        clazz.$$includes.push(mixin);
+        clazz.$$flatIncludes.push.apply(clazz.$$flatIncludes, list);
+      }
+      else
+      {
+        clazz.$$includes = [mixin];
+        clazz.$$flatIncludes = list;
+      }
+    },
+
+
+    /**
+     * Returns the class or one of its superclasses which contains the
+     * declaration for the given mixin. Returns null if the mixin is not
+     * specified anywhere.
+     *
+     * @param clazz {Class} class to look for the mixin
+     * @param mixin {Mixin} mixin to look for
+     * @return {Class | null} The class which directly includes the given mixin
+     */
+    getClassByMixin : function(clazz, mixin)
+    {
+      var list, i, l;
+
+      while (clazz)
+      {
+        if (clazz.$$includes)
+        {
+          list = clazz.$$flatIncludes;
+
+          for (i=0, l=list.length; i<l; i++)
+          {
+            if (list[i] === mixin) {
+              return clazz;
+            }
+          }
+        }
+
+        clazz = clazz.superclass;
+      }
+
+      return null;
+    },
+
 
     /**
      * Check compatibility between mixins (including their includes)
@@ -221,6 +317,75 @@ qx.Bootstrap.define("qx.Mixin",
       }
 
       return true;
+    },
+
+
+    /**
+     * Wrap the constructor of an already existing clazz. This function will
+     * replace all references to the existing constructor with the new wrapped
+     * constructor.
+     *
+     * @param clazz {Class} The class to wrap
+     * @return {Class} The wrapped class
+     */
+    __retrospectWrapConstruct : function(clazz)
+    {
+      var name = clazz.classname;
+      var wrapper = qx.Class.wrapConstructor(clazz, name, clazz.$$classtype);
+
+      // copy all keys from the wrapped constructor to the wrapper
+      for (var i=0, a=Object.keys(clazz), l=a.length; i<l; i++)
+      {
+        key = a[i];
+        wrapper[key] = clazz[key];
+      }
+
+      // fix prototype
+      wrapper.prototype = clazz.prototype;
+
+      // fix self references in members
+      var members = clazz.prototype;
+      for (var i=0, a=Object.keys(members), l=a.length; i<l; i++)
+      {
+        key = a[i];
+        var method = members[key];
+
+        // check if method is available because null values can be stored as
+        // init values on classes e.g. [BUG #3709]
+        if (method && method.self == clazz) {
+          method.self = wrapper;
+        }
+      }
+
+      // fix base and superclass references in all defined classes
+      for(var key in this.$$registry)
+      {
+        var construct = this.$$registry[key];
+        if (!construct) {
+          continue;
+        }
+
+        if (construct.base == clazz) {
+          construct.base = wrapper;
+        }
+        if (construct.superclass == clazz) {
+          construct.superclass = wrapper;
+        }
+
+        if (construct.$$original)
+        {
+          if (construct.$$original.base == clazz) {
+            construct.$$original.base = wrapper;
+          }
+          if (construct.$$original.superclass == clazz) {
+            construct.$$original.superclass = wrapper;
+          }
+        }
+      }
+      qx.Bootstrap.createNamespace(name, wrapper);
+      this.$$registry[name] = wrapper;
+
+      return wrapper;
     },
 
 

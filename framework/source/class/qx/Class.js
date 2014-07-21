@@ -947,7 +947,7 @@ qx.Bootstrap.define("qx.Class",
           }
 
           if (this.__needsConstructorWrapper(extend, mixins)) {
-            clazz = this.__wrapConstructor(construct, name, type);
+            clazz = this.wrapConstructor(construct, name, type);
           } else {
             clazz = construct;
           }
@@ -1406,7 +1406,7 @@ qx.Bootstrap.define("qx.Class",
     __retrospectWrapConstruct : function(clazz)
     {
       var name = clazz.classname;
-      var wrapper = this.__wrapConstructor(clazz, name, clazz.$$classtype);
+      var wrapper = this.wrapConstructor(clazz, name, clazz.$$classtype);
 
       // copy all keys from the wrapped constructor to the wrapper
       for (var i=0, a=Object.keys(clazz), l=a.length; i<l; i++)
@@ -1602,7 +1602,7 @@ qx.Bootstrap.define("qx.Class",
      * @param type {String} the user specified class type
      * @return {Function} The wrapped constructor
      */
-    __wrapConstructor : function(construct, name, type)
+    wrapConstructor : function(construct, name, type)
     {
       var wrapper = function()
       {
