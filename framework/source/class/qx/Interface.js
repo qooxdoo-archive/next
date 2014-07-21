@@ -158,8 +158,17 @@ qx.Bootstrap.define("qx.Interface",
     add : function(clazz, iface)
     {
       if (qx.core.Environment.get("qx.debug")) {
-        qx.Interface.__checkMembers(clazz, iface);
-        qx.Interface.__checkProperties(clazz, iface);
+        var ifaces = [iface];
+
+        if (iface.$$extends) {
+          ifaces = ifaces.concat(iface.$$extends);
+        }
+
+        for (var i=0, l=ifaces.length; i<l; i++) {
+          qx.Interface.__checkMembers(clazz, ifaces[i]);
+          qx.Interface.__checkProperties(clazz, ifaces[i]);
+        }
+
       }
 
       // Store interface reference
@@ -262,37 +271,6 @@ qx.Bootstrap.define("qx.Interface",
 
 
     /**
-     * Assert events
-     *
-     * @param clazz {Class} class to check interface for
-     * @param iface {Interface} the interface to verify
-     * @param shouldThrow {Boolean} if <code>false</code>, the method
-     *   will return a boolean instead of throwing an exception
-     * @return {Boolean} <code>true</code> if all events are supported
-     */
-    __checkEvents : function(clazz, iface, shouldThrow)
-    {
-      if (iface.$$events) {
-        for (var key in iface.$$events) {
-          if (!qx.util.OOUtil.supportsEvent(clazz, key)) {
-            if (shouldThrow) {
-              throw new Error(
-                'The event "' + key + '" is not supported by Class "' +
-                clazz.classname + '"!'
-              );
-            } else {
-              return false;
-            }
-          }
-        }
-      }
-      if (!shouldThrow) {
-        return true;
-      }
-    },
-
-
-    /**
      * Checks if an interface is implemented by a class
      *
      * @param clazz {Class} class to check interface for
@@ -304,7 +282,6 @@ qx.Bootstrap.define("qx.Interface",
     {
       this.__checkMembers(clazz.prototype, clazz, iface, wrap, true);
       this.__checkProperties(clazz, iface, true);
-      this.__checkEvents(clazz, iface, true);
 
       // Validate extends, recursive
       var extend = iface.$$extends;
@@ -327,8 +304,7 @@ qx.Bootstrap.define("qx.Interface",
      */
     classImplements : function(clazz, iface) {
       if (!this.__checkMembers(clazz.prototype, clazz, iface) ||
-        !this.__checkProperties(clazz, iface) ||
-        !this.__checkEvents(clazz, iface))
+        !this.__checkProperties(clazz, iface))
       {
         return false;
       }

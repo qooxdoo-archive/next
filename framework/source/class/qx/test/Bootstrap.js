@@ -817,6 +817,56 @@ qx.Class.define("qx.test.Bootstrap",
           bar: {}
         }
       });
+    },
+
+
+    testInterfaceInheritance : function() {
+      qx.Interface.define("IFoo", {
+        members: {
+          foo: function() {}
+        },
+        properties: {
+          baz: {}
+        }
+      });
+
+      qx.Interface.define("IBar", {
+        extend: IFoo,
+        members: {
+          bar: function() {}
+        },
+        properties: {
+          qux: {}
+        }
+      });
+
+      this.assertException(function() {
+        var C = qx.Bootstrap.define(null, {
+          implement: [IBar],
+          members: {
+            bar: function() {}
+          },
+          properties: {
+            qux: {}
+          }
+        });
+      });
+
+      var C = qx.Bootstrap.define(null, {
+        implement: [IBar],
+        members: {
+          foo: function() {},
+          bar: function() {}
+        },
+        properties: {
+          baz: {},
+          qux: {}
+        }
+      });
+
+    },
+
+
     testMixin : function() {
       qx.Mixin.define("MFoo", {
         members: {
