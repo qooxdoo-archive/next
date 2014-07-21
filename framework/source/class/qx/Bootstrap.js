@@ -200,6 +200,9 @@ qx.Bootstrap = {
       for (var propName in config.properties) {
         var def = config.properties[propName];
         if (def.event) {
+          if (!clazz.$$events) {
+            clazz.$$events = {};
+          }
           clazz.$$events["change" + qx.Bootstrap.firstUp(propName)] = "qx.event.type.Data";
         }
       }
