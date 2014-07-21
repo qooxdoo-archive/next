@@ -21,7 +21,6 @@
 /**
  * Adds JavaScript features that may not be supported by all clients.
  *
- * @require(qx.lang.normalize.Function)
  * @require(qx.lang.normalize.String)
  * @require(qx.lang.normalize.Error)
  *

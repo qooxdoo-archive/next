@@ -53,7 +53,6 @@
  * more utility features on top of it.
  *
  * @require(qx.bom.client.Engine)
- * @require(qx.lang.normalize.Array)
  */
 qx.Bootstrap.define("qx.type.BaseArray",
 {

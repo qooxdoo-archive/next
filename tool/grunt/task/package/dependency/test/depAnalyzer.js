@@ -580,8 +580,7 @@ module.exports = {
               'qx.Interface',
             ],
             'require': [
-              'qx.Mixin',
-              'qx.lang.normalize.Function',
+              'qx.Mixin'
             ],
             'use': [
               'qx.lang.normalize.String'
@@ -614,8 +613,7 @@ module.exports = {
             'qx.lang.normalize.Error'
           ],
           'qx.Bar': [
-            'qx.Mixin',
-            'qx.lang.normalize.Function',
+            'qx.Mixin'
           ]
         },
         use: {'qx.Bar': ['qx.lang.normalize.String']},

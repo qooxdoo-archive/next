@@ -64,7 +64,6 @@
  * @require(qx.Interface)
  * @require(qx.Mixin)
  * @require(qx.lang.normalize.Error)
- * @require(qx.lang.normalize.Function)
  * @require(qx.lang.normalize.String)
  */
 qx.Bootstrap.define("qx.Class",
