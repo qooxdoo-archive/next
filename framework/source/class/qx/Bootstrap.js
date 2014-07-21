@@ -278,8 +278,12 @@ qx.Bootstrap.define("qx.Bootstrap",
     },
 
     addProperties : function(proto, properties) {
+      if (!proto.$$properties) {
+        proto.$$properties = {};
+      }
       for (var name in properties) {
         var def = properties[name];
+        proto.$$properties[name] = def;
 
         Object.defineProperty(proto, name, {
 
