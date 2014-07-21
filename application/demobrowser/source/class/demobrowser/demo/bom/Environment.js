@@ -26,7 +26,6 @@
  * @lint environmentNonLiteralKey(key)
  *
  * @use(feature-checks)
- * @require(qx.lang.normalize.Object)
  */
 qx.Class.define("demobrowser.demo.bom.Environment",
 {

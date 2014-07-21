@@ -565,8 +565,6 @@ module.exports = {
           'athint': {
             'ignore': [],
             'require': [
-              'qx.lang.normalize.Array',
-              'qx.lang.normalize.Date',
               'qx.lang.normalize.Error'
             ],
             'use': [],
@@ -584,7 +582,6 @@ module.exports = {
             'require': [
               'qx.Mixin',
               'qx.lang.normalize.Function',
-              'qx.lang.normalize.Object'
             ],
             'use': [
               'qx.lang.normalize.String'
@@ -614,14 +611,11 @@ module.exports = {
           'qx.Fugu': ['qx.data', 'qx.data.IListData', 'qx.util.OOUtil'] },
         require: {
           'qx.Foo': [
-            'qx.lang.normalize.Array',
-            'qx.lang.normalize.Date',
             'qx.lang.normalize.Error'
           ],
           'qx.Bar': [
             'qx.Mixin',
             'qx.lang.normalize.Function',
-            'qx.lang.normalize.Object'
           ]
         },
         use: {'qx.Bar': ['qx.lang.normalize.String']},

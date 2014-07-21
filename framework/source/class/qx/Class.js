@@ -63,12 +63,8 @@
  *
  * @require(qx.Interface)
  * @require(qx.Mixin)
- * @require(qx.lang.normalize.Array)
- * @require(qx.lang.normalize.Date)
  * @require(qx.lang.normalize.Error)
- * @require(qx.lang.normalize.Function)
  * @require(qx.lang.normalize.String)
- * @require(qx.lang.normalize.Object)
  */
 qx.Bootstrap.define("qx.Class",
 {

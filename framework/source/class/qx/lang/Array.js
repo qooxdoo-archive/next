@@ -45,14 +45,11 @@
  * Static helper functions for arrays with a lot of often used convenience
  * methods like <code>remove</code> or <code>contains</code>.
  *
- * The native JavaScript Array is not modified by this class. However,
- * there are modifications to the native Array in {@link qx.lang.normalize.Array} for
- * browsers that do not support certain JavaScript features natively .
+ * The native JavaScript Array is not modified by this class.
  *
  * @ignore(qx.data)
  * @ignore(qx.data.IListData)
  * @ignore(qx.Class.*)
- * @require(qx.lang.normalize.Date)
  */
 qx.Bootstrap.define("qx.lang.Array",
 {

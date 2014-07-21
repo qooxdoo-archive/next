@@ -52,7 +52,6 @@
  * frame.startSequence(duration);
  * </pre>
  *
- * @require(qx.lang.normalize.Date)
  */
 qx.Bootstrap.define("qx.bom.AnimationFrame",
 {

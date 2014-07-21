@@ -25,8 +25,6 @@
  * other classes. They are similar to classes but don't support inheritance.
  *
  * See the description of the {@link #define} method how a mixin is defined.
- *
- * @require(qx.lang.normalize.Array)
  */
 qx.Bootstrap.define("qx.Mixin",
 {
