@@ -267,7 +267,7 @@ q.ready(function() {
       var deprecatedClass = data.deprecated ? ' class-deprecated' : '';
       var header = q.create('<h2 class="nav-' + id + deprecatedClass + '">' + headerText + '</h2>');
       groupPage.append(q.create('<a href="#' + id + '"></a>').append(header));
-			qxWeb.messaging.emit('apiviewer', 'moduleRendered', null, {id : id, data : data, header : header});
+      qxWeb.messaging.emit('apiviewer', 'moduleRendered', null, {id : id, data : data, header : header});
     }
 
     groupPage.append(ul);
@@ -736,9 +736,12 @@ q.ready(function() {
 
     var content = q('div#content');
     content.on('scroll', qxWeb.func.debounce(highLightOnScroll.bind(content), 500));
+
+    // highlight the current viewport at startup once
+    highLightOnScroll.call(content);
   };
 
-  var highLightOnScroll = function(e) {
+  var highLightOnScroll = function() {
 
     var height = parseInt(this.getHeight(), 10);
 
@@ -882,8 +885,7 @@ q.ready(function() {
 
     addMethodLinks(jsEl, header.getParents().getAttribute("id"));
 
-    if (sample.executable && q.env.get("engine.name") != "mshtml" && q.env.get("device.type") == "desktop") {
-      //createFiddleButton(sample).appendTo(sampleEl);
+    if (sample.executable) {
       createCodepenButton(sample).appendTo(sampleEl);
     }
 
@@ -1044,7 +1046,7 @@ q.ready(function() {
    * Adds sample code to a method's documentation. Code can be supplied wrapped in
    * a function or as a map with one or more of the keys js, css and html.
    * Additionally, a key named executable is supported: If the value is true, a
-   * button will be created that posts the sample's code to jsFiddle for live
+   * button will be created that posts the sample's code to CodePen for live
    * editing.
    *
    * @param methodName {String} Name of the method, e.g. ".before" or "q.create"
