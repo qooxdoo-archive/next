@@ -199,8 +199,7 @@ qx.Class.define("inspector.console.DomView",
         if (object.classname != undefined) {
           // it is a class, interface, mixin or theme
           if (qx.Class.isDefined(object.classname) ||
-              qx.Interface.getByName(object.classname) ||
-              qx.Mixin.isDefined(object.classname) ||
+              qx.Bootstrap.getByName(object.classname) ||
               qx.Theme.isDefined(object.classname)) {
             // return that classname
             return object.classname;

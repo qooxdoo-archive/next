@@ -32,7 +32,7 @@ qx.Bootstrap.define("qx.util.OOUtil",
      * @return {Boolean} true if class exists
      */
     classIsDefined : function(name) {
-      return qx.Bootstrap.getByName(name) !== undefined;
+      return qx.Bootstrap.getByName(name, "Class") !== undefined;
     },
 
 

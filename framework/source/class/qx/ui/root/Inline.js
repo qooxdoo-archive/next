@@ -42,6 +42,7 @@ qx.Class.define("qx.ui.root.Inline",
 {
   extend : qx.ui.root.Abstract,
   include : [qx.ui.core.MLayoutHandling],
+  implement: [qx.ui.window.IDesktop],
 
 
   /*

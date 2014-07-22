@@ -141,9 +141,6 @@ qx.Bootstrap.define("qx.Interface",
       // Assign to namespace
       iface.basename = qx.Bootstrap.createNamespace(name, iface);
 
-      // Add to registry
-      qx.Interface.$$registry[name] = iface;
-
       // Return final interface
       return iface;
     },
@@ -181,17 +178,6 @@ qx.Bootstrap.define("qx.Interface",
         clazz.$$implements = [iface];
         clazz.$$flatImplements = list;
       }
-    },
-
-
-    /**
-     * Returns an interface by name
-     *
-     * @param name {String} class name to resolve
-     * @return {Class} the class
-     */
-    getByName : function(name) {
-      return this.$$registry[name];
     },
 
 
@@ -260,7 +246,8 @@ qx.Bootstrap.define("qx.Interface",
     {
       if (iface.$$properties) {
         for (var key in iface.$$properties) {
-          if (!clazz.prototype.$$properties[key]) {
+          if ((clazz.$$properties && !clazz.$$properties[key]) ||
+            (clazz.prototype.$$properties && !clazz.prototype.$$properties[key])) {
             throw new Error("Class '" + clazz.classname +
                 "' does not implement the property '" + key +
                 "' required by the interface '" + iface.name + "'.");
@@ -340,10 +327,6 @@ qx.Bootstrap.define("qx.Interface",
     genericToString : function() {
       return "[Interface " + this.name + "]";
     },
-
-
-    /** Registry of all defined interfaces */
-    $$registry : {},
 
 
     /** @type {Map} allowed keys in interface definition */

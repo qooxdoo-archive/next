@@ -84,6 +84,27 @@ qx.Bootstrap = {
   },
 
 
+  getByName : function(name, type) {
+    if (typeof name !== "string") {
+      return;
+    }
+    var parts = name.split(".");
+    var obj = qx.$$namespaceRoot || window;
+    for (var i=0, l=parts.length; i<l; i++) {
+      obj = obj[parts[i]];
+      if (!obj) {
+        return;
+      }
+      if (i == parts.length - 1) {
+        if (type && obj.$$type !== type) {
+          return;
+        }
+        return obj;
+      }
+    }
+  },
+
+
   base : function(args, varargs)
   {
     if (qx.Bootstrap.DEBUG) {
@@ -161,9 +182,8 @@ qx.Bootstrap = {
       clazz.name = clazz.classname = name;
 
       // Merge class into former class (needed for 'optimize: ["statics"]')
-      if (qx.Bootstrap.$$registry && qx.Bootstrap.$$registry[name]) {
-        var formerClass = qx.Bootstrap.$$registry[name];
-
+      var formerClass = qx.Bootstrap.getByName(name);
+      if (formerClass) {
         // Add/overwrite properties and return early if necessary
         if (Object.keys(clazz).length !== 0) {
           // Execute defer to prevent too early overrides
@@ -505,14 +525,13 @@ qx.Bootstrap.define("qx.Bootstrap",
 
 
     /**
-     * Find a class by its name
+     * Find a class, interface or mixin by its name
      *
      * @param name {String} class name to resolve
+     * @param type {String?} Optional type filter. One of "Class", "Interface", "Mixin"
      * @return {Class} the class
      */
-    getByName : function(name) {
-      return qx.Bootstrap.$$registry[name];
-    },
+    getByName : qx.Bootstrap.getByName,
 
 
     /** @type {Map} Stores all defined classes */

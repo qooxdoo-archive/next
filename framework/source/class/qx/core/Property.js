@@ -1047,9 +1047,9 @@ qx.Bootstrap.define("qx.core.Property",
           {
             code.push('qx.core.Assert.assertInstance(value, qx.Class.getByName("', config.check, '"), msg)');
           }
-          else if (qx.Interface && qx.Interface.getByName(config.check))
+          else if (qx.Bootstrap.getByName(config.check))
           {
-            code.push('qx.core.Assert.assertInterface(value, qx.Interface.getByName("', config.check, '"), msg)');
+            code.push('qx.core.Assert.assertInterface(value, qx.Bootstrap.getByName("', config.check, '"), msg)');
           }
           else if (typeof config.check === "function")
           {

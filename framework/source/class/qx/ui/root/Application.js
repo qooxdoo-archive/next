@@ -43,6 +43,8 @@ qx.Class.define("qx.ui.root.Application",
 {
   extend : qx.ui.root.Abstract,
 
+  implement: [qx.ui.window.IDesktop],
+
 
 
   /*

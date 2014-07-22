@@ -179,20 +179,24 @@ qx.Mixin.define("qx.ui.core.MSingleSelectionHandling",
       if (this.__manager == null)
       {
         var that = this;
-        this.__manager = new qx.ui.core.SingleSelectionManager(
-        {
-          getItems : function() {
-            return that._getItems();
-          },
+        var SelectionProvider = qx.Class.define(null, {
+          extend: Object,
+          implement: [qx.ui.core.ISingleSelectionProvider],
+          members: {
+            getItems : function() {
+              return that._getItems();
+            },
 
-          isItemSelectable : function(item) {
-            if (that._isItemSelectable) {
-              return that._isItemSelectable(item);
-            } else {
-              return item.isVisible();
+            isItemSelectable : function(item) {
+              if (that._isItemSelectable) {
+                return that._isItemSelectable(item);
+              } else {
+                return item.isVisible();
+              }
             }
           }
         });
+        this.__manager = new qx.ui.core.SingleSelectionManager(new SelectionProvider());
         this.__manager.addListener("changeSelected", this._onChangeSelected, this);
       }
       this.__manager.setAllowEmptySelection(this._isAllowEmptySelection());

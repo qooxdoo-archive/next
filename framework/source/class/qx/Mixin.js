@@ -417,14 +417,6 @@ qx.Bootstrap.define("qx.Mixin",
 
 
     /**
-     * Determine if mixin exists
-     *
-     * @param name {String} mixin name to check
-     * @return {Boolean} true if mixin exists
-     */
-    isDefined : function(name) {
-      return this.getByName(name) !== undefined;
-    },
 
 
     /**
@@ -443,6 +435,7 @@ qx.Bootstrap.define("qx.Mixin",
      *
      * @param mixins {Mixin[] ? []} List of mixins
      * @return {Array} List of all mixins
+     * @internal
      */
     flatten : function(mixins)
     {
