@@ -188,7 +188,7 @@ qx.Class.define("qx.test.Interface",
             implement : [ qx.test.i.ICar ]
           });
         },
-        Error, new RegExp('Implementation of method .* is missing'));
+        Error, "does not implement the member 'startEngine'");
 
         // members not defined
         this.assertException(function()
@@ -209,7 +209,7 @@ qx.Class.define("qx.test.Interface",
             properties : { color : { } }
           });
         },
-        Error, 'Implementation of method "startEngine" is missing');
+        Error, "does not implement the member 'startEngine'");
 
         // property not defined
         this.assertException(function()
@@ -235,7 +235,7 @@ qx.Class.define("qx.test.Interface",
             }
           });
         },
-        Error, new RegExp("property .* not supported"));
+        Error, "does not implement the property 'color'");
       }
     },
 
