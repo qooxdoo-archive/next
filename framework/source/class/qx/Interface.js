@@ -246,8 +246,11 @@ qx.Bootstrap.define("qx.Interface",
     {
       if (iface.$$properties) {
         for (var key in iface.$$properties) {
-          if ((clazz.$$properties && !clazz.$$properties[key]) ||
-            (clazz.prototype.$$properties && !clazz.prototype.$$properties[key])) {
+          if (
+            (!clazz.$$properties && !clazz.prototype.$$properties) ||
+            (clazz.$$properties && !clazz.$$properties[key]) ||
+            (clazz.prototype.$$properties && !clazz.prototype.$$properties[key])
+          ) {
             throw new Error("Class '" + clazz.classname +
                 "' does not implement the property '" + key +
                 "' required by the interface '" + iface.name + "'.");
@@ -267,7 +270,7 @@ qx.Bootstrap.define("qx.Interface",
      */
     assert : function(clazz, iface, wrap)
     {
-      this.__checkMembers(clazz.prototype, clazz, iface, wrap, true);
+      this.__checkMembers(clazz, iface, wrap, true);
       this.__checkProperties(clazz, iface, true);
 
       // Validate extends, recursive
@@ -290,9 +293,10 @@ qx.Bootstrap.define("qx.Interface",
      * @return {Boolean} <code>true</code> if interface is implemented
      */
     classImplements : function(clazz, iface) {
-      if (!this.__checkMembers(clazz.prototype, clazz, iface) ||
-        !this.__checkProperties(clazz, iface))
-      {
+      try {
+        this.__checkMembers(clazz, iface);
+        this.__checkProperties(clazz, iface);
+      } catch(ex) {
         return false;
       }
 

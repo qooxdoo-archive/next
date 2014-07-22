@@ -403,41 +403,7 @@ qx.Class.define("qx.test.Interface",
           getValue : function() {},
           setValue : function(value) {}
         }
-      })
-    },
-
-
-    testEvents : function()
-    {
-      qx.Interface.define("qx.test.i.IEvents1",
-      {
-        events : {
-          "change" : "qx.event.type.Event"
-        }
       });
-
-
-      qx.Class.define("qx.test.i.Event1",
-      {
-        extend : qx.core.Object,
-        implement : [qx.test.i.IEvents1],
-
-        events : {
-          change : "qx.event.type.Event"
-        }
-      })
-
-
-      if (this.isDebugOn())
-      {
-        this.assertException(function() {
-          qx.Class.define("qx.test.i.Event2",
-          {
-            extend : qx.core.Object,
-            implement : [qx.test.i.IEvents1]
-          })
-        });
-      };
     },
 
 
@@ -516,7 +482,7 @@ qx.Class.define("qx.test.Interface",
       {
         this.assertException(function() {
           qx.Class.define("qx.test.i.Implement2", def);
-        }, Error, "Implementation of method", "No members defined.");
+        }, Error, "does not implement the member", "No members defined.");
       };
 
       // no properties
@@ -527,72 +493,8 @@ qx.Class.define("qx.test.Interface",
       {
         this.assertException(function() {
           qx.Class.define("qx.test.i.Implement4", def);
-        }, Error, new RegExp("property .* is not supported"), "No properties defined.");
+        }, Error, new RegExp("does not implement the property"), "No properties defined.");
       };
-    },
-
-
-    /**
-     * abstract classes may define an interface and implement it only partially
-     * sub classes must implement the missing methods
-     */
-    testAbstractClass : function()
-    {
-
-      qx.Interface.define("qx.test.i.IJuhu",
-      {
-        members :
-        {
-          sayJuhu : function() {},
-          sayKinners : function() {}
-        }
-      });
-
-
-      // should not raise an exception
-      qx.Class.define("qx.test.i.AbstractJuhu1", {
-        extend : qx.core.Object,
-        implement : qx.test.i.IJuhu,
-        type : "abstract"
-      });
-
-
-      // should not raise an exception
-      qx.Class.define("qx.test.i.AbstractJuhu2", {
-        extend : qx.core.Object,
-        implement : qx.test.i.IJuhu,
-        type : "abstract",
-
-        members :
-        {
-          sayJuhu : function() { return "Juhu"; }
-        }
-      });
-
-      // should raise an exception
-      if (this.isDebugOn())
-      {
-        this.assertException(function() {
-          qx.Class.define("qx.test.i.Juhu1", {
-            extend : qx.test.i.AbstractJuhu1,
-
-            members :
-            {
-              sayJuhu : function() { return "Juhu"; }
-            }
-          });
-        }, Error, '.*Implementation of method "sayKinners" is missing in class "qx.test.i.Juhu1" required by interface "qx.test.i.IJuhu"');
-      };
-
-
-      qx.Class.define("qx.test.i.Juhu1", {
-        extend : qx.test.i.AbstractJuhu2,
-        members :
-        {
-          sayKinners : function() { return "Kinners"; }
-        }
-      });
-
     },
 
 
