@@ -182,20 +182,6 @@ qx.Class.define("qx.test.Bootstrap",
     },
 
 
-    "test: extend from null should extend Object" : function()
-    {
-      qx.Bootstrap.define("qx.test.ExtendNull", {
-        extend: null,
-        members : {}
-      });
-
-      var obj = new qx.test.ExtendNull();
-      this.assertInstance(obj, Object);
-
-      qx.Class.undefine("qx.test.ExtendNull");
-    },
-
-
     "test: extend from Bootstrap class" : function()
     {
       qx.Bootstrap.define("qx.test.Super", {
@@ -925,6 +911,63 @@ qx.Class.define("qx.test.Bootstrap",
 
       new C();
       this.assertCalledOnce(defer);
+    },
+
+    testValidateConfig : function() {
+      this.assertException(function() {
+        qx.Bootstrap.define(null, {
+          extend: Object,
+          foo: {}
+        });
+      });
+
+      this.assertException(function() {
+        qx.Bootstrap.define(null, {
+          extend: true
+        });
+      });
+
+      this.assertException(function() {
+        qx.Bootstrap.define(null, {
+          implement: 23
+        });
+      });
+
+      this.assertException(function() {
+        qx.Bootstrap.define(null, {
+          include: function() {}
+        });
+      });
+
+      this.assertException(function() {
+        qx.Bootstrap.define(null, {
+          construct: {}
+        });
+      });
+
+      this.assertException(function() {
+        qx.Bootstrap.define(null, {
+          statics: []
+        });
+      });
+
+      this.assertException(function() {
+        qx.Bootstrap.define(null, {
+          properties: 42
+        });
+      });
+
+      this.assertException(function() {
+        qx.Bootstrap.define(null, {
+          members: function() {}
+        });
+      });
+
+      this.assertException(function() {
+        qx.Bootstrap.define(null, {
+          defer: false
+        });
+      });
     }
   }
 });

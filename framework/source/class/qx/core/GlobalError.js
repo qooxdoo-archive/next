@@ -89,14 +89,5 @@ qx.Bootstrap.define("qx.core.GlobalError",
     getSourceException : function() {
       return this.__exc;
     }
-
-  },
-
-
-  destruct : function ()
-  {
-    this.__exc = null;
-    this.__arguments = null;
-    this.__failMessage = null;
   }
 });

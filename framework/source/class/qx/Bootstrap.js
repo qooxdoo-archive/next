@@ -39,9 +39,37 @@ if (!window.qx) {
  */
 qx.Bootstrap = {
 
+  /** @type {Map} allowed keys in non-static class definition */
+  __allowedKeys : {
+    "extend"     : ["Function"],  // Function
+    "implement"  : ["Array", "String"],    // Interface[]
+    "include"    : ["Array", "String"],    // Mixin[]
+    "construct"  : ["Function"],  // Function
+    "statics"    : ["Object"],    // Map
+    "properties" : ["Object"],    // Map
+    "members"    : ["Object"],    // Map
+    "defer"      : ["Function"],  // Function
+    "events"     : ["Object"]     // TODO: remove
+  },
+
+
+  __classToTypeMap: {
+    "[object String]": "String",
+    "[object Array]": "Array",
+    "[object Object]": "Object",
+    "[object RegExp]": "RegExp",
+    "[object Number]": "Number",
+    "[object Boolean]": "Boolean",
+    "[object Date]": "Date",
+    "[object Function]": "Function",
+    "[object Error]": "Error"
+  },
+
+
   genericToString : function() {
     return "[Class " + this.classname + "]";
   },
+
 
   createNamespace : function(name, object)
   {
@@ -65,6 +93,13 @@ qx.Bootstrap = {
     return part;
   },
 
+  getClass: function(value) {
+    var classString = Object.prototype.toString.call(value);
+    return (
+      qx.Bootstrap.__classToTypeMap[classString] ||
+      classString.slice(8, -1)
+    );
+  },
 
   setDisplayName : function(fcn, classname, name)
   {
@@ -129,6 +164,8 @@ qx.Bootstrap = {
     if (!config) {
       config = { statics : {} };
     }
+
+    qx.Bootstrap.__validateConfig(name, config);
 
     var clazz;
     var proto = null;
@@ -251,6 +288,21 @@ qx.Bootstrap = {
     }
 
     return clazz;
+  },
+
+
+  __validateConfig : function(name, config) {
+    for (var key in config) {
+      if (!qx.Bootstrap.__allowedKeys[key]) {
+        throw new Error("The key '" + key +
+          "' is not allowed in the class definition for '" + name + "'.");
+      }
+      if (qx.Bootstrap.__allowedKeys[key].indexOf(qx.Bootstrap.getClass(config[key])) == -1) {
+        throw new Error("Illegal type of key '" + key +
+          "' in the class definition for '" + name + "'. Must be '" +
+          qx.Bootstrap.__allowedKeys[key] + "'.");
+      }
+    }
   }
 };
 
@@ -443,6 +495,16 @@ qx.Bootstrap.define("qx.Bootstrap",
 
 
     /**
+     * Validates an incoming configuration and checks for proper keys and values
+     *
+     * @signature function(name, config)
+     * @param name {String} The name of the class
+     * @param config {Map} Configuration map
+     */
+    __validateConfig : qx.Bootstrap.__validateConfig,
+
+
+    /**
      * Sets the display name of the given function
      *
      * @signature function(fcn, classname, name)
@@ -562,18 +624,7 @@ qx.Bootstrap.define("qx.Bootstrap",
      * @internal
      * @type {Map}
      */
-    __classToTypeMap :
-    {
-      "[object String]": "String",
-      "[object Array]": "Array",
-      "[object Object]": "Object",
-      "[object RegExp]": "RegExp",
-      "[object Number]": "Number",
-      "[object Boolean]": "Boolean",
-      "[object Date]": "Date",
-      "[object Function]": "Function",
-      "[object Error]": "Error"
-    },
+    __classToTypeMap : qx.Bootstrap.__classToTypeMap,
 
 
     /**
@@ -585,15 +636,7 @@ qx.Bootstrap.define("qx.Bootstrap",
      * @return {String} the internal class of the value
      * @internal
      */
-    getClass : function(value)
-    {
-      var classString = Object.prototype.toString.call(value);
-      return (
-        qx.Bootstrap.__classToTypeMap[classString] ||
-        classString.slice(8, -1)
-      );
-    },
-
+    getClass : qx.Bootstrap.getClass,
 
 
     /*
