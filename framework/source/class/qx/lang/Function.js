@@ -72,25 +72,6 @@ qx.Bootstrap.define("qx.lang.Function",
         return fcn.classname + ".constructor()";
       }
 
-      if (fcn.$$mixin)
-      {
-        //members
-        for(var key in fcn.$$mixin.$$members)
-        {
-          if (fcn.$$mixin.$$members[key] == fcn) {
-            return fcn.$$mixin.name + ".prototype." + key + "()";
-          }
-        }
-
-        // statics
-        for(var key in fcn.$$mixin)
-        {
-          if (fcn.$$mixin[key] == fcn) {
-            return fcn.$$mixin.name + "." + key + "()";
-          }
-        }
-      }
-
       if (fcn.self)
       {
         var clazz = fcn.self.constructor;

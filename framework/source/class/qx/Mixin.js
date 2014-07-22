@@ -19,7 +19,7 @@
 ************************************************************************ */
 
 /**
- * This class is used to define mixins (similar to mixins in Ruby).
+ * This class is used to define mixins.
  *
  * Mixins are collections of code and variables, which can be merged into
  * other classes. They are similar to classes but don't support inheritance.
@@ -99,13 +99,6 @@ qx.Bootstrap.define("qx.Mixin",
         var mixin = config.statics ? config.statics : {};
         qx.Bootstrap.setDisplayNames(mixin, name);
 
-        for(var key in mixin) {
-          if (mixin[key] instanceof Function)
-          {
-            mixin[key].$$mixin = mixin;
-          }
-        }
-
         // Attach configuration
         if (config.construct)
         {
@@ -125,13 +118,6 @@ qx.Bootstrap.define("qx.Mixin",
         {
           mixin.$$members = config.members;
           qx.Bootstrap.setDisplayNames(config.members, name + ".prototype");
-        }
-
-        for(var key in mixin.$$members)
-        {
-          if (mixin.$$members[key] instanceof Function) {
-            mixin.$$members[key].$$mixin = mixin;
-          }
         }
 
         if (config.events) {
@@ -201,7 +187,7 @@ qx.Bootstrap.define("qx.Mixin",
 
         // Attach events
         if (entry.$$events) {
-          //this.__addEvents(clazz, entry.$$events, patch); TODO?
+          this.__addEvents(clazz, entry.$$events, patch); //TODO?
         }
 
         // Attach properties (Properties are already readonly themselves, no patch handling needed)
@@ -237,6 +223,7 @@ qx.Bootstrap.define("qx.Mixin",
      * @param clazz {Class} class to look for the mixin
      * @param mixin {Mixin} mixin to look for
      * @return {Class | null} The class which directly includes the given mixin
+     * @internal
      */
     getClassByMixin : function(clazz, mixin)
     {
@@ -269,6 +256,7 @@ qx.Bootstrap.define("qx.Mixin",
      * @param mixins {Mixin[]} an array of mixins
      * @throws {Error} when there is a conflict between the mixins
      * @return {Boolean} <code>true</code> if the mixin passed the compatibilty check
+     * @internal
      */
     checkCompatibility : function(mixins)
     {
@@ -396,6 +384,7 @@ qx.Bootstrap.define("qx.Mixin",
      * @param clazz {Class} class to check
      * @throws {Error} when the given mixin is incompatible to the class
      * @return {Boolean} true if the mixin is compatible to the given class
+     * @internal
      */
     isCompatible : function(mixin, clazz)
     {
@@ -443,15 +432,6 @@ qx.Bootstrap.define("qx.Mixin",
       return list;
     },
 
-
-
-
-
-    /*
-    ---------------------------------------------------------------------------
-       PRIVATE/INTERNAL API
-    ---------------------------------------------------------------------------
-    */
 
     /**
      * This method will be attached to all mixins to return
