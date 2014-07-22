@@ -417,19 +417,6 @@ qx.Bootstrap.define("qx.Mixin",
 
 
     /**
-
-
-    /**
-     * Determine the number of mixins which are defined
-     *
-     * @return {Number} the number of mixins
-     */
-    getTotalNumber : function() {
-      return Object.keys(this.$$registry).length;
-    },
-
-
-    /**
      * Generates a list of all mixins given plus all the
      * mixins these includes plus... (deep)
      *

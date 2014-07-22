@@ -306,16 +306,6 @@ qx.Bootstrap.define("qx.Class",
 
 
     /**
-     * Determine the total number of classes
-     *
-     * @return {Number} the total number of classes
-     */
-    getTotalNumber : function() {
-      return Object.keys(this.$$registry).length;
-    },
-
-
-    /**
      * Find a class by its name
      *
      * @signature function(name)
