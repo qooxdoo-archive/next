@@ -238,22 +238,26 @@ qx.Bootstrap.define("qx.Interface",
      *
      * @param clazz {Class} class to check interface for
      * @param iface {Interface} the interface to verify
-     * @param shouldThrow {Boolean} if <code>false</code>, the method
-     *   will return a boolean instead of throwing an exception
-     * @return {Boolean} <code>true</code> if all properties are supported
      */
     __checkProperties : function(clazz, iface)
     {
       if (iface.$$properties) {
         for (var key in iface.$$properties) {
-          if (
-            (!clazz.$$properties && !clazz.prototype.$$properties) ||
-            (clazz.$$properties && !clazz.$$properties[key]) ||
-            (clazz.prototype.$$properties && !clazz.prototype.$$properties[key])
-          ) {
+          var currentClass = clazz;
+          var found = false;
+          while (currentClass) {
+            if (currentClass.$$properties && currentClass.$$properties[key] ||
+              currentClass.prototype.$$properties && currentClass.prototype.$$properties[key]) {
+              found = true;
+              currentClass = null;
+            } else {
+              currentClass = currentClass.superclass;
+            }
+          }
+          if (!found) {
             throw new Error("Class '" + clazz.classname +
-                "' does not implement the property '" + key +
-                "' required by the interface '" + iface.name + "'.");
+              "' does not implement the property '" + key +
+              "' required by the interface '" + iface.name + "'.");
           }
         }
       }
