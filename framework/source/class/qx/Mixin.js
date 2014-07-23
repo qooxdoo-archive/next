@@ -152,6 +152,7 @@ qx.Bootstrap.define("qx.Mixin",
       return mixin;
     },
 
+
     /**
      * Include all features of the mixin into the given class, recursively.
      *
@@ -195,9 +196,9 @@ qx.Bootstrap.define("qx.Mixin",
           qx.Bootstrap.addProperties(clazz.prototype, entry.$$properties, patch);
         }
 
-        // Attach members (Respect patch setting, but dont apply base variables)
+        // Attach members (Respect patch setting, but don't apply base variables)
         if (entry.$$members) {
-          qx.Bootstrap.addMembers(clazz.prototype, entry.$$members, patch, patch, patch);
+          qx.Bootstrap.addMembers(clazz.prototype, entry.$$members, patch);
         }
       }
 
@@ -212,6 +213,25 @@ qx.Bootstrap.define("qx.Mixin",
         clazz.$$includes = [mixin];
         clazz.$$flatIncludes = list;
       }
+    },
+
+
+    /**
+     * Include all features of the given mixin into the class. The mixin must
+     * not include any methods or properties that are already available in the
+     * class. This would only be possible using the {@link #patch} method.
+     *
+     * <b>WARNING</b>: Using <code>patch</code> may break working classes and features.
+     *
+     * @param clazz {Class} An existing class which should be augmented by including a mixin.
+     * @param mixin {Mixin} The mixin to be included.
+     * @param patch {Boolean?false} <code>true</code>, if you want to allow overriding
+     */
+    include : function(clazz, mixin, patch) {
+      if (qx.core.Environment.get("qx.debug")) {
+        qx.Mixin.isCompatible(mixin, clazz);
+      }
+      qx.Mixin.add(clazz, mixin, !!patch);
     },
 
 

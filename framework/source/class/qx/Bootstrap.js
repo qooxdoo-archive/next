@@ -43,7 +43,7 @@ qx.Bootstrap = {
   __allowedKeys : {
     "extend"     : ["Function"],  // Function
     "implement"  : ["Array", "Object"],    // Interface[]
-    "include"    : ["Array", "Function"],    // Mixin[]
+    "include"    : ["Array", "Object"],    // Mixin[]
     "construct"  : ["Function"],  // Function
     "statics"    : ["Object"],    // Map
     "properties" : ["Object"],    // Map
@@ -195,7 +195,7 @@ qx.Bootstrap = {
       proto.name = proto.classname = name;
 
       if (config.members) {
-        qx.Bootstrap.addMembers(proto, config.members);
+        qx.Bootstrap.addMembers(proto, config.members, false);
       }
 
       // property handling
@@ -205,8 +205,12 @@ qx.Bootstrap = {
       // Must be the last here to detect conflicts
       if (config.include) {
         if (qx.Mixin) {
-          for (var i=0, l=config.include.length; i<l; i++) {
-            qx.Mixin.add(clazz, config.include[i], false);
+          var imclList = config.include;
+          if (qx.Bootstrap.getClass(imclList) !== "Array") {
+            imclList = [imclList];
+          }
+          for (var i=0, l=imclList.length; i<l; i++) {
+            qx.Mixin.add(clazz, imclList[i], false);
           }
         } else {
           throw new Error("Class definition for '" + name + "' contains key 'include' but qx.Mixin is not available.");
@@ -335,12 +339,21 @@ qx.Bootstrap.define("qx.Bootstrap",
     })(),
 
 
-    addMembers : function(proto, members) {
+    addMembers : function(proto, members, patch) {
       var key, member;
 
       // use keys to include the shadowed in IE
       for (var i=0, keys=Object.keys(members), l=keys.length; i<l; i++) {
         key = keys[i];
+
+        if (proto[key] !== undefined && key.charAt(0) == "_" && key.charAt(1) == "_") {
+          throw new Error('Overwriting private member "' + key + '" of Class "' + proto.classname + '" is not allowed!');
+        }
+
+        if (patch !== true && proto.hasOwnProperty(key)) {
+          throw new Error('Overwriting member "' + key + '" of Class "' + proto.classname + '" is not allowed!');
+        }
+
         member = members[key];
 
         // Enable basecalls for methods

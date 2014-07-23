@@ -50,7 +50,9 @@ qx.Class.define("qx.test.Mixin",
           }
         },
 
-        properties : { color : { } }
+        properties : { color : {
+          init: "red"
+        } }
       });
 
       qx.Mixin.define("qx.MMix2",
@@ -63,7 +65,7 @@ qx.Class.define("qx.test.Mixin",
         }
       });
 
-      qx.Class.define("qx.Mix",
+      qx.Bootstrap.define("qx.Mix",
       {
         extend    : Object,
         include   : qx.MMix1,
@@ -73,14 +75,13 @@ qx.Class.define("qx.test.Mixin",
       this.assertEquals("foo", qx.MMix1.foo());
       this.assertEquals("bar", new qx.Mix().bar());
       var mix = new qx.Mix();
-      mix.setColor("red");
-      this.assertEquals("red", mix.getColor());
+      this.assertEquals("red", mix.color);
 
       if (this.isDebugOn())
       {
         this.assertException(function()
         {
-          qx.Class.define("qx.Mix1",
+          qx.Bootstrap.define("qx.Mix1",
           {
             extend    : Object,
             include   : [ qx.MMix1, qx.MMix2 ],
@@ -91,7 +92,7 @@ qx.Class.define("qx.test.Mixin",
 
         this.assertException(function()
         {
-          qx.Class.define("qx.Mix2",
+          qx.Bootstrap.define("qx.Mix2",
           {
             extend : Object,
             include : qx.MMix1,
@@ -109,7 +110,7 @@ qx.Class.define("qx.test.Mixin",
       }
 
       // this is allowed
-      qx.Class.define("qx.Mix3",
+      qx.Bootstrap.define("qx.Mix3",
       {
         extend : Object,
         include : qx.MMix1,
@@ -127,7 +128,7 @@ qx.Class.define("qx.test.Mixin",
       {
         this.assertException(function()
         {
-          qx.Class.define("qx.Mix4",
+          qx.Bootstrap.define("qx.Mix4",
           {
             extend     : Object,
             include    : qx.MMix1,
@@ -135,7 +136,7 @@ qx.Class.define("qx.test.Mixin",
             properties : { color : { } }
           });
         },
-        Error, "already has a property", "t3");
+        Error, "Cannot redefine property", "t3");
       }
     },
 
@@ -153,17 +154,17 @@ qx.Class.define("qx.test.Mixin",
       });
 
       // normal usage
-      qx.Class.define("qx.UseLog1",
+      qx.Bootstrap.define("qx.UseLog1",
       {
         extend    : Object,
         construct : function() {}
       });
 
-      qx.Class.include(qx.UseLog1, qx.MLogger);
+      qx.Mixin.include(qx.UseLog1, qx.MLogger);
       this.assertEquals("Juhu", new qx.UseLog1().log("Juhu"));
 
       // not allowed to overwrite!
-      qx.Class.define("qx.UseLog2",
+      qx.Bootstrap.define("qx.UseLog2",
       {
         extend : Object,
         construct : function() {},
@@ -179,12 +180,12 @@ qx.Class.define("qx.test.Mixin",
       if (this.isDebugOn())
       {
         this.assertException(function() {
-          qx.Class.include(qx.UseLog2, qx.MLogger);
+          qx.Mixin.include(qx.UseLog2, qx.MLogger);
         }, Error, "Overwriting member");
       }
 
       // allowed to overwrite!
-      qx.Class.define("qx.UseLog3",
+      qx.Bootstrap.define("qx.UseLog3",
       {
         extend : Object,
         construct : function() {},
@@ -198,35 +199,29 @@ qx.Class.define("qx.test.Mixin",
       });
 
       this.assertEquals("foo", new qx.UseLog3().log("Juhu"));
-      qx.Class.patch(qx.UseLog3, qx.MLogger);
+      qx.Mixin.include(qx.UseLog3, qx.MLogger, true);
       this.assertEquals("Juhu", new qx.UseLog3().log("Juhu"));
 
       // extended classes must have included methods as well
-      qx.Class.define("qx.ExtendUseLog1", { extend : qx.UseLog1 });
+      qx.Bootstrap.define("qx.ExtendUseLog1", { extend : qx.UseLog1 });
       this.assertEquals("Juhu", new qx.ExtendUseLog1().log("Juhu"));
     },
 
     testPatchOverwritten : function()
     {
-      qx.Class.define("qx.Patch1", {
+      qx.Bootstrap.define("qx.Patch1", {
         extend : qx.core.Object,
 
         members : {
-          sayJuhu : function() { return "Juhu"; },
-
-          foo : function() { return "foo"; }
+          sayJuhu : function() { return "Juhu"; }
         }
       });
 
-      qx.Class.define("qx.Patch2", {
+      qx.Bootstrap.define("qx.Patch2", {
         extend : qx.core.Object,
 
         members : {
-          sayJuhu : function() { return "Huhu"; },
-
-          foo : function() {
-            return "bar";
-          }
+          sayJuhu : function() { return "Huhu"; }
         }
 
       });
@@ -235,18 +230,8 @@ qx.Class.define("qx.test.Mixin",
       {
         members :
         {
-          sayJuhu : function() { return this.base(arguments) + " Kinners";},
-
-          foo : function(dontRecurs)
-          {
-            var s = "";
-            if (!dontRecurs) {
-              this.__b = new qx.Patch2();
-              s += "++" + this.__b.foo(true) + "__";
-            }
-
-            s += this.base(arguments);
-            return s;
+          sayJuhu : function() {
+            return "Kinners";
           }
         }
       });
@@ -255,27 +240,19 @@ qx.Class.define("qx.test.Mixin",
       if (this.isDebugOn())
       {
         this.assertException(function() {
-          qx.Class.include(qx.Patch1, qx.MPatch);
+          qx.Mixin.include(qx.Patch1, qx.MPatch);
         }, Error, new RegExp('Overwriting member ".*" of Class ".*" is not allowed!'));
       }
 
-      qx.Class.patch(qx.Patch1, qx.MPatch);
-      qx.Class.patch(qx.Patch2, qx.MPatch);
+      qx.Mixin.include(qx.Patch1, qx.MPatch, true);
+      qx.Mixin.include(qx.Patch2, qx.MPatch, true);
 
       var o = new qx.Patch1();
-      this.assertEquals("Juhu Kinners", o.sayJuhu());
+      this.assertEquals("Kinners", o.sayJuhu());
       o.dispose();
 
       o = new qx.Patch2();
-      this.assertEquals("Huhu Kinners", o.sayJuhu());
-      o.dispose();
-
-
-      // very special case with recursive calls from different classes to
-      // the mixin member
-      o = new qx.Patch1();
-      this.assertEquals("++bar__foo", o.foo());
-      o.__b.dispose();
+      this.assertEquals("Kinners", o.sayJuhu());
       o.dispose();
     }
   }
