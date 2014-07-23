@@ -106,7 +106,7 @@ qx.Class.define("qx.test.Mixin",
           });
         },
         Error, "Overwriting member", "t2");
-      };
+      }
 
       // this is allowed
       qx.Class.define("qx.Mix3",
@@ -136,7 +136,7 @@ qx.Class.define("qx.test.Mixin",
           });
         },
         Error, "already has a property", "t3");
-      };
+      }
     },
 
 
@@ -181,7 +181,7 @@ qx.Class.define("qx.test.Mixin",
         this.assertException(function() {
           qx.Class.include(qx.UseLog2, qx.MLogger);
         }, Error, "Overwriting member");
-      };
+      }
 
       // allowed to overwrite!
       qx.Class.define("qx.UseLog3",
@@ -235,7 +235,7 @@ qx.Class.define("qx.test.Mixin",
       {
         members :
         {
-          sayJuhu : function() { return this.base(arguments) + " Kinners"},
+          sayJuhu : function() { return this.base(arguments) + " Kinners";},
 
           foo : function(dontRecurs)
           {
@@ -255,9 +255,9 @@ qx.Class.define("qx.test.Mixin",
       if (this.isDebugOn())
       {
         this.assertException(function() {
-          qx.Class.include(qx.Patch1, qx.MPatch)
+          qx.Class.include(qx.Patch1, qx.MPatch);
         }, Error, new RegExp('Overwriting member ".*" of Class ".*" is not allowed!'));
-      };
+      }
 
       qx.Class.patch(qx.Patch1, qx.MPatch);
       qx.Class.patch(qx.Patch2, qx.MPatch);
@@ -266,14 +266,14 @@ qx.Class.define("qx.test.Mixin",
       this.assertEquals("Juhu Kinners", o.sayJuhu());
       o.dispose();
 
-      var o = new qx.Patch2();
+      o = new qx.Patch2();
       this.assertEquals("Huhu Kinners", o.sayJuhu());
       o.dispose();
 
 
       // very special case with recursive calls from different classes to
       // the mixin member
-      var o = new qx.Patch1();
+      o = new qx.Patch1();
       this.assertEquals("++bar__foo", o.foo());
       o.__b.dispose();
       o.dispose();

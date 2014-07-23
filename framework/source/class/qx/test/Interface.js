@@ -274,7 +274,7 @@ qx.Class.define("qx.test.Interface",
             }
           });
         });
-      };
+      }
 
 
       qx.Interface.define("qx.test.i.IProperties2",
@@ -379,7 +379,7 @@ qx.Class.define("qx.test.Interface",
       this.assertFalse(qx.Class.implementsInterface(qx.test.i.Implement1, qx.test.i.IOther), "not implements IOther");
 
       // no members
-      var def = qx.lang.Object.clone(classDef);
+      def = qx.lang.Object.clone(classDef);
       delete (def.members);
 
       if (this.isDebugOn())
@@ -387,10 +387,10 @@ qx.Class.define("qx.test.Interface",
         this.assertException(function() {
           qx.Class.define("qx.test.i.Implement2", def);
         }, Error, "does not implement the member", "No members defined.");
-      };
+      }
 
       // no properties
-      var def = qx.lang.Object.clone(classDef);
+      def = qx.lang.Object.clone(classDef);
       delete (def.properties);
 
       if (this.isDebugOn())
@@ -398,7 +398,7 @@ qx.Class.define("qx.test.Interface",
         this.assertException(function() {
           qx.Class.define("qx.test.i.Implement4", def);
         }, Error, new RegExp("does not implement the property"), "No properties defined.");
-      };
+      }
     },
 
 
