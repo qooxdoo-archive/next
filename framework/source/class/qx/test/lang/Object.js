@@ -49,19 +49,6 @@ qx.Class.define("qx.test.lang.Object",
     },
 
 
-    testGetLength : function()
-    {
-      var object = {};
-      this.assertEquals(0, qx.lang.Object.getLength(object));
-
-      var object = {a: 1};
-      this.assertEquals(1, qx.lang.Object.getLength(object));
-
-      var object = {a:undefined, b: null, c: 1};
-      this.assertEquals(3, qx.lang.Object.getLength(object));
-    },
-
-
     testGetKeys : function()
     {
       var object = {
