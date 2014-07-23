@@ -175,7 +175,8 @@ qx.Bootstrap = {
     if (config.members || config.extend || config.properties) {
       qx.Bootstrap.setDisplayNames(config.members, name + ".prototype");
 
-      clazz = config.construct || new Function();
+      clazz = config.construct ||
+        (config.extend ? qx.Bootstrap.__createDefaultConstructor() : function() {});
       clazz.name = clazz.classname = name;
 
       if (config.extend) {
@@ -296,6 +297,16 @@ qx.Bootstrap = {
     }
 
     return clazz;
+  },
+
+
+  __createDefaultConstructor : function()
+  {
+    function defaultConstructor() {
+      defaultConstructor.base.apply(this, arguments);
+    }
+
+    return defaultConstructor;
   },
 
 
@@ -509,6 +520,15 @@ qx.Bootstrap.define("qx.Bootstrap",
      * @return {Class} The defined class.
      */
     define : qx.Bootstrap.define,
+
+
+    /**
+     * Returns the default constructor.
+     * This constructor just calls the constructor of the base class.
+     *
+     * @return {Function} The default constructor.
+    */
+    __createDefaultConstructor : qx.Bootstrap.__createDefaultConstructor,
 
 
     /**

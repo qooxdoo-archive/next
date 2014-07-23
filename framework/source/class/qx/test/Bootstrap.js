@@ -741,6 +741,21 @@ qx.Class.define("qx.test.Bootstrap",
           defer: false
         });
       });
+    },
+
+    testDefaultConstructor: function() {
+      var construct = this.spy();
+      var A = qx.Bootstrap.define(null, {
+        extend: Object,
+        construct: construct
+      });
+
+      var B = qx.Bootstrap.define(null, {
+        extend: A
+      });
+
+      new B();
+      this.assertCalledOnce(construct);
     }
   }
 });
