@@ -42,14 +42,14 @@ qx.Class.define("qx.test.Interface",
 
 
     tearDown : function() {
-      qx.Class.undefine("qx.test.i.ICar");
+      qx.Bootstrap.undefine("qx.test.i.ICar");
     },
 
 
     testClassImplements : function()
     {
       // test correct implementations
-      qx.Class.define("qx.test.i.Audi",
+      qx.Bootstrap.define("qx.test.i.Audi",
       {
         extend : Object,
         construct : function() {},
@@ -75,12 +75,12 @@ qx.Class.define("qx.test.Interface",
       var audi = new qx.test.i.Audi("audi");
 
       this.assertTrue(qx.Interface.classImplements(qx.test.i.Audi, qx.test.i.ICar));
-      qx.Class.undefine("qx.test.i.Audi");
+      qx.Bootstrap.undefine("qx.test.i.Audi");
     },
 
 
     testEverythingImplemented : function() {
-      qx.Class.define("qx.test.i.Bmw1",
+      qx.Bootstrap.define("qx.test.i.Bmw1",
         {
           extend : Object,
           construct : function() {},
@@ -102,12 +102,12 @@ qx.Class.define("qx.test.Interface",
           properties : { color : { } }
         });
       this.assertTrue(qx.Interface.classImplements(qx.test.i.Bmw1, qx.test.i.ICar));
-      qx.Class.undefine("qx.test.i.Bmw1");
+      qx.Bootstrap.undefine("qx.test.i.Bmw1");
     },
 
 
     testMissingMembers : function() {
-      qx.Class.define("qx.test.i.Bmw2",
+      qx.Bootstrap.define("qx.test.i.Bmw2",
         {
           extend : Object,
           construct : function() {},
@@ -121,13 +121,13 @@ qx.Class.define("qx.test.Interface",
           properties : { color : { } }
         });
       this.assertFalse(qx.Interface.classImplements(qx.test.i.Bmw2, qx.test.i.ICar));
-      qx.Class.undefine("qx.test.i.Bmw2");
+      qx.Bootstrap.undefine("qx.test.i.Bmw2");
     },
 
 
     testMissingStatics : function() {
       // (ie it does implement all necessary)
-      qx.Class.define("qx.test.i.Bmw3",
+      qx.Bootstrap.define("qx.test.i.Bmw3",
         {
           extend : Object,
           construct : function() {},
@@ -141,12 +141,12 @@ qx.Class.define("qx.test.Interface",
           properties : { color : { } }
         });
       this.assertTrue(qx.Interface.classImplements(qx.test.i.Bmw3, qx.test.i.ICar));
-      qx.Class.undefine("qx.test.i.Bmw3");
+      qx.Bootstrap.undefine("qx.test.i.Bmw3");
     },
 
 
     testMissingProperties : function() {
-      qx.Class.define("qx.test.i.Bmw4",
+      qx.Bootstrap.define("qx.test.i.Bmw4",
         {
           extend : Object,
           construct : function() {},
@@ -165,7 +165,7 @@ qx.Class.define("qx.test.Interface",
           }
         });
       this.assertFalse(qx.Interface.classImplements(qx.test.i.Bmw4, qx.test.i.ICar));
-      qx.Class.undefine("qx.test.i.Bmw4");
+      qx.Bootstrap.undefine("qx.test.i.Bmw4");
     },
 
 
@@ -181,7 +181,7 @@ qx.Class.define("qx.test.Interface",
         // nothing defined
         this.assertException(function()
         {
-          qx.Class.define("qx.test.i.Audi1",
+          qx.Bootstrap.define("qx.test.i.Audi1",
           {
             extend    : Object,
             construct : function() {},
@@ -193,7 +193,7 @@ qx.Class.define("qx.test.Interface",
         // members not defined
         this.assertException(function()
         {
-          qx.Class.define("qx.test.i.Audi2",
+          qx.Bootstrap.define("qx.test.i.Audi2",
           {
             extend : Object,
             construct : function() {},
@@ -214,7 +214,7 @@ qx.Class.define("qx.test.Interface",
         // property not defined
         this.assertException(function()
         {
-          qx.Class.define("qx.test.i.Audi4",
+          qx.Bootstrap.define("qx.test.i.Audi4",
           {
             extend : Object,
             construct : function() {},
@@ -248,7 +248,7 @@ qx.Class.define("qx.test.Interface",
         }
       });
 
-      qx.Class.define("qx.test.i.Properties1",
+      qx.Bootstrap.define("qx.test.i.Properties1",
       {
         extend : qx.core.Object,
         implement : [qx.test.i.IProperties1],
@@ -262,7 +262,7 @@ qx.Class.define("qx.test.Interface",
       if (this.isDebugOn())
       {
         this.assertException(function() {
-          qx.Class.define("qx.test.i.Properties2",
+          qx.Bootstrap.define("qx.test.i.Properties2",
           {
             extend : qx.core.Object,
             implement : [qx.test.i.IProperties1],
@@ -286,18 +286,7 @@ qx.Class.define("qx.test.Interface",
         }
       });
 
-      qx.Class.define("qx.test.i.Properties3",
-      {
-        extend : qx.core.Object,
-        implement : [qx.test.i.IProperties2],
-
-        properties :
-        {
-          value : { check : "Integer"}
-        }
-      });
-
-      qx.Class.define("qx.test.i.Properties4",
+      qx.Bootstrap.define("qx.test.i.Properties3",
       {
         extend : qx.core.Object,
         implement : [qx.test.i.IProperties2],
@@ -315,24 +304,22 @@ qx.Class.define("qx.test.Interface",
     {
       qx.Interface.define("qx.test.i.IMember",
       {
-        members :
-        {
-          sayJuhu : function() {
-            return true;
-          }
+        members : {
+          sayJuhu : function() {}
         }
       });
 
       qx.Interface.define("qx.test.i.IProperties",
       {
-        properties :
-        {
+        properties : {
           "color" : {},
           "name"  : {}
         }
       });
 
-      qx.Interface.define("qx.test.i.IAll", { extend : [ qx.test.i.IMember, qx.test.i.IProperties ] });
+      qx.Interface.define("qx.test.i.IAll", {
+        extend : [ qx.test.i.IMember, qx.test.i.IProperties ]
+      });
 
       qx.Interface.define("qx.test.i.IOther",
       {
@@ -349,16 +336,12 @@ qx.Class.define("qx.test.Interface",
         extend : Object,
         implement : qx.test.i.IAll,
 
-        members :
-        {
+        members : {
           sayJuhu : function() {}
         },
 
-        statics :
-        {
-          sayHello : function() {
-            return true;
-          }
+        statics : {
+          sayHello : function() {}
         },
 
         properties :
@@ -370,13 +353,13 @@ qx.Class.define("qx.test.Interface",
 
       // all implemented
       var def = qx.lang.Object.clone(classDef);
-      qx.Class.define("qx.test.i.Implement1", def);
+      qx.Bootstrap.define("qx.test.i.Implement1", def);
 
-      this.assertTrue(qx.Class.implementsInterface(qx.test.i.Implement1, qx.test.i.IAll), "implements IAll");
-      this.assertTrue(qx.Class.implementsInterface(qx.test.i.Implement1, qx.test.i.IMember), "implements IMember");
-      this.assertTrue(qx.Class.implementsInterface(qx.test.i.Implement1, qx.test.i.IProperties), "implements IProperties");
+      this.assertTrue(qx.Interface.classImplements(qx.test.i.Implement1, qx.test.i.IAll), "implements IAll");
+      this.assertTrue(qx.Interface.classImplements(qx.test.i.Implement1, qx.test.i.IMember), "implements IMember");
+      this.assertTrue(qx.Interface.classImplements(qx.test.i.Implement1, qx.test.i.IProperties), "implements IProperties");
 
-      this.assertFalse(qx.Class.implementsInterface(qx.test.i.Implement1, qx.test.i.IOther), "not implements IOther");
+      this.assertFalse(qx.Interface.classImplements(qx.test.i.Implement1, qx.test.i.IOther), "not implements IOther");
 
       // no members
       def = qx.lang.Object.clone(classDef);
@@ -385,7 +368,7 @@ qx.Class.define("qx.test.Interface",
       if (this.isDebugOn())
       {
         this.assertException(function() {
-          qx.Class.define("qx.test.i.Implement2", def);
+          qx.Bootstrap.define("qx.test.i.Implement2", def);
         }, Error, "does not implement the member", "No members defined.");
       }
 
@@ -396,34 +379,9 @@ qx.Class.define("qx.test.Interface",
       if (this.isDebugOn())
       {
         this.assertException(function() {
-          qx.Class.define("qx.test.i.Implement4", def);
+          qx.Bootstrap.define("qx.test.i.Implement4", def);
         }, Error, new RegExp("does not implement the property"), "No properties defined.");
       }
-    },
-
-
-    testGeneratedIsMethods: function() {
-      qx.Interface.define("qx.test.i.IIs",
-      {
-        members :
-        {
-          isProp : function() {}
-        }
-      });
-
-      qx.Class.define("qx.test.i.Is", {
-        extend : qx.core.Object,
-        implement : qx.test.i.IIs,
-
-        properties : {
-          prop : {
-            check : "Boolean",
-            init : true
-          }
-        }
-      });
-
-
     }
   }
 });

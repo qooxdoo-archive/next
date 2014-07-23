@@ -42,8 +42,8 @@ qx.Bootstrap = {
   /** @type {Map} allowed keys in non-static class definition */
   __allowedKeys : {
     "extend"     : ["Function"],  // Function
-    "implement"  : ["Array", "String"],    // Interface[]
-    "include"    : ["Array", "String"],    // Mixin[]
+    "implement"  : ["Array", "Object"],    // Interface[]
+    "include"    : ["Array", "Function"],    // Mixin[]
     "construct"  : ["Function"],  // Function
     "statics"    : ["Object"],    // Map
     "properties" : ["Object"],    // Map
@@ -268,8 +268,12 @@ qx.Bootstrap = {
     // Interface support
     if (config.implement) {
       if (qx.Interface) {
-        for (var i=0, l=config.implement.length; i<l; i++) {
-          qx.Interface.add(clazz, config.implement[i]);
+        var implList = config.implement;
+        if (qx.Bootstrap.getClass(implList) !== "Array") {
+          implList = [implList];
+        }
+        for (var i=0, l=implList.length; i<l; i++) {
+          qx.Interface.add(clazz, implList[i]);
         }
       }
       else {
@@ -502,6 +506,40 @@ qx.Bootstrap.define("qx.Bootstrap",
      * @param config {Map} Configuration map
      */
     __validateConfig : qx.Bootstrap.__validateConfig,
+
+
+    /**
+     * Removes a class from qooxdoo defined by {@link #define}
+     *
+     * @param name {String} Name of the class
+     */
+    undefine : function(name)
+    {
+      // first, delete the class from the registry
+      delete this.$$registry[name];
+      // delete the class reference from the namespaces and all empty namespaces
+      var ns = name.split(".");
+
+      var splits = name.split(".");
+      var part = splits[0];
+
+      // build up an array containing all namespace objects including the namespace root
+      var objects = qx.$$namespaceRoot ? [qx.$$namespaceRoot] : [window];
+      for (var i = 0; i < ns.length; i++) {
+        objects.push(objects[i][ns[i]]);
+      }
+
+      // go through all objects and check for the constructor or empty namespaces
+      for (var i = objects.length - 1; i >= 1; i--) {
+        var last = objects[i];
+        var parent = objects[i - 1];
+        if (qx.lang.Type.isFunction(last) || Object.keys(last).length === 0) {
+          delete parent[ns[i - 1]];
+        } else {
+          break;
+        }
+      }
+    },
 
 
     /**

@@ -308,7 +308,7 @@ qx.Bootstrap.define("qx.Interface",
       var extend = iface.$$extends;
       if (extend) {
         for (var i=0, l=extend.length; i<l; i++) {
-          if (!this.has(clazz, extend[i])) {
+          if (!this.classImplements(clazz, extend[i])) {
             return false;
           }
         }
