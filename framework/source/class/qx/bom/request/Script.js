@@ -172,7 +172,7 @@ qx.Bootstrap.define("qx.bom.request.Script",
      *   The URL to which to send the request.
      */
     open: function(method, url) {
-      if (this.__disposed) {
+      if (this._disposed) {
         return;
       }
 
@@ -206,7 +206,7 @@ qx.Bootstrap.define("qx.bom.request.Script",
      * @return {qx.bom.request.Script} Self for chaining.
      */
     setRequestHeader: function(key, value) {
-      if (this.__disposed) {
+      if (this._disposed) {
         return null;
       }
 
@@ -226,7 +226,7 @@ qx.Bootstrap.define("qx.bom.request.Script",
      * @return {qx.bom.request.Script} Self for chaining.
      */
     send: function() {
-      if (this.__disposed) {
+      if (this._disposed) {
         return null;
       }
 
@@ -259,7 +259,7 @@ qx.Bootstrap.define("qx.bom.request.Script",
      * @return {qx.bom.request.Script} Self for chaining.
      */
     abort: function() {
-      if (this.__disposed) {
+      if (this._disposed) {
         return null;
       }
 
@@ -352,7 +352,7 @@ qx.Bootstrap.define("qx.bom.request.Script",
      * is disposed
      */
     getResponseHeader: function(key) {
-      if (this.__disposed) {
+      if (this._disposed) {
         return null;
       }
 
@@ -372,7 +372,7 @@ qx.Bootstrap.define("qx.bom.request.Script",
      * is disposed
      */
     getAllResponseHeaders: function() {
-      if (this.__disposed) {
+      if (this._disposed) {
         return null;
       }
 
@@ -403,7 +403,7 @@ qx.Bootstrap.define("qx.bom.request.Script",
     dispose: function() {
       var script = this.__scriptElement;
 
-      if (!this.__disposed) {
+      if (!this._disposed) {
 
         // Prevent memory leaks
         if (script) {
@@ -415,7 +415,7 @@ qx.Bootstrap.define("qx.bom.request.Script",
           window.clearTimeout(this.__timeoutId);
         }
 
-        this.__disposed = true;
+        this._disposed = true;
       }
     },
 
@@ -425,7 +425,7 @@ qx.Bootstrap.define("qx.bom.request.Script",
      * @return {Boolean} <code>true</code>, if the request has been disposed.
      */
     isDisposed : function() {
-      return !!this.__disposed;
+      return !!this._disposed;
     },
 
 
@@ -587,7 +587,7 @@ qx.Bootstrap.define("qx.bom.request.Script",
     /**
      * @type {Boolean} Whether request was disposed.
      */
-    __disposed: null,
+    _disposed: null,
 
     /*
     ---------------------------------------------------------------------------

@@ -102,7 +102,7 @@ qx.Bootstrap.define("qx.bom.request.Jsonp",
     /**
      * @type {Boolean} Whether request was disposed.
      */
-    __disposed: null,
+    _disposed: null,
 
     /** Prefix used for the internal callback name. */
     __prefix : "",
@@ -118,7 +118,7 @@ qx.Bootstrap.define("qx.bom.request.Jsonp",
      *   The URL to which to send the request.
      */
     open: function(method, url) {
-      if (this.__disposed) {
+      if (this._disposed) {
         return;
       }
 
@@ -186,7 +186,7 @@ qx.Bootstrap.define("qx.bom.request.Jsonp",
      * @param data {Object} JSON
      */
     callback: function(data) {
-      if (this.__disposed) {
+      if (this._disposed) {
         return;
       }
 
