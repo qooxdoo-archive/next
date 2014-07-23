@@ -254,6 +254,55 @@ qx.Class.define("qx.test.Mixin",
       o = new qx.Patch2();
       this.assertEquals("Kinners", o.sayJuhu());
       o.dispose();
-    }
+    },
+
+
+    testMixin : function() {
+      qx.Mixin.define("MFoo", {
+        members: {
+          foo: function() {}
+        }
+      });
+
+      var C = qx.Bootstrap.define(null, {
+        extend: Object,
+        include: [MFoo]
+      });
+
+      var c = new C();
+      c.foo();
+    },
+
+
+    testMixinInterface : function() {
+      qx.Interface.define("IFoo", {
+        members: {
+          foo: function() {},
+          bar: function() {}
+        },
+        properties: {
+          baz: {},
+          qux: {}
+        }
+      });
+
+      qx.Mixin.define("MFoo", {
+        members: {
+          foo: function() {}
+        },
+        properties: {
+          baz: {}
+        }
+      });
+
+      var C = qx.Bootstrap.define(null, {
+        members: {
+          bar: function() {}
+        },
+        properties: {
+          qux: {}
+        }
+      });
+    },
   }
 });

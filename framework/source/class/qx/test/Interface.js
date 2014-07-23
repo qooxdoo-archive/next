@@ -300,6 +300,157 @@ qx.Class.define("qx.test.Interface",
     },
 
 
+    testImplementMembers : function() {
+      qx.Interface.define("IFoo", {
+        members: {
+          foo: function() {},
+          bar: function() {}
+        }
+      });
+
+      this.assertException(function() {
+        qx.Bootstrap.define(null, {
+          implement: [IFoo],
+          members: {
+            bar: function() {}
+          }
+        });
+      });
+
+      qx.Bootstrap.define(null, {
+        implement: [IFoo],
+        members: {
+          bar: function() {},
+          foo: function() {}
+        }
+      });
+    },
+
+
+    testImplementInheritedMembers : function() {
+      qx.Interface.define("IFoo", {
+        members: {
+          foo: function() {},
+          bar: function() {}
+        }
+      });
+
+      var P = qx.Bootstrap.define(null, {
+        members: {
+          foo: function() {}
+        }
+      });
+
+      qx.Bootstrap.define(null, {
+        extend: P,
+        implement: [IFoo],
+        members: {
+          bar: function() {}
+        }
+      });
+    },
+
+
+    testImplementProperties : function() {
+      qx.Interface.define("IFoo", {
+        properties: {
+          bar: {
+            init: 23
+          }
+        }
+      });
+
+      this.assertException(function() {
+        qx.Bootstrap.define(null, {
+          implement: [IFoo],
+          properties: {
+            foo: {}
+          }
+        });
+      });
+
+      qx.Bootstrap.define(null, {
+        implement: [IFoo],
+        properties: {
+          bar: {
+            init: 23
+          }
+        }
+      });
+    },
+
+
+    testImplementInheritedProperties : function() {
+      qx.Interface.define("IFoo", {
+        properties: {
+          foo: {},
+          bar: {}
+        }
+      });
+
+      var P = qx.Bootstrap.define(null, {
+        properties: {
+          foo: {}
+        }
+      });
+
+      qx.Bootstrap.define(null, {
+        extend: P,
+        implement: [IFoo],
+        properties: {
+          bar: {}
+        }
+      });
+    },
+
+
+    testInterfaceInheritance : function() {
+      qx.Interface.define("IFoo", {
+        members: {
+          foo: function() {}
+        },
+        properties: {
+          baz: {}
+        }
+      });
+
+      qx.Interface.define("IBar", {
+        extend: IFoo,
+        members: {
+          bar: function() {}
+        },
+        properties: {
+          qux: {}
+        }
+      });
+
+      this.assertException(function() {
+        var C = qx.Bootstrap.define(null, {
+          implement: [IBar],
+          members: {
+            bar: function() {}
+          },
+          properties: {
+            qux: {}
+          }
+        });
+      });
+
+      var C = qx.Bootstrap.define(null, {
+        implement: [IBar],
+        members: {
+          foo: function() {},
+          bar: function() {}
+        },
+        properties: {
+          baz: {},
+          qux: {}
+        }
+      });
+
+    },
+
+
     testIncludes : function()
     {
       qx.Interface.define("qx.test.i.IMember",

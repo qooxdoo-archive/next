@@ -39,7 +39,7 @@ qx.Class.define("qx.test.Bootstrap",
 
       this.assertTrue(clazz.test());
 
-      var clazz = qx.Bootstrap.define(null, {statics : {
+      clazz = qx.Bootstrap.define(null, {statics : {
         test2 : function() {
           return true;
         }
@@ -59,7 +59,7 @@ qx.Class.define("qx.test.Bootstrap",
       this.assertEquals("qx.test.MyClass", o.classname);
       this.assertEquals("qx.test.MyClass", o.name);
 
-      qx.Class.undefine("qx.test.MyClass");
+      qx.Bootstrap.undefine("qx.test.MyClass");
     },
 
 
@@ -78,9 +78,7 @@ qx.Class.define("qx.test.Bootstrap",
       this.assertEquals(vanillebaerClass, window.vanillebaer.test.ROOT);
 
       qx.Bootstrap.setRoot(undefined);
-
-      delete foobar;
-      qx.Class.undefine("vanillebaer.test.ROOT");
+      qx.Bootstrap.undefine("vanillebaer.test.ROOT");
     },
 
     "test: merge methods of same class (statics optimization)" : function() {
@@ -103,7 +101,7 @@ qx.Class.define("qx.test.Bootstrap",
       this.assertNotUndefined(qx.test.MyClass.methodA);
       this.assertNotUndefined(qx.test.MyClass.methodB);
 
-      qx.Class.undefine("qx.test.MyClass");
+      qx.Bootstrap.undefine("qx.test.MyClass");
     },
 
     "test: merge methods of same class (statics optimization) respect defer" : function() {
@@ -131,7 +129,7 @@ qx.Class.define("qx.test.Bootstrap",
       this.assertNotNull(qx.test.MyClass.methodA);
       this.assertNotUndefined(qx.test.MyClass.methodB);
 
-      qx.Class.undefine("qx.test.MyClass");
+      qx.Bootstrap.undefine("qx.test.MyClass");
     },
 
     "test: define class with contructor" : function()
@@ -150,7 +148,7 @@ qx.Class.define("qx.test.Bootstrap",
       this.assertEquals(c, qx.Bootstrap.getByName("qx.test.Construct"));
       this.assertEquals(qx.test.Construct, qx.Bootstrap.getByName("qx.test.Construct"));
 
-      qx.Class.undefine("qx.test.Construct");
+      qx.Bootstrap.undefine("qx.test.Construct");
     },
 
 
@@ -163,7 +161,7 @@ qx.Class.define("qx.test.Bootstrap",
       var obj = new qx.test.ExtendError();
       this.assertInstance(obj, Error);
 
-      qx.Class.undefine("qx.test.ExtendError");
+      qx.Bootstrap.undefine("qx.test.ExtendError");
     },
 
 
@@ -178,7 +176,7 @@ qx.Class.define("qx.test.Bootstrap",
 
       obj.dispose();
 
-      qx.Class.undefine("qx.test.ExtendQxObject");
+      qx.Bootstrap.undefine("qx.test.ExtendQxObject");
     },
 
 
@@ -199,8 +197,8 @@ qx.Class.define("qx.test.Bootstrap",
       this.assertInstance(obj, qx.test.Super);
       this.assertInstance(obj, qx.test.ExtendSuper);
 
-      qx.Class.undefine("qx.test.Super");
-      qx.Class.undefine("qx.test.ExtendSuper");
+      qx.Bootstrap.undefine("qx.test.Super");
+      qx.Bootstrap.undefine("qx.test.ExtendSuper");
     },
 
 
@@ -229,8 +227,8 @@ qx.Class.define("qx.test.Bootstrap",
       this.assertEquals(11, qx.test.ExtendSuper.prototype.foo);
       this.assertEquals(10, qx.test.Super.prototype.foo);
 
-      qx.Class.undefine("qx.test.Super");
-      qx.Class.undefine("qx.test.ExtendSuper");
+      qx.Bootstrap.undefine("qx.test.Super");
+      qx.Bootstrap.undefine("qx.test.ExtendSuper");
     },
 
     "test: superclass calls aka basecalls (constructor and methods)" : function()
@@ -311,8 +309,8 @@ qx.Class.define("qx.test.Bootstrap",
         }, Error);
       }
 
-      qx.Class.undefine("qx.test.Car");
-      qx.Class.undefine("qx.test.Bmw");
+      qx.Bootstrap.undefine("qx.test.Car");
+      qx.Bootstrap.undefine("qx.test.Bmw");
     },
 
     testFunctionWrap : function()
@@ -346,31 +344,6 @@ qx.Class.define("qx.test.Bootstrap",
     },
 
 
-    testDefineShadowedMembers : function()
-    {
-      qx.Bootstrap.define("qx.test.Construct",
-      {
-        extend: Object,
-        members : {
-          "isPrototypeOf" : 10,
-          "hasOwnProperty" : 11,
-          "toLocaleString" : 12,
-          "toString" : 13,
-          "valueOf" : 14
-        }
-      });
-
-      var obj = new qx.test.Construct();
-      this.assertEquals(10, obj.isPrototypeOf);
-      this.assertEquals(11, obj.hasOwnProperty);
-      this.assertEquals(12, obj.toLocaleString);
-      this.assertEquals(13, obj.toString);
-      this.assertEquals(14, obj.valueOf);
-
-      qx.Class.undefine("qx.test.Construct");
-    },
-
-
     testDefineShadowedStatics : function()
     {
       qx.Bootstrap.define("qx.test.Construct",
@@ -389,7 +362,7 @@ qx.Class.define("qx.test.Bootstrap",
       this.assertEquals(13, qx.test.Construct.toString);
       this.assertEquals(14, qx.test.Construct.valueOf);
 
-      qx.Class.undefine("qx.test.Construct");
+      qx.Bootstrap.undefine("qx.test.Construct");
     },
 
 
@@ -410,7 +383,7 @@ qx.Class.define("qx.test.Bootstrap",
       this.assertEquals(11, c.a);
       this.assertEquals(12, c.b);
       this.assertException(function() {
-        c.c;
+        var a = c.c;
       });
 
       c.a = 0;
@@ -440,7 +413,7 @@ qx.Class.define("qx.test.Bootstrap",
       c.b = 12;
       c.b = undefined;
       this.assertException(function() {
-        c.b;
+        var a = c.b;
       });
     },
 
@@ -699,206 +672,6 @@ qx.Class.define("qx.test.Bootstrap",
 
       var d = new D();
       this.assertEquals(12, d.a);
-    },
-
-
-    testImplementMembers : function() {
-      qx.Interface.define("IFoo", {
-        members: {
-          foo: function() {},
-          bar: function() {}
-        }
-      });
-
-      this.assertException(function() {
-        qx.Bootstrap.define(null, {
-          implement: [IFoo],
-          members: {
-            bar: function() {}
-          }
-        });
-      });
-
-      qx.Bootstrap.define(null, {
-        implement: [IFoo],
-        members: {
-          bar: function() {},
-          foo: function() {}
-        }
-      });
-    },
-
-
-    testImplementInheritedMembers : function() {
-      qx.Interface.define("IFoo", {
-        members: {
-          foo: function() {},
-          bar: function() {}
-        }
-      });
-
-      var P = qx.Bootstrap.define(null, {
-        members: {
-          foo: function() {}
-        }
-      });
-
-      qx.Bootstrap.define(null, {
-        extend: P,
-        implement: [IFoo],
-        members: {
-          bar: function() {}
-        }
-      });
-    },
-
-
-    testImplementProperties : function() {
-      qx.Interface.define("IFoo", {
-        properties: {
-          bar: {
-            init: 23
-          }
-        }
-      });
-
-      this.assertException(function() {
-        qx.Bootstrap.define(null, {
-          implement: [IFoo],
-          properties: {
-            foo: {}
-          }
-        });
-      });
-
-      qx.Bootstrap.define(null, {
-        implement: [IFoo],
-        properties: {
-          bar: {
-            init: 23
-          }
-        }
-      });
-    },
-
-
-    testImplementInheritedProperties : function() {
-      qx.Interface.define("IFoo", {
-        properties: {
-          foo: {},
-          bar: {}
-        }
-      });
-
-      var P = qx.Bootstrap.define(null, {
-        properties: {
-          foo: {}
-        }
-      });
-
-      qx.Bootstrap.define(null, {
-        extend: P,
-        implement: [IFoo],
-        properties: {
-          bar: {}
-        }
-      });
-    },
-
-
-    testInterfaceInheritance : function() {
-      qx.Interface.define("IFoo", {
-        members: {
-          foo: function() {}
-        },
-        properties: {
-          baz: {}
-        }
-      });
-
-      qx.Interface.define("IBar", {
-        extend: IFoo,
-        members: {
-          bar: function() {}
-        },
-        properties: {
-          qux: {}
-        }
-      });
-
-      this.assertException(function() {
-        var C = qx.Bootstrap.define(null, {
-          implement: [IBar],
-          members: {
-            bar: function() {}
-          },
-          properties: {
-            qux: {}
-          }
-        });
-      });
-
-      var C = qx.Bootstrap.define(null, {
-        implement: [IBar],
-        members: {
-          foo: function() {},
-          bar: function() {}
-        },
-        properties: {
-          baz: {},
-          qux: {}
-        }
-      });
-
-    },
-
-
-    testMixin : function() {
-      qx.Mixin.define("MFoo", {
-        members: {
-          foo: function() {}
-        }
-      });
-
-      var C = qx.Bootstrap.define(null, {
-        extend: Object,
-        include: [MFoo]
-      });
-
-      var c = new C();
-      c.foo();
-    },
-
-
-    testMixinInterface : function() {
-      qx.Interface.define("IFoo", {
-        members: {
-          foo: function() {},
-          bar: function() {}
-        },
-        properties: {
-          baz: {},
-          qux: {}
-        }
-      });
-
-      qx.Mixin.define("MFoo", {
-        members: {
-          foo: function() {}
-        },
-        properties: {
-          baz: {}
-        }
-      });
-
-      var C = qx.Bootstrap.define(null, {
-        members: {
-          bar: function() {}
-        },
-        properties: {
-          qux: {}
-        }
-      });
     },
 
 
