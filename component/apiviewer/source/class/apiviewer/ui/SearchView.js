@@ -100,7 +100,7 @@ qx.Class.define("apiviewer.ui.SearchView",
         }.bind(this), 300);
       }, this);
 
-      if (qx.lang.Object.getLength(this.apiindex) == 0) {
+      if (Object.keys(this.apiindex).length === 0) {
         // Index not ready yet, defer search
         this.__searchTerm = term;
       } else {

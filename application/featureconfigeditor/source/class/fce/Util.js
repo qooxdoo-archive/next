@@ -118,7 +118,7 @@ qx.Class.define("fce.Util", {
      */
     mapsEqual : function(a, b)
     {
-      if (qx.lang.Object.getLength(a) !== qx.lang.Object.getLength(b)) {
+      if (Object.keys(a).length !== Object.keys(b).length) {
         return false;
       }
 

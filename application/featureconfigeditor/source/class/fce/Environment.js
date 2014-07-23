@@ -64,7 +64,7 @@ qx.Class.define("fce.Environment", {
       }
 
       checks = qx.core.Environment.getAsyncChecks();
-      var numberOfChecks = qx.lang.Object.getLength(checks);
+      var numberOfChecks = Object.keys(checks).length;
       keys = Object.keys(checks);
 
       for (var i=0,l=keys.length; i<l; i++) {

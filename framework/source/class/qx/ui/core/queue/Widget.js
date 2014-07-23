@@ -72,7 +72,7 @@ qx.Class.define("qx.ui.core.queue.Widget",
       {
         delete this.__jobs[hash][job];
 
-        if(qx.lang.Object.getLength(this.__jobs[hash]) == 0) {
+        if(Object.keys(this.__jobs[hash]).length === 0) {
           qx.lang.Array.remove(queue, widget);
         }
       }

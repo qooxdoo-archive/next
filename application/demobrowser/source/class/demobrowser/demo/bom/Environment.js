@@ -80,7 +80,7 @@ qx.Class.define("demobrowser.demo.bom.Environment",
 
       // this should not be used directly. Its just to show all added checks
       checks = qx.core.Environment.getAsyncChecks();
-      var numberOfChecks = qx.lang.Object.getLength(checks);
+      var numberOfChecks = Object.keys(checks).length;
       keys = Object.keys(checks);
 
       if (numberOfChecks)

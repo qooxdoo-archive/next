@@ -146,7 +146,7 @@ qx.Class.define("inspector.objects.Model",
     {
       var objectRegistry = this.__model.getObjectRegistry();
       if (objectRegistry != null) {
-        return qx.lang.Object.getLength(objectRegistry.getRegistry());
+        return Object.keys(objectRegistry.getRegistry()).length;
       } else {
         return 0;
       }
