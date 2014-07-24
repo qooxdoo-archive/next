@@ -723,6 +723,23 @@ qx.Class.define("qx.test.Bootstrap",
 
     },
 
+    testPropertyOverrideMethod : function() {
+      var A = qx.Bootstrap.define(null, {
+        members: {
+          foo: function() {}
+        }
+      });
+
+      this.assertException(function() {
+        var B = qx.Bootstrap.define(null, {
+          extend: A,
+          properties: {
+            foo: {}
+          }
+        });
+      });
+    },
+
 
     testPropertyInheritance : function() {
       var apply = this.spy();

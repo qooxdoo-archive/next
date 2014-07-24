@@ -394,6 +394,10 @@ qx.Bootstrap.define("qx.Bootstrap",
       proto.$$properties = propertyMap;
 
       for (var name in properties) {
+        if (typeof proto[name] == "function") {
+          throw new Error("Cannot add property '" + name + "' to class '" + proto.classname + "': A method with the same name already exists.");
+        }
+
         var def = properties[name];
         if (!propertyMap[name]) {
           propertyMap[name] = def;
