@@ -378,12 +378,35 @@ qx.Bootstrap.define("qx.Bootstrap",
     },
 
     addProperties : function(proto, properties) {
+      var propertyMap = {};
       if (!proto.$$properties) {
         proto.$$properties = {};
+      } else {
+        // copy parent class property definitions
+        for (var propName in proto.$$properties) {
+          propertyMap[propName] = {};
+          for (var propKey in proto.$$properties[propName]) {
+            propertyMap[propName][propKey] = proto.$$properties[propName][propKey];
+          }
+        }
       }
+
+      proto.$$properties = propertyMap;
+
       for (var name in properties) {
         var def = properties[name];
-        proto.$$properties[name] = def;
+        if (!propertyMap[name]) {
+          propertyMap[name] = def;
+        } else {
+          for (var key in def) {
+            if (propertyMap[name][key] === undefined || key == "init") {
+              propertyMap[name][key] = def[key];
+            } else {
+              throw new Error("Illegal definition for property '" + name + "' in class '" + proto.classname + "': Only the 'init' key may be overridden.");
+            }
+          }
+          def = propertyMap[name];
+        }
 
         Object.defineProperty(proto, name, {
 
@@ -612,7 +635,7 @@ qx.Bootstrap.define("qx.Bootstrap",
 
 
     /**
-     * Inherit a clazz from a super class.
+     * Inherit a class from a super class.
      *
      * This function differentiates between class and constructor because the
      * constructor written by the user might be wrapped and the <code>base</code>

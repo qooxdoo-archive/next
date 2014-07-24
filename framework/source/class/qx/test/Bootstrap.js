@@ -653,15 +653,18 @@ qx.Class.define("qx.test.Bootstrap",
 
 
     testPropertyRefine : function() {
-      var C = qx.Bootstrap.define(null, {
+      var C = qx.Bootstrap.define("C", {
         properties : {
           a: {
-            init: 11
+            init: 11,
+            check: "Number",
+            event: false,
+            apply: function() {}
           }
         }
       });
 
-      var D = qx.Bootstrap.define(null, {
+      var D = qx.Bootstrap.define("D", {
         extend : C,
         properties : {
           a: {
@@ -670,8 +673,73 @@ qx.Class.define("qx.test.Bootstrap",
         }
       });
 
+      var c = new C();
+      this.assertEquals(11, c.a);
       var d = new D();
       this.assertEquals(12, d.a);
+
+      this.assertException(function() {
+        qx.Bootstrap.define(null, {
+          extend: C,
+          properties: {
+            a: {
+              check: "String"
+            }
+          }
+        });
+      });
+
+      this.assertException(function() {
+        qx.Bootstrap.define(null, {
+          extend: C,
+          properties: {
+            a: {
+              event: true
+            }
+          }
+        });
+      });
+
+      this.assertException(function() {
+        qx.Bootstrap.define(null, {
+          extend: C,
+          properties: {
+            a: {
+              apply: function() {}
+            }
+          }
+        });
+      });
+
+    },
+
+
+    testPropertyInheritance : function() {
+      var apply = this.spy();
+      var C = qx.Bootstrap.define(null, {
+        properties : {
+          a: {
+            nullable: true,
+            check: "String",
+            apply: apply
+          }
+        }
+      });
+      var D = qx.Bootstrap.define(null, {
+        extend : C,
+        properties : {
+          a: {
+            init: "foo"
+          }
+        }
+      });
+
+      var d = new D();
+      d.a = null;
+      this.assertCalledOnce(apply);
+      this.assertException(function() {
+        d.a = 23;
+      });
     },
 
 
