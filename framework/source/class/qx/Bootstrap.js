@@ -424,6 +424,11 @@ qx.Bootstrap.define("qx.Bootstrap",
 
           set : (function(name, def) {
             return function(value) {
+              // don't do anything if value is the same
+              if (value === this["$$" + name]) {
+                return;
+              }
+
               // nullable
               if (!def.nullable && value === null) {
                 if (!def.init || value !== undefined) {
