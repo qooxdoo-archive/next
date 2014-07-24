@@ -57,7 +57,7 @@ qx.Class.define("qx.test.Bootstrap",
 
       var o = new qx.test.MyClass();
       this.assertEquals("qx.test.MyClass", o.classname);
-      this.assertEquals("qx.test.MyClass", o.name);
+      this.assertEquals("qx.test.MyClass", o.$$name);
 
       qx.Bootstrap.undefine("qx.test.MyClass");
     },
@@ -264,7 +264,7 @@ qx.Class.define("qx.test.Bootstrap",
       {
         extend : qx.test.Car,
 
-        construct : function(name, prize) {
+        construct : function affe(name, prize) {
           this.base(arguments, name);
         },
 
@@ -735,6 +735,7 @@ qx.Class.define("qx.test.Bootstrap",
           }
         }
       });
+
       var D = qx.Bootstrap.define(null, {
         extend : C,
         properties : {
