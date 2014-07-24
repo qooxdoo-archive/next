@@ -408,6 +408,10 @@ qx.Bootstrap.define("qx.Bootstrap",
           def = propertyMap[name];
         }
 
+        if (propertyMap[name].init !== undefined) {
+          proto["$$" + name] = propertyMap[name].init;
+        }
+
         Object.defineProperty(proto, name, {
 
           get : (function(name, def) {
