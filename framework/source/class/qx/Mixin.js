@@ -81,10 +81,9 @@ qx.Bootstrap.define("qx.Mixin",
      *
      * @return {qx.Mixin} The configured mixin
      */
-    define : function(name, config)
-    {
-      if (config)
-      {
+    define : function(name, config) {
+      var mixin;
+      if (config) {
         // Normalize include
         if (config.include && !(qx.Bootstrap.getClass(config.include) === "Array")) {
           config.include = [config.include];
@@ -96,12 +95,11 @@ qx.Bootstrap.define("qx.Mixin",
         }
 
         // Create Interface from statics
-        var mixin = config.statics ? config.statics : {};
+        mixin = config.statics ? config.statics : {};
         qx.Bootstrap.setDisplayNames(mixin, name);
 
         // Attach configuration
-        if (config.construct)
-        {
+        if (config.construct) {
           mixin.$$constructor = config.construct;
           qx.Bootstrap.setDisplayName(config.construct, name, "constructor");
         }
@@ -114,8 +112,7 @@ qx.Bootstrap.define("qx.Mixin",
           mixin.$$properties = config.properties;
         }
 
-        if (config.members)
-        {
+        if (config.members) {
           mixin.$$members = config.members;
           qx.Bootstrap.setDisplayNames(config.members, name + ".prototype");
         }
@@ -129,10 +126,8 @@ qx.Bootstrap.define("qx.Mixin",
           mixin.$$destructor = config.destruct;
           qx.Bootstrap.setDisplayName(config.destruct, name, "destruct");
         }
-      }
-      else
-      {
-        var mixin = {};
+      } else {
+        mixin = {};
       }
 
       // Add basics
@@ -145,9 +140,6 @@ qx.Bootstrap.define("qx.Mixin",
       // Assign to namespace
       mixin.basename = qx.Bootstrap.createNamespace(name, mixin);
 
-      // Store class reference in global mixin registry
-      this.$$registry[name] = mixin;
-
       // Return final mixin
       return mixin;
     },
@@ -158,12 +150,9 @@ qx.Bootstrap.define("qx.Mixin",
      *
      * @param clazz {Class} The class onto which the mixin should be attached.
      * @param mixin {Mixin} Include all features of this mixin
-     * @param patch {Boolean} Overwrite existing fields, functions and properties
      */
-    add : function(clazz, mixin, patch)
-    {
-      if (qx.core.Environment.get("qx.debug"))
-      {
+    add : function(clazz, mixin) {
+      if (qx.core.Environment.get("qx.debug")) {
         if (!clazz || !mixin) {
           throw new Error("Incomplete parameters!");
         }
@@ -173,17 +162,11 @@ qx.Bootstrap.define("qx.Mixin",
         return;
       }
 
-      var isConstructorWrapped = clazz.$$original;
-      if (mixin.$$constructor && !isConstructorWrapped) {
-        clazz = this.__retrospectWrapConstruct(clazz);
-      }
-
       // Attach content
       var list = qx.Mixin.flatten([mixin]);
       var entry;
 
-      for (var i=0, l=list.length; i<l; i++)
-      {
+      for (var i=0, l=list.length; i<l; i++) {
         entry = list[i];
 
         // Attach events
@@ -191,47 +174,25 @@ qx.Bootstrap.define("qx.Mixin",
           this.__addEvents(clazz, entry.$$events, patch); //TODO?
         }
 
-        // Attach properties (Properties are already readonly themselves, no patch handling needed)
+        // Attach properties
         if (entry.$$properties) {
-          qx.Bootstrap.addProperties(clazz.prototype, entry.$$properties, patch);
+          qx.Bootstrap.addProperties(clazz.prototype, entry.$$properties);
         }
 
-        // Attach members (Respect patch setting, but don't apply base variables)
+        // Attach members
         if (entry.$$members) {
-          qx.Bootstrap.addMembers(clazz.prototype, entry.$$members, patch);
+          qx.Bootstrap.addMembers(clazz.prototype, entry.$$members);
         }
       }
 
       // Store mixin reference
-      if (clazz.$$includes)
-      {
+      if (clazz.$$includes) {
         clazz.$$includes.push(mixin);
         clazz.$$flatIncludes.push.apply(clazz.$$flatIncludes, list);
-      }
-      else
-      {
+      } else {
         clazz.$$includes = [mixin];
         clazz.$$flatIncludes = list;
       }
-    },
-
-
-    /**
-     * Include all features of the given mixin into the class. The mixin must
-     * not include any methods or properties that are already available in the
-     * class. This would only be possible using the {@link #patch} method.
-     *
-     * <b>WARNING</b>: Using <code>patch</code> may break working classes and features.
-     *
-     * @param clazz {Class} An existing class which should be augmented by including a mixin.
-     * @param mixin {Mixin} The mixin to be included.
-     * @param patch {Boolean?false} <code>true</code>, if you want to allow overriding
-     */
-    include : function(clazz, mixin, patch) {
-      if (qx.core.Environment.get("qx.debug")) {
-        qx.Mixin.isCompatible(mixin, clazz);
-      }
-      qx.Mixin.add(clazz, mixin, !!patch);
     },
 
 
@@ -245,18 +206,14 @@ qx.Bootstrap.define("qx.Mixin",
      * @return {Class | null} The class which directly includes the given mixin
      * @internal
      */
-    getClassByMixin : function(clazz, mixin)
-    {
+    getClassByMixin : function(clazz, mixin) {
       var list, i, l;
 
-      while (clazz)
-      {
-        if (clazz.$$includes)
-        {
+      while (clazz) {
+        if (clazz.$$includes) {
           list = clazz.$$flatIncludes;
 
-          for (i=0, l=list.length; i<l; i++)
-          {
+          for (i=0, l=list.length; i<l; i++) {
             if (list[i] === mixin) {
               return clazz;
             }
@@ -278,8 +235,7 @@ qx.Bootstrap.define("qx.Mixin",
      * @return {Boolean} <code>true</code> if the mixin passed the compatibilty check
      * @internal
      */
-    checkCompatibility : function(mixins)
-    {
+    checkCompatibility : function(mixins) {
       var list = this.flatten(mixins);
       var len = list.length;
 
@@ -305,95 +261,22 @@ qx.Bootstrap.define("qx.Mixin",
           events[key] = mixin.name;
         }
 
-        for (var key in mixin.properties)
-        {
-          if(properties[key]) {
+        for (var key in mixin.properties) {
+          if (properties[key]) {
             throw new Error('Conflict between mixin "' + mixin.name + '" and "' + properties[key] + '" in property "' + key + '"!');
           }
-
           properties[key] = mixin.name;
         }
 
-        for (var key in mixin.members)
-        {
+        for (var key in mixin.members) {
           if(members[key]) {
             throw new Error('Conflict between mixin "' + mixin.name + '" and "' + members[key] + '" in member "' + key + '"!');
           }
-
           members[key] = mixin.name;
         }
       }
 
       return true;
-    },
-
-
-    /**
-     * Wrap the constructor of an already existing clazz. This function will
-     * replace all references to the existing constructor with the new wrapped
-     * constructor.
-     *
-     * @param clazz {Class} The class to wrap
-     * @return {Class} The wrapped class
-     */
-    __retrospectWrapConstruct : function(clazz)
-    {
-      var name = clazz.classname;
-      var wrapper = qx.Class.wrapConstructor(clazz, name, clazz.$$classtype);
-
-      // copy all keys from the wrapped constructor to the wrapper
-      for (var i=0, a=Object.keys(clazz), l=a.length; i<l; i++)
-      {
-        key = a[i];
-        wrapper[key] = clazz[key];
-      }
-
-      // fix prototype
-      wrapper.prototype = clazz.prototype;
-
-      // fix self references in members
-      var members = clazz.prototype;
-      for (var i=0, a=Object.keys(members), l=a.length; i<l; i++)
-      {
-        key = a[i];
-        var method = members[key];
-
-        // check if method is available because null values can be stored as
-        // init values on classes e.g. [BUG #3709]
-        if (method && method.self == clazz) {
-          method.self = wrapper;
-        }
-      }
-
-      // fix base and superclass references in all defined classes
-      for(var key in this.$$registry)
-      {
-        var construct = this.$$registry[key];
-        if (!construct) {
-          continue;
-        }
-
-        if (construct.base == clazz) {
-          construct.base = wrapper;
-        }
-        if (construct.superclass == clazz) {
-          construct.superclass = wrapper;
-        }
-
-        if (construct.$$original)
-        {
-          if (construct.$$original.base == clazz) {
-            construct.$$original.base = wrapper;
-          }
-          if (construct.$$original.superclass == clazz) {
-            construct.$$original.superclass = wrapper;
-          }
-        }
-      }
-      qx.Bootstrap.createNamespace(name, wrapper);
-      this.$$registry[name] = wrapper;
-
-      return wrapper;
     },
 
 
@@ -406,22 +289,10 @@ qx.Bootstrap.define("qx.Mixin",
      * @return {Boolean} true if the mixin is compatible to the given class
      * @internal
      */
-    isCompatible : function(mixin, clazz)
-    {
+    isCompatible : function(mixin, clazz) {
       var list = qx.util.OOUtil.getMixins(clazz);
       list.push(mixin);
       return qx.Mixin.checkCompatibility(list);
-    },
-
-
-    /**
-     * Returns a mixin by name
-     *
-     * @param name {String} class name to resolve
-     * @return {Class} the class
-     */
-    getByName : function(name) {
-      return this.$$registry[name];
     },
 
 
@@ -433,8 +304,7 @@ qx.Bootstrap.define("qx.Mixin",
      * @return {Array} List of all mixins
      * @internal
      */
-    flatten : function(mixins)
-    {
+    flatten : function(mixins) {
       if (!mixins) {
         return [];
       }
@@ -442,8 +312,7 @@ qx.Bootstrap.define("qx.Mixin",
       // we need to create a copy and not to modify the existing array
       var list = mixins.concat();
 
-      for (var i=0, l=mixins.length; i<l; i++)
-      {
+      for (var i=0, l=mixins.length; i<l; i++) {
         if (mixins[i].$$includes) {
           list.push.apply(list, this.flatten(mixins[i].$$includes));
         }
@@ -463,10 +332,6 @@ qx.Bootstrap.define("qx.Mixin",
     genericToString : function() {
       return "[Mixin " + this.name + "]";
     },
-
-
-    /** Registers all defined mixins */
-    $$registry : {},
 
 
     /** @type {Map} allowed keys in mixin definition */
@@ -494,14 +359,12 @@ qx.Bootstrap.define("qx.Mixin",
      * @param name {String} The name of the class
      * @param config {Map} Configuration map
      */
-    __validateConfig : qx.core.Environment.select("qx.debug",
-    {
+    __validateConfig : qx.core.Environment.select("qx.debug", {
       "true": function(name, config)
       {
         // Validate keys
         var allowed = this.__allowedKeys;
-        for (var key in config)
-        {
+        for (var key in config) {
           if (!allowed[key]) {
             throw new Error('The configuration key "' + key + '" in mixin "' + name + '" is not allowed!');
           }
@@ -534,10 +397,8 @@ qx.Bootstrap.define("qx.Mixin",
         }
 
         // Validate includes
-        if (config.include)
-        {
-          for (var i=0, a=config.include, l=a.length; i<l; i++)
-          {
+        if (config.include) {
+          for (var i=0, a=config.include, l=a.length; i<l; i++) {
             if (a[i] == null) {
               throw new Error("Includes of mixins must be mixins. The include number '" + (i+1) + "' in mixin '" + name + "'is undefined/null!");
             }

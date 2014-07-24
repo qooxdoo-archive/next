@@ -196,7 +196,7 @@ qx.Bootstrap = {
       proto.$$name = proto.classname = name;
 
       if (config.members) {
-        qx.Bootstrap.addMembers(proto, config.members, false);
+        qx.Bootstrap.addMembers(proto, config.members);
       }
 
       // property handling
@@ -350,7 +350,7 @@ qx.Bootstrap.define("qx.Bootstrap",
     })(),
 
 
-    addMembers : function(proto, members, patch) {
+    addMembers : function(proto, members) {
       var key, member;
 
       // use keys to include the shadowed in IE
@@ -361,7 +361,7 @@ qx.Bootstrap.define("qx.Bootstrap",
           throw new Error('Overwriting private member "' + key + '" of Class "' + proto.classname + '" is not allowed!');
         }
 
-        if (patch !== true && proto.hasOwnProperty(key)) {
+        if (proto.hasOwnProperty(key)) {
           throw new Error('Overwriting member "' + key + '" of Class "' + proto.classname + '" is not allowed!');
         }
 
