@@ -177,7 +177,7 @@ qx.Bootstrap = {
 
       clazz = config.construct ||
         (config.extend ? qx.Bootstrap.__createDefaultConstructor() : function() {});
-      clazz.name = clazz.classname = name;
+      clazz.$$name = clazz.classname = name;
 
       if (config.extend) {
         this.extendClass(clazz, clazz, config.extend, name, basename);
@@ -193,7 +193,7 @@ qx.Bootstrap = {
       proto = clazz.prototype;
       // Enable basecalls within constructor
       proto.base = qx.Bootstrap.base;
-      proto.name = proto.classname = name;
+      proto.$$name = proto.classname = name;
 
       if (config.members) {
         qx.Bootstrap.addMembers(proto, config.members, false);
@@ -221,7 +221,7 @@ qx.Bootstrap = {
     else
     {
       clazz = config.statics || {};
-      clazz.name = clazz.classname = name;
+      clazz.$$name = clazz.classname = name;
 
       // Merge class into former class (needed for 'optimize: ["statics"]')
       var formerClass = qx.Bootstrap.getByName(name);
@@ -670,7 +670,7 @@ qx.Bootstrap.define("qx.Bootstrap",
       clazz.prototype = proto;
 
       // Store names in prototype
-      proto.name = proto.classname = name;
+      proto.$$name = proto.classname = name;
       proto.basename = basename;
 
       /*
