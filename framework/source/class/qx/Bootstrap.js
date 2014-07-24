@@ -475,6 +475,8 @@ qx.Bootstrap.define("qx.Bootstrap",
                 value = def.init;
               }
 
+              this["$$" + name] = value;
+
               // apply
               if (def.apply) {
                 var applyMethod = def.apply instanceof Function ? def.apply : this[def.apply];
@@ -493,7 +495,6 @@ qx.Bootstrap.define("qx.Bootstrap",
                 }
               }
 
-              this["$$" + name] = value;
             };
           }(name, def))
         });
