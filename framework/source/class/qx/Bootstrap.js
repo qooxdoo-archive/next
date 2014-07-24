@@ -445,9 +445,11 @@ qx.Bootstrap.define("qx.Bootstrap",
                     ok = this[def.check].call(this, value);
                   } else {
                     var type = qx.Bootstrap.getClass(value);
-                    if (!(def.nullable && type == "Null")) {
-                      if (type !== def.check) {
-                        throw new Error("Error in property '" + name + "' of class '" + this.classname + "': Value must be '" + def.check + "' but is '" + type + "'!");
+                    if (!(def.nullable && type == "Null")) { // allow null for nullable properties
+                      if (!(def.init !== undefined && type == "Undefined")) { // allow undefined as reset value
+                        if (type !== def.check) {
+                          throw new Error("Error in property '" + name + "' of class '" + this.classname + "': Value must be '" + def.check + "' but is '" + type + "'!");
+                        }
                       }
                     }
                   }

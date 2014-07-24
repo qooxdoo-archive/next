@@ -399,6 +399,10 @@ qx.Class.define("qx.test.Bootstrap",
           },
           b : {
             nullable : false
+          },
+          c: {
+            check : "String",
+            init: ""
           }
         }
       });
@@ -415,6 +419,12 @@ qx.Class.define("qx.test.Bootstrap",
       this.assertException(function() {
         var a = c.b;
       });
+
+      this.assertEquals("", c.c);
+      c.c = "13";
+      this.assertEquals("13", c.c);
+      c.c = undefined;
+      this.assertEquals("", c.c);
     },
 
 
