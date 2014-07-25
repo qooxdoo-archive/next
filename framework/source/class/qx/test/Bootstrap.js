@@ -461,7 +461,10 @@ qx.Class.define("qx.test.Bootstrap",
 
 
     testPropertyApply : function() {
-      var applyA = this.spy();
+      var self = this;
+      var applyA = this.spy(function(value, old) {
+        self.assertEquals(value, this.a);
+      });
       var applyB = this.spy();
       var C = qx.Bootstrap.define(null, {
         properties : {
