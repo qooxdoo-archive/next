@@ -32,7 +32,7 @@
  * This example create a widget to display the label.
  *
  */
-qx.Class.define("qx.ui.mobile.basic.Label",
+qx.Bootstrap.define("qx.ui.mobile.basic.Label",
 {
   extend : qx.ui.mobile.core.Widget,
 
@@ -50,9 +50,9 @@ qx.Class.define("qx.ui.mobile.basic.Label",
   {
     this.base(arguments);
     if (value) {
-      this.setValue(value);
+      this.value = value;
     }
-    this.initWrap();
+    this.wrap = true;
 
     if (qx.core.Environment.get("qx.dynlocale")) {
       qx.locale.Manager.getInstance().addListener("changeLocale", this._onChangeLocale, this);
@@ -72,7 +72,6 @@ qx.Class.define("qx.ui.mobile.basic.Label",
     // overridden
     defaultCssClass :
     {
-      refine : true,
       init : "label"
     },
 
@@ -93,7 +92,6 @@ qx.Class.define("qx.ui.mobile.basic.Label",
     // overridden
     anonymous :
     {
-      refine : true,
       init : true
     },
 
@@ -147,27 +145,21 @@ qx.Class.define("qx.ui.mobile.basic.Label",
     {
       "true" : function(e)
       {
-        var content = this.getValue();
+        var content = this.value;
         if (content && content.translate) {
-          this.setValue(content.translate());
+          this.value = content.translate();
         }
       },
 
       "false" : null
-    })
-  },
+    }),
 
 
-  /*
-  *****************************************************************************
-     DESTRUCTOR
-  *****************************************************************************
-  */
-
-  destruct : function()
-  {
-    if (qx.core.Environment.get("qx.dynlocale")) {
-      qx.locale.Manager.getInstance().removeListener("changeLocale", this._onChangeLocale, this);
+    dispose : function() {
+      if (qx.core.Environment.get("qx.dynlocale")) {
+        qx.locale.Manager.getInstance().removeListener("changeLocale", this._onChangeLocale, this);
+      }
+      this.base(arguments);
     }
   }
 });

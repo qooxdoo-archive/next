@@ -83,7 +83,7 @@ qx.Class.define("qx.application.Mobile",
       this.__root = this._createRootWidget();
 
       if (qx.core.Environment.get("qx.mobile.nativescroll") == false) {
-        this.__root.setShowScrollbarY(false);
+        this.__root.showScrollbarY = false;
       }
     },
 

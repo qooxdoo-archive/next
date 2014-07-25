@@ -20,7 +20,7 @@
 /**
  * A navigation bar back button widget.
  */
-qx.Class.define("qx.ui.mobile.navigationbar.BackButton",
+qx.Bootstrap.define("qx.ui.mobile.navigationbar.BackButton",
 {
   extend : qx.ui.mobile.navigationbar.Button,
 
@@ -36,7 +36,6 @@ qx.Class.define("qx.ui.mobile.navigationbar.BackButton",
     // overridden
     defaultCssClass :
     {
-      refine : true,
       init : "navigationbar-backbutton"
     }
   }

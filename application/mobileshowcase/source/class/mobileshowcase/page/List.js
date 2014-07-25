@@ -29,7 +29,7 @@ qx.Class.define("mobileshowcase.page.List",
   construct : function()
   {
     this.base(arguments);
-    this.setTitle("List");
+    this.title = "List";
   },
 
 
@@ -115,7 +115,7 @@ qx.Class.define("mobileshowcase.page.List",
 
     /**
     * Handler for <code>waypoint</code> event on scrollContainer.
-    * @param evt {qx.event.type.Data} the waypoint event. 
+    * @param evt {qx.event.type.Data} the waypoint event.
     */
     _onWaypoint : function(evt) {
       var targetElement = this._waypointsLabel.getContentElement();
@@ -142,7 +142,7 @@ qx.Class.define("mobileshowcase.page.List",
       });
 
       qx.bom.element.Attribute.set(targetElement, "data-waypoint-label", this._waypointsY[index]+ " ["+direction+"]");
-    
+
       // 100% waypoint
       if (index == 4) {
         this._loadMoreModelItems();
@@ -169,7 +169,7 @@ qx.Class.define("mobileshowcase.page.List",
 
 
     /**
-    * Adds more items to the list. 
+    * Adds more items to the list.
     * Simulates infinite scrolling.
     */
     _loadMoreModelItems: function() {
@@ -181,7 +181,7 @@ qx.Class.define("mobileshowcase.page.List",
 
       this._loadingIndicator.show();
       this._isLoading = true;
-      
+
       setTimeout(function() {
         for (var i = 0; i < 20; i++) {
           this._model.push({

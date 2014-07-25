@@ -31,13 +31,13 @@
  *      var sel = new qx.ui.mobile.form.SelectBox();
  *      page1.add(sel);
  *      var model = new qx.data.Array(["item1","item2"]);
- *      sel.setModel(model);
+ *      sel.model = model;
  *      model.push("item3");
  *
  *      var but = new qx.ui.mobile.form.Button("setSelection");
  *      page1.add(but);
  *      but.addListener("tap", function(){
- *        sel.setSelection("item3");
+ *        sel.selection = "item3";
  *      }, this);
  *
  *      sel.addListener("changeSelection", function(evt) {
@@ -53,7 +53,7 @@
  *   page1.show();
  *  </pre>
  */
-qx.Class.define("qx.ui.mobile.form.SelectBox",
+qx.Bootstrap.define("qx.ui.mobile.form.SelectBox",
 {
   extend : qx.ui.mobile.core.Widget,
   include : [
@@ -80,7 +80,7 @@ qx.Class.define("qx.ui.mobile.form.SelectBox",
     // This text node is for compatibility reasons, because Firefox can not
     // change appearance of SelectBoxes.
     this._setAttribute("type","text");
-    this.setReadOnly(true);
+    this.readOnly = true;
 
     this.addListener("focus", this.blur);
     this.addListener("tap", this._onTap, this);
@@ -121,7 +121,6 @@ qx.Class.define("qx.ui.mobile.form.SelectBox",
     // overridden
     defaultCssClass :
     {
-      refine : true,
       init : "selectbox"
     },
 
@@ -193,11 +192,11 @@ qx.Class.define("qx.ui.mobile.form.SelectBox",
       var menu = new qx.ui.mobile.dialog.Menu();
 
       // Special appearance for SelectBox menu items.
-      menu.setSelectedItemClass("selectbox-selected");
-      menu.setUnselectedItemClass("selectbox-unselected");
+      menu.selectedItemClass = "selectbox-selected";
+      menu.unselectedItemClass = "selectbox-unselected";
 
       // Hide selectionDialog on tap on blocker.
-      menu.setHideOnBlockerTap(true);
+      menu.hideOnBlockerTap = true;
 
       return menu;
     },
@@ -217,7 +216,7 @@ qx.Class.define("qx.ui.mobile.form.SelectBox",
      * @param title {String} the title to set on selection dialog.
      */
     setDialogTitle : function(title) {
-      this.__selectionDialog.setTitle(title);
+      this.__selectionDialog.title = title;
     },
 
 
@@ -226,7 +225,7 @@ qx.Class.define("qx.ui.mobile.form.SelectBox",
      * @param value {String} the value to set on the ClearButton at selection dialog.
      */
     setClearButtonLabel : function(value) {
-      this.__selectionDialog.setClearButtonLabel(value);
+      this.__selectionDialog.clearButtonLabel = value;
     },
 
 
@@ -235,20 +234,20 @@ qx.Class.define("qx.ui.mobile.form.SelectBox",
      * @param value {String} the text value which should be selected.
      */
     _setValue : function(value) {
-      if(this.getModel() == null) {
+      if(this.model == null) {
         return;
       }
 
       if (value == "") {
-        if (this.isNullable()) {
-          this.setSelection(null);
+        if (this.nullable) {
+          this.selection = null;
         } else {
-          this.setSelection(0);
+          this.selection = 0;
         }
       } else if (value != null) {
-        this.setSelection(this.getModel().indexOf(value));
+        this.selection = this.model.indexOf(value);
       } else {
-        this.setSelection(null);
+        this.selection = null;
       }
     },
 
@@ -268,8 +267,8 @@ qx.Class.define("qx.ui.mobile.form.SelectBox",
      * values of the SelectBox in a different way than the default.
      */
     _render : function() {
-      if(this.getModel() != null && this.getModel().length > 0) {
-        var selectedItem = this.getModel().getItem(this.getSelection());
+      if(this.model != null && this.model.length > 0) {
+        var selectedItem = this.model.getItem(this.selection);
         this._setAttribute("value", selectedItem);
       }
 
@@ -296,10 +295,10 @@ qx.Class.define("qx.ui.mobile.form.SelectBox",
      * Refreshs selection dialogs model, and shows it.
      */
     __showSelectionDialog : function () {
-      if(this.isEnabled() == true) {
+      if(this.enabled === true) {
         // Set index before items, because setItems() triggers rendering.
-        this.__selectionDialog.setSelectedIndex(this.getSelection());
-        this.__selectionDialog.setItems(this.getModel());
+        this.__selectionDialog.setSelectedIndex(this.selection);
+        this.__selectionDialog.setItems(this.model);
         this.__selectionDialog.show();
       }
     },
@@ -310,7 +309,7 @@ qx.Class.define("qx.ui.mobile.form.SelectBox",
      * @param evt {qx.event.type.Data} data event.
      */
     _onChangeSelection : function (evt) {
-      this.setSelection(evt.getData().index);
+      this.selection = evt.getData().index;
       this._render();
     },
 
@@ -340,19 +339,19 @@ qx.Class.define("qx.ui.mobile.form.SelectBox",
         );
       }
 
-      if(this.getModel() === null) {
+      if(this.model === null) {
         throw new qx.core.ValidationError(
           "Validation Error: Please apply model before selection"
         );
       }
 
-      if(!this.isNullable() && value === null ) {
+      if(!this.nullable && value === null ) {
         throw new qx.core.ValidationError(
           "Validation Error: SelectBox is not nullable"
         );
       }
 
-      if(value != null && (value < 0 || value >= this.getModel().getLength())) {
+      if(value != null && (value < 0 || value >= this.model.getLength())) {
         throw new qx.core.ValidationError(
           "Validation Error: Input value is out of model range"
         );
@@ -362,7 +361,7 @@ qx.Class.define("qx.ui.mobile.form.SelectBox",
 
     // property apply
     _applySelection : function(value, old) {
-      var selectedItem = this.getModel().getItem(value);
+      var selectedItem = this.model.getItem(value);
       this.fireDataEvent("changeSelection", {index: value, item: selectedItem});
 
       this._render();
@@ -372,18 +371,18 @@ qx.Class.define("qx.ui.mobile.form.SelectBox",
     // property apply
     _applyNullable : function(value, old) {
       // Delegate nullable property.
-      this.__selectionDialog.setNullable(value);
+      this.__selectionDialog.nullable = value;
+    },
+
+
+    dispose : function() {
+      this.__selectionDialog.removeListener("changeSelection", this._onChangeSelection, this);
+
+      this._disposeObjects("__selectionDialog","__selectionDialogTitle");
+
+      this.removeListener("focus", this.blur);
+      this.removeListener("tap", this._onTap, this);
+      this.base(arguments);
     }
-  },
-
-
-  destruct : function()
-  {
-    this.__selectionDialog.removeListener("changeSelection", this._onChangeSelection, this);
-
-    this._disposeObjects("__selectionDialog","__selectionDialogTitle");
-
-    this.removeListener("focus", this.blur);
-    this.removeListener("tap", this._onTap, this);
   }
 });

@@ -17,9 +17,9 @@ qx.Class.define("${Namespace}.page.Overview",
   construct : function()
   {
     this.base(arguments);
-    this.setTitle("Overview");
-    this.setShowBackButton(true);
-    this.setBackButtonText("Back");
+    this.title = "Overview";
+    this.showBackButton = true;
+    this.backButtonText = "Back";
   },
 
 

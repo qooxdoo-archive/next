@@ -22,7 +22,7 @@
  * Uses the {@link qx.ui.mobile.list.renderer.Default} list item renderer as a
  * default renderer when no other renderer is given by the {@link qx.ui.mobile.list.List#delegate}.
  */
-qx.Class.define("qx.ui.mobile.list.provider.Provider",
+qx.Bootstrap.define("qx.ui.mobile.list.provider.Provider",
 {
   extend : qx.core.Object,
 
@@ -138,7 +138,7 @@ qx.Class.define("qx.ui.mobile.list.provider.Provider",
      */
     _configureItem : function(data, row)
     {
-      var delegate = this.getDelegate();
+      var delegate = this.delegate;
 
       if (delegate != null && delegate.configureItem != null) {
         delegate.configureItem(this.__itemRenderer, data, row);
@@ -153,7 +153,7 @@ qx.Class.define("qx.ui.mobile.list.provider.Provider",
     */
     _configureGroupItem : function(data, group)
     {
-      var configureGroupItem = qx.util.Delegate.getMethod(this.getDelegate(), "configureGroupItem");
+      var configureGroupItem = qx.util.Delegate.getMethod(this.delegate, "configureGroupItem");
       if (configureGroupItem) {
         configureGroupItem(this.__groupRenderer, data, group);
       }
@@ -168,7 +168,7 @@ qx.Class.define("qx.ui.mobile.list.provider.Provider",
     */
     _createGroupRenderer : function()
     {
-      var createGroupRenderer = qx.util.Delegate.getMethod(this.getDelegate(), "createGroupRenderer");
+      var createGroupRenderer = qx.util.Delegate.getMethod(this.delegate, "createGroupRenderer");
       var groupRenderer = null;
       if (createGroupRenderer == null) {
         groupRenderer = new qx.ui.mobile.list.renderer.group.Default();
@@ -189,7 +189,7 @@ qx.Class.define("qx.ui.mobile.list.provider.Provider",
      */
     _createItemRenderer : function()
     {
-      var createItemRenderer = qx.util.Delegate.getMethod(this.getDelegate(), "createItemRenderer");
+      var createItemRenderer = qx.util.Delegate.getMethod(this.delegate, "createItemRenderer");
       var itemRenderer = null;
       if (createItemRenderer == null)
       {
@@ -207,12 +207,12 @@ qx.Class.define("qx.ui.mobile.list.provider.Provider",
     {
       this._setItemRenderer(this._createItemRenderer());
       this._setGroupRenderer(this._createGroupRenderer());
+    },
+
+
+    dispose : function() {
+      this._disposeObjects("__itemRenderer","__groupRenderer");
+      this.base(arguments);
     }
-  },
-
-
-  destruct : function()
-  {
-    this._disposeObjects("__itemRenderer","__groupRenderer");
   }
 });

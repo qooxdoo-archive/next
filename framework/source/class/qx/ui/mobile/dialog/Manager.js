@@ -42,10 +42,10 @@
  *
  * This example displays a confirm dialog and defines a button click handler.
  */
-qx.Class.define("qx.ui.mobile.dialog.Manager",
+qx.Bootstrap.define("qx.ui.mobile.dialog.Manager",
 {
   extend : qx.core.Object,
-  type : "singleton",
+  //type : "singleton", TODO: MSingleton
 
 
   /*
@@ -284,8 +284,8 @@ qx.Class.define("qx.ui.mobile.dialog.Manager",
       var widget = new qx.ui.mobile.container.Composite(new qx.ui.mobile.layout.VBox().set({alignY: "middle"}));
       var dialog = new qx.ui.mobile.dialog.Popup(widget);
 
-      dialog.setModal(true);
-      dialog.setTitle(title);
+      dialog.modal = true;
+      dialog.title = title;
 
       if(dialogType == qx.ui.mobile.dialog.Manager.WAITING_DIALOG)
       {
@@ -321,7 +321,7 @@ qx.Class.define("qx.ui.mobile.dialog.Manager",
             {
               dialog.hide();
               if(handler) {
-                handler.call(scope, index, inputText ? inputText.getValue() : null);
+                handler.call(scope, index, inputText ? inputText.value : null);
               }
               dialog.destroy();
             };
@@ -330,7 +330,7 @@ qx.Class.define("qx.ui.mobile.dialog.Manager",
         }
         widget.add(buttonContainer);
       }
-      dialog.setModal(true);
+      dialog.modal = true;
       dialog.show();
       if(inputText) {
         inputText.getContainerElement().focus();

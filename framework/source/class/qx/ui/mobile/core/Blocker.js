@@ -21,11 +21,11 @@
  * This class blocks events and can be included into all widgets.
  *
  */
-qx.Class.define("qx.ui.mobile.core.Blocker",
+qx.Bootstrap.define("qx.ui.mobile.core.Blocker",
 {
 
   extend : qx.ui.mobile.core.Widget,
-  type : "singleton",
+  //type : "singleton", TODO: MSingleton
 
 
   statics:
@@ -51,7 +51,6 @@ qx.Class.define("qx.ui.mobile.core.Blocker",
     // overridden
     defaultCssClass :
     {
-      refine : true,
       init : "blocker"
     }
   },
@@ -169,13 +168,13 @@ qx.Class.define("qx.ui.mobile.core.Blocker",
       qx.event.Registration.removeListener(window, "scroll", this._onScroll, this);
       this.removeListener("pointerdown", qx.bom.Event.preventDefault, this);
       this.removeListener("pointerup", qx.bom.Event.preventDefault, this);
+    },
+
+
+    dispose : function() {
+      qx.ui.mobile.core.Blocker.ROOT.remove(this);
+      this.__unregisterEventListener();
+      this.base(arguments);
     }
-  },
-
-
-  destruct : function()
-  {
-    qx.ui.mobile.core.Blocker.ROOT.remove(this);
-    this.__unregisterEventListener();
   }
 });

@@ -20,7 +20,7 @@
 /**
  * The PasswordField is a single-line password input field.
  */
-qx.Class.define("qx.ui.mobile.form.PasswordField",
+qx.Bootstrap.define("qx.ui.mobile.form.PasswordField",
 {
   extend : qx.ui.mobile.form.TextField,
 
@@ -36,7 +36,6 @@ qx.Class.define("qx.ui.mobile.form.PasswordField",
     // overridden
     defaultCssClass :
     {
-      refine : true,
       init : "password-field"
     }
   },

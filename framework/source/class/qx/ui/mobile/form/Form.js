@@ -35,7 +35,7 @@
  *
  * This example creates a form and adds a row with a text field in it.
  */
-qx.Class.define("qx.ui.mobile.form.Form",
+qx.Bootstrap.define("qx.ui.mobile.form.Form",
 {
   extend : qx.ui.form.Form,
 
@@ -104,7 +104,7 @@ qx.Class.define("qx.ui.mobile.form.Form",
         for(var j=0; j < group.items.length; j++)
         {
           var item = group.items[j];
-          if(!item.isValid())
+          if(item.valid === false)
           {
             this.__invalidItems.push(item);
 
@@ -114,7 +114,7 @@ qx.Class.define("qx.ui.mobile.form.Form",
             }
             else
             {
-              alert('error '+item.getInvalidMessage());
+              alert('error '+item.invalidMessage);
             }
           }
         }

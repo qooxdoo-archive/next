@@ -36,7 +36,7 @@ qx.Class.define("mobileshowcase.page.Theming",
   construct : function()
   {
     this.base(arguments, false);
-    this.setTitle("Theming");
+    this.title = "Theming";
 
     this.__preloadThemes();
   },

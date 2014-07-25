@@ -23,7 +23,7 @@
  * It displays a label above or next to each form element.
  *
  */
-qx.Class.define("qx.ui.mobile.form.renderer.Single",
+qx.Bootstrap.define("qx.ui.mobile.form.renderer.Single",
 {
 
   extend : qx.ui.mobile.form.renderer.AbstractRenderer,
@@ -132,7 +132,7 @@ qx.Class.define("qx.ui.mobile.form.renderer.Single",
           }
         }
 
-        if (!item.isValid()) {
+        if (!item.valid) {
           this.showErrorForItem(item);
         }
 
@@ -209,7 +209,7 @@ qx.Class.define("qx.ui.mobile.form.renderer.Single",
 
       if(name !== null) {
         var label = new qx.ui.mobile.form.Label(name);
-        label.setLabelFor(item.getId());
+        label.setLabelFor(item.id);
         row.add(label, {flex:1});
         this._labels.push(label);
       }
@@ -282,7 +282,7 @@ qx.Class.define("qx.ui.mobile.form.renderer.Single",
     // override
     showErrorForItem : function(item) {
       var errorNode = qx.dom.Element.create('div');
-      errorNode.innerHTML = item.getInvalidMessage();
+      errorNode.innerHTML = item.invalidMessage;
       qx.bom.element.Class.add(errorNode, 'form-element-error');
       qx.dom.Element.insertAfter(errorNode, this._getParentRow(item).getContainerElement());
       this.__errorMessageContainers.push(errorNode);
@@ -329,20 +329,14 @@ qx.Class.define("qx.ui.mobile.form.renderer.Single",
       for (var i = 0; i < this.__errorMessageContainers.length; i++) {
         qx.dom.Element.remove(this.__errorMessageContainers[i]);
       }
+    },
+
+
+    dispose : function() {
+      this.resetForm();
+      this._disposeArray("_labels");
+      this._disposeArray("_rows");
+      this.base(arguments);
     }
-  },
-
-
- /*
-  *****************************************************************************
-     DESTRUCTOR
-  *****************************************************************************
-  */
-
-  destruct : function()
-  {
-    this.resetForm();
-    this._disposeArray("_labels");
-    this._disposeArray("_rows");
   }
 });

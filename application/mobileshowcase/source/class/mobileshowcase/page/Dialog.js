@@ -30,7 +30,7 @@ qx.Class.define("mobileshowcase.page.Dialog",
   construct : function()
   {
     this.base(arguments,false);
-    this.setTitle("Dialog Widgets");
+    this.title = "Dialog Widgets";
   },
 
 

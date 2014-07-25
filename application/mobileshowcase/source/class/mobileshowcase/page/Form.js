@@ -28,7 +28,7 @@ qx.Class.define("mobileshowcase.page.Form",
   construct : function()
   {
     this.base(arguments);
-    this.setTitle("Form");
+    this.title = "Form";
   },
 
 

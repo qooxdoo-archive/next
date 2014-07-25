@@ -40,7 +40,7 @@
  *
  *
  */
-qx.Class.define("qx.ui.mobile.page.Manager",
+qx.Bootstrap.define("qx.ui.mobile.page.Manager",
 {
   extend : qx.core.Object,
 
@@ -99,11 +99,11 @@ qx.Class.define("qx.ui.mobile.page.Manager",
       this.__masterContainer.addListener("resize", this._onLayoutChange, this);
 
       // On Tablet Mode, no Animation should be shown by default.
-      this.__masterNavigation.getLayout().setShowAnimation(false);
-      this.__detailNavigation.getLayout().setShowAnimation(false);
+      this.__masterNavigation.getLayout().showAnimation = false;
+      this.__detailNavigation.getLayout().showAnimation = false;
 
       this.__masterContainer.forceHide();
-      
+
       setTimeout(function() {
         if (qx.bom.Viewport.isLandscape()) {
           this.__masterContainer.show();
@@ -213,7 +213,7 @@ qx.Class.define("qx.ui.mobile.page.Manager",
     _createMasterContainer : function() {
       var masterContainer = new qx.ui.mobile.container.Drawer(null, new qx.ui.mobile.layout.HBox());
       masterContainer.addCssClass("master-detail-master");
-      masterContainer.setHideOnParentTap(false);
+      masterContainer.hideOnParentTap = false;
       masterContainer.addListener("changeVisibility", this._onMasterChangeVisibility, this);
       return masterContainer;
     },
@@ -226,7 +226,7 @@ qx.Class.define("qx.ui.mobile.page.Manager",
      */
     _createDetailContainer : function() {
       var detailContainer = new qx.ui.mobile.container.Composite(new qx.ui.mobile.layout.VBox());
-      detailContainer.setDefaultCssClass("master-detail-detail");
+      detailContainer.defaultCssClass = "master-detail-detail";
       return detailContainer;
     },
 
@@ -281,7 +281,7 @@ qx.Class.define("qx.ui.mobile.page.Manager",
      * @return {qx.ui.mobile.navigationbar.Button}
      */
     _createMasterButton : function() {
-      return new qx.ui.mobile.navigationbar.Button(this.getMasterTitle());
+      return new qx.ui.mobile.navigationbar.Button(this.masterTitle);
     },
 
 
@@ -373,7 +373,7 @@ qx.Class.define("qx.ui.mobile.page.Manager",
      * @param evt {qx.event.type.Event} source event.
      */
     _onDetailPageStart : function(evt) {
-      if(qx.bom.Viewport.isPortrait() && this.isHideMasterOnDetailStart()) {
+      if(qx.bom.Viewport.isPortrait() && this.hideMasterOnDetailStart) {
         this.__masterContainer.hide();
       }
     },
@@ -385,8 +385,8 @@ qx.Class.define("qx.ui.mobile.page.Manager",
      */
     _onMasterPageStart : function(evt) {
       var masterPage = evt.getTarget();
-      var masterPageTitle = masterPage.getTitle();
-      this.setMasterTitle(masterPageTitle);
+      var masterPageTitle = masterPage.title;
+      this.masterTitle = masterPageTitle;
     },
 
 
@@ -408,8 +408,8 @@ qx.Class.define("qx.ui.mobile.page.Manager",
           this.assertInstance(page, qx.ui.mobile.page.NavigationPage);
         }
 
-        if(this.__isTablet && !page.getShowBackButtonOnTablet()) {
-          page.setShowBackButton(false);
+        if(this.__isTablet && !page.showBackButtonOnTablet) {
+          page.showBackButton = false;
         }
 
         page.setIsTablet(this.__isTablet);
@@ -465,7 +465,7 @@ qx.Class.define("qx.ui.mobile.page.Manager",
       var isMasterVisible = ("visible" === evt.getData());
 
       if (qx.bom.Viewport.isLandscape()) {
-        if (this.isAllowMasterHideOnLandscape()) {
+        if (this.allowMasterHideOnLandscape) {
           if (isMasterVisible) {
             this._createDetailContainerGap();
             this.__masterButton.exclude();
@@ -492,7 +492,7 @@ qx.Class.define("qx.ui.mobile.page.Manager",
     _onLayoutChange : function() {
       if (this.__isTablet) {
         if (qx.bom.Viewport.isLandscape()) {
-          this.__masterContainer.setHideOnParentTap(false);
+          this.__masterContainer.hideOnParentTap = false;
           if (this.__masterContainer.isHidden()) {
             this.__masterContainer.show();
           } else {
@@ -501,7 +501,7 @@ qx.Class.define("qx.ui.mobile.page.Manager",
           }
         } else {
           this._removeDetailContainerGap();
-          this.__masterContainer.setHideOnParentTap(true);
+          this.__masterContainer.hideOnParentTap = true;
           this.__masterContainer.hide();
         }
       }
@@ -513,7 +513,7 @@ qx.Class.define("qx.ui.mobile.page.Manager",
     * @return {String} the CSS property key.
     */
     _getGapPropertyKey : function() {
-      return "padding"+ qx.lang.String.capitalize(this.__masterContainer.getOrientation());
+      return "padding"+ qx.lang.String.capitalize(this.__masterContainer.orientation);
     },
 
 
@@ -543,7 +543,7 @@ qx.Class.define("qx.ui.mobile.page.Manager",
     */
     _applyHideMasterButtonCaption : function(value, old) {
       if(this.__isTablet) {
-        this.__hideMasterButton.setLabel(value);
+        this.__hideMasterButton.label = value;
       }
     },
 
@@ -555,43 +555,40 @@ qx.Class.define("qx.ui.mobile.page.Manager",
     */
     _applyMasterTitle : function(value, old) {
       if(this.__isTablet) {
-        this.__masterButton.setLabel(value);
+        this.__masterButton.label = value;
       }
-    }
-  },
+    },
 
 
-  /*
-  *****************************************************************************
-     DESTRUCTOR
-  *****************************************************************************
-  */
+    dispose : function()
+    {
+      if(this.__masterPages) {
+        for(var i = 0; i < this.__masterPages.length; i++) {
+          var masterPage = this.__masterPages[i];
 
-  destruct : function()
-  {
-    if(this.__masterPages) {
-      for(var i = 0; i < this.__masterPages.length; i++) {
-        var masterPage = this.__masterPages[i];
-
-        masterPage.removeListener("start", this._onMasterPageStart, this);
+          masterPage.removeListener("start", this._onMasterPageStart, this);
+        }
       }
-    }
-    if(this.___detailPages) {
-      for(var j = 0; j < this.___detailPages.length; j++) {
-        var detailPage = this.___detailPages[j];
+      if(this.__detailPages) {
+        for(var j = 0; j < this.__detailPages.length; j++) {
+          var detailPage = this.__detailPages[j];
 
-        detailPage.removeListener("start", this._onDetailPageStart, this);
+          detailPage.removeListener("start", this._onDetailPageStart, this);
+        }
       }
+
+      if(this.__isTablet) {
+        this.__masterContainer.removeListener("changeVisibility", this._onMasterChangeVisibility, this);
+        this.__masterContainer.removeListener("resize", this._onLayoutChange, this);
+        qx.event.Registration.removeListener(window, "orientationchange", this._onLayoutChange, this);
+      }
+
+      this.__masterPages = this.__detailPages =  null;
+
+      this._disposeObjects("__detailNavigation", "__masterNavigation", "__masterButton");
+
+      this.base(arguments);
     }
 
-    if(this.__isTablet) {
-      this.__masterContainer.removeListener("changeVisibility", this._onMasterChangeVisibility, this);
-      this.__masterContainer.removeListener("resize", this._onLayoutChange, this);
-      qx.event.Registration.removeListener(window, "orientationchange", this._onLayoutChange, this);
-    }
-
-    this.__masterPages = this.__detailPages =  null;
-
-    this._disposeObjects("__detailNavigation", "__masterNavigation", "__masterButton");
   }
 });

@@ -20,7 +20,7 @@
 /**
  * A navigation bar title widget.
  */
-qx.Class.define("qx.ui.mobile.navigationbar.Title",
+qx.Bootstrap.define("qx.ui.mobile.navigationbar.Title",
 {
   extend : qx.ui.mobile.basic.Label,
 
@@ -28,7 +28,6 @@ qx.Class.define("qx.ui.mobile.navigationbar.Title",
   {
     wrap :
     {
-      refine : true,
       init : false
     },
 
@@ -36,7 +35,6 @@ qx.Class.define("qx.ui.mobile.navigationbar.Title",
     // overridden
     defaultCssClass :
     {
-      refine : true,
       init : "title"
     }
   },

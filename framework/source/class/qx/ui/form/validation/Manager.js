@@ -276,19 +276,33 @@ qx.Class.define("qx.ui.form.validation.Manager",
      * @return {var} Validation result
      */
     __validateRequired : function(formItem) {
-      if (formItem.getRequired()) {
+      var required;
+      if (typeof formItem.getRequired == "function") {
+        required = formItem.getRequired();
+      } else {
+        required = formItem.required;
+      }
+      if (required) {
         // if its a widget supporting the selection
         if (this.__supportsSingleSelection(formItem)) {
           var validatorResult = !!formItem.getSelection()[0];
         // otherwise, a value should be supplied
         } else {
-          var value = formItem.getValue();
+          var value = formItem.getValue ? formItem.getValue() : formItem.value;
           var validatorResult = !!value || value === 0;
         }
-        formItem.setValid(validatorResult);
-        var individualMessage = formItem.getRequiredInvalidMessage();
+        if (formItem.setValid) {
+          formItem.setValid(validatorResult);
+        } else {
+          formItem.valid = validatorResult;
+        }
+        var individualMessage = formItem.getRequiredInvalidMessage ? formItem.getRequiredInvalidMessage() : formItem.requiredInvalidMessage;
         var message = individualMessage ? individualMessage : this.getRequiredFieldMessage();
-        formItem.setInvalidMessage(message);
+        if (formItem.setInvalidMessage) {
+          formItem.setInvalidMessage(message);
+        } else {
+          formItem.invalidMessage = message.toLocaleString();
+        }
         return validatorResult;
       }
       return true;

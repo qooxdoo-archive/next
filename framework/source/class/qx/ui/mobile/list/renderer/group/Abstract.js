@@ -20,16 +20,16 @@
 /**
  * Base class for all group item renderer.
  */
-qx.Class.define("qx.ui.mobile.list.renderer.group.Abstract",
+qx.Bootstrap.define("qx.ui.mobile.list.renderer.group.Abstract",
 {
   extend : qx.ui.mobile.container.Composite,
-  type : "abstract",
+  //type : "abstract", TODO: MAbstract
 
 
   construct : function(layout)
   {
     this.base(arguments, layout);
-    this.initSelectable();
+    this.selectable = undefined;
   },
 
 
@@ -38,7 +38,6 @@ qx.Class.define("qx.ui.mobile.list.renderer.group.Abstract",
     // overridden
     defaultCssClass :
     {
-      refine : true,
       init : "group-item"
     },
 

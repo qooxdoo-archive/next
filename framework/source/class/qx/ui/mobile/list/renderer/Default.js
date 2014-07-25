@@ -43,16 +43,18 @@
  * This example creates a list with a delegate that configures the list item with
  * the given data.
  */
-qx.Class.define("qx.ui.mobile.list.renderer.Default",
+qx.Bootstrap.define("qx.ui.mobile.list.renderer.Default",
 {
   extend : qx.ui.mobile.list.renderer.Abstract,
 
 
   construct : function(layout)
   {
-    this.base(arguments, layout || new qx.ui.mobile.layout.HBox().set({
-        alignY : "middle"
-      }));
+    if (!layout) {
+      layout = new qx.ui.mobile.layout.HBox();
+    }
+    layout.alignY = "middle";
+    this.base(arguments, layout);
     this._init();
   },
 
@@ -103,7 +105,7 @@ qx.Class.define("qx.ui.mobile.list.renderer.Default",
      */
     setImage : function(source)
     {
-      this.__image.setSource(source);
+      this.__image.source = source;
     },
 
 
@@ -115,10 +117,10 @@ qx.Class.define("qx.ui.mobile.list.renderer.Default",
     setTitle : function(title)
     {
       if (title && title.translate) {
-        this.__title.setValue(title.translate());
+        this.__title.value = title.translate();
       }
       else {
-        this.__title.setValue(title);
+        this.__title.value = title;
       }
     },
 
@@ -131,10 +133,10 @@ qx.Class.define("qx.ui.mobile.list.renderer.Default",
     setSubtitle : function(subtitle)
     {
       if (subtitle && subtitle.translate) {
-        this.__subtitle.setValue(subtitle.translate());
+        this.__subtitle.value = subtitle.translate();
       }
       else {
-        this.__subtitle.setValue(subtitle);
+        this.__subtitle.value = subtitle;
       }
     },
 
@@ -176,7 +178,7 @@ qx.Class.define("qx.ui.mobile.list.renderer.Default",
      */
     _createImage : function() {
       var image = new qx.ui.mobile.basic.Image();
-      image.setAnonymous(true);
+      image.anonymous = true;
       image.addCssClass("list-item-image");
       return image;
     },
@@ -189,7 +191,7 @@ qx.Class.define("qx.ui.mobile.list.renderer.Default",
      */
     _createTitle : function() {
       var title = new qx.ui.mobile.basic.Label();
-      title.setWrap(false);
+      title.wrap = false;
       title.addCssClass("list-item-title");
       return title;
     },
@@ -202,7 +204,7 @@ qx.Class.define("qx.ui.mobile.list.renderer.Default",
      */
     _createSubtitle : function() {
       var subtitle = new qx.ui.mobile.basic.Label();
-      subtitle.setWrap(false);
+      subtitle.wrap = false;
       subtitle.addCssClass("list-item-subtitle");
       return subtitle;
     },
@@ -211,15 +213,15 @@ qx.Class.define("qx.ui.mobile.list.renderer.Default",
     // overridden
     reset : function()
     {
-      this.__image.setSource(null);
-      this.__title.setValue("");
-      this.__subtitle.setValue("");
+      this.__image.source = null;
+      this.__title.value = "";
+      this.__subtitle.value = "";
+    },
+
+
+    dispose : function() {
+      this._disposeObjects("__image", "__title", "__subtitle", "__rightContainer");
+      this.base(arguments);
     }
-  },
-
-
-  destruct : function()
-  {
-    this._disposeObjects("__image", "__title", "__subtitle", "__rightContainer");
   }
 });

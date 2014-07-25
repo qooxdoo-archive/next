@@ -37,7 +37,7 @@
  *
  * </pre>
  */
-qx.Class.define("qx.ui.mobile.container.MasterDetail",
+qx.Bootstrap.define("qx.ui.mobile.container.MasterDetail",
 {
   extend : qx.ui.mobile.container.Composite,
 
@@ -53,7 +53,6 @@ qx.Class.define("qx.ui.mobile.container.MasterDetail",
   properties : {
     // overridden
     defaultCssClass : {
-      refine : true,
       init : "master-detail"
     }
   },
@@ -141,7 +140,7 @@ qx.Class.define("qx.ui.mobile.container.MasterDetail",
     _createMasterContainer : function() {
       var masterContainer = new qx.ui.mobile.container.Drawer(this, new qx.ui.mobile.layout.HBox());
       masterContainer.addCssClass("master-detail-master");
-      masterContainer.setHideOnParentTap(false);
+      masterContainer.hideOnParentTap = false;
       return masterContainer;
     },
 
@@ -153,16 +152,17 @@ qx.Class.define("qx.ui.mobile.container.MasterDetail",
      */
     _createDetailContainer : function() {
       var detailContainer = new qx.ui.mobile.container.Composite(new qx.ui.mobile.layout.VBox());
-      detailContainer.setDefaultCssClass("master-detail-detail");
+      detailContainer.defaultCssClass = "master-detail-detail";
       return detailContainer;
 
+    },
+
+
+    dispose : function() {
+      qx.event.Registration.removeListener(window, "orientationchange", this._onOrientationChange, this);
+      this._disposeObjects("__master", "__detail");
+      this.__master = this.__detail = null;
+      this.base(arguments);
     }
-  },
-
-
-  destruct : function() {
-    qx.event.Registration.removeListener(window, "orientationchange", this._onOrientationChange, this);
-    this._disposeObjects("__master", "__detail");
-    this.__master = this.__detail = null;
   }
 });

@@ -39,7 +39,7 @@
  * This example creates a toggle button and attaches an
  * event listener to the {@link #changeValue} event.
  */
-qx.Class.define("qx.ui.mobile.form.ToggleButton",
+qx.Bootstrap.define("qx.ui.mobile.form.ToggleButton",
 {
   extend : qx.ui.mobile.core.Widget,
   include : [
@@ -75,7 +75,7 @@ qx.Class.define("qx.ui.mobile.form.ToggleButton",
     this._add(this.__switch);
 
     if (value) {
-      this.setValue(value);
+      this.value = value;
     }
 
     this.addListener("tap", this._onTap, this);
@@ -90,7 +90,6 @@ qx.Class.define("qx.ui.mobile.form.ToggleButton",
     // overridden
     defaultCssClass :
     {
-      refine : true,
       init : "togglebutton"
     }
   },
@@ -158,7 +157,7 @@ qx.Class.define("qx.ui.mobile.form.ToggleButton",
      * Toggles the value of the button.
      */
     toggle : function() {
-        this.setValue(!this.getValue());
+        this.value = !this.value;
     },
 
 
@@ -208,15 +207,15 @@ qx.Class.define("qx.ui.mobile.form.ToggleButton",
       var elapsedTime = new Date().getTime() - this.__lastToggleTimestamp;
       this.__lastToggleTimestamp = new Date().getTime();
       return elapsedTime>500;
+    },
+
+    dispose : function()
+    {
+      this.removeListener("tap", this._onTap, this);
+      this.removeListener("swipe", this._onSwipe, this);
+
+      this._disposeObjects("__switch","__labelUnchecked","__labelChecked");
+      this.base(arguments);
     }
-  },
-
-
-  destruct : function()
-  {
-    this.removeListener("tap", this._onTap, this);
-    this.removeListener("swipe", this._onSwipe, this);
-
-    this._disposeObjects("__switch","__labelUnchecked","__labelChecked");
   }
 });

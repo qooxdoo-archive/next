@@ -28,7 +28,7 @@ qx.Class.define("mobileshowcase.page.Event",
   construct : function()
   {
     this.base(arguments, false);
-    this.setTitle("Events");
+    this.title = "Events";
 
     this.__circles = [];
 

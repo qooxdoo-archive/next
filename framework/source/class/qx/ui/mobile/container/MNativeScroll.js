@@ -240,7 +240,7 @@ qx.Mixin.define("qx.ui.mobile.container.MNativeScroll",
       if(!this.getContentElement()) {
         return 0;
       }
-      
+
       return this.getContentElement().scrollHeight - this.getContentElement().offsetHeight;
     },
 
@@ -253,7 +253,7 @@ qx.Mixin.define("qx.ui.mobile.container.MNativeScroll",
       if(!this.getContentElement()) {
         return 0;
       }
-      
+
       return this.getContentElement().scrollWidth - this.getContentElement().offsetWidth;
     },
 
@@ -304,17 +304,18 @@ qx.Mixin.define("qx.ui.mobile.container.MNativeScroll",
           element.scrollTop = y;
         }, this);
       }
+    },
+
+
+    dispose : function() {
+      qx.bom.Event.removeNativeListener(this._getContentElement(), "scroll", this._onScroll.bind(this));
+
+      this.removeListener("touchmove", this._onTouchMove, this);
+
+      this.removeListener("appear", this._onAppear, this);
+      this.removeListener("trackstart", this._onTrackStart, this);
+      this.removeListener("trackend", this._onTrackEnd, this);
+      this.base(arguments);
     }
-  },
-
-
-  destruct : function() {
-    qx.bom.Event.removeNativeListener(this._getContentElement(), "scroll", this._onScroll.bind(this));
-
-    this.removeListener("touchmove", this._onTouchMove, this);
-
-    this.removeListener("appear", this._onAppear, this);
-    this.removeListener("trackstart", this._onTrackStart, this);
-    this.removeListener("trackend", this._onTrackEnd, this);
   }
 });

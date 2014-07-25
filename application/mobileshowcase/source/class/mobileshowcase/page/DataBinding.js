@@ -27,7 +27,7 @@ qx.Class.define("mobileshowcase.page.DataBinding",
   construct : function()
   {
     this.base(arguments);
-    this.setTitle("Data Binding");
+    this.title = "Data Binding";
 
     this.__timer = new qx.event.Timer(50);
     this.__timer.addListener("interval", this.__onInterval, this);

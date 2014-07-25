@@ -29,8 +29,8 @@ qx.Class.define("mobileshowcase.page.AnimationLanding",
   construct : function()
   {
     this.base(arguments, true);
-    this.setTitle("Page Transitions");
-    this.setShowBackButtonOnTablet(true);
+    this.title = "Page Transitions";
+    this.showBackButtonOnTablet = true;
   },
 
   properties :

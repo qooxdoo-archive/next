@@ -44,7 +44,7 @@
  * This example horizontally groups a label and text field by using a
  * Composite configured with a horizontal box layout as a container.
  */
-qx.Class.define("qx.ui.mobile.container.ScrollComposite",
+qx.Bootstrap.define("qx.ui.mobile.container.ScrollComposite",
 {
   extend : qx.ui.mobile.container.Composite,
 
@@ -76,7 +76,7 @@ qx.Class.define("qx.ui.mobile.container.ScrollComposite",
 
     this._updateScrollIndicator(this.__lastOffset[1]);
 
-    this.initHeight();
+    this.height = undefined;
   },
 
 
@@ -90,7 +90,6 @@ qx.Class.define("qx.ui.mobile.container.ScrollComposite",
     // overridden
     defaultCssClass :
     {
-      refine : true,
       init : "scroll-container"
     },
 
@@ -171,7 +170,7 @@ qx.Class.define("qx.ui.mobile.container.ScrollComposite",
      */
     _createScrollContainer : function() {
       var scrollContainer = new qx.ui.mobile.container.Composite();
-      scrollContainer.setTransformUnit("px");
+      scrollContainer.transformUnit = "px";
       scrollContainer.addCssClass("scroll-container-child");
       return scrollContainer;
     },
@@ -183,7 +182,7 @@ qx.Class.define("qx.ui.mobile.container.ScrollComposite",
     */
     _onTrackStart : function(evt){
       this.__onTouch = true;
-      this.__isVerticalScroll = (this.getScrollableX() && this.getScrollableY()) ? null : this.getScrollableY();
+      this.__isVerticalScroll = (this.scrollableX && this.scrollableY) ? null : this.scrollableY;
       this._applyNoEasing();
     },
 
@@ -200,22 +199,22 @@ qx.Class.define("qx.ui.mobile.container.ScrollComposite",
       this.__distanceX = evt.getDelta().x;
       this.__distanceY = evt.getDelta().y;
 
-      if (this.isScrollableX()) {
-        if (Math.abs(this.__distanceY) < 3 || !this.isScrollableY() || !this.__isVerticalScroll) {
+      if (this.isScrollableX) {
+        if (Math.abs(this.__distanceY) < 3 || !this.isScrollableY || !this.__isVerticalScroll) {
           this.__distanceY = 0;
         }
 
         this.__currentOffset[0] = Math.floor(this.__lastOffset[0] + this.__distanceX);
-        this._scrollContainer.setTranslateX(this.__currentOffset[0]);
+        this._scrollContainer.translateX = this.__currentOffset[0];
       }
 
-      if (this.isScrollableY()) {
-        if (Math.abs(this.__distanceX) < 3 || !this.isScrollableX() || this.__isVerticalScroll) {
+      if (this.isScrollableY) {
+        if (Math.abs(this.__distanceX) < 3 || !this.isScrollableX || this.__isVerticalScroll) {
           this.__distanceX = 0;
         }
 
         this.__currentOffset[1] = Math.floor(this.__lastOffset[1] + this.__distanceY);
-        this._scrollContainer.setTranslateY(this.__currentOffset[1]);
+        this._scrollContainer.translateY = this.__currentOffset[1];
 
         this._updateScrollIndicator(this.__currentOffset[1]);
       }
@@ -230,7 +229,7 @@ qx.Class.define("qx.ui.mobile.container.ScrollComposite",
       var targetElement =  this._scrollContainer.getContainerElement();
       var needsScrolling = targetElement.scrollHeight > targetElement.offsetHeight;
 
-      if(this.isScrollableY() && this.isShowScrollIndicator() && needsScrolling) {
+      if(this.isScrollableY && this.showScrollIndicator && needsScrolling) {
         var lowerLimit = targetElement.scrollHeight - targetElement.offsetHeight - 4;
 
         // Upper Limit Y
@@ -262,12 +261,12 @@ qx.Class.define("qx.ui.mobile.container.ScrollComposite",
         return;
       }
 
-      if (this.isScrollableY() && this.__isVerticalScroll) {
+      if (this.isScrollableY && this.__isVerticalScroll) {
         var scrollLimit = this._calcScrollLimit();
 
         this.__onTouch = false;
         this._scrollStep(this.__currentOffset[1], evt.getVelocity(), 1, scrollLimit);
-      } else if (this.isScrollableX() && !this.__isVerticalScroll) {
+      } else if (this.isScrollableX && !this.__isVerticalScroll) {
         this.scrollTo(this.__currentOffset[0], this.__currentOffset[1]);
       }
     },
@@ -284,7 +283,7 @@ qx.Class.define("qx.ui.mobile.container.ScrollComposite",
     _scrollStep: function(startPosition, velocity, momentum, scrollLimit) {
       var nextPosition = startPosition + velocity * 10;
 
-      this._scrollContainer.setTranslateY(nextPosition);
+      this._scrollContainer.translateY = nextPosition;
       this.__lastOffset[1] = nextPosition;
       this._updateScrollIndicator(this.__lastOffset[1]);
 
@@ -318,7 +317,7 @@ qx.Class.define("qx.ui.mobile.container.ScrollComposite",
 
       var scrollLimit = this._calcScrollLimit();
 
-      var oldY = this._scrollContainer.getTranslateY();
+      var oldY = this._scrollContainer.translateY;
 
       // Upper Limit Y
       if (positionY >= 0) {
@@ -354,12 +353,12 @@ qx.Class.define("qx.ui.mobile.container.ScrollComposite",
         }
       }
 
-      if (this.isScrollableX()) {
-        this._scrollContainer.setTranslateX(positionX);
+      if (this.isScrollableX) {
+        this._scrollContainer.translateX = positionX;
         this.__lastOffset[0] = positionX;
       }
-      if (this.isScrollableY()) {
-        this._scrollContainer.setTranslateY(positionY);
+      if (this.isScrollableY) {
+        this._scrollContainer.translateY = positionY;
         this.__lastOffset[1] = positionY;
       }
       this._updateScrollIndicator(this.__lastOffset[1]);
@@ -463,17 +462,17 @@ qx.Class.define("qx.ui.mobile.container.ScrollComposite",
 
     // Property apply
     _applyFixedHeight : function(value, old) {
-      this._applyHeight(this.getHeight());
+      this._applyHeight(this.height);
     },
 
 
     // Property apply
     _applyHeight : function(value, old) {
       var cssProperty = "maxHeight";
-      if (this.getFixedHeight() === true) {
+      if (this.fixedHeight === true) {
         cssProperty = "height";
       }
-      qx.bom.element.Style.set(this.getContainerElement(), cssProperty, this.getHeight());
+      qx.bom.element.Style.set(this.getContainerElement(), cssProperty, this.height);
     },
 
 
@@ -561,23 +560,23 @@ qx.Class.define("qx.ui.mobile.container.ScrollComposite",
     _fixChildElementsHeight : function(evt) {
       this.getContainerElement().style.height = 'auto';
       this.getContainerElement().style.height = this.getContainerElement().scrollHeight+'px';
+    },
+
+
+    dispose : function() {
+      this.removeListener("trackstart",this._onTrackStart,this);
+      this.removeListener("track",this._onTrack,this);
+      this.removeListener("swipe",this._onSwipe,this);
+
+      var children = this.getChildren();
+      for(var i = 0; i < children.length; i++) {
+        this._unhandleSize(children[i]);
+      }
+
+      this._disposeObjects("_scrollContainer");
+
+      this.__isVerticalScroll = null;
+      this.base(arguments);
     }
-  },
-
-
-  destruct : function()
-  {
-    this.removeListener("trackstart",this._onTrackStart,this);
-    this.removeListener("track",this._onTrack,this);
-    this.removeListener("swipe",this._onSwipe,this);
-
-    var children = this.getChildren();
-    for(var i = 0; i < children.length; i++) {
-      this._unhandleSize(children[i]);
-    }
-
-    this._disposeObjects("_scrollContainer");
-
-    this.__isVerticalScroll = null;
   }
 });

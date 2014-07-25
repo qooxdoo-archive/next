@@ -13,7 +13,7 @@
      See the LICENSE file in the project's top-level directory for details.
 
    Authors:
-     * Tino Butz (tbtz)
+     * Tino Butz (tbtz)
 
 ************************************************************************ */
 
@@ -27,7 +27,7 @@ qx.Class.define("mobileshowcase.page.Overview",
   construct : function()
   {
     this.base(arguments);
-    this.setTitle("Overview");
+    this.title = "Overview";
   },
 
 
@@ -48,9 +48,9 @@ qx.Class.define("mobileshowcase.page.Overview",
       var list = new qx.ui.mobile.list.List({
         configureItem : function(item, data, row)
         {
-          item.setTitle(data.title);
-          item.setSubtitle(data.subtitle);
-          item.setShowArrow(true);
+          item.title = data.title;
+          item.subtitle = data.subtitle;
+          item.showArrow = true;
         }
       });
 
@@ -71,7 +71,7 @@ qx.Class.define("mobileshowcase.page.Overview",
           {title : "Theming", subtitle : "Modify the look of an app...", path:"theming"}
       ];
 
-      list.setModel(new qx.data.Array(data));
+      list.model = new qx.data.Array(data);
       list.addListener("changeSelection", function(evt) {
         var path = data[evt.getData()].path;
         qx.core.Init.getApplication().getRouting().executeGet("/"+path);

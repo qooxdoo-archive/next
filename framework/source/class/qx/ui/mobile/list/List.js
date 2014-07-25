@@ -55,7 +55,7 @@
  *   });
  *
  *   // Set the model of the list
- *   list.setModel(new qx.data.Array(data));
+ *   list.model = new qx.data.Array(data);
  *
  *   // Add an changeSelection event
  *   list.addListener("changeSelection", function(evt) {
@@ -68,7 +68,7 @@
  * This example creates a list with a delegate that configures the list item with
  * the given data. A listener for the event {@link #changeSelection} is added.
  */
-qx.Class.define("qx.ui.mobile.list.List",
+qx.Bootstrap.define("qx.ui.mobile.list.List",
 {
   extend : qx.ui.mobile.core.Widget,
 
@@ -87,7 +87,7 @@ qx.Class.define("qx.ui.mobile.list.List",
     this.addListener("trackend", this._onTrackEnd, this);
 
     if (delegate) {
-      this.setDelegate(delegate);
+      this.delegate = delegate;
     }
 
     if (qx.core.Environment.get("qx.dynlocale")) {
@@ -122,7 +122,6 @@ qx.Class.define("qx.ui.mobile.list.List",
     // overridden
     defaultCssClass :
     {
-      refine : true,
       init : "list"
     },
 
@@ -145,7 +144,7 @@ qx.Class.define("qx.ui.mobile.list.List",
      */
     model :
     {
-      check : "qx.data.Array",
+      //check : "qx.data.Array", TODO: Class checks
       apply : "_applyModel",
       event: "changeModel",
       nullable : true,
@@ -158,7 +157,7 @@ qx.Class.define("qx.ui.mobile.list.List",
      * Reset to limit the amount of data that should be displayed.
      */
     itemCount : {
-      check : "Integer",
+      check : "Number",
       init : 0
     }
   },
@@ -341,7 +340,7 @@ qx.Class.define("qx.ui.mobile.list.List",
 
     // property apply
     _applyDelegate : function(value, old) {
-      this.__provider.setDelegate(value);
+      this.__provider.delegate = value;
     },
 
 
@@ -462,7 +461,7 @@ qx.Class.define("qx.ui.mobile.list.List",
     __renderRow : function(index) {
       var renderedItems = qx.bom.Selector.query(".list-item",this.getContentElement());
       var oldNode = renderedItems[index];
-      var newNode = this.__provider.getItemElement(this.getModel().getItem(index), index);
+      var newNode = this.__provider.getItemElement(this.model.getItem(index), index);
 
       this.getContentElement().replaceChild(newNode, oldNode);
 
@@ -477,9 +476,9 @@ qx.Class.define("qx.ui.mobile.list.List",
     */
     getListItemHeight : function() {
       var listItemHeight = 0;
-      if (this.getModel() != null && this.getModel().length > 0) {
+      if (this.model != null && this.model.length > 0) {
         var listHeight = qx.bom.element.Style.get(this.getContentElement(), "height");
-        listItemHeight = parseInt(listHeight) / this.getModel().length;
+        listItemHeight = parseInt(listHeight) / this.model.length;
       }
       return listItemHeight;
     },
@@ -492,12 +491,12 @@ qx.Class.define("qx.ui.mobile.list.List",
     {
       this._setHtml("");
 
-      var model = this.getModel();
-      this.setItemCount(model ? model.getLength() : 0);
+      var model = this.model;
+      this.itemCount = model ? model.getLength() : 0;
 
       var groupIndex = 0;
 
-      for (var index = 0; index < this.getItemCount(); index++) {
+      for (var index = 0; index < this.itemCount; index++) {
         if (this.__hasGroup()) {
           var groupElement = this._renderGroup(index, groupIndex);
           if (groupElement) {
@@ -548,7 +547,7 @@ qx.Class.define("qx.ui.mobile.list.List",
     * @return {Boolean} true if the delegate object supports grouping function.
     */
     __hasGroup : function() {
-      return qx.util.Delegate.getMethod(this.getDelegate(), "group") !== null;
+      return qx.util.Delegate.getMethod(this.delegate, "group") !== null;
     },
 
 
@@ -559,19 +558,19 @@ qx.Class.define("qx.ui.mobile.list.List",
      */
     __getGroup : function(index)
     {
-      var item = this.getModel().getItem(index);
-      var group = qx.util.Delegate.getMethod(this.getDelegate(), "group");
+      var item = this.model.getItem(index);
+      var group = qx.util.Delegate.getMethod(this.delegate, "group");
       return group(item, index);
-    }
-  },
+    },
 
 
-  destruct : function()
-  {
-    this.__trackElement = null;
-    this._disposeObjects("__provider");
-    if (qx.core.Environment.get("qx.dynlocale")) {
-      qx.locale.Manager.getInstance().removeListener("changeLocale", this._onChangeLocale, this);
+    dispose : function() {
+      this.__trackElement = null;
+      this._disposeObjects("__provider");
+      if (qx.core.Environment.get("qx.dynlocale")) {
+        qx.locale.Manager.getInstance().removeListener("changeLocale", this._onChangeLocale, this);
+      }
+      this.base(arguments);
     }
   }
 });

@@ -27,7 +27,7 @@ qx.Class.define("mobileshowcase.page.Drawer",
   construct : function()
   {
     this.base(arguments, false);
-    this.setTitle("Drawer");
+    this.title = "Drawer";
   },
 
 

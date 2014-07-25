@@ -20,7 +20,7 @@
 /**
  * A navigation bar button widget.
  */
-qx.Class.define("qx.ui.mobile.navigationbar.Button",
+qx.Bootstrap.define("qx.ui.mobile.navigationbar.Button",
 {
   extend : qx.ui.mobile.form.Button,
 
@@ -36,7 +36,6 @@ qx.Class.define("qx.ui.mobile.navigationbar.Button",
     // overridden
     defaultCssClass :
     {
-      refine : true,
       init : "navigationbar-button"
     }
   }

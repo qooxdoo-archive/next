@@ -27,10 +27,10 @@
  * <pre class='javascript'>
  *   var tabBar = new qx.ui.mobile.tabbar.TabBar();
  *   var tabButton1 = new qx.ui.mobile.tabbar.TabButton("Tab 1");
- *   tabButton1.setView(view1);
+ *   tabButton1.view = view1;
  *   tabBar.add(tabButton1);
  *   var tabButton2 = new qx.ui.mobile.tabbar.TabButton("Tab 2");
- *   tabButton2.setView(view2);
+ *   tabButton2.view = view2;
  *   tabBar.add(tabButton2);
  *
  *   this.getRoot.add(tabBar);
@@ -38,7 +38,7 @@
  *
  * This example creates a tab bar and adds two tab buttons to it.
  */
-qx.Class.define("qx.ui.mobile.tabbar.TabBar",
+qx.Bootstrap.define("qx.ui.mobile.tabbar.TabBar",
 {
   extend : qx.ui.mobile.core.Widget,
 
@@ -70,7 +70,6 @@ qx.Class.define("qx.ui.mobile.tabbar.TabBar",
     // overridden
     defaultCssClass :
     {
-      refine : true,
       init : "tabBar"
     },
 
@@ -131,14 +130,14 @@ qx.Class.define("qx.ui.mobile.tabbar.TabBar",
     {
       if (old) {
         old.removeCssClass("selected");
-        if (old.getView()) {
-          old.getView().exclude();
+        if (old.view) {
+          old.view.exclude();
         }
       }
       if (value) {
         value.addCssClass("selected");
-        if (value.getView()) {
-          value.getView().show();
+        if (value.view) {
+          value.view.show();
         }
       }
     },
@@ -184,12 +183,12 @@ qx.Class.define("qx.ui.mobile.tabbar.TabBar",
         this.setSelection(null);
       }
       button.removeListener("changeView", this._onChangeView, this);
+    },
+
+
+    dispose : function() {
+      this.removeListener("tap", this._onTap, this);
+      this.base(arguments);
     }
-  },
-
-
-  destruct : function()
-  {
-    this.removeListener("tap", this._onTap, this);
   }
 });

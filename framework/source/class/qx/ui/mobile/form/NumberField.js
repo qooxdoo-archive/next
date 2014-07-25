@@ -22,7 +22,7 @@
  * "number" and the attribute "min" ,"max" and "step". The attributes can be used
  * for form validation {@link qx.ui.form.validation.Manager}.
  */
-qx.Class.define("qx.ui.mobile.form.NumberField",
+qx.Bootstrap.define("qx.ui.mobile.form.NumberField",
 {
   extend : qx.ui.mobile.form.Input,
   include : [qx.ui.mobile.form.MValue, qx.ui.mobile.form.MText],
@@ -53,7 +53,6 @@ qx.Class.define("qx.ui.mobile.form.NumberField",
     // overridden
     defaultCssClass :
     {
-      refine : true,
       init : "number-field"
     },
 
@@ -64,7 +63,7 @@ qx.Class.define("qx.ui.mobile.form.NumberField",
      */
     minimum :
     {
-      check : "Integer",
+      check : "Number",
       init : '',
       apply : "_onChangeMinimum"
     },
@@ -76,7 +75,7 @@ qx.Class.define("qx.ui.mobile.form.NumberField",
      */
     maximum :
     {
-      check : "Integer",
+      check : "Number",
       init : '',
       apply : "_onChangeMaximum"
     },
@@ -87,7 +86,7 @@ qx.Class.define("qx.ui.mobile.form.NumberField",
      */
     step :
     {
-      check : "Integer",
+      check : "Number",
       init : '',
       apply : "_onChangeStep"
     }

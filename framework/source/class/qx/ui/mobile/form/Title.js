@@ -20,7 +20,7 @@
 /**
  * Shows a title text for {@link Form} or {@link Group}.
  */
-qx.Class.define("qx.ui.mobile.form.Title",
+qx.Bootstrap.define("qx.ui.mobile.form.Title",
 {
   extend : qx.ui.mobile.basic.Label,
 
@@ -29,14 +29,12 @@ qx.Class.define("qx.ui.mobile.form.Title",
   {
     wrap :
     {
-      refine : true,
       init : false
     },
 
     // overridden
     defaultCssClass :
     {
-      refine : true,
       init : "form-title"
     }
   },

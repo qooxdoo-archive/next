@@ -25,9 +25,9 @@
  *
  *
  */
-qx.Class.define("qx.ui.mobile.form.renderer.AbstractRenderer",
+qx.Bootstrap.define("qx.ui.mobile.form.renderer.AbstractRenderer",
 {
-  type : "abstract",
+  //type : "abstract", TODO: MAbstract
   extend : qx.ui.mobile.core.Widget,
   implement : qx.ui.form.renderer.IFormRenderer,
 
@@ -61,7 +61,6 @@ qx.Class.define("qx.ui.mobile.form.renderer.AbstractRenderer",
     // overridden
     defaultCssClass :
     {
-      refine : true,
       init : "form"
     }
   },

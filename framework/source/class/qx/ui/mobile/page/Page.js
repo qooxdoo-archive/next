@@ -54,7 +54,7 @@
  * for the first time.
  *
  */
-qx.Class.define("qx.ui.mobile.page.Page",
+qx.Bootstrap.define("qx.ui.mobile.page.Page",
 {
   extend : qx.ui.mobile.container.Composite,
   include : qx.ui.mobile.core.MResize,
@@ -158,7 +158,6 @@ qx.Class.define("qx.ui.mobile.page.Page",
     // overridden
     defaultCssClass :
     {
-      refine : true,
       init : "page"
     },
 
@@ -270,7 +269,7 @@ qx.Class.define("qx.ui.mobile.page.Page",
       {
         this._initialize();
         this.__initialized = true;
-        this.setLifeCycleState("initialize");
+        this.lifeCycleState = "initialize";
       }
     },
 
@@ -306,7 +305,7 @@ qx.Class.define("qx.ui.mobile.page.Page",
      */
     start : function() {
       this._start();
-      this.setLifeCycleState("start");
+      this.lifeCycleState = "start";
     },
 
 
@@ -333,7 +332,7 @@ qx.Class.define("qx.ui.mobile.page.Page",
         return;
       }
       this._stop();
-      this.setLifeCycleState("stop");
+      this.lifeCycleState = "stop";
     },
 
 
@@ -356,7 +355,7 @@ qx.Class.define("qx.ui.mobile.page.Page",
      */
     pause : function() {
       this._pause();
-      this.setLifeCycleState("pause");
+      this.lifeCycleState = "pause";
     },
 
 
@@ -380,7 +379,7 @@ qx.Class.define("qx.ui.mobile.page.Page",
      */
     resume : function() {
       this._resume();
-      this.setLifeCycleState("resume");
+      this.lifeCycleState = "resume";
     },
 
 
@@ -403,7 +402,7 @@ qx.Class.define("qx.ui.mobile.page.Page",
      */
     wait : function() {
       this._wait();
-      this.setLifeCycleState("wait");
+      this.lifeCycleState = "wait";
     },
 
 

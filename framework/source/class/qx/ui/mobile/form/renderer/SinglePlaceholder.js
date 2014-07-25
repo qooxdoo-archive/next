@@ -22,7 +22,7 @@
  * It presents a label into the placeholder of the form elements
  *
  */
-qx.Class.define("qx.ui.mobile.form.renderer.SinglePlaceholder",
+qx.Bootstrap.define("qx.ui.mobile.form.renderer.SinglePlaceholder",
 {
 
   extend : qx.ui.mobile.form.renderer.Single,
@@ -63,7 +63,7 @@ qx.Class.define("qx.ui.mobile.form.renderer.SinglePlaceholder",
             this._addRow(item, name, new qx.ui.mobile.layout.HBox());
           } else {
             var row = new qx.ui.mobile.form.Row(new qx.ui.mobile.layout.HBox());
-            item.setPlaceholder(name);
+            item.placeholder = name;
             row.add(item, {
               flex: 1
             });

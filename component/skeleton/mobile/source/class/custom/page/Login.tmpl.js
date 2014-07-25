@@ -17,7 +17,7 @@ qx.Class.define("${Namespace}.page.Login",
   construct : function()
   {
     this.base(arguments);
-    this.setTitle("Login");
+    this.title = "Login";
   },
 
 
@@ -32,11 +32,11 @@ qx.Class.define("${Namespace}.page.Login",
 
       // Username
       var user = new qx.ui.mobile.form.TextField();
-      user.setRequired(true);
+      user.required = true;
 
       // Password
       var pwd = new qx.ui.mobile.form.PasswordField();
-      pwd.setRequired(true);
+      pwd.required = true;
 
       // Login Button
       var loginButton = new qx.ui.mobile.form.Button("Login");
@@ -62,5 +62,5 @@ qx.Class.define("${Namespace}.page.Login",
       }
     }
   }
- 
+
 });

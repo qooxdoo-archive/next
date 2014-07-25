@@ -20,7 +20,7 @@
 /**
  * The TextArea is a multi-line text input field.
  */
-qx.Class.define("qx.ui.mobile.form.TextArea",
+qx.Bootstrap.define("qx.ui.mobile.form.TextArea",
 {
   extend : qx.ui.mobile.core.Widget,
   include : [
@@ -68,7 +68,6 @@ qx.Class.define("qx.ui.mobile.form.TextArea",
     // overridden
     defaultCssClass :
     {
-      refine : true,
       init : "text-area"
     }
 
@@ -118,16 +117,17 @@ qx.Class.define("qx.ui.mobile.form.TextArea",
         }
       }
       return scroll;
-    }
-  },
+    },
 
 
-  destruct : function()
-  {
-    if (qx.core.Environment.get("qx.mobile.nativescroll") == false) {
-      this.removeListener("appear", this._fixChildElementsHeight, this);
-      this.removeListener("input", this._fixChildElementsHeight, this);
-      this.removeListener("changeValue", this._fixChildElementsHeight, this);
+    dispose : function()
+    {
+      if (qx.core.Environment.get("qx.mobile.nativescroll") == false) {
+        this.removeListener("appear", this._fixChildElementsHeight, this);
+        this.removeListener("input", this._fixChildElementsHeight, this);
+        this.removeListener("changeValue", this._fixChildElementsHeight, this);
+        this.base(arguments);
+      }
     }
   }
 });

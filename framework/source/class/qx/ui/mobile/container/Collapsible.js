@@ -30,8 +30,8 @@
  *
  * <pre class='javascript'>
  *  var collapsible = new qx.ui.mobile.container.Collapsible("Collapsible Header");
- *  collapsible.setCombined(false);
- *  collapsible.setCollapsed(false);
+ *  collapsible.combined = false;
+ *  collapsible.collapsed = false;
  *
  *  var label = new qx.ui.mobile.basic.Label("This is the content of the Collapsible.");
  *  collapsible.add(label);
@@ -39,7 +39,7 @@
  * </pre>
  *
  */
-qx.Class.define("qx.ui.mobile.container.Collapsible",
+qx.Bootstrap.define("qx.ui.mobile.container.Collapsible",
 {
   extend : qx.ui.mobile.core.Widget,
 
@@ -59,7 +59,7 @@ qx.Class.define("qx.ui.mobile.container.Collapsible",
 
     this._header = this._createHeader();
     this._header.addCssClass("collapsible-header");
-    this._header.addListener("tap", this.toggleCollapsed, this);
+    this._header.addListener("tap", this._toggleCollapsed, this);
     this.setTitle(title);
 
     this._content = this._createContent();
@@ -68,8 +68,8 @@ qx.Class.define("qx.ui.mobile.container.Collapsible",
     this._add(this._header);
     this._add(this._content);
 
-    this.initCollapsed();
-    this.initCombined();
+    this.collapsed = true;
+    this.combined = true;
 
     this.addCssClass("gap");
   },
@@ -83,7 +83,6 @@ qx.Class.define("qx.ui.mobile.container.Collapsible",
   properties : {
     // overridden
     defaultCssClass : {
-      refine : true,
       init : "collapsible"
     },
 
@@ -138,7 +137,7 @@ qx.Class.define("qx.ui.mobile.container.Collapsible",
     */
     setTitle : function(title) {
       if(title && this._header instanceof qx.ui.mobile.basic.Label) {
-        this._header.setValue(title);
+        this._header.value = title;
       }
     },
 
@@ -167,8 +166,8 @@ qx.Class.define("qx.ui.mobile.container.Collapsible",
     */
     _createHeader : function() {
       var header = new qx.ui.mobile.basic.Label();
-      header.setAnonymous(false);
-      header.setActivatable(true);
+      header.anonymous = false;
+      header.activatable = true;
       return header;
     },
 
@@ -202,13 +201,21 @@ qx.Class.define("qx.ui.mobile.container.Collapsible",
       else {
         this.removeCssClass("combined");
       }
+    },
+
+
+    /**
+     * Toggle the collapsed state
+     */
+    _toggleCollapsed : function() {
+      this.collapsed = !this.collapsed;
+    },
+
+
+    dispose : function() {
+      this._header.removeListener("tap", this._toggleCollapsed, this);
+      this._disposeObjects("_header", "_content");
+      this.base(arguments);
     }
-  },
-
-
-  destruct : function()
-  {
-    this._header.removeListener("tap", this.toggleCollapsed,this);
-    this._disposeObjects("_header", "_content");
   }
 });

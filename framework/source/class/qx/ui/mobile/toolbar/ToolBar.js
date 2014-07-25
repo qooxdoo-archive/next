@@ -21,7 +21,7 @@
  * A toolbar widget.
  *
  */
-qx.Class.define("qx.ui.mobile.toolbar.ToolBar",
+qx.Bootstrap.define("qx.ui.mobile.toolbar.ToolBar",
 {
   extend : qx.ui.mobile.container.Composite,
 
@@ -53,7 +53,6 @@ qx.Class.define("qx.ui.mobile.toolbar.ToolBar",
     // overridden
     defaultCssClass :
     {
-      refine : true,
       init : "toolbar"
     }
   },

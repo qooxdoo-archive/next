@@ -43,7 +43,7 @@
  *
  * @use(qx.event.handler.Transition)
  */
-qx.Class.define("qx.ui.mobile.layout.Card",
+qx.Bootstrap.define("qx.ui.mobile.layout.Card",
 {
   extend : qx.ui.mobile.layout.Abstract,
 
@@ -104,7 +104,7 @@ qx.Class.define("qx.ui.mobile.layout.Card",
     /** Transition duration of each animation. */
     animationDuration :
     {
-      check : "Integer",
+      check : "Number",
       init : 350
     }
   },
@@ -200,7 +200,7 @@ qx.Class.define("qx.ui.mobile.layout.Card",
       this.__nextWidget = widget;
 
 
-      if (this.__currentWidget && this.getShowAnimation() && qx.core.Environment.get("css.transform.3d")) {
+      if (this.__currentWidget && this.showAnimation && qx.core.Environment.get("css.transform.3d")) {
         properties = properties || {};
 
         // both are explicit identity checks for null
@@ -209,7 +209,7 @@ qx.Class.define("qx.ui.mobile.layout.Card",
           return;
         }
 
-        this.__animation = properties.animation || this.getDefaultAnimation();
+        this.__animation = properties.animation || this.defaultAnimation;
 
         if (properties.action && properties.action === "back") {
           this.__reverse = true;
@@ -371,11 +371,12 @@ qx.Class.define("qx.ui.mobile.layout.Card",
         classes.push("reverse");
       }
       return classes;
+    },
+
+
+    dispose : function() {
+      this._disposeObjects("__cardAnimation");
+      this.base(arguments);
     }
-  },
-
-
-  destruct : function() {
-    this._disposeObjects("__cardAnimation");
   }
 });

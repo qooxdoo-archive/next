@@ -31,7 +31,7 @@
  *
  * This example create a widget to display the busy indicator.
  */
-qx.Class.define("qx.ui.mobile.dialog.BusyIndicator",
+qx.Bootstrap.define("qx.ui.mobile.dialog.BusyIndicator",
 {
   extend : qx.ui.mobile.basic.Atom,
 
@@ -95,7 +95,7 @@ qx.Class.define("qx.ui.mobile.dialog.BusyIndicator",
     _createIconWidget : function(iconUrl)
     {
       var iconWidget = this.base(arguments,iconUrl);
-      iconWidget.addCssClass(this.getSpinnerClass());
+      iconWidget.addCssClass(this.spinnerClass);
       return iconWidget;
     },
 
@@ -109,20 +109,20 @@ qx.Class.define("qx.ui.mobile.dialog.BusyIndicator",
       if(value) {
         this.getIconWidget().addCssClass(value);
       }
+    },
+
+
+    dispose : function() {
+      this.removeListener("appear", this._onAppear, this);
+      this.removeListener("disappear", this._onDisappear, this);
+
+      if(this.__animationHandle) {
+        this.__animationHandle.stop();
+      }
+
+      this.__animationHandle = null;
+      this.base(arguments);
     }
-  },
-
-
-  destruct : function()
-  {
-    this.removeListener("appear", this._onAppear, this);
-    this.removeListener("disappear", this._onDisappear, this);
-
-    if(this.__animationHandle) {
-      this.__animationHandle.stop();
-    }
-
-    this.__animationHandle = null;
   },
 
 

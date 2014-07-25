@@ -20,7 +20,7 @@
 /**
  * The Row widget represents a row in a {@link Form}.
  */
-qx.Class.define("qx.ui.mobile.form.Row",
+qx.Bootstrap.define("qx.ui.mobile.form.Row",
 {
   extend : qx.ui.mobile.container.Composite,
 
@@ -38,7 +38,7 @@ qx.Class.define("qx.ui.mobile.form.Row",
   construct : function(layout)
   {
     this.base(arguments, layout);
-    this.initSelectable();
+    this.selectable = false;
   },
 
 
@@ -55,7 +55,6 @@ qx.Class.define("qx.ui.mobile.form.Row",
     // overridden
     defaultCssClass :
     {
-      refine : true,
       init : "form-row"
     },
 

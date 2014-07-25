@@ -23,7 +23,7 @@
  * A tab button can be added to the tab bar and is associated with a
  * {@link #view}.
  */
-qx.Class.define("qx.ui.mobile.tabbar.TabButton",
+qx.Bootstrap.define("qx.ui.mobile.tabbar.TabButton",
 {
   extend : qx.ui.mobile.form.Button,
 
@@ -39,7 +39,6 @@ qx.Class.define("qx.ui.mobile.tabbar.TabButton",
     // overridden
     defaultCssClass :
     {
-      refine : true,
       init : "tabButton"
     },
 

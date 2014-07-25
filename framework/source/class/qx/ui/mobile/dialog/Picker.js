@@ -37,7 +37,7 @@
  * var pickerSlot2 = new qx.data.Array(["1.5.1", "1.6.1", "2.0.4", "2.1.2", "3.0"]);
  *
  * var picker = new qx.ui.mobile.dialog.Picker();
- * picker.setTitle("Picker");
+ * picker.title = "Picker";
  * picker.addSlot(pickerSlot1);
  * picker.addSlot(pickerSlot2);
  *
@@ -59,7 +59,7 @@
  * </pre>
  *
  */
-qx.Class.define("qx.ui.mobile.dialog.Picker",
+qx.Bootstrap.define("qx.ui.mobile.dialog.Picker",
 {
   extend : qx.ui.mobile.dialog.Popup,
 
@@ -141,7 +141,6 @@ qx.Class.define("qx.ui.mobile.dialog.Picker",
     // overridden
     defaultCssClass :
     {
-      refine : true,
       init : "picker"
     }
   },
@@ -229,7 +228,7 @@ qx.Class.define("qx.ui.mobile.dialog.Picker",
      */
     setConfirmButtonCaption : function(caption) {
       if(this.__pickerConfirmButton) {
-        this.__pickerConfirmButton.setValue(caption);
+        this.__pickerConfirmButton.value = caption;
       }
     },
 
@@ -241,7 +240,7 @@ qx.Class.define("qx.ui.mobile.dialog.Picker",
      */
     setCancelButtonCaption : function(caption) {
       if(this.__pickerCancelButton) {
-        this.__pickerCancelButton.setValue(caption);
+        this.__pickerCancelButton.value = caption;
       }
     },
 
@@ -530,7 +529,7 @@ qx.Class.define("qx.ui.mobile.dialog.Picker",
         targetOffset = lowerBounce;
       }
 
-      target.setTranslateY(targetOffset);
+      target.translateY = targetOffset;
 
       var steps = Math.round(-deltaY/this.__labelHeight);
       var newIndex = selectedIndex+steps;
@@ -641,14 +640,14 @@ qx.Class.define("qx.ui.mobile.dialog.Picker",
     _createPickerSlot : function(slotIndex) {
       var pickerSlot = new qx.ui.mobile.container.Composite();
       pickerSlot.addCssClass("picker-slot");
-      pickerSlot.setTransformUnit("px");
+      pickerSlot.transformUnit = "px";
 
       pickerSlot.addListener("trackstart", this._onTrackStart, this);
       pickerSlot.addListener("track", this._onTrack, this);
       pickerSlot.addListener("trackend", this._onTrackEnd, this);
 
-      this.__modelToSlotMap[pickerSlot.getId()] = slotIndex;
-      this.__selectedIndex[pickerSlot.getId()] = 0;
+      this.__modelToSlotMap[pickerSlot.id] = slotIndex;
+      this.__selectedIndex[pickerSlot.id] = 0;
 
       return pickerSlot;
     },
@@ -686,25 +685,20 @@ qx.Class.define("qx.ui.mobile.dialog.Picker",
       var pickerLabel = new qx.ui.mobile.basic.Label(textValue);
       pickerLabel.addCssClass("picker-label");
       return pickerLabel;
+    },
+
+
+    dispose : function() {
+      this._disposePickerModel();
+
+      this._removePickerSlots();
+
+      this.__pickerConfirmButton.removeListener("tap", this.confirm, this);
+      this.__pickerCancelButton.removeListener("tap", this.hide, this);
+
+      this._disposeObjects("__pickerContainer", "__pickerButtonContainer", "__pickerConfirmButton","__pickerCancelButton","__pickerContent");
+      this.base(arguments);
     }
-  },
-
-  /*
-  *****************************************************************************
-      DESTRUCTOR
-  *****************************************************************************
-  */
-
-  destruct : function()
-  {
-    this._disposePickerModel();
-
-    this._removePickerSlots();
-
-    this.__pickerConfirmButton.removeListener("tap", this.confirm, this);
-    this.__pickerCancelButton.removeListener("tap", this.hide, this);
-
-    this._disposeObjects("__pickerContainer", "__pickerButtonContainer", "__pickerConfirmButton","__pickerCancelButton","__pickerContent");
   }
 
 });

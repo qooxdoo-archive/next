@@ -24,10 +24,10 @@
  *
  * @internal
  */
-qx.Class.define("qx.ui.mobile.core.DomUpdatedHandler",
+qx.Bootstrap.define("qx.ui.mobile.core.DomUpdatedHandler",
 {
   extend : qx.core.Object,
-  implement : qx.event.IEventHandler,
+  implement : [qx.event.IEventHandler],
 
 
   /*
@@ -176,27 +176,18 @@ qx.Class.define("qx.ui.mobile.core.DomUpdatedHandler",
           this.__manager.dispatchEvent(target, evt);
         }
       }
+    },
+
+
+    dispose : function() {
+      this.__manager = this.__targets = null;
+
+      // Deregister
+      delete qx.ui.mobile.core.DomUpdatedHandler.__instances[this.$$hash];
+
+      this.base(arguments);
     }
   },
-
-
-
-
-  /*
-  *****************************************************************************
-     DESTRUCTOR
-  *****************************************************************************
-  */
-
-  destruct : function()
-  {
-    this.__manager = this.__targets = null;
-
-    // Deregister
-    delete qx.ui.mobile.core.DomUpdatedHandler.__instances[this.$$hash];
-  },
-
-
 
 
 

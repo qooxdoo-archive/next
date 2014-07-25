@@ -60,7 +60,7 @@
  *
  *
  */
-qx.Class.define("qx.ui.mobile.dialog.Popup",
+qx.Bootstrap.define("qx.ui.mobile.dialog.Popup",
 {
   extend : qx.ui.mobile.core.Widget,
 
@@ -98,7 +98,6 @@ qx.Class.define("qx.ui.mobile.dialog.Popup",
     // overridden
     defaultCssClass :
     {
-      refine : true,
       init : "popup"
     },
 
@@ -255,11 +254,11 @@ qx.Class.define("qx.ui.mobile.dialog.Popup",
       }
       this.__isShown = true;
 
-      if(this.getModal() === true)
+      if(this.modal === true)
       {
         qx.ui.mobile.core.Blocker.getInstance().show();
 
-        if(this.getHideOnBlockerTap()) {
+        if(this.hideOnBlockerTap) {
           qx.ui.mobile.core.Blocker.getInstance().addListener("tap", this.hide, this);
         }
       }
@@ -279,7 +278,7 @@ qx.Class.define("qx.ui.mobile.dialog.Popup",
       }
       this.__isShown = false;
 
-      if(this.getModal())
+      if(this.modal)
       {
         qx.ui.mobile.core.Blocker.getInstance().hide();
       }
@@ -427,7 +426,7 @@ qx.Class.define("qx.ui.mobile.dialog.Popup",
     {
       if(this.__childrenContainer == null) {
         this.__childrenContainer = new qx.ui.mobile.container.Composite(new qx.ui.mobile.layout.VBox());
-        this.__childrenContainer.setDefaultCssClass("popup-content");
+        this.__childrenContainer.defaultCssClass = "popup-content";
         this._add(this.__childrenContainer);
       }
 
@@ -456,9 +455,9 @@ qx.Class.define("qx.ui.mobile.dialog.Popup",
       if(this.__titleWidget) {
         return this.__titleWidget;
       }
-      if(this.getTitle() || this.getIcon())
+      if(this.title || this.icon)
       {
-        this.__titleWidget = new qx.ui.mobile.basic.Atom(this.getTitle(), this.getIcon());
+        this.__titleWidget = new qx.ui.mobile.basic.Atom(this.title, this.icon);
         this.__titleWidget.addCssClass('popup-title');
         return this.__titleWidget;
       }
@@ -475,11 +474,11 @@ qx.Class.define("qx.ui.mobile.dialog.Popup",
       if(value) {
         if(this.__titleWidget)
         {
-          this.__titleWidget.setLabel(value);
+          this.__titleWidget.label = value;
         }
         else
         {
-          this.__titleWidget = new qx.ui.mobile.basic.Atom(value, this.getIcon());
+          this.__titleWidget = new qx.ui.mobile.basic.Atom(value, this.icon);
           this.__titleWidget.addCssClass('popup-title');
 
           if(this.__widget) {
@@ -499,9 +498,9 @@ qx.Class.define("qx.ui.mobile.dialog.Popup",
     {
       if (value) {
         if (this.__titleWidget) {
-          this.__titleWidget.setIcon(value);
+          this.__titleWidget.icon = value;
         } else {
-          this.__titleWidget = new qx.ui.mobile.basic.Atom(this.getTitle(), value);
+          this.__titleWidget = new qx.ui.mobile.basic.Atom(this.title, value);
           this.__titleWidget.addCssClass('popup-title');
 
           if (this.__widget) {
@@ -582,15 +581,15 @@ qx.Class.define("qx.ui.mobile.dialog.Popup",
     _getBlocker : function()
     {
       return qx.ui.mobile.core.Blocker.getInstance();
+    },
+
+
+    dispose : function() {
+      this.__unregisterEventListener();
+      this._disposeObjects("__childrenContainer");
+
+      this.__isShown = this.__percentageTop = this._anchor = this.__widget = this.__lastPopupDimension = null;
+      this.base(arguments);
     }
-  },
-
-
-  destruct : function()
-  {
-    this.__unregisterEventListener();
-    this._disposeObjects("__childrenContainer");
-
-    this.__isShown = this.__percentageTop = this._anchor = this.__widget = this.__lastPopupDimension = null;
   }
 });

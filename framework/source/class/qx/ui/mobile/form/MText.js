@@ -37,9 +37,9 @@ qx.Mixin.define("qx.ui.mobile.form.MText",
    */
   construct : function(value)
   {
-    this.initMaxLength();
-    this.initPlaceholder();
-    this.initReadOnly();
+    this.maxLength = undefined;
+    this.placeholder = undefined;
+    this.readOnly = undefined;
   },
 
 
@@ -56,7 +56,7 @@ qx.Mixin.define("qx.ui.mobile.form.MText",
      */
     maxLength :
     {
-      check : "PositiveInteger",
+      check : "Number",
       nullable : true,
       init : null,
       apply : "_applyMaxLength"
@@ -122,7 +122,7 @@ qx.Mixin.define("qx.ui.mobile.form.MText",
      * Points the focus of the form to this widget.
      */
     focus : function() {
-      if(this.isReadOnly() || this.getEnabled() == false) {
+      if(this.readOnly || this.enabled === false) {
         return;
       }
 

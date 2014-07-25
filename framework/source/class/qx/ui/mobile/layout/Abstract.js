@@ -24,10 +24,10 @@
  * this class and implement the methods {@link #_getCssClasses},
  * {@link #_getSupportedChildLayoutProperties} and {@link #_setLayoutProperty}.
  */
-qx.Class.define("qx.ui.mobile.layout.Abstract",
+qx.Bootstrap.define("qx.ui.mobile.layout.Abstract",
 {
   extend : qx.core.Object,
-  type : "abstract",
+  //type : "abstract", TODO: MAbstract
 
 
  /*
@@ -144,8 +144,8 @@ qx.Class.define("qx.ui.mobile.layout.Abstract",
         if (this.__cachedProperties) {
           for (var property in this.__cachedProperties)
           {
-            this.reset(property)
-            this.set(property, this.__cachedProperties[property]);
+            this[property] = undefined;
+            this[property] = this.__cachedProperties[property];
           }
         }
       } else {
@@ -264,19 +264,12 @@ qx.Class.define("qx.ui.mobile.layout.Abstract",
         cache[hash] = {};
       }
       return cache[hash];
+    },
+
+
+    dispose : function() {
+      this._widget = null;
+      this.base(arguments);
     }
-  },
-
-
-
-
- /*
-  *****************************************************************************
-     DESTRUCTOR
-  *****************************************************************************
-  */
-
-  destruct : function() {
-    this._widget = null;
   }
 });

@@ -43,7 +43,7 @@
  * This example creates a slider and attaches an
  * event listener to the {@link #changeValue} event.
  */
-qx.Class.define("qx.ui.mobile.form.Slider",
+qx.Bootstrap.define("qx.ui.mobile.form.Slider",
 {
   extend : qx.ui.mobile.core.Widget,
   include : [
@@ -74,7 +74,6 @@ qx.Class.define("qx.ui.mobile.form.Slider",
     // overridden
     defaultCssClass :
     {
-      refine : true,
       init : "slider"
     },
 
@@ -84,7 +83,7 @@ qx.Class.define("qx.ui.mobile.form.Slider",
      */
     minimum :
     {
-      check : "Integer",
+      check : "Number",
       init : 0,
       apply : "_refresh",
       event : "changeMinimum"
@@ -97,7 +96,7 @@ qx.Class.define("qx.ui.mobile.form.Slider",
      */
     maximum :
     {
-      check : "Integer",
+      check : "Number",
       init : 100,
       apply : "_refresh",
       event : "changeMaximum"
@@ -110,7 +109,7 @@ qx.Class.define("qx.ui.mobile.form.Slider",
      */
     step :
     {
-      check : "Integer",
+      check : "Number",
       init : 1,
       event : "changeStep"
     },
@@ -156,7 +155,7 @@ qx.Class.define("qx.ui.mobile.form.Slider",
      * Increments the current value.
      */
     nextValue : function() {
-      this.setValue(this.getValue() + this.getStep());
+      this.value = this.value + this.step;
     },
 
 
@@ -164,7 +163,7 @@ qx.Class.define("qx.ui.mobile.form.Slider",
      * Decrements the current value.
      */
     previousValue : function() {
-      this.setValue(this.getValue() - this.getStep());
+      this.value = this.value - this.step;
     },
 
 
@@ -253,7 +252,7 @@ qx.Class.define("qx.ui.mobile.form.Slider",
       {
         this._updateSizes();
         var position = this._getPosition(evt.getDocumentLeft());
-        this.setValue(this._positionToValue(position));
+        this.value = this._positionToValue(position);
 
         evt.stopPropagation();
       }
@@ -268,7 +267,7 @@ qx.Class.define("qx.ui.mobile.form.Slider",
     _onTrack : function(evt)
     {
       var position = this._getPosition(evt.getDocumentLeft());
-      this.setValue(this._positionToValue(position));
+      this.value = this._positionToValue(position);
       evt.stopPropagation();
       evt.preventDefault();
     },
@@ -328,7 +327,7 @@ qx.Class.define("qx.ui.mobile.form.Slider",
      */
     _updateKnobPosition : function()
     {
-      var percent = this._valueToPercent(this.getValue());
+      var percent = this._valueToPercent(this.value);
 
       var width = this._containerElementWidth;
       var position = Math.floor(this._percentToPosition(width, percent));
@@ -336,7 +335,7 @@ qx.Class.define("qx.ui.mobile.form.Slider",
       var knobElement = this._getKnobElement();
       if (knobElement) {
         qx.bom.element.Style.set(this._getKnobElement(), "width", width - (width - position) + "px");
-        qx.bom.element.Attribute.set(this._getKnobElement(), "data-value", this.getValue());
+        qx.bom.element.Attribute.set(this._getKnobElement(), "data-value", this.value);
         qx.bom.element.Attribute.set(this._getKnobElement(), "data-percent", Math.floor(percent));
       }
     },
@@ -383,12 +382,12 @@ qx.Class.define("qx.ui.mobile.form.Slider",
      */
     _valueToPercent : function(value)
     {
-      var min = this.getMinimum();
+      var min = this.minimum;
       var value = this._limitValue(value);
 
       var percent = ((value - min) * 100) / this._getRange();
 
-      if (this.isReverseDirection()) {
+      if (this.reverseDirection) {
         return 100 - percent;
       } else {
         return percent;
@@ -404,10 +403,10 @@ qx.Class.define("qx.ui.mobile.form.Slider",
      */
     _positionToValue : function(position)
     {
-      var value = this.getMinimum() + (Math.round(position / this._pixelPerStep) * this.getStep());
+      var value = this.minimum + (Math.round(position / this._pixelPerStep) * this.step);
       value = this._limitValue(value);
-      if(this.isReverseDirection()) {
-        var center = this.getMinimum() + this._getRange()/2;
+      if(this.reverseDirection) {
+        var center = this.minimum + this._getRange()/2;
         var dist = center-value;
         value = center + dist;
       }
@@ -437,8 +436,8 @@ qx.Class.define("qx.ui.mobile.form.Slider",
      */
     _limitValue : function(value)
     {
-      value = Math.min(value, this.getMaximum());
-      value = Math.max(value, this.getMinimum());
+      value = Math.min(value, this.maximum);
+      value = Math.max(value, this.minimum);
       return value;
     },
 
@@ -462,7 +461,7 @@ qx.Class.define("qx.ui.mobile.form.Slider",
      */
     _getOverallSteps : function()
     {
-      return (this._getRange() / this.getStep());
+      return (this._getRange() / this.step);
     },
 
 
@@ -473,14 +472,14 @@ qx.Class.define("qx.ui.mobile.form.Slider",
      */
     _getRange : function()
     {
-      return this.getMaximum() - this.getMinimum();
+      return this.maximum - this.minimum;
+    },
+
+
+    dispose : function() {
+      this._knobElement = null;
+      this._unregisterEventListener();
+      this.base(arguments);
     }
-  },
-
-
-  destruct : function()
-  {
-    this._knobElement = null;
-    this._unregisterEventListener();
   }
 });

@@ -28,7 +28,7 @@ qx.Class.define("mobileshowcase.page.Tab",
   construct : function()
   {
     this.base(arguments);
-    this.setTitle("Tabs");
+    this.title = "Tabs";
   },
 
 

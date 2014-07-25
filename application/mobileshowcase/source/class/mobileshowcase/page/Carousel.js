@@ -27,7 +27,7 @@ qx.Class.define("mobileshowcase.page.Carousel",
   construct : function()
   {
     this.base(arguments);
-    this.setTitle("Carousel");
+    this.title = "Carousel";
   },
 
 

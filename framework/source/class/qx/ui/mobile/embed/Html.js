@@ -27,11 +27,11 @@
  *
  * <pre class='javascript'>
  * var html = new qx.ui.mobile.embed.Html();
- * html.setHtml("<h1>Hello World</h1>");
+ * html.html = "<h1>Hello World</h1>";
  * </pre>
  *
  */
-qx.Class.define("qx.ui.mobile.embed.Html",
+qx.Bootstrap.define("qx.ui.mobile.embed.Html",
 {
   extend : qx.ui.mobile.core.Widget,
 
@@ -49,7 +49,7 @@ qx.Class.define("qx.ui.mobile.embed.Html",
   {
     this.base(arguments);
     if (html) {
-      this.setHtml(html);
+      this.html = html;
     }
   },
 

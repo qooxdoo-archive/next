@@ -33,7 +33,7 @@ qx.Class.define("mobileshowcase.page.Basic",
   construct : function()
   {
     this.base(arguments,false);
-    this.setTitle("Basic Widgets");
+    this.title = "Basic Widgets";
     this._widgets = [];
   },
 
@@ -85,7 +85,7 @@ qx.Class.define("mobileshowcase.page.Basic",
       var atomGroup = new qx.ui.mobile.form.Group();
       for (var i = 0; i < positions.length; i++) {
         var atomExample = new qx.ui.mobile.basic.Atom("Icon Position: "+positions[i], iconSrc);
-        atomExample.setIconPosition(positions[i]);
+        atomExample.iconPosition = positions[i];
         atomGroup.add(atomExample);
         this._widgets.push(atomExample);
       }

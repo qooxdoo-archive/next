@@ -35,7 +35,7 @@
  *
  * This example creates an atom with the label "Icon Right" and an icon.
  */
-qx.Class.define("qx.ui.mobile.basic.Atom",
+qx.Bootstrap.define("qx.ui.mobile.basic.Atom",
 {
   extend : qx.ui.mobile.core.Widget,
 
@@ -69,7 +69,6 @@ qx.Class.define("qx.ui.mobile.basic.Atom",
     // overridden
     defaultCssClass :
     {
-      refine : true,
       init : "atom"
     },
 
@@ -98,7 +97,7 @@ qx.Class.define("qx.ui.mobile.basic.Atom",
      */
     gap :
     {
-      check : "Integer",
+      check : "Number",
       nullable : false,
       apply : "_applyGap",
       init : 4
@@ -109,12 +108,12 @@ qx.Class.define("qx.ui.mobile.basic.Atom",
      * Configure the visibility of the sub elements/widgets.
      * Possible values: both, text, icon
      */
-    show :
+    showChildren :
     {
       init : "both",
       check : [ "both", "label", "icon" ],
       inheritable : true,
-      apply : "_applyShow"
+      apply : "_applyShowChildren"
     },
 
 
@@ -149,7 +148,7 @@ qx.Class.define("qx.ui.mobile.basic.Atom",
       }
 
       var isReverse = ["right", "bottom"].indexOf(value) != -1;
-      targetLayout.setReversed(isReverse);
+      targetLayout.reversed = isReverse;
 
       this.__childrenContainer.setLayout(targetLayout);
 
@@ -190,7 +189,7 @@ qx.Class.define("qx.ui.mobile.basic.Atom",
     _applyLabel : function(value, old)
     {
       if (this.__label) {
-        this.__label.setValue(value);
+        this.__label.value = value;
       } else {
         this.__label = this._createLabelWidget(value);
       }
@@ -201,7 +200,7 @@ qx.Class.define("qx.ui.mobile.basic.Atom",
     _applyIcon : function(value, old)
     {
       if (this.__icon) {
-        this.__icon.setSource(value);
+        this.__icon.source = value;
       } else {
         this.__icon = this._createIconWidget(value);
       }
@@ -238,7 +237,7 @@ qx.Class.define("qx.ui.mobile.basic.Atom",
     {
       var iconWidget = new qx.ui.mobile.basic.Image(iconUrl);
       qx.bom.element.Style.set(iconWidget.getContentElement(),"display","block");
-      iconWidget.setAnonymous(true);
+      iconWidget.anonymous = true;
       iconWidget.addCssClass("gap");
       return iconWidget;
     },
@@ -253,8 +252,8 @@ qx.Class.define("qx.ui.mobile.basic.Atom",
     _createLabelWidget : function(label)
     {
       var labelWidget = new qx.ui.mobile.basic.Label(label);
-      labelWidget.setAnonymous(true);
-      labelWidget.setWrap(false);
+      labelWidget.anonymous = true;
+      labelWidget.wrap = false;
       labelWidget.addCssClass("gap");
       return labelWidget;
     },
@@ -271,18 +270,18 @@ qx.Class.define("qx.ui.mobile.basic.Atom",
       this.__label = this._createLabelWidget(label);
       if(label)
       {
-        this.setLabel(label);
+        this.label = label;
       }
 
       this.__icon = this._createIconWidget(icon);
       if (icon) {
-        this.setIcon(icon);
+        this.icon = icon;
       } else {
         this.__icon.exclude();
       }
 
       var layout;
-      var verticalLayout = [ "top", "bottom" ].indexOf(this.getIconPosition()) != -1;
+      var verticalLayout = [ "top", "bottom" ].indexOf(this.iconPosition) != -1;
       // If Atom has no Label, only Icon is shown, and should vertically centered.
       var hasNoLabel = !this.__label;
 
@@ -294,7 +293,7 @@ qx.Class.define("qx.ui.mobile.basic.Atom",
 
       this.__childrenContainer = new qx.ui.mobile.container.Composite(layout);
       this.__childrenContainer.addCssClass("qx-flex-center");
-      this.__childrenContainer.setAnonymous(true);
+      this.__childrenContainer.anonymous = true;
 
       if(this.__icon) {
         this.__childrenContainer.add(this.__icon);
@@ -306,25 +305,20 @@ qx.Class.define("qx.ui.mobile.basic.Atom",
       }
 
       // Show/Hide Label/Icon
-      if(this.getShow() === 'icon' && this.__label) {
+      if(this.showChildren === 'icon' && this.__label) {
         this.__label.exclude();
       }
-      if(this.getShow() === 'label' && this.__icon) {
+      if(this.showChildren === 'label' && this.__icon) {
         this.__icon.exclude();
       }
 
       this._add(this.__childrenContainer);
+    },
+
+
+    dispose : function() {
+      this._disposeObjects("__label", "__icon", "__childrenContainer");
+      this.base(arguments);
     }
-  },
-
-
-  /*
-  *****************************************************************************
-     DESTRUCTOR
-  *****************************************************************************
-  */
-
-  destruct : function() {
-    this._disposeObjects("__label", "__icon", "__childrenContainer");
   }
 });

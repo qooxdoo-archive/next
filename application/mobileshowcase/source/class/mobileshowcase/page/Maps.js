@@ -29,7 +29,7 @@ qx.Class.define("mobileshowcase.page.Maps",
 
   construct : function() {
     this.base(arguments,false);
-    this.setTitle("Maps");
+    this.title = "Maps";
 
     this._geolocationEnabled = qx.core.Environment.get("html.geolocation");
   },

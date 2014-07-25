@@ -21,7 +21,7 @@
  * A separator widget used to separate widgets in a toolbar.
  *
  */
-qx.Class.define("qx.ui.mobile.toolbar.Separator",
+qx.Bootstrap.define("qx.ui.mobile.toolbar.Separator",
 {
   extend : qx.ui.mobile.core.Widget,
 
@@ -47,8 +47,7 @@ qx.Class.define("qx.ui.mobile.toolbar.Separator",
       // overridden
       defaultCssClass :
       {
-        refine : true,
-        init : "toolbar-separator"
+          init : "toolbar-separator"
       }
     }
 });

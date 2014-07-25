@@ -22,7 +22,7 @@
  *
  * @use(qx.ui.mobile.core.EventHandler)
  */
-qx.Class.define("qx.ui.mobile.core.Widget",
+qx.Bootstrap.define("qx.ui.mobile.core.Widget",
 {
   extend : qx.core.Object,
   include : [qx.locale.MTranslation],
@@ -44,11 +44,14 @@ qx.Class.define("qx.ui.mobile.core.Widget",
 
     this.__children = [];
 
-    this.setId(this.getId());
-    this.initDefaultCssClass();
-    this.initName();
-    this.initAnonymous();
-    this.initActivatable();
+
+    var clazz = qx.ui.mobile.core.Widget;
+    //debugger
+    this.id = clazz.ID_PREFIX + clazz.__idCounter++;
+    this.defaultCssClass = undefined;
+    this.name = null;
+    this.anonymous = null;
+    this.activatable = false;
   },
 
 
@@ -222,7 +225,7 @@ qx.Class.define("qx.ui.mobile.core.Widget",
     /**
      * The default CSS class used for this widget. The default CSS class
      * should contain the common appearance of the widget.
-     * It is set to the container element of the widget. Use {@link #addCssClass}
+     * It is applied to the container element of the widget. Use {@link #addCssClass}
      * to enhance the default appearance of the widget.
      */
     defaultCssClass :
@@ -281,10 +284,8 @@ qx.Class.define("qx.ui.mobile.core.Widget",
     id :
     {
       check : "String",
-      init : null,
       nullable : true,
       apply : "_applyId",
-      transform : "_transformId",
       event : "changeId"
     },
 
@@ -446,7 +447,7 @@ qx.Class.define("qx.ui.mobile.core.Widget",
      */
     getCurrentId : function()
     {
-      return qx.ui.mobile.core.Widget.__idCounter
+      return qx.ui.mobile.core.Widget.__idCounter;
     },
 
 
@@ -459,7 +460,7 @@ qx.Class.define("qx.ui.mobile.core.Widget",
      */
     registerWidget : function(widget)
     {
-      var id = widget.getId();
+      var id = widget.id;
       var registry = qx.ui.mobile.core.Widget.__registry;
       if (qx.core.Environment.get("qx.debug")) {
         qx.core.Assert.assertUndefined(registry[id], "Widget with the id '" + id + "' is already registered");
@@ -725,11 +726,7 @@ qx.Class.define("qx.ui.mobile.core.Widget",
      */
     _transformId : function(value)
     {
-      if (value == null)
-      {
-        var clazz = qx.ui.mobile.core.Widget;
-        value = clazz.ID_PREFIX + clazz.__idCounter++;
-      }
+
       return value;
     },
 
@@ -737,11 +734,12 @@ qx.Class.define("qx.ui.mobile.core.Widget",
     // property apply
     _applyId : function(value, old)
     {
-      if (old != null)
+      if (old !== null)
       {
         // Unregister widget with old id
         qx.ui.mobile.core.Widget.unregisterWidget(old);
       }
+
       // Change the id of the DOM element
       var element = this.getContainerElement();
       element.id = value;
@@ -761,7 +759,7 @@ qx.Class.define("qx.ui.mobile.core.Widget",
       if(value)
       {
         this.removeCssClass("disabled");
-        this._setStyle('anonymous',this.getAnonymous());
+        this._setStyle('anonymous',this.anonymous);
       }
       else
       {
@@ -1175,25 +1173,25 @@ qx.Class.define("qx.ui.mobile.core.Widget",
      */
     _transform : function() {
       var propertyValue = "";
-      if(this.getRotation() != null) {
-        propertyValue = propertyValue + "rotate("+this.getRotation()+"deg) ";
+      if(this.rotation != null) {
+        propertyValue = propertyValue + "rotate("+this.rotation+"deg) ";
       }
 
-      if(this.getScaleX() != null && this.getScaleY() != null) {
-        propertyValue = propertyValue + "scale("+this.getScaleX()+","+this.getScaleY()+") ";
+      if(this.scaleX != null && this.scaleY != null) {
+        propertyValue = propertyValue + "scale("+this.scaleX+","+this.scaleY+") ";
       }
 
       var resolutionFactor = 1;
-      if (this.getTransformUnit() == "rem") {
+      if (this.transformUnit == "rem") {
         resolutionFactor = 16;
       }
 
-      if (this.getTranslateX() != null && this.getTranslateY() != null) {
+      if (this.translateX != null && this.translateY != null) {
         var isTransform3d = qx.core.Environment.get("css.transform.3d");
-        if (isTransform3d && this.getTranslateZ() != null) {
-          propertyValue = propertyValue + "translate3d(" + (this.getTranslateX()/resolutionFactor) + this.getTransformUnit() + "," + (this.getTranslateY()/resolutionFactor) + this.getTransformUnit() + "," + (this.getTranslateZ()/resolutionFactor) + this.getTransformUnit() + ") ";
+        if (isTransform3d && this.translateZ != null) {
+          propertyValue = propertyValue + "translate3d(" + (this.translateX/resolutionFactor) + this.transformUnit + "," + (this.translateY/resolutionFactor) + this.transformUnit + "," + (this.translateZ/resolutionFactor) + this.transformUnit + ") ";
         } else {
-          propertyValue = propertyValue + "translate(" + (this.getTranslateX()/resolutionFactor) + this.getTransformUnit() + "," + (this.getTranslateY()/resolutionFactor) + this.getTransformUnit() + ") ";
+          propertyValue = propertyValue + "translate(" + (this.translateX/resolutionFactor) + this.transformUnit + "," + (this.translateY/resolutionFactor) + this.transformUnit + ") ";
         }
       }
 
@@ -1453,7 +1451,7 @@ qx.Class.define("qx.ui.mobile.core.Widget",
      * @param properties {Map} The animation properties to set. Key / value pairs.
      */
     __setVisibility : function(action, properties) {
-      this.setVisibility(action);
+      this.visibility = action;
 
       var parent = this.getLayoutParent();
       if (parent) {
@@ -1503,7 +1501,7 @@ qx.Class.define("qx.ui.mobile.core.Widget",
      * @return {Boolean} Returns <code>true</code> when the widget is visible
      */
     isVisible : function() {
-      return this.getVisibility() === "visible";
+      return this.visibility === "visible";
     },
 
 
@@ -1515,7 +1513,7 @@ qx.Class.define("qx.ui.mobile.core.Widget",
      * @return {Boolean} Returns <code>true</code> when the widget is hidden
      */
     isHidden : function() {
-      return this.getVisibility() !== "visible";
+      return this.visibility !== "visible";
     },
 
 
@@ -1527,7 +1525,7 @@ qx.Class.define("qx.ui.mobile.core.Widget",
      * @return {Boolean} Returns <code>true</code> when the widget is excluded
      */
     isExcluded : function() {
-      return this.getVisibility() === "excluded";
+      return this.visibility=== "excluded";
     },
 
 
@@ -1627,39 +1625,31 @@ qx.Class.define("qx.ui.mobile.core.Widget",
         parent._remove(this);
       }
       this.dispose();
-    }
-  },
+    },
 
 
-
-
-  /*
-  *****************************************************************************
-     DESTRUCTOR
-  *****************************************************************************
-  */
-
-  destruct : function()
-  {
-    if (!qx.core.ObjectRegistry.inShutDown)
-    {
-      // Cleanup event listeners
-      // Needed as we rely on the containerElement in the qx.ui.mobile.core.EventHandler
-      qx.event.Registration.removeAllListeners(this);
-
-      if (this.getId())
+    dispose : function() {
+      if (!qx.core.ObjectRegistry.inShutDown)
       {
-        qx.ui.mobile.core.Widget.unregisterWidget(this.getId());
+        // Cleanup event listeners
+        // Needed as we rely on the containerElement in the qx.ui.mobile.core.EventHandler
+        qx.event.Registration.removeAllListeners(this);
+
+        if (this.id)
+        {
+          qx.ui.mobile.core.Widget.unregisterWidget(this.id);
+        }
       }
-    }
 
-    this.__layoutParent = this.__containerElement = this.__contentElement = null;
-    if(this.__layoutManager) {
-      this.__layoutManager.dispose();
+      this.__layoutParent = this.__containerElement = this.__contentElement = null;
+      if(this.__layoutManager) {
+        this.__layoutManager.dispose();
+      }
+      this.__layoutManager = null;
+
+      this.base(arguments);
     }
-    this.__layoutManager = null;
   },
-
 
 
 

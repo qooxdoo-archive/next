@@ -87,7 +87,7 @@ qx.Mixin.define("qx.ui.mobile.core.MResize",
           return;
         }
 
-        if (!this.getFireDomUpdatedOnResize()) {
+        if (!this.fireDomUpdatedOnResize) {
           this._setHeight(height);
           this._setWidth(width);
         } else if (this.__lastHeight != height && this.__lastWidth != width) {

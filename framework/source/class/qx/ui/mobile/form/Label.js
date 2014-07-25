@@ -34,7 +34,7 @@
  *   var checkBox = new qx.ui.mobile.form.CheckBox();
  *   var label = new qx.ui.mobile.form.Label("Label for CheckBox");
  *
- *   label.setLabelFor(checkBox.getId());
+ *   label.setLabelFor(checkBox.id);
  *
  *   this.getRoot().add(label);
  *   this.getRoot().add(checkBox);
@@ -43,7 +43,7 @@
  * This example create a widget to display the label.
  *
  */
-qx.Class.define("qx.ui.mobile.form.Label",
+qx.Bootstrap.define("qx.ui.mobile.form.Label",
 {
   extend : qx.ui.mobile.core.Widget,
 
@@ -61,15 +61,15 @@ qx.Class.define("qx.ui.mobile.form.Label",
   {
     this.base(arguments);
     if (value) {
-      this.setValue(value);
+      this.value = value;
     }
 
     this.addCssClass("gap");
-    this._setLayout(new qx.ui.mobile.layout.HBox().set({
-      "alignY": "middle",
-      "alignX": "left"
-    }));
-    this.initWrap();
+    var layout = new qx.ui.mobile.layout.HBox();
+    layout.alignY = "middle";
+    layout.alignX = "left";
+    this._setLayout(layout);
+    this.wrap = true;
 
     if (qx.core.Environment.get("qx.dynlocale")) {
       qx.locale.Manager.getInstance().addListener("changeLocale", this._onChangeLocale, this);
@@ -91,7 +91,6 @@ qx.Class.define("qx.ui.mobile.form.Label",
     // overridden
     defaultCssClass :
     {
-      refine : true,
       init : "label"
     },
 
@@ -111,7 +110,6 @@ qx.Class.define("qx.ui.mobile.form.Label",
     // overridden
     anonymous :
     {
-      refine : true,
       init : false
     },
 
@@ -178,7 +176,7 @@ qx.Class.define("qx.ui.mobile.form.Label",
     */
     _changeEnabled: function(evt) {
       if (evt) {
-        this.setEnabled(evt.getData());
+        this.enabled = evt.getData();
       }
     },
 
@@ -199,7 +197,7 @@ qx.Class.define("qx.ui.mobile.form.Label",
 
       if (this.__forWidget) {
         this.__forWidget.addListener("changeEnabled", this._changeEnabled, this);
-        this.setEnabled(this.__forWidget.getEnabled());
+        this.enabled = this.__forWidget.enabled;
       }
 
       this._setAttribute("for", elementId);
@@ -232,23 +230,24 @@ qx.Class.define("qx.ui.mobile.form.Label",
     {
       "true" : function(e)
       {
-        var content = this.getValue();
+        var content = this.value;
         if (content && content.translate) {
-          this.setValue(content.translate());
+          this.value = content.translate();
         }
       },
 
       "false" : null
-    })
-  },
+    }),
 
 
-  destruct : function() {
-    this.removeListener("tap", this._onTap, this);
+    dispose : function() {
+      this.removeListener("tap", this._onTap, this);
 
-    if (this.__forWidget) {
-      this.__forWidget.removeListener("changeEnabled", this._changeEnabled, this);
-      this.__forWidget = null;
+      if (this.__forWidget) {
+        this.__forWidget.removeListener("changeEnabled", this._changeEnabled, this);
+        this.__forWidget = null;
+      }
+      this.base(arguments);
     }
   }
 });

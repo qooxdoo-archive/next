@@ -344,26 +344,19 @@ qx.Mixin.define("qx.ui.mobile.container.MIScroll",
       if (this.__scroll) {
         this.__scroll.refresh();
       }
+    },
+
+
+    // TODO
+    disposeAAA : function() {
+      this.__unregisterEventListeners();
+
+      // Cleanup iScroll
+      if (this.__scroll) {
+        this.__scroll.destroy();
+      }
+      this.__scroll = null;
+      this.base(arguments);
     }
-  },
-
-
-
-
-  /*
-  *****************************************************************************
-     DESTRUCTOR
-  *****************************************************************************
-  */
-
-  destruct : function()
-  {
-    this.__unregisterEventListeners();
-
-    // Cleanup iScroll
-    if (this.__scroll) {
-      this.__scroll.destroy();
-    }
-    this.__scroll = null;
   }
 });

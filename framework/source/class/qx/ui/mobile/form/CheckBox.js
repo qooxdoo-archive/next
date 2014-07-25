@@ -27,11 +27,11 @@
  *   var checkBox = new qx.ui.mobile.form.CheckBox();
  *   var title = new qx.ui.mobile.form.Title("Title");
  *
- *   checkBox.setModel("Title Activated");
+ *   checkBox.model = "Title Activated";
  *   checkBox.bind("model", title, "value");
  *
  *   checkBox.addListener("changeValue", function(evt){
- *     this.setModel(evt.getdata() ? "Title Activated" : "Title Deactivated");
+ *     this.model = evt.getdata() ? "Title Activated" : "Title Deactivated";
  *   });
  *
  *   this.getRoot.add(checkBox);
@@ -42,7 +42,7 @@
  * When the user taps on the checkbox, its model changes and it is reflected in the Title's value.
  *
  */
-qx.Class.define("qx.ui.mobile.form.CheckBox",
+qx.Bootstrap.define("qx.ui.mobile.form.CheckBox",
 {
   extend : qx.ui.mobile.form.Input,
   include : [qx.ui.mobile.form.MValue],
@@ -78,7 +78,6 @@ qx.Class.define("qx.ui.mobile.form.CheckBox",
     // overridden
     defaultCssClass :
     {
-      refine : true,
       init : "checkbox"
     }
 
@@ -108,7 +107,7 @@ qx.Class.define("qx.ui.mobile.form.CheckBox",
      */
     _onTap : function() {
       // Toggle State.
-      this.setValue(!this.getValue());
+      this.value = !this.value;
     },
 
 
@@ -137,17 +136,12 @@ qx.Class.define("qx.ui.mobile.form.CheckBox",
      */
     _getValue : function() {
       return this._state;
+    },
+
+
+    dispose : function() {
+      this.removeListener("tap", this._onTap, this);
+      this.base(arguments);
     }
-  },
-
-
-  /*
-  *****************************************************************************
-      DESTRUCTOR
-  *****************************************************************************
-  */
-  destruct : function()
-  {
-    this.removeListener("tap", this._onTap, this);
   }
 });

@@ -20,10 +20,10 @@
 /**
  * Base class for all list item renderer.
  */
-qx.Class.define("qx.ui.mobile.list.renderer.Abstract",
+qx.Bootstrap.define("qx.ui.mobile.list.renderer.Abstract",
 {
   extend : qx.ui.mobile.container.Composite,
-  type : "abstract",
+  //type : "abstract", TOOD: MAbstract
 
 
  /*
@@ -35,9 +35,9 @@ qx.Class.define("qx.ui.mobile.list.renderer.Abstract",
   construct : function(layout)
   {
     this.base(arguments, layout);
-    this.initSelectable();
-    this.initRemovable();
-    this.initShowArrow();
+    this.selectable = undefined;
+    this.removable = undefined;
+    this.showArrow = undefined;
   },
 
 
@@ -52,7 +52,6 @@ qx.Class.define("qx.ui.mobile.list.renderer.Abstract",
     // overridden
     defaultCssClass :
     {
-      refine : true,
       init : "list-item"
     },
 

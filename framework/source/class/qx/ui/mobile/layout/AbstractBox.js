@@ -20,10 +20,10 @@
 /**
  * Base class for all box layout managers.
  */
-qx.Class.define("qx.ui.mobile.layout.AbstractBox",
+qx.Bootstrap.define("qx.ui.mobile.layout.AbstractBox",
 {
   extend : qx.ui.mobile.layout.Abstract,
-  type : "abstract",
+  //type : "abstract", TODO: MAbstract
 
 
  /*
@@ -41,13 +41,13 @@ qx.Class.define("qx.ui.mobile.layout.AbstractBox",
   {
     this.base(arguments);
     if (alignX) {
-      this.setAlignX(alignX);
+      this.alignX = alignX;
     }
     if (alignY) {
-      this.setAlignY(alignY);
+      this.alignY = alignY;
     }
     if (reversed) {
-      this.setReversed(reversed);
+      this.reversed = reversed;
     }
   },
 
@@ -201,9 +201,9 @@ qx.Class.define("qx.ui.mobile.layout.AbstractBox",
     connectToWidget : function(widget)
     {
       if (this._widget) {
-        this.resetAlignX();
-        this.resetAlignY();
-        this.resetReversed();
+        this.alignX = undefined;
+        this.alignY = undefined;
+        this.reversed = undefined;
       }
       this.base(arguments, widget);
     },

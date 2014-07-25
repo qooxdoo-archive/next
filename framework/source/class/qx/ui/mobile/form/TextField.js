@@ -20,7 +20,7 @@
 /**
  * The TextField is a single-line text input field.
  */
-qx.Class.define("qx.ui.mobile.form.TextField",
+qx.Bootstrap.define("qx.ui.mobile.form.TextField",
 {
   extend : qx.ui.mobile.form.Input,
   include : [qx.ui.mobile.form.MValue, qx.ui.mobile.form.MText],
@@ -54,7 +54,6 @@ qx.Class.define("qx.ui.mobile.form.TextField",
     // overridden
     defaultCssClass :
     {
-      refine : true,
       init : "text-field"
     }
   },
@@ -78,11 +77,12 @@ qx.Class.define("qx.ui.mobile.form.TextField",
       if(evt.getKeyCode() == 13) {
         this.blur();
       }
+    },
+
+
+    dispose : function() {
+      this.removeListener("keypress", this._onKeyPress, this);
+      this.base(arguments);
     }
-  },
-
-
-  destruct : function() {
-    this.removeListener("keypress", this._onKeyPress, this);
   }
 });

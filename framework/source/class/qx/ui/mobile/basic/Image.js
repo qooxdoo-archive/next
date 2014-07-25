@@ -34,7 +34,7 @@
  * <code>path/to/icon.png</code>.
  *
  */
-qx.Class.define("qx.ui.mobile.basic.Image",
+qx.Bootstrap.define("qx.ui.mobile.basic.Image",
 {
   extend : qx.ui.mobile.core.Widget,
 
@@ -57,11 +57,7 @@ qx.Class.define("qx.ui.mobile.basic.Image",
       qx.ui.mobile.basic.Image.ROOT = qx.core.Init.getApplication().getRoot();
     }
 
-    if (source) {
-      this.setSource(source);
-    } else {
-      this.initSource();
-    }
+    this.source = source ? source : null;
 
     qx.ui.mobile.basic.Image.ROOT.addListener("changeAppScale", this._onChangeAppScale, this);
   },
@@ -162,7 +158,7 @@ qx.Class.define("qx.ui.mobile.basic.Image",
           qx.io.ImageLoader.load(uri, this.__loaderCallback, this);
         }
       }
-      
+
       this._setSource(source);
     },
 
@@ -172,7 +168,7 @@ qx.Class.define("qx.ui.mobile.basic.Image",
     * Reloads the image source.
     */
     _onChangeAppScale : function() {
-      this._applySource(this.getSource());
+      this._applySource(this.source);
     },
 
 
@@ -317,6 +313,12 @@ qx.Class.define("qx.ui.mobile.basic.Image",
       } else {
         this._setAttribute("draggable", "false");
       }
+    },
+
+
+    dispose : function() {
+      qx.ui.mobile.basic.Image.ROOT.removeListener("changeAppScale", this._onChangeAppScale, this);
+      this.base(arguments);
     }
   },
 
@@ -324,10 +326,5 @@ qx.Class.define("qx.ui.mobile.basic.Image",
   defer : function(statics) {
     statics.PIXEL_RATIOS = ["3", "2", "1.5"];
     statics.PLACEHOLDER_IMAGE = "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7";
-  },
-
-
-  destruct : function() {
-    qx.ui.mobile.basic.Image.ROOT.removeListener("changeAppScale", this._onChangeAppScale, this);
   }
 });

@@ -25,10 +25,10 @@
  * @require(qx.event.dispatch.DomBubbling)
  * @require(qx.ui.mobile.core.Widget)
  */
-qx.Class.define("qx.ui.mobile.core.EventHandler",
+qx.Bootstrap.define("qx.ui.mobile.core.EventHandler",
 {
   extend : qx.core.Object,
-  implement : qx.event.IEventHandler,
+  implement : [qx.event.IEventHandler],
 
 
 
@@ -363,22 +363,14 @@ qx.Class.define("qx.ui.mobile.core.EventHandler",
 
       // Release the event instance to the event pool
       qx.event.Pool.getInstance().poolObject(widgetEvent);
+    },
+
+
+    dispose : function() {
+      this.__manager = null;
+      this.base(arguments);
     }
   },
-
-
-
-
-  /*
-  *****************************************************************************
-     DESTRUCTOR
-  *****************************************************************************
-  */
-
-  destruct : function() {
-    this.__manager = null;
-  },
-
 
 
 

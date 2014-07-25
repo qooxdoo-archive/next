@@ -36,7 +36,7 @@
  *
  * This example creates a group and adds a list to it.
  */
-qx.Class.define("qx.ui.mobile.form.Group",
+qx.Bootstrap.define("qx.ui.mobile.form.Group",
 {
   extend : qx.ui.mobile.container.Composite,
 
@@ -58,7 +58,7 @@ qx.Class.define("qx.ui.mobile.form.Group",
     this.addCssClass("bordered");
 
     if(showBorder != null) {
-      this.setShowBorder(showBorder);
+      this.showBorder = showBorder;
     }
 
     // Convenience: Add all widgets of array to group.
@@ -82,7 +82,6 @@ qx.Class.define("qx.ui.mobile.form.Group",
     // overridden
     defaultCssClass :
     {
-      refine : true,
       init : "group"
     },
 
@@ -112,7 +111,7 @@ qx.Class.define("qx.ui.mobile.form.Group",
      */
     _onChangeShowBorder : function() {
 
-      if(this.isShowBorder()==true) {
+      if(this.showBorder) {
         this.addCssClass("bordered");
       } else {
         this.removeCssClass("bordered");

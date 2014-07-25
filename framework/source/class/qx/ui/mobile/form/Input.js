@@ -21,7 +21,7 @@
 /**
  * Abstract class for all input fields.
  */
-qx.Class.define("qx.ui.mobile.form.Input",
+qx.Bootstrap.define("qx.ui.mobile.form.Input",
 {
   extend : qx.ui.mobile.core.Widget,
   include : [
@@ -33,7 +33,7 @@ qx.Class.define("qx.ui.mobile.form.Input",
     qx.ui.form.IForm,
     qx.ui.form.IModel
   ],
-  type : "abstract",
+  //type : "abstract", TODO: MAbstract
 
 
   construct : function()
@@ -111,11 +111,12 @@ qx.Class.define("qx.ui.mobile.form.Input",
           this._setStyle("position",null);
         }, this);
       }.bind(this), 300);
+    },
+
+
+    dispose : function() {
+      this.removeListener("focus", this._onSelected, this);
+      this.base(arguments);
     }
-  },
-
-
-  destruct : function() {
-    this.removeListener("focus", this._onSelected, this);
   }
 });

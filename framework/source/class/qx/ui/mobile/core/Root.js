@@ -21,7 +21,7 @@
 /**
  * Root widget for the mobile application.
  */
-qx.Class.define("qx.ui.mobile.core.Root",
+qx.Bootstrap.define("qx.ui.mobile.core.Root",
 {
   extend : qx.ui.mobile.container.Composite,
 
@@ -76,7 +76,6 @@ qx.Class.define("qx.ui.mobile.core.Root",
     // overridden
     defaultCssClass :
     {
-      refine : true,
       init : "root"
     },
 
@@ -268,19 +267,14 @@ qx.Class.define("qx.ui.mobile.core.Root",
         this.addCssClass("landscape");
         this.removeCssClass("portrait");
       }
+    },
+
+
+    dispose : function() {
+      this.__root = null;
+      this.removeListener("touchmove", qx.bom.Event.preventDefault, this);
+      qx.event.Registration.removeListener(window, "orientationchange", this._onOrientationChange, this);
+      this.base(arguments);
     }
-  },
-
-
-  /*
-  *****************************************************************************
-     DESTRUCTOR
-  *****************************************************************************
-  */
-
-  destruct : function() {
-    this.__root = null;
-    this.removeListener("touchmove", qx.bom.Event.preventDefault, this);
-    qx.event.Registration.removeListener(window, "orientationchange", this._onOrientationChange, this);
   }
 });

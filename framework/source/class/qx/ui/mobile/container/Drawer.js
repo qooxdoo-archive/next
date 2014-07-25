@@ -31,7 +31,7 @@
  * <pre class='javascript'>
  *
  *  var drawer = new qx.ui.mobile.container.Drawer();
- *  drawer.setOrientation("right");
+ *  drawer.orientation = "right";
  *  drawer.setTapOffset(100);
  *
  *  var button = new qx.ui.mobile.form.Button("A Button");
@@ -40,7 +40,7 @@
  *
  *
  */
-qx.Class.define("qx.ui.mobile.container.Drawer",
+qx.Bootstrap.define("qx.ui.mobile.container.Drawer",
 {
   extend : qx.ui.mobile.container.Composite,
 
@@ -65,8 +65,8 @@ qx.Class.define("qx.ui.mobile.container.Drawer",
       this.setLayout(layout);
     }
 
-    this.initOrientation();
-    this.initPositionZ();
+    this.orientation = "left";
+    this.positionZ = undefined;
 
     if (parent) {
       if (qx.core.Environment.get("qx.debug")) {
@@ -115,7 +115,6 @@ qx.Class.define("qx.ui.mobile.container.Drawer",
   properties : {
     // overridden
     defaultCssClass : {
-      refine : true,
       init : "drawer"
     },
 
@@ -133,7 +132,7 @@ qx.Class.define("qx.ui.mobile.container.Drawer",
     * orientation is <code>left | right</code>, as height if orientation is
     * <code>top | bottom</code>. */
     size : {
-      check : "Integer",
+      check : "Number",
       init : 300,
       apply : "_applySize",
       event : "resize"
@@ -149,14 +148,14 @@ qx.Class.define("qx.ui.mobile.container.Drawer",
 
     /** Sets the size of the tapping area, where the drawer reacts on swipes for opening itself. */
     tapOffset : {
-      check : "Integer",
+      check : "Number",
       init : 20
     },
 
 
     /** The duration time of the transition between shown/hidden state in ms. */
     transitionDuration : {
-      check : "Integer",
+      check : "Number",
       init : 500,
       apply : "_applyTransitionDuration"
     },
@@ -190,7 +189,7 @@ qx.Class.define("qx.ui.mobile.container.Drawer",
       this.addCssClass(value);
 
       // Reapply width of height size depending on orientation.
-      this._applySize(this.getSize());
+      this._applySize(this.size);
     },
 
 
@@ -200,23 +199,23 @@ qx.Class.define("qx.ui.mobile.container.Drawer",
       this.addCssClass(value);
 
       if(this.__parent) {
-        this.__parent.setTranslateX(0);
-        this.__parent.setTranslateY(0);
+        this.__parent.translateX = 0;
+        this.__parent.translateY = 0;
       }
     },
 
 
     /**
-    * @deprecated {3.5} Please use setSize() instead.
+    * @deprecated {3.5} Please use the size property instead.
     * Sets the user value of the property width.
     * @param value {Integer} New value for property
     */
     setWidth : function(value) {
       if (qx.core.Environment.get("qx.debug"))
       {
-        qx.log.Logger.deprecatedMethodWarning(arguments.callee,"The method 'setWidth()' is deprecated. Please use 'setSize()' instead.");
+        qx.log.Logger.deprecatedMethodWarning(arguments.callee,"The method 'setWidth()' is deprecated. Please use the 'size' property instead.");
       }
-      this.setSize(value);
+      this.size = value;
     },
 
 
@@ -230,61 +229,61 @@ qx.Class.define("qx.ui.mobile.container.Drawer",
       {
         qx.log.Logger.deprecatedMethodWarning(arguments.callee,"The method 'getWidth()' is deprecated. Please use 'getSize()' instead.");
       }
-      return this.getSize();
+      return this.size;
     },
 
 
     /**
-    * @deprecated {3.5} Please use resetSize() instead.
+    * @deprecated {3.5} Please use 'size = undefined' instead.
     * Resets the user value of the property width.
     */
     resetWidth : function() {
       if (qx.core.Environment.get("qx.debug"))
       {
-        qx.log.Logger.deprecatedMethodWarning(arguments.callee,"The method 'resetWidth()' is deprecated. Please use 'resetSize()' instead.");
+        qx.log.Logger.deprecatedMethodWarning(arguments.callee,"The method 'resetWidth()' is deprecated. Please use 'size = undefined' instead.");
       }
-      this.resetSize();
+      this.size = undefined;
     },
 
 
     /**
-    * @deprecated {3.5} Please use setSize() instead.
+    * @deprecated {3.5} Please use the size property instead.
     * Sets the user value of the property height.
     * @param value {Integer} New value for property
     */
     setHeight : function(value) {
       if (qx.core.Environment.get("qx.debug"))
       {
-        qx.log.Logger.deprecatedMethodWarning(arguments.callee,"The method 'setHeight()' is deprecated. Please use 'setSize()' instead.");
+        qx.log.Logger.deprecatedMethodWarning(arguments.callee,"The method 'setHeight()' is deprecated. Please use the 'size' property instead.");
       }
-      this.setSize(value);
+      this.size = value;
     },
 
 
     /**
-    * @deprecated {3.5} Please use getSize() instead.
+    * @deprecated {3.5} Please use the 'size' property instead.
     * Gets the user value of the property height.
     * @return {Integer} the value.
     */
     getHeight : function() {
       if (qx.core.Environment.get("qx.debug"))
       {
-        qx.log.Logger.deprecatedMethodWarning(arguments.callee,"The method 'getHeight()' is deprecated. Please use 'getSize()' instead.");
+        qx.log.Logger.deprecatedMethodWarning(arguments.callee,"The method 'getHeight()' is deprecated. Please use the 'size' property instead.");
       }
-      return this.getSize();
+      return this.size;
     },
 
 
     /**
-    * @deprecated {3.5} Please use resetSize() instead.
+    * @deprecated {3.5} Please use 'size = undefined' instead.
     * Resets the user value of the property height.
     */
     resetHeight : function() {
       if (qx.core.Environment.get("qx.debug"))
       {
-        qx.log.Logger.deprecatedMethodWarning(arguments.callee,"The method 'resetHeight()' is deprecated. Please use 'resetSize()' instead.");
+        qx.log.Logger.deprecatedMethodWarning(arguments.callee,"The method 'resetHeight()' is deprecated. Please use 'size = undefined' instead.");
       }
-      this.resetSize();
+      this.size = undefined;
     },
 
 
@@ -303,7 +302,7 @@ qx.Class.define("qx.ui.mobile.container.Drawer",
 
       var remSize = (value / 16);
 
-      if (this.getOrientation() == "left" || this.getOrientation() == "right") {
+      if (this.orientation == "left" || this.orientation == "right") {
         width = remSize + "rem";
       } else {
         height = remSize + "rem";
@@ -336,19 +335,19 @@ qx.Class.define("qx.ui.mobile.container.Drawer",
 
       this.__parent.addCssClass("blocked");
 
-      if (this.getPositionZ() == "below") {
-        if (this.getOrientation() == "left") {
-          this.__parent.setTranslateX(this.getSize());
-        } else if (this.getOrientation() == "right") {
-          this.__parent.setTranslateX(-this.getSize());
-        } else if (this.getOrientation() == "top") {
-          this.__parent.setTranslateY(this.getSize());
-        } else if (this.getOrientation() == "bottom") {
-          this.__parent.setTranslateY(-this.getSize());
+      if (this.positionZ == "below") {
+        if (this.orientation == "left") {
+          this.__parent.translateX = this.size;
+        } else if (this.orientation == "right") {
+          this.__parent.translateX = -this.size;
+        } else if (this.orientation == "top") {
+          this.__parent.translateY = this.size;
+        } else if (this.orientation == "bottom") {
+          this.__parent.translateY = -this.size;
         }
       }
 
-      if (this.getTransitionDuration() > 0) {
+      if (this.transitionDuration > 0) {
         this._enableTransition();
 
         var callArguments = arguments;
@@ -381,12 +380,12 @@ qx.Class.define("qx.ui.mobile.container.Drawer",
 
       this.__inTransition = true;
 
-      if (this.getPositionZ() == "below") {
-        this.__parent.setTranslateX(0);
-        this.__parent.setTranslateY(0);
+      if (this.positionZ == "below") {
+        this.__parent.translateX = 0;
+        this.__parent.translateY = 0;
       }
 
-      if (this.getTransitionDuration() > 0) {
+      if (this.transitionDuration > 0) {
         this._enableTransition();
 
         var callArguments = arguments;
@@ -419,9 +418,9 @@ qx.Class.define("qx.ui.mobile.container.Drawer",
     forceHide : function() {
       this._disableTransition();
 
-      if (this.getPositionZ() == "below") {
-        this.__parent.setTranslateX(0);
-        this.__parent.setTranslateY(0);
+      if (this.positionZ == "below") {
+        this.__parent.translateX = 0;
+        this.__parent.translateY = 0;
       }
 
       this.__parent.removeCssClass("blocked");
@@ -440,7 +439,7 @@ qx.Class.define("qx.ui.mobile.container.Drawer",
      * Enables the transition on this drawer.
      */
     _enableTransition : function() {
-      qx.bom.element.Style.set(this._getTransitionTarget().getContentElement(), "transition", "all "+this.getTransitionDuration()+"ms ease-in-out");
+      qx.bom.element.Style.set(this._getTransitionTarget().getContentElement(), "transition", "all "+this.transitionDuration+"ms ease-in-out");
     },
 
 
@@ -457,7 +456,7 @@ qx.Class.define("qx.ui.mobile.container.Drawer",
     * @return {qx.ui.mobile.core.Widget} the transition target widget.
     */
     _getTransitionTarget : function() {
-      if (this.getPositionZ() == "below") {
+      if (this.positionZ == "below") {
         return this.__parent;
       } else {
         return this;
@@ -488,9 +487,9 @@ qx.Class.define("qx.ui.mobile.container.Drawer",
       this.__pointerStartPosition = [evt.getViewportLeft(),evt.getViewportTop()];
 
       var isShown = !this.hasCssClass("hidden");
-      if(isShown && this.isHideOnParentTap()) {
+      if(isShown && this.hideOnParentTap) {
         var location = qx.bom.element.Location.get(this.getContainerElement());
-        var orientation = this.getOrientation();
+        var orientation = this.orientation;
         if (orientation == "left" && this.__pointerStartPosition[0] > location.right
         || orientation == "top" && this.__pointerStartPosition[1] > location.bottom
         || orientation == "bottom" && this.__pointerStartPosition[1] < location.top
@@ -517,22 +516,22 @@ qx.Class.define("qx.ui.mobile.container.Drawer",
 
         if (
           (direction == "right"
-          && this.getOrientation() == "left"
+          && this.orientation == "left"
           && this.__pointerStartPosition[0] < location.right + this.getTapOffset()
           && this.__pointerStartPosition[0] > location.right)
           ||
           (direction == "left"
-          && this.getOrientation() == "right"
+          && this.orientation == "right"
           && this.__pointerStartPosition[0] > location.left - this.getTapOffset()
           && this.__pointerStartPosition[0] < location.left)
           ||
           (direction == "down"
-          && this.getOrientation() == "top"
+          && this.orientation == "top"
           && this.__pointerStartPosition[1] < this.getTapOffset() + location.bottom
           && this.__pointerStartPosition[1] > location.bottom)
           ||
           (direction == "up"
-          && this.getOrientation() == "bottom"
+          && this.orientation == "bottom"
           && this.__pointerStartPosition[1] > location.top - this.getTapOffset()
           && this.__pointerStartPosition[1] < location.top)
         )
@@ -540,19 +539,19 @@ qx.Class.define("qx.ui.mobile.container.Drawer",
           this.show();
         }
       }
+    },
+
+    dispose : function()
+    {
+      qx.core.Init.getApplication().removeListener("back", this.forceHide, this);
+
+      this.__parent.removeListener("swipe", this._onParentSwipe, this);
+      this.__parent.removeListener("pointerdown", this._onParentPointerDown, this);
+
+      qx.util.DisposeUtil.destroyContainer(this);
+
+      this.__pointerStartPosition = this.__parent = this.__transitionEnabled = null;
+      this.base(arguments);
     }
-  },
-
-
-  destruct : function()
-  {
-    qx.core.Init.getApplication().removeListener("back", this.forceHide, this);
-
-    this.__parent.removeListener("swipe", this._onParentSwipe, this);
-    this.__parent.removeListener("pointerdown", this._onParentPointerDown, this);
-
-    qx.util.DisposeUtil.destroyContainer(this);
-
-    this.__pointerStartPosition = this.__parent = this.__transitionEnabled = null;
   }
 });

@@ -41,7 +41,7 @@
  *
  *
  */
-qx.Class.define("qx.ui.mobile.form.RadioButton",
+qx.Bootstrap.define("qx.ui.mobile.form.RadioButton",
 {
   extend : qx.ui.mobile.form.Input,
   include : [qx.ui.mobile.form.MValue],
@@ -86,7 +86,6 @@ qx.Class.define("qx.ui.mobile.form.RadioButton",
     // overridden
     defaultCssClass :
     {
-      refine : true,
       init : "radio"
     },
 
@@ -126,7 +125,7 @@ qx.Class.define("qx.ui.mobile.form.RadioButton",
       this.fireDataEvent("changeValue", {});
 
       // Toggle State.
-      this.setValue(true);
+      this.value = true;
     },
 
 
@@ -170,17 +169,12 @@ qx.Class.define("qx.ui.mobile.form.RadioButton",
      */
     _getValue : function() {
       return this._state;
+    },
+
+
+    dispose : function() {
+      qx.event.Registration.removeListener(this, "tap", this._onTap, this);
+      this.base(arguments);
     }
-  },
-
-
-  /*
-  *****************************************************************************
-      DESTRUCTOR
-  *****************************************************************************
-  */
-  destruct : function()
-  {
-    qx.event.Registration.removeListener(this, "tap", this._onTap, this);
   }
 });

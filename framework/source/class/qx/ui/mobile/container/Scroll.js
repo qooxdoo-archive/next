@@ -40,7 +40,7 @@
  *
  * This example creates a scroll container and adds a label to it.
  */
-qx.Class.define("qx.ui.mobile.container.Scroll",
+qx.Bootstrap.define("qx.ui.mobile.container.Scroll",
 {
   extend : qx.ui.mobile.container.Composite,
 
@@ -73,7 +73,7 @@ qx.Class.define("qx.ui.mobile.container.Scroll",
     pageEnd : "qx.event.type.Event",
 
 
-    /** Fired when a vertical or horizontal waypoint is triggered. Data: 
+    /** Fired when a vertical or horizontal waypoint is triggered. Data:
     * <code> {"offset": 0,
     *        "input": "10%",
     *        "index": 0}</code>
@@ -92,7 +92,6 @@ qx.Class.define("qx.ui.mobile.container.Scroll",
     // overridden
     defaultCssClass :
     {
-      refine : true,
       init : "scroll"
     },
 
@@ -127,7 +126,7 @@ qx.Class.define("qx.ui.mobile.container.Scroll",
 
     /**
     * Sets the current x position.
-    * @param value {Number} the current horizontal position. 
+    * @param value {Number} the current horizontal position.
     */
     _setCurrentX : function(value) {
       var old = this._currentX;
@@ -138,7 +137,7 @@ qx.Class.define("qx.ui.mobile.container.Scroll",
 
     /**
     * Sets the current y position.
-    * @param value {Number} the current vertical position.  
+    * @param value {Number} the current vertical position.
     */
     _setCurrentY : function(value) {
       var old = this._currentY;
@@ -149,7 +148,7 @@ qx.Class.define("qx.ui.mobile.container.Scroll",
 
    /**
     * Sets the horizontal trigger points, where a <code>waypoint</code> event will be fired.
-    * @param waypoints {Array} description 
+    * @param waypoints {Array} description
     */
     setWaypointsX : function(waypoints) {
       this._waypointsX = this._parseWaypoints(waypoints, "x");
@@ -181,7 +180,7 @@ qx.Class.define("qx.ui.mobile.container.Scroll",
     getScrollWidth: function() {
       return this._getScrollWidth();
     },
-    
+
 
     /**
      * Re-calculates the internal waypoint offsets.
@@ -455,7 +454,7 @@ qx.Class.define("qx.ui.mobile.container.Scroll",
      */
     _getScrollOffset : function()
     {
-      var delegate = this.getDelegate();
+      var delegate = this.delegate;
       if (delegate != null && delegate.getScrollOffset) {
         return delegate.getScrollOffset.bind(this)();
       } else {
@@ -476,6 +475,15 @@ qx.Class.define("qx.ui.mobile.container.Scroll",
       if (widget) {
         this._scrollToElement(widget.getContentElement(), time);
       }
+    },
+
+
+    dispose : function() {
+      this.removeListener("appear", this._updateWaypoints, this);
+      this.removeListener("domupdated", this._updateWaypoints, this);
+
+      this._waypointsX = this._waypointsY = null;
+      this.base(arguments);
     }
   },
 
@@ -488,13 +496,5 @@ qx.Class.define("qx.ui.mobile.container.Scroll",
     } else {
       qx.Class.include(statics, qx.ui.mobile.container.MNativeScroll);
     }
-  },
-
-
-  destruct : function() {
-    this.removeListener("appear", this._updateWaypoints, this);
-    this.removeListener("domupdated", this._updateWaypoints, this);
-
-    this._waypointsX = this._waypointsY = null;
   }
 });

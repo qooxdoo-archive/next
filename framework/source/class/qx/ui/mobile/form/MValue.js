@@ -38,7 +38,7 @@ qx.Mixin.define("qx.ui.mobile.form.MValue",
   construct : function(value)
   {
     if (value) {
-      this.setValue(value);
+      this.value = value;
     }
 
     if (this._getTagName() == "input" || this._getTagName() == "textarea") {
@@ -207,7 +207,7 @@ qx.Mixin.define("qx.ui.mobile.form.MValue",
      */
     resetValue : function()
     {
-      this.setValue(null);
+      this.value = null;
     },
 
 
@@ -280,12 +280,14 @@ qx.Mixin.define("qx.ui.mobile.form.MValue",
         this.__oldValue = value;
         this.fireDataEvent("changeValue", value);
       }
+    },
+
+
+    // TODO
+    disposeAAA : function() {
+      this.removeListener("focus", this._onFocus,this);
+      this.removeListener("blur", this._onBlur,this);
+      this.base(arguments);
     }
-  },
-
-
-  destruct : function() {
-    this.removeListener("focus", this._onFocus,this);
-    this.removeListener("blur", this._onBlur,this);
   }
 });
