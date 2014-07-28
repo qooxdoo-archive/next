@@ -41,47 +41,49 @@ qx.Class.define("qx.test.data.singlevalue.Simple",
       this.__b = new qx.test.data.singlevalue.TextFieldDummy();
     },
 
-
     tearDown : function() {
       qx.data.SingleValueBinding.removeAllBindingsForObject(this.__a);
       qx.data.SingleValueBinding.removeAllBindingsForObject(this.__b);
+      this.__a.dispose();
+      this.__b.dispose();
     },
-
 
     testStringPropertyBinding : function()
     {
       qx.data.SingleValueBinding.bind(this.__a, "appearance", this.__b, "appearance");
-      this.__a.appearance = "affe";
-      this.assertEquals("affe", this.__b.appearance, "String binding does not work!");
+      this.__a.setAppearance("affe");
+      this.assertEquals("affe", this.__b.getAppearance(), "String binding does not work!");
 
       var affe = new qx.test.data.singlevalue.TextFieldDummy();
-      affe.appearance = "Jonny";
+      affe.setAppearance("Jonny");
       qx.data.SingleValueBinding.bind(affe, "appearance", this.__b, "appearance");
-      this.assertEquals("Jonny", this.__b.appearance, "String binding does not work!");
+      this.assertEquals("Jonny", this.__b.getAppearance(), "String binding does not work!");
+      qx.data.SingleValueBinding.removeAllBindingsForObject(affe);
+      affe.dispose();
     },
 
 
     testBooleanPropertyBinding : function()
     {
       qx.data.SingleValueBinding.bind(this.__a, "enabled", this.__b, "enabled");
-      this.__a.enabled = false;
-      this.assertFalse(this.__b.enabled, "Boolean binding does not work!");
+      this.__a.setEnabled(false);
+      this.assertFalse(this.__b.getEnabled(), "Boolean binding does not work!");
     },
 
 
     testNumberPropertyBinding : function()
     {
       qx.data.SingleValueBinding.bind(this.__a, "zIndex", this.__b, "zIndex");
-      this.__a.zIndex = 2456;
-      this.assertEquals(2456, this.__b.zIndex, "Number binding does not work!");
+      this.__a.setZIndex(2456);
+      this.assertEquals(2456, this.__b.getZIndex(), "Number binding does not work!");
     },
 
 
     testColorPropertyBinding : function()
     {
       qx.data.SingleValueBinding.bind(this.__a, "backgroundColor", this.__b, "backgroundColor");
-      this.__a.backgroundColor = "red";
-      this.assertEquals("red", this.__b.backgroundColor, "Color binding does not work!");
+      this.__a.setBackgroundColor("red");
+      this.assertEquals("red", this.__b.getBackgroundColor(), "Color binding does not work!");
     },
 
 
@@ -91,69 +93,80 @@ qx.Class.define("qx.test.data.singlevalue.Simple",
         var a = this.__a;
         var b = this.__b;
 
-        // wrong source
-        this.assertException(function() {
-          qx.data.SingleValueBinding.bind(a, "BacccccckgroundColor", b, "backgroundColor");
-        }, qx.core.AssertionError, null, "Not a wrong property name? (source)");
+        // only in source version
+        if (qx.core.Environment.get("qx.debug")) {
+          // wrong source
+          this.assertException(function() {
+            qx.data.SingleValueBinding.bind(a, "BacccccckgroundColor", b, "backgroundColor");
+          }, qx.core.AssertionError, null, "Not a wrong property name? (source)");
+        }
       }
     },
 
 
-    testWrongEventType : function() {
+    testWrongEventType : function()
+    {
       if (qx.core.Environment.get("qx.debug")) {
         var a = this.__a;
         var b = this.__b;
 
-        // wrong eventName
-        this.assertException(function() {
-          qx.data.SingleValueBinding.bind(a, "affe", b, "backgroundColor");
-        }, null, null, "Not a wrong event name? (source)");
+        // only in source version
+        if (qx.core.Environment.get("qx.debug")) {
+          // wrong eventName
+          this.assertException(function() {
+            qx.data.SingleValueBinding.bind(a, "affe", b, "backgroundColor");
+          }, null, null, "Not a wrong event name? (source)");
+        }
       }
     },
 
 
-    testDefaultConversion : function() {
+    testDefaultConversion : function()
+    {
       // String to number
-      this.__a.appearance = "0";
+      this.__a.setAppearance("0");
       qx.data.SingleValueBinding.bind(this.__a, "appearance", this.__b, "zIndex");
-      this.__a.appearance = "4879";
-      this.assertEquals(4879, this.__b.zIndex, "String --> Number does not work!");
+      this.__a.setAppearance("4879");
+      this.assertEquals(4879, this.__b.getZIndex(), "String --> Number does not work!");
 
       // number to String
-      this.__a.zIndex = 568;
+      this.__a.setZIndex(568);
       qx.data.SingleValueBinding.bind(this.__a, "zIndex", this.__b, "appearance");
-      this.__a.zIndex = 1234;
-      this.assertEquals("1234", this.__b.appearance, "Number --> String does not work!");
+      this.__a.setZIndex(1234);
+      this.assertEquals("1234", this.__b.getAppearance(), "Number --> String does not work!");
 
       // boolean to string
       qx.data.SingleValueBinding.bind(this.__a, "enabled", this.__b, "appearance");
-      this.__a.enabled = true;
-      this.assertEquals("true", this.__b.appearance, "Boolean --> String does not work!");
+      this.__a.setEnabled(true);
+      this.assertEquals("true", this.__b.getAppearance(), "Boolean --> String does not work!");
 
       // string to float
       var s = new qx.test.data.singlevalue.TextFieldDummy();
-      s.floatt = 0;
+      s.setFloatt(0);
 
       qx.data.SingleValueBinding.bind(s, "floatt", this.__b, "appearance");
-      s.floatt = 13.5;
-      this.assertEquals("13.5", this.__b.appearance, "Float --> String does not work!");
+      s.setFloatt(13.5);
+      this.assertEquals("13.5", this.__b.getAppearance(), "Float --> String does not work!");
 
       qx.data.SingleValueBinding.removeAllBindingsForObject(s);
+      s.dispose();
     },
 
 
     testRemoveBinding: function(){
+      // remove all bindings
+      qx.data.SingleValueBinding.removeAllBindings();
       // add a binding
       var id = qx.data.SingleValueBinding.bind(this.__a, "appearance", this.__b, "appearance");
       // set and chech the name
-      this.__a.appearance = "hans";
-      this.assertEquals("hans", this.__b.appearance, "String binding does not work!");
+      this.__a.setAppearance("hans");
+      this.assertEquals("hans", this.__b.getAppearance(), "String binding does not work!");
 
       // remove the binding
       qx.data.SingleValueBinding.removeBindingFromObject(this.__a, id);
-      // set and check the name
-      this.__a.appearance = "hans2";
-      this.assertEquals("hans", this.__b.appearance, "Did not remove the binding!");
+      // set and chech the name
+      this.__a.setAppearance("hans2");
+      this.assertEquals("hans", this.__b.getAppearance(), "Did not remove the binding!");
 
       // test if the binding is not listed anymore
       var bindings = qx.data.SingleValueBinding.getAllBindingsForObject(this.__a);
@@ -171,14 +184,17 @@ qx.Class.define("qx.test.data.singlevalue.Simple",
 
 
     testGetAllBindingsForObject: function(){
+      // remove all old bindings
+      qx.data.SingleValueBinding.removeAllBindings();
+
       // add two binding
       var id = qx.data.SingleValueBinding.bind(this.__a, "appearance", this.__b, "appearance");
       var id2 = qx.data.SingleValueBinding.bind(this.__a, "zIndex", this.__b, "zIndex");
       // set and chech the binding
-      this.__a.appearance = "hans";
-      this.assertEquals("hans", this.__b.appearance, "String binding does not work!");
-      this.__a.zIndex = (89);
-      this.assertEquals(89, this.__b.zIndex, "Number binding does not work!");
+      this.__a.setAppearance("hans");
+      this.assertEquals("hans", this.__b.getAppearance(), "String binding does not work!");
+      this.__a.setZIndex(89);
+      this.assertEquals(89, this.__b.getZIndex(), "Number binding does not work!");
 
       // check the method
       var bindings = qx.data.SingleValueBinding.getAllBindingsForObject(this.__a);
@@ -197,23 +213,28 @@ qx.Class.define("qx.test.data.singlevalue.Simple",
       qx.data.SingleValueBinding.bind(this.__a, "appearance", this.__b, "appearance");
       qx.data.SingleValueBinding.bind(this.__a, "zIndex", this.__b, "zIndex");
       // set and check the binding
-      this.__a.appearance = ("hans");
-      this.assertEquals("hans", this.__b.appearance, "String binding does not work!");
-      this.__a.zIndex = (89);
-      this.assertEquals(89, this.__b.zIndex, "Number binding does not work!");
+      this.__a.setAppearance("hans");
+      this.assertEquals("hans", this.__b.getAppearance(), "String binding does not work!");
+      this.__a.setZIndex(89);
+      this.assertEquals(89, this.__b.getZIndex(), "Number binding does not work!");
 
       // remove the bindings at once
       qx.data.SingleValueBinding.removeAllBindingsForObject(this.__a);
 
       // set and check the binding
-      this.__a.appearance = ("hans2");
-      this.assertEquals("hans", this.__b.appearance, "String binding not removed!");
-      this.__a.zIndex = (892);
-      this.assertEquals(89, this.__b.zIndex, "Number binding not removed!");
+      this.__a.setAppearance("hans2");
+      this.assertEquals("hans", this.__b.getAppearance(), "String binding not removed!");
+      this.__a.setZIndex(892);
+      this.assertEquals(89, this.__b.getZIndex(), "Number binding not removed!");
 
       // check if they are internaly removed
       var bindings = qx.data.SingleValueBinding.getAllBindingsForObject(this.__a);
       this.assertEquals(0, bindings.length, "Still bindings there!");
+
+      // check if a remove of an object without a binding works
+      var o = new qx.core.Object();
+      qx.data.SingleValueBinding.removeAllBindings();
+      o.dispose();
 
       // only test in the source version
       if (qx.core.Environment.get("qx.debug")) {
@@ -226,7 +247,32 @@ qx.Class.define("qx.test.data.singlevalue.Simple",
    },
 
 
+    testRemoveAllBindings: function(){
+      // add three bindings
+      qx.data.SingleValueBinding.bind(this.__a, "appearance", this.__b, "appearance");
+      qx.data.SingleValueBinding.bind(this.__a, "zIndex", this.__b, "zIndex");
+      qx.data.SingleValueBinding.bind(this.__b, "zIndex", this.__a, "zIndex");
+
+      // check if the bindings are there
+      var bindingsA = qx.data.SingleValueBinding.getAllBindingsForObject(this.__a);
+      var bindingsB = qx.data.SingleValueBinding.getAllBindingsForObject(this.__b);
+      this.assertEquals(2, bindingsA.length, "There are more than 2 bindings!");
+      this.assertEquals(1, bindingsB.length, "There are more than 2 bindings!");
+
+      // remove all bindings
+      qx.data.SingleValueBinding.removeAllBindings();
+
+      var bindingsA = qx.data.SingleValueBinding.getAllBindingsForObject(this.__a);
+      var bindingsB = qx.data.SingleValueBinding.getAllBindingsForObject(this.__b);
+      this.assertEquals(0, bindingsA.length, "Still bindings there!");
+      this.assertEquals(0, bindingsB.length, "Still bindings there!");
+    },
+
+
     testGetAllBindings: function(){
+      // remove all bindings
+      qx.data.SingleValueBinding.removeAllBindings();
+
       // add three bindings
       var id1 = qx.data.SingleValueBinding.bind(this.__a, "appearance", this.__b, "appearance");
       var id2 = qx.data.SingleValueBinding.bind(this.__a, "zIndex", this.__b, "zIndex");
@@ -235,16 +281,23 @@ qx.Class.define("qx.test.data.singlevalue.Simple",
       // get all bindings
       var allBindings = qx.data.SingleValueBinding.getAllBindings();
 
-      this.assertEquals(2, allBindings[this.__a.$$bindingHash].length, "Too much or too less objects in the array!");
-      this.assertEquals(1, allBindings[this.__b.$$bindingHash].length, "Too much or too less objects in the array!");
+      // check if only the added hashs are in the object
+      var hashArray = [this.__a.toHashCode(), this.__b.toHashCode()];
+      var i = 0;
+      for (var hash in allBindings) {
+        this.assertInArray(hash, hashArray, "This hash should be in!");
+        i++;
+      }
+      this.assertEquals(2, i, "Too much or too less objects in the array!");
+
       // check for the binding ids
-      // this.assertEquals(id1, allBindings[this.__a.toHashCode()][0][0], "This id should be in!");
-      // this.assertEquals(id2, allBindings[this.__a.toHashCode()][1][0], "This id should be in!");
-      // this.assertEquals(id3, allBindings[this.__b.toHashCode()][0][0], "This id should be in!");
-      //
-      // // check for the length
-      // this.assertEquals(2, allBindings[this.__a.toHashCode()].length, "Not the right amount in the data!");
-      // this.assertEquals(1, allBindings[this.__b.toHashCode()].length, "Not the right amount in the data!");
+      this.assertEquals(id1, allBindings[this.__a.toHashCode()][0][0], "This id should be in!");
+      this.assertEquals(id2, allBindings[this.__a.toHashCode()][1][0], "This id should be in!");
+      this.assertEquals(id3, allBindings[this.__b.toHashCode()][0][0], "This id should be in!");
+
+      // check for the length
+      this.assertEquals(2, allBindings[this.__a.toHashCode()].length, "Not the right amount in the data!");
+      this.assertEquals(1, allBindings[this.__b.toHashCode()].length, "Not the right amount in the data!");
     },
 
 
@@ -256,32 +309,37 @@ qx.Class.define("qx.test.data.singlevalue.Simple",
       qx.data.SingleValueBinding.bind(this.__b, "zIndex", this.__a, "zIndex");
       // test the single log
       qx.data.SingleValueBinding.showBindingInLog(this.__a, id1);
+      // test the all log
+      qx.data.SingleValueBinding.showAllBindingsInLog();
     },
 
 
     testMixinSupport: function() {
+      // remove all bindings
+      qx.data.SingleValueBinding.removeAllBindings();
+
       // create a new Binding
-      var id1 = qx.data.SingleValueBinding.bind(this.__a, "appearance", this.__b, "appearance");
-      this.__a.appearance = ("hulk");
-      this.assertEquals("hulk", this.__b.appearance, "String binding does not work!");
+      var id1 = this.__a.bind("appearance", this.__b, "appearance");
+      this.__a.setAppearance("hulk");
+      this.assertEquals("hulk", this.__b.getAppearance(), "String binding does not work!");
 
       // remove the binding
-      qx.data.SingleValueBinding.removeBindingFromObject(this.__a, id1);
-      this.__a.appearance = ("hulk2");
-      this.assertEquals("hulk", this.__b.appearance, "Unbinding does not work!");
+      this.__a.removeBinding(id1);
+      this.__a.setAppearance("hulk2");
+      this.assertEquals("hulk", this.__b.getAppearance(), "Unbinding does not work!");
 
       // add another two bindings
-      id1 = qx.data.SingleValueBinding.bind(this.__a, "changeAppearance", this.__b, "appearance");
-      var id2 = qx.data.SingleValueBinding.bind(this.__a, "zIndex", this.__b, "zIndex");
+      var id1 = this.__a.bind("changeAppearance", this.__b, "appearance");
+      var id2 = this.__a.bind("zIndex", this.__b, "zIndex");
 
       // get the current bindings
-      var bindings = qx.data.SingleValueBinding.getAllBindingsForObject(this.__a);
+      var bindings = this.__a.getBindings();
       this.assertEquals(id1, bindings[0][0], "First binding is not there.");
       this.assertEquals(id2, bindings[1][0], "Second binding is not there.");
 
       // remove all bindings
-      qx.data.SingleValueBinding.removeAllBindingsForObject(this.__a);
-      bindings = qx.data.SingleValueBinding.getAllBindingsForObject(this.__a);
+      this.__a.removeAllBindings();
+      var bindings = this.__a.getBindings();
       this.assertEquals(0, bindings.length, "Still bindings there?");
     },
 
@@ -292,34 +350,49 @@ qx.Class.define("qx.test.data.singlevalue.Simple",
 
       // just do some bindings and invoke the changes
       qx.data.SingleValueBinding.bind(this.__a, "appearance", this.__b, "appearance");
-      this.__a.appearance = ("affe");
-      this.assertEquals("affe", this.__b.appearance, "String binding does not work!");
+      this.__a.setAppearance("affe");
+      this.assertEquals("affe", this.__b.getAppearance(), "String binding does not work!");
 
-      var affe = new qx.test.data.singlevalue.TextFieldDummy();
-      affe.appearance = ("Jonny");
+      var affe = new qx.test.data.singlevalue.TextFieldDummy()
+      affe.setAppearance("Jonny");
       qx.data.SingleValueBinding.bind(affe, "appearance", this.__b, "appearance");
-      this.assertEquals("Jonny", this.__b.appearance, "String binding does not work!");
+      this.assertEquals("Jonny", this.__b.getAppearance(), "String binding does not work!");
       qx.data.SingleValueBinding.removeAllBindingsForObject(affe);
+      affe.dispose();
     },
 
 
     testFallback: function() {
       // change + "name" binding
-      qx.data.SingleValueBinding.bind(this.__a, "value", this.__b, "value");
+      this.__a.bind("value", this.__b, "value");
 
-      this.__a.value = ("affe");
-      this.assertEquals(this.__a.value, this.__b.value, "change event binding is not working.");
+      this.__a.setValue("affe");
+      this.assertEquals(this.__a.getValue(), this.__b.getValue(), "change event binding is not working.");
 
       // event binding
-      qx.data.SingleValueBinding.bind(this.__a, "changeZIndex", this.__b, "zIndex");
+      this.__a.bind("changeZIndex", this.__b, "zIndex");
 
-      this.__a.zIndex = (123);
-      this.assertEquals(this.__a.zIndex, this.__b.zIndex, "Event binding is not working.");
+      this.__a.setZIndex(123);
+      this.assertEquals(this.__a.getZIndex(), this.__b.getZIndex(), "Event binding is not working.");
     },
 
 
     testNullWithConverter: function() {
-      var t = {};
+      // create a test class
+      qx.Class.define("qx.Test", {
+        extend : qx.core.Object,
+        members : {
+          __a : null,
+          setA : function(data) {
+            this.__a = data;
+          },
+          getA : function() {
+            return this.__a;
+          }
+        }
+      });
+      var t = new qx.Test();
+
       // define the converter
       var options = {
         converter : function(data) {
@@ -331,27 +404,32 @@ qx.Class.define("qx.test.data.singlevalue.Simple",
       };
 
       // starting point
-      this.__a.zIndex = (null);
-      qx.data.SingleValueBinding.bind(this.__a, "zIndex", t, "a", options);
-      this.assertEquals("affe", t.a, "Converter will not be executed.");
+      this.__a.setZIndex(null);
+      this.__a.bind("zIndex", t, "a", options);
+      this.assertEquals("affe", t.getA(), "Converter will not be executed.");
 
-      this.__a.zIndex = (10);
-      this.assertEquals(this.__a.zIndex + "", t.a, "Wrong start binding.");
+      this.__a.setZIndex(10);
+      this.assertEquals(this.__a.getZIndex() + "", t.getA(), "Wrong start binding.");
 
       // set the zIndex to null
-      this.__a.zIndex = (null);
-      this.assertEquals("affe", t.a, "Converter will not be executed.");
+      this.__a.setZIndex(null);
+      this.assertEquals("affe", t.getA(), "Converter will not be executed.");
+
+      t.dispose();
     },
 
 
     testCallbacksOnInitialSet: function() {
       // create a test class
-      qx.Bootstrap.define("qx.Target", {
+      qx.Class.define("qx.Target",
+      {
+        extend : qx.core.Object,
+
         properties :
         {
           value : {
             init: "Some String!",
-            check: "String"
+            validate: qx.util.Validate.string()
           }
         }
       });
@@ -359,6 +437,7 @@ qx.Class.define("qx.test.data.singlevalue.Simple",
 
       // some test flags
       var ok = false;
+      var fail = false;
 
       // callback methods
       var that = this;
@@ -368,36 +447,44 @@ qx.Class.define("qx.test.data.singlevalue.Simple",
           that.assertEquals(sourceObject, that.__a, "Wrong source object.");
           that.assertEquals(targetObject, target, "Wrong target object.");
           that.assertEquals(value, "affe", "Wrong value.");
+        },
+        onSetFail : function() {
+          fail = true;
         }
       };
 
       // set a valid initial value
-      this.__a.value = ("affe");
-      qx.data.SingleValueBinding.bind(this.__a, "value", target, "value", options);
+      this.__a.setValue("affe");
+      this.__a.bind("value", target, "value", options);
 
-      this.assertEquals("affe", target.value, "Binding not set anyway!");
+      this.assertEquals("affe", target.getValue(), "Binding not set anyway!");
       this.assertTrue(ok, "onUpdate not called.");
+      this.assertFalse(fail, "onSetFail called?!");
 
 
       // reset the checks
-      qx.data.SingleValueBinding.removeAllBindingsForObject(this.__a);
+      this.__a.removeAllBindings();
       ok = false;
+      fail = false;
 
       // set an invalid initial value
-      this.__a.floatt = [];
-      this.assertException(function() {
-        qx.data.SingleValueBinding.bind(this.__a, "floatt", target, "value", options);
-      });
+      this.__a.setZIndex(10);
+      this.__a.bind("zIndex", target, "value", options);
+
+      this.assertTrue(fail, "onSetFail not called.");
+      this.assertFalse(ok, "onUpdate called?!");
+      target.dispose();
     },
 
 
     testConversionClass : function()
     {
-      qx.Bootstrap.define("qx.test.TwoProperties", {
-        extend : qx.event.Emitter,
-        properties : {
-          a : { event : true, nullable : true },
-          b : { event : true, nullable : true }
+      qx.Class.define("qx.test.TwoProperties", {
+        extend : qx.core.Object,
+        properties :
+        {
+          a : { event : "changeA", nullable : true },
+          b : { event : "changeB", nullable : true }
         }
       });
 
@@ -407,61 +494,61 @@ qx.Class.define("qx.test.data.singlevalue.Simple",
       var id = qx.data.SingleValueBinding.bind(
         o, "a", o, "b", qx.data.Conversion.TOSTRINGOPTIONS
       );
-      o.a = (10);
-      this.assertEquals("10", o.b, "Number -> String");
+      o.setA(10);
+      this.assertEquals("10", o.getB(), "Number -> String");
       qx.data.SingleValueBinding.removeBindingFromObject(o, id);
 
       // boolean to string
-      id = qx.data.SingleValueBinding.bind(
+      var id = qx.data.SingleValueBinding.bind(
         o, "a", o, "b", qx.data.Conversion.TOSTRINGOPTIONS
       );
-      o.a = (true);
-      this.assertEquals("true", o.b, "Boolean -> String");
+      o.setA(true);
+      this.assertEquals("true", o.getB(), "Boolean -> String");
       qx.data.SingleValueBinding.removeBindingFromObject(o, id);
 
       // date to string
-      id = qx.data.SingleValueBinding.bind(
+      var id = qx.data.SingleValueBinding.bind(
         o, "a", o, "b", qx.data.Conversion.TOSTRINGOPTIONS
       );
-      o.a = (new Date());
-      this.assertTrue(qx.lang.Type.isString(o.b), "Date -> String");
+      o.setA(new Date());
+      this.assertTrue(qx.lang.Type.isString(o.getB()), "Date -> String");
       qx.data.SingleValueBinding.removeBindingFromObject(o, id);
 
       // string to number
-      id = qx.data.SingleValueBinding.bind(
+      var id = qx.data.SingleValueBinding.bind(
         o, "a", o, "b", qx.data.Conversion.TONUMBEROPTIONS
       );
-      o.a = ("123");
-      this.assertEquals(123, o.b, "String -> Number");
+      o.setA("123");
+      this.assertEquals(123, o.getB(), "String -> Number");
       qx.data.SingleValueBinding.removeBindingFromObject(o, id);
 
       // string to boolean
-      id = qx.data.SingleValueBinding.bind(
+      var id = qx.data.SingleValueBinding.bind(
         o, "a", o, "b", qx.data.Conversion.TOBOOLEANOPTIONS
       );
-      o.a = ("123");
-      this.assertEquals(true, o.b, "String -> Boolean");
+      o.setA("123");
+      this.assertEquals(true, o.getB(), "String -> Boolean");
       qx.data.SingleValueBinding.removeBindingFromObject(o, id);
 
       // number to boolean
-      id = qx.data.SingleValueBinding.bind(
+      var id = qx.data.SingleValueBinding.bind(
         o, "a", o, "b", qx.data.Conversion.TOBOOLEANOPTIONS
       );
-      o.a = (0);
-      this.assertEquals(false, o.b, "Number -> Boolean");
+      o.setA(0);
+      this.assertEquals(false, o.getB(), "Number -> Boolean");
       qx.data.SingleValueBinding.removeBindingFromObject(o, id);
-
+      o.dispose();
     },
 
 
     testResetNotNull : function() {
-      qx.Bootstrap.define("qx.test.SVB", {
-        extend : qx.event.Emitter,
+      qx.Class.define("qx.test.SVB", {
+        extend : qx.core.Object,
         properties : {
           x : {
             nullable: true,
             init: "affe",
-            event: true
+            event: "changeX"
           }
         }
       });
@@ -469,28 +556,29 @@ qx.Class.define("qx.test.data.singlevalue.Simple",
       var a = new qx.test.SVB();
       var b = new qx.test.SVB();
 
-      qx.data.SingleValueBinding.bind(a, "x", b, "x");
+      a.bind("x", b, "x");
 
-      a.x = ("x");
-      this.assertEquals(a.x, b.x);
-      a.x = (null);
-      this.assertEquals(a.x, b.x);
+      a.setX("x");
+      this.assertEquals(a.getX(), b.getX());
+      a.setX(null);
+      this.assertEquals(a.getX(), b.getX());
 
       qx.data.SingleValueBinding.removeAllBindingsForObject(a);
       qx.data.SingleValueBinding.removeAllBindingsForObject(b);
-
-      qx.Bootstrap.undefine("qx.test.SVB");
+      a.dispose();
+      b.dispose();
+      qx.Class.undefine("qx.test.SVB");
     },
 
 
     testResetNotNullInit : function() {
-      qx.Bootstrap.define("qx.test.SVB", {
-        extend : qx.event.Emitter,
+      qx.Class.define("qx.test.SVB", {
+        extend : qx.core.Object,
         properties : {
           x : {
             nullable: true,
             init: "affe",
-            event: true
+            event: "changeX"
           }
         }
       });
@@ -498,15 +586,44 @@ qx.Class.define("qx.test.data.singlevalue.Simple",
       var a = new qx.test.SVB();
       var b = new qx.test.SVB();
 
-      a.x = (null);
-      b.x = ("x");
+      a.setX(null);
+      b.setX("x");
       qx.data.SingleValueBinding.bind(a, "x", b, "x");
 
-      this.assertEquals(a.x, b.x);
+      this.assertEquals(a.getX(), b.getX());
 
       qx.data.SingleValueBinding.removeAllBindingsForObject(a);
       qx.data.SingleValueBinding.removeAllBindingsForObject(b);
 
+      a.dispose();
+      b.dispose();
+      qx.Class.undefine("qx.test.SVB");
+    },
+
+
+    testChangeEventMissing : function() {
+      qx.Class.define("qx.test.SVB", {
+        extend : qx.core.Object,
+        properties : {
+          x : {
+            nullable: true,
+            init: "affe"
+          }
+        }
+      });
+
+      var a = new qx.test.SVB();
+      var b = new qx.test.SVB();
+
+      this.assertException(function() {
+        qx.data.SingleValueBinding.bind(a, "x", b, "x");
+      }, qx.core.AssertionError, "Binding property x of object qx.test.SVB");
+
+      qx.data.SingleValueBinding.removeAllBindingsForObject(a);
+      qx.data.SingleValueBinding.removeAllBindingsForObject(b);
+
+      a.dispose();
+      b.dispose();
       qx.Class.undefine("qx.test.SVB");
     },
 
@@ -523,8 +640,8 @@ qx.Class.define("qx.test.data.singlevalue.Simple",
       qx.data.SingleValueBinding.bind(
         this.__a, "appearance", this.__b, "appearance", options
       );
-      this.__a.appearance = ("affe");
-      this.assertEquals("affe", this.__b.appearance, "String binding does not work!");
+      this.__a.setAppearance("affe");
+      this.assertEquals("affe", this.__b.getAppearance(), "String binding does not work!");
     },
 
 

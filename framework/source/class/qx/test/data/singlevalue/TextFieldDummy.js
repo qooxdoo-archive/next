@@ -17,42 +17,44 @@
 
 ************************************************************************ */
 
-qx.Bootstrap.define("qx.test.data.singlevalue.TextFieldDummy",
+qx.Class.define("qx.test.data.singlevalue.TextFieldDummy",
 {
-  extend : qx.event.Emitter,
+  extend : qx.core.Object,
+
   construct : function(value) {
+    this.base(arguments);
     if (value != null) {
-      this.value = value;
+      this.setValue(value);
     }
   },
 
   properties : {
     appearance : {
       check : "String",
-      event : true,
-      init : "asd"
+      event : "changeAppearance",
+      init : ""
     },
     enabled : {
       check : "Boolean",
-      event : true,
+      event : "changeEnabled",
       init : true
     },
     zIndex : {
-      check : "Number",
-      event : true,
+      check : "Integer",
+      event : "changeZIndex",
       nullable : true
     },
     floatt : {
-      event : true,
+      event : "changeFloatt"
     },
     value : {
       check : "String",
-      event : true,
+      event : "changeValue",
       nullable: true
     },
     backgroundColor : {
       check : "String",
-      event : true,
+      event : "changeBackgroundColor",
       init : ""
     }
   }
