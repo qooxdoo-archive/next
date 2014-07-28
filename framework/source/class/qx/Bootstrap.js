@@ -594,9 +594,6 @@ qx.Bootstrap.define("qx.Bootstrap",
       // delete the class reference from the namespaces and all empty namespaces
       var ns = name.split(".");
 
-      var splits = name.split(".");
-      var part = splits[0];
-
       // build up an array containing all namespace objects including the namespace root
       var objects = qx.$$namespaceRoot ? [qx.$$namespaceRoot] : [window];
       for (var i = 0; i < ns.length; i++) {
