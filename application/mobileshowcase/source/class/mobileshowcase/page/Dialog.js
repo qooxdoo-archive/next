@@ -297,7 +297,7 @@ qx.Class.define("mobileshowcase.page.Dialog",
 
       for (var i = 0; i < e.getData().length; i++) {
         var data = e.getData()[i];
-        this.__resultsLabel.value = (this.__resultsLabel.getValue() + " Received <b>confirmSelection</b> from Picker Dialog. [slot: " + data.slot + "] [item: " + data.item + "] <br>");
+        this.__resultsLabel.value = (this.__resultsLabel.value + " Received <b>confirmSelection</b> from Picker Dialog. [slot: " + data.slot + "] [item: " + data.item + "] <br>");
       }
     },
 

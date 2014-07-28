@@ -116,31 +116,33 @@ qx.Class.define("mobileshowcase.page.Form",
       var form = new qx.ui.mobile.form.Form();
 
       // NAME FIELD
-      this.__name = new qx.ui.mobile.form.TextField().set({placeholder:"Username"});
-      this.__name.setRequired(true);
-      this.__name.setLiveUpdate(true);
+      this.__name = new qx.ui.mobile.form.TextField();
+      this.__name.placeholder = "Username";
+      this.__name.required = true;
+      this.__name.liveUpdate = true;
 
       form.addGroupHeader("Contact");
       form.add(this.__name, "Username");
 
       // PASSWORD FIELD
-      this.__password = new qx.ui.mobile.form.PasswordField().set({placeholder:"Password"});
-      this.__password.setLiveUpdate(true);
+      this.__password = new qx.ui.mobile.form.PasswordField();
+      this.__password.placeholder = "Password";
+      this.__password.liveUpdate = true;
       form.add(this.__password, "Password");
 
       // REMEMBER PASSWORD CHECKBOX
       this.__rememberPass = new qx.ui.mobile.form.CheckBox();
       form.add(this.__rememberPass, "Remember password? ");
-      this.__rememberPass.setModel("password_reminder");
+      this.__rememberPass.model = "password_reminder";
       this.__rememberPass.bind("model",this.__password,"value");
 
       this.__password.bind("value",this.__rememberPass,"model");
 
       // NUMBER FIELD
       this.__numberField = new qx.ui.mobile.form.NumberField();
-      this.__numberField.setMaximum(150);
-      this.__numberField.setMinimum(0);
-      this.__numberField.setLiveUpdate(true);
+      this.__numberField.maximum = 150;
+      this.__numberField.minimum = 0;
+      this.__numberField.liveUpdate = true;
       form.add(this.__numberField,"Age");
 
       form.addGroupHeader("Gender");
@@ -158,19 +160,18 @@ qx.Class.define("mobileshowcase.page.Form",
       var selQuestion = "How did you hear about us ?";
 
       this.__sel = new qx.ui.mobile.form.SelectBox();
-      this.__sel.set({required: true});
-      this.__sel.set({placeholder:"Unknown"});
+      this.__sel.required = true;
+      this.__sel.placeholder = "Unknown";
       this.__sel.setClearButtonLabel("Clear");
       this.__sel.setDialogTitle(selQuestion);
-      this.__sel.setModel(dd);
+      this.__sel.model = dd;
 
       form.add(this.__sel, selQuestion);
 
       form.addGroupHeader("License");
-      this.__info = new qx.ui.mobile.form.TextArea().set({
-        placeholder: "Terms of Service",
-        readOnly: true
-      });
+      this.__info = new qx.ui.mobile.form.TextArea()
+      info.placeholder = "Terms of Service";
+      info.readOnly = true;
       form.add(this.__info,"Terms of Service");
       this.__info.setValue("qooxdoo Licensing Information\n=============================\n\nqooxdoo is dual-licensed under the GNU Lesser General Public License (LGPL) and the Eclipse Public License (EPL). \n The above holds for any newer qooxdoo release. Only legacy versions 0.6.4 and below were licensed solely under the GNU Lesser General Public License (LGPL). For a full understanding of your rights and obligations under these licenses, please see the full text of the LGPL and/or EPL. \n \n One important aspect of both licenses (so called \"weak copyleft\" licenses) is that if you make any modification or addition to the qooxdoo code itself, you MUST put your modification under the same license, the LGPL or EPL. \n  \n \n  \n Note that it is explicitly NOT NEEDED to put any application under the LGPL or EPL, if that application is just using qooxdoo as intended by the framework (this is where the \"weak\" part comes into play - contrast this with the GPL, which would only allow using qooxdoo to create an application that is itself governed by the GPL).");
 
