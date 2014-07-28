@@ -184,6 +184,6 @@ qx.Class.define("qx.test.Mixin",
           qux: {}
         }
       });
-    },
+    }
   }
 });
