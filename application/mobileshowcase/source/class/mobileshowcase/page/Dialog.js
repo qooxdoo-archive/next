@@ -64,7 +64,7 @@ qx.Class.define("mobileshowcase.page.Dialog",
 
       var closeDialogButton1 = new qx.ui.mobile.form.Button("Close Popup");
       this.__popup = new qx.ui.mobile.dialog.Popup(closeDialogButton1);
-      this.__popup.setTitle("A Popup");
+      this.__popup.title = "A Popup";
 
       closeDialogButton1.addListener("tap", function() {
         this.__popup.hide();
@@ -85,9 +85,9 @@ qx.Class.define("mobileshowcase.page.Dialog",
       }
 
       this.__menu = new qx.ui.mobile.dialog.Menu(menuModel);
-      this.__menu.setTitle("Menu");
+      this.__menu.title = "Menu";
       this.__menu.addListener("changeSelection", this.__onMenuChangeSelection, this);
-      this.__menu.setVisibleListItems(10);
+      this.__menu.visibleListItems = 10;
 
        // PICKER DIALOG
       var showPickerButton = new qx.ui.mobile.form.Button("Picker");
@@ -106,7 +106,7 @@ qx.Class.define("mobileshowcase.page.Dialog",
 
       var anchorMenuModel = new qx.data.Array(["Red", "Green", "Blue"]);
       this.__anchorMenu = new qx.ui.mobile.dialog.Menu(anchorMenuModel, showAnchorMenuButton);
-      this.__anchorMenu.setTitle("Colors");
+      this.__anchorMenu.title = "Colors";
 
       // BUTTONS
       var showPopupButton = new qx.ui.mobile.form.Button("Popup");
@@ -116,7 +116,7 @@ qx.Class.define("mobileshowcase.page.Dialog",
 
       var busyIndicatorButton = new qx.ui.mobile.form.Button("Busy Indicator");
       busyIndicatorButton.addListener("tap", function(e) {
-        this.__busyPopup.toggleVisibility();
+        this.__busyPopup.visibility = !this.__busyPopup.visibility;
         qx.lang.Function.delay(this.__busyPopup.hide, 3000, this.__busyPopup);
       }, this);
 
@@ -127,25 +127,25 @@ qx.Class.define("mobileshowcase.page.Dialog",
 
       var popupGroup = new qx.ui.mobile.form.Group([],false);
       popupGroup.add(this._createGroupTitle("Popup"));
-      popupGroup.setLayout(new qx.ui.mobile.layout.VBox());
+      popupGroup.layout = new qx.ui.mobile.layout.VBox();
       popupGroup.add(showPopupButton,{flex:1});
       popupGroup.add(showAnchorButton,{flex:1});
 
       var menuGroup = new qx.ui.mobile.form.Group([],false);
       menuGroup.add(this._createGroupTitle("Menu"));
-      menuGroup.setLayout(new qx.ui.mobile.layout.VBox());
+      menuGroup.layout = new qx.ui.mobile.layout.VBox();
       menuGroup.add(showMenuButton,{flex:1});
       menuGroup.add(showAnchorMenuButton,{flex:1});
 
       var otherGroup = new qx.ui.mobile.form.Group([],false);
       otherGroup.add(this._createGroupTitle("Other"));
-      otherGroup.setLayout(new qx.ui.mobile.layout.VBox());
+      otherGroup.layout = new qx.ui.mobile.layout.VBox();
       otherGroup.add(busyIndicatorButton,{flex:1});
       otherGroup.add(showPickerButton,{flex:1});
 
       var groupContainer = new qx.ui.mobile.container.Composite();
       groupContainer.addCssClass("dialog-group");
-      groupContainer.setLayout(new qx.ui.mobile.layout.HBox());
+      groupContainer.layout = new qx.ui.mobile.layout.HBox();
       groupContainer.add(popupGroup, {flex:1});
       groupContainer.add(menuGroup, {flex:1});
       groupContainer.add(otherGroup, {flex:1});
@@ -162,7 +162,7 @@ qx.Class.define("mobileshowcase.page.Dialog",
     */
     _createPicker : function(anchor) {
       var picker = new qx.ui.mobile.dialog.Picker(anchor);
-      picker.setTitle("Picker");
+      picker.title = "Picker";
 
       this.__pickerDaySlotData = this._createDayPickerSlot(1, new Date().getFullYear());
 
@@ -246,7 +246,7 @@ qx.Class.define("mobileshowcase.page.Dialog",
       }, this);
 
       var popup = new qx.ui.mobile.dialog.Popup(buttonsWidget, anchor);
-      popup.setTitle("Are you sure?");
+      popup.title = "Are you sure?";
       return popup;
     },
 
@@ -258,7 +258,7 @@ qx.Class.define("mobileshowcase.page.Dialog",
       if (e.getData().slot > 0) {
         setTimeout(this._updatePickerDaySlot.bind(this), 100);
       }
-      this.__resultsLabel.setValue("Received <b>changeSelection</b> from Picker Dialog. [slot: "+ e.getData().slot+ "] [item: "+ e.getData().item+"]");
+      this.__resultsLabel.value = "Received <b>changeSelection</b> from Picker Dialog. [slot: "+ e.getData().slot+ "] [item: "+ e.getData().item+"]";
     },
 
 
@@ -293,11 +293,11 @@ qx.Class.define("mobileshowcase.page.Dialog",
      * Reacts on "confirmSelection" event on picker, and displays the values on resultsLabel.
      */
     __onPickerConfirmSelection : function(e) {
-      this.__resultsLabel.setValue("");
+      this.__resultsLabel.value = "";
 
       for (var i = 0; i < e.getData().length; i++) {
         var data = e.getData()[i];
-        this.__resultsLabel.setValue(this.__resultsLabel.getValue() + " Received <b>confirmSelection</b> from Picker Dialog. [slot: " + data.slot + "] [item: " + data.item + "] <br>");
+        this.__resultsLabel.value = (this.__resultsLabel.getValue() + " Received <b>confirmSelection</b> from Picker Dialog. [slot: " + data.slot + "] [item: " + data.item + "] <br>");
       }
     },
 
@@ -306,7 +306,7 @@ qx.Class.define("mobileshowcase.page.Dialog",
      * Reacts on "changeSelection" event on Menu, and displays the values on resultsLabel.
      */
     __onMenuChangeSelection : function(e) {
-       this.__resultsLabel.setValue("Received <b>changeSelection</b> from Menu Dialog. [index: "+ e.getData().index+ "] [item: "+ e.getData().item+"]");
+       this.__resultsLabel.value = ("Received <b>changeSelection</b> from Menu Dialog. [index: "+ e.getData().index+ "] [item: "+ e.getData().item+"]");
     }
   }
 });

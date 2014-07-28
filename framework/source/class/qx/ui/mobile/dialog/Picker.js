@@ -99,11 +99,7 @@ qx.Bootstrap.define("qx.ui.mobile.dialog.Picker",
     this.__pickerContent.add(this.__pickerContainer);
     this.__pickerContent.add(this.__pickerButtonContainer);
 
-    if(anchor) {
-      this.setModal(false);
-    } else {
-      this.setModal(true);
-    }
+    this.modal = !!anchor;
 
     this.base(arguments, this.__pickerContent, anchor);
   },

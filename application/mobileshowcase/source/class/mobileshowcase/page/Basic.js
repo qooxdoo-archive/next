@@ -56,7 +56,7 @@ qx.Class.define("mobileshowcase.page.Basic",
 
       toggleEnableButton.addListener("changeValue", function(e) {
         for (var i = 0; i < this._widgets.length; i++) {
-          this._widgets[i].toggleEnabled();
+          this._widgets[i].enabled = !this._widgets[i].enabled;
         }
       }, this);
 
@@ -64,7 +64,7 @@ qx.Class.define("mobileshowcase.page.Basic",
       // TOGGLE LABEL WRAP BUTTON
       var toggleLabelWrapButton = new qx.ui.mobile.form.ToggleButton(true,"Wrap","Ellipsis");
       toggleLabelWrapButton.addListener("changeValue", function(e) {
-        exLabel.toggleWrap();
+        exLabel.wrap = !exLabel.wrap;
       }, this);
 
       // EXAMPLE WIDGETS
