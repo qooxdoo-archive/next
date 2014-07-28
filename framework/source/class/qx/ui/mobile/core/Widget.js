@@ -49,9 +49,9 @@ qx.Bootstrap.define("qx.ui.mobile.core.Widget",
     //debugger
     this.id = clazz.ID_PREFIX + clazz.__idCounter++;
     this.defaultCssClass = undefined;
-    this.name = null;
-    this.anonymous = null;
-    this.activatable = false;
+    this.name = undefined;
+    this.anonymous = undefined;
+    this.activatable = undefined;
   },
 
 

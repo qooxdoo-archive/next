@@ -68,8 +68,8 @@ qx.Bootstrap.define("qx.ui.mobile.container.Collapsible",
     this._add(this._header);
     this._add(this._content);
 
-    this.collapsed = true;
-    this.combined = true;
+    this.collapsed = undefined;
+    this.combined = undefined;
 
     this.addCssClass("gap");
   },
