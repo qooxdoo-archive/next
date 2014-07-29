@@ -21,7 +21,7 @@
  * This class is responsible for converting json data to class instances
  * including the creation of the classes.
  */
-qx.Class.define("qx.data.marshal.Json",
+qx.Bootstrap.define("qx.data.marshal.Json",
 {
   extend : qx.core.Object,
   implement : [qx.data.marshal.IMarshaler],
@@ -30,12 +30,12 @@ qx.Class.define("qx.data.marshal.Json",
    * @param delegate {Object} An object containing one of the methods described
    *   in {@link qx.data.marshal.IMarshalerDelegate}.
    */
-  construct : function(delegate)
-  {
+  construct : function(delegate) {
     this.base(arguments);
 
     this.__delegate = delegate;
   },
+
 
   statics :
   {
@@ -147,7 +147,7 @@ qx.Class.define("qx.data.marshal.Json",
       }
 
       // class already exists
-      if (qx.Class.isDefined("qx.data.model." + hash)) {
+      if (qx.Bootstrap.getByName("qx.data.model." + hash)) {
         return;
       }
 
@@ -163,7 +163,7 @@ qx.Class.define("qx.data.marshal.Json",
       // create the properties map
       var properties = {};
       // include the disposeItem for the dispose process.
-      var members = {__disposeItem : this.__disposeItem};
+      var members = {};
       for (var key in data) {
         // apply the property names mapping
         if (this.__delegate && this.__delegate.getPropertyMapping) {
@@ -180,18 +180,10 @@ qx.Class.define("qx.data.marshal.Json",
 
         properties[key] = {};
         properties[key].nullable = true;
-        properties[key].event = "change" + qx.lang.String.firstUp(key);
+        properties[key].event = true;
         // bubble events
         if (includeBubbleEvents) {
           properties[key].apply = "_applyEventPropagation";
-        }
-        // validation rules
-        if (this.__delegate && this.__delegate.getValidationRule) {
-          var rule = this.__delegate.getValidationRule(hash, key);
-          if (rule) {
-            properties[key].validate = "_validate" + key;
-            members["_validate" + key] = rule;
-          }
         }
       }
 
@@ -200,7 +192,7 @@ qx.Class.define("qx.data.marshal.Json",
         var superClass =
           this.__delegate.getModelSuperClass(hash, parentProperty, depth) || qx.core.Object;
       } else {
-        var superClass = qx.core.Object;
+        var superClass = qx.core.Object; // TODO move to qx.event.Emitter
       }
 
       // try to get the mixins
@@ -227,41 +219,10 @@ qx.Class.define("qx.data.marshal.Json",
         extend : superClass,
         include : mixins,
         properties : properties,
-        members : members,
-        destruct : this.__disposeProperties
+        members : members
       };
 
-      qx.Class.define("qx.data.model." + hash, newClass);
-    },
-
-
-    /**
-     * Destructor for all created classes which disposes all stuff stored in
-     * the properties.
-     */
-    __disposeProperties : function() {
-      var properties = qx.util.PropertyUtil.getAllProperties(this.constructor);
-      for (var desc in properties) {
-        this.__disposeItem(this.get(properties[desc].name));
-      };
-    },
-
-
-    /**
-     * Helper for disposing items of the created class.
-     *
-     * @param item {var} The item to dispose.
-     */
-    __disposeItem : function(item) {
-      if (!(item instanceof qx.core.Object)) {
-        // ignore all non objects
-        return;
-      }
-      // ignore already disposed items (could happen during shutdown)
-      if (item.isDisposed()) {
-        return;
-      }
-      item.dispose();
+      qx.Bootstrap.define("qx.data.model." + hash, newClass);
     },
 
 
@@ -286,7 +247,7 @@ qx.Class.define("qx.data.marshal.Json",
         return (new delegateClass());
       } else {
         var className = "qx.data.model." + hash;
-        var clazz = qx.Class.getByName(className);
+        var clazz = qx.Bootstrap.getByName(className);
         if (!clazz) {
           throw new Error("Class '" + className + "' could not be found.");
         }

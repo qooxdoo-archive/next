@@ -49,11 +49,6 @@ qx.Class.define("qx.test.data.marshal.Json",
 
       // remove the former created classes
       qx.data.model = {};
-      for (var name in qx.Class.$$registry) {
-        if (name.search("qx.data.model") != -1) {
-          delete qx.Class.$$registry[name];
-        }
-      }
     },
 
 
@@ -62,13 +57,13 @@ qx.Class.define("qx.test.data.marshal.Json",
       this.__marshaler.toClass(data);
 
       // check if the class is defined
-      this.assertTrue(qx.Class.isDefined('qx.data.model.$$a'), "Class not created.");
+      this.assertNotNull(qx.Bootstrap.getByName('qx.data.model.$$a'), "Class not created.");
 
-      var clazz = qx.Class.getByName('qx.data.model.$$a');
+      var clazz = qx.Bootstrap.getByName('qx.data.model.$$a');
       // check for the property
       for (var name in clazz.$$properties) {
         this.assertEquals("$$a", name, "Property $$a does have the wrong name.");
-        this.assertEquals("change" + qx.lang.String.firstUp("$$a"), clazz.$$properties[name].event, "event has a wrong name.");
+        this.assertTrue(clazz.$$properties[name].event, "event has a wrong name.");
       }
 
       qx.Class.undefine('qx.data.model.$$a');
@@ -126,15 +121,12 @@ qx.Class.define("qx.test.data.marshal.Json",
       this.__marshaler.toClass(this.__data);
 
       // check if the classes are defined
-      this.assertTrue(qx.Class.isDefined("qx.data.model.a"), "Class not created.");
-      this.assertTrue(qx.Class.isDefined("qx.data.model.b"), "Class not created.");
+      this.assertEquals("qx.data.model.a", qx.data.model.a.classname, "Class not created.");
+      this.assertTrue("qx.data.model.b", qx.data.model.b.classname, "Class not created.");
 
-
-      var clazz = qx.Class.getByName("qx.data.model.a");
-      var clazz2 = qx.Class.getByName("qx.data.model.b");
       // check for the property
-      this.assertNotNull(clazz.$$properties.a, "Property does not exist.");
-      this.assertNotNull(clazz2.$$properties.b, "Property does not exist.");
+      this.assertNotNull(qx.data.model.a.$$properties.a, "Property does not exist.");
+      this.assertNotNull(qx.data.model.b.$$properties.b, "Property does not exist.");
     },
 
 
