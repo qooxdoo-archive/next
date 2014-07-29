@@ -72,14 +72,14 @@ qx.Class.define("mobileshowcase.page.List",
           item.setImage("mobileshowcase/icon/internet-mail.png");
           item.setTitle(data.title);
           item.setSubtitle(data.subtitle);
-          item.setSelectable(data.selectable);
-          item.setShowArrow(data.selectable);
-          item.setRemovable(data.removable);
+          item.selectable = data.selectable;
+          item.showArrow = data.selectable;
+          item.removable = data.removable;
         },
 
         configureGroupItem: function(item, data, group) {
           item.setTitle("#" + group + " " + data.title);
-          item.setSelectable(true);
+          item.selectable = true;
         },
 
         group: function(data, row) {
@@ -95,7 +95,7 @@ qx.Class.define("mobileshowcase.page.List",
         }
       });
 
-      list.setModel(this._model);
+      list.model = this._model;
 
       list.addListener("changeSelection", function(evt) {
         this._showDialog("You selected Item #" + evt.getData());
