@@ -362,16 +362,12 @@ qx.Bootstrap.define("qx.data.marshal.Json",
       }
 
       throw new Error("Unsupported type!");
+    },
+
+
+    dispose : function() {
+      this.__delegate = null;
+      this.base(arguments);
     }
-  },
-
-  /*
-   *****************************************************************************
-      DESTRUCT
-   *****************************************************************************
-   */
-
-  destruct : function() {
-    this.__delegate = null;
   }
 });
