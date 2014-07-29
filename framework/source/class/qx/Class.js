@@ -689,7 +689,7 @@ qx.Bootstrap.define("qx.Class",
 
 
     /** Stores all defined classes */
-    $$registry : qx.Bootstrap.$$registry,
+    $$registry : {},
 
 
     /** @type {Map} allowed keys in non-static class definition */
