@@ -171,7 +171,7 @@ qx.Bootstrap.define("qx.Mixin",
 
         // Attach events
         if (entry.$$events) {
-          this.__addEvents(clazz, entry.$$events, patch); //TODO?
+          //this.__addEvents(clazz, entry.$$events, patch); TODO?
         }
 
         // Attach properties
