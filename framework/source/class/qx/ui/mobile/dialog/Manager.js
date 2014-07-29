@@ -45,7 +45,6 @@
 qx.Bootstrap.define("qx.ui.mobile.dialog.Manager",
 {
   extend : qx.core.Object,
-  //type : "singleton", TODO: MSingleton
 
 
   /*
@@ -60,7 +59,27 @@ qx.Bootstrap.define("qx.ui.mobile.dialog.Manager",
     MESSAGE_DIALOG: 2,
     WARNING_DIALOG: 3,
     ERROR_DIALOG: 4,
-    WAITING_DIALOG: 5
+    WAITING_DIALOG: 5,
+
+    __instance: null,
+
+    /**
+     * Returns the singleton instance of this class
+     * @return {qx.ui.mobile.dialog.Manager} The dialog manager singleton
+     */
+    getInstance: function() {
+      var clazz = qx.ui.mobile.dialog.Manager;
+      if (!clazz.__instance) {
+        clazz.__instance = new clazz();
+      }
+      return clazz.__instance;
+    }
+  },
+
+  construct: function() {
+    if (qx.ui.mobile.dialog.Manager.__instance) {
+      throw new Error("'" + this.classname + "' is a singleton class and can not be instantiated directly. Please use '" + this.classname + ".getInstance()' instead.");
+    }
   },
 
   /*
@@ -281,7 +300,9 @@ qx.Bootstrap.define("qx.ui.mobile.dialog.Manager",
      */
     __showNonNativeDialog: function(title, text, handler, scope, buttons, dialogType)
     {
-      var widget = new qx.ui.mobile.container.Composite(new qx.ui.mobile.layout.VBox().set({alignY: "middle"}));
+      var layout = new qx.ui.mobile.layout.VBox();
+      layout.alignY = "middle";
+      var widget = new qx.ui.mobile.container.Composite(layout);
       var dialog = new qx.ui.mobile.dialog.Popup(widget);
 
       dialog.modal = true;
@@ -289,26 +310,34 @@ qx.Bootstrap.define("qx.ui.mobile.dialog.Manager",
 
       if(dialogType == qx.ui.mobile.dialog.Manager.WAITING_DIALOG)
       {
-        var waitingWidget = new qx.ui.mobile.container.Composite(new qx.ui.mobile.layout.HBox().set({alignX: "center"}));
+        var wLayout = new qx.ui.mobile.layout.HBox();
+        wLayout.alignX = "center";
+        var waitingWidget = new qx.ui.mobile.container.Composite(wLayout);
         widget.add(waitingWidget);
         waitingWidget.add(new qx.ui.mobile.dialog.BusyIndicator(text));
       }
       else
       {
-        var labelWidget = new qx.ui.mobile.container.Composite(new qx.ui.mobile.layout.HBox().set({alignX: "center"}));
+        var lLayout = new qx.ui.mobile.layout.HBox();
+        lLayout.alignX = "center";
+        var labelWidget = new qx.ui.mobile.container.Composite(lLayout);
         labelWidget.add(new qx.ui.mobile.basic.Label(text));
         labelWidget.addCssClass("gap");
         widget.add(labelWidget);
         if(dialogType == qx.ui.mobile.dialog.Manager.INPUT_DIALOG)
         {
-          var inputWidget = new qx.ui.mobile.container.Composite(new qx.ui.mobile.layout.HBox().set({alignX: "center"}));
+          var iLayout = new qx.ui.mobile.layout.HBox();
+          iLayout.alignX = "center";
+          var inputWidget = new qx.ui.mobile.container.Composite(iLayout);
           inputWidget.addCssClass("gap");
           var inputText = new qx.ui.mobile.form.TextField();
           inputWidget.add(inputText);
           widget.add(inputWidget);
         }
 
-        var buttonContainer = new qx.ui.mobile.container.Composite(new qx.ui.mobile.layout.HBox().set({alignX: "center"}));
+        var bLayout = new qx.ui.mobile.layout.HBox();
+        bLayout.alignX = "center";
+        var buttonContainer = new qx.ui.mobile.container.Composite(bLayout);
         buttonContainer.addCssClass("gap");
         for(var i=0, l=buttons.length; i<l; i++)
         {

@@ -18,24 +18,41 @@
 ************************************************************************ */
 
 /**
- * This class blocks events and can be included into all widgets.
+ * This class blocks events.
  *
  */
 qx.Bootstrap.define("qx.ui.mobile.core.Blocker",
 {
 
   extend : qx.ui.mobile.core.Widget,
-  //type : "singleton", TODO: MSingleton
 
 
   statics:
   {
-    ROOT : null
+    ROOT : null,
+
+    __instance: null,
+
+    /**
+     * Returns the singleton instance of this class
+     * @return {qx.ui.mobile.core.Blocker} The Blocker singleton
+     */
+    getInstance: function() {
+      var clazz = qx.ui.mobile.core.Blocker;
+      if (!clazz.__instance) {
+        clazz.__instance = new clazz();
+      }
+      return clazz.__instance;
+    }
   },
 
 
   construct : function()
   {
+    if (qx.ui.mobile.core.Blocker.__instance) {
+      throw new Error("'" + this.classname + "' is a singleton class and can not be instantiated directly. Please use '" + this.classnme + ".getInstance()' instead.");
+    }
+
     this.base(arguments);
 
     if(qx.ui.mobile.core.Blocker.ROOT == null) {
@@ -174,6 +191,7 @@ qx.Bootstrap.define("qx.ui.mobile.core.Blocker",
     dispose : function() {
       qx.ui.mobile.core.Blocker.ROOT.remove(this);
       this.__unregisterEventListener();
+      delete this.__instance;
       this.base(arguments);
     }
   }
