@@ -20,9 +20,9 @@
 /**
  * Common base class for TestRunner views.
  */
-qx.Class.define("testrunner.view.Abstract", {
+qx.Bootstrap.define("testrunner.view.Abstract", {
 
-  type : "abstract",
+  //type : "abstract",
 
   extend : qx.core.Object,
 
@@ -64,7 +64,7 @@ qx.Class.define("testrunner.view.Abstract", {
     {
       init : "init",
       apply : "_applyTestSuiteState",
-      event : "changeTestSuiteState"
+      event : true
     },
 
     /** Number of configured tests that haven't run yet. */
@@ -73,7 +73,7 @@ qx.Class.define("testrunner.view.Abstract", {
       init : null,
       nullable : true,
       apply : "_applyTestCount",
-      event : "changeTestCount"
+      event : true
     },
 
     /** Model object representing the test namespace. */
@@ -89,7 +89,7 @@ qx.Class.define("testrunner.view.Abstract", {
     {
       init : null,
       nullable : true,
-      event : "changeSelectedTests"
+      event : true
     },
 
     /** URI of the application containing the test classes */
@@ -97,7 +97,7 @@ qx.Class.define("testrunner.view.Abstract", {
     {
       check : "String",
       nullable : true,
-      event : "changeAutUri",
+      event : true,
       apply : "_applyAutUri"
     }
   },
@@ -191,11 +191,6 @@ qx.Class.define("testrunner.view.Abstract", {
      */
     _applyAutUri : function(value, old)
     {}
-  },
-
-  destruct : function()
-  {
-    this.removeAllBindings();
   }
 
 });

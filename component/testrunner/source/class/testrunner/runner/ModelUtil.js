@@ -64,11 +64,11 @@ qx.Class.define("testrunner.runner.ModelUtil", {
         testList.push(model);
       }
 
-      if (!model.getChildren) {
+      if (!model.children) {
         return testList;
       }
 
-      var kids = model.getChildren();
+      var kids = model.children;
       for (var i=0,l=kids.length; i<l; i++) {
         var child = kids.getItem(i);
         testList = testList.concat(arguments.callee(child, property, value));
@@ -89,8 +89,8 @@ qx.Class.define("testrunner.runner.ModelUtil", {
       if (model.fullName == fullName) {
         return model;
       }
-      if (model.getChildren) {
-        var kids = model.getChildren();
+      if (model.children) {
+        var kids = model.children;
         for (var i=0,l=kids.length; i<l; i++) {
           var child = kids.getItem(i);
           var found = arguments.callee(child, fullName);
@@ -112,24 +112,24 @@ qx.Class.define("testrunner.runner.ModelUtil", {
     addDataFields : function(model)
     {
       if (!model.parent) {
-        model.fullName = model.getName();
+        model.fullName = model.name;
       }
 
-      if (model.getChildren) {
-        var mType = model.getType();
+      if (model.children) {
+        var mType = model.type;
         if (mType == "package" || mType == "class" ) {
           model.sortChildren();
         }
-        var kids = model.getChildren();
+        var kids = model.children;
         for (var i=0,l=kids.length; i<l; i++) {
           var child = kids.getItem(i);
           child.parent = model;
 
-          if (child.getType() == "test") {
-            child.fullName = model.fullName + ":" + child.getName();
+          if (child.type == "test") {
+            child.fullName = model.fullName + ":" + child.name;
           }
           else {
-            child.fullName = model.fullName + "." + child.getName();
+            child.fullName = model.fullName + "." + child.name;
           }
 
           arguments.callee(child);
@@ -140,9 +140,9 @@ qx.Class.define("testrunner.runner.ModelUtil", {
               && qx.core.Environment.get("browser.version") < 9)) {
             child.bind("state", model, "state", {
               converter : function(data, model) {
-                if (model.getState() == "failure" || model.getState() == "error"
+                if (model.state == "failure" || model.state == "error"
                   || data == "start" || data == "wait") {
-                  return model.getState();
+                  return model.state;
                 }
                 return data;
               }
@@ -213,7 +213,7 @@ qx.Class.define("testrunner.runner.ModelUtil", {
       if (!node.parent) {
         return null;
       }
-      var siblings = node.parent.getChildren();
+      var siblings = node.parent.children;
       if (!siblings) {
         return null;
       }
@@ -237,10 +237,10 @@ qx.Class.define("testrunner.runner.ModelUtil", {
      */
     hasTestClassWithMixin : function(node, mixin, win) {
       var autWindow = win || window;
-      var children = node.getChildren ? node.getChildren() : [];
+      var children = node.children || [];
       for (var i=0, l=children.length; i<l; i++) {
         var child = children.getItem(i);
-        if (child.getType() == "class") {
+        if (child.type == "class") {
           var clazz = autWindow.qx.Class.getByName(child.getFullName());
           if (autWindow.qx.Class.hasMixin(clazz, mixin)) {
             return true;

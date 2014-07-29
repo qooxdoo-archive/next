@@ -36,7 +36,7 @@
  * @require(qx.module.Template)
  *
  */
-qx.Class.define("testrunner.view.Html", {
+qx.Bootstrap.define("testrunner.view.Html", {
 
   extend : testrunner.view.Abstract,
 
@@ -124,21 +124,21 @@ qx.Class.define("testrunner.view.Html", {
     /** Running count of failed tests */
     failedTestCount :
     {
-      check : "Integer",
+      check : "Number",
       init : 0
     },
 
     /** Running count of passed tests */
     successfulTestCount :
     {
-      check : "Integer",
+      check : "Number",
       init : 0
     },
 
     /** Running count of skipped tests */
     skippedTestCount :
     {
-      check : "Integer",
+      check : "Number",
       init : 0
     }
   },
@@ -302,11 +302,11 @@ qx.Class.define("testrunner.view.Html", {
      */
     __runTests : function()
     {
-      if (this.getTestSuiteState() == "finished" ) {
+      if (this.testSuiteState == "finished" ) {
         this.reset();
       }
 
-      var selection = this.getSelectedTests();
+      var selection = this.selectedTests;
       selection.removeAll();
       var checked = [];
       q("#testlist input:checked").forEach(function(el, index, coll) {
@@ -334,8 +334,8 @@ qx.Class.define("testrunner.view.Html", {
     __reloadAut : function()
     {
       var src = q("#iframesrc").getValue();
-      this.resetAutUri();
-      this.setAutUri(src);
+      this.autUri = null;
+      this.autUri = src;
     },
 
 
@@ -452,9 +452,9 @@ qx.Class.define("testrunner.view.Html", {
      */
     reset : function()
     {
-      this.resetFailedTestCount();
-      this.resetSuccessfulTestCount();
-      this.resetSkippedTestCount();
+      this.failedTestCount = undefined;
+      this.successfulTestCount = undefined;
+      this.skippedTestCount = undefined;
       this.clearResults();
       this.__testResults = {};
     },
@@ -474,20 +474,20 @@ qx.Class.define("testrunner.view.Html", {
         case "skip":
           if (!this.__testResults[testName]) {
             this.__testResults[testName] = state;
-            this.setSkippedTestCount(this.getSkippedTestCount() + 1);
+            this.skippedTestCount = (this.skippedTestCount + 1);
           }
           break;
         case "error":
         case "failure":
           if (!this.__testResults[testName]) {
             this.__testResults[testName] = state;
-            this.setFailedTestCount(this.getFailedTestCount() + 1);
+            this.setFailedTestCount(this.failedTestCount + 1);
           }
           break;
         case "success":
           if (!this.__testResults[testName]) {
             this.__testResults[testName] = state;
-            this.setSuccessfulTestCount(this.getSuccessfulTestCount() + 1);
+            this.setSuccessfulTestCount(this.successfulTestCount + 1);
           }
       }
 
@@ -639,22 +639,22 @@ qx.Class.define("testrunner.view.Html", {
       switch(value)
       {
         case "init":
-          this.setStatus("Waiting for tests");
+          this.status = ("Waiting for tests");
           break;
         case "loading" :
-          this.setStatus("Loading tests...");
+          this.status = ("Loading tests...");
           q("#testfilter,#togglealltests,#run,#stop").setAttribute("disabled", "disabled");
           break;
         case "ready" :
           this.reset();
-          this.setStatus("Test suite ready");
+          this.status = ("Test suite ready");
           var filterFromCookie = q.cookie.get("testFilter");
           if (filterFromCookie) {
             q("#testfilter").setValue(filterFromCookie);
             this.filterTests(filterFromCookie);
           }
           else {
-            this._applyTestCount(this.getTestCount());
+            this._applyTestCount(this.testCount);
           }
           q("#testfilter,#togglealltests,#run").setAttribute("disabled", false);
           q("#stop").setAttribute("disabled", "disabled");
@@ -663,26 +663,26 @@ qx.Class.define("testrunner.view.Html", {
           }
           break;
         case "running" :
-          this.setStatus("Running tests...");
+          this.status = ("Running tests...");
           q("#testfilter,#togglealltests,#run").setAttribute("disabled", "disabled");
           q("#stop").setAttribute("disabled", false);
           break;
         case "finished" :
           var statusText = "Test suite finished. ";
-          statusText += " Passed: " + this.getSuccessfulTestCount();
-          statusText += " Failed: " + this.getFailedTestCount();
-          statusText += " Skipped: " + this.getSkippedTestCount();
-          this.setStatus(statusText);
+          statusText += " Passed: " + this.successfulTestCount;
+          statusText += " Failed: " + this.failedTestCount;
+          statusText += " Skipped: " + this.skippedTestCount;
+          this.status = (statusText);
           q("#testfilter,#togglealltests,#run").setAttribute("disabled", false);
           q("#stop").setAttribute("disabled", "disabled");
           break;
         case "aborted" :
-          this.setStatus("Test run stopped");
+          this.status = ("Test run stopped");
           q("#testfilter,#togglealltests,#run").setAttribute("disabled", false);
           q("#stop").setAttribute("disabled", "disabled");
           break;
         case "error" :
-          this.setStatus("Invalid test file selected!");
+          this.status = ("Invalid test file selected!");
           q("#testfilter,#togglealltests,#run").setAttribute("disabled", false);
           q("#stop").setAttribute("disabled", "disabled");
           break;

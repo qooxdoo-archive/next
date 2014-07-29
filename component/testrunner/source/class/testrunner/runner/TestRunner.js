@@ -86,8 +86,8 @@ qx.Class.define("testrunner.runner.TestRunner", {
           qx.event.Registration.addListener(this.__iframe, "load", this._onLoadIframe, this);
           var src = qx.core.Environment.get("qx.testPageUri");
           src += "?testclass=" + this._testNameSpace;
-          this.setTestSuiteState("loading");
-          this.view.setAutUri(src);
+          this.testSuiteState = "loading";
+          this.view.autUri = src;
           break;
         case "inline":
           this._loadInlineTests();
@@ -107,8 +107,8 @@ qx.Class.define("testrunner.runner.TestRunner", {
               // Load the tests from a standalone AUT
               qx.event.Registration.addListener(this.__iframe, "load", this._onLoadIframe, this);
               var src = event.data + "?testclass=" + this._testNameSpace;
-              this.setTestSuiteState("loading");
-              this.view.setAutUri(src);
+              this.testSuiteState = "loading";
+              this.view.autUri = src;
             };
 
             var boundEvtFunc = evtFunc.bind(this);
@@ -128,7 +128,7 @@ qx.Class.define("testrunner.runner.TestRunner", {
               doc.getElementsByTagName("head")[0].appendChild(el);
 
               this.loader = qx.bom.Iframe.getWindow(this.__iframe).testrunner.TestLoader.getInstance();
-              this.loader.setTestNamespace(this._testNameSpace);
+              this.loader.testNamespace = (this._testNameSpace);
               this._wrapAssertions(this.frameWindow);
               this._getTestModel();
             }, this);
@@ -146,9 +146,9 @@ qx.Class.define("testrunner.runner.TestRunner", {
     _loadInlineTests : function(nameSpace)
     {
       nameSpace = nameSpace || this._testNameSpace;
-      this.setTestSuiteState("loading");
+      this.testSuiteState = ("loading");
       this.loader = new qx.dev.unit.TestLoaderInline();
-      this.loader.setTestNamespace(nameSpace);
+      this.loader.testNamespace = (nameSpace);
       this._wrapAssertions();
       this._getTestModel();
     },
@@ -211,7 +211,7 @@ qx.Class.define("testrunner.runner.TestRunner", {
     _onLoadIframe : function(ev)
     {
       if (ev && ev.getType() == "load") {
-        this.setTestSuiteState("loading");
+        this.testSuiteState = ("loading");
       }
 
       if (!this.__loadAttempts) {
@@ -238,7 +238,7 @@ qx.Class.define("testrunner.runner.TestRunner", {
                   "protocol instead.");
 
             // Quit
-            this.setTestSuiteState("error");
+            this.testSuiteState = ("error");
             return;
           }
         }
@@ -263,7 +263,7 @@ qx.Class.define("testrunner.runner.TestRunner", {
         }
       }
       else {
-        this.setTestSuiteState("error");
+        this.testSuiteState = ("error");
         this.__loadAttempts = 0;
         return;
       }
@@ -314,16 +314,17 @@ qx.Class.define("testrunner.runner.TestRunner", {
         logger.clear();
         logger.unregister(this.__logAppender);
       }
-    }
-  },
+    },
 
-  destruct : function()
-  {
-    this._disposeObjects("__logAppender", "__loadTimer");
-    this.__iframe = null;
-    delete this.__iframe;
-    this.frameWindow = null;
-    delete this.frameWindow;
+    dispose : function()
+    {
+      this._disposeObjects("__logAppender", "__loadTimer");
+      this.__iframe = null;
+      delete this.__iframe;
+      this.frameWindow = null;
+      delete this.frameWindow;
+      this.base(arguments);
+    }
   }
 
 });

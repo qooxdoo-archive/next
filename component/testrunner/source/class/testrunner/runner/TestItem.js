@@ -18,7 +18,7 @@
  * Common superclass for test suite model items
  */
 
-qx.Class.define("testrunner.runner.TestItem", {
+qx.Bootstrap.define("testrunner.runner.TestItem", {
 
   extend : qx.core.Object,
 
@@ -37,7 +37,7 @@ qx.Class.define("testrunner.runner.TestItem", {
     state :
     {
       init : "start",
-      event : "changeState",
+      event : true,
       apply : "_applyState"
     },
 
@@ -58,7 +58,7 @@ qx.Class.define("testrunner.runner.TestItem", {
     {
       init : [],
       nullable : true,
-      event : "changeExceptions"
+      event : true
     }
   },
 
@@ -237,14 +237,15 @@ qx.Class.define("testrunner.runner.TestItem", {
       if (oldState) {
         this.setPreviousState(oldState);
       }
-    }
-  },
+    },
 
-  destruct : function()
-  {
-    this.$$test = null;
-    if (this.parent) {
-      this.parent = null;
+    dispose : function()
+    {
+      this.$$test = null;
+      if (this.parent) {
+        this.parent = null;
+      }
+      this.base(arguments);
     }
   }
 });

@@ -22,7 +22,7 @@
  * of the test suite's state.
  *
  */
-qx.Class.define("testrunner.runner.TestRunnerBasic", {
+qx.Bootstrap.define("testrunner.runner.TestRunnerBasic", {
 
   extend : qx.core.Object,
 
@@ -92,8 +92,8 @@ qx.Class.define("testrunner.runner.TestRunnerBasic", {
     testSuiteState :
     {
       init : "init",
-      check : [ "init", "loading", "ready", "running", "finished", "aborted", "error" ],
-      event : "changeTestSuiteState"
+      //check : [ "init", "loading", "ready", "running", "finished", "aborted", "error" ],
+      event : true
     },
 
     /** Number of tests that haven't run yet */
@@ -102,7 +102,7 @@ qx.Class.define("testrunner.runner.TestRunnerBasic", {
       init : null,
       nullable : true,
       check : "Integer",
-      event : "changeTestCount"
+      event : true
     },
 
     /** Model object representing the test namespace. */
@@ -110,7 +110,7 @@ qx.Class.define("testrunner.runner.TestRunnerBasic", {
     {
       init : null,
       nullable : true,
-      event : "changeTestModel"
+      event : true
     },
 
     /** List of tests selected by the user */
@@ -167,7 +167,7 @@ qx.Class.define("testrunner.runner.TestRunnerBasic", {
       }
 
       this._externalTestClasses = 0;
-      this.setTestModel(null);
+      this.testModel = null;
       this.__testsInView = [];
     },
 
@@ -194,7 +194,7 @@ qx.Class.define("testrunner.runner.TestRunnerBasic", {
      */
     _loadInlineTests : function(nameSpace)
     {
-      this.setTestSuiteState("loading");
+      this.testSuiteState = ("loading");
       this.loader = new qx.dev.unit.TestLoaderBasic(nameSpace);
       this._wrapAssertions();
       this._getTestModel();
@@ -210,7 +210,7 @@ qx.Class.define("testrunner.runner.TestRunnerBasic", {
       if (qx.core.Environment.get("qx.debug")) {
         qx.core.Assert.assertMap(membersMap);
       }
-      this.setTestSuiteState("loading");
+      this.testSuiteState = ("loading");
 
       this._externalTestClasses += 1;
       var testNameSpace = this._testNameSpace;
@@ -319,18 +319,18 @@ qx.Class.define("testrunner.runner.TestRunnerBasic", {
         this.currentTestData = null;
         delete this.currentTestData;
       }
-      var oldModel = this.getTestModel();
+      var oldModel = this.testModel;
       if (oldModel) {
-        this.getTestModel().dispose();
+        this.testModel.dispose();
         this.__testsInView = [];
       }
-      this.setTestModel(null);
+      this.testModel = (null);
 
       var testRep = this.__getTestRep();
       if (!testRep || testRep.length === 0 ||
         (testRep.length === 1 && testRep[0].tests.length === 0))
       {
-        this.setTestSuiteState("error");
+        this.testSuiteState = ("error");
         return;
       }
       var modelData = testrunner.runner.ModelUtil.createModelData(testRep);
@@ -343,8 +343,8 @@ qx.Class.define("testrunner.runner.TestRunnerBasic", {
       marshal.toClass(modelData.children[0], true);
       var model = marshal.toModel(modelData.children[0]);
       testrunner.runner.ModelUtil.addDataFields(model);
-      this.setTestModel(model);
-      this.setTestSuiteState("ready");
+      this.testModel = (model);
+      this.testSuiteState = ("ready");
     },
 
 
@@ -396,8 +396,8 @@ qx.Class.define("testrunner.runner.TestRunnerBasic", {
      * Run the selected tests
      */
     _runTests : function() {
-      if (this.getTestSuiteState() === "aborted") {
-        this.setTestSuiteState("ready");
+      if (this.testSuiteState === "aborted") {
+        this.testSuiteState = "ready";
       }
       this.runTests();
     },
@@ -407,7 +407,7 @@ qx.Class.define("testrunner.runner.TestRunnerBasic", {
      * Stop executing tests
      */
     _stopTests : function() {
-      this.setTestSuiteState("aborted");
+      this.testSuiteState = "aborted";
     },
 
 
@@ -417,7 +417,7 @@ qx.Class.define("testrunner.runner.TestRunnerBasic", {
     runTests : function()
     {
       var self = this;
-      var suiteState = this.getTestSuiteState();
+      var suiteState = this.testSuiteState;
       switch (suiteState) {
         case "loading":
           this.__testsInView = [];
@@ -425,7 +425,7 @@ qx.Class.define("testrunner.runner.TestRunnerBasic", {
         case "ready":
         case "finished":
           if (this.testList.length > 0) {
-            this.setTestSuiteState("running");
+            this.testSuiteState = ("running");
           } else {
             return;
           }
@@ -437,7 +437,7 @@ qx.Class.define("testrunner.runner.TestRunnerBasic", {
 
       if (this.testList.length == 0) {
         window.setTimeout(function() {
-          self.setTestSuiteState("finished");
+          self.testSuiteState = ("finished");
           self.exit();
         }, 250);
         return;
@@ -445,7 +445,7 @@ qx.Class.define("testrunner.runner.TestRunnerBasic", {
 
       var currentTest = this.currentTestData = this.testList.shift();
       currentTest.resetState();
-      this.setTestCount(this.testList.length);
+      this.testCount = (this.testList.length);
       var className = currentTest.parent.fullName;
       var functionName = currentTest.getName();
       var testResult = this.__initTestResult(currentTest);
@@ -686,10 +686,10 @@ qx.Class.define("testrunner.runner.TestRunnerBasic", {
       this.testList = this._getFlatTestList();
       // Make sure the value is applied even if it didn't change so the view is
       // updated
-      if (this.testList.length == this.getTestCount()) {
-        this.resetTestCount();
+      if (this.testList.length == this.testCount) {
+        this.testCount = undefined;
       }
-      this.setTestCount(this.testList.length);
+      this.testCount = (this.testList.length);
     },
 
 
@@ -701,7 +701,7 @@ qx.Class.define("testrunner.runner.TestRunnerBasic", {
      */
     _getFlatTestList : function()
     {
-      var selection = this.getSelectedTests();
+      var selection = this.selectedTests;
       if (selection.length == 0) {
         return new qx.data.Array();
       }
@@ -724,22 +724,23 @@ qx.Class.define("testrunner.runner.TestRunnerBasic", {
     _handleGlobalError : function(ex)
     {
       this.error(ex);
+    },
+
+    dispose : function()
+    {
+      this.view.removeListener("runTests", this._runTests, this);
+      this.view.removeListener("stopTests", this._stopTests, this);
+      this.removeAllBindings();
+      if (this.testModel) {
+        this.testModel.dispose();
+      }
+      this._disposeArray("testsInView");
+      this._disposeArray("testList");
+      this._disposeArray("testPackageList");
+      this._disposeObjects("view", "currentTestData", "loader");
+      this.base(arguments);
     }
 
-  },
-
-  destruct : function()
-  {
-    this.view.removeListener("runTests", this._runTests, this);
-    this.view.removeListener("stopTests", this._stopTests, this);
-    this.removeAllBindings();
-    if (this.getTestModel()) {
-      this.getTestModel().dispose();
-    }
-    this._disposeArray("testsInView");
-    this._disposeArray("testList");
-    this._disposeArray("testPackageList");
-    this._disposeObjects("view", "currentTestData", "loader");
   }
 
 });
