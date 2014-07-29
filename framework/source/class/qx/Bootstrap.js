@@ -291,11 +291,6 @@ qx.Bootstrap = {
       config.defer(clazz, proto);
     }
 
-    // Store class reference in global class registry
-    if (name != null) {
-      qx.Bootstrap.$$registry[name] = clazz;
-    }
-
     return clazz;
   },
 
@@ -583,37 +578,6 @@ qx.Bootstrap.define("qx.Bootstrap",
 
 
     /**
-     * Removes a class from qooxdoo defined by {@link #define}
-     *
-     * @param name {String} Name of the class
-     */
-    undefine : function(name)
-    {
-      // first, delete the class from the registry
-      delete this.$$registry[name];
-      // delete the class reference from the namespaces and all empty namespaces
-      var ns = name.split(".");
-
-      // build up an array containing all namespace objects including the namespace root
-      var objects = qx.$$namespaceRoot ? [qx.$$namespaceRoot] : [window];
-      for (var i = 0; i < ns.length; i++) {
-        objects.push(objects[i][ns[i]]);
-      }
-
-      // go through all objects and check for the constructor or empty namespaces
-      for (var i = objects.length - 1; i >= 1; i--) {
-        var last = objects[i];
-        var parent = objects[i - 1];
-        if (qx.lang.Type.isFunction(last) || Object.keys(last).length === 0) {
-          delete parent[ns[i - 1]];
-        } else {
-          break;
-        }
-      }
-    },
-
-
-    /**
      * Sets the display name of the given function
      *
      * @signature function(fcn, classname, name)
@@ -703,10 +667,6 @@ qx.Bootstrap.define("qx.Bootstrap",
      * @return {Class} the class
      */
     getByName : qx.Bootstrap.getByName,
-
-
-    /** @type {Map} Stores all defined classes */
-    $$registry : {},
 
 
     /*
