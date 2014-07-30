@@ -921,7 +921,7 @@ qx.Class.define("qx.data.SingleValueBinding",
           }
         } else {
           // get the data out of the event
-          var data = e.value;
+          var data = e.value !== undefined ? e.value : e.getData(); //TODO: remove data event support
         }
 
         // debug message
