@@ -21,7 +21,7 @@
  * The data binding package is still under development so there will be changes
  * to the API. This Features is for testing purpose only.
  */
-qx.Class.define("qx.data.SingleValueBinding",
+qx.Bootstrap.define("qx.data.SingleValueBinding",
 {
 
   statics :
@@ -348,7 +348,7 @@ qx.Class.define("qx.data.SingleValueBinding",
         // if its the last property
         if (j == context.propertyNames.length - 1) {
           // if its an array
-          if (qx.Class.implementsInterface(source, qx.data.IListData)) {
+          if (qx.Interface.classImplements(source.constructor, qx.data.IListData)) {
             // set the inital value
             var itemIndex = context.arrayIndexValues[j] === "last" ?
               source.length - 1 : context.arrayIndexValues[j];
@@ -381,7 +381,7 @@ qx.Class.define("qx.data.SingleValueBinding",
             context.listeners.push(listener);
           }
           // add a new listener
-          if (qx.Class.implementsInterface(source, qx.data.IListData)) {
+          if (qx.Interface.classImplements(source.constructor, qx.data.IListData)) {
             var eventName = "change";
           } else {
             var eventName = this.__getEventNameForProperty(source, context.propertyNames[j]);
@@ -480,7 +480,7 @@ qx.Class.define("qx.data.SingleValueBinding",
             }
 
             // add a new listener
-            if (qx.Class.implementsInterface(target, qx.data.IListData)) {
+            if (qx.Interface.classImplements(target.constructor, qx.data.IListData)) {
               var eventName = "change";
             } else {
               try {
@@ -621,6 +621,8 @@ qx.Class.define("qx.data.SingleValueBinding",
       var eventName = this.__getEventForProperty(source, propertyname);
       // if no event name could be found
       if (eventName == null) {
+        // TODO alternative for event detection
+
         // check if the propertyname is the event name
         if (qx.Class.supportsEvent(source.constructor, propertyname)) {
           eventName = propertyname;
@@ -701,7 +703,7 @@ qx.Class.define("qx.data.SingleValueBinding",
 
           // get the array
           var targetArray = targetObject;
-          if (!qx.Class.implementsInterface(targetArray, qx.data.IListData)) {
+          if (!qx.Interface.classImplements(targetArray.constructor, qx.data.IListData)) {
             targetArray = target[prop];
           }
 
