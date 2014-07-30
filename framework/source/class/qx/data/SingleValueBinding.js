@@ -214,12 +214,12 @@ qx.Class.define("qx.data.SingleValueBinding",
           }
 
           // get and store the next source
-          if (source[propertyNames[i]] == null) {
-            source = undefined;
-          } else if (arrayIndexValues[i] !== "") {
+          if (arrayIndexValues[i] !== "") {
             var itemIndex = arrayIndexValues[i] === "last" ?
               source.length - 1 : arrayIndexValues[i];
-            source = source[propertyNames[i]](itemIndex);
+            source = source.getItem(itemIndex);
+          } else if (source[propertyNames[i]] == null) {
+            source = undefined;
           } else {
             source = source[propertyNames[i]];
             // the value should be undefined if we can not find the last part of the property chain
@@ -307,7 +307,7 @@ qx.Class.define("qx.data.SingleValueBinding",
       for (var j = context.index + 1; j < context.propertyNames.length; j++) {
         // get and store the new source
         if (context.arrayIndexValues[j - 1] !== "") {
-          source = source[context.propertyNames[j - 1]](context.arrayIndexValues[j - 1]);
+          source = source.getItem(context.arrayIndexValues[j - 1]);
         } else {
           source = source[context.propertyNames[j - 1]];
         }
@@ -467,7 +467,7 @@ qx.Class.define("qx.data.SingleValueBinding",
             if (arrayIndexValues[j - 1] !== "") {
               var currentIndex = arrayIndexValues[j - 1] === "last" ?
                 target.getLength() - 1 : arrayIndexValues[j - 1];
-              target = target[propertyNames[j - 1]](currentIndex);
+              target = target.getItem(currentIndex);
             } else {
               target = target[propertyNames[j - 1]];
             }
@@ -783,8 +783,7 @@ qx.Class.define("qx.data.SingleValueBinding",
      * @param sourceObject {qx.core.Object} The source object of the binding (
      *   used for the onUpdate callback).
      */
-    __setInitialValue : function(value, targetObject, targetPropertyChain, options, sourceObject)
-    {
+    __setInitialValue : function(value, targetObject, targetPropertyChain, options, sourceObject) {
       // first convert the initial value
       value = this.__convertValue(
         value, targetObject, targetPropertyChain, options, sourceObject

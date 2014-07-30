@@ -105,12 +105,12 @@ qx.Class.define("qx.test.data.singlevalue.Deep",
       this.assertEquals(3, m.b);
 
       // set the binding leaf to null
-      m.a = (null);
+      m.a.a = null;
       this.assertEquals(2, called);
       this.assertEquals(3, m.b);
 
       // set the binding root to null
-      m.a = (null);
+      m.a = null;
       this.assertEquals(3, called);
       this.assertEquals(3, m.b);
     },
@@ -530,7 +530,7 @@ qx.Class.define("qx.test.data.singlevalue.Deep",
     {
       var oldArray = this.__a.array;
       var array = new qx.data.Array([this.__b2, this.__b1]);
-      this.__a.array = (array);
+      this.__a.array = array;
       oldArray.dispose();
 
       qx.data.SingleValueBinding.bind(this.__label, "value", this.__a, "array[last].lab.value");
