@@ -352,11 +352,7 @@ qx.Bootstrap.define("qx.data.marshal.Json",
             }
           }
           propertyName = propertyNameReplaced;
-          // only set the properties if they are available [BUG #5909]
-          var setterName = "set" + qx.lang.String.firstUp(propertyName);
-          if (model[setterName]) {
-            model[setterName](this.__toModel(data[key], key, depth+1));
-          }
+          model[propertyName] = this.__toModel(data[key], key, depth+1);
         }
         return model;
       }
