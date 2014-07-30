@@ -59,7 +59,7 @@ qx.Class.define("qx.test.Bootstrap",
       this.assertEquals("qx.test.MyClass", o.classname);
       this.assertEquals("qx.test.MyClass", o.$$name);
 
-      qx.Bootstrap.undefine("qx.test.MyClass");
+      delete qx.test.MyClass;
     },
 
 
@@ -78,7 +78,7 @@ qx.Class.define("qx.test.Bootstrap",
       this.assertEquals(vanillebaerClass, window.vanillebaer.test.ROOT);
 
       qx.Bootstrap.setRoot(undefined);
-      qx.Bootstrap.undefine("vanillebaer.test.ROOT");
+      delete vanillebaer.test.ROOT;
     },
 
     "test: merge methods of same class (statics optimization)" : function() {
@@ -101,7 +101,7 @@ qx.Class.define("qx.test.Bootstrap",
       this.assertNotUndefined(qx.test.MyClass.methodA);
       this.assertNotUndefined(qx.test.MyClass.methodB);
 
-      qx.Bootstrap.undefine("qx.test.MyClass");
+      delete qx.test.MyClass;
     },
 
     "test: merge methods of same class (statics optimization) respect defer" : function() {
@@ -129,7 +129,7 @@ qx.Class.define("qx.test.Bootstrap",
       this.assertNotNull(qx.test.MyClass.methodA);
       this.assertNotUndefined(qx.test.MyClass.methodB);
 
-      qx.Bootstrap.undefine("qx.test.MyClass");
+      delete qx.test.MyClass;
     },
 
     "test: define class with contructor" : function()
@@ -148,7 +148,7 @@ qx.Class.define("qx.test.Bootstrap",
       this.assertEquals(c, qx.Bootstrap.getByName("qx.test.Construct"));
       this.assertEquals(qx.test.Construct, qx.Bootstrap.getByName("qx.test.Construct"));
 
-      qx.Bootstrap.undefine("qx.test.Construct");
+      delete qx.test.Construct;
     },
 
 
@@ -161,7 +161,7 @@ qx.Class.define("qx.test.Bootstrap",
       var obj = new qx.test.ExtendError();
       this.assertInstance(obj, Error);
 
-      qx.Bootstrap.undefine("qx.test.ExtendError");
+      delete qx.test.ExtendError;
     },
 
 
@@ -176,7 +176,7 @@ qx.Class.define("qx.test.Bootstrap",
 
       obj.dispose();
 
-      qx.Bootstrap.undefine("qx.test.ExtendQxObject");
+      delete qx.test.ExtendQxObject;
     },
 
 
@@ -197,8 +197,8 @@ qx.Class.define("qx.test.Bootstrap",
       this.assertInstance(obj, qx.test.Super);
       this.assertInstance(obj, qx.test.ExtendSuper);
 
-      qx.Bootstrap.undefine("qx.test.Super");
-      qx.Bootstrap.undefine("qx.test.ExtendSuper");
+      delete qx.test.Super;
+      delete qx.test.ExtendSuper;
     },
 
 
@@ -227,8 +227,8 @@ qx.Class.define("qx.test.Bootstrap",
       this.assertEquals(11, qx.test.ExtendSuper.prototype.foo);
       this.assertEquals(10, qx.test.Super.prototype.foo);
 
-      qx.Bootstrap.undefine("qx.test.Super");
-      qx.Bootstrap.undefine("qx.test.ExtendSuper");
+      delete qx.test.Super;
+      delete qx.test.ExtendSuper;
     },
 
     "test: superclass calls aka basecalls (constructor and methods)" : function()
@@ -309,8 +309,8 @@ qx.Class.define("qx.test.Bootstrap",
         }, Error);
       }
 
-      qx.Bootstrap.undefine("qx.test.Car");
-      qx.Bootstrap.undefine("qx.test.Bmw");
+      delete qx.test.Car;
+      delete qx.test.Bmw;
     },
 
     testFunctionWrap : function()
@@ -362,7 +362,7 @@ qx.Class.define("qx.test.Bootstrap",
       this.assertEquals(13, qx.test.Construct.toString);
       this.assertEquals(14, qx.test.Construct.valueOf);
 
-      qx.Bootstrap.undefine("qx.test.Construct");
+      delete qx.test.Construct;
     },
 
 
