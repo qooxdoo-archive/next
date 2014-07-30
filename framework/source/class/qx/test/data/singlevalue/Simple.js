@@ -479,7 +479,7 @@ qx.Class.define("qx.test.data.singlevalue.Simple",
       qx.data.SingleValueBinding.removeAllBindingsForObject(a);
       qx.data.SingleValueBinding.removeAllBindingsForObject(b);
 
-      qx.Bootstrap.undefine("qx.test.SVB");
+      delete qx.test.SVB;
     },
 
 

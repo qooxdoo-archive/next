@@ -1034,7 +1034,7 @@ qx.Class.define("qx.data.SingleValueBinding",
           return value;
         }
 
-        var propertieDefinition = targetObject.$$properties[lastProperty];
+        var propertieDefinition = target.$$properties && target.$$properties[lastProperty];
         var check = propertieDefinition == null ? "" : propertieDefinition.check;
         return this.__defaultConversion(value, check);
       }
