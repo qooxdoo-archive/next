@@ -35,9 +35,9 @@ qx.Bootstrap.define("qx.ui.mobile.toolbar.ToolBar",
   {
     this.base(arguments, layout);
     if (!layout) {
-      this.setLayout(new qx.ui.mobile.layout.HBox().set({
-        alignY : "middle"
-      }));
+      layout = new qx.ui.mobile.layout.HBox();
+      layout.alignY = "middle";
+      this.setLayout(layout);
     }
   },
 

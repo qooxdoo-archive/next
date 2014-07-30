@@ -68,17 +68,17 @@ qx.Class.define("mobileshowcase.page.Animation",
         configureItem : function(item, data, row)
         {
           item.setTitle(data.title);
-          item.setShowArrow(true);
+          item.showArrow = true;
         }
       });
 
       list.addCssClass("animation-list-1");
 
-      list.setModel(new qx.data.Array(mobileshowcase.page.Animation.ANIMATION_DATA));
+      list.model = new qx.data.Array(mobileshowcase.page.Animation.ANIMATION_DATA);
       list.addListener("changeSelection", function(evt) {
         // In Tablet Mode, animation should be shown for this showcase part.
-        // On animation landing >> setShowAnimation(false) is called.
-        this.getLayoutParent().getLayout().setShowAnimation(true);
+        // On animation landing >> showAnimation is set to false.
+        this.getLayoutParent().getLayout().showAnimation = true;
 
         var animation = mobileshowcase.page.Animation.ANIMATION_DATA[evt.getData()].animation;
         qx.core.Init.getApplication().getRouting().executeGet("/animation/" + animation);

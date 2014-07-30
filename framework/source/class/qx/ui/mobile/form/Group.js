@@ -19,7 +19,7 @@
 ************************************************************************ */
 
 /**
- * A group widget arranges several widgets visual.
+ * A group widget visually arranges several widgets.
  *
  * *Example*
  *

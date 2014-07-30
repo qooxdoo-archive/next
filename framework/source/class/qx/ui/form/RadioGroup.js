@@ -219,7 +219,7 @@ qx.Class.define("qx.ui.form.RadioGroup",
         items.push(item);
 
         // Inform radio button about new group
-        item.setGroup(this);
+        item.group = this;
 
         // Need to update internal value?
         if (item.getValue()) {

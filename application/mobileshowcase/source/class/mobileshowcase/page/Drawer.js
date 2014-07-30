@@ -36,9 +36,9 @@ qx.Class.define("mobileshowcase.page.Drawer",
     /** Factory method for creation of drawers. */
     _createDrawer : function(orientation) {
       var drawer = new qx.ui.mobile.container.Drawer(this, new qx.ui.mobile.layout.VBox());
-      drawer.setOrientation(orientation);
-      drawer.setTapOffset(0);
-      drawer.setPositionZ("below");
+      drawer.orientation = orientation;
+      drawer.tapOffset = 0;
+      drawer.PositionZ = "below";
       return drawer;
     },
 
@@ -50,7 +50,7 @@ qx.Class.define("mobileshowcase.page.Drawer",
         target.hide();
       }, this);
 
-      var drawerContent = new qx.ui.mobile.form.Group([new qx.ui.mobile.form.Label("This is the "+target.getOrientation()+" drawer."), closeDrawerButton]);
+      var drawerContent = new qx.ui.mobile.form.Group([new qx.ui.mobile.form.Label("This is the "+target.orientation+" drawer."), closeDrawerButton]);
       return drawerContent;
     },
 
@@ -59,7 +59,7 @@ qx.Class.define("mobileshowcase.page.Drawer",
     _createDrawerMenu : function(drawers) {
       var drawerGroup = new qx.ui.mobile.form.Group();
       for(var i = 0; i < drawers.length; i++) {
-        var openDrawerButton = new qx.ui.mobile.form.Button("Open "+drawers[i].getOrientation() +" drawer");
+        var openDrawerButton = new qx.ui.mobile.form.Button("Open "+drawers[i].orientation +" drawer");
         openDrawerButton.addListener("tap", drawers[i].show, drawers[i]);
         drawerGroup.add(openDrawerButton);
       }
@@ -78,19 +78,19 @@ qx.Class.define("mobileshowcase.page.Drawer",
       var drawerSize = 175;
 
       var drawerBottom = this._createDrawer("bottom");
-      drawerBottom.setSize(drawerSize);
+      drawerBottom.size = drawerSize;
       drawerBottom.add(this._createDrawerContent(drawerBottom));
 
       var drawerTop = this._createDrawer("top");
-      drawerTop.setSize(drawerSize);
+      drawerTop.size = drawerSize;
       drawerTop.add(this._createDrawerContent(drawerTop));
 
       var drawerLeft = this._createDrawer("left");
-      drawerLeft.setSize(drawerSize);
+      drawerLeft.size = drawerSize;
       drawerLeft.add(this._createDrawerContent(drawerLeft));
 
       var drawerRight = this._createDrawer("right");
-      drawerRight.setSize(drawerSize);
+      drawerRight.size = drawerSize;
       drawerRight.add(this._createDrawerContent(drawerRight));
 
       // Z POSITION TOGGLE BUTTON
@@ -123,11 +123,11 @@ qx.Class.define("mobileshowcase.page.Drawer",
       qx.bom.element.Style.set(target.getContainerElement(),"transitionDuration","0s");
       qx.bom.element.Style.set(target.getContainerElement(), "position", "relative");
 
-      if(target.getPositionZ() == "above") {
-        target.setPositionZ("below");
+      if(target.positionZ == "above") {
+        target.positionZ = "below";
       }
       else {
-        target.setPositionZ("above");
+        target.positionZ = "above";
       }
 
       qx.event.Timer.once(function() {

@@ -291,11 +291,8 @@ qx.Class.define("qx.ui.form.validation.Manager",
           var value = formItem.getValue ? formItem.getValue() : formItem.value;
           var validatorResult = !!value || value === 0;
         }
-        if (formItem.setValid) {
-          formItem.setValid(validatorResult);
-        } else {
-          formItem.valid = validatorResult;
-        }
+
+        formItem.valid = validatorResult;
         var individualMessage = formItem.getRequiredInvalidMessage ? formItem.getRequiredInvalidMessage() : formItem.requiredInvalidMessage;
         var message = individualMessage ? individualMessage : this.getRequiredFieldMessage();
         if (formItem.setInvalidMessage) {
@@ -355,7 +352,7 @@ qx.Class.define("qx.ui.form.validation.Manager",
         }
       }
 
-      formItem.setValid(validatorResult);
+      formItem.valid = validatorResult;
       dataEntry.valid = validatorResult;
 
       return validatorResult;
@@ -593,7 +590,7 @@ qx.Class.define("qx.ui.form.validation.Manager",
       for (var i = 0; i < this.__formItems.length; i++) {
         var dataEntry = this.__formItems[i];
         // set the field to valid
-        dataEntry.item.setValid(true);
+        dataEntry.item.valid = true;
       }
       // set the manager to its initial valid value
       this.__valid = null;
@@ -615,7 +612,7 @@ qx.Class.define("qx.ui.form.validation.Manager",
     setItemValid: function(formItem, valid) {
       // store the result
       this.__asyncResults[formItem.toHashCode()] = valid;
-      formItem.setValid(valid);
+      formItem.valid = valid;
       this.__checkValidationComplete();
     },
 

@@ -149,7 +149,7 @@ qx.Bootstrap.define("qx.ui.mobile.form.SelectBox",
      */
     model :
     {
-      check : "qx.data.Array",
+      //check : "qx.data.Array", TODO
       apply : "_applyModel",
       event : "changeModel",
       nullable : true,
@@ -297,7 +297,7 @@ qx.Bootstrap.define("qx.ui.mobile.form.SelectBox",
     __showSelectionDialog : function () {
       if(this.enabled === true) {
         // Set index before items, because setItems() triggers rendering.
-        this.__selectionDialog.setSelectedIndex(this.selection);
+        this.__selectionDialog.selectedIndex = this.selection;
         this.__selectionDialog.setItems(this.model);
         this.__selectionDialog.show();
       }

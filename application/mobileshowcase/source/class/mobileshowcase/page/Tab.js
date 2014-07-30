@@ -66,16 +66,16 @@ qx.Class.define("mobileshowcase.page.Tab",
       view4.addCssClass("view4");
 
       var tabButton1 = new qx.ui.mobile.tabbar.TabButton("Desktop");
-      tabButton1.setView(view1);
+      tabButton1.view = view1;
 
       var tabButton2 = new qx.ui.mobile.tabbar.TabButton("Mobile");
-      tabButton2.setView(view2);
+      tabButton2.view = view2;
 
       var tabButton3 = new qx.ui.mobile.tabbar.TabButton("Server");
-      tabButton3.setView(view3);
+      tabButton3.view = view3;
 
       var tabButton4 = new qx.ui.mobile.tabbar.TabButton("Website");
-      tabButton4.setView(view4);
+      tabButton4.view = view4;
 
       tabBar.add(tabButton4);
       tabBar.add(tabButton2);

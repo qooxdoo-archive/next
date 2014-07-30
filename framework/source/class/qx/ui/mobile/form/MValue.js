@@ -104,6 +104,16 @@ qx.Mixin.define("qx.ui.mobile.form.MValue",
     {
       check : "Boolean",
       init : false
+    },
+
+    /**
+     * The widget's value
+     * @type {Object}
+     */
+    value : {
+      set: "setValue",
+      get: "getValue",
+      event: true
     }
 
   },
@@ -177,7 +187,7 @@ qx.Mixin.define("qx.ui.mobile.form.MValue",
      *
      * @param value {var} The value to set
      */
-    setValue : function(value)
+    setValue: function(value)
     {
       value = this._convertValue(value);
       if (this.__oldValue != value)
@@ -196,7 +206,7 @@ qx.Mixin.define("qx.ui.mobile.form.MValue",
      *
      * @return {var} The set value
      */
-    getValue : function()
+    getValue: function()
     {
       return this._convertValue(this._getValue ? this._getValue() : this._getAttribute("value"));
     },

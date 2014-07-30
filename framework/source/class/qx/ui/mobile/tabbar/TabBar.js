@@ -79,7 +79,7 @@ qx.Bootstrap.define("qx.ui.mobile.tabbar.TabBar",
      */
     selection :
     {
-      check : "qx.ui.mobile.tabbar.TabButton",
+      //check : "qx.ui.mobile.tabbar.TabButton", TODO
       nullable : true,
       init : null,
       apply : "_applySelection",
@@ -120,7 +120,7 @@ qx.Bootstrap.define("qx.ui.mobile.tabbar.TabBar",
         }
       }
       if (target !== null) {
-        this.setSelection(target);
+        this.selection = target;
       }
     },
 
@@ -151,8 +151,8 @@ qx.Bootstrap.define("qx.ui.mobile.tabbar.TabBar",
     add : function(button)
     {
       this._add(button, {flex:1});
-      if (!this.getSelection()) {
-        this.setSelection(button);
+      if (!this.selection) {
+        this.selection = button;
       }
       button.addListener("changeView", this._onChangeView, this);
     },
@@ -165,7 +165,7 @@ qx.Bootstrap.define("qx.ui.mobile.tabbar.TabBar",
      */
     _onChangeView : function(evt)
     {
-      if (this.getSelection() == evt.getTarget()) {
+      if (this.selection == evt.getTarget()) {
         evt.getData().show();
       }
     },
@@ -179,8 +179,8 @@ qx.Bootstrap.define("qx.ui.mobile.tabbar.TabBar",
     remove : function(button)
     {
       this._remove(button);
-      if (this.getSelection() == button) {
-        this.setSelection(null);
+      if (this.selection == button) {
+        this.selection = null;
       }
       button.removeListener("changeView", this._onChangeView, this);
     },

@@ -71,10 +71,10 @@ qx.Class.define("mobileshowcase.page.Event",
     {
       this.base(arguments);
 
-      var container =  this.__showcaseContainer = new qx.ui.mobile.container.Composite(new qx.ui.mobile.layout.VBox().set({
-        alignX : "center",
-        alignY : "middle"
-      }));
+      var sclayout = new qx.ui.mobile.layout.VBox();
+      sclayout.alignX = "center";
+      sclayout.alignY = "middle";
+      var container =  this.__showcaseContainer = new qx.ui.mobile.container.Composite(sclayout);
       container.addCssClass("eventcontainer");
 
       container.addListener("touchmove", function(evt) {
@@ -82,10 +82,10 @@ qx.Class.define("mobileshowcase.page.Event",
       }, this);
 
       // CONTAINER TOUCH AREA
-      var containerTouchArea = this.__container = new qx.ui.mobile.container.Composite(new qx.ui.mobile.layout.VBox().set({
-        alignX : "center",
-        alignY : "middle"
-      }));
+      var clayout = new qx.ui.mobile.layout.VBox();
+      clayout.alignX = "center";
+      clayout.alignY = "middle";
+      var containerTouchArea = this.__container = new qx.ui.mobile.container.Composite(clayout);
       containerTouchArea.addCssClass("container-touch-area");
 
       containerTouchArea.addListener("tap", this._onGesture, this);
@@ -111,7 +111,7 @@ qx.Class.define("mobileshowcase.page.Event",
       this.__gestureTarget.addListener("pinch", this.__onPinch, this);
       this.__gestureTarget.addListener("rotate", this.__onRotate, this);
       this.__gestureTarget.setDraggable(false);
-      this.__gestureTarget.setTranslateX(-5000);
+      this.__gestureTarget.translateX = -5000;
 
       // If OS is Android 2 remove HTML5 badge logo, because Android is not able to scale and rotate on the same element.
       var isAndroid2 = (qx.core.Environment.get("os.name") == "android")
@@ -129,9 +129,9 @@ qx.Class.define("mobileshowcase.page.Event",
         circle.addCssClass("touch");
 
         this.__circles.push(circle);
-        circle.setTranslateX(-5000);
-        circle.setAnonymous(true);
-        circle.setTransformUnit("px");
+        circle.translateX = -5000;
+        circle.anonymous = true;
+        circle.transformUnit = "px";
 
         containerTouchArea.add(circle);
       }
@@ -271,8 +271,8 @@ qx.Class.define("mobileshowcase.page.Event",
       if (pointer && pointer.target && !pointer.remove) {
         this.__circles.push(pointer.target);
         pointer.remove = true;
-        pointer.target.setTranslateX(-1000);
-        pointer.target.setTranslateY(-1000);
+        pointer.target.translateX = -1000;
+        pointer.target.translateY = -1000;
       }
     },
 
@@ -292,8 +292,8 @@ qx.Class.define("mobileshowcase.page.Event",
 
       var pointer = this.__pointers[pointerId];
       if (pointer && pointer.target && pointer.remove == false) {
-        pointer.target.setTranslateX(x);
-        pointer.target.setTranslateY(y);
+        pointer.target.translateX = x;
+        pointer.target.translateY = y;
       }
     },
 
@@ -407,7 +407,7 @@ qx.Class.define("mobileshowcase.page.Event",
         };
         labelBuffer = labelBuffer + "</div>";
       };
-      this.__label.setValue(labelBuffer);
+      this.__label.value = labelBuffer;
     }
   }
 });

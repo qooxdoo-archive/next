@@ -80,13 +80,12 @@ qx.Class.define("mobileshowcase.page.Maps",
     _createScrollContainer : function()
     {
       // MapContainer
-      var layout = new qx.ui.mobile.layout.VBox().set({
-        alignX : "center",
-        alignY : "middle"
-      });
+      var layout = new qx.ui.mobile.layout.VBox();
+      layout.alignX = "center";
+      layout.alignY = "middle";
 
       var mapContainer = new qx.ui.mobile.container.Composite(layout);
-      mapContainer.setId("osmMap");
+      mapContainer.id = "osmMap";
 
       return mapContainer;
     },
@@ -100,7 +99,7 @@ qx.Class.define("mobileshowcase.page.Maps",
       }
 
       var menuContainer = new qx.ui.mobile.container.Composite();
-      menuContainer.setId("mapMenu");
+      menuContainer.id = "mapMenu";
 
       // LABEL
       var descriptionLabel = new qx.ui.mobile.basic.Label("Page Title");
@@ -114,11 +113,11 @@ qx.Class.define("mobileshowcase.page.Maps",
       this._showMyPositionButton.addListener("tap", this._getGeoPosition, this);
 
       // Button is disabled when Geolocation is not available.
-      this._showMyPositionButton.setEnabled(this._geolocationEnabled);
+      this._showMyPositionButton.enabled = this._geolocationEnabled;
 
       toggleNavigationButton.addListener("changeValue", function() {
-        var newNavBarState = !this.isNavigationBarHidden();
-        this.setNavigationBarHidden(newNavBarState);
+        var newNavBarState = !this.navigationBarHidden;
+        this.navigationBarHidden = newNavBarState;
         this.show();
       },this);
 

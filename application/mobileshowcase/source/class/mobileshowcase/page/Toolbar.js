@@ -86,7 +86,7 @@ qx.Class.define("mobileshowcase.page.Toolbar",
       this.__goBackBtn = new qx.ui.mobile.toolbar.Button(
         null, mobileshowcase.page.Toolbar.__toolbarButtonImages[0]
       );
-      this.__goBackBtn.setShow("icon");
+      this.__goBackBtn.show = "icon";
 
        this.__goBackBtn.addListener("tap", function(){
         var popup = this.__createAreYouSurePopup( this.__goBackBtn);
@@ -96,7 +96,7 @@ qx.Class.define("mobileshowcase.page.Toolbar",
       this.__loadButton = new qx.ui.mobile.toolbar.Button(
         null, mobileshowcase.page.Toolbar.__toolbarButtonImages[1]
       );
-      this.__loadButton.setShow("icon");
+      this.__loadButton.show = "icon";
 
       this.__loadButton.addListener("tap", function(){
         var popup = this.__createSearchPopup();
@@ -152,7 +152,7 @@ qx.Class.define("mobileshowcase.page.Toolbar",
       }, this);
 
       this.__areYouSurePopup = new qx.ui.mobile.dialog.Popup(buttonsWidget, anchor);
-      this.__areYouSurePopup.setTitle("Are you sure?");
+      this.__areYouSurePopup.title = "Are you sure?";
       return this.__areYouSurePopup;
     },
 
@@ -166,7 +166,7 @@ qx.Class.define("mobileshowcase.page.Toolbar",
       }
       var busyIndicator = new qx.ui.mobile.dialog.BusyIndicator("Data connection...");
       this.__searchPopup = new qx.ui.mobile.dialog.Popup(busyIndicator, attachedToWidget);
-      this.__searchPopup.setTitle("Loading...");
+      this.__searchPopup.title = "Loading...";
       return this.__searchPopup;
     },
 
@@ -197,9 +197,9 @@ qx.Class.define("mobileshowcase.page.Toolbar",
       popupWidget.add(searchButton);
 
       this.__searchDialog = new qx.ui.mobile.dialog.Popup(popupWidget);
-      this.__searchDialog.setHideOnBlockerTap(true);
-      this.__searchDialog.setModal(true);
-      this.__searchDialog.setTitle('Search ...');
+      this.__searchDialog.hideOnBlockerTap = true;
+      this.__searchDialog.modal = true;
+      this.__searchDialog.title = 'Search ...';
       return this.__searchDialog;
     },
 

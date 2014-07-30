@@ -151,7 +151,8 @@ qx.Bootstrap.define("qx.ui.mobile.dialog.Menu",
     {
       check : "Number",
       apply : "_applySelectedIndex",
-      nullable : true
+      nullable : true,
+      init : null
     },
 
 
@@ -253,7 +254,7 @@ qx.Bootstrap.define("qx.ui.mobile.dialog.Menu",
       var selectionList = new qx.ui.mobile.list.List({
         configureItem : function(item, data, row)
         {
-          item.title = data;
+          item.setTitle(data);
           item.showArrow = false;
 
           var isItemSelected = (self.selectedIndex == row);
@@ -296,8 +297,8 @@ qx.Bootstrap.define("qx.ui.mobile.dialog.Menu",
      */
     setItems : function (itemsModel) {
       if(this.__selectionList) {
-        this.__selectionList.nodel = null;
-        this.__selectionList.nodel = itemsModel;
+        this.__selectionList.model = null;
+        this.__selectionList.model = itemsModel;
       }
     },
 

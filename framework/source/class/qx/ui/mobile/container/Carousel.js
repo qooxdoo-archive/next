@@ -552,7 +552,7 @@ qx.Bootstrap.define("qx.ui.mobile.container.Carousel",
         return;
       }
 
-      this._setTransitionDuration(this.transitionDuration());
+      this._setTransitionDuration(this.transitionDuration);
       this._refreshScrollerPosition();
     },
 

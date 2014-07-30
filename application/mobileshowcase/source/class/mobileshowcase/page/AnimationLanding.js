@@ -60,18 +60,18 @@ qx.Class.define("mobileshowcase.page.AnimationLanding",
       var list = new qx.ui.mobile.list.List({
         configureItem: function(item, data, row) {
           item.setTitle(data.title);
-          item.setShowArrow(true);
+          item.showArrow = true;
         }
       });
       list.addCssClass("animation-list-2");
 
       var animationData = mobileshowcase.page.Animation.ANIMATION_DATA;
 
-      list.setModel(new qx.data.Array(animationData));
+      list.model = new qx.data.Array(animationData);
       list.addListener("changeSelection", function(evt) {
         // In Tablet Mode, animation should be shown for this showcase part.
-        // On animation landing >> setShowAnimation(false) is called.
-        this.getLayoutParent().getLayout().setShowAnimation(true);
+        // On animation landing >> showAnimation is set to false.
+        this.getLayoutParent().getLayout().showAnimation = true;
         qx.core.Init.getApplication().getRouting().executeGet("/animation/" + animationData[evt.getData()].animation);
       }, this);
       this.getContent().add(list);
@@ -82,7 +82,7 @@ qx.Class.define("mobileshowcase.page.AnimationLanding",
      * Deactivates the animation on parentContainer's layout.
      */
     __deactiveAnimation : function() {
-      this.getLayoutParent().getLayout().setShowAnimation(false);
+      this.getLayoutParent().getLayout().showAnimation = false;
     },
 
 

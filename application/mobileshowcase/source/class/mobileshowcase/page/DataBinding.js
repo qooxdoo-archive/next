@@ -20,7 +20,7 @@
 /**
  * Mobile page responsible for showing the "DataBinding" showcase.
  */
-qx.Class.define("mobileshowcase.page.DataBinding",
+qx.Bootstrap.define("mobileshowcase.page.DataBinding",
 {
   extend : mobileshowcase.page.Abstract,
 
@@ -83,7 +83,7 @@ qx.Class.define("mobileshowcase.page.DataBinding",
 
       this.__form = this.__createSliderDataBindings();
       this.__list = this.__createListDataBindings();
-      this.__list.setVisibility("hidden");
+      this.__list.visibility = "hidden";
 
       this.__increaseButton = new qx.ui.mobile.form.Button("+");
       this.__increaseButton.addListener("pointerdown", this.__onIncrease, this);
@@ -119,9 +119,9 @@ qx.Class.define("mobileshowcase.page.DataBinding",
       var now = new Date();
       var date = now.toLocaleTimeString();
 
-      this.getListData().insertAt(0,date);
+      this.listData.insertAt(0,date);
 
-      this.__list.setVisibility("visible");
+      this.__list.visibility = "visible";
     },
 
 
@@ -182,13 +182,13 @@ qx.Class.define("mobileshowcase.page.DataBinding",
     {
       var form = new qx.ui.mobile.form.Form();
       this.__slider = new qx.ui.mobile.form.Slider();
-      this.__slider.setDisplayValue("value");
-      this.__slider.setMaximum(500);
+      this.__slider.displayValue = "value";
+      this.__slider.maximum = 500;
       form.add(this.__slider,"Move slider:");
 
       this.__dataLabel = new qx.ui.mobile.form.TextField();
-      this.__dataLabel.setValue("0");
-      this.__dataLabel.setReadOnly(true);
+      this.__dataLabel.value = "0";
+      this.__dataLabel.readOnly = true;
       form.add(this.__dataLabel, " Slider value: ");
 
       this.__dataLabel.bind("value", this.__slider, "value");
@@ -208,7 +208,7 @@ qx.Class.define("mobileshowcase.page.DataBinding",
       var list = new qx.ui.mobile.list.List({
       configureItem : function(item, data, row)
         {
-          var stopCount = self.getListData().getLength()-row;
+          var stopCount = self.listData.getLength()-row;
           item.setTitle("Stop #"+stopCount);
           item.setSubtitle(data);
         }
@@ -218,13 +218,13 @@ qx.Class.define("mobileshowcase.page.DataBinding",
       return list;
     },
 
-
-    destruct : function() {
+    dispose : function() {
       this.__timer.removeListener("interval", this.__onInterval, this);
 
       this._disposeObjects("__increaseMode", "__decreaseButton",
         "__increaseButton", "__stopTimeButton", "__timer", "__dataLabel",
         "__slider", "__form", "__list");
+      this.base(arguments);
     }
   }
 });
