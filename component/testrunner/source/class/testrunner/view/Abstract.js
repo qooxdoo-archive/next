@@ -167,7 +167,7 @@ qx.Bootstrap.define("testrunner.view.Abstract", {
      */
     _applyTestCount : function(value, old)
     {
-      this.info(value + " tests pending.")
+      this.info(value + " tests pending.");
     },
 
 

@@ -24,7 +24,7 @@ qx.Mixin.define("testrunner.view.MAutoRun", {
   {
     var parsedUri = qx.util.Uri.parseUri(location.href, true);
     if (parsedUri.queryKey && parsedUri.queryKey.autorun) {
-      this.setAutoRun(true);
+      this.autoRun = true;
     }
   },
 

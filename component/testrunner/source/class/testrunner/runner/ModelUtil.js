@@ -116,7 +116,7 @@ qx.Class.define("testrunner.runner.ModelUtil", {
       }
 
       if (model.children) {
-        var mType = model.type;
+        var mType = model.getType();
         if (mType == "package" || mType == "class" ) {
           model.sortChildren();
         }
@@ -125,7 +125,7 @@ qx.Class.define("testrunner.runner.ModelUtil", {
           var child = kids.getItem(i);
           child.parent = model;
 
-          if (child.type == "test") {
+          if (child.getType() == "test") {
             child.fullName = model.fullName + ":" + child.name;
           }
           else {
@@ -240,7 +240,7 @@ qx.Class.define("testrunner.runner.ModelUtil", {
       var children = node.children || [];
       for (var i=0, l=children.length; i<l; i++) {
         var child = children.getItem(i);
-        if (child.type == "class") {
+        if (child.getType() == "class") {
           var clazz = autWindow.qx.Class.getByName(child.getFullName());
           if (autWindow.qx.Class.hasMixin(clazz, mixin)) {
             return true;

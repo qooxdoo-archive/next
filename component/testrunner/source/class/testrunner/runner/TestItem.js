@@ -83,8 +83,8 @@ qx.Bootstrap.define("testrunner.runner.TestItem", {
         return 1;
       }
 
-      var a = aItem.getName();
-      var b = bItem.getName();
+      var a = aItem.name;
+      var b = bItem.name;
       if (a < b) {
         return -1;
       }
@@ -126,11 +126,11 @@ qx.Bootstrap.define("testrunner.runner.TestItem", {
      */
     getType : function()
     {
-      var itemName = this.getName();
+      var itemName = this.name;
 
       if (itemName.indexOf("test") === 0 && itemName.length > 4) {
         // ugly workaround for packages with names beginning with "test"
-        if (this.getChildren) {
+        if (this.children) {
           return "package";
         }
         return "test";
@@ -147,7 +147,7 @@ qx.Bootstrap.define("testrunner.runner.TestItem", {
      */
     sortChildren : function()
     {
-      this.getChildren().sort(testrunner.runner.TestItem.sortFunction);
+      this.children.sort(testrunner.runner.TestItem.sortFunction);
     },
 
 
@@ -160,8 +160,8 @@ qx.Bootstrap.define("testrunner.runner.TestItem", {
     {
       "default" : function()
       {
-        if (this.getExceptions() && this.getExceptions().length > 0) {
-          var exceptions = this.getExceptions();
+        if (this.exceptions && this.exceptions.length > 0) {
+          var exceptions = this.exceptions;
           var message = "";
           for (var i=0,l=exceptions.length; i<l; i++) {
             message += exceptions[i].exception.toString() + " ";
@@ -174,8 +174,8 @@ qx.Bootstrap.define("testrunner.runner.TestItem", {
 
       "opera" : function()
       {
-        if (this.getExceptions() && this.getExceptions().length > 0) {
-          var exceptions = this.getExceptions();
+        if (this.exceptions && this.exceptions.length > 0) {
+          var exceptions = this.exceptions;
           var message = "";
           for (var i=0,l=exceptions.length; i<l; i++) {
             var msg = exceptions[i].exception.message + "";
@@ -235,7 +235,7 @@ qx.Bootstrap.define("testrunner.runner.TestItem", {
      */
     _applyState : function(newState, oldState) {
       if (oldState) {
-        this.setPreviousState(oldState);
+        this.previousState = oldState;
       }
     },
 

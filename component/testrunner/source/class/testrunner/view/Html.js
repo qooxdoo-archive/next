@@ -204,16 +204,16 @@ qx.Bootstrap.define("testrunner.view.Html", {
       controls.getChildren("#stop").on("tap", this.__stopTests, this);
 
       controls.getChildren("#togglestack").on("change", function(ev) {
-        this.setShowStack(ev.getTarget().checked);
+        this.showStack = ev.getTarget().checked;
       }, this);
 
       controls.getChildren("#togglepassed").on("change", function(ev) {
-        this.setShowPassed(ev.getTarget().checked);
+        this.showPassed = ev.getTarget().checked;
       }, this);
 
       if (this.__nativeProfiling) {
         controls.getChildren("#nativeprofiling").on("change", function(ev) {
-          this.setNativeProfiling(ev.getTarget().checked);
+          this.nativeProfiling = ev.getTarget().checked;
         }, this);
       }
     },
@@ -468,26 +468,26 @@ qx.Bootstrap.define("testrunner.view.Html", {
      */
     _onTestChangeState : function(testResultData) {
       var testName = testResultData.getFullName();
-      var state = testResultData.getState();
+      var state = testResultData.state;
 
       switch (state) {
         case "skip":
           if (!this.__testResults[testName]) {
             this.__testResults[testName] = state;
-            this.skippedTestCount = (this.skippedTestCount + 1);
+            this.skippedTestCount = this.skippedTestCount + 1;
           }
           break;
         case "error":
         case "failure":
           if (!this.__testResults[testName]) {
             this.__testResults[testName] = state;
-            this.setFailedTestCount(this.failedTestCount + 1);
+            this.failedTestCount = this.failedTestCount + 1;
           }
           break;
         case "success":
           if (!this.__testResults[testName]) {
             this.__testResults[testName] = state;
-            this.setSuccessfulTestCount(this.successfulTestCount + 1);
+            this.successfulTestCount = this.successfulTestCount + 1;
           }
       }
 
@@ -517,13 +517,13 @@ qx.Bootstrap.define("testrunner.view.Html", {
       }
 
       var testName = testResultData.getFullName();
-      var state = testResultData.getState();
+      var state = testResultData.state;
 
       var testIndex = this.__testNamesList.indexOf(testName);
       var id = "cb_" + testIndex;
       var listItem = q("#" + id).getParents()
       .setAttribute("class", "").addClass("t_" + state);
-      if (state === "success" && !this.getShowPassed()) {
+      if (state === "success" && !this.showPassed) {
         listItem.setStyle("display", "none");
       }
       listItem.getChildren(".result")[0].innerHTML = state.toUpperCase();
@@ -550,7 +550,7 @@ qx.Bootstrap.define("testrunner.view.Html", {
      */
     _getExceptionsList : function(testResultData)
     {
-      var exceptions =  testResultData.getExceptions();
+      var exceptions =  testResultData.exceptions;
 
       if (!exceptions  || exceptions.length == 0) {
         return q("");
@@ -569,7 +569,7 @@ qx.Bootstrap.define("testrunner.view.Html", {
 
         var trace = testResultData.getStackTrace(error);
         if (trace.length > 0) {
-          var display = this.getShowStack() ? "block" : "none";
+          var display = this.showStack ? "block" : "none";
           var stack = q.create('<div class="stacktrace monotype">' + 'Stack Trace:<br/>' + trace + '</div>')
           .setStyle("display", display);
           errorItem.append(stack);
@@ -658,7 +658,7 @@ qx.Bootstrap.define("testrunner.view.Html", {
           }
           q("#testfilter,#togglealltests,#run").setAttribute("disabled", false);
           q("#stop").setAttribute("disabled", "disabled");
-          if (this.getAutoRun()) {
+          if (this.autoRun) {
             this.__runTests();
           }
           break;
@@ -701,7 +701,7 @@ qx.Bootstrap.define("testrunner.view.Html", {
       this.__testModel = value;
 
       var testList = testrunner.runner.ModelUtil.getItemsByProperty(value, "type", "test");
-      this.setSelectedTests(new qx.data.Array());
+      this.selectedTests = new qx.data.Array();
       this.clearTestList();
       this.clearResults();
 

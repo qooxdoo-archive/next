@@ -101,7 +101,7 @@ qx.Bootstrap.define("testrunner.runner.TestRunnerBasic", {
     {
       init : null,
       nullable : true,
-      check : "Integer",
+      check : "Number",
       event : true
     },
 
@@ -324,7 +324,7 @@ qx.Bootstrap.define("testrunner.runner.TestRunnerBasic", {
         this.testModel.dispose();
         this.__testsInView = [];
       }
-      this.testModel = (null);
+      this.testModel = null;
 
       var testRep = this.__getTestRep();
       if (!testRep || testRep.length === 0 ||
@@ -343,7 +343,7 @@ qx.Bootstrap.define("testrunner.runner.TestRunnerBasic", {
       marshal.toClass(modelData.children[0], true);
       var model = marshal.toModel(modelData.children[0]);
       testrunner.runner.ModelUtil.addDataFields(model);
-      this.testModel = (model);
+      this.testModel = model;
       this.testSuiteState = ("ready");
     },
 
@@ -444,10 +444,10 @@ qx.Bootstrap.define("testrunner.runner.TestRunnerBasic", {
       }
 
       var currentTest = this.currentTestData = this.testList.shift();
-      currentTest.resetState();
+      currentTest.state = undefined;
       this.testCount = (this.testList.length);
       var className = currentTest.parent.fullName;
-      var functionName = currentTest.getName();
+      var functionName = currentTest.name;
       var testResult = this.__initTestResult(currentTest);
 
       window.setTimeout(function() {
@@ -491,15 +491,15 @@ qx.Bootstrap.define("testrunner.runner.TestRunnerBasic", {
 
         if (this.currentTestData) {
           if (this.currentTestData.fullName === test.getFullName() &&
-              this.currentTestData.getState() == "wait")
+              this.currentTestData.state == "wait")
           {
             // test is in wait state, don't add it to the view again
-            this.currentTestData.setState(this.currentTestData.getPreviousState() || "start");
+            this.currentTestData.state = (this.currentTestData.previousState || "start");
             return;
           }
           else {
             // test was executed before, clear old exceptions
-            this.currentTestData.setExceptions([]);
+            this.currentTestData.exceptions = [];
           }
         }
 
@@ -532,7 +532,7 @@ qx.Bootstrap.define("testrunner.runner.TestRunnerBasic", {
      */
     _onTestWait : function(ev)
     {
-      this.currentTestData.setState("wait");
+      this.currentTestData.state = ("wait");
     },
 
 
@@ -545,10 +545,10 @@ qx.Bootstrap.define("testrunner.runner.TestRunnerBasic", {
     {
       this.__addExceptions(this.currentTestData, ev.getData());
 
-      if (this.currentTestData.getState() === "failure") {
-        this.currentTestData.resetState();
+      if (this.currentTestData.state === "failure") {
+        this.currentTestData.state = undefined;
       }
-      this.currentTestData.setState("failure");
+      this.currentTestData.state = "failure";
     },
 
 
@@ -561,10 +561,10 @@ qx.Bootstrap.define("testrunner.runner.TestRunnerBasic", {
     {
       this.__addExceptions(this.currentTestData, ev.getData());
 
-      if (this.currentTestData.getState() === "error") {
-        this.currentTestData.resetState();
+      if (this.currentTestData.state === "error") {
+        this.currentTestData.state = undefined;
       }
-      this.currentTestData.setState("error");
+      this.currentTestData.state = ("error");
     },
 
 
@@ -577,10 +577,10 @@ qx.Bootstrap.define("testrunner.runner.TestRunnerBasic", {
     {
       this.__addExceptions(this.currentTestData, ev.getData());
 
-      if (this.currentTestData.getState() === "skip") {
-        this.currentTestData.resetState();
+      if (this.currentTestData.state === "skip") {
+        this.currentTestData.state = undefined;
       }
-      this.currentTestData.setState("skip");
+      this.currentTestData.state = ("skip");
     },
 
 
@@ -591,9 +591,9 @@ qx.Bootstrap.define("testrunner.runner.TestRunnerBasic", {
      */
     _onTestEnd : function(ev)
     {
-      var state = this.currentTestData.getState();
+      var state = this.currentTestData.state;
       if (state == "start") {
-        this.currentTestData.setState("success");
+        this.currentTestData.state = ("success");
       }
 
       qx.event.Timer.once(this.runTests, this, 0);
@@ -631,15 +631,15 @@ qx.Bootstrap.define("testrunner.runner.TestRunnerBasic", {
     },
 
     /**
-     * Adds exception information to an existing TestResult object, making sure
+     * Adds exception information to an existing Test Item object, making sure
      * no duplicates are recorded.
      *
-     * @param testResult {qx.dev.unit.TestResult} TestResult object
+     * @param testItem {testrunner.runner.TestItem} Test item object
      * @param exceptions {Object[]} List of exception objects
      */
-    __addExceptions : function(testResult, exceptions)
+    __addExceptions : function(testItem, exceptions)
     {
-      var oldEx = testResult.getExceptions();
+      var oldEx = testItem.exceptions;
       var newEx = oldEx.concat();
 
       for (var i=0,l=exceptions.length; i<l; i++) {
@@ -656,7 +656,7 @@ qx.Bootstrap.define("testrunner.runner.TestRunnerBasic", {
           newEx.push(exceptions[i]);
         }
       }
-      testResult.setExceptions(newEx);
+      testItem.exceptions = newEx;
     },
 
 
