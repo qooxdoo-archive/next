@@ -43,7 +43,7 @@ qx.Bootstrap.define("qx.test.data.singlevalue.TextFieldDummy",
       nullable : true
     },
     floatt : {
-      event : true,
+      event : true
     },
     value : {
       check : "String",
