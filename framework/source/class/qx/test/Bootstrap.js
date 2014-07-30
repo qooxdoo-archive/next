@@ -855,6 +855,62 @@ qx.Class.define("qx.test.Bootstrap",
 
       new B();
       this.assertCalledOnce(construct);
+    },
+
+    testCustomPropertyGetter: function() {
+      var self = this;
+      var getter = this.spy(function() {
+        self.assertEquals(this, a);
+      });
+      var A = qx.Bootstrap.define(null, {
+        extend: Object,
+        properties: {
+          foo: {
+            get: getter
+          },
+          bar: {
+            get: "_getBar"
+          }
+        },
+        members: {
+          _getBar: getter
+        }
+      });
+
+      var a = new A();
+      a.foo;
+      this.assertCalledOnce(getter);
+      a.bar;
+      this.assertCalledTwice(getter);
+    },
+
+    testCustomPropertySetter: function() {
+      var self = this;
+      var setter = this.spy(function() {
+        self.assertEquals(this, a);
+      });
+      var A = qx.Bootstrap.define(null, {
+        extend: Object,
+        properties: {
+          foo: {
+            set: setter
+          },
+          bar: {
+            set: "_setBar"
+          }
+        },
+        members: {
+          _setBar: setter
+        }
+      });
+
+      var a = new A();
+      a.foo = true;
+      this.assertCalledOnce(setter);
+      this.assertCalledWith(setter, true);
+      a.foo = false;
+      this.assertCalledTwice(setter);
+      this.assertCalledWith(setter, true);
     }
   }
 });

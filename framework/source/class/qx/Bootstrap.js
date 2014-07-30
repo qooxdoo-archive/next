@@ -411,9 +411,13 @@ qx.Bootstrap.define("qx.Bootstrap",
           proto["$$" + name] = propertyMap[name].init;
         }
 
+        // custom getter/setter
+        var getter = def.get instanceof Function ? def.get : proto[def.get];
+        var setter = def.set instanceof Function ? def.set : proto[def.set];
+
         Object.defineProperty(proto, name, {
 
-          get : (function(name, def) {
+          get : getter || (function(name, def) {
             return function() {
               var value = this["$$" + name];
               if (value === undefined && def.init !== undefined) {
@@ -425,7 +429,7 @@ qx.Bootstrap.define("qx.Bootstrap",
             };
           })(name, def),
 
-          set : (function(name, def) {
+          set : setter || (function(name, def) {
             return function(value) {
               // don't do anything if value is the same
               if (value === this["$$" + name]) {

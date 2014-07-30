@@ -174,14 +174,15 @@ qx.Bootstrap.define("qx.Mixin",
           //this.__addEvents(clazz, entry.$$events, patch); TODO?
         }
 
-        // Attach properties
-        if (entry.$$properties) {
-          qx.Bootstrap.addProperties(clazz.prototype, entry.$$properties);
-        }
-
         // Attach members
         if (entry.$$members) {
           qx.Bootstrap.addMembers(clazz.prototype, entry.$$members);
+        }
+
+        // Attach properties last since they might use member methods
+        // (apply, custom getter/setter)
+        if (entry.$$properties) {
+          qx.Bootstrap.addProperties(clazz.prototype, entry.$$properties);
         }
       }
 
