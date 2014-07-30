@@ -24,7 +24,7 @@
  * also fires events if the content or the length of the array changes in
  * any way. Also the <code>.length</code> property is available on the array.
  */
-qx.Class.define("qx.data.Array",
+qx.Bootstrap.define("qx.data.Array",
 {
   extend : qx.core.Object,
   include : qx.data.marshal.MEventBubbling,
@@ -85,24 +85,6 @@ qx.Class.define("qx.data.Array",
     }
   },
 
-
-  /*
-  *****************************************************************************
-     PROPERTIES
-  *****************************************************************************
-  */
-
-  properties :
-  {
-    /**
-     * Flag to set the dispose behavior of the array. If the property is set to
-     * <code>true</code>, the array will dispose its content on dispose, too.
-     */
-    autoDisposeItems : {
-      check : "Boolean",
-      init : false
-    }
-  },
 
   /*
   *****************************************************************************
@@ -1057,28 +1039,14 @@ qx.Class.define("qx.data.Array",
       for (var i=from; i < to; i++) {
         this._registerEventChaining(this.__array[i], this.__array[i], i);
       };
-    }
-  },
+    },
 
 
-
-  /*
-   *****************************************************************************
-      DESTRUCTOR
-   *****************************************************************************
-  */
-
-  destruct : function() {
-    for (var i = 0; i < this.__array.length; i++) {
-      var item = this.__array[i];
-      this._applyEventPropagation(null, item, i);
-
-      // dispose the items on auto dispose
-      if (this.isAutoDisposeItems() && item && item instanceof qx.core.Object) {
-        item.dispose();
+    dispose : function() {
+      for (var i = 0; i < this.__array.length; i++) {
+        var item = this.__array[i];
+        this._applyEventPropagation(null, item, i);
       }
     }
-
-    this.__array = null;
   }
 });

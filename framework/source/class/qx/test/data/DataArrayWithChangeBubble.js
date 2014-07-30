@@ -33,15 +33,7 @@ qx.Class.define("qx.test.data.DataArrayWithChangeBubble",
     {
       var testObject = {name: "test", data: ["A", "B", "C"]};
       this.testObject = qx.data.marshal.Json.createModel(testObject, true);
-      this.array = this.testObject.getData();
-    },
-
-
-    tearDown : function()
-    {
-      this.array.dispose();
-      this.testObject.dispose();
-      this.array = this.testObject = null;
+      this.array = this.testObject.data;
     },
 
 
@@ -51,13 +43,12 @@ qx.Class.define("qx.test.data.DataArrayWithChangeBubble",
 
       var self = this;
       this.assertEventFired(m, "changeBubble", function() {
-        m.getItem(0).setB("affee");
+        m.getItem(0).b = "affee";
       }, function(e) {
         self.assertEquals("[0].b", e.getData().name);
         self.assertString(e.getData().name, "name is not a String.");
         self.assertEquals(m.getItem(0), e.getData().item);
       });
-      m.dispose();
     },
 
 
@@ -492,7 +483,7 @@ qx.Class.define("qx.test.data.DataArrayWithChangeBubble",
       var spy = this.spy(handler);
       model.addListener("changeBubble", spy, this);
 
-      model.getItem(0).setFoo("zwei");
+      model.getItem(0).foo = ("zwei");
     },
 
 
@@ -516,7 +507,7 @@ qx.Class.define("qx.test.data.DataArrayWithChangeBubble",
       var spy = this.spy(handler);
       model.addListener("changeBubble", spy, this);
 
-      model.getItem(0).setFoo("drei");
+      model.getItem(0).foo = ("drei");
     },
 
 
@@ -540,7 +531,7 @@ qx.Class.define("qx.test.data.DataArrayWithChangeBubble",
       var spy = this.spy(handler);
       model.addListener("changeBubble", spy, this);
 
-      model.getItem(1).setFoo("eins");
+      model.getItem(1).foo = "eins";
     },
 
     testSortAndSet : function()
@@ -552,7 +543,7 @@ qx.Class.define("qx.test.data.DataArrayWithChangeBubble",
 
       // sort by number
       model.sort(function(a, b) {
-        return a.getN() < b.getN() ? -1 : a.getN() > b.getN() ? 1 : 0;
+        return a.n < b.n ? -1 : a.n > b.n ? 1 : 0;
       });
 
       var that = this;
@@ -566,7 +557,7 @@ qx.Class.define("qx.test.data.DataArrayWithChangeBubble",
       var spy = this.spy(handler);
       model.addListener("changeBubble", spy, this);
 
-      model.getItem(0).setFoo("drei");
+      model.getItem(0).foo = "drei";
     },
 
 
@@ -590,7 +581,7 @@ qx.Class.define("qx.test.data.DataArrayWithChangeBubble",
       var spy = this.spy(handler);
       model.addListener("changeBubble", spy, this);
 
-      model.getItem(1).setFoo("eins");
+      model.getItem(1).foo = ("eins");
     }
   }
 });

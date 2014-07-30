@@ -318,8 +318,6 @@ qx.Bootstrap.define("qx.data.marshal.Json",
         }
 
         var array = new arrayClass();
-        // set the auto dispose for the array
-        array.setAutoDisposeItems(true);
 
         for (var i = 0; i < data.length; i++) {
           array.push(this.__toModel(data[i], parentProperty + "[" + i + "]", depth+1));

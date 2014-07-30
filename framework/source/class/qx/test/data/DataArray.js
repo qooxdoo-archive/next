@@ -195,7 +195,7 @@ qx.Class.define("qx.test.data.DataArray",
         "bar" : [1,2,3,4,5]
       };
       var model = qx.data.marshal.Json.createModel( data, true );
-      this.assertEquals(1, model.getBar().shift());
+      this.assertEquals(1, model.bar.shift());
       model.dispose();
     },
 
@@ -721,15 +721,6 @@ qx.Class.define("qx.test.data.DataArray",
       this.__a.dispose();
       this.assertFalse(o.isDisposed());
       o.dispose();
-    },
-
-
-    testAutoDisposeItems : function() {
-      var o = new qx.core.Object();
-      this.__a.push(o);
-      this.__a.setAutoDisposeItems(true);
-      this.__a.dispose();
-      this.assertTrue(o.isDisposed());
     },
 
 
