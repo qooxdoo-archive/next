@@ -141,8 +141,8 @@
       "let" :
       {
         "TESTRUNNER_ORIGIN" : "iframe",
-        "TESTRUNNER_VIEW" : "testrunner.view.widget.Widget",
-        "TESTRUNNER_MAIN_CLASS" : "testrunner.GuiApplication",
+        "TESTRUNNER_VIEW" : "testrunner.view.Html",
+        "TESTRUNNER_MAIN_CLASS" : "testrunner.Application",
         "TESTRUNNER_ROOT" : "${QOOXDOO_PATH}/component/testrunner",
         "TEST_INCLUDE"    : "${APPLICATION}.test.*",
         "QXTHEME"         : "qx.theme.Modern",
@@ -186,8 +186,8 @@
       "let" :
       {
         "TESTRUNNER_ORIGIN" : "iframe",
-        "TESTRUNNER_VIEW" : "testrunner.view.widget.Widget",
-        "TESTRUNNER_MAIN_CLASS" : "testrunner.GuiApplication",
+        "TESTRUNNER_VIEW" : "testrunner.view.Html",
+        "TESTRUNNER_MAIN_CLASS" : "testrunner.Application",
         "TESTRUNNER_ROOT" : "${QOOXDOO_PATH}/component/testrunner",
         "TEST_INCLUDE"    : "${APPLICATION}.test.*",
         "QXTHEME"         : "qx.theme.Modern",
