@@ -21,13 +21,13 @@
  * Storage implementation using HTML web storage:
  * http://www.w3.org/TR/webstorage/
  *
- * @require(qx.bom.storage.Web#getLength)
- * @require(qx.bom.storage.Web#setItem)
- * @require(qx.bom.storage.Web#getItem)
- * @require(qx.bom.storage.Web#removeItem)
- * @require(qx.bom.storage.Web#clear)
- * @require(qx.bom.storage.Web#getKey)
- * @require(qx.bom.storage.Web#forEach)
+ * @require(qx.bom.Storage#getLength)
+ * @require(qx.bom.Storage#setItem)
+ * @require(qx.bom.Storage#getItem)
+ * @require(qx.bom.Storage#removeItem)
+ * @require(qx.bom.Storage#clear)
+ * @require(qx.bom.Storage#getKey)
+ * @require(qx.bom.Storage#forEach)
  */
 qx.Bootstrap.define("qx.bom.Storage", {
   statics : {
@@ -36,25 +36,25 @@ qx.Bootstrap.define("qx.bom.Storage", {
 
     /**
      * Static accessor for the local storage.
-     * @return {qx.bom.storage.Web} An instance of a local storage.
+     * @return {qx.bom.Storage} An instance of a local storage.
      */
     getLocal : function() {
       if (this.__local) {
         return this.__local;
       }
-      return this.__local = new qx.bom.storage.Web("local");
+      return this.__local = new qx.bom.Storage("local");
     },
 
 
     /**
      * Static accessor for the session storage.
-     * @return {qx.bom.storage.Web} An instance of a session storage.
+     * @return {qx.bom.Storage} An instance of a session storage.
      */
     getSession : function() {
       if (this.__session) {
         return this.__session;
       }
-      return this.__session = new qx.bom.storage.Web("session");
+      return this.__session = new qx.bom.Storage("session");
     }
   },
 

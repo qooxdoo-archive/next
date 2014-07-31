@@ -191,7 +191,7 @@ qx.Bootstrap.define("qx.ui.mobile.core.Blocker",
     dispose : function() {
       qx.ui.mobile.core.Blocker.ROOT.remove(this);
       this.__unregisterEventListener();
-      delete this.__instance;
+      delete qx.ui.mobile.core.Blocker.__instance;
       this.base(arguments);
     }
   }
