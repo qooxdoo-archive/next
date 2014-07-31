@@ -168,22 +168,9 @@ qx.Class.define("qx.bom.History",
           this.$$instance = new qx.bom.HashHistory();
         }
 
-        // in iframe + IE<9
-        else if (runsInIframe
-          && qx.core.Environment.get("engine.name") == "mshtml"
-          && qx.core.Environment.get("browser.documentmode") < 9
-        ) {
-          this.$$instance = new qx.bom.IframeHistory();
-        }
-
         // browser with hashChange event
         else if (this.SUPPORTS_HASH_CHANGE_EVENT) {
           this.$$instance = new qx.bom.NativeHistory();
-        }
-
-        // IE without hashChange event
-        else if ((qx.core.Environment.get("engine.name") == "mshtml")) {
-          this.$$instance = new qx.bom.IframeHistory();
         }
 
         // fallback
