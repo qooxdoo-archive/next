@@ -560,8 +560,8 @@ qx.Bootstrap.define("qx.ui.mobile.page.Manager",
     },
 
 
-    dispose : function()
-    {
+    dispose : function() {
+      this.base(arguments);
       if(this.__masterPages) {
         for(var i = 0; i < this.__masterPages.length; i++) {
           var masterPage = this.__masterPages[i];
@@ -586,8 +586,6 @@ qx.Bootstrap.define("qx.ui.mobile.page.Manager",
       this.__masterPages = this.__detailPages =  null;
 
       this._disposeObjects("__detailNavigation", "__masterNavigation", "__masterButton");
-
-      this.base(arguments);
     }
 
   }

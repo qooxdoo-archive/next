@@ -564,6 +564,7 @@ qx.Bootstrap.define("qx.ui.mobile.container.ScrollComposite",
 
 
     dispose : function() {
+      this.base(arguments);
       this.removeListener("trackstart",this._onTrackStart,this);
       this.removeListener("track",this._onTrack,this);
       this.removeListener("swipe",this._onSwipe,this);
@@ -576,7 +577,6 @@ qx.Bootstrap.define("qx.ui.mobile.container.ScrollComposite",
       this._disposeObjects("_scrollContainer");
 
       this.__isVerticalScroll = null;
-      this.base(arguments);
     }
   }
 });

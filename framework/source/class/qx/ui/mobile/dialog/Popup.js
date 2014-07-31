@@ -585,11 +585,11 @@ qx.Bootstrap.define("qx.ui.mobile.dialog.Popup",
 
 
     dispose : function() {
+      this.base(arguments);
       this.__unregisterEventListener();
       this._disposeObjects("__childrenContainer");
 
       this.__isShown = this.__percentageTop = this._anchor = this.__widget = this.__lastPopupDimension = null;
-      this.base(arguments);
     }
   }
 });

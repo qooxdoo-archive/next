@@ -685,6 +685,7 @@ qx.Bootstrap.define("qx.ui.mobile.dialog.Picker",
 
 
     dispose : function() {
+      this.base(arguments);
       this._disposePickerModel();
 
       this._removePickerSlots();
@@ -693,7 +694,6 @@ qx.Bootstrap.define("qx.ui.mobile.dialog.Picker",
       this.__pickerCancelButton.removeListener("tap", this.hide, this);
 
       this._disposeObjects("__pickerContainer", "__pickerButtonContainer", "__pickerConfirmButton","__pickerCancelButton","__pickerContent");
-      this.base(arguments);
     }
   }
 

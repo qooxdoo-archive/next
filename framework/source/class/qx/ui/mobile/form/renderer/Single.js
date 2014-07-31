@@ -333,10 +333,10 @@ qx.Bootstrap.define("qx.ui.mobile.form.renderer.Single",
 
 
     dispose : function() {
+      this.base(arguments);
       this.resetForm();
       this._disposeArray("_labels");
       this._disposeArray("_rows");
-      this.base(arguments);
     }
   }
 });

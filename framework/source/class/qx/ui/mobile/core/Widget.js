@@ -1606,6 +1606,7 @@ qx.Bootstrap.define("qx.ui.mobile.core.Widget",
 
 
     dispose : function() {
+      this.base(arguments);
       if (!qx.core.ObjectRegistry.inShutDown)
       {
         // Cleanup event listeners
@@ -1628,8 +1629,6 @@ qx.Bootstrap.define("qx.ui.mobile.core.Widget",
         this.__layoutManager.dispose();
       }
       this.__layoutManager = null;
-
-      this.base(arguments);
     }
   },
 

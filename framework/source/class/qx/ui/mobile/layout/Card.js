@@ -375,8 +375,8 @@ qx.Bootstrap.define("qx.ui.mobile.layout.Card",
 
 
     dispose : function() {
-      this._disposeObjects("__cardAnimation");
       this.base(arguments);
+      this._disposeObjects("__cardAnimation");
     }
   }
 });

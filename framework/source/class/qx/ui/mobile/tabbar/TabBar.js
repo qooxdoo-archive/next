@@ -187,8 +187,8 @@ qx.Bootstrap.define("qx.ui.mobile.tabbar.TabBar",
 
 
     dispose : function() {
-      this.removeListener("tap", this._onTap, this);
       this.base(arguments);
+      this.removeListener("tap", this._onTap, this);
     }
   }
 });

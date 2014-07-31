@@ -543,6 +543,7 @@ qx.Bootstrap.define("qx.ui.mobile.container.Drawer",
 
     dispose : function()
     {
+      this.base(arguments);
       qx.core.Init.getApplication().removeListener("back", this.forceHide, this);
 
       this.__parent.removeListener("swipe", this._onParentSwipe, this);
@@ -551,7 +552,6 @@ qx.Bootstrap.define("qx.ui.mobile.container.Drawer",
       qx.util.DisposeUtil.disposeContainer(this);
 
       this.__pointerStartPosition = this.__parent = this.__transitionEnabled = null;
-      this.base(arguments);
     }
   }
 });

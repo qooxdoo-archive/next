@@ -317,8 +317,8 @@ qx.Bootstrap.define("qx.ui.mobile.basic.Image",
 
 
     dispose : function() {
-      qx.ui.mobile.basic.Image.ROOT.removeListener("changeAppScale", this._onChangeAppScale, this);
       this.base(arguments);
+      qx.ui.mobile.basic.Image.ROOT.removeListener("changeAppScale", this._onChangeAppScale, this);
     }
   },
 

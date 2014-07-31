@@ -268,8 +268,8 @@ qx.Bootstrap.define("qx.ui.mobile.layout.Abstract",
 
 
     dispose : function() {
-      this._widget = null;
       this.base(arguments);
+      this._widget = null;
     }
   }
 });

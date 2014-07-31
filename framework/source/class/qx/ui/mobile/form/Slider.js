@@ -477,9 +477,9 @@ qx.Bootstrap.define("qx.ui.mobile.form.Slider",
 
 
     dispose : function() {
+      this.base(arguments);
       this._knobElement = null;
       this._unregisterEventListener();
-      this.base(arguments);
     }
   }
 });

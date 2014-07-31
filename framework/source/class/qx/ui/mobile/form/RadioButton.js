@@ -176,8 +176,8 @@ qx.Bootstrap.define("qx.ui.mobile.form.RadioButton",
 
 
     dispose : function() {
-      qx.event.Registration.removeListener(this, "tap", this._onTap, this);
       this.base(arguments);
+      qx.event.Registration.removeListener(this, "tap", this._onTap, this);
     }
   }
 });

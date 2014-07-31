@@ -479,11 +479,11 @@ qx.Bootstrap.define("qx.ui.mobile.container.Scroll",
 
 
     dispose : function() {
+      this.base(arguments);
       this.removeListener("appear", this._updateWaypoints, this);
       this.removeListener("domupdated", this._updateWaypoints, this);
 
       this._waypointsX = this._waypointsY = null;
-      this.base(arguments);
     }
   },
 

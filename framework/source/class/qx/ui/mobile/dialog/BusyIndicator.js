@@ -113,6 +113,7 @@ qx.Bootstrap.define("qx.ui.mobile.dialog.BusyIndicator",
 
 
     dispose : function() {
+      this.base(arguments);
       this.removeListener("appear", this._onAppear, this);
       this.removeListener("disappear", this._onDisappear, this);
 
@@ -121,7 +122,6 @@ qx.Bootstrap.define("qx.ui.mobile.dialog.BusyIndicator",
       }
 
       this.__animationHandle = null;
-      this.base(arguments);
     }
   },
 

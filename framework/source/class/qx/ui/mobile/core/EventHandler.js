@@ -367,8 +367,8 @@ qx.Bootstrap.define("qx.ui.mobile.core.EventHandler",
 
 
     dispose : function() {
-      this.__manager = null;
       this.base(arguments);
+      this.__manager = null;
     }
   },
 

@@ -220,8 +220,8 @@ qx.Bootstrap.define("qx.ui.mobile.list.renderer.Default",
 
 
     dispose : function() {
-      this._disposeObjects("__image", "__title", "__subtitle", "__rightContainer");
       this.base(arguments);
+      this._disposeObjects("__image", "__title", "__subtitle", "__rightContainer");
     }
   }
 });

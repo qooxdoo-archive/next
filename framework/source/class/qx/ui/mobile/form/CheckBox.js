@@ -141,8 +141,8 @@ qx.Bootstrap.define("qx.ui.mobile.form.CheckBox",
 
 
     dispose : function() {
-      this.removeListener("tap", this._onTap, this);
       this.base(arguments);
+      this.removeListener("tap", this._onTap, this);
     }
   }
 });

@@ -126,11 +126,11 @@ qx.Bootstrap.define("qx.ui.mobile.form.TextArea",
 
     dispose : function()
     {
+      this.base(arguments);
       if (qx.core.Environment.get("qx.mobile.nativescroll") == false) {
         this.removeListener("appear", this._fixChildElementsHeight, this);
         this.removeListener("input", this._fixChildElementsHeight, this);
         this.removeListener("changeValue", this._fixChildElementsHeight, this);
-        this.base(arguments);
       }
     }
   }

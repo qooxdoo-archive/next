@@ -211,8 +211,8 @@ qx.Bootstrap.define("qx.ui.mobile.list.provider.Provider",
 
 
     dispose : function() {
-      this._disposeObjects("__itemRenderer","__groupRenderer");
       this.base(arguments);
+      this._disposeObjects("__itemRenderer","__groupRenderer");
     }
   }
 });

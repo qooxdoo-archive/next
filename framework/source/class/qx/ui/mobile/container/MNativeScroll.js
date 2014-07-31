@@ -308,6 +308,7 @@ qx.Mixin.define("qx.ui.mobile.container.MNativeScroll",
 
 
     dispose : function() {
+      this.base(arguments);
       qx.bom.Event.removeNativeListener(this._getContentElement(), "scroll", this._onScroll.bind(this));
 
       this.removeListener("touchmove", this._onTouchMove, this);
@@ -315,7 +316,6 @@ qx.Mixin.define("qx.ui.mobile.container.MNativeScroll",
       this.removeListener("appear", this._onAppear, this);
       this.removeListener("trackstart", this._onTrackStart, this);
       this.removeListener("trackend", this._onTrackEnd, this);
-      this.base(arguments);
     }
   }
 });

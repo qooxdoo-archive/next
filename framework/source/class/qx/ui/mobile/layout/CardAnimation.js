@@ -146,8 +146,8 @@ qx.Bootstrap.define("qx.ui.mobile.layout.CardAnimation",
 
 
     dispose : function() {
-      this._cardAnimationsMap = null;
       this.base(arguments);
+      this._cardAnimationsMap = null;
     }
   }
 });

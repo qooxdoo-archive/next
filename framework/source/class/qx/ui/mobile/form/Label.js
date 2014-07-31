@@ -241,13 +241,13 @@ qx.Bootstrap.define("qx.ui.mobile.form.Label",
 
 
     dispose : function() {
+      this.base(arguments);
       this.removeListener("tap", this._onTap, this);
 
       if (this.__forWidget) {
         this.__forWidget.removeListener("changeEnabled", this._changeEnabled, this);
         this.__forWidget = null;
       }
-      this.base(arguments);
     }
   }
 });

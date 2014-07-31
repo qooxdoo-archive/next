@@ -271,10 +271,10 @@ qx.Bootstrap.define("qx.ui.mobile.core.Root",
 
 
     dispose : function() {
+      this.base(arguments);
       this.__root = null;
       this.removeListener("touchmove", qx.bom.Event.preventDefault, this);
       qx.event.Registration.removeListener(window, "orientationchange", this._onOrientationChange, this);
-      this.base(arguments);
     }
   }
 });

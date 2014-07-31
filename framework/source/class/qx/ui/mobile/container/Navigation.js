@@ -254,12 +254,12 @@ qx.Bootstrap.define("qx.ui.mobile.container.Navigation",
 
     dispose : function()
     {
+      this.base(arguments);
       this.getLayout().removeListener("animationStart",this._onAnimationStart, this);
       this.getLayout().removeListener("animationEnd",this._onAnimationEnd, this);
 
       this._disposeObjects("__navigationBar", "__content","__layout");
       this.__navigationBar = this.__content = this.__layout = null;
-      this.base(arguments);
     }
   }
 });

@@ -374,9 +374,9 @@ qx.Bootstrap.define("qx.ui.mobile.dialog.Menu",
 
 
     dispose : function() {
+      this.base(arguments);
       this.__selectionList.removeListener("tap", this._onSelectionListTap, this);
       this._disposeObjects("__selectionList","__clearButton","__listScroller","__menuContainer");
-      this.base(arguments);
     }
   }
 

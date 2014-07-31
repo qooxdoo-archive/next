@@ -595,12 +595,12 @@ qx.Bootstrap.define("qx.ui.mobile.page.NavigationPage",
 
     dispose : function()
     {
+      this.base(arguments);
       this._disposeObjects("__leftContainer", "__rightContainer", "__backButton",
         "__actionButton", "__title");
       this.__leftContainer = this.__rightContainer = this.__backButton = this.__actionButton = null;
       this.__title = this.__content = this.__scrollContainer = null;
       this._isTablet = null;
-      this.base(arguments);
     }
   }
 });

@@ -565,12 +565,12 @@ qx.Bootstrap.define("qx.ui.mobile.list.List",
 
 
     dispose : function() {
+      this.base(arguments);
       this.__trackElement = null;
       this._disposeObjects("__provider");
       if (qx.core.Environment.get("qx.dynlocale")) {
         qx.locale.Manager.getInstance().removeListener("changeLocale", this._onChangeLocale, this);
       }
-      this.base(arguments);
     }
   }
 });

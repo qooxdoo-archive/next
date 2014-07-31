@@ -115,8 +115,8 @@ qx.Bootstrap.define("qx.ui.mobile.form.Input",
 
 
     dispose : function() {
-      this.removeListener("focus", this._onSelected, this);
       this.base(arguments);
+      this.removeListener("focus", this._onSelected, this);
     }
   }
 });

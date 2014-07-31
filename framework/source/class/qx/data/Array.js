@@ -1038,11 +1038,12 @@ qx.Bootstrap.define("qx.data.Array",
     __updateEventPropagation : function(from, to) {
       for (var i=from; i < to; i++) {
         this._registerEventChaining(this.__array[i], this.__array[i], i);
-      };
+      }
     },
 
 
     dispose : function() {
+      this.base(arguments);
       for (var i = 0; i < this.__array.length; i++) {
         var item = this.__array[i];
         this._applyEventPropagation(null, item, i);

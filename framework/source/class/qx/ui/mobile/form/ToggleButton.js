@@ -211,11 +211,11 @@ qx.Bootstrap.define("qx.ui.mobile.form.ToggleButton",
 
     dispose : function()
     {
+      this.base(arguments);
       this.removeListener("tap", this._onTap, this);
       this.removeListener("swipe", this._onSwipe, this);
 
       this._disposeObjects("__switch","__labelUnchecked","__labelChecked");
-      this.base(arguments);
     }
   }
 });

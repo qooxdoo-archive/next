@@ -378,13 +378,13 @@ qx.Bootstrap.define("qx.ui.mobile.form.SelectBox",
 
 
     dispose : function() {
+      this.base(arguments);
       this.__selectionDialog.removeListener("changeSelection", this._onChangeSelection, this);
 
       this._disposeObjects("__selectionDialog","__selectionDialogTitle");
 
       this.removeListener("focus", this.blur);
       this.removeListener("tap", this._onTap, this);
-      this.base(arguments);
     }
   }
 });

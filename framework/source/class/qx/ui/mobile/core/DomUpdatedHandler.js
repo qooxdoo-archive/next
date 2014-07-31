@@ -180,12 +180,11 @@ qx.Bootstrap.define("qx.ui.mobile.core.DomUpdatedHandler",
 
 
     dispose : function() {
+      this.base(arguments);
       this.__manager = this.__targets = null;
 
       // Deregister
       delete qx.ui.mobile.core.DomUpdatedHandler.__instances[this.$$hash];
-
-      this.base(arguments);
     }
   },
 
