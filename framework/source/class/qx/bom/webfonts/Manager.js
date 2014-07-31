@@ -36,7 +36,6 @@ qx.Class.define("qx.bom.webfonts.Manager", {
     this.base(arguments);
     this.__createdStyles = [];
     this.__validators = {};
-    this.__queue = [];
     this.__preferredFormats = this.getPreferredFormats();
     var browser = qx.core.Environment.get("browser.name");
     var version = parseInt(qx.core.Environment.get("browser.version"), 10);
@@ -82,8 +81,6 @@ qx.Class.define("qx.bom.webfonts.Manager", {
     __styleSheet : null,
     __validators : null,
     __preferredFormats : null,
-    __queue : null,
-    __queueInterval : null,
     __needsAbsoluteUri : false,
 
 
@@ -123,23 +120,7 @@ qx.Class.define("qx.bom.webfonts.Manager", {
         sources.push(src);
       }
 
-      // old IEs need a break in between adding @font-face rules
-      if (qx.core.Environment.get("engine.name") == "mshtml" && (
-          parseInt(qx.core.Environment.get("engine.version")) < 9 ||
-          qx.core.Environment.get("browser.documentmode") < 9)) {
-        if (!this.__queueInterval) {
-          this.__queueInterval = new qx.event.Timer(100);
-          this.__queueInterval.addListener("interval", this.__flushQueue, this);
-        }
-
-        if (!this.__queueInterval.isEnabled()) {
-          this.__queueInterval.start();
-        }
-
-        this.__queue.push([familyName, sources, callback, context]);
-      } else {
-        this.__require(familyName, sources, callback, context);
-      }
+      this.__require(familyName, sources, callback, context);
     },
 
 
@@ -288,20 +269,6 @@ qx.Class.define("qx.bom.webfonts.Manager", {
 
 
     /**
-     * Processes the next item in the queue
-     */
-    __flushQueue : function()
-    {
-      if (this.__queue.length == 0) {
-        this.__queueInterval.stop();
-        return;
-      }
-      var next = this.__queue.shift();
-      this.__require.apply(this, next);
-    },
-
-
-    /**
      * Removes the font-face declaration if a font could not be validated
      *
      * @param ev {qx.event.type.Data} qx.bom.webfonts.Validator#changeStatus
@@ -412,7 +379,7 @@ qx.Class.define("qx.bom.webfonts.Manager", {
 
       if (qx.core.Environment.get("browser.name") == "ie" &&
           qx.core.Environment.get("browser.documentmode") < 9) {
-        var cssText = this.__fixCssText(this.__styleSheet.cssText);
+        var cssText = this.__styleSheet.cssText;
         cssText += completeRule;
         this.__styleSheet.cssText = cssText;
       }
@@ -435,7 +402,7 @@ qx.Class.define("qx.bom.webfonts.Manager", {
         var sheet = document.styleSheets[i];
         if (sheet.cssText) {
           var cssText = sheet.cssText.replace(/\n/g, "").replace(/\r/g, "");
-          cssText = this.__fixCssText(cssText);
+          cssText = cssText;
           if (reg.exec(cssText)) {
             cssText = cssText.replace(reg, "");
           }
@@ -451,22 +418,7 @@ qx.Class.define("qx.bom.webfonts.Manager", {
           }
         }
       }
-    },
-
-    /**
-     * IE 6 and 7 omit the trailing quote after the format name when
-     * querying cssText. This needs to be fixed before cssText is replaced
-     * or all rules will be invalid and no web fonts will work any more.
-     *
-     * @param cssText {String} CSS text
-     * @return {String} Fixed CSS text
-     */
-    __fixCssText : function(cssText)
-    {
-      return cssText.replace("'eot)", "'eot')")
-        .replace("('embedded-opentype)", "('embedded-opentype')");
     }
-
   },
 
   /*
@@ -477,10 +429,6 @@ qx.Class.define("qx.bom.webfonts.Manager", {
 
   destruct : function()
   {
-    if (this.__queueInterval) {
-      this.__queueInterval.stop();
-      this.__queueInterval.dispose();
-    }
     delete this.__createdStyles;
     this.removeStyleSheet();
     for (var prop in this.__validators) {
