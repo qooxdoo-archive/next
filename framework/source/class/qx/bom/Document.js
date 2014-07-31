@@ -81,13 +81,8 @@ qx.Bootstrap.define("qx.bom.Document",
      */
     isQuirksMode : qx.core.Environment.select("engine.name",
     {
-      "mshtml" : function(win)
-      {
-        if(qx.core.Environment.get("engine.version") >= 8) {
-          return (win||window).document.documentMode === 5;
-        } else {
-          return (win||window).document.compatMode !== "CSS1Compat";
-        }
+      "mshtml" : function(win) {
+        return (win||window).document.documentMode === 5;
       },
 
       "webkit" : function(win)

@@ -42,7 +42,7 @@ qx.Class.define("qx.bom.WebWorker",
   construct: function(src)
   {
     this.base(arguments);
-    this.__isNative = qx.core.Environment.get("html.webworker");
+    this.__isNative = qx.core.Environment.get("html.webworker"); // only IE9
     this.__isNative ? this.__initNative(src) : this.__initFake(src);
   },
 

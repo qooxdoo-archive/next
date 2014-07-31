@@ -195,74 +195,6 @@ qx.Bootstrap.define("qx.bom.client.Html",
       return v.canPlayType('video/webm; codecs="vp8, vorbis"');
     },
 
-    /**
-     * Whether the client supports local storage.
-     *
-     * @internal
-     * @return {Boolean} <code>true</code> if local storage is supported
-     */
-    getLocalStorage : function() {
-      try {
-        var has = window.localStorage != null;
-        // write once to make sure to catch safari's private mode [BUG #7718]
-        if (has) {
-          window.sessionStorage.setItem("$qx_check", "test");
-          window.sessionStorage.removeItem("$qx_check");
-        }
-        return has;
-      } catch (exc) {
-        // Firefox Bug: Local execution of window.sessionStorage throws error
-        // see https://bugzilla.mozilla.org/show_bug.cgi?id=357323
-        return false;
-      }
-    },
-
-
-    /**
-     * Whether the client supports session storage.
-     *
-     * @internal
-     * @return {Boolean} <code>true</code> if session storage is supported
-     */
-    getSessionStorage : function() {
-      try {
-        var has = window.sessionStorage != null;
-        // write once to make sure to catch safari's private mode [BUG #7718]
-        if (has) {
-          window.sessionStorage.setItem("$qx_check", "test");
-          window.sessionStorage.removeItem("$qx_check");
-        }
-        return has;
-      } catch (exc) {
-        // Firefox Bug: Local execution of window.sessionStorage throws error
-        // see https://bugzilla.mozilla.org/show_bug.cgi?id=357323
-        return false;
-      }
-    },
-
-    /**
-     * Whether the client supports user data to persist data. This is only
-     * relevant for IE < 8.
-     *
-     * @internal
-     * @return {Boolean} <code>true</code> if the user data is supported.
-     */
-    getUserDataStorage : function() {
-      var el = document.createElement("div");
-      el.style["display"] = "none";
-      document.getElementsByTagName("head")[0].appendChild(el);
-
-      var supported = false;
-      try {
-        el.addBehavior("#default#userdata");
-        el.load("qxtest");
-        supported = true;
-      } catch (e) {}
-
-      document.getElementsByTagName("head")[0].removeChild(el);
-      return supported;
-    },
-
 
     /**
      * Whether the browser supports CSS class lists.
@@ -460,27 +392,6 @@ qx.Bootstrap.define("qx.bom.client.Html",
 
 
     /**
-     * Returns the name of the native object/function used to access the
-     * document's text selection.
-     *
-     * @return {String|null} <code>getSelection</code> if the standard window.getSelection
-     * function is available; <code>selection</code> if the MS-proprietary
-     * document.selection object is available; <code>null</code> if no known
-     * text selection API is available.
-     */
-    getSelection : function()
-    {
-      if (typeof window.getSelection === "function") {
-        return "getSelection";
-      }
-      if (typeof document.selection === "object") {
-        return "selection";
-      }
-      return null;
-    },
-
-
-    /**
      * Check for the isEqualNode DOM method.
      *
      * @return {Boolean} <code>true</code> if isEqualNode is supported by DOM nodes
@@ -504,9 +415,6 @@ qx.Bootstrap.define("qx.bom.client.Html",
     qx.core.Environment.add("html.video.ogg", statics.getVideoOgg);
     qx.core.Environment.add("html.video.h264", statics.getVideoH264);
     qx.core.Environment.add("html.video.webm", statics.getVideoWebm);
-    qx.core.Environment.add("html.storage.local", statics.getLocalStorage);
-    qx.core.Environment.add("html.storage.session", statics.getSessionStorage);
-    qx.core.Environment.add("html.storage.userdata", statics.getUserDataStorage);
     qx.core.Environment.add("html.classlist", statics.getClassList);
     qx.core.Environment.add("html.xpath", statics.getXPath);
     qx.core.Environment.add("html.xul", statics.getXul);
@@ -521,7 +429,6 @@ qx.Bootstrap.define("qx.bom.client.Html",
     qx.core.Environment.add("html.console", statics.getConsole);
     qx.core.Environment.add("html.image.naturaldimensions", statics.getNaturalDimensions);
     qx.core.Environment.add("html.history.state", statics.getHistoryState);
-    qx.core.Environment.add("html.selection", statics.getSelection);
     qx.core.Environment.add("html.node.isequalnode", statics.getIsEqualNode);
   }
 });
