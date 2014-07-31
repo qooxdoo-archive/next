@@ -193,7 +193,6 @@ qx.Bootstrap.define("qx.ui.mobile.core.Blocker",
       qx.ui.mobile.core.Blocker.ROOT.remove(this);
       this.__unregisterEventListener();
       delete qx.ui.mobile.core.Blocker.__instance;
-      this.base(arguments);
     }
   }
 });
