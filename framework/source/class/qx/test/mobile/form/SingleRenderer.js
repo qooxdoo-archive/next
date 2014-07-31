@@ -39,7 +39,7 @@ qx.Class.define("qx.test.mobile.form.SingleRenderer",
 
       var dd = new qx.data.Array(["1"]);
       this.__s = new qx.ui.mobile.form.SelectBox();
-      this.__s.setModel(dd);
+      this.__s.model = dd;
       this.__form.add(this.__s, "select");
 
       this.__renderer = new qx.ui.mobile.form.renderer.Single(this.__form);

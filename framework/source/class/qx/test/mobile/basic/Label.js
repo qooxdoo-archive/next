@@ -28,16 +28,16 @@ qx.Class.define("qx.test.mobile.basic.Label",
       var label = new qx.ui.mobile.basic.Label("affe");
       this.getRoot().add(label);
 
-      this.assertString(label.getValue());
-      this.assertEquals(label.getValue(), "affe");
-      this.assertEquals(label.getValue(), label.getContentElement().innerHTML);
+      this.assertString(label.value);
+      this.assertEquals(label.value, "affe");
+      this.assertEquals(label.value, label.getContentElement().innerHTML);
 
       this.assertEventFired(label, "changeValue", function() {
-        label.setValue("");
+        label.value = "";
       });
 
-      this.assertEquals(label.getValue(), "");
-      this.assertEquals(label.getValue(), label.getContentElement().innerHTML);
+      this.assertEquals(label.value, "");
+      this.assertEquals(label.value, label.getContentElement().innerHTML);
 
       label.dispose();
     }

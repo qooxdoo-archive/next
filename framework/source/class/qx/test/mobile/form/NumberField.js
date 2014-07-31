@@ -46,11 +46,11 @@ qx.Class.define("qx.test.mobile.form.NumberField",
       var numberField = new qx.ui.mobile.form.NumberField();
       this.getRoot().add(numberField);
 
-      this.assertEquals('',numberField.getMinimum());
+      this.assertEquals('', numberField.minimum);
 
-      numberField.setMinimum(42);
+      numberField.minimum = 42;
 
-     this.assertEquals(42,numberField.getMinimum());
+     this.assertEquals(42, numberField.minimum);
 
       numberField.dispose();
 
@@ -62,11 +62,11 @@ qx.Class.define("qx.test.mobile.form.NumberField",
       var numberField = new qx.ui.mobile.form.NumberField();
       this.getRoot().add(numberField);
 
-      this.assertEquals('',numberField.getMaximum());
+      this.assertEquals('', numberField.maximum);
 
-      numberField.setMaximum(42);
+      numberField.maximum = 42;
 
-      this.assertEquals(42,numberField.getMaximum());
+      this.assertEquals(42, numberField.maximum);
 
       numberField.dispose();
     },
@@ -77,11 +77,11 @@ qx.Class.define("qx.test.mobile.form.NumberField",
       var numberField = new qx.ui.mobile.form.NumberField();
       this.getRoot().add(numberField);
 
-      this.assertEquals('',numberField.getStep());
+      this.assertEquals('', numberField.step);
 
-      numberField.setStep(42);
+      numberField.step = 42;
 
-      this.assertEquals(42,numberField.getStep());
+      this.assertEquals(42, numberField.step);
 
       numberField.dispose();
     },
@@ -111,12 +111,12 @@ qx.Class.define("qx.test.mobile.form.NumberField",
     {
       var numberField = new qx.ui.mobile.form.NumberField();
       this.getRoot().add(numberField);
-      this.assertEquals(true,numberField.getEnabled());
+      this.assertEquals(true, numberField.enabled);
       this.assertFalse(qx.bom.element.Class.has(numberField.getContainerElement(),'disabled'));
 
-      numberField.setEnabled(false);
-      this.assertEquals(false,numberField.getEnabled());
-      this.assertEquals(true,qx.bom.element.Class.has(numberField.getContainerElement(),'disabled'));
+      numberField.enabled = false;
+      this.assertEquals(false, numberField.enabled);
+      this.assertEquals(true, qx.bom.element.Class.has(numberField.getContainerElement(),'disabled'));
 
       numberField.dispose();
     }

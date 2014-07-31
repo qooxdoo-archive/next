@@ -47,7 +47,7 @@ qx.Class.define("qx.test.mobile.dialog.Popup",
       blocker.forceHide();
 
       // Modal mode false test cases, no changes expected.
-      popup.setModal(false);
+      popup.modal = false;
       popup.show();
 
       this.assertTrue(popup.isVisible(), 'popup should be visible.');
@@ -64,7 +64,7 @@ qx.Class.define("qx.test.mobile.dialog.Popup",
       this.assertTrue(popup.isVisible(), 'popup should be visible.');
 
       // Modal mode true test cases
-      popup.setModal(true);
+      popup.modal = true;
       popup.show();
 
       this.assertTrue(blocker.isShown(), 'Modal mode is true, called popup.show(), Blocker should be shown.');

@@ -28,19 +28,19 @@ qx.Class.define("qx.test.mobile.form.TextField",
       var textField = new qx.ui.mobile.form.TextField();
       this.getRoot().add(textField);
 
-      this.assertEquals('',textField.getValue());
+      this.assertEquals('',textField.value);
       this.assertEquals(null,qx.bom.element.Attribute.get(textField.getContainerElement(),'value'));
       this.assertEventFired(textField, "changeValue", function() {
-        textField.setValue("mytext");
+        textField.value = "mytext";
       });
-      this.assertEquals('mytext',textField.getValue());
+      this.assertEquals('mytext',textField.value);
       this.assertEquals('mytext',qx.bom.element.Attribute.get(textField.getContainerElement(),'value'));
 
       textField.dispose();
 
       textField = new qx.ui.mobile.form.TextField('affe');
       this.getRoot().add(textField);
-      this.assertEquals('affe',textField.getValue());
+      this.assertEquals('affe',textField.value);
       this.assertEquals('affe',qx.bom.element.Attribute.get(textField.getContainerElement(),'value'));
       textField.dispose();
     },
@@ -50,11 +50,11 @@ qx.Class.define("qx.test.mobile.form.TextField",
     {
       var textField = new qx.ui.mobile.form.TextField();
       this.getRoot().add(textField);
-      this.assertEquals(true,textField.getEnabled());
+      this.assertEquals(true,textField.enabled);
       this.assertFalse(qx.bom.element.Class.has(textField.getContainerElement(),'disabled'));
 
-      textField.setEnabled(false);
-      this.assertEquals(false,textField.getEnabled());
+      textField.enabled = false;
+      this.assertEquals(false,textField.enabled);
       this.assertEquals(true,qx.bom.element.Class.has(textField.getContainerElement(),'disabled'));
 
       textField.dispose();

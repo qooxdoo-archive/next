@@ -28,16 +28,16 @@ qx.Class.define("qx.test.mobile.form.Button",
       var button = new qx.ui.mobile.form.Button("affe");
       this.getRoot().add(button);
 
-      this.assertString(button.getLabel());
-      this.assertEquals("affe", button.getLabel() );
-      this.assertEquals(button.getLabel(), button.getLabelWidget().getContentElement().innerHTML);
+      this.assertString(button.label);
+      this.assertEquals("affe", button.label );
+      this.assertEquals(button.label, button.getLabelWidget().getContentElement().innerHTML);
 
       this.assertEventFired(button, "changeLabel", function() {
-        button.setLabel("");
+        button.label = "";
       });
 
-      this.assertEquals("", button.getLabel());
-      this.assertEquals(button.getLabel(), button.getLabelWidget().getContentElement().innerHTML);
+      this.assertEquals("", button.label);
+      this.assertEquals(button.label, button.getLabelWidget().getContentElement().innerHTML);
 
       button.dispose();
     }

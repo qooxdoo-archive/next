@@ -68,11 +68,11 @@ qx.Class.define("qx.test.mobile.list.List",
     __createList : function(createItemRenderer, configureItemFunction) {
       var list = new qx.ui.mobile.list.List();
       this.getRoot().add(list);
-      list.setDelegate({
+      list.delegate = {
         configureItem : configureItemFunction ? configureItemFunction : this.__configureItemFunction,
         createItemRenderer :  createItemRenderer ? createItemRenderer : null
-      });
-      list.setModel(this.__createModel());
+      };
+      list.model = this.__createModel();
       return list;
     },
 
@@ -92,8 +92,8 @@ qx.Class.define("qx.test.mobile.list.List",
 
 
     __cleanUp : function(list) {
-      var modelData = list.getModel();
       list.dispose();
+      var modelData = list.model;
       if(modelData) {
         modelData.dispose();
         modelData = null;

@@ -30,7 +30,7 @@ qx.Class.define("qx.test.mobile.dialog.Picker",
       var pickerSlot2 = new qx.data.Array(["1.5.1", "1.6.1", "2.0.4", "2.1.2", "3.0"]);
 
       var picker = new qx.ui.mobile.dialog.Picker();
-      picker.setTitle("Picker");
+      picker.title = "Picker";
 
       this.assertTrue(picker.getSlotCount()==0, 'Unexpected picker slot count.');
 

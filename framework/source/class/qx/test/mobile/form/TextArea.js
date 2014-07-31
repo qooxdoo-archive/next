@@ -28,20 +28,21 @@ qx.Class.define("qx.test.mobile.form.TextArea",
       var textArea = new qx.ui.mobile.form.TextArea();
       this.getRoot().add(textArea);
 
-      this.assertEquals('',textArea.getValue());
-      this.assertEquals(null,qx.bom.element.Attribute.get(textArea.getContainerElement(),'value'));
+      this.assertEquals('', textArea.value);
+      this.assertEquals(null, qx.bom.element.Attribute.get(textArea.getContainerElement(),'value'));
       this.assertEventFired(textArea, "changeValue", function() {
-        textArea.setValue("mytext");
+        textArea.value = "mytext";
       });
-      this.assertEquals('mytext',textArea.getValue());
-      this.assertEquals('mytext',qx.bom.element.Attribute.get(textArea.getContainerElement(),'value'));
+      this.assertEquals('mytext', textArea.value);
+      this.assertEquals('mytext', qx.bom.element.Attribute.get(textArea.getContainerElement(),'value'));
 
       textArea.dispose();
 
       textArea = new qx.ui.mobile.form.TextArea('affe');
       this.getRoot().add(textArea);
-      this.assertEquals('affe',textArea.getValue());
-      this.assertEquals('affe',qx.bom.element.Attribute.get(textArea.getContainerElement(),'value'));
+      this.assertEquals('affe', textArea.value);
+      this.assertEquals('affe', qx.bom.element.Attribute.get(textArea.getContainerElement(),'value'));
+      textArea.dispose();
     },
 
 
@@ -49,12 +50,12 @@ qx.Class.define("qx.test.mobile.form.TextArea",
     {
       var textArea = new qx.ui.mobile.form.TextArea();
       this.getRoot().add(textArea);
-      this.assertEquals(true,textArea.getEnabled());
+      this.assertEquals(true, textArea.enabled);
       this.assertFalse(qx.bom.element.Class.has(textArea.getContainerElement(),'disabled'));
 
-      textArea.setEnabled(false);
-      this.assertEquals(false,textArea.getEnabled());
-      this.assertEquals(true,qx.bom.element.Class.has(textArea.getContainerElement(),'disabled'));
+      textArea.enabled = false;
+      this.assertEquals(false, textArea.enabled);
+      this.assertEquals(true, qx.bom.element.Class.has(textArea.getContainerElement(),'disabled'));
 
       textArea.dispose();
     }

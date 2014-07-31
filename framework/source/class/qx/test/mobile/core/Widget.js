@@ -25,7 +25,8 @@ qx.Class.define("qx.test.mobile.core.Widget",
   {
     testCreate : function()
     {
-      var widget = new qx.ui.mobile.core.Widget().set({id:"affe"});
+      var widget = new qx.ui.mobile.core.Widget();
+      widget.id = "affe";
       this.getRoot().add(widget);
 
       var element = document.getElementById("affe");
@@ -37,14 +38,14 @@ qx.Class.define("qx.test.mobile.core.Widget",
 
     testNameProperty : function()
     {
-      var widget = new qx.ui.mobile.core.Widget().set({name:"affe"});
+      var widget = new qx.ui.mobile.core.Widget();
+      widget.name = "affe";
       this.getRoot().add(widget);
 
       var element = document.getElementsByName("affe")[0];
       this.assertElement(element);
 
-      var name = widget.getName();
-      this.assertEquals(name, "affe");
+      this.assertEquals(widget.name, "affe");
       widget.dispose();
     },
 
@@ -60,18 +61,12 @@ qx.Class.define("qx.test.mobile.core.Widget",
       var className = qx.bom.element.Class.get(element);
       this.assertEquals(className, "");
 
-      widget.setDefaultCssClass("affe");
-      var className = qx.bom.element.Class.get(element);
+      widget.defaultCssClass = "affe";
+      className = qx.bom.element.Class.get(element);
       this.assertEquals(className, "affe");
 
-      /*
-      widget.setDefaultCssClass("foo bar");
-      var className = qx.bom.element.Class.get(element);
-      this.assertEquals(className, "foo bar");
-      */
-
-      widget.setDefaultCssClass("bar");
-      var className = qx.bom.element.Class.get(element);
+      widget.defaultCssClass = "bar";
+      className = qx.bom.element.Class.get(element);
       this.assertEquals(className, "bar");
 
       widget.dispose();
@@ -111,8 +106,7 @@ qx.Class.define("qx.test.mobile.core.Widget",
       var element = document.getElementById(id);
       this.assertElement(element);
 
-      var widgetId = widget.getId();
-      this.assertEquals(widgetId, id);
+      this.assertEquals(widget.id, id);
 
       widget.dispose();
     },
@@ -122,8 +116,7 @@ qx.Class.define("qx.test.mobile.core.Widget",
     {
       var widget = new qx.ui.mobile.core.Widget();
 
-      var id = widget.getId();
-      widget = qx.ui.mobile.core.Widget.getWidgetById(id);
+      widget = qx.ui.mobile.core.Widget.getWidgetById(widget.id);
       this.assertQxMobileWidget(widget);
 
       widget.dispose();
@@ -132,12 +125,14 @@ qx.Class.define("qx.test.mobile.core.Widget",
 
     testWidgetRegistrationSameId : function()
     {
-      var widget = new qx.ui.mobile.core.Widget().set({id:"affe"});
+      var widget = new qx.ui.mobile.core.Widget();
+      widget.id = "affe";
 
       if (qx.core.Environment.get("qx.debug"))
       {
         this.assertException(function() {
-          var widget2 = new qx.ui.mobile.core.Widget().set({id:"affe"});
+          var widget2 = new qx.ui.mobile.core.Widget();
+          widget2.id = "affe";
         });
       }
 
@@ -156,12 +151,12 @@ qx.Class.define("qx.test.mobile.core.Widget",
     },
 
 
-    testDestroy : function()
+    testDispose : function()
     {
       var widget = new qx.ui.mobile.core.Widget();
 
-      var id = widget.getId();
-      widget.destroy();
+      var id = widget.id;
+      widget.dispose();
       widget = qx.ui.mobile.core.Widget.getWidgetById(id);
       this.assertUndefined(widget);
       var element = document.getElementById(id);
@@ -227,11 +222,11 @@ qx.Class.define("qx.test.mobile.core.Widget",
       var widget = new qx.ui.mobile.core.Widget();
       this.getRoot().add(widget);
 
-      this.assertEquals(true,widget.getEnabled());
+      this.assertEquals(true,widget.enabled);
       this.assertFalse(qx.bom.element.Class.has(widget.getContainerElement(),'disabled'));
 
-      widget.setEnabled(false);
-      this.assertEquals(false,widget.getEnabled());
+      widget.enabled = false;
+      this.assertEquals(false,widget.enabled);
       this.assertEquals(true,qx.bom.element.Class.has(widget.getContainerElement(),'disabled'));
 
       this.assertEquals('none', qx.bom.element.Style.get(widget.getContainerElement(),'pointerEvents'));
@@ -241,16 +236,16 @@ qx.Class.define("qx.test.mobile.core.Widget",
       widget = new qx.ui.mobile.core.Widget();
       this.getRoot().add(widget);
 
-      widget.setEnabled(true);
-      widget.setAnonymous(true);
+      widget.enabled = true;
+      widget.anonymous = true;
       this.assertFalse(qx.bom.element.Class.has(widget.getContainerElement(),'disabled'));
       this.assertEquals('none', qx.bom.element.Style.get(widget.getContainerElement(),'pointerEvents'));
 
-      widget.setEnabled(false);
+      widget.enabled = false;
       this.assertEquals(true,qx.bom.element.Class.has(widget.getContainerElement(),'disabled'));
       this.assertEquals('none', qx.bom.element.Style.get(widget.getContainerElement(),'pointerEvents'));
 
-      widget.setEnabled(true);
+      widget.enabled = true;
       this.assertEquals('none', qx.bom.element.Style.get(widget.getContainerElement(),'pointerEvents'));
 
       widget.dispose();

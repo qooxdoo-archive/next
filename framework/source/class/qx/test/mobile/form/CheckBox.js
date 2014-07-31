@@ -37,12 +37,13 @@ qx.Class.define("qx.test.mobile.form.CheckBox",
 
       checkBox.dispose();
     },
+
     testEnabled : function()
     {
       var checkBox = new qx.ui.mobile.form.CheckBox();
       this.getRoot().add(checkBox);
-      checkBox.setEnabled(false);
-      this.assertEquals(false,checkBox.getEnabled());
+      checkBox.enabled = false;
+      this.assertEquals(false,checkBox.enabled);
       this.assertEquals(true,qx.bom.element.Class.has(checkBox.getContainerElement(),'disabled'));
 
       checkBox.dispose();

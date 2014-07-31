@@ -51,13 +51,14 @@ qx.Class.define("qx.test.mobile.form.Form",
       var form = new qx.ui.mobile.form.Form();
       var validationManager = form.getValidationManager();
 
-      var username = this.__username = new qx.ui.mobile.form.TextField().set({placeholder:"Username"});
-      username.setRequired(true);
+      var username = this.__username = new qx.ui.mobile.form.TextField();
+      username.placeholder = "Username";
+      username.required = true;
       form.add(username, "Username: ");
       validationManager.add(username, function(value, item){
         var valid = value != null && value.length>3;
         if(!valid) {
-          item.setInvalidMessage("username should have more than 3 characters!");
+          item.invalidMessage = "username should have more than 3 characters!";
         }
         return valid;
       }, this);

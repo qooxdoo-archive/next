@@ -27,16 +27,16 @@ qx.Class.define("qx.test.mobile.embed.Html",
       var html = new qx.ui.mobile.embed.Html("<strong>affe</strong>");
       this.getRoot().add(html);
 
-      this.assertString(html.getHtml());
-      this.assertEquals(html.getHtml(), "<strong>affe</strong>");
-      this.assertEquals(html.getHtml(), html.getContentElement().innerHTML);
+      this.assertString(html.html);
+      this.assertEquals(html.html, "<strong>affe</strong>");
+      this.assertEquals(html.html, html.getContentElement().innerHTML);
 
       this.assertEventFired(html, "changeHtml", function() {
-        html.setHtml("");
+        html.html = "";
       });
 
-      this.assertEquals(html.getHtml(), "");
-      this.assertEquals(html.getHtml(), html.getContentElement().innerHTML);
+      this.assertEquals(html.html, "");
+      this.assertEquals(html.html, html.getContentElement().innerHTML);
 
       html.dispose();
     }

@@ -71,21 +71,21 @@ qx.Class.define("qx.test.mobile.container.Carousel",
 
       this.getRoot().add(carousel);
 
-      this.assertEquals(0,carousel.getCurrentIndex());
+      this.assertEquals(0,carousel.currentIndex);
 
       carousel.nextPage();
-      this.assertEquals(1, carousel.getCurrentIndex());
+      this.assertEquals(1, carousel.currentIndex);
 
       // OVERFLOW
       carousel.nextPage();
-      this.assertEquals(1, carousel.getCurrentIndex());
+      this.assertEquals(1, carousel.currentIndex);
 
       carousel.previousPage();
-      this.assertEquals(0,carousel.getCurrentIndex());
+      this.assertEquals(0,carousel.currentIndex);
 
       // OVERFLOW
       carousel.previousPage();
-      this.assertEquals(0,carousel.getCurrentIndex());
+      this.assertEquals(0,carousel.currentIndex);
 
       carousel.dispose();
       carouselPage1.dispose();
@@ -135,10 +135,10 @@ qx.Class.define("qx.test.mobile.container.Carousel",
 
       this.getRoot().add(carousel);
 
-      this.assertEquals(0,carousel.getCurrentIndex());
+      this.assertEquals(0,carousel.currentIndex);
 
-      carousel.setCurrentIndex(1);
-      this.assertEquals(1, carousel.getCurrentIndex());
+      carousel.currentIndex = 1;
+      this.assertEquals(1, carousel.currentIndex);
 
       window.setTimeout(function() {
         carousel.dispose();

@@ -36,13 +36,13 @@ qx.Class.define("qx.test.mobile.basic.Atom",
       var atom = new qx.ui.mobile.basic.Atom("myText");
       this.getRoot().add(atom);
 
-      this.assertString(atom.getLabel());
-      this.assertEquals(atom.getLabel(), "myText");
-      this.assertEquals(atom.getLabel(), atom.getLabelWidget().getContainerElement().innerHTML);
+      this.assertString(atom.label);
+      this.assertEquals(atom.label, "myText");
+      this.assertEquals(atom.label, atom.getLabelWidget().getContainerElement().innerHTML);
 
-      atom.setLabel("mySecondText");
-      this.assertEquals(atom.getLabel(), "mySecondText");
-      this.assertEquals(atom.getLabel(), atom.getLabelWidget().getContainerElement().innerHTML);
+      atom.label = "mySecondText";
+      this.assertEquals(atom.label, "mySecondText");
+      this.assertEquals(atom.label, atom.getLabelWidget().getContainerElement().innerHTML);
 
       atom.dispose();
     },
@@ -53,8 +53,8 @@ qx.Class.define("qx.test.mobile.basic.Atom",
       var atom = new qx.ui.mobile.basic.Atom("myText", imageURL);
       this.getRoot().add(atom);
 
-      this.assertString(atom.getIcon());
-      this.assertEquals(atom.getIconWidget().getSource(), imageURL);
+      this.assertString(atom.icon);
+      this.assertEquals(atom.getIconWidget().source, imageURL);
       // atom.getIconWidget().getContainerElement().src is usually in the form:
       // http://127.0.0.1/tablet/framework/test/html/qx/icon/Tango/48/places/folder-remote.png
       // but http://127.0.0.1/tablet/framework/test/html/ differs on where you test it
@@ -62,8 +62,8 @@ qx.Class.define("qx.test.mobile.basic.Atom",
 
       var image2URL = qx.util.ResourceManager.getInstance().toUri("qx/icon/Tango/32/places/folder-open.png");
 
-      atom.setIcon(image2URL);
-      this.assertEquals(atom.getIcon(), image2URL);
+      atom.icon = image2URL;
+      this.assertEquals(atom.icon, image2URL);
       this.assertTrue(atom.getIconWidget().getContainerElement().src.indexOf("qx/icon/Tango/32/places/folder-open.png") != -1);
 
       atom.dispose();
@@ -78,15 +78,15 @@ qx.Class.define("qx.test.mobile.basic.Atom",
       this.assertTrue(atom.getIconWidget().isVisible());
       this.assertTrue(atom.getLabelWidget().isVisible());
 
-      atom.setShow('label');
+      atom.showChildren = 'label';
       this.assertFalse(atom.getIconWidget().isVisible());
       this.assertTrue(atom.getLabelWidget().isVisible());
 
-      atom.setShow('icon');
+      atom.showChildren = 'icon';
       this.assertTrue(atom.getIconWidget().isVisible());
       this.assertFalse(atom.getLabelWidget().isVisible());
 
-      atom.setShow('both');
+      atom.showChildren = 'both';
       this.assertTrue(atom.getIconWidget().isVisible());
       this.assertTrue(atom.getLabelWidget().isVisible());
     },
@@ -102,25 +102,25 @@ qx.Class.define("qx.test.mobile.basic.Atom",
       var iconElement = atom.getIconWidget().getContentElement();
       var labelElement = atom.getLabelWidget().getContentElement();
 
-      atom.setIconPosition('top');
+      atom.iconPosition = 'top';
       this.assertTrue(qx.bom.element.Location.getTop(iconElement) <= qx.bom.element.Location.getTop(labelElement), "setIconPosition(top): iconElement.top is greater than labelElement.top");
-      this.assertTrue(atom.getIconWidget().getLayoutParent().getLayout().basename === "VBox","Layout of IconPosition Top should be VBox ");
-      this.assertFalse(atom.getIconWidget().getLayoutParent().getLayout().isReversed(),"Layout should not be reversed.");
+      this.assertTrue(atom.getIconWidget().getLayoutParent().getLayout().classname.indexOf("VBox") !== -1,"Layout of IconPosition Top should be VBox ");
+      this.assertFalse(atom.getIconWidget().getLayoutParent().getLayout().reversed,"Layout should not be reversed.");
 
-      atom.setIconPosition('bottom');
-      this.assertTrue(atom.getIconWidget().getLayoutParent().getLayout().basename === "VBox","Layout of IconPosition Bottom should be VBox ");
-      this.assertTrue(atom.getIconWidget().getLayoutParent().getLayout().isReversed(),"Layout should be reversed.");
+      atom.iconPosition = 'bottom';
+      this.assertTrue(atom.getIconWidget().getLayoutParent().getLayout().classname.indexOf("VBox") !== -1,"Layout of IconPosition Bottom should be VBox ");
+      this.assertTrue(atom.getIconWidget().getLayoutParent().getLayout().reversed,"Layout should be reversed.");
 
-      atom.setIconPosition('left');
-      this.assertTrue(atom.getIconWidget().getLayoutParent().getLayout().basename === "HBox","Layout of IconPosition Left should be HBox ");
+      atom.iconPosition = 'left';
+      this.assertTrue(atom.getIconWidget().getLayoutParent().getLayout().classname.indexOf("HBox") !== -1,"Layout of IconPosition Left should be HBox ");
       var labelLeft = qx.bom.element.Location.getLeft(labelElement);
       var iconLeft = qx.bom.element.Location.getLeft(iconElement);
       this.assertTrue(iconLeft <= labelLeft, "setIconPosition(left): iconElement.left is greater than labelElement.left");
-      this.assertFalse(atom.getIconWidget().getLayoutParent().getLayout().isReversed(),"Layout should not be reversed.");
+      this.assertFalse(atom.getIconWidget().getLayoutParent().getLayout().reversed,"Layout should not be reversed.");
 
-      atom.setIconPosition('right');
-      this.assertTrue(atom.getIconWidget().getLayoutParent().getLayout().basename === "HBox","Layout of IconPosition Right should be HBox ");
-      this.assertTrue(atom.getIconWidget().getLayoutParent().getLayout().isReversed(),"Layout should be reversed.");
+      atom.iconPosition = 'right';
+      this.assertTrue(atom.getIconWidget().getLayoutParent().getLayout().classname.indexOf("HBox") !== -1,"Layout of IconPosition Right should be HBox ");
+      this.assertTrue(atom.getIconWidget().getLayoutParent().getLayout().reversed,"Layout should be reversed.");
 
       labelLeft = qx.bom.element.Location.getLeft(labelElement);
       iconLeft = qx.bom.element.Location.getLeft(iconElement);
@@ -138,8 +138,8 @@ qx.Class.define("qx.test.mobile.basic.Atom",
       var imageURL = qx.util.ResourceManager.getInstance().toUri("qx/icon/Tango/48/places/user-home.png");
 
       var atom = new qx.ui.mobile.basic.Atom();
-      atom.setLabel(testText);
-      atom.setIcon(imageURL);
+      atom.label = testText;
+      atom.icon = imageURL;
 
       var atomElement = atom.getContentElement();
       var atomChildrenLength = atomElement.children[0].children.length;

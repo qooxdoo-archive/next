@@ -148,11 +148,11 @@ qx.Class.define("qx.test.mobile.LocaleSwitch",
       var renderer = new qx.ui.mobile.form.renderer.Single(form);
       this.getRoot().add(renderer);
 
-      this.assertEquals("test one", title.getValue());
-      this.assertEquals("test two", renderer._labels[0].getValue());
+      this.assertEquals("test one", title.value);
+      this.assertEquals("test two", renderer._labels[0].value);
       manager.setLocale("de_QX");
-      this.assertEquals("Eins", title.getValue());
-      this.assertEquals("Zwei", renderer._labels[0].getValue());
+      this.assertEquals("Eins", title.value);
+      this.assertEquals("Zwei", renderer._labels[0].value);
       manager.setLocale("en_QX");
 
       title.dispose();

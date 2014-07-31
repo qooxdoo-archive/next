@@ -25,10 +25,11 @@ qx.Class.define("qx.test.mobile.form.Slider",
   {
     testValue : function()
     {
-      var slider = new qx.ui.mobile.form.Slider().set({"step": 4});
+      var slider = new qx.ui.mobile.form.Slider();
+      slider.step = 4;
       this.getRoot().add(slider);
 
-      this.assertEquals(0,slider.getValue());
+      this.assertEquals(0,slider.value);
       this.assertEquals(0,qx.bom.element.Dataset.get(slider._getKnobElement(),"value"));
       this.assertEquals(0,qx.bom.element.Dataset.get(slider._getKnobElement(),"percent"));
 
@@ -57,8 +58,8 @@ qx.Class.define("qx.test.mobile.form.Slider",
     {
       var slider = new qx.ui.mobile.form.Slider();
       this.getRoot().add(slider);
-      slider.setEnabled(false);
-      this.assertEquals(false,slider.getEnabled());
+      slider.enabled = false;
+      this.assertEquals(false,slider.enabled);
       this.assertEquals(true,qx.bom.element.Class.has(slider.getContainerElement(),'disabled'));
 
       slider.dispose();
