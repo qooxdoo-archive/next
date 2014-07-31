@@ -61,6 +61,7 @@ qx.Bootstrap.define("qx.ui.mobile.form.CheckBox",
     this.base(arguments);
 
     if(typeof value != undefined) {
+      this.value = value;
       this._state = value;
     }
 

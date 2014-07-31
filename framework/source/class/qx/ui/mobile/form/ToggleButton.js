@@ -75,7 +75,7 @@ qx.Bootstrap.define("qx.ui.mobile.form.ToggleButton",
     this._add(this.__switch);
 
     if (value) {
-      this.setValue(value);
+      this.value = value;
     }
 
     this.addListener("tap", this._onTap, this);

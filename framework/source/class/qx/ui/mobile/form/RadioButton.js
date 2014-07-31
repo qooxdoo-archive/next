@@ -58,6 +58,9 @@ qx.Bootstrap.define("qx.ui.mobile.form.RadioButton",
   construct : function(value)
   {
     this.base(arguments);
+    if (value) {
+      this.value = value;
+    }
     this.addListener("tap", this._onTap, this);
   },
 

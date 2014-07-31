@@ -41,6 +41,9 @@ qx.Bootstrap.define("qx.ui.mobile.form.NumberField",
   construct : function(value)
   {
     this.base(arguments);
+    if (value) {
+      this.value = value;
+    }
   },
 
   /*
