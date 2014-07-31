@@ -50,7 +50,7 @@ qx.Class.define("qx.test.mobile.form.Slider",
         this.assertEquals(7, evt.getData());
       }.bind(this));
 
-      slider.destroy();
+      slider.dispose();
     },
 
     testEnabled : function()
@@ -61,7 +61,7 @@ qx.Class.define("qx.test.mobile.form.Slider",
       this.assertEquals(false,slider.getEnabled());
       this.assertEquals(true,qx.bom.element.Class.has(slider.getContainerElement(),'disabled'));
 
-      slider.destroy();
+      slider.dispose();
     }
 
   }

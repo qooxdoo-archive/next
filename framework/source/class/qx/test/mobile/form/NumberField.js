@@ -37,7 +37,7 @@ qx.Class.define("qx.test.mobile.form.NumberField",
       this.assertEquals(15,numberField.getValue());
       this.assertEquals(15,qx.bom.element.Attribute.get(numberField.getContainerElement(),'value'));
 
-      numberField.destroy();
+      numberField.dispose();
     },
 
 
@@ -52,7 +52,7 @@ qx.Class.define("qx.test.mobile.form.NumberField",
 
      this.assertEquals(42,numberField.getMinimum());
 
-      numberField.destroy();
+      numberField.dispose();
 
     },
 
@@ -68,7 +68,7 @@ qx.Class.define("qx.test.mobile.form.NumberField",
 
       this.assertEquals(42,numberField.getMaximum());
 
-      numberField.destroy();
+      numberField.dispose();
     },
 
 
@@ -83,7 +83,7 @@ qx.Class.define("qx.test.mobile.form.NumberField",
 
       this.assertEquals(42,numberField.getStep());
 
-      numberField.destroy();
+      numberField.dispose();
     },
 
 
@@ -103,7 +103,7 @@ qx.Class.define("qx.test.mobile.form.NumberField",
       this.assertEquals(null,qx.bom.element.Attribute.get(numberField.getContainerElement(),'value'));
       this.assertEquals('',numberField.getValue());
 
-      numberField.destroy();
+      numberField.dispose();
     },
 
 
@@ -118,7 +118,7 @@ qx.Class.define("qx.test.mobile.form.NumberField",
       this.assertEquals(false,numberField.getEnabled());
       this.assertEquals(true,qx.bom.element.Class.has(numberField.getContainerElement(),'disabled'));
 
-      numberField.destroy();
+      numberField.dispose();
     }
 
   }

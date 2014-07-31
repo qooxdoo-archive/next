@@ -353,7 +353,7 @@ qx.Mixin.define("qx.ui.mobile.container.MIScroll",
 
       // Cleanup iScroll
       if (this.__scroll) {
-        this.__scroll.destroy();
+        this.__scroll.dispose();
       }
       this.__scroll = null;
       this.base(arguments);

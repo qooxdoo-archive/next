@@ -36,13 +36,12 @@ qx.Class.define("qx.test.mobile.form.TextArea",
       this.assertEquals('mytext',textArea.getValue());
       this.assertEquals('mytext',qx.bom.element.Attribute.get(textArea.getContainerElement(),'value'));
 
-      textArea.destroy();
+      textArea.dispose();
 
       textArea = new qx.ui.mobile.form.TextArea('affe');
       this.getRoot().add(textArea);
       this.assertEquals('affe',textArea.getValue());
       this.assertEquals('affe',qx.bom.element.Attribute.get(textArea.getContainerElement(),'value'));
-      textArea.destroy();
     },
 
 
@@ -57,7 +56,7 @@ qx.Class.define("qx.test.mobile.form.TextArea",
       this.assertEquals(false,textArea.getEnabled());
       this.assertEquals(true,qx.bom.element.Class.has(textArea.getContainerElement(),'disabled'));
 
-      textArea.destroy();
+      textArea.dispose();
     }
 
   }

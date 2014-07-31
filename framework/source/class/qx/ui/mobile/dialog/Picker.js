@@ -667,7 +667,7 @@ qx.Bootstrap.define("qx.ui.mobile.dialog.Picker",
           oldPickerSlotContent[j].dispose();
         }
 
-        pickerSlot.destroy();
+        pickerSlot.dispose();
       }
     },
 

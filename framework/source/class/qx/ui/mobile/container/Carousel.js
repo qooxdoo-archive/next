@@ -240,7 +240,7 @@ qx.Bootstrap.define("qx.ui.mobile.container.Carousel",
           self: this,
           targetIndex: pageIndex - 1
         });
-        qx.util.DisposeUtil.destroyContainer(paginationLabel);
+        qx.util.DisposeUtil.disposeContainer(paginationLabel);
 
         this.__pages.splice(pageIndex, 1);
         this.__paginationLabels.splice(pageIndex, 1);
@@ -734,11 +734,13 @@ qx.Bootstrap.define("qx.ui.mobile.container.Carousel",
      * Remove all listeners.
      */
     _removeListeners : function() {
-      this.__carouselScroller.removeListener("pointerdown", this._onPointerDown, this);
-      this.__carouselScroller.removeListener("track", this._onTrack, this);
-      this.__carouselScroller.removeListener("pointerup", this._onPointerUp, this);
-      this.__carouselScroller.removeListener("swipe", this._onSwipe, this);
-      this.__carouselScroller.removeListener("touchmove", qx.bom.Event.preventDefault, this);
+      if (this.__carouselScroller) {
+        this.__carouselScroller.removeListener("pointerdown", this._onPointerDown, this);
+        this.__carouselScroller.removeListener("track", this._onTrack, this);
+        this.__carouselScroller.removeListener("pointerup", this._onPointerUp, this);
+        this.__carouselScroller.removeListener("swipe", this._onSwipe, this);
+        this.__carouselScroller.removeListener("touchmove", qx.bom.Event.preventDefault, this);
+      }
 
       this.removeListener("appear", this._onContainerUpdate, this);
 
@@ -752,7 +754,7 @@ qx.Bootstrap.define("qx.ui.mobile.container.Carousel",
 
       this._disposeObjects("__carouselScroller"," __pagination");
 
-      qx.util.DisposeUtil.destroyContainer(this);
+      qx.util.DisposeUtil.disposeContainer(this);
       qx.util.DisposeUtil.disposeArray(this,"__paginationLabels");
 
       this.__pages = this.__paginationLabels = this.__snapPointsX = this.__onMoveOffset = this.__lastOffset = this.__boundsX = this.__isPageScrollTarget = null;

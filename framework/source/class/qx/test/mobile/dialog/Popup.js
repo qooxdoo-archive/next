@@ -33,8 +33,8 @@ qx.Class.define("qx.test.mobile.dialog.Popup",
 
       this.assertTrue(popup.isVisible());
 
-      label.destroy();
-      popup.destroy();
+      label.dispose();
+      popup.dispose();
     },
 
 
@@ -71,7 +71,7 @@ qx.Class.define("qx.test.mobile.dialog.Popup",
 
       popup.hide();
       this.assertFalse(blocker.isShown(), 'Modal mode is true, called dialog.hide(), Blocker should not be shown.');
-      popup.destroy();
+      popup.dispose();
     },
 
 

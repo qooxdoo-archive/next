@@ -27,7 +27,7 @@ qx.Class.define("qx.test.mobile.container.Navigation",
     {
       var container = new qx.ui.mobile.container.Navigation();
       this.getRoot().add(container);
-      container.destroy();
+      container.dispose();
     },
 
 
@@ -39,8 +39,8 @@ qx.Class.define("qx.test.mobile.container.Navigation",
       this.assertFalse(container.getContent().hasChildren());
       container.add(page);
       this.assertTrue(container.getContent().hasChildren());
-      page.destroy();
-      container.destroy();
+      page.dispose();
+      container.dispose();
     },
 
 
@@ -54,8 +54,8 @@ qx.Class.define("qx.test.mobile.container.Navigation",
       this.assertTrue(container.getContent().hasChildren());
       container.remove(page);
       this.assertFalse(container.getContent().hasChildren());
-      page.destroy();
-      container.destroy();
+      page.dispose();
+      container.dispose();
     },
 
 
@@ -77,9 +77,9 @@ qx.Class.define("qx.test.mobile.container.Navigation",
 
       this.assertTrue(updateEventFired);
 
-      page1.destroy();
-      page2.destroy();
-      container.destroy();
+      page1.dispose();
+      page2.dispose();
+      container.dispose();
     }
   }
 

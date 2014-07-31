@@ -30,8 +30,8 @@ qx.Class.define("qx.test.mobile.form.Group",
       group.add(button);
       this.getRoot().add(button);
 
-      group.destroy();
-      button.destroy();
+      group.dispose();
+      button.dispose();
     }
   }
 

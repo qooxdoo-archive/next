@@ -27,7 +27,7 @@ qx.Class.define("qx.test.mobile.container.Carousel",
     {
       var carousel = new qx.ui.mobile.container.Carousel(0.4);
       this.getRoot().add(carousel);
-      carousel.destroy();
+      carousel.dispose();
     },
 
 
@@ -39,8 +39,8 @@ qx.Class.define("qx.test.mobile.container.Carousel",
 
       this.getRoot().add(carousel);
 
-      carousel.destroy();
-      carouselPage.destroy();
+      carousel.dispose();
+      carouselPage.dispose();
     },
 
 
@@ -55,8 +55,8 @@ qx.Class.define("qx.test.mobile.container.Carousel",
 
       this.getRoot().add(carousel);
 
-      carousel.destroy();
-      carouselPage.destroy();
+      carousel.dispose();
+      carouselPage.dispose();
     },
 
 
@@ -87,9 +87,9 @@ qx.Class.define("qx.test.mobile.container.Carousel",
       carousel.previousPage();
       this.assertEquals(0,carousel.getCurrentIndex());
 
-      carousel.destroy();
-      carouselPage1.destroy();
-      carouselPage2.destroy();
+      carousel.dispose();
+      carouselPage1.dispose();
+      carouselPage2.dispose();
     },
 
 
@@ -118,9 +118,9 @@ qx.Class.define("qx.test.mobile.container.Carousel",
         this.assertEquals(1, e.getOldData());
       }.bind(this));
 
-      carousel.destroy();
-      carouselPage1.destroy();
-      carouselPage2.destroy();
+      carousel.dispose();
+      carouselPage1.dispose();
+      carouselPage2.dispose();
     },
 
 
@@ -141,9 +141,9 @@ qx.Class.define("qx.test.mobile.container.Carousel",
       this.assertEquals(1, carousel.getCurrentIndex());
 
       window.setTimeout(function() {
-          carousel.destroy();
-          carouselPage1.destroy();
-          carouselPage2.destroy();
+        carousel.dispose();
+        carouselPage1.dispose();
+        carouselPage2.dispose();
       }, 600);
     }
   }

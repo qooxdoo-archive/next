@@ -38,7 +38,7 @@ qx.Class.define("qx.test.mobile.embed.Html",
       this.assertEquals(html.getHtml(), "");
       this.assertEquals(html.getHtml(), html.getContentElement().innerHTML);
 
-      html.destroy();
+      html.dispose();
     }
   }
 

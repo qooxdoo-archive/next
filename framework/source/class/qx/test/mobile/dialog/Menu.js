@@ -36,7 +36,7 @@ qx.Class.define("qx.test.mobile.dialog.Menu",
       menu.setItems(model2);
       menu.setSelectedIndex(1);
 
-      menu.destroy();
+      menu.dispose();
     },
 
 
@@ -60,7 +60,7 @@ qx.Class.define("qx.test.mobile.dialog.Menu",
 
       this.assertEquals(listHeight, expected);
 
-      menu.destroy();
+      menu.dispose();
     },
 
 
@@ -89,7 +89,7 @@ qx.Class.define("qx.test.mobile.dialog.Menu",
 
       this.assertEquals(expectedListHeight,listHeight);
 
-      menu.destroy();
+      menu.dispose();
       stub.restore();
     }
   }

@@ -27,7 +27,7 @@ qx.Class.define("qx.test.mobile.container.MasterDetail",
     {
       var container = new qx.ui.mobile.container.MasterDetail();
       this.getRoot().add(container);
-      container.destroy();
+      container.dispose();
     }
   }
 

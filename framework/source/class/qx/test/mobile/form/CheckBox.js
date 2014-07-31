@@ -35,7 +35,7 @@ qx.Class.define("qx.test.mobile.form.CheckBox",
       this.assertEquals(true,checkBox.getValue());
       this.assertEquals(true, qxWeb(checkBox.getContainerElement()).hasClass("checked"));
 
-      checkBox.destroy();
+      checkBox.dispose();
     },
     testEnabled : function()
     {
@@ -45,7 +45,7 @@ qx.Class.define("qx.test.mobile.form.CheckBox",
       this.assertEquals(false,checkBox.getEnabled());
       this.assertEquals(true,qx.bom.element.Class.has(checkBox.getContainerElement(),'disabled'));
 
-      checkBox.destroy();
+      checkBox.dispose();
     }
 
   }

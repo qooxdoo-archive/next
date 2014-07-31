@@ -43,9 +43,9 @@ qx.Class.define("qx.test.mobile.form.RadioButton",
       this.assertEquals(3, group.getItems().length);
 
        // Clean up tests
-      radio1.destroy();
-      radio2.destroy();
-      radio3.destroy();
+      radio1.dispose();
+      radio2.dispose();
+      radio3.dispose();
       group.dispose();
     },
 
@@ -90,9 +90,9 @@ qx.Class.define("qx.test.mobile.form.RadioButton",
       this.assertEquals(false, radio1.getValue());
 
       // Clean up tests
-      radio1.destroy();
-      radio2.destroy();
-      radio3.destroy();
+      radio1.dispose();
+      radio2.dispose();
+      radio3.dispose();
       group.dispose();
     },
 

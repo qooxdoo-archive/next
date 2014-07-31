@@ -92,8 +92,8 @@ qx.Class.define("qx.test.mobile.list.List",
 
 
     __cleanUp : function(list) {
-      list.destroy();
       var modelData = list.getModel();
+      list.dispose();
       if(modelData) {
         modelData.dispose();
         modelData = null;
@@ -209,7 +209,7 @@ qx.Class.define("qx.test.mobile.list.List",
       this.assertArrayEquals([0,1,2], list._extractRowsToRender("[0-2].propertyName"));
       this.assertArrayEquals([12,13,14], list._extractRowsToRender("[12-14].propertyName"));
 
-      list.destroy();
+      list.dispose();
     }
   }
 });

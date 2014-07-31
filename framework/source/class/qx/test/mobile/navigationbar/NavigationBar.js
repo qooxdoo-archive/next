@@ -39,10 +39,10 @@ qx.Class.define("qx.test.mobile.navigationbar.NavigationBar",
 
       this.assertEquals(3, bar.getChildren().length);
 
-      back.destroy();
-      title.destroy();
-      button.destroy();
-      bar.destroy();
+      back.dispose();
+      title.dispose();
+      button.dispose();
+      bar.dispose();
     }
   }
 

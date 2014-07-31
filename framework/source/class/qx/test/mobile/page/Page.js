@@ -46,7 +46,7 @@ qx.Class.define("qx.test.mobile.page.Page",
 
       this.assertTrue(initializedEvent);
       this.assertTrue(startEvent);
-      page.destroy();
+      page.dispose();
     },
 
 
@@ -63,7 +63,7 @@ qx.Class.define("qx.test.mobile.page.Page",
 
       this.assertTrue(eventFired);
 
-      page.destroy();
+      page.dispose();
     },
 
 
@@ -80,7 +80,7 @@ qx.Class.define("qx.test.mobile.page.Page",
 
       this.assertTrue(eventFired);
 
-      page.destroy();
+      page.dispose();
     }
   }
 });

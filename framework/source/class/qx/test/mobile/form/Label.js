@@ -33,8 +33,8 @@ qx.Class.define("qx.test.mobile.form.Label",
 
       this.assertEquals(target.getId(),foundValue,"'For' attribute has an unexpected value.");
 
-      label.destroy();
-      target.destroy();
+      label.dispose();
+      target.dispose();
     },
 
 
@@ -58,8 +58,8 @@ qx.Class.define("qx.test.mobile.form.Label",
 
       this.assertFalse(label.isEnabled());
 
-      label.destroy();
-      target.destroy();
+      label.dispose();
+      target.dispose();
     }
   }
 

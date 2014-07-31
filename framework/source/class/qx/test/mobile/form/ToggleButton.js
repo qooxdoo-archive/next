@@ -38,7 +38,7 @@ qx.Class.define("qx.test.mobile.form.ToggleButton",
 
       this.assertFalse(button.getValue());
 
-      button.destroy();
+      button.dispose();
     },
 
 
@@ -56,7 +56,7 @@ qx.Class.define("qx.test.mobile.form.ToggleButton",
       button.toggle();
       this.assertTrue(button.getValue());
 
-      button.destroy();
+      button.dispose();
     }
   }
 

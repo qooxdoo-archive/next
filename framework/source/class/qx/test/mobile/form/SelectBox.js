@@ -47,7 +47,7 @@ qx.Class.define("qx.test.mobile.form.SelectBox",
 
       this.assertEquals("Item 3",selectBox.getValue(), "Nothing should be changed by input setValue('Item 4') because input value is not in model.");
 
-      selectBox.destroy();
+      selectBox.dispose();
       dd.dispose();
       dd = null;
     },
@@ -76,7 +76,7 @@ qx.Class.define("qx.test.mobile.form.SelectBox",
       this.assertEquals(null, selectBox.getSelection(), "Value should be null.");
 
       // After
-      selectBox.destroy();
+      selectBox.dispose();
       model.dispose();
       model = null;
     },
@@ -89,7 +89,7 @@ qx.Class.define("qx.test.mobile.form.SelectBox",
         "A selection needs a model."
       );
 
-      selectBox.destroy();
+      selectBox.dispose();
     },
 
     testResetValue : function() {
@@ -106,7 +106,7 @@ qx.Class.define("qx.test.mobile.form.SelectBox",
       this.assertEquals(null, selectBox.getSelection());
 
       // After
-      selectBox.destroy();
+      selectBox.dispose();
       model.dispose();
       model = null;
     },
@@ -125,7 +125,7 @@ qx.Class.define("qx.test.mobile.form.SelectBox",
       this.assertEquals(0, selectBox.getSelection());
 
       // After
-      selectBox.destroy();
+      selectBox.dispose();
       model.dispose();
       model = null;
     },
@@ -176,7 +176,7 @@ qx.Class.define("qx.test.mobile.form.SelectBox",
       this.assertEquals("Item 3", selectBox.getValue());
 
       // After
-      selectBox.destroy();
+      selectBox.dispose();
       model.dispose();
       model = null;
     }

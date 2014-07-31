@@ -1605,29 +1605,6 @@ qx.Bootstrap.define("qx.ui.mobile.core.Widget",
     },
 
 
-    /*
-    ---------------------------------------------------------------------------
-      ENHANCED DISPOSE SUPPORT
-    ---------------------------------------------------------------------------
-    */
-
-    /**
-     * Removes this widget from its parent and disposes it.
-     */
-    destroy : function()
-    {
-      if (this.$$disposed) {
-        return;
-      }
-
-      var parent = this.__layoutParent;
-      if (parent) {
-        parent._remove(this);
-      }
-      this.dispose();
-    },
-
-
     dispose : function() {
       if (!qx.core.ObjectRegistry.inShutDown)
       {
@@ -1639,6 +1616,11 @@ qx.Bootstrap.define("qx.ui.mobile.core.Widget",
         {
           qx.ui.mobile.core.Widget.unregisterWidget(this.id);
         }
+      }
+
+      var parent = this.__layoutParent;
+      if (parent) {
+        parent._remove(this);
       }
 
       this.__layoutParent = this.__containerElement = this.__contentElement = null;

@@ -31,7 +31,7 @@ qx.Class.define("qx.test.mobile.core.Widget",
       var element = document.getElementById("affe");
       this.assertElement(element);
 
-      widget.destroy();
+      widget.dispose();
     },
 
 
@@ -45,7 +45,7 @@ qx.Class.define("qx.test.mobile.core.Widget",
 
       var name = widget.getName();
       this.assertEquals(name, "affe");
-      widget.destroy();
+      widget.dispose();
     },
 
 
@@ -74,7 +74,7 @@ qx.Class.define("qx.test.mobile.core.Widget",
       var className = qx.bom.element.Class.get(element);
       this.assertEquals(className, "bar");
 
-      widget.destroy();
+      widget.dispose();
     },
 
 
@@ -94,7 +94,7 @@ qx.Class.define("qx.test.mobile.core.Widget",
       widget.removeCssClass("affe");
       this.assertFalse(widget.hasCssClass("affe"));
 
-      widget.destroy();
+      widget.dispose();
     },
 
 
@@ -114,7 +114,7 @@ qx.Class.define("qx.test.mobile.core.Widget",
       var widgetId = widget.getId();
       this.assertEquals(widgetId, id);
 
-      widget.destroy();
+      widget.dispose();
     },
 
 
@@ -126,7 +126,7 @@ qx.Class.define("qx.test.mobile.core.Widget",
       widget = qx.ui.mobile.core.Widget.getWidgetById(id);
       this.assertQxMobileWidget(widget);
 
-      widget.destroy();
+      widget.dispose();
     },
 
 
@@ -141,7 +141,7 @@ qx.Class.define("qx.test.mobile.core.Widget",
         });
       }
 
-      widget.destroy();
+      widget.dispose();
     },
 
 
@@ -152,7 +152,7 @@ qx.Class.define("qx.test.mobile.core.Widget",
       this.assertTrue(qx.Class.hasMixin(qx.ui.mobile.core.Widget, qx.locale.MTranslation), "No translation mixin found");
       this.assertFunction(widget.tr);
 
-      widget.destroy();
+      widget.dispose();
     },
 
 
@@ -175,7 +175,7 @@ qx.Class.define("qx.test.mobile.core.Widget",
       this.assertEventNotFired(widget, "domupdated", qx.ui.mobile.core.Widget.domUpdated);
       this.getRoot().add(widget);
       this.assertEventFired(widget, "domupdated", qx.ui.mobile.core.Widget.domUpdated);
-      widget.destroy();
+      widget.dispose();
     },
 
 
@@ -208,7 +208,7 @@ qx.Class.define("qx.test.mobile.core.Widget",
       widget.show();
       this.__assertShow(widget);
 
-      widget.destroy();
+      widget.dispose();
     },
 
 
@@ -236,7 +236,7 @@ qx.Class.define("qx.test.mobile.core.Widget",
 
       this.assertEquals('none', qx.bom.element.Style.get(widget.getContainerElement(),'pointerEvents'));
 
-      widget.destroy();
+      widget.dispose();
 
       widget = new qx.ui.mobile.core.Widget();
       this.getRoot().add(widget);
@@ -253,7 +253,7 @@ qx.Class.define("qx.test.mobile.core.Widget",
       widget.setEnabled(true);
       this.assertEquals('none', qx.bom.element.Style.get(widget.getContainerElement(),'pointerEvents'));
 
-      widget.destroy();
+      widget.dispose();
 
     },
 
@@ -268,7 +268,7 @@ qx.Class.define("qx.test.mobile.core.Widget",
         widget.toggleCssClass("test");
         this.assertFalse(widget.hasCssClass("test"));
 
-        widget.destroy();
+        widget.dispose();
     }
   }
 });

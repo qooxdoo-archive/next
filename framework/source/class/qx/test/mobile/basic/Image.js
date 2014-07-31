@@ -40,7 +40,7 @@ qx.Class.define("qx.test.mobile.basic.Image",
           // use a timeout to dispose the image because it needs to
           // end its processing after the event has been fired.
           window.setTimeout(function() {
-            image.destroy();
+            image.dispose();
           });
         });
       }, this);
@@ -61,7 +61,7 @@ qx.Class.define("qx.test.mobile.basic.Image",
           // use a timeout to dispose the image because it needs to
           // end its processing after the event has been fired.
           window.setTimeout(function() {
-            image.destroy();
+            image.dispose();
           });
         });
       }, this);

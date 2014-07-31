@@ -39,7 +39,7 @@ qx.Class.define("qx.test.mobile.form.Button",
       this.assertEquals("", button.getLabel());
       this.assertEquals(button.getLabel(), button.getLabelWidget().getContentElement().innerHTML);
 
-      button.destroy();
+      button.dispose();
     }
   }
 

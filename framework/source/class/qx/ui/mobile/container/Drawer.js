@@ -548,7 +548,7 @@ qx.Bootstrap.define("qx.ui.mobile.container.Drawer",
       this.__parent.removeListener("swipe", this._onParentSwipe, this);
       this.__parent.removeListener("pointerdown", this._onParentPointerDown, this);
 
-      qx.util.DisposeUtil.destroyContainer(this);
+      qx.util.DisposeUtil.disposeContainer(this);
 
       this.__pointerStartPosition = this.__parent = this.__transitionEnabled = null;
       this.base(arguments);

@@ -53,10 +53,10 @@ qx.Class.define("qx.test.mobile.toolbar.Toolbar",
       this.assertEquals(qx.bom.element.Dimension.getWidth(button1.getContainerElement()), qx.bom.element.Dimension.getWidth(button2.getContainerElement()));
       this.assertEquals(qx.bom.element.Dimension.getWidth(button3.getContainerElement()), qx.bom.element.Dimension.getWidth(button2.getContainerElement()));
 
-      button1.destroy();
-      button2.destroy();
-      button3.destroy();
-      toolBar.destroy();
+      button1.dispose();
+      button2.dispose();
+      button3.dispose();
+      toolBar.dispose();
     },
 
 
@@ -82,10 +82,10 @@ qx.Class.define("qx.test.mobile.toolbar.Toolbar",
       toolBar.remove(button3);
       this.__assertChildNodesLength(toolBar, 0);
 
-      button1.destroy();
-      button2.destroy();
-      button3.destroy();
-      toolBar.destroy();
+      button1.dispose();
+      button2.dispose();
+      button3.dispose();
+      toolBar.dispose();
     }
 
   }

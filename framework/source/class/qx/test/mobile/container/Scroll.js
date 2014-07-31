@@ -27,7 +27,7 @@ qx.Class.define("qx.test.mobile.container.Scroll",
     {
       var container = new qx.ui.mobile.container.Scroll();
       this.getRoot().add(container);
-      container.destroy();
+      container.dispose();
     }
   }
 

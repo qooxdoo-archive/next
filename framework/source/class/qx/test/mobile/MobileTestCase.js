@@ -74,7 +74,7 @@ qx.Class.define("qx.test.mobile.MobileTestCase",
       {
         if (qx.test.mobile.MobileTestCase._root)
         {
-          qx.test.mobile.MobileTestCase._root.destroy();
+          qx.test.mobile.MobileTestCase._root.dispose();
           qx.test.mobile.MobileTestCase._root = null;
         }
       }

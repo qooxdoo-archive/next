@@ -352,7 +352,7 @@ qx.Bootstrap.define("qx.ui.mobile.dialog.Manager",
               if(handler) {
                 handler.call(scope, index, inputText ? inputText.value : null);
               }
-              dialog.destroy();
+              dialog.dispose();
             };
           })(i);
           button.addListener("tap", callback);

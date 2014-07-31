@@ -50,10 +50,10 @@ qx.Class.define("qx.test.mobile.tabbar.TabBar",
       tabBar.add(button3);
       this.__assertChildNodesLength(tabBar, 3);
 
-      button1.destroy();
-      button2.destroy();
-      button3.destroy();
-      tabBar.destroy();
+      button1.dispose();
+      button2.dispose();
+      button3.dispose();
+      tabBar.dispose();
     },
 
 
@@ -77,10 +77,10 @@ qx.Class.define("qx.test.mobile.tabbar.TabBar",
       tabBar.remove(button3);
       this.__assertChildNodesLength(tabBar, 0);
 
-      button1.destroy();
-      button2.destroy();
-      button3.destroy();
-      tabBar.destroy();
+      button1.dispose();
+      button2.dispose();
+      button3.dispose();
+      tabBar.dispose();
     },
 
 
@@ -110,10 +110,10 @@ qx.Class.define("qx.test.mobile.tabbar.TabBar",
         tabBar.setSelection(button1);
       });
 
-      button1.destroy();
-      button2.destroy();
-      button3.destroy();
-      tabBar.destroy();
+      button1.dispose();
+      button2.dispose();
+      button3.dispose();
+      tabBar.dispose();
     },
 
 
@@ -151,13 +151,13 @@ qx.Class.define("qx.test.mobile.tabbar.TabBar",
       this.assertFalse(view2.isVisible());
       this.assertFalse(view3.isVisible());
 
-      button1.destroy();
-      button2.destroy();
-      button3.destroy();
-      view1.destroy();
-      view2.destroy();
-      view3.destroy();
-      tabBar.destroy();
+      button1.dispose();
+      button2.dispose();
+      button3.dispose();
+      view1.dispose();
+      view2.dispose();
+      view3.dispose();
+      tabBar.dispose();
     }
   }
 

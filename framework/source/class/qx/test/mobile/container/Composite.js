@@ -36,9 +36,9 @@ qx.Class.define("qx.test.mobile.container.Composite",
 
       this._assertChildren(composite, 2);
 
-      widget1.destroy();
-      widget2.destroy();
-      composite.destroy();
+      widget1.dispose();
+      widget2.dispose();
+      composite.dispose();
     },
 
 
@@ -59,8 +59,8 @@ qx.Class.define("qx.test.mobile.container.Composite",
 
       this._assertChildren(composite, 1);
 
-      widget1.destroy();
-      composite.destroy();
+      widget1.dispose();
+      composite.dispose();
     },
 
 
@@ -84,9 +84,9 @@ qx.Class.define("qx.test.mobile.container.Composite",
       this._assertChildren(composite2, 1);
       this.assertEquals(composite2.getContainerElement(), widget.getContainerElement().parentNode);
 
-      widget.destroy();
-      composite1.destroy();
-      composite2.destroy();
+      widget.dispose();
+      composite1.dispose();
+      composite2.dispose();
     },
 
 
@@ -108,10 +108,10 @@ qx.Class.define("qx.test.mobile.container.Composite",
 
       this.assertEquals(composite.getContentElement().childNodes[1], widget3.getContainerElement());
 
-      widget1.destroy();
-      widget2.destroy();
-      widget3.destroy();
-      composite.destroy();
+      widget1.dispose();
+      widget2.dispose();
+      widget3.dispose();
+      composite.dispose();
     },
 
 
@@ -140,10 +140,10 @@ qx.Class.define("qx.test.mobile.container.Composite",
 
       this.assertEquals(composite.getContentElement().childNodes[1], widget3.getContainerElement());
 
-      widget1.destroy();
-      widget2.destroy();
-      widget3.destroy();
-      composite.destroy();
+      widget1.dispose();
+      widget2.dispose();
+      widget3.dispose();
+      composite.dispose();
     },
 
 
@@ -178,10 +178,10 @@ qx.Class.define("qx.test.mobile.container.Composite",
 
       this.assertEquals(composite.getContentElement().childNodes[1], widget3.getContainerElement());
 
-      widget1.destroy();
-      widget2.destroy();
-      widget3.destroy();
-      composite.destroy();
+      widget1.dispose();
+      widget2.dispose();
+      widget3.dispose();
+      composite.dispose();
     },
 
 
@@ -198,12 +198,12 @@ qx.Class.define("qx.test.mobile.container.Composite",
 
       this._assertChildren(composite, 2);
 
-      widget1.destroy();
-      widget2.destroy();
+      widget1.dispose();
+      widget2.dispose();
 
       this._assertChildren(composite, 0);
 
-      composite.destroy();
+      composite.dispose();
     },
 
 
@@ -226,9 +226,9 @@ qx.Class.define("qx.test.mobile.container.Composite",
       composite.remove(widget2);
       this._assertChildren(composite, 0);
 
-      widget1.destroy();
-      widget2.destroy();
-      composite.destroy();
+      widget1.dispose();
+      widget2.dispose();
+      composite.dispose();
     },
 
 
@@ -258,10 +258,10 @@ qx.Class.define("qx.test.mobile.container.Composite",
       this.assertEquals(widget1, composite.getChildren()[0]);
       this.assertEquals(widget3, composite.getChildren()[1]);
 
-      widget1.destroy();
-      widget2.destroy();
-      widget3.destroy();
-      composite.destroy();
+      widget1.dispose();
+      widget2.dispose();
+      widget3.dispose();
+      composite.dispose();
     },
 
 
@@ -281,9 +281,9 @@ qx.Class.define("qx.test.mobile.container.Composite",
       composite.removeAll();
       this._assertChildren(composite, 0);
 
-      widget1.destroy();
-      widget2.destroy();
-      composite.destroy();
+      widget1.dispose();
+      widget2.dispose();
+      composite.dispose();
     },
 
 
@@ -299,11 +299,11 @@ qx.Class.define("qx.test.mobile.container.Composite",
 
       this.assertTrue(composite.hasChildren());
 
-      widget.destroy();
+      widget.dispose();
 
       this.assertFalse(composite.hasChildren());
 
-      composite.destroy();
+      composite.dispose();
     },
 
 
@@ -323,9 +323,9 @@ qx.Class.define("qx.test.mobile.container.Composite",
       this.assertNumber(composite.indexOf(widget2));
       this.assertEquals(composite.indexOf(widget2), 1);
 
-      widget1.destroy();
-      widget2.destroy();
-      composite.destroy();
+      widget1.dispose();
+      widget2.dispose();
+      composite.dispose();
     },
 
 

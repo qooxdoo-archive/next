@@ -32,7 +32,7 @@ qx.Class.define("qx.test.mobile.page.NavigationPage",
       this.assertNotNull(page.getLeftContainer());
       this.assertNotNull(page.getRightContainer());
 
-      page.destroy();
+      page.dispose();
     },
 
 
@@ -43,7 +43,7 @@ qx.Class.define("qx.test.mobile.page.NavigationPage",
       page.setTitle("Affe");
       this.assertEquals("Affe", page.getTitleWidget().getValue());
 
-      page.destroy();
+      page.dispose();
     },
 
 
@@ -60,7 +60,7 @@ qx.Class.define("qx.test.mobile.page.NavigationPage",
       page.setShowBackButton(false);
       this.assertFalse(page._getBackButton().isVisible());
 
-      page.destroy();
+      page.dispose();
     },
 
 
@@ -77,7 +77,7 @@ qx.Class.define("qx.test.mobile.page.NavigationPage",
       page.setShowButton(false);
       this.assertFalse(page._getButton().isVisible());
 
-      page.destroy();
+      page.dispose();
     }
   }
 });

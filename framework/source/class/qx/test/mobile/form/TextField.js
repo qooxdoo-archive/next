@@ -36,13 +36,13 @@ qx.Class.define("qx.test.mobile.form.TextField",
       this.assertEquals('mytext',textField.getValue());
       this.assertEquals('mytext',qx.bom.element.Attribute.get(textField.getContainerElement(),'value'));
 
-      textField.destroy();
+      textField.dispose();
 
       textField = new qx.ui.mobile.form.TextField('affe');
       this.getRoot().add(textField);
       this.assertEquals('affe',textField.getValue());
       this.assertEquals('affe',qx.bom.element.Attribute.get(textField.getContainerElement(),'value'));
-      textField.destroy();
+      textField.dispose();
     },
 
 
@@ -57,7 +57,7 @@ qx.Class.define("qx.test.mobile.form.TextField",
       this.assertEquals(false,textField.getEnabled());
       this.assertEquals(true,qx.bom.element.Class.has(textField.getContainerElement(),'disabled'));
 
-      textField.destroy();
+      textField.dispose();
     }
 
   }

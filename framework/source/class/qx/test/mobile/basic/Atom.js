@@ -44,7 +44,7 @@ qx.Class.define("qx.test.mobile.basic.Atom",
       this.assertEquals(atom.getLabel(), "mySecondText");
       this.assertEquals(atom.getLabel(), atom.getLabelWidget().getContainerElement().innerHTML);
 
-      atom.destroy();
+      atom.dispose();
     },
 
     testIcon : function()
@@ -66,7 +66,7 @@ qx.Class.define("qx.test.mobile.basic.Atom",
       this.assertEquals(atom.getIcon(), image2URL);
       this.assertTrue(atom.getIconWidget().getContainerElement().src.indexOf("qx/icon/Tango/32/places/folder-open.png") != -1);
 
-      atom.destroy();
+      atom.dispose();
     },
 
     testShow : function()

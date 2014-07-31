@@ -82,7 +82,7 @@ qx.Class.define("qx.test.mobile.LocaleSwitch",
       manager.setLocale("en_QX");
       this.assertEquals("test two", label.getValue());
 
-      label.destroy();
+      label.dispose();
     },
 
     testList : function()
@@ -155,7 +155,7 @@ qx.Class.define("qx.test.mobile.LocaleSwitch",
       this.assertEquals("Zwei", renderer._labels[0].getValue());
       manager.setLocale("en_QX");
 
-      title.destroy();
+      title.dispose();
     }
   }
 });

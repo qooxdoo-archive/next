@@ -175,11 +175,11 @@ qx.Class.define("qx.util.DisposeUtil",
 
 
     /**
-     * Destroys a container and all of its children recursivly.
+     * Recursively disposes all child widgets of the given container.
      * @param container {qx.ui.container.Composite | qx.ui.container.Scroll |
-     *   qx.ui.container.SlideBar | qx.ui.container.Stack} Container to be destroyed
+     *   qx.ui.container.SlideBar | qx.ui.container.Stack} Container of the widgets to be disposed
      */
-    destroyContainer : function(container)
+    disposeContainer : function(container)
     {
       if(qx.core.Environment.get("qx.debug"))
       {
@@ -201,9 +201,8 @@ qx.Class.define("qx.util.DisposeUtil",
       var len = arr.length;
       for(var i=len-1; i>=0; i--)
       {
-        arr[i].destroy();
+        arr[i].dispose();
       }
-      container.destroy();
     },
 
 

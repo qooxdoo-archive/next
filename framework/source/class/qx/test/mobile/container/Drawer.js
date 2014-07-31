@@ -33,7 +33,7 @@ qx.Class.define("qx.test.mobile.container.Drawer",
 
       this.assertEquals(drawer, drawerCandidate, "Unexpected children of composite.");
 
-      drawer.destroy();
+      drawer.dispose();
     },
 
 
@@ -45,7 +45,7 @@ qx.Class.define("qx.test.mobile.container.Drawer",
 
       this.assertEquals(drawer, drawerCandidate, "Unexpected children of root.");
 
-      drawer.destroy();
+      drawer.dispose();
     },
 
 
@@ -53,7 +53,7 @@ qx.Class.define("qx.test.mobile.container.Drawer",
     {
       var drawer = new qx.ui.mobile.container.Drawer();
 
-      drawer.setTransitionDuration(0);
+      drawer.transitionDuration = 0;
 
       // Initial hidden.
       this.assertTrue(drawer.isHidden(),"Drawer is asserted to be initially hidden.");
@@ -68,7 +68,7 @@ qx.Class.define("qx.test.mobile.container.Drawer",
 
       this.assertTrue(drawer.isHidden(),"Drawer is asserted to be hidden.");
 
-      drawer.destroy();
+      drawer.dispose();
     },
 
 
@@ -76,7 +76,7 @@ qx.Class.define("qx.test.mobile.container.Drawer",
     {
       var drawer = new qx.ui.mobile.container.Drawer();
 
-      drawer.setTransitionDuration(0);
+      drawer.transitionDuration = 0;
 
       // Initial hidden.
       this.assertTrue(drawer.isHidden(),"Drawer is asserted to be initially hidden.");
@@ -93,7 +93,7 @@ qx.Class.define("qx.test.mobile.container.Drawer",
       this.assertFalse(targetVisibility,"Drawer's targetVisibility is asserted to be false.");
       this.assertTrue(drawer.isHidden(),"Drawer is asserted to be hidden.");
 
-      drawer.destroy();
+      drawer.dispose();
     }
   }
 

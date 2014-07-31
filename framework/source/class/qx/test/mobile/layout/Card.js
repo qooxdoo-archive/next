@@ -38,9 +38,9 @@ qx.Class.define("qx.test.mobile.layout.Card",
       composite.add(widget2);
       this.assertTrue(widget2.hasCssClass("layout-card-item"));
 
-      widget1.destroy();
-      widget2.destroy();
-      composite.destroy();
+      widget1.dispose();
+      widget2.dispose();
+      composite.dispose();
     },
 
 
@@ -62,9 +62,9 @@ qx.Class.define("qx.test.mobile.layout.Card",
       this.getRoot().remove(composite);
       this.assertTrue(composite.hasCssClass("layout-card"));
 
-      widget1.destroy();
-      widget2.destroy();
-      composite.destroy();
+      widget1.dispose();
+      widget2.dispose();
+      composite.dispose();
     },
 
 
@@ -75,7 +75,7 @@ qx.Class.define("qx.test.mobile.layout.Card",
       composite.setLayout(null);
       this.assertFalse(composite.hasCssClass("layout-card"));
 
-      composite.destroy();
+      composite.dispose();
     },
 
 
@@ -92,9 +92,9 @@ qx.Class.define("qx.test.mobile.layout.Card",
       widget1.show();
       widget2.show();
 
-      widget1.destroy();
-      widget2.destroy();
-      composite.destroy();
+      widget1.dispose();
+      widget2.dispose();
+      composite.dispose();
     }
   }
 
