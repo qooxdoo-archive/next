@@ -49,6 +49,10 @@ qx.Bootstrap.define("qx.ui.mobile.form.TextArea",
   {
     this.base(arguments);
 
+    if (value) {
+      this.value = value;
+    }
+
     if (qx.core.Environment.get("qx.mobile.nativescroll") == false) {
       this.addListener("appear", this._fixChildElementsHeight, this);
       this.addListener("input", this._fixChildElementsHeight, this);

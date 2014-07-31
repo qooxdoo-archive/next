@@ -163,7 +163,7 @@ qx.Bootstrap.define("qx.ui.mobile.form.SelectBox",
     selection :
     {
       init : null,
-      validate : "_validateSelection",
+      check : "_validateSelection",
       apply : "_applySelection",
       nullable : true
     }
@@ -356,6 +356,8 @@ qx.Bootstrap.define("qx.ui.mobile.form.SelectBox",
           "Validation Error: Input value is out of model range"
         );
       }
+
+      return true;
     },
 
 

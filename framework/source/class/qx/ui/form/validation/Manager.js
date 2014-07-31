@@ -489,7 +489,7 @@ qx.Class.define("qx.ui.form.validation.Manager",
         var firstInvalid;
         for (var i = 0; i < this.__formItems.length; i++) {
           var item = this.__formItems[i].item;
-          if (!item.isValid()) {
+          if (item.valid === false) {
             firstInvalid = item;
             // only for desktop widgets
             if (!(item.getContentLocation)) {

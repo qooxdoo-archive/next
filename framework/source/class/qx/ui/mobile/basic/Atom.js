@@ -111,7 +111,7 @@ qx.Bootstrap.define("qx.ui.mobile.basic.Atom",
     showChildren :
     {
       init : "both",
-      check : [ "both", "label", "icon" ],
+      //check : [ "both", "label", "icon" ], TODO
       inheritable : true,
       apply : "_applyShowChildren"
     },
@@ -124,7 +124,7 @@ qx.Bootstrap.define("qx.ui.mobile.basic.Atom",
     iconPosition :
     {
       init   : "left",
-      check : [ "top", "right", "bottom", "left" ],
+      //check : [ "top", "right", "bottom", "left" ], TODO
       apply : "_applyIconPosition"
     }
   },
@@ -157,7 +157,7 @@ qx.Bootstrap.define("qx.ui.mobile.basic.Atom",
 
 
     // property apply
-    _applyShow : function(value, old)
+    _applyShowChildren : function(value, old)
     {
       if(this.__label) {
         if(value === 'both' || value === 'label') {

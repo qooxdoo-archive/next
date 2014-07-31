@@ -40,6 +40,10 @@ qx.Bootstrap.define("qx.ui.mobile.form.TextField",
   {
     this.base(arguments);
 
+    if (value) {
+      this.value = value;
+    }
+
     this.addListener("keypress", this._onKeyPress, this);
   },
 

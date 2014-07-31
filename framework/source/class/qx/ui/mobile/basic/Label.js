@@ -83,7 +83,7 @@ qx.Bootstrap.define("qx.ui.mobile.basic.Label",
     {
       nullable : true,
       init : null,
-      check : "String",
+      //check : "String", TODO: Allow qx.type.BaseString
       apply : "_applyValue",
       event : "changeValue"
     },
