@@ -111,7 +111,7 @@ qx.Bootstrap.define("qx.ui.mobile.basic.Atom",
     showChildren :
     {
       init : "both",
-      //check : [ "both", "label", "icon" ], TODO
+      check : "_checkShowChildren",
       inheritable : true,
       apply : "_applyShowChildren"
     },
@@ -124,7 +124,7 @@ qx.Bootstrap.define("qx.ui.mobile.basic.Atom",
     iconPosition :
     {
       init   : "left",
-      //check : [ "top", "right", "bottom", "left" ], TODO
+      check : "_checkIconPosition",
       apply : "_applyIconPosition"
     }
   },
@@ -136,7 +136,17 @@ qx.Bootstrap.define("qx.ui.mobile.basic.Atom",
     __childrenContainer : null,
 
 
-        // property apply
+    /**
+     * Property validation
+     * @param value {String} value
+     * @return {Boolean} <code>true</code> if the value is valid.
+     */
+    _checkIconPosition: function(value) {
+      return [ "top", "right", "bottom", "left" ].indexOf(value) !== -1;
+    },
+
+
+    // property apply
     _applyIconPosition : function(value, old) {
       var targetLayout;
       var verticalLayout = ["top", "bottom"].indexOf(value) != -1;
@@ -155,6 +165,15 @@ qx.Bootstrap.define("qx.ui.mobile.basic.Atom",
       this._domUpdated();
     },
 
+
+    /**
+     * Property validation
+     * @param value {String} value
+     * @return {Boolean} <code>true</code> if the value is valid.
+     */
+    _checkShowChildren: function(value) {
+      return [ "both", "label", "icon" ].indexOf(value) !== -1;
+    },
 
     // property apply
     _applyShowChildren : function(value, old)
