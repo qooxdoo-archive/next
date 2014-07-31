@@ -326,18 +326,6 @@
  *       <td>{@link qx.bom.client.Html#getGeoLocation}</td>
  *     </tr>
  *     <tr>
- *       <td>html.storage.local</td><td><i>Boolean</i></td><td><code>true</code></td>
- *       <td>{@link qx.bom.client.Html#getLocalStorage}</td>
- *     </tr>
- *     <tr>
- *       <td>html.storage.session</td><td><i>Boolean</i></td><td><code>true</code></td>
- *       <td>{@link qx.bom.client.Html#getSessionStorage}</td>
- *     </tr>
- *     <tr>
- *       <td>html.storage.userdata</td><td><i>Boolean</i></td><td><code>true</code></td>
- *       <td>{@link qx.bom.client.Html#getUserDataStorage}</td>
- *     </tr>
- *     <tr>
  *       <td>html.svg</td><td><i>Boolean</i></td><td><code>true</code></td>
  *       <td>{@link qx.bom.client.Html#getSvg}</td>
  *     </tr>
@@ -826,9 +814,6 @@ qx.Bootstrap.define("qx.core.Environment",
       "html.video.ogg" : "qx.bom.client.Html.getVideoOgg",
       "html.video.h264" : "qx.bom.client.Html.getVideoH264",
       "html.video.webm" : "qx.bom.client.Html.getVideoWebm",
-      "html.storage.local" : "qx.bom.client.Html.getLocalStorage",
-      "html.storage.session" : "qx.bom.client.Html.getSessionStorage",
-      "html.storage.userdata" : "qx.bom.client.Html.getUserDataStorage",
       "html.classlist" : "qx.bom.client.Html.getClassList",
       "html.xpath" : "qx.bom.client.Html.getXPath",
       "html.xul" : "qx.bom.client.Html.getXul",

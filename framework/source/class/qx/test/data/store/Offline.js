@@ -27,18 +27,9 @@ qx.Class.define("qx.test.data.store.Offline",
     __store : null,
     __testKey : "qx-unit-test",
 
-    hasLocalStorage : function()
-    {
-      return qx.core.Environment.get("html.storage.local");
-    },
-
     hasQxDebug : function()
     {
       return qx.core.Environment.get("qx.debug");
-    },
-
-    setUp : function() {
-      this.require(["localStorage"]);
     },
 
 
