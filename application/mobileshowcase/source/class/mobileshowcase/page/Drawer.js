@@ -38,7 +38,7 @@ qx.Class.define("mobileshowcase.page.Drawer",
       var drawer = new qx.ui.mobile.container.Drawer(this, new qx.ui.mobile.layout.VBox());
       drawer.orientation = orientation;
       drawer.tapOffset = 0;
-      drawer.PositionZ = "below";
+      drawer.positionZ = "below";
       return drawer;
     },
 
