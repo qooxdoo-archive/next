@@ -447,7 +447,7 @@ qx.Bootstrap.define("qx.ui.mobile.page.NavigationPage",
     _applyBackButtonText : function(value, old)
     {
       if (this.__backButton) {
-        this.__backButton.value = value;
+        this.__backButton.setValue(value);
       }
     },
 
@@ -456,7 +456,7 @@ qx.Bootstrap.define("qx.ui.mobile.page.NavigationPage",
     _applyActionButtonText : function(value, old)
     {
       if (this.__actionButton) {
-        this.__actionButton.value = value;
+        this.__actionButton.setValue(value);
       }
     },
 

@@ -125,8 +125,8 @@ qx.Class.define("qx.test.mobile.list.List",
         return new qx.ui.mobile.list.renderer.Default();
       });
       this.__assertItemsAndModelLength(list, 5);
-      list.getModel().dispose();
-      list.setModel(null);
+      list.model.dispose();
+      list.model = null;
       this.__assertItemsAndModelLength(list, 0);
       this.__cleanUp(list);
     },
@@ -138,7 +138,7 @@ qx.Class.define("qx.test.mobile.list.List",
         return new qx.ui.mobile.list.renderer.Default();
       });
       this.__assertItemsAndModelLength(list,5);
-      list.getModel().removeAt(0);
+      list.model.removeAt(0);
       this.__assertItemsAndModelLength(list,4);
       this.__cleanUp(list);
     },
@@ -151,7 +151,7 @@ qx.Class.define("qx.test.mobile.list.List",
       });
       this.__assertItemsAndModelLength(list,5);
 
-      list.getModel().setItem(0, {title:"affe", subtitle:"1", image:"qx/icon/Tango/48/places/folder.png"});
+      list.model.setItem(0, {title:"affe", subtitle:"1", image:"qx/icon/Tango/48/places/folder.png"});
       this.__assertItemsAndModelLength(list,5);
 
       var titleText = this.getTitleElement(list,0).innerHTML;
@@ -174,7 +174,7 @@ qx.Class.define("qx.test.mobile.list.List",
       var newTitleText = "Giraffe";
       var newSubtitleText = "subtitle1";
 
-      list.getModel().setItem(0, {title: newTitleText, subtitle: newSubtitleText, image: newImageSrc});
+      list.model.setItem(0, {title: newTitleText, subtitle: newSubtitleText, image: newImageSrc});
       this.__assertItemsAndModelLength(list,5);
 
       var titleText = this.getTitleElement(list,0).innerHTML;;
@@ -196,7 +196,7 @@ qx.Class.define("qx.test.mobile.list.List",
         return new qx.ui.mobile.list.renderer.Default();
       });
       this.__assertItemsAndModelLength(list,5);
-      list.getModel().push({title:"6", subtitle:"6", image:"qx/icon/Tango/48/places/folder.png"});
+      list.model.push({title:"6", subtitle:"6", image:"qx/icon/Tango/48/places/folder.png"});
       this.__assertItemsAndModelLength(list,6);
       this.__cleanUp(list);
     },

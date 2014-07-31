@@ -90,24 +90,24 @@ qx.Class.define("qx.test.mobile.tabbar.TabBar",
 
       var button1 = new qx.ui.mobile.tabbar.TabButton();
       tabBar.add(button1);
-      this.assertEquals(tabBar.getSelection(), button1);
+      this.assertEquals(tabBar.selection, button1);
 
       var button2 = new qx.ui.mobile.tabbar.TabButton();
       tabBar.add(button2);
-      this.assertEquals(tabBar.getSelection(), button1);
+      this.assertEquals(tabBar.selection, button1);
 
       var button3 = new qx.ui.mobile.tabbar.TabButton();
       tabBar.add(button3);
-      this.assertEquals(tabBar.getSelection(), button1);
+      this.assertEquals(tabBar.selection, button1);
 
-      tabBar.setSelection(button2);
-      this.assertEquals(tabBar.getSelection(), button2);
+      tabBar.selection = button2;
+      this.assertEquals(tabBar.selection, button2);
 
       tabBar.remove(button2);
-      this.assertEquals(tabBar.getSelection(), null);
+      this.assertEquals(tabBar.selection, null);
 
       this.assertEventFired(tabBar, "changeSelection", function() {
-        tabBar.setSelection(button1);
+        tabBar.selection = button1;
       });
 
       button1.dispose();
@@ -124,23 +124,23 @@ qx.Class.define("qx.test.mobile.tabbar.TabBar",
       var button1 = new qx.ui.mobile.tabbar.TabButton("Button 1");
       var view1 = new qx.ui.mobile.basic.Label("1");
       view1.exclude();
-      button1.setView(view1);
+      button1.view = view1;
       tabBar.add(button1);
       this.assertTrue(view1.isVisible());
 
       var button2 = new qx.ui.mobile.tabbar.TabButton("Button 2");
       tabBar.add(button2);
       var view2 = new qx.ui.mobile.basic.Label("2");
-      button2.setView(view2);
+      button2.view = view2;
       this.assertFalse(view2.isVisible());
 
       var button3 = new qx.ui.mobile.tabbar.TabButton("Button 3");
       tabBar.add(button3);
-      tabBar.setSelection(button3);
+      tabBar.selection = button3;
       var view3 = new qx.ui.mobile.basic.Label("3");
 
       this.assertEventFired(button3, "changeView", function() {
-        button3.setView(view3);
+        button3.view = view3;
       });
 
       this.assertFalse(view1.isVisible());

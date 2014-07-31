@@ -40,8 +40,8 @@ qx.Class.define("qx.test.mobile.page.NavigationPage",
     {
       var page = new qx.ui.mobile.page.NavigationPage();
 
-      page.setTitle("Affe");
-      this.assertEquals("Affe", page.getTitleWidget().getValue());
+      page.title = "Affe";
+      this.assertEquals("Affe", page.getTitleWidget().value);
 
       page.dispose();
     },
@@ -53,11 +53,11 @@ qx.Class.define("qx.test.mobile.page.NavigationPage",
 
       page.getLeftContainer();
 
-      page.setShowBackButton(true);
-      page.setBackButtonText("Affe");
+      page.showBackButton = true;
+      page.backButtonText = "Affe";
       this.assertEquals("Affe", page._getBackButton().getValue());
       this.assertTrue(page._getBackButton().isVisible());
-      page.setShowBackButton(false);
+      page.showBackButton = false;
       this.assertFalse(page._getBackButton().isVisible());
 
       page.dispose();
@@ -70,11 +70,11 @@ qx.Class.define("qx.test.mobile.page.NavigationPage",
 
       page.getRightContainer();
 
-      page.setShowButton(true);
-      page.setButtonText("Affe");
+      page.showButton = true;
+      page.buttonText = "Affe";
       this.assertEquals("Affe", page._getButton().getValue());
       this.assertTrue(page._getButton().isVisible());
-      page.setShowButton(false);
+      page.showButton = false;
       this.assertFalse(page._getButton().isVisible());
 
       page.dispose();

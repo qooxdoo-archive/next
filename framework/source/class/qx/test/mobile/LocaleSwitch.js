@@ -66,21 +66,21 @@ qx.Class.define("qx.test.mobile.LocaleSwitch",
       var label = new qx.ui.mobile.basic.Label(this.tr("test one"));
       this.getRoot().add(label);
 
-      this.assertEquals("test one", label.getValue());
+      this.assertEquals("test one", label.value);
       manager.setLocale("de_QX");
-      this.assertEquals("Eins", label.getValue());
+      this.assertEquals("Eins", label.value);
       manager.setLocale("en_QX");
 
-      label.setValue(this.tr("test Hello %1!", this.tr("test Jonny")));
-      this.assertEquals("test Hello test Jonny!", label.getValue());
+      label.value = this.tr("test Hello %1!", this.tr("test Jonny"));
+      this.assertEquals("test Hello test Jonny!", label.value);
       manager.setLocale("de_QX");
-      this.assertEquals("Servus Jonathan!", label.getValue());
+      this.assertEquals("Servus Jonathan!", label.value);
 
       // de -> en
-      label.setValue(this.tr("test two"));
-      this.assertEquals("Zwei", label.getValue());
+      label.value = this.tr("test two");
+      this.assertEquals("Zwei", label.value);
       manager.setLocale("en_QX");
-      this.assertEquals("test two", label.getValue());
+      this.assertEquals("test two", label.value);
 
       label.dispose();
     },
@@ -105,7 +105,7 @@ qx.Class.define("qx.test.mobile.LocaleSwitch",
         }
       ];
 
-      list.setModel(new qx.data.Array(data));
+      list.model = new qx.data.Array(data);
       this.getRoot().add(list);
 
       this.__testListEn();

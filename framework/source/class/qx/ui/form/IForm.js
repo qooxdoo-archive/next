@@ -44,134 +44,30 @@ qx.Interface.define("qx.ui.form.IForm",
     "changeRequired" : "qx.event.type.Data"
   },
 
-
-  /*
-  *****************************************************************************
-     MEMBERS
-  *****************************************************************************
-  */
-
-  members :
-  {
-    /*
-    ---------------------------------------------------------------------------
-      ENABLED PROPERTY
-    ---------------------------------------------------------------------------
-    */
+  properties : {
+    /**
+     * The widget's enabled state.
+     */
+    enabled : {},
 
     /**
-     * Set the enabled state of the widget.
-     *
-     * @param enabled {Boolean} The enabled state.
+     * The widget's required state.
      */
-    setEnabled : function(enabled) {
-      return arguments.length == 1;
-    },
-
+    required : {},
 
     /**
-     * Return the current set enabled state.
-     *
-     * @return {Boolean} If the widget is enabled.
+     * The widget's valid state.
      */
-    getEnabled : function() {},
-
-
-    /*
-    ---------------------------------------------------------------------------
-      REQUIRED PROPERTY
-    ---------------------------------------------------------------------------
-    */
+    valid : {},
 
     /**
-     * Sets the required state of a widget.
-     *
-     * @param required {Boolean} A flag signaling if the widget is required.
+     * The widget's invalid message.
      */
-    setRequired : function(required) {
-      return arguments.length == 1;
-    },
-
+    invalidMessage : {},
 
     /**
-     * Return the current required state of the widget.
-     *
-     * @return {Boolean} True, if the widget is required.
+     * The invalid message if required of the widget.
      */
-    getRequired : function() {},
-
-
-    /*
-    ---------------------------------------------------------------------------
-      VALID PROPERTY
-    ---------------------------------------------------------------------------
-    */
-
-    /**
-     * Sets the valid state of the widget.
-     *
-     * @param valid {Boolean} The valid state of the widget.
-     */
-    setValid : function(valid) {
-      return arguments.length == 1;
-    },
-
-
-    /**
-     * Returns the valid state of the widget.
-     *
-     * @return {Boolean} If the state of the widget is valid.
-     */
-    getValid : function() {},
-
-
-    /*
-    ---------------------------------------------------------------------------
-      INVALID MESSAGE PROPERTY
-    ---------------------------------------------------------------------------
-    */
-
-    /**
-     * Sets the invalid message of the widget.
-     *
-     * @param message {String} The invalid message.
-     */
-    setInvalidMessage : function(message) {
-      return arguments.length == 1;
-    },
-
-
-    /**
-     * Returns the invalid message of the widget.
-     *
-     * @return {String} The current set message.
-     */
-    getInvalidMessage : function() {},
-
-
-
-    /*
-    ---------------------------------------------------------------------------
-      REQUIRED INVALID MESSAGE PROPERTY
-    ---------------------------------------------------------------------------
-    */
-
-    /**
-     * Sets the invalid message if required of the widget.
-     *
-     * @param message {String} The invalid message.
-     */
-    setRequiredInvalidMessage : function(message) {
-      return arguments.length == 1;
-    },
-
-
-    /**
-     * Returns the invalid message if required of the widget.
-     *
-     * @return {String} The current set message.
-     */
-    getRequiredInvalidMessage : function() {}
-
+    requiredInvalidMessage : {}
   }
 });

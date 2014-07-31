@@ -750,7 +750,6 @@ qx.Bootstrap.define("qx.ui.mobile.container.Carousel",
     },
 
     dispose : function() {
-      this.base(arguments);
       this._removeListeners();
 
       this._disposeObjects("__carouselScroller"," __pagination");
@@ -759,6 +758,7 @@ qx.Bootstrap.define("qx.ui.mobile.container.Carousel",
       qx.util.DisposeUtil.disposeArray(this,"__paginationLabels");
 
       this.__pages = this.__paginationLabels = this.__snapPointsX = this.__onMoveOffset = this.__lastOffset = this.__boundsX = this.__isPageScrollTarget = null;
+      this.base(arguments);
     }
   }
 });

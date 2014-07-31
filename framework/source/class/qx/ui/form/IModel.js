@@ -23,48 +23,18 @@
  */
 qx.Interface.define("qx.ui.form.IModel",
 {
-
-  /*
-  *****************************************************************************
-     EVENTS
-  *****************************************************************************
-  */
-
   events :
   {
     /** Fired when the model data changes */
     "changeModel" : "qx.event.type.Data"
   },
 
-
-
-  /*
-  *****************************************************************************
-     MEMBERS
-  *****************************************************************************
-  */
-
-  members :
-  {
+  properties : {
     /**
-     * Set the representative data for the item.
-     *
-     * @param value {var} The data.
+     * The item's data
      */
-    setModel : function(value) {},
-
-
-    /**
-     * Returns the representative data for the item
-     *
-     * @return {var} The data.
-     */
-    getModel : function() {},
-
-
-    /**
-     * Sets the representative data to null.
-     */
-    resetModel : function() {}
+    model : {
+      event: true
+    }
   }
 });
