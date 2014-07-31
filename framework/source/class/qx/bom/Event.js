@@ -81,19 +81,8 @@ qx.Bootstrap.define("qx.bom.Event",
      * @param useCapture {Boolean ? false} A Boolean value that specifies the event phase to add
      *    the event handler for the capturing phase or the bubbling phase.
      */
-    addNativeListener : function(target, type, listener, useCapture)
-    {
-      if (target.addEventListener) {
-        target.addEventListener(type, listener, !!useCapture);
-      } else if (target.attachEvent) {
-        target.attachEvent("on" + type, listener);
-      } else if (typeof target["on" + type] != "undefined") {
-        target["on" + type] = listener;
-      } else {
-        if (qx.core.Environment.get("qx.debug")) {
-          qx.log.Logger.warn("No method available to add native listener to " + target);
-        }
-      }
+    addNativeListener : function(target, type, listener, useCapture) {
+      target.addEventListener(type, listener, !!useCapture);
     },
 
 
@@ -107,36 +96,8 @@ qx.Bootstrap.define("qx.bom.Event",
      * @param useCapture {Boolean ? false} A Boolean value that specifies the event phase to remove
      *    the event handler for the capturing phase or the bubbling phase.
      */
-    removeNativeListener : function(target, type, listener, useCapture)
-    {
-      if (target.removeEventListener)
-      {
-        target.removeEventListener(type, listener, !!useCapture);
-      }
-      else if (target.detachEvent)
-      {
-        try {
-          target.detachEvent("on" + type, listener);
-        }
-        catch(e)
-        {
-          // IE7 sometimes dispatches "unload" events on protected windows
-          // Ignore the "permission denied" errors.
-          if(e.number !== -2146828218) {
-            throw e;
-          };
-        }
-      }
-      else if (typeof target["on" + type] != "undefined")
-      {
-        target["on" + type] = null;
-      }
-      else
-      {
-        if (qx.core.Environment.get("qx.debug")) {
-          qx.log.Logger.warn("No method available to remove native listener from " + target);
-        }
-      }
+    removeNativeListener : function(target, type, listener, useCapture) {
+      target.removeEventListener(type, listener, !!useCapture);
     },
 
 
@@ -147,7 +108,7 @@ qx.Bootstrap.define("qx.bom.Event",
      * @return {Object} Any valid native event target
      */
     getTarget : function(e) {
-      return e.target || e.srcElement;
+      return e.target;
     },
 
 
@@ -174,13 +135,6 @@ qx.Bootstrap.define("qx.bom.Event",
         }
 
         return e.relatedTarget;
-      }
-      else if (e.fromElement !== undefined &&
-        (e.type === "mouseover" || e.type === "pointerover"))
-      {
-        return e.fromElement;
-      } else if (e.toElement !== undefined) {
-        return e.toElement;
       } else {
         return null;
       }
@@ -195,20 +149,8 @@ qx.Bootstrap.define("qx.bom.Event",
      *
      * @param e {Event} Native event object
      */
-    preventDefault : function(e)
-    {
-      if (e.preventDefault) {
-        e.preventDefault();
-      }
-      else {
-        try {
-          // this allows us to prevent some key press events in IE.
-          // See bug #1049
-          e.keyCode = 0;
-        } catch(ex) {}
-
-        e.returnValue = false;
-      }
+    preventDefault : function(e) {
+      e.preventDefault();
     },
 
 
@@ -219,13 +161,8 @@ qx.Bootstrap.define("qx.bom.Event",
      *
      * @param e {Event} Native event object
      */
-    stopPropagation : function(e)
-    {
-      if (e.stopPropagation) {
-        e.stopPropagation();
-      } else {
-        e.cancelBubble = true;
-      }
+    stopPropagation : function(e) {
+      e.stopPropagation();
     },
 
 
@@ -237,23 +174,11 @@ qx.Bootstrap.define("qx.bom.Event",
      * @return {Boolean} A value that indicates whether any of the event handlers called {@link #preventDefault}.
      *  <code>true</code> The default action is permitted, <code>false</code> the caller should prevent the default action.
      */
-    fire : function(target, type)
-    {
-      // dispatch for standard first
-      if (document.createEvent)
-      {
-        var evt = document.createEvent("HTMLEvents");
-        evt.initEvent(type, true, true);
+    fire : function(target, type) {
+      var evt = document.createEvent("HTMLEvents");
+      evt.initEvent(type, true, true);
 
-        return !target.dispatchEvent(evt);
-      }
-
-      // dispatch for IE
-      else
-      {
-        var evt = document.createEventObject();
-        return target.fireEvent("on" + type, evt);
-      }
+      return !target.dispatchEvent(evt);
     },
 
 
