@@ -389,10 +389,6 @@
  *       <td>{@link qx.bom.client.Html#getHistoryState}</td>
  *     </tr>
  *     <tr>
- *       <td>html.selection</td><td><i>String</i></td><td><code>getSelection</code></td>
- *       <td>{@link qx.bom.client.Html#getSelection}</td>
- *     </tr>
- *     <tr>
  *       <td>html.node.isequalnode</td><td><i>Boolean</i></td><td><code>true</code></td>
  *       <td>{@link qx.bom.client.Html#getIsEqualNode}</td>
  *     </tr>
@@ -446,14 +442,6 @@
  *     <tr>
  *       <td>html.stylesheet.createstylesheet</td><td><i>Boolean</i></td><td><code>false</code></td>
  *       <td>{@link qx.bom.client.Stylesheet#getCreateStyleSheet}</td>
- *     </tr>
- *     <tr>
- *       <td>html.stylesheet.insertrule</td><td><i>Boolean</i></td><td><code>true</code></td>
- *       <td>{@link qx.bom.client.Stylesheet#getInsertRule}</td>
- *     </tr>
- *     <tr>
- *       <td>html.stylesheet.deleterule</td><td><i>Boolean</i></td><td><code>true</code></td>
- *       <td>{@link qx.bom.client.Stylesheet#getDeleteRule}</td>
  *     </tr>
  *     <tr>
  *       <td>html.stylesheet.addimport</td><td><i>Boolean</i></td><td><code>false</code></td>
@@ -824,8 +812,6 @@ qx.Bootstrap.define("qx.core.Environment",
       "html.dataurl" : "qx.bom.client.Html.getDataUrl",
       "html.console" : "qx.bom.client.Html.getConsole",
       "html.stylesheet.createstylesheet" : "qx.bom.client.Stylesheet.getCreateStyleSheet",
-      "html.stylesheet.insertrule" : "qx.bom.client.Stylesheet.getInsertRule",
-      "html.stylesheet.deleterule" : "qx.bom.client.Stylesheet.getDeleteRule",
       "html.stylesheet.addimport" : "qx.bom.client.Stylesheet.getAddImport",
       "html.stylesheet.removeimport" : "qx.bom.client.Stylesheet.getRemoveImport",
       "html.element.contains" : "qx.bom.client.Html.getContains",
@@ -833,7 +819,6 @@ qx.Bootstrap.define("qx.core.Environment",
       "html.element.textcontent" : "qx.bom.client.Html.getTextContent",
       "html.image.naturaldimensions" : "qx.bom.client.Html.getNaturalDimensions",
       "html.history.state" : "qx.bom.client.Html.getHistoryState",
-      "html.selection" : "qx.bom.client.Html.getSelection",
       "html.node.isequalnode" : "qx.bom.client.Html.getIsEqualNode",
       "json" : "qx.bom.client.Json.getJson",
       "css.textoverflow" : "qx.bom.client.Css.getTextOverflow",

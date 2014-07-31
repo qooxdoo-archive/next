@@ -106,12 +106,7 @@ qx.Bootstrap.define("qx.bom.Stylesheet",
         qx.core.Assert.assertFalse(/^\s*?\{.*?\}\s*?$/.test(entry), msg);
       }
 
-      if (qx.core.Environment.get("html.stylesheet.insertrule")) {
-        sheet.insertRule(selector + "{" + entry + "}", sheet.cssRules.length);
-      }
-      else {
-        sheet.addRule(selector, entry);
-      }
+      sheet.insertRule(selector + "{" + entry + "}", sheet.cssRules.length);
     },
 
 
@@ -123,26 +118,13 @@ qx.Bootstrap.define("qx.bom.Stylesheet",
      */
     removeRule : function(sheet, selector)
     {
-      if (qx.core.Environment.get("html.stylesheet.deleterule")) {
-        var rules = sheet.cssRules;
-        var len = rules.length;
+      var rules = sheet.cssRules;
+      var len = rules.length;
 
-        for (var i=len-1; i>=0; --i)
-        {
-          if (rules[i].selectorText == selector) {
-            sheet.deleteRule(i);
-          }
-        }
-      }
-      else {
-        var rules = sheet.rules;
-        var len = rules.length;
-
-        for (var i=len-1; i>=0; --i)
-        {
-          if (rules[i].selectorText == selector) {
-            sheet.removeRule(i);
-          }
+      for (var i=len-1; i>=0; --i)
+      {
+        if (rules[i].selectorText == selector) {
+          sheet.deleteRule(i);
         }
       }
     },
@@ -165,20 +147,11 @@ qx.Bootstrap.define("qx.bom.Stylesheet",
      */
     removeAllRules : function(sheet)
     {
-      if (qx.core.Environment.get("html.stylesheet.deleterule")) {
-        var rules = sheet.cssRules;
-        var len = rules.length;
+      var rules = sheet.cssRules;
+      var len = rules.length;
 
-        for (var i=len-1; i>=0; i--) {
-          sheet.deleteRule(i);
-        }
-      } else {
-        var rules = sheet.rules;
-        var len = rules.length;
-
-        for (var i=len-1; i>=0; i--) {
-          sheet.removeRule(i);
-        }
+      for (var i=len-1; i>=0; i--) {
+        sheet.deleteRule(i);
       }
     },
 

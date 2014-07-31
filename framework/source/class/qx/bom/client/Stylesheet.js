@@ -34,8 +34,7 @@ qx.Bootstrap.define("qx.bom.client.Stylesheet",
      *
      * @return {Stylesheet} Stylesheet element
      */
-    __getStylesheet : function()
-    {
+    __getStylesheet : function() {
       if (!qx.bom.client.Stylesheet.__stylesheet) {
         qx.bom.client.Stylesheet.__stylesheet = qx.bom.Stylesheet.createElement();
       }
@@ -53,33 +52,8 @@ qx.Bootstrap.define("qx.bom.client.Stylesheet",
      * @return {Boolean} <code>true</code> if the browser supports
      * document.createStyleSheet
      */
-    getCreateStyleSheet : function()
-    {
+    getCreateStyleSheet : function() {
       return typeof document.createStyleSheet === "object";
-    },
-
-
-    /**
-     * Check for stylesheet.insertRule. Legacy IEs do not support this.
-     *
-     * @internal
-     * @return {Boolean} <code>true</code> if insertRule is supported
-     */
-    getInsertRule : function()
-    {
-      return typeof qx.bom.client.Stylesheet.__getStylesheet().insertRule === "function";
-    },
-
-
-    /**
-     * Check for stylesheet.deleteRule. Legacy IEs do not support this.
-     *
-     * @internal
-     * @return {Boolean} <code>true</code> if deleteRule is supported
-     */
-    getDeleteRule : function()
-    {
-      return typeof qx.bom.client.Stylesheet.__getStylesheet().deleteRule === "function";
     },
 
 
@@ -90,8 +64,7 @@ qx.Bootstrap.define("qx.bom.client.Stylesheet",
      * @internal
      * @return {Boolean} <code>true</code> if stylesheet.addImport is supported
      */
-    getAddImport : function()
-    {
+    getAddImport : function() {
       return (typeof qx.bom.client.Stylesheet.__getStylesheet().addImport === "object");
     },
 
@@ -103,8 +76,7 @@ qx.Bootstrap.define("qx.bom.client.Stylesheet",
      * @internal
      * @return {Boolean} <code>true</code> if stylesheet.removeImport is supported
      */
-    getRemoveImport : function()
-    {
+    getRemoveImport : function() {
       return (typeof qx.bom.client.Stylesheet.__getStylesheet().removeImport === "object");
     }
   },
@@ -113,8 +85,6 @@ qx.Bootstrap.define("qx.bom.client.Stylesheet",
 
   defer : function (statics) {
     qx.core.Environment.add("html.stylesheet.createstylesheet", statics.getCreateStyleSheet);
-    qx.core.Environment.add("html.stylesheet.insertrule", statics.getInsertRule);
-    qx.core.Environment.add("html.stylesheet.deleterule", statics.getDeleteRule);
     qx.core.Environment.add("html.stylesheet.addimport", statics.getAddImport);
     qx.core.Environment.add("html.stylesheet.removeimport", statics.getRemoveImport);
   }

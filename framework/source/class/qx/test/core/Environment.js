@@ -349,8 +349,6 @@ qx.Class.define("qx.test.core.Environment",
       this.assertBoolean(qx.core.Environment.get("html.console"));
 
       this.assertBoolean(qx.core.Environment.get("html.stylesheet.createstylesheet"));
-      this.assertBoolean(qx.core.Environment.get("html.stylesheet.insertrule"));
-      this.assertBoolean(qx.core.Environment.get("html.stylesheet.deleterule"));
       this.assertBoolean(qx.core.Environment.get("html.stylesheet.addimport"));
       this.assertBoolean(qx.core.Environment.get("html.stylesheet.removeimport"));
 
@@ -359,7 +357,6 @@ qx.Class.define("qx.test.core.Environment",
       this.assertBoolean(qx.core.Environment.get("html.element.textcontent"));
       this.assertBoolean(qx.core.Environment.get("html.image.naturaldimensions"));
       this.assertBoolean(qx.core.Environment.get("html.history.state"));
-      this.assertString(qx.core.Environment.get("html.selection"));
       this.assertBoolean(qx.core.Environment.get("html.node.isequalnode"));
     },
 
