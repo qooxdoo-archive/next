@@ -449,18 +449,25 @@ qx.Bootstrap.define("qx.Bootstrap",
                 var ok = true;
                 if (typeof def.check == "string") {
                   if (this[def.check] instanceof Function) {
+                    // check is a member method
                     ok = this[def.check].call(this, value);
                   } else {
                     var type = qx.Bootstrap.getClass(value);
                     if (!(def.nullable && type == "Null")) { // allow null for nullable properties
                       if (!(def.init !== undefined && type == "Undefined")) { // allow undefined as reset value
+                        // check against built-in types
                         if (type !== def.check) {
-                          throw new Error("Error in property '" + name + "' of class '" + this.classname + "': Value must be '" + def.check + "' but is '" + type + "'!");
+                          var checkClass = qx.Bootstrap.getByName(def.check);
+                          // check against class
+                          if (!checkClass || !(value instanceof checkClass)) {
+                            throw new Error("Error in property '" + name + "' of class '" + this.classname + "': Value must be '" + def.check + "' but is '" + type + "'!");
+                          }
                         }
                       }
                     }
                   }
                 } else if (def.check instanceof Function) {
+                  // inline check function
                   ok = def.check.call(this, value);
                 }
 

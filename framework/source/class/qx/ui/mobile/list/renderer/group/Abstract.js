@@ -23,7 +23,6 @@
 qx.Bootstrap.define("qx.ui.mobile.list.renderer.group.Abstract",
 {
   extend : qx.ui.mobile.container.Composite,
-  //type : "abstract", TODO: MAbstract
 
 
   construct : function(layout)

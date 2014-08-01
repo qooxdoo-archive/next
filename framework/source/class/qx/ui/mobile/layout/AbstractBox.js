@@ -23,7 +23,6 @@
 qx.Bootstrap.define("qx.ui.mobile.layout.AbstractBox",
 {
   extend : qx.ui.mobile.layout.Abstract,
-  //type : "abstract", TODO: MAbstract
 
 
  /*

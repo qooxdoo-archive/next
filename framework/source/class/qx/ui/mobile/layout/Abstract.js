@@ -27,7 +27,6 @@
 qx.Bootstrap.define("qx.ui.mobile.layout.Abstract",
 {
   extend : qx.core.Object,
-  //type : "abstract", TODO: MAbstract
 
 
  /*

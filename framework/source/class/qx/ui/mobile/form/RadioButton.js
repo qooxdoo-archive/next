@@ -96,7 +96,7 @@ qx.Bootstrap.define("qx.ui.mobile.form.RadioButton",
     /** The assigned qx.ui.form.RadioGroup which handles the switching between registered buttons */
     group :
     {
-      //check  : "qx.ui.mobile.form.RadioGroup", TODO
+      check  : "qx.ui.mobile.form.RadioGroup",
       nullable : true,
       apply : "_applyGroup"
     }

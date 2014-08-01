@@ -79,7 +79,7 @@ qx.Bootstrap.define("qx.ui.mobile.tabbar.TabBar",
      */
     selection :
     {
-      //check : "qx.ui.mobile.tabbar.TabButton", TODO
+      check : "qx.ui.mobile.tabbar.TabButton",
       nullable : true,
       init : null,
       apply : "_applySelection",

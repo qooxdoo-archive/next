@@ -149,7 +149,7 @@ qx.Bootstrap.define("qx.ui.mobile.form.SelectBox",
      */
     model :
     {
-      //check : "qx.data.Array", TODO
+      check : "qx.data.Array",
       apply : "_applyModel",
       event : "changeModel",
       nullable : true,

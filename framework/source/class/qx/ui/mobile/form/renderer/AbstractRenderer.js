@@ -27,7 +27,6 @@
  */
 qx.Bootstrap.define("qx.ui.mobile.form.renderer.AbstractRenderer",
 {
-  //type : "abstract", TODO: MAbstract
   extend : qx.ui.mobile.core.Widget,
   implement : qx.ui.form.renderer.IFormRenderer,
 

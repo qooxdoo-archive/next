@@ -33,7 +33,6 @@ qx.Bootstrap.define("qx.ui.mobile.form.Input",
     qx.ui.form.IForm,
     qx.ui.form.IModel
   ],
-  //type : "abstract", TODO: MAbstract
 
 
   construct : function()

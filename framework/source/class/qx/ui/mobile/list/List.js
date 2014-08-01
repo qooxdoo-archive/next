@@ -144,7 +144,7 @@ qx.Bootstrap.define("qx.ui.mobile.list.List",
      */
     model :
     {
-      //check : "qx.data.Array", TODO: Class checks
+      check : "qx.data.Array",
       apply : "_applyModel",
       event: "changeModel",
       nullable : true,

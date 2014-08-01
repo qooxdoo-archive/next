@@ -592,6 +592,9 @@ qx.Class.define("qx.test.Bootstrap",
           },
           r : {
             check : "RegExp"
+          },
+          q : {
+            check : "qx.dev.unit.TestClass"
           }
         }
       });
@@ -606,6 +609,7 @@ qx.Class.define("qx.test.Bootstrap",
       c.d = new Date();
       c.e = new Error();
       c.r = /./g;
+      c.q = new qx.dev.unit.TestClass();
 
       this.assertException(function() {
         c.s = true;
@@ -633,6 +637,9 @@ qx.Class.define("qx.test.Bootstrap",
       });
       this.assertException(function() {
         c.r = 83924;
+      });
+      this.assertException(function() {
+        c.q = new qx.core.Object();
       });
     },
 

@@ -48,7 +48,7 @@ qx.Bootstrap.define("qx.ui.mobile.tabbar.TabButton",
      */
     view :
     {
-      //check : "qx.ui.mobile.core.Widget", TODO
+      check : "qx.ui.mobile.core.Widget",
       nullable : false,
       init : null,
       apply : "_applyView",
