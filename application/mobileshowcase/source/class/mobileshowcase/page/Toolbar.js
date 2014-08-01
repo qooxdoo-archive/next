@@ -120,9 +120,9 @@ qx.Class.define("mobileshowcase.page.Toolbar",
     __processDelete : function(index)
     {
       if(index==0) {
-        this.__deleteDialog.destroy();
+        this.__deleteDialog.dispose();
       } else {
-        this.__deleteDialog.destroy();
+        this.__deleteDialog.dispose();
       }
     },
 
