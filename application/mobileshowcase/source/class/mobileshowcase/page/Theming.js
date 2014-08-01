@@ -165,7 +165,7 @@ qx.Class.define("mobileshowcase.page.Theming",
       var demoLabelTemplate = "<div>Best available image for total app scale<span>%1</span></div> <div><br/></div> <div>Device pixel ratio:<span>%2</span></div>  <div>Computed font scale:<span>%3</span></div> ";
       var labelContent = qx.lang.String.format(demoLabelTemplate, [this.__format(appScale), this.__format(pixelRatio), this.__format(fontScale)]);
 
-      this.__demoImageLabel.setValue(labelContent);
+      this.__demoImageLabel.value = labelContent;
     },
 
 
@@ -195,13 +195,11 @@ qx.Class.define("mobileshowcase.page.Theming",
 
       var form = new qx.ui.mobile.form.Form();
       var slider = this.__slider = new qx.ui.mobile.form.Slider();
-      slider.set({
-        "displayValue": "value",
-        "minimum": 50,
-        "maximum": 200,
-        "value": 100,
-        "step": 10
-      });
+      slider.displayValue = "value";
+      slider.minimum = 50;
+      slider.maximum = 200;
+      slider.value = 100;
+      slider.step = 10;
       form.add(slider, "Custom Font Scale in %");
 
       var useScaleButton = new qx.ui.mobile.form.Button("Apply");
@@ -222,8 +220,8 @@ qx.Class.define("mobileshowcase.page.Theming",
       this._updateDemoImageLabel();
 
       var lastValue = this.__slider.getValue();
-      this.__slider.setValue(0);
-      this.__slider.setValue(lastValue);
+      this.__slider.value = 0;
+      this.__slider.value = lastValue;
 
       qx.core.Init.getApplication().getRouting().executeGet("/theming", {reverse:false});
     },

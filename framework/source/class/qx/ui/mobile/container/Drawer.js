@@ -516,22 +516,22 @@ qx.Bootstrap.define("qx.ui.mobile.container.Drawer",
         if (
           (direction == "right"
           && this.orientation == "left"
-          && this.__pointerStartPosition[0] < location.right + this.getTapOffset()
+          && this.__pointerStartPosition[0] < location.right + this.tapOffset
           && this.__pointerStartPosition[0] > location.right)
           ||
           (direction == "left"
           && this.orientation == "right"
-          && this.__pointerStartPosition[0] > location.left - this.getTapOffset()
+          && this.__pointerStartPosition[0] > location.left - this.tapOffset
           && this.__pointerStartPosition[0] < location.left)
           ||
           (direction == "down"
           && this.orientation == "top"
-          && this.__pointerStartPosition[1] < this.getTapOffset() + location.bottom
+          && this.__pointerStartPosition[1] < this.tapOffset() + location.bott
           && this.__pointerStartPosition[1] > location.bottom)
           ||
           (direction == "up"
           && this.orientation == "bottom"
-          && this.__pointerStartPosition[1] > location.top - this.getTapOffset()
+          && this.__pointerStartPosition[1] > location.top - this.tapOffset
           && this.__pointerStartPosition[1] < location.top)
         )
         {
