@@ -31,6 +31,8 @@
  *
  * This example create a widget to display the label.
  *
+ * @ignore(qx.type.BaseString.*)
+ *
  */
 qx.Bootstrap.define("qx.ui.mobile.basic.Label",
 {
@@ -83,7 +85,7 @@ qx.Bootstrap.define("qx.ui.mobile.basic.Label",
     {
       nullable : true,
       init : null,
-      //check : "String", TODO: Allow qx.type.BaseString
+      check : "_checkValue",
       apply : "_applyValue",
       event : "changeValue"
     },
@@ -118,6 +120,16 @@ qx.Bootstrap.define("qx.ui.mobile.basic.Label",
 
   members :
   {
+    /**
+     * Property validation
+     * @param value {String|qx.type.BaseString} value
+     * @return {Boolean} <code>true</code> if the value is valid
+     */
+    _checkValue: function(value) {
+      return qx.Bootstrap.getClass(value) === "String" ||
+        (qx.type.BaseString && value instanceof qx.type.BaseString);
+    },
+
     // property apply
     _applyValue : function(value, old)
     {
