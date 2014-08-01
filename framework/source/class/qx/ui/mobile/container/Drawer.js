@@ -64,8 +64,7 @@ qx.Bootstrap.define("qx.ui.mobile.container.Drawer",
     if (layout) {
       this.setLayout(layout);
     }
-
-    this.orientation = "left";
+    this.orientation = undefined;
     this.positionZ = undefined;
 
     if (parent) {
