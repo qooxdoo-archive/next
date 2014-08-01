@@ -522,7 +522,7 @@ qx.Bootstrap.define("qx.ui.mobile.page.Manager",
      * Creates spaces for aligning master and detail container aside each other.
      */
     _createDetailContainerGap : function() {
-      qx.bom.element.Style.set(this.__detailContainer.getContainerElement(), this._getGapPropertyKey(), this.__masterContainer.getSize() / 16 + "rem");
+      qx.bom.element.Style.set(this.__detailContainer.getContainerElement(), this._getGapPropertyKey(), this.__masterContainer.size / 16 + "rem");
       qx.event.Registration.fireEvent(window, "resize");
     },
 

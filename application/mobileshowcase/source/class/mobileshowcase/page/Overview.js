@@ -48,8 +48,8 @@ qx.Class.define("mobileshowcase.page.Overview",
       var list = new qx.ui.mobile.list.List({
         configureItem : function(item, data, row)
         {
-          item.title = data.title;
-          item.subtitle = data.subtitle;
+          item.setTitle(data.title);
+          item.setSubtitle(data.subtitle);
           item.showArrow = true;
         }
       });
