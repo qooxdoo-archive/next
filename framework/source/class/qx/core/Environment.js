@@ -67,10 +67,6 @@
  *       <td>{@link qx.bom.client.Browser#getName}</td>
  *     </tr>
  *     <tr>
- *       <td>browser.quirksmode</td><td><i>Boolean</i></td><td><code>false</code></td>
- *       <td>{@link qx.bom.client.Browser#getQuirksMode}</td>
- *     </tr>
- *     <tr>
  *       <td>browser.version</td><td><i>String</i></td><td><code>11.0</code></td>
  *       <td>{@link qx.bom.client.Browser#getVersion}</td>
  *     </tr>
@@ -85,24 +81,12 @@
  *       <td colspan="4"><b>css</b></td>
  *     </tr>
  *     <tr>
- *       <td>css.borderradius</td><td><i>String</i> or <i>null</i></td><td><code>borderRadius</code></td>
- *       <td>{@link qx.bom.client.Css#getBorderRadius}</td>
- *     </tr>
- *     <tr>
  *       <td>css.borderimage</td><td><i>String</i> or <i>null</i></td><td><code>WebkitBorderImage</code></td>
  *       <td>{@link qx.bom.client.Css#getBorderImage}</td>
  *     </tr>
  *     <tr>
  *       <td>css.borderimage.standardsyntax</td><td><i>Boolean</i> or <i>null</i></td><td><code>true</code></td>
  *       <td>{@link qx.bom.client.Css#getBorderImageSyntax}</td>
- *     </tr>
- *     <tr>
- *       <td>css.boxmodel</td><td><i>String</i></td><td><code>content</code></td>
- *       <td>{@link qx.bom.client.Css#getBoxModel}</td>
- *     </tr>
- *     <tr>
- *       <td>css.boxshadow</td><td><i>String</i> or <i>null</i></td><td><code>boxShadow</code></td>
- *       <td>{@link qx.bom.client.Css#getBoxShadow}</td>
  *     </tr>
  *     <tr>
  *       <td>css.gradient.linear</td><td><i>String</i> or <i>null</i></td><td><code>-moz-linear-gradient</code></td>
@@ -123,10 +107,6 @@
  *     <tr>
  *       <td>css.placeholder</td><td><i>Boolean</i></td><td><code>true</code></td>
  *       <td>{@link qx.bom.client.Css#getPlaceholder}</td>
- *     </tr>
- *     <tr>
- *       <td>css.rgba</td><td><i>Boolean</i></td><td><code>true</code></td>
- *       <td>{@link qx.bom.client.Css#getRgba}</td>
  *     </tr>
  *     <tr>
  *       <td>css.usermodify</td><td><i>String</i> or <i>null</i></td><td><code>WebkitUserModify</code></td>
@@ -165,20 +145,12 @@
  *       <td>{@link qx.bom.client.CssTransition#getSupport}</td>
  *     </tr>
  *     <tr>
- *       <td>css.inlineblock</td><td><i>String</i> or <i>null</i></td><td><code>inline-block</code></td>
- *       <td>{@link qx.bom.client.Css#getInlineBlock}</td>
- *     </tr>
- *     <tr>
  *       <td>css.textShadow</td><td><i>Boolean</i></td><td><code>true</code></td>
  *       <td>{@link qx.bom.client.Css#getTextShadow}</td>
  *     </tr>
  *     <tr>
  *       <td>css.textShadow.filter</td><td><i>Boolean</i></td><td><code>true</code></td>
  *       <td>{@link qx.bom.client.Css#getFilterTextShadow}</td>
- *     </tr>
- *     <tr>
- *       <td>css.alphaimageloaderneeded</td><td><i>Boolean</i></td><td><code>false</code></td>
- *       <td>{@link qx.bom.client.Css#getAlphaImageLoaderNeeded}</td>
  *     </tr>
  *     <tr>
  *       <td>css.pointerevents</td><td><i>Boolean</i></td><td><code>true</code></td>
@@ -242,14 +214,6 @@
  *       <td>{@link qx.bom.client.Event#getHelp}</td>
  *     </tr>
  *     <tr>
- *       <td>event.hashchange</td><td><i>Boolean</i></td><td><code>true</code></td>
- *       <td>{@link qx.bom.client.Event#getHashChange}</td>
- *     </tr>
- *     <tr>
- *       <td>event.dispatchevent</td><td><i>Boolean</i></td><td><code>true</code></td>
- *       <td>{@link qx.bom.client.Event#getDispatchEvent}</td>
- *     </tr>
- *     <tr>
  *       <td>event.customevent</td><td><i>Boolean</i></td><td><code>true</code></td>
  *       <td>{@link qx.bom.client.Event#getCustomEvent}</td>
  *     </tr>
@@ -290,20 +254,12 @@
  *       <td>{@link qx.bom.client.Html#getAudioAif}</td>
  *     </tr>
  *     <tr>
- *       <td>html.canvas</td><td><i>Boolean</i></td><td><code>true</code></td>
- *       <td>{@link qx.bom.client.Html#getCanvas}</td>
- *     </tr>
- *     <tr>
  *       <td>html.classlist</td><td><i>Boolean</i></td><td><code>true</code></td>
  *       <td>{@link qx.bom.client.Html#getClassList}</td>
  *     </tr>
  *     <tr>
  *       <td>html.geolocation</td><td><i>Boolean</i></td><td><code>true</code></td>
  *       <td>{@link qx.bom.client.Html#getGeoLocation}</td>
- *     </tr>
- *     <tr>
- *       <td>html.svg</td><td><i>Boolean</i></td><td><code>true</code></td>
- *       <td>{@link qx.bom.client.Html#getSvg}</td>
  *     </tr>
  *     <tr>
  *       <td>html.video</td><td><i>Boolean</i></td><td><code>true</code></td>
@@ -337,55 +293,15 @@
  *       <td>{@link qx.bom.client.Html#getXPath}</td>
  *     </tr>
  *     <tr>
- *       <td>html.console</td><td><i>Boolean</i></td><td><code>true</code></td>
- *       <td>{@link qx.bom.client.Html#getConsole}</td>
- *     </tr>
- *     <tr>
- *       <td>html.element.contains</td><td><i>Boolean</i></td><td><code>true</code></td>
- *       <td>{@link qx.bom.client.Html#getContains}</td>
- *     </tr>
- *     <tr>
- *       <td>html.element.compareDocumentPosition</td><td><i>Boolean</i></td><td><code>true</code></td>
- *       <td>{@link qx.bom.client.Html#getCompareDocumentPosition}</td>
- *     </tr>
- *     <tr>
- *       <td>html.image.naturaldimensions</td><td><i>Boolean</i></td><td><code>true</code></td>
- *       <td>{@link qx.bom.client.Html#getNaturalDimensions}</td>
- *     </tr>
- *     <tr>
  *       <td>html.history.state</td><td><i>Boolean</i></td><td><code>true</code></td>
  *       <td>{@link qx.bom.client.Html#getHistoryState}</td>
- *     </tr>
- *     <tr>
- *       <td>html.node.isequalnode</td><td><i>Boolean</i></td><td><code>true</code></td>
- *       <td>{@link qx.bom.client.Html#getIsEqualNode}</td>
  *     </tr>
  *     <tr>
  *       <td colspan="4"><b>XML</b></td>
  *     </tr>
  *     <tr>
- *       <td>xml.implementation</td><td><i>Boolean</i></td><td><code>true</code></td>
- *       <td>{@link qx.bom.client.Xml#getImplementation}</td>
- *     </tr>
- *     <tr>
- *       <td>xml.domparser</td><td><i>Boolean</i></td><td><code>true</code></td>
- *       <td>{@link qx.bom.client.Xml#getDomParser}</td>
- *     </tr>
- *     <tr>
- *       <td>xml.selectsinglenode</td><td><i>Boolean</i></td><td><code>false</code></td>
- *       <td>{@link qx.bom.client.Xml#getSelectSingleNode}</td>
- *     </tr>
- *     <tr>
- *       <td>xml.selectnodes</td><td><i>Boolean</i></td><td><code>false</code></td>
- *       <td>{@link qx.bom.client.Xml#getSelectNodes}</td>
- *     </tr>
- *     <tr>
  *       <td>xml.getelementsbytagnamens</td><td><i>Boolean</i></td><td><code>true</code></td>
  *       <td>{@link qx.bom.client.Xml#getElementsByTagNameNS}</td>
- *     </tr>
- *     <tr>
- *       <td>xml.domproperties</td><td><i>Boolean</i></td><td><code>false</code></td>
- *       <td>{@link qx.bom.client.Xml#getDomProperties}</td>
  *     </tr>
  *     <tr>
  *       <td>xml.attributens</td><td><i>Boolean</i></td><td><code>true</code></td>
@@ -394,14 +310,6 @@
  *     <tr>
  *       <td>xml.createelementns</td><td><i>Boolean</i></td><td><code>true</code></td>
  *       <td>{@link qx.bom.client.Xml#getCreateElementNS}</td>
- *     </tr>
- *     <tr>
- *       <td>xml.createnode</td><td><i>Boolean</i></td><td><code>false</code></td>
- *       <td>{@link qx.bom.client.Xml#getCreateNode}</td>
- *     </tr>
- *     <tr>
- *       <td>xml.getqualifieditem</td><td><i>Boolean</i></td><td><code>false</code></td>
- *       <td>{@link qx.bom.client.Xml#getQualifiedItem}</td>
  *     </tr>
 
  *     <tr>
@@ -498,10 +406,6 @@
  *     <tr>
  *       <td>plugin.flash.version</td><td><i>String</i></td><td><code>10.2.154</code></td>
  *       <td>{@link qx.bom.client.Flash#getVersion}</td>
- *     </tr>
- *     <tr>
- *       <td>plugin.gears</td><td><i>Boolean</i></td><td><code>false</code></td>
- *       <td>{@link qx.bom.client.Plugin#getGears}</td>
  *     </tr>
  *     <tr>
  *       <td>plugin.activex</td><td><i>Boolean</i></td><td><code>false</code></td>
@@ -679,10 +583,6 @@
  *       </td>
  *     </tr>
  *     <tr>
- *       <td>html.dataurl</td><td><i>Boolean</i></td><td><code>true</code></td>
- *       <td>{@link qx.bom.client.Html#getDataUrl}</td>
- *     </tr>
- *     <tr>
  *       <td>plugin.pdfjs</td><td><i>Boolean</i></td><td><code>false</code></td>
  *       <td>{@link qx.bom.client.Pdfjs#getPdfjs}</td>
  *     </tr>
@@ -710,7 +610,6 @@ qx.Bootstrap.define("qx.core.Environment",
       "browser.name" : "qx.bom.client.Browser.getName",
       "browser.version" : "qx.bom.client.Browser.getVersion",
       "browser.documentmode" : "qx.bom.client.Browser.getDocumentMode",
-      "browser.quirksmode" : "qx.bom.client.Browser.getQuirksMode",
       "runtime.name" : "qx.bom.client.Runtime.getName",
       "device.name" : "qx.bom.client.Device.getName",
       "device.type" : "qx.bom.client.Device.getType",
@@ -721,7 +620,6 @@ qx.Bootstrap.define("qx.core.Environment",
       "os.name" : "qx.bom.client.OperatingSystem.getName",
       "os.version" : "qx.bom.client.OperatingSystem.getVersion",
       "os.scrollBarOverlayed" : "qx.bom.client.Scroll.scrollBarOverlayed",
-      "plugin.gears" : "qx.bom.client.Plugin.getGears",
       "plugin.activex" : "qx.bom.client.Plugin.getActiveX",
       "plugin.skype" : "qx.bom.client.Plugin.getSkype",
       "plugin.quicktime" : "qx.bom.client.Plugin.getQuicktime",
@@ -744,8 +642,6 @@ qx.Bootstrap.define("qx.core.Environment",
       "event.touch" : "qx.bom.client.Event.getTouch",
       "event.mspointer" : "qx.bom.client.Event.getMsPointer",
       "event.help" : "qx.bom.client.Event.getHelp",
-      "event.hashchange" : "qx.bom.client.Event.getHashChange",
-      "event.dispatchevent" : "qx.bom.client.Event.getDispatchEvent",
       "event.customevent" : "qx.bom.client.Event.getCustomEvent",
       "event.mouseevent" : "qx.bom.client.Event.getMouseEvent",
       "event.mousewheel" : "qx.bom.client.Event.getMouseWheel",
@@ -765,32 +661,20 @@ qx.Bootstrap.define("qx.core.Environment",
       "html.video.webm" : "qx.bom.client.Html.getVideoWebm",
       "html.classlist" : "qx.bom.client.Html.getClassList",
       "html.xpath" : "qx.bom.client.Html.getXPath",
-      "html.canvas" : "qx.bom.client.Html.getCanvas",
-      "html.svg" : "qx.bom.client.Html.getSvg",
       "html.vml" : "qx.bom.client.Html.getVml",
       "html.dataset" : "qx.bom.client.Html.getDataset",
-      "html.dataurl" : "qx.bom.client.Html.getDataUrl",
-      "html.console" : "qx.bom.client.Html.getConsole",
       "html.stylesheet.createstylesheet" : "qx.bom.client.Stylesheet.getCreateStyleSheet",
       "html.stylesheet.addimport" : "qx.bom.client.Stylesheet.getAddImport",
       "html.stylesheet.removeimport" : "qx.bom.client.Stylesheet.getRemoveImport",
-      "html.element.contains" : "qx.bom.client.Html.getContains",
-      "html.element.compareDocumentPosition" : "qx.bom.client.Html.getCompareDocumentPosition",
-      "html.image.naturaldimensions" : "qx.bom.client.Html.getNaturalDimensions",
       "html.history.state" : "qx.bom.client.Html.getHistoryState",
-      "html.node.isequalnode" : "qx.bom.client.Html.getIsEqualNode",
       "json" : "qx.bom.client.Json.getJson",
       "css.placeholder" : "qx.bom.client.Css.getPlaceholder",
-      "css.borderradius" : "qx.bom.client.Css.getBorderRadius",
       "css.borderimage" : "qx.bom.client.Css.getBorderImage",
       "css.borderimage.standardsyntax" : "qx.bom.client.Css.getBorderImageSyntax",
-      "css.boxshadow" : "qx.bom.client.Css.getBoxShadow",
       "css.gradient.linear" : "qx.bom.client.Css.getLinearGradient",
       "css.gradient.filter" : "qx.bom.client.Css.getFilterGradient",
       "css.gradient.radial" : "qx.bom.client.Css.getRadialGradient",
       "css.gradient.legacywebkit" : "qx.bom.client.Css.getLegacyWebkitGradient",
-      "css.boxmodel" : "qx.bom.client.Css.getBoxModel",
-      "css.rgba" : "qx.bom.client.Css.getRgba",
       "css.userselect" : "qx.bom.client.Css.getUserSelect",
       "css.userselect.none" : "qx.bom.client.Css.getUserSelectNone",
       "css.usermodify" : "qx.bom.client.Css.getUserModify",
@@ -800,22 +684,13 @@ qx.Bootstrap.define("qx.core.Environment",
       "css.transform" : "qx.bom.client.CssTransform.getSupport",
       "css.transform.3d" : "qx.bom.client.CssTransform.get3D",
       "css.transition" : "qx.bom.client.CssTransition.getSupport",
-      "css.inlineblock" : "qx.bom.client.Css.getInlineBlock",
       "css.textShadow" : "qx.bom.client.Css.getTextShadow",
       "css.textShadow.filter" : "qx.bom.client.Css.getFilterTextShadow",
-      "css.alphaimageloaderneeded" : "qx.bom.client.Css.getAlphaImageLoaderNeeded",
       "css.pointerevents" : "qx.bom.client.Css.getPointerEvents",
       "phonegap" : "qx.bom.client.PhoneGap.getPhoneGap",
       "phonegap.notification" : "qx.bom.client.PhoneGap.getNotification",
-      "xml.implementation" : "qx.bom.client.Xml.getImplementation",
-      "xml.domparser" : "qx.bom.client.Xml.getDomParser",
-      "xml.selectsinglenode" : "qx.bom.client.Xml.getSelectSingleNode",
-      "xml.selectnodes" : "qx.bom.client.Xml.getSelectNodes",
       "xml.getelementsbytagnamens" : "qx.bom.client.Xml.getElementsByTagNameNS",
-      "xml.domproperties" : "qx.bom.client.Xml.getDomProperties",
       "xml.attributens" : "qx.bom.client.Xml.getAttributeNS",
-      "xml.createnode" : "qx.bom.client.Xml.getCreateNode",
-      "xml.getqualifieditem" : "qx.bom.client.Xml.getQualifiedItem",
       "xml.createelementns" : "qx.bom.client.Xml.getCreateElementNS",
       "qx.mobile.nativescroll" : "qx.bom.client.Scroll.getNativeScroll"
     },

@@ -49,15 +49,11 @@ qx.Bootstrap.define("qx.log.appender.Native",
      *
      * @param entry {Map} The entry to process
      */
-    process : function(entry)
-    {
-      if (qx.core.Environment.get("html.console")) {
-        // Firefox 4's Web Console doesn't support "debug"
-        var level = console[entry.level] ? entry.level : "log";
-        if (console[level]) {
-          var args = qx.log.appender.Util.toText(entry);
-          console[level](args);
-        }
+    process : function(entry) {
+      var level = entry.level;
+      if (console[level]) {
+        var args = qx.log.appender.Util.toText(entry);
+        console[level](args);
       }
     }
   },

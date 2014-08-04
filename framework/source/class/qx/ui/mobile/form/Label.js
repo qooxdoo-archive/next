@@ -209,7 +209,7 @@ qx.Bootstrap.define("qx.ui.mobile.form.Label",
      * @param evt {qx.event.type.Pointer} The tap event.
      */
     _onTap: function(evt) {
-      if (this.__forWidget && qx.core.Environment.get("event.dispatchevent")) {
+      if (this.__forWidget) {
         var target = this.__forWidget.getContentElement();
         qx.event.Registration.fireEvent(
           target,

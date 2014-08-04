@@ -72,32 +72,6 @@ qx.Bootstrap.define("qx.bom.client.Event",
 
 
     /**
-     * Checks if the <code>hashchange</code> event is available
-     *
-     * @internal
-     * @return {Boolean} <code>true</code> if the "hashchange" event is supported.
-     */
-    getHashChange : function()
-    {
-      // avoid false positive in IE7
-      var engine = qx.bom.client.Engine.getName();
-      var hashchange = "onhashchange" in window;
-      return (engine !== "mshtml" && hashchange) ||
-      (engine === "mshtml" && "documentMode" in document &&
-       document.documentMode >= 8 && hashchange);
-    },
-
-
-    /**
-     * Checks if the DOM2 dispatchEvent method is available
-     * @return {Boolean} <code>true</code> if dispatchEvent is supported.
-     */
-    getDispatchEvent : function() {
-      return typeof document.dispatchEvent == "function";
-    },
-
-
-    /**
      * Checks if the CustomEvent constructor is available and supports
      * custom event types.
      *
@@ -171,11 +145,9 @@ qx.Bootstrap.define("qx.bom.client.Event",
   defer : function(statics) {
     qx.core.Environment.add("event.touch", statics.getTouch);
     qx.core.Environment.add("event.mouseevent", statics.getMouseEvent);
-    qx.core.Environment.add("event.dispatchevent", statics.getDispatchEvent);
     qx.core.Environment.add("event.customevent", statics.getCustomEvent);
     qx.core.Environment.add("event.mspointer", statics.getMsPointer);
     qx.core.Environment.add("event.help", statics.getHelp);
-    qx.core.Environment.add("event.hashchange", statics.getHashChange);
     qx.core.Environment.add("event.mousewheel", statics.getMouseWheel);
   }
 });

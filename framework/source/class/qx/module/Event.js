@@ -21,7 +21,6 @@
 /**
  * Support for native and custom events.
  *
- * @require(qx.module.Polyfill)
  * @require(qx.module.Environment)
  * @use(qx.module.event.PointerHandler)
  * @group (Core)

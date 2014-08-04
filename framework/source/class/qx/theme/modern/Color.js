@@ -206,7 +206,7 @@ qx.Theme.define("qx.theme.modern.Color",
 
     "tabview-background" : "#07125A",
 
-    "shadow" : qx.core.Environment.get("css.rgba") ? "rgba(0, 0, 0, 0.4)" : "#999999",
+    "shadow" : "rgba(0, 0, 0, 0.4)",
 
     "pane-start" : "#FBFBFB",
     "pane-end" : "#F0F0F0",

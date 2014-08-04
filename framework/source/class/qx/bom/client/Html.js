@@ -222,23 +222,6 @@ qx.Bootstrap.define("qx.bom.client.Html",
 
 
     /**
-     * Checks if SVG could be used
-     *
-     * @internal
-     * @return {Boolean} <code>true</code> if SVG is supported.
-     */
-    getSvg : function() {
-      return document.implementation && document.implementation.hasFeature &&
-        (document.implementation.hasFeature("org.w3c.dom.svg", "1.0") ||
-        document.implementation.hasFeature(
-          "http://www.w3.org/TR/SVG11/feature#BasicStructure",
-          "1.1"
-        )
-      );
-    },
-
-
-    /**
      * Checks if VML is supported
      *
      * @internal
@@ -256,35 +239,6 @@ qx.Bootstrap.define("qx.bom.client.Html",
 
 
     /**
-     * Checks if canvas could be used
-     *
-     * @internal
-     * @return {Boolean} <code>true</code> if canvas is supported.
-     */
-    getCanvas : function() {
-      return !!window.CanvasRenderingContext2D;
-    },
-
-
-    /**
-     * Asynchronous check for using data urls.
-     *
-     * @internal
-     * @param callback {Function} The function which should be executed as
-     *   soon as the check is done.
-     */
-    getDataUrl : function(callback) {
-      var data = new Image();
-      data.onload = data.onerror = function() {
-        // wrap that into a timeout because IE might execute it synchronously
-        window.setTimeout(function() {
-          callback.call(null, (data.width == 1 && data.height == 1));
-        }, 0);
-      };
-      data.src = "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///ywAAAAAAQABAAACAUwAOw==";
-    },
-
-    /**
      * Checks if dataset could be used
      *
      * @internal
@@ -292,58 +246,6 @@ qx.Bootstrap.define("qx.bom.client.Html",
      */
     getDataset : function() {
       return !!document.documentElement.dataset;
-    },
-
-
-    /**
-     * Check for element.contains
-     *
-     * @internal
-     * @return {Boolean} <code>true</code> if element.contains is supported
-     */
-    getContains : function()
-    {
-      // "object" in IE6/7/8, "function" in IE9
-      return (typeof document.documentElement.contains !== "undefined");
-    },
-
-
-    /**
-     * Check for element.compareDocumentPosition
-     *
-     * @internal
-     * @return {Boolean} <code>true</code> if element.compareDocumentPosition is supported
-     */
-    getCompareDocumentPosition : function()
-    {
-      return (typeof document.documentElement.compareDocumentPosition === "function");
-    },
-
-
-    /**
-     * Check for a console object.
-     *
-     * @internal
-     * @return {Boolean} <code>true</code> if a console is available.
-     */
-    getConsole : function()
-    {
-      return typeof window.console !== "undefined";
-    },
-
-
-    /**
-     * Check for the <code>naturalHeight</code> and <code>naturalWidth</code>
-     * image element attributes.
-     *
-     * @internal
-     * @return {Boolean} <code>true</code> if both attributes are supported
-     */
-    getNaturalDimensions : function()
-    {
-      var img = document.createElement("img");
-      return typeof img.naturalHeight === "number" &&
-        typeof img.naturalWidth === "number";
     },
 
 
@@ -358,16 +260,6 @@ qx.Bootstrap.define("qx.bom.client.Html",
       return (typeof window.onpopstate !== "undefined" &&
               typeof window.history.replaceState !== "undefined" &&
               typeof window.history.pushState !== "undefined");
-    },
-
-
-    /**
-     * Check for the isEqualNode DOM method.
-     *
-     * @return {Boolean} <code>true</code> if isEqualNode is supported by DOM nodes
-     */
-    getIsEqualNode : function() {
-      return typeof document.documentElement.isEqualNode === "function";
     }
   },
 
@@ -387,16 +279,8 @@ qx.Bootstrap.define("qx.bom.client.Html",
     qx.core.Environment.add("html.video.webm", statics.getVideoWebm);
     qx.core.Environment.add("html.classlist", statics.getClassList);
     qx.core.Environment.add("html.xpath", statics.getXPath);
-    qx.core.Environment.add("html.canvas", statics.getCanvas);
-    qx.core.Environment.add("html.svg", statics.getSvg);
     qx.core.Environment.add("html.vml", statics.getVml);
     qx.core.Environment.add("html.dataset", statics.getDataset);
-    qx.core.Environment.addAsync("html.dataurl", statics.getDataUrl);
-    qx.core.Environment.add("html.element.contains", statics.getContains);
-    qx.core.Environment.add("html.element.compareDocumentPosition", statics.getCompareDocumentPosition);
-    qx.core.Environment.add("html.console", statics.getConsole);
-    qx.core.Environment.add("html.image.naturaldimensions", statics.getNaturalDimensions);
     qx.core.Environment.add("html.history.state", statics.getHistoryState);
-    qx.core.Environment.add("html.node.isequalnode", statics.getIsEqualNode);
   }
 });

@@ -55,7 +55,7 @@ qx.Class.define("qx.test.bom.History", {
         }
 
         // browser with hashChange event
-        else if (qx.core.Environment.get("event.hashchange")) {
+        else {
           this.assertInstance(this.__history, qx.bom.NativeHistory);
         }
       }

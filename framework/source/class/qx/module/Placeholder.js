@@ -33,7 +33,6 @@
  * @require(qx.module.Attribute)
  * @require(qx.module.Event)
  * @require(qx.module.Environment)
- * @require(qx.module.Polyfill)
  * @require(qx.module.Traversing)
  */
 qx.Bootstrap.define("qx.module.Placeholder", {

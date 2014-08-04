@@ -74,7 +74,7 @@ qx.Theme.define("qx.theme.indigo.Color",
     "white-box-border" : "#dddddd",
 
     // shaddows
-    "shadow" : qx.core.Environment.get("css.rgba") ? "rgba(0, 0, 0, 0.4)" : "#666666",
+    "shadow" : "rgba(0, 0, 0, 0.4)",
 
     // borders
     "border-main" : "#dddddd",

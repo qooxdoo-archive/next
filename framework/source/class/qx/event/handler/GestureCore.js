@@ -60,12 +60,10 @@ qx.Bootstrap.define("qx.event.handler.GestureCore", {
 
   /**
    * @param target {Element} DOM Element that should fire gesture events
-   * @param emitter {qx.event.Emitter?} Event emitter (used if dispatchEvent
    * is not supported, e.g. in IE8)
    */
-  construct : function(target, emitter) {
+  construct : function(target) {
     this.__defaultTarget = target;
-    this.__emitter = emitter;
     this.__gesture = {};
     this.__lastTap = {};
     this.__stopMomentum = {};
@@ -74,7 +72,6 @@ qx.Bootstrap.define("qx.event.handler.GestureCore", {
 
   members : {
     __defaultTarget : null,
-    __emitter : null,
     __gesture : null,
     __eventName : null,
     __primaryTarget : null,
@@ -553,32 +550,16 @@ qx.Bootstrap.define("qx.event.handler.GestureCore", {
         return;
       }
       var evt;
-      if (qx.core.Environment.get("event.dispatchevent")) {
-        evt = new qx.event.type.dom.Custom(type, domEvent, {
-          bubbles: true,
-          swipe: domEvent.swipe,
-          scale: domEvent.scale,
-          angle: domEvent.angle,
-          delta: domEvent.delta,
-          pointerType: domEvent.pointerType,
-          momentum : domEvent.momentum
-        });
-        target.dispatchEvent(evt);
-      } else if (this.__emitter) {
-        evt = new qx.event.type.dom.Custom(type, domEvent, {
-          target : this.__defaultTarget,
-          currentTarget : this.__defaultTarget,
-          srcElement : this.__defaultTarget,
-          swipe: domEvent.swipe,
-          scale: domEvent.scale,
-          angle: domEvent.angle,
-          delta: domEvent.delta,
-          pointerType: domEvent.pointerType,
-          momentum : domEvent.momentum
-        });
-
-        this.__emitter.emit(type, domEvent);
-      }
+      evt = new qx.event.type.dom.Custom(type, domEvent, {
+        bubbles: true,
+        swipe: domEvent.swipe,
+        scale: domEvent.scale,
+        angle: domEvent.angle,
+        delta: domEvent.delta,
+        pointerType: domEvent.pointerType,
+        momentum : domEvent.momentum
+      });
+      target.dispatchEvent(evt);
     },
 
 
@@ -753,7 +734,7 @@ qx.Bootstrap.define("qx.event.handler.GestureCore", {
       }
 
       this._stopObserver();
-      this.__defaultTarget = this.__emitter = null;
+      this.__defaultTarget = null;
     }
   }
 });

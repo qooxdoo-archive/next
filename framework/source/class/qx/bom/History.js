@@ -145,12 +145,6 @@ qx.Class.define("qx.bom.History",
   statics :
   {
     /**
-     * @type {Boolean} Whether the browser supports the 'hashchange' event natively.
-     */
-    SUPPORTS_HASH_CHANGE_EVENT : qx.core.Environment.get("event.hashchange"),
-
-
-    /**
      * Get the singleton instance of the history manager.
      *
      * @return {History}
@@ -166,11 +160,6 @@ qx.Class.define("qx.bom.History",
           && qx.core.Environment.get("browser.documentmode") == 9
         ) {
           this.$$instance = new qx.bom.HashHistory();
-        }
-
-        // browser with hashChange event
-        else if (this.SUPPORTS_HASH_CHANGE_EVENT) {
-          this.$$instance = new qx.bom.NativeHistory();
         }
 
         // fallback

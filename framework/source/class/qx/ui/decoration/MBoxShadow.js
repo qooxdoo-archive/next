@@ -98,9 +98,7 @@ qx.Mixin.define("qx.ui.decoration.MBoxShadow",
      * @param styles {Map} A map to add the styles.
      */
     _styleBoxShadow : function(styles) {
-      var propName = qx.core.Environment.get("css.boxshadow");
-      if (!propName ||
-          this.getShadowVerticalLength() == null &&
+      if (this.getShadowVerticalLength() == null &&
           this.getShadowHorizontalLength() == null)
       {
         return;

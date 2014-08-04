@@ -46,14 +46,7 @@ qx.Bootstrap.define("qx.module.event.GestureHandler", {
       }
 
       if (!element.$$gestureHandler) {
-
-        if (!qx.core.Environment.get("event.dispatchevent")) {
-          if (!element.$$emitter) {
-            element.$$emitter = new qx.event.Emitter();
-          }
-        }
-
-        element.$$gestureHandler = new qx.event.handler.GestureCore(element, element.$$emitter);
+        element.$$gestureHandler = new qx.event.handler.GestureCore(element);
       }
 
       element.__gestureListeners++;

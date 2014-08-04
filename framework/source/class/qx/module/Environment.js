@@ -28,7 +28,6 @@
  *
  * * <code>browser.name</code> : The name of the browser
  * * <code>browser.version</code> : The version of the browser
- * * <code>browser.quirksmode</code>  : <code>true</code> if the browser is in quirksmode
  * * <code>browser.documentmode</code> : The document mode of the browser
  *
  * * <code>device.name</code> : The name of the device e.g. <code>iPad</code>.
@@ -75,7 +74,6 @@ qx.Bootstrap.define("qx.module.Environment", {
     // make sure the desired keys are available (browser.* and engine.*)
     qx.core.Environment.get("browser.name");
     qx.core.Environment.get("browser.version");
-    qx.core.Environment.get("browser.quirksmode");
     qx.core.Environment.get("browser.documentmode");
 
     qx.core.Environment.get("engine.name");

@@ -105,15 +105,6 @@ qx.Class.define("qx.bom.element.Decoration",
 
       // Apply new styles
       qx.bom.element.Style.setStyles(element, ret.style);
-
-      // we need to apply the filter to prevent black rendering artifacts
-      // http://blog.hackedbrain.com/archive/2007/05/21/6110.aspx
-      if (qx.core.Environment.get("css.alphaimageloaderneeded"))
-      {
-        try {
-          element.filters["DXImageTransform.Microsoft.AlphaImageLoader"].apply();
-        } catch(e) {}
-      }
     },
 
 
@@ -154,12 +145,6 @@ qx.Class.define("qx.bom.element.Decoration",
      */
     getTagName : function(repeat, source)
     {
-      if (source && qx.core.Environment.get("css.alphaimageloaderneeded") &&
-          this.__alphaFixRepeats[repeat] && qx.lang.String.endsWith(source, ".png"))
-      {
-        return "div";
-      }
-
       return this.__repeatToTagname[repeat];
     },
 
@@ -207,25 +192,14 @@ qx.Class.define("qx.bom.element.Decoration",
 
       var result;
 
-      // Enable AlphaImageLoader in IE6/IE7/IE8
-      if (qx.core.Environment.get("css.alphaimageloaderneeded") &&
-          this.__alphaFixRepeats[repeat] && format === "png")
-      {
-        var dimension = this.__getDimension(source);
-        this.__normalizeWidthHeight(style, dimension.width, dimension.height);
-        result = this.processAlphaFix(style, repeat, source);
-      }
-      else
-      {
-        delete style.clip;
-        if (repeat === "scale") {
-          result = this.__processScale(style, repeat, source);
-        } else  if (repeat === "scale-x" || repeat === "scale-y") {
-          result = this.__processScaleXScaleY(style, repeat, source);
-        } else {
-          // Native repeats or "no-repeat"
-          result = this.__processRepeats(style, repeat, source);
-        }
+      delete style.clip;
+      if (repeat === "scale") {
+        result = this.__processScale(style, repeat, source);
+      } else  if (repeat === "scale-x" || repeat === "scale-y") {
+        result = this.__processScaleXScaleY(style, repeat, source);
+      } else {
+        // Native repeats or "no-repeat"
+        result = this.__processRepeats(style, repeat, source);
       }
 
       return result;

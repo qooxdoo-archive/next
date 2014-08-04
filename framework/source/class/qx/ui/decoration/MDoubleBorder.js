@@ -159,8 +159,6 @@ qx.Mixin.define("qx.ui.decoration.MDoubleBorder",
      */
     __styleDoubleBorder : function(styles)
     {
-      var propName = qx.core.Environment.get("css.boxshadow");
-
       var color,
           innerColor,
           innerWidth;
@@ -262,11 +260,8 @@ qx.Mixin.define("qx.ui.decoration.MDoubleBorder",
         styles[":before"]["boxSizing"] = "border-box";
 
         // make sure to apply the border radius as well
-        var borderRadiusKey = qx.core.Environment.get("css.borderradius");
-        if (borderRadiusKey) {
-          borderRadiusKey = qx.bom.Style.getCssName(borderRadiusKey);
-          styles[":before"][borderRadiusKey] = "inherit";
-        }
+        var borderRadiusKey = qx.bom.Style.getCssName("borderRadius");
+        styles[":before"][borderRadiusKey] = "inherit";
 
         // Add inner borders as shadows
         var shadowStyle = [];
@@ -297,12 +292,12 @@ qx.Mixin.define("qx.ui.decoration.MDoubleBorder",
         }
 
         // apply or append the box shadow styles
-        if (shadowStyle.length > 0 && propName) {
-          propName = qx.bom.Style.getCssName(propName);
-          if (!styles[propName]) {
-            styles[propName] = shadowStyle.join(",");
+        if (shadowStyle.length > 0) {
+          propName = qx.bom.Style.getCssName("boxShadow");
+          if (!styles["boxShadow"]) {
+            styles["boxShadow"] = shadowStyle.join(",");
           } else {
-            styles[propName] += "," + shadowStyle.join(",");
+            styles["boxShadow"] += "," + shadowStyle.join(",");
           }
         }
       } else {
@@ -321,13 +316,6 @@ qx.Mixin.define("qx.ui.decoration.MDoubleBorder",
      */
     __processInnerOpacity : function(innerColor, innerOpacity)
     {
-      if (!qx.core.Environment.get("css.rgba")) {
-          if (qx.core.Environment.get("qx.debug")) {
-          qx.log.Logger.warn("innerOpacity is configured but the browser doesn't support RGBA colors.");
-        }
-        return;
-      }
-
       for (var edge in innerColor) {
         var rgb = qx.util.ColorUtil.stringToRgb(innerColor[edge]);
         rgb.push(innerOpacity);

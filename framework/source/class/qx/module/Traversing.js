@@ -768,60 +768,7 @@ qx.Bootstrap.define("qx.module.Traversing", {
         return false;
       }
 
-      if (qx.core.Environment.get("html.node.isequalnode")) {
-        return node1.isEqualNode(node2);
-      } else {
-        if (node1 === node2) {
-          return true;
-        }
-
-        // quick attributes length check
-        var hasAttributes = node1.attributes && node2.attributes;
-        if (hasAttributes &&
-            node1.attributes.length !== node2.attributes.length) {
-          return false;
-        }
-
-        var hasChildNodes = node1.childNodes && node2.childNodes;
-        // quick childNodes length check
-        if (hasChildNodes &&
-            node1.childNodes.length !== node2.childNodes.length) {
-          return false;
-        }
-
-        // string attribute check
-        var domAttributes = qx.module.Traversing.EQUALITY_ATTRIBUTES;
-        for (var i=0, l=domAttributes.length; i<l; i++) {
-          var domAttrib = domAttributes[i];
-          if (node1[domAttrib] !== node2[domAttrib]) {
-            return false;
-          }
-        }
-
-        // attribute values
-        if (hasAttributes) {
-          var node1Attributes = qx.module.Traversing.__getAttributes(node1);
-          var node2Attributes = qx.module.Traversing.__getAttributes(node2);
-          for (var attr in node1Attributes) {
-            if (node1Attributes[attr] !== node2Attributes[attr]) {
-              return false;
-            }
-          }
-        }
-
-        // child nodes
-        if (hasChildNodes) {
-          for (var j=0, m=node1.childNodes.length; j<m; j++) {
-            var child1 = node1.childNodes[j];
-            var child2 = node2.childNodes[j];
-            if (!qx.module.Traversing.equalNodes(child1, child2)) {
-              return false;
-            }
-          }
-        }
-
-        return true;
-      }
+      return node1.isEqualNode(node2);
     },
 
 

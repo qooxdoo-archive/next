@@ -465,16 +465,7 @@ qx.Class.define("qx.ui.progressive.renderer.table.Row",
           }
         }
 
-        // Make our width calculations box-model independent
-        var inset;
-        if (qx.core.Environment.get("css.boxmodel") == "content")
-        {
-          inset = qx.ui.progressive.renderer.table.Row.__padding * 2;
-        }
-        else
-        {
-          inset = -1;
-        }
+        var inset = qx.ui.progressive.renderer.table.Row.__padding * 2;
 
         // Create the new rule, based on calculated widths
         var widthRule = (width - inset) + "px;";

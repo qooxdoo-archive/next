@@ -201,23 +201,6 @@ qx.Bootstrap.define("qx.bom.client.Browser",
 
 
     /**
-     * Check if in quirks mode.
-     *
-     * @internal
-     * @return {Boolean} <code>true</code>, if the environment is in quirks mode
-     */
-    getQuirksMode : function() {
-      if(qx.bom.client.Engine.getName() == "mshtml" &&
-        parseFloat(qx.bom.client.Engine.getVersion()) >= 8)
-      {
-        return qx.bom.client.Engine.DOCUMENT_MODE === 5;
-      } else {
-        return document.compatMode !== "CSS1Compat";
-      }
-    },
-
-
-    /**
      * Internal helper map for picking the right browser names to check.
      */
     __agents : {
@@ -245,6 +228,5 @@ qx.Bootstrap.define("qx.bom.client.Browser",
     qx.core.Environment.add("browser.name", statics.getName);
     qx.core.Environment.add("browser.version", statics.getVersion);
     qx.core.Environment.add("browser.documentmode", statics.getDocumentMode);
-    qx.core.Environment.add("browser.quirksmode", statics.getQuirksMode);
   }
 });

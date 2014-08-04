@@ -337,8 +337,7 @@ qx.Bootstrap.define("qx.io.ImageLoader",
      */
     __getWidth : function(element)
     {
-      return qx.core.Environment.get("html.image.naturaldimensions") ?
-        element.naturalWidth : element.width;
+      return element.naturalWidth === undefined ? element.width : element.naturalWidth;
     },
 
 
@@ -350,8 +349,7 @@ qx.Bootstrap.define("qx.io.ImageLoader",
      */
     __getHeight : function(element)
     {
-      return qx.core.Environment.get("html.image.naturaldimensions") ?
-        element.naturalHeight : element.height;
+      return element.naturalHeight === undefined ? element.height : element.naturalHeight;
     },
 
     /**

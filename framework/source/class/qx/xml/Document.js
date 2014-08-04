@@ -103,11 +103,7 @@ qx.Bootstrap.define("qx.xml.Document",
         return obj;
       }
 
-      if (qx.core.Environment.get("xml.implementation")) {
-        return document.implementation.createDocument(namespaceUri || "", qualifiedName || "", null);
-      }
-
-      throw new Error("No XML implementation available!");
+      return document.implementation.createDocument(namespaceUri || "", qualifiedName || "", null);
     },
 
 
@@ -127,12 +123,8 @@ qx.Bootstrap.define("qx.xml.Document",
         return dom;
       }
 
-      if (qx.core.Environment.get("xml.domparser")) {
-        var parser = new DOMParser();
-        return parser.parseFromString(str, "text/xml");
-      }
-
-      throw new Error("No XML implementation available!");
+      var parser = new DOMParser();
+      return parser.parseFromString(str, "text/xml");
     }
   },
 

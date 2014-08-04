@@ -159,7 +159,7 @@ qx.Mixin.define("qx.ui.decoration.MLinearBackgroundGradient",
 
       // IE9 canvas solution
       } else if (qx.core.Environment.get("css.gradient.filter") &&
-        !qx.core.Environment.get("css.gradient.linear") && qx.core.Environment.get("css.borderradius")) {
+        !qx.core.Environment.get("css.gradient.linear")) {
 
           if (!this.__canvas) {
             this.__canvas = document.createElement("canvas");

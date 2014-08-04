@@ -293,18 +293,8 @@ qx.Class.define("qx.test.bom.Location",
       var div = document.getElementById("div");
       var pos = qx.bom.element.Location.get(div);
 
-      // IE quirks mode puts the border outside of the body
-      if (qx.core.Environment.get("engine.name") == "mshtml" &&
-        qx.core.Environment.get("browser.quirksmode"))
-      {
-        this.assertEquals(0, pos.left);
-        this.assertEquals(0, pos.top);
-      }
-      else
-      {
-        this.assertEquals(10, pos.left);
-        this.assertEquals(10, pos.top);
-      }
+      this.assertEquals(10, pos.left);
+      this.assertEquals(10, pos.top);
     },
 
 

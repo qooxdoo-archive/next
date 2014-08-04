@@ -101,28 +101,24 @@ qx.Class.define("qx.xml.Element",
         }
       }
 
-      if (qx.core.Environment.get("xml.selectsinglenode")) {
-        if (namespaces) {
-          var namespaceString = "";
-          for (var prefix in namespaces) {
-            namespaceString += "xmlns:" + prefix + "='" + namespaces[prefix] + "' ";
-          }
-
-          // If the element is a node, set the selection namespace on its parent document.
-          if (element.ownerDocument) {
-            element.ownerDocument.setProperty("SelectionNamespaces", namespaceString);
-          }
-          // element is a document
-          else {
-            element.setProperty("SelectionNamespaces", namespaceString);
-          }
-
+      if (namespaces) {
+        var namespaceString = "";
+        for (var prefix in namespaces) {
+          namespaceString += "xmlns:" + prefix + "='" + namespaces[prefix] + "' ";
         }
 
-        return element.selectSingleNode(query);
+        // If the element is a node, set the selection namespace on its parent document.
+        if (element.ownerDocument) {
+          element.ownerDocument.setProperty("SelectionNamespaces", namespaceString);
+        }
+        // element is a document
+        else {
+          element.setProperty("SelectionNamespaces", namespaceString);
+        }
+
       }
 
-      throw new Error("No XPath implementation available!");
+      return element.selectSingleNode(query);
     },
 
 
@@ -168,28 +164,25 @@ qx.Class.define("qx.xml.Element",
         return nodes;
       }
 
-      if (qx.core.Environment.get("xml.selectnodes")) {
-        if (namespaces) {
-          var namespaceString = "";
-          for (var prefix in namespaces) {
-            namespaceString += "xmlns:" + prefix + "='" + namespaces[prefix] + "' ";
-          }
 
-          // If the element is a node, set the selection namespace on its parent document.
-          if (element.ownerDocument) {
-            element.ownerDocument.setProperty("SelectionNamespaces", namespaceString);
-          }
-          // element is a document
-          else {
-            element.setProperty("SelectionNamespaces", namespaceString);
-          }
-
+      if (namespaces) {
+        var namespaceString = "";
+        for (var prefix in namespaces) {
+          namespaceString += "xmlns:" + prefix + "='" + namespaces[prefix] + "' ";
         }
 
-        return element.selectNodes(query);
+        // If the element is a node, set the selection namespace on its parent document.
+        if (element.ownerDocument) {
+          element.ownerDocument.setProperty("SelectionNamespaces", namespaceString);
+        }
+        // element is a document
+        else {
+          element.setProperty("SelectionNamespaces", namespaceString);
+        }
+
       }
 
-      throw new Error("No XPath implementation available!");
+      return element.selectNodes(query);
     },
 
 
@@ -213,16 +206,12 @@ qx.Class.define("qx.xml.Element",
         return element.getElementsByTagNameNS(namespaceURI, tagname);
       }
 
-      if (qx.core.Environment.get("xml.domproperties")) {
-        var doc = element.ownerDocument || element;
+      var doc = element.ownerDocument || element;
 
-        doc.setProperty("SelectionLanguage", "XPath");
-        doc.setProperty("SelectionNamespaces", "xmlns:ns='" + namespaceURI + "'");
+      doc.setProperty("SelectionLanguage", "XPath");
+      doc.setProperty("SelectionNamespaces", "xmlns:ns='" + namespaceURI + "'");
 
-        return qx.xml.Element.selectNodes(element, 'descendant-or-self::ns:' + tagname);
-      }
-
-      throw new Error("The client does not support this operation!");
+      return qx.xml.Element.selectNodes(element, 'descendant-or-self::ns:' + tagname);
     },
 
 
@@ -254,16 +243,10 @@ qx.Class.define("qx.xml.Element",
     {
       if (qx.core.Environment.get("xml.attributens")) {
         element.setAttributeNS(namespaceUri, name, value);
-      }
-
-      else if (qx.core.Environment.get("xml.createnode")) {
+      } else {
         var attr = document.createNode(2, name, namespaceUri);
         attr.nodeValue = value;
         element.setAttributeNode(attr);
-      }
-
-      else {
-        throw new Error("The client does not support this operation!");
       }
     },
 
@@ -282,21 +265,17 @@ qx.Class.define("qx.xml.Element",
         return value === null ? '' : value;
       }
 
-      if (qx.core.Environment.get("xml.getqualifieditem")) {
-        var attributes = element.attributes;
-        var value = null;
-        if(attributes)
+      var attributes = element.attributes;
+      var value = null;
+      if (attributes)
+      {
+        var attribute = attributes.getQualifiedItem(name,namespaceUri);
+        if(attribute)
         {
-          var attribute = attributes.getQualifiedItem(name,namespaceUri);
-          if(attribute)
-          {
-            value = attribute.nodeValue;
-          }
+          value = attribute.nodeValue;
         }
-        return value === null ? '' : value;
       }
-
-      throw new Error("The client does not support this operation!");
+      return value === null ? '' : value;
     },
 
 
@@ -323,13 +302,9 @@ qx.Class.define("qx.xml.Element",
         return node;
       }
 
-      if (qx.core.Environment.get("xml.createnode")) {
-        var node = document.createNode(1, name, namespaceUri);
-        parent.appendChild(node);
-        return node;
-      }
-
-      throw new Error("The client does not support this operation!");
+      var node = document.createNode(1, name, namespaceUri);
+      parent.appendChild(node);
+      return node;
     }
   },
 

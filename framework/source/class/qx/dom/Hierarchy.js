@@ -153,36 +153,18 @@ qx.Bootstrap.define("qx.dom.Hierarchy",
      */
     contains : function(element, target)
     {
-      if (qx.core.Environment.get("html.element.contains")) {
-        if (qx.dom.Node.isDocument(element))
-        {
-          var doc = qx.dom.Node.getDocument(target);
-          return element && doc == element;
-        }
-        else if (qx.dom.Node.isDocument(target))
-        {
-          return false;
-        }
-        else
-        {
-          return element.contains(target);
-        }
+      if (qx.dom.Node.isDocument(element))
+      {
+        var doc = qx.dom.Node.getDocument(target);
+        return element && doc == element;
       }
-      else if (qx.core.Environment.get("html.element.compareDocumentPosition")) {
-        // https://developer.mozilla.org/en-US/docs/DOM:Node.compareDocumentPosition
-        return !!(element.compareDocumentPosition(target) & 16);
-      }
-      else {
-        while(target)
-        {
-          if (element == target) {
-            return true;
-          }
-
-          target = target.parentNode;
-        }
-
+      else if (qx.dom.Node.isDocument(target))
+      {
         return false;
+      }
+      else
+      {
+        return element.contains(target);
       }
     },
 
@@ -198,30 +180,12 @@ qx.Bootstrap.define("qx.dom.Hierarchy",
     {
       var doc = element.ownerDocument || element.document;
 
-      if (qx.core.Environment.get("html.element.contains")) {
-        // Fast check for all elements which are not in the DOM
-        if (!element.parentNode) {
-          return false;
-        }
-
-        return doc.body.contains(element);
-      }
-      else if (qx.core.Environment.get("html.element.compareDocumentPosition")) {
-        // Gecko way, DOM3 method
-        return !!(doc.compareDocumentPosition(element) & 16);
-      }
-      else {
-        while(element)
-        {
-          if (element == doc.body) {
-            return true;
-          }
-
-          element = element.parentNode;
-        }
-
+      // Fast check for all elements which are not in the DOM
+      if (!element.parentNode) {
         return false;
       }
+
+      return doc.body.contains(element);
     },
 
 
@@ -253,46 +217,16 @@ qx.Bootstrap.define("qx.dom.Hierarchy",
         return element1;
       }
 
-      if (qx.core.Environment.get("html.element.contains")) {
-        while (element1 && qx.dom.Node.isElement(element1))
-        {
-          if (element1.contains(element2)) {
-            return element1;
-          }
-
-          element1 = element1.parentNode;
+      while (element1 && qx.dom.Node.isElement(element1))
+      {
+        if (element1.contains(element2)) {
+          return element1;
         }
 
-        return null;
+        element1 = element1.parentNode;
       }
-      else {
-        var known = [];
 
-        while (element1 || element2)
-        {
-          if (element1)
-          {
-            if (qx.lang.Array.contains(known, element1)) {
-              return element1;
-            }
-
-            known.push(element1);
-            element1 = element1.parentNode;
-          }
-
-          if (element2)
-          {
-            if (qx.lang.Array.contains(known, element2)) {
-              return element2;
-            }
-
-            known.push(element2);
-            element2 = element2.parentNode;
-          }
-        }
-
-        return null;
-      }
+      return null;
     },
 
 

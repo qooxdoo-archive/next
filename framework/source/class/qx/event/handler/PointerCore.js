@@ -406,30 +406,11 @@ qx.Bootstrap.define("qx.event.handler.PointerCore", {
         gestureEvent.srcElement = target;
       }
 
-      if (qx.core.Environment.get("event.dispatchevent")) {
-        if (!this.__nativePointerEvents) {
-          target.dispatchEvent(domEvent);
-        }
-        if (gestureEvent) {
-          target.dispatchEvent(gestureEvent);
-        }
-      } else {
-        // ensure compatibility with native events for IE8
-        domEvent.srcElement = target;
-
-        while (target) {
-          if (target.$$emitter) {
-            domEvent.currentTarget = target;
-            if (!domEvent._stopped) {
-              target.$$emitter.emit(type, domEvent);
-            }
-            if (gestureEvent && !gestureEvent._stopped) {
-              gestureEvent.currentTarget = target;
-              target.$$emitter.emit(gestureEvent.type, gestureEvent);
-            }
-          }
-          target = target.parentNode;
-        }
+      if (!this.__nativePointerEvents) {
+        target.dispatchEvent(domEvent);
+      }
+      if (gestureEvent) {
+        target.dispatchEvent(gestureEvent);
       }
     },
 

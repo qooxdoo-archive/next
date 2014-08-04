@@ -46,29 +46,17 @@ qx.Class.define("qx.bom.NativeHistory",
      */
     __attachListeners : function()
     {
-      if (qx.bom.History.SUPPORTS_HASH_CHANGE_EVENT)
-      {
-        var boundFunc = qx.lang.Function.bind(this.__onHashChange, this);
-        this.__checkOnHashChange = qx.event.GlobalError.observeMethod(boundFunc);
-        qx.bom.Event.addNativeListener(window, "hashchange", this.__checkOnHashChange);
-      }
-      else
-      {
-        qx.event.Idle.getInstance().addListener("interval", this.__onHashChange, this);
-      }
+      var boundFunc = qx.lang.Function.bind(this.__onHashChange, this);
+      this.__checkOnHashChange = qx.event.GlobalError.observeMethod(boundFunc);
+      qx.bom.Event.addNativeListener(window, "hashchange", this.__checkOnHashChange);
     },
 
 
     /**
      * Remove hash change listeners
      */
-    __detatchListeners : function()
-    {
-      if (qx.bom.History.SUPPORTS_HASH_CHANGE_EVENT) {
-        qx.bom.Event.removeNativeListener(window, "hashchange", this.__checkOnHashChange);
-      } else {
-        qx.event.Idle.getInstance().removeListener("interval", this.__onHashChange, this);
-      }
+    __detatchListeners : function() {
+      qx.bom.Event.removeNativeListener(window, "hashchange", this.__checkOnHashChange);
     },
 
 
