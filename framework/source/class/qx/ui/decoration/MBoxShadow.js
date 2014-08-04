@@ -124,7 +124,7 @@ qx.Mixin.define("qx.ui.decoration.MBoxShadow",
         var value = inset + hLength + "px " + vLength + "px " + blur + "px " + spread + "px " + color;
 
         // apply or append the box shadow styles
-        propName = qx.bom.Style.getCssName(propName);
+        var propName = qx.bom.Style.getCssName(propName);
         if (!styles[propName]) {
           styles[propName] = value;
         } else {

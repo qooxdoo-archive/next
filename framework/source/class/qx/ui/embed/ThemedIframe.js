@@ -303,13 +303,8 @@ qx.Class.define("qx.ui.embed.ThemedIframe",
     {
       try
       {
-        var win = this._getIframeElement().getWindow();
         var doc = this._getIframeElement().getDocument();
-        if (qx.bom.Document.isStandardMode(win)) {
-          doc.documentElement.style.overflow = "hidden";
-        } else {
-          doc.body.style.overflow = "hidden";
-        }
+        doc.documentElement.style.overflow = "hidden";
       } catch (e) {
         this._disableScollbars();
       }

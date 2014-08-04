@@ -97,7 +97,7 @@ qx.Bootstrap.define("qx.bom.Viewport",
     {
       var win = win || window;
       var doc = win.document;
-      return qx.bom.Document.isStandardMode(win) ? doc.documentElement.clientWidth : doc.body.clientWidth;
+      return doc.documentElement.clientWidth;
     },
 
 
@@ -118,7 +118,7 @@ qx.Bootstrap.define("qx.bom.Viewport",
         return window.innerHeight;
       }
 
-      return qx.bom.Document.isStandardMode(win) ? doc.documentElement.clientHeight : doc.body.clientHeight;
+      return doc.documentElement.clientHeight;
     },
 
 

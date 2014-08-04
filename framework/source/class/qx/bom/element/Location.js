@@ -37,12 +37,7 @@
 
 /**
  * Query the location of an arbitrary DOM element in relation to its top
- * level body element. Works in all major browsers:
- *
- * * Mozilla 1.5 + 2.0
- * * Internet Explorer 6.0 + 7.0 (both standard & quirks mode)
- * * Opera 9.2
- * * Safari 3.0 beta
+ * level body element.
  */
 qx.Bootstrap.define("qx.bom.element.Location",
 {

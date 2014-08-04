@@ -24,7 +24,6 @@
  * @asset(testrunner/view/html/*)
  * @asset(indigo/css/*)
  * @require(q)
- * @require(qx.module.Polyfill)
  * @require(qx.module.Traversing)
  * @require(qx.module.Manipulating)
  * @require(qx.module.Attribute)

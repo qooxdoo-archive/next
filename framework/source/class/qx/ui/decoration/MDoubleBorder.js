@@ -293,11 +293,11 @@ qx.Mixin.define("qx.ui.decoration.MDoubleBorder",
 
         // apply or append the box shadow styles
         if (shadowStyle.length > 0) {
-          propName = qx.bom.Style.getCssName("boxShadow");
-          if (!styles["boxShadow"]) {
-            styles["boxShadow"] = shadowStyle.join(",");
+          var propName = qx.bom.Style.getCssName("boxShadow");
+          if (!styles[propName]) {
+            styles[propName] = shadowStyle.join(",");
           } else {
-            styles["boxShadow"] += "," + shadowStyle.join(",");
+            styles[propName] += "," + shadowStyle.join(",");
           }
         }
       } else {
