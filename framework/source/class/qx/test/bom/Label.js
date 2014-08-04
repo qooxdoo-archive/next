@@ -59,8 +59,7 @@ qx.Class.define("qx.test.bom.Label",
 
     testMeasureSizeTextNormal : function()
     {
-      if (!qx.core.Environment.get("css.textoverflow") &&
-          qx.core.Environment.get("html.xul") &&
+      if (qx.core.Environment.get("html.xul") &&
           qx.core.Environment.get("os.name") == "win")
       {
         var text = "vanillebaer";
@@ -98,8 +97,7 @@ qx.Class.define("qx.test.bom.Label",
 
     testMeasureSizeTextBold : function()
     {
-      if (!qx.core.Environment.get("css.textoverflow") &&
-          qx.core.Environment.get("html.xul") &&
+      if (qx.core.Environment.get("html.xul") &&
           qx.core.Environment.get("os.name") == "win")
       {
         var text = "vanillebaer";
@@ -118,8 +116,7 @@ qx.Class.define("qx.test.bom.Label",
 
     testMeasureSizeTextItalic : function()
     {
-      if (!qx.core.Environment.get("css.textoverflow") &&
-          qx.core.Environment.get("html.xul") &&
+      if (qx.core.Environment.get("html.xul") &&
           qx.core.Environment.get("os.name") == "win")
       {
         var text = "vanillebaer";
@@ -138,8 +135,7 @@ qx.Class.define("qx.test.bom.Label",
 
     testMeasureSizeTextBoldItalic : function()
     {
-      if (!qx.core.Environment.get("css.textoverflow") &&
-          qx.core.Environment.get("html.xul") &&
+      if (qx.core.Environment.get("html.xul") &&
           qx.core.Environment.get("os.name") == "win")
       {
         var text = "vanillebaer";
@@ -158,8 +154,7 @@ qx.Class.define("qx.test.bom.Label",
 
     testMeasureSizeTextFontSize : function()
     {
-      if (!qx.core.Environment.get("css.textoverflow") &&
-          qx.core.Environment.get("html.xul") &&
+      if (qx.core.Environment.get("html.xul") &&
           qx.core.Environment.get("os.name") == "win")
       {
         var text = "vanillebaer";
@@ -178,8 +173,7 @@ qx.Class.define("qx.test.bom.Label",
 
     testMeasureSizeTextFontFamily : function()
     {
-      if (!qx.core.Environment.get("css.textoverflow") &&
-          qx.core.Environment.get("html.xul") &&
+      if (qx.core.Environment.get("html.xul") &&
           qx.core.Environment.get("os.name") == "win")
       {
         var text = "vanillebaer";
@@ -198,8 +192,7 @@ qx.Class.define("qx.test.bom.Label",
 
     testMeasureSizeTextPadding : function()
     {
-      if (!qx.core.Environment.get("css.textoverflow") &&
-          qx.core.Environment.get("html.xul") &&
+      if (qx.core.Environment.get("html.xul") &&
           qx.core.Environment.get("os.name") == "win")
       {
         var text = "vanillebaer";
@@ -218,8 +211,7 @@ qx.Class.define("qx.test.bom.Label",
 
     testMeasureSizeTextMargin : function()
     {
-      if (!qx.core.Environment.get("css.textoverflow") &&
-          qx.core.Environment.get("html.xul") &&
+      if (qx.core.Environment.get("html.xul") &&
           qx.core.Environment.get("os.name") == "win")
       {
         var text = "vanillebaer";
@@ -238,8 +230,7 @@ qx.Class.define("qx.test.bom.Label",
 
     testMeasureSizeTextAllTogether : function()
     {
-      if (!qx.core.Environment.get("css.textoverflow") &&
-          qx.core.Environment.get("html.xul") &&
+      if (qx.core.Environment.get("html.xul") &&
           qx.core.Environment.get("os.name") == "win")
       {
         var text = "vanillebaer";

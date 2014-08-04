@@ -343,7 +343,6 @@ qx.Class.define("qx.test.core.Environment",
 
       this.assertBoolean(qx.core.Environment.get("html.element.contains"));
       this.assertBoolean(qx.core.Environment.get("html.element.compareDocumentPosition"));
-      this.assertBoolean(qx.core.Environment.get("html.element.textcontent"));
       this.assertBoolean(qx.core.Environment.get("html.image.naturaldimensions"));
       this.assertBoolean(qx.core.Environment.get("html.history.state"));
       this.assertBoolean(qx.core.Environment.get("html.node.isequalnode"));
@@ -383,8 +382,6 @@ qx.Class.define("qx.test.core.Environment",
       this.assert(typeof borderImage == "string" || borderImage === null);
       var borderImageSyntax = qx.core.Environment.get("css.borderimage.standardsyntax");
       this.assert(typeof borderImageSyntax == "boolean" || borderImageSyntax === null);
-      var textOverflow = qx.core.Environment.get("css.textoverflow");
-      this.assert(typeof textOverflow == "string" || textOverflow === null);
       var userSelect = qx.core.Environment.get("css.userselect");
       this.assert(typeof userSelect == "string" || userSelect === null);
       var userSelectNone = qx.core.Environment.get("css.userselect.none");
@@ -393,13 +390,8 @@ qx.Class.define("qx.test.core.Environment",
       this.assert(typeof userModify == "string" || userModify === null);
       var appearance = qx.core.Environment.get("css.appearance");
       this.assert(typeof appearance == "string" || appearance === null);
-      var floatProp = qx.core.Environment.get("css.float");
-      this.assert(floatProp === "cssFloat" || floatProp === "styleFloat");
-      var boxSizing = qx.core.Environment.get("css.boxsizing");
-      this.assert(typeof boxSizing == "string" || boxSizing === null);
       var inlineBlock = qx.core.Environment.get("css.inlineblock");
       this.assert(typeof inlineBlock == "string" || inlineBlock === null);
-      this.assertBoolean(qx.core.Environment.get("css.opacity"));
       var linearGradient = qx.core.Environment.get("css.gradient.linear");
       this.assert(typeof linearGradient == "string" || linearGradient === null);
       this.assertBoolean(qx.core.Environment.get("css.gradient.filter"));

@@ -259,8 +259,7 @@ qx.Mixin.define("qx.ui.decoration.MDoubleBorder",
           "left": 0,
           "top" : 0
         };
-        var boxSizingKey = qx.bom.Style.getCssName(qx.core.Environment.get("css.boxsizing"));
-        styles[":before"][boxSizingKey] = "border-box";
+        styles[":before"]["boxSizing"] = "border-box";
 
         // make sure to apply the border radius as well
         var borderRadiusKey = qx.core.Environment.get("css.borderradius");

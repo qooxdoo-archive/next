@@ -67,22 +67,18 @@
  * @require(qx.bom.element.Clip#set)
  * @require(qx.bom.element.Cursor#set)
  * @require(qx.bom.element.Opacity#set)
- * @require(qx.bom.element.BoxSizing#set)
 
  * @require(qx.bom.element.Clip#get)
  * @require(qx.bom.element.Cursor#get)
  * @require(qx.bom.element.Opacity#get)
- * @require(qx.bom.element.BoxSizing#get)
 
  * @require(qx.bom.element.Clip#reset)
  * @require(qx.bom.element.Cursor#reset)
  * @require(qx.bom.element.Opacity#reset)
- * @require(qx.bom.element.BoxSizing#reset)
 
  * @require(qx.bom.element.Clip#compile)
  * @require(qx.bom.element.Cursor#compile)
  * @require(qx.bom.element.Opacity#compile)
- * @require(qx.bom.element.BoxSizing#compile)
  */
 qx.Bootstrap.define("qx.bom.element.Style",
 {
@@ -106,11 +102,9 @@ qx.Bootstrap.define("qx.bom.element.Style",
       var styleNames = {
         "appearance" : qx.core.Environment.get("css.appearance"),
         "userSelect" : qx.core.Environment.get("css.userselect"),
-        "textOverflow" : qx.core.Environment.get("css.textoverflow"),
         "borderImage" : qx.core.Environment.get("css.borderimage"),
-        "float" : qx.core.Environment.get("css.float"),
-        "userModify" : qx.core.Environment.get("css.usermodify"),
-        "boxSizing" : qx.core.Environment.get("css.boxsizing")
+        "float" : "cssFloat",
+        "userModify" : qx.core.Environment.get("css.usermodify")
       };
 
       this.__cssNames = {};
@@ -171,8 +165,7 @@ qx.Bootstrap.define("qx.bom.element.Style",
     {
       clip : qx.bom.element.Clip,
       cursor : qx.bom.element.Cursor,
-      opacity : qx.bom.element.Opacity,
-      boxSizing : qx.bom.element.BoxSizing
+      opacity : qx.bom.element.Opacity
     },
 
 

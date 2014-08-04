@@ -96,9 +96,7 @@ qx.Bootstrap.define("qx.bom.Label",
       {
         style.whiteSpace = "nowrap";
 
-        if (!qx.core.Environment.get("css.textoverflow") &&
-          qx.core.Environment.get("html.xul"))
-        {
+        if (qx.core.Environment.get("html.xul")) {
           var inner = document.createElementNS("http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul", "label");
 
           // Force style inheritance for font styles to omit usage of
@@ -135,8 +133,7 @@ qx.Bootstrap.define("qx.bom.Label",
       {
         styles.whiteSpace = "normal";
       }
-      else if (!qx.core.Environment.get("css.textoverflow") &&
-        qx.core.Environment.get("html.xul"))
+      else if (qx.core.Environment.get("html.xul"))
       {
         styles.display = "block";
       }
@@ -144,7 +141,7 @@ qx.Bootstrap.define("qx.bom.Label",
       {
         styles.overflow = "hidden";
         styles.whiteSpace = "nowrap";
-        styles[qx.core.Environment.get("css.textoverflow")] = "ellipsis";
+        styles["textOverflow"] = "ellipsis";
       }
 
       return styles;
@@ -181,9 +178,7 @@ qx.Bootstrap.define("qx.bom.Label",
       {
         el.useHtml = true;
       }
-      else if (!qx.core.Environment.get("css.textoverflow") &&
-        qx.core.Environment.get("html.xul"))
-      {
+      else if (qx.core.Environment.get("html.xul")) {
         // Gecko as of Firefox 2.x and 3.0 does not support ellipsis
         // for text overflow. We use this feature from XUL instead.
         var xulel = win.document.createElementNS("http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul", "label");
@@ -235,9 +230,7 @@ qx.Bootstrap.define("qx.bom.Label",
 
       if (element.useHtml) {
         element.innerHTML = value;
-      } else if (!qx.core.Environment.get("css.textoverflow") &&
-        qx.core.Environment.get("html.xul"))
-      {
+      } else if (qx.core.Environment.get("html.xul")) {
         element.firstChild.setAttribute("value", value);
       } else {
         qx.bom.element.Attribute.set(element, "text", value);
@@ -255,9 +248,7 @@ qx.Bootstrap.define("qx.bom.Label",
     {
       if (element.useHtml) {
         return element.innerHTML;
-      } else if (!qx.core.Environment.get("css.textoverflow") &&
-        qx.core.Environment.get("html.xul"))
-      {
+      } else if (qx.core.Environment.get("html.xul")) {
         return element.firstChild.getAttribute("value") || "";
       } else {
         return qx.bom.element.Attribute.get(element, "text");
@@ -297,9 +288,7 @@ qx.Bootstrap.define("qx.bom.Label",
     {
       var element = this._textElement || this.__prepareText();
 
-      if (!qx.core.Environment.get("css.textoverflow") &&
-        qx.core.Environment.get("html.xul"))
-      {
+      if (qx.core.Environment.get("html.xul")) {
         element.firstChild.setAttribute("value", text);
       } else {
         qx.bom.element.Attribute.set(element, "text", text);

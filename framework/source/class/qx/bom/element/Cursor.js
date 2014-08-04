@@ -79,18 +79,5 @@ qx.Bootstrap.define("qx.bom.element.Cursor",
     reset : function(element) {
       element.style.cursor = "";
     }
-  },
-
-
-  defer : function(statics) {
-    // < IE 9
-    if (qx.core.Environment.get("engine.name") == "mshtml" &&
-         ((parseFloat(qx.core.Environment.get("engine.version")) < 9 ||
-          qx.core.Environment.get("browser.documentmode") < 9) &&
-          !qx.core.Environment.get("browser.quirksmode"))
-    ) {
-      statics.__map["nesw-resize"] = "ne-resize";
-      statics.__map["nwse-resize"] = "nw-resize";
-    }
   }
 });

@@ -125,14 +125,6 @@ qx.Bootstrap.define("qx.bom.element.Dimension",
           contentWidth = contentWidth - paddingLeft - paddingRight;
         }
 
-        // IE seems to return 0 on clientWidth if the element is 0px
-        // in height so we use the offsetWidth instead
-        if (qx.core.Environment.get("engine.name") == "mshtml") {
-          if (contentWidth === 0 && element.offsetHeight === 0) {
-            return element.offsetWidth;
-          }
-        }
-
         return contentWidth;
       }
       else
@@ -147,11 +139,6 @@ qx.Bootstrap.define("qx.bom.element.Dimension",
           // Scrollbars visible and needed. We just remove the left padding,
           // as the right padding is not respected in rendering.
           var width = element.scrollWidth - paddingLeft;
-
-          // IE renders the paddingRight as well with scrollbars on
-          if (qx.core.Environment.get("engine.name") == "mshtml") {
-            width -= paddingRight;
-          }
 
           return width;
         }

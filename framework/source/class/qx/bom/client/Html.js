@@ -337,20 +337,6 @@ qx.Bootstrap.define("qx.bom.client.Html",
 
 
     /**
-     * Check for element.textContent. Legacy IEs do not support this, use
-     * innerText instead.
-     *
-     * @internal
-     * @return {Boolean} <code>true</code> if textContent is supported
-     */
-    getTextContent : function()
-    {
-      var el = document.createElement("span");
-      return (typeof el.textContent !== "undefined");
-    },
-
-
-    /**
      * Check for a console object.
      *
      * @internal
@@ -425,7 +411,6 @@ qx.Bootstrap.define("qx.bom.client.Html",
     qx.core.Environment.addAsync("html.dataurl", statics.getDataUrl);
     qx.core.Environment.add("html.element.contains", statics.getContains);
     qx.core.Environment.add("html.element.compareDocumentPosition", statics.getCompareDocumentPosition);
-    qx.core.Environment.add("html.element.textcontent", statics.getTextContent);
     qx.core.Environment.add("html.console", statics.getConsole);
     qx.core.Environment.add("html.image.naturaldimensions", statics.getNaturalDimensions);
     qx.core.Environment.add("html.history.state", statics.getHistoryState);

@@ -120,9 +120,7 @@ qx.Class.define("qx.ui.table.cellrenderer.Abstract",
         ".qooxdoo-table-cell-italic { font-style:italic} " +
         ".qooxdoo-table-cell-bold { font-weight:bold } ";
 
-      if (qx.core.Environment.get("css.boxsizing")) {
-        stylesheet += ".qooxdoo-table-cell {" + qx.bom.element.BoxSizing.compile("content-box") + "}";
-      }
+      stylesheet += ".qooxdoo-table-cell {" + qx.bom.element.Style.compile({"boxSizing": "content-box"}) + "}";
 
       qx.ui.table.cellrenderer.Abstract.__clazz.stylesheet =
         qx.bom.Stylesheet.createElement(stylesheet);

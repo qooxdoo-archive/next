@@ -116,11 +116,8 @@ qx.Bootstrap.define("qx.bom.element.Location",
         left -= body.clientLeft + doc.documentElement.clientLeft;
         top -= body.clientTop + doc.documentElement.clientTop;
 
-        if (!qx.core.Environment.get("browser.quirksmode"))
-        {
-          left += this.__num(body, "borderLeftWidth");
-          top += this.__num(body, "borderTopWidth");
-        }
+        left += this.__num(body, "borderLeftWidth");
+        top += this.__num(body, "borderTopWidth");
 
         return {
           left : left,
@@ -154,7 +151,7 @@ qx.Bootstrap.define("qx.bom.element.Location",
         var top = body.offsetTop;
 
         // Correct substracted border (only in content-box mode)
-        if (qx.bom.element.BoxSizing.get(body) !== "border-box")
+        if (qx.bom.element.Style.get(body, "boxSizing") !== "border-box")
         {
           left += this.__num(body, "borderLeftWidth");
           top += this.__num(body, "borderTopWidth");

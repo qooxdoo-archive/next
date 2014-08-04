@@ -277,11 +277,7 @@ qx.Class.define("qx.ui.treevirtual.SimpleTreeDataCellRenderer",
         var pos = imageInfo.position;
 
         html.push('<div style="position:absolute;');
-
-        if (qx.core.Environment.get("css.boxsizing"))
-        {
-          html.push(qx.bom.element.BoxSizing.compile("content-box"));
-        }
+        html.push(qx.bom.element.Style.compile({"boxSizing": "content-box"}));
 
         if (pos.top !== undefined)
         {

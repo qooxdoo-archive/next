@@ -46,19 +46,6 @@ qx.Bootstrap.define("qx.bom.client.Css",
 
 
     /**
-     * Returns the (possibly vendor-prefixed) name the browser uses for the
-     * <code>textOverflow</code> style property.
-     *
-     * @return {String|null} textOverflow property name or <code>null</code> if
-     * textOverflow is not supported.
-     * @internal
-     */
-    getTextOverflow : function() {
-      return qx.bom.Style.getPropertyName("textOverflow");
-    },
-
-
-    /**
      * Checks if a placeholder could be used.
      * @return {Boolean} <code>true</code>, if it could be used.
      * @internal
@@ -209,20 +196,6 @@ qx.Bootstrap.define("qx.bom.client.Css",
       return qx.bom.Style.getPropertyName("userModify");
     },
 
-    /**
-     * Returns the vendor-specific name of the <code>float</code> style property
-     *
-     * @return {String|null} <code>cssFloat</code> for standards-compliant
-     * browsers, <code>styleFloat</code> for legacy IEs, <code>null</code> if
-     * the client supports neither property.
-     * @internal
-     */
-    getFloat : function() {
-      var style = document.documentElement.style;
-      return style.cssFloat !== undefined ? "cssFloat" :
-        style.styleFloat !== undefined ? "styleFloat" : null;
-    },
-
 
     /**
      * Checks if translate3d can be used.
@@ -351,19 +324,6 @@ qx.Bootstrap.define("qx.bom.client.Css",
 
 
     /**
-     * Returns the (possibly vendor-prefixed) name the browser uses for the
-     * <code>boxSizing</code> style property.
-     *
-     * @return {String|null} boxSizing property name or <code>null</code> if
-     * boxSizing is not supported.
-     * @internal
-     */
-    getBoxSizing : function() {
-      return qx.bom.Style.getPropertyName("boxSizing");
-    },
-
-
-    /**
      * Returns the browser-specific name used for the <code>display</code> style
      * property's <code>inline-block</code> value.
      *
@@ -381,17 +341,6 @@ qx.Bootstrap.define("qx.bom.client.Css",
         return "-moz-inline-box";
       }
       return null;
-    },
-
-
-    /**
-     * Checks if CSS opacity is supported
-     *
-     * @internal
-     * @return {Boolean} <code>true</code> if opacity is supported
-     */
-    getOpacity : function() {
-      return (typeof document.documentElement.style.opacity == "string");
     },
 
 
@@ -531,7 +480,6 @@ qx.Bootstrap.define("qx.bom.client.Css",
 
 
   defer : function(statics) {
-    qx.core.Environment.add("css.textoverflow", statics.getTextOverflow);
     qx.core.Environment.add("css.placeholder", statics.getPlaceholder);
     qx.core.Environment.add("css.borderradius", statics.getBorderRadius);
     qx.core.Environment.add("css.boxshadow", statics.getBoxShadow);
@@ -547,10 +495,7 @@ qx.Bootstrap.define("qx.bom.client.Css",
     qx.core.Environment.add("css.userselect", statics.getUserSelect);
     qx.core.Environment.add("css.userselect.none", statics.getUserSelectNone);
     qx.core.Environment.add("css.appearance", statics.getAppearance);
-    qx.core.Environment.add("css.float", statics.getFloat);
-    qx.core.Environment.add("css.boxsizing", statics.getBoxSizing);
     qx.core.Environment.add("css.inlineblock", statics.getInlineBlock);
-    qx.core.Environment.add("css.opacity", statics.getOpacity);
     qx.core.Environment.add("css.textShadow", statics.getTextShadow);
     qx.core.Environment.add("css.textShadow.filter", statics.getFilterTextShadow);
     qx.core.Environment.add("css.alphaimageloaderneeded", statics.getAlphaImageLoaderNeeded);

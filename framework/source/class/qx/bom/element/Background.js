@@ -57,14 +57,6 @@ qx.Class.define("qx.bom.element.Background",
      */
     __computePosition : function(left, top)
     {
-      // Correcting buggy Firefox background-position implementation
-      // Have problems with identical values
-      var engine = qx.core.Environment.get("engine.name");
-      var version = qx.core.Environment.get("engine.version");
-      if (engine == "gecko" && version < 1.9 && left == top && typeof left == "number") {
-        top += 0.01;
-      }
-
       if (left) {
         var leftCss = (typeof left == "number") ? left + "px" : left;
       } else {

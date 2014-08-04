@@ -125,10 +125,6 @@
  *       <td>{@link qx.bom.client.Css#getPlaceholder}</td>
  *     </tr>
  *     <tr>
- *       <td>css.textoverflow</td><td><i>String</i> or <i>null</i></td><td><code>textOverflow</code></td>
- *       <td>{@link qx.bom.client.Css#getTextOverflow}</td>
- *     </tr>
- *     <tr>
  *       <td>css.rgba</td><td><i>Boolean</i></td><td><code>true</code></td>
  *       <td>{@link qx.bom.client.Css#getRgba}</td>
  *     </tr>
@@ -141,20 +137,12 @@
  *       <td>{@link qx.bom.client.Css#getAppearance}</td>
  *     </tr>
  *     <tr>
- *       <td>css.float</td><td><i>String</i> or <i>null</i></td><td><code>cssFloat</code></td>
- *       <td>{@link qx.bom.client.Css#getFloat}</td>
- *     </tr>
- *     <tr>
  *       <td>css.userselect</td><td><i>String</i> or <i>null</i></td><td><code>WebkitUserSelect</code></td>
  *       <td>{@link qx.bom.client.Css#getUserSelect}</td>
  *     </tr>
  *     <tr>
  *       <td>css.userselect.none</td><td><i>String</i> or <i>null</i></td><td><code>-moz-none</code></td>
  *       <td>{@link qx.bom.client.Css#getUserSelectNone}</td>
- *     </tr>
- *     <tr>
- *       <td>css.boxsizing</td><td><i>String</i> or <i>null</i></td><td><code>boxSizing</code></td>
- *       <td>{@link qx.bom.client.Css#getBoxSizing}</td>
  *     </tr>
  *     <tr>
  *       <td>css.animation</td><td><i>Object</i> or <i>null</i></td><td><code>{end-event: "webkitAnimationEnd", keyframes: "@-webkit-keyframes", play-state: null, name: "WebkitAnimation"}</code></td>
@@ -179,10 +167,6 @@
  *     <tr>
  *       <td>css.inlineblock</td><td><i>String</i> or <i>null</i></td><td><code>inline-block</code></td>
  *       <td>{@link qx.bom.client.Css#getInlineBlock}</td>
- *     </tr>
- *     <tr>
- *       <td>css.opacity</td><td><i>Boolean</i></td><td><code>true</code></td>
- *       <td>{@link qx.bom.client.Css#getOpacity}</td>
  *     </tr>
  *     <tr>
  *       <td>css.textShadow</td><td><i>Boolean</i></td><td><code>true</code></td>
@@ -375,10 +359,6 @@
  *     <tr>
  *       <td>html.element.compareDocumentPosition</td><td><i>Boolean</i></td><td><code>true</code></td>
  *       <td>{@link qx.bom.client.Html#getCompareDocumentPosition}</td>
- *     </tr>
- *     <tr>
- *       <td>html.element.textContent</td><td><i>Boolean</i></td><td><code>true</code></td>
- *       <td>{@link qx.bom.client.Html#getTextContent}</td>
  *     </tr>
  *     <tr>
  *       <td>html.image.naturaldimensions</td><td><i>Boolean</i></td><td><code>true</code></td>
@@ -811,12 +791,10 @@ qx.Bootstrap.define("qx.core.Environment",
       "html.stylesheet.removeimport" : "qx.bom.client.Stylesheet.getRemoveImport",
       "html.element.contains" : "qx.bom.client.Html.getContains",
       "html.element.compareDocumentPosition" : "qx.bom.client.Html.getCompareDocumentPosition",
-      "html.element.textcontent" : "qx.bom.client.Html.getTextContent",
       "html.image.naturaldimensions" : "qx.bom.client.Html.getNaturalDimensions",
       "html.history.state" : "qx.bom.client.Html.getHistoryState",
       "html.node.isequalnode" : "qx.bom.client.Html.getIsEqualNode",
       "json" : "qx.bom.client.Json.getJson",
-      "css.textoverflow" : "qx.bom.client.Css.getTextOverflow",
       "css.placeholder" : "qx.bom.client.Css.getPlaceholder",
       "css.borderradius" : "qx.bom.client.Css.getBorderRadius",
       "css.borderimage" : "qx.bom.client.Css.getBorderImage",
@@ -832,15 +810,12 @@ qx.Bootstrap.define("qx.core.Environment",
       "css.userselect.none" : "qx.bom.client.Css.getUserSelectNone",
       "css.usermodify" : "qx.bom.client.Css.getUserModify",
       "css.appearance" : "qx.bom.client.Css.getAppearance",
-      "css.float" : "qx.bom.client.Css.getFloat",
-      "css.boxsizing" : "qx.bom.client.Css.getBoxSizing",
       "css.animation" : "qx.bom.client.CssAnimation.getSupport",
       "css.animation.requestframe" : "qx.bom.client.CssAnimation.getRequestAnimationFrame",
       "css.transform" : "qx.bom.client.CssTransform.getSupport",
       "css.transform.3d" : "qx.bom.client.CssTransform.get3D",
       "css.transition" : "qx.bom.client.CssTransition.getSupport",
       "css.inlineblock" : "qx.bom.client.Css.getInlineBlock",
-      "css.opacity" : "qx.bom.client.Css.getOpacity",
       "css.textShadow" : "qx.bom.client.Css.getTextShadow",
       "css.textShadow.filter" : "qx.bom.client.Css.getFilterTextShadow",
       "css.alphaimageloaderneeded" : "qx.bom.client.Css.getAlphaImageLoaderNeeded",
@@ -898,7 +873,7 @@ qx.Bootstrap.define("qx.core.Environment",
     /**
      * The default accessor for the checks. It returns the value the current
      * environment has for the given key. The key could be something like
-     * "qx.debug", "css.textoverflow" or "io.ssl". A complete list of
+     * "qx.debug", "css.placeholder" or "io.ssl". A complete list of
      * checks can be found in the class comment of this class.
      *
      * Please keep in mind that the result is cached. If you want to run the

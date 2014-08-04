@@ -94,9 +94,7 @@ qx.Class.define("qx.ui.progressive.renderer.table.Row",
         "  top: 0px;" +
         "  height: 100%;" +
         "  overflow:hidden;" +
-        (qx.core.Environment.get("css.textoverflow") ?
-        qx.bom.Style.getCssName(qx.core.Environment.get("css.textoverflow")) +
-        ':ellipsis;' : "") +
+        "  textOverflow:ellipsis;" +
         "  white-space:nowrap;" +
         "  border-right:1px solid #f2f2f2;" +
         "  border-bottom:1px solid #eeeeee;" +
