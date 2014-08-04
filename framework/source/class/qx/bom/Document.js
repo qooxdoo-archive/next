@@ -102,7 +102,7 @@ qx.Bootstrap.define("qx.bom.Document",
     {
       var doc = (win||window).document;
       var view = qx.bom.Viewport.getWidth(win);
-      var scroll = this.isStandardMode(win) ? doc.documentElement.scrollWidth : doc.body.scrollWidth;
+      var scroll = doc.documentElement.scrollWidth;
       return Math.max(scroll, view);
     },
 
@@ -137,7 +137,7 @@ qx.Bootstrap.define("qx.bom.Document",
     {
       var doc = (win||window).document;
       var view = qx.bom.Viewport.getHeight(win);
-      var scroll = this.isStandardMode(win) ? doc.documentElement.scrollHeight : doc.body.scrollHeight;
+      var scroll = doc.documentElement.scrollHeight;
       return Math.max(scroll, view);
     }
   }
