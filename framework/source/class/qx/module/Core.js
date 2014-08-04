@@ -26,7 +26,6 @@
  * * {@link qx.module.Environment}
  * * {@link qx.module.Event}
  * * {@link qx.module.Manipulating}
- * * {@link qx.module.Polyfill}
  * * {@link qx.module.Traversing}
  *
  * @require(qx.module.Attribute)
@@ -34,7 +33,6 @@
  * @require(qx.module.Environment)
  * @require(qx.module.Event)
  * @require(qx.module.Manipulating)
- * @require(qx.module.Polyfill)
  * @require(qx.module.Traversing)
  */
 qx.Bootstrap.define("qx.module.Core", {});

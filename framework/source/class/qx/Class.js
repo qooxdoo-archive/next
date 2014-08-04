@@ -58,13 +58,8 @@
  * }
  * </pre>
  *
- * By using <code>qx.Class</code> within an app, the native JS data types are
- * conveniently polyfilled according to {@link qx.lang.normalize}.
- *
  * @require(qx.Interface)
  * @require(qx.Mixin)
- * @require(qx.lang.normalize.Error)
- * @require(qx.lang.normalize.String)
  */
 qx.Bootstrap.define("qx.Class",
 {

@@ -215,14 +215,6 @@
  *       <td>{@link qx.bom.client.EcmaScript#getStackTrace}</td>
  *     </tr>
  *     <tr>
- *       <td>ecmascript.error.toString</td><td><i>Boolean</i></td><td><code>true</code></td>
- *       <td>{@link qx.bom.client.EcmaScript#getErrorToString}</td>
- *     </tr>
- *     <tr>
- *       <td>ecmascript.string.trim</td><td><i>Boolean</i></td><td><code>true</code></td>
- *       <td>{@link qx.bom.client.EcmaScript#getStringTrim}</td>
- *     </tr>
- *     <tr>
  *       <td colspan="4"><b>engine</b></td>
  *     </tr>
  *     <tr>
@@ -761,9 +753,7 @@ qx.Bootstrap.define("qx.core.Environment",
       "event.customevent" : "qx.bom.client.Event.getCustomEvent",
       "event.mouseevent" : "qx.bom.client.Event.getMouseEvent",
       "event.mousewheel" : "qx.bom.client.Event.getMouseWheel",
-      "ecmascript.error.stacktrace"       : "qx.bom.client.EcmaScript.getStackTrace",
-      "ecmascript.error.toString" : "qx.bom.client.EcmaScript.getErrorToString",
-      "ecmascript.string.trim" : "qx.bom.client.EcmaScript.getStringTrim",
+      "ecmascript.error.stacktrace" : "qx.bom.client.EcmaScript.getStackTrace",
       "html.webworker" : "qx.bom.client.Html.getWebWorker",
       "html.filereader" : "qx.bom.client.Html.getFileReader",
       "html.geolocation" : "qx.bom.client.Html.getGeoLocation",

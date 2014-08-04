@@ -53,28 +53,6 @@ qx.Bootstrap.define("qx.bom.client.EcmaScript",
       }
 
       return e.stacktrace ? "stacktrace" : e.stack ? "stack" : null;
-    },
-
-
-    /**
-     * Checks if 'toString' is supported on the Error object and
-     * its working as expected.
-     * @internal
-     * @return {Boolean} <code>true</code>, if the method is available.
-     */
-    getErrorToString : function() {
-      return typeof Error.prototype.toString == "function" &&
-        Error.prototype.toString() !== "[object Error]";
-    },
-
-
-    /**
-     * Checks if 'trim' is supported on the String object.
-     * @internal
-     * @return {Boolean} <code>true</code>, if the method is available.
-     */
-    getStringTrim : function() {
-      return typeof String.prototype.trim === "function";
     }
   },
 
@@ -85,10 +63,6 @@ qx.Bootstrap.define("qx.bom.client.EcmaScript",
     qx.core.Environment.add("ecmascript.date.now", statics.getDateNow);
 
     // error bugfix
-    qx.core.Environment.add("ecmascript.error.toString", statics.getErrorToString);
     qx.core.Environment.add("ecmascript.error.stacktrace", statics.getStackTrace);
-
-    // string polyfill
-    qx.core.Environment.add("ecmascript.string.trim", statics.getStringTrim);
   }
 });

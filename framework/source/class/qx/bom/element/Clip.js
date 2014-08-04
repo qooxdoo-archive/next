@@ -19,8 +19,6 @@
 
 /**
  * Contains methods to control and query the element's clip property
- *
- * @require(qx.lang.normalize.String)
  */
 qx.Bootstrap.define("qx.bom.element.Clip",
 {

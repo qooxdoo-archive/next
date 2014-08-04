@@ -331,39 +331,20 @@ qx.Class.define("qx.test.core.Environment",
       this.assertString(qx.core.Environment.get("html.video.webm"));
       this.assertBoolean(qx.core.Environment.get("html.classlist"));
       this.assertBoolean(qx.core.Environment.get("html.xpath"));
-      this.assertBoolean(qx.core.Environment.get("html.xul"));
-      this.assertBoolean(qx.core.Environment.get("html.canvas"));
-      this.assertBoolean(qx.core.Environment.get("html.svg"));
       this.assertBoolean(qx.core.Environment.get("html.vml"));
-      this.assertBoolean(qx.core.Environment.get("html.console"));
 
       this.assertBoolean(qx.core.Environment.get("html.stylesheet.createstylesheet"));
       this.assertBoolean(qx.core.Environment.get("html.stylesheet.addimport"));
       this.assertBoolean(qx.core.Environment.get("html.stylesheet.removeimport"));
 
-      this.assertBoolean(qx.core.Environment.get("html.element.contains"));
-      this.assertBoolean(qx.core.Environment.get("html.element.compareDocumentPosition"));
-      this.assertBoolean(qx.core.Environment.get("html.image.naturaldimensions"));
       this.assertBoolean(qx.core.Environment.get("html.history.state"));
-      this.assertBoolean(qx.core.Environment.get("html.node.isequalnode"));
     },
 
     testXml : function()
     {
-      this.assertBoolean(qx.core.Environment.get("xml.implementation"));
-      this.assertBoolean(qx.core.Environment.get("xml.domparser"));
-      this.assertBoolean(qx.core.Environment.get("xml.selectsinglenode"));
-      this.assertBoolean(qx.core.Environment.get("xml.selectnodes"));
       this.assertBoolean(qx.core.Environment.get("xml.getelementsbytagnamens"));
-      this.assertBoolean(qx.core.Environment.get("xml.domproperties"));
       this.assertBoolean(qx.core.Environment.get("xml.attributens"));
-      this.assertBoolean(qx.core.Environment.get("xml.createnode"));
-      this.assertBoolean(qx.core.Environment.get("xml.getqualifieditem"));
       this.assertBoolean(qx.core.Environment.get("xml.createelementns"));
-    },
-
-    testGears : function() {
-      this.assertBoolean(qx.core.Environment.get("plugin.gears"));
     },
 
     testActiveX : function() {
@@ -371,13 +352,7 @@ qx.Class.define("qx.test.core.Environment",
     },
 
     testCss : function() {
-      this.assertNotEquals("", qx.core.Environment.get("css.boxmodel"));
       this.assertBoolean(qx.core.Environment.get("css.placeholder"));
-      this.assertBoolean(qx.core.Environment.get("css.rgba"));
-      var boxShadow = qx.core.Environment.get("css.boxshadow");
-      this.assert(typeof boxShadow === "string" || boxShadow === null);
-      var borderRadius = qx.core.Environment.get("css.borderradius");
-      this.assert(typeof borderRadius == "string" || borderRadius === null);
       var borderImage = qx.core.Environment.get("css.borderimage");
       this.assert(typeof borderImage == "string" || borderImage === null);
       var borderImageSyntax = qx.core.Environment.get("css.borderimage.standardsyntax");
@@ -390,15 +365,12 @@ qx.Class.define("qx.test.core.Environment",
       this.assert(typeof userModify == "string" || userModify === null);
       var appearance = qx.core.Environment.get("css.appearance");
       this.assert(typeof appearance == "string" || appearance === null);
-      var inlineBlock = qx.core.Environment.get("css.inlineblock");
-      this.assert(typeof inlineBlock == "string" || inlineBlock === null);
       var linearGradient = qx.core.Environment.get("css.gradient.linear");
       this.assert(typeof linearGradient == "string" || linearGradient === null);
       this.assertBoolean(qx.core.Environment.get("css.gradient.filter"));
       var radialGradient = qx.core.Environment.get("css.gradient.radial");
       this.assert(typeof radialGradient == "string" || radialGradient === null);
       this.assertBoolean(qx.core.Environment.get("css.gradient.legacywebkit"));
-      this.assertBoolean(qx.core.Environment.get("css.alphaimageloaderneeded"));
       this.assertBoolean(qx.core.Environment.get("css.pointerevents"));
     },
 
@@ -410,8 +382,6 @@ qx.Class.define("qx.test.core.Environment",
     testEvent : function() {
       this.assertBoolean(qx.core.Environment.get("event.touch"));
       this.assertBoolean(qx.core.Environment.get("event.help"));
-      this.assertBoolean(qx.core.Environment.get("event.hashchange"));
-      this.assertBoolean(qx.core.Environment.get("event.dispatchevent"));
       this.assertBoolean(qx.core.Environment.get("event.customevent"));
       this.assertBoolean(qx.core.Environment.get("event.mouseevent"));
     },
@@ -419,17 +389,6 @@ qx.Class.define("qx.test.core.Environment",
     testEcmaScript : function() {
       var stackTrace = qx.core.Environment.get("ecmascript.error.stacktrace");
       this.assert(typeof stackTrace == "string" || stackTrace === null);
-
-      this.assertBoolean(qx.core.Environment.get("ecmascript.error.toString"));
-    },
-
-    testDataUrl : function() {
-      qx.core.Environment.getAsync("html.dataurl", function(result) {
-        this.resume(function() {
-          this.assertBoolean(result);
-        }, this);
-      }, this);
-      this.wait();
     },
 
     testDevice : function() {
