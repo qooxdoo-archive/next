@@ -222,22 +222,6 @@ qx.Bootstrap.define("qx.bom.client.Html",
 
 
     /**
-     * Checks if XUL could be used.
-     *
-     * @internal
-     * @return {Boolean} <code>true</code> if XUL is supported.
-     */
-    getXul : function() {
-      try {
-        document.createElementNS("http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul", "label");
-        return true;
-      } catch (e) {
-        return false;
-      }
-    },
-
-
-    /**
      * Checks if SVG could be used
      *
      * @internal
@@ -403,7 +387,6 @@ qx.Bootstrap.define("qx.bom.client.Html",
     qx.core.Environment.add("html.video.webm", statics.getVideoWebm);
     qx.core.Environment.add("html.classlist", statics.getClassList);
     qx.core.Environment.add("html.xpath", statics.getXPath);
-    qx.core.Environment.add("html.xul", statics.getXul);
     qx.core.Environment.add("html.canvas", statics.getCanvas);
     qx.core.Environment.add("html.svg", statics.getSvg);
     qx.core.Environment.add("html.vml", statics.getVml);

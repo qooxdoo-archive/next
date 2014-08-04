@@ -337,10 +337,6 @@
  *       <td>{@link qx.bom.client.Html#getXPath}</td>
  *     </tr>
  *     <tr>
- *       <td>html.xul</td><td><i>Boolean</i></td><td><code>true</code></td>
- *       <td>{@link qx.bom.client.Html#getXul}</td>
- *     </tr>
- *     <tr>
  *       <td>html.console</td><td><i>Boolean</i></td><td><code>true</code></td>
  *       <td>{@link qx.bom.client.Html#getConsole}</td>
  *     </tr>
@@ -769,7 +765,6 @@ qx.Bootstrap.define("qx.core.Environment",
       "html.video.webm" : "qx.bom.client.Html.getVideoWebm",
       "html.classlist" : "qx.bom.client.Html.getClassList",
       "html.xpath" : "qx.bom.client.Html.getXPath",
-      "html.xul" : "qx.bom.client.Html.getXul",
       "html.canvas" : "qx.bom.client.Html.getCanvas",
       "html.svg" : "qx.bom.client.Html.getSvg",
       "html.vml" : "qx.bom.client.Html.getVml",

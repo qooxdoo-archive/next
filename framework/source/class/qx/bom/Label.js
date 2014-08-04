@@ -88,30 +88,10 @@ qx.Bootstrap.define("qx.bom.Label",
       style.overflow = "visible";
       style.display = "block";
 
-      if (html)
-      {
+      if (html) {
         style.whiteSpace = "normal";
-      }
-      else
-      {
+      } else {
         style.whiteSpace = "nowrap";
-
-        if (qx.core.Environment.get("html.xul")) {
-          var inner = document.createElementNS("http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul", "label");
-
-          // Force style inheritance for font styles to omit usage of
-          // CSS "label" selector, See bug #1349 for details.
-          var style = inner.style;
-          style.padding = "0";
-          style.margin = "0";
-          style.width = "auto";
-
-          for (var key in this.__styles) {
-            style[key] = "inherit";
-          }
-
-          el.appendChild(inner);
-        }
       }
 
       return el;
@@ -132,10 +112,6 @@ qx.Bootstrap.define("qx.bom.Label",
       if (html)
       {
         styles.whiteSpace = "normal";
-      }
-      else if (qx.core.Environment.get("html.xul"))
-      {
-        styles.display = "block";
       }
       else
       {
@@ -178,30 +154,6 @@ qx.Bootstrap.define("qx.bom.Label",
       {
         el.useHtml = true;
       }
-      else if (qx.core.Environment.get("html.xul")) {
-        // Gecko as of Firefox 2.x and 3.0 does not support ellipsis
-        // for text overflow. We use this feature from XUL instead.
-        var xulel = win.document.createElementNS("http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul", "label");
-
-        var style = xulel.style;
-        style.cursor = "inherit";
-        style.color = "inherit";
-        style.overflow = "hidden";
-        style.maxWidth = "100%";
-        style.padding = "0";
-        style.margin = "0";
-        style.width = "auto";
-
-        // Force style inheritance for font styles to omit usage of
-        // CSS "label" selector, See bug #1349 for details.
-        for (var key in this.__styles) {
-          xulel.style[key] = "inherit";
-        }
-
-        xulel.setAttribute("crop", "end");
-
-        el.appendChild(xulel);
-      }
       else
       {
         qx.bom.element.Style.setStyles(el, this.__getStyles(html));
@@ -230,8 +182,6 @@ qx.Bootstrap.define("qx.bom.Label",
 
       if (element.useHtml) {
         element.innerHTML = value;
-      } else if (qx.core.Environment.get("html.xul")) {
-        element.firstChild.setAttribute("value", value);
       } else {
         qx.bom.element.Attribute.set(element, "text", value);
       }
@@ -248,8 +198,6 @@ qx.Bootstrap.define("qx.bom.Label",
     {
       if (element.useHtml) {
         return element.innerHTML;
-      } else if (qx.core.Environment.get("html.xul")) {
-        return element.firstChild.getAttribute("value") || "";
       } else {
         return qx.bom.element.Attribute.get(element, "text");
       }
@@ -287,12 +235,7 @@ qx.Bootstrap.define("qx.bom.Label",
     getTextSize : function(text, styles)
     {
       var element = this._textElement || this.__prepareText();
-
-      if (qx.core.Environment.get("html.xul")) {
-        element.firstChild.setAttribute("value", text);
-      } else {
-        qx.bom.element.Attribute.set(element, "text", text);
-      }
+      qx.bom.element.Attribute.set(element, "text", text);
 
       return this.__measureSize(element, styles);
     },
