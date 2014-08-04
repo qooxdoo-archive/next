@@ -172,7 +172,7 @@ qx.Bootstrap.define("qx.Mixin",
         // Attach events
         if (entry.$$events) {
           for (var name in entry.$$events) {
-            if (clazz.$$events[name]) {
+            if (clazz.$$events[name] && clazz.$$events[name] !== entry.$$events[name]) {
               throw new Error("Event '" + name + "' already declared on class '" + clazz.classname + "'.");
             }
             clazz.$$events[name] = entry.$$events[name];

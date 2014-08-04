@@ -964,6 +964,15 @@ qx.Class.define("qx.test.Bootstrap",
           a: "Number"
         }
       });
+
+      qx.Bootstrap.define(null, {
+        extend : Object,
+        include : [M],
+        events : {
+          a : "Number"
+        }
+      });
+
       this.assertException(function() {
         qx.Bootstrap.define(null, {
           extend : Object,
