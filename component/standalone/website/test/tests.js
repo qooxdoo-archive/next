@@ -1360,8 +1360,7 @@ testrunner.define({
       "css.textoverflow" : ["textOverflow", "ellipsis"],
       "css.userselect" : ["userSelect", q.env.get("css.userselect.none")],
       "css.float" : ["float", "right"],
-      "css.usermodify" : ["userModify", "read-only"],
-      "css.boxsizing" : ["boxSizing", "border-box"]
+      "css.usermodify" : ["userModify", "read-only"]
     }
 
     for (var envKey in props) {
@@ -1976,9 +1975,6 @@ testrunner.define({
 
   testContext : function()
   {
-    if (!qx.core.Environment.get("event.dispatchevent")) {
-      this.skip("Requires dispatchEvent");
-    }
     window.temp = null;
     q.create('<input type="text" id="one"></input><input type="text" id="two"></input>')
     .on("mousedown", function(ev) {
@@ -2054,9 +2050,6 @@ testrunner.define({
 
   testNormalization : function()
   {
-    if (!qx.core.Environment.get("event.dispatchevent")) {
-      this.skip("Requires dispatchEvent");
-    }
     var normalizer0 = function(event) {
       event.affe = "juhu";
       return event;
@@ -2104,9 +2097,6 @@ testrunner.define({
   },
 
   testNormalizationWildcard : function() {
-    if (!qx.core.Environment.get("event.dispatchevent")) {
-      this.skip("Requires dispatchEvent");
-    }
     var normalizer = function(event) {
       event.affe = "juhu";
       return event;
@@ -2145,10 +2135,6 @@ testrunner.define({
   __normalizeMouse : null,
 
   testNormalizationForMultipleTypes : function() {
-    if (!qx.core.Environment.get("event.dispatchevent")) {
-      this.skip("Requires dispatchEvent");
-    }
-
     this.__normalizeMouse = function(event) {
       event.affe = "juhu";
       return event;
@@ -2204,9 +2190,6 @@ testrunner.define({
 
   testGetTarget : function()
   {
-    if (!qx.core.Environment.get("event.dispatchevent")) {
-      this.skip("Requires dispatchEvent");
-    }
     var obj = {
       target : null
     };
@@ -2232,9 +2215,6 @@ testrunner.define({
 
   testEventMethods : function()
   {
-    if (!qx.core.Environment.get("event.dispatchevent")) {
-      this.skip("Requires dispatchEvent");
-    }
     var methods = ["getRelatedTarget", "preventDefault", "stopPropagation"];
 
     var obj = {
@@ -2265,9 +2245,6 @@ testrunner.define({
 
   testCurrentTarget : function()
   {
-    if (!qx.core.Environment.get("event.dispatchevent")) {
-      this.skip("Requires dispatchEvent");
-    }
 
     var target;
 
@@ -4486,7 +4463,6 @@ testrunner.define({
     r.on("custom", function() {
       calledCustom++;
     });
-
     r.dispose();
     q("#sandbox").rating().setValue(3).emit("custom");
 
