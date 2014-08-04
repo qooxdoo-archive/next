@@ -183,8 +183,6 @@ qx.Class.define("qx.test.dev.unit.Sinon",
     },
 
     "test: fake XHR": function() {
-      this.require(["xhr"]);
-
       this.useFakeXMLHttpRequest();
       var nxhr = window.XMLHttpRequest;
       new nxhr;
@@ -203,8 +201,6 @@ qx.Class.define("qx.test.dev.unit.Sinon",
     },
 
     "test: respond": function() {
-      this.require(["xhr"]);
-
       this.useFakeServer();
       var nxhr = window.XMLHttpRequest,
           req = new nxhr,
@@ -220,8 +216,6 @@ qx.Class.define("qx.test.dev.unit.Sinon",
     },
 
     "test: respond with invalid XML": function() {
-      this.require(["xhr"]);
-
       this.useFakeXMLHttpRequest();
       var nxhr = window.XMLHttpRequest,
       req = new nxhr,
@@ -323,9 +317,6 @@ qx.Class.define("qx.test.dev.unit.Sinon",
       mock.verify();
     },
 
-    hasXhr: function() {
-      return qx.core.Environment.get("io.xhr") === "xhr";
-    },
 
     tearDown : function()
     {

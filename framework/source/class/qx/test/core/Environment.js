@@ -313,17 +313,6 @@ qx.Class.define("qx.test.core.Environment",
       this.assertBoolean(qx.core.Environment.get("io.ssl"));
     },
 
-    testIOXhr : function() {
-      var xhr = qx.core.Environment.get("io.xhr");
-      this.assertString(xhr);
-
-      // Should return "xhr" when standard XHR is available
-      if (window.XMLHttpRequest &&
-          window.location.protocol !== "file:") {
-        this.assertEquals("xhr", xhr);
-      }
-    },
-
     testHtml : function() {
       // just make sure the call is working
       this.assertBoolean(qx.core.Environment.get("html.webworker"));

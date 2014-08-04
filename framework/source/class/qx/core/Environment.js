@@ -463,10 +463,6 @@
  *       <td>io.ssl</td><td><i>Boolean</i></td><td><code>false</code></td>
  *       <td>{@link qx.bom.client.Transport#getSsl}</td>
  *     </tr>
- *     <tr>
- *       <td>io.xhr</td><td><i>String</i></td><td><code>xhr</code></td>
- *       <td>{@link qx.bom.client.Transport#getXmlHttpRequest}</td>
- *     </tr>
 
  *     <tr>
  *       <td colspan="4"><b>locale</b></td>
@@ -777,7 +773,6 @@ qx.Bootstrap.define("qx.core.Environment",
       "plugin.pdfjs" : "qx.bom.client.Pdfjs.getPdfjs",
       "io.maxrequests" : "qx.bom.client.Transport.getMaxConcurrentRequestCount",
       "io.ssl" : "qx.bom.client.Transport.getSsl",
-      "io.xhr" : "qx.bom.client.Transport.getXmlHttpRequest",
       "event.touch" : "qx.bom.client.Event.getTouch",
       "event.mspointer" : "qx.bom.client.Event.getMsPointer",
       "event.help" : "qx.bom.client.Event.getHelp",

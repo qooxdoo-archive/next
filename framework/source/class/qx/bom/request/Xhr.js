@@ -81,13 +81,6 @@ qx.Bootstrap.define("qx.bom.request.Xhr",
 
     this.__initNativeXhr();
     this._emitter = new qx.event.Emitter();
-
-    // BUGFIX: IE
-    // IE keeps connections alive unless aborted on unload
-    if (window.attachEvent) {
-      this.__onUnloadBound = this.__onUnload.bind(this);
-      window.attachEvent("onunload", this.__onUnloadBound);
-    }
   },
 
   statics :
@@ -207,22 +200,6 @@ qx.Bootstrap.define("qx.bom.request.Xhr",
       }
       this.__async = async;
 
-      // BUGFIX
-      // IE < 9 and FF < 3.5 cannot reuse the native XHR to issue many requests
-      if (!this.__supportsManyRequests() && this.readyState > qx.bom.request.Xhr.UNSENT) {
-        // XmlHttpRequest Level 1 requires open() to abort any pending requests
-        // associated to the object. Since we're dealing with a new object here,
-        // we have to emulate this behavior. Moreover, allow old native XHR to be garbage collected
-        //
-        // Dispose and abort.
-        //
-        this.dispose();
-
-        // Replace the underlying native XHR with a new one that can
-        // be used to issue new requests.
-        this.__initNativeXhr();
-      }
-
       // Restore handler in case it was removed before
       this.__nativeXhr.onreadystatechange = this.__onNativeReadyStateChangeBound;
 
@@ -274,45 +251,10 @@ qx.Bootstrap.define("qx.bom.request.Xhr",
             this.__nativeXhr.open(method, url, async, user, password);
             return;
           }
-
-          // Access denied
-          // - IE 6: -2146828218
-          // - IE 7: -2147024891
-          // - Legacy Firefox
-          window.setTimeout(function() {
-            if (this.__disposed) {
-              return;
-            }
-            this.readyState = 4;
-            this._emit("readystatechange");
-            this._emit("error");
-            this._emit("loadend");
-          }.bind(this));
         }
-
       }
-
-      // BUGFIX: IE < 9
-      // IE < 9 tends to cache overly agressive. This may result in stale
-      // representations. Force validating freshness of cached representation.
-      if (qx.core.Environment.get("engine.name") === "mshtml" &&
-        qx.core.Environment.get("browser.documentmode") < 9 &&
-        this.__nativeXhr.readyState > 0) {
-          this.__nativeXhr.setRequestHeader("If-Modified-Since", "-1");
-        }
-
-      // BUGFIX: Firefox
-      // Firefox < 4 fails to trigger onreadystatechange OPENED for sync requests
-      if (qx.core.Environment.get("engine.name") === "gecko" &&
-          parseInt(qx.core.Environment.get("engine.version"), 10) < 2 &&
-          !this.__async) {
-        // Native XHR is already set to readyState DONE. Fake readyState
-        // and call onreadystatechange manually.
-        this.readyState = qx.bom.request.Xhr.OPENED;
-        this._emit("readystatechange");
-      }
-
     },
+
 
     /**
      * Sets an HTTP request header to be used by the request.
@@ -347,14 +289,6 @@ qx.Bootstrap.define("qx.bom.request.Xhr",
      */
     send: function(data) {
       this.__checkDisposed();
-
-      // BUGFIX: IE & Firefox < 3.5
-      // For sync requests, some browsers throw error on open()
-      // while it should be on send()
-      //
-      if (!this.__async && this.__openError) {
-        throw this.__openError;
-      }
 
       // BUGFIX: Opera
       // On network error, Opera stalls at readyState HEADERS_RECEIVED
@@ -609,12 +543,6 @@ qx.Bootstrap.define("qx.bom.request.Xhr",
 
       window.clearTimeout(this.__timerId);
 
-      // Remove unload listener in IE. Aborting on unload is no longer required
-      // for this instance.
-      if (window.detachEvent) {
-        window.detachEvent("onunload", this.__onUnloadBound);
-      }
-
       // May fail in IE
       try {
         this.__nativeXhr.onreadystatechange;
@@ -653,25 +581,6 @@ qx.Bootstrap.define("qx.bom.request.Xhr",
       PROTECTED
     ---------------------------------------------------------------------------
     */
-
-    /**
-     * Create XMLHttpRequest (or equivalent).
-     *
-     * @return {Object} XMLHttpRequest or equivalent.
-     */
-    _createNativeXhr: function() {
-      var xhr = qx.core.Environment.get("io.xhr");
-
-      if (xhr === "xhr") {
-        return new XMLHttpRequest();
-      }
-
-      if (xhr == "activex") {
-        return new window.ActiveXObject("Microsoft.XMLHTTP");
-      }
-
-      qx.Bootstrap.error(this, "No XHR support available.");
-    },
 
     /**
      * Get protocol of requested URL.
@@ -774,7 +683,7 @@ qx.Bootstrap.define("qx.bom.request.Xhr",
      */
     __initNativeXhr: function() {
       // Create native XHR or equivalent and hold reference
-      this.__nativeXhr = this._createNativeXhr();
+      this.__nativeXhr = new XMLHttpRequest();
 
       // Track native ready state changes
       this.__nativeXhr.onreadystatechange = this.__onNativeReadyStateChangeBound;
@@ -827,23 +736,6 @@ qx.Bootstrap.define("qx.bom.request.Xhr",
       // Sync current readyState
       this.readyState = nxhr.readyState;
 
-      // BUGFIX: IE
-      // Superfluous onreadystatechange DONE when aborting OPENED
-      // without send flag
-      if (this.readyState === qx.bom.request.Xhr.DONE &&
-          this.__abort && !this.__send) {
-        return;
-      }
-
-      // BUGFIX: IE
-      // IE fires onreadystatechange HEADERS_RECEIVED and LOADING when sync
-      //
-      // According to spec, only onreadystatechange OPENED and DONE should
-      // be fired.
-      if (!this.__async && (nxhr.readyState == 2 || nxhr.readyState == 3)) {
-        return;
-      }
-
       // Default values according to spec.
       this.status = 0;
       this.statusText = this.responseText = "";
@@ -863,7 +755,6 @@ qx.Bootstrap.define("qx.bom.request.Xhr",
 
         if (propertiesReadable) {
           this.__normalizeStatus();
-          this.__normalizeResponseXML();
         }
       }
 
@@ -989,7 +880,7 @@ qx.Bootstrap.define("qx.bom.request.Xhr",
         }
       }
 
-      // BUGFIX: IE
+      // BUGFIX: IE < 10
       // IE sometimes tells 1223 when it should be 204
       if (this.status === 1223) {
         this.status = 204;
@@ -1011,25 +902,6 @@ qx.Bootstrap.define("qx.bom.request.Xhr",
       }
     },
 
-    /**
-     * Normalize responseXML property across browsers.
-     */
-    __normalizeResponseXML: function() {
-      // BUGFIX: IE
-      // IE does not recognize +xml extension, resulting in empty responseXML.
-      //
-      // Check if Content-Type is +xml, verify missing responseXML then parse
-      // responseText as XML.
-      if (qx.core.Environment.get("engine.name") == "mshtml" &&
-          (this.getResponseHeader("Content-Type") || "").match(/[^\/]+\/[^\+]+\+xml/) &&
-           this.responseXML && !this.responseXML.documentElement) {
-        var dom = new window.ActiveXObject("Microsoft.XMLDOM");
-        dom.async = false;
-        dom.validateOnParse = false;
-        dom.loadXML(this.responseText);
-        this.responseXML = dom;
-      }
-    },
 
     /**
      * Handler for native unload event.
@@ -1043,18 +915,6 @@ qx.Bootstrap.define("qx.bom.request.Xhr",
       } catch(e) {}
     },
 
-    /**
-     * Helper method to determine whether browser supports reusing the
-     * same native XHR to send more requests.
-     * @return {Boolean} <code>true</code> if request object reuse is supported
-     */
-    __supportsManyRequests: function() {
-      var name = qx.core.Environment.get("engine.name");
-      var version = qx.core.Environment.get("browser.version");
-
-      return !(name == "mshtml" && version < 9 ||
-               name == "gecko" && version < 3.5);
-    },
 
     /**
      * Throw when already disposed.

@@ -64,18 +64,11 @@ qx.Bootstrap.define("qx.bom.request.Script",
 
     this.__onNativeLoadBound = this._onNativeLoad.bind(this);
     this.__onNativeErrorBound = this._onNativeError.bind(this);
-    this.__onTimeoutBound = this._onTimeout.bind(this);
 
     this.__headElement = document.head || document.getElementsByTagName( "head" )[0] ||
                          document.documentElement;
 
     this._emitter = new qx.event.Emitter();
-
-    // BUGFIX: Browsers not supporting error handler
-    // Set default timeout to capture network errors
-    //
-    // Note: The script is parsed and executed, before a "load" is fired.
-    this.timeout = this.__supportsErrorHandler() ? 0 : 15000;
   },
 
 
@@ -233,10 +226,6 @@ qx.Bootstrap.define("qx.bom.request.Script",
       var script = this.__createScriptElement(),
           head = this.__headElement,
           that = this;
-
-      if (this.timeout > 0) {
-        this.__timeoutId = window.setTimeout(this.__onTimeoutBound, this.timeout);
-      }
 
       if (this.__environmentGet("qx.debug.io")) {
         qx.Bootstrap.debug(qx.bom.request.Script, "Send native request");
@@ -411,10 +400,6 @@ qx.Bootstrap.define("qx.bom.request.Script",
           this.__disposeScriptElement();
         }
 
-        if (this.__timeoutId) {
-          window.clearTimeout(this.__timeoutId);
-        }
-
         this._disposed = true;
       }
     },
@@ -453,22 +438,6 @@ qx.Bootstrap.define("qx.bom.request.Script",
       return this.__scriptElement;
     },
 
-    /**
-     * Handle timeout.
-     */
-    _onTimeout: function() {
-      this.__failure();
-
-      if (!this.__supportsErrorHandler()) {
-        this._emit("error");
-      }
-
-      this._emit("timeout");
-
-      if (!this.__supportsErrorHandler()) {
-        this._emit("loadend");
-      }
-    },
 
     /**
      * Handle native load.
@@ -481,20 +450,6 @@ qx.Bootstrap.define("qx.bom.request.Script",
       // Aborted request must not fire load
       if (this.__abort) {
         return;
-      }
-
-      // BUGFIX: IE < 9
-      // When handling "readystatechange" event, skip if readyState
-      // does not signal loaded script
-      if (this.__environmentGet("engine.name") === "mshtml" &&
-          this.__environmentGet("browser.documentmode") < 9) {
-        if (!(/loaded|complete/).test(script.readyState)) {
-          return;
-        } else {
-          if (this.__environmentGet("qx.debug.io")) {
-            qx.Bootstrap.debug(qx.bom.request.Script, "Received native readyState: loaded");
-          }
-        }
       }
 
       if (this.__environmentGet("qx.debug.io")) {
@@ -515,10 +470,6 @@ qx.Bootstrap.define("qx.bom.request.Script",
         if (this.__environmentGet("qx.debug.io")) {
           qx.Bootstrap.debug(qx.bom.request.Script, "Detected error");
         }
-      }
-
-      if (this.__timeoutId) {
-        window.clearTimeout(this.__timeoutId);
       }
 
       window.setTimeout(function() {
@@ -568,16 +519,6 @@ qx.Bootstrap.define("qx.bom.request.Script",
      * @type {Function} Bound _onNativeError handler.
      */
     __onNativeErrorBound: null,
-
-    /**
-     * @type {Function} Bound _onTimeout handler.
-     */
-    __onTimeoutBound: null,
-
-    /**
-     * @type {Number} Timeout timer iD.
-     */
-    __timeoutId: null,
 
     /**
      * @type {Boolean} Whether request was aborted.
@@ -639,19 +580,6 @@ qx.Bootstrap.define("qx.bom.request.Script",
       this.statusText = null;
     },
 
-    /**
-     * Looks up whether browser supports error handler.
-     *
-     * @return {Boolean} Whether browser supports error handler.
-     */
-    __supportsErrorHandler: function() {
-      var isLegacyIe = this.__environmentGet("engine.name") === "mshtml" &&
-        this.__environmentGet("browser.documentmode") < 9;
-
-      var isOpera = this.__environmentGet("engine.name") === "opera";
-
-      return !(isLegacyIe || isOpera);
-    },
 
     /**
      * Create and configure script element.
@@ -664,14 +592,6 @@ qx.Bootstrap.define("qx.bom.request.Script",
       script.src = this.__url;
       script.onerror = this.__onNativeErrorBound;
       script.onload = this.__onNativeLoadBound;
-
-      // BUGFIX: IE < 9
-      // Legacy IEs do not fire the "load" event for script elements.
-      // Instead, they support the "readystatechange" event
-      if (this.__environmentGet("engine.name") === "mshtml" &&
-          this.__environmentGet("browser.documentmode") < 9) {
-        script.onreadystatechange = this.__onNativeLoadBound;
-      }
 
       return script;
     },

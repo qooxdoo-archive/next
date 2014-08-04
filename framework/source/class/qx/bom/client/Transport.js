@@ -124,53 +124,11 @@ qx.Bootstrap.define("qx.bom.client.Transport",
      */
     getSsl : function() {
       return window.location.protocol === "https:";
-    },
-
-    /**
-     * Checks what kind of XMLHttpRequest object the browser supports
-     * for the current protocol, if any.
-     *
-     * The standard XMLHttpRequest is preferred over ActiveX XMLHTTP.
-     *
-     * @internal
-     * @return {String}
-     *  <code>"xhr"</code>, if the browser provides standard XMLHttpRequest.<br/>
-     *  <code>"activex"</code>, if the browser provides ActiveX XMLHTTP.<br/>
-     *  <code>""</code>, if there is not XHR support at all.
-     */
-    getXmlHttpRequest : function() {
-      // Standard XHR can be disabled in IE's security settings,
-      // therefore provide ActiveX as fallback. Additionaly,
-      // standard XHR in IE7 is broken for file protocol.
-      var supports = window.ActiveXObject ?
-        (function() {
-          if ( window.location.protocol !== "file:" ) {
-            try {
-              new window.XMLHttpRequest();
-              return "xhr";
-            } catch(noXhr) {}
-          }
-
-          try {
-            new window.ActiveXObject("Microsoft.XMLHTTP");
-            return "activex";
-          } catch(noActiveX) {}
-        })()
-        :
-        (function() {
-          try {
-            new window.XMLHttpRequest();
-            return "xhr";
-          } catch(noXhr) {}
-        })();
-
-      return supports || "";
     }
   },
 
   defer : function(statics) {
     qx.core.Environment.add("io.maxrequests", statics.getMaxConcurrentRequestCount);
     qx.core.Environment.add("io.ssl", statics.getSsl);
-    qx.core.Environment.add("io.xhr", statics.getXmlHttpRequest);
   }
 });
