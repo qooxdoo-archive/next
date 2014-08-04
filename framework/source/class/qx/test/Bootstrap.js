@@ -918,6 +918,61 @@ qx.Class.define("qx.test.Bootstrap",
       a.foo = false;
       this.assertCalledTwice(setter);
       this.assertCalledWith(setter, true);
+    },
+
+
+    testEvents : function() {
+      var E1 = qx.Bootstrap.define(null, {
+        extend : Object,
+        events : {
+          a: "Number"
+        }
+      });
+      var E2 = qx.Bootstrap.define(null, {
+        extend : E1,
+        events : {
+          b: "String"
+        }
+      });
+
+      this.assertEquals("Number", qx.Bootstrap.getEventType(E1, "a"));
+      this.assertUndefined(qx.Bootstrap.getEventType(E1, "b"));
+
+      this.assertEquals("Number", qx.Bootstrap.getEventType(E2, "a"));
+      this.assertEquals("String", qx.Bootstrap.getEventType(E2, "b"));
+    },
+
+
+    testMixinEvents : function() {
+      var M = qx.Mixin.define(null, {
+        events : {
+          a: "Number"
+        }
+      });
+      var E = qx.Bootstrap.define(null, {
+        extend : Object,
+        include : [M]
+      });
+
+      this.assertEquals("Number", qx.Bootstrap.getEventType(E, "a"));
+    },
+
+
+    testMixinEventsOverride : function() {
+      var M = qx.Mixin.define(null, {
+        events : {
+          a: "Number"
+        }
+      });
+      this.assertException(function() {
+        qx.Bootstrap.define(null, {
+          extend : Object,
+          include : [M],
+          events : {
+            a : "String"
+          }
+        });
+      });
     }
   }
 });

@@ -194,6 +194,7 @@ qx.Bootstrap = {
       // Enable basecalls within constructor
       proto.base = qx.Bootstrap.base;
       proto.$$name = proto.classname = name;
+      clazz.$$events = config.events || {};
 
       if (config.members) {
         qx.Bootstrap.addMembers(proto, config.members);
@@ -679,6 +680,23 @@ qx.Bootstrap.define("qx.Bootstrap",
      */
     getByName : qx.Bootstrap.getByName,
 
+
+    /**
+     * Returns the type of an event declared on the given class.
+     *
+     * @param clazz {Function} The class to check.
+     * @param eventName {String} The name of the event.
+     * @return {String|undefined} The type of the event data or undefined if not declared.
+     */
+    getEventType : function(clazz, eventName) {
+      var baseClass = clazz;
+      while (baseClass) {
+        if (baseClass.$$events && baseClass.$$events[eventName]) {
+          return baseClass.$$events[eventName]
+        }
+        baseClass = baseClass.superclass;
+      }
+    },
 
     /*
     ---------------------------------------------------------------------------

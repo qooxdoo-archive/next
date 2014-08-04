@@ -171,7 +171,12 @@ qx.Bootstrap.define("qx.Mixin",
 
         // Attach events
         if (entry.$$events) {
-          //this.__addEvents(clazz, entry.$$events, patch); TODO?
+          for (var name in entry.$$events) {
+            if (clazz.$$events[name]) {
+              throw new Error("Event '" + name + "' already declared on class '" + clazz.classname + "'.");
+            }
+            clazz.$$events[name] = entry.$$events[name];
+          }
         }
 
         // Attach members
