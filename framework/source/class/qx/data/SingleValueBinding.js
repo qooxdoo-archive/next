@@ -621,13 +621,11 @@ qx.Bootstrap.define("qx.data.SingleValueBinding",
       var eventName = this.__getEventForProperty(source, propertyname);
       // if no event name could be found
       if (eventName == null) {
-        // TODO alternative for event detection
-
         // check if the propertyname is the event name
-        if (qx.Class.supportsEvent(source.constructor, propertyname)) {
+        if (qx.Bootstrap.getEventType(source.constructor, propertyname)) {
           eventName = propertyname;
         // check if the change + propertyname is the event name
-        } else if (qx.Class.supportsEvent(
+        } else if (qx.Bootstrap.getEventType(
           source.constructor, "change" + qx.lang.String.firstUp(propertyname))
         ) {
           eventName = "change" + qx.lang.String.firstUp(propertyname);
