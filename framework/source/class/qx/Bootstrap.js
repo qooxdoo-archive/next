@@ -691,8 +691,8 @@ qx.Bootstrap.define("qx.Bootstrap",
     getEventType : function(clazz, eventName) {
       var baseClass = clazz;
       while (baseClass) {
-        if (baseClass.$$events && baseClass.$$events[eventName]) {
-          return baseClass.$$events[eventName]
+        if (baseClass.$$events && baseClass.$$events[eventName] !== undefined) {
+          return baseClass.$$events[eventName];
         }
         baseClass = baseClass.superclass;
       }
