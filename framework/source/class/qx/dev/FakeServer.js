@@ -270,12 +270,15 @@ qx.Bootstrap.define("qx.dev.FakeServer", {
         }
         return true;
       };
+    },
+
+
+    /**
+     * Dispose and restore the Fake server.
+     */
+    dispose: function() {
+      this.restore();
+      this.__fakeServer = this.__sinon = null;
     }
-  },
-
-  destruct: function() {
-    this.restore();
-    this.__fakeServer = this.__sinon = null;
   }
-
 });

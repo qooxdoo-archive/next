@@ -135,21 +135,15 @@ qx.Bootstrap.define("qx.event.handler.OrientationCore", {
           this.__emitter.emit("orientationchange", domEvent);
         }
       }
+    },
+
+
+    /**
+     * Dispose the handler by removing all listeners.
+     */
+    dispose : function() {
+      this._stopObserver();
+      this.__manager = this.__emitter = null;
     }
-  },
-
-
-
-  /*
-  *****************************************************************************
-     DESTRUCTOR
-  *****************************************************************************
-  */
-
-  destruct : function()
-  {
-    this._stopObserver();
-    this.__manager = this.__emitter = null;
   }
-
 });
