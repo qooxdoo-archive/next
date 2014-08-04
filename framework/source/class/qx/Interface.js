@@ -139,7 +139,7 @@ qx.Bootstrap.define("qx.Interface",
       iface.toString = this.genericToString;
 
       // Assign to namespace
-      iface.basename = qx.Bootstrap.createNamespace(name, iface);
+      iface.basename = name ? qx.Bootstrap.createNamespace(name, iface) : "";
 
       // Return final interface
       return iface;

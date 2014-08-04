@@ -138,7 +138,7 @@ qx.Bootstrap.define("qx.Mixin",
       mixin.toString = this.genericToString;
 
       // Assign to namespace
-      mixin.basename = qx.Bootstrap.createNamespace(name, mixin);
+      mixin.basename = name ? qx.Bootstrap.createNamespace(name, mixin) : "";
 
       // Return final mixin
       return mixin;
