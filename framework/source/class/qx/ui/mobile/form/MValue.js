@@ -208,7 +208,7 @@ qx.Mixin.define("qx.ui.mobile.form.MValue",
      */
     getValue: function()
     {
-      return this._convertValue(this._getValue ? this._getValue() : this._getAttribute("value"));
+      return this._convertValue(this._getValue ? this._getValue() : this.getAttribute("value"));
     },
 
 
@@ -257,7 +257,7 @@ qx.Mixin.define("qx.ui.mobile.form.MValue",
     */
     _getCaretPosition : function() {
       var val = this.getContentElement().value;
-      if(val && this._getAttribute("type") !== "number") {
+      if(val && this.getAttribute("type") !== "number") {
         return val.slice(0, this.getContentElement().selectionStart).length;
       } else {
         return val.length;
@@ -271,7 +271,7 @@ qx.Mixin.define("qx.ui.mobile.form.MValue",
      */
     _setCaretPosition: function(position) {
       if (position != null && this.hasFocus()) {
-        if (this._getAttribute("type") !== "number" && this.getContentElement().setSelectionRange) {
+        if (this.getAttribute("type") !== "number" && this.getContentElement().setSelectionRange) {
           this.getContentElement().setSelectionRange(position, position);
         }
       }

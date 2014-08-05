@@ -26,15 +26,18 @@ qx.Bootstrap.define("qx.ui.mobile.navigationbar.Title",
 
   properties :
   {
+<<<<<<< HEAD
     textWrap :
     {
+=======
+    textWrap : {
+>>>>>>> [BUG #8541] updated renamed method / property
       init : false
     },
 
 
     // overridden
-    defaultCssClass :
-    {
+    defaultCssClass : {
       init : "title"
     }
   },

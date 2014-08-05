@@ -258,7 +258,7 @@ qx.Bootstrap.define("qx.ui.mobile.form.SelectBox",
      * @return {Number} the new selected index of the SelectBox.
      */
     _getValue : function() {
-      return this._getAttribute("value");
+      return this.getAttribute("value");
     },
 
 
