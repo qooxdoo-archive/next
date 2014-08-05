@@ -96,7 +96,7 @@ qx.Bootstrap.define("qx.module.Manipulating", {
             qx.dom.Element.insertEnd(children.eq(j).clone(true)[0], item);
           }
         }
-      });
+      }, this);
 
       return this;
     },
@@ -124,7 +124,7 @@ qx.Bootstrap.define("qx.module.Manipulating", {
             // further parents: clone the target node(s)
             qx.dom.Element.insertEnd(this.eq(j).clone(true)[0], parent[i]);
           }
-        });
+        }, this);
       }
 
       return this;
@@ -154,7 +154,7 @@ qx.Bootstrap.define("qx.module.Manipulating", {
             // further targets: clone the target node(s)
             qx.dom.Element.insertBefore(this.eq(index).clone(true)[0], target[i]);
           }
-        });
+        }, this);
       }
 
       return this;
