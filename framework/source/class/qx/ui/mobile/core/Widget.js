@@ -177,7 +177,8 @@ qx.Bootstrap.define("qx.ui.mobile.core.Widget",
     {
       check : "Boolean",
       init : false,
-      apply : "_applyAttribute"
+      apply : "_applyActivatable"
+    },
     }
   },
 
@@ -719,6 +720,35 @@ qx.Bootstrap.define("qx.ui.mobile.core.Widget",
     {
       this.base(arguments, value || "");
       this._domUpdated();
+    },
+
+
+    _applyActivatable : function(value, old) {
+      this._setAttribute("activatable", value);
+
+      if (old) {
+        this.off("pointerdown", this._addActiveState, this);
+        this.off("pointerup", this._removeActiveState, this);
+      }
+
+      if (value) {
+        this.on("pointerdown", this._addActiveState, this);
+        this.on("pointerup", this._removeActiveState, this);
+      }
+
+      //TODO: remove active state on viewport scroll (see mobile.core.EventHandler.__onPointerMove)
+    },
+
+
+    _addActiveState : function() {
+      if (this.getAttribute("data-selectable") != "false") {
+        this.addClass("active");
+      }
+    },
+
+
+    _removeActiveState : function() {
+      this.removeClass("active");
     },
 
 
