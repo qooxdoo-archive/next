@@ -55,7 +55,7 @@ qx.Bootstrap.define("qx.ui.mobile.basic.Atom",
     this.base(arguments);
     this.__createChildren(label, icon);
 
-    this.addCssClass("gap");
+    this.addClass("gap");
   },
 
   /*
@@ -255,9 +255,9 @@ qx.Bootstrap.define("qx.ui.mobile.basic.Atom",
     _createIconWidget : function(iconUrl)
     {
       var iconWidget = new qx.ui.mobile.basic.Image(iconUrl);
-      qx.bom.element.Style.set(iconWidget.getContentElement(),"display","block");
+      iconWidget.setStyle("display", "block");
       iconWidget.anonymous = true;
-      iconWidget.addCssClass("gap");
+      iconWidget.addClass("gap");
       return iconWidget;
     },
 
@@ -272,8 +272,8 @@ qx.Bootstrap.define("qx.ui.mobile.basic.Atom",
     {
       var labelWidget = new qx.ui.mobile.basic.Label(label);
       labelWidget.anonymous = true;
-      labelWidget.wrap = false;
-      labelWidget.addCssClass("gap");
+      labelWidget.textWrap = false;
+      labelWidget.addClass("gap");
       return labelWidget;
     },
 
@@ -311,7 +311,7 @@ qx.Bootstrap.define("qx.ui.mobile.basic.Atom",
       }
 
       this.__childrenContainer = new qx.ui.mobile.container.Composite(layout);
-      this.__childrenContainer.addCssClass("qx-flex-center");
+      this.__childrenContainer.addClass("qx-flex-center");
       this.__childrenContainer.anonymous = true;
 
       if(this.__icon) {
@@ -319,7 +319,7 @@ qx.Bootstrap.define("qx.ui.mobile.basic.Atom",
       }
 
       if(this.__label) {
-        this.__label.addCssClass("qx-flex-center");
+        this.__label.addClass("qx-flex-center");
         this.__childrenContainer.add(this.__label);
       }
 

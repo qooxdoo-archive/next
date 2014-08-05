@@ -20,12 +20,11 @@
 /**
  * This is the base class for all mobile widgets.
  *
- * @use(qx.ui.mobile.core.EventHandler)
+ * @require(qx.module.Core)
  */
 qx.Bootstrap.define("qx.ui.mobile.core.Widget",
 {
-  extend : qx.core.Object,
-  include : [qx.locale.MTranslation],
+  extend : qxWeb,
 
 
   /*
@@ -38,15 +37,17 @@ qx.Bootstrap.define("qx.ui.mobile.core.Widget",
   {
     this.base(arguments);
 
-    this._setContainerElement(this._createContainerElement());
+    if (qx.core.Environment.get("qx.debug")) {
+      qx.Mixin.add(this.constructor, qx.core.MAssert); //TODO: Assertion module
+    }
+
+    if (this.length === 0) {
+      this.push(this._createContainerElement());
+    }
 
     // Init member variables
 
-    this.__children = [];
-
-
     var clazz = qx.ui.mobile.core.Widget;
-    //debugger
     this.id = clazz.ID_PREFIX + clazz.__idCounter++;
     this.defaultCssClass = undefined;
     this.name = undefined;
@@ -65,98 +66,6 @@ qx.Bootstrap.define("qx.ui.mobile.core.Widget",
 
   events :
   {
-    /** Fired if the mouse cursor moves over the widget. */
-    mousemove : "qx.event.type.Mouse",
-
-    /** Fired if the mouse cursor enters the widget. */
-    mouseover : "qx.event.type.Mouse",
-
-    /** Fired if the mouse cursor leaves widget. */
-    mouseout : "qx.event.type.Mouse",
-
-    /** Mouse button is pressed on the widget. */
-    mousedown : "qx.event.type.Mouse",
-
-    /** Mouse button is released on the widget. */
-    mouseup : "qx.event.type.Mouse",
-
-    /** Widget is clicked using left or middle button.
-        {@link qx.event.type.Mouse#getButton} for more details.*/
-    click : "qx.event.type.Mouse",
-
-    /** Widget is double clicked using left or middle button.
-        {@link qx.event.type.Mouse#getButton} for more details.*/
-    dblclick : "qx.event.type.Mouse",
-
-    /** Widget is clicked using the right mouse button. */
-    contextmenu : "qx.event.type.Mouse",
-
-    /** Fired before the context menu is opened. */
-    beforeContextmenuOpen : "qx.event.type.Mouse",
-
-    /** Fired if the mouse wheel is used over the widget. */
-    mousewheel : "qx.event.type.MouseWheel",
-
-    /** Fired if a touch at the screen is started. */
-    touchstart : "qx.event.type.Touch",
-
-    /** Fired if a touch at the screen has ended. */
-    touchend : "qx.event.type.Touch",
-
-    /** Fired during a touch at the screen. */
-    touchmove : "qx.event.type.Touch",
-
-    /** Fired if a touch at the screen is cancled. */
-    touchcancel : "qx.event.type.Touch",
-
-    /** Fired when a finger taps on the screen. */
-    tap : "qx.event.type.Tap",
-
-    /** Fired when a finger holds on the screen. */
-    longtap : "qx.event.type.Tap",
-
-    /** Fired when a finger swipes over the screen. */
-    swipe : "qx.event.type.Touch",
-
-    /** Fired when two pointers performing a rotate gesture on the screen. */
-    rotate : "qx.event.type.Rotate",
-
-    /** Fired when two pointers performing a pinch in/out gesture on the screen. */
-    pinch : "qx.event.type.Pinch",
-
-    /** Fired when an active pointer moves on the screen (after pointerdown till pointerup). */
-    track : "qx.event.type.Track",
-
-    /**
-     * This event if fired if a keyboard key is released.
-     **/
-    keyup : "qx.event.type.KeySequence",
-
-    /**
-     * This event if fired if a keyboard key is pressed down. This event is
-     * only fired once if the user keeps the key pressed for a while.
-     */
-    keydown : "qx.event.type.KeySequence",
-
-    /**
-     * This event is fired any time a key is pressed. It will be repeated if
-     * the user keeps the key pressed. The pressed key can be determined using
-     * {@link qx.event.type.KeySequence#getKeyIdentifier}.
-     */
-    keypress : "qx.event.type.KeySequence",
-
-    /**
-     * This event is fired if the pressed key or keys result in a printable
-     * character. Since the character is not necessarily associated with a
-     * single physical key press, the event does not have a key identifier
-     * getter. This event gets repeated if the user keeps pressing the key(s).
-     *
-     * The unicode code of the pressed key can be read using
-     * {@link qx.event.type.KeyInput#getCharCode}.
-     */
-    keyinput : "qx.event.type.KeyInput",
-
-
     /**
      * Fired after a massive DOM manipulation, e.g. when DOM elements were
      * added or styles were changed. Listen to this event, if you need to
@@ -167,48 +76,12 @@ qx.Bootstrap.define("qx.ui.mobile.core.Widget",
     /**
      * Fired after the widget appears on the screen.
      */
-    appear : "qx.event.type.Event",
+    appear : "qx.event.type.Event", //TODO?
 
     /**
      * Fired after the widget disappears from the screen.
      */
-    disappear : "qx.event.type.Event",
-
-
-    /**
-     * The event is fired when the widget gets focused.
-     */
-    focus : "qx.event.type.Focus",
-
-    /**
-     * The event is fired when the widget gets blurred.
-     */
-    blur : "qx.event.type.Focus",
-
-    /**
-     * When the widget itself or any child of the widget receive the focus.
-     */
-    focusin : "qx.event.type.Focus",
-
-    /**
-     * When the widget itself or any child of the widget lost the focus.
-     */
-    focusout : "qx.event.type.Focus",
-
-    /**
-     * When the widget gets active (receives keyboard events etc.)
-     */
-    activate : "qx.event.type.Focus",
-
-    /**
-     * When the widget gets inactive
-     */
-    deactivate : "qx.event.type.Focus",
-
-    /**
-     * Fired when an active pointer moves on the screen or the mouse wheel is used.
-     */
-    roll : "qx.event.type.Roll"
+    disappear : "qx.event.type.Event" //TODO?
   },
 
 
@@ -247,19 +120,6 @@ qx.Bootstrap.define("qx.ui.mobile.core.Widget",
       nullable: false,
       event : "changeEnabled",
       apply: "_applyEnabled"
-    },
-
-
-    /**
-     * The name attribute of the container element. Usefull when you want to find
-     * an element by its name attribute.
-     */
-    name :
-    {
-      check : "String",
-      init : null,
-      nullable : true,
-      apply : "_applyAttribute"
     },
 
 
@@ -318,91 +178,6 @@ qx.Bootstrap.define("qx.ui.mobile.core.Widget",
       check : "Boolean",
       init : false,
       apply : "_applyAttribute"
-    },
-
-
-    /**
-     * Rotates the widget. Negative and positive values are allowed.
-     */
-    rotation :
-    {
-      check : "Number",
-      nullable : true,
-      init : null,
-      apply : "_transform"
-    },
-
-
-    /**
-    * This property controls whether the transformation uses the length unit <code>px<code> or <code>rem</code>.
-    * This feature is important for creating a resolution independent transformation.
-    */
-    transformUnit :
-    {
-      check : ["rem", "px"],
-      nullable : false,
-      init : "rem",
-      apply : "_transform"
-    },
-
-
-    /**
-     * Scales the widget in X direction (width).
-     */
-    scaleX :
-    {
-      check : "Number",
-      nullable : true,
-      init : null,
-      apply : "_transform"
-    },
-
-
-    /**
-     * Scales the widget in Y direction (height).
-     */
-    scaleY :
-    {
-      check : "Number",
-      nullable : true,
-      init : null,
-      apply : "_transform"
-    },
-
-
-    /**
-     * Moves the widget on X axis.
-     */
-    translateX :
-    {
-      check : "Number",
-      nullable : true,
-      init : 0,
-      apply : "_transform"
-    },
-
-
-    /**
-     * Moves the widget on Y axis.
-     */
-    translateY :
-    {
-      check : "Number",
-      nullable : true,
-      init : 0,
-      apply : "_transform"
-    },
-
-
-    /**
-     * Moves the widget on Z axis.
-     */
-    translateZ :
-    {
-      check : "Number",
-      nullable : true,
-      init : 0,
-      apply : "_transform"
     }
   },
 
@@ -529,80 +304,6 @@ qx.Bootstrap.define("qx.ui.mobile.core.Widget",
 
 
     /**
-     * Adds an attribute mapping entry. This entry is used by the {@link #_applyAttribute}
-     * method. Shortcut when the property name differs from the real
-     * attribute name. Use this method if you want to add an attribute entry to the mapping
-     * from the defer function of a different widget.
-     *
-     * e.g.:
-     * "selectable" :
-     * {
-     *   attribute : "data-selectable",
-     *   values :
-     *   {
-     *     "true" : null,
-     *     "false" : "false"
-     *   }
-     * }
-     *
-     * @param property {String} The property name
-     * @param attribute {String} The real attribute name
-     * @param values {Map} Values of the property to the real attribute value.
-     *      Use null, when you want not to set the attribute.
-     */
-    addAttributeMapping : function(property, attribute, values)
-    {
-      if (qx.core.Environment.get("qx.debug"))
-      {
-        var attributeMapping = qx.ui.mobile.core.Widget.ATTRIBUTE_MAPPING;
-        qx.core.Assert.assertUndefined(attributeMapping[property], "Attribute mapping for " + property + " already exists");
-      }
-
-      qx.ui.mobile.core.Widget.ATTRIBUTE_MAPPING[property] = {
-        attribute : attribute,
-        values : values
-      }
-    },
-
-
-    /**
-     * Adds a style mapping entry. This entry is used by the {@link #_applyStyle}
-     * method. Shortcut when the property name differs from the real
-     * style name. Use this method if you want to add a style entry to the mapping
-     * from the defer function of a different widget.
-     *
-     * e.g.:
-     * "anonymous" :
-     * {
-     *  style : "pointer-events",
-     *  values :
-     *  {
-     *    "true" : "none",
-     *    "false" : null
-     *  }
-     * }
-     *
-     * @param property {String} The property name
-     * @param style {String} The real style name
-     * @param values {Map} Values of the property to the real style value.
-     *      Use null, when you want not to set the style.
-     */
-    addStyleMapping : function(property, style, values)
-    {
-      if (qx.core.Environment.get("qx.debug"))
-      {
-        var styleMapping = qx.ui.mobile.core.Widget.STYLE_MAPPING;
-        qx.core.Assert.assertUndefined(styleMapping[property], "Style mapping for " + property + " already exists");
-      }
-
-      qx.ui.mobile.core.Widget.STYLE_MAPPING[property] = {
-        style : style,
-        values : values
-      }
-    },
-
-
-    /**
      * Mapping of attribute properties to their real attribute name.
      *
      * @internal
@@ -664,11 +365,6 @@ qx.Bootstrap.define("qx.ui.mobile.core.Widget",
 
   members :
   {
-    __containerElement : null,
-    __contentElement : null,
-
-    __layoutParent : null,
-    __children : null,
     __layoutManager : null,
 
     /*
@@ -682,8 +378,7 @@ qx.Bootstrap.define("qx.ui.mobile.core.Widget",
      * Override this method if you want to create a custom widget.
      * @return {String} The container element's tag name
      */
-    _getTagName : function()
-    {
+    _getTagName : function() {
       return "div";
     },
 
@@ -694,9 +389,8 @@ qx.Bootstrap.define("qx.ui.mobile.core.Widget",
     *
     * @return {Element} the container element.
     */
-    _createContainerElement : function()
-    {
-      return qx.dom.Element.create(this._getTagName());
+    _createContainerElement : function() {
+      return qxWeb.create("<" + this._getTagName() + ">")[0];
     },
 
 
@@ -717,20 +411,6 @@ qx.Bootstrap.define("qx.ui.mobile.core.Widget",
     */
 
 
-    /**
-     * Transforms the value of the ID property. When the value is null, an auto
-     * generated ID is set. This makes sure that an ID is always set.
-     *
-     * @param value {String} The set id of the widget
-     * @return {String} The transformed ID
-     */
-    _transformId : function(value)
-    {
-
-      return value;
-    },
-
-
     // property apply
     _applyId : function(value, old)
     {
@@ -741,8 +421,7 @@ qx.Bootstrap.define("qx.ui.mobile.core.Widget",
       }
 
       // Change the id of the DOM element
-      var element = this.getContainerElement();
-      element.id = value;
+      this[0].id = value;
       // Register the widget
       qx.ui.mobile.core.Widget.registerWidget(this);
 
@@ -758,15 +437,16 @@ qx.Bootstrap.define("qx.ui.mobile.core.Widget",
     {
       if(value)
       {
-        this.removeCssClass("disabled");
+        this.removeClass("disabled");
         this._setStyle('anonymous',this.anonymous);
       }
       else
       {
-        this.addCssClass("disabled");
+        this.addClass("disabled");
         this._setStyle('anonymous',true);
       }
     },
+
 
 
     /*
@@ -784,17 +464,9 @@ qx.Bootstrap.define("qx.ui.mobile.core.Widget",
      */
     _add : function(child, layoutProperties)
     {
-      if (qx.core.Environment.get("qx.debug"))
-      {
-        if (child.getLayoutParent() === this) {
-          throw new Error("The widget is already added this widget. Please remove it first.")
-        }
-      }
+      child.setLayoutProperties(layoutProperties);
 
-      this._initializeChildLayout(child, layoutProperties);
-
-      this.getContentElement().appendChild(child.getContainerElement());
-      this.__children.push(child);
+      this.append(child[0]);
 
       this._domUpdated();
     },
@@ -809,12 +481,7 @@ qx.Bootstrap.define("qx.ui.mobile.core.Widget",
      */
     _addAt : function(child, index, options)
     {
-      // When moving in the same widget, remove widget first
-      if (child.getLayoutParent() == this) {
-        qx.lang.Array.remove(this.__children, child);
-      }
-
-      var ref = this.__children[index];
+      var ref = this.getChildren()[index];
 
       if (ref) {
         this._addBefore(child, ref, options);
@@ -839,17 +506,16 @@ qx.Bootstrap.define("qx.ui.mobile.core.Widget",
           throw new Error("The widget is already added this widget. Please remove it first.")
         }
 
-        this.assertInArray(beforeWidget, this._getChildren(), "The 'before' widget is not a child of this widget!");
+        this.assertInArray(beforeWidget, this.getChildren(), "The 'before' widget is not a child of this widget!");
       }
 
       if (child == beforeWidget) {
         return;
       }
 
-      this._initializeChildLayout(child, layoutProperties);
+      child.setLayoutProperties(layoutProperties);
 
-      this.getContentElement().insertBefore(child.getContainerElement(), beforeWidget.getContainerElement());
-      qx.lang.Array.insertBefore(this.__children, child, beforeWidget);
+      this.insertBefore(child, beforeWidget);
 
       this._domUpdated();
     },
@@ -870,28 +536,26 @@ qx.Bootstrap.define("qx.ui.mobile.core.Widget",
           throw new Error("The child is already added to this widget. Please remove it first.")
         }
 
-        this.assertInArray(afterWidget, this._getChildren(), "The 'after' widget is not a child of this widget!");
+        this.assertInArray(afterWidget, this.getChildren(), "The 'after' widget is not a child of this widget!");
       }
 
       if (child == afterWidget) {
         return;
       }
 
-      this._initializeChildLayout(child, layoutProperties);
+      child.setLayoutProperties(layoutProperties);
 
-      var length = this._getChildren().length;
+      var length = this.getChildren().length;
       var index = this._indexOf(afterWidget);
 
       if (index == length - 1) {
-        this.getContentElement().appendChild(child.getContainerElement());
+        this.append(child);
       }
       else
       {
-        var beforeWidget = this._getChildren()[index+1];
-        this.getContentElement().insertBefore(child.getContainerElement(), beforeWidget.getContainerElement());
+        var beforeWidget = this.getChildren()[index+1];
+        this.insertBefore(child, beforeWidget);
       }
-
-      qx.lang.Array.insertAfter(this.__children, child, afterWidget);
 
       this._domUpdated();
     },
@@ -905,7 +569,7 @@ qx.Bootstrap.define("qx.ui.mobile.core.Widget",
      */
     _remove : function(child)
     {
-      child.setLayoutParent(null);
+      child.remove();
       this._domUpdated();
     },
 
@@ -917,11 +581,7 @@ qx.Bootstrap.define("qx.ui.mobile.core.Widget",
      */
     _removeAt : function(index)
     {
-      if (!this.__children) {
-        throw new Error("This widget has no children!");
-      }
-
-      var child = this.__children[index];
+      var child = this.getChildren()[index];
       this._remove(child);
     },
 
@@ -932,11 +592,11 @@ qx.Bootstrap.define("qx.ui.mobile.core.Widget",
      */
     _removeAll : function()
     {
-      // create a copy of the array
-      var children = this.__children.concat();
-      for (var i = 0, l=children.length; i < l; i++) {
-        this._remove(children[i]);
-      }
+      var children = this.getChildren();
+      children.forEach(function(child) {
+        qxWeb(child).remove();
+      });
+
       return children;
     },
 
@@ -951,83 +611,7 @@ qx.Bootstrap.define("qx.ui.mobile.core.Widget",
      */
     _indexOf : function(child)
     {
-      var children = this.__children;
-      if (!children) {
-        return -1;
-      }
-
-      return children.indexOf(child);
-    },
-
-
-    /**
-     * Internal method. Sets the layout parent.
-     *
-     * @param parent {qx.ui.mobile.core.Widget} The parent widget
-     *
-     * @internal
-     */
-    setLayoutParent : function(parent)
-    {
-      if (this.__layoutParent === parent) {
-        return;
-      }
-
-      var oldParent = this.__layoutParent;
-      if (oldParent && !oldParent.$$disposed) {
-        this.__layoutParent.removeChild(this);
-      }
-
-      this.__layoutParent = parent || null;
-    },
-
-
-    /**
-     * Internal method. Removes a given child widget and the corresponding DOM element.
-     *
-     * @param child {Widget} The widget to remove
-     *
-     * @internal
-     */
-    removeChild : function(child)
-    {
-      qx.lang.Array.remove(this.__children, child);
-      this.getContentElement().removeChild(child.getContainerElement());
-      var layout = this._getLayout();
-      if (layout) {
-        layout.disconnectFromChildWidget(child);
-      }
-    },
-
-
-    /**
-     * Returns the parent widget of this widget.
-     *
-     * @return {Widget} The parent of the widget
-     */
-    getLayoutParent : function()
-    {
-      return this.__layoutParent;
-    },
-
-
-    /**
-     * Returns the children of the widget.
-     *
-     * @return {Widget[]} The children of the widget
-     */
-    _getChildren : function() {
-      return this.__children;
-    },
-
-
-    /**
-     * Whether the widget has child widgets.
-     *
-     * @return {Boolean} Whether the widget has children or not.
-     */
-    _hasChildren : function() {
-      return this.__children && this.__children.length > 0;
+      return this.getChildren().indexOf(child);
     },
 
 
@@ -1053,17 +637,6 @@ qx.Bootstrap.define("qx.ui.mobile.core.Widget",
         }
       }
 
-      if (this.__layoutManager) {
-        this.__layoutManager.connectToWidget(null);
-        for (var i=0; i < this._getChildren().length; i++) {
-          var child = this._getChildren()[i];
-          this.__layoutManager.disconnectFromChildWidget(child);
-        }
-      }
-
-      if (layout) {
-        layout.connectToWidget(this);
-      }
       this.__layoutManager = layout;
       this._domUpdated();
     },
@@ -1078,7 +651,6 @@ qx.Bootstrap.define("qx.ui.mobile.core.Widget",
      */
     _initializeChildLayout : function(child, layoutProperties)
     {
-      child.setLayoutParent(this);
       child.setLayoutProperties(layoutProperties);
       var layout = this._getLayout();
       if (layout) {
@@ -1105,8 +677,8 @@ qx.Bootstrap.define("qx.ui.mobile.core.Widget",
     setLayoutProperties : function(properties)
     {
       // Check values through parent
-      var parent = this.getLayoutParent();
-      if (parent) {
+      var parent = this.getParents();
+      if (parent[0]) {
         parent.updateLayoutProperties(this, properties);
       }
     },
@@ -1163,39 +735,8 @@ qx.Bootstrap.define("qx.ui.mobile.core.Widget",
     */
     _setHtml : function(value)
     {
-      this.getContentElement().innerHTML = value || "";
+      this.setHtml(value || "");
       this._domUpdated();
-    },
-
-
-    /**
-     * Transforms this widget (rotate, scale, translate3d)
-     */
-    _transform : function() {
-      var propertyValue = "";
-      if(this.rotation != null) {
-        propertyValue = propertyValue + "rotate("+this.rotation+"deg) ";
-      }
-
-      if(this.scaleX != null && this.scaleY != null) {
-        propertyValue = propertyValue + "scale("+this.scaleX+","+this.scaleY+") ";
-      }
-
-      var resolutionFactor = 1;
-      if (this.transformUnit == "rem") {
-        resolutionFactor = 16;
-      }
-
-      if (this.translateX != null && this.translateY != null) {
-        var isTransform3d = qx.core.Environment.get("css.transform.3d");
-        if (isTransform3d && this.translateZ != null) {
-          propertyValue = propertyValue + "translate3d(" + (this.translateX/resolutionFactor) + this.transformUnit + "," + (this.translateY/resolutionFactor) + this.transformUnit + "," + (this.translateZ/resolutionFactor) + this.transformUnit + ") ";
-        } else {
-          propertyValue = propertyValue + "translate(" + (this.translateX/resolutionFactor) + this.transformUnit + "," + (this.translateY/resolutionFactor) + this.transformUnit + ") ";
-        }
-      }
-
-      qx.bom.element.Style.set(this.getContainerElement(),"transform", propertyValue);
     },
 
 
@@ -1231,7 +772,7 @@ qx.Bootstrap.define("qx.ui.mobile.core.Widget",
      */
     _setAttribute : function(attribute, value)
     {
-      var mapping = qx.ui.mobile.core.Widget.ATTRIBUTE_MAPPING[attribute]
+      var mapping = qx.ui.mobile.core.Widget.ATTRIBUTE_MAPPING[attribute];
       if (mapping)
       {
         attribute = mapping.attribute || attribute;
@@ -1239,28 +780,9 @@ qx.Bootstrap.define("qx.ui.mobile.core.Widget",
         value = values && typeof values[value] !== "undefined" ? values[value] : value;
       }
 
-      var element = this.getContainerElement();
-      if (value != null) {
-        qx.bom.element.Attribute.set(element, attribute, value);
-      }
-      else
-      {
-        qx.bom.element.Attribute.reset(element, attribute);
-      }
+      this.setAttribute(attribute, value);
+
       this._domUpdated();
-    },
-
-
-    /**
-     * Returns the set value of the given attribute.
-     *
-     * @param attribute {String} The attribute name
-     * @return {var} The attribute's value
-     */
-    _getAttribute : function(attribute)
-    {
-      var element = this.getContainerElement();
-      return qx.bom.element.Attribute.get(element, attribute);
     },
 
 
@@ -1293,36 +815,19 @@ qx.Bootstrap.define("qx.ui.mobile.core.Widget",
      */
     _setStyle : function(style, value)
     {
-      var mapping = qx.ui.mobile.core.Widget.STYLE_MAPPING[style]
+      var mapping = qx.ui.mobile.core.Widget.STYLE_MAPPING[style];
       if (mapping)
       {
         style = mapping.style || style;
         value = mapping.values[value];
       }
 
-      var element = this.getContainerElement();
-      if (value != null) {
-        qx.bom.element.Style.set(element, style, value);
-      }
-      else
-      {
-        qx.bom.element.Style.reset(element, style);
-      }
+
+      this.setStyle(style, value);
+
       this._domUpdated();
     },
 
-
-    /**
-     * Returns the value of a certain style of the container element.
-     *
-     * @param style {String} The style name of which the value should be returned
-     * @return {var} The value of the style
-     */
-    _getStyle : function(style)
-    {
-      var element = this.getContainerElement();
-      return qx.bom.element.Style.get(element, style);
-    },
 
     /*
     ---------------------------------------------------------------------------
@@ -1334,10 +839,10 @@ qx.Bootstrap.define("qx.ui.mobile.core.Widget",
     _applyDefaultCssClass : function(value, old)
     {
       if (old) {
-        this.removeCssClass(old);
+        this.removeClass(old);
       }
       if (value) {
-        this.addCssClass(value);
+        this.addClass(value);
       }
     },
 
@@ -1348,8 +853,8 @@ qx.Bootstrap.define("qx.ui.mobile.core.Widget",
      *
      * @param cssClass {String} The CSS class to add
      */
-    addCssClass : function(cssClass) {
-      qx.bom.element.Class.add(this.getContainerElement(), cssClass);
+    addClass : function(cssClass) {
+      this.base(arguments, cssClass);
       this._domUpdated();
     },
 
@@ -1360,9 +865,9 @@ qx.Bootstrap.define("qx.ui.mobile.core.Widget",
      *
      * @param cssClasses {String[]} The CSS classes to add, wrapped by an array.
      */
-    addCssClasses : function(cssClasses) {
-      if(cssClasses){
-        qx.bom.element.Class.addClasses(this.getContainerElement(), cssClasses);
+    addClasses : function(cssClasses) {
+      if (cssClasses){
+        this.base(arguments, cssClasses);
         this._domUpdated();
       }
     },
@@ -1373,9 +878,9 @@ qx.Bootstrap.define("qx.ui.mobile.core.Widget",
      *
      * @param cssClass {String} The CSS class to remove
      */
-    removeCssClass : function(cssClass) {
-      if (this.hasCssClass(cssClass)) {
-        qx.bom.element.Class.remove(this.getContainerElement(), cssClass);
+    removeClass : function(cssClass) {
+      if (this.hasClass(cssClass)) {
+        this.base(arguments, cssClass);
         this._domUpdated();
       }
     },
@@ -1386,9 +891,9 @@ qx.Bootstrap.define("qx.ui.mobile.core.Widget",
      *
      * @param cssClasses {String[]} The CSS classes to remove from widget.
      */
-    removeCssClasses : function(cssClasses) {
-       if(cssClasses){
-         qx.bom.element.Class.removeClasses(this.getContainerElement(), cssClasses);
+    removeClasses : function(cssClasses) {
+       if (cssClasses){
+         this.base(arguments, cssClasses);
          this._domUpdated();
        }
     },
@@ -1399,23 +904,12 @@ qx.Bootstrap.define("qx.ui.mobile.core.Widget",
      *
      * @param cssClass {String} The CSS class to toggle
      */
-    toggleCssClass : function(cssClass) {
-      if (this.hasCssClass(cssClass)) {
-        this.removeCssClass(cssClass);
+    toggleClass : function(cssClass) {
+      if (this.hasClass(cssClass)) {
+        this.removeClass(cssClass);
       } else {
-        this.addCssClass(cssClass);
+        this.addClass(cssClass);
       }
-    },
-
-
-    /**
-     * Checks if the widget has a certain CSS class set.
-     *
-     * @param cssClass {String} The CSS class to check
-     * @return {Boolean} Whether the CSS class is set or not
-     */
-    hasCssClass : function(cssClass) {
-      return qx.bom.element.Class.has(this.getContainerElement(), cssClass);
     },
 
 
@@ -1430,11 +924,11 @@ qx.Bootstrap.define("qx.ui.mobile.core.Widget",
     _applyVisibility : function(value, old)
     {
       if (value == "excluded") {
-        this.addCssClass("exclude");
+        this.addClass("exclude");
       }
       else if(value == "visible")
       {
-        this.removeCssClass("exclude");
+        this.removeClass("exclude");
         this._setStyle("visibility", "visible");
       }
       else if (value == "hidden") {
@@ -1453,8 +947,8 @@ qx.Bootstrap.define("qx.ui.mobile.core.Widget",
     __setVisibility : function(action, properties) {
       this.visibility = action;
 
-      var parent = this.getLayoutParent();
-      if (parent) {
+      var parent = this.getParents();
+      if (parent[0]) {
         parent.updateLayout(this, action, properties);
       }
     },
@@ -1538,97 +1032,27 @@ qx.Bootstrap.define("qx.ui.mobile.core.Widget",
      */
     isSeeable : function()
     {
-      return this.getContainerElement().offsetWidth > 0;
-    },
-
-
-    /*
-    ---------------------------------------------------------------------------
-     Element handling
-    ---------------------------------------------------------------------------
-    */
-
-    /**
-     * Sets the container DOM element of the widget.
-     *
-     * @param element {Element} The container DOM element of the widet
-     */
-    _setContainerElement : function(element)
-    {
-      this.__containerElement = element;
-    },
-
-
-    /**
-     * Returns the container DOM element of the widget.
-     *
-     * @return {Element} the container DOM element of the widget
-     *
-     * @internal
-     */
-    getContainerElement : function()
-    {
-      return this.__containerElement;
-    },
-
-
-    /**
-     * Returns the content DOM element of the widget.
-     *
-     * @return {Element} the content DOM element of the widget
-     *
-     * @internal
-     */
-    getContentElement : function()
-    {
-      if (!this.__contentElement) {
-        this.__contentElement = this._getContentElement();
-      }
-      return this.__contentElement;
-    },
-
-
-    /**
-     * Returns the content DOM element of the widget.
-     * Override this method, to define another element as the content element.
-     *
-     * Note: Most times this element points to to the container element.
-     * When the widget has a more complex element structure,
-     * the function should return a reference of the element that should contain
-     * the content.
-     *
-     * @return {Element} the content DOM element of the widget
-     */
-    _getContentElement : function()
-    {
-      return this.getContainerElement();
+      return this[0].offsetWidth > 0;
     },
 
 
     dispose : function() {
       this.base(arguments);
-      if (!qx.core.ObjectRegistry.inShutDown)
+
+      // Cleanup event listeners
+      // Needed as we rely on the containerElement in the qx.ui.mobile.core.EventHandler
+      qx.event.Registration.removeAllListeners(this);
+
+      if (this.id)
       {
-        // Cleanup event listeners
-        // Needed as we rely on the containerElement in the qx.ui.mobile.core.EventHandler
-        qx.event.Registration.removeAllListeners(this);
-
-        if (this.id)
-        {
-          qx.ui.mobile.core.Widget.unregisterWidget(this.id);
-        }
+        qx.ui.mobile.core.Widget.unregisterWidget(this.id);
       }
 
-      var parent = this.__layoutParent;
-      if (parent) {
-        parent._remove(this);
-      }
+      this.remove();
 
-      this.__layoutParent = this.__containerElement = this.__contentElement = null;
       if(this.__layoutManager) {
         this.__layoutManager.dispose();
       }
-      this.__layoutManager = null;
     }
   },
 

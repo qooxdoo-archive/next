@@ -69,7 +69,7 @@ qx.Bootstrap.define("qx.ui.mobile.form.Label",
     layout.alignY = "middle";
     layout.alignX = "left";
     this._setLayout(layout);
-    this.wrap = true;
+    this.textWrap = true;
 
     if (qx.core.Environment.get("qx.dynlocale")) {
       qx.locale.Manager.getInstance().addListener("changeLocale", this._onChangeLocale, this);
@@ -117,11 +117,11 @@ qx.Bootstrap.define("qx.ui.mobile.form.Label",
     /**
      * Controls whether text wrap is activated or not.
      */
-    wrap :
+    textWrap :
     {
       check : "Boolean",
       init : true,
-      apply : "_applyWrap"
+      apply : "_applyTextWrap"
     }
   },
 
@@ -160,7 +160,7 @@ qx.Bootstrap.define("qx.ui.mobile.form.Label",
 
 
     // property apply
-    _applyWrap : function(value, old)
+    _applyTextWrap : function(value, old)
     {
       if (value) {
         this.removeCssClass("no-wrap");

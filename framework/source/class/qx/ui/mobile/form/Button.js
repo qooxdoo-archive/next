@@ -27,7 +27,7 @@
  * <pre class='javascript'>
  *   var button = new qx.ui.mobile.form.Button("Hello World");
  *
- *   button.addListener("tap", function(e) {
+ *   button.on("tap", function(e) {
  *     alert("Button was clicked");
  *   }, this);
  *

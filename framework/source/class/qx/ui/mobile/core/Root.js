@@ -39,11 +39,12 @@ qx.Bootstrap.define("qx.ui.mobile.core.Root",
   construct : function(root, layout)
   {
     this.__root = root || document.body;
+    this.push(this.__root);
     this.base(arguments, layout || new qx.ui.mobile.layout.VBox());
 
-    this.addCssClass("mobile");
-    this.addCssClass(qx.core.Environment.get("os.name"));
-    this.addCssClass("v"+qx.core.Environment.get("os.version").charAt(0));
+    this.addClass("mobile");
+    this.addClass(qx.core.Environment.get("os.name"));
+    this.addClass("v"+qx.core.Environment.get("os.version").charAt(0));
 
     qx.event.Registration.addListener(window, "orientationchange", this._onOrientationChange, this);
 
@@ -52,13 +53,13 @@ qx.Bootstrap.define("qx.ui.mobile.core.Root",
       this.addListener("touchmove", qx.bom.Event.preventDefault, this);
 
       if (window.innerHeight != document.documentElement.clientHeight) {
-        this.addCssClass("ios-viewport-fix");
+        this.addClass("ios-viewport-fix");
       }
     }
 
     var flexboxSyntax = qx.core.Environment.get("css.flexboxSyntax");
     if (flexboxSyntax === "flex" || flexboxSyntax === "flexbox") {
-      this.addCssClass("qx-flex-ready");
+      this.addClass("qx-flex-ready");
     }
 
     this._onOrientationChange();
@@ -104,7 +105,7 @@ qx.Bootstrap.define("qx.ui.mobile.core.Root",
      * Event is fired when the app scale factor of the application has (or
      * might have) changed.
      */
-    "changeAppScale" : "qx.event.type.Event"
+    "changeAppScale" : null
   },
 
 
@@ -224,7 +225,7 @@ qx.Bootstrap.define("qx.ui.mobile.core.Root",
         docElement.style.display = "";
       }, 0);
 
-      this.fireEvent("changeAppScale");
+      this.emit("changeAppScale");
     },
 
 
@@ -261,11 +262,11 @@ qx.Bootstrap.define("qx.ui.mobile.core.Root",
       }
 
       if (isPortrait) {
-        this.addCssClass("portrait");
-        this.removeCssClass("landscape");
+        this.addClass("portrait");
+        this.removeClass("landscape");
       } else {
-        this.addCssClass("landscape");
-        this.removeCssClass("portrait");
+        this.addClass("landscape");
+        this.removeClass("portrait");
       }
     },
 

@@ -179,7 +179,7 @@ qx.Bootstrap.define("qx.ui.mobile.list.renderer.group.Default",
      */
     _createTitle : function() {
       var title = new qx.ui.mobile.basic.Label();
-      title.wrap = false;
+      title.textWrap = false;
       title.addCssClass("group-item-title");
       return title;
     },

@@ -59,7 +59,7 @@ qx.Bootstrap.define("qx.ui.mobile.basic.Image",
 
     this.source = source ? source : null;
 
-    qx.ui.mobile.basic.Image.ROOT.addListener("changeAppScale", this._onChangeAppScale, this);
+    qx.ui.mobile.basic.Image.ROOT.on("changeAppScale", this._onChangeAppScale, this);
   },
 
 
@@ -318,7 +318,7 @@ qx.Bootstrap.define("qx.ui.mobile.basic.Image",
 
     dispose : function() {
       this.base(arguments);
-      qx.ui.mobile.basic.Image.ROOT.removeListener("changeAppScale", this._onChangeAppScale, this);
+      qx.ui.mobile.basic.Image.ROOT.off("changeAppScale", this._onChangeAppScale, this);
     }
   },
 

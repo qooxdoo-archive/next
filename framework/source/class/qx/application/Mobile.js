@@ -23,44 +23,31 @@
  * @require(qx.core.Init)
  * @asset(qx/mobile/css/*)
  */
-qx.Class.define("qx.application.Mobile",
+qx.Bootstrap.define("qx.application.Mobile",
 {
-  extend : qx.core.Object,
+  extend : Object,
   implement : [qx.application.IApplication],
-  include : qx.locale.MTranslation,
 
-
-  construct : function()
-  {
-    this.base(arguments);
-  },
-
-
-  /*
-  *****************************************************************************
-     EVENTS
-  *****************************************************************************
-  */
 
   events :
   {
     /** Fired when the lifecycle method {@link #start} of any {@link qx.ui.mobile.page.Page page} is called */
-    "start" : "qx.event.type.Event",
+    "start" : null,
 
 
     /** Fired when the lifecycle method {@link #stop} of any {@link qx.ui.mobile.page.Page page} is called */
-    "stop" : "qx.event.type.Event",
+    "stop" : null,
 
 
     /**
      * Fired when the method {@link qx.ui.mobile.page.Page#back} is called. Data indicating
      * whether the action was triggered by a key event or not.
      */
-    "back" : "qx.event.type.Data",
+    "back" : "Boolean",
 
 
     /** Fired when a {@link qx.ui.mobile.dialog.Popup popup} appears on screen. */
-    "popup" : "qx.event.type.Event"
+    "popup" : null
   },
 
 
@@ -142,11 +129,5 @@ qx.Class.define("qx.application.Mobile",
     {
       // empty
     }
-  },
-
-
-  destruct : function()
-  {
-    this.__root = this.__routing = null;
   }
 });

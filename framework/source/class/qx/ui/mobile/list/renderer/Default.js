@@ -191,7 +191,7 @@ qx.Bootstrap.define("qx.ui.mobile.list.renderer.Default",
      */
     _createTitle : function() {
       var title = new qx.ui.mobile.basic.Label();
-      title.wrap = false;
+      title.textWrap = false;
       title.addCssClass("list-item-title");
       return title;
     },
@@ -204,7 +204,7 @@ qx.Bootstrap.define("qx.ui.mobile.list.renderer.Default",
      */
     _createSubtitle : function() {
       var subtitle = new qx.ui.mobile.basic.Label();
-      subtitle.wrap = false;
+      subtitle.textWrap = false;
       subtitle.addCssClass("list-item-subtitle");
       return subtitle;
     },

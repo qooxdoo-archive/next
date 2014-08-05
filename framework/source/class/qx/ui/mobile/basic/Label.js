@@ -54,7 +54,7 @@ qx.Bootstrap.define("qx.ui.mobile.basic.Label",
     if (value) {
       this.value = value;
     }
-    this.wrap = true;
+    this.textWrap = true;
 
     if (qx.core.Environment.get("qx.dynlocale")) {
       qx.locale.Manager.getInstance().addListener("changeLocale", this._onChangeLocale, this);
@@ -101,11 +101,11 @@ qx.Bootstrap.define("qx.ui.mobile.basic.Label",
     /**
      * Controls whether text wrap is activated or not.
      */
-    wrap :
+    textWrap :
     {
       check : "Boolean",
       init : true,
-      apply : "_applyWrap"
+      apply : "_applyTextWrap"
     }
   },
 
@@ -138,12 +138,12 @@ qx.Bootstrap.define("qx.ui.mobile.basic.Label",
 
 
     // property apply
-    _applyWrap : function(value, old)
+    _applyTextWrap : function(value, old)
     {
       if (value) {
-        this.removeCssClass("no-wrap");
+        this.removeClass("no-wrap");
       } else {
-        this.addCssClass("no-wrap");
+        this.addClass("no-wrap");
       }
     },
 
