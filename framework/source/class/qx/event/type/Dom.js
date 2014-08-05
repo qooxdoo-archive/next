@@ -137,10 +137,7 @@ qx.Class.define("qx.event.type.Dom",
     {
       // Opera seems to use ctrlKey for the cmd key so don't fix that for opera
       // on mac [BUG #5884]
-      if (
-        qx.core.Environment.get("os.name") == "osx" &&
-        qx.core.Environment.get("engine.name") != "opera"
-      ) {
+      if (qx.core.Environment.get("os.name") == "osx") {
         return this._native.metaKey;
       } else {
         return this._native.ctrlKey;

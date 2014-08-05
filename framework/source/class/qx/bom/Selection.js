@@ -69,32 +69,6 @@ qx.Bootstrap.define("qx.bom.Selection",
      * @return {Integer|null} length of the selection or null
      */
     getLength : function(node) {
-      if (qx.core.Environment.get("engine.name") == "opera") {
-        var selectedValue, selectedLength, split;
-
-        if (this.__isInputOrTextarea(node))
-        {
-          var start = node.selectionStart;
-          var end = node.selectionEnd;
-
-          selectedValue = node.value.substring(start, end);
-          selectedLength = end - start;
-        }
-        else
-        {
-          selectedValue = qx.bom.Selection.get(node);
-          selectedLength = selectedValue.length;
-        }
-
-        // get the selected part and split it by linebreaks
-        split = qx.util.StringSplit.split(selectedValue, /\r\n/);
-
-        // substract the count of linebreaks
-        // Opera counts each linebreak as two chars
-        // -> harmonize this to one char per linebreak
-        return selectedLength - (split.length - 1);
-      }
-
       // suitable for gecko and webkit
       if (this.__isInputOrTextarea(node)) {
         return node.selectionEnd - node.selectionStart;

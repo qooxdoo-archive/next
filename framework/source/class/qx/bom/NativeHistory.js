@@ -90,14 +90,6 @@ qx.Class.define("qx.bom.NativeHistory",
      */
     _writeState : qx.core.Environment.select("engine.name",
     {
-      "opera" : function(state)
-      {
-        qx.event.Timer.once(function()
-        {
-          this._setHash(this._encode(state));
-        }, this, 0);
-      },
-
       "default" : function (state) {
         this._setHash(this._encode(state));
       }

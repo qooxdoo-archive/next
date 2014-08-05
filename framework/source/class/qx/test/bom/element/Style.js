@@ -104,7 +104,7 @@ qx.Class.define("qx.test.bom.element.Style",
       var isOldSafari = (qx.core.Environment.get("browser.name") == "safari" &&
                          qx.core.Environment.get("browser.version") < 6);
 
-      if (engine == "opera" || (engine == "webkit" && !isOldSafari)) {
+      if (engine == "webkit" && !isOldSafari) {
         expected = ["1px", "solid", "rgb(255, 0, 0)"];
       }
 

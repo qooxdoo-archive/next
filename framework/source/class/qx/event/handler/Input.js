@@ -73,12 +73,6 @@ qx.Class.define("qx.event.handler.Input",
     this._onChangeValueWrapper = qx.lang.Function.listener(this._onChangeValue, this);
     this._onInputWrapper = qx.lang.Function.listener(this._onInput, this);
     this._onPropertyWrapper = qx.lang.Function.listener(this._onProperty, this);
-
-    // special event handler for opera
-    if ((qx.core.Environment.get("engine.name") == "opera")) {
-      this._onKeyDownWrapper = qx.lang.Function.listener(this._onKeyDown, this);
-      this._onKeyUpWrapper = qx.lang.Function.listener(this._onKeyUp, this);
-    }
   },
 
 
@@ -200,8 +194,7 @@ qx.Class.define("qx.event.handler.Input",
             qx.bom.Event.addNativeListener(target, "change", this._onChangeValueWrapper);
           }
 
-          // special enter bugfix for opera
-          if ((qx.core.Environment.get("engine.name") == "opera") || (qx.core.Environment.get("engine.name") == "mshtml")) {
+          if (qx.core.Environment.get("engine.name") == "mshtml") {
             if (target.type === "text" || target.type === "password") {
               this._onKeyPressWrapped = qx.lang.Function.listener(this._onKeyPress, this, target);
               qx.bom.Event.addNativeListener(target, "keypress", this._onKeyPressWrapped);
@@ -240,15 +233,6 @@ qx.Class.define("qx.event.handler.Input",
         if (parseFloat(qx.core.Environment.get("engine.version")) < 532 && tag == "textarea") {
           qx.bom.Event.addNativeListener(target, "keypress", this._onInputWrapper);
         }
-        qx.bom.Event.addNativeListener(target, "input", this._onInputWrapper);
-      },
-
-      "opera" : function(target) {
-        // register key events for filtering "enter" on input events
-        qx.bom.Event.addNativeListener(target, "keyup", this._onKeyUpWrapper);
-        qx.bom.Event.addNativeListener(target, "keydown", this._onKeyDownWrapper);
-        // register an blur event for preventing the input event on blur
-
         qx.bom.Event.addNativeListener(target, "input", this._onInputWrapper);
       },
 
@@ -309,7 +293,7 @@ qx.Class.define("qx.event.handler.Input",
           }
         }
 
-        if ((qx.core.Environment.get("engine.name") == "opera") || (qx.core.Environment.get("engine.name") == "mshtml")) {
+        if (qx.core.Environment.get("engine.name") == "mshtml") {
           if (target.type === "text" || target.type === "password") {
             qx.bom.Event.removeNativeListener(target, "keypress", this._onKeyPressWrapped);
           }
@@ -347,13 +331,6 @@ qx.Class.define("qx.event.handler.Input",
         qx.bom.Event.removeNativeListener(target, "input", this._onInputWrapper);
       },
 
-      "opera" : function(target) {
-        // unregister key events for filtering "enter" on input events
-        qx.bom.Event.removeNativeListener(target, "keyup", this._onKeyUpWrapper);
-        qx.bom.Event.removeNativeListener(target, "keydown", this._onKeyDownWrapper);
-        qx.bom.Event.removeNativeListener(target, "input", this._onInputWrapper);
-      },
-
       "default" : function(target) {
         qx.bom.Event.removeNativeListener(target, "input", this._onInputWrapper);
       }
@@ -377,7 +354,7 @@ qx.Class.define("qx.event.handler.Input",
      */
     _onKeyPress : qx.core.Environment.select("engine.name",
     {
-      "mshtml|opera" : function(e, target)
+      "mshtml" : function(e, target)
       {
         if (e.keyCode === 13) {
           if (target.value !== this.__oldValue) {
@@ -440,14 +417,6 @@ qx.Class.define("qx.event.handler.Input",
      */
     _onKeyDown : qx.core.Environment.select("engine.name",
     {
-      "opera" : function(e)
-      {
-        // enter is pressed
-        if (e.keyCode === 13) {
-          this.__enter = true;
-        }
-      },
-
       "default" : null
     }),
 
@@ -461,14 +430,6 @@ qx.Class.define("qx.event.handler.Input",
      */
     _onKeyUp : qx.core.Environment.select("engine.name",
     {
-      "opera" : function(e)
-      {
-        // enter is pressed
-        if (e.keyCode === 13) {
-          this.__enter = false;
-        }
-      },
-
       "default" : null
     }),
 
@@ -491,16 +452,7 @@ qx.Class.define("qx.event.handler.Input",
       var tag = target.tagName.toLowerCase();
       // ignore native input event when triggered by return in input element
       if (!this.__enter || tag !== "input") {
-        // opera lower 10.6 needs a special treatment for input events because
-        // they are also fired on blur
-        if ((qx.core.Environment.get("engine.name") == "opera") &&
-            qx.core.Environment.get("browser.version") < 10.6) {
-          this.__onInputTimeoutId = window.setTimeout(function() {
-            qx.event.Registration.fireEvent(target, "input", qx.event.type.Data, [target.value]);
-          }, 0);
-        } else {
-          qx.event.Registration.fireEvent(target, "input", qx.event.type.Data, [target.value]);
-        }
+        qx.event.Registration.fireEvent(target, "input", qx.event.type.Data, [target.value]);
       }
     }),
 

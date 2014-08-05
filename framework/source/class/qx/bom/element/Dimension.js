@@ -119,8 +119,7 @@ qx.Bootstrap.define("qx.bom.element.Dimension",
       {
         var contentWidth = element.clientWidth;
 
-        if ((qx.core.Environment.get("engine.name") == "opera") ||
-          qx.dom.Node.isBlockNode(element))
+        if (qx.dom.Node.isBlockNode(element))
         {
           contentWidth = contentWidth - paddingLeft - paddingRight;
         }

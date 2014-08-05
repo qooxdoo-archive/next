@@ -140,7 +140,7 @@ qx.Class.define("qx.event.handler.Focus",
         textarea : 1
       },
 
-      "opera|webkit" :
+      "webkit" :
       {
         button : 1,
         input : 1,
@@ -439,24 +439,6 @@ qx.Class.define("qx.event.handler.Focus",
 
         qx.bom.Event.addNativeListener(this._window, "focus", this.__onNativeFocusWrapper, true);
         qx.bom.Event.addNativeListener(this._window, "blur", this.__onNativeBlurWrapper, true);
-      },
-
-      "opera" : function()
-      {
-        // Bind methods
-        this.__onNativeMouseDownWrapper = qx.lang.Function.listener(this.__onNativeMouseDown, this);
-        this.__onNativeMouseUpWrapper = qx.lang.Function.listener(this.__onNativeMouseUp, this);
-
-        this.__onNativeFocusInWrapper = qx.lang.Function.listener(this.__onNativeFocusIn, this);
-        this.__onNativeFocusOutWrapper = qx.lang.Function.listener(this.__onNativeFocusOut, this);
-
-
-        // Register events
-        qx.bom.Event.addNativeListener(this._document, "mousedown", this.__onNativeMouseDownWrapper, true);
-        qx.bom.Event.addNativeListener(this._document, "mouseup", this.__onNativeMouseUpWrapper, true);
-
-        qx.bom.Event.addNativeListener(this._window, "DOMFocusIn", this.__onNativeFocusInWrapper, true);
-        qx.bom.Event.addNativeListener(this._window, "DOMFocusOut", this.__onNativeFocusOutWrapper, true);
       }
     }),
 
@@ -497,15 +479,6 @@ qx.Class.define("qx.event.handler.Focus",
 
         qx.bom.Event.removeNativeListener(this._window, "focus", this.__onNativeFocusWrapper, true);
         qx.bom.Event.removeNativeListener(this._window, "blur", this.__onNativeBlurWrapper, true);
-      },
-
-      "opera" : function()
-      {
-        qx.bom.Event.removeNativeListener(this._document, "mousedown", this.__onNativeMouseDownWrapper, true);
-        qx.bom.Event.removeNativeListener(this._document, "mouseup", this.__onNativeMouseUpWrapper, true);
-
-        qx.bom.Event.removeNativeListener(this._window, "DOMFocusIn", this.__onNativeFocusInWrapper, true);
-        qx.bom.Event.removeNativeListener(this._window, "DOMFocusOut", this.__onNativeFocusOutWrapper, true);
       }
     }),
 
@@ -565,39 +538,6 @@ qx.Class.define("qx.event.handler.Focus",
         this.tryActivate(target);
       },
 
-      "opera" : function(domEvent)
-      {
-        var target = qx.bom.Event.getTarget(domEvent);
-        if (target == this._document || target == this._window)
-        {
-          this.__doWindowFocus();
-
-          if (this.__previousFocus)
-          {
-            this.setFocus(this.__previousFocus);
-            delete this.__previousFocus;
-          }
-
-          if (this.__previousActive)
-          {
-            this.setActive(this.__previousActive);
-            delete this.__previousActive;
-          }
-        }
-        else
-        {
-          this.setFocus(target);
-          this.tryActivate(target);
-
-          // Clear selection
-          if (!this.__isSelectable(target))
-          {
-            target.selectionStart = 0;
-            target.selectionEnd = 0;
-          }
-        }
-      },
-
       "default" : null
     })),
 
@@ -636,34 +576,6 @@ qx.Class.define("qx.event.handler.Focus",
 
         if (target === this.getActive()) {
           this.resetActive();
-        }
-      },
-
-      "opera" : function(domEvent)
-      {
-        var target = qx.bom.Event.getTarget(domEvent);
-        if (target == this._document)
-        {
-          this.__doWindowBlur();
-
-          // Store old focus/active elements
-          // Opera do not fire focus events for them
-          // when refocussing the window (in my opinion an error)
-          this.__previousFocus = this.getFocus();
-          this.__previousActive = this.getActive();
-
-          this.resetFocus();
-          this.resetActive();
-        }
-        else
-        {
-          if (target === this.getFocus()) {
-            this.resetFocus();
-          }
-
-          if (target === this.getActive()) {
-            this.resetActive();
-          }
         }
       },
 
@@ -829,40 +741,6 @@ qx.Class.define("qx.event.handler.Focus",
         }
       },
 
-      "opera" : function(domEvent)
-      {
-        var target = qx.bom.Event.getTarget(domEvent);
-        var focusTarget = this.__findFocusableElement(target);
-
-        if (!this.__isSelectable(target)) {
-          // Prevent the default action for all non-selectable
-          // targets. This prevents text selection and context menu.
-          qx.bom.Event.preventDefault(domEvent);
-
-          // The stopped event keeps the selection
-          // of the previously focused element.
-          // We need to clear the old selection.
-          if (focusTarget)
-          {
-            var current = this.getFocus();
-            if (current && current.selectionEnd)
-            {
-              current.selectionStart = 0;
-              current.selectionEnd = 0;
-              current.blur();
-            }
-
-            // The prevented event also stop the focus, do
-            // it manually if needed.
-            if (focusTarget) {
-              this.setFocus(focusTarget);
-            }
-          }
-        } else if (focusTarget) {
-          this.setFocus(focusTarget);
-        }
-      },
-
       "default" : null
     })),
 
@@ -900,7 +778,7 @@ qx.Class.define("qx.event.handler.Focus",
 
       },
 
-      "webkit|opera" : function(domEvent)
+      "webkit" : function(domEvent)
       {
         var target = qx.bom.Event.getTarget(domEvent);
         this.tryActivate(this.__fixFocus(target));

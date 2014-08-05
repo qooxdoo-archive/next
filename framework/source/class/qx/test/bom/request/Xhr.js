@@ -343,13 +343,6 @@ qx.Class.define("qx.test.bom.request.Xhr",
     },
 
     "test: not emit error when timeout": function() {
-
-      // Since Opera does not fire "error" on network error, fire additional
-      // "error" on timeout (may well be related to network error)
-      if (qx.core.Environment.get("engine.name") === "opera") {
-        this.skip();
-      }
-
       var req = this.req;
 
       var error = this.stub(req, "_emit").withArgs("error");

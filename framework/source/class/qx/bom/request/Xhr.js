@@ -290,22 +290,6 @@ qx.Bootstrap.define("qx.bom.request.Xhr",
     send: function(data) {
       this.__checkDisposed();
 
-      // BUGFIX: Opera
-      // On network error, Opera stalls at readyState HEADERS_RECEIVED
-      // This violates the spec. See here http://www.w3.org/TR/XMLHttpRequest2/#send
-      // (Section: If there is a network error)
-      //
-      // To fix, assume a default timeout of 10 seconds. Note: The "error"
-      // event will be fired correctly, because the error flag is inferred
-      // from the statusText property. Of course, compared to other
-      // browsers there is an additional call to ontimeout(), but this call
-      // should not harm.
-      //
-      if (qx.core.Environment.get("engine.name") === "opera" &&
-          this.timeout === 0) {
-        this.timeout = 10000;
-      }
-
       // Timeout
       if (this.timeout > 0) {
         this.__timerId = window.setTimeout(this.__onTimeoutBound, this.timeout);
@@ -796,14 +780,6 @@ qx.Bootstrap.define("qx.bom.request.Xhr",
       // Fire "timeout" if timeout flag is set
       if (this.__timeout) {
         this._emit("timeout");
-
-        // BUGFIX: Opera
-        // Since Opera does not fire "error" on network error, fire additional
-        // "error" on timeout (may well be related to network error)
-        if (qx.core.Environment.get("engine.name") === "opera") {
-          this._emit("error");
-        }
-
         this.__timeout = false;
 
       // Fire either "abort", "load" or "error"
@@ -884,21 +860,6 @@ qx.Bootstrap.define("qx.bom.request.Xhr",
       // IE sometimes tells 1223 when it should be 204
       if (this.status === 1223) {
         this.status = 204;
-      }
-
-      // BUGFIX: Opera
-      // Opera tells 0 for conditional requests when it should be 304
-      //
-      // Detect response to conditional request that signals fresh cache.
-      if (qx.core.Environment.get("engine.name") === "opera") {
-        if (
-          isDone &&                 // Done
-          this.__conditional &&     // Conditional request
-          !this.__abort &&          // Not aborted
-          this.status === 0         // But status 0!
-        ) {
-          this.status = 304;
-        }
       }
     },
 

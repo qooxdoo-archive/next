@@ -213,17 +213,6 @@ qx.Mixin.define("qx.dev.unit.MRequirements", {
 
 
     /**
-     * Checks if the application is running in a browser using the Opera engine
-     *
-     * @return {Boolean} <code>true</code> if the browser engine is Opera
-     */
-    hasOpera : function()
-    {
-      return qx.core.Environment.get("engine.name") == "opera";
-    },
-
-
-    /**
      * Checks if the application is running in a browser using the Webkit engine
      *
      * @return {Boolean} <code>true</code> if the browser engine is Webkit

@@ -38,11 +38,6 @@ qx.Class.define("qx.test.bom.request.Script",
     setUp: function() {
       var req = this.req = new qx.bom.request.Script();
       this.url = this.getUrl("qx/test/script.js");
-
-      // Assume timeout after 1s in Opera (no error!)
-      if (qx.core.Environment.get("engine.name") === "opera") {
-        req.timeout = 1000;
-      }
     },
 
     tearDown: function() {
@@ -611,9 +606,7 @@ qx.Class.define("qx.test.bom.request.Script",
       var isLegacyIe = qx.core.Environment.get("engine.name") === "mshtml" &&
         qx.core.Environment.get("browser.documentmode") < 9;
 
-      var isOpera = qx.core.Environment.get("engine.name") === "opera";
-
-      return !(isLegacyIe || isOpera);
+      return !(isLegacyIe);
     },
 
     noCache: function(url) {

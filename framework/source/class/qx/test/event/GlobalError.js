@@ -183,7 +183,7 @@ qx.Class.define("qx.test.event.GlobalError",
         throw new Error("Doofer Fehler");
       }, 0);
 
-      // Opera and Webkit do not support window.onerror
+      // Webkit do not support window.onerror
       // make sure the test fails once they support it
       var self = this;
       window.setTimeout(function()
@@ -194,11 +194,8 @@ qx.Class.define("qx.test.event.GlobalError",
 
         self.resume(function()
         {
-          if (
-            qx.core.Environment.get("engine.name") == "opera" ||
-            qx.core.Environment.get("engine.name") == "webkit"
-          ) {
-            this.warn("window.onerror is not supported by Opera and Webkit");
+          if (qx.core.Environment.get("engine.name") == "webkit") {
+            this.warn("window.onerror is not supported by Webkit");
           } else {
             this.fail("window.onerror should be supported! Note: this test fails in IE if the debugger is active!");
           }
@@ -235,7 +232,7 @@ qx.Class.define("qx.test.event.GlobalError",
         originalMsg = msg;
         originalUri = uri;
         originalLineNumber = lineNumber;
-      }
+      };
 
       var handler = function(ex) { this.resume(function()
       {
@@ -248,7 +245,7 @@ qx.Class.define("qx.test.event.GlobalError",
         this.assertEquals(originalLineNumber, ex.getLineNumber());
 
         // this.debug(ex.toString() + " at " + ex.getUri() + ":" + ex.getLineNumber());
-      }, this); }
+      }, this); };
 
       this.errorHandler.setErrorHandler(handler, this);
 
@@ -257,7 +254,7 @@ qx.Class.define("qx.test.event.GlobalError",
         throw new Error("Doofer Fehler");
       }, 0);
 
-      // Opera and Webkit do not support window.onerror
+      // Webkit do not support window.onerror
       // make sure the test fails once they support it
       var self = this;
       window.setTimeout(function()
@@ -268,11 +265,8 @@ qx.Class.define("qx.test.event.GlobalError",
 
         self.resume(function()
         {
-          if (
-            qx.core.Environment.get("engine.name") == "opera" ||
-            qx.core.Environment.get("engine.name") == "webkit"
-          ) {
-            this.warn("window.onerror is not supported by Opera and Webkit");
+          if (qx.core.Environment.get("engine.name") == "webkit") {
+            this.warn("window.onerror is not supported by Webkit");
           } else {
             this.fail("window.onerror should be supported! Note: this test fails in IE if the debugger is active!");
           }

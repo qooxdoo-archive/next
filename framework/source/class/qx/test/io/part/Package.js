@@ -120,10 +120,8 @@ qx.Class.define("qx.test.io.part.Package",
         return;
       }
 
-      // test don't work in IE, Safari 3 and Opera
-      if ( qx.core.Environment.get("engine.name") == "opera" ||
-           qx.core.Environment.get("engine.name") == "mshtml")
-       {
+      // test don't work in IE and Safari 3
+      if (qx.core.Environment.get("engine.name") == "mshtml") {
         return;
       }
 

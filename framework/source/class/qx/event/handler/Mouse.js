@@ -425,13 +425,6 @@ qx.Class.define("qx.event.handler.Mouse",
      */
     __rightClickFixPost : qx.core.Environment.select("engine.name",
     {
-      "opera" : function(domEvent, type, target)
-      {
-        if (type =="mouseup" && domEvent.button == 2) {
-          this.__fireEvent(domEvent, "contextmenu", target);
-        }
-      },
-
       "default" : null
     }),
 

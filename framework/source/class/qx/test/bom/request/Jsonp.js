@@ -49,11 +49,6 @@ qx.Class.define("qx.test.bom.request.Jsonp",
 
       var req = this.req = new qx.bom.request.Jsonp();
       this.url = this.getUrl("qx/test/jsonp_primitive.php");
-
-      // Assume timeout after 1s in Opera (no error!)
-      if (qx.core.Environment.get("engine.name") === "opera") {
-        req.timeout = 1000;
-      }
     },
 
     tearDown: function() {
