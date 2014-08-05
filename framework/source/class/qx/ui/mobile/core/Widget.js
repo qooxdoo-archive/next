@@ -445,6 +445,14 @@ qx.Bootstrap.define("qx.ui.mobile.core.Widget",
     ---------------------------------------------------------------------------
     */
 
+    _getParentWidget : function() {
+      var parent = this.getParents();
+      if (parent[0]) {
+        // TODO: store widget instance on DOM element?
+        return qx.ui.mobile.core.Widget.getWidgetById(parent[0].id);
+      }
+    },
+
 
     /**
      * Adds a new child widget.
@@ -675,13 +683,9 @@ qx.Bootstrap.define("qx.ui.mobile.core.Widget",
     _applyLayoutPrefs : function(value, old)
     {
       // Check values through parent
-      var parent = this.getParents();
-      if (parent[0]) {
-        // TODO: store widget instance on DOM element?
-        var parentWidget = qx.ui.mobile.core.Widget.getWidgetById(parent[0].id);
-        if (parentWidget) {
-          parentWidget.updateLayoutProperties(this);
-        }
+      var parent = this._getParentWidget();
+      if (parent) {
+        parent.updateLayoutProperties(this);
       }
     },
 
@@ -964,8 +968,9 @@ qx.Bootstrap.define("qx.ui.mobile.core.Widget",
     __setVisibility : function(action, properties) {
       this.visibility = action;
 
-      var parent = this.getParents();
-      if (parent[0]) {
+
+      var parent = this._getParentWidget();
+      if (parent) {
         parent.updateLayout(this, action, properties);
       }
     },
