@@ -36,27 +36,6 @@ qx.Mixin.define("qx.ui.mobile.core.MChildrenHandling",
   members :
   {
     /**
-     * Returns the children list
-     *
-     * @return {Widget[]} The children array (Arrays are
-     *   reference types, please do not modify them in-place)
-     */
-    getChildren : function() {
-      return this._getChildren();
-    },
-
-
-    /**
-     * Whether the widget contains children.
-     *
-     * @return {Boolean} Returns <code>true</code> when the widget has children.
-     */
-    hasChildren : function() {
-      return this._hasChildren();
-    },
-
-
-    /**
      * Returns the index position of the given widget if it is
      * a child widget. Otherwise it returns <code>-1</code>.
      *
@@ -164,8 +143,6 @@ qx.Mixin.define("qx.ui.mobile.core.MChildrenHandling",
      */
     remap : function(members)
     {
-      members.getChildren = members._getChildren;
-      members.hasChildren = members._hasChildren;
       members.indexOf = members._indexOf;
 
       members.add = members._add;

@@ -75,7 +75,7 @@ qx.Bootstrap.define("qx.ui.mobile.form.Label",
       qx.locale.Manager.getInstance().addListener("changeLocale", this._onChangeLocale, this);
     }
 
-    this.addListener("tap", this._onTap, this);
+    this.on("tap", this._onTap, this);
   },
 
 
@@ -196,7 +196,7 @@ qx.Bootstrap.define("qx.ui.mobile.form.Label",
       this.__forWidget = qx.ui.mobile.core.Widget.getWidgetById(elementId);
 
       if (this.__forWidget) {
-        this.__forWidget.addListener("changeEnabled", this._changeEnabled, this);
+        this.__forWidget.on("changeEnabled", this._changeEnabled, this);
         this.enabled = this.__forWidget.enabled;
       }
 

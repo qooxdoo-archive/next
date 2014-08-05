@@ -44,7 +44,7 @@ qx.Bootstrap.define("qx.ui.mobile.form.TextField",
       this.value = value;
     }
 
-    this.addListener("keypress", this._onKeyPress, this);
+    this.on("keypress", this._onKeyPress, this);
   },
 
   /*
@@ -86,7 +86,7 @@ qx.Bootstrap.define("qx.ui.mobile.form.TextField",
 
     dispose : function() {
       this.base(arguments);
-      this.removeListener("keypress", this._onKeyPress, this);
+      this.off("keypress", this._onKeyPress, this);
     }
   }
 });

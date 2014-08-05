@@ -244,7 +244,7 @@ qx.Bootstrap.define("qx.ui.mobile.page.Page",
      * when the menu button was pressed. Fires the <code>menu</code> event.
      */
     menu : function() {
-      this.fireEvent("menu");
+      this.emit("menu");
     },
 
 
@@ -421,10 +421,10 @@ qx.Bootstrap.define("qx.ui.mobile.page.Page",
     // property apply
     _applyLifeCycleState : function(value, old) {
       if(value == "start" || value == "stop") {
-        qx.core.Init.getApplication().fireEvent(value);
+        qx.core.Init.getApplication().emit(value);
       }
 
-      this.fireEvent(value);
+      this.emit(value);
     }
   },
 

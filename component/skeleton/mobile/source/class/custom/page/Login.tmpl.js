@@ -40,7 +40,7 @@ qx.Class.define("${Namespace}.page.Login",
 
       // Login Button
       var loginButton = new qx.ui.mobile.form.Button("Login");
-      loginButton.addListener("tap", this._onButtonTap, this);
+      loginButton.on("tap", this._onButtonTap, this);
 
       var loginForm = this.__form = new qx.ui.mobile.form.Form();
       loginForm.add(user, "Username");

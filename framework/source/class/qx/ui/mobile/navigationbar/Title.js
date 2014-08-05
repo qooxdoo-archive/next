@@ -26,12 +26,7 @@ qx.Bootstrap.define("qx.ui.mobile.navigationbar.Title",
 
   properties :
   {
-<<<<<<< HEAD
-    textWrap :
-    {
-=======
     textWrap : {
->>>>>>> [BUG #8541] updated renamed method / property
       init : false
     },
 
@@ -52,8 +47,7 @@ qx.Bootstrap.define("qx.ui.mobile.navigationbar.Title",
   members :
   {
     // overridden
-    _getTagName : function()
-    {
+    _getTagName : function() {
       return "h1";
     }
   }

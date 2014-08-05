@@ -33,13 +33,13 @@
  *  page.title = "Page Title";
  *  page.showBackButton = true;
  *  page.backButtonText = "Back";
- *  page.addListener("initialize", function()
+ *  page.on("initialize", function()
  *  {
  *    var button = new qx.ui.mobile.form.Button("Next Page");
  *    page.getContent().add(button);
  *  },this);
  *
- *  page.addListener("back", function()
+ *  page.on("back", function()
  *  {
  *    otherPage.show({animation:"cube", reverse:true});
  *  },this);
@@ -277,7 +277,7 @@ qx.Bootstrap.define("qx.ui.mobile.page.NavigationPage",
       var container = new qx.ui.mobile.container.Composite(layout);
       container.addClass("left-container");
       this.__backButton = this._createBackButton();
-      this.__backButton.addListener("tap", this._onBackButtonTap, this);
+      this.__backButton.on("tap", this._onBackButtonTap, this);
       this._showBackButton();
       container.add(this.__backButton);
       return container;
@@ -294,7 +294,7 @@ qx.Bootstrap.define("qx.ui.mobile.page.NavigationPage",
       var container = new qx.ui.mobile.container.Composite(layout);
       container.addClass("right-container");
       this.__actionButton = this._createButton();
-      this.__actionButton.addListener("tap", this._onButtonTap, this);
+      this.__actionButton.on("tap", this._onButtonTap, this);
       this._showButton();
       container.add(this.__actionButton);
       return container;
@@ -589,7 +589,7 @@ qx.Bootstrap.define("qx.ui.mobile.page.NavigationPage",
      */
     _onButtonTap : function(evt)
     {
-      this.fireEvent("action");
+      this.emit("action");
     },
 
 

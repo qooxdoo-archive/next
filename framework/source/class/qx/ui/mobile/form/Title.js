@@ -27,14 +27,12 @@ qx.Bootstrap.define("qx.ui.mobile.form.Title",
 
   properties :
   {
-    textWrap :
-    {
+    textWrap : {
       init : false
     },
 
     // overridden
-    defaultCssClass :
-    {
+    defaultCssClass : {
       init : "form-title"
     }
   },

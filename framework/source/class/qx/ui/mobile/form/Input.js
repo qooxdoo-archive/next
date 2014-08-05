@@ -42,7 +42,7 @@ qx.Bootstrap.define("qx.ui.mobile.form.Input",
     this._setAttribute("type", this._getType());
     this.addClass("gap");
 
-    this.addListener("focus", this._onSelected, this);
+    this.on("focus", this._onSelected, this);
   },
 
 
@@ -95,7 +95,7 @@ qx.Bootstrap.define("qx.ui.mobile.form.Input",
 
     dispose : function() {
       this.base(arguments);
-      this.removeListener("focus", this._onSelected, this);
+      this.off("focus", this._onSelected, this);
     }
   }
 });

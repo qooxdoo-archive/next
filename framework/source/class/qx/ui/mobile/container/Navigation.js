@@ -83,7 +83,7 @@ qx.Bootstrap.define("qx.ui.mobile.container.Navigation",
   events :
   {
     /** Fired when the navigation bar gets updated */
-    "update" : "qx.event.type.Data"
+    "update" : "qx.ui.mobile.core.Widget"
   },
 
 
@@ -237,7 +237,7 @@ qx.Bootstrap.define("qx.ui.mobile.container.Navigation",
         navigationBar.add(rightContainer);
       }
 
-      this.fireDataEvent("update", widget);
+      this.emit("update", widget);
     },
 
 

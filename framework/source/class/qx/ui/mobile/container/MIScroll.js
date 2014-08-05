@@ -17,12 +17,6 @@
 
 ************************************************************************ */
 
-
-/* ************************************************************************
-
-
-************************************************************************ */
-
 /**
  * Mixin for the {@link Scroll} container. Used when the variant
  * <code>qx.mobile.nativescroll</code> is set to "off". Uses the iScroll script to simulate
@@ -76,9 +70,8 @@ qx.Mixin.define("qx.ui.mobile.container.MIScroll",
      *
      * @return {Element} The scroll content element
      */
-    _getScrollContentElement : function()
-    {
-      return this.getContainerElement().childNodes[0];
+    _getScrollContentElement : function() {
+      return this[0].childNodes[0];
     },
 
 
@@ -168,7 +161,7 @@ qx.Mixin.define("qx.ui.mobile.container.MIScroll",
         loader.open("GET", path);
         loader.send();
       } else {
-        this.addListenerOnce("appear", function() {
+        this.once("appear", function() {
           this._setScroll(this.__createScrollInstance());
         }, this);
       }
@@ -192,7 +185,7 @@ qx.Mixin.define("qx.ui.mobile.container.MIScroll",
 
       var iScrollProperties = qx.lang.Object.mergeWith(defaultScrollProperties, customScrollProperties, true);
 
-      return new iScroll(this.getContainerElement(), iScrollProperties);
+      return new iScroll(this[0], iScrollProperties);
     },
 
 
@@ -263,10 +256,10 @@ qx.Mixin.define("qx.ui.mobile.container.MIScroll",
      */
     __registerEventListeners : function()
     {
-      qx.event.Registration.addListener(window, "orientationchange", this._refresh, this);
-      qx.event.Registration.addListener(window, "resize", this._refresh, this);
-      this.addListener("touchmove", qx.bom.Event.stopPropagation);
-      this.addListener("domupdated", this._refresh, this);
+      qxWeb(window).on("orientationchange", this._refresh, this);
+      qxWeb(window).on("resize", this._refresh, this);
+      this.on("touchmove", qx.bom.Event.stopPropagation);
+      this.on("domupdated", this._refresh, this);
     },
 
 
@@ -275,10 +268,10 @@ qx.Mixin.define("qx.ui.mobile.container.MIScroll",
      */
     __unregisterEventListeners : function()
     {
-      qx.event.Registration.removeListener(window, "orientationchange", this._refresh, this);
-      qx.event.Registration.removeListener(window, "resize", this._refresh, this);
-      this.removeListener("touchmove", qx.bom.Event.stopPropagation);
-      this.removeListener("domupdated", this._refresh, this);
+      qxWeb(window).off("orientationchange", this._refresh, this);
+      qxWeb(window).off("resize", this._refresh, this);
+      this.off("touchmove", qx.bom.Event.stopPropagation);
+      this.off("domupdated", this._refresh, this);
     },
 
 
@@ -291,9 +284,9 @@ qx.Mixin.define("qx.ui.mobile.container.MIScroll",
     {
       if (request.status < 400)
       {
-        if(!this.isDisposed()) {
+        // if(!this.isDisposed()) { TODO
           this._setScroll(this.__createScrollInstance());
-        }
+        // }
       } else {
         if (qx.core.Environment.get("qx.debug"))
         {

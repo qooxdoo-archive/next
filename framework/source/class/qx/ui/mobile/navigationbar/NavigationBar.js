@@ -47,8 +47,7 @@ qx.Bootstrap.define("qx.ui.mobile.navigationbar.NavigationBar",
   *****************************************************************************
   */
 
-  construct : function(layout)
-  {
+  construct : function(layout) {
     this.base(arguments, layout);
     if (!layout) {
       layout = new qx.ui.mobile.layout.HBox();
@@ -69,8 +68,7 @@ qx.Bootstrap.define("qx.ui.mobile.navigationbar.NavigationBar",
   properties :
   {
     // overridden
-    defaultCssClass :
-    {
+    defaultCssClass : {
       init : "navigationbar"
     }
   }

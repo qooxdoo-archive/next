@@ -25,7 +25,7 @@
  */
 qx.Bootstrap.define("qx.application.Mobile",
 {
-  extend : Object,
+  extend : qx.event.Emitter,
   implement : [qx.application.IApplication],
 
 

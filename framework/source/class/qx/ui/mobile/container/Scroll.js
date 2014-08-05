@@ -56,8 +56,8 @@ qx.Bootstrap.define("qx.ui.mobile.container.Scroll",
       this._scrollProperties = scrollProperties;
     }
 
-    this.addListener("appear", this._updateWaypoints, this);
-    this.addListener("domupdated", this._updateWaypoints, this);
+    this.on("appear", this._updateWaypoints, this);
+    this.on("domupdated", this._updateWaypoints, this);
 
     this._waypointsX = [];
     this._waypointsY = [];
