@@ -79,9 +79,9 @@ qx.Bootstrap.define("qx.ui.mobile.dialog.Picker",
     this.__pickerModel = new qx.data.Array();
 
     this.__pickerContainer = new qx.ui.mobile.container.Composite(new qx.ui.mobile.layout.HBox());
-    this.__pickerContainer.addCssClass("picker-container");
-    this.__pickerContainer.addCssClass("gap");
-    this.__pickerContainer.addCssClass("css-pointer-"+qx.core.Environment.get("css.pointerevents"));
+    this.__pickerContainer.addClass("picker-container");
+    this.__pickerContainer.addClass("gap");
+    this.__pickerContainer.addClass("css-pointer-"+qx.core.Environment.get("css.pointerevents"));
 
     this.__pickerContent = new qx.ui.mobile.container.Composite(new qx.ui.mobile.layout.VBox());
 
@@ -94,7 +94,7 @@ qx.Bootstrap.define("qx.ui.mobile.dialog.Picker",
     this.__pickerButtonContainer = new qx.ui.mobile.container.Composite(new qx.ui.mobile.layout.HBox());
     this.__pickerButtonContainer.add(this.__pickerConfirmButton);
     this.__pickerButtonContainer.add(this.__pickerCancelButton);
-    this.__pickerButtonContainer.addCssClass("gap");
+    this.__pickerButtonContainer.addClass("gap");
 
     this.__pickerContent.add(this.__pickerContainer);
     this.__pickerContent.add(this.__pickerButtonContainer);
@@ -635,7 +635,7 @@ qx.Bootstrap.define("qx.ui.mobile.dialog.Picker",
      */
     _createPickerSlot : function(slotIndex) {
       var pickerSlot = new qx.ui.mobile.container.Composite();
-      pickerSlot.addCssClass("picker-slot");
+      pickerSlot.addClass("picker-slot");
       pickerSlot.transformUnit = "px";
 
       pickerSlot.addListener("trackstart", this._onTrackStart, this);
@@ -679,7 +679,7 @@ qx.Bootstrap.define("qx.ui.mobile.dialog.Picker",
      */
     _createPickerValueLabel : function(textValue) {
       var pickerLabel = new qx.ui.mobile.basic.Label(textValue);
-      pickerLabel.addCssClass("picker-label");
+      pickerLabel.addClass("picker-label");
       return pickerLabel;
     },
 

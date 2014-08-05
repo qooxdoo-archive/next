@@ -167,7 +167,7 @@ qx.Bootstrap.define("qx.ui.mobile.list.renderer.group.Default",
     _createImage : function() {
       var image = new qx.ui.mobile.basic.Image();
       image.anonymous = true;
-      image.addCssClass("group-item-image");
+      image.addClass("group-item-image");
       return image;
     },
 
@@ -180,7 +180,7 @@ qx.Bootstrap.define("qx.ui.mobile.list.renderer.group.Default",
     _createTitle : function() {
       var title = new qx.ui.mobile.basic.Label();
       title.textWrap = false;
-      title.addCssClass("group-item-title");
+      title.addClass("group-item-title");
       return title;
     },
 

@@ -322,14 +322,14 @@ qx.Bootstrap.define("qx.ui.mobile.dialog.Manager",
         lLayout.alignX = "center";
         var labelWidget = new qx.ui.mobile.container.Composite(lLayout);
         labelWidget.add(new qx.ui.mobile.basic.Label(text));
-        labelWidget.addCssClass("gap");
+        labelWidget.addClass("gap");
         widget.add(labelWidget);
         if(dialogType == qx.ui.mobile.dialog.Manager.INPUT_DIALOG)
         {
           var iLayout = new qx.ui.mobile.layout.HBox();
           iLayout.alignX = "center";
           var inputWidget = new qx.ui.mobile.container.Composite(iLayout);
-          inputWidget.addCssClass("gap");
+          inputWidget.addClass("gap");
           var inputText = new qx.ui.mobile.form.TextField();
           inputWidget.add(inputText);
           widget.add(inputWidget);
@@ -338,12 +338,12 @@ qx.Bootstrap.define("qx.ui.mobile.dialog.Manager",
         var bLayout = new qx.ui.mobile.layout.HBox();
         bLayout.alignX = "center";
         var buttonContainer = new qx.ui.mobile.container.Composite(bLayout);
-        buttonContainer.addCssClass("gap");
+        buttonContainer.addClass("gap");
         for(var i=0, l=buttons.length; i<l; i++)
         {
           var button = new qx.ui.mobile.form.Button(buttons[i]);
           /* see the comment in android.css for width: 0 for toolbar-button class*/
-          button.addCssClass('dialog-button');
+          button.addClass('dialog-button');
           buttonContainer.add(button, {flex:1});
           var callback = (function(index){
             return function()

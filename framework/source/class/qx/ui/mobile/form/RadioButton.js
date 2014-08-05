@@ -156,9 +156,9 @@ qx.Bootstrap.define("qx.ui.mobile.form.RadioButton",
      */
     _setValue : function(value) {
       if(value == true) {
-        this.addCssClass("checked");
+        this.addClass("checked");
       } else {
-        this.removeCssClass("checked");
+        this.removeClass("checked");
       }
 
       this._state = value;

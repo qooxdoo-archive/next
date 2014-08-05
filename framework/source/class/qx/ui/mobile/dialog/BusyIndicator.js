@@ -95,7 +95,7 @@ qx.Bootstrap.define("qx.ui.mobile.dialog.BusyIndicator",
     _createIconWidget : function(iconUrl)
     {
       var iconWidget = this.base(arguments,iconUrl);
-      iconWidget.addCssClass(this.spinnerClass);
+      iconWidget.addClass(this.spinnerClass);
       return iconWidget;
     },
 
@@ -104,10 +104,10 @@ qx.Bootstrap.define("qx.ui.mobile.dialog.BusyIndicator",
     _applySpinnerClass : function(value, old)
     {
       if (old) {
-        this.getIconWidget().removeCssClass(old);
+        this.getIconWidget().removeClass(old);
       }
       if(value) {
-        this.getIconWidget().addCssClass(value);
+        this.getIconWidget().addClass(value);
       }
     },
 

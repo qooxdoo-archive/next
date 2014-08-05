@@ -179,7 +179,7 @@ qx.Bootstrap.define("qx.ui.mobile.list.renderer.Default",
     _createImage : function() {
       var image = new qx.ui.mobile.basic.Image();
       image.anonymous = true;
-      image.addCssClass("list-item-image");
+      image.addClass("list-item-image");
       return image;
     },
 
@@ -192,7 +192,7 @@ qx.Bootstrap.define("qx.ui.mobile.list.renderer.Default",
     _createTitle : function() {
       var title = new qx.ui.mobile.basic.Label();
       title.textWrap = false;
-      title.addCssClass("list-item-title");
+      title.addClass("list-item-title");
       return title;
     },
 
@@ -205,7 +205,7 @@ qx.Bootstrap.define("qx.ui.mobile.list.renderer.Default",
     _createSubtitle : function() {
       var subtitle = new qx.ui.mobile.basic.Label();
       subtitle.textWrap = false;
-      subtitle.addCssClass("list-item-subtitle");
+      subtitle.addClass("list-item-subtitle");
       return subtitle;
     },
 

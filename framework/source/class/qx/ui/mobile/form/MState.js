@@ -29,7 +29,7 @@ qx.Mixin.define("qx.ui.mobile.form.MState",
         this.__states = {};
       }
       this.__states[state] = true;
-      this.addCssClass(state);
+      this.addClass(state);
     },
 
     /**
@@ -50,7 +50,7 @@ qx.Mixin.define("qx.ui.mobile.form.MState",
     removeState : function(state) {
       if(this.hasState(state)) {
         delete this.__states[state];
-        this.removeCssClass(state);
+        this.removeClass(state);
       }
     },
 
@@ -67,8 +67,8 @@ qx.Mixin.define("qx.ui.mobile.form.MState",
       {
         delete this.__states[oldState];
         this.__states[newState] = true;
-        this.removeCssClass(oldState);
-        this.addCssClass(newState);
+        this.removeClass(oldState);
+        this.addClass(newState);
       }
       else
       {

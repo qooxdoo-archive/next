@@ -35,7 +35,7 @@ qx.Bootstrap.define("qx.ui.mobile.form.renderer.Single",
     this._rows = [];
     this._labels = [];
     this.base(arguments,form);
-    this.addCssClass("single");
+    this.addClass("single");
   },
 
 
@@ -163,7 +163,7 @@ qx.Bootstrap.define("qx.ui.mobile.form.renderer.Single",
      */
     _addToScrollContainer : function(item,name) {
       var scrollContainer = new qx.ui.mobile.container.Scroll();
-      scrollContainer.addCssClass("form-row-scroll");
+      scrollContainer.addClass("form-row-scroll");
 
       scrollContainer.add(item, {
         flex: 1
@@ -205,7 +205,7 @@ qx.Bootstrap.define("qx.ui.mobile.form.renderer.Single",
     */
     _addRow : function(item, name, layout) {
       var row = new qx.ui.mobile.form.Row(layout);
-      row.addCssClass("form-row-content");
+      row.addClass("form-row-content");
 
       if(name !== null) {
         var label = new qx.ui.mobile.form.Label(name);
@@ -224,7 +224,7 @@ qx.Bootstrap.define("qx.ui.mobile.form.renderer.Single",
      */
     _addSeparationRow : function() {
       var row = new qx.ui.mobile.form.Row();
-      row.addCssClass("form-separation-row");
+      row.addClass("form-separation-row");
       this._add(row);
       this._rows.push(row);
     },
@@ -235,7 +235,7 @@ qx.Bootstrap.define("qx.ui.mobile.form.renderer.Single",
      */
     _addGroupHeaderRow : function() {
       var row = new qx.ui.mobile.form.Row();
-      row.addCssClass("form-row-group-first");
+      row.addClass("form-row-group-first");
       this._add(row);
       this._rows.push(row);
     },
@@ -246,7 +246,7 @@ qx.Bootstrap.define("qx.ui.mobile.form.renderer.Single",
      */
     _addGroupFooterRow : function() {
       var row = new qx.ui.mobile.form.Row();
-      row.addCssClass("form-row-group-last");
+      row.addClass("form-row-group-last");
       this._add(row);
       this._rows.push(row);
     },
@@ -261,7 +261,7 @@ qx.Bootstrap.define("qx.ui.mobile.form.renderer.Single",
     _addGroupHeader : function(title)
     {
       var row = new qx.ui.mobile.form.Row();
-      row.addCssClass("form-row-group-title");
+      row.addClass("form-row-group-title");
       var titleLabel = new qx.ui.mobile.basic.Label(title);
       row.add(titleLabel);
       this._add(row);
@@ -294,7 +294,7 @@ qx.Bootstrap.define("qx.ui.mobile.form.renderer.Single",
      * @param item {qx.ui.form.IForm} form item which should be hidden.
      */
     showItem : function(item) {
-      this._getParentRow(item).removeCssClass("exclude");
+      this._getParentRow(item).removeClass("exclude");
     },
 
 
@@ -303,7 +303,7 @@ qx.Bootstrap.define("qx.ui.mobile.form.renderer.Single",
      * @param item {qx.ui.form.IForm} form item which should be hidden.
      */
     hideItem : function(item) {
-      this._getParentRow(item).addCssClass("exclude");
+      this._getParentRow(item).addClass("exclude");
     },
 
 

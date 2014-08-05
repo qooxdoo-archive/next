@@ -275,7 +275,7 @@ qx.Bootstrap.define("qx.ui.mobile.page.NavigationPage",
     _createLeftContainer : function() {
       var layout =new qx.ui.mobile.layout.HBox();
       var container = new qx.ui.mobile.container.Composite(layout);
-      container.addCssClass("left-container");
+      container.addClass("left-container");
       this.__backButton = this._createBackButton();
       this.__backButton.addListener("tap", this._onBackButtonTap, this);
       this._showBackButton();
@@ -292,7 +292,7 @@ qx.Bootstrap.define("qx.ui.mobile.page.NavigationPage",
     _createRightContainer : function() {
       var layout = new qx.ui.mobile.layout.HBox();
       var container = new qx.ui.mobile.container.Composite(layout);
-      container.addCssClass("right-container");
+      container.addClass("right-container");
       this.__actionButton = this._createButton();
       this.__actionButton.addListener("tap", this._onButtonTap, this);
       this._showButton();
@@ -564,7 +564,7 @@ qx.Bootstrap.define("qx.ui.mobile.page.NavigationPage",
       content.defaultCssClass = this.contentCssClass;
 
       if(this._wrapContentByGroup === true) {
-        content.addCssClass("group");
+        content.addClass("group");
       }
 
       return content;

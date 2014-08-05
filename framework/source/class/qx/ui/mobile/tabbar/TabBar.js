@@ -129,13 +129,13 @@ qx.Bootstrap.define("qx.ui.mobile.tabbar.TabBar",
     _applySelection : function(value, old)
     {
       if (old) {
-        old.removeCssClass("selected");
+        old.removeClass("selected");
         if (old.view) {
           old.view.exclude();
         }
       }
       if (value) {
-        value.addCssClass("selected");
+        value.addClass("selected");
         if (value.view) {
           value.view.show();
         }

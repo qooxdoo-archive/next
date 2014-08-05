@@ -80,7 +80,7 @@ qx.Bootstrap.define("qx.ui.mobile.container.Drawer",
     }
 
     this.__parent = this.getLayoutParent();
-    this.__parent.addCssClass("drawer-parent");
+    this.__parent.addClass("drawer-parent");
 
     this.__parent.addListener("swipe", this._onParentSwipe,this);
     this.__parent.addListener("pointerdown", this._onParentPointerDown,this);
@@ -184,8 +184,8 @@ qx.Bootstrap.define("qx.ui.mobile.container.Drawer",
 
     // property apply
     _applyOrientation : function(value, old) {
-      this.removeCssClass(old);
-      this.addCssClass(value);
+      this.removeClass(old);
+      this.addClass(value);
 
       // Reapply width of height size depending on orientation.
       this._applySize(this.size);
@@ -194,8 +194,8 @@ qx.Bootstrap.define("qx.ui.mobile.container.Drawer",
 
     // property apply
     _applyPositionZ : function(value,old) {
-      this.removeCssClass(old);
-      this.addCssClass(value);
+      this.removeClass(old);
+      this.addClass(value);
 
       if(this.__parent) {
         this.__parent.translateX = 0;
@@ -332,7 +332,7 @@ qx.Bootstrap.define("qx.ui.mobile.container.Drawer",
       // Make drawer visibile before "changeVisibility" event is fired, after transition.
       this.setStyle("visibility", "visible");
 
-      this.__parent.addCssClass("blocked");
+      this.__parent.addClass("blocked");
 
       if (this.positionZ == "below") {
         if (this.orientation == "left") {
@@ -359,12 +359,12 @@ qx.Bootstrap.define("qx.ui.mobile.container.Drawer",
         }, this);
 
         setTimeout(function() {
-          this.removeCssClass("hidden");
+          this.removeClass("hidden");
         }.bind(this), 0);
       } else {
         this.base(arguments);
         this.__inTransition = false;
-        this.removeCssClass("hidden");
+        this.removeClass("hidden");
       }
     },
 
@@ -392,19 +392,19 @@ qx.Bootstrap.define("qx.ui.mobile.container.Drawer",
         var listenerId = qx.bom.Element.addListener(transitionTarget, "transitionEnd", function(evt) {
           this.base(callArguments);
           this._disableTransition();
-          this.__parent.removeCssClass("blocked");
+          this.__parent.removeClass("blocked");
           this.__inTransition = false;
           qx.bom.Element.removeListenerById(transitionTarget, listenerId);
         }, this);
 
         setTimeout(function() {
-          this.addCssClass("hidden");
+          this.addClass("hidden");
         }.bind(this), 0);
       } else {
         this.base(arguments);
-        this.addCssClass("hidden");
+        this.addClass("hidden");
         this.__inTransition = false;
-        this.__parent.removeCssClass("blocked");
+        this.__parent.removeClass("blocked");
       }
     },
 
@@ -422,9 +422,9 @@ qx.Bootstrap.define("qx.ui.mobile.container.Drawer",
         this.__parent.translateY = 0;
       }
 
-      this.__parent.removeCssClass("blocked");
+      this.__parent.removeClass("blocked");
 
-      this.addCssClass("hidden");
+      this.addClass("hidden");
     },
 
 

@@ -122,11 +122,11 @@ qx.Bootstrap.define("qx.ui.mobile.container.MasterDetail",
     __syncLayout  : function() {
       var isPortrait = qx.bom.Viewport.isPortrait();
       if (isPortrait) {
-        this.addCssClass("portrait");
-        this.removeCssClass("landscape");
+        this.addClass("portrait");
+        this.removeClass("landscape");
       } else {
-        this.addCssClass("landscape");
-        this.removeCssClass("portrait");
+        this.addClass("landscape");
+        this.removeClass("portrait");
       }
 
       this.fireDataEvent("layoutChange", isPortrait);
@@ -140,7 +140,7 @@ qx.Bootstrap.define("qx.ui.mobile.container.MasterDetail",
      */
     _createMasterContainer : function() {
       var masterContainer = new qx.ui.mobile.container.Drawer(this, new qx.ui.mobile.layout.HBox());
-      masterContainer.addCssClass("master-detail-master");
+      masterContainer.addClass("master-detail-master");
       masterContainer.hideOnParentTap = false;
       return masterContainer;
     },

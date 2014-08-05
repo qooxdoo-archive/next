@@ -88,7 +88,7 @@ qx.Bootstrap.define("qx.ui.mobile.form.SelectBox",
     // Selection dialog creation.
     this.__selectionDialog = this._createSelectionDialog();
 
-    this.addCssClass("gap");
+    this.addClass("gap");
 
     // When selectionDialogs changes selection, get chosen selectedIndex from it.
     this.__selectionDialog.addListener("changeSelection", this._onChangeSelection, this);

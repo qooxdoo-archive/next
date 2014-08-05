@@ -171,7 +171,7 @@ qx.Bootstrap.define("qx.ui.mobile.container.ScrollComposite",
     _createScrollContainer : function() {
       var scrollContainer = new qx.ui.mobile.container.Composite();
       scrollContainer.transformUnit = "px";
-      scrollContainer.addCssClass("scroll-container-child");
+      scrollContainer.addClass("scroll-container-child");
       return scrollContainer;
     },
 
@@ -234,20 +234,20 @@ qx.Bootstrap.define("qx.ui.mobile.container.ScrollComposite",
 
         // Upper Limit Y
         if(positionY >= 0) {
-          this.removeCssClass("scrollable-top");
+          this.removeClass("scrollable-top");
         } else {
-          this.addCssClass("scrollable-top");
+          this.addClass("scrollable-top");
         }
 
         // Lower Limit Y
         if(positionY < -lowerLimit) {
-          this.removeCssClass("scrollable-bottom");
+          this.removeClass("scrollable-bottom");
         } else {
-          this.addCssClass("scrollable-bottom");
+          this.addClass("scrollable-bottom");
         }
       } else {
-        this.removeCssClass("scrollable-top");
-        this.removeCssClass("scrollable-bottom");
+        this.removeClass("scrollable-top");
+        this.removeClass("scrollable-bottom");
       }
     },
 
@@ -480,9 +480,9 @@ qx.Bootstrap.define("qx.ui.mobile.container.ScrollComposite",
      * Deactivates any scroll easing for the scrollContainer.
      */
     _applyNoEasing : function() {
-      this._scrollContainer.removeCssClass("momentum-ease");
-      this._scrollContainer.removeCssClass("bounce-ease");
-      this._scrollContainer.removeCssClass("scroll-bounce-ease");
+      this._scrollContainer.removeClass("momentum-ease");
+      this._scrollContainer.removeClass("bounce-ease");
+      this._scrollContainer.removeClass("scroll-bounce-ease");
     },
 
 
@@ -492,7 +492,7 @@ qx.Bootstrap.define("qx.ui.mobile.container.ScrollComposite",
      */
     _applyMomentumEasing : function() {
       this._applyNoEasing();
-      this._scrollContainer.addCssClass("momentum-ease");
+      this._scrollContainer.addClass("momentum-ease");
     },
 
 
@@ -502,7 +502,7 @@ qx.Bootstrap.define("qx.ui.mobile.container.ScrollComposite",
      */
     _applyBounceEasing : function() {
       this._applyNoEasing();
-      this._scrollContainer.addCssClass("bounce-ease");
+      this._scrollContainer.addClass("bounce-ease");
     },
 
 
@@ -514,7 +514,7 @@ qx.Bootstrap.define("qx.ui.mobile.container.ScrollComposite",
      */
     _applyScrollBounceEasing : function() {
       this._applyNoEasing();
-      this._scrollContainer.addCssClass("scroll-bounce-ease");
+      this._scrollContainer.addClass("scroll-bounce-ease");
     },
 
 

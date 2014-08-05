@@ -170,9 +170,9 @@ qx.Bootstrap.define("qx.ui.mobile.list.renderer.Abstract",
     _applyShowArrow : function(value, old)
     {
       if (value) {
-        this.addCssClass("arrow");
+        this.addClass("arrow");
       } else {
-        this.removeCssClass("arrow");
+        this.removeClass("arrow");
       }
     },
 
@@ -181,9 +181,9 @@ qx.Bootstrap.define("qx.ui.mobile.list.renderer.Abstract",
     _applyRemovable : function(value, old)
     {
       if (value) {
-        this.addCssClass("removable");
+        this.addClass("removable");
       } else {
-        this.removeCssClass("removable");
+        this.removeClass("removable");
       }
     },
 
@@ -192,9 +192,9 @@ qx.Bootstrap.define("qx.ui.mobile.list.renderer.Abstract",
     _applySelected : function(value, old)
     {
       if (value) {
-        this.addCssClass("selected");
+        this.addClass("selected");
       } else {
-        this.removeCssClass("selected");
+        this.removeClass("selected");
       }
     }
   }

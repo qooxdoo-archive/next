@@ -86,7 +86,7 @@ qx.Class.define("qx.test.mobile.core.Widget",
       widget.addCssClass("affe");
       this.assertTrue(widget.hasCssClass("affe"));
 
-      widget.removeCssClass("affe");
+      widget.removeClass("affe");
       this.assertFalse(widget.hasCssClass("affe"));
 
       widget.dispose();

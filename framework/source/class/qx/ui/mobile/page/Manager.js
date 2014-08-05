@@ -213,7 +213,7 @@ qx.Bootstrap.define("qx.ui.mobile.page.Manager",
     _createMasterContainer : function() {
       var masterContainer = new qx.ui.mobile.container.Drawer(null, new qx.ui.mobile.layout.HBox());
       masterContainer.visibility = "hidden";
-      masterContainer.addCssClass("master-detail-master");
+      masterContainer.addClass("master-detail-master");
       masterContainer.hideOnParentTap = false;
       masterContainer.addListener("changeVisibility", this._onMasterChangeVisibility, this);
       return masterContainer;

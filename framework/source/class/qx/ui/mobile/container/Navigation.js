@@ -172,7 +172,7 @@ qx.Bootstrap.define("qx.ui.mobile.container.Navigation",
     * Handler for the "animationStart" event on the layout.
     */
     _onAnimationStart : function() {
-      this.addCssClass("blocked");
+      this.addClass("blocked");
     },
 
 
@@ -180,7 +180,7 @@ qx.Bootstrap.define("qx.ui.mobile.container.Navigation",
     * Handler for the "animationEnd" event on the layout.
     */
     _onAnimationEnd : function() {
-      this.removeCssClass("blocked");
+      this.removeClass("blocked");
     },
 
 
@@ -210,10 +210,10 @@ qx.Bootstrap.define("qx.ui.mobile.container.Navigation",
       this.setStyle("transitionDuration", widget.navigationBarToggleDuration+"s");
 
       if(widget.navigationBarHidden) {
-        this.addCssClass("hidden");
+        this.addClass("hidden");
       } else {
         navigationBar.show();
-        this.removeCssClass("hidden");
+        this.removeClass("hidden");
       }
 
       navigationBar.removeAll();

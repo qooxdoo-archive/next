@@ -65,7 +65,7 @@ qx.Bootstrap.define("qx.ui.mobile.form.Slider",
     this._registerEventListener();
     this._refresh();
 
-    this.addCssClass("gap");
+    this.addClass("gap");
   },
 
 
@@ -344,10 +344,10 @@ qx.Bootstrap.define("qx.ui.mobile.form.Slider",
     // Property apply
     _applyDisplayValue : function(value, old ) {
       if(old != null) {
-        this.removeCssClass(old);
+        this.removeClass(old);
       }
       if(value != null) {
-        this.addCssClass(value);
+        this.addClass(value);
       }
     },
 

@@ -213,7 +213,7 @@ qx.Bootstrap.define("qx.ui.mobile.dialog.Menu",
       listScroller.add(selectionList, {
         flex: 1
       });
-      listScroller.addCssClass("menu-scroller");
+      listScroller.addClass("menu-scroller");
       return listScroller;
     },
 
@@ -260,11 +260,11 @@ qx.Bootstrap.define("qx.ui.mobile.dialog.Menu",
           var isItemSelected = (self.selectedIndex == row);
 
           if(isItemSelected) {
-            item.removeCssClass(self.unselectedItemClass);
-            item.addCssClass(self.selectedItemClass);
+            item.removeClass(self.unselectedItemClass);
+            item.addClass(self.selectedItemClass);
           } else {
-            item.removeCssClass(self.selectedItemClass);
-            item.addCssClass(self.unselectedItemClass);
+            item.removeClass(self.selectedItemClass);
+            item.addClass(self.unselectedItemClass);
           }
         }
       });

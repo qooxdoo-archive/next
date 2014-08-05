@@ -30,7 +30,7 @@ qx.Mixin.define("qx.ui.mobile.container.MNativeScroll",
 
   construct : function()
   {
-    this.addCssClass("native");
+    this.addClass("native");
 
     this._snapPoints = [];
 

@@ -75,7 +75,7 @@ qx.Bootstrap.define("qx.ui.mobile.container.Carousel",
 
     var carouselScroller = this.__carouselScroller = new qx.ui.mobile.container.Composite(new qx.ui.mobile.layout.HBox());
     carouselScroller.transformUnit = "px";
-    carouselScroller.addCssClass("carousel-scroller");
+    carouselScroller.addClass("carousel-scroller");
 
     carouselScroller.addListener("pointerdown", this._onPointerDown, this);
     carouselScroller.addListener("pointerup", this._onPointerUp, this);
@@ -94,7 +94,7 @@ qx.Bootstrap.define("qx.ui.mobile.container.Carousel",
     var pagination = this.__pagination = new qx.ui.mobile.container.Composite();
     pagination.setLayout(new qx.ui.mobile.layout.HBox());
     pagination.transformUnit = "px";
-    pagination.addCssClass("carousel-pagination");
+    pagination.addClass("carousel-pagination");
 
     this.setLayout(new qx.ui.mobile.layout.VBox());
 
@@ -203,7 +203,7 @@ qx.Bootstrap.define("qx.ui.mobile.container.Carousel",
         }
       }
 
-      page.addCssClass("carousel-page");
+      page.addClass("carousel-page");
 
       this.__pages.push(page);
       this.__carouselScroller.add(page, {
@@ -374,7 +374,7 @@ qx.Bootstrap.define("qx.ui.mobile.container.Carousel",
       var paginationLabelText = new qx.ui.mobile.basic.Label("" + paginationIndex);
       paginationLabel.add(paginationLabelText);
 
-      paginationLabel.addCssClass("carousel-pagination-label");
+      paginationLabel.addClass("carousel-pagination-label");
       paginationLabel.addListener("tap", this._onPaginationLabelTap, {
         self: this,
         targetIndex: paginationIndex - 1
@@ -687,12 +687,12 @@ qx.Bootstrap.define("qx.ui.mobile.container.Carousel",
      */
     _updatePagination : function(newActiveIndex) {
       for (var i = 0; i < this.__paginationLabels.length; i++) {
-        this.__paginationLabels[i].removeCssClass("active");
+        this.__paginationLabels[i].removeClass("active");
       }
 
       var newActiveLabel = this.__paginationLabels[newActiveIndex];
       if (newActiveLabel && newActiveLabel.getContainerElement()) {
-        newActiveLabel.addCssClass("active");
+        newActiveLabel.addClass("active");
       }
 
       if (this.__paginationLabels.length) {

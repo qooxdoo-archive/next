@@ -81,7 +81,7 @@ qx.Bootstrap.define("qx.ui.mobile.form.ToggleButton",
     this.addListener("tap", this._onTap, this);
     this.addListener("swipe", this._onSwipe, this);
 
-    this.addCssClass("gap");
+    this.addClass("gap");
   },
 
 
@@ -120,7 +120,7 @@ qx.Bootstrap.define("qx.ui.mobile.form.ToggleButton",
      */
     _createSwitch : function() {
       var toggleButtonSwitch = new qx.ui.mobile.container.Composite();
-      toggleButtonSwitch.addCssClass("togglebutton-switch");
+      toggleButtonSwitch.addClass("togglebutton-switch");
       return toggleButtonSwitch;
     },
 
@@ -136,9 +136,9 @@ qx.Bootstrap.define("qx.ui.mobile.form.ToggleButton",
         throw new Error("value for "+this+" should be boolean");
       }
       if (value) {
-        this.addCssClass("checked");
+        this.addClass("checked");
       } else {
-        this.removeCssClass("checked");
+        this.removeClass("checked");
       }
        this.__value = value;
     },

@@ -55,7 +55,7 @@ qx.Bootstrap.define("qx.ui.mobile.form.Group",
   {
     this.base(arguments);
 
-    this.addCssClass("bordered");
+    this.addClass("bordered");
 
     if(showBorder != null) {
       this.showBorder = showBorder;
@@ -112,9 +112,9 @@ qx.Bootstrap.define("qx.ui.mobile.form.Group",
     _onChangeShowBorder : function() {
 
       if(this.showBorder) {
-        this.addCssClass("bordered");
+        this.addClass("bordered");
       } else {
-        this.removeCssClass("bordered");
+        this.removeClass("bordered");
       }
     }
   }

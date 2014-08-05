@@ -33,8 +33,8 @@ qx.Bootstrap.define("qx.ui.mobile.form.renderer.SinglePlaceholder",
   construct : function(form)
   {
     this.base(arguments,form);
-    this.removeCssClass("single");
-    this.addCssClass("single-placeholder");
+    this.removeClass("single");
+    this.addClass("single-placeholder");
   },
 
 

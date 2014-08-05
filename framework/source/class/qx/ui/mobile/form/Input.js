@@ -40,7 +40,7 @@ qx.Bootstrap.define("qx.ui.mobile.form.Input",
   {
     this.base(arguments);
     this._setAttribute("type", this._getType());
-    this.addCssClass("gap");
+    this.addClass("gap");
 
     this.addListener("focus", this._onSelected, this);
   },

@@ -137,8 +137,8 @@ qx.Bootstrap.define("qx.ui.mobile.layout.Card",
     {
       this.base(arguments);
       if (widget) {
-        widget.addCssClass("layout-card-item");
-        widget.addCssClass("qx-flex1");
+        widget.addClass("layout-card-item");
+        widget.addClass("qx-flex1");
         widget.exclude();
       }
     },
@@ -148,7 +148,7 @@ qx.Bootstrap.define("qx.ui.mobile.layout.Card",
     disconnectFromChildWidget : function(widget)
     {
       this.base(arguments);
-      widget.removeCssClass("layout-card-item");
+      widget.removeClass("layout-card-item");
     },
 
 
@@ -232,11 +232,11 @@ qx.Bootstrap.define("qx.ui.mobile.layout.Card",
      */
     _swapWidget : function() {
       if (this.__currentWidget) {
-        this.__currentWidget.removeCssClass("active");
+        this.__currentWidget.removeClass("active");
         this.__currentWidget.exclude();
       }
       this.__currentWidget = this.__nextWidget;
-      this.__currentWidget.addCssClass("active");
+      this.__currentWidget.addClass("active");
     },
 
 
@@ -304,7 +304,7 @@ qx.Bootstrap.define("qx.ui.mobile.layout.Card",
       var fromCssClasses = this.__getAnimationClasses("out");
       var toCssClasses = this.__getAnimationClasses("in");
 
-      this._widget.addCssClass("animationParent");
+      this._widget.addClass("animationParent");
 
       var toElementAnimation = this.__cardAnimation.getAnimation(this.__animation, "in", this.__reverse);
       var fromElementAnimation = this.__cardAnimation.getAnimation(this.__animation, "out", this.__reverse);
@@ -351,7 +351,7 @@ qx.Bootstrap.define("qx.ui.mobile.layout.Card",
         qx.bom.element.Class.removeClasses(toElement, this.__getAnimationClasses("in"));
 
         this._swapWidget();
-        this._widget.removeCssClass("animationParent");
+        this._widget.removeClass("animationParent");
         this.__inAnimation = false;
       }
     },

@@ -64,7 +64,7 @@ qx.Bootstrap.define("qx.ui.mobile.form.Label",
       this.value = value;
     }
 
-    this.addCssClass("gap");
+    this.addClass("gap");
     var layout = new qx.ui.mobile.layout.HBox();
     layout.alignY = "middle";
     layout.alignX = "left";
@@ -163,9 +163,9 @@ qx.Bootstrap.define("qx.ui.mobile.form.Label",
     _applyTextWrap : function(value, old)
     {
       if (value) {
-        this.removeCssClass("no-wrap");
+        this.removeClass("no-wrap");
       } else {
-        this.addCssClass("no-wrap");
+        this.addClass("no-wrap");
       }
     },
 

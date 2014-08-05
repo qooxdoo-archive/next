@@ -58,12 +58,12 @@ qx.Bootstrap.define("qx.ui.mobile.container.Collapsible",
     this.base(arguments);
 
     this._header = this._createHeader();
-    this._header.addCssClass("collapsible-header");
+    this._header.addClass("collapsible-header");
     this._header.addListener("tap", this._toggleCollapsed, this);
     this.setTitle(title);
 
     this._content = this._createContent();
-    this._content.addCssClass("collapsible-content");
+    this._content.addClass("collapsible-content");
 
     this._add(this._header);
     this._add(this._content);
@@ -71,7 +71,7 @@ qx.Bootstrap.define("qx.ui.mobile.container.Collapsible",
     this.collapsed = undefined;
     this.combined = undefined;
 
-    this.addCssClass("gap");
+    this.addClass("gap");
   },
 
 
@@ -185,10 +185,10 @@ qx.Bootstrap.define("qx.ui.mobile.container.Collapsible",
     _applyCollapsed : function(value, old) {
       if(value === true) {
         this._content.exclude();
-        this.addCssClass("collapsed");
+        this.addClass("collapsed");
       } else {
         this._content.show();
-        this.removeCssClass("collapsed");
+        this.removeClass("collapsed");
       }
     },
 
@@ -196,10 +196,10 @@ qx.Bootstrap.define("qx.ui.mobile.container.Collapsible",
     // property apply
     _applyCombined : function(value, old) {
       if(value === true) {
-        this.addCssClass("combined");
+        this.addClass("combined");
       }
       else {
-        this.removeCssClass("combined");
+        this.removeClass("combined");
       }
     },
 
