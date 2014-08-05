@@ -27,7 +27,7 @@ qx.Bootstrap.define("qx.ui.mobile.form.Title",
 
   properties :
   {
-    wrap :
+    textWrap :
     {
       init : false
     },

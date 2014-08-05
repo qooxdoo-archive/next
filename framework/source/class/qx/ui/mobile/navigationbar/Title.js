@@ -26,7 +26,7 @@ qx.Bootstrap.define("qx.ui.mobile.navigationbar.Title",
 
   properties :
   {
-    wrap :
+    textWrap :
     {
       init : false
     },
