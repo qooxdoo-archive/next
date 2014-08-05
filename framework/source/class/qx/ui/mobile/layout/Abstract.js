@@ -89,7 +89,7 @@ qx.Bootstrap.define("qx.ui.mobile.layout.Abstract",
      * @param property {String?null} Optional. The layout property to set.
      * @param value {var?} Optional. The value of the layout property.
      */
-    _setLayoutProperty : function(widget, property, value)
+    _setLayoutProperty : function(widget, property, value, oldValue)
     {
       if (qx.core.Environment.get("qx.debug")) {
         throw new Error("Abstract method call");
@@ -103,9 +103,10 @@ qx.Bootstrap.define("qx.ui.mobile.layout.Abstract",
      * @param widget {qx.ui.mobile.core.Widget} The target widget
      * @param properties {Map} The layout properties to set. Key / value pairs.
      */
-    setLayoutProperties : function(widget, properties)
+    setLayoutProperties : function(widget)
     {
-      if (properties == null) {
+      var properties = widget.layoutPrefs;
+      if (!properties) {
         return;
       }
 
@@ -258,11 +259,11 @@ qx.Bootstrap.define("qx.ui.mobile.layout.Abstract",
       }
 
       var cache = this.__cachedChildLayoutProperties;
-      var hash = widget.toHashCode();
-      if (!cache[hash]) {
-        cache[hash] = {};
+      var id = widget.id;
+      if (!cache[id]) {
+        cache[id] = {};
       }
-      return cache[hash];
+      return cache[id];
     },
 
 

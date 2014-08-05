@@ -179,6 +179,14 @@ qx.Bootstrap.define("qx.ui.mobile.core.Widget",
       init : false,
       apply : "_applyActivatable"
     },
+
+
+    layoutPrefs :
+    {
+      check : "Object",
+      apply: "_applyLayoutPrefs",
+      init : null,
+      nullable: true
     }
   },
 
@@ -277,8 +285,7 @@ qx.Bootstrap.define("qx.ui.mobile.core.Widget",
      */
     scheduleDomUpdated : function()
     {
-      if (qx.ui.mobile.core.Widget.__domUpdatedScheduleId == null)
-      {
+      if (!qx.ui.mobile.core.Widget.__domUpdatedScheduleId) {
         qx.ui.mobile.core.Widget.__domUpdatedScheduleId = window.setTimeout(
           qx.ui.mobile.core.Widget.domUpdated,
           0
@@ -443,13 +450,17 @@ qx.Bootstrap.define("qx.ui.mobile.core.Widget",
      * Adds a new child widget.
      *
      * @param child {Widget} the widget to add.
-     * @param layoutProperties {Map?null} Optional layout data for widget.
      */
-    _add : function(child, layoutProperties)
+    _add : function(child)
     {
-      child.setLayoutProperties(layoutProperties);
-
       this.append(child[0]);
+
+      this.updateLayoutProperties(child);
+
+      var layout = this._getLayout();
+      if (layout) {
+        layout.connectToChildWidget(child);
+      }
 
       this._domUpdated();
     },
@@ -620,6 +631,10 @@ qx.Bootstrap.define("qx.ui.mobile.core.Widget",
         }
       }
 
+      if (layout) {
+        layout.connectToWidget(this);
+      }
+
       this.__layoutManager = layout;
       this._domUpdated();
     },
@@ -657,12 +672,16 @@ qx.Bootstrap.define("qx.ui.mobile.core.Widget",
      *
      * @param properties {Map} Incoming layout property data
      */
-    setLayoutProperties : function(properties)
+    _applyLayoutPrefs : function(value, old)
     {
       // Check values through parent
       var parent = this.getParents();
       if (parent[0]) {
-        parent.updateLayoutProperties(this, properties);
+        // TODO: store widget instance on DOM element?
+        var parentWidget = qx.ui.mobile.core.Widget.getWidgetById(parent[0].id);
+        if (parentWidget) {
+          parentWidget.updateLayoutProperties(this);
+        }
       }
     },
 
@@ -675,11 +694,11 @@ qx.Bootstrap.define("qx.ui.mobile.core.Widget",
      *
      * @internal
      */
-    updateLayoutProperties : function(widget, properties)
+    updateLayoutProperties : function(widget)
     {
       var layout = this._getLayout();
       if (layout) {
-        layout.setLayoutProperties(widget, properties);
+        layout.setLayoutProperties(widget);
       }
       this._domUpdated();
     },

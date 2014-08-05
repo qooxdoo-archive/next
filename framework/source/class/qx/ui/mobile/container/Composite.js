@@ -35,7 +35,7 @@
  *   composite.setLayout(new qx.ui.mobile.layout.HBox());
  *
  *   // add some children
- *   composite.add(new qx.ui.mobile.basic.Label("Name: "), {flex:1});
+ *   composite.add(new qx.ui.mobile.basic.Label("Name: "));
  *   composite.add(new qx.ui.mobile.form.TextField());
  *
  *   this.getRoot().add(composite);
