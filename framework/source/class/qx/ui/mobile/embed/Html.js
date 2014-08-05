@@ -89,7 +89,7 @@ qx.Bootstrap.define("qx.ui.mobile.embed.Html",
     // property apply
     _applyHtml : function(value, old)
     {
-      this._setHtml(value);
+      this.setHtml(value);
     }
   }
 });

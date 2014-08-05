@@ -155,7 +155,7 @@ qx.Bootstrap.define("qx.ui.mobile.form.Label",
       if (qx.core.Environment.get("css.flexboxSyntax") === "flexbox") {
         html = "<p>" + value + "</p>";
       }
-      this._setHtml(html);
+      this.setHtml(html);
     },
 
 

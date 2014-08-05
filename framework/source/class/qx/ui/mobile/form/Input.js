@@ -85,9 +85,9 @@ qx.Bootstrap.define("qx.ui.mobile.form.Input",
         scrollContainer.scrollToWidget(this.getLayoutParent(), 0);
 
         // Refresh caret position after scrolling.
-        this._setStyle("position","relative");
+        this.setStyle("position","relative");
         qx.bom.AnimationFrame.request(function() {
-          this._setStyle("position",null);
+          this.setStyle("position",null);
         }, this);
       }.bind(this), 300);
     },

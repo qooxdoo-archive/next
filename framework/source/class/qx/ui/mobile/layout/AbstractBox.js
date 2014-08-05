@@ -188,10 +188,10 @@ qx.Bootstrap.define("qx.ui.mobile.layout.AbstractBox",
     {
       if (property == "flex") {
         var old = this._getChildLayoutPropertyValue(widget, property);
-        if (old != null) {
-          widget.removeCssClass("qx-flex" + value);
+        if (old) {
+          widget.removeClass("qx-flex" + old);
         }
-        widget.addCssClass("qx-flex" + value);
+        widget.addClass("qx-flex" + value);
       }
     },
 
@@ -213,7 +213,7 @@ qx.Bootstrap.define("qx.ui.mobile.layout.AbstractBox",
     {
       this.base(arguments);
       for (var i = 0; i <= 6; i++) {
-        widget.removeCssClass("qx-flex" +i);
+        widget.removeClass("qx-flex" +i);
       }
     },
 
@@ -231,14 +231,14 @@ qx.Bootstrap.define("qx.ui.mobile.layout.AbstractBox",
         {
           var oldCssClass = CSS_MAPPING[old];
           if (oldCssClass) {
-            this._widget.removeCssClass(oldCssClass);
+            this._widget.removeClass(oldCssClass);
           }
         }
         if (value)
         {
           var cssClass = CSS_MAPPING[value];
           if (cssClass) {
-            this._widget.addCssClass(cssClass);
+            this._widget.addClass(cssClass);
           }
         }
       } else {

@@ -428,9 +428,9 @@ qx.Bootstrap.define("qx.ui.mobile.container.Carousel",
       this.__carouselWidth = carouselSize.width;
 
       if (this.height !== null) {
-        this._setStyle("height", this.height / 16 + "rem");
+        this.setStyle("height", this.height / 16 + "rem");
       } else {
-        this._setStyle("height", "100%");
+        this.setStyle("height", "100%");
       }
 
       qx.bom.element.Style.set(this.__carouselScroller.getContentElement(), "width", this.__pages.length * carouselSize.width + "px");

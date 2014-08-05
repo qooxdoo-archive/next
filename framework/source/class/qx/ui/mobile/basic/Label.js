@@ -133,7 +133,7 @@ qx.Bootstrap.define("qx.ui.mobile.basic.Label",
     // property apply
     _applyValue : function(value, old)
     {
-      this._setHtml(value);
+      this.setHtml(value);
     },
 
 

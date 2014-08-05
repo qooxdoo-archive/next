@@ -307,8 +307,8 @@ qx.Bootstrap.define("qx.ui.mobile.container.Drawer",
         height = remSize + "rem";
       }
 
-      this._setStyle("height", height);
-      this._setStyle("width", width);
+      this.setStyle("height", height);
+      this.setStyle("width", width);
     },
 
 
@@ -330,7 +330,7 @@ qx.Bootstrap.define("qx.ui.mobile.container.Drawer",
       this.__inTransition = true;
 
       // Make drawer visibile before "changeVisibility" event is fired, after transition.
-      this._setStyle("visibility", "visible");
+      this.setStyle("visibility", "visible");
 
       this.__parent.addCssClass("blocked");
 

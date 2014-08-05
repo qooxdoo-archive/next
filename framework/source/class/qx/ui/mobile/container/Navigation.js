@@ -207,7 +207,7 @@ qx.Bootstrap.define("qx.ui.mobile.container.Navigation",
     _update : function(widget) {
       var navigationBar = this.getNavigationBar();
 
-      this._setStyle("transitionDuration", widget.navigationBarToggleDuration+"s");
+      this.setStyle("transitionDuration", widget.navigationBarToggleDuration+"s");
 
       if(widget.navigationBarHidden) {
         this.addCssClass("hidden");

@@ -328,8 +328,8 @@ qx.Bootstrap.define("qx.ui.mobile.dialog.Popup",
      */
     placeTo : function(left, top)
     {
-      this._setStyle("left", left + "px");
-      this._setStyle("top", top + "px");
+      this.setStyle("left", left + "px");
+      this.setStyle("top", top + "px");
     },
 
 

@@ -127,7 +127,7 @@ qx.Bootstrap.define("qx.ui.mobile.core.Root",
 
     // property apply
     _applyShowScrollbarY : function(value, old) {
-      this._setStyle("overflow-y", value ? "auto" : "hidden");
+      this.setStyle("overflow-y", value ? "auto" : "hidden");
     },
 
 

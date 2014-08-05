@@ -251,12 +251,12 @@ qx.Bootstrap.define("qx.ui.mobile.basic.Image",
     _createHighResolutionOverlay : function(highResSource, lowResSource) {
       // Replace the source through transparent pixel for making the high-resolution background image visible.
       var resourceManager = qx.util.ResourceManager.getInstance();
-      this._setStyle("backgroundImage","url("+resourceManager.toUri(highResSource)+")");
-      this._setStyle("backgroundSize","100%");
-      this._setStyle("backgroundRepeat","no-repeat");
-      this._setStyle("backgroundPosition","50% 50%");
-      this._setStyle("width", resourceManager.getImageWidth(lowResSource) / 16 + "rem");
-      this._setStyle("height", resourceManager.getImageHeight(lowResSource) / 16 + "rem");
+      this.setStyle("backgroundImage","url("+resourceManager.toUri(highResSource)+")");
+      this.setStyle("backgroundSize","100%");
+      this.setStyle("backgroundRepeat","no-repeat");
+      this.setStyle("backgroundPosition","50% 50%");
+      this.setStyle("width", resourceManager.getImageWidth(lowResSource) / 16 + "rem");
+      this.setStyle("height", resourceManager.getImageHeight(lowResSource) / 16 + "rem");
     },
 
 

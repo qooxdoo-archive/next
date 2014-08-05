@@ -489,7 +489,7 @@ qx.Bootstrap.define("qx.ui.mobile.list.List",
      */
     __render : function()
     {
-      this._setHtml("");
+      this.setHtml("");
 
       var model = this.model;
       this.itemCount = model ? model.getLength() : 0;

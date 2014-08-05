@@ -133,13 +133,13 @@ qx.Bootstrap.define("qx.ui.mobile.layout.Abstract",
     connectToWidget : function(widget)
     {
       if (this._widget) {
-        this._widget.removeCssClasses(this._getCssClasses());
+        this._widget.removeClasses(this._getCssClasses());
       }
 
       this._widget = widget;
       if (widget)
       {
-        widget.addCssClasses(this._getCssClasses());
+        widget.addClasses(this._getCssClasses());
         if (this.__cachedProperties) {
           for (var property in this.__cachedProperties)
           {

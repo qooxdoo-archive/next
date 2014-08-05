@@ -133,7 +133,7 @@ qx.Bootstrap.define("qx.ui.mobile.core.Widget",
       check : "Boolean",
       init : null,
       nullable : true,
-      apply : "_applyStyle"
+      apply : "_applyAnonymous"
     },
 
 
@@ -332,26 +332,8 @@ qx.Bootstrap.define("qx.ui.mobile.core.Widget",
       {
         attribute : "readonly"
       }
-    },
-
-
-    /**
-     * Mapping of style properties to their real style name.
-     *
-     * @internal
-     */
-    STYLE_MAPPING :
-    {
-      "anonymous" :
-      {
-        style : "pointerEvents",
-        values :
-        {
-          "true" : "none",
-          "false" : null
-        }
-      }
     }
+
   },
 
 
@@ -435,15 +417,15 @@ qx.Bootstrap.define("qx.ui.mobile.core.Widget",
      */
     _applyEnabled : function(value,old)
     {
-      if(value)
+      if (value)
       {
         this.removeClass("disabled");
-        this._setStyle('anonymous',this.anonymous);
+        this.setStyle('anonymous', this.anonymous);
       }
       else
       {
         this.addClass("disabled");
-        this._setStyle('anonymous',true);
+        this.setStyle('anonymous', true);
       }
     },
 
@@ -733,9 +715,9 @@ qx.Bootstrap.define("qx.ui.mobile.core.Widget",
     *
     * @param value {String?""} The html to set in the content element.
     */
-    _setHtml : function(value)
+    setHtml : function(value)
     {
-      this.setHtml(value || "");
+      this.base(arguments, value || "");
       this._domUpdated();
     },
 
@@ -794,15 +776,11 @@ qx.Bootstrap.define("qx.ui.mobile.core.Widget",
 
 
     /**
-     * Shortcut for each property that should change a certain style of the container
-     * element.
-     * Use the {@link #addStyleMapping} method to add a property to style
-     * mapping when the style name or value differs from the property name or
-     * value.
+     * Ignore pointer events on this widget
      */
-    _applyStyle : function(value, old, style)
+    _applyAnonymous : function(value, old, style)
     {
-      this._setStyle(style, value);
+      this.setStyle("pointerEvents", value ? "none" : null);
     },
 
 
@@ -813,18 +791,8 @@ qx.Bootstrap.define("qx.ui.mobile.core.Widget",
      * @param style {String} The style of which the value should be set
      * @param value {var} The value of the style. <code>Null</code> will reset the attribute.
      */
-    _setStyle : function(style, value)
-    {
-      var mapping = qx.ui.mobile.core.Widget.STYLE_MAPPING[style];
-      if (mapping)
-      {
-        style = mapping.style || style;
-        value = mapping.values[value];
-      }
-
-
-      this.setStyle(style, value);
-
+    setStyle : function(style, value) {
+      this.base(arguments, style, value);
       this._domUpdated();
     },
 
@@ -926,13 +894,13 @@ qx.Bootstrap.define("qx.ui.mobile.core.Widget",
       if (value == "excluded") {
         this.addClass("exclude");
       }
-      else if(value == "visible")
+      else if (value == "visible")
       {
         this.removeClass("exclude");
-        this._setStyle("visibility", "visible");
+        this.setStyle("visibility", "visible");
       }
       else if (value == "hidden") {
-        this._setStyle("visibility", "hidden");
+        this.setStyle("visibility", "hidden");
       }
       this._domUpdated();
     },
