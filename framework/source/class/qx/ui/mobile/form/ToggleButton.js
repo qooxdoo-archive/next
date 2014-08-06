@@ -29,8 +29,8 @@
  * <pre class='javascript'>
  *   var button = new qx.ui.mobile.form.ToggleButton(false,"YES","NO");
  *
- *   button.on("changeValue", function(e) {
- *     alert(e.getData());
+ *   button.on("changeValue", function(value) {
+ *     alert(value);
  *   }, this);
  *
  *   this.getRoot.add(button);

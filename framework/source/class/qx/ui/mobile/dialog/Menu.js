@@ -304,10 +304,10 @@ qx.Bootstrap.define("qx.ui.mobile.dialog.Menu",
 
     /**
      * Fires an event which contains index and data.
-     * @param evt {qx.event.type.Data}, contains the selected index number.
+     * @param index {Number} the selected index.
      */
-    __onListChangeSelection : function (evt) {
-      this.selectedIndex = evt.getData();
+    __onListChangeSelection : function (index) {
+      this.selectedIndex = index;
     },
 
 

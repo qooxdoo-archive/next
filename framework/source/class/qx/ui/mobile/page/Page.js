@@ -216,7 +216,7 @@ qx.Bootstrap.define("qx.ui.mobile.page.Page",
      */
     back : function(triggeredByKeyEvent)
     {
-      qx.core.Init.getApplication().fireDataEvent("back", triggeredByKeyEvent);
+      qx.core.Init.getApplication().emit("back", triggeredByKeyEvent);
       this.emit("back", triggeredByKeyEvent);
       var value = this._back(triggeredByKeyEvent);
       return value || false;

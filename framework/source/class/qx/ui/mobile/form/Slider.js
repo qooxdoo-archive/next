@@ -211,8 +211,8 @@ qx.Bootstrap.define("qx.ui.mobile.form.Slider",
       this.off("track", this._onTrack, this);
       this.off("appear", this._refresh, this);
 
-      qx.event.Registration.off(window, "resize", this._refresh, this);
-      qx.event.Registration.off(window, "orientationchange", this._refresh, this);
+      qxWeb(window).off("resize", this._refresh, this)
+        .off("orientationchange", this._refresh, this);
       this.off("domupdated", this._refresh, this);
     },
 

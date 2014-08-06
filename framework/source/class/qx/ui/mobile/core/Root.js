@@ -275,7 +275,7 @@ qx.Bootstrap.define("qx.ui.mobile.core.Root",
       this.base(arguments);
       this.__root = null;
       this.off("touchmove", qx.bom.Event.preventDefault, this);
-      qx.event.Registration.off(window, "orientationchange", this._onOrientationChange, this);
+      qxWeb(window).off("orientationchange", this._onOrientationChange, this);
     }
   }
 });

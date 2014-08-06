@@ -21,6 +21,7 @@
  * This is the base class for all mobile widgets.
  *
  * @require(qx.module.Core)
+ * @require(qx.module.event.GestureHandler)
  */
 qx.Bootstrap.define("qx.ui.mobile.core.Widget",
 {
@@ -301,13 +302,14 @@ qx.Bootstrap.define("qx.ui.mobile.core.Widget",
      *
      * @internal
      */
-    domUpdated : function() {
+    domUpdated : qx.event.GlobalError.observeMethod(function()
+    {
       var clazz = qx.ui.mobile.core.Widget;
       window.clearTimeout(clazz.__domUpdatedScheduleId);
       clazz.__domUpdatedScheduleId = null;
-      qx.event.handler.Appear.refresh(); // TODO
-      qx.ui.mobile.core.DomUpdatedHandler.refresh(); // TODO
-    },
+      qx.event.handler.Appear.refresh();
+      qx.ui.mobile.core.DomUpdatedHandler.refresh();
+    }),
 
 
     /**
@@ -387,7 +389,8 @@ qx.Bootstrap.define("qx.ui.mobile.core.Widget",
      * Triggers the {@link #scheduleDomUpdated} method. This method needs to be called
      * when the DOM has changed, e.g. an element was added / removed / styled.
      */
-    _domUpdated : function() {
+    _domUpdated : function()
+    {
       qx.ui.mobile.core.Widget.scheduleDomUpdated();
     },
 
@@ -484,9 +487,9 @@ qx.Bootstrap.define("qx.ui.mobile.core.Widget",
       var ref = this.getChildren()[index];
 
       if (ref) {
-        this._addBefore(child, ref, options);
+        child._addBefore(ref);
       } else {
-        this._add(child, options);
+        this._add(child);
       }
     },
 
@@ -495,27 +498,12 @@ qx.Bootstrap.define("qx.ui.mobile.core.Widget",
      * Add a widget before another already inserted widget
      *
      * @param child {Widget} widget to add
-     * @param beforeWidget {Widget} widget before the new widget will be inserted.
+     * @param before {Widget} widget before the new widget will be inserted.
      * @param layoutProperties {Map?null} Optional layout data for widget.
      */
-    _addBefore : function(child, beforeWidget, layoutProperties)
+    _addBefore : function(widget)
     {
-      if (qx.core.Environment.get("qx.debug"))
-      {
-        if (child._getParentWidget() === this) {
-          throw new Error("The widget is already added this widget. Please remove it first.");
-        }
-
-        this.assertInArray(beforeWidget, this.getChildren(), "The 'before' widget is not a child of this widget!");
-      }
-
-      if (child == beforeWidget) {
-        return;
-      }
-
-      child.setLayoutProperties(layoutProperties);
-
-      this.insertBefore(child, beforeWidget);
+      this.insertBefore(widget);
 
       this._domUpdated();
     },
@@ -525,37 +513,12 @@ qx.Bootstrap.define("qx.ui.mobile.core.Widget",
      * Add a widget after another already inserted widget.
      *
      * @param child {Widget} The widget to add.
-     * @param afterWidget {Widget} Widget, after which the new widget will be inserted.
+     * @param widget {Widget} Widget, after which the new widget will be inserted.
      * @param layoutProperties {Map?null} Optional layout data for widget.
      */
-    _addAfter : function(child, afterWidget, layoutProperties)
+    _addAfter : function(widget)
     {
-      if (qx.core.Environment.get("qx.debug"))
-      {
-        if (child._getParentWidget() === this) {
-          throw new Error("The child is already added to this widget. Please remove it first.");
-        }
-
-        this.assertInArray(afterWidget, this.getChildren(), "The 'after' widget is not a child of this widget!");
-      }
-
-      if (child == afterWidget) {
-        return;
-      }
-
-      child.setLayoutProperties(layoutProperties);
-
-      var length = this.getChildren().length;
-      var index = this._indexOf(afterWidget);
-
-      if (index == length - 1) {
-        this.append(child);
-      }
-      else
-      {
-        var beforeWidget = this.getChildren()[index+1];
-        this.insertBefore(child, beforeWidget);
-      }
+      this.insertAfter(widget);
 
       this._domUpdated();
     },
@@ -1061,9 +1024,10 @@ qx.Bootstrap.define("qx.ui.mobile.core.Widget",
 
       // Cleanup event listeners
       // Needed as we rely on the containerElement in the qx.ui.mobile.core.EventHandler
-      qx.event.Registration.removeAllListeners(this); // TODO
+      qx.event.Registration.removeAllListeners(this);
 
-      if (this.id) {
+      if (this.id)
+      {
         qx.ui.mobile.core.Widget.unregisterWidget(this.id);
       }
 
@@ -1084,6 +1048,6 @@ qx.Bootstrap.define("qx.ui.mobile.core.Widget",
   */
 
   defer : function(statics) {
-    qx.bom.Lifecycle.onShutdown(statics.onShutdown, statics); // TODO
+    qx.bom.Lifecycle.onShutdown(statics.onShutdown, statics);
   }
 });

@@ -385,8 +385,8 @@ qx.Bootstrap.define("qx.ui.mobile.container.ScrollComposite",
 
 
     // overridden
-    addAfter : function(child, after, layoutProperties) {
-      this._scrollContainer.addAfter(child, after, layoutProperties);
+    addAfter : function(child, after) {
+      child.addAfter(after);
       this._handleSize(child);
     },
 
@@ -399,8 +399,8 @@ qx.Bootstrap.define("qx.ui.mobile.container.ScrollComposite",
 
 
     // overridden
-    addBefore : function(child, before, layoutProperties) {
-      this._scrollContainer.addBefore(child, before, layoutProperties);
+    addBefore : function(child, before) {
+      child.insertBefore(before);
       this._handleSize(child);
     },
 

@@ -204,12 +204,12 @@ qx.Bootstrap.define("qx.ui.mobile.list.List",
           row = parseInt(element.getAttribute("data-row"), 10);
         }
         if (row != -1) {
-          this.fireDataEvent("changeSelection", row);
+          this.emit("changeSelection", row);
         }
       } else {
         var group = parseInt(element.getAttribute("data-group"), 10);
         if (qx.bom.element.Attribute.get(element, "data-selectable") != "false") {
-          this.fireDataEvent("changeGroupSelection", group);
+          this.emit("changeGroupSelection", group);
         }
       }
     },
@@ -278,7 +278,7 @@ qx.Bootstrap.define("qx.ui.mobile.list.List",
 
       if (Math.abs(evt.getDelta().x) > this.__minDeleteDistance) {
         var row = parseInt(element.getAttribute("data-row"), 10);
-        this.fireDataEvent("removeItem", row);
+        this.emit("removeItem", row);
       } else {
         qx.bom.AnimationFrame.request(function() {
           qx.bom.element.Style.set(element, "transform", "translate3d(0,0,0)");
@@ -295,7 +295,7 @@ qx.Bootstrap.define("qx.ui.mobile.list.List",
     * @return {Element} the target list item.
     */
     _getElement : function(evt) {
-      var element = evt.getOriginalTarget();
+      var element = evt._original.target;
 
       // Click on border: do nothing.
       if(element.tagName == "UL") {

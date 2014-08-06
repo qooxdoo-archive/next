@@ -87,9 +87,7 @@ qx.Bootstrap.define("qx.ui.mobile.dialog.Popup",
 
     this.__anchor = anchor;
 
-    if(widget) {
-      this._initializeChild(widget);
-    }
+    this._initializeChild(widget);
   },
 
 
@@ -407,9 +405,9 @@ qx.Bootstrap.define("qx.ui.mobile.dialog.Popup",
       qx.core.Init.getApplication().off("stop", this.hide, this);
       qx.core.Init.getApplication().off("popup", this.hide, this);
 
-      qx.event.Registration.off(window, "resize", this._updatePosition, this);
+      qxWeb(window).off("resize", this._updatePosition, this);
 
-      if(this.__anchor) {
+      if (this.__anchor) {
         this.__anchor.removeClass("anchor-target");
         qx.ui.mobile.dialog.Popup.ROOT.off("pointerdown", this._trackUserTap, this);
       }
@@ -435,9 +433,8 @@ qx.Bootstrap.define("qx.ui.mobile.dialog.Popup",
         this.__childrenContainer.add(this._createTitleWidget());
       }
 
-      this.__childrenContainer.add(widget, {
-        flex: 1
-      });
+      widget.layoutPrefs = {flex: 1};
+      this.__childrenContainer.add(widget);
 
       widget.on("domupdated", this._updatePosition, this);
 
@@ -482,7 +479,7 @@ qx.Bootstrap.define("qx.ui.mobile.dialog.Popup",
           this.__titleWidget.addClass('popup-title');
 
           if(this.__widget) {
-            this.__childrenContainer.addBefore(this._createTitleWidget(), this.__widget);
+            this._createTitleWidget()._addBefore(this.__widget);
           } else {
             if(this.__childrenContainer) {
               this.__childrenContainer.add(this._createTitleWidget());
@@ -504,7 +501,7 @@ qx.Bootstrap.define("qx.ui.mobile.dialog.Popup",
           this.__titleWidget.addClass('popup-title');
 
           if (this.__widget) {
-            this.__childrenContainer.addBefore(this._createTitleWidget(), this.__widget);
+            this._createTitleWidget().addBefore(this.__widget);
           } else {
             if (this.__childrenContainer) {
               this.__childrenContainer.add(this._createTitleWidget());

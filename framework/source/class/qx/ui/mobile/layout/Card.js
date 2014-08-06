@@ -343,8 +343,8 @@ qx.Bootstrap.define("qx.ui.mobile.layout.Card",
           qx.bom.Event.removeNativeListener(fromElement, "MSAnimationEnd", this._onAnimationEnd, false);
           qx.bom.Event.removeNativeListener(toElement, "MSAnimationEnd", this._onAnimationEnd, false);
         } else {
-          qx.event.Registration.off(fromElement, "animationEnd", this._onAnimationEnd, this);
-          qx.event.Registration.off(toElement, "animationEnd", this._onAnimationEnd, this);
+          this.__currentWidget.off("animationEnd", this._onAnimationEnd, this);
+          this.__nextWidget.off("animationEnd", this._onAnimationEnd, this);
         }
 
         qx.bom.element.Class.removeClasses(fromElement, this.__getAnimationClasses("out"));

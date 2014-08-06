@@ -66,9 +66,9 @@ qx.Mixin.define("qx.ui.mobile.core.MChildrenHandling",
      * @param index {Integer} Index, at which the widget will be inserted
      * @param options {Map?null} Optional layout data for widget.
      */
-    addAt : function(child, index, options)
+    addAt : function(child, index)
     {
-      this._addAt(child, index, options);
+      this._addAt(child, index);
     },
 
 
@@ -79,8 +79,8 @@ qx.Mixin.define("qx.ui.mobile.core.MChildrenHandling",
      * @param before {Widget} Widget before the new widget will be inserted.
      * @param layoutProperties {Map?null} Optional layout data for widget.
      */
-    addBefore : function(child, before, layoutProperties) {
-      this._addBefore(child, before, layoutProperties);
+    addBefore : function(child, before) {
+      child._addBefore(before);
     },
 
 
@@ -91,8 +91,8 @@ qx.Mixin.define("qx.ui.mobile.core.MChildrenHandling",
      * @param after {Widget} Widget, after which the new widget will be inserted
      * @param layoutProperties {Map?null} Optional layout data for widget.
      */
-    addAfter : function(child, after, layoutProperties) {
-      this._addAfter(child, after, layoutProperties);
+    addAfter : function(child, after) {
+      child._addAfter(after);
     },
 
 

@@ -437,8 +437,8 @@ qx.Bootstrap.define("qx.ui.mobile.page.NavigationPage",
      * @param widget {qx.ui.mobile.core.Widget} The widget to add, after NavigationBar.
      */
     addAfterNavigationBar : function(widget) {
-      if(widget && this.__scrollContainer) {
-        this.addBefore(widget, this.__scrollContainer);
+      if (widget && this.__scrollContainer) {
+        widget.addBefore(this.__scrollContainer);
       }
     },
 
@@ -534,10 +534,12 @@ qx.Bootstrap.define("qx.ui.mobile.page.NavigationPage",
       this.__content = this._createContent();
 
       if (this.__content) {
-        this.__scrollContainer.add(this.__content, {flex :1});
+        this.__content.layoutPrefs = {flex :1};
+        this.__scrollContainer.add(this.__content);
       }
       if (this.__scrollContainer) {
-        this.add(this.__scrollContainer, {flex:1});
+        this.__scrollContainer.layoutPrefs = {flex :1};
+        this.add(this.__scrollContainer);
       }
     },
 

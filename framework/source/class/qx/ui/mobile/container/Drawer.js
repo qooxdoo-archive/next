@@ -509,7 +509,7 @@ qx.Bootstrap.define("qx.ui.mobile.container.Drawer",
      * @param evt {qx.module.event.Pointer} Handled pointer event.
      */
     _onParentSwipe : function(evt) {
-      var direction = evt.getDirection();
+      var direction = evt.swipe.direction;
       var isHidden = this.hasClass("hidden");
       if(isHidden) {
         var location = qx.bom.element.Location.get(this[0]);

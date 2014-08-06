@@ -161,7 +161,7 @@ qx.Bootstrap.define("qx.ui.mobile.container.MasterDetail",
 
     dispose : function() {
       this.base(arguments);
-      qx.event.Registration.off(window, "orientationchange", this._onOrientationChange, this);
+      qxWeb(window).off("orientationchange", this._onOrientationChange, this);
       this._disposeObjects("__master", "__detail");
       this.__master = this.__detail = null;
     }

@@ -229,7 +229,8 @@ qx.Bootstrap.define("qx.ui.mobile.container.Navigation",
 
       var title = widget.getTitleWidget();
       if (title) {
-        navigationBar.add(title, {flex:1});
+        title.layoutPrefs = {flex:1};
+        navigationBar.add(title);
       }
 
       var rightContainer = widget.getRightContainer();

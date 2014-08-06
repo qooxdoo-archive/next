@@ -205,14 +205,19 @@ qx.Bootstrap.define("qx.module.Manipulating", {
      */
     __getElementArray : function(arg)
     {
+
       if (!qx.lang.Type.isArray(arg)) {
         var fromSelector = qxWeb(arg);
         arg = fromSelector.length > 0 ? fromSelector : [arg];
       }
 
-      return arg.filter(function(item) {
-        return (item && (item.nodeType === 1 || item.nodeType === 11));
-      });
+      for (var i=arg.length -1; i >= 0; i--) {
+        if (!(arg[i].nodeType === 1 || arg[i].nodeType === 11)) {
+          arg.splice(i, 1);
+        }
+      }
+
+      return arg;
     },
 
 

@@ -151,7 +151,8 @@ qx.Bootstrap.define("qx.ui.mobile.list.renderer.Default",
       this.add(this.__image);
 
       this.__rightContainer = this._createRightContainer();
-      this.add(this.__rightContainer, {flex:1});
+      this.__rightContainer.layoutPrefs = {flex:1};
+      this.add(this.__rightContainer);
 
       this.__title = this._createTitle();
       this.__rightContainer.add(this.__title);

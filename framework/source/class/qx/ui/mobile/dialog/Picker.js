@@ -258,7 +258,7 @@ qx.Bootstrap.define("qx.ui.mobile.dialog.Picker",
     addSlot : function(slotData) {
       if(slotData !== null && slotData instanceof qx.data.Array) {
         this.__pickerModel.push(slotData);
-        slotData.on("changeBubble", this._onChangeBubble, {self:this,index:this.__pickerModel.length - 1});
+        slotData.addListener("changeBubble", this._onChangeBubble, {self:this,index:this.__pickerModel.length - 1});
         this._render();
       }
     },
@@ -273,7 +273,8 @@ qx.Bootstrap.define("qx.ui.mobile.dialog.Picker",
       var selectedIndex = this.self.getSelectedIndex(this.index);
 
       var pickerSlot = this.self.__pickerContainer.getChildren()[this.index];
-      this.self._renderPickerSlotContent(pickerSlot,this.index);
+      pickerSlot = qx.ui.mobile.core.Widget.getWidgetById(pickerSlot.id);
+      this.self._renderPickerSlotContent(pickerSlot, this.index);
 
       // If slotData length has decreased, but previously selected index was higher than new slotData length.
       if (selectedIndex >= newSlotDataLength) {
@@ -610,10 +611,7 @@ qx.Bootstrap.define("qx.ui.mobile.dialog.Picker",
     * @param slotIndex {Integer} the slotIndex of the pickerSlot.
     */
     _renderPickerSlotContent : function(pickerSlot, slotIndex) {
-      var oldPickerSlotContent = pickerSlot.removeAll();
-      for (var i = 0; i < oldPickerSlotContent.length; i++) {
-        oldPickerSlotContent[i].dispose();
-      }
+      pickerSlot.setHtml("");
 
       var slotValues = this.__pickerModel.getItem(slotIndex);
       var slotLength = slotValues.getLength();
@@ -622,9 +620,8 @@ qx.Bootstrap.define("qx.ui.mobile.dialog.Picker",
         var labelValue = slotValues.getItem(slotValueIndex);
         var pickerLabel = this._createPickerValueLabel(labelValue);
 
-        pickerSlot.add(pickerLabel, {
-          flex: 1
-        });
+        pickerLabel.layoutPrefs = {flex: 1};
+        pickerSlot.add(pickerLabel);
       }
     },
 
@@ -657,18 +654,13 @@ qx.Bootstrap.define("qx.ui.mobile.dialog.Picker",
       var children = this.__pickerContainer.getChildren();
 
       for (var i = children.length - 1; i >= 0; i--) {
-        var pickerSlot = children[i];
+        var pickerSlot = qxWeb(children[i]);
 
         pickerSlot.off("trackstart", this._onTrackStart, this);
         pickerSlot.off("track", this._onTrack, this);
         pickerSlot.off("trackend", this._onTrackEnd, this);
 
-        var oldPickerSlotContent = pickerSlot.removeAll();
-        for (var j = 0; j < oldPickerSlotContent.length; j++) {
-          oldPickerSlotContent[j].dispose();
-        }
-
-        pickerSlot.dispose();
+        pickerSlot.setHtml("");
       }
     },
 

@@ -64,7 +64,7 @@ qx.Class.define("mobileshowcase.page.Basic",
       // TOGGLE LABEL WRAP BUTTON
       var toggleLabelWrapButton = new qx.ui.mobile.form.ToggleButton(true,"Wrap","Ellipsis");
       toggleLabelWrapButton.on("changeValue", function(e) {
-        exLabel.wrap = !exLabel.wrap;
+        exLabel.textWrap = !exLabel.textWrap;
       }, this);
 
       // EXAMPLE WIDGETS

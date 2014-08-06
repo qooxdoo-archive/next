@@ -169,8 +169,8 @@ qx.Bootstrap.define("qx.ui.mobile.core.Blocker",
      */
     __registerEventListener : function()
     {
-      qx.event.Registration.addListener(window, "resize", this._updateSize, this);
-      qx.event.Registration.addListener(window, "scroll", this._onScroll, this);
+      qxWeb(window).on("resize", this._updateSize, this)
+        .on("scroll", this._onScroll, this);
       this.on("pointerdown", qx.bom.Event.preventDefault, this);
       this.on("pointerup", qx.bom.Event.preventDefault, this);
     },
@@ -181,8 +181,8 @@ qx.Bootstrap.define("qx.ui.mobile.core.Blocker",
      */
     __unregisterEventListener : function()
     {
-      qx.event.Registration.off(window, "resize", this._updateSize, this);
-      qx.event.Registration.off(window, "scroll", this._onScroll, this);
+      qxWeb(window).off("resize", this._updateSize, this)
+        .off("scroll", this._onScroll, this);
       this.off("pointerdown", qx.bom.Event.preventDefault, this);
       this.off("pointerup", qx.bom.Event.preventDefault, this);
     },
