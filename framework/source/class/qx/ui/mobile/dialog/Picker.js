@@ -440,7 +440,7 @@ qx.Bootstrap.define("qx.ui.mobile.dialog.Picker",
      * @param evt {qx.event.type.Track} The track event.
      */
     _onTrackStart : function(evt) {
-      var target = evt.getCurrentTarget()[0];
+      var target = evt.currentTarget;
 
       this.__targetIndex[target.id] = this.__selectedIndex[target.id];
 
@@ -457,11 +457,11 @@ qx.Bootstrap.define("qx.ui.mobile.dialog.Picker",
      * @param evt {qx.event.type.Track} The <code>trackend</code> event.
      */
     _onTrackEnd : function(evt) {
-      var target = evt.getCurrentTarget()[0];
+      var target = evt.currentTarget;
       var model = this._getModelByElement(target);
       var slotIndex = this._getSlotIndexByElement(target);
 
-      var isSwipe = Math.abs(evt.getDelta().y) >= this.__labelHeight/2;
+      var isSwipe = Math.abs(evt.delta.y) >= this.__labelHeight/2;
 
       if(isSwipe) {
         // SWIPE
@@ -474,7 +474,7 @@ qx.Bootstrap.define("qx.ui.mobile.dialog.Picker",
         //
         // Detect if user taps on upper third or lower third off spinning wheel.
         // Depending on this detection, the value increases/decreases.
-        var viewportTop = evt.getViewportTop();
+        var viewportTop = evt.clientY;
 
         var offsetParent = qx.bom.element.Location.getOffsetParent(target);
         var targetTop = qx.bom.element.Location.getTop(offsetParent, "margin");
@@ -503,19 +503,19 @@ qx.Bootstrap.define("qx.ui.mobile.dialog.Picker",
      * @param evt {qx.event.type.Track} The track event.
      */
     _onTrack : function(evt) {
-      var target = evt.getCurrentTarget();
-      var targetElement = evt.getCurrentTarget()[0];
+      var targetElement = evt.currentTarget;
+      var target = qx.ui.mobile.core.Widget.getWidgetById(targetElement.id);
 
-      var deltaY = evt.getDelta().y;
+      var deltaY = evt.delta.y;
 
       var selectedIndex = this.__selectedIndex[targetElement.id];
       var offsetTop = -selectedIndex*this.__labelHeight;
 
-      var targetOffset = evt.getDelta().y + offsetTop;
+      var targetOffset = deltaY + offsetTop;
 
       // BOUNCING
       var slotHeight = targetElement.offsetHeight;
-      var pickerHeight = parseInt(target._getParentWidget()[0].offsetHeight, 10);
+      var pickerHeight = parseInt(targetElement.parentNode.offsetHeight, 10);
       var upperBounce = this.__labelHeight;
       var lowerBounce = (-slotHeight + pickerHeight * 2);
 

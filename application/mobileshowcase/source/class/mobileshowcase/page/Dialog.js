@@ -263,11 +263,11 @@ qx.Class.define("mobileshowcase.page.Dialog",
     /**
      * Reacts on "changeSelection" event on picker, and displays the values on resultsLabel.
      */
-    __onPickerChangeSelection : function(e) {
-      if (e.getData().slot > 0) {
+    __onPickerChangeSelection : function(data) {
+      if (data.slot > 0) {
         setTimeout(this._updatePickerDaySlot.bind(this), 100);
       }
-      this.__resultsLabel.value = "Received <b>changeSelection</b> from Picker Dialog. [slot: "+ e.getData().slot+ "] [item: "+ e.getData().item+"]";
+      this.__resultsLabel.value = "Received <b>changeSelection</b> from Picker Dialog. [slot: "+ data.slot+ "] [item: "+ data.item+"]";
     },
 
 
@@ -301,12 +301,12 @@ qx.Class.define("mobileshowcase.page.Dialog",
     /**
      * Reacts on "confirmSelection" event on picker, and displays the values on resultsLabel.
      */
-    __onPickerConfirmSelection : function(e) {
+    __onPickerConfirmSelection : function(data) {
       this.__resultsLabel.value = "";
 
-      for (var i = 0; i < e.getData().length; i++) {
-        var data = e.getData()[i];
-        this.__resultsLabel.value = (this.__resultsLabel.value + " Received <b>confirmSelection</b> from Picker Dialog. [slot: " + data.slot + "] [item: " + data.item + "] <br>");
+      for (var i = 0; i < data.length; i++) {
+        var entry = data[i];
+        this.__resultsLabel.value = (this.__resultsLabel.value + " Received <b>confirmSelection</b> from Picker Dialog. [slot: " + entry.slot + "] [item: " + entry.item + "] <br>");
       }
     },
 
