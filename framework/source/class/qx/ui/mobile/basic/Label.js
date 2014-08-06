@@ -170,7 +170,7 @@ qx.Bootstrap.define("qx.ui.mobile.basic.Label",
     dispose : function() {
       this.base(arguments);
       if (qx.core.Environment.get("qx.dynlocale")) {
-        qx.locale.Manager.getInstance().removeListener("changeLocale", this._onChangeLocale, this);
+        qx.locale.Manager.getInstance().off("changeLocale", this._onChangeLocale, this);
       }
     }
   }

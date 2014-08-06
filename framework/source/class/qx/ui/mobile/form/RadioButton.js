@@ -61,7 +61,7 @@ qx.Bootstrap.define("qx.ui.mobile.form.RadioButton",
     if (value) {
       this.value = value;
     }
-    this.addListener("tap", this._onTap, this);
+    this.on("tap", this._onTap, this);
   },
 
 
@@ -125,7 +125,7 @@ qx.Bootstrap.define("qx.ui.mobile.form.RadioButton",
      * Reacts on tap on radio button.
      */
     _onTap : function() {
-      this.fireDataEvent("changeValue", {});
+      this.emit("changeValue", {});
 
       // Toggle State.
       this.value = true;
@@ -177,7 +177,7 @@ qx.Bootstrap.define("qx.ui.mobile.form.RadioButton",
 
     dispose : function() {
       this.base(arguments);
-      qx.event.Registration.removeListener(this, "tap", this._onTap, this);
+      qx.event.Registration.off(this, "tap", this._onTap, this);
     }
   }
 });

@@ -44,8 +44,8 @@ qx.Bootstrap.define("qx.ui.mobile.dialog.BusyIndicator",
     // the image passed as second argument is a blank 1px transparent png
     this.base(arguments, label, qx.ui.mobile.basic.Image.PLACEHOLDER_IMAGE);
 
-    this.addListener("appear", this._onAppear, this);
-    this.addListener("disappear", this._onDisappear, this);
+    this.on("appear", this._onAppear, this);
+    this.on("disappear", this._onDisappear, this);
   },
 
 
@@ -79,7 +79,7 @@ qx.Bootstrap.define("qx.ui.mobile.dialog.BusyIndicator",
      * Listener for appear event.
      */
     _onAppear : function() {
-      this.__animationHandle = qx.bom.element.Animation.animate(this.getIconWidget().getContainerElement(), qx.ui.mobile.dialog.BusyIndicator.SPINNER_ANIMATION);
+      this.__animationHandle = qx.bom.element.Animation.animate(this.getIconWidget()[0], qx.ui.mobile.dialog.BusyIndicator.SPINNER_ANIMATION);
     },
 
 
@@ -114,8 +114,8 @@ qx.Bootstrap.define("qx.ui.mobile.dialog.BusyIndicator",
 
     dispose : function() {
       this.base(arguments);
-      this.removeListener("appear", this._onAppear, this);
-      this.removeListener("disappear", this._onDisappear, this);
+      this.off("appear", this._onAppear, this);
+      this.off("disappear", this._onDisappear, this);
 
       if(this.__animationHandle) {
         this.__animationHandle.stop();

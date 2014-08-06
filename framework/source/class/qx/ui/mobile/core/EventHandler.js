@@ -276,7 +276,7 @@ qx.Bootstrap.define("qx.ui.mobile.core.EventHandler",
     // interface implementation
     registerEvent : function(target, type, capture)
     {
-      var element = target.getContainerElement();
+      var element = target[0];
       qx.event.Registration.addListener(element, type, this._dispatchEvent, this, capture);
     },
 
@@ -284,8 +284,8 @@ qx.Bootstrap.define("qx.ui.mobile.core.EventHandler",
     // interface implementation
     unregisterEvent : function(target, type, capture)
     {
-      var element = target.getContainerElement();
-      qx.event.Registration.removeListener(element, type, this._dispatchEvent, this, capture);
+      var element = target[0];
+      qx.event.Registration.off(element, type, this._dispatchEvent, this, capture);
     },
 
 

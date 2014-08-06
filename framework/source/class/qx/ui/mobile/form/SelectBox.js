@@ -26,7 +26,7 @@
  *
  * <pre class='javascript'>
  *    var page1 = new qx.ui.mobile.page.Page();
- *    page1.addListener("initialize", function()
+ *    page1.on("initialize", function()
  *    {
  *      var sel = new qx.ui.mobile.form.SelectBox();
  *      page1.add(sel);
@@ -36,11 +36,11 @@
  *
  *      var but = new qx.ui.mobile.form.Button("setSelection");
  *      page1.add(but);
- *      but.addListener("tap", function(){
+ *      but.on("tap", function(){
  *        sel.selection = "item3";
  *      }, this);
  *
- *      sel.addListener("changeSelection", function(evt) {
+ *      sel.on("changeSelection", function(evt) {
  *        console.log(evt.getData());
  *      }, this);
  *
@@ -82,8 +82,8 @@ qx.Bootstrap.define("qx.ui.mobile.form.SelectBox",
     this._setAttribute("type","text");
     this.readOnly = true;
 
-    this.addListener("focus", this.blur);
-    this.addListener("tap", this._onTap, this);
+    this.on("focus", this.blur);
+    this.on("tap", this._onTap, this);
 
     // Selection dialog creation.
     this.__selectionDialog = this._createSelectionDialog();
@@ -91,7 +91,7 @@ qx.Bootstrap.define("qx.ui.mobile.form.SelectBox",
     this.addClass("gap");
 
     // When selectionDialogs changes selection, get chosen selectedIndex from it.
-    this.__selectionDialog.addListener("changeSelection", this._onChangeSelection, this);
+    this.__selectionDialog.on("changeSelection", this._onChangeSelection, this);
   },
 
 
@@ -282,9 +282,9 @@ qx.Bootstrap.define("qx.ui.mobile.form.SelectBox",
      * @param old {qx.data.Array?}, the old model
      */
     _applyModel : function(value, old){
-      value.addListener("change", this._render, this);
+      value.on("change", this._render, this);
       if (old != null) {
-        old.removeListener("change", this._render, this);
+        old.off("change", this._render, this);
       }
 
       this._render();
@@ -364,7 +364,7 @@ qx.Bootstrap.define("qx.ui.mobile.form.SelectBox",
     // property apply
     _applySelection : function(value, old) {
       var selectedItem = this.model.getItem(value);
-      this.fireDataEvent("changeSelection", {index: value, item: selectedItem});
+      this.emit("changeSelection", {index: value, item: selectedItem});
 
       this._render();
     },
@@ -379,12 +379,12 @@ qx.Bootstrap.define("qx.ui.mobile.form.SelectBox",
 
     dispose : function() {
       this.base(arguments);
-      this.__selectionDialog.removeListener("changeSelection", this._onChangeSelection, this);
+      this.__selectionDialog.off("changeSelection", this._onChangeSelection, this);
 
       this._disposeObjects("__selectionDialog","__selectionDialogTitle");
 
-      this.removeListener("focus", this.blur);
-      this.removeListener("tap", this._onTap, this);
+      this.off("focus", this.blur);
+      this.off("tap", this._onTap, this);
     }
   }
 });

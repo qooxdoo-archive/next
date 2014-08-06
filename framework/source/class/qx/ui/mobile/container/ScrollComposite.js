@@ -37,7 +37,7 @@
  *   scrollComposite.setLayout(new qx.ui.mobile.layout.HBox());
  *
  *   // add some children
- *   scrollComposite.add(new qx.ui.mobile.basic.Label("Name: "), {flex:1});
+ *   scrollComposite.add(new qx.ui.mobile.basic.Label("Name: "));
  *   scrollComposite.add(new qx.ui.mobile.form.TextField());
  * </pre>
  *
@@ -67,9 +67,9 @@ qx.Bootstrap.define("qx.ui.mobile.container.ScrollComposite",
 
     this._scrollContainer = this._createScrollContainer();
 
-    this.addListener("trackstart", this._onTrackStart, this);
-    this.addListener("track", this._onTrack, this);
-    this.addListener("swipe", this._onSwipe, this);
+    this.on("trackstart", this._onTrackStart, this);
+    this.on("track", this._onTrack, this);
+    this.on("swipe", this._onSwipe, this);
 
     this._setLayout(new qx.ui.mobile.layout.HBox());
     this._add(this._scrollContainer, {flex:1});
@@ -226,7 +226,7 @@ qx.Bootstrap.define("qx.ui.mobile.container.ScrollComposite",
      * @param positionY {Integer} current offset of the scrollContainer.
      */
     _updateScrollIndicator : function(positionY) {
-      var targetElement =  this._scrollContainer.getContainerElement();
+      var targetElement =  this._scrollContainer[0];
       var needsScrolling = targetElement.scrollHeight > targetElement.offsetHeight;
 
       if(this.isScrollableY && this.showScrollIndicator && needsScrolling) {
@@ -370,8 +370,8 @@ qx.Bootstrap.define("qx.ui.mobile.container.ScrollComposite",
     * @return {Array} an array with scroll limits: [x,y]
     */
     _calcScrollLimit : function() {
-      var targetElement = this._scrollContainer.getContainerElement();
-      var lowerLimitY = targetElement.scrollHeight - this.getContentElement().clientHeight;
+      var targetElement = this._scrollContainer[0];
+      var lowerLimitY = targetElement.scrollHeight - this[0].clientHeight;
       var lowerLimitX = targetElement.scrollWidth - targetElement.offsetWidth - 4;
       return [lowerLimitX,lowerLimitY];
     },
@@ -472,7 +472,7 @@ qx.Bootstrap.define("qx.ui.mobile.container.ScrollComposite",
       if (this.fixedHeight === true) {
         cssProperty = "height";
       }
-      qx.bom.element.Style.set(this.getContainerElement(), cssProperty, this.height);
+      qx.bom.element.Style.set(this[0], cssProperty, this.height);
     },
 
 
@@ -529,9 +529,9 @@ qx.Bootstrap.define("qx.ui.mobile.container.ScrollComposite",
       // Install listener to the textArea for syncing the scrollHeight to
       // textAreas height.
       if(child instanceof qx.ui.mobile.form.TextArea) {
-        child.addListener("appear", this._fixChildElementsHeight, child);
-        child.addListener("input", this._fixChildElementsHeight, child);
-        child.addListener("changeValue", this._fixChildElementsHeight, child);
+        child.on("appear", this._fixChildElementsHeight, child);
+        child.on("input", this._fixChildElementsHeight, child);
+        child.on("changeValue", this._fixChildElementsHeight, child);
       }
     },
 
@@ -545,9 +545,9 @@ qx.Bootstrap.define("qx.ui.mobile.container.ScrollComposite",
       // Install listener to the textArea for syncing the scrollHeight to
       // textAreas height.
       if(child instanceof qx.ui.mobile.form.TextArea) {
-        child.removeListener("appear", this._fixChildElementsHeight, child);
-        child.removeListener("input", this._fixChildElementsHeight, child);
-        child.removeListener("changeValue", this._fixChildElementsHeight, child);
+        child.off("appear", this._fixChildElementsHeight, child);
+        child.off("input", this._fixChildElementsHeight, child);
+        child.off("changeValue", this._fixChildElementsHeight, child);
       }
     },
 
@@ -558,16 +558,16 @@ qx.Bootstrap.define("qx.ui.mobile.container.ScrollComposite",
      * @param evt {qx.event.type.Data} a custom event.
      */
     _fixChildElementsHeight : function(evt) {
-      this.getContainerElement().style.height = 'auto';
-      this.getContainerElement().style.height = this.getContainerElement().scrollHeight+'px';
+      this[0].style.height = 'auto';
+      this[0].style.height = this[0].scrollHeight+'px';
     },
 
 
     dispose : function() {
       this.base(arguments);
-      this.removeListener("trackstart",this._onTrackStart,this);
-      this.removeListener("track",this._onTrack,this);
-      this.removeListener("swipe",this._onSwipe,this);
+      this.off("trackstart",this._onTrackStart,this);
+      this.off("track",this._onTrack,this);
+      this.off("swipe",this._onSwipe,this);
 
       var children = this.getChildren();
       for(var i = 0; i < children.length; i++) {

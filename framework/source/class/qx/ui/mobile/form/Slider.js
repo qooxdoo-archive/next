@@ -35,7 +35,7 @@
  *       maximum : 10,
  *       step : 2
  *     });
- *     slider.addListener("changeValue", handler, this);
+ *     slider.on("changeValue", handler, this);
  *
  *   this.getRoot.add(slider);
  * </pre>
@@ -192,13 +192,13 @@ qx.Bootstrap.define("qx.ui.mobile.form.Slider",
      */
     _registerEventListener : function()
     {
-      this.addListener("pointerdown", this._onPointerDown, this);
-      this.addListener("track", this._onTrack, this);
-      this.addListener("appear", this._refresh, this);
+      this.on("pointerdown", this._onPointerDown, this);
+      this.on("track", this._onTrack, this);
+      this.on("appear", this._refresh, this);
 
       qx.event.Registration.addListener(window, "resize", this._refresh, this);
       qx.event.Registration.addListener(window, "orientationchange", this._refresh, this);
-      this.addListenerOnce("domupdated", this._refresh, this);
+      this.once("domupdated", this._refresh, this);
     },
 
 
@@ -207,13 +207,13 @@ qx.Bootstrap.define("qx.ui.mobile.form.Slider",
      */
     _unregisterEventListener : function()
     {
-      this.removeListener("pointerdown", this._onPointerDown, this);
-      this.removeListener("track", this._onTrack, this);
-      this.removeListener("appear", this._refresh, this);
+      this.off("pointerdown", this._onPointerDown, this);
+      this.off("track", this._onTrack, this);
+      this.off("appear", this._refresh, this);
 
-      qx.event.Registration.removeListener(window, "resize", this._refresh, this);
-      qx.event.Registration.removeListener(window, "orientationchange", this._refresh, this);
-      this.removeListener("domupdated", this._refresh, this);
+      qx.event.Registration.off(window, "resize", this._refresh, this);
+      qx.event.Registration.off(window, "orientationchange", this._refresh, this);
+      this.off("domupdated", this._refresh, this);
     },
 
 
@@ -232,7 +232,7 @@ qx.Bootstrap.define("qx.ui.mobile.form.Slider",
      */
     _updateSizes : function()
     {
-      var containerElement = this.getContainerElement();
+      var containerElement = this[0];
       if(containerElement) {
         this._containerElementWidth = qx.bom.element.Dimension.getWidth(containerElement);
         this._containerElementLeft = qx.bom.element.Location.getLeft(containerElement);
@@ -293,7 +293,7 @@ qx.Bootstrap.define("qx.ui.mobile.form.Slider",
     _getKnobElement : function()
     {
       if (!this._knobElement) {
-        var element = this.getContainerElement();
+        var element = this[0];
         if (element) {
           this._knobElement = element.childNodes[0];
         }

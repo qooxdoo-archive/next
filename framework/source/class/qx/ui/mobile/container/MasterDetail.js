@@ -129,7 +129,7 @@ qx.Bootstrap.define("qx.ui.mobile.container.MasterDetail",
         this.removeClass("portrait");
       }
 
-      this.fireDataEvent("layoutChange", isPortrait);
+      this.emit("layoutChange", isPortrait);
     },
 
 
@@ -161,7 +161,7 @@ qx.Bootstrap.define("qx.ui.mobile.container.MasterDetail",
 
     dispose : function() {
       this.base(arguments);
-      qx.event.Registration.removeListener(window, "orientationchange", this._onOrientationChange, this);
+      qx.event.Registration.off(window, "orientationchange", this._onOrientationChange, this);
       this._disposeObjects("__master", "__detail");
       this.__master = this.__detail = null;
     }

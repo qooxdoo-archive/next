@@ -296,7 +296,7 @@ qx.Bootstrap.define("qx.ui.mobile.container.Scroll",
       if (this._activeWaypointIndex !== targetWaypoint.index) {
         this._activeWaypointIndex = targetWaypoint.index;
 
-        this.fireDataEvent("waypoint", {
+        this.emit("waypoint", {
           "axis": axis,
           "index": targetWaypoint.index,
           "direction": direction
@@ -381,12 +381,12 @@ qx.Bootstrap.define("qx.ui.mobile.container.Scroll",
      * @return {Boolean} <code>true</code> or <code>false</code>
      */
     _isScrollableX: function() {
-      if (this.getLayoutParent() === null) {
+      if (this._getParentWidget() === null) {
         return false;
       }
 
-      var parentWidth = this.getContainerElement().clientWidth;
-      var contentWidth = this.getContentElement().scrollWidth;
+      var parentWidth = this[0].clientWidth; // TODO: container vs content?
+      var contentWidth = this[0].scrollWidth;
 
       var scrollContentElement = this._getScrollContentElement();
       if(scrollContentElement) {
@@ -402,12 +402,12 @@ qx.Bootstrap.define("qx.ui.mobile.container.Scroll",
      * @return {Boolean} <code>true</code> or <code>false</code>
      */
     _isScrollableY: function() {
-      if (this.getLayoutParent() === null) {
+      if (this._getParentWidget() === null) {
         return false;
       }
 
-      var parentHeight = this.getContainerElement().clientHeight;
-      var contentHeight = this.getContentElement().scrollHeight;
+      var parentHeight = this[0].clientHeight; // TODO: container vs content?
+      var contentHeight = this[0].scrollHeight;
 
       var scrollContentElement = this._getScrollContentElement();
       if(scrollContentElement) {
@@ -484,15 +484,15 @@ qx.Bootstrap.define("qx.ui.mobile.container.Scroll",
      */
     scrollToWidget: function(widget, time) {
       if (widget) {
-        this._scrollToElement(widget.getContentElement(), time);
+        this._scrollToElement(widget[0], time);
       }
     },
 
 
     dispose : function() {
       this.base(arguments);
-      this.removeListener("appear", this._updateWaypoints, this);
-      this.removeListener("domupdated", this._updateWaypoints, this);
+      this.off("appear", this._updateWaypoints, this);
+      this.off("domupdated", this._updateWaypoints, this);
 
       this._waypointsX = this._waypointsY = null;
     }

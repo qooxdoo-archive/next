@@ -344,7 +344,8 @@ qx.Bootstrap.define("qx.ui.mobile.dialog.Manager",
           var button = new qx.ui.mobile.form.Button(buttons[i]);
           /* see the comment in android.css for width: 0 for toolbar-button class*/
           button.addClass('dialog-button');
-          buttonContainer.add(button, {flex:1});
+          button.layoutPrefs = {flex:1};
+          buttonContainer.add(button);
           var callback = (function(index){
             return function()
             {
@@ -355,14 +356,14 @@ qx.Bootstrap.define("qx.ui.mobile.dialog.Manager",
               dialog.dispose();
             };
           })(i);
-          button.addListener("tap", callback);
+          button.on("tap", callback);
         }
         widget.add(buttonContainer);
       }
       dialog.modal = true;
       dialog.show();
       if(inputText) {
-        inputText.getContainerElement().focus();
+        inputText[0].focus();
       }
       return dialog;
     }

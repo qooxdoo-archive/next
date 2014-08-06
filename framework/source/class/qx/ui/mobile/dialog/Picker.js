@@ -42,17 +42,17 @@
  * picker.addSlot(pickerSlot2);
  *
  * var showPickerButton = new qx.ui.mobile.form.Button("Show Picker");
- * showPickerButton.addListener("tap", picker.show, picker);
+ * showPickerButton.on("tap", picker.show, picker);
  * this.getContent().add(showPickerButton);
  *
  * // Listener when user has confirmed his selection.
  * // Contains the selectedIndex and values of all slots in a array.
- * picker.addListener("confirmSelection",function(evt){
+ * picker.on("confirmSelection",function(evt){
  *    var pickerData = evt.getData();
  * }, this);
  *
  * // Listener for change of picker slots.
- * picker.addListener("changeSelection",function(evt){
+ * picker.on("changeSelection",function(evt){
  *    var slotData = evt.getData();
  * }, this);
  *
@@ -86,10 +86,10 @@ qx.Bootstrap.define("qx.ui.mobile.dialog.Picker",
     this.__pickerContent = new qx.ui.mobile.container.Composite(new qx.ui.mobile.layout.VBox());
 
     this.__pickerConfirmButton = new qx.ui.mobile.form.Button("Choose");
-    this.__pickerConfirmButton.addListener("tap", this.confirm, this);
+    this.__pickerConfirmButton.on("tap", this.confirm, this);
 
     this.__pickerCancelButton = new qx.ui.mobile.form.Button("Cancel");
-    this.__pickerCancelButton.addListener("tap", this.hide, this);
+    this.__pickerCancelButton.on("tap", this.hide, this);
 
     this.__pickerButtonContainer = new qx.ui.mobile.container.Composite(new qx.ui.mobile.layout.HBox());
     this.__pickerButtonContainer.add(this.__pickerConfirmButton);
@@ -258,7 +258,7 @@ qx.Bootstrap.define("qx.ui.mobile.dialog.Picker",
     addSlot : function(slotData) {
       if(slotData !== null && slotData instanceof qx.data.Array) {
         this.__pickerModel.push(slotData);
-        slotData.addListener("changeBubble", this._onChangeBubble, {self:this,index:this.__pickerModel.length - 1});
+        slotData.on("changeBubble", this._onChangeBubble, {self:this,index:this.__pickerModel.length - 1});
         this._render();
       }
     },
@@ -290,7 +290,7 @@ qx.Bootstrap.define("qx.ui.mobile.dialog.Picker",
     removeSlot : function(slotIndex) {
       if(this.__pickerModel.getLength() > slotIndex && slotIndex > -1) {
         var slotData = this.__pickerModel.getItem(slotIndex);
-        slotData.removeListener("changeBubble", this._onChangeBubble, this);
+        slotData.off("changeBubble", this._onChangeBubble, this);
 
         this.__pickerModel.removeAt(slotIndex);
         this._render();
@@ -304,7 +304,7 @@ qx.Bootstrap.define("qx.ui.mobile.dialog.Picker",
     _disposePickerModel : function() {
       for(var i = 0; i < this.__pickerModel.length; i++) {
         var slotData = this.__pickerModel.getItem(i);
-        slotData.removeListener("changeBubble", this._onChangeBubble, this);
+        slotData.off("changeBubble", this._onChangeBubble, this);
       }
 
       this.__pickerModel.dispose();
@@ -415,7 +415,7 @@ qx.Bootstrap.define("qx.ui.mobile.dialog.Picker",
         selectionData.push(slotData);
       }
 
-      this.fireDataEvent("confirmSelection", selectionData);
+      this.emit("confirmSelection", selectionData);
     },
 
 
@@ -439,7 +439,7 @@ qx.Bootstrap.define("qx.ui.mobile.dialog.Picker",
      * @param evt {qx.event.type.Track} The track event.
      */
     _onTrackStart : function(evt) {
-      var target = evt.getCurrentTarget().getContainerElement();
+      var target = evt.getCurrentTarget()[0];
 
       this.__targetIndex[target.id] = this.__selectedIndex[target.id];
 
@@ -456,7 +456,7 @@ qx.Bootstrap.define("qx.ui.mobile.dialog.Picker",
      * @param evt {qx.event.type.Track} The <code>trackend</code> event.
      */
     _onTrackEnd : function(evt) {
-      var target = evt.getCurrentTarget().getContainerElement();
+      var target = evt.getCurrentTarget()[0];
       var model = this._getModelByElement(target);
       var slotIndex = this._getSlotIndexByElement(target);
 
@@ -493,7 +493,7 @@ qx.Bootstrap.define("qx.ui.mobile.dialog.Picker",
 
       this._updateSlot(target);
 
-      this.fireDataEvent("changeSelection", {index: selectedIndex, item: selectedValue, slot: slotIndex});
+      this.emit("changeSelection", {index: selectedIndex, item: selectedValue, slot: slotIndex});
     },
 
 
@@ -503,7 +503,7 @@ qx.Bootstrap.define("qx.ui.mobile.dialog.Picker",
      */
     _onTrack : function(evt) {
       var target = evt.getCurrentTarget();
-      var targetElement = evt.getCurrentTarget().getContainerElement();
+      var targetElement = evt.getCurrentTarget()[0];
 
       var deltaY = evt.getDelta().y;
 
@@ -514,7 +514,7 @@ qx.Bootstrap.define("qx.ui.mobile.dialog.Picker",
 
       // BOUNCING
       var slotHeight = targetElement.offsetHeight;
-      var pickerHeight = parseInt(target.getLayoutParent().getContainerElement().offsetHeight, 10);
+      var pickerHeight = parseInt(target._getParentWidget()[0].offsetHeight, 10);
       var upperBounce = this.__labelHeight;
       var lowerBounce = (-slotHeight + pickerHeight * 2);
 
@@ -595,8 +595,9 @@ qx.Bootstrap.define("qx.ui.mobile.dialog.Picker",
         this.__selectedIndexBySlot.push(0);
 
         var pickerSlot = this._createPickerSlot(slotIndex);
-        this.__slotElements.push(pickerSlot.getContentElement());
-        this.__pickerContainer.add(pickerSlot, {flex:1});
+        this.__slotElements.push(pickerSlot[0]);
+        pickerSlot.layoutPrefs = {flex: 1};
+        this.__pickerContainer.add(pickerSlot);
 
         this._renderPickerSlotContent(pickerSlot, slotIndex);
       }
@@ -638,9 +639,9 @@ qx.Bootstrap.define("qx.ui.mobile.dialog.Picker",
       pickerSlot.addClass("picker-slot");
       pickerSlot.transformUnit = "px";
 
-      pickerSlot.addListener("trackstart", this._onTrackStart, this);
-      pickerSlot.addListener("track", this._onTrack, this);
-      pickerSlot.addListener("trackend", this._onTrackEnd, this);
+      pickerSlot.on("trackstart", this._onTrackStart, this);
+      pickerSlot.on("track", this._onTrack, this);
+      pickerSlot.on("trackend", this._onTrackEnd, this);
 
       this.__modelToSlotMap[pickerSlot.id] = slotIndex;
       this.__selectedIndex[pickerSlot.id] = 0;
@@ -658,9 +659,9 @@ qx.Bootstrap.define("qx.ui.mobile.dialog.Picker",
       for (var i = children.length - 1; i >= 0; i--) {
         var pickerSlot = children[i];
 
-        pickerSlot.removeListener("trackstart", this._onTrackStart, this);
-        pickerSlot.removeListener("track", this._onTrack, this);
-        pickerSlot.removeListener("trackend", this._onTrackEnd, this);
+        pickerSlot.off("trackstart", this._onTrackStart, this);
+        pickerSlot.off("track", this._onTrack, this);
+        pickerSlot.off("trackend", this._onTrackEnd, this);
 
         var oldPickerSlotContent = pickerSlot.removeAll();
         for (var j = 0; j < oldPickerSlotContent.length; j++) {
@@ -690,8 +691,8 @@ qx.Bootstrap.define("qx.ui.mobile.dialog.Picker",
 
       this._removePickerSlots();
 
-      this.__pickerConfirmButton.removeListener("tap", this.confirm, this);
-      this.__pickerCancelButton.removeListener("tap", this.hide, this);
+      this.__pickerConfirmButton.off("tap", this.confirm, this);
+      this.__pickerCancelButton.off("tap", this.hide, this);
 
       this._disposeObjects("__pickerContainer", "__pickerButtonContainer", "__pickerConfirmButton","__pickerCancelButton","__pickerContent");
     }

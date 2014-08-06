@@ -54,7 +54,7 @@ qx.Class.define("mobileshowcase.page.Basic",
       // TOGGLE BUTTON
       var toggleEnableButton = new qx.ui.mobile.form.ToggleButton(true,"Enable","Disable");
 
-      toggleEnableButton.addListener("changeValue", function(e) {
+      toggleEnableButton.on("changeValue", function(e) {
         for (var i = 0; i < this._widgets.length; i++) {
           this._widgets[i].enabled = !this._widgets[i].enabled;
         }
@@ -63,7 +63,7 @@ qx.Class.define("mobileshowcase.page.Basic",
 
       // TOGGLE LABEL WRAP BUTTON
       var toggleLabelWrapButton = new qx.ui.mobile.form.ToggleButton(true,"Wrap","Ellipsis");
-      toggleLabelWrapButton.addListener("changeValue", function(e) {
+      toggleLabelWrapButton.on("changeValue", function(e) {
         exLabel.wrap = !exLabel.wrap;
       }, this);
 
@@ -75,7 +75,7 @@ qx.Class.define("mobileshowcase.page.Basic",
       var labelText = "qx.Mobile is a sophisticated HTML5 framework. It provides specific UI widgets for touch devices, handling of mobile events like swiping, custom theming and much more. It is suitable for mobile web browsers on platforms such as Android, iOS, WP8 or BlackBerry 10.";
 
       var exLabel = new qx.ui.mobile.basic.Label(labelText);
-      exLabel.addCssClass("space-top");
+      exLabel.addClass("space-top");
 
       var exImage = new qx.ui.mobile.basic.Image("mobileshowcase/icon/mobile.png");
 

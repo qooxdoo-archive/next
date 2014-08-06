@@ -54,7 +54,7 @@ qx.Class.define("mobileshowcase.page.AnimationLanding",
 
 
       if (this._isTablet) {
-        this.addListener("disappear", this.__deactiveAnimation, this);
+        this.on("disappear", this.__deactiveAnimation, this);
       }
 
       var list = new qx.ui.mobile.list.List({
@@ -63,12 +63,12 @@ qx.Class.define("mobileshowcase.page.AnimationLanding",
           item.showArrow = true;
         }
       });
-      list.addCssClass("animation-list-2");
+      list.addClass("animation-list-2");
 
       var animationData = mobileshowcase.page.Animation.ANIMATION_DATA;
 
       list.model = new qx.data.Array(animationData);
-      list.addListener("changeSelection", function(evt) {
+      list.on("changeSelection", function(evt) {
         // In Tablet Mode, animation should be shown for this showcase part.
         // On animation landing >> showAnimation is set to false.
         this.getLayoutParent().getLayout().showAnimation = true;

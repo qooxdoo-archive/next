@@ -29,7 +29,7 @@
  * <pre class='javascript'>
  *   var button = new qx.ui.mobile.form.ToggleButton(false,"YES","NO");
  *
- *   button.addListener("changeValue", function(e) {
+ *   button.on("changeValue", function(e) {
  *     alert(e.getData());
  *   }, this);
  *
@@ -78,8 +78,8 @@ qx.Bootstrap.define("qx.ui.mobile.form.ToggleButton",
       this.value = value;
     }
 
-    this.addListener("tap", this._onTap, this);
-    this.addListener("swipe", this._onSwipe, this);
+    this.on("tap", this._onTap, this);
+    this.on("swipe", this._onSwipe, this);
 
     this.addClass("gap");
   },
@@ -212,8 +212,8 @@ qx.Bootstrap.define("qx.ui.mobile.form.ToggleButton",
     dispose : function()
     {
       this.base(arguments);
-      this.removeListener("tap", this._onTap, this);
-      this.removeListener("swipe", this._onSwipe, this);
+      this.off("tap", this._onTap, this);
+      this.off("swipe", this._onSwipe, this);
 
       this._disposeObjects("__switch","__labelUnchecked","__labelChecked");
     }

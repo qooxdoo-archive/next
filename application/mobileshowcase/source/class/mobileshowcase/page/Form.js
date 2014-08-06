@@ -67,7 +67,7 @@ qx.Class.define("mobileshowcase.page.Form",
       this.getContent().add(this.__resetButton);
 
       this.__result = new qx.ui.mobile.form.Label();
-      this.__result.addCssClass("registration-result");
+      this.__result.addClass("registration-result");
 
       var popupContent = new qx.ui.mobile.container.Composite();
       this.__closeResultPopup = new qx.ui.mobile.form.Button("OK");

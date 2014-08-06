@@ -50,7 +50,7 @@ qx.Bootstrap.define("qx.ui.mobile.core.Root",
 
     // [BUG #7785] Document element's clientHeight is calculated wrong on iPad iOS7
     if (qx.core.Environment.get("os.name") == "ios") {
-      this.addListener("touchmove", qx.bom.Event.preventDefault, this);
+      this.on("touchmove", qx.bom.Event.preventDefault, this);
 
       if (window.innerHeight != document.documentElement.clientHeight) {
         this.addClass("ios-viewport-fix");
@@ -274,8 +274,8 @@ qx.Bootstrap.define("qx.ui.mobile.core.Root",
     dispose : function() {
       this.base(arguments);
       this.__root = null;
-      this.removeListener("touchmove", qx.bom.Event.preventDefault, this);
-      qx.event.Registration.removeListener(window, "orientationchange", this._onOrientationChange, this);
+      this.off("touchmove", qx.bom.Event.preventDefault, this);
+      qx.event.Registration.off(window, "orientationchange", this._onOrientationChange, this);
     }
   }
 });

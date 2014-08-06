@@ -210,7 +210,8 @@ qx.Bootstrap.define("qx.ui.mobile.form.renderer.Single",
       if(name !== null) {
         var label = new qx.ui.mobile.form.Label(name);
         label.setLabelFor(item.id);
-        row.add(label, {flex:1});
+        label.layoutPrefs = {flex:1};
+        row.add(label);
         this._labels.push(label);
       }
       row.add(item);
@@ -273,7 +274,8 @@ qx.Bootstrap.define("qx.ui.mobile.form.renderer.Single",
     // override
     addButton : function(button) {
       var row = new qx.ui.mobile.form.Row(new qx.ui.mobile.layout.HBox());
-      row.add(button, {flex:1});
+      button.layoutPrefs = {flex:1};
+      row.add(button);
       this._add(row);
       this._rows.push(row);
     },
@@ -284,7 +286,7 @@ qx.Bootstrap.define("qx.ui.mobile.form.renderer.Single",
       var errorNode = qx.dom.Element.create('div');
       errorNode.innerHTML = item.invalidMessage;
       qx.bom.element.Class.add(errorNode, 'form-element-error');
-      qx.dom.Element.insertAfter(errorNode, this._getParentRow(item).getContainerElement());
+      qx.dom.Element.insertAfter(errorNode, this._getParentRow(item)[0]);
       this.__errorMessageContainers.push(errorNode);
     },
 
@@ -314,10 +316,10 @@ qx.Bootstrap.define("qx.ui.mobile.form.renderer.Single",
     * @return {qx.ui.mobile.core.Widget} the parent row.
     */
     _getParentRow : function(item) {
-      var parent = item.getLayoutParent();
+      var parent = item._getParentWidget();
 
-      while (!parent.hasCssClass("form-row")) {
-        parent = parent.getLayoutParent();
+      while (!parent.hasClass("form-row")) {
+        parent = parent._getParentWidget();
       }
 
       return parent;

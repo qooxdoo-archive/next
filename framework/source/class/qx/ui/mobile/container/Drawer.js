@@ -74,16 +74,16 @@ qx.Bootstrap.define("qx.ui.mobile.container.Drawer",
 
       parent.add(this);
 
-      qx.core.Init.getApplication().addListener("back", this.forceHide, this);
+      qx.core.Init.getApplication().on("back", this.forceHide, this);
     } else {
       qx.core.Init.getApplication().getRoot().add(this);
     }
 
-    this.__parent = this.getLayoutParent();
+    this.__parent = this._getParentWidget();
     this.__parent.addClass("drawer-parent");
 
-    this.__parent.addListener("swipe", this._onParentSwipe,this);
-    this.__parent.addListener("pointerdown", this._onParentPointerDown,this);
+    this.__parent.on("swipe", this._onParentSwipe,this);
+    this.__parent.on("pointerdown", this._onParentPointerDown,this);
 
     this.__pointerStartPosition = [0,0];
 
@@ -350,13 +350,14 @@ qx.Bootstrap.define("qx.ui.mobile.container.Drawer",
         this._enableTransition();
 
         var callArguments = arguments;
-        var transitionTarget = this._getTransitionTarget().getContentElement();
-        var listenerId = qx.bom.Element.addListener(transitionTarget, "transitionEnd", function(evt) {
+        var transitionTarget = this._getTransitionTarget();
+        var onTransitionEnd = function(evt) {
           this.base(callArguments);
           this._disableTransition();
           this.__inTransition = false;
-          qx.bom.Element.removeListenerById(transitionTarget, listenerId);
-        }, this);
+          transitionTarget.off("transitionend", onTransitionEnd, this);
+        };
+        transitionTarget.on("transitionend", onTransitionEnd, this);
 
         setTimeout(function() {
           this.removeClass("hidden");
@@ -388,8 +389,8 @@ qx.Bootstrap.define("qx.ui.mobile.container.Drawer",
         this._enableTransition();
 
         var callArguments = arguments;
-        var transitionTarget = this._getTransitionTarget().getContentElement();
-        var listenerId = qx.bom.Element.addListener(transitionTarget, "transitionEnd", function(evt) {
+        var transitionTarget = this._getTransitionTarget()[0];
+        var listenerId = qx.bom.Element.on(transitionTarget, "transitionEnd", function(evt) {
           this.base(callArguments);
           this._disableTransition();
           this.__parent.removeClass("blocked");
@@ -430,7 +431,7 @@ qx.Bootstrap.define("qx.ui.mobile.container.Drawer",
 
     // overridden
     isHidden : function() {
-      return this.hasCssClass("hidden");
+      return this.hasClass("hidden");
     },
 
 
@@ -438,7 +439,7 @@ qx.Bootstrap.define("qx.ui.mobile.container.Drawer",
      * Enables the transition on this drawer.
      */
     _enableTransition : function() {
-      qx.bom.element.Style.set(this._getTransitionTarget().getContentElement(), "transition", "all "+this.transitionDuration+"ms ease-in-out");
+      qx.bom.element.Style.set(this._getTransitionTarget()[0], "transition", "all "+this.transitionDuration+"ms ease-in-out");
     },
 
 
@@ -446,7 +447,7 @@ qx.Bootstrap.define("qx.ui.mobile.container.Drawer",
      * Disables the transition on this drawer.
      */
     _disableTransition : function() {
-      qx.bom.element.Style.set(this._getTransitionTarget().getContentElement(),"transition", null);
+      qx.bom.element.Style.set(this._getTransitionTarget()[0],"transition", null);
     },
 
 
@@ -485,9 +486,9 @@ qx.Bootstrap.define("qx.ui.mobile.container.Drawer",
     _onParentPointerDown : function(evt) {
       this.__pointerStartPosition = [evt.getViewportLeft(),evt.getViewportTop()];
 
-      var isShown = !this.hasCssClass("hidden");
+      var isShown = !this.hasClass("hidden");
       if(isShown && this.hideOnParentTap) {
-        var location = qx.bom.element.Location.get(this.getContainerElement());
+        var location = qx.bom.element.Location.get(this[0]);
         var orientation = this.orientation;
         if (orientation == "left" && this.__pointerStartPosition[0] > location.right
         || orientation == "top" && this.__pointerStartPosition[1] > location.bottom
@@ -509,9 +510,9 @@ qx.Bootstrap.define("qx.ui.mobile.container.Drawer",
      */
     _onParentSwipe : function(evt) {
       var direction = evt.getDirection();
-      var isHidden = this.hasCssClass("hidden");
+      var isHidden = this.hasClass("hidden");
       if(isHidden) {
-        var location = qx.bom.element.Location.get(this.getContainerElement());
+        var location = qx.bom.element.Location.get(this[0]);
 
         if (
           (direction == "right"
@@ -543,10 +544,10 @@ qx.Bootstrap.define("qx.ui.mobile.container.Drawer",
     dispose : function()
     {
       this.base(arguments);
-      qx.core.Init.getApplication().removeListener("back", this.forceHide, this);
+      qx.core.Init.getApplication().off("back", this.forceHide, this);
 
-      this.__parent.removeListener("swipe", this._onParentSwipe, this);
-      this.__parent.removeListener("pointerdown", this._onParentPointerDown, this);
+      this.__parent.off("swipe", this._onParentSwipe, this);
+      this.__parent.off("pointerdown", this._onParentPointerDown, this);
 
       qx.util.DisposeUtil.disposeContainer(this);
 

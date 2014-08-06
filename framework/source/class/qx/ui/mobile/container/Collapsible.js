@@ -59,7 +59,7 @@ qx.Bootstrap.define("qx.ui.mobile.container.Collapsible",
 
     this._header = this._createHeader();
     this._header.addClass("collapsible-header");
-    this._header.addListener("tap", this._toggleCollapsed, this);
+    this._header.on("tap", this._toggleCollapsed, this);
     this.setTitle(title);
 
     this._content = this._createContent();
@@ -214,7 +214,7 @@ qx.Bootstrap.define("qx.ui.mobile.container.Collapsible",
 
     dispose : function() {
       this.base(arguments);
-      this._header.removeListener("tap", this._toggleCollapsed, this);
+      this._header.off("tap", this._toggleCollapsed, this);
       this._disposeObjects("_header", "_content");
     }
   }

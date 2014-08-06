@@ -26,7 +26,7 @@
  */
 qx.Bootstrap.define("qx.ui.mobile.layout.Abstract",
 {
-  extend : qx.core.Object,
+  extend : qx.event.Emitter,
 
 
  /*
@@ -187,7 +187,7 @@ qx.Bootstrap.define("qx.ui.mobile.layout.Abstract",
      * @param properties {Map} The animation properties to set. Key / value pairs.
      */
     updateLayout : function(widget, action, properties) {
-      this.fireDataEvent("updateLayout", {
+      this.emit("updateLayout", {
         widget : widget,
         action : action,
         properties : properties

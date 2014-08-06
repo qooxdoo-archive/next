@@ -58,7 +58,8 @@ qx.Bootstrap.define("qx.ui.mobile.container.Navigation",
     }
 
     this.__content = this._createContent();
-    this._add(this.__content, {flex:1});
+    this.__content.layoutPrefs = {flex: 1};
+    this._add(this.__content);
   },
 
 
@@ -160,9 +161,9 @@ qx.Bootstrap.define("qx.ui.mobile.container.Navigation",
     _createContent : function()
     {
       this.__layout = new qx.ui.mobile.layout.Card();
-      this.__layout.addListener("updateLayout", this._onUpdateLayout, this);
-      this.__layout.addListener("animationStart", this._onAnimationStart, this);
-      this.__layout.addListener("animationEnd", this._onAnimationEnd, this);
+      this.__layout.on("updateLayout", this._onUpdateLayout, this);
+      this.__layout.on("animationStart", this._onAnimationStart, this);
+      this.__layout.on("animationEnd", this._onAnimationEnd, this);
 
       return new qx.ui.mobile.container.Composite(this.__layout);
     },
@@ -190,9 +191,8 @@ qx.Bootstrap.define("qx.ui.mobile.container.Navigation",
      * @param evt {qx.event.type.Data} The causing event
      */
     _onUpdateLayout : function(evt) {
-      var data = evt.getData();
-      var widget = data.widget;
-      var action = data.action;
+      var widget = evt.widget;
+      var action = evt.action;
       if (action == "visible") {
         this._update(widget);
       }
@@ -255,8 +255,8 @@ qx.Bootstrap.define("qx.ui.mobile.container.Navigation",
     dispose : function()
     {
       this.base(arguments);
-      this.getLayout().removeListener("animationStart",this._onAnimationStart, this);
-      this.getLayout().removeListener("animationEnd",this._onAnimationEnd, this);
+      this.getLayout().off("animationStart",this._onAnimationStart, this);
+      this.getLayout().off("animationEnd",this._onAnimationEnd, this);
 
       this._disposeObjects("__navigationBar", "__content","__layout");
       this.__navigationBar = this.__content = this.__layout = null;

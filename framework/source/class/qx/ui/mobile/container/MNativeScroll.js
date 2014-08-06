@@ -34,14 +34,14 @@ qx.Mixin.define("qx.ui.mobile.container.MNativeScroll",
 
     this._snapPoints = [];
 
-    this.addListenerOnce("appear", this._onAppear, this);
-    this.addListener("trackstart", this._onTrackStart, this);
-    this.addListener("trackend", this._onTrackEnd, this);
+    this.once("appear", this._onAppear, this);
+    this.on("trackstart", this._onTrackStart, this);
+    this.on("trackend", this._onTrackEnd, this);
 
-    qx.bom.Event.addNativeListener(this._getContentElement(), "scroll", this._onScroll.bind(this));
+    this.on("scroll", this._onScroll, this);
 
     if (qx.core.Environment.get("os.name") == "ios") {
-      this.addListener("touchmove", this._onTouchMove, this);
+      this.on("touchmove", this._onTouchMove, this);
     }
   },
 
@@ -83,12 +83,12 @@ qx.Mixin.define("qx.ui.mobile.container.MNativeScroll",
       if (qx.core.Environment.get("os.name") == "ios") {
         // If scroll container is scrollable
         if (this._isScrollableY()) {
-          var scrollTop = this.getContentElement().scrollTop;
-          var maxScrollTop = this.getContentElement().scrollHeight - this.getLayoutParent().getContentElement().offsetHeight;
+          var scrollTop = this[0].scrollTop;
+          var maxScrollTop = this[0].scrollHeight - this._getParentWidget()[0].offsetHeight;
           if (scrollTop === 0) {
-            this.getContentElement().scrollTop = 1;
+            this[0].scrollTop = 1;
           } else if (scrollTop == maxScrollTop) {
-            this.getContentElement().scrollTop = maxScrollTop - 1;
+            this[0].scrollTop = maxScrollTop - 1;
           }
         }
       }
@@ -108,12 +108,12 @@ qx.Mixin.define("qx.ui.mobile.container.MNativeScroll",
     * Event handler for <code>scroll</code> events.
     */
     _onScroll : function() {
-      var scrollLeft = this.getContentElement().scrollLeft;
-      var scrollTop = this.getContentElement().scrollTop;
+      var scrollLeft = this[0].scrollLeft;
+      var scrollTop = this[0].scrollTop;
 
       if (qx.core.Environment.get("os.name") == "ios") {
         var scrollDeltaY = Math.abs(this._currentY - scrollTop);
-        var lowerLimitY = this.getContentElement().scrollHeight - this.getContentElement().offsetHeight;
+        var lowerLimitY = this[0].scrollHeight - this[0].offsetHeight;
 
         if(this._momentumStartTimerID) {
           clearTimeout(this._momentumStartTimerID);
@@ -121,16 +121,16 @@ qx.Mixin.define("qx.ui.mobile.container.MNativeScroll",
 
         if (scrollDeltaY > 2 && scrollTop > 1 && scrollTop < lowerLimitY && !this._isMomentum) {
           this._momentumStartTimerID = setTimeout(function() {
-            this.fireEvent("momentumStart");
+            this.emit("momentumStart");
             this._isMomentum = true;
           }.bind(this), 50);
         }
 
-        if(scrollDeltaY > 100 || scrollTop <= 0 || scrollTop < this.getContentElement().scrollHeight) {
+        if(scrollDeltaY > 100 || scrollTop <= 0 || scrollTop < this[0].scrollHeight) {
           if(this._isMomentum) {
             this._snap();
             this._isMomentum = false;
-            this.fireDataEvent("momentumEnd",this.getContentElement().scrollTop);
+            this.emit("momentumEnd",this[0].scrollTop);
           }
         }
       }
@@ -148,7 +148,7 @@ qx.Mixin.define("qx.ui.mobile.container.MNativeScroll",
         var snap = this._scrollProperties.snap;
         if (snap) {
           this._snapPoints = [];
-          var snapTargets = this.getContentElement().querySelectorAll(snap);
+          var snapTargets = this[0].querySelectorAll(snap);
           for (var i = 0; i < snapTargets.length; i++) {
             var snapPoint = qx.bom.element.Location.getRelative(this._getContentElement(), snapTargets[i], "scroll", "scroll");
             this._snapPoints.push(snapPoint);
@@ -223,7 +223,7 @@ qx.Mixin.define("qx.ui.mobile.container.MNativeScroll",
      * @return {Array} an array with <code>[scrollLeft,scrollTop]</code>.
      */
     _getPosition: function() {
-      return [this.getContentElement().scrollLeft, this.getContentElement().scrollTop];
+      return [this[0].scrollLeft, this[0].scrollTop];
     },
 
 
@@ -242,11 +242,11 @@ qx.Mixin.define("qx.ui.mobile.container.MNativeScroll",
     * @return {Number} the scrolling height.
     */
     _getScrollHeight : function() {
-      if(!this.getContentElement()) {
+      if(!this[0]) {
         return 0;
       }
 
-      return this.getContentElement().scrollHeight - this.getContentElement().offsetHeight;
+      return this[0].scrollHeight - this[0].offsetHeight;
     },
 
 
@@ -255,11 +255,11 @@ qx.Mixin.define("qx.ui.mobile.container.MNativeScroll",
     * @return {Number} the scrolling width.
     */
     _getScrollWidth : function() {
-      if(!this.getContentElement()) {
+      if(!this[0]) {
         return 0;
       }
 
-      return this.getContentElement().scrollWidth - this.getContentElement().offsetWidth;
+      return this[0].scrollWidth - this[0].offsetWidth;
     },
 
 
@@ -273,7 +273,7 @@ qx.Mixin.define("qx.ui.mobile.container.MNativeScroll",
     _scrollTo: function(x, y, time) {
       var position = this._getPosition();
 
-      var element = this.getContentElement();
+      var element = this[0];
 
       var startX = -position[0] + element.scrollLeft;
       var startY = -position[1] + element.scrollTop;
@@ -304,7 +304,7 @@ qx.Mixin.define("qx.ui.mobile.container.MNativeScroll",
       if (element && element.children.length > 0) {
         var animationHandle = qx.bom.element.Animation.animate(element.children[0], animationMap);
 
-        animationHandle.addListener("end", function() {
+        animationHandle.on("end", function() {
           element.scrollLeft = x;
           element.scrollTop = y;
         }, this);
@@ -316,11 +316,11 @@ qx.Mixin.define("qx.ui.mobile.container.MNativeScroll",
       this.base(arguments);
       qx.bom.Event.removeNativeListener(this._getContentElement(), "scroll", this._onScroll.bind(this));
 
-      this.removeListener("touchmove", this._onTouchMove, this);
+      this.off("touchmove", this._onTouchMove, this);
 
-      this.removeListener("appear", this._onAppear, this);
-      this.removeListener("trackstart", this._onTrackStart, this);
-      this.removeListener("trackend", this._onTrackEnd, this);
+      this.off("appear", this._onAppear, this);
+      this.off("trackstart", this._onTrackStart, this);
+      this.off("trackend", this._onTrackEnd, this);
     }
   }
 });

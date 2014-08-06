@@ -34,7 +34,7 @@ qx.Mixin.define("qx.ui.mobile.container.MScrollHandling",
       var scroll = this;
       while (!(scroll instanceof qx.ui.mobile.container.Scroll)) {
         if (scroll.getLayoutParent) {
-          var layoutParent = scroll.getLayoutParent();
+          var layoutParent = scroll._getParentWidget();
           if (layoutParent === null || layoutParent instanceof qx.ui.mobile.core.Root) {
             return null;
           }

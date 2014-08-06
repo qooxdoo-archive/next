@@ -504,7 +504,7 @@ qx.Bootstrap.define("qx.ui.mobile.core.Widget",
     {
       if (qx.core.Environment.get("qx.debug"))
       {
-        if (child.getLayoutParent() === this) {
+        if (child._getParentWidget() === this) {
           throw new Error("The widget is already added this widget. Please remove it first.")
         }
 
@@ -534,7 +534,7 @@ qx.Bootstrap.define("qx.ui.mobile.core.Widget",
     {
       if (qx.core.Environment.get("qx.debug"))
       {
-        if (child.getLayoutParent() === this) {
+        if (child._getParentWidget() === this) {
           throw new Error("The child is already added to this widget. Please remove it first.")
         }
 
@@ -944,6 +944,7 @@ qx.Bootstrap.define("qx.ui.mobile.core.Widget",
     // property apply
     _applyVisibility : function(value, old)
     {
+      if (this instanceof qx.ui.mobile.container.Drawer) console.log(value, this)
       if (value == "excluded") {
         this.addClass("exclude");
       }

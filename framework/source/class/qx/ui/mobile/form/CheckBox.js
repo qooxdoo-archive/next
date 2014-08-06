@@ -30,7 +30,7 @@
  *   checkBox.model = "Title Activated";
  *   checkBox.bind("model", title, "value");
  *
- *   checkBox.addListener("changeValue", function(evt){
+ *   checkBox.on("changeValue", function(evt){
  *     this.model = evt.getdata() ? "Title Activated" : "Title Deactivated";
  *   });
  *
@@ -65,7 +65,7 @@ qx.Bootstrap.define("qx.ui.mobile.form.CheckBox",
       this._state = value;
     }
 
-    this.addListener("tap", this._onTap, this);
+    this.on("tap", this._onTap, this);
   },
 
   /*
@@ -142,7 +142,7 @@ qx.Bootstrap.define("qx.ui.mobile.form.CheckBox",
 
     dispose : function() {
       this.base(arguments);
-      this.removeListener("tap", this._onTap, this);
+      this.off("tap", this._onTap, this);
     }
   }
 });

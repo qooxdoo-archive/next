@@ -73,30 +73,33 @@ qx.Bootstrap.define("qx.ui.mobile.page.Manager",
     }
 
     this.__detailNavigation = this._createDetailNavigation();
+    this.__detailNavigation.layoutPrefs = {flex:1};
     this.__detailNavigation.getNavigationBar().hide();
 
     if (this.__isTablet) {
       this.__masterNavigation = this._createMasterNavigation();
+      this.__masterNavigation.layoutPrefs = {flex:1};
       this.__masterNavigation.getNavigationBar().hide();
 
       this.__masterContainer = this._createMasterContainer();
       this.__detailContainer = this._createDetailContainer();
+      this.__detailContainer.layoutPrefs = {flex:1};
 
       this.__masterButton = this._createMasterButton();
-      this.__masterButton.addListener("tap", this._onMasterButtonTap, this);
+      this.__masterButton.on("tap", this._onMasterButtonTap, this);
 
       this.__hideMasterButton = this._createHideMasterButton();
-      this.__hideMasterButton.addListener("tap", this._onHideMasterButtonTap, this);
+      this.__hideMasterButton.on("tap", this._onHideMasterButtonTap, this);
 
-      this.__masterNavigation.addListener("update", this._onMasterContainerUpdate, this);
-      this.__detailNavigation.addListener("update", this._onDetailContainerUpdate, this);
+      this.__masterNavigation.on("update", this._onMasterContainerUpdate, this);
+      this.__detailNavigation.on("update", this._onDetailContainerUpdate, this);
 
-      root.add(this.__detailContainer, {flex:1});
-      this.__masterContainer.add(this.__masterNavigation, {flex:1});
-      this.__detailContainer.add(this.__detailNavigation, {flex:1});
+      root.add(this.__detailContainer);
+      this.__masterContainer.add(this.__masterNavigation);
+      this.__detailContainer.add(this.__detailNavigation);
 
-      qx.event.Registration.addListener(window, "orientationchange", this._onLayoutChange, this);
-      this.__masterContainer.addListener("resize", this._onLayoutChange, this);
+      qxWeb(window).on("orientationchange", this._onLayoutChange, this);
+      this.__masterContainer.on("resize", this._onLayoutChange, this);
 
       // On Tablet Mode, no Animation should be shown by default.
       this.__masterNavigation.getLayout().showAnimation = false;
@@ -110,7 +113,7 @@ qx.Bootstrap.define("qx.ui.mobile.page.Manager",
         }
       }.bind(this), 300);
     } else {
-      root.add(this.__detailNavigation, {flex:1});
+      root.add(this.__detailNavigation);
     }
   },
 
@@ -215,7 +218,7 @@ qx.Bootstrap.define("qx.ui.mobile.page.Manager",
       masterContainer.visibility = "hidden";
       masterContainer.addClass("master-detail-master");
       masterContainer.hideOnParentTap = false;
-      masterContainer.addListener("changeVisibility", this._onMasterChangeVisibility, this);
+      masterContainer.on("changeVisibility", this._onMasterChangeVisibility, this);
       return masterContainer;
     },
 
@@ -320,13 +323,13 @@ qx.Bootstrap.define("qx.ui.mobile.page.Manager",
     addMaster : function(pages) {
       if (this.__isTablet) {
         if(pages) {
-          if(!qx.lang.Type.isArray(pages)) {
+          if(!qx.lang.Type.isArray(pages) || pages instanceof qxWeb) {
             pages = [pages];
           }
 
           for(var i = 0; i < pages.length; i++) {
             var masterPage = pages[i];
-            masterPage.addListener("start", this._onMasterPageStart, this);
+            masterPage.on("start", this._onMasterPageStart, this);
           }
 
           if(this.__masterPages) {
@@ -351,13 +354,13 @@ qx.Bootstrap.define("qx.ui.mobile.page.Manager",
       this._add(pages, this.__detailNavigation);
 
       if(pages && this.__isTablet) {
-        if (!qx.lang.Type.isArray(pages)) {
+        if (!qx.lang.Type.isArray(pages) || pages instanceof qxWeb) {
           pages = [pages];
         }
 
         for(var i = 0; i < pages.length; i++) {
           var detailPage = pages[i];
-          detailPage.addListener("start", this._onDetailPageStart, this);
+          detailPage.on("start", this._onDetailPageStart, this);
         }
 
         if(this.__detailPages) {
@@ -397,7 +400,7 @@ qx.Bootstrap.define("qx.ui.mobile.page.Manager",
      * @param target {qx.ui.mobile.container.Navigation} target navigation container.
      */
     _add : function(pages, target) {
-      if (!qx.lang.Type.isArray(pages)) {
+      if (!qx.lang.Type.isArray(pages) || pages instanceof qxWeb) {
         pages = [pages];
       }
 
@@ -421,10 +424,9 @@ qx.Bootstrap.define("qx.ui.mobile.page.Manager",
 
     /**
      * Called when masterContainer is updated.
-     * @param evt {qx.event.type.Data} source event.
+     * @param widget {qx.ui.mobile.core.Widget} source widget.
      */
-    _onMasterContainerUpdate : function(evt) {
-      var widget = evt.getData();
+    _onMasterContainerUpdate : function(widget) {
       widget.getRightContainer().remove(this.__hideMasterButton);
       widget.getRightContainer().add(this.__hideMasterButton);
     },
@@ -432,10 +434,9 @@ qx.Bootstrap.define("qx.ui.mobile.page.Manager",
 
     /**
      * Called when detailContainer is updated.
-     * @param evt {qx.event.type.Data} source event.
+     * @param widget {qx.ui.mobile.core.Widget} source widget.
      */
-    _onDetailContainerUpdate : function(evt) {
-      var widget = evt.getData();
+    _onDetailContainerUpdate : function(widget) {
       widget.getLeftContainer().remove(this.__masterButton);
       widget.getLeftContainer().add(this.__masterButton);
     },
@@ -460,10 +461,10 @@ qx.Bootstrap.define("qx.ui.mobile.page.Manager",
 
     /**
     * Event handler for <code>changeVisibility</code> event on master container.
-    * @param evt {qx.event.type.Data} the change event.
+    * @param value {String} The new visibility value
     */
-    _onMasterChangeVisibility: function(evt) {
-      var isMasterVisible = ("visible" === evt.getData());
+    _onMasterChangeVisibility: function(data) {
+      var isMasterVisible = ("visible" === data.value);
 
       if (qx.bom.Viewport.isLandscape()) {
         if (this.allowMasterHideOnLandscape) {
@@ -523,7 +524,7 @@ qx.Bootstrap.define("qx.ui.mobile.page.Manager",
      * Creates spaces for aligning master and detail container aside each other.
      */
     _createDetailContainerGap : function() {
-      qx.bom.element.Style.set(this.__detailContainer.getContainerElement(), this._getGapPropertyKey(), this.__masterContainer.size / 16 + "rem");
+      qx.bom.element.Style.set(this.__detailContainer[0], this._getGapPropertyKey(), this.__masterContainer.size / 16 + "rem");
       qx.event.Registration.fireEvent(window, "resize");
     },
 
@@ -532,7 +533,7 @@ qx.Bootstrap.define("qx.ui.mobile.page.Manager",
      * Moves detailContainer to the left edge of viewport.
      */
     _removeDetailContainerGap : function() {
-      qx.bom.element.Style.set(this.__detailContainer.getContainerElement(), this._getGapPropertyKey(), null);
+      qx.bom.element.Style.set(this.__detailContainer[0], this._getGapPropertyKey(), null);
       qx.event.Registration.fireEvent(window, "resize");
     },
 
@@ -567,21 +568,21 @@ qx.Bootstrap.define("qx.ui.mobile.page.Manager",
         for(var i = 0; i < this.__masterPages.length; i++) {
           var masterPage = this.__masterPages[i];
 
-          masterPage.removeListener("start", this._onMasterPageStart, this);
+          masterPage.off("start", this._onMasterPageStart, this);
         }
       }
       if(this.__detailPages) {
         for(var j = 0; j < this.__detailPages.length; j++) {
           var detailPage = this.__detailPages[j];
 
-          detailPage.removeListener("start", this._onDetailPageStart, this);
+          detailPage.off("start", this._onDetailPageStart, this);
         }
       }
 
       if(this.__isTablet) {
-        this.__masterContainer.removeListener("changeVisibility", this._onMasterChangeVisibility, this);
-        this.__masterContainer.removeListener("resize", this._onLayoutChange, this);
-        qx.event.Registration.removeListener(window, "orientationchange", this._onLayoutChange, this);
+        this.__masterContainer.off("changeVisibility", this._onMasterChangeVisibility, this);
+        this.__masterContainer.off("resize", this._onLayoutChange, this);
+        qxWeb(window).on("orientationchange", this._onLayoutChange, this);
       }
 
       this.__masterPages = this.__detailPages =  null;

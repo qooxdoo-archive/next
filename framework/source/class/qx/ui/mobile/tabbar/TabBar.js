@@ -53,7 +53,7 @@ qx.Bootstrap.define("qx.ui.mobile.tabbar.TabBar",
   {
     this.base(arguments);
     this._setLayout(new qx.ui.mobile.layout.HBox());
-    this.addListener("tap", this._onTap, this);
+    this.on("tap", this._onTap, this);
   },
 
 
@@ -108,7 +108,7 @@ qx.Bootstrap.define("qx.ui.mobile.tabbar.TabBar",
 
       while (!(target instanceof qx.ui.mobile.tabbar.TabButton)) {
         if (target.getLayoutParent) {
-          var layoutParent = target.getLayoutParent();
+          var layoutParent = target._getParentWidget();
           if (layoutParent == null || layoutParent instanceof qx.ui.mobile.tabbar.TabBar) {
             target = null;
             break;
@@ -154,7 +154,7 @@ qx.Bootstrap.define("qx.ui.mobile.tabbar.TabBar",
       if (!this.selection) {
         this.selection = button;
       }
-      button.addListener("changeView", this._onChangeView, this);
+      button.on("changeView", this._onChangeView, this);
     },
 
 
@@ -182,13 +182,13 @@ qx.Bootstrap.define("qx.ui.mobile.tabbar.TabBar",
       if (this.selection == button) {
         this.selection = null;
       }
-      button.removeListener("changeView", this._onChangeView, this);
+      button.off("changeView", this._onChangeView, this);
     },
 
 
     dispose : function() {
       this.base(arguments);
-      this.removeListener("tap", this._onTap, this);
+      this.off("tap", this._onTap, this);
     }
   }
 });

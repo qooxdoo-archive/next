@@ -126,7 +126,7 @@ qx.Mixin.define("qx.ui.mobile.form.MText",
         return;
       }
 
-      var targetElement = this.getContainerElement();
+      var targetElement = this[0];
       if(targetElement) {
         qx.bom.Element.focus(targetElement);
       }
@@ -137,7 +137,7 @@ qx.Mixin.define("qx.ui.mobile.form.MText",
      * Removes the focus from this widget.
      */
     blur : function() {
-      var targetElement = this.getContainerElement();
+      var targetElement = this[0];
       if(targetElement) {
         qx.bom.Element.blur(targetElement);
       }

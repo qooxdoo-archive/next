@@ -70,7 +70,8 @@ qx.Mixin.define("qx.ui.mobile.container.MIScroll",
      *
      * @return {Element} The scroll content element
      */
-    _getScrollContentElement : function() {
+    _getScrollContentElement : function()
+    {
       return this[0].childNodes[0];
     },
 
@@ -90,10 +91,10 @@ qx.Mixin.define("qx.ui.mobile.container.MIScroll",
     * @return {Number} the scrolling height.
     */
     _getScrollHeight : function() {
-      if(!this.getContainerElement()) {
+      if(!this[0]) {
         return 0;
       }
-      return this._getScrollContentElement().scrollHeight - this.getContainerElement().offsetHeight;
+      return this._getScrollContentElement().scrollHeight - this[0].offsetHeight;
     },
 
 
@@ -102,10 +103,10 @@ qx.Mixin.define("qx.ui.mobile.container.MIScroll",
     * @return {Number} the scrolling width.
     */
     _getScrollWidth : function() {
-      if(!this.getContainerElement()) {
+      if(!this[0]) {
         return 0;
       }
-      return this._getScrollContentElement().scrollWidth - this.getContainerElement().offsetWidth;
+      return this._getScrollContentElement().scrollWidth - this[0].offsetWidth;
     },
 
 
@@ -121,12 +122,12 @@ qx.Mixin.define("qx.ui.mobile.container.MIScroll",
     {
       if (this.__scroll && this._isScrollable()) {
         // Normalize scrollable values
-        var lowerLimitY = qx.bom.element.Dimension.getHeight(this._getScrollContentElement()) - this.getContainerElement().offsetHeight;
+        var lowerLimitY = qx.bom.element.Dimension.getHeight(this._getScrollContentElement()) - this[0].offsetHeight;
         if (y > lowerLimitY) {
           y = lowerLimitY;
         }
 
-        var lowerLimitX = qx.bom.element.Dimension.getWidth(this._getScrollContentElement()) - this.getContainerElement().offsetWidth;
+        var lowerLimitX = qx.bom.element.Dimension.getWidth(this._getScrollContentElement()) - this[0].offsetWidth;
         if (x > lowerLimitX) {
           x = lowerLimitX;
         }
@@ -209,7 +210,7 @@ qx.Mixin.define("qx.ui.mobile.container.MIScroll",
             container._setCurrentX(-this.x);
             container._setCurrentY(-this.y);
             if(this.y == this.maxScrollY) {
-              container.fireEvent("pageEnd");
+              container.emit("pageEnd");
             }
           }
         },
@@ -218,7 +219,7 @@ qx.Mixin.define("qx.ui.mobile.container.MIScroll",
           if (qx.core.Environment.get("qx.mobile.nativescroll") == false)
           {
             if(this.y == this.maxScrollY) {
-              container.fireEvent("pageEnd");
+              container.emit("pageEnd");
             }
           }
         },

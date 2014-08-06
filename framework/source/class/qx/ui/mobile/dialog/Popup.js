@@ -37,7 +37,7 @@
  * var widget = new qx.ui.mobile.form.Button("Error!");
  * var popup = new qx.ui.mobile.dialog.Popup(widget, label);
  * popup.show();
- * widget.addListener("tap", function(){
+ * widget.on("tap", function(){
  *   popup.hide();
  * });
  *
@@ -177,9 +177,9 @@ qx.Bootstrap.define("qx.ui.mobile.dialog.Popup",
         var rootHeight = qx.ui.mobile.dialog.Popup.ROOT.getHeight();
         var rootWidth = qx.ui.mobile.dialog.Popup.ROOT.getWidth();
 
-        var rootPosition = qx.bom.element.Location.get(qx.ui.mobile.dialog.Popup.ROOT.getContainerElement());
-        var anchorPosition = qx.bom.element.Location.get(this.__anchor.getContainerElement());
-        var popupDimension = qx.bom.element.Dimension.getSize(this.getContainerElement());
+        var rootPosition = qx.bom.element.Location.get(qx.ui.mobile.dialog.Popup.ROOT[0]);
+        var anchorPosition = qx.bom.element.Location.get(this.__anchor[0]);
+        var popupDimension = qx.bom.element.Dimension.getSize(this[0]);
 
         this.__lastPopupDimension = popupDimension;
 
@@ -238,7 +238,7 @@ qx.Bootstrap.define("qx.ui.mobile.dialog.Popup",
     {
       if (!this.__isShown)
       {
-        qx.core.Init.getApplication().fireEvent("popup");
+        qx.core.Init.getApplication().emit("popup");
 
         this.__registerEventListener();
 
@@ -259,7 +259,7 @@ qx.Bootstrap.define("qx.ui.mobile.dialog.Popup",
         qx.ui.mobile.core.Blocker.getInstance().show();
 
         if(this.hideOnBlockerTap) {
-          qx.ui.mobile.core.Blocker.getInstance().addListener("tap", this.hide, this);
+          qx.ui.mobile.core.Blocker.getInstance().on("tap", this.hide, this);
         }
       }
     },
@@ -283,7 +283,7 @@ qx.Bootstrap.define("qx.ui.mobile.dialog.Popup",
         qx.ui.mobile.core.Blocker.getInstance().hide();
       }
 
-      qx.ui.mobile.core.Blocker.getInstance().removeListener("tap", this.hide, this);
+      qx.ui.mobile.core.Blocker.getInstance().off("tap", this.hide, this);
     },
 
 
@@ -342,7 +342,7 @@ qx.Bootstrap.define("qx.ui.mobile.dialog.Popup",
       var clientX = evt.getViewportLeft();
       var clientY = evt.getViewportTop();
 
-      var popupLocation = qx.bom.element.Location.get(this.getContainerElement());
+      var popupLocation = qx.bom.element.Location.get(this[0]);
 
       var isOutsideWidget =  clientX < popupLocation.left
         || clientX > popupLocation.left + this.__lastPopupDimension.width
@@ -360,7 +360,7 @@ qx.Bootstrap.define("qx.ui.mobile.dialog.Popup",
      */
     _positionToCenter : function()
     {
-      var container = this.getContainerElement();
+      var container = this[0];
       container.style.position = "absolute";
       container.style.marginLeft = -(container.offsetWidth/2) + "px";
       container.style.marginTop = -(container.offsetHeight/2) + "px";
@@ -374,7 +374,7 @@ qx.Bootstrap.define("qx.ui.mobile.dialog.Popup",
      */
     _resetPosition : function()
     {
-      var container = this.getContainerElement();
+      var container = this[0];
       container.style.left = "0px";
       container.style.top = "0px";
       container.style.marginLeft = null;
@@ -387,14 +387,14 @@ qx.Bootstrap.define("qx.ui.mobile.dialog.Popup",
      */
     __registerEventListener : function()
     {
-      qx.core.Init.getApplication().addListener("stop", this.hide, this);
-      qx.core.Init.getApplication().addListener("popup", this.hide, this);
+      qx.core.Init.getApplication().on("stop", this.hide, this);
+      qx.core.Init.getApplication().on("popup", this.hide, this);
 
       qx.event.Registration.addListener(window, "resize", this._updatePosition, this);
 
       if(this.__anchor) {
         this.__anchor.addClass("anchor-target");
-        qx.ui.mobile.dialog.Popup.ROOT.addListener("pointerdown",this._trackUserTap,this);
+        qx.ui.mobile.dialog.Popup.ROOT.on("pointerdown",this._trackUserTap,this);
       }
     },
 
@@ -404,14 +404,14 @@ qx.Bootstrap.define("qx.ui.mobile.dialog.Popup",
      */
     __unregisterEventListener : function()
     {
-      qx.core.Init.getApplication().removeListener("stop", this.hide, this);
-      qx.core.Init.getApplication().removeListener("popup", this.hide, this);
+      qx.core.Init.getApplication().off("stop", this.hide, this);
+      qx.core.Init.getApplication().off("popup", this.hide, this);
 
-      qx.event.Registration.removeListener(window, "resize", this._updatePosition, this);
+      qx.event.Registration.off(window, "resize", this._updatePosition, this);
 
       if(this.__anchor) {
         this.__anchor.removeClass("anchor-target");
-        qx.ui.mobile.dialog.Popup.ROOT.removeListener("pointerdown", this._trackUserTap, this);
+        qx.ui.mobile.dialog.Popup.ROOT.off("pointerdown", this._trackUserTap, this);
       }
     },
 
@@ -439,7 +439,7 @@ qx.Bootstrap.define("qx.ui.mobile.dialog.Popup",
         flex: 1
       });
 
-      widget.addListener("domupdated", this._updatePosition, this);
+      widget.on("domupdated", this._updatePosition, this);
 
       this.__widget = widget;
     },
@@ -557,7 +557,7 @@ qx.Bootstrap.define("qx.ui.mobile.dialog.Popup",
     {
       if(this.__widget)
       {
-        this.__widget.removeListener("domupdated", this._updatePosition, this);
+        this.__widget.off("domupdated", this._updatePosition, this);
         this.__childrenContainer.remove(this.__widget);
         return this.__widget;
       }

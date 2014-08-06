@@ -103,7 +103,7 @@ qx.Class.define("mobileshowcase.page.Maps",
 
       // LABEL
       var descriptionLabel = new qx.ui.mobile.basic.Label("Page Title");
-      descriptionLabel.addCssClass("osmMapLabel");
+      descriptionLabel.addClass("osmMapLabel");
 
       // TOGGLE BUTTON
       var toggleNavigationButton = new qx.ui.mobile.form.ToggleButton(true,"Show","Hide",12);
@@ -124,8 +124,8 @@ qx.Class.define("mobileshowcase.page.Maps",
       var groupPosition = new qx.ui.mobile.form.Group([this._showMyPositionButton],false);
       var groupFullScreen = new qx.ui.mobile.form.Group([descriptionLabel,toggleNavigationButton],true);
 
-      this._showMyPositionButton.addCssClass("map-shadow");
-      groupFullScreen.addCssClass("map-shadow");
+      this._showMyPositionButton.addClass("map-shadow");
+      groupFullScreen.addClass("map-shadow");
 
       menuContainer.add(groupFullScreen);
       menuContainer.add(groupPosition);

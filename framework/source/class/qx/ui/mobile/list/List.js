@@ -58,8 +58,8 @@
  *   list.model = new qx.data.Array(data);
  *
  *   // Add an changeSelection event
- *   list.addListener("changeSelection", function(evt) {
- *     alert("Index: " + evt.getData())
+ *   list.on("changeSelection", function(evt) {
+ *     alert("Index: " + evt)
  *   }, this);
  *
  *   this.getRoot().add(list);
@@ -81,10 +81,10 @@ qx.Bootstrap.define("qx.ui.mobile.list.List",
     this.base(arguments);
     this.__provider = new qx.ui.mobile.list.provider.Provider(this);
 
-    this.addListener("tap", this._onTap, this);
-    this.addListener("trackstart", this._onTrackStart, this);
-    this.addListener("track", this._onTrack, this);
-    this.addListener("trackend", this._onTrackEnd, this);
+    this.on("tap", this._onTap, this);
+    this.on("trackstart", this._onTrackStart, this);
+    this.on("track", this._onTrack, this);
+    this.on("trackend", this._onTrackEnd, this);
 
     if (delegate) {
       this.delegate = delegate;
@@ -200,7 +200,7 @@ qx.Bootstrap.define("qx.ui.mobile.list.List",
       var row = -1;
       if (qx.bom.element.Class.has(element, "list-item")) {
         if (qx.bom.element.Attribute.get(element, "data-selectable") != "false" &&
-            qx.dom.Element.hasChild(this.getContainerElement(), element)) {
+            qx.dom.Element.hasChild(this[0], element)) {
           row = parseInt(element.getAttribute("data-row"), 10);
         }
         if (row != -1) {
@@ -459,11 +459,11 @@ qx.Bootstrap.define("qx.ui.mobile.list.List",
      * @param index {Integer} index of the row which should be rendered.
      */
     __renderRow : function(index) {
-      var renderedItems = qx.bom.Selector.query(".list-item",this.getContentElement());
+      var renderedItems = this.find(".list-item");
       var oldNode = renderedItems[index];
       var newNode = this.__provider.getItemElement(this.model.getItem(index), index);
 
-      this.getContentElement().replaceChild(newNode, oldNode);
+      this[0].replaceChild(newNode, oldNode);
 
       this._domUpdated();
     },
@@ -477,7 +477,7 @@ qx.Bootstrap.define("qx.ui.mobile.list.List",
     getListItemHeight : function() {
       var listItemHeight = 0;
       if (this.model != null && this.model.length > 0) {
-        var listHeight = qx.bom.element.Style.get(this.getContentElement(), "height");
+        var listHeight = this.getStyle("height");
         listItemHeight = parseInt(listHeight) / this.model.length;
       }
       return listItemHeight;
@@ -501,11 +501,11 @@ qx.Bootstrap.define("qx.ui.mobile.list.List",
           var groupElement = this._renderGroup(index, groupIndex);
           if (groupElement) {
             groupIndex++;
-            this.getContentElement().appendChild(groupElement);
+            this.append(groupElement);
           }
         }
         var item = model.getItem(index);
-        this.getContentElement().appendChild(this.__provider.getItemElement(item, index));
+        this.append(this.__provider.getItemElement(item, index));
       }
 
       this._domUpdated();

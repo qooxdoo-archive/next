@@ -137,18 +137,18 @@ qx.Bootstrap.define("qx.ui.mobile.core.Blocker",
      */
     _updateSize : function()
     {
-      if(qx.ui.mobile.core.Blocker.ROOT == this.getLayoutParent())
+      if(qx.ui.mobile.core.Blocker.ROOT == this._getParentWidget())
       {
-        this.getContainerElement().style.top = qx.bom.Viewport.getScrollTop() + "px";
-        this.getContainerElement().style.left = qx.bom.Viewport.getScrollLeft() + "px";
-        this.getContainerElement().style.width = qx.bom.Viewport.getWidth() + "px";
-        this.getContainerElement().style.height = qx.bom.Viewport.getHeight()  + "px";
+        this[0].style.top = qx.bom.Viewport.getScrollTop() + "px";
+        this[0].style.left = qx.bom.Viewport.getScrollLeft() + "px";
+        this[0].style.width = qx.bom.Viewport.getWidth() + "px";
+        this[0].style.height = qx.bom.Viewport.getHeight()  + "px";
       }
-      else if(this.getLayoutParent() != null)
+      else if(this._getParentWidget() != null)
       {
-        var dimension = qx.bom.element.Dimension.getSize(this.getLayoutParent().getContainerElement());
-        this.getContainerElement().style.width = dimension.width + "px";
-        this.getContainerElement().style.height = dimension.height  + "px";
+        var dimension = qx.bom.element.Dimension.getSize(this._getParentWidget()[0]);
+        this[0].style.width = dimension.width + "px";
+        this[0].style.height = dimension.height  + "px";
       }
     },
 
@@ -171,8 +171,8 @@ qx.Bootstrap.define("qx.ui.mobile.core.Blocker",
     {
       qx.event.Registration.addListener(window, "resize", this._updateSize, this);
       qx.event.Registration.addListener(window, "scroll", this._onScroll, this);
-      this.addListener("pointerdown", qx.bom.Event.preventDefault, this);
-      this.addListener("pointerup", qx.bom.Event.preventDefault, this);
+      this.on("pointerdown", qx.bom.Event.preventDefault, this);
+      this.on("pointerup", qx.bom.Event.preventDefault, this);
     },
 
 
@@ -181,10 +181,10 @@ qx.Bootstrap.define("qx.ui.mobile.core.Blocker",
      */
     __unregisterEventListener : function()
     {
-      qx.event.Registration.removeListener(window, "resize", this._updateSize, this);
-      qx.event.Registration.removeListener(window, "scroll", this._onScroll, this);
-      this.removeListener("pointerdown", qx.bom.Event.preventDefault, this);
-      this.removeListener("pointerup", qx.bom.Event.preventDefault, this);
+      qx.event.Registration.off(window, "resize", this._updateSize, this);
+      qx.event.Registration.off(window, "scroll", this._onScroll, this);
+      this.off("pointerdown", qx.bom.Event.preventDefault, this);
+      this.off("pointerup", qx.bom.Event.preventDefault, this);
     },
 
 

@@ -53,7 +53,7 @@ qx.Class.define("mobileshowcase.page.Canvas",
       this.__lastPoint = {};
 
       var clearButton = new qx.ui.mobile.navigationbar.Button("Clear");
-      clearButton.addListener("tap", this.__clearCanvas, this);
+      clearButton.on("tap", this.__clearCanvas, this);
 
       this.getRightContainer().add(clearButton);
 
@@ -66,11 +66,11 @@ qx.Class.define("mobileshowcase.page.Canvas",
 
       var canvas = this.__canvas = new qx.ui.mobile.embed.Canvas();
 
-      canvas.addListener("trackstart", this._onTrackStart, this);
-      canvas.addListener("trackend", this._onTrackEnd, this);
-      canvas.addListener("track", this._onTrack, this);
+      canvas.on("trackstart", this._onTrackStart, this);
+      canvas.on("trackend", this._onTrackEnd, this);
+      canvas.on("track", this._onTrack, this);
 
-      canvas.addListener("touchstart", qx.bom.Event.preventDefault, this);
+      canvas.on("touchstart", qx.bom.Event.preventDefault, this);
 
       canvas.setWidth(this._to(this.__canvasSize));
       canvas.setHeight(this._to(this.__canvasSize));

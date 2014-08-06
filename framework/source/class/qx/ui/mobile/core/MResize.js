@@ -61,10 +61,10 @@ qx.Mixin.define("qx.ui.mobile.core.MResize",
      * Removes fixed size from container.
      */
     releaseFixedSize : function() {
-      var parent = this.getLayoutParent();
+      var parent = this._getParentWidget();
 
-      if (parent && parent.getContainerElement()) {
-        var element = this.getContainerElement();
+      if (parent && parent[0]) {
+        var element = this[0];
         qx.bom.element.Style.set(element, "height", "auto");
         qx.bom.element.Style.set(element, "width", "auto");
       }
@@ -76,11 +76,11 @@ qx.Mixin.define("qx.ui.mobile.core.MResize",
      */
     fixSize : function()
     {
-      var parent = this.getLayoutParent();
+      var parent = this._getParentWidget();
 
-      if (parent && parent.getContainerElement()) {
-        var height = parent.getContainerElement().offsetHeight;
-        var width = parent.getContainerElement().offsetWidth;
+      if (parent && parent[0]) {
+        var height = parent[0].offsetHeight;
+        var width = parent[0].offsetWidth;
 
         // Only fix size, when value are above zero.
         if(height === 0 || width === 0) {
@@ -108,7 +108,7 @@ qx.Mixin.define("qx.ui.mobile.core.MResize",
      */
     _setHeight : function(height)
     {
-      var element = this.getContainerElement();
+      var element = this[0];
       if (qx.core.Environment.get("qx.mobile.nativescroll"))
       {
         qx.bom.element.Style.set(element, "minHeight", height + "px");
@@ -126,7 +126,7 @@ qx.Mixin.define("qx.ui.mobile.core.MResize",
      */
     _setWidth : function(width)
     {
-      var element = this.getContainerElement();
+      var element = this[0];
       if (qx.core.Environment.get("qx.mobile.nativescroll"))
       {
         qx.bom.element.Style.set(element, "minWidth", width + "px");

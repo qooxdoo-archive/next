@@ -30,7 +30,7 @@
  *
  * var menu = new qx.ui.mobile.dialog.Menu(model);
  * menu.show();
- * menu.addListener("changeSelection", function(evt){
+ * menu.on("changeSelection", function(evt){
  *    var selectedIndex = evt.getData().index;
  *    var selectedItem = evt.getData().item;
  * }, this);
@@ -197,7 +197,7 @@ qx.Bootstrap.define("qx.ui.mobile.dialog.Menu",
      */
     _createClearButton : function() {
       var clearButton = new qx.ui.mobile.form.Button(this.clearButtonLabel);
-      clearButton.addListener("tap", this.__onClearButtonTap, this);
+      clearButton.on("tap", this.__onClearButtonTap, this);
       clearButton.exclude();
       return clearButton;
     },
@@ -210,9 +210,8 @@ qx.Bootstrap.define("qx.ui.mobile.dialog.Menu",
      */
     _createListScroller : function(selectionList) {
       var listScroller = new qx.ui.mobile.container.Scroll({"snap":".list-item"});
-      listScroller.add(selectionList, {
-        flex: 1
-      });
+      selectionList.layoutPrefs = {flex: 1};
+      listScroller.add(selectionList);
       listScroller.addClass("menu-scroller");
       return listScroller;
     },
@@ -238,7 +237,7 @@ qx.Bootstrap.define("qx.ui.mobile.dialog.Menu",
         listScrollerHeight = Math.min(newListScrollerHeight, listScrollerHeight);
       }
 
-      qx.bom.element.Style.set(this.__listScroller.getContainerElement(), "maxHeight", listScrollerHeight + "px");
+      qx.bom.element.Style.set(this.__listScroller[0], "maxHeight", listScrollerHeight + "px");
 
       this.base(arguments);
     },
@@ -270,8 +269,8 @@ qx.Bootstrap.define("qx.ui.mobile.dialog.Menu",
       });
 
       // Add an changeSelection event
-      selectionList.addListener("changeSelection", this.__onListChangeSelection, this);
-      selectionList.addListener("tap", this._onSelectionListTap, this);
+      selectionList.on("changeSelection", this.__onListChangeSelection, this);
+      selectionList.on("tap", this._onSelectionListTap, this);
       return selectionList;
     },
 
@@ -316,7 +315,7 @@ qx.Bootstrap.define("qx.ui.mobile.dialog.Menu",
      * Event handler for tap on clear button.
      */
     __onClearButtonTap : function() {
-      this.fireDataEvent("changeSelection", {index: null, item: null});
+      this.emit("changeSelection", {index: null, item: null});
       this.hide();
     },
 
@@ -327,7 +326,7 @@ qx.Bootstrap.define("qx.ui.mobile.dialog.Menu",
 
       if(listModel !== null) {
         var selectedItem = listModel.getItem(value);
-        this.fireDataEvent("changeSelection", {index: value, item: selectedItem});
+        this.emit("changeSelection", {index: value, item: selectedItem});
       }
 
       this._render();
@@ -375,7 +374,7 @@ qx.Bootstrap.define("qx.ui.mobile.dialog.Menu",
 
     dispose : function() {
       this.base(arguments);
-      this.__selectionList.removeListener("tap", this._onSelectionListTap, this);
+      this.__selectionList.off("tap", this._onSelectionListTap, this);
       this._disposeObjects("__selectionList","__clearButton","__listScroller","__menuContainer");
     }
   }

@@ -64,9 +64,8 @@ qx.Bootstrap.define("qx.ui.mobile.form.renderer.SinglePlaceholder",
           } else {
             var row = new qx.ui.mobile.form.Row(new qx.ui.mobile.layout.HBox());
             item.placeholder = name;
-            row.add(item, {
-              flex: 1
-            });
+            item.layoutPrefs = {flex: 1};
+            row.add(item);
             this._add(row);
           }
         }

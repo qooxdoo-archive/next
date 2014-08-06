@@ -75,7 +75,7 @@ qx.Class.define("mobileshowcase.page.Event",
       sclayout.alignX = "center";
       sclayout.alignY = "middle";
       var container =  this.__showcaseContainer = new qx.ui.mobile.container.Composite(sclayout);
-      container.addCssClass("eventcontainer");
+      container.addClass("eventcontainer");
 
       container.addListener("touchmove", function(evt) {
         evt.preventDefault();
@@ -86,7 +86,7 @@ qx.Class.define("mobileshowcase.page.Event",
       clayout.alignX = "center";
       clayout.alignY = "middle";
       var containerTouchArea = this.__container = new qx.ui.mobile.container.Composite(clayout);
-      containerTouchArea.addCssClass("container-touch-area");
+      containerTouchArea.addClass("container-touch-area");
 
       containerTouchArea.addListener("tap", this._onGesture, this);
       containerTouchArea.addListener("dbltap", this._onGesture, this);
@@ -104,7 +104,7 @@ qx.Class.define("mobileshowcase.page.Event",
       // GESTURE TARGET OBJECT
       this.__gestureTarget = new qx.ui.mobile.basic.Image("mobileshowcase/icon/HTML5_Badge_512.png");
 
-      this.__gestureTarget.addCssClass("gesture-target");
+      this.__gestureTarget.addClass("gesture-target");
       this.__gestureTarget.addListener("trackstart", this.__onTrackStart, this);
       this.__gestureTarget.addListener("track", this.__onTrack, this);
       this.__gestureTarget.addListener("trackend", this.__onTrackEnd, this);
@@ -126,7 +126,7 @@ qx.Class.define("mobileshowcase.page.Event",
       // POINTER VISUALISATION CIRCLES
       for (var i = 0; i < 15; i++) {
         var circle = new qx.ui.mobile.container.Composite();
-        circle.addCssClass("touch");
+        circle.addClass("touch");
 
         this.__circles.push(circle);
         circle.translateX = -5000;

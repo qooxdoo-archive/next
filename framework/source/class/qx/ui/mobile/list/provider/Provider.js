@@ -103,7 +103,7 @@ qx.Bootstrap.define("qx.ui.mobile.list.provider.Provider",
       this._configureItem(data, row);
 
       // Clone the element and all it's events
-      var clone = qx.bom.Element.clone(this.__itemRenderer.getContainerElement(), true);
+      var clone = qx.bom.Element.clone(this.__itemRenderer[0], true);
       clone.setAttribute("data-row", row);
       return clone;
     },
@@ -123,7 +123,7 @@ qx.Bootstrap.define("qx.ui.mobile.list.provider.Provider",
       this._configureGroupItem(data, group);
 
       // Clone the element and all it's events
-      var clone = qx.bom.Element.clone(this.__groupRenderer.getContainerElement(), true);
+      var clone = qx.bom.Element.clone(this.__groupRenderer[0], true);
       clone.removeAttribute("id");
       clone.setAttribute("data-group", group);
       return clone;

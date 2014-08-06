@@ -144,7 +144,7 @@ qx.Class.define("mobileshowcase.page.Dialog",
       otherGroup.add(showPickerButton,{flex:1});
 
       var groupContainer = new qx.ui.mobile.container.Composite();
-      groupContainer.addCssClass("dialog-group");
+      groupContainer.addClass("dialog-group");
       groupContainer.setLayout(new qx.ui.mobile.layout.HBox());
       groupContainer.add(popupGroup, {flex:1});
       groupContainer.add(menuGroup, {flex:1});
@@ -283,8 +283,8 @@ qx.Class.define("mobileshowcase.page.Dialog",
     */
     _createGroupTitle : function(value) {
       var titleLabel = new qx.ui.mobile.basic.Label(value);
-      titleLabel.addCssClass("dialog-group-title");
-      titleLabel.addCssClass("gap");
+      titleLabel.addClass("dialog-group-title");
+      titleLabel.addClass("gap");
       return titleLabel;
     },
 

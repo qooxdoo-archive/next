@@ -126,30 +126,30 @@ qx.Bootstrap.define("qx.ui.mobile.page.Page",
   events :
   {
     /** Fired when the lifecycle method {@link #initialize} is called */
-    "initialize" : "qx.event.type.Event",
+    "initialize" : null,
 
     /** Fired when the lifecycle method {@link #start} is called */
-    "start" : "qx.event.type.Event",
+    "start" : null,
 
     /** Fired when the lifecycle method {@link #stop} is called */
-    "stop" : "qx.event.type.Event",
+    "stop" : null,
 
     /** Fired when the lifecycle method {@link #pause} is called */
-    "pause" : "qx.event.type.Event",
+    "pause" : null,
 
     /** Fired when the lifecycle method {@link #resume} is called */
-    "resume" : "qx.event.type.Event",
+    "resume" : null,
 
     /** Fired when the method {@link #back} is called. Data indicating
      *  whether the action was triggered by a key event or not.
      */
-    "back" : "qx.event.type.Data",
+    "back" : "Object",
 
     /** Fired when the method {@link #menu} is called */
-    "menu" : "qx.event.type.Event",
+    "menu" : null,
 
     /** Fired when the method {@link #wait} is called */
-    "wait" : "qx.event.type.Event"
+    "wait" : null
   },
 
 
@@ -217,7 +217,7 @@ qx.Bootstrap.define("qx.ui.mobile.page.Page",
     back : function(triggeredByKeyEvent)
     {
       qx.core.Init.getApplication().fireDataEvent("back", triggeredByKeyEvent);
-      this.fireDataEvent("back", triggeredByKeyEvent);
+      this.emit("back", triggeredByKeyEvent);
       var value = this._back(triggeredByKeyEvent);
       return value || false;
     },
@@ -420,11 +420,18 @@ qx.Bootstrap.define("qx.ui.mobile.page.Page",
 
     // property apply
     _applyLifeCycleState : function(value, old) {
+      // TODO: better solution for event targets
+      var self = this;
+      var data = {
+        getTarget: function() {
+          return self;
+        }
+      };
       if(value == "start" || value == "stop") {
-        qx.core.Init.getApplication().emit(value);
+        qx.core.Init.getApplication().emit(value, data);
       }
 
-      this.emit(value);
+      this.emit(value, data);
     }
   },
 

@@ -66,8 +66,8 @@ qx.Class.define("mobileshowcase.page.Theming",
      * Preloads all css files for preventing flickering on theme switches.
      */
     __preloadThemes : function() {
-      for(var i = 0; i < this.self(arguments).THEMES.length; i++) {
-        var cssResource = this.self(arguments).THEMES[i].css;
+      for(var i = 0; i < mobileshowcase.page.Theming.THEMES.length; i++) {
+        var cssResource = mobileshowcase.page.Theming.THEMES[i].css;
         var cssURI = qx.util.ResourceManager.getInstance().toUri(cssResource);
 
         var req = new qx.bom.request.Xhr();
@@ -120,10 +120,10 @@ qx.Class.define("mobileshowcase.page.Theming",
       var themeForm = new qx.ui.mobile.form.Form();
 
       var themeRadioGroup = new qx.ui.mobile.form.RadioGroup();
-      for (var i = 0; i < this.self(arguments).THEMES.length; i++) {
+      for (var i = 0; i < mobileshowcase.page.Theming.THEMES.length; i++) {
         var radioButton = new qx.ui.mobile.form.RadioButton();
         themeRadioGroup.add(radioButton);
-        themeForm.add(radioButton, this.self(arguments).THEMES[i].name);
+        themeForm.add(radioButton, mobileshowcase.page.Theming.THEMES[i].name);
 
         radioButton.addListener("tap", this.__switchTheme, {
           "self": this,
@@ -140,10 +140,10 @@ qx.Class.define("mobileshowcase.page.Theming",
     __createImageResolutionHandlingDemo : function() {
       this.getContent().add(new qx.ui.mobile.form.Title("Resolution-specific Images"));
       var demoImage = new qx.ui.mobile.basic.Image("mobileshowcase/icon/image.png");
-      demoImage.addCssClass("resolution-demo-image");
+      demoImage.addClass("resolution-demo-image");
 
       this.__demoImageLabel = new qx.ui.mobile.basic.Label();
-      this.__demoImageLabel.addCssClass("resolution-demo-label");
+      this.__demoImageLabel.addClass("resolution-demo-label");
       this._updateDemoImageLabel();
 
       var demoImageGroup = new qx.ui.mobile.form.Group();
@@ -306,7 +306,7 @@ qx.Class.define("mobileshowcase.page.Theming",
      * @param cssFile {String} The css file url.
      */
     appendTheme : function(themeData) {
-      this.self(arguments).THEMES.push(themeData);
+      mobileshowcase.page.Theming.THEMES.push(themeData);
     },
 
 

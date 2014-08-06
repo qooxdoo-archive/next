@@ -42,12 +42,12 @@ qx.Mixin.define("qx.ui.mobile.form.MValue",
     }
 
     if (this._getTagName() == "input" || this._getTagName() == "textarea") {
-      qx.event.Registration.addListener(this.getContentElement(), "change", this._onChangeContent, this);
-      qx.event.Registration.addListener(this.getContentElement(), "input", this._onInput, this);
+      this.on("change", this._onChangeContent, this);
+      this.on("input", this._onInput, this);
     }
 
-    this.addListener("focus", this._onFocus,this);
-    this.addListener("blur", this._onBlur,this);
+    this.on("focus", this._onFocus,this);
+    this.on("blur", this._onBlur,this);
   },
 
 
@@ -240,7 +240,7 @@ qx.Mixin.define("qx.ui.mobile.form.MValue",
     _onInput : function(evt)
     {
       var data = evt.getData();
-      this.fireDataEvent("input", data, true);
+      this.emit("input", data, true);
       if (this.getLiveUpdate()) {
         if (this._setValue) {
           this._setValue(data);
@@ -256,9 +256,9 @@ qx.Mixin.define("qx.ui.mobile.form.MValue",
     * @return {Integer} the caret position.
     */
     _getCaretPosition : function() {
-      var val = this.getContentElement().value;
+      var val = this[0].value;
       if(val && this.getAttribute("type") !== "number") {
-        return val.slice(0, this.getContentElement().selectionStart).length;
+        return val.slice(0, this[0].selectionStart).length;
       } else {
         return val.length;
       }
@@ -271,8 +271,8 @@ qx.Mixin.define("qx.ui.mobile.form.MValue",
      */
     _setCaretPosition: function(position) {
       if (position != null && this.hasFocus()) {
-        if (this.getAttribute("type") !== "number" && this.getContentElement().setSelectionRange) {
-          this.getContentElement().setSelectionRange(position, position);
+        if (this.getAttribute("type") !== "number" && this[0].setSelectionRange) {
+          this[0].setSelectionRange(position, position);
         }
       }
     },
@@ -288,15 +288,15 @@ qx.Mixin.define("qx.ui.mobile.form.MValue",
       if (this.__oldValue != value)
       {
         this.__oldValue = value;
-        this.fireDataEvent("changeValue", value);
+        this.emit("changeValue", value);
       }
     },
 
 
     // TODO
     disposeAAA : function() {
-      this.removeListener("focus", this._onFocus,this);
-      this.removeListener("blur", this._onBlur,this);
+      this.off("focus", this._onFocus,this);
+      this.off("blur", this._onBlur,this);
       this.base(arguments);
     }
   }

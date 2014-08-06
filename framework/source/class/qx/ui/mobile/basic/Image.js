@@ -277,7 +277,7 @@ qx.Bootstrap.define("qx.ui.mobile.basic.Image",
       if (imageInfo.failed)
       {
         this.warn("Image could not be loaded: " + source);
-        this.fireEvent("loadingFailed");
+        this.emit("loadingFailed");
       }
       else if (imageInfo.aborted)
       {
@@ -286,7 +286,7 @@ qx.Bootstrap.define("qx.ui.mobile.basic.Image",
       }
       else
       {
-        this.fireEvent("loaded");
+        this.emit("loaded");
       }
       this._domUpdated();
     },
