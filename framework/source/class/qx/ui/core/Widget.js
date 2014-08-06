@@ -2325,12 +2325,6 @@ qx.Class.define("qx.ui.core.Widget",
       if (value == null && !this.isSelectable()) {
         value = "default";
       }
-
-      // In Opera the cursor must be set directly.
-      // http://bugzilla.qooxdoo.org/show_bug.cgi?id=1729
-      this.getContentElement().setStyle(
-        "cursor", value, qx.core.Environment.get("engine.name") == "opera"
-      );
     },
 
 

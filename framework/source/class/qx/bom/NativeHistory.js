@@ -88,12 +88,9 @@ qx.Class.define("qx.bom.NativeHistory",
      *
      * @param state {String} state to save
      */
-    _writeState : qx.core.Environment.select("engine.name",
-    {
-      "default" : function (state) {
-        this._setHash(this._encode(state));
-      }
-    })
+    _writeState : function (state) {
+      this._setHash(this._encode(state));
+    }
   },
 
 
