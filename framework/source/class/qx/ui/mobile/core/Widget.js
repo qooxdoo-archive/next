@@ -22,6 +22,7 @@
  *
  * @require(qx.module.Core)
  * @require(qx.module.event.GestureHandler)
+ * @require(qx.module.event.AppearHandler)
  */
 qx.Bootstrap.define("qx.ui.mobile.core.Widget",
 {

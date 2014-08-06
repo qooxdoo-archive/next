@@ -4984,3 +4984,43 @@ testrunner.define({
     this.assertTrue(datepicker.getAttribute("disabled"));
   }
 });
+
+testrunner.define({
+  classname: "event.AppearHandler",
+
+  setUp : testrunner.globalSetup,
+  tearDown : testrunner.globalTeardown,
+
+  testAppearShow : function() {
+    var spy = this.spy(function() {
+      this.resume();
+    }.bind(this));
+    q("#sandbox").hide().on("appear", spy).show();
+    this.wait(300);
+  },
+
+  testDisppearHide : function() {
+    var spy = this.spy(function() {
+      this.resume();
+    }.bind(this));
+    q("#sandbox").on("disappear", spy).hide();
+    this.wait(300);
+  },
+
+  testAppearAdd : function() {
+    var spy = this.spy(function() {
+      this.resume();
+    }.bind(this));
+    var parent = q("#sandbox").getParents();
+    q("#sandbox").remove().on("appear", spy).appendTo(parent);
+    this.wait(300);
+  },
+
+  testDisppearRemove : function() {
+    var spy = this.spy(function() {
+      this.resume();
+    }.bind(this));
+    q("#sandbox").on("disappear", spy).remove();
+    this.wait(300);
+  }
+});
