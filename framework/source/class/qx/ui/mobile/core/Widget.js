@@ -944,7 +944,6 @@ qx.Bootstrap.define("qx.ui.mobile.core.Widget",
     // property apply
     _applyVisibility : function(value, old)
     {
-      if (this instanceof qx.ui.mobile.container.Drawer) console.log(value, this)
       if (value == "excluded") {
         this.addClass("exclude");
       }
