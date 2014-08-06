@@ -301,14 +301,13 @@ qx.Bootstrap.define("qx.ui.mobile.core.Widget",
      *
      * @internal
      */
-    domUpdated : qx.event.GlobalError.observeMethod(function()
-    {
+    domUpdated : function() {
       var clazz = qx.ui.mobile.core.Widget;
       window.clearTimeout(clazz.__domUpdatedScheduleId);
       clazz.__domUpdatedScheduleId = null;
-      qx.event.handler.Appear.refresh();
-      qx.ui.mobile.core.DomUpdatedHandler.refresh();
-    }),
+      qx.event.handler.Appear.refresh(); // TODO
+      qx.ui.mobile.core.DomUpdatedHandler.refresh(); // TODO
+    },
 
 
     /**
@@ -388,8 +387,7 @@ qx.Bootstrap.define("qx.ui.mobile.core.Widget",
      * Triggers the {@link #scheduleDomUpdated} method. This method needs to be called
      * when the DOM has changed, e.g. an element was added / removed / styled.
      */
-    _domUpdated : function()
-    {
+    _domUpdated : function() {
       qx.ui.mobile.core.Widget.scheduleDomUpdated();
     },
 
@@ -505,7 +503,7 @@ qx.Bootstrap.define("qx.ui.mobile.core.Widget",
       if (qx.core.Environment.get("qx.debug"))
       {
         if (child._getParentWidget() === this) {
-          throw new Error("The widget is already added this widget. Please remove it first.")
+          throw new Error("The widget is already added this widget. Please remove it first.");
         }
 
         this.assertInArray(beforeWidget, this.getChildren(), "The 'before' widget is not a child of this widget!");
@@ -535,7 +533,7 @@ qx.Bootstrap.define("qx.ui.mobile.core.Widget",
       if (qx.core.Environment.get("qx.debug"))
       {
         if (child._getParentWidget() === this) {
-          throw new Error("The child is already added to this widget. Please remove it first.")
+          throw new Error("The child is already added to this widget. Please remove it first.");
         }
 
         this.assertInArray(afterWidget, this.getChildren(), "The 'after' widget is not a child of this widget!");
@@ -1063,10 +1061,9 @@ qx.Bootstrap.define("qx.ui.mobile.core.Widget",
 
       // Cleanup event listeners
       // Needed as we rely on the containerElement in the qx.ui.mobile.core.EventHandler
-      qx.event.Registration.removeAllListeners(this);
+      qx.event.Registration.removeAllListeners(this); // TODO
 
-      if (this.id)
-      {
+      if (this.id) {
         qx.ui.mobile.core.Widget.unregisterWidget(this.id);
       }
 
@@ -1087,6 +1084,6 @@ qx.Bootstrap.define("qx.ui.mobile.core.Widget",
   */
 
   defer : function(statics) {
-    qx.bom.Lifecycle.onShutdown(statics.onShutdown, statics);
+    qx.bom.Lifecycle.onShutdown(statics.onShutdown, statics); // TODO
   }
 });
