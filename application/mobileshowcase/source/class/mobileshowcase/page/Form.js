@@ -1,3 +1,4 @@
+"use strict";
 /* ************************************************************************
 
    qooxdoo - the new era of web development
@@ -27,7 +28,7 @@ qx.Class.define("mobileshowcase.page.Form",
 
   construct : function()
   {
-    this.base(arguments);
+    this.base(mobileshowcase.page.Abstract, "constructor");
     this.title = "Form";
   },
 
@@ -55,7 +56,7 @@ qx.Class.define("mobileshowcase.page.Form",
     // overridden
     _initialize : function()
     {
-      this.base(arguments);
+      this.base(mobileshowcase.page.Abstract, "_initialize");
       this.__form = this.__createForm();
 
       this.getContent().add(new qx.ui.mobile.form.renderer.Single(this.__form));
@@ -274,7 +275,7 @@ qx.Class.define("mobileshowcase.page.Form",
       if(this.__resultPopup) {
         this.__resultPopup.hide();
       }
-      this.base(arguments);
+      this.base(mobileshowcase.page.Abstract, "_stop");
     }
   }
 });

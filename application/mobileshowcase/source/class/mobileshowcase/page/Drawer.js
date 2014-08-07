@@ -1,3 +1,4 @@
+"use strict";
 /* ************************************************************************
 
    qooxdoo - the new era of web development
@@ -26,7 +27,7 @@ qx.Class.define("mobileshowcase.page.Drawer",
 
   construct : function()
   {
-    this.base(arguments, false);
+    this.base(mobileshowcase.page.Abstract, "constructor", false);
     this.title = "Drawer";
   },
 
@@ -71,7 +72,7 @@ qx.Class.define("mobileshowcase.page.Drawer",
     // overridden
     _initialize : function()
     {
-      this.base(arguments);
+      this.base(mobileshowcase.page.Abstract, "_initialize");
 
       // DRAWERS
 

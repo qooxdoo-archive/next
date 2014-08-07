@@ -1,3 +1,4 @@
+"use strict";
 /* ************************************************************************
 
    qooxdoo - the new era of web development
@@ -29,7 +30,7 @@ qx.Class.define("mobileshowcase.page.Dialog",
 
   construct : function()
   {
-    this.base(arguments,false);
+    this.base(mobileshowcase.page.Abstract, "constructor", false);
     this.title = "Dialog Widgets";
   },
 
@@ -50,7 +51,7 @@ qx.Class.define("mobileshowcase.page.Dialog",
     // overridden
     _initialize : function()
     {
-      this.base(arguments);
+      this.base(mobileshowcase.page.Abstract, "_initialize");
 
       this.__resultsLabel = new qx.ui.mobile.basic.Label("No events received so far.");
       var resultsGroup = new qx.ui.mobile.form.Group([this.__resultsLabel]);

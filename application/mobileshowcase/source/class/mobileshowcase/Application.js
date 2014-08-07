@@ -1,3 +1,4 @@
+"use strict";
 /* ************************************************************************
 
    qooxdoo - the new era of web development
@@ -44,7 +45,7 @@ qx.Class.define("mobileshowcase.Application",
     main : function()
     {
       // Call super class
-      this.base(arguments);
+      this.base(qx.application.Mobile, "main");
 
       // Enable logging in debug variant
       if (qx.core.Environment.get("qx.debug"))

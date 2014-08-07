@@ -1,3 +1,4 @@
+"use strict";
 /* ************************************************************************
 
    qooxdoo - the new era of web development
@@ -26,7 +27,7 @@ qx.Bootstrap.define("mobileshowcase.page.DataBinding",
 
   construct : function()
   {
-    this.base(arguments);
+    this.base(mobileshowcase.page.Abstract, "constructor");
     this.title = "Data Binding";
 
     this.__timer = new qx.event.Timer(50);
@@ -79,7 +80,7 @@ qx.Bootstrap.define("mobileshowcase.page.DataBinding",
     // overridden
     _initialize : function()
     {
-      this.base(arguments);
+      this.base(mobileshowcase.page.Abstract, "_initialize");
 
       this.__form = this.__createSliderDataBindings();
       this.__list = this.__createListDataBindings();
@@ -218,13 +219,14 @@ qx.Bootstrap.define("mobileshowcase.page.DataBinding",
       return list;
     },
 
+
     dispose : function() {
       this.__timer.removeListener("interval", this.__onInterval, this);
 
       this._disposeObjects("__increaseMode", "__decreaseButton",
         "__increaseButton", "__stopTimeButton", "__timer", "__dataLabel",
         "__slider", "__form", "__list");
-      this.base(arguments);
+      this.base(mobileshowcase.page.Abstract, "dispose");
     }
   }
 });

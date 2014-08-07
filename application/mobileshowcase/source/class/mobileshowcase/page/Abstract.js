@@ -1,3 +1,4 @@
+"use strict";
 /* ************************************************************************
 
    qooxdoo - the new era of web development
@@ -26,7 +27,7 @@ qx.Class.define("mobileshowcase.page.Abstract",
 
   construct : function(wrapContentByGroup)
   {
-    this.base(arguments, wrapContentByGroup);
+    this.base(qx.ui.mobile.page.NavigationPage, "constructor", wrapContentByGroup);
     this.showBackButton = true;
     this.backButtonText = "Back";
   },
@@ -35,8 +36,7 @@ qx.Class.define("mobileshowcase.page.Abstract",
   members :
   {
      // overridden
-    _back : function()
-    {
+    _back : function() {
       qx.core.Init.getApplication().getRouting().back();
     }
   }

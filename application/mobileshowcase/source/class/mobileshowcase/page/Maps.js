@@ -1,3 +1,4 @@
+"use strict";
 /* ************************************************************************
 
    qooxdoo - the new era of web development
@@ -28,7 +29,7 @@ qx.Class.define("mobileshowcase.page.Maps",
   extend : mobileshowcase.page.Abstract,
 
   construct : function() {
-    this.base(arguments,false);
+    this.base(mobileshowcase.page.Abstract, "constructor", false);
     this.title = "Maps";
 
     this._geolocationEnabled = qx.core.Environment.get("html.geolocation");
@@ -49,7 +50,7 @@ qx.Class.define("mobileshowcase.page.Maps",
     // overridden
     _initialize : function()
     {
-      this.base(arguments);
+      this.base(mobileshowcase.page.Abstract, "_initialize");
 
       if(this._geolocationEnabled) {
         this._initGeoLocation();

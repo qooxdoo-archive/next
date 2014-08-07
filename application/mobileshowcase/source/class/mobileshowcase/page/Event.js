@@ -1,3 +1,4 @@
+"use strict";
 /* ************************************************************************
 
    qooxdoo - the new era of web development
@@ -27,7 +28,7 @@ qx.Class.define("mobileshowcase.page.Event",
 
   construct : function()
   {
-    this.base(arguments, false);
+    this.base(mobileshowcase.page.Abstract, "constructor", false);
     this.title = "Events";
 
     this.__circles = [];
@@ -69,7 +70,7 @@ qx.Class.define("mobileshowcase.page.Event",
     // overridden
     _initialize : function()
     {
-      this.base(arguments);
+      this.base(mobileshowcase.page.Abstract, "_initialize");
 
       var sclayout = new qx.ui.mobile.layout.VBox();
       sclayout.alignX = "center";

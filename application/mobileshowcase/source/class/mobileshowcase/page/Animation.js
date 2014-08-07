@@ -1,3 +1,4 @@
+"use strict";
 /* ************************************************************************
 
    qooxdoo - the new era of web development
@@ -26,7 +27,7 @@ qx.Class.define("mobileshowcase.page.Animation",
 
   construct : function()
   {
-    this.base(arguments);
+    this.base(mobileshowcase.page.Abstract, "constructor");
     this.title = "Page Transitions";
   },
 
@@ -62,7 +63,7 @@ qx.Class.define("mobileshowcase.page.Animation",
     // overridden
     _initialize : function()
     {
-      this.base(arguments);
+      this.base(mobileshowcase.page.Abstract, "_initialize");
 
       var list = new qx.ui.mobile.list.List({
         configureItem : function(item, data, row)

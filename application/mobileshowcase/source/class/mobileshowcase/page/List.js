@@ -1,3 +1,4 @@
+"use strict";
 /* ************************************************************************
 
    qooxdoo - the new era of web development
@@ -28,7 +29,7 @@ qx.Class.define("mobileshowcase.page.List",
 
   construct : function()
   {
-    this.base(arguments);
+    this.base(mobileshowcase.page.Abstract, "constructor");
     this.title = "List";
   },
 
@@ -46,7 +47,7 @@ qx.Class.define("mobileshowcase.page.List",
      * @lint ignoreDeprecated(alert)
      */
     _initialize: function() {
-      this.base(arguments);
+      this.base(mobileshowcase.page.Abstract, "_initialize");
 
       this._waypointsY = ["0%", "25%", "50%", "75%", "100%", 200];
 

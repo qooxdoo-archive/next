@@ -1,3 +1,4 @@
+"use strict";
 /* ************************************************************************
 
    qooxdoo - the new era of web development
@@ -38,7 +39,7 @@ qx.Class.define("mobileshowcase.page.Toolbar",
 
   construct : function()
   {
-    this.base(arguments,false);
+    this.base(mobileshowcase.page.Abstract, "constructor", false);
     this.title = "Toolbar";
   },
 
@@ -69,7 +70,7 @@ qx.Class.define("mobileshowcase.page.Toolbar",
     // overridden
     _initialize : function()
     {
-      this.base(arguments);
+      this.base(mobileshowcase.page.Abstract, "_initialize");
 
       var label = new qx.ui.mobile.form.Title("Search");
       this.getContent().add(label);

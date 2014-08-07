@@ -1,3 +1,4 @@
+"use strict";
 /* ************************************************************************
 
    qooxdoo - the new era of web development
@@ -26,7 +27,7 @@ qx.Class.define("mobileshowcase.page.Overview",
 
   construct : function()
   {
-    this.base(arguments);
+    this.base(qx.ui.mobile.page.NavigationPage, "constructor");
     this.title = "Overview";
   },
 
@@ -43,7 +44,7 @@ qx.Class.define("mobileshowcase.page.Overview",
     // overridden
     _initialize : function()
     {
-      this.base(arguments);
+      this.base(qx.ui.mobile.page.NavigationPage, "_initialize");
 
       var list = new qx.ui.mobile.list.List({
         configureItem : function(item, data, row)

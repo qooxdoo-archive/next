@@ -1,3 +1,4 @@
+"use strict";
 /* ************************************************************************
 
    qooxdoo - the new era of web development
@@ -28,7 +29,7 @@ qx.Class.define("mobileshowcase.page.AnimationLanding",
 
   construct : function()
   {
-    this.base(arguments, true);
+    this.base(mobileshowcase.page.Abstract, "constructor", true);
     this.title = "Page Transitions";
     this.showBackButtonOnTablet = true;
   },
@@ -50,7 +51,7 @@ qx.Class.define("mobileshowcase.page.AnimationLanding",
     // overridden
     _initialize : function()
     {
-      this.base(arguments);
+      this.base(mobileshowcase.page.Abstract, "_initialize");
 
 
       if (this._isTablet) {

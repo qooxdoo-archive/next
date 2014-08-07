@@ -1,3 +1,4 @@
+"use strict";
 /* ************************************************************************
 
    qooxdoo - the new era of web development
@@ -26,7 +27,7 @@ qx.Class.define("mobileshowcase.page.Carousel",
 
   construct : function()
   {
-    this.base(arguments);
+    this.base(mobileshowcase.page.Abstract, "constructor");
     this.title = "Carousel";
   },
 
