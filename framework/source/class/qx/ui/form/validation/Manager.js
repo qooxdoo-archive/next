@@ -22,20 +22,17 @@
  * @ignore(qx.ui.tooltip)
  * @ignore(qx.ui.tooltip.Manager.*)
  */
-qx.Class.define("qx.ui.form.validation.Manager",
+qx.Bootstrap.define("qx.ui.form.validation.Manager",
 {
-  extend : qx.core.Object,
+  extend : qx.event.Emitter,
 
-  construct : function()
-  {
-    this.base(arguments);
-
+  construct : function() {
     // storage for all form items
     this.__formItems = [];
     // storage for all results of async validation calls
     this.__asyncResults = {};
     // set the default required field message
-    this.setRequiredFieldMessage(qx.locale.Manager.tr("This field is required"));
+    this.requiredFieldMessage = "This field is required";
   },
 
 
@@ -70,7 +67,9 @@ qx.Class.define("qx.ui.form.validation.Manager",
      */
     validator :
     {
-      check : "value instanceof Function || qx.Class.isSubClassOf(value.constructor, qx.ui.form.validation.AsyncValidator)",
+      check : function(value) {
+        return value instanceof Function || qx.Class.isSubClassOf(value.constructor, qx.ui.form.validation.AsyncValidator)
+      },
       init : null,
       nullable : true
     },
@@ -150,7 +149,7 @@ qx.Class.define("qx.ui.form.validation.Manager",
         throw new Error("Added widget not supported.");
       }
       // check for the data type
-      if (this.__supportsSingleSelection(formItem) && !formItem.getValue) {
+      if (this.__supportsSingleSelection(formItem) && !formItem.value) {
         // check for a validator
         if (validator != null) {
           throw new Error("Widgets supporting selection can only be validated " +
@@ -241,7 +240,7 @@ qx.Class.define("qx.ui.form.validation.Manager",
         }
 
         var validatorResult = this.__validateItem(
-          this.__formItems[i], formItem.getValue()
+          this.__formItems[i], formItem.value
         );
         // keep that order to ensure that null is returned on async cases
         valid = validatorResult && valid;
@@ -261,7 +260,7 @@ qx.Class.define("qx.ui.form.validation.Manager",
       this.__setValid(valid);
 
       if (qx.lang.Object.isEmpty(this.__asyncResults)) {
-        this.fireEvent("complete");
+        this.emit("complete");
       }
       return valid;
     },
@@ -277,26 +276,26 @@ qx.Class.define("qx.ui.form.validation.Manager",
      */
     __validateRequired : function(formItem) {
       var required;
-      if (typeof formItem.getRequired == "function") {
-        required = formItem.getRequired();
+      if (typeof formItem.required == "function") {
+        required = formItem.required;
       } else {
         required = formItem.required;
       }
       if (required) {
         // if its a widget supporting the selection
         if (this.__supportsSingleSelection(formItem)) {
-          var validatorResult = !!formItem.getSelection()[0];
+          var validatorResult = !!formItem.selection[0];
         // otherwise, a value should be supplied
         } else {
-          var value = formItem.getValue ? formItem.getValue() : formItem.value;
+          var value = formItem.value;
           var validatorResult = !!value || value === 0;
         }
 
         formItem.valid = validatorResult;
-        var individualMessage = formItem.getRequiredInvalidMessage ? formItem.getRequiredInvalidMessage() : formItem.requiredInvalidMessage;
-        var message = individualMessage ? individualMessage : this.getRequiredFieldMessage();
-        if (formItem.setInvalidMessage) {
-          formItem.setInvalidMessage(message);
+        var individualMessage = formItem.requiredInvalidMessage;
+        var message = individualMessage ? individualMessage : this.requiredFieldMessage;
+        if (formItem.invalidMessage != undefined) {
+          formItem.invalidMessage = message;
         } else {
           formItem.invalidMessage = message.toLocaleString();
         }
@@ -326,7 +325,7 @@ qx.Class.define("qx.ui.form.validation.Manager",
       if (this.__isAsyncValidator(validator)) {
         // used to check if all async validations are done
         this.__asyncResults[formItem.toHashCode()] = null;
-        validator.validate(formItem, formItem.getValue(), this, context);
+        validator.validate(formItem, formItem.value, this, context);
         return null;
       }
 
@@ -344,9 +343,9 @@ qx.Class.define("qx.ui.form.validation.Manager",
           if (e.message && e.message != qx.type.BaseError.DEFAULTMESSAGE) {
             var invalidMessage = e.message;
           } else {
-            var invalidMessage = e.getComment();
+            var invalidMessage = e.comment;
           }
-          formItem.setInvalidMessage(invalidMessage);
+        this.invalidMessage = invalidMessage;
         } else {
           throw e;
         }
@@ -370,15 +369,15 @@ qx.Class.define("qx.ui.form.validation.Manager",
      * @return {Boolean|null} description
      */
     __validateForm: function(items) {
-      var formValidator = this.getValidator();
-      var context = this.getContext() || this;
+      var formValidator = this.validator;
+      var context = this.context || this;
 
       if (formValidator == null) {
         return true;
       }
 
       // reset the invalidMessage
-      this.setInvalidMessage("");
+      this.invalidMessage = "";
 
       if (this.__isAsyncValidator(formValidator)) {
         this.__asyncResults[this.toHashCode()] = null;
@@ -398,9 +397,9 @@ qx.Class.define("qx.ui.form.validation.Manager",
           if (e.message && e.message != qx.type.BaseError.DEFAULTMESSAGE) {
             var invalidMessage = e.message;
           } else {
-            var invalidMessage = e.getComment();
+            var invalidMessage = e.comment;
           }
-          this.setInvalidMessage(invalidMessage);
+          this.invalidMessage = invalidMessage;
         } else {
           throw e;
         }
@@ -463,59 +462,11 @@ qx.Class.define("qx.ui.form.validation.Manager",
      * @param value {Boolean|null} The new valid value of the manager.
      */
     __setValid: function(value) {
-      this._showToolTip(value);
       var oldValue = this.__valid;
       this.__valid = value;
       // check for the change event
       if (oldValue != value) {
-        this.fireDataEvent("changeValid", value, oldValue);
-      }
-    },
-
-
-    /**
-     * Responsible for showing a tooltip in case the validation is done for
-     * widgets based on qx.ui.core.Widget.
-     * @param valid {Boolean} <code>false</code>, if the tooltip should be shown
-     */
-    _showToolTip : function(valid) {
-      // ignore if we don't have a tooltip manager e.g. mobile apps
-      if (!qx.ui.tooltip || !qx.ui.tooltip.Manager) {
-        return;
-      }
-      var tooltip = qx.ui.tooltip.Manager.getInstance().getSharedErrorTooltip();
-
-      if (!valid) {
-        var firstInvalid;
-        for (var i = 0; i < this.__formItems.length; i++) {
-          var item = this.__formItems[i].item;
-          if (item.valid === false) {
-            firstInvalid = item;
-            // only for desktop widgets
-            if (!(item.getContentLocation)) {
-              return;
-            }
-            // only consider items on the screen
-            if (item.isSeeable() === false) {
-              continue;
-            }
-
-            tooltip.setLabel(item.getInvalidMessage());
-
-            if (tooltip.getPlaceMethod() == "mouse") {
-              var location = item.getContentLocation();
-              var top = location.top - tooltip.getOffsetTop();
-              tooltip.placeToPoint({left: location.right, top: top});
-            } else {
-              tooltip.placeToWidget(item);
-            }
-
-            tooltip.show();
-            return;
-          }
-        }
-      } else {
-        tooltip.exclude();
+        this.emit("changeValid", value);
       }
     },
 
@@ -536,7 +487,7 @@ qx.Class.define("qx.ui.form.validation.Manager",
      * @return {Boolean|null} The valid state of the manager.
      */
     isValid: function() {
-      return this.getValid();
+      return this.valid;
     },
 
 
@@ -551,13 +502,13 @@ qx.Class.define("qx.ui.form.validation.Manager",
       // combine the messages of all form items
       for (var i = 0; i < this.__formItems.length; i++) {
         var formItem = this.__formItems[i].item;
-        if (!formItem.getValid()) {
-          messages.push(formItem.getInvalidMessage());
+        if (!formItem.valid) {
+          messages.push(formIteminvalidMessage);
         }
       }
       // add the forms fail message
-      if (this.getInvalidMessage() != "") {
-        messages.push(this.getInvalidMessage());
+      if (this.invalidMessage != "") {
+        messages.push(this.invalidMessage);
       }
 
       return messages;
@@ -573,7 +524,7 @@ qx.Class.define("qx.ui.form.validation.Manager",
       var res = [];
       for (var i = 0; i < this.__formItems.length; i++) {
         var formItem = this.__formItems[i].item;
-        if (!formItem.getValid()) {
+        if (!formItem.valid) {
           res.push(formItem);
         }
       }
@@ -656,18 +607,7 @@ qx.Class.define("qx.ui.form.validation.Manager",
       // reset the results
       this.__asyncResults = {};
       // fire the complete event (no entry in the results with null)
-      this.fireEvent("complete");
+      this.emit("complete");
     }
-  },
-
-
-  /*
-  *****************************************************************************
-     DESTRUCTOR
-  *****************************************************************************
-  */
-  destruct : function()
-  {
-    this.__formItems = null;
   }
 });

@@ -41,9 +41,9 @@
  * {@link qx.ui.form.validation.Manager#add}. If you have both cases, you have
  * to wrap the synchronous call in a timeout to make it asychronous.
  */
-qx.Class.define("qx.ui.form.validation.AsyncValidator",
+qx.Bootstrap.define("qx.ui.form.validation.AsyncValidator",
 {
-  extend : qx.core.Object,
+  extend : Object,
 
   /**
    * @param validator {Function} The validator function, which has to be
@@ -51,7 +51,6 @@ qx.Class.define("qx.ui.form.validation.AsyncValidator",
    */
   construct : function(validator)
   {
-    this.base(arguments);
     // save the validator function
     this.__validatorFunction = validator;
   },
@@ -135,16 +134,5 @@ qx.Class.define("qx.ui.form.validation.AsyncValidator",
         this.__manager.setItemValid(this.__item, valid);
       }
     }
-  },
-
-
-  /*
-   *****************************************************************************
-      DESTRUCT
-   *****************************************************************************
-   */
-
-  destruct : function() {
-    this.__manager = this.__item = null;
   }
 });
