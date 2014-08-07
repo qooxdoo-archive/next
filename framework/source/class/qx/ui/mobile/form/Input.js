@@ -73,7 +73,7 @@ qx.Bootstrap.define("qx.ui.mobile.form.Input",
      * @param evt {qx.event.type.Event} <code>click</code> or <code>focus</code> event
      */
     _onSelected : function(evt) {
-      if (!(evt.getTarget() instanceof qx.ui.mobile.form.TextField) && !(evt.getTarget() instanceof qx.ui.mobile.form.NumberField)) {
+      if (!(evt.target instanceof qx.ui.mobile.form.TextField) && !(evt.target instanceof qx.ui.mobile.form.NumberField)) {
         return;
       }
 

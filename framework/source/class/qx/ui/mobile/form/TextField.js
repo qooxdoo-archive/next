@@ -79,7 +79,7 @@ qx.Bootstrap.define("qx.ui.mobile.form.TextField",
     */
     _onKeyPress : function(evt) {
       // On return
-      if(evt.getKeyCode() == 13) {
+      if(evt.keyCode == 13) {
         this.blur();
       }
     },
