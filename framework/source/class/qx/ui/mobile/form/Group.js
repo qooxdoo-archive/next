@@ -54,7 +54,7 @@ qx.Bootstrap.define("qx.ui.mobile.form.Group",
    */
   construct : function(widgets, showBorder)
   {
-    this.base(qx.ui.mobile.container.Composite, "construct");
+    this.base(qx.ui.mobile.container.Composite, "constructor");
 
     this.addClass("bordered");
 

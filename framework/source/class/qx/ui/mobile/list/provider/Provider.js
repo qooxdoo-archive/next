@@ -25,7 +25,7 @@
  */
 qx.Bootstrap.define("qx.ui.mobile.list.provider.Provider",
 {
-  extend : Object,
+  extend : qx.event.Emitter,
 
 
   properties:
@@ -38,7 +38,7 @@ qx.Bootstrap.define("qx.ui.mobile.list.provider.Provider",
      */
     delegate :
     {
-      event: "changeDelegate",
+      event: true,
       init: null,
       nullable: true,
       apply : "_applyDelegate"
