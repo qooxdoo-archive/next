@@ -1,3 +1,4 @@
+"use strict";
 /* ************************************************************************
 
    qooxdoo - the new era of web development
@@ -297,7 +298,6 @@ qx.Mixin.define("qx.ui.mobile.form.MValue",
     disposeAAA : function() {
       this.off("focus", this._onFocus,this);
       this.off("blur", this._onBlur,this);
-      this.base(arguments);
     }
   }
 });

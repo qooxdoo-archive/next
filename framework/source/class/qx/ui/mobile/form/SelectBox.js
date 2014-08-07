@@ -1,3 +1,4 @@
+"use strict";
 /* ************************************************************************
 
    qooxdoo - the new era of web development
@@ -75,7 +76,7 @@ qx.Bootstrap.define("qx.ui.mobile.form.SelectBox",
   */
   construct : function()
   {
-    this.base(arguments);
+    this.base(qx.ui.mobile.core.Widget, "constructor");
 
     // This text node is for compatibility reasons, because Firefox can not
     // change appearance of SelectBoxes.
@@ -378,7 +379,7 @@ qx.Bootstrap.define("qx.ui.mobile.form.SelectBox",
 
 
     dispose : function() {
-      this.base(arguments);
+      this.base(qx.ui.mobile.core.Widget, "dispose");
       this.__selectionDialog.off("changeSelection", this._onChangeSelection, this);
 
       this._disposeObjects("__selectionDialog","__selectionDialogTitle");

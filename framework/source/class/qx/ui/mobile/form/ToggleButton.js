@@ -1,3 +1,4 @@
+"use strict";
 /* ************************************************************************
 
    qooxdoo - the new era of web development
@@ -61,7 +62,7 @@ qx.Bootstrap.define("qx.ui.mobile.form.ToggleButton",
    */
   construct : function(value, labelChecked, labelUnchecked)
   {
-    this.base(arguments);
+    this.base(qx.ui.mobile.core.Widget, "constructor");
 
     if(labelChecked && labelUnchecked) {
        this.__labelUnchecked = labelUnchecked;
@@ -211,7 +212,7 @@ qx.Bootstrap.define("qx.ui.mobile.form.ToggleButton",
 
     dispose : function()
     {
-      this.base(arguments);
+      this.base(qx.ui.mobile.core.Widget, "dispose");
       this.off("tap", this._onTap, this);
       this.off("swipe", this._onSwipe, this);
 

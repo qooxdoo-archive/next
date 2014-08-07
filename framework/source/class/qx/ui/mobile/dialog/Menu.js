@@ -1,3 +1,4 @@
+"use strict";
 /* ************************************************************************
 
    qooxdoo - the new era of web development
@@ -64,7 +65,7 @@ qx.Bootstrap.define("qx.ui.mobile.dialog.Menu",
     this.__menuContainer.add(this.__listScroller);
     this.__menuContainer.add(this.__clearButton);
 
-    this.base(arguments, this.__menuContainer, anchor);
+    this.base(qx.ui.mobile.dialog.Popup, "constructor", this.__menuContainer, anchor);
 
     this.modal = !!anchor;
   },
@@ -184,7 +185,7 @@ qx.Bootstrap.define("qx.ui.mobile.dialog.Menu",
 
     // overidden
     show : function() {
-      this.base(arguments);
+      this.base(qx.ui.mobile.dialog.Popup, "show");
 
       this.scrollToItem(this.selectedIndex);
     },
@@ -239,7 +240,7 @@ qx.Bootstrap.define("qx.ui.mobile.dialog.Menu",
 
       qx.bom.element.Style.set(this.__listScroller[0], "maxHeight", listScrollerHeight + "px");
 
-      this.base(arguments);
+      this.base(qx.ui.mobile.dialog.Popup, "_updatePosition");
     },
 
 
@@ -373,7 +374,7 @@ qx.Bootstrap.define("qx.ui.mobile.dialog.Menu",
 
 
     dispose : function() {
-      this.base(arguments);
+      this.base(qx.ui.mobile.dialog.Popup, "dispose");
       this.__selectionList.off("tap", this._onSelectionListTap, this);
       this._disposeObjects("__selectionList","__clearButton","__listScroller","__menuContainer");
     }

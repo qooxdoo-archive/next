@@ -1,3 +1,4 @@
+"use strict";
 /* ************************************************************************
 
    qooxdoo - the new era of web development
@@ -59,7 +60,7 @@ qx.Bootstrap.define("qx.ui.mobile.form.Label",
    */
   construct : function(value)
   {
-    this.base(arguments);
+    this.base(qx.ui.mobile.core.Widget, "constructor");
     if (value) {
       this.value = value;
     }
@@ -72,7 +73,7 @@ qx.Bootstrap.define("qx.ui.mobile.form.Label",
     this.textWrap = true;
 
     if (qx.core.Environment.get("qx.dynlocale")) {
-      qx.locale.Manager.getInstance().on("changeLocale", this._onChangeLocale, this);
+      qx.locale.Manager.getInstance().addListener("changeLocale", this._onChangeLocale, this);
     }
 
     this.on("tap", this._onTap, this);
@@ -240,7 +241,7 @@ qx.Bootstrap.define("qx.ui.mobile.form.Label",
 
 
     dispose : function() {
-      this.base(arguments);
+      this.base(qx.ui.mobile.core.Widget, "dispose");
       this.off("tap", this._onTap, this);
 
       if (this.__forWidget) {

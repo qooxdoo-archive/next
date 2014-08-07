@@ -1,3 +1,4 @@
+"use strict";
 /* ************************************************************************
 
    qooxdoo - the new era of web development
@@ -69,7 +70,7 @@ qx.Bootstrap.define("qx.ui.mobile.page.NavigationPage",
    */
   construct : function(wrapContentByGroup, layout)
   {
-    this.base(arguments);
+    this.base(qx.ui.mobile.page.Page, "constructor");
 
     if(wrapContentByGroup != null) {
       this._wrapContentByGroup = wrapContentByGroup;
@@ -528,7 +529,7 @@ qx.Bootstrap.define("qx.ui.mobile.page.NavigationPage",
     // overridden
     _initialize : function()
     {
-      this.base(arguments);
+      this.base(qx.ui.mobile.page.Page, "_initialize");
 
       this.__scrollContainer = this._createScrollContainer();
       this.__content = this._createContent();
@@ -597,7 +598,7 @@ qx.Bootstrap.define("qx.ui.mobile.page.NavigationPage",
 
     dispose : function()
     {
-      this.base(arguments);
+      this.base(qx.ui.mobile.page.Page, "dispose");
       this._disposeObjects("__leftContainer", "__rightContainer", "__backButton",
         "__actionButton", "__title");
       this.__leftContainer = this.__rightContainer = this.__backButton = this.__actionButton = null;

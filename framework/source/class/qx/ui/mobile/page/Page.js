@@ -1,3 +1,4 @@
+"use strict";
 /* ************************************************************************
 
    qooxdoo - the new era of web development
@@ -67,7 +68,7 @@ qx.Bootstrap.define("qx.ui.mobile.page.Page",
 
   construct : function(layout)
   {
-    this.base(arguments, layout || new qx.ui.mobile.layout.VBox());
+    this.base(qx.ui.mobile.container.Composite, "constructor", layout || new qx.ui.mobile.layout.VBox());
   },
 
 
@@ -192,7 +193,7 @@ qx.Bootstrap.define("qx.ui.mobile.page.Page",
       qx.ui.mobile.page.Page._currentPage = this;
       this.initialize();
       this.start();
-      this.base(arguments, properties);
+      this.base(qx.ui.mobile.container.Composite, "show", properties);
     },
 
 
@@ -200,7 +201,7 @@ qx.Bootstrap.define("qx.ui.mobile.page.Page",
     exclude : function(properties)
     {
       this.stop();
-      this.base(arguments, properties);
+      this.base(qx.ui.mobile.container.Composite, "exclude", properties);
     },
 
 

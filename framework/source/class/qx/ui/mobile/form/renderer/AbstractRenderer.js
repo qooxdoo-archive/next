@@ -1,3 +1,4 @@
+"use strict";
 /* ************************************************************************
 
    qooxdoo - the new era of web development
@@ -41,7 +42,7 @@ qx.Bootstrap.define("qx.ui.mobile.form.renderer.AbstractRenderer",
    */
   construct : function(form)
   {
-    this.base(arguments);
+    this.base(qx.ui.mobile.core.Widget, "constructor");
 
     this._form = form;
     this._render();

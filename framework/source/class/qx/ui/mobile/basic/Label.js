@@ -1,3 +1,4 @@
+"use strict";
 /* ************************************************************************
 
    qooxdoo - the new era of web development
@@ -50,7 +51,7 @@ qx.Bootstrap.define("qx.ui.mobile.basic.Label",
    */
   construct : function(value)
   {
-    this.base(arguments);
+    this.base(qx.ui.mobile.core.Widget, "constructor");
     if (value) {
       this.value = value;
     }
@@ -168,7 +169,7 @@ qx.Bootstrap.define("qx.ui.mobile.basic.Label",
 
 
     dispose : function() {
-      this.base(arguments);
+      this.base(qx.ui.mobile.core.Widget, "dispose");
       if (qx.core.Environment.get("qx.dynlocale")) {
         qx.locale.Manager.getInstance().off("changeLocale", this._onChangeLocale, this);
       }

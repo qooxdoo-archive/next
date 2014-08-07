@@ -1,3 +1,4 @@
+"use strict";
 /* ************************************************************************
 
    qooxdoo - the new era of web development
@@ -29,7 +30,7 @@ qx.Class.define("qx.ui.form.Resetter",
 
   construct : function()
   {
-    this.base(arguments);
+    this.base(qx.core.Object, "constructor");
 
     this.__items = [];
   },

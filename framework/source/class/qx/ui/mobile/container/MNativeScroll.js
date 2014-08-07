@@ -1,3 +1,4 @@
+"use strict";
 /* ************************************************************************
 
    qooxdoo - the new era of web development
@@ -311,9 +312,8 @@ qx.Mixin.define("qx.ui.mobile.container.MNativeScroll",
       }
     },
 
-
-    dispose : function() {
-      this.base(arguments);
+    // TODO
+    disposeAAA : function() {
       qx.bom.Event.removeNativeListener(this._getContentElement(), "scroll", this._onScroll.bind(this));
 
       this.off("touchmove", this._onTouchMove, this);

@@ -1,3 +1,4 @@
+"use strict";
 /* ************************************************************************
 
    qooxdoo - the new era of web development
@@ -34,7 +35,7 @@ qx.Bootstrap.define("qx.ui.mobile.form.renderer.Single",
     this.__errorMessageContainers = [];
     this._rows = [];
     this._labels = [];
-    this.base(arguments,form);
+    this.base(qx.ui.mobile.form.renderer.AbstractRenderer, "constructor",form);
     this.addClass("single");
   },
 
@@ -65,7 +66,7 @@ qx.Bootstrap.define("qx.ui.mobile.form.renderer.Single",
       this._disposeArray("_rows");
       this._rows = [];
       this._labels = [];
-      this.base(arguments);
+      this.base(qx.ui.mobile.form.renderer.AbstractRenderer, "_onFormChange");
     },
 
     /**
@@ -335,7 +336,7 @@ qx.Bootstrap.define("qx.ui.mobile.form.renderer.Single",
 
 
     dispose : function() {
-      this.base(arguments);
+      this.base(qx.ui.mobile.form.renderer.AbstractRenderer, "dispose");
       this.resetForm();
       this._disposeArray("_labels");
       this._disposeArray("_rows");

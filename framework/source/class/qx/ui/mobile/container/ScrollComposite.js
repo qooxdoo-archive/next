@@ -1,3 +1,4 @@
+"use strict";
 /* ************************************************************************
 
    qooxdoo - the new era of web development
@@ -55,7 +56,7 @@ qx.Bootstrap.define("qx.ui.mobile.container.ScrollComposite",
    */
   construct : function(layout)
   {
-    this.base(arguments);
+    this.base(qx.ui.mobile.container.Composite, "constructor");
 
     if (qx.core.Environment.get("qx.debug"))
     {
@@ -564,7 +565,7 @@ qx.Bootstrap.define("qx.ui.mobile.container.ScrollComposite",
 
 
     dispose : function() {
-      this.base(arguments);
+      this.base(qx.ui.mobile.container.Composite, "dispose");
       this.off("trackstart",this._onTrackStart,this);
       this.off("track",this._onTrack,this);
       this.off("swipe",this._onSwipe,this);

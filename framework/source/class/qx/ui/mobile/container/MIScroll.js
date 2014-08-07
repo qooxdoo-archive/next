@@ -1,3 +1,4 @@
+"use strict";
 /* ************************************************************************
 
    qooxdoo - the new era of web development
@@ -350,7 +351,6 @@ qx.Mixin.define("qx.ui.mobile.container.MIScroll",
         this.__scroll.dispose();
       }
       this.__scroll = null;
-      this.base(arguments);
     }
   }
 });

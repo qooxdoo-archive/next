@@ -1,3 +1,4 @@
+"use strict";
 /* ************************************************************************
 
    qooxdoo - the new era of web development
@@ -77,7 +78,7 @@ qx.Bootstrap.define("qx.ui.mobile.dialog.Popup",
    */
   construct : function(widget, anchor)
   {
-    this.base(arguments);
+    this.base(qx.ui.mobile.core.Widget, "constructor");
     this.exclude();
 
     if(qx.ui.mobile.dialog.Popup.ROOT == null) {
@@ -245,7 +246,7 @@ qx.Bootstrap.define("qx.ui.mobile.dialog.Popup",
 
         // Needs to be added to screen, before rendering position, for calculating
         // objects height.
-        this.base(arguments);
+        this.base(qx.ui.mobile.core.Widget, "show");
 
         // Now render position.
         this._updatePosition();
@@ -582,7 +583,7 @@ qx.Bootstrap.define("qx.ui.mobile.dialog.Popup",
 
 
     dispose : function() {
-      this.base(arguments);
+      this.base(qx.ui.mobile.core.Widget, "dispose");
       this.__unregisterEventListener();
       this._disposeObjects("__childrenContainer");
 

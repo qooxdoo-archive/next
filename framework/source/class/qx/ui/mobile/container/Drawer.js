@@ -1,3 +1,4 @@
+"use strict";
 /* ************************************************************************
 
    qooxdoo - the new era of web development
@@ -59,7 +60,7 @@ qx.Bootstrap.define("qx.ui.mobile.container.Drawer",
    */
   construct : function(parent, layout)
   {
-    this.base(arguments);
+    this.base(qx.ui.mobile.container.Composite, "constructor");
 
     if (layout) {
       this.setLayout(layout);
@@ -352,7 +353,7 @@ qx.Bootstrap.define("qx.ui.mobile.container.Drawer",
         var callArguments = arguments;
         var transitionTarget = this._getTransitionTarget();
         var onTransitionEnd = function(evt) {
-          this.base(callArguments);
+          this.base(qx.ui.mobile.container.Composite, "show");
           this._disableTransition();
           this.__inTransition = false;
           transitionTarget.off("transitionend", onTransitionEnd, this);
@@ -391,7 +392,7 @@ qx.Bootstrap.define("qx.ui.mobile.container.Drawer",
         var callArguments = arguments;
         var transitionTarget = this._getTransitionTarget()[0];
         var listenerId = qx.bom.Element.on(transitionTarget, "transitionEnd", function(evt) {
-          this.base(callArguments);
+          this.base(qx.ui.mobile.container.Composite, "hide");
           this._disableTransition();
           this.__parent.removeClass("blocked");
           this.__inTransition = false;
@@ -402,7 +403,7 @@ qx.Bootstrap.define("qx.ui.mobile.container.Drawer",
           this.addClass("hidden");
         }.bind(this), 0);
       } else {
-        this.base(arguments);
+        this.base(qx.ui.mobile.container.Composite, "hide");
         this.addClass("hidden");
         this.__inTransition = false;
         this.__parent.removeClass("blocked");
@@ -543,7 +544,7 @@ qx.Bootstrap.define("qx.ui.mobile.container.Drawer",
 
     dispose : function()
     {
-      this.base(arguments);
+      this.base(qx.ui.mobile.container.Composite, "dispose");
       qx.core.Init.getApplication().off("back", this.forceHide, this);
 
       this.__parent.off("swipe", this._onParentSwipe, this);

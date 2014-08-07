@@ -1,3 +1,4 @@
+"use strict";
 /* ************************************************************************
 
    qooxdoo - the new era of web development
@@ -50,7 +51,7 @@ qx.Bootstrap.define("qx.ui.mobile.container.Scroll",
   */
   construct : function(scrollProperties)
   {
-    this.base(arguments);
+    this.base(qx.ui.mobile.container.Composite, "constructor");
 
     if(scrollProperties) {
       this._scrollProperties = scrollProperties;
@@ -307,7 +308,7 @@ qx.Bootstrap.define("qx.ui.mobile.container.Scroll",
 
     // overridden
     _createContainerElement: function() {
-      var element = this.base(arguments);
+      var element = this.base(qx.ui.mobile.container.Composite, "_createContainerElement");
       var scrollElement = this._createScrollElement();
       if (scrollElement) {
         return scrollElement;
@@ -319,7 +320,7 @@ qx.Bootstrap.define("qx.ui.mobile.container.Scroll",
 
     // overridden
     _getContentElement: function() {
-      var contentElement = this.base(arguments);
+      var contentElement = this.base(qx.ui.mobile.container.Composite, "_getContentElement");
 
       var scrollContentElement = this._getScrollContentElement();
 
@@ -490,7 +491,7 @@ qx.Bootstrap.define("qx.ui.mobile.container.Scroll",
 
 
     dispose : function() {
-      this.base(arguments);
+      this.base(qx.ui.mobile.container.Composite, "dispose");
       this.off("appear", this._updateWaypoints, this);
       this.off("domupdated", this._updateWaypoints, this);
 

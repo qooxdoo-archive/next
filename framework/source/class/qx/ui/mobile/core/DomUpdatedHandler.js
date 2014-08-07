@@ -1,3 +1,4 @@
+"use strict";
 /* ************************************************************************
 
    qooxdoo - the new era of web development
@@ -43,7 +44,7 @@ qx.Bootstrap.define("qx.ui.mobile.core.DomUpdatedHandler",
    */
   construct : function(manager)
   {
-    this.base(arguments);
+    this.base(qx.core.Object, "constructor");
 
     this.__manager = manager;
     this.__targets = {};
@@ -180,7 +181,7 @@ qx.Bootstrap.define("qx.ui.mobile.core.DomUpdatedHandler",
 
 
     dispose : function() {
-      this.base(arguments);
+      this.base(qx.core.Object, "dispose");
       this.__manager = this.__targets = null;
 
       // Deregister

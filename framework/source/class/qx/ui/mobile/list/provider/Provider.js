@@ -1,3 +1,4 @@
+"use strict";
 /* ************************************************************************
 
    qooxdoo - the new era of web development
@@ -24,7 +25,7 @@
  */
 qx.Bootstrap.define("qx.ui.mobile.list.provider.Provider",
 {
-  extend : qx.core.Object,
+  extend : Object,
 
 
   properties:
@@ -207,12 +208,6 @@ qx.Bootstrap.define("qx.ui.mobile.list.provider.Provider",
     {
       this._setItemRenderer(this._createItemRenderer());
       this._setGroupRenderer(this._createGroupRenderer());
-    },
-
-
-    dispose : function() {
-      this.base(arguments);
-      this._disposeObjects("__itemRenderer","__groupRenderer");
     }
   }
 });

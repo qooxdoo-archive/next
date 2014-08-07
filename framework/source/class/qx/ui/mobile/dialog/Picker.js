@@ -1,3 +1,4 @@
+"use strict";
 /* ************************************************************************
 
    qooxdoo - the new era of web development
@@ -101,7 +102,7 @@ qx.Bootstrap.define("qx.ui.mobile.dialog.Picker",
 
     this.modal = !!anchor;
 
-    this.base(arguments, this.__pickerContent, anchor);
+    this.base(qx.ui.mobile.dialog.Popup, "constructor", this.__pickerContent, anchor);
   },
 
 
@@ -167,7 +168,7 @@ qx.Bootstrap.define("qx.ui.mobile.dialog.Picker",
 
     // overridden
     show : function() {
-      this.base(arguments);
+      this.base(qx.ui.mobile.dialog.Popup, "show");
       this._updateAllSlots();
     },
 
@@ -678,7 +679,7 @@ qx.Bootstrap.define("qx.ui.mobile.dialog.Picker",
 
 
     dispose : function() {
-      this.base(arguments);
+      this.base(qx.ui.mobile.dialog.Popup, "dispose");
       this._disposePickerModel();
 
       this._removePickerSlots();

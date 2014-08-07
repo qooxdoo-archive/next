@@ -1,3 +1,4 @@
+"use strict";
 /* ************************************************************************
 
    qooxdoo - the new era of web development
@@ -51,7 +52,7 @@ qx.Bootstrap.define("qx.ui.mobile.tabbar.TabBar",
 
   construct : function()
   {
-    this.base(arguments);
+    this.base(qx.ui.mobile.core.Widget, "constructor");
     this._setLayout(new qx.ui.mobile.layout.HBox());
     this.on("tap", this._onTap, this);
   },
@@ -187,7 +188,7 @@ qx.Bootstrap.define("qx.ui.mobile.tabbar.TabBar",
 
 
     dispose : function() {
-      this.base(arguments);
+      this.base(qx.ui.mobile.core.Widget, "dispose");
       this.off("tap", this._onTap, this);
     }
   }

@@ -1,3 +1,4 @@
+"use strict";
 /* ************************************************************************
 
    qooxdoo - the new era of web development
@@ -25,29 +26,12 @@ qx.Bootstrap.define("qx.ui.mobile.toolbar.Separator",
 {
   extend : qx.ui.mobile.core.Widget,
 
-  /*
-  *****************************************************************************
-     CONSTRUCTOR
-  *****************************************************************************
-  */
-
-    construct : function()
+  properties :
+  {
+    // overridden
+    defaultCssClass :
     {
-      this.base(arguments);
-    },
-
-  /*
-  *****************************************************************************
-     PROPERTIES
-  *****************************************************************************
-  */
-
-    properties :
-    {
-      // overridden
-      defaultCssClass :
-      {
-          init : "toolbar-separator"
-      }
+        init : "toolbar-separator"
     }
+  }
 });

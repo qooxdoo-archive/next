@@ -1,3 +1,4 @@
+"use strict";
 /* ************************************************************************
 
    qooxdoo - the new era of web development
@@ -37,7 +38,7 @@ qx.Bootstrap.define("qx.ui.mobile.core.Widget",
 
   construct : function()
   {
-    this.base(arguments);
+    this.base(qxWeb, "constructor");
 
     if (qx.core.Environment.get("qx.debug")) {
       qx.Mixin.add(this.constructor, qx.core.MAssert); //TODO: Assertion module
@@ -703,7 +704,7 @@ qx.Bootstrap.define("qx.ui.mobile.core.Widget",
     */
     setHtml : function(value)
     {
-      this.base(arguments, value || "");
+      this.base(qxWeb, "setHtml", value || "");
       this._domUpdated();
     },
 
@@ -807,7 +808,7 @@ qx.Bootstrap.define("qx.ui.mobile.core.Widget",
      * @param value {var} The value of the style. <code>Null</code> will reset the attribute.
      */
     setStyle : function(style, value) {
-      this.base(arguments, style, value);
+      this.base(qxWeb, "setStyle", style, value);
       this._domUpdated();
     },
 
@@ -837,7 +838,7 @@ qx.Bootstrap.define("qx.ui.mobile.core.Widget",
      * @param cssClass {String} The CSS class to add
      */
     addClass : function(cssClass) {
-      this.base(arguments, cssClass);
+      this.base(qxWeb, "addClass", cssClass);
       this._domUpdated();
     },
 
@@ -850,7 +851,7 @@ qx.Bootstrap.define("qx.ui.mobile.core.Widget",
      */
     addClasses : function(cssClasses) {
       if (cssClasses){
-        this.base(arguments, cssClasses);
+        this.base(qxWeb, "addClasses", cssClasses);
         this._domUpdated();
       }
     },
@@ -863,7 +864,7 @@ qx.Bootstrap.define("qx.ui.mobile.core.Widget",
      */
     removeClass : function(cssClass) {
       if (this.hasClass(cssClass)) {
-        this.base(arguments, cssClass);
+        this.base(qxWeb, "removeClass", cssClass);
         this._domUpdated();
       }
     },
@@ -876,7 +877,7 @@ qx.Bootstrap.define("qx.ui.mobile.core.Widget",
      */
     removeClasses : function(cssClasses) {
        if (cssClasses){
-         this.base(arguments, cssClasses);
+         this.base(qxWeb, "removeClasses", cssClasses);
          this._domUpdated();
        }
     },

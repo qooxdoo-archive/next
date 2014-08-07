@@ -1,3 +1,4 @@
+"use strict";
 /* ************************************************************************
 
    qooxdoo - the new era of web development
@@ -40,7 +41,7 @@ qx.Bootstrap.define("qx.ui.mobile.core.EventHandler",
 
   construct : function()
   {
-    this.base(arguments);
+    this.base(qx.core.Object, "constructor");
 
     this.__manager = qx.event.Registration.getManager(window);
   },
@@ -367,7 +368,7 @@ qx.Bootstrap.define("qx.ui.mobile.core.EventHandler",
 
 
     dispose : function() {
-      this.base(arguments);
+      this.base(qx.core.Object, "dispose");
       this.__manager = null;
     }
   },

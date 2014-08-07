@@ -1,3 +1,4 @@
+"use strict";
 /* ************************************************************************
 
    qooxdoo - the new era of web development
@@ -53,7 +54,7 @@ qx.Bootstrap.define("qx.ui.mobile.form.Group",
    */
   construct : function(widgets, showBorder)
   {
-    this.base(arguments);
+    this.base(qx.ui.mobile.container.Composite, "construct");
 
     this.addClass("bordered");
 

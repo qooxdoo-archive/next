@@ -1,3 +1,4 @@
+"use strict";
 /* ************************************************************************
 
    qooxdoo - the new era of web development
@@ -264,12 +265,6 @@ qx.Bootstrap.define("qx.ui.mobile.layout.Abstract",
         cache[id] = {};
       }
       return cache[id];
-    },
-
-
-    dispose : function() {
-      this.base(arguments);
-      this._widget = null;
     }
   }
 });

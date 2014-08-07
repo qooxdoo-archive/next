@@ -1,3 +1,4 @@
+"use strict";
 /* ************************************************************************
 
    qooxdoo - the new era of web development
@@ -78,7 +79,7 @@ qx.Bootstrap.define("qx.ui.mobile.list.List",
    */
   construct : function(delegate)
   {
-    this.base(arguments);
+    this.base(qx.ui.mobile.core.Widget, "constructor");
     this.__provider = new qx.ui.mobile.list.provider.Provider(this);
 
     this.on("tap", this._onTap, this);
@@ -565,7 +566,7 @@ qx.Bootstrap.define("qx.ui.mobile.list.List",
 
 
     dispose : function() {
-      this.base(arguments);
+      this.base(qx.ui.mobile.core.Widget, "dispose");
       this.__trackElement = null;
       this._disposeObjects("__provider");
       if (qx.core.Environment.get("qx.dynlocale")) {

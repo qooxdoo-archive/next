@@ -1,3 +1,4 @@
+"use strict";
 /* ************************************************************************
 
    qooxdoo - the new era of web development
@@ -61,7 +62,7 @@ qx.Bootstrap.define("qx.ui.mobile.form.Slider",
 
   construct : function()
   {
-    this.base(arguments);
+    this.base(qx.ui.mobile.core.Widget, "constructor");
     this._registerEventListener();
     this._refresh();
 
@@ -170,7 +171,7 @@ qx.Bootstrap.define("qx.ui.mobile.form.Slider",
     // overridden
     _createContainerElement : function()
     {
-      var container = this.base(arguments);
+      var container = this.base(qx.ui.mobile.core.Widget, "_createContainerElement");
       container.appendChild(this._createKnobElement());
       return container;
     },
@@ -477,7 +478,7 @@ qx.Bootstrap.define("qx.ui.mobile.form.Slider",
 
 
     dispose : function() {
-      this.base(arguments);
+      this.base(qx.ui.mobile.core.Widget, "dispose");
       this._knobElement = null;
       this._unregisterEventListener();
     }

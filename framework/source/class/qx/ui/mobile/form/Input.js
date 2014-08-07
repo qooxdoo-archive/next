@@ -1,3 +1,4 @@
+"use strict";
 /* ************************************************************************
 
    qooxdoo - the new era of web development
@@ -38,7 +39,7 @@ qx.Bootstrap.define("qx.ui.mobile.form.Input",
 
   construct : function()
   {
-    this.base(arguments);
+    this.base(qx.ui.mobile.core.Widget, "constructor");
     this._setAttribute("type", this._getType());
     this.addClass("gap");
 
@@ -94,7 +95,7 @@ qx.Bootstrap.define("qx.ui.mobile.form.Input",
 
 
     dispose : function() {
-      this.base(arguments);
+      this.base(qx.ui.mobile.core.Widget, "dispose");
       this.off("focus", this._onSelected, this);
     }
   }

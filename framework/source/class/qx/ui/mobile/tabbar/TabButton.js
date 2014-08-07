@@ -1,3 +1,4 @@
+"use strict";
 /* ************************************************************************
 
    qooxdoo - the new era of web development
@@ -60,8 +61,7 @@ qx.Bootstrap.define("qx.ui.mobile.tabbar.TabButton",
   members :
   {
     // property apply
-    _applyView : function(value, old)
-    {
+    _applyView : function(value, old) {
       value.exclude();
     }
   }

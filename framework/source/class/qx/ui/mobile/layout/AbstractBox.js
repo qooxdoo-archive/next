@@ -1,3 +1,4 @@
+"use strict";
 /* ************************************************************************
 
    qooxdoo - the new era of web development
@@ -38,7 +39,8 @@ qx.Bootstrap.define("qx.ui.mobile.layout.AbstractBox",
    */
   construct : function(alignX, alignY, reversed)
   {
-    this.base(arguments);
+    this.base(qx.ui.mobile.layout.Abstract, "constructor");
+
     if (alignX) {
       this.alignX = alignX;
     }
@@ -204,14 +206,14 @@ qx.Bootstrap.define("qx.ui.mobile.layout.AbstractBox",
         this.alignY = undefined;
         this.reversed = undefined;
       }
-      this.base(arguments, widget);
+      this.base(qx.ui.mobile.layout.Abstract, "connectToWidget", widget);
     },
 
 
     // overridden
     disconnectFromChildWidget : function(widget)
     {
-      this.base(arguments);
+      this.base(qx.ui.mobile.layout.Abstract, "disconnectFromChildWidget");
       for (var i = 0; i <= 6; i++) {
         widget.removeClass("qx-flex" +i);
       }

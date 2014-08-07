@@ -1,3 +1,4 @@
+"use strict";
 /* ************************************************************************
 
    qooxdoo - the new era of web development
@@ -32,7 +33,7 @@ qx.Bootstrap.define("qx.ui.mobile.form.renderer.SinglePlaceholder",
    */
   construct : function(form)
   {
-    this.base(arguments,form);
+    this.base(qx.ui.mobile.form.renderer.Single, "constructor",form);
     this.removeClass("single");
     this.addClass("single-placeholder");
   },

@@ -1,3 +1,4 @@
+"use strict";
 /* ************************************************************************
 
    qooxdoo - the new era of web development
@@ -30,7 +31,7 @@ qx.Bootstrap.define("qx.ui.mobile.form.Resetter",
      // override
     _supportsValue : function(formItem) {
       var clazz = formItem.constructor;
-      return ( this.base(arguments,formItem) ||
+      return ( this.base(qx.ui.form.Resetter, "_supportsValue", formItem) ||
         qx.Class.hasMixin(clazz, qx.ui.mobile.form.MValue)
       );
     }

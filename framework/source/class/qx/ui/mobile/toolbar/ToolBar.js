@@ -1,3 +1,4 @@
+"use strict";
 /* ************************************************************************
 
    qooxdoo - the new era of web development
@@ -33,7 +34,7 @@ qx.Bootstrap.define("qx.ui.mobile.toolbar.ToolBar",
   */
   construct : function(layout)
   {
-    this.base(arguments, layout);
+    this.base(qx.ui.mobile.container.Composite, "containeror", layout);
     if (!layout) {
       layout = new qx.ui.mobile.layout.HBox();
       layout.alignY = "middle";
@@ -79,7 +80,7 @@ qx.Bootstrap.define("qx.ui.mobile.toolbar.ToolBar",
         layoutProperties = layoutProperties ? layoutProperties : {};
         qx.lang.Object.mergeWith(layoutProperties, {flex: 1}, false);
       }
-      this.base(arguments, child, layoutProperties);
+      this.base(qx.ui.mobile.container.Composite, "add", child, layoutProperties);
     }
   }
 });

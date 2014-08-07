@@ -1,3 +1,4 @@
+"use strict";
 /* ************************************************************************
 
    qooxdoo - the new era of web development
@@ -140,21 +141,12 @@ qx.Bootstrap = {
   },
 
 
-  base : function(args, varargs)
+  base : function(clazz, name, varargs)
   {
-    if (qx.Bootstrap.DEBUG) {
-      if (!(args.callee.base instanceof Function)) {
-        throw new Error(
-          "Cannot call super class. Method is not derived: " +
-          args.callee.displayName
-        );
-      }
-    }
-
     if (arguments.length === 1) {
-      return args.callee.base.call(this);
+      return clazz.prototype[name].call(this);
     } else {
-      return args.callee.base.apply(this, Array.prototype.slice.call(arguments, 1));
+      return clazz.prototype[name].apply(this, Array.prototype.slice.call(arguments, 2));
     }
   },
 

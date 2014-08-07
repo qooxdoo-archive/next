@@ -1,3 +1,4 @@
+"use strict";
 /* ************************************************************************
 
    qooxdoo - the new era of web development
@@ -55,7 +56,7 @@ qx.Bootstrap.define("qx.ui.mobile.layout.Card",
   */
   construct : function()
   {
-    this.base(arguments);
+    this.base(qx.ui.mobile.layout.Abstract, "constructor");
 
     this.__cardAnimation = new qx.ui.mobile.layout.CardAnimation();
   },
@@ -135,7 +136,7 @@ qx.Bootstrap.define("qx.ui.mobile.layout.Card",
     // overridden
     connectToChildWidget : function(widget)
     {
-      this.base(arguments);
+      this.base(qx.ui.mobile.layout.Abstract, "connectToChildWidget");
       if (widget) {
         widget.addClass("layout-card-item");
         widget.addClass("qx-flex1");
@@ -147,7 +148,7 @@ qx.Bootstrap.define("qx.ui.mobile.layout.Card",
     // overridden
     disconnectFromChildWidget : function(widget)
     {
-      this.base(arguments);
+      this.base(qx.ui.mobile.layout.Abstract, "disconnectFromChildWidget");
       widget.removeClass("layout-card-item");
     },
 
@@ -159,7 +160,7 @@ qx.Bootstrap.define("qx.ui.mobile.layout.Card",
       {
         this._showWidget(widget, properties);
       }
-      this.base(arguments, widget, action, properties);
+      this.base(qx.ui.mobile.layout.Abstract, "updateLayout", widget, action, properties);
     },
 
 
@@ -375,7 +376,7 @@ qx.Bootstrap.define("qx.ui.mobile.layout.Card",
 
 
     dispose : function() {
-      this.base(arguments);
+      this.base(qx.ui.mobile.layout.Abstract, "dispose");
       this._disposeObjects("__cardAnimation");
     }
   }

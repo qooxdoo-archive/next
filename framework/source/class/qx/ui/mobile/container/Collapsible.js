@@ -1,3 +1,4 @@
+"use strict";
 /* ************************************************************************
 
    qooxdoo - the new era of web development
@@ -55,7 +56,7 @@ qx.Bootstrap.define("qx.ui.mobile.container.Collapsible",
   */
   construct : function(title)
   {
-    this.base(arguments);
+    this.base(qx.ui.mobile.core.Widget, "constructor");
 
     this._header = this._createHeader();
     this._header.addClass("collapsible-header");
@@ -213,7 +214,7 @@ qx.Bootstrap.define("qx.ui.mobile.container.Collapsible",
 
 
     dispose : function() {
-      this.base(arguments);
+      this.base(qx.ui.mobile.core.Widget, "dispose");
       this._header.off("tap", this._toggleCollapsed, this);
       this._disposeObjects("_header", "_content");
     }

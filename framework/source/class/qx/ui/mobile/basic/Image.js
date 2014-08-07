@@ -1,3 +1,4 @@
+"use strict";
 /* ************************************************************************
 
    qooxdoo - the new era of web development
@@ -51,7 +52,7 @@ qx.Bootstrap.define("qx.ui.mobile.basic.Image",
    */
   construct : function(source)
   {
-    this.base(arguments);
+    this.base(qx.ui.mobile.core.Widget, "constructor");
 
     if (qx.ui.mobile.basic.Image.ROOT === null) {
       qx.ui.mobile.basic.Image.ROOT = qx.core.Init.getApplication().getRoot();
@@ -317,7 +318,7 @@ qx.Bootstrap.define("qx.ui.mobile.basic.Image",
 
 
     dispose : function() {
-      this.base(arguments);
+      this.base(qx.ui.mobile.core.Widget, "dispose");
       qx.ui.mobile.basic.Image.ROOT.off("changeAppScale", this._onChangeAppScale, this);
     }
   },

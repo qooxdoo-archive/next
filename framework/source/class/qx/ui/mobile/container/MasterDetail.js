@@ -1,3 +1,4 @@
+"use strict";
 /* ************************************************************************
 
    qooxdoo - the new era of web development
@@ -69,7 +70,7 @@ qx.Bootstrap.define("qx.ui.mobile.container.MasterDetail",
    */
   construct : function(layout)
   {
-    this.base(arguments, layout || new qx.ui.mobile.layout.HBox());
+    this.base(qx.ui.mobile.container.Composite, "constructor", layout || new qx.ui.mobile.layout.HBox());
     this.__master = this._createMasterContainer();
     this.__detail = this._createDetailContainer();
     this.__detail.layoutPrefs = {flex:4};
@@ -160,7 +161,7 @@ qx.Bootstrap.define("qx.ui.mobile.container.MasterDetail",
 
 
     dispose : function() {
-      this.base(arguments);
+      this.base(qx.ui.mobile.container.Composite, "dispose");
       qxWeb(window).off("orientationchange", this._onOrientationChange, this);
       this._disposeObjects("__master", "__detail");
       this.__master = this.__detail = null;

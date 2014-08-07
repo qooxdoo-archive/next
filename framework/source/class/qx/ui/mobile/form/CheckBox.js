@@ -1,3 +1,4 @@
+"use strict";
 /* ************************************************************************
 
    qooxdoo - the new era of web development
@@ -58,7 +59,7 @@ qx.Bootstrap.define("qx.ui.mobile.form.CheckBox",
    */
   construct : function(value)
   {
-    this.base(arguments);
+    this.base(qx.ui.mobile.form.Input, "constructor");
 
     if(typeof value != undefined) {
       this.value = value;
@@ -141,7 +142,7 @@ qx.Bootstrap.define("qx.ui.mobile.form.CheckBox",
 
 
     dispose : function() {
-      this.base(arguments);
+      this.base(qx.ui.mobile.form.Input, "dispose");
       this.off("tap", this._onTap, this);
     }
   }

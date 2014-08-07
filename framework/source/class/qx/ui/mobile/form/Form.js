@@ -1,3 +1,4 @@
+"use strict";
 /* ************************************************************************
 
    qooxdoo - the new era of web development
@@ -47,7 +48,7 @@ qx.Bootstrap.define("qx.ui.mobile.form.Form",
 
   construct : function()
   {
-    this.base(arguments);
+    this.base(qx.ui.form.Form, "constructor");
     this.__invalidItems = [];
   },
 
@@ -90,7 +91,7 @@ qx.Bootstrap.define("qx.ui.mobile.form.Form",
      */
     validate : function()
     {
-      var validateResult = this.base(arguments);
+      var validateResult = this.base(qx.ui.form.Form, "validate");
 
       this.__invalidItems = [];
 
@@ -174,7 +175,7 @@ qx.Bootstrap.define("qx.ui.mobile.form.Form",
 
     // overridden
     reset : function() {
-      this.base(arguments);
+      this.base(qx.ui.form.Form, "reset");
       this.__renderer.resetForm();
     },
 

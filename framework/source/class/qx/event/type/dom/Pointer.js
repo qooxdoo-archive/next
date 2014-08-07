@@ -1,3 +1,4 @@
+"use strict";
 /* ************************************************************************
 
    qooxdoo - the new era of web development
@@ -196,7 +197,7 @@ qx.Bootstrap.define("qx.event.type.dom.Pointer", {
   },
 
   construct : function(type, domEvent, customProps) {
-    return this.base(arguments, type, domEvent, customProps);
+    return this.base(qx.event.type.dom.Custom, "constructor", type, domEvent, customProps);
   },
 
   members : {

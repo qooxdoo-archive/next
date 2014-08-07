@@ -1,3 +1,4 @@
+"use strict";
 /* ************************************************************************
 
    qooxdoo - the new era of web development
@@ -52,7 +53,7 @@ qx.Bootstrap.define("qx.ui.mobile.basic.Atom",
    */
   construct : function(label, icon)
   {
-    this.base(arguments);
+    this.base(qx.ui.mobile.core.Widget, "constructor");
     this.__createChildren(label, icon);
 
     this.addClass("gap");
@@ -336,7 +337,7 @@ qx.Bootstrap.define("qx.ui.mobile.basic.Atom",
 
 
     dispose : function() {
-      this.base(arguments);
+      this.base(qx.ui.mobile.core.Widget, "dispose");
       this._disposeObjects("__label", "__icon", "__childrenContainer");
     }
   }

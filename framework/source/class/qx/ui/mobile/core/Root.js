@@ -1,3 +1,4 @@
+"use strict";
 /* ************************************************************************
 
    qooxdoo - the new era of web development
@@ -40,7 +41,7 @@ qx.Bootstrap.define("qx.ui.mobile.core.Root",
   {
     this.__root = root || document.body;
     this.push(this.__root);
-    this.base(arguments, layout || new qx.ui.mobile.layout.VBox());
+    this.base(qx.ui.mobile.container.Composite, "constructor", layout || new qx.ui.mobile.layout.VBox());
 
     this.addClass("mobile");
     this.addClass(qx.core.Environment.get("os.name"));

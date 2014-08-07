@@ -1,3 +1,4 @@
+"use strict";
 /* ************************************************************************
 
    qooxdoo - the new era of web development
@@ -40,7 +41,7 @@ qx.Bootstrap.define("qx.ui.mobile.form.NumberField",
    */
   construct : function(value)
   {
-    this.base(arguments);
+    this.base(qx.ui.mobile.form.Input, "constructor");
     if (value) {
       this.value = value;
     }

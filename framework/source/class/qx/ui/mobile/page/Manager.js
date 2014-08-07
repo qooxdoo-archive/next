@@ -1,3 +1,4 @@
+"use strict";
 /* ************************************************************************
 
    qooxdoo - the new era of web development
@@ -58,7 +59,7 @@ qx.Bootstrap.define("qx.ui.mobile.page.Manager",
    */
   construct : function(isTablet, root)
   {
-    this.base(arguments);
+    this.base(qx.core.Object, "constructor");
 
     root = root || qx.core.Init.getApplication().getRoot();
 
@@ -563,7 +564,7 @@ qx.Bootstrap.define("qx.ui.mobile.page.Manager",
 
 
     dispose : function() {
-      this.base(arguments);
+      this.base(qx.core.Object, "dispose");
       if(this.__masterPages) {
         for(var i = 0; i < this.__masterPages.length; i++) {
           var masterPage = this.__masterPages[i];

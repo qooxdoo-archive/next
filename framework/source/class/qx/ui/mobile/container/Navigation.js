@@ -1,3 +1,4 @@
+"use strict";
 /* ************************************************************************
 
    qooxdoo - the new era of web development
@@ -50,7 +51,7 @@ qx.Bootstrap.define("qx.ui.mobile.container.Navigation",
 
   construct : function()
   {
-    this.base(arguments, new qx.ui.mobile.layout.VBox());
+    this.base(qx.ui.mobile.container.Composite, "constructor", new qx.ui.mobile.layout.VBox());
 
     this.__navigationBar = this._createNavigationBar();
     if (this.__navigationBar) {
@@ -255,7 +256,7 @@ qx.Bootstrap.define("qx.ui.mobile.container.Navigation",
 
     dispose : function()
     {
-      this.base(arguments);
+      this.base(qx.ui.mobile.container.Composite, "dispose");
       this.getLayout().off("animationStart",this._onAnimationStart, this);
       this.getLayout().off("animationEnd",this._onAnimationEnd, this);
 

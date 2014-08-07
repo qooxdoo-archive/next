@@ -1,3 +1,4 @@
+"use strict";
 /* ************************************************************************
 
    qooxdoo - the new era of web development
@@ -34,7 +35,7 @@ qx.Bootstrap.define("qx.ui.mobile.layout.CardAnimation",
   */
   construct : function()
   {
-    this.base(arguments);
+    this.base(qx.core.Object, "constructor");
 
     this._cardAnimationsMap = {
       "none": null,
@@ -146,7 +147,7 @@ qx.Bootstrap.define("qx.ui.mobile.layout.CardAnimation",
 
 
     dispose : function() {
-      this.base(arguments);
+      this.base(qx.core.Object, "dispose");
       this._cardAnimationsMap = null;
     }
   }

@@ -1,3 +1,4 @@
+"use strict";
 /* ************************************************************************
 
    qooxdoo - the new era of web development
@@ -37,7 +38,7 @@ qx.Bootstrap.define("qx.ui.mobile.form.Row",
    */
   construct : function(layout)
   {
-    this.base(arguments, layout);
+    this.base(qx.ui.mobile.container.Composite, "constructor", layout);
     this.selectable = false;
   },
 

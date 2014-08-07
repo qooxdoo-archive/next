@@ -1,3 +1,4 @@
+"use strict";
 /* ************************************************************************
 
    qooxdoo - the new era of web development
@@ -47,7 +48,7 @@ qx.Bootstrap.define("qx.ui.mobile.form.TextArea",
    */
   construct : function(value)
   {
-    this.base(arguments);
+    this.base(qx.ui.mobile.core.Widget, "constructor");
 
     if (value) {
       this.value = value;
@@ -126,7 +127,7 @@ qx.Bootstrap.define("qx.ui.mobile.form.TextArea",
 
     dispose : function()
     {
-      this.base(arguments);
+      this.base(qx.ui.mobile.core.Widget, "dispose");
       if (qx.core.Environment.get("qx.mobile.nativescroll") == false) {
         this.off("appear", this._fixChildElementsHeight, this);
         this.off("input", this._fixChildElementsHeight, this);

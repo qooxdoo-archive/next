@@ -1,3 +1,4 @@
+"use strict";
 /* ************************************************************************
 
    qooxdoo - the new era of web development
@@ -53,7 +54,7 @@ qx.Bootstrap.define("qx.ui.mobile.core.Blocker",
       throw new Error("'" + this.classname + "' is a singleton class and can not be instantiated directly. Please use '" + this.classnme + ".getInstance()' instead.");
     }
 
-    this.base(arguments);
+    this.base(qx.ui.mobile.core.Widget, "constructor");
 
     if(qx.ui.mobile.core.Blocker.ROOT == null) {
       qx.ui.mobile.core.Blocker.ROOT = qx.core.Init.getApplication().getRoot();
@@ -89,7 +90,7 @@ qx.Bootstrap.define("qx.ui.mobile.core.Blocker",
       {
         this._updateSize();
         this.__registerEventListener();
-        this.base(arguments);
+        this.base(qx.ui.mobile.core.Widget, "show");
       }
       this.__count++;
     },
@@ -189,7 +190,7 @@ qx.Bootstrap.define("qx.ui.mobile.core.Blocker",
 
 
     dispose : function() {
-      this.base(arguments);
+      this.base(qx.ui.mobile.core.Widget, "dispose");
       qx.ui.mobile.core.Blocker.ROOT.remove(this);
       this.__unregisterEventListener();
       delete qx.ui.mobile.core.Blocker.__instance;

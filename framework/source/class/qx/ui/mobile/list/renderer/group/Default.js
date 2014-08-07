@@ -1,3 +1,4 @@
+"use strict";
 /* ************************************************************************
 
    qooxdoo - the new era of web development
@@ -64,7 +65,7 @@ qx.Bootstrap.define("qx.ui.mobile.list.renderer.group.Default",
       layout = new qx.ui.mobile.layout.HBox();
     }
     layout.alignY = "middle";
-    this.base(arguments, layout);
+    this.base(qx.ui.mobile.list.renderer.group.Abstract, "constructor", layout);
     this._init();
   },
 
@@ -195,7 +196,7 @@ qx.Bootstrap.define("qx.ui.mobile.list.renderer.group.Default",
 
 
     dispose : function() {
-      this.base(arguments);
+      this.base(qx.ui.mobile.list.renderer.group.Abstract, "dispose");
       this._disposeObjects("__image", "__title", "__rightContainer");
     }
   }

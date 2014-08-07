@@ -1,3 +1,4 @@
+"use strict";
 /* ************************************************************************
 
    qooxdoo - the new era of web development
@@ -62,7 +63,7 @@ qx.Bootstrap.define("qx.ui.mobile.container.Composite",
    */
   construct : function(layout)
   {
-    this.base(arguments);
+    this.base(qx.ui.mobile.core.Widget, "constructor");
     if (layout) {
       this.setLayout(layout);
     }

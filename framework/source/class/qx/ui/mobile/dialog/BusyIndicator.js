@@ -1,3 +1,4 @@
+"use strict";
 /* ************************************************************************
 
    qooxdoo - the new era of web development
@@ -42,7 +43,7 @@ qx.Bootstrap.define("qx.ui.mobile.dialog.BusyIndicator",
   construct : function(label)
   {
     // the image passed as second argument is a blank 1px transparent png
-    this.base(arguments, label, qx.ui.mobile.basic.Image.PLACEHOLDER_IMAGE);
+    this.base(qx.ui.mobile.basic.Atom, "constructor", label, qx.ui.mobile.basic.Image.PLACEHOLDER_IMAGE);
 
     this.on("appear", this._onAppear, this);
     this.on("disappear", this._onDisappear, this);
@@ -94,7 +95,7 @@ qx.Bootstrap.define("qx.ui.mobile.dialog.BusyIndicator",
     // overridden
     _createIconWidget : function(iconUrl)
     {
-      var iconWidget = this.base(arguments,iconUrl);
+      var iconWidget = this.base(qx.ui.mobile.basic.Atom, "_createIconWidget", iconUrl);
       iconWidget.addClass(this.spinnerClass);
       return iconWidget;
     },
@@ -113,7 +114,7 @@ qx.Bootstrap.define("qx.ui.mobile.dialog.BusyIndicator",
 
 
     dispose : function() {
-      this.base(arguments);
+      this.base(qx.ui.mobile.basic.Atom, "dispose");
       this.off("appear", this._onAppear, this);
       this.off("disappear", this._onDisappear, this);
 

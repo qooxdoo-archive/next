@@ -1,3 +1,4 @@
+"use strict";
 /* ************************************************************************
 
    qooxdoo - the new era of web development
@@ -61,7 +62,7 @@ qx.Bootstrap.define("qx.ui.mobile.container.Carousel",
   */
   construct : function(transitionDuration)
   {
-    this.base(arguments);
+    this.base(qx.ui.mobile.container.Composite, "constructor");
     if (transitionDuration) {
       this.transitionDuration = transitionDuration;
     }
@@ -761,7 +762,7 @@ qx.Bootstrap.define("qx.ui.mobile.container.Carousel",
       qx.util.DisposeUtil.disposeArray(this,"__paginationLabels");
 
       this.__pages = this.__paginationLabels = this.__snapPointsX = this.__onMoveOffset = this.__lastOffset = this.__boundsX = this.__isPageScrollTarget = null;
-      this.base(arguments);
+      this.base(qx.ui.mobile.container.Composite, "dispose");
     }
   }
 });

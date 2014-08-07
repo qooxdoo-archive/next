@@ -1,3 +1,4 @@
+"use strict";
 /* ************************************************************************
 
    qooxdoo - the new era of web development
@@ -34,7 +35,7 @@ qx.Bootstrap.define("qx.ui.mobile.list.renderer.Abstract",
 
   construct : function(layout)
   {
-    this.base(arguments, layout);
+    this.base(qx.ui.mobile.container.Composite, "constructor", layout);
     this.selectable = undefined;
     this.removable = undefined;
     this.showArrow = undefined;
