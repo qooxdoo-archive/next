@@ -44,7 +44,7 @@ qx.Bootstrap.define("qx.data.Array",
    */
   construct : function(param)
   {
-    this.base(arguments);
+    this.base(qx.core.Object, "constructor");
     // if no argument is given
     if (param == undefined) {
       this.__array = [];
@@ -1043,7 +1043,7 @@ qx.Bootstrap.define("qx.data.Array",
 
 
     dispose : function() {
-      this.base(arguments);
+      this.base(qx.core.Object, "dispose");
       for (var i = 0; i < this.__array.length; i++) {
         var item = this.__array[i];
         this._applyEventPropagation(null, item, i);
