@@ -1,3 +1,4 @@
+"use strict";
 /* ************************************************************************
 
    qooxdoo - the new era of web development
@@ -20,7 +21,7 @@
 /**
  * TestRunner main application class.
  */
-qx.Class.define("testrunner.Application",
+qx.Bootstrap.define("testrunner.Application",
 {
   extend : qx.application.Native,
 
@@ -37,7 +38,7 @@ qx.Class.define("testrunner.Application",
     main : function()
     {
       // Call super class
-      this.base(arguments);
+      this.base(qx.application.Native, "main");
 
       // Enable logging in debug variant
       if (qx.core.Environment.get("qx.debug"))
@@ -49,18 +50,11 @@ qx.Class.define("testrunner.Application",
       }
 
       this.runner = new testrunner.runner.TestRunner();
+    },
+
+
+    dispose : function() {
+      this._disposeObjects("runner");
     }
-  },
-
-
-  /*
-  *****************************************************************************
-     DESTRUCTOR
-  *****************************************************************************
-  */
-
-  destruct : function()
-  {
-    this._disposeObjects("runner");
   }
 });

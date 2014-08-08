@@ -1,3 +1,4 @@
+"use strict";
 /* ************************************************************************
 
    qooxdoo - the new era of web development
@@ -21,7 +22,7 @@
  * The TestRunner is responsible for loading the test classes and keeping track
  * of the test suite's state.
  */
-qx.Class.define("testrunner.runner.TestRunner", {
+qx.Bootstrap.define("testrunner.runner.TestRunner", {
 
   extend : testrunner.runner.TestRunnerBasic,
 
@@ -43,7 +44,7 @@ qx.Class.define("testrunner.runner.TestRunner", {
       qx.Class.include(viewClass, testrunner.view.MReportResult);
     }
 
-    this.base(arguments);
+    this.base(testrunner.runner.TestRunnerBasic, "constructor");
 
     // Get log appender element from view
     if (this.view.getLogAppenderElement) {
@@ -173,7 +174,7 @@ qx.Class.define("testrunner.runner.TestRunner", {
       if (this.__logAppender) {
         this.__logAppender.clear();
       }
-      this.base(arguments);
+      this.base(testrunner.runner.TestRunnerBasic, "_runTests");
     },
 
 
@@ -197,7 +198,7 @@ qx.Class.define("testrunner.runner.TestRunner", {
         }
       }
 
-      this.base(arguments);
+      this.base(testrunner.runner.TestRunnerBasic, "_onTestEnd");
     },
 
 
@@ -323,7 +324,7 @@ qx.Class.define("testrunner.runner.TestRunner", {
       delete this.__iframe;
       this.frameWindow = null;
       delete this.frameWindow;
-      this.base(arguments);
+      this.base(testrunner.runner.TestRunnerBasic, "dispose");
     }
   }
 

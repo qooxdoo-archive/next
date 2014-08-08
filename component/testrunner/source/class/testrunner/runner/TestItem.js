@@ -1,3 +1,4 @@
+"use strict";
 /* ************************************************************************
 
    qooxdoo - the new era of web development
@@ -24,7 +25,7 @@ qx.Bootstrap.define("testrunner.runner.TestItem", {
 
   construct : function()
   {
-    this.base(arguments);
+    this.base(qx.core.Object, "constructor");
     this.$$test = this;
   },
 
@@ -245,7 +246,7 @@ qx.Bootstrap.define("testrunner.runner.TestItem", {
       if (this.parent) {
         this.parent = null;
       }
-      this.base(arguments);
+      this.base(qx.core.Object, "dispose");
     }
   }
 });
