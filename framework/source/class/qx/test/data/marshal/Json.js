@@ -45,8 +45,6 @@ qx.Class.define("qx.test.data.marshal.Json",
 
 
     tearDown : function() {
-      this.__marshaler.dispose();
-
       // remove the former created classes
       qx.data.model = {};
     },
@@ -381,7 +379,6 @@ qx.Class.define("qx.test.data.marshal.Json",
         self.assertEquals(model.a, e.getData().item, "Not the right item in the event.");
       }, "Change event not fired!");
 
-      model.a.dispose();
       // check the event for a
       this.assertEventFired(model, "changeBubble", function() {
         model.a = (true);
@@ -575,8 +572,6 @@ qx.Class.define("qx.test.data.marshal.Json",
       model.getFonts().removeAll();
 
       this.assertEquals(0, model.getFonts().length, "The remove did not work.");
-      fonts.dispose();
-
     },
 
 
@@ -602,29 +597,29 @@ qx.Class.define("qx.test.data.marshal.Json",
         var data = {"#affe" : 1};
         this.assertException(function() {
           // just check if the creation worked
-          qx.data.marshal.Json.createModel(data).dispose();
+          qx.data.marshal.Json.createModel(data);
         }, null, "The key '#affe' is not a valid JavaScript identifier.", "1");
 
         data = {"1" : 1, "true": false};
         // just check if the creation worked
-        qx.data.marshal.Json.createModel(data).dispose();
+        qx.data.marshal.Json.createModel(data);
 
         data = {"''''" : 1};
         this.assertException(function() {
           // just check if the creation worked
-          qx.data.marshal.Json.createModel(data).dispose();
+          qx.data.marshal.Json.createModel(data);
         }, null, "The key '''''' is not a valid JavaScript identifier.", "3");
 
         data = {"§AFFE" : 1};
         this.assertException(function() {
           // just check if the creation worked
-          qx.data.marshal.Json.createModel(data).dispose();
+          qx.data.marshal.Json.createModel(data);
         }, null, "The key '§AFFE' is not a valid JavaScript identifier.", "4");
 
         data = {"ja!" : 1};
         this.assertException(function() {
           // just check if the creation worked
-          qx.data.marshal.Json.createModel(data).dispose();
+          qx.data.marshal.Json.createModel(data);
         }, null, "The key 'ja!' is not a valid JavaScript identifier.", "5");
       }
     },
@@ -649,7 +644,6 @@ qx.Class.define("qx.test.data.marshal.Json",
         return qx.test.model.C;
       }};
 
-      this.__marshaler.dispose();
       this.__marshaler = new qx.data.marshal.Json(delegate);
       this.__marshaler.toClass(this.__data);
       var model = this.__marshaler.toModel(this.__data);
@@ -685,7 +679,6 @@ qx.Class.define("qx.test.data.marshal.Json",
         }
       }.bind(this)};
 
-      this.__marshaler.dispose();
       var data = {a: {b: [{c: 1}]}};
       this.__marshaler = new qx.data.marshal.Json(delegate);
       this.__marshaler.toClass(data);
@@ -711,7 +704,6 @@ qx.Class.define("qx.test.data.marshal.Json",
         return qx.test.model.C;
       }};
 
-      this.__marshaler.dispose();
       this.__marshaler = new qx.data.marshal.Json(delegate);
       this.__marshaler.toClass(this.__data);
       var model = this.__marshaler.toModel(this.__data);
@@ -745,7 +737,6 @@ qx.Class.define("qx.test.data.marshal.Json",
         }
       }.bind(this)};
 
-      this.__marshaler.dispose();
       var data = {a: {b: [{c: 1}]}};
       this.__marshaler = new qx.data.marshal.Json(delegate);
       this.__marshaler.toClass(data);
@@ -771,7 +762,6 @@ qx.Class.define("qx.test.data.marshal.Json",
         }
       }.bind(this)};
 
-      this.__marshaler.dispose();
       var data = {a: {b: [{c: 1}]}};
       this.__marshaler = new qx.data.marshal.Json(delegate);
       this.__marshaler.toClass(data);
@@ -784,7 +774,6 @@ qx.Class.define("qx.test.data.marshal.Json",
         return property + property + property;
       }};
 
-      this.__marshaler.dispose();
       this.__marshaler = new qx.data.marshal.Json(delegate);
       this.__marshaler.toClass(this.__data);
       var model = this.__marshaler.toModel(this.__data);
@@ -813,7 +802,6 @@ qx.Class.define("qx.test.data.marshal.Json",
         }
       }.bind(this)};
 
-      this.__marshaler.dispose();
       var data = {a: {b: [{c: 1}]}};
       this.__marshaler = new qx.data.marshal.Json(delegate);
       this.__marshaler.toClass(data);
@@ -826,7 +814,6 @@ qx.Class.define("qx.test.data.marshal.Json",
         return depth >= 1;
       }};
 
-      this.__marshaler.dispose();
       this.__marshaler = new qx.data.marshal.Json(delegate);
 
       var data = {a: [0], b: {x: 1}, c: {y: 2}};
@@ -848,7 +835,6 @@ qx.Class.define("qx.test.data.marshal.Json",
         return properties == "x";
       }};
 
-      this.__marshaler.dispose();
       this.__marshaler = new qx.data.marshal.Json(delegate);
 
       var data = {a: [], b: {x: 1}, c: {y: 2}};
@@ -891,7 +877,6 @@ qx.Class.define("qx.test.data.marshal.Json",
         return qx.test.Array;
       }.bind(this)};
 
-      this.__marshaler.dispose();
       this.__marshaler = new qx.data.marshal.Json(delegate);
 
       var data = ["a", "b"];
@@ -930,7 +915,6 @@ qx.Class.define("qx.test.data.marshal.Json",
         }
       }.bind(this)};
 
-      this.__marshaler.dispose();
       this.__marshaler = new qx.data.marshal.Json(delegate);
 
       var data = {a: [], b: [], c: {d: "d", e: [], f: []}};

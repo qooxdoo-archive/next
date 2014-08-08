@@ -23,7 +23,7 @@
  */
 qx.Bootstrap.define("qx.data.marshal.Json",
 {
-  extend : qx.core.Object,
+  extend : Object,
   implement : [qx.data.marshal.IMarshaler],
 
   /**
@@ -31,8 +31,6 @@ qx.Bootstrap.define("qx.data.marshal.Json",
    *   in {@link qx.data.marshal.IMarshalerDelegate}.
    */
   construct : function(delegate) {
-    this.base(arguments);
-
     this.__delegate = delegate;
   },
 
@@ -50,7 +48,7 @@ qx.Bootstrap.define("qx.data.marshal.Json",
      * @param includeBubbleEvents {Boolean} Whether the model should support
      *   the bubbling of change events or not.
      *
-     * @return {qx.core.Object} An instance of the corresponding class.
+     * @return {qx.event.Emitter} An instance of the corresponding class.
      */
     createModel : function(data, includeBubbleEvents) {
       // singleton for the json marshaler
@@ -121,7 +119,7 @@ qx.Bootstrap.define("qx.data.marshal.Json",
       if (
         !qx.lang.Type.isObject(data)
         || !!data.$$isString // check for localized strings
-        || data instanceof qx.core.Object
+        || data instanceof qx.event.Emitter
       ) {
         // check for arrays
         if (data instanceof Array || qx.Bootstrap.getClass(data) == "Array") {
@@ -174,7 +172,7 @@ qx.Bootstrap.define("qx.data.marshal.Json",
         key = key.replace(/-|\.|\s+/g, "");
         // check for valid JavaScript identifier (leading numbers are ok)
         if (qx.core.Environment.get("qx.debug")) {
-          this.assertTrue((/^[$0-9A-Za-z_]*$/).test(key),
+          qx.core.Assert.assertTrue((/^[$0-9A-Za-z_]*$/).test(key),
           "The key '" + key + "' is not a valid JavaScript identifier.")
         }
 
@@ -187,12 +185,12 @@ qx.Bootstrap.define("qx.data.marshal.Json",
         }
       }
 
-      // try to get the superclass, qx.core.Object as default
+      // try to get the superclass, qx.event.Emitter as default
       if (this.__delegate && this.__delegate.getModelSuperClass) {
         var superClass =
-          this.__delegate.getModelSuperClass(hash, parentProperty, depth) || qx.core.Object;
+          this.__delegate.getModelSuperClass(hash, parentProperty, depth) || qx.event.Emitter;
       } else {
-        var superClass = qx.core.Object; // TODO move to qx.event.Emitter
+        var superClass = qx.event.Emitter;
       }
 
       // try to get the mixins
@@ -235,7 +233,7 @@ qx.Bootstrap.define("qx.data.marshal.Json",
      *   will be stored in.
      * @param depth {Number} The depth of the object relative to the data root.
      * @param data {Map} The data for which an instance should be created.
-     * @return {qx.core.Object} An instance of the corresponding class.
+     * @return {qx.event.Emitter} An instance of the corresponding class.
      */
     __createInstance: function(hash, data, parentProperty, depth) {
       var delegateClass;
@@ -279,7 +277,7 @@ qx.Bootstrap.define("qx.data.marshal.Json",
      *
      * @param data {Object} The object for which models should be created.
      *
-     * @return {qx.core.Object} The created model object.
+     * @return {qx.event.Emitter} The created model object.
      */
     toModel: function(data) {
       return this.__toModel(data, null, 0);
@@ -293,7 +291,7 @@ qx.Bootstrap.define("qx.data.marshal.Json",
      * @param parentProperty {String|null} The name of the property the
      *   data will be stored in.
      * @param depth {Number} The depth of the data relative to the data's root.
-     * @return {qx.core.Object} The created model object.
+     * @return {qx.event.Emitter} The created model object.
      */
     __toModel: function(data, parentProperty, depth) {
       var isObject = qx.lang.Type.isObject(data);
@@ -302,7 +300,7 @@ qx.Bootstrap.define("qx.data.marshal.Json",
       if (
         (!isObject && !isArray)
         || !!data.$$isString // check for localized strings
-        || data instanceof qx.core.Object
+        || data instanceof qx.event.Emitter
       ) {
         return data;
 
@@ -356,12 +354,6 @@ qx.Bootstrap.define("qx.data.marshal.Json",
       }
 
       throw new Error("Unsupported type!");
-    },
-
-
-    dispose : function() {
-      this.__delegate = null;
-      this.base(arguments);
     }
   }
 });
