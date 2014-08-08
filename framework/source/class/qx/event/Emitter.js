@@ -47,7 +47,7 @@ qx.Bootstrap.define("qx.event.Emitter",
      */
     on : function(name, listener, ctx) {
       var id = qx.event.Emitter.__storageId++;
-      this.__getStorage(name).push({listener: listener, ctx: ctx, id: id});
+      this.__getStorage(name)[id] = {name: name, listener: listener, ctx: ctx, id: id};
       return id;
     },
 
@@ -64,7 +64,7 @@ qx.Bootstrap.define("qx.event.Emitter",
      */
     once : function(name, listener, ctx) {
       var id = qx.event.Emitter.__storageId++;
-      this.__getStorage(name)[id] = {listener: listener, ctx: ctx, once: true, id: id};
+      this.__getStorage(name)[id] = {name: name, listener: listener, ctx: ctx, once: true, id: id};
       return id;
     },
 
@@ -97,23 +97,17 @@ qx.Bootstrap.define("qx.event.Emitter",
      * will be return on attaching the listener and can be stored for removing.
      *
      * @param id {Integer} The id of the listener.
-     * @return {Integer|null} The listener's id if it was removed or
+     * @return {Map|null} The listener's id if it was removed or
      * <code>null</code> if it wasn't found
      */
     offById : function(id) {
-      for (var name in this.__listener) {
-        var store = this.__listener[name];
-        for (var i = 0; i < store.length; i++) {
-          var entry = store[i];
-          if (entry.id === id) {
-            this.off(name, entry.listener, entry.ctx);
-          }
-        }
+      var entry = this.getEntryById(id);
+      if (entry) {
+        this.off(entry.name, entry.listener, entry.ctx);
+        return entry.id;
       }
       return null;
     },
-
-
 
 
     /**
@@ -194,6 +188,30 @@ qx.Bootstrap.define("qx.event.Emitter",
      */
     getListeners : function() {
       return this.__listener;
+    },
+
+
+    /**
+     * Returns the data entry for a given event id. If the entry could
+     * not be found, undefined will be returned.
+     * @internal
+     * @param id {Number} The listeners id
+     * @return {Map|undefined} The data entry if found
+     */
+    getEntryById : function(id) {
+      for (var name in this.__listener) {
+        var store = this.__listener[name];
+        var found;
+        store.forEach(function(entry) {
+          if (entry.id === id) {
+            found = entry
+            return; // break forEach
+          }
+        });
+        if (found) {
+          return found;
+        }
+      }
     },
 
 

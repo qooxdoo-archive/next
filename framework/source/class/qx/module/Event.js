@@ -101,14 +101,17 @@ qx.Bootstrap.define("qx.module.Event", {
           el.$$emitter = new qx.event.Emitter();
         }
 
-        var id = el.$$emitter.on(type, bound, ctx);
+        el.$$lastlistenerId = el.$$emitter.on(type, bound, ctx);
+        // save the useCapture for removing
+        el.$$emitter.getEntryById(el.$$lastlistenerId).useCapture = useCapture;
+
         if (!el.__listener) {
           el.__listener = {};
         }
         if (!el.__listener[type]) {
           el.__listener[type] = {};
         }
-        el.__listener[type][id] = bound;
+        el.__listener[type][el.$$lastlistenerId] = bound;
 
         if (!context) {
           // store a reference to the dynamically created context so we know
@@ -116,7 +119,7 @@ qx.Bootstrap.define("qx.module.Event", {
           if (!el.__ctx) {
             el.__ctx = {};
           }
-          el.__ctx[id] = ctx;
+          el.__ctx[el.$$lastlistenerId] = ctx;
         }
       }
       return this;
@@ -212,6 +215,27 @@ qx.Bootstrap.define("qx.module.Event", {
     allOff : function(type) {
       return this.off(type || null, null, null);
     },
+
+
+    /**
+     * Removes the listener with the given id.
+     * @param id {Number} The id of the listener to remove
+     * @return {qxWeb} The collection for chaining.
+     */
+    offById : function(id) {
+      var entry = this[0].$$emitter.getEntryById(id);
+      return this.off(entry.name, entry.listener, entry.ctx, entry.useCapture);
+    },
+
+
+    /**
+     * Returns the id of the last added listener. This id can be used to remove the listener.
+     * @return {Number} The listeners id.
+     */
+    getListenerId : function() {
+      return this[0].$$lastlistenerId;
+    },
+
 
     /**
      * Fire an event of the given type.
@@ -688,8 +712,10 @@ qx.Bootstrap.define("qx.module.Event", {
     qxWeb.$attach({
       "on" : statics.on,
       "off" : statics.off,
+      "offById" : statics.offById,
       "allOff" : statics.allOff,
       "once" : statics.once,
+      "getListenerId" : statics.getListenerId,
       "emit" : statics.emit,
       "hasListener" : statics.hasListener,
       "copyEventsTo" : statics.copyEventsTo,
