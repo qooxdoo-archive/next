@@ -25,8 +25,8 @@ qx.Bootstrap.define("qx.event.Emitter",
 {
   extend : Object,
   statics : {
-    /** Static storage for all event listener */
-    __storage : []
+    /** global id for all events */
+    __storageId : 0
   },
 
   members :
@@ -46,9 +46,8 @@ qx.Bootstrap.define("qx.event.Emitter",
      * @return {Integer} An unique <code>id</code> for the attached listener.
      */
     on : function(name, listener, ctx) {
-      var id = qx.event.Emitter.__storage.length;
+      var id = qx.event.Emitter.__storageId++;
       this.__getStorage(name).push({listener: listener, ctx: ctx, id: id});
-      qx.event.Emitter.__storage.push({name: name, listener: listener, ctx: ctx});
       return id;
     },
 
@@ -64,9 +63,8 @@ qx.Bootstrap.define("qx.event.Emitter",
      * @return {Integer} An unique <code>id</code> for the attached listener.
      */
     once : function(name, listener, ctx) {
-      var id = qx.event.Emitter.__storage.length;
-      this.__getStorage(name).push({listener: listener, ctx: ctx, once: true, id: id});
-      qx.event.Emitter.__storage.push({name: name, listener: listener, ctx: ctx});
+      var id = qx.event.Emitter.__storageId++;
+      this.__getStorage(name)[id] = {listener: listener, ctx: ctx, once: true, id: id};
       return id;
     },
 
@@ -87,7 +85,6 @@ qx.Bootstrap.define("qx.event.Emitter",
         var entry = storage[i];
         if (entry.listener == listener && entry.ctx == ctx) {
           storage.splice(i, 1);
-          qx.event.Emitter.__storage[entry.id] = null;
           return entry.id;
         }
       }
@@ -104,9 +101,14 @@ qx.Bootstrap.define("qx.event.Emitter",
      * <code>null</code> if it wasn't found
      */
     offById : function(id) {
-      var entry = qx.event.Emitter.__storage[id];
-      if (entry) {
-        this.off(entry.name, entry.listener, entry.ctx);
+      for (var name in this.__listener) {
+        var store = this.__listener[name];
+        for (var i = 0; i < store.length; i++) {
+          var entry = store[i];
+          if (entry.id === id) {
+            this.off(name, entry.listener, entry.ctx);
+          }
+        }
       }
       return null;
     },
@@ -168,20 +170,18 @@ qx.Bootstrap.define("qx.event.Emitter",
      */
     emit : function(name, data) {
       var storage = this.__getStorage(name);
-      for (var i = 0; i < storage.length; i++) {
-        var entry = storage[i];
+      storage.forEach(function(entry) {
         entry.listener.call(entry.ctx, data);
         if (entry.once) {
-          storage.splice(i, 1);
-          i--;
+          storage.splice(storage.indexOf(entry), 1);
         }
-      }
+      });
+
       // call on any
       storage = this.__getStorage("*");
-      for (var i = storage.length - 1; i >= 0; i--) {
-        var entry = storage[i];
+      storage.forEach(function(entry) {
         entry.listener.call(entry.ctx, data);
-      }
+      });
     },
 
 
