@@ -259,7 +259,7 @@ qx.Bootstrap.define("qx.ui.mobile.dialog.Picker",
     addSlot : function(slotData) {
       if(slotData !== null && slotData instanceof qx.data.Array) {
         this.__pickerModel.push(slotData);
-        slotData.addListener("changeBubble", this._onChangeBubble, {self:this,index:this.__pickerModel.length - 1});
+        slotData.on("changeBubble", this._onChangeBubble, {self:this,index:this.__pickerModel.length - 1});
         this._render();
       }
     },
@@ -269,8 +269,8 @@ qx.Bootstrap.define("qx.ui.mobile.dialog.Picker",
      * Handler for <code>changeBubble</code> event.
      * @param evt {qx.event.type.Data} the <code>changeBubble</code> event.
      */
-    _onChangeBubble : function(evt) {
-      var newSlotDataLength = evt.getData().value.length;
+    _onChangeBubble : function(data) {
+      var newSlotDataLength = data.value.length;
       var selectedIndex = this.self.getSelectedIndex(this.index);
 
       var pickerSlot = this.self.__pickerContainer.getChildren()[this.index];

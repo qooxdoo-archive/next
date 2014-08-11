@@ -47,7 +47,7 @@ qx.Bootstrap.define("qx.ui.mobile.form.renderer.AbstractRenderer",
     this._form = form;
     this._render();
 
-    form.addListener("change", this._onFormChange, this);
+    form.on("change", this._onFormChange, this);
   },
 
   /*

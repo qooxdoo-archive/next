@@ -174,7 +174,7 @@ qx.Mixin.define("qx.data.marshal.MEventBubbling",
           value: value,
           name: newName,
           old: old,
-          item: data.item || e.getTarget(),
+          item: data.item || data.target,
           target: this
         }
       );

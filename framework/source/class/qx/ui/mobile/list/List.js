@@ -315,24 +315,24 @@ qx.Bootstrap.define("qx.ui.mobile.list.List",
     _applyModel : function(value, old)
     {
       if (old != null) {
-        old.removeListener("changeBubble", this.__onModelChangeBubble, this);
+        old.off("changeBubble", this.__onModelChangeBubble, this);
       }
       if (value != null) {
-        value.addListener("changeBubble", this.__onModelChangeBubble, this);
+        value.on("changeBubble", this.__onModelChangeBubble, this);
       }
 
       if (old != null) {
-        old.removeListener("change", this.__onModelChange, this);
+        old.off("change", this.__onModelChange, this);
       }
       if (value != null) {
-        value.addListener("change", this.__onModelChange, this);
+        value.on("change", this.__onModelChange, this);
       }
 
       if (old != null) {
-        old.removeListener("changeLength", this.__onModelChangeLength, this);
+        old.off("changeLength", this.__onModelChangeLength, this);
       }
       if (value != null) {
-        value.addListener("changeLength", this.__onModelChangeLength, this);
+        value.on("changeLength", this.__onModelChangeLength, this);
       }
 
       this.__render();
