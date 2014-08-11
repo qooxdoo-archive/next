@@ -46,9 +46,14 @@ qx.Bootstrap.define("qx.event.Emitter",
      * @return {Integer} An unique <code>id</code> for the attached listener.
      */
     on : function(name, listener, ctx) {
-      var id = qx.event.Emitter.__storageId++;
-      this.__getStorage(name)[id] = {name: name, listener: listener, ctx: ctx, id: id};
-      return id;
+      this.$$lastListenerId = qx.event.Emitter.__storageId++;
+      this.__getStorage(name)[this.$$lastListenerId] = {
+        name: name,
+        listener: listener,
+        ctx: ctx,
+        id: this.$$lastListenerId
+      };
+      return this.$$lastListenerId;
     },
 
 
@@ -63,9 +68,15 @@ qx.Bootstrap.define("qx.event.Emitter",
      * @return {Integer} An unique <code>id</code> for the attached listener.
      */
     once : function(name, listener, ctx) {
-      var id = qx.event.Emitter.__storageId++;
-      this.__getStorage(name)[id] = {name: name, listener: listener, ctx: ctx, once: true, id: id};
-      return id;
+      this.$$lastListenerId = qx.event.Emitter.__storageId++;
+      this.__getStorage(name)[this.$$lastListenerId] = {
+        name: name,
+        listener: listener,
+        ctx: ctx,
+        once: true,
+        id: this.$$lastListenerId
+      };
+      return this.$$lastListenerId;
     },
 
 
@@ -111,49 +122,12 @@ qx.Bootstrap.define("qx.event.Emitter",
 
 
     /**
-     * Alternative for {@link #on}.
-     * @param name {String} The name of the event to listen to.
-     * @param listener {Function} The function execute on {@link #emit}.
-     * @param ctx {var?Window} The context of the listener.
-     * @return {Integer} An unique <code>id</code> for the attached listener.
+     * Returns the id of the last added listener.
+     * @return {Number} The last added id.
      */
-    addListener : function(name, listener, ctx) {
-      return this.on(name, listener, ctx);
+    getListenerId : function() {
+      return this.$$lastListenerId;
     },
-
-
-    /**
-     * Alternative for {@link #once}.
-     * @param name {String} The name of the event to listen to.
-     * @param listener {Function} The function execute on {@link #emit}.
-     * @param ctx {var?Window} The context of the listener.
-     * @return {Integer} An unique <code>id</code> for the attached listener.
-     */
-    addListenerOnce : function(name, listener, ctx) {
-      return this.once(name, listener, ctx);
-    },
-
-
-    /**
-     * Alternative for {@link #off}.
-     * @param name {String} The name of the event to listen to.
-     * @param listener {Function} The function execute on {@link #emit}.
-     * @param ctx {var?Window} The context of the listener.
-     */
-    removeListener : function(name, listener, ctx) {
-      this.off(name, listener, ctx);
-    },
-
-
-    /**
-     * Alternative for {@link #offById}.
-     * @param id {Integer} The id of the listener.
-     */
-    removeListenerById : function(id) {
-     this.offById(id);
-    },
-
-
 
 
     /**
@@ -204,7 +178,7 @@ qx.Bootstrap.define("qx.event.Emitter",
         var found;
         store.forEach(function(entry) {
           if (entry.id === id) {
-            found = entry
+            found = entry;
             return; // break forEach
           }
         });

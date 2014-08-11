@@ -64,29 +64,6 @@ qx.Class.define("qx.test.event.Emitter",
       this.assertEquals(id, returnId);
     },
 
-    testAddRemove : function() {
-      var spy = this.spy();
-      this.__ee.addListener("test", spy, this);
-      this.__ee.emit("test");
-      this.assertCalledOnce(spy);
-
-      this.__ee.removeListener("test", spy, this);
-      this.__ee.emit("test");
-      this.assertCalledOnce(spy);
-    },
-
-
-    testAddRemoveById : function() {
-      var spy = this.spy();
-      var id = this.__ee.addListener("test", spy, this);
-      this.__ee.emit("test");
-      this.assertCalledOnce(spy);
-
-      this.__ee.removeListenerById(id);
-      this.__ee.emit("test");
-      this.assertCalledOnce(spy);
-    },
-
 
     testOnTwoListeners : function() {
       var spy1 = this.spy();

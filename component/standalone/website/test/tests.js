@@ -2025,6 +2025,41 @@ testrunner.define({
     test.allOff();
     this.assertFalse(test.eq(0).hasListener("mouseup"));
     this.assertFalse(test.eq(1).hasListener("mousedown"));
+  },
+
+
+  testGetListenerId : function() {
+    var test = q.create('<h1>Foo</h1><div></div>').appendTo("#sandbox");
+    var id0 = test.on("mousedown", function() {}).getListenerId();
+    this.assertNumber(id0);
+
+    var id1 = test.on("mousedown", function() {}).getListenerId();
+    this.assertNumber(id1);
+  },
+
+
+  testOffById : function() {
+    var test = q.create("<div id='foo'/>");
+    test.appendTo(this.sandbox[0]);
+    var obj = {
+      count : 0
+    }
+    var callback = function (ev) {
+      this.count++;
+    }
+    var callback2 = function (ev) {
+      this.count += 2;
+    }
+    // two listeners on the same element/event; make sure off() removes the
+    // right one
+    var id0 = q("#foo").on("mousedown", callback2, obj).getListenerId();
+    var id1 = q("#foo").on("mousedown", callback, obj).getListenerId();
+    q("#foo").offById(id1);
+    q("#foo").emit("mousedown");
+    this.assertEquals(2, obj.count)
+    q("#foo").offById(id0);
+
+    test.remove();
   }
 });
 
