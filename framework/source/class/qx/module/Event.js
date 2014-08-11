@@ -224,7 +224,7 @@ qx.Bootstrap.define("qx.module.Event", {
      */
     offById : function(id) {
       var entry = this[0].$$emitter.getEntryById(id);
-      return this.off(entry.name, entry.listener, entry.ctx, entry.useCapture);
+      return this.off(entry.name, entry.listener.original, entry.ctx, entry.useCapture);
     },
 
 

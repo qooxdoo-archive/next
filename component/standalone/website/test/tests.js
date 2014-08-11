@@ -2060,6 +2060,33 @@ testrunner.define({
     q("#foo").offById(id0);
 
     test.remove();
+  },
+
+
+  testOffByIdMultiple : function() {
+    var test = qxWeb.create("<div id='foo'/>");
+    test.add(qxWeb.create("<div id='bar'/>"))
+    test.appendTo(this.sandbox[0]);
+    var obj = {
+      count : 0
+    }
+    var callback = function (ev) {
+      this.count++;
+      debugger;
+    }
+    var callback2 = function (ev) {
+      this.count += 2;
+    }
+    // two listeners on the same element/event; make sure off() removes the
+    // right one
+    var id0 = test.on("mousedown", callback2, obj).getListenerId();
+    var id1 = test.on("mousedown", callback, obj).getListenerId();
+    test.offById(id1);
+    test.emit("mousedown");
+    this.assertEquals(4, obj.count)
+    test.offById(id0);
+
+    test.remove();
   }
 });
 
