@@ -110,33 +110,10 @@ qx.Class.define("qx.test.event.Emitter",
     },
 
 
-    testAddListenerOnce : function() {
-      var spy = this.spy();
-
-      this.__ee.addListenerOnce("test", spy);
-      this.__ee.emit("test");
-      this.assertCalledOnce(spy);
-
-      this.__ee.emit("test");
-      this.assertCalledOnce(spy);
-    },
-
     testOnAny : function() {
       var spy = this.spy();
 
       this.__ee.on("*", spy);
-      this.__ee.emit("test");
-      this.assertCalledOnce(spy);
-
-      this.__ee.emit("test2");
-      this.assertCalledTwice(spy);
-    },
-
-
-    testAddListenerAny : function() {
-      var spy = this.spy();
-
-      this.__ee.addListener("*", spy);
       this.__ee.emit("test");
       this.assertCalledOnce(spy);
 
@@ -165,6 +142,15 @@ qx.Class.define("qx.test.event.Emitter",
       }, this);
       this.__ee.emit("test");
       this.assertEquals(2, i);
+    },
+
+
+    testGetListenerId : function() {
+      var id = this.__ee.on("test", function() {});
+      this.assertEquals(id, this.__ee.getListenerId());
+
+      id = this.__ee.on("test", function() {});
+      this.assertEquals(id, this.__ee.getListenerId());
     }
   }
 });
