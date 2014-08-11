@@ -21,11 +21,10 @@
 
 qx.Bootstrap.define("testrunner.runner.TestItem", {
 
-  extend : qx.core.Object,
+  extend : qx.event.Emitter,
 
   construct : function()
   {
-    this.base(qx.core.Object, "constructor");
     this.$$test = this;
   },
 
@@ -246,7 +245,6 @@ qx.Bootstrap.define("testrunner.runner.TestItem", {
       if (this.parent) {
         this.parent = null;
       }
-      this.base(qx.core.Object, "dispose");
     }
   }
 });

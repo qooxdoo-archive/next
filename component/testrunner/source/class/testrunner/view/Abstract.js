@@ -25,7 +25,7 @@ qx.Bootstrap.define("testrunner.view.Abstract", {
 
   //type : "abstract",
 
-  extend : qx.core.Object,
+  extend : qx.event.Emitter,
 
 
   /*
@@ -118,7 +118,7 @@ qx.Bootstrap.define("testrunner.view.Abstract", {
      */
     addTestResult : function(testResultData)
     {
-      testResultData.addListener("changeState", function(ev) {
+      testResultData.on("changeState", function(ev) {
         this._onTestChangeState(testResultData);
       }, this);
     },

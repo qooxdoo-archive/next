@@ -22,9 +22,9 @@
  * The test result class runs the test functions and fires events depending on
  * the result of the test run.
  */
-qx.Class.define("qx.dev.unit.TestResult",
+qx.Bootstrap.define("qx.dev.unit.TestResult",
 {
-  extend : qx.core.Object,
+  extend : qx.event.Emitter,
 
 
 
@@ -142,7 +142,7 @@ qx.Class.define("qx.dev.unit.TestResult",
             exception : ev.getData(),
             test      : test
           }];
-          this.fireDataEvent("failure", error);
+          this.emit("failure", error);
         }, this);
       }
 
@@ -150,11 +150,11 @@ qx.Class.define("qx.dev.unit.TestResult",
         this._timeout[test.getFullName()] = "failed";
         var qxEx = new qx.type.BaseError("Error in asynchronous test", "resume() called before wait()");
         this._createError("failure", [qxEx], test);
-        this.fireDataEvent("endTest", test);
+        this.emit("endTest", test);
         return;
       }
 
-      this.fireDataEvent("startTest", test);
+      this.emit("startTest", test);
 
       if (qx.core.Environment.get("qx.debug.dispose")) {
         qx.dev.Debug.startDisposeProfiling();
@@ -185,7 +185,7 @@ qx.Class.define("qx.dev.unit.TestResult",
 
           if (ex.classname == "qx.dev.unit.RequirementError") {
             this._createError("skip", [ex], test);
-            this.fireDataEvent("endTest", test);
+            this.emit("endTest", test);
           }
           else {
             if (ex instanceof qx.type.BaseError &&
@@ -197,7 +197,7 @@ qx.Class.define("qx.dev.unit.TestResult",
               ex.message = "setUp failed: " + ex.message;
             }
             this._createError("error", [ex], test);
-            this.fireDataEvent("endTest", test);
+            this.emit("endTest", test);
           }
 
           return;
@@ -231,7 +231,7 @@ qx.Class.define("qx.dev.unit.TestResult",
             this._timeout[test.getFullName()] = qx.event.Timer.once(function() {
                this.run(test, timeoutFunc, context);
             }, that, ex.getDelay());
-            this.fireDataEvent("wait", test);
+            this.emit("wait", test);
           }
 
         } else if (ex instanceof qx.dev.unit.MeasurementResult) {
@@ -243,13 +243,13 @@ qx.Class.define("qx.dev.unit.TestResult",
           } catch(except) {}
           if (ex.classname == "qx.core.AssertionError") {
             this._createError("failure", [ex], test);
-            this.fireDataEvent("endTest", test);
+            this.emit("endTest", test);
           } else if (ex.classname == "qx.dev.unit.RequirementError") {
             this._createError("skip", [ex], test);
-            this.fireDataEvent("endTest", test);
+            this.emit("endTest", test);
           } else {
             this._createError("error", [ex], test);
-            this.fireDataEvent("endTest", test);
+            this.emit("endTest", test);
           }
         }
       }
@@ -258,7 +258,7 @@ qx.Class.define("qx.dev.unit.TestResult",
       {
         try {
           this.tearDown(test);
-          this.fireDataEvent("endTest", test);
+          this.emit("endTest", test);
         } catch(ex) {
           if (ex instanceof qx.type.BaseError &&
             ex.message == qx.type.BaseError.DEFAULTMESSAGE)
@@ -270,15 +270,9 @@ qx.Class.define("qx.dev.unit.TestResult",
           }
 
           this._createError("error", [ex], test);
-          this.fireDataEvent("endTest", test);
+          this.emit("endTest", test);
         }
       }
-
-      /*
-      if (!this._timeout[test.getFullName()]) {
-        this.__removeListeners(test.getTestClass()[test.getName()]);
-      }
-      */
     },
 
 
@@ -300,58 +294,7 @@ qx.Class.define("qx.dev.unit.TestResult",
         });
       }
 
-      this.fireDataEvent(eventName, errors);
-    },
-
-
-    /**
-     * Wraps the AUT's qx.event.Registration.addListener function so that it
-     * stores references to all added listeners in an array attached to the
-     * current test function. This is done so that any listeners left over after
-     * test execution can be removed to make sure they don't influence other
-     * tests.
-     *
-     * @param testFunction {qx.dev.unit.TestFunction} The current test
-     */
-    __wrapAddListener : function(testFunction)
-    {
-      testFunction._addedListeners = [];
-      if (!qx.event.Registration.addListenerOriginal) {
-        qx.event.Registration.addListenerOriginal = qx.event.Registration.addListener;
-        qx.event.Registration.addListener = function(target, type, listener, self, capture) {
-          var listenerId =  qx.event.Registration.addListenerOriginal(target, type, listener, self, capture);
-          var store = true;
-          if ( (target.classname && target.classname.indexOf("testrunner.unit") == 0)
-               || (self && self.classname && self.classname.indexOf("testrunner.unit") == 0) ) {
-            store = false;
-          }
-          if (store) {
-            testFunction._addedListeners.push([target, listenerId]);
-          }
-          return listenerId;
-        }
-      }
-    },
-
-
-    /**
-     * Removes any listeners left over after a test's run.
-     *
-     * @param testFunction {qx.dev.unit.TestFunction} The current test
-     */
-    __removeListeners : function(testFunction)
-    {
-      // remove listeners added during test execution
-      if (testFunction._addedListeners) {
-        var listeners = testFunction._addedListeners;
-        for (var i=0,l=listeners.length; i<l; i++) {
-          var target = listeners[i][0];
-          var id = listeners[i][1];
-          try {
-            qx.event.Registration.removeListenerById(target, id);
-          } catch(ex) {}
-        }
-      }
+      this.emit(eventName, errors);
     },
 
 
@@ -386,9 +329,5 @@ qx.Class.define("qx.dev.unit.TestResult",
         }
       }
     }
-  },
-
-  destruct : function() {
-    this._timeout = null;
   }
 });

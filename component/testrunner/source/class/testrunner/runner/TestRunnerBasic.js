@@ -25,7 +25,8 @@
  */
 qx.Bootstrap.define("testrunner.runner.TestRunnerBasic", {
 
-  extend : qx.core.Object,
+  extend : qx.event.Emitter,
+  include : qx.data.MBinding,
 
   statics :
   {
@@ -66,9 +67,9 @@ qx.Bootstrap.define("testrunner.runner.TestRunnerBasic", {
     this.view = new viewClass();
 
     // Connect view and controller
-    this.view.addListener("runTests", this._runTests, this);
+    this.view.on("runTests", this._runTests, this);
 
-    this.view.addListener("stopTests", this._stopTests, this);
+    this.view.on("stopTests", this._stopTests, this);
     this.bind("testSuiteState", this.view, "testSuiteState");
     this.bind("testCount", this.view, "testCount");
     this.bind("testModel", this.view, "testModel");
@@ -487,9 +488,7 @@ qx.Bootstrap.define("testrunner.runner.TestRunnerBasic", {
     {
       var testResult = this._getTestResult();
 
-      testResult.addListener("startTest", function(e) {
-        var test = e.getData();
-
+      testResult.on("startTest", function(test) {
         if (this.currentTestData) {
           if (this.currentTestData.fullName === test.getFullName() &&
               this.currentTestData.state == "wait")
@@ -510,17 +509,17 @@ qx.Bootstrap.define("testrunner.runner.TestRunnerBasic", {
         }
       }, this);
 
-      testResult.addListener("wait", this._onTestWait, this);
+      testResult.on("wait", this._onTestWait, this);
 
-      testResult.addListener("failure", this._onTestFailure, this);
+      testResult.on("failure", this._onTestFailure, this);
 
-      testResult.addListener("error", this._onTestError, this);
+      testResult.on("error", this._onTestError, this);
 
-      testResult.addListener("skip", this._onTestSkip, this);
+      testResult.on("skip", this._onTestSkip, this);
 
-      testResult.addListener("endTest", this._onTestEnd, this);
+      testResult.on("endTest", this._onTestEnd, this);
 
-      testResult.addListener("endMeasurement", this._onTestEndMeasurement, this);
+      testResult.on("endMeasurement", this._onTestEndMeasurement, this);
 
       return testResult;
     },
@@ -542,9 +541,9 @@ qx.Bootstrap.define("testrunner.runner.TestRunnerBasic", {
      *
      * @param ev {qx.event.type.Data} "failure" event
      */
-    _onTestFailure : function(ev)
+    _onTestFailure : function(data)
     {
-      this.__addExceptions(this.currentTestData, ev.getData());
+      this.__addExceptions(this.currentTestData, data);
 
       if (this.currentTestData.state === "failure") {
         this.currentTestData.state = undefined;
@@ -558,9 +557,9 @@ qx.Bootstrap.define("testrunner.runner.TestRunnerBasic", {
      *
      * @param ev {qx.event.type.Data} "error" event
      */
-    _onTestError : function(ev)
+    _onTestError : function(data)
     {
-      this.__addExceptions(this.currentTestData, ev.getData());
+      this.__addExceptions(this.currentTestData, data);
 
       if (this.currentTestData.state === "error") {
         this.currentTestData.state = undefined;
@@ -574,9 +573,9 @@ qx.Bootstrap.define("testrunner.runner.TestRunnerBasic", {
      *
      * @param ev {qx.event.type.Data} "skip" event
      */
-    _onTestSkip : function(ev)
+    _onTestSkip : function(data)
     {
-      this.__addExceptions(this.currentTestData, ev.getData());
+      this.__addExceptions(this.currentTestData, data);
 
       if (this.currentTestData.state === "skip") {
         this.currentTestData.state = undefined;
@@ -606,13 +605,13 @@ qx.Bootstrap.define("testrunner.runner.TestRunnerBasic", {
      *
      * @param ev {qx.event.type.Data} "endMeasurement" event
      */
-    _onTestEndMeasurement : function(ev)
+    _onTestEndMeasurement : function(data)
     {
-      this.__addExceptions(this.currentTestData, ev.getData());
+      this.__addExceptions(this.currentTestData, data);
 
       var url = qx.core.Environment.get("testrunner.reportPerfResultUrl");
       if (url) {
-        var measureData = ev.getData()[0].exception.getData();
+        var measureData = data[0].exception.getData();
         measureData.testname = this.currentTestData.getFullName();
         measureData.browsername = qx.core.Environment.get("browser.name");
         measureData.browserversion = qx.core.Environment.get("browser.version");
@@ -673,9 +672,9 @@ qx.Bootstrap.define("testrunner.runner.TestRunnerBasic", {
         return;
       }
       if (old) {
-        old.removeListener("change", this._onChangeTestSelection, this);
+        old.off("change", this._onChangeTestSelection, this);
       }
-      value.addListener("change", this._onChangeTestSelection, this);
+      value.on("change", this._onChangeTestSelection, this);
       this._onChangeTestSelection();
     },
 
@@ -729,8 +728,8 @@ qx.Bootstrap.define("testrunner.runner.TestRunnerBasic", {
 
     dispose : function()
     {
-      this.view.removeListener("runTests", this._runTests, this);
-      this.view.removeListener("stopTests", this._stopTests, this);
+      this.view.off("runTests", this._runTests, this);
+      this.view.off("stopTests", this._stopTests, this);
       this.removeAllBindings();
       if (this.testModel) {
         this.testModel.dispose();

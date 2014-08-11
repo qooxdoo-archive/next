@@ -317,7 +317,7 @@ qx.Bootstrap.define("testrunner.view.Html", {
       }, this);
       selection.append(checked);
 
-      this.fireEvent("runTests");
+      this.emit("runTests");
     },
 
     /**
@@ -325,7 +325,7 @@ qx.Bootstrap.define("testrunner.view.Html", {
      */
     __stopTests : function()
     {
-      this.fireEvent("stopTests");
+      this.emit("stopTests");
     },
 
     /**
