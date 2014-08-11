@@ -503,11 +503,11 @@ qx.Bootstrap.define("qx.ui.form.validation.Manager",
       for (var i = 0; i < this.__formItems.length; i++) {
         var formItem = this.__formItems[i].item;
         if (!formItem.valid) {
-          messages.push(formIteminvalidMessage);
+          messages.push(formItem.invalidMessage);
         }
       }
-      // add the forms fail message
-      if (this.invalidMessage != "") {
+      // add the form's fail message
+      if (this.invalidMessage) {
         messages.push(this.invalidMessage);
       }
 
