@@ -16,7 +16,7 @@ qx.Class.define("${Namespace}.page.Overview",
 
   construct : function()
   {
-    this.base(arguments);
+    this.base(this.constructor.superclass, "constructor");
     this.title = "Overview";
     this.showBackButton = true;
     this.backButtonText = "Back";
@@ -28,7 +28,7 @@ qx.Class.define("${Namespace}.page.Overview",
     // overridden
     _initialize : function()
     {
-      this.base(arguments);
+      this.base(this.constructor.superclass, "_initialize");
 
       this.getContent().add(new qx.ui.mobile.basic.Label("Your first app."));
     },
