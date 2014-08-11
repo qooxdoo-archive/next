@@ -211,11 +211,7 @@ qx.Bootstrap.define("qx.ui.mobile.form.Label",
      */
     _onTap: function(evt) {
       if (this.__forWidget) {
-        this.__forWidget.emit(
-          target,
-          "tap",
-          qx.event.type.Tap, [evt.getNativeEvent(), this.__forWidget, null, true, true]
-        );
+        this.__forWidget.emit("tap", evt);
       }
     },
 
