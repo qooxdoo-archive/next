@@ -44,10 +44,10 @@ qx.Class.define("qx.test.data.DataArrayWithChangeBubble",
       var self = this;
       this.assertEventFired(m, "changeBubble", function() {
         m.getItem(0).b = "affee";
-      }, function(e) {
-        self.assertEquals("[0].b", e.getData().name);
-        self.assertString(e.getData().name, "name is not a String.");
-        self.assertEquals(m.getItem(0), e.getData().item);
+      }, function(data) {
+        self.assertEquals("[0].b", data.name);
+        self.assertString(data.name, "name is not a String.");
+        self.assertEquals(m.getItem(0), data.item);
       });
     },
 
@@ -55,17 +55,17 @@ qx.Class.define("qx.test.data.DataArrayWithChangeBubble",
     testAppend : function()
     {
       var that = this;
-      var handler = function(e) {
+      var handler = function(data) {
         that.assertArrayEquals(["A", "B", "C", "D", "E", "F"], that.array.toArray(), "Changes are not applied when handler is executed!");
         // check the data
-        that.assertArrayEquals(["D", "E", "F"], e.getData().value);
-        that.assertEquals("data[3-5]", e.getData().name);
-        that.assertArrayEquals([], e.getData().old);
-        that.assertEquals(that.array, e.getData().item);
+        that.assertArrayEquals(["D", "E", "F"], data.value);
+        that.assertEquals("data[3-5]", data.name);
+        that.assertArrayEquals([], data.old);
+        that.assertEquals(that.array, data.item);
       }
 
       var spy = this.spy(handler);
-      this.testObject.addListener("changeBubble", spy, this);
+      this.testObject.on("changeBubble", spy, this);
 
       this.array.append(["D", "E", "F"]);
 
@@ -77,17 +77,17 @@ qx.Class.define("qx.test.data.DataArrayWithChangeBubble",
     testAppendOne : function()
     {
       var that = this;
-      var handler = function(e) {
+      var handler = function(data) {
         that.assertArrayEquals(["A", "B", "C", "D"], that.array.toArray(), "Changes are not applied when handler is executed!");
         // check the data
-        that.assertArrayEquals(["D"], e.getData().value);
-        that.assertEquals("data[3]", e.getData().name);
-        that.assertArrayEquals([], e.getData().old);
-        that.assertEquals(that.array, e.getData().item);
+        that.assertArrayEquals(["D"], data.value);
+        that.assertEquals("data[3]", data.name);
+        that.assertArrayEquals([], data.old);
+        that.assertEquals(that.array, data.item);
       }
 
       var spy = this.spy(handler);
-      this.testObject.addListener("changeBubble", spy, this);
+      this.testObject.on("changeBubble", spy, this);
 
       this.array.append(["D"]);
 
@@ -99,17 +99,17 @@ qx.Class.define("qx.test.data.DataArrayWithChangeBubble",
     testInsertAfter : function()
     {
       var that = this;
-      var handler = function(e) {
+      var handler = function(data) {
         that.assertArrayEquals(["A", "B", "BB", "C"], that.array.toArray(), "Changes are not applied when handler is executed!");
         // check the data
-        that.assertArrayEquals(["BB"], e.getData().value);
-        that.assertEquals("data[2]", e.getData().name);
-        that.assertArrayEquals([], e.getData().old);
-        that.assertEquals(that.array, e.getData().item);
+        that.assertArrayEquals(["BB"], data.value);
+        that.assertEquals("data[2]", data.name);
+        that.assertArrayEquals([], data.old);
+        that.assertEquals(that.array, data.item);
       }
 
       var spy = this.spy(handler);
-      this.testObject.addListener("changeBubble", spy, this);
+      this.testObject.on("changeBubble", spy, this);
 
       this.array.insertAfter("B", "BB");
 
@@ -121,17 +121,17 @@ qx.Class.define("qx.test.data.DataArrayWithChangeBubble",
     testInsertAt : function()
     {
       var that = this;
-      var handler = function(e) {
+      var handler = function(data) {
         that.assertArrayEquals(["A", "B", "BB", "C"], that.array.toArray(), "Changes are not applied when handler is executed!");
         // check the data
-        that.assertArrayEquals(["BB"], e.getData().value);
-        that.assertEquals("data[2]", e.getData().name);
-        that.assertArrayEquals([], e.getData().old);
-        that.assertEquals(that.array, e.getData().item);
+        that.assertArrayEquals(["BB"], data.value);
+        that.assertEquals("data[2]", data.name);
+        that.assertArrayEquals([], data.old);
+        that.assertEquals(that.array, data.item);
       }
 
       var spy = this.spy(handler);
-      this.testObject.addListener("changeBubble", spy, this);
+      this.testObject.on("changeBubble", spy, this);
 
       this.array.insertAt(2, "BB");
 
@@ -143,17 +143,17 @@ qx.Class.define("qx.test.data.DataArrayWithChangeBubble",
     testInsertBefore : function()
     {
       var that = this;
-      var handler = function(e) {
+      var handler = function(data) {
         that.assertArrayEquals(["A", "B", "BB", "C"], that.array.toArray(), "Changes are not applied when handler is executed!");
         // check the data
-        that.assertArrayEquals(["BB"], e.getData().value);
-        that.assertEquals("data[2]", e.getData().name);
-        that.assertArrayEquals([], e.getData().old);
-        that.assertEquals(that.array, e.getData().item);
+        that.assertArrayEquals(["BB"], data.value);
+        that.assertEquals("data[2]", data.name);
+        that.assertArrayEquals([], data.old);
+        that.assertEquals(that.array, data.item);
       }
 
       var spy = this.spy(handler);
-      this.testObject.addListener("changeBubble", spy, this);
+      this.testObject.on("changeBubble", spy, this);
 
       this.array.insertBefore("C", "BB");
 
@@ -165,17 +165,17 @@ qx.Class.define("qx.test.data.DataArrayWithChangeBubble",
     testPop : function()
     {
       var that = this;
-      var handler = function(e) {
+      var handler = function(data) {
         that.assertArrayEquals(["A", "B"], that.array.toArray(), "Changes are not applied when handler is executed!");
         // check the data
-        that.assertArrayEquals([], e.getData().value);
-        that.assertEquals("data[2]", e.getData().name);
-        that.assertArrayEquals(["C"], e.getData().old);
-        that.assertEquals(that.array, e.getData().item);
+        that.assertArrayEquals([], data.value);
+        that.assertEquals("data[2]", data.name);
+        that.assertArrayEquals(["C"], data.old);
+        that.assertEquals(that.array, data.item);
       }
 
       var spy = this.spy(handler);
-      this.testObject.addListener("changeBubble", spy, this);
+      this.testObject.on("changeBubble", spy, this);
 
       this.array.pop();
 
@@ -187,17 +187,17 @@ qx.Class.define("qx.test.data.DataArrayWithChangeBubble",
     testPush : function()
     {
       var that = this;
-      var handler = function(e) {
+      var handler = function(data) {
         that.assertArrayEquals(["A", "B", "C", "D"], that.array.toArray(), "Changes are not applied when handler is executed!");
         // check the data
-        that.assertArrayEquals(["D"], e.getData().value);
-        that.assertEquals("data[3]", e.getData().name);
-        that.assertArrayEquals([], e.getData().old);
-        that.assertEquals(that.array, e.getData().item);
+        that.assertArrayEquals(["D"], data.value);
+        that.assertEquals("data[3]", data.name);
+        that.assertArrayEquals([], data.old);
+        that.assertEquals(that.array, data.item);
       }
 
       var spy = this.spy(handler);
-      this.testObject.addListener("changeBubble", spy, this);
+      this.testObject.on("changeBubble", spy, this);
 
       this.array.push("D");
 
@@ -209,17 +209,17 @@ qx.Class.define("qx.test.data.DataArrayWithChangeBubble",
     testRemove : function()
     {
       var that = this;
-      var handler = function(e) {
+      var handler = function(data) {
         that.assertArrayEquals(["A", "C"], that.array.toArray(), "Changes are not applied when handler is executed!");
         // check the data
-        that.assertArrayEquals([], e.getData().value);
-        that.assertEquals("data[1]", e.getData().name);
-        that.assertArrayEquals(["B"], e.getData().old);
-        that.assertEquals(that.array, e.getData().item);
+        that.assertArrayEquals([], data.value);
+        that.assertEquals("data[1]", data.name);
+        that.assertArrayEquals(["B"], data.old);
+        that.assertEquals(that.array, data.item);
       }
 
       var spy = this.spy(handler);
-      this.testObject.addListener("changeBubble", spy, this);
+      this.testObject.on("changeBubble", spy, this);
 
       this.array.remove("B");
 
@@ -231,17 +231,17 @@ qx.Class.define("qx.test.data.DataArrayWithChangeBubble",
     testRemoveAll : function()
     {
       var that = this;
-      var handler = function(e) {
+      var handler = function(data) {
         that.assertArrayEquals([], that.array.toArray(), "Changes are not applied when handler is executed!");
         // check the data
-        that.assertArrayEquals([], e.getData().value);
-        that.assertEquals("data[0-2]", e.getData().name);
-        that.assertArrayEquals(["A", "B", "C"], e.getData().old);
-        that.assertEquals(that.array, e.getData().item);
+        that.assertArrayEquals([], data.value);
+        that.assertEquals("data[0-2]", data.name);
+        that.assertArrayEquals(["A", "B", "C"], data.old);
+        that.assertEquals(that.array, data.item);
       }
 
       var spy = this.spy(handler);
-      this.testObject.addListener("changeBubble", spy, this);
+      this.testObject.on("changeBubble", spy, this);
 
       this.array.removeAll();
 
@@ -253,17 +253,17 @@ qx.Class.define("qx.test.data.DataArrayWithChangeBubble",
     testRemoveAt : function()
     {
       var that = this;
-      var handler = function(e) {
+      var handler = function(data) {
         that.assertArrayEquals(["A", "C"], that.array.toArray(), "Changes are not applied when handler is executed!");
         // check the data
-        that.assertArrayEquals([], e.getData().value);
-        that.assertEquals("data[1]", e.getData().name);
-        that.assertArrayEquals(["B"], e.getData().old);
-        that.assertEquals(that.array, e.getData().item);
+        that.assertArrayEquals([], data.value);
+        that.assertEquals("data[1]", data.name);
+        that.assertArrayEquals(["B"], data.old);
+        that.assertEquals(that.array, data.item);
       }
 
       var spy = this.spy(handler);
-      this.testObject.addListener("changeBubble", spy, this);
+      this.testObject.on("changeBubble", spy, this);
 
       this.array.removeAt(1);
 
@@ -275,18 +275,18 @@ qx.Class.define("qx.test.data.DataArrayWithChangeBubble",
     testReverse : function()
     {
       var that = this;
-      var handler = function(e) {
+      var handler = function(data) {
         that.assertArrayEquals(["C", "B", "A"], that.array.toArray(), "Changes are not applied when handler is executed!");
 
         // check the data
-        that.assertArrayEquals(["C", "B", "A"], e.getData().value);
-        that.assertEquals("data[0-2]", e.getData().name);
-        that.assertArrayEquals(["A", "B", "C"], e.getData().old);
-        that.assertEquals(that.array, e.getData().item);
+        that.assertArrayEquals(["C", "B", "A"], data.value);
+        that.assertEquals("data[0-2]", data.name);
+        that.assertArrayEquals(["A", "B", "C"], data.old);
+        that.assertEquals(that.array, data.item);
       }
 
       var spy = this.spy(handler);
-      this.testObject.addListener("changeBubble", spy, this);
+      this.testObject.on("changeBubble", spy, this);
 
       this.array.reverse();
 
@@ -298,17 +298,17 @@ qx.Class.define("qx.test.data.DataArrayWithChangeBubble",
     testSetItem : function()
     {
       var that = this;
-      var handler = function(e) {
+      var handler = function(data) {
         that.assertArrayEquals(["A", "BB", "C"], that.array.toArray(), "Changes are not applied when handler is executed!");
         // check the data
-        that.assertArrayEquals(["BB"], e.getData().value);
-        that.assertEquals("data[1]", e.getData().name);
-        that.assertArrayEquals(["B"], e.getData().old);
-        that.assertEquals(that.array, e.getData().item);
+        that.assertArrayEquals(["BB"], data.value);
+        that.assertEquals("data[1]", data.name);
+        that.assertArrayEquals(["B"], data.old);
+        that.assertEquals(that.array, data.item);
       }
 
       var spy = this.spy(handler);
-      this.testObject.addListener("changeBubble", spy, this);
+      this.testObject.on("changeBubble", spy, this);
 
       this.array.setItem(1, "BB");
 
@@ -320,17 +320,17 @@ qx.Class.define("qx.test.data.DataArrayWithChangeBubble",
     testShift : function()
     {
       var that = this;
-      var handler = function(e) {
+      var handler = function(data) {
         that.assertArrayEquals(["B", "C"], that.array.toArray(), "Changes are not applied when handler is executed!");
         // check the data
-        that.assertArrayEquals([], e.getData().value);
-        that.assertEquals("data[0]", e.getData().name);
-        that.assertArrayEquals(["A"], e.getData().old);
-        that.assertEquals(that.array, e.getData().item);
+        that.assertArrayEquals([], data.value);
+        that.assertEquals("data[0]", data.name);
+        that.assertArrayEquals(["A"], data.old);
+        that.assertEquals(that.array, data.item);
       }
 
       var spy = this.spy(handler);
-      this.testObject.addListener("changeBubble", spy, this);
+      this.testObject.on("changeBubble", spy, this);
 
       this.array.shift();
 
@@ -342,17 +342,17 @@ qx.Class.define("qx.test.data.DataArrayWithChangeBubble",
     testSort : function()
     {
       var that = this;
-      var handler = function(e) {
+      var handler = function(data) {
         that.assertArrayEquals(["C", "B", "A"], that.array.toArray(), "Changes are not applied when handler is executed!");
         // check the data
-        that.assertArrayEquals(["C", "B", "A"], e.getData().value);
-        that.assertEquals("data[0-2]", e.getData().name);
-        that.assertArrayEquals(["A", "B", "C"], e.getData().old);
-        that.assertEquals(that.array, e.getData().item);
+        that.assertArrayEquals(["C", "B", "A"], data.value);
+        that.assertEquals("data[0-2]", data.name);
+        that.assertArrayEquals(["A", "B", "C"], data.old);
+        that.assertEquals(that.array, data.item);
       }
 
       var spy = this.spy(handler);
-      this.testObject.addListener("changeBubble", spy, this);
+      this.testObject.on("changeBubble", spy, this);
 
       this.array.sort(function(a, b) {
         return a < b ? 1 : a > b ? -1 : 0;
@@ -368,20 +368,20 @@ qx.Class.define("qx.test.data.DataArrayWithChangeBubble",
       var that = this;
       var changeBubbleExecutionCounter = 0;
 
-      var handler = function(e) {
+      var handler = function(data) {
         that.assertEquals(0, changeBubbleExecutionCounter, "Handler was fired more than one times.");
         that.assertArrayEquals(["C", "B", "A"], that.array.toArray(), "Changes are not applied when handler is executed!");
         // check the data
-        that.assertArrayEquals(["C", "B", "A"], e.getData().value);
-        that.assertEquals("data[0-2]", e.getData().name);
-        that.assertArrayEquals(["A", "B", "C"], e.getData().old);
-        that.assertEquals(that.array, e.getData().item);
+        that.assertArrayEquals(["C", "B", "A"], data.value);
+        that.assertEquals("data[0-2]", data.name);
+        that.assertArrayEquals(["A", "B", "C"], data.old);
+        that.assertEquals(that.array, data.item);
 
         changeBubbleExecutionCounter ++;
       }
 
       var spy = this.spy(handler);
-      this.testObject.addListener("changeBubble", spy, this);
+      this.testObject.on("changeBubble", spy, this);
 
       this.array.sort(function(a, b) {
         return a < b ? 1 : a > b ? -1 : 0;
@@ -400,17 +400,17 @@ qx.Class.define("qx.test.data.DataArrayWithChangeBubble",
     testSplice : function()
     {
       var that = this;
-      var handler = function(e) {
+      var handler = function(data) {
         that.assertArrayEquals(["A", "B", "D", "E", "F"], that.array.toArray(), "Changes are not applied when handler is executed!");
         // check the data
-        that.assertArrayEquals(["D", "E", "F"], e.getData().value);
-        that.assertEquals("data[2-4]", e.getData().name);
-        that.assertArrayEquals(["C"], e.getData().old);
-        that.assertEquals(that.array, e.getData().item);
+        that.assertArrayEquals(["D", "E", "F"], data.value);
+        that.assertEquals("data[2-4]", data.name);
+        that.assertArrayEquals(["C"], data.old);
+        that.assertEquals(that.array, data.item);
       }
 
       var spy = this.spy(handler);
-      this.testObject.addListener("changeBubble", spy, this);
+      this.testObject.on("changeBubble", spy, this);
 
       this.array.splice(2, 3, "D", "E", "F").dispose();
 
@@ -422,17 +422,17 @@ qx.Class.define("qx.test.data.DataArrayWithChangeBubble",
     testSpliceRemoveOnly : function()
     {
       var that = this;
-      var handler = function(e) {
+      var handler = function(data) {
         that.assertArrayEquals(["A"], that.array.toArray(), "Changes are not applied when handler is executed!");
         // check the data
-        that.assertArrayEquals([], e.getData().value);
-        that.assertEquals("data[1-2]", e.getData().name);
-        that.assertArrayEquals(["B", "C"], e.getData().old);
-        that.assertEquals(that.array, e.getData().item);
+        that.assertArrayEquals([], data.value);
+        that.assertEquals("data[1-2]", data.name);
+        that.assertArrayEquals(["B", "C"], data.old);
+        that.assertEquals(that.array, data.item);
       }
 
       var spy = this.spy(handler);
-      this.testObject.addListener("changeBubble", spy, this);
+      this.testObject.on("changeBubble", spy, this);
 
       this.array.splice(1, 2).dispose();
 
@@ -444,17 +444,17 @@ qx.Class.define("qx.test.data.DataArrayWithChangeBubble",
     testUnshift : function()
     {
       var that = this;
-      var handler = function(e) {
+      var handler = function(data) {
         that.assertArrayEquals(["D", "A", "B", "C"], that.array.toArray(), "Changes are not applied when handler is executed!");
         // check the data
-        that.assertArrayEquals(["D"], e.getData().value);
-        that.assertEquals("data[0]", e.getData().name);
-        that.assertArrayEquals(["A"], e.getData().old);
-        that.assertEquals(that.array, e.getData().item);
+        that.assertArrayEquals(["D"], data.value);
+        that.assertEquals("data[0]", data.name);
+        that.assertArrayEquals(["A"], data.old);
+        that.assertEquals(that.array, data.item);
       }
 
       var spy = this.spy(handler);
-      this.testObject.addListener("changeBubble", spy, this);
+      this.testObject.on("changeBubble", spy, this);
 
       this.array.unshift("D");
 
@@ -473,15 +473,15 @@ qx.Class.define("qx.test.data.DataArrayWithChangeBubble",
       model.shift();
 
       var that = this;
-      var handler = function(e) {
+      var handler = function(data) {
         // check the data
-        that.assertEquals("zwei", e.getData().value);
-        that.assertEquals("[0].foo", e.getData().name);
-        that.assertEquals("two", e.getData().old);
+        that.assertEquals("zwei", data.value);
+        that.assertEquals("[0].foo", data.name);
+        that.assertEquals("two", data.old);
       }
 
       var spy = this.spy(handler);
-      model.addListener("changeBubble", spy, this);
+      model.on("changeBubble", spy, this);
 
       model.getItem(0).foo = ("zwei");
     },
@@ -497,15 +497,15 @@ qx.Class.define("qx.test.data.DataArrayWithChangeBubble",
       model.reverse();
 
       var that = this;
-      var handler = function(e) {
+      var handler = function(data) {
         // check the data
-        that.assertEquals("drei", e.getData().value);
-        that.assertEquals("[0].foo", e.getData().name);
-        that.assertEquals("three", e.getData().old);
+        that.assertEquals("drei", data.value);
+        that.assertEquals("[0].foo", data.name);
+        that.assertEquals("three", data.old);
       }
 
       var spy = this.spy(handler);
-      model.addListener("changeBubble", spy, this);
+      model.on("changeBubble", spy, this);
 
       model.getItem(0).foo = ("drei");
     },
@@ -521,15 +521,15 @@ qx.Class.define("qx.test.data.DataArrayWithChangeBubble",
       model.unshift(qx.data.marshal.Json.createModel({foo: "zero"}, true));
 
       var that = this;
-      var handler = function(e) {
+      var handler = function(data) {
         // check the data
-        that.assertEquals("eins", e.getData().value);
-        that.assertEquals("[1].foo", e.getData().name);
-        that.assertEquals("one", e.getData().old);
+        that.assertEquals("eins", data.value);
+        that.assertEquals("[1].foo", data.name);
+        that.assertEquals("one", data.old);
       }
 
       var spy = this.spy(handler);
-      model.addListener("changeBubble", spy, this);
+      model.on("changeBubble", spy, this);
 
       model.getItem(1).foo = "eins";
     },
@@ -547,15 +547,15 @@ qx.Class.define("qx.test.data.DataArrayWithChangeBubble",
       });
 
       var that = this;
-      var handler = function(e) {
+      var handler = function(data) {
         // check the data
-        that.assertEquals("drei", e.getData().value);
-        that.assertEquals("[0].foo", e.getData().name);
-        that.assertEquals("three", e.getData().old);
+        that.assertEquals("drei", data.value);
+        that.assertEquals("[0].foo", data.name);
+        that.assertEquals("three", data.old);
       }
 
       var spy = this.spy(handler);
-      model.addListener("changeBubble", spy, this);
+      model.on("changeBubble", spy, this);
 
       model.getItem(0).foo = "drei";
     },
@@ -571,15 +571,15 @@ qx.Class.define("qx.test.data.DataArrayWithChangeBubble",
       model.splice(0, 0, qx.data.marshal.Json.createModel({foo: "zero"}, true));
 
       var that = this;
-      var handler = function(e) {
+      var handler = function(data) {
         // check the data
-        that.assertEquals("eins", e.getData().value);
-        that.assertEquals("[1].foo", e.getData().name);
-        that.assertEquals("one", e.getData().old);
+        that.assertEquals("eins", data.value);
+        that.assertEquals("[1].foo", data.name);
+        that.assertEquals("one", data.old);
       }
 
       var spy = this.spy(handler);
-      model.addListener("changeBubble", spy, this);
+      model.on("changeBubble", spy, this);
 
       model.getItem(1).foo = ("eins");
     }

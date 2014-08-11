@@ -84,7 +84,7 @@ qx.Mixin.define("qx.data.marshal.MEventBubbling",
     _registerEventChaining : function(value, old, name)
     {
       // if an old value is given, remove the old listener if possible
-      if (old != null && old.getUserData && old.getUserData("idBubble-" + this.$$hash) != null) {
+      if (old != null && old.getUserData && old.getUserData("idBubble-" + this.$$hash) != null) { // TODO
         var listeners = old.getUserData("idBubble-" + this.$$hash);
         for (var i = 0; i < listeners.length; i++) {
           old.removeListenerById(listeners[i]);
@@ -93,18 +93,13 @@ qx.Mixin.define("qx.data.marshal.MEventBubbling",
       }
 
       // if the child supports chaining
-      if ((value instanceof qx.core.Object)
-        && qx.Class.hasMixin(value.constructor, qx.data.marshal.MEventBubbling)
-      ) {
+      if (qx.Class.hasMixin(value.constructor, qx.data.marshal.MEventBubbling)) {
         // create the listener
-        var listener = qx.lang.Function.bind(
-          this.__changePropertyListener, this, name
-        );
+        var listener = this.__changePropertyListener.bind(this, name);
         // add the listener
-        var id = value.addListener("changeBubble", listener, this);
-        var listeners = value.getUserData("idBubble-" + this.$$hash);
-        if (listeners == null)
-        {
+        var id = value.on("changeBubble", listener, this);
+        // var listeners = value.getUserData("idBubble-" + this.$$hash);
+        if (listeners == null) {
           listeners = [];
           value.setUserData("idBubble-" + this.$$hash, listeners);
         }

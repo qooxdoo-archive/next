@@ -26,7 +26,7 @@
  */
 qx.Bootstrap.define("qx.data.Array",
 {
-  extend : qx.core.Object,
+  extend : qx.event.Emitter,
   include : qx.data.marshal.MEventBubbling,
   implement : [qx.data.IListData],
 
@@ -44,7 +44,6 @@ qx.Bootstrap.define("qx.data.Array",
    */
   construct : function(param)
   {
-    this.base(qx.core.Object, "constructor");
     // if no argument is given
     if (param == undefined) {
       this.__array = [];
@@ -166,14 +165,14 @@ qx.Bootstrap.define("qx.data.Array",
       // remove the possible added event listener
       this._registerEventChaining(null, item, this.length - 1);
       // fire change bubble event
-      this.fireDataEvent("changeBubble", {
+      this.emit("changeBubble", {
         value: [],
         name: this.length + "",
         old: [item],
         item: this
       });
 
-      this.fireDataEvent("change",
+      this.emit("change",
         {
           start: this.length - 1,
           end: this.length - 1,
@@ -202,7 +201,7 @@ qx.Bootstrap.define("qx.data.Array",
         this._registerEventChaining(arguments[i], null, this.length - 1);
 
         // fire change bubbles event
-        this.fireDataEvent("changeBubble", {
+        this.emit("changeBubble", {
           value: [arguments[i]],
           name: (this.length - 1) + "",
           old: [],
@@ -210,7 +209,7 @@ qx.Bootstrap.define("qx.data.Array",
         });
 
         // fire change event
-        this.fireDataEvent("change",
+        this.emit("change",
           {
             start: this.length - 1,
             end: this.length - 1,
@@ -238,12 +237,12 @@ qx.Bootstrap.define("qx.data.Array",
 
       this.__updateEventPropagation(0, this.length);
 
-      this.fireDataEvent("change",
+      this.emit("change",
         {start: 0, end: this.length - 1, type: "order", added: [], removed: []}, null
       );
 
       // fire change bubbles event
-      this.fireDataEvent("changeBubble", {
+      this.emit("changeBubble", {
         value: this.__array,
         name: "0-" + (this.__array.length - 1),
         old: oldArray,
@@ -272,7 +271,7 @@ qx.Bootstrap.define("qx.data.Array",
       this.__updateEventPropagation(0, this.length);
 
       // fire change bubbles event
-      this.fireDataEvent("changeBubble", {
+      this.emit("changeBubble", {
         value: [],
         name: "0",
         old: [item],
@@ -280,7 +279,7 @@ qx.Bootstrap.define("qx.data.Array",
       });
 
       // fire change event
-      this.fireDataEvent("change",
+      this.emit("change",
         {
           start: 0,
           end: this.length -1,
@@ -362,7 +361,7 @@ qx.Bootstrap.define("qx.data.Array",
           var type = "add/remove";
           var end = startIndex + Math.abs(addedItems.length - returnArray.length);
         }
-        this.fireDataEvent("change",
+        this.emit("change",
           {
             start: startIndex,
             end: end,
@@ -400,7 +399,7 @@ qx.Bootstrap.define("qx.data.Array",
           old: returnArray,
           item: this
         };
-        this.fireDataEvent("changeBubble", eventData);
+        this.emit("changeBubble", eventData);
       }
       return (new qx.data.Array(returnArray));
     },
@@ -430,12 +429,12 @@ qx.Bootstrap.define("qx.data.Array",
 
       this.__updateEventPropagation(0, this.length);
 
-      this.fireDataEvent("change",
+      this.emit("change",
         {start: 0, end: this.length - 1, type: "order", added: [], removed: []}, null
       );
 
       // fire change bubbles event
-      this.fireDataEvent("changeBubble", {
+      this.emit("changeBubble", {
         value: this.__array,
         name: "0-" + (this.length - 1),
         old: oldArray,
@@ -459,7 +458,7 @@ qx.Bootstrap.define("qx.data.Array",
         this.__updateEventPropagation(0, this.length);
 
         // fire change bubbles event
-        this.fireDataEvent("changeBubble", {
+        this.emit("changeBubble", {
           value: [this.__array[0]],
           name: "0",
           old: [this.__array[1]],
@@ -467,7 +466,7 @@ qx.Bootstrap.define("qx.data.Array",
         });
 
         // fire change event
-        this.fireDataEvent("change",
+        this.emit("change",
           {
             start: 0,
             end: this.length - 1,
@@ -531,7 +530,7 @@ qx.Bootstrap.define("qx.data.Array",
       }
 
       // fire change bubbles event
-      this.fireDataEvent("changeBubble", {
+      this.emit("changeBubble", {
         value: [item],
         name: index + "",
         old: [oldItem],
@@ -539,7 +538,7 @@ qx.Bootstrap.define("qx.data.Array",
       });
 
       // fire change event
-      this.fireDataEvent("change",
+      this.emit("change",
         {
           start: index,
           end: index,
@@ -710,7 +709,7 @@ qx.Bootstrap.define("qx.data.Array",
       this.__updateLength();
 
       // fire change bubbles event
-      this.fireDataEvent("changeBubble", {
+      this.emit("changeBubble", {
         value: [],
         name: "0-" + (oldLength - 1),
         old: items,
@@ -718,7 +717,7 @@ qx.Bootstrap.define("qx.data.Array",
       });
 
       // fire the change event
-      this.fireDataEvent("change",
+      this.emit("change",
         {
           start: 0,
           end: oldLength - 1,
@@ -766,7 +765,7 @@ qx.Bootstrap.define("qx.data.Array",
         oldLength == (this.length-1) ?
         oldLength :
         oldLength + "-" + (this.length-1);
-      this.fireDataEvent("changeBubble", {
+      this.emit("changeBubble", {
         value: array,
         name: name + "",
         old: [],
@@ -774,7 +773,7 @@ qx.Bootstrap.define("qx.data.Array",
       });
 
       // fire the change event
-      this.fireDataEvent("change",
+      this.emit("change",
         {
           start: oldLength,
           end: this.length - 1,
@@ -1026,7 +1025,7 @@ qx.Bootstrap.define("qx.data.Array",
     __updateLength: function() {
       var oldLength = this.length;
       this.length = this.__array.length;
-      this.fireDataEvent("changeLength", this.length, oldLength);
+      this.emit("changeLength", this.length, oldLength);
     },
 
 
@@ -1043,7 +1042,6 @@ qx.Bootstrap.define("qx.data.Array",
 
 
     dispose : function() {
-      this.base(qx.core.Object, "dispose");
       for (var i = 0; i < this.__array.length; i++) {
         var item = this.__array[i];
         this._applyEventPropagation(null, item, i);
