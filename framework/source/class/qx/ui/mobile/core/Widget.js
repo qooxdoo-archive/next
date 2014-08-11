@@ -309,7 +309,6 @@ qx.Bootstrap.define("qx.ui.mobile.core.Widget",
       var clazz = qx.ui.mobile.core.Widget;
       window.clearTimeout(clazz.__domUpdatedScheduleId);
       clazz.__domUpdatedScheduleId = null;
-      qx.event.handler.Appear.refresh();
       qx.ui.mobile.core.DomUpdatedHandler.refresh();
     }),
 
@@ -391,8 +390,7 @@ qx.Bootstrap.define("qx.ui.mobile.core.Widget",
      * Triggers the {@link #scheduleDomUpdated} method. This method needs to be called
      * when the DOM has changed, e.g. an element was added / removed / styled.
      */
-    _domUpdated : function()
-    {
+    _domUpdated : function() {
       qx.ui.mobile.core.Widget.scheduleDomUpdated();
     },
 
@@ -706,6 +704,7 @@ qx.Bootstrap.define("qx.ui.mobile.core.Widget",
     {
       this.base(qxWeb, "setHtml", value || "");
       this._domUpdated();
+      return this;
     },
 
 
@@ -809,7 +808,9 @@ qx.Bootstrap.define("qx.ui.mobile.core.Widget",
      */
     setStyle : function(style, value) {
       this.base(qxWeb, "setStyle", style, value);
+
       this._domUpdated();
+      return this;
     },
 
 
@@ -840,6 +841,7 @@ qx.Bootstrap.define("qx.ui.mobile.core.Widget",
     addClass : function(cssClass) {
       this.base(qxWeb, "addClass", cssClass);
       this._domUpdated();
+      return this;
     },
 
 
@@ -854,6 +856,7 @@ qx.Bootstrap.define("qx.ui.mobile.core.Widget",
         this.base(qxWeb, "addClasses", cssClasses);
         this._domUpdated();
       }
+      return this;
     },
 
 
@@ -867,6 +870,7 @@ qx.Bootstrap.define("qx.ui.mobile.core.Widget",
         this.base(qxWeb, "removeClass", cssClass);
         this._domUpdated();
       }
+      return this;
     },
 
 
@@ -876,10 +880,11 @@ qx.Bootstrap.define("qx.ui.mobile.core.Widget",
      * @param cssClasses {String[]} The CSS classes to remove from widget.
      */
     removeClasses : function(cssClasses) {
-       if (cssClasses){
-         this.base(qxWeb, "removeClasses", cssClasses);
-         this._domUpdated();
-       }
+      if (cssClasses){
+        this.base(qxWeb, "removeClasses", cssClasses);
+        this._domUpdated();
+      }
+      return this;
     },
 
 
@@ -894,6 +899,7 @@ qx.Bootstrap.define("qx.ui.mobile.core.Widget",
       } else {
         this.addClass(cssClass);
       }
+      return this;
     },
 
 
@@ -947,6 +953,7 @@ qx.Bootstrap.define("qx.ui.mobile.core.Widget",
      */
     show : function(properties) {
       this.__setVisibility("visible", properties);
+      return this;
     },
 
 
@@ -958,6 +965,7 @@ qx.Bootstrap.define("qx.ui.mobile.core.Widget",
      */
     hide : function(properties) {
       this.__setVisibility("hidden", properties);
+      return this;
     },
 
 
@@ -969,6 +977,7 @@ qx.Bootstrap.define("qx.ui.mobile.core.Widget",
      */
     exclude : function(properties) {
       this.__setVisibility("excluded", properties);
+      return this;
     },
 
 
@@ -1015,8 +1024,7 @@ qx.Bootstrap.define("qx.ui.mobile.core.Widget",
      * animations or performance critical tasks.
      * @return {Boolean} <code>true</code>if the widget is seeable
      */
-    isSeeable : function()
-    {
+    isSeeable : function() {
       return this[0].offsetWidth > 0;
     },
 
