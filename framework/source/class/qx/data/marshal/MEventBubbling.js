@@ -64,7 +64,7 @@ qx.Mixin.define("qx.data.marshal.MEventBubbling",
      */
     _applyEventPropagation : function(value, old, name)
     {
-      this.fireDataEvent("changeBubble", {
+      this.emit("changeBubble", {
         value: value, name: name, old: old, item: this
       });
 
@@ -121,14 +121,13 @@ qx.Mixin.define("qx.data.marshal.MEventBubbling",
      * @param e {qx.event.type.Data} The date event fired by the property
      *   change.
      */
-    __changePropertyListener : function(name, e)
+    __changePropertyListener : function(name, data)
     {
-      var data = e.getData();
       var value = data.value;
       var old = data.old;
 
       // if the target is an array
-      if (qx.Class.hasInterface(e.getTarget().constructor, qx.data.IListData)) {
+      if (qx.Class.hasInterface(e.getTarget().constructor, qx.data.IListData)) { // TODO
 
         if (data.name.indexOf) {
           var dotIndex = data.name.indexOf(".") != -1 ? data.name.indexOf(".") : data.name.length;
@@ -164,7 +163,7 @@ qx.Mixin.define("qx.data.marshal.MEventBubbling",
         var newName =  name + "." + data.name;
       }
 
-      this.fireDataEvent(
+      this.emit(
         "changeBubble",
         {
           value: value,

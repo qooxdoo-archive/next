@@ -194,16 +194,16 @@ qx.Bootstrap.define("qx.data.marshal.Json",
       }
 
       // try to get the mixins
-      var mixins = [];
+      var mixins = [qx.data.MBinding];
       if (this.__delegate && this.__delegate.getModelMixins) {
         var delegateMixins = this.__delegate.getModelMixins(hash, parentProperty, depth);
         // check if its an array
         if (!qx.lang.Type.isArray(delegateMixins)) {
           if (delegateMixins != null) {
-            mixins = [delegateMixins];
+            mixins.push(delegateMixins);
           }
         } else {
-          mixins = delegateMixins;
+          mixins = mixins.concat(delegateMixins);
         }
       }
 

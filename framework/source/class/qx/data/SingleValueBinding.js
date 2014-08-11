@@ -210,7 +210,7 @@ qx.Bootstrap.define("qx.data.SingleValueBinding",
             listeners.push(listener);
 
             // add the chaining listener
-            listenerIds[i] = source.addListener(eventNames[i], listener);
+            listenerIds[i] = source.on(eventNames[i], listener);
           }
 
           // get and store the next source
@@ -241,7 +241,7 @@ qx.Bootstrap.define("qx.data.SingleValueBinding",
         for (var i = 0; i < sources.length; i++) {
           // check if a source is available
           if (sources[i] && listenerIds[i]) {
-            sources[i].removeListenerById(listenerIds[i]);
+            sources[i].offById(listenerIds[i]);
           }
         }
         var targets = targetListenerMap.targets;
@@ -250,7 +250,7 @@ qx.Bootstrap.define("qx.data.SingleValueBinding",
         for (var i = 0; i < targets.length; i++) {
           // check if a target is available
           if (targets[i] && targetIds[i]) {
-            targets[i].removeListenerById(targetIds[i]);
+            targets[i].offById(targetIds[i]);
           }
         }
 
@@ -298,7 +298,7 @@ qx.Bootstrap.define("qx.data.SingleValueBinding",
         }
 
         // remove the listeners
-        source.removeListenerById(context.listenerIds[j]);
+        source.offById(context.listenerIds[j]);
       }
 
       // get the current source
@@ -386,7 +386,7 @@ qx.Bootstrap.define("qx.data.SingleValueBinding",
           } else {
             var eventName = this.__getEventNameForProperty(source, context.propertyNames[j]);
           }
-          context.listenerIds[j] = source.addListener(eventName, context.listeners[j]);
+          context.listenerIds[j] = source.on(eventName, context.listeners[j]);
         }
       }
     },
@@ -455,7 +455,7 @@ qx.Bootstrap.define("qx.data.SingleValueBinding",
             }
 
             // remove the listeners
-            target.removeListenerById(listenerIds[j]);
+            target.offById(listenerIds[j]);
           }
 
           // get the current target
@@ -495,7 +495,7 @@ qx.Bootstrap.define("qx.data.SingleValueBinding",
               }
             }
 
-            listenerIds[j] = target.addListener(eventName, listeners[j]);
+            listenerIds[j] = target.on(eventName, listeners[j]);
            }
 
           qx.data.SingleValueBinding.updateTarget(
@@ -507,7 +507,7 @@ qx.Bootstrap.define("qx.data.SingleValueBinding",
         listeners.push(listener);
 
         // add the chaining listener
-        listenerIds[i] = target.addListener(eventNames[i], listener);
+        listenerIds[i] = target.on(eventNames[i], listener);
 
         // get and store the next target
         if (target[propertyNames[i]] == null) {
@@ -913,14 +913,14 @@ qx.Bootstrap.define("qx.data.SingleValueBinding",
           }
 
           // only do something if the curren array has been changed
-          var start = e.getData().start;
-          var end = e.getData().end;
+          var start = e.start;
+          var end = e.end;
           if (arrayIndex < start || arrayIndex > end) {
             return;
           }
         } else {
           // get the data out of the event
-          var data = e.value !== undefined ? e.value : e.getData(); //TODO: remove data event support
+          var data = e.value !== undefined ? e.value : e;
         }
 
         // debug message
@@ -962,7 +962,7 @@ qx.Bootstrap.define("qx.data.SingleValueBinding",
       bindListener = qx.lang.Function.bind(bindListener, sourceObject, arrayIndex);
 
       // add the listener
-      var id = sourceObject.addListener(sourceEvent, bindListener);
+      var id = sourceObject.on(sourceEvent, bindListener);
 
       return id;
     },
@@ -1111,19 +1111,19 @@ qx.Bootstrap.define("qx.data.SingleValueBinding",
         for (var i = 0; i < id.sources.length; i++) {
           // check if a source is available
           if (id.sources[i]) {
-            id.sources[i].removeListenerById(id.listenerIds[i]);
+            id.sources[i].offById(id.listenerIds[i]);
           }
         }
         // go threw all added listeners (target)
         for (var i = 0; i < id.targets.length; i++) {
           // check if a target is available
           if (id.targets[i]) {
-            id.targets[i].removeListenerById(id.targetListenerIds[i]);
+            id.targets[i].offById(id.targetListenerIds[i]);
           }
         }
       } else {
         // remove the listener
-        sourceObject.removeListenerById(id);
+        sourceObject.offById(id);
       }
 
       // remove the id from the internal reference system

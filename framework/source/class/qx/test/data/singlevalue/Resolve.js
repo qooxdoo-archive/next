@@ -29,28 +29,24 @@ qx.Class.define("qx.test.data.singlevalue.Resolve",
     testResolveDepth1 : function() {
       var model = qx.data.marshal.Json.createModel({a: 12});
       this.assertEquals(12, qx.data.SingleValueBinding.resolvePropertyChain(model, "a"));
-      model.dispose();
     },
 
 
     testResolveDepth2 : function() {
       var model = qx.data.marshal.Json.createModel({a: {b:12}});
       this.assertEquals(12, qx.data.SingleValueBinding.resolvePropertyChain(model, "a.b"));
-      model.dispose();
     },
 
 
     testResolveDepthHuge : function() {
       var model = qx.data.marshal.Json.createModel({a: {b: {c: {d: {e: {f: 12}}}}}});
       this.assertEquals(12, qx.data.SingleValueBinding.resolvePropertyChain(model, "a.b.c.d.e.f"));
-      model.dispose();
     },
 
 
     testResolveWithArray : function() {
       var model = qx.data.marshal.Json.createModel({a: {b: [{c: 12}]}});
       this.assertEquals(12, qx.data.SingleValueBinding.resolvePropertyChain(model, "a.b[0].c"));
-      model.dispose();
     },
 
 
@@ -58,8 +54,7 @@ qx.Class.define("qx.test.data.singlevalue.Resolve",
       var model = qx.data.marshal.Json.createModel({a: 12});
       this.assertException(function() {
         this.assertEquals(12, qx.data.SingleValueBinding.resolvePropertyChain(model, "b"));
-      })
-      model.dispose();
+      });
     }
   }
 });

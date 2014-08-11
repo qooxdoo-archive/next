@@ -34,7 +34,8 @@ qx.Class.define("qx.test.data.singlevalue.Array",
     // define a test class
     qx.Bootstrap.define("qx.test.data.singlevalue.Array_MultiBinding",
     {
-      extend : qx.core.Object,
+      extend : qx.event.Emitter,
+      include : qx.data.MBinding,
 
       construct : function() {
         this.array = new qx.data.Array(["one", "two", "three"]);
