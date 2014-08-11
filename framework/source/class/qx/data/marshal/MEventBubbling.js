@@ -25,6 +25,11 @@
 qx.Mixin.define("qx.data.marshal.MEventBubbling",
 {
 
+  statics : {
+    __eventBubblingHash : 0
+  },
+
+
   events :
   {
     /**
@@ -65,7 +70,7 @@ qx.Mixin.define("qx.data.marshal.MEventBubbling",
     _applyEventPropagation : function(value, old, name)
     {
       this.emit("changeBubble", {
-        value: value, name: name, old: old, item: this
+        value: value, name: name, old: old, item: this, target: this
       });
 
       this._registerEventChaining(value, old, name);
@@ -83,25 +88,30 @@ qx.Mixin.define("qx.data.marshal.MEventBubbling",
      */
     _registerEventChaining : function(value, old, name)
     {
+      // assign a new hash if not already available
+      if (!this.$$eventBubblingHash === undefined) {
+        this.$$eventBubblingHash = qx.data.MEventBubbling.__eventBubblingHash++;
+      }
+
       // if an old value is given, remove the old listener if possible
-      if (old != null && old.getUserData && old.getUserData("idBubble-" + this.$$hash) != null) { // TODO
-        var listeners = old.getUserData("idBubble-" + this.$$hash);
+      if (old != null && old["$$idBubble-" + this.$$eventBubblingHash] != null) {
+        var listeners = old["$$idBubble-" + this.$$eventBubblingHash];
         for (var i = 0; i < listeners.length; i++) {
-          old.removeListenerById(listeners[i]);
+          old.offById(listeners[i]);
         }
-        old.setUserData("idBubble-" + this.$$hash, null);
+        delete old["$$idBubble-" + this.$$eventBubblingHash];
       }
 
       // if the child supports chaining
-      if (qx.Class.hasMixin(value.constructor, qx.data.marshal.MEventBubbling)) {
+      if (value && qx.Class.hasMixin(value.constructor, qx.data.marshal.MEventBubbling)) {
         // create the listener
         var listener = this.__changePropertyListener.bind(this, name);
         // add the listener
         var id = value.on("changeBubble", listener, this);
-        // var listeners = value.getUserData("idBubble-" + this.$$hash);
+        var listeners = value["$$idBubble-" + this.$$eventBubblingHash];
         if (listeners == null) {
           listeners = [];
-          value.setUserData("idBubble-" + this.$$hash, listeners);
+          value["$$idBubble-" + this.$$eventBubblingHash] = listeners;
         }
         listeners.push(id);
       }
@@ -109,7 +119,7 @@ qx.Mixin.define("qx.data.marshal.MEventBubbling",
 
 
     /**
-     * Listener responsible for formating the name and firing the change event
+     * Listener responsible for formatting the name and firing the change event
      * for the changed property.
      *
      * @param name {String} The name of the former properties.
@@ -122,7 +132,7 @@ qx.Mixin.define("qx.data.marshal.MEventBubbling",
       var old = data.old;
 
       // if the target is an array
-      if (qx.Class.hasInterface(e.getTarget().constructor, qx.data.IListData)) { // TODO
+      if (qx.Interface.classImplements(data.target.constructor, qx.data.IListData)) {
 
         if (data.name.indexOf) {
           var dotIndex = data.name.indexOf(".") != -1 ? data.name.indexOf(".") : data.name.length;
@@ -164,7 +174,8 @@ qx.Mixin.define("qx.data.marshal.MEventBubbling",
           value: value,
           name: newName,
           old: old,
-          item: data.item || e.getTarget()
+          item: data.item || e.getTarget(),
+          target: this
         }
       );
     }

@@ -169,7 +169,8 @@ qx.Bootstrap.define("qx.data.Array",
         value: [],
         name: this.length + "",
         old: [item],
-        item: this
+        item: this,
+        target: this
       });
 
       this.emit("change",
@@ -205,7 +206,8 @@ qx.Bootstrap.define("qx.data.Array",
           value: [arguments[i]],
           name: (this.length - 1) + "",
           old: [],
-          item: this
+          item: this,
+          target: this
         });
 
         // fire change event
@@ -246,7 +248,8 @@ qx.Bootstrap.define("qx.data.Array",
         value: this.__array,
         name: "0-" + (this.__array.length - 1),
         old: oldArray,
-        item: this
+        item: this,
+        target: this
       });
     },
 
@@ -275,7 +278,8 @@ qx.Bootstrap.define("qx.data.Array",
         value: [],
         name: "0",
         old: [item],
-        item: this
+        item: this,
+        target: this
       });
 
       // fire change event
@@ -397,7 +401,8 @@ qx.Bootstrap.define("qx.data.Array",
           value: value,
           name: name + "",
           old: returnArray,
-          item: this
+          item: this,
+          target: this
         };
         this.emit("changeBubble", eventData);
       }
@@ -438,7 +443,8 @@ qx.Bootstrap.define("qx.data.Array",
         value: this.__array,
         name: "0-" + (this.length - 1),
         old: oldArray,
-        item: this
+        item: this,
+        target: this
       });
     },
 
@@ -462,7 +468,8 @@ qx.Bootstrap.define("qx.data.Array",
           value: [this.__array[0]],
           name: "0",
           old: [this.__array[1]],
-          item: this
+          item: this,
+          target: this
         });
 
         // fire change event
@@ -534,7 +541,8 @@ qx.Bootstrap.define("qx.data.Array",
         value: [item],
         name: index + "",
         old: [oldItem],
-        item: this
+        item: this,
+        target: this
       });
 
       // fire change event
@@ -713,7 +721,8 @@ qx.Bootstrap.define("qx.data.Array",
         value: [],
         name: "0-" + (oldLength - 1),
         old: items,
-        item: this
+        item: this,
+        target: this
       });
 
       // fire the change event
@@ -769,7 +778,8 @@ qx.Bootstrap.define("qx.data.Array",
         value: array,
         name: name + "",
         old: [],
-        item: this
+        item: this,
+        target: this
       });
 
       // fire the change event
