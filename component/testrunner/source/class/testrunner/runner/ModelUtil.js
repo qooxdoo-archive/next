@@ -1,3 +1,4 @@
+"use strict";
 /* ************************************************************************
 
    qooxdoo - the new era of web development
@@ -69,7 +70,7 @@ qx.Bootstrap.define("testrunner.runner.ModelUtil", {
       var kids = model.children;
       for (var i=0,l=kids.length; i<l; i++) {
         var child = kids.getItem(i);
-        testList = testList.concat(arguments.callee(child, property, value)); // TODO: remove callee
+        testList = testList.concat(testrunner.runner.ModelUtil.getItemsByProperty(child, property, value));
       }
       return testList;
     },
@@ -91,7 +92,7 @@ qx.Bootstrap.define("testrunner.runner.ModelUtil", {
         var kids = model.children;
         for (var i=0,l=kids.length; i<l; i++) {
           var child = kids.getItem(i);
-          var found = arguments.callee(child, fullName);
+          var found = testrunner.runner.ModelUtil.getItemByFullName(child, fullName);
           if (found) {
             return found;
           }
@@ -130,7 +131,7 @@ qx.Bootstrap.define("testrunner.runner.ModelUtil", {
             child.fullName = model.fullName + "." + child.name;
           }
 
-          arguments.callee(child);
+          testrunner.runner.ModelUtil.addDataFields(child);
 
           // skip binding the children's state to the parent in old IEs to
           // accelerate application startup
@@ -195,7 +196,7 @@ qx.Bootstrap.define("testrunner.runner.ModelUtil", {
         obj.children.push(found);
       }
 
-      arguments.callee(list, found);
+      testrunner.runner.ModelUtil.addChainToMap(list, found);
     },
 
 
@@ -244,7 +245,7 @@ qx.Bootstrap.define("testrunner.runner.ModelUtil", {
             return true;
           }
         } else {
-          if (arguments.callee(child, mixin, win)) {
+          if (testrunner.runner.ModelUtil.hasTestClassWithMixin(child, mixin, win)) {
             return true;
           }
         }

@@ -1,5 +1,5 @@
 (function(){
-
+"use strict";
 if (!window.qx) window.qx = {};
 
 qx.$$start = new Date();
