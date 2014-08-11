@@ -154,8 +154,7 @@ qx.Mixin.define("qx.ui.mobile.container.MIScroll",
           var resource = "qx/mobile/js/iscroll.min.js";
         }
         var path = qx.util.ResourceManager.getInstance().toUri(resource);
-        if (qx.core.Environment.get("qx.debug"))
-        {
+        if (qx.core.Environment.get("qx.debug")) {
           path += "?" + new Date().getTime();
         }
         var loader = new qx.bom.request.Script();
@@ -261,7 +260,7 @@ qx.Mixin.define("qx.ui.mobile.container.MIScroll",
       qxWeb(window).on("orientationchange", this._refresh, this);
       qxWeb(window).on("resize", this._refresh, this);
       this.on("touchmove", qx.bom.Event.stopPropagation);
-      this.on("domupdated", this._refresh, this);
+      this.on("appear", this._refresh, this); // TODO refresh on content size change (was domUpdated event)
     },
 
 
@@ -273,7 +272,7 @@ qx.Mixin.define("qx.ui.mobile.container.MIScroll",
       qxWeb(window).off("orientationchange", this._refresh, this);
       qxWeb(window).off("resize", this._refresh, this);
       this.off("touchmove", qx.bom.Event.stopPropagation);
-      this.off("domupdated", this._refresh, this);
+      this.off("appear", this._refresh, this);
     },
 
 

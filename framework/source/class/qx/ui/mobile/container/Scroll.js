@@ -318,16 +318,6 @@ qx.Bootstrap.define("qx.ui.mobile.container.Scroll",
     },
 
 
-    // overridden
-    _getContentElement: function() {
-      var contentElement = this.base(qx.ui.mobile.container.Composite, "_getContentElement");
-
-      var scrollContentElement = this._getScrollContentElement();
-
-      return scrollContentElement || contentElement;
-    },
-
-
     /**
      * Calls the refresh function the used scrolling method. Needed to recalculate the
      * scrolling container.
@@ -443,12 +433,13 @@ qx.Bootstrap.define("qx.ui.mobile.container.Scroll",
     */
     _scrollToElement : function(element, time)
     {
-      if (this._getContentElement() && this._isScrollable()) {
+      var contentElement = this._getScrollContentElement() || this[0];
+      if (contentElement && this._isScrollable()) {
         if (typeof time === "undefined") {
           time = 0;
         }
 
-        var location = qx.bom.element.Location.getRelative(this._getContentElement(), element, "scroll", "scroll");
+        var location = qx.bom.element.Location.getRelative(contentElement, element, "scroll", "scroll");
         var offset = this._getScrollOffset();
 
         this._scrollTo(-location.left - offset[0], -location.top - offset[1], time);
