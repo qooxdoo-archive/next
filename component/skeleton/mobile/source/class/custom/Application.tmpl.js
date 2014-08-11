@@ -28,7 +28,7 @@ qx.Class.define("${Namespace}.Application",
     main : function()
     {
       // Call super class
-      this.base(this.constructor.superclass, "main");
+      this.base(qx.application.Mobile, "main");
 
       // Enable logging in debug variant
       if (qx.core.Environment.get("qx.debug"))
