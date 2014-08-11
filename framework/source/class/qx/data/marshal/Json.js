@@ -120,6 +120,7 @@ qx.Bootstrap.define("qx.data.marshal.Json",
         !qx.lang.Type.isObject(data)
         || !!data.$$isString // check for localized strings
         || data instanceof qx.event.Emitter
+        || data instanceof qxWeb
       ) {
         // check for arrays
         if (data instanceof Array || qx.Bootstrap.getClass(data) == "Array") {
@@ -301,6 +302,7 @@ qx.Bootstrap.define("qx.data.marshal.Json",
         (!isObject && !isArray)
         || !!data.$$isString // check for localized strings
         || data instanceof qx.event.Emitter
+        || data instanceof qxWeb
       ) {
         return data;
 
