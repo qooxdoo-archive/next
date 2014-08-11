@@ -13,7 +13,7 @@
  *
  * @asset(${Namespace}/*)
  */
-qx.Class.define("${Namespace}.Application",
+qx.Bootstrap.define("${Namespace}.Application",
 {
   extend : qx.application.Mobile,
 

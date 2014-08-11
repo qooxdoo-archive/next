@@ -10,7 +10,7 @@
 
 /**
  */
-qx.Class.define("${Namespace}.page.Login",
+qx.Bootstrap.define("${Namespace}.page.Login",
 {
   extend : qx.ui.mobile.page.NavigationPage,
 

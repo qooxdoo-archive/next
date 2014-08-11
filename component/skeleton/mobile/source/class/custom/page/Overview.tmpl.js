@@ -10,7 +10,7 @@
 
 /**
  */
-qx.Class.define("${Namespace}.page.Overview",
+qx.Bootstrap.define("${Namespace}.page.Overview",
 {
   extend : qx.ui.mobile.page.NavigationPage,
 
