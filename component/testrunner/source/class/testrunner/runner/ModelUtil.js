@@ -1,4 +1,3 @@
-"use strict";
 /* ************************************************************************
 
    qooxdoo - the new era of web development
@@ -19,9 +18,7 @@
  * Utilities for creating and querying the test (suite) model.
  */
 
-qx.Class.define("testrunner.runner.ModelUtil", {
-
-  type : "static",
+qx.Bootstrap.define("testrunner.runner.ModelUtil", {
 
   statics :
   {
@@ -72,7 +69,7 @@ qx.Class.define("testrunner.runner.ModelUtil", {
       var kids = model.children;
       for (var i=0,l=kids.length; i<l; i++) {
         var child = kids.getItem(i);
-        testList = testList.concat(arguments.callee(child, property, value));
+        testList = testList.concat(arguments.callee(child, property, value)); // TODO: remove callee
       }
       return testList;
     },
