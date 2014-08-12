@@ -167,7 +167,6 @@ qx.Bootstrap.define("qx.ui.mobile.tabbar.TabBar",
      */
     _onChangeView : function(data)
     {
-      debugger;
       if (this.selection == data.target) {
         data.value.show();
       }
