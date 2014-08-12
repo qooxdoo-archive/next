@@ -23,8 +23,10 @@
  * @require(qx.event.handler.Application)
  * @require(qx.event.handler.Window)
  * @require(qx.event.dispatch.Direct)
+ *
+ * @require(qx.module.Core)
  */
-qx.Class.define("qx.core.Init",
+qx.Bootstrap.define("qx.core.Init",
 {
   /*
   *****************************************************************************
@@ -93,6 +95,6 @@ qx.Class.define("qx.core.Init",
   {
     qx.event.Registration.addListener(window, "ready", statics.ready, statics);
     qx.event.Registration.addListener(window, "shutdown", statics.__shutdown, statics);
-    qx.event.Registration.addListener(window, "beforeunload", statics.__close, statics);
+    qxWeb(window).on("beforeunload", statics.__close, statics);
   }
 });

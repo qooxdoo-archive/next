@@ -22,7 +22,7 @@
 /**
  * This is the base class for non-browser qooxdoo applications.
  */
-qx.Class.define("qx.core.BaseInit",
+qx.Bootstrap.define("qx.core.BaseInit",
 {
   /*
   *****************************************************************************
@@ -117,9 +117,6 @@ qx.Class.define("qx.core.BaseInit",
       if (app) {
         app.terminate();
       }
-
-      // Execute registry shutdown
-      qx.core.ObjectRegistry.shutdown();
     }
   }
 });
