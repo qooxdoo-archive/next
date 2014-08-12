@@ -179,8 +179,7 @@ qx.Bootstrap.define("qx.ui.mobile.list.List",
 
 
     // overridden
-    _getTagName : function()
-    {
+    _getTagName : function() {
       return "ul";
     },
 
@@ -375,8 +374,8 @@ qx.Bootstrap.define("qx.ui.mobile.list.List",
      * Reacts on model 'change' event.
      * @param evt {qx.event.type.Data} data event which contains model change data.
      */
-    __onModelChange : function(evt) {
-      if(evt && evt.getData() && evt.getData().type == "order") {
+    __onModelChange : function(data) {
+      if (data.type == "order") {
         this.__render();
       }
     },
@@ -386,17 +385,12 @@ qx.Bootstrap.define("qx.ui.mobile.list.List",
      * Reacts on model 'changeBubble' event.
      * @param evt {qx.event.type.Data} data event which contains model changeBubble data.
      */
-    __onModelChangeBubble : function(evt)
-    {
-      if(evt) {
-        var data = evt.getData();
-        var isArray = (qx.lang.Type.isArray(data.old) && qx.lang.Type.isArray(data.value));
-        if (!isArray || (isArray && data.old.length == data.value.length)) {
-          var rows = this._extractRowsToRender(data.name);
-
-          for (var i = 0; i < rows.length; i++) {
-            this.__renderRow(rows[i]);
-          }
+    __onModelChangeBubble : function(data) {
+      var isArray = (qx.lang.Type.isArray(data.old) && qx.lang.Type.isArray(data.value));
+      if (!isArray || (isArray && data.old.length == data.value.length)) {
+        var rows = this._extractRowsToRender(data.name);
+        for (var i = 0; i < rows.length; i++) {
+          this.__renderRow(rows[i]);
         }
       }
     },

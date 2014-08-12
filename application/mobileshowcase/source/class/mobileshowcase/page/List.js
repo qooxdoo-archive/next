@@ -51,7 +51,7 @@ qx.Class.define("mobileshowcase.page.List",
 
       this._waypointsY = ["0%", "25%", "50%", "75%", "100%", 200];
 
-      qx.bom.element.Style.set(this.getContent().getContentElement(), "position", "relative");
+      this.getContent().setStyle("position", "relative");
 
       this._loadingIndicator = new qx.ui.mobile.dialog.BusyIndicator("Loading more items ...");
       this._loadingIndicator.exclude();
@@ -64,7 +64,7 @@ qx.Class.define("mobileshowcase.page.List",
 
       var scrollContainer = this._getScrollContainer();
       scrollContainer.setWaypointsY(this._waypointsY);
-      scrollContainer.addListener("waypoint", this._onWaypoint, this);
+      scrollContainer.on("waypoint", this._onWaypoint, this);
 
       this._model = this._createModel();
 
@@ -98,16 +98,16 @@ qx.Class.define("mobileshowcase.page.List",
 
       list.model = this._model;
 
-      list.addListener("changeSelection", function(evt) {
-        this._showDialog("You selected Item #" + evt.getData());
+      list.on("changeSelection", function(data) {
+        this._showDialog("You selected Item #" + data);
       }, this);
 
-      list.addListener("changeGroupSelection", function(evt) {
-        this._showDialog("You selected Group #" + evt.getData());
+      list.on("changeGroupSelection", function(data) {
+        this._showDialog("You selected Group #" + data);
       }, this);
 
-      list.addListener("removeItem", function(evt) {
-       this._model.removeAt(evt.getData());
+      list.on("removeItem", function(data) {
+       this._model.removeAt(data);
       }, this);
 
       this.getContent().add(list);
@@ -118,12 +118,12 @@ qx.Class.define("mobileshowcase.page.List",
     * Handler for <code>waypoint</code> event on scrollContainer.
     * @param evt {qx.event.type.Data} the waypoint event.
     */
-    _onWaypoint : function(evt) {
-      var targetElement = this._waypointsLabel.getContentElement();
-      var index = evt.getData().index;
-      var direction = evt.getData().direction;
+    _onWaypoint : function(data) {
+      var targetElement = this._waypointsLabel;
+      var index = data.index;
+      var direction = data.direction;
 
-      qx.bom.element.Animation.animate(targetElement, {
+      targetElement.animate({
         "duration": 1000,
         "keep": 100,
         "keyFrames": {
@@ -142,7 +142,7 @@ qx.Class.define("mobileshowcase.page.List",
         }
       });
 
-      qx.bom.element.Attribute.set(targetElement, "data-waypoint-label", this._waypointsY[index]+ " ["+direction+"]");
+      targetElement.setAttribute("data-waypoint-label", this._waypointsY[index]+ " ["+direction+"]");
 
       // 100% waypoint
       if (index == 4) {
