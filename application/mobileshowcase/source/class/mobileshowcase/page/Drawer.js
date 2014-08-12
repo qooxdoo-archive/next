@@ -47,7 +47,7 @@ qx.Class.define("mobileshowcase.page.Drawer",
     /** Factory method for the a demo drawer's content. */
     _createDrawerContent : function(target) {
       var closeDrawerButton = new qx.ui.mobile.form.Button("Close");
-      closeDrawerButton.addListener("tap", function() {
+      closeDrawerButton.on("tap", function() {
         target.hide();
       }, this);
 
@@ -61,7 +61,7 @@ qx.Class.define("mobileshowcase.page.Drawer",
       var drawerGroup = new qx.ui.mobile.form.Group();
       for(var i = 0; i < drawers.length; i++) {
         var openDrawerButton = new qx.ui.mobile.form.Button("Open "+drawers[i].orientation +" drawer");
-        openDrawerButton.addListener("tap", drawers[i].show, drawers[i]);
+        openDrawerButton.on("tap", drawers[i].show, drawers[i]);
         drawerGroup.add(openDrawerButton);
       }
 
@@ -98,7 +98,7 @@ qx.Class.define("mobileshowcase.page.Drawer",
 
       var frontBackToggleButton = new qx.ui.mobile.form.ToggleButton(false, "Above","Below");
 
-      frontBackToggleButton.addListener("changeValue",function() {
+      frontBackToggleButton.on("changeValue",function() {
         this._togglePositionZ(drawerLeft);
         this._togglePositionZ(drawerRight);
         this._togglePositionZ(drawerTop);
@@ -121,8 +121,8 @@ qx.Class.define("mobileshowcase.page.Drawer",
      * Toggles the z-Index position of the target drawer.
      */
     _togglePositionZ : function(target) {
-      qx.bom.element.Style.set(target.getContainerElement(),"transitionDuration","0s");
-      qx.bom.element.Style.set(target.getContainerElement(), "position", "relative");
+      target.setStyle("transitionDuration", "0s");
+      target.setStyle("position", "relative");
 
       if(target.positionZ == "above") {
         target.positionZ = "below";
@@ -131,10 +131,10 @@ qx.Class.define("mobileshowcase.page.Drawer",
         target.positionZ = "above";
       }
 
-      qx.event.Timer.once(function() {
-        qx.bom.element.Style.set(this, "transitionDuration", null);
-        qx.bom.element.Style.set(this, "position", null);
-      }, target.getContainerElement(), 0);
+      window.setTimeout(function() {
+        this.setStyle("transitionDuration", null);
+        this.setStyle("position", null);
+      }.bind(target), 0);
     }
   }
 });

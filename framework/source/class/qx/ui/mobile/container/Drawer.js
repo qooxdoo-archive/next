@@ -39,7 +39,7 @@
  *  drawer.add(button);
  * </pre>
  *
- *
+ * @require(qx.module.Transform)
  */
 qx.Bootstrap.define("qx.ui.mobile.container.Drawer",
 {
@@ -194,104 +194,13 @@ qx.Bootstrap.define("qx.ui.mobile.container.Drawer",
 
 
     // property apply
-    _applyPositionZ : function(value,old) {
+    _applyPositionZ : function(value, old) {
       this.removeClass(old);
       this.addClass(value);
 
-      if(this.__parent) {
-        this.__parent.translateX = 0;
-        this.__parent.translateY = 0;
+      if (this.__parent) {
+        this.__parent.translate([0, 0]);
       }
-    },
-
-
-    /**
-    * @deprecated {3.5} Please use the size property instead.
-    * Sets the user value of the property width.
-    * @param value {Integer} New value for property
-    */
-    setWidth : function(value) {
-      if (qx.core.Environment.get("qx.debug"))
-      {
-        qx.log.Logger.deprecatedMethodWarning(arguments.callee,"The method 'setWidth()' is deprecated. Please use the 'size' property instead.");
-      }
-      this.size = value;
-    },
-
-
-    /**
-    * @deprecated {3.5} Please use getSize() instead.
-    * Gets the user value of the property width.
-    * @return {Integer} the value.
-    */
-    getWidth : function() {
-      if (qx.core.Environment.get("qx.debug"))
-      {
-        qx.log.Logger.deprecatedMethodWarning(arguments.callee,"The method 'getWidth()' is deprecated. Please use 'getSize()' instead.");
-      }
-      return this.size;
-    },
-
-
-    /**
-    * @deprecated {3.5} Please use 'size = undefined' instead.
-    * Resets the user value of the property width.
-    */
-    resetWidth : function() {
-      if (qx.core.Environment.get("qx.debug"))
-      {
-        qx.log.Logger.deprecatedMethodWarning(arguments.callee,"The method 'resetWidth()' is deprecated. Please use 'size = undefined' instead.");
-      }
-      this.size = undefined;
-    },
-
-
-    /**
-    * @deprecated {3.5} Please use the size property instead.
-    * Sets the user value of the property height.
-    * @param value {Integer} New value for property
-    */
-    setHeight : function(value) {
-      if (qx.core.Environment.get("qx.debug"))
-      {
-        qx.log.Logger.deprecatedMethodWarning(arguments.callee,"The method 'setHeight()' is deprecated. Please use the 'size' property instead.");
-      }
-      this.size = value;
-    },
-
-
-    /**
-    * @deprecated {3.5} Please use the 'size' property instead.
-    * Gets the user value of the property height.
-    * @return {Integer} the value.
-    */
-    getHeight : function() {
-      if (qx.core.Environment.get("qx.debug"))
-      {
-        qx.log.Logger.deprecatedMethodWarning(arguments.callee,"The method 'getHeight()' is deprecated. Please use the 'size' property instead.");
-      }
-      return this.size;
-    },
-
-
-    /**
-    * @deprecated {3.5} Please use 'size = undefined' instead.
-    * Resets the user value of the property height.
-    */
-    resetHeight : function() {
-      if (qx.core.Environment.get("qx.debug"))
-      {
-        qx.log.Logger.deprecatedMethodWarning(arguments.callee,"The method 'resetHeight()' is deprecated. Please use 'size = undefined' instead.");
-      }
-      this.size = undefined;
-    },
-
-
-    /**
-     * @deprecated {3.5} Please use this.__parent.toggleCssClass instead.
-     */
-    _toggleParentBlockedState : function() {
-      this.__parent.toggleCssClass("blocked");
     },
 
 
@@ -337,20 +246,19 @@ qx.Bootstrap.define("qx.ui.mobile.container.Drawer",
 
       if (this.positionZ == "below") {
         if (this.orientation == "left") {
-          this.__parent.translateX = this.size;
+          this.__parent.translate([this.size + "px", 0]);
         } else if (this.orientation == "right") {
-          this.__parent.translateX = -this.size;
+          this.__parent.translate([(-this.size) + "px", 0]);
         } else if (this.orientation == "top") {
-          this.__parent.translateY = this.size;
+          this.__parent.translate([0, this.size + "px"]);
         } else if (this.orientation == "bottom") {
-          this.__parent.translateY = -this.size;
+          this.__parent.translate([0, (-this.size) + "px"]);
         }
       }
 
       if (this.transitionDuration > 0) {
         this._enableTransition();
 
-        var callArguments = arguments;
         var transitionTarget = this._getTransitionTarget();
         var onTransitionEnd = function(evt) {
           this.base(qx.ui.mobile.container.Composite, "show");
@@ -360,7 +268,7 @@ qx.Bootstrap.define("qx.ui.mobile.container.Drawer",
         };
         transitionTarget.on("transitionend", onTransitionEnd, this);
 
-        setTimeout(function() {
+        window.setTimeout(function() {
           this.removeClass("hidden");
         }.bind(this), 0);
       } else {
@@ -382,24 +290,22 @@ qx.Bootstrap.define("qx.ui.mobile.container.Drawer",
       this.__inTransition = true;
 
       if (this.positionZ == "below") {
-        this.__parent.translateX = 0;
-        this.__parent.translateY = 0;
+        this.__parent.translate([0, 0]);
       }
 
       if (this.transitionDuration > 0) {
         this._enableTransition();
 
-        var callArguments = arguments;
-        var transitionTarget = this._getTransitionTarget()[0];
-        var listenerId = qx.bom.Element.on(transitionTarget, "transitionEnd", function(evt) {
+        var transitionTarget = this._getTransitionTarget();
+        var listenerId = transitionTarget.on("transitionend", function(evt) {
           this.base(qx.ui.mobile.container.Composite, "hide");
           this._disableTransition();
           this.__parent.removeClass("blocked");
           this.__inTransition = false;
-          qx.bom.Element.removeListenerById(transitionTarget, listenerId);
-        }, this);
+          transitionTarget.offById(listenerId);
+        }, this).getListenerId();
 
-        setTimeout(function() {
+        window.setTimeout(function() {
           this.addClass("hidden");
         }.bind(this), 0);
       } else {
@@ -420,8 +326,7 @@ qx.Bootstrap.define("qx.ui.mobile.container.Drawer",
       this._disableTransition();
 
       if (this.positionZ == "below") {
-        this.__parent.translateX = 0;
-        this.__parent.translateY = 0;
+        this.__parent.translate(0, 0);
       }
 
       this.__parent.removeClass("blocked");
@@ -440,7 +345,7 @@ qx.Bootstrap.define("qx.ui.mobile.container.Drawer",
      * Enables the transition on this drawer.
      */
     _enableTransition : function() {
-      qx.bom.element.Style.set(this._getTransitionTarget()[0], "transition", "all "+this.transitionDuration+"ms ease-in-out");
+      this._getTransitionTarget().setStyle("transition", "all " + this.transitionDuration + "ms ease-in-out");
     },
 
 
@@ -448,7 +353,7 @@ qx.Bootstrap.define("qx.ui.mobile.container.Drawer",
      * Disables the transition on this drawer.
      */
     _disableTransition : function() {
-      qx.bom.element.Style.set(this._getTransitionTarget()[0],"transition", null);
+      this._getTransitionTarget().setStyle("transition", null);
     },
 
 
@@ -489,7 +394,7 @@ qx.Bootstrap.define("qx.ui.mobile.container.Drawer",
 
       var isShown = !this.hasClass("hidden");
       if(isShown && this.hideOnParentTap) {
-        var location = qx.bom.element.Location.get(this[0]);
+        var location = this.getPosition();
         var orientation = this.orientation;
         if (orientation == "left" && this.__pointerStartPosition[0] > location.right
         || orientation == "top" && this.__pointerStartPosition[1] > location.bottom
@@ -513,7 +418,7 @@ qx.Bootstrap.define("qx.ui.mobile.container.Drawer",
       var direction = evt.swipe.direction;
       var isHidden = this.hasClass("hidden");
       if(isHidden) {
-        var location = qx.bom.element.Location.get(this[0]);
+        var location = this.getPosition();
 
         if (
           (direction == "right"
@@ -528,7 +433,7 @@ qx.Bootstrap.define("qx.ui.mobile.container.Drawer",
           ||
           (direction == "down"
           && this.orientation == "top"
-          && this.__pointerStartPosition[1] < this.tapOffset() + location.bott
+          && this.__pointerStartPosition[1] < this.tapOffset + location.bott
           && this.__pointerStartPosition[1] > location.bottom)
           ||
           (direction == "up"
