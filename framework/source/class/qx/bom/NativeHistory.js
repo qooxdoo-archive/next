@@ -25,13 +25,13 @@
  *
  * @internal
  */
-qx.Class.define("qx.bom.NativeHistory",
+qx.Bootstrap.define("qx.bom.NativeHistory",
 {
   extend : qx.bom.History,
 
   construct : function()
   {
-    this.base(arguments);
+    this.base(qx.bom.History, "constructor");
     this.__attachListeners();
   },
 
@@ -44,11 +44,9 @@ qx.Class.define("qx.bom.NativeHistory",
     /**
      * Attach hash change listeners
      */
-    __attachListeners : function()
-    {
-      var boundFunc = qx.lang.Function.bind(this.__onHashChange, this);
-      this.__checkOnHashChange = qx.event.GlobalError.observeMethod(boundFunc);
-      qx.bom.Event.addNativeListener(window, "hashchange", this.__checkOnHashChange);
+    __attachListeners : function() {
+      this.__checkOnHashChange = this.__onHashChange.bind(this);
+      qxWeb(window).on("hashchange", this.__checkOnHashChange);
     },
 
 
@@ -56,7 +54,7 @@ qx.Class.define("qx.bom.NativeHistory",
      * Remove hash change listeners
      */
     __detatchListeners : function() {
-      qx.bom.Event.removeNativeListener(window, "hashchange", this.__checkOnHashChange);
+      qxWeb(window).off("hashchange", this.__checkOnHashChange);
     },
 
 
@@ -90,11 +88,12 @@ qx.Class.define("qx.bom.NativeHistory",
      */
     _writeState : function (state) {
       this._setHash(this._encode(state));
+    },
+
+
+    // overridden
+    dispose : function() {
+      this.__detatchListeners();
     }
-  },
-
-
-  destruct : function() {
-    this.__detatchListeners();
   }
 });

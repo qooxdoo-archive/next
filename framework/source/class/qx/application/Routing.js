@@ -88,7 +88,7 @@ qx.Bootstrap.define("qx.application.Routing", {
     this.__messaging = new qx.event.Messaging();
 
     this.__navigationHandler = qx.bom.History.getInstance();
-    this.__navigationHandler.addListener("changeState", this.__onChangeHash, this);
+    this.__navigationHandler.on("changeState", this.__onChangeHash, this);
   },
 
 
@@ -123,7 +123,7 @@ qx.Bootstrap.define("qx.application.Routing", {
         }
       }
 
-      var path = this.getState();
+      var path = this.state;
       path = this._getPathOrFallback(path, defaultPath);
       this._executeGet(path, null, true);
     },
@@ -244,9 +244,8 @@ qx.Bootstrap.define("qx.application.Routing", {
      *
      * @param evt {qx.event.type.Data} The changeHash event.
      */
-    __onChangeHash : function(evt)
+    __onChangeHash : function(path)
     {
-      var path = evt.getData();
       path = this._getPathOrFallback(path);
 
       if (path != this.__currentGetPath) {
@@ -284,7 +283,7 @@ qx.Bootstrap.define("qx.application.Routing", {
         qx.application.Routing.__forward = [];
       }
 
-      this.__navigationHandler.setState(path);
+      this.__navigationHandler.state = path;
       this.__messaging.emit("get", path, null, customData);
     },
 
@@ -352,7 +351,7 @@ qx.Bootstrap.define("qx.application.Routing", {
      * @return {String} State of history navigation handler
      */
     getState : function() {
-      return this.__navigationHandler.getState();
+      return this.__navigationHandler.state;
     },
 
 
@@ -498,7 +497,7 @@ qx.Bootstrap.define("qx.application.Routing", {
      * Decouples the Routing from the navigation handler.
      */
     dispose : function() {
-      this.__navigationHandler.removeListener("changeState", this.__onChangeHash, this);
+      this.__navigationHandler.off("changeState", this.__onChangeHash, this);
     }
   }
 });

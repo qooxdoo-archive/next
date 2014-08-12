@@ -27,13 +27,13 @@
  *
  * @internal
  */
-qx.Class.define("qx.bom.HashHistory",
+qx.Bootstrap.define("qx.bom.HashHistory",
 {
   extend : qx.bom.History,
 
   construct : function()
   {
-    this.base(arguments);
+    this.base(qx.bom.History, "constructor");
     this._baseUrl = null;
     this.__initIframe();
   },
@@ -55,11 +55,11 @@ qx.Class.define("qx.bom.HashHistory",
 
       if (qx.lang.Type.isString(newTitle))
       {
-        this.setTitle(newTitle);
+        this.title = newTitle;
         this._titles[state] = newTitle;
       }
 
-      if (this.getState() !== state) {
+      if (this.state !== state) {
         this._writeState(state);
       }
     },
@@ -124,9 +124,9 @@ qx.Class.define("qx.bom.HashHistory",
           throw new Error("can't initialize iframe");
         }
 
-        qx.event.Timer.once(function() {
+        window.setTimeout(function() {
           this.__waitForIFrame(callback, context, ++retry);
-        }, this, 10);
+        }.bind(this), 10);
 
         return;
       }
@@ -219,12 +219,12 @@ qx.Class.define("qx.bom.HashHistory",
       if (value != hash) {
         this.__iframe.contentWindow.document.location.hash = value;
       }
+    },
+
+
+    dispose : function() {
+      this.__detatchListeners();
+      this.__iframe = null;
     }
-  },
-
-
-  destruct : function() {
-    this.__detatchListeners();
-    this.__iframe = null;
   }
 });

@@ -95,36 +95,19 @@
  *
  * @asset(qx/static/blank.html)
  */
-qx.Class.define("qx.bom.History",
+qx.Bootstrap.define("qx.bom.History",
 {
-  extend : qx.core.Object,
-  type : "abstract",
+  extend : qx.event.Emitter,
 
-
-
-
-  /*
-  *****************************************************************************
-     CONSTRUCTOR
-  *****************************************************************************
-  */
 
   construct : function()
   {
-    this.base(arguments);
-
     this._baseUrl = window.location.href.split('#')[0] + '#';
 
     this._titles = {};
     this._setInitialState();
   },
 
-
-  /*
-  *****************************************************************************
-     EVENTS
-  *****************************************************************************
-  */
 
   events: {
     /**
@@ -133,13 +116,6 @@ qx.Class.define("qx.bom.History",
      */
     "request" : "qx.event.type.Data"
   },
-
-
-  /*
-  *****************************************************************************
-     STATICS
-  *****************************************************************************
-  */
 
 
   statics :
@@ -156,14 +132,9 @@ qx.Class.define("qx.bom.History",
       if (!this.$$instance)
       {
         // in iframe + IE9
-        if (runsInIframe
-          && qx.core.Environment.get("browser.documentmode") == 9
-        ) {
+        if (runsInIframe && qx.core.Environment.get("browser.documentmode") == 9) {
           this.$$instance = new qx.bom.HashHistory();
-        }
-
-        // fallback
-        else {
+        } else {
           this.$$instance = new qx.bom.NativeHistory();
         }
       }
@@ -186,7 +157,7 @@ qx.Class.define("qx.bom.History",
     title :
     {
       check : "String",
-      event : "changeTitle",
+      event : true,
       nullable : true,
       apply    : "_applyTitle"
     },
@@ -197,7 +168,7 @@ qx.Class.define("qx.bom.History",
     state :
     {
       check : "String",
-      event : "changeState",
+      event : true,
       nullable : true,
       apply: "_applyState"
     }
@@ -218,8 +189,7 @@ qx.Class.define("qx.bom.History",
 
 
     // property apply
-    _applyState : function(value, old)
-    {
+    _applyState : function(value, old) {
       this._writeState(value);
     },
 
@@ -228,7 +198,7 @@ qx.Class.define("qx.bom.History",
      * Populates the 'state' property with the initial state value
      */
     _setInitialState : function() {
-      this.setState(this._readState());
+      this.state = this._readState();
     },
 
 
@@ -238,8 +208,7 @@ qx.Class.define("qx.bom.History",
      * @param value {String} The string to encode
      * @return {String} The encoded string
      */
-    _encode : function (value)
-    {
+    _encode : function (value) {
       if (qx.lang.Type.isString(value)) {
         return encodeURIComponent(value);
       }
@@ -290,11 +259,11 @@ qx.Class.define("qx.bom.History",
 
       if (qx.lang.Type.isString(newTitle))
       {
-        this.setTitle(newTitle);
+        this.title = newTitle;
         this._titles[state] = newTitle;
       }
 
-      if (this.getState() !== state) {
+      if (this.state !== state) {
         this._writeState(state);
       }
     },
@@ -305,7 +274,9 @@ qx.Class.define("qx.bom.History",
      * Simulates a back button click.
      */
      navigateBack : function() {
-       qx.event.Timer.once(function() {history.back();}, this, 100);
+       window.setTimeout(function() {
+         history.back();
+       }, 100);
      },
 
 
@@ -314,7 +285,9 @@ qx.Class.define("qx.bom.History",
      * Simulates a forward button click.
      */
      navigateForward : function() {
-       qx.event.Timer.once(function() {history.forward();}, this, 100);
+       window.setTimeout(function() {
+         history.forward();
+       }, 100);
      },
 
 
@@ -325,10 +298,10 @@ qx.Class.define("qx.bom.History",
      */
     _onHistoryLoad : function(state)
     {
-      this.setState(state);
-      this.fireDataEvent("request", state);
+      this.state = state;
+      this.emit("request", state);
       if (this._titles[state] != null) {
-        this.setTitle(this._titles[state]);
+        this.title = this._titles[state];
       }
     },
 
@@ -379,11 +352,5 @@ qx.Class.define("qx.bom.History",
       var hash = /#(.*)$/.exec(window.location.href);
       return hash && hash[1] ? hash[1] : "";
     }
-  },
-
-
-  destruct : function()
-  {
-    this._titles = null;
   }
 });
