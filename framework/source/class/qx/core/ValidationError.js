@@ -20,7 +20,7 @@
 /**
  * A validation Error which should be thrown if a validation fails.
  */
-qx.Class.define("qx.core.ValidationError",
+qx.Bootstrap.define("qx.core.ValidationError",
 {
-    extend : qx.type.BaseError
+  extend : qx.type.BaseError
 });

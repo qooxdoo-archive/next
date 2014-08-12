@@ -30,11 +30,8 @@
  * * Display of offset (time after loading) of each message
  * * Supports keyboard shortcuts F7 or Ctrl+D to toggle the visibility
  *
- * @require(qx.event.handler.Window)
- * @require(qx.event.handler.Keyboard)
- * @require(qx.event.handler.Gesture)
  */
-qx.Class.define("qx.log.appender.Console",
+qx.Bootstrap.define("qx.log.appender.Console",
 {
   statics :
   {
