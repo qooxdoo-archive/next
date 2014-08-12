@@ -22,42 +22,39 @@
  * Contains information about images (size, format, clipping, ...) and
  * other resources like CSS files, local data, ...
  */
-qx.Class.define("qx.util.ResourceManager",
+qx.Bootstrap.define("qx.util.ResourceManager",
 {
-  extend  : qx.core.Object,
-  type    : "singleton",
+  extend  : Object,
 
-  /*
-  *****************************************************************************
-     CONSTRUCTOR
-  *****************************************************************************
-  */
+  statics : {
+    __instance: null,
 
-  construct : function()
-  {
-    this.base(arguments);
-  },
-
-  /*
-  *****************************************************************************
-     STATICS
-  *****************************************************************************
-  */
-
-  statics :
-  {
     /** @type {Map} the shared image registry */
     __registry : qx.$$resources || {},
 
     /** @type {Map} prefix per library used in HTTPS mode for IE */
-    __urlPrefix : {}
+    __urlPrefix : {},
+
+    /**
+     * Returns the singleton instance of this class
+     * @return {qx.util.ResourceManager} The Blocker singleton
+     */
+    getInstance: function() {
+      var clazz = qx.util.ResourceManager;
+      if (!clazz.__instance) {
+        clazz.__instance = new clazz();
+      }
+      return clazz.__instance;
+    }
   },
 
-  /*
-  *****************************************************************************
-     MEMBERS
-  *****************************************************************************
-  */
+
+  construct : function() {
+    if (qx.util.ResourceManager.__instance) {
+      throw new Error("'" + this.classname + "' is a singleton class and can not be instantiated directly. Please use '" + this.classnme + ".getInstance()' instead.");
+    }
+  },
+
 
   members :
   {
@@ -69,7 +66,7 @@ qx.Class.define("qx.util.ResourceManager",
      * @return {Boolean} <code>true</code> when the resource is known.
      */
     has : function(id) {
-      return !!this.self(arguments).__registry[id];
+      return !!qx.util.ResourceManager.__registry[id];
     },
 
 
@@ -80,7 +77,7 @@ qx.Class.define("qx.util.ResourceManager",
      * @return {Array} Registered data or <code>null</code>
      */
     getData : function(id) {
-      return this.self(arguments).__registry[id] || null;
+      return qx.util.ResourceManager.__registry[id] || null;
     },
 
 
@@ -94,7 +91,7 @@ qx.Class.define("qx.util.ResourceManager",
      */
     getImageWidth : function(id)
     {
-      var entry = this.self(arguments).__registry[id];
+      var entry = qx.util.ResourceManager.__registry[id];
       return entry ? entry[0] : null;
     },
 
@@ -109,7 +106,7 @@ qx.Class.define("qx.util.ResourceManager",
      */
     getImageHeight : function(id)
     {
-      var entry = this.self(arguments).__registry[id];
+      var entry = qx.util.ResourceManager.__registry[id];
       return entry ? entry[1] : null;
     },
 
@@ -124,7 +121,7 @@ qx.Class.define("qx.util.ResourceManager",
      */
     getImageFormat : function(id)
     {
-      var entry = this.self(arguments).__registry[id];
+      var entry = qx.util.ResourceManager.__registry[id];
       return entry ? entry[2] : null;
     },
 
@@ -139,7 +136,7 @@ qx.Class.define("qx.util.ResourceManager",
     getCombinedFormat : function(id)
     {
       var clippedtype = "";
-      var entry = this.self(arguments).__registry[id];
+      var entry = qx.util.ResourceManager.__registry[id];
       var isclipped = entry && entry.length > 4 && typeof(entry[4]) == "string"
         && this.constructor.__registry[entry[4]];
       if (isclipped){
@@ -163,7 +160,7 @@ qx.Class.define("qx.util.ResourceManager",
         return id;
       }
 
-      var entry = this.self(arguments).__registry[id];
+      var entry = qx.util.ResourceManager.__registry[id];
       if (!entry) {
         return id;
       }
@@ -185,7 +182,7 @@ qx.Class.define("qx.util.ResourceManager",
       var urlPrefix = "";
       if ((qx.core.Environment.get("engine.name") == "mshtml") &&
           qx.core.Environment.get("io.ssl")) {
-        urlPrefix = this.self(arguments).__urlPrefix[lib];
+        urlPrefix = qx.util.ResourceManager.__urlPrefix[lib];
       }
 
       return urlPrefix + qx.util.LibraryManager.getInstance().get(lib, "resourceUri") + "/" + id;

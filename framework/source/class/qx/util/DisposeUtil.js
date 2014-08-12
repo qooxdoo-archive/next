@@ -30,7 +30,7 @@
  * @ignore(qx.ui.mobile.container.Composite)
  * @ignore(qx.ui.mobile.core.Widget)
  */
-qx.Class.define("qx.util.DisposeUtil",
+qx.Bootstrap.define("qx.util.DisposeUtil",
 {
   statics :
   {
