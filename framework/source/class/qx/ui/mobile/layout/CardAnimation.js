@@ -25,7 +25,7 @@
  */
 qx.Bootstrap.define("qx.ui.mobile.layout.CardAnimation",
 {
-  extend : qx.core.Object,
+  extend : Object,
 
 
   /*
@@ -35,8 +35,6 @@ qx.Bootstrap.define("qx.ui.mobile.layout.CardAnimation",
   */
   construct : function()
   {
-    this.base(qx.core.Object, "constructor");
-
     this._cardAnimationsMap = {
       "none": null,
       "slide": {
@@ -143,12 +141,6 @@ qx.Bootstrap.define("qx.ui.mobile.layout.CardAnimation",
      */
     getMap : function() {
       return this._cardAnimationsMap;
-    },
-
-
-    dispose : function() {
-      this.base(qx.core.Object, "dispose");
-      this._cardAnimationsMap = null;
     }
   }
 });
