@@ -1044,14 +1044,7 @@ qx.Bootstrap.define("qx.ui.mobile.core.Widget",
   },
 
 
-
-  /*
-  *****************************************************************************
-     DEFER
-  *****************************************************************************
-  */
-
   defer : function(statics) {
-    qx.bom.Lifecycle.onShutdown(statics.onShutdown, statics);
+    qxWeb(window).on("unload", statics.onShutdown, statics);
   }
 });
