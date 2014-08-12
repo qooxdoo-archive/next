@@ -38,7 +38,7 @@ qx.Bootstrap.define("qx.core.BaseInit",
     /**
      * Returns the instantiated qooxdoo application.
      *
-     * @return {qx.core.Object} The application instance.
+     * @return {Object} The application instance.
      */
     getApplication : function() {
       return this.__application || null;
@@ -52,6 +52,10 @@ qx.Bootstrap.define("qx.core.BaseInit",
      */
     ready : function()
     {
+      if (!(qx.$$loader.scriptLoaded && qxWeb.isReady())) {
+        return;
+      }
+
       if (this.__application) {
         return;
       }

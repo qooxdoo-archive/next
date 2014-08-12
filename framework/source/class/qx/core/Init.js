@@ -20,10 +20,6 @@
 /**
  * This is the base class for all qooxdoo applications.
  *
- * @require(qx.event.handler.Application)
- * @require(qx.event.handler.Window)
- * @require(qx.event.dispatch.Direct)
- *
  * @require(qx.module.Core)
  */
 qx.Bootstrap.define("qx.core.Init",
@@ -62,7 +58,10 @@ qx.Bootstrap.define("qx.core.Init",
     {
       var app = this.getApplication();
       if (app) {
-        e.setReturnValue(app.close());
+        var ret = app.close();
+        if (ret !== undefined) {
+          e.returnValue = ret;
+        }
       }
     },
 
@@ -93,8 +92,8 @@ qx.Bootstrap.define("qx.core.Init",
 
   defer : function(statics)
   {
-    qx.event.Registration.addListener(window, "ready", statics.ready, statics);
-    qx.event.Registration.addListener(window, "shutdown", statics.__shutdown, statics);
-    qxWeb(window).on("beforeunload", statics.__close, statics);
+    q.ready(statics.ready, statics);
+    qxWeb(window).on("beforeunload", statics.__close, statics)
+      .on("unload", statics.__shutdown, statics);
   }
 });
