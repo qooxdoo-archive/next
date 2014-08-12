@@ -43,7 +43,7 @@
  */
 qx.Bootstrap.define("qx.ui.mobile.page.Manager",
 {
-  extend : qx.core.Object,
+  extend : Object,
 
 
   /*
@@ -59,8 +59,6 @@ qx.Bootstrap.define("qx.ui.mobile.page.Manager",
    */
   construct : function(isTablet, root)
   {
-    this.base(qx.core.Object, "constructor");
-
     root = root || qx.core.Init.getApplication().getRoot();
 
     if (typeof isTablet !== "undefined" && isTablet !== null) {
@@ -410,7 +408,7 @@ qx.Bootstrap.define("qx.ui.mobile.page.Manager",
 
         if (qx.core.Environment.get("qx.debug"))
         {
-          this.assertInstance(page, qx.ui.mobile.page.NavigationPage);
+          qx.core.Assert.assertInstance(page, qx.ui.mobile.page.NavigationPage);
         }
 
         if(this.__isTablet && !page.showBackButtonOnTablet) {
@@ -526,7 +524,7 @@ qx.Bootstrap.define("qx.ui.mobile.page.Manager",
      */
     _createDetailContainerGap : function() {
       qx.bom.element.Style.set(this.__detailContainer[0], this._getGapPropertyKey(), this.__masterContainer.size / 16 + "rem");
-      qx.event.Registration.fireEvent(window, "resize");
+      qxWeb(window).emit("resize");
     },
 
 
@@ -535,7 +533,7 @@ qx.Bootstrap.define("qx.ui.mobile.page.Manager",
      */
     _removeDetailContainerGap : function() {
       qx.bom.element.Style.set(this.__detailContainer[0], this._getGapPropertyKey(), null);
-      qx.event.Registration.fireEvent(window, "resize");
+      qxWeb(window).emit("resize");
     },
 
 
@@ -564,7 +562,6 @@ qx.Bootstrap.define("qx.ui.mobile.page.Manager",
 
 
     dispose : function() {
-      this.base(qx.core.Object, "dispose");
       if(this.__masterPages) {
         for(var i = 0; i < this.__masterPages.length; i++) {
           var masterPage = this.__masterPages[i];
