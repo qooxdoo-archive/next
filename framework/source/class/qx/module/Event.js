@@ -367,12 +367,13 @@ qx.Bootstrap.define("qx.module.Event", {
         }
         var storage = el.$$emitter.getListeners();
         for (var name in storage) {
-          for (var j = storage[name].length - 1; j >= 0; j--) {
-            var listener = storage[name][j].listener;
+          for (var id in storage[name]) {
+            var entry = storage[name][id];
+            var listener = entry.listener;
             if (listener.original) {
               listener = listener.original;
             }
-            qxWeb(targetCopy[i]).on(name, listener, storage[name][j].ctx);
+            qxWeb(targetCopy[i]).on(name, listener, entry.ctx);
           }
         }
       }
