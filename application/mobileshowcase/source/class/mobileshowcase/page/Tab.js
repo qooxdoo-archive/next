@@ -14,7 +14,7 @@
      See the LICENSE file in the project's top-level directory for details.
 
    Authors:
-     * Tino Butz (tbtz)
+     * Tino Butz (tbtz)
 
 ************************************************************************ */
 
@@ -61,10 +61,10 @@ qx.Class.define("mobileshowcase.page.Tab",
       var view3 = this.__createView("<b>qx.Server</b><br/><br/>Use the same OOP pattern known from the client side, reuse code and generate files you can deploy in your server environment.");
       var view4 = this.__createView("<b>qx.Website</b><br/><br/>A cross-browser DOM manipulation library to enhance websites with a rich user experience.");
 
-      view1.addCssClass("view1");
-      view2.addCssClass("view2");
-      view3.addCssClass("view3");
-      view4.addCssClass("view4");
+      view1.addClass("view1");
+      view2.addClass("view2");
+      view3.addClass("view3");
+      view4.addClass("view4");
 
       var tabButton1 = new qx.ui.mobile.tabbar.TabButton("Desktop");
       tabButton1.view = view1;

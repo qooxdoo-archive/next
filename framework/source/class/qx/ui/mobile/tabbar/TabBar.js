@@ -105,10 +105,10 @@ qx.Bootstrap.define("qx.ui.mobile.tabbar.TabBar",
      * @param evt {qx.event.type.Tap} The event object
      */
     _onTap: function(evt) {
-      var target = evt.getTarget();
+      var target = qx.ui.mobile.core.Widget.getWidgetById(evt.target.id);
 
       while (!(target instanceof qx.ui.mobile.tabbar.TabButton)) {
-        if (target.getLayoutParent) {
+        if (target._getParentWidget) {
           var layoutParent = target._getParentWidget();
           if (layoutParent == null || layoutParent instanceof qx.ui.mobile.tabbar.TabBar) {
             target = null;
@@ -151,7 +151,8 @@ qx.Bootstrap.define("qx.ui.mobile.tabbar.TabBar",
      */
     add : function(button)
     {
-      this._add(button, {flex:1});
+      button.layoutPrefs = {flex:1};
+      this._add(button);
       if (!this.selection) {
         this.selection = button;
       }
@@ -164,10 +165,11 @@ qx.Bootstrap.define("qx.ui.mobile.tabbar.TabBar",
      *
      * @param evt {qx.event.type.Data} The event
      */
-    _onChangeView : function(evt)
+    _onChangeView : function(data)
     {
-      if (this.selection == evt.getTarget()) {
-        evt.getData().show();
+      debugger;
+      if (this.selection == data.target) {
+        data.value.show();
       }
     },
 

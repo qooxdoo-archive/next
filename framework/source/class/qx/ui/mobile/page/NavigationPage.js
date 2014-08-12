@@ -439,7 +439,7 @@ qx.Bootstrap.define("qx.ui.mobile.page.NavigationPage",
      */
     addAfterNavigationBar : function(widget) {
       if (widget && this.__scrollContainer) {
-        widget.addBefore(this.__scrollContainer);
+        widget.insertBefore(this.__scrollContainer);
       }
     },
 

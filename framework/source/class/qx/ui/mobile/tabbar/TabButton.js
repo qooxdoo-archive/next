@@ -53,7 +53,7 @@ qx.Bootstrap.define("qx.ui.mobile.tabbar.TabButton",
       nullable : false,
       init : null,
       apply : "_applyView",
-      event : "changeView"
+      event : true
     }
   },
 
