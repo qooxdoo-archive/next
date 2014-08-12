@@ -30,13 +30,32 @@
  * http://www.w3.org/TR/geolocation-API/
  *
  */
-qx.Class.define("qx.bom.GeoLocation",
+qx.Bootstrap.define("qx.bom.GeoLocation",
 {
-  extend : qx.core.Object,
-  type : "singleton",
+  extend : qx.event.Emitter,
+
+  statics : {
+    __instance: null,
+
+    /**
+     * Returns the singleton instance of this class
+     * @return {qx.bom.GeoLocation} The GeoLocation singleton
+     */
+    getInstance : function() {
+      var clazz = qx.bom.GeoLocation;
+      if (!clazz.__instance) {
+        clazz.__instance = new clazz();
+      }
+      return clazz.__instance;
+    }
+  },
 
 
   construct: function() {
+    if (qx.bom.GeoLocation.__instance) {
+      throw new Error("'" + this.classname + "' is a singleton class and can not be instantiated directly. Please use '" + this.classnme + ".getInstance()' instead.");
+    }
+
     this._geolocation = navigator.geolocation;
   },
 
@@ -118,7 +137,7 @@ qx.Class.define("qx.bom.GeoLocation",
      * @param position {Function} position event
      */
     _successHandler: function(position) {
-      this.fireEvent("position", qx.event.type.GeoPosition, [position]);
+      this.emit("position", position);
     },
 
 
@@ -128,12 +147,11 @@ qx.Class.define("qx.bom.GeoLocation",
      * @param error {Function} error event
      */
     _errorHandler: function(error) {
-      this.fireDataEvent("error", error);
+      this.emit("error", error);
+    },
+
+    dispose: function() {
+      this.stopWatchPosition();
     }
-  },
-
-
-  destruct: function() {
-    this.stopWatchPosition();
   }
 });

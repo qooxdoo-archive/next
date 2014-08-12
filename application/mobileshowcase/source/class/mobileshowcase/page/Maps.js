@@ -60,8 +60,8 @@ qx.Class.define("mobileshowcase.page.Maps",
 
       // Listens on window orientation change and resize, and triggers redraw of map.
       // Needed for triggering OpenLayers to use a bigger area, and draw more tiles.
-      qx.event.Registration.addListener(window, "orientationchange", this._redrawMap, this);
-      qx.event.Registration.addListener(window, "resize", this._redrawMap, this);
+      q(window).on("orientationchange", this._redrawMap, this)
+        .on("resize", this._redrawMap, this);
     },
 
 
@@ -111,12 +111,12 @@ qx.Class.define("mobileshowcase.page.Maps",
 
       // SHOW MY POSITION BUTTON
       this._showMyPositionButton = new qx.ui.mobile.form.Button("Find me!");
-      this._showMyPositionButton.addListener("tap", this._getGeoPosition, this);
+      this._showMyPositionButton.on("tap", this._getGeoPosition, this);
 
       // Button is disabled when Geolocation is not available.
       this._showMyPositionButton.enabled = this._geolocationEnabled;
 
-      toggleNavigationButton.addListener("changeValue", function() {
+      toggleNavigationButton.on("changeValue", function() {
         var newNavBarState = !this.navigationBarHidden;
         this.navigationBarHidden = newNavBarState;
         this.show();
@@ -216,8 +216,8 @@ qx.Class.define("mobileshowcase.page.Maps",
      */
     _initGeoLocation : function() {
       var geo = qx.bom.GeoLocation.getInstance();
-      geo.addListener("position", this._onGeolocationSuccess,this);
-      geo.addListener("error", this._onGeolocationError,this);
+      geo.on("position", this._onGeolocationSuccess,this);
+      geo.on("error", this._onGeolocationError,this);
     },
 
 
@@ -225,7 +225,7 @@ qx.Class.define("mobileshowcase.page.Maps",
      * Callback function when Geolocation did work.
      */
     _onGeolocationSuccess : function(position) {
-      this._zoomToPosition(position.getLongitude(), position.getLatitude(), 15, true);
+      this._zoomToPosition(position.coords.longitude, position.coords.latitude, 15, true);
 
       this._redrawMap();
     },
