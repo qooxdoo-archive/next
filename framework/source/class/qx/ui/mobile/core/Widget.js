@@ -1030,8 +1030,6 @@ qx.Bootstrap.define("qx.ui.mobile.core.Widget",
 
 
     dispose : function() {
-      this.base(arguments);
-
       // Cleanup event listeners
       // Needed as we rely on the containerElement in the qx.ui.mobile.core.EventHandler
       qx.event.Registration.removeAllListeners(this);
@@ -1041,11 +1039,7 @@ qx.Bootstrap.define("qx.ui.mobile.core.Widget",
         qx.ui.mobile.core.Widget.unregisterWidget(this.id);
       }
 
-      this.remove();
-
-      if(this.__layoutManager) {
-        this.__layoutManager.dispose();
-      }
+      // this.remove(); TODO delete widget remove API
     }
   },
 

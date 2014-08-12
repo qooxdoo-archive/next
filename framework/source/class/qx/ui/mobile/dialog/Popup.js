@@ -585,7 +585,9 @@ qx.Bootstrap.define("qx.ui.mobile.dialog.Popup",
     dispose : function() {
       this.base(qx.ui.mobile.core.Widget, "dispose");
       this.__unregisterEventListener();
-      this._disposeObjects("__childrenContainer");
+      if (this.__childrenContainer) {
+        this.__childrenContainer.dispose();
+      }
 
       this.__isShown = this.__percentageTop = this._anchor = this.__widget = this.__lastPopupDimension = null;
     }

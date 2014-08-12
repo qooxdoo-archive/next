@@ -73,7 +73,8 @@ qx.Bootstrap.define("qx.ui.mobile.container.ScrollComposite",
     this.on("swipe", this._onSwipe, this);
 
     this._setLayout(new qx.ui.mobile.layout.HBox());
-    this._add(this._scrollContainer, {flex:1});
+    this._scrollContainer.layoutPrefs = {flex:1};
+    this._add(this._scrollContainer);
 
     this._updateScrollIndicator(this.__lastOffset[1]);
 
