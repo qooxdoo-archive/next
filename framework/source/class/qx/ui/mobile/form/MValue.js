@@ -193,6 +193,16 @@ qx.Mixin.define("qx.ui.mobile.form.MValue",
       value = this._convertValue(value);
       if (this.__oldValue != value)
       {
+        // min value check
+        if (this.minimum !== undefined) {
+          value = Math.max(value, this.minimum)
+        }
+
+        // max value check
+        if (this.maximum !== undefined) {
+          value = Math.min(value, this.maximum)
+        }
+
         if (this._setValue) {
           this._setValue(value);
         } else {
@@ -201,6 +211,7 @@ qx.Mixin.define("qx.ui.mobile.form.MValue",
         this.__fireChangeValue(value);
       }
     },
+
 
     /**
      * Returns the set value.

@@ -249,10 +249,9 @@ qx.Bootstrap.define("qx.ui.mobile.form.Slider",
      */
     _onPointerDown: function(evt)
     {
-      if (evt.isPrimary())
-      {
+      if (evt.isPrimary) {
         this._updateSizes();
-        var position = this._getPosition(evt.getDocumentLeft());
+        var position = this._getPosition(evt.pageX);
         this.value = this._positionToValue(position);
 
         evt.stopPropagation();
@@ -267,7 +266,7 @@ qx.Bootstrap.define("qx.ui.mobile.form.Slider",
      */
     _onTrack : function(evt)
     {
-      var position = this._getPosition(evt.getDocumentLeft());
+      var position = this._getPosition(evt._original.pageX);
       this.value = this._positionToValue(position);
       evt.stopPropagation();
       evt.preventDefault();

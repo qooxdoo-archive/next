@@ -29,9 +29,6 @@ qx.Bootstrap.define("mobileshowcase.page.DataBinding",
   {
     this.base(mobileshowcase.page.Abstract, "constructor");
     this.title = "Data Binding";
-
-    this.__timer = new qx.event.Timer(50);
-    this.__timer.addListener("interval", this.__onInterval, this);
   },
 
 
@@ -66,15 +63,14 @@ qx.Bootstrap.define("mobileshowcase.page.DataBinding",
 
   members :
   {
-    __increaseMode : true,
     __decreaseButton : null,
     __increaseButton : null,
     __stopTimeButton : null,
-    __timer : null,
     __form : null,
     __list : null,
     __dataLabel : null,
     __slider : null,
+    __intervalId: null,
 
 
     // overridden
@@ -87,15 +83,15 @@ qx.Bootstrap.define("mobileshowcase.page.DataBinding",
       this.__list.visibility = "hidden";
 
       this.__increaseButton = new qx.ui.mobile.form.Button("+");
-      this.__increaseButton.addListener("pointerdown", this.__onIncrease, this);
-      this.__increaseButton.addListener("pointerup", this.__onPointerUp, this);
+      this.__increaseButton.on("pointerdown", this.__onIncrease, this);
+      this.__increaseButton.on("pointerup", this.__onPointerUp, this);
 
       this.__decreaseButton = new qx.ui.mobile.form.Button("-");
-      this.__decreaseButton.addListener("pointerdown", this.__onDecrease, this);
-      this.__decreaseButton.addListener("pointerup", this.__onPointerUp, this);
+      this.__decreaseButton.on("pointerdown", this.__onDecrease, this);
+      this.__decreaseButton.on("pointerup", this.__onPointerUp, this);
 
       this.__stopTimeButton = new qx.ui.mobile.form.Button("Take Time Snapshot");
-      this.__stopTimeButton.addListener("tap", this.__onStopTimeButtonTap, this);
+      this.__stopTimeButton.on("tap", this.__onStopTimeButtonTap, this);
 
       // Slider Data Binding
       this.getContent().add(new qx.ui.mobile.form.Title("Slider"));
@@ -127,52 +123,33 @@ qx.Bootstrap.define("mobileshowcase.page.DataBinding",
 
 
     /**
-      * Called on interval event of timer.
-      */
-    __onInterval : function()
-    {
-      var old = parseInt(this.__dataLabel.getValue(), 10);
-      if (this.__increaseMode) {
-        if (old < 500) {
-          this.__dataLabel.setValue(old + 1);
-        } else {
-          this.__timer.stop();
-        }
-      } else {
-        if (old > 0) {
-          this.__dataLabel.setValue(old - 1);
-        } else {
-          this.__timer.stop();
-        }
-      }
-    },
-
-
-    /**
      * Called on interval event of timer.
      */
     __onPointerUp : function () {
-      this.__timer.stop();
+      window.clearInterval(this.__intervalId);
     },
 
 
     /**
      * Called on button increase.
      */
-    __onIncrease : function()
-    {
-      this.__increaseMode = true;
-      this.__timer.start();
+    __onIncrease : function() {
+      this.__startTimer("+");
     },
 
 
     /**
      *  Called on button decrease.
      */
-    __onDecrease : function()
-    {
-      this.__increaseMode = false;
-      this.__timer.start();
+    __onDecrease : function() {
+      this.__startTimer("-");
+    },
+
+
+    __startTimer : function(mode) {
+      this.__intervalId = window.setInterval(function() {
+        mode == "+" ? this.__slider.value++ : this.__slider.value--;
+      }.bind(this), 50);
     },
 
 
@@ -192,8 +169,8 @@ qx.Bootstrap.define("mobileshowcase.page.DataBinding",
       this.__dataLabel.readOnly = true;
       form.add(this.__dataLabel, " Slider value: ");
 
-      this.__dataLabel.bind("value", this.__slider, "value");
-      this.__slider.bind("value", this.__dataLabel, "value");
+      qx.data.SingleValueBinding.bind(this.__dataLabel, "value", this.__slider, "value");
+      qx.data.SingleValueBinding.bind(this.__slider, "value", this.__dataLabel, "value");
 
       return form;
     },
@@ -214,17 +191,15 @@ qx.Bootstrap.define("mobileshowcase.page.DataBinding",
           item.setSubtitle(data);
         }
       });
-      this.bind("listData", list, "model");
+      qx.data.SingleValueBinding.bind(this, "listData", list, "model");
 
       return list;
     },
 
 
     dispose : function() {
-      this.__timer.removeListener("interval", this.__onInterval, this);
-
-      this._disposeObjects("__increaseMode", "__decreaseButton",
-        "__increaseButton", "__stopTimeButton", "__timer", "__dataLabel",
+      this._disposeObjects("__decreaseButton",
+        "__increaseButton", "__stopTimeButton", "__dataLabel",
         "__slider", "__form", "__list");
       this.base(mobileshowcase.page.Abstract, "dispose");
     }
