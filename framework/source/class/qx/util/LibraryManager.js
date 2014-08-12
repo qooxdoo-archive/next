@@ -21,17 +21,38 @@
  * Provides read/write access to library-specific information such as
  * source/resource URIs.
  */
-qx.Class.define("qx.util.LibraryManager", {
+qx.Bootstrap.define("qx.util.LibraryManager", {
 
-  extend : qx.core.Object,
-
-  type : "singleton",
+  extend : Object,
 
   statics :
   {
     /** @type {Map} The libraries used by this application */
-    __libs : qx.$$libraries || {}
+    __libs : qx.$$libraries || {},
+
+    __instance: null,
+
+
+    /**
+     * Returns the singleton instance of this class
+     * @return {qx.util.LibraryManager} The Blocker singleton
+     */
+    getInstance: function() {
+      var clazz = qx.util.LibraryManager;
+      if (!clazz.__instance) {
+        clazz.__instance = new clazz();
+      }
+      return clazz.__instance;
+    }
   },
+
+
+  construct : function() {
+    if (qx.util.LibraryManager.__instance) {
+      throw new Error("'" + this.classname + "' is a singleton class and can not be instantiated directly. Please use '" + this.classnme + ".getInstance()' instead.");
+    }
+  },
+
 
   members :
   {
@@ -41,9 +62,8 @@ qx.Class.define("qx.util.LibraryManager", {
      * @param namespace {String} The library's namespace
      * @return {Boolean} <code>true</code> if the given library is known
      */
-    has : function(namespace)
-    {
-      return !!this.self(arguments).__libs[namespace];
+    has : function(namespace) {
+      return !!qx.util.LibraryManager.__libs[namespace];
     },
 
 
@@ -53,10 +73,9 @@ qx.Class.define("qx.util.LibraryManager", {
      * @param key {String} Name of the attribute
      * @return {var|null} The attribute's value or <code>null</code> if it's not defined
      */
-    get : function(namespace, key)
-    {
-      return this.self(arguments).__libs[namespace][key] ?
-        this.self(arguments).__libs[namespace][key] : null;
+    get : function(namespace, key) {
+      return qx.util.LibraryManager.__libs[namespace][key] ?
+        qx.util.LibraryManager.__libs[namespace][key] : null;
     },
 
 
@@ -67,9 +86,8 @@ qx.Class.define("qx.util.LibraryManager", {
      * @param key {String} Name of the attribute
      * @param value {var} Value of the attribute
      */
-    set : function(namespace, key, value)
-    {
-      this.self(arguments).__libs[namespace][key] = value;
+    set : function(namespace, key, value) {
+      qx.util.LibraryManager.__libs[namespace][key] = value;
     }
   }
 });
