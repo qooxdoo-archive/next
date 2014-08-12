@@ -30,7 +30,8 @@
  *   var backButton = new qx.ui.mobile.navigationbar.BackButton();
  *   bar.add(backButton);
  *   var title = new qx.ui.mobile.navigationbar.Title();
- *   var.add(title, {flex:1});
+ *   title.layoutPrefs = {flex:1};
+ *   var.add(title);
  *
  *   this.getRoot.add(bar);
  * </pre>
