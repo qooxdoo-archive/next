@@ -379,7 +379,7 @@ qx.Bootstrap.define("qx.module.Event", {
     },
 
 
-    __isReady : false,
+    _isReady : false,
 
 
     /**
@@ -392,13 +392,14 @@ qx.Bootstrap.define("qx.module.Event", {
       // DOM is already ready
       if (document.readyState === "complete") {
         window.setTimeout(callback, 1);
+        qx.module.Event._isReady = true;
         return;
       }
 
       // listen for the load event so the callback is executed no matter what
       var onWindowLoad = function()
       {
-        qx.module.Event.__isReady = true;
+        qx.module.Event._isReady = true;
         callback();
       };
 
@@ -418,7 +419,7 @@ qx.Bootstrap.define("qx.module.Event", {
         // Continually check to see if the document is ready
         var timer = function() {
           // onWindowLoad already executed
-          if (qx.module.Event.__isReady) {
+          if (qx.module.Event._isReady) {
             return;
           }
           try {
@@ -436,6 +437,17 @@ qx.Bootstrap.define("qx.module.Event", {
 
         timer();
       }
+    },
+
+
+    /**
+     * Returns true, as soon as the document is ready.
+     *
+     * @attachStatic {qxWeb}
+     * @return {Boolean} <code>true</code>, if the document is ready
+     */
+    isReady : function() {
+      return qx.module.Event._isReady;
     },
 
 
@@ -726,6 +738,7 @@ qx.Bootstrap.define("qx.module.Event", {
 
     qxWeb.$attachStatic({
       "ready": statics.ready,
+      "isReady": statics.isReady,
       "$registerEventNormalization" : statics.$registerNormalization,
       "$unregisterEventNormalization" : statics.$unregisterNormalization,
       "$getEventNormalizationRegistry" : statics.$getRegistry,
