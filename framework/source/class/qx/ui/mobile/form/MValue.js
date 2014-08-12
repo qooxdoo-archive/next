@@ -299,8 +299,9 @@ qx.Mixin.define("qx.ui.mobile.form.MValue",
     {
       if (this.__oldValue != value)
       {
+        var old = this.__oldValue;
         this.__oldValue = value;
-        this.emit("changeValue", value);
+        this.emit("changeValue", {value: value, old: old, target: this});
       }
     },
 

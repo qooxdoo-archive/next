@@ -91,9 +91,9 @@ qx.Class.define("mobileshowcase.page.Theming",
       this.__createImageResolutionHandlingDemo();
 
       // react on possible font size changes (triggering a different device pixel ratio)
-      qx.event.Registration.addListener(window, "resize", this._onChangeScale);
+      q(window).on("resize", this._onChangeScale);
 
-      qx.core.Init.getApplication().getRoot().addListener("changeAppScale", this._updateDemoImageLabel, this);
+      qx.core.Init.getApplication().getRoot().on("changeAppScale", this._updateDemoImageLabel, this);
     },
 
 
@@ -126,10 +126,7 @@ qx.Class.define("mobileshowcase.page.Theming",
         themeRadioGroup.add(radioButton);
         themeForm.add(radioButton, mobileshowcase.page.Theming.THEMES[i].name);
 
-        radioButton.addListener("tap", this.__switchTheme, {
-          "self": this,
-          "index": i
-        });
+        radioButton.on("tap", this.__switchTheme.bind(this, i));
       }
 
       themeGroup.add(new qx.ui.mobile.form.renderer.Single(themeForm));
@@ -204,7 +201,7 @@ qx.Class.define("mobileshowcase.page.Theming",
       form.add(slider, "Custom Font Scale in %");
 
       var useScaleButton = new qx.ui.mobile.form.Button("Apply");
-      useScaleButton.addListener("tap", this._onApplyScaleButtonTap, this);
+      useScaleButton.on("tap", this._onApplyScaleButtonTap, this);
       form.addButton(useScaleButton);
 
       var scaleGroup = new qx.ui.mobile.form.Group([new qx.ui.mobile.form.renderer.Single(form)],false);
@@ -234,29 +231,23 @@ qx.Class.define("mobileshowcase.page.Theming",
      */
     __changeCSS : function(cssFile) {
       var blocker = qx.ui.mobile.core.Blocker.getInstance();
-      var blockerElement = blocker.getContentElement();
 
-      qx.bom.element.Style.set(blockerElement, "transition", "all 500ms");
-      qx.bom.element.Style.set(blockerElement, "backgroundColor", "rgba(255,255,255,0)");
-
-      blocker.show();
-
-      qx.bom.Element.addListener(blockerElement, "transitionEnd", this._onAppFadedOut, {
-        "self": this,
-        "cssFile": cssFile
-      });
+      blocker.setStyle("transition", "all 500ms")
+        .setStyle("backgroundColor", "rgba(255,255,255,0)")
+        .show()
+        .on("transitionend", this._onAppFadedOut.bind(this, cssFile));
 
       setTimeout(function() {
-        qx.bom.element.Style.set(blockerElement, "backgroundColor", "rgba(255,255,255,1)");
+        blocker.setStyle("backgroundColor", "rgba(255,255,255,1)");
       }, 0);
     },
 
     /**
      * Event handler when Application has faded out.
      */
-    _onAppFadedOut: function() {
+    _onAppFadedOut: function(cssFile) {
       var blocker = qx.ui.mobile.core.Blocker.getInstance();
-      qx.bom.Element.removeListener(blocker.getContentElement(), "transitionEnd", this.self._onAppFadedOut, this);
+      blocker.off("transitionend", this._onAppFadedOut, this);
 
       var root = qxWeb(".root");
       root.setStyle("color","white");
@@ -266,15 +257,15 @@ qx.Class.define("mobileshowcase.page.Theming",
       var newCssLink = document.createElement("link");
       newCssLink.setAttribute("rel", "stylesheet");
       newCssLink.setAttribute("type", "text/css");
-      newCssLink.setAttribute("href", this.cssFile);
+      newCssLink.setAttribute("href", cssFile);
 
       qxWeb("head").append(newCssLink);
 
       root.setStyle("color",null);
 
-      setTimeout(function() {
-        qx.bom.Element.addListener(blocker.getContentElement(), "transitionEnd", this.self._onAppFadedIn, this);
-        qx.bom.element.Style.set(blocker.getContentElement(), "backgroundColor", "rgba(255,255,255,0)");
+      window.setTimeout(function() {
+        blocker.on("transitionend", this._onAppFadedIn, this)
+          .setStyle("backgroundColor", "rgba(255,255,255,0)");
       }.bind(this), 100);
     },
 
@@ -284,10 +275,10 @@ qx.Class.define("mobileshowcase.page.Theming",
      */
     _onAppFadedIn: function() {
       var blocker = qx.ui.mobile.core.Blocker.getInstance();
-      qx.bom.Element.removeListener(blocker.getContentElement(), "transitionEnd", this.self._onAppFadedIn, this);
-      qx.bom.element.Style.set(blocker.getContentElement(), "transition", null);
-      qx.bom.element.Style.set(blocker.getContentElement(), "backgroundColor", null);
-      blocker.hide();
+      blocker.off("transitionend", this._onAppFadedIn, this)
+        .setStyle("transition", null)
+        .setStyle("backgroundColor", null)
+        .hide();
     },
 
 
@@ -295,10 +286,10 @@ qx.Class.define("mobileshowcase.page.Theming",
      * Switches the theme of the application to the target theme.
      * @param src {qx.ui.mobile.core.Widget} Source widget of this event.
      */
-    __switchTheme : function() {
-      var cssResource = this.self.self(arguments).THEMES[this.index].css;
+    __switchTheme : function(index) {
+      var cssResource = mobileshowcase.page.Theming.THEMES[index].css;
       var cssURI = qx.util.ResourceManager.getInstance().toUri(cssResource);
-      this.self.__changeCSS(cssURI);
+      this.__changeCSS(cssURI);
     },
 
 
@@ -311,11 +302,9 @@ qx.Class.define("mobileshowcase.page.Theming",
     },
 
 
-    destruct : function()
-    {
-     qx.event.Registration.removeListener(window, "resize", this._onChangeScale);
-
-     qx.core.Init.getApplication().getRoot().removeListener("changeAppScale", this._updateDemoImageLabel, this);
+    dispose : function() {
+     q(window).off("resize", this._onChangeScale);
+     qx.core.Init.getApplication().getRoot().off("changeAppScale", this._updateDemoImageLabel, this);
     }
   }
 });

@@ -87,7 +87,7 @@ qx.Bootstrap.define("qx.ui.mobile.container.Carousel",
 
     this.on("appear", this._onContainerUpdate, this);
 
-    this.__carouselScroller.on("transitionEnd",this._onScrollerTransitionEnd, this);
+    this.__carouselScroller.on("transitionend",this._onScrollerTransitionEnd, this);
     qxWeb(window).on("orientationchange", this._onContainerUpdate, this)
       .on("resize", this._onContainerUpdate, this);
     this.on("scroll", this._onNativeScroll, this);

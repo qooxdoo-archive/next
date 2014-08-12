@@ -93,6 +93,7 @@ qx.Bootstrap.define("qx.ui.mobile.core.Blocker",
         this.base(qx.ui.mobile.core.Widget, "show");
       }
       this.__count++;
+      return this;
     },
 
 
@@ -109,6 +110,7 @@ qx.Bootstrap.define("qx.ui.mobile.core.Blocker",
         this.__unregisterEventListener();
         this.exclude();
       }
+      return this;
     },
 
 
@@ -120,6 +122,7 @@ qx.Bootstrap.define("qx.ui.mobile.core.Blocker",
     {
       this.__count = 0;
       this.hide();
+      return this;
     },
 
 
@@ -127,8 +130,7 @@ qx.Bootstrap.define("qx.ui.mobile.core.Blocker",
      * Whether the blocker is shown or not.
      * @return {Boolean} <code>true</code> if the blocker is shown
      */
-    isShown : function()
-    {
+    isShown : function() {
       return this.__count > 0;
     },
 

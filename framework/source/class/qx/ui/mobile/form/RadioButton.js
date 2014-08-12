@@ -126,7 +126,7 @@ qx.Bootstrap.define("qx.ui.mobile.form.RadioButton",
      * Reacts on tap on radio button.
      */
     _onTap : function() {
-      this.emit("changeValue", {});
+      this.emit("changeValue", {value: true, old: this.value, target: this});
 
       // Toggle State.
       this.value = true;

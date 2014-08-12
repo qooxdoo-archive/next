@@ -160,12 +160,12 @@ qx.Mixin.define("qx.ui.core.MSingleSelectionHandling",
      */
     _onChangeSelected : function(e) {
       var newValue = e.getData();
-      var oldVlaue = e.getOldData();
+      var oldValue = e.getOldData();
 
       newValue == null ? newValue = [] : newValue = [newValue];
-      oldVlaue == null ? oldVlaue = [] : oldVlaue = [oldVlaue];
+      oldValue == null ? oldValue = [] : oldValue = [oldValue];
 
-      this.fireDataEvent("changeSelection", newValue, oldVlaue);
+      this.emit("changeSelection", {value: newValue, old: oldValue, target: this});
     },
 
     /**
@@ -184,7 +184,7 @@ qx.Mixin.define("qx.ui.core.MSingleSelectionHandling",
           implement: [qx.ui.core.ISingleSelectionProvider],
           members: {
             getItems : function() {
-              return that._getItems();
+              return that.getItems();
             },
 
             isItemSelectable : function(item) {
@@ -199,7 +199,7 @@ qx.Mixin.define("qx.ui.core.MSingleSelectionHandling",
         this.__manager = new qx.ui.core.SingleSelectionManager(new SelectionProvider());
         this.__manager.addListener("changeSelected", this._onChangeSelected, this);
       }
-      this.__manager.setAllowEmptySelection(this._isAllowEmptySelection());
+      this.__manager.allowEmptySelection = this.allowEmptySelection;
 
       return this.__manager;
     }

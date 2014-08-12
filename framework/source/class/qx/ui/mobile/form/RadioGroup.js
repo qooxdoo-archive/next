@@ -44,7 +44,7 @@
  */
 qx.Bootstrap.define("qx.ui.mobile.form.RadioGroup",
 {
-  extend : qx.core.Object,
+  extend : qx.event.Emitter,
   implement : [
     qx.ui.core.ISingleSelection,
     qx.ui.form.IForm,
@@ -64,18 +64,16 @@ qx.Bootstrap.define("qx.ui.mobile.form.RadioGroup",
 
 
   /**
-   * @param varargs {qx.core.Object} A variable number of items, which are
+   * @param varargs {qxWeb} A variable number of items, which are
    *     initially added to the radio group, the first item will be selected.
    */
   construct : function(varargs)
   {
-    this.base(qx.core.Object, "constructor");
-
     // create item array
     this.__items = [];
 
     // add listener before call add!!!
-    this.addListener("changeSelection", this.__onChangeSelection, this);
+    this.on("changeSelection", this.__onChangeSelection, this);
 
     if (varargs != null) {
       this.add.apply(this, arguments);
@@ -233,13 +231,13 @@ qx.Bootstrap.define("qx.ui.mobile.form.RadioGroup",
 
         // Need to update internal value?
         if (item.value) {
-          this.selection = [item];
+          this.setSelection([item]);
         }
       }
 
       // Select first item when only one is registered
-      if (!this.allowEmptySelection && items.length > 0 && !this.selection[0]) {
-        this.selection = [items[0]];
+      if (!this.allowEmptySelection && items.length > 0 && !this.getSelection()[0]) {
+        this.setSelection([items[0]]);
       }
     },
 
@@ -297,9 +295,9 @@ qx.Bootstrap.define("qx.ui.mobile.form.RadioGroup",
      */
     _onItemChangeChecked : function(e)
     {
-      var item = e.getTarget();
+      var item = e.target;
       if (item.getValue()) {
-        this.selection = [item];
+        this.setSelection([item]);
       } else if (this.getSelection()[0] == item) {
         this.resetSelection();
       }
@@ -387,7 +385,7 @@ qx.Bootstrap.define("qx.ui.mobile.form.RadioGroup",
         i++;
       }
 
-      this.selection = [items[index]];
+      this.setSelection([items[index]]);
     },
 
 
@@ -419,7 +417,7 @@ qx.Bootstrap.define("qx.ui.mobile.form.RadioGroup",
         i++;
       }
 
-      this.selection = [items[index]];
+      this.setSelection([items[index]]);
     },
 
 
@@ -429,16 +427,6 @@ qx.Bootstrap.define("qx.ui.mobile.form.RadioGroup",
     ---------------------------------------------------------------------------
     */
 
-
-    /**
-     * Returns the items for the selection.
-     *
-     * @return {qx.ui.form.IRadioItem[]} Items to select.
-     */
-    _getItems : function() {
-      return this.getItems();
-    },
-
     /**
      * Returns if the selection could be empty or not.
      *
@@ -446,7 +434,7 @@ qx.Bootstrap.define("qx.ui.mobile.form.RadioGroup",
      *    <code>false</code> otherwise.
      */
     _isAllowEmptySelection: function() {
-      return this.isAllowEmptySelection();
+      return this.allowEmptySelection;
     },
 
 
@@ -471,8 +459,8 @@ qx.Bootstrap.define("qx.ui.mobile.form.RadioGroup",
      */
     __onChangeSelection : function(e)
     {
-      var value = e.getData()[0];
-      var old = e.getOldData()[0];
+      var value = e.value[0];
+      var old = e.old[0];
 
       if (old) {
         old.value = false;
