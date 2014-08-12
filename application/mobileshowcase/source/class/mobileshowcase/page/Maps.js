@@ -24,7 +24,7 @@
  * @ignore(OpenLayers.*)
  * @asset(qx/mobile/css/*)
  */
-qx.Class.define("mobileshowcase.page.Maps",
+qx.Bootstrap.define("mobileshowcase.page.Maps",
 {
   extend : mobileshowcase.page.Abstract,
 

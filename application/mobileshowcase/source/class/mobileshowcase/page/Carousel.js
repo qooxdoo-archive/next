@@ -21,7 +21,7 @@
 /**
  * Mobile page showing the "Carousel" showcase.
  */
-qx.Class.define("mobileshowcase.page.Carousel",
+qx.Bootstrap.define("mobileshowcase.page.Carousel",
 {
   extend : mobileshowcase.page.Abstract,
 

@@ -23,7 +23,7 @@
  *
  * @asset(qx/mobile/css/*)
  */
-qx.Class.define("mobileshowcase.page.Canvas",
+qx.Bootstrap.define("mobileshowcase.page.Canvas",
 {
   extend : mobileshowcase.page.Abstract,
 

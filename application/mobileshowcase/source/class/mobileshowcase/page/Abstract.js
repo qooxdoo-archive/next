@@ -21,7 +21,7 @@
 /**
  * Abstract page for Mobile Showcase.
  */
-qx.Class.define("mobileshowcase.page.Abstract",
+qx.Bootstrap.define("mobileshowcase.page.Abstract",
 {
   extend : qx.ui.mobile.page.NavigationPage,
 

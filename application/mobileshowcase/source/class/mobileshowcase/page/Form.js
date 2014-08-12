@@ -22,7 +22,7 @@
 /**
  * Mobile page responsible for showing the "form" showcase.
  */
-qx.Class.define("mobileshowcase.page.Form",
+qx.Bootstrap.define("mobileshowcase.page.Form",
 {
   extend : mobileshowcase.page.Abstract,
 

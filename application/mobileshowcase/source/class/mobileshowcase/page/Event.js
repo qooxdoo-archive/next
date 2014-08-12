@@ -22,7 +22,7 @@
 /**
  * Mobile page responsible for showing the "event" showcase.
  */
-qx.Class.define("mobileshowcase.page.Event",
+qx.Bootstrap.define("mobileshowcase.page.Event",
 {
   extend : mobileshowcase.page.Abstract,
 

@@ -30,7 +30,7 @@
  *
  * @asset(qx/mobile/css/*)
  */
-qx.Class.define("mobileshowcase.page.Theming",
+qx.Bootstrap.define("mobileshowcase.page.Theming",
 {
   extend : mobileshowcase.page.Abstract,
 
@@ -110,7 +110,7 @@ qx.Class.define("mobileshowcase.page.Theming",
         this.__appScale = appScale;
         this.__fontScale = fontScale;
 
-        root.fireEvent("changeAppScale");
+        root.emit("changeAppScale");
       }
     }.bind(this), 200),
 

@@ -23,7 +23,7 @@
 /**
  * Mobile page responsible for showing the landing page for the "animation" showcase.
  */
-qx.Class.define("mobileshowcase.page.AnimationLanding",
+qx.Bootstrap.define("mobileshowcase.page.AnimationLanding",
 {
   extend : mobileshowcase.page.Abstract,
 

@@ -21,7 +21,7 @@
 /**
  * Mobile page responsible for showing the "animation" showcase.
  */
-qx.Class.define("mobileshowcase.page.Animation",
+qx.Bootstrap.define("mobileshowcase.page.Animation",
 {
   extend : mobileshowcase.page.Abstract,
 

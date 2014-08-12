@@ -22,7 +22,7 @@
 /**
  * Mobile page for showing the "list" showcase.
  */
-qx.Class.define("mobileshowcase.page.List",
+qx.Bootstrap.define("mobileshowcase.page.List",
 {
   extend : mobileshowcase.page.Abstract,
 

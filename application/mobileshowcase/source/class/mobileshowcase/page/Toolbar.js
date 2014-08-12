@@ -27,7 +27,7 @@
  *
  * @asset(mobileshowcase/icon/camera.png)
  */
-qx.Class.define("mobileshowcase.page.Toolbar",
+qx.Bootstrap.define("mobileshowcase.page.Toolbar",
 {
   extend : mobileshowcase.page.Abstract,
 

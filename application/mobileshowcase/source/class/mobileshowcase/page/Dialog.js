@@ -24,7 +24,7 @@
  * - Confirm dialogs
  * - Anchor dialogs
  */
-qx.Class.define("mobileshowcase.page.Dialog",
+qx.Bootstrap.define("mobileshowcase.page.Dialog",
 {
   extend : mobileshowcase.page.Abstract,
 

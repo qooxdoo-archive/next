@@ -21,7 +21,7 @@
 /**
  * Mobile page showing the "Drawer" showcase.
  */
-qx.Class.define("mobileshowcase.page.Drawer",
+qx.Bootstrap.define("mobileshowcase.page.Drawer",
 {
   extend : mobileshowcase.page.Abstract,
 
