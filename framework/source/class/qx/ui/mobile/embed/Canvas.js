@@ -55,61 +55,8 @@ qx.Bootstrap.define("qx.ui.mobile.embed.Canvas",
   members :
   {
     // overridden
-    _getTagName : function()
-    {
+    _getTagName : function() {
       return "canvas";
-    },
-
-
-    /**
-     * Get the canvas element [<a href="http://www.whatwg.org/specs/web-apps/current-work/multipage/the-canvas-element.html#canvas">W3C-HMTL5</a>]
-     *
-     * @return {Element} The canvas DOM element.
-     */
-    getCanvas : function() {
-      return this[0];
-    },
-
-
-    /**
-     * Set the width attribute of the canvas element. This property controls the
-     * size of the canvas coordinate space.
-     *
-     * @param width {Integer} canvas width
-     */
-    setWidth : function(width) {
-      this[0].width = width;
-    },
-
-
-    /**
-     * Get the width attribute of the canvas element
-     *
-     * @return {Integer} canvas width
-     */
-    getWidth : function() {
-      return this[0].width;
-    },
-
-
-    /**
-     * Set the height attribute of the canvas element. This property controls the
-     * size of the canvas coordinate space.
-     *
-     * @param height {Integer} canvas height
-     */
-    setHeight : function(height) {
-      this[0].height = height;
-    },
-
-
-    /**
-     * Get the height attribute of the canvas element
-     *
-     * @return {Integer} canvas height
-     */
-    getHeight : function() {
-      return this[0].height;
     },
 
 

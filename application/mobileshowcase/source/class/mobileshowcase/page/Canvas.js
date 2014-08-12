@@ -57,7 +57,7 @@ qx.Class.define("mobileshowcase.page.Canvas",
 
       this.getRightContainer().add(clearButton);
 
-      var canvasSize = Math.max(qx.bom.Viewport.getWidth() * 1.5, qx.bom.Viewport.getHeight() * 1.5);
+      var canvasSize = Math.max(q(window).getWidth() * 1.5, q(window).getHeight() * 1.5);
 
       // Limit to maximum canvas size of iOS devices.
       canvasSize = Math.min(canvasSize, 1448 / this.__ratio);
@@ -66,16 +66,16 @@ qx.Class.define("mobileshowcase.page.Canvas",
 
       var canvas = this.__canvas = new qx.ui.mobile.embed.Canvas();
 
-      canvas.on("trackstart", this._onTrackStart, this);
-      canvas.on("trackend", this._onTrackEnd, this);
-      canvas.on("track", this._onTrack, this);
-
-      canvas.on("touchstart", qx.bom.Event.preventDefault, this);
-
-      canvas.setWidth(this._to(this.__canvasSize));
-      canvas.setHeight(this._to(this.__canvasSize));
-      qx.bom.element.Style.set(canvas.getContentElement(),"width", this.__canvasSize + "px");
-      qx.bom.element.Style.set(canvas.getContentElement(),"height", this.__canvasSize + "px");
+      canvas.on("trackstart", this._onTrackStart, this)
+        .on("trackend", this._onTrackEnd, this)
+        .on("track", this._onTrack, this)
+        .on("touchstart", function(e) {
+          e.preventDefault()
+        }, this)
+        .setAttribute("width", this._to(this.__canvasSize))
+        .setAttribute("height", this._to(this.__canvasSize))
+        .setStyle("width", this.__canvasSize + "px")
+        .setStyle("height", this.__canvasSize + "px");
 
       this.getContent().add(canvas);
 
@@ -126,7 +126,7 @@ qx.Class.define("mobileshowcase.page.Canvas",
      * Removes any drawings off the canvas.
      */
     __clearCanvas: function() {
-      this.__canvas.getContentElement().width = this.__canvas.getContentElement().width;
+      this.__canvas.setAttribute("width", this.__canvas.getAttribute("width"));
       var ctx = this.__canvas.getContext2d();
       ctx.clearRect(0, 0, this._to(this.__canvasSize), this._to(this.__canvasSize));
       ctx.fillStyle = "#ffffff";
@@ -139,8 +139,8 @@ qx.Class.define("mobileshowcase.page.Canvas",
      * Handles the <code>trackstart</code>  event on canvas.
      */
     _onTrackStart : function(evt) {
-      this.__canvasLeft = qx.bom.element.Location.getLeft(this.__canvas.getContentElement(), "padding");
-      this.__canvasTop = qx.bom.element.Location.getTop(this.__canvas.getContentElement(), "padding");
+      this.__canvasLeft = this.__canvas[0].getBoundingClientRect().left;
+      this.__canvasTop = this.__canvas[0].getBoundingClientRect().top;
 
       this.__draw(evt);
     },
@@ -151,6 +151,7 @@ qx.Class.define("mobileshowcase.page.Canvas",
      */
     _onTrack : function(evt) {
       this.__draw(evt);
+
       evt.preventDefault();
       evt.stopPropagation();
     },
@@ -169,10 +170,10 @@ qx.Class.define("mobileshowcase.page.Canvas",
      */
     __draw: function(evt) {
         var ctx = this.__canvas.getContext2d();
-        var lastPoint = this.__lastPoint[evt.getPointerId()];
+        var lastPoint = this.__lastPoint[evt._original.pointerId];
 
-        var pointerLeft = evt.getViewportLeft() - this.__canvasLeft;
-        var pointerTop = evt.getViewportTop() - this.__canvasTop;
+        var pointerLeft = evt._original.clientX - this.__canvasLeft;
+        var pointerTop = evt._original.clientY - this.__canvasTop;
 
         var opacity = null;
 
@@ -208,7 +209,7 @@ qx.Class.define("mobileshowcase.page.Canvas",
           ctx.stroke();
         }
 
-        this.__lastPoint[evt.getPointerId()] = {
+        this.__lastPoint[evt._original.pointerId] = {
           "x": pointerLeft,
           "y": pointerTop,
           "opacity": opacity
