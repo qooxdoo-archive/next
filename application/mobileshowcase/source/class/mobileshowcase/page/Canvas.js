@@ -70,7 +70,7 @@ qx.Bootstrap.define("mobileshowcase.page.Canvas",
         .on("trackend", this._onTrackEnd, this)
         .on("track", this._onTrack, this)
         .on("touchstart", function(e) {
-          e.preventDefault()
+          e.preventDefault();
         }, this)
         .setAttribute("width", this._to(this.__canvasSize))
         .setAttribute("height", this._to(this.__canvasSize))
@@ -169,58 +169,51 @@ qx.Bootstrap.define("mobileshowcase.page.Canvas",
      * Draws the line on canvas.
      */
     __draw: function(evt) {
-        var ctx = this.__canvas.getContext2d();
-        var lastPoint = this.__lastPoint[evt._original.pointerId];
+      var ctx = this.__canvas.getContext2d();
+      var lastPoint = this.__lastPoint[evt._original.pointerId];
 
-        var pointerLeft = evt._original.clientX - this.__canvasLeft;
-        var pointerTop = evt._original.clientY - this.__canvasTop;
+      var pointerLeft = evt._original.clientX - this.__canvasLeft;
+      var pointerTop = evt._original.clientY - this.__canvasTop;
 
-        var opacity = null;
+      var opacity = null;
 
-        if (lastPoint) {
-          ctx.beginPath();
-          ctx.lineCap = 'round';
-          ctx.moveTo(this._to(lastPoint.x), this._to(lastPoint.y));
-          ctx.lineTo(this._to(pointerLeft), this._to(pointerTop));
+      if (lastPoint) {
+        ctx.beginPath();
+        ctx.lineCap = 'round';
+        ctx.moveTo(this._to(lastPoint.x), this._to(lastPoint.y));
+        ctx.lineTo(this._to(pointerLeft), this._to(pointerTop));
 
-          var deltaX = Math.abs(lastPoint.x - pointerLeft);
-          var deltaY = Math.abs(lastPoint.y - pointerTop);
+        var deltaX = Math.abs(lastPoint.x - pointerLeft);
+        var deltaY = Math.abs(lastPoint.y - pointerTop);
 
-          var velocity = Math.sqrt(Math.pow(deltaX ,2) + Math.pow(deltaY ,2));
+        var velocity = Math.sqrt(Math.pow(deltaX ,2) + Math.pow(deltaY ,2));
 
-          opacity = (100 - velocity) / 100;
-          opacity = Math.round(opacity * Math.pow(10, 2)) / Math.pow(10, 2);
+        opacity = (100 - velocity) / 100;
+        opacity = Math.round(opacity * Math.pow(10, 2)) / Math.pow(10, 2);
 
-          if (!lastPoint.opacity) {
-            lastPoint.opacity = 1;
-          }
-          if (opacity < 0.1) {
-            opacity = 0.1;
-          }
-
-          // linear gradient from start to end of line
-          var grad = ctx.createLinearGradient(lastPoint.x, lastPoint.y, pointerLeft, pointerTop);
-          grad.addColorStop(0, 'rgba(61,114,201,' + lastPoint.opacity + ')');
-          grad.addColorStop(1, 'rgba(61,114,201,' + opacity + ')');
-          ctx.strokeStyle = grad;
-
-          ctx.lineWidth = this._to(1.5);
-
-          ctx.stroke();
+        if (!lastPoint.opacity) {
+          lastPoint.opacity = 1;
+        }
+        if (opacity < 0.1) {
+          opacity = 0.1;
         }
 
-        this.__lastPoint[evt._original.pointerId] = {
-          "x": pointerLeft,
-          "y": pointerTop,
-          "opacity": opacity
-        };
+        // linear gradient from start to end of line
+        var grad = ctx.createLinearGradient(lastPoint.x, lastPoint.y, pointerLeft, pointerTop);
+        grad.addColorStop(0, 'rgba(61,114,201,' + lastPoint.opacity + ')');
+        grad.addColorStop(1, 'rgba(61,114,201,' + opacity + ')');
+        ctx.strokeStyle = grad;
+
+        ctx.lineWidth = this._to(1.5);
+
+        ctx.stroke();
       }
-    },
 
-
-    destruct : function()
-    {
-      this._disposeObjects();
+      this.__lastPoint[evt._original.pointerId] = {
+        "x": pointerLeft,
+        "y": pointerTop,
+        "opacity": opacity
+      };
     }
-
+  }
 });
