@@ -490,7 +490,7 @@ qx.Bootstrap.define("qx.Bootstrap",
               if (def.event) {
                 var eventName = "change" + qx.Bootstrap.firstUp(name);
                 if (this.emit) {
-                  this.emit(eventName, {value: value, old: old});
+                  this.emit(eventName, {value: value, old: old, target: this});
                 } else if (this.fireEvent && qx.event && qx.event.type && qx.event.type.Data) {
                   this.fireEvent(eventName, qx.event.type.Data, [value, old]);
                 } else {
