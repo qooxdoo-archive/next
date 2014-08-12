@@ -23,29 +23,19 @@
  * The qx.locale.Manager provides static translation methods (like tr()) and
  * general locale information.
  *
- * @require(qx.event.dispatch.Direct)
  * @require(qx.locale.LocalizedString)
  *
  * @cldr()
  */
-
-qx.Class.define("qx.locale.Manager",
+qx.Bootstrap.define("qx.locale.Manager",
 {
-  type : "singleton",
-  extend : qx.core.Object,
-
-
-
-
-  /*
-  *****************************************************************************
-     CONSTRUCTOR
-  *****************************************************************************
-  */
+  extend : qx.event.Emitter,
 
   construct : function()
   {
-    this.base(arguments);
+    if (qx.locale.Manager.__instance) {
+      throw new Error("'" + this.classname + "' is a singleton class and can not be instantiated directly. Please use '" + this.classnme + ".getInstance()' instead.");
+    }
 
     this.__translations = qx.$$translations || {};
     this.__locales      = qx.$$locales || {};
@@ -58,10 +48,8 @@ qx.Class.define("qx.locale.Manager",
 
     this.__clientLocale = locale;
 
-    this.setLocale(locale || this.__defaultLocale);
+    this.locale = (locale || this.__defaultLocale);
   },
-
-
 
 
   /*
@@ -72,6 +60,21 @@ qx.Class.define("qx.locale.Manager",
 
   statics :
   {
+    __instance: null,
+
+    /**
+     * Returns the singleton instance of this class
+     * @return {qx.ui.mobile.core.Blocker} The Blocker singleton
+     */
+    getInstance: function() {
+      var clazz = qx.locale.Manager;
+      if (!clazz.__instance) {
+        clazz.__instance = new clazz();
+      }
+      return clazz.__instance;
+    },
+
+
     /**
      * Translate a message
      *
@@ -231,7 +234,7 @@ qx.Class.define("qx.locale.Manager",
      * @return {String} territory code
      */
     getTerritory : function() {
-      return this.getLocale().split("_")[1] || "";
+      return this.locale.split("_")[1] || "";
     },
 
 
@@ -472,16 +475,5 @@ qx.Class.define("qx.locale.Manager",
 
       return txt;
     }
-  },
-
-
-  /*
-  *****************************************************************************
-     DESTRUCTOR
-  *****************************************************************************
-  */
-
-  destruct : function() {
-    this.__translations = this.__locales = null;
   }
 });

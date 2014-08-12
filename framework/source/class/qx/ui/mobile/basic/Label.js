@@ -58,7 +58,7 @@ qx.Bootstrap.define("qx.ui.mobile.basic.Label",
     this.textWrap = true;
 
     if (qx.core.Environment.get("qx.dynlocale")) {
-      qx.locale.Manager.getInstance().addListener("changeLocale", this._onChangeLocale, this);
+      qx.locale.Manager.getInstance().on("changeLocale", this._onChangeLocale, this);
     }
   },
 

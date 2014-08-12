@@ -44,7 +44,7 @@
 qx.Bootstrap.define("qx.ui.mobile.container.Scroll",
 {
   extend : qx.ui.mobile.container.Composite,
-
+  include : [qx.ui.mobile.container.MIScroll],
 
   /**
   * @param scrollProperties {Object} A map with scroll properties which are passed to the scrolling container (may contain iScroll properties).
@@ -493,11 +493,12 @@ qx.Bootstrap.define("qx.ui.mobile.container.Scroll",
 
   defer : function(statics)
   {
-    if (qx.core.Environment.get("qx.mobile.nativescroll") == false)
-    {
-      qx.Class.include(statics, qx.ui.mobile.container.MIScroll);
-    } else {
-      qx.Class.include(statics, qx.ui.mobile.container.MNativeScroll);
-    }
+    // TODO
+    // if (qx.core.Environment.get("qx.mobile.nativescroll") == false)
+    // {
+    //   qx.Class.include(statics, qx.ui.mobile.container.MIScroll);
+    // } else {
+    //   qx.Class.include(statics, qx.ui.mobile.container.MNativeScroll);
+    // }
   }
 });

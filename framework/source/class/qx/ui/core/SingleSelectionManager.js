@@ -25,9 +25,9 @@
  *
  * @internal
  */
-qx.Class.define("qx.ui.core.SingleSelectionManager",
+qx.Bootstrap.define("qx.ui.core.SingleSelectionManager",
 {
-  extend : qx.core.Object,
+  extend : qx.event.Emitter,
 
 
   /*
@@ -44,8 +44,6 @@ qx.Class.define("qx.ui.core.SingleSelectionManager",
    * for selection.
    */
   construct : function(selectionProvider) {
-    this.base(arguments);
-
     if (qx.core.Environment.get("qx.debug")) {
       qx.core.Assert.assertInterface(selectionProvider,
         qx.ui.core.ISingleSelectionProvider,
@@ -254,7 +252,7 @@ qx.Class.define("qx.ui.core.SingleSelectionManager",
       }
 
       this.__selected = newSelected;
-      this.fireDataEvent("changeSelected", newSelected, oldSelected);
+      this.emit("changeSelected", {value: newSelected, old: oldSelected});
     },
 
     /**
@@ -277,22 +275,5 @@ qx.Class.define("qx.ui.core.SingleSelectionManager",
       }
       return false;
     }
-  },
-
-
-
-  /*
-   *****************************************************************************
-      DESTRUCTOR
-   *****************************************************************************
-   */
-  destruct : function() {
-    if (this.__selectionProvider.toHashCode) {
-      this._disposeObjects("__selectionProvider");
-    } else {
-      this.__selectionProvider = null;
-    }
-
-    this._disposeObjects("__selected");
   }
 });

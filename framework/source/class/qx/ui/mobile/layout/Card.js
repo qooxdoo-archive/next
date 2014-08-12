@@ -41,8 +41,6 @@
  *
  * label2.show();
  * </pre>
- *
- * @use(qx.event.handler.Transition)
  */
 qx.Bootstrap.define("qx.ui.mobile.layout.Card",
 {
@@ -249,7 +247,7 @@ qx.Bootstrap.define("qx.ui.mobile.layout.Card",
      */
     _fixWidgetSize : function(widget) {
       if(widget) {
-        var hasResizeMixin = qx.Class.hasMixin(widget.constructor,qx.ui.mobile.core.MResize);
+        var hasResizeMixin = qx.Mixin.getClassByMixin(widget.constructor,qx.ui.mobile.core.MResize);
         if(hasResizeMixin) {
           // Size has to be fixed for animation.
           widget.fixSize();
@@ -266,7 +264,7 @@ qx.Bootstrap.define("qx.ui.mobile.layout.Card",
      */
     _releaseWidgetSize : function(widget) {
       if(widget) {
-        var hasResizeMixin = qx.Class.hasMixin(widget.constructor,qx.ui.mobile.core.MResize);
+        var hasResizeMixin = qx.Mixin.getClassByMixin(widget.constructor,qx.ui.mobile.core.MResize);
         if(hasResizeMixin) {
           // Size has to be released after animation.
           widget.releaseFixedSize();

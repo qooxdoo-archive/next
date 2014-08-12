@@ -21,7 +21,7 @@
  * This class contains the translation of a message and all information
  * to translate it again into a different language.
  */
-qx.Class.define("qx.locale.LocalizedString",
+qx.Bootstrap.define("qx.locale.LocalizedString",
 {
   extend : qx.type.BaseString,
 
@@ -32,7 +32,7 @@ qx.Class.define("qx.locale.LocalizedString",
    */
   construct : function(translation, messageId, args)
   {
-    this.base(arguments, translation);
+    this.base(qx.type.BaseString, "constructor", translation);
 
     this.__messageId = messageId;
     this.__args = args;

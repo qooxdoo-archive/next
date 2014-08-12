@@ -170,11 +170,8 @@ qx.$$loader.importPackageData = function (dataMap, callback) {
 qx.$$loader.signalStartup = function ()
 {
   qx.$$loader.scriptLoaded = true;
-  if (window.qx && qx.event && qx.event.handler && qx.event.handler.Application) {
+  if (window.qx && qx.core && qx.core.Init) {
     qx.core.Init.ready();
-    qx.$$loader.applicationHandlerReady = true;
-  } else {
-    qx.$$loader.applicationHandlerReady = false;
   }
 }
 

@@ -674,6 +674,32 @@ qx.Bootstrap.define("qx.Bootstrap",
 
 
     /**
+     * Whether a class is a direct or indirect sub class of another class,
+     * or both classes coincide.
+     *
+     * @param clazz {Class} the class to check.
+     * @param superClass {Class} the potential super class
+     * @return {Boolean} whether clazz is a sub class of superClass.
+     */
+    isSubClassOf : function(clazz, superClass)
+    {
+      if (!clazz) {
+        return false;
+      }
+
+      if (clazz == superClass) {
+        return true;
+      }
+
+      if (clazz.prototype instanceof superClass) {
+        return true;
+      }
+
+      return false;
+    },
+
+
+    /**
      * Returns the type of an event declared on the given class.
      *
      * @param clazz {Function} The class to check.

@@ -103,7 +103,7 @@ qx.Mixin.define("qx.data.marshal.MEventBubbling",
       }
 
       // if the child supports chaining
-      if (value && qx.Class.hasMixin(value.constructor, qx.data.marshal.MEventBubbling)) {
+      if (value && qx.Mixin.getClassByMixin(value.constructor, qx.data.marshal.MEventBubbling)) {
         // create the listener
         var listener = this.__changePropertyListener.bind(this, name);
         // add the listener

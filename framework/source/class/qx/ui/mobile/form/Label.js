@@ -73,7 +73,7 @@ qx.Bootstrap.define("qx.ui.mobile.form.Label",
     this.textWrap = true;
 
     if (qx.core.Environment.get("qx.dynlocale")) {
-      qx.locale.Manager.getInstance().addListener("changeLocale", this._onChangeLocale, this);
+      qx.locale.Manager.getInstance().on("changeLocale", this._onChangeLocale, this);
     }
 
     this.on("tap", this._onTap, this);

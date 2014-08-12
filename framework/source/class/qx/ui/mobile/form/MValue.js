@@ -21,8 +21,6 @@
 /**
  * The mixin contains all functionality to provide a value property for input
  * widgets.
- *
- * @require(qx.event.handler.Input)
  */
 qx.Mixin.define("qx.ui.mobile.form.MValue",
 {

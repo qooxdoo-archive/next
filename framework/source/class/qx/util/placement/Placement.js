@@ -23,13 +23,11 @@
  * Contains methods to compute a position for any object which should
  * be positioned relative to another object.
  */
-qx.Class.define("qx.util.placement.Placement",
+qx.Bootstrap.define("qx.util.placement.Placement",
 {
-  extend : qx.core.Object,
+  extend : Object,
 
-  construct : function()
-  {
-    this.base(arguments);
+  construct : function() {
     this.__defaultAxis = qx.util.placement.DirectAxis;
   },
 
@@ -219,7 +217,7 @@ qx.Class.define("qx.util.placement.Placement",
         this.assertNumber(offsets.left, "offsets.left");
       }
 
-      var axisX = this.getAxisX() || this.__defaultAxis;
+      var axisX = this.axisX || this.__defaultAxis;
       var left = axisX.computeStart(
         size.width,
         {start: target.left, end: target.right},
@@ -228,7 +226,7 @@ qx.Class.define("qx.util.placement.Placement",
         this.__getPositionX()
       );
 
-      var axisY = this.getAxisY() || this.__defaultAxis;
+      var axisY = this.axisY || this.__defaultAxis;
       var top = axisY.computeStart(
         size.height,
         {start: target.top, end: target.bottom},
@@ -251,8 +249,8 @@ qx.Class.define("qx.util.placement.Placement",
      */
     __getPositionX : function()
     {
-      var edge = this.getEdge();
-      var align = this.getAlign();
+      var edge = this.edge;
+      var align = this.align;
 
       if (edge == "left") {
         return "edge-start";
@@ -275,8 +273,8 @@ qx.Class.define("qx.util.placement.Placement",
      */
     __getPositionY : function()
     {
-      var edge = this.getEdge();
-      var align = this.getAlign();
+      var edge = this.edge;
+      var align = this.align;
 
       if (edge == "top") {
         return "edge-start";
@@ -290,11 +288,5 @@ qx.Class.define("qx.util.placement.Placement",
         return "align-end";
       }
     }
-  },
-
-
-  destruct : function()
-  {
-    this._disposeObjects('__defaultAxis');
   }
 });

@@ -33,7 +33,7 @@
  *
  * Instances of this class can be used in any place a JavaScript string can.
  */
-qx.Class.define("qx.type.BaseString",
+qx.Bootstrap.define("qx.type.BaseString",
 {
   extend : Object,
 
@@ -311,16 +311,6 @@ qx.Class.define("qx.type.BaseString",
     toUpperCase : null,
 
 
-    /**
-     * Return unique hash code of object
-     *
-     * @return {Integer} unique hash code of the object
-     */
-    toHashCode : function() {
-      return qx.core.ObjectRegistry.toHashCode(this);
-    },
-
-
    /**
     * The characters within a string are converted to lower case while
     * respecting the current locale.
@@ -342,20 +332,7 @@ qx.Class.define("qx.type.BaseString",
     * @signature function()
     * @return {String} The new string.
     */
-    toLocaleUpperCase : null,
-
-    /**
-     * Call the same method of the super class.
-     *
-     * @param args {arguments} the arguments variable of the calling method
-     * @param varags {var} variable number of arguments passed to the overwritten function
-     * @return {var} the return value of the method of the base class.
-     */
-    base : function(args, varags) {
-      return qx.core.Object.prototype.base.apply(this, arguments);
-    }
-
-
+    toLocaleUpperCase : null
   },
 
   /*
@@ -366,11 +343,6 @@ qx.Class.define("qx.type.BaseString",
 
    defer : function(statics, members)
    {
-     // add asserts into each debug build
-     if (qx.core.Environment.get("qx.debug")) {
-       qx.Class.include(statics, qx.core.MAssert);
-     }
-
      var mappedFunctions = [
        'charAt',
        'charCodeAt',

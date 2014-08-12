@@ -50,8 +50,7 @@ qx.Bootstrap.define("qx.core.BaseInit",
      * of the class defined by the setting <code>qx.application</code>.
      *
      */
-    ready : function()
-    {
+    ready : function() {
       if (!(qx.$$loader.scriptLoaded && qxWeb.isReady())) {
         return;
       }
@@ -73,7 +72,7 @@ qx.Bootstrap.define("qx.core.BaseInit",
       qx.log.Logger.debug(this, "Load runtime: " + (new Date - qx.Bootstrap.LOADSTART) + "ms");
 
       var app = qx.core.Environment.get("qx.application");
-      var clazz = qx.Class.getByName(app);
+      var clazz = qx.Bootstrap.getByName(app);
 
       if (clazz)
       {

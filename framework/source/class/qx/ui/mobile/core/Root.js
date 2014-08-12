@@ -47,7 +47,7 @@ qx.Bootstrap.define("qx.ui.mobile.core.Root",
     this.addClass(qx.core.Environment.get("os.name"));
     this.addClass("v"+qx.core.Environment.get("os.version").charAt(0));
 
-    qx.event.Registration.addListener(window, "orientationchange", this._onOrientationChange, this);
+    qxWeb(window).on("orientationchange", this._onOrientationChange, this);
 
     // [BUG #7785] Document element's clientHeight is calculated wrong on iPad iOS7
     if (qx.core.Environment.get("os.name") == "ios") {

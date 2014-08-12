@@ -30,6 +30,8 @@
  * * Display of offset (time after loading) of each message
  * * Supports keyboard shortcuts F7 or Ctrl+D to toggle the visibility
  *
+ * @require(qx.module.Core)
+ * @require(qx.module.event.GestureHandler)
  */
 qx.Bootstrap.define("qx.log.appender.Console",
 {
@@ -134,7 +136,7 @@ qx.Bootstrap.define("qx.log.appender.Console",
      */
     dispose : function()
     {
-      qx.event.Registration.removeListener(document.documentElement, "keypress", this.__onKeyPress, this);
+      qxWeb(document.documentElement).on("keypress", this.__onKeyPress, this);
       qx.log.Logger.unregister(this);
     },
 
@@ -362,7 +364,7 @@ qx.Bootstrap.define("qx.log.appender.Console",
   */
 
   defer : function(statics) {
-    qx.event.Registration.addListener(document.documentElement, "keypress", statics.__onKeyPress, statics);
-    qx.event.Registration.addListener(document.documentElement, "longtap", statics.__onKeyPress, statics);
+    qxWeb(document.documentElement).on("keypress", statics.__onKeyPress, statics);
+    qxWeb(document.documentElement).on("longtap", statics.__onKeyPress, statics);
   }
 });

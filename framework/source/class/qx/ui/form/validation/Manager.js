@@ -68,7 +68,7 @@ qx.Bootstrap.define("qx.ui.form.validation.Manager",
     validator :
     {
       check : function(value) {
-        return value instanceof Function || qx.Class.isSubClassOf(value.constructor, qx.ui.form.validation.AsyncValidator)
+        return value instanceof Function || qx.Bootstrap.isSubClassOf(value.constructor, qx.ui.form.validation.AsyncValidator)
       },
       init : null,
       nullable : true
@@ -419,7 +419,7 @@ qx.Bootstrap.define("qx.ui.form.validation.Manager",
     __isAsyncValidator : function(validator) {
       var async = false;
       if (!qx.lang.Type.isFunction(validator)) {
-        async = qx.Class.isSubClassOf(
+        async = qx.Bootstrap.isSubClassOf(
           validator.constructor, qx.ui.form.validation.AsyncValidator
         );
       }
@@ -437,7 +437,7 @@ qx.Bootstrap.define("qx.ui.form.validation.Manager",
      */
     __supportsInvalid : function(formItem) {
       var clazz = formItem.constructor;
-      return qx.Class.hasInterface(clazz, qx.ui.form.IForm);
+      return qx.Interface.classImplements(clazz, qx.ui.form.IForm);
     },
 
 
@@ -451,7 +451,7 @@ qx.Bootstrap.define("qx.ui.form.validation.Manager",
      */
     __supportsSingleSelection : function(formItem) {
       var clazz = formItem.constructor;
-      return qx.Class.hasInterface(clazz, qx.ui.core.ISingleSelection);
+      return qx.Interface.classImplements(clazz, qx.ui.core.ISingleSelection);
     },
 
 

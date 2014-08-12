@@ -92,7 +92,7 @@ qx.Bootstrap.define("qx.ui.mobile.list.List",
     }
 
     if (qx.core.Environment.get("qx.dynlocale")) {
-      qx.locale.Manager.getInstance().addListener("changeLocale", this._onChangeLocale, this);
+      qx.locale.Manager.getInstance().on("changeLocale", this._onChangeLocale, this);
     }
   },
 
@@ -564,7 +564,7 @@ qx.Bootstrap.define("qx.ui.mobile.list.List",
       this.__trackElement = null;
       this._disposeObjects("__provider");
       if (qx.core.Environment.get("qx.dynlocale")) {
-        qx.locale.Manager.getInstance().removeListener("changeLocale", this._onChangeLocale, this);
+        qx.locale.Manager.getInstance().off("changeLocale", this._onChangeLocale, this);
       }
     }
   }

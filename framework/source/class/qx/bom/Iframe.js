@@ -22,10 +22,8 @@
 
 /**
  * Cross browser abstractions to work with iframes.
- *
- * @require(qx.event.handler.Iframe)
  */
-qx.Class.define("qx.bom.Iframe",
+qx.Bootstrap.define("qx.bom.Iframe",
 {
   /*
   *****************************************************************************
@@ -40,7 +38,7 @@ qx.Class.define("qx.bom.Iframe",
      */
     DEFAULT_ATTRIBUTES :
     {
-      onload : "qx.event.handler.Iframe.onevent(this)",
+      // onload : "qx.event.handler.Iframe.onevent(this)", TODO
       frameBorder: 0,
       frameSpacing: 0,
       marginWidth: 0,

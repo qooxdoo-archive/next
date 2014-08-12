@@ -209,7 +209,7 @@ qx.Bootstrap.define("qx.ui.mobile.form.Resetter",
      */
     __supportsSingleSelection : function(formItem) {
       var clazz = formItem.constructor;
-      return qx.Class.hasInterface(clazz, qx.ui.core.ISingleSelection);
+      return qx.Interface.classImplements(clazz, qx.ui.core.ISingleSelection);
     },
 
 
@@ -223,7 +223,7 @@ qx.Bootstrap.define("qx.ui.mobile.form.Resetter",
      */
     __supportsDataBindingSelection : function(formItem) {
       var clazz = formItem.constructor;
-      return qx.Class.hasInterface(clazz, qx.data.controller.ISelection);
+      return qx.Interface.classImplements(clazz, qx.data.controller.ISelection);
     },
 
 
@@ -237,12 +237,12 @@ qx.Bootstrap.define("qx.ui.mobile.form.Resetter",
     _supportsValue : function(formItem) {
       var clazz = formItem.constructor;
       return (
-        qx.Class.hasInterface(clazz, qx.ui.form.IBooleanForm) ||
-        qx.Class.hasInterface(clazz, qx.ui.form.IColorForm) ||
-        qx.Class.hasInterface(clazz, qx.ui.form.IDateForm) ||
-        qx.Class.hasInterface(clazz, qx.ui.form.INumberForm) ||
-        qx.Class.hasInterface(clazz, qx.ui.form.IStringForm) ||
-        qx.Class.hasMixin(clazz, qx.ui.mobile.form.MValue)
+        qx.Interface.classImplements(clazz, qx.ui.form.IBooleanForm) ||
+        qx.Interface.classImplements(clazz, qx.ui.form.IColorForm) ||
+        qx.Interface.classImplements(clazz, qx.ui.form.IDateForm) ||
+        qx.Interface.classImplements(clazz, qx.ui.form.INumberForm) ||
+        qx.Interface.classImplements(clazz, qx.ui.form.IStringForm) ||
+        qx.Mixin.getClassByMixin(clazz, qx.ui.mobile.form.MValue)
       );
     }
   }

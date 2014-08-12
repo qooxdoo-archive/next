@@ -246,7 +246,7 @@ qx.Bootstrap.define("qx.util.DisposeUtil",
 
       for (var i=0,l=classes.length; i<l; i++) {
         if (typeof classes[i] !== "undefined" &&
-          qx.Class.isSubClassOf(obj.constructor, classes[i]))
+          qx.Bootstrap.isSubClassOf(obj.constructor, classes[i]))
         {
           return true;
         }

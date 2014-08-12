@@ -21,7 +21,7 @@
 /**
  * Methods to work with the delegate pattern.
  */
-qx.Class.define("qx.util.Delegate",
+qx.Bootstrap.define("qx.util.Delegate",
 {
   statics :
   {

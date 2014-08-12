@@ -179,7 +179,7 @@ qx.Mixin.define("qx.ui.core.MSingleSelectionHandling",
       if (this.__manager == null)
       {
         var that = this;
-        var SelectionProvider = qx.Class.define(null, {
+        var SelectionProvider = qx.Bootstrap.define(null, {
           extend: Object,
           implement: [qx.ui.core.ISingleSelectionProvider],
           members: {

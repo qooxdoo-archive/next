@@ -92,7 +92,7 @@ qx.Bootstrap.define("qx.core.Init",
 
   defer : function(statics)
   {
-    q.ready(statics.ready, statics);
+    qxWeb.ready(statics.ready, statics);
     qxWeb(window).on("beforeunload", statics.__close, statics)
       .on("unload", statics.__shutdown, statics);
   }

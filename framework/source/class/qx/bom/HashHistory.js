@@ -44,6 +44,7 @@ qx.Bootstrap.define("qx.bom.HashHistory",
     __checkOnHashChange : null,
     __iframe : null,
     __iframeReady : false,
+    __intervalId : null,
 
 
     //overridden
@@ -139,9 +140,8 @@ qx.Bootstrap.define("qx.bom.HashHistory",
     /**
      * Attach hash change listeners
      */
-    __attachListeners : function()
-    {
-      qx.event.Idle.getInstance().addListener("interval", this.__onHashChange, this);
+    __attachListeners : function() {
+      this.__intervalId = window.setInterval(this.__onHashChange.bind(this), 100);
     },
 
 
@@ -150,7 +150,7 @@ qx.Bootstrap.define("qx.bom.HashHistory",
      */
     __detatchListeners : function()
     {
-      qx.event.Idle.getInstance().removeListener("interval", this.__onHashChange, this);
+      window.clearInterval(this.__intervalId);
     },
 
 

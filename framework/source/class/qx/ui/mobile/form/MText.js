@@ -21,8 +21,6 @@
 /**
  * The mixin contains all functionality to provide common properties for
  * text fields.
- *
- * @require(qx.event.handler.Input)
  */
 qx.Mixin.define("qx.ui.mobile.form.MText",
 {
@@ -129,7 +127,7 @@ qx.Mixin.define("qx.ui.mobile.form.MText",
 
       var targetElement = this[0];
       if(targetElement) {
-        qx.bom.Element.focus(targetElement);
+        targetElement.focus();
       }
     },
 
@@ -140,7 +138,7 @@ qx.Mixin.define("qx.ui.mobile.form.MText",
     blur : function() {
       var targetElement = this[0];
       if(targetElement) {
-        qx.bom.Element.blur(targetElement);
+        targetElement.blur();
       }
     }
   }

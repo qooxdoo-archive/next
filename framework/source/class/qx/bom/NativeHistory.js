@@ -65,7 +65,7 @@ qx.Bootstrap.define("qx.bom.NativeHistory",
     {
       var currentState = this._readState();
 
-      if (qx.lang.Type.isString(currentState) && currentState != this.getState()) {
+      if (qx.lang.Type.isString(currentState) && currentState != this.state) {
         this._onHistoryLoad(currentState);
       }
     },
