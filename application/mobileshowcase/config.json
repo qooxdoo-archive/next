@@ -22,6 +22,7 @@
     "pretty",
     "profiling",
     "source",
+    "source-with-dot",
     "source-all",
     "source-hybrid",
     "translation",
@@ -191,6 +192,11 @@
       }
     },
 
+    "source-with-dot" :
+    {
+      "extend" : ["source", "log-dependencies-dot"],
+      "log" : { "dependencies" : { "phase": null, "dot" : { "root" : "mobileshowcase.Application" }}}
+    },
 
     "watch-scss" :
     {
