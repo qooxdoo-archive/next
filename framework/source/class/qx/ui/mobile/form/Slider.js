@@ -43,6 +43,8 @@
  *
  * This example creates a slider and attaches an
  * event listener to the {@link #changeValue} event.
+ *
+ * @require(qx.module.AnimationFrame)
  */
 qx.Bootstrap.define("qx.ui.mobile.form.Slider",
 {
@@ -311,7 +313,7 @@ qx.Bootstrap.define("qx.ui.mobile.form.Slider",
     _setValue : function(value)
     {
       this.__value = value;
-      qx.bom.AnimationFrame.request(this._refresh, this);
+      qxWeb.requestAnimationFrame(this._refresh, this);
     },
 
     /**

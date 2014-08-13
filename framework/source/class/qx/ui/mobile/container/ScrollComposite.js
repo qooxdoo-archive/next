@@ -44,6 +44,8 @@
  *
  * This example horizontally groups a label and text field by using a
  * Composite configured with a horizontal box layout as a container.
+ *
+ * @require(qx.module.AnimationFrame)
  */
 qx.Bootstrap.define("qx.ui.mobile.container.ScrollComposite",
 {
@@ -298,7 +300,7 @@ qx.Bootstrap.define("qx.ui.mobile.container.ScrollComposite",
           momentum = momentum + 0.00005;
         }
         var nextVelocity = (velocity / momentum);
-        qx.bom.AnimationFrame.request(function() {
+        qxWeb.requestAnimationFrame(function() {
           this._scrollStep(nextPosition, nextVelocity, momentum, scrollLimit);
         }, this);
       } else {

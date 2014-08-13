@@ -43,6 +43,7 @@
  * </pre>
  *
  * @require(qx.module.Animation)
+ * @require(qx.module.AnimationFrame)
  */
 qx.Bootstrap.define("qx.ui.mobile.layout.Card",
 {
@@ -219,7 +220,7 @@ qx.Bootstrap.define("qx.ui.mobile.layout.Card",
           this.__reverse = properties.reverse;
         }
 
-        qx.bom.AnimationFrame.request(function() {
+        qxWeb.requestAnimationFrame(function() {
           this.__startAnimation(widget);
         }, this);
       } else {

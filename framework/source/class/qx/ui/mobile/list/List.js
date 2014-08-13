@@ -68,6 +68,8 @@
  *
  * This example creates a list with a delegate that configures the list item with
  * the given data. A listener for the event {@link #changeSelection} is added.
+ *
+ * @require(qx.module.AnimationFrame)
  */
 qx.Bootstrap.define("qx.ui.mobile.list.List",
 {
@@ -282,7 +284,7 @@ qx.Bootstrap.define("qx.ui.mobile.list.List",
         var row = parseInt(element.getAttribute("data-row"), 10);
         this.emit("removeItem", row);
       } else {
-        qx.bom.AnimationFrame.request(function() {
+        qxWeb.requestAnimationFrame(function() {
           element.setStyle("transform", "translate3d(0,0,0)")
             .setStyle("opacity", "1")
             .removeClass("track");

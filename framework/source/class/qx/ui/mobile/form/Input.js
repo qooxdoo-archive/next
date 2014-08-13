@@ -21,6 +21,7 @@
 
 /**
  * Abstract class for all input fields.
+ * @require(qx.module.AnimationFrame)
  */
 qx.Bootstrap.define("qx.ui.mobile.form.Input",
 {
@@ -87,7 +88,7 @@ qx.Bootstrap.define("qx.ui.mobile.form.Input",
 
         // Refresh caret position after scrolling.
         this.setStyle("position","relative");
-        qx.bom.AnimationFrame.request(function() {
+        qxWeb.requestAnimationFrame(function() {
           this.setStyle("position",null);
         }, this);
       }.bind(this), 300);
