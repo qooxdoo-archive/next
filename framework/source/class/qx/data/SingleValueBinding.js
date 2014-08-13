@@ -210,7 +210,8 @@ qx.Bootstrap.define("qx.data.SingleValueBinding",
             listeners.push(listener);
 
             // add the chaining listener
-            listenerIds[i] = source.on(eventNames[i], listener);
+            source.on(eventNames[i], listener);
+            listenerIds[i] = source.getListenerId();
           }
 
           // get and store the next source
@@ -386,7 +387,8 @@ qx.Bootstrap.define("qx.data.SingleValueBinding",
           } else {
             var eventName = this.__getEventNameForProperty(source, context.propertyNames[j]);
           }
-          context.listenerIds[j] = source.on(eventName, context.listeners[j]);
+          source.on(eventName, context.listeners[j]);
+          context.listenerIds[j] = source.getListenerId();
         }
       }
     },
@@ -495,7 +497,8 @@ qx.Bootstrap.define("qx.data.SingleValueBinding",
               }
             }
 
-            listenerIds[j] = target.on(eventName, listeners[j]);
+            target.on(eventName, listeners[j]);
+            listenerIds[j] = target.getListenerId();
            }
 
           qx.data.SingleValueBinding.updateTarget(
@@ -507,7 +510,8 @@ qx.Bootstrap.define("qx.data.SingleValueBinding",
         listeners.push(listener);
 
         // add the chaining listener
-        listenerIds[i] = target.on(eventNames[i], listener);
+        target.on(eventNames[i], listener);
+        listenerIds[i] = target.getListenerId();
 
         // get and store the next target
         if (target[propertyNames[i]] == null) {
@@ -962,9 +966,9 @@ qx.Bootstrap.define("qx.data.SingleValueBinding",
       bindListener = qx.lang.Function.bind(bindListener, sourceObject, arrayIndex);
 
       // add the listener
-      var id = sourceObject.on(sourceEvent, bindListener);
+      sourceObject.on(sourceEvent, bindListener);
 
-      return id;
+      return sourceObject.getListenerId();
     },
 
 
