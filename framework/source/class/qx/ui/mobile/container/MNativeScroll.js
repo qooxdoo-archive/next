@@ -28,30 +28,32 @@
 qx.Mixin.define("qx.ui.mobile.container.MNativeScroll",
 {
 
-
-  construct : function()
-  {
-    this.addClass("native");
-
-    this._snapPoints = [];
-
-    this.once("appear", this._onAppear, this);
-    this.on("trackstart", this._onTrackStart, this);
-    this.on("trackend", this._onTrackEnd, this);
-
-    this.on("scroll", this._onScroll, this);
-
-    if (qx.core.Environment.get("os.name") == "ios") {
-      this.on("touchmove", this._onTouchMove, this);
-    }
-  },
-
-
   members :
   {
     _snapPoints : null,
     _isMomentum : null,
     _momentumStartTimerID : null,
+
+
+    /**
+     * Initializes this mixin. Should be called from the including class'
+     * constructor.
+     */
+     initMNativeScroll : function() {
+      this.addClass("native");
+
+      this._snapPoints = [];
+
+      this.once("appear", this._onAppear, this);
+      this.on("trackstart", this._onTrackStart, this);
+      this.on("trackend", this._onTrackEnd, this);
+
+      this.on("scroll", this._onScroll, this);
+
+      if (qx.core.Environment.get("os.name") == "ios") {
+        this.on("touchmove", this._onTouchMove, this);
+      }
+    },
 
 
     /**
@@ -151,7 +153,7 @@ qx.Mixin.define("qx.ui.mobile.container.MNativeScroll",
           this._snapPoints = [];
           var snapTargets = this[0].querySelectorAll(snap);
           for (var i = 0; i < snapTargets.length; i++) {
-            var snapPoint = qx.bom.element.Location.getRelative(this._getContentElement(), snapTargets[i], "scroll", "scroll");
+            var snapPoint = this._getContentElement.getRelativeDistance(snapTargets[i], "scroll", "scroll");
             this._snapPoints.push(snapPoint);
           }
         }
@@ -303,24 +305,21 @@ qx.Mixin.define("qx.ui.mobile.container.MNativeScroll",
       };
 
       if (element && element.children.length > 0) {
-        var animationHandle = qx.bom.element.Animation.animate(element.children[0], animationMap);
-
-        animationHandle.on("end", function() {
-          element.scrollLeft = x;
-          element.scrollTop = y;
-        }, this);
+        this.getChildren().eq(0)
+          .animate(animationMap)
+          .on("end", function() {
+            element.scrollLeft = x;
+            element.scrollTop = y;
+          }, this);
       }
     },
 
-    // TODO
-    disposeAAA : function() {
-      qx.bom.Event.removeNativeListener(this._getContentElement(), "scroll", this._onScroll.bind(this));
-
-      this.off("touchmove", this._onTouchMove, this);
-
-      this.off("appear", this._onAppear, this);
-      this.off("trackstart", this._onTrackStart, this);
-      this.off("trackend", this._onTrackEnd, this);
+    disposeMNativeScroll : function() {
+      this.off("scroll", this._onScroll, this)
+        .off("touchmove", this._onTouchMove, this)
+        .off("appear", this._onAppear, this)
+        .off("trackstart", this._onTrackStart, this)
+        .off("trackend", this._onTrackEnd, this);
     }
   }
 });

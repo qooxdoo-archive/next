@@ -347,8 +347,7 @@ qx.Mixin.define("qx.ui.mobile.container.MIScroll",
     },
 
 
-    // TODO
-    disposeAAA : function() {
+    disposeMIScroll : function() {
       this.__unregisterEventListeners();
 
       // Cleanup iScroll

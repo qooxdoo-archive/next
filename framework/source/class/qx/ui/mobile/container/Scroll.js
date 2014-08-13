@@ -66,7 +66,12 @@ qx.Bootstrap.define("qx.ui.mobile.container.Scroll",
     this._currentX = 0;
     this._currentY = 0;
 
-    this.initMIScroll();
+    if (this.initMIScroll) {
+      this.initMIScroll();
+    }
+    if (this.initMNativeScroll) {
+      this.initMNativeScroll();
+    }
   },
 
 
@@ -374,7 +379,7 @@ qx.Bootstrap.define("qx.ui.mobile.container.Scroll",
      * @return {Boolean} <code>true</code> or <code>false</code>
      */
     _isScrollableX: function() {
-      if (this._getParentWidget() === null) {
+      if (!this._getParentWidget()) {
         return false;
       }
 
@@ -492,6 +497,14 @@ qx.Bootstrap.define("qx.ui.mobile.container.Scroll",
       this.off("domupdated", this._updateWaypoints, this);
 
       this._waypointsX = this._waypointsY = null;
+
+      if (this.disposeMNativeScroll) {
+        this.disposeMNativeScroll();
+      }
+
+      if (this.disposeMIScroll) {
+        this.disposeMIScroll();
+      }
     }
   },
 
