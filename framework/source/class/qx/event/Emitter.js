@@ -157,6 +157,38 @@ qx.Bootstrap.define("qx.event.Emitter",
     },
 
 
+    /**
+     * Checks if the given lister is already attached.
+     *
+     * @param name {String} The name of the event to check.
+     * @param listener {Function} The function execute on {@link #emit}.
+     * @param ctx {var?Window} The context of the listener.
+     * @return {Boolean} <code>true</code>, if the listener is already attached
+     */
+    hasListener : function(name, listener, context) {
+      var storage = this.__getStorage(name);
+      if (storage.length == 0) {
+        return false;
+      }
+
+      if (listener) {
+        for (var id in storage) {
+          if (storage.listener === listener) {
+            if (!context) {
+              return true;
+            } else {
+              if (storage.ctx === context) {
+                return true;
+              }
+            }
+          }
+        }
+        return false;
+      }
+
+      return true;
+    },
+
 
     /**
      * Returns the internal attached listener.
