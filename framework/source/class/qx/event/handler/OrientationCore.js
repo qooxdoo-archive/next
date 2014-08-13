@@ -143,7 +143,6 @@ qx.Bootstrap.define("qx.event.handler.OrientationCore", {
      */
     dispose : function() {
       this._stopObserver();
-      this.__manager = this.__emitter = null;
     }
   }
 });

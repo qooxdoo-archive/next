@@ -443,8 +443,7 @@ qx.Bootstrap.define("qx.bom.request.Script",
      * Handle native load.
      */
     _onNativeLoad: function() {
-      var script = this.__scriptElement,
-          determineSuccess = this.__determineSuccess,
+      var determineSuccess = this.__determineSuccess,
           that = this;
 
       // Aborted request must not fire load
