@@ -307,7 +307,7 @@ qx.Bootstrap.define("qx.log.appender.Console",
      */
     __onKeyPress : function(e)
     {
-      if (e instanceof qx.event.type.Tap || e instanceof qx.event.type.Pointer) {
+      if (e.type === "tap") {
         var target = e.target;
         if (target && target.className && target.className.indexOf && target.className.indexOf("navigationbar") != -1) {
           this.toggle();

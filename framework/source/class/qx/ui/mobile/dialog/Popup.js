@@ -389,7 +389,7 @@ qx.Bootstrap.define("qx.ui.mobile.dialog.Popup",
       qx.core.Init.getApplication().on("stop", this.hide, this);
       qx.core.Init.getApplication().on("popup", this.hide, this);
 
-      qx.event.Registration.addListener(window, "resize", this._updatePosition, this);
+      qxWeb(window).on("resize", this._updatePosition, this);
 
       if(this.__anchor) {
         this.__anchor.addClass("anchor-target");

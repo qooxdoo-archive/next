@@ -41,6 +41,8 @@
  *
  * label2.show();
  * </pre>
+ *
+ * @require(qx.module.Animation)
  */
 qx.Bootstrap.define("qx.ui.mobile.layout.Card",
 {
@@ -288,17 +290,17 @@ qx.Bootstrap.define("qx.ui.mobile.layout.Card",
       this.__inAnimation = true;
 
       this.emit("animationStart", [this.__currentWidget, widget]);
-      var fromElement = this.__currentWidget[0];
-      var toElement = widget[0];
+      var fromElement = this.__currentWidget;
+      var toElement = widget;
 
       var onAnimationEnd = qx.lang.Function.bind(this._onAnimationEnd, this);
 
       if(qx.core.Environment.get("browser.name") == "iemobile" || qx.core.Environment.get("browser.name") == "ie") {
-        qx.bom.Event.addNativeListener(fromElement, "MSAnimationEnd", onAnimationEnd, false);
-        qx.bom.Event.addNativeListener(toElement, "MSAnimationEnd", onAnimationEnd, false);
+        fromElement.on("MSAnimationEnd", onAnimationEnd, false);
+        toElement.on("MSAnimationEnd", onAnimationEnd, false);
       } else {
-        qx.event.Registration.addListener(fromElement, "animationEnd", this._onAnimationEnd, this);
-        qx.event.Registration.addListener(toElement, "animationEnd", this._onAnimationEnd, this);
+        fromElement.on("animationEnd", this._onAnimationEnd, this);
+        toElement.on("animationEnd", this._onAnimationEnd, this);
       }
 
       var fromCssClasses = this.__getAnimationClasses("out");
@@ -309,11 +311,11 @@ qx.Bootstrap.define("qx.ui.mobile.layout.Card",
       var toElementAnimation = this.__cardAnimation.getAnimation(this.__animation, "in", this.__reverse);
       var fromElementAnimation = this.__cardAnimation.getAnimation(this.__animation, "out", this.__reverse);
 
-      qx.bom.element.Class.addClasses(toElement, toCssClasses);
-      qx.bom.element.Class.addClasses(fromElement, fromCssClasses);
+      toElement.addClass(toCssClasses);
+      fromElement.addClass(fromCssClasses);
 
-      qx.bom.element.Animation.animate(toElement, toElementAnimation);
-      qx.bom.element.Animation.animate(fromElement, fromElementAnimation);
+      toElement.animate(toElementAnimation);
+      fromElement.animate(fromElementAnimation);
     },
 
 

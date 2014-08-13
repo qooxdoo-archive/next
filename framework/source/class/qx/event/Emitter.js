@@ -98,7 +98,7 @@ qx.Bootstrap.define("qx.event.Emitter",
         storage.forEach(function(entry) {
           if (entry.listener == listener && entry.ctx == ctx) {
             storage.splice(i, 1);
-            var foundID = entry.id;
+            foundId = entry.id;
             return;
           }
         });

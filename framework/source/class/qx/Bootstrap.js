@@ -26,7 +26,6 @@
  * @ignore(qx.data)
  * @ignore(qx.data.IListData)
  * @ignore(qx.util.OOUtil)
- * @ignore(qx.event.*)
  * @ignore(qx.Interface.*)
  * @ignore(qx.Mixin.*)
  */
@@ -258,7 +257,7 @@ qx.Bootstrap = {
           if (!clazz.$$events) {
             clazz.$$events = {};
           }
-          clazz.$$events["change" + qx.Bootstrap.firstUp(propName)] = "qx.event.type.Data";
+          clazz.$$events["change" + qx.Bootstrap.firstUp(propName)] = "Map";
         }
       }
     }
@@ -491,8 +490,6 @@ qx.Bootstrap.define("qx.Bootstrap",
                 var eventName = "change" + qx.Bootstrap.firstUp(name);
                 if (this.emit) {
                   this.emit(eventName, {value: value, old: old, target: this});
-                } else if (this.fireEvent && qx.event && qx.event.type && qx.event.type.Data) {
-                  this.fireEvent(eventName, qx.event.type.Data, [value, old]);
                 } else {
                   throw new Error("Error in property " + name + " of class '" + this.classname + "': Event could not be fired.");
                 }

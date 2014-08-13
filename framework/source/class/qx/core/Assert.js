@@ -1,3 +1,4 @@
+"use strict"
 /* ************************************************************************
 
    qooxdoo - the new era of web development
@@ -26,7 +27,6 @@
  * Assertions are used in unit tests as well.
  *
  * @require(qx.lang.Type)
- * @ignore(qx.Class.*)
  */
 qx.Bootstrap.define("qx.core.Assert",
 {
@@ -67,7 +67,7 @@ qx.Bootstrap.define("qx.core.Assert",
       }
       var errorMsg = "Assertion error! " + fullComment;
 
-      if (qx.Class && qx.Class.isDefined("qx.core.AssertionError"))
+      if (qx.Bootstrap.getByName("qx.core.AssertionError"))
       {
         var err = new qx.core.AssertionError(comment, msg);
         if (this.__logError) {
@@ -376,13 +376,13 @@ qx.Bootstrap.define("qx.core.Assert",
 
       var id;
       try {
-        id = obj.addListener(event, listener, obj);
+        id = obj.on(event, listener, obj);
         invokeFunc.call(obj);
       } catch (ex) {
         throw ex;
       } finally {
         try {
-          obj.removeListenerById(id);
+          obj.offById(id);
         } catch (ex) { /* ignore */ }
       }
 
@@ -405,12 +405,12 @@ qx.Bootstrap.define("qx.core.Assert",
       var listener = function(e) {
         called = true;
       };
-      var id = obj.addListener(event, listener, obj);
+      var id = obj.on(event, listener, obj);
 
       invokeFunc.call();
       called === false || this.__fail(msg || "", "Event (", event, ") was fired.");
 
-      obj.removeListenerById(id);
+      obj.offById(id);
     },
 
 
@@ -753,7 +753,7 @@ qx.Bootstrap.define("qx.core.Assert",
      * @param msg {String} Message to be shown if the assertion fails.
      */
     assertInterface : function(value, iface, msg) {
-      qx.Class && qx.Class.implementsInterface(value, iface) || this.__fail(
+      qx.Interface.classImplements(value.constructor, iface) || this.__fail(
         msg || "",
         "Expected object '", value, "' to implement the interface '", iface, "'!"
       );
@@ -771,7 +771,7 @@ qx.Bootstrap.define("qx.core.Assert",
      */
     assertCssColor : function(expected, value, msg)
     {
-      var ColorUtil = qx.Class ? qx.Class.getByName("qx.util.ColorUtil") : null;
+      var ColorUtil = qx.Bootstrap.getByName("qx.util.ColorUtil");
       if (!ColorUtil) {
         throw new Error("qx.util.ColorUtil not available! Your code must have a dependency on 'qx.util.ColorUtil'");
       }

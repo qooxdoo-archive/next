@@ -113,12 +113,12 @@ qx.Bootstrap.define("qx.ui.mobile.layout.CardAnimation",
     {
       if (qx.core.Environment.get("qx.debug")) {
         if (!reverse) {
-          this.assertNotUndefined(this._cardAnimationsMap[animationName], "Animation '" + animationName + "' is not defined.");
-          this.assertNotUndefined(this._cardAnimationsMap[animationName][direction], "Animation '" + animationName + " " + direction + "' is not defined.");
+          qx.core.Assert.assertNotUndefined(this._cardAnimationsMap[animationName], "Animation '" + animationName + "' is not defined.");
+          qx.core.Assert.assertNotUndefined(this._cardAnimationsMap[animationName][direction], "Animation '" + animationName + " " + direction + "' is not defined.");
         } else {
-          this.assertNotUndefined(this._cardAnimationsMap[animationName], "Animation Reverse'" + animationName + "' is not defined.");
-          this.assertNotUndefined(this._cardAnimationsMap[animationName]["reverse"], "Animation Reverse'" + animationName + "' is not defined.");
-          this.assertNotUndefined(this._cardAnimationsMap[animationName]["reverse"][direction], "Animation Reverse'" + animationName + " " + direction + "' is not defined.");
+          qx.core.Assert.assertNotUndefined(this._cardAnimationsMap[animationName], "Animation Reverse'" + animationName + "' is not defined.");
+          qx.core.Assert.assertNotUndefined(this._cardAnimationsMap[animationName]["reverse"], "Animation Reverse'" + animationName + "' is not defined.");
+          qx.core.Assert.assertNotUndefined(this._cardAnimationsMap[animationName]["reverse"][direction], "Animation Reverse'" + animationName + " " + direction + "' is not defined.");
         }
       }
 

@@ -45,7 +45,7 @@
  */
 qx.Bootstrap.define("qx.ui.mobile.dialog.Manager",
 {
-  extend : qx.core.Object,
+  extend : Object,
 
 
   /*

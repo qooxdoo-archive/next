@@ -309,7 +309,7 @@ qx.Bootstrap.define("qx.ui.mobile.core.Widget",
       var clazz = qx.ui.mobile.core.Widget;
       window.clearTimeout(clazz.__domUpdatedScheduleId);
       clazz.__domUpdatedScheduleId = null;
-      qx.ui.mobile.core.DomUpdatedHandler.refresh();
+      // qx.ui.mobile.core.DomUpdatedHandler.refresh();
     }),
 
 
@@ -1032,10 +1032,9 @@ qx.Bootstrap.define("qx.ui.mobile.core.Widget",
     dispose : function() {
       // Cleanup event listeners
       // Needed as we rely on the containerElement in the qx.ui.mobile.core.EventHandler
-      qx.event.Registration.removeAllListeners(this);
+      // qx.event.Registration.removeAllListeners(this); TODO
 
-      if (this.id)
-      {
+      if (this.id) {
         qx.ui.mobile.core.Widget.unregisterWidget(this.id);
       }
 
