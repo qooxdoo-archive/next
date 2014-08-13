@@ -21,13 +21,13 @@
  *
  * @ignore(qx.test.MultiBinding)
  */
-qx.Class.define("qx.test.data.singlevalue.Deep",
+qx.Bootstrap.define("qx.test.data.singlevalue.Deep",
 {
   extend : qx.dev.unit.TestCase,
   include : [qx.dev.unit.MMock],
 
   construct : function() {
-    this.base(arguments);
+    this.base(qx.dev.unit.TestCase, "constructor");
 
     // define a test class
     qx.Bootstrap.define("qx.test.MultiBinding",

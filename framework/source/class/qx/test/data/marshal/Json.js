@@ -25,7 +25,7 @@
  * @ignore(qx.Test)
  * @ignore(qx.test.Array)
  */
-qx.Class.define("qx.test.data.marshal.Json",
+qx.Bootstrap.define("qx.test.data.marshal.Json",
 {
   extend : qx.dev.unit.TestCase,
   include : qx.dev.unit.MMock,

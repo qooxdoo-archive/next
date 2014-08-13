@@ -25,7 +25,7 @@
  * @ignore(qx.Target)
  * @ignore(qx.Test)
  */
-qx.Class.define("qx.test.data.singlevalue.Simple",
+qx.Bootstrap.define("qx.test.data.singlevalue.Simple",
 {
   extend : qx.dev.unit.TestCase,
   include : qx.dev.unit.MRequirements,
@@ -507,7 +507,7 @@ qx.Class.define("qx.test.data.singlevalue.Simple",
       qx.data.SingleValueBinding.removeAllBindingsForObject(a);
       qx.data.SingleValueBinding.removeAllBindingsForObject(b);
 
-      qx.Class.undefine("qx.test.SVB");
+      delete qx.test.SVB;
     },
 
 

@@ -24,12 +24,12 @@
 /**
  * Test-Class for testing the single value binding
  */
-qx.Class.define("qx.test.data.singlevalue.Array",
+qx.Bootstrap.define("qx.test.data.singlevalue.Array",
 {
   extend : qx.dev.unit.TestCase,
 
   construct : function() {
-    this.base(arguments);
+    this.base(qx.dev.unit.TestCase, "constructor");
 
     // define a test class
     qx.Bootstrap.define("qx.test.data.singlevalue.Array_MultiBinding",

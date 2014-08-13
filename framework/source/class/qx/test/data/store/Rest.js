@@ -17,7 +17,7 @@
 
 ************************************************************************ */
 
-qx.Class.define("qx.test.data.store.Rest",
+qx.Bootstrap.define("qx.test.data.store.Rest",
 {
   extend: qx.dev.unit.TestCase,
 

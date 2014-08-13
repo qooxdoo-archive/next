@@ -27,7 +27,7 @@
  * @asset(qx/test/*)
  */
 
-qx.Class.define("qx.test.data.store.Jsonp",
+qx.Bootstrap.define("qx.test.data.store.Jsonp",
 {
   extend : qx.dev.unit.TestCase,
 
@@ -60,14 +60,6 @@ qx.Class.define("qx.test.data.store.Jsonp",
 
         // Dispose
         this.request.dispose();
-      }
-
-      // remove the former created classes
-      qx.data.model = {};
-      for (var name in qx.Class.$$registry) {
-        if (name.search("qx.data.model") != -1) {
-          delete qx.Class.$$registry[name];
-        }
       }
     },
 

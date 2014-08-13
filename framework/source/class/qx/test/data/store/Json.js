@@ -28,7 +28,7 @@
  * @require(qx.io.request.Xhr)
  */
 
-qx.Class.define("qx.test.data.store.Json",
+qx.Bootstrap.define("qx.test.data.store.Json",
 {
   extend : qx.dev.unit.TestCase,
 
@@ -81,14 +81,6 @@ qx.Class.define("qx.test.data.store.Json",
       }
 
       this.__store.dispose();
-
-      // Remove the former created classes
-      qx.data.model = {};
-      for (var name in qx.Class.$$registry) {
-        if (name.search("qx.data.model") != -1) {
-          delete qx.Class.$$registry[name];
-        }
-      }
     },
 
 
@@ -230,7 +222,7 @@ qx.Class.define("qx.test.data.store.Json",
 
     testOwnClassWith: function() {
       // define a test class
-      qx.Class.define("qx.test.AB",
+      qx.Bootstrap.define("qx.test.AB",
       {
         extend : qx.core.Object,
 
@@ -251,7 +243,7 @@ qx.Class.define("qx.test.data.store.Json",
       var delegate = {
         getModelClass : function(properties) {
           if (properties == 'a"b') {
-            return qx.Class.getByName("qx.test.AB");
+            return qx.Bootstrap.getByName("qx.test.AB");
           }
           return null;
         }
@@ -305,7 +297,7 @@ qx.Class.define("qx.test.data.store.Json",
 
     testOwnSuperclassWith: function() {
       // define a test class
-      qx.Class.define("qx.test.O",
+      qx.Bootstrap.define("qx.test.O",
       {
         extend : qx.core.Object
       });
@@ -320,9 +312,9 @@ qx.Class.define("qx.test.data.store.Json",
       this.__store.addListener("loaded", function() {
         this.resume(function() {
           var model = this.__store.getModel();
-          this.assertTrue(qx.Class.isSubClassOf(model.constructor, qx.test.O));
+          this.assertTrue(qx.Bootstrap.isSubClassOf(model.constructor, qx.test.O));
           this.assertNotNull(model.getO(), "The model is not created how it should!");
-          this.assertTrue(qx.Class.isSubClassOf(model.getO().constructor, qx.test.O));
+          this.assertTrue(qx.Bootstrap.isSubClassOf(model.getO().constructor, qx.test.O));
           this.assertEquals("a", model.getO().getA(), "Wrong content of the object.");
           this.assertEquals("b", model.getO().getB(), "Wrong content of the object.");
         }, this);
@@ -337,7 +329,7 @@ qx.Class.define("qx.test.data.store.Json",
 
     testOwnSuperclassWithout: function() {
       // define a test class
-      qx.Class.define("qx.test.O",
+      qx.Bootstrap.define("qx.test.O",
       {
         extend : qx.core.Object
       });

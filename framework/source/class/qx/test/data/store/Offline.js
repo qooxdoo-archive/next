@@ -16,7 +16,7 @@
      * Martin Wittemann (martinwittemann)
 
 ************************************************************************ */
-qx.Class.define("qx.test.data.store.Offline",
+qx.Bootstrap.define("qx.test.data.store.Offline",
 {
   extend : qx.dev.unit.TestCase,
   include : [qx.dev.unit.MRequirements, qx.dev.unit.MMock],
