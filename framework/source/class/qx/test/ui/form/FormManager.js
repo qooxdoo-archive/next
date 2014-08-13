@@ -26,9 +26,10 @@ qx.Class.define("qx.test.ui.form.FormManager",
   extend : qx.test.ui.LayoutTestCase,
   include : qx.dev.unit.MMock,
 
-
   construct : function()
   {
+    this.initMMock();
+
     this.base(arguments);
 
     // create the test renderer

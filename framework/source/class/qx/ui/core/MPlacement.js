@@ -571,12 +571,10 @@ qx.Mixin.define("qx.ui.core.MPlacement",
 
         this.moveTo(result.left, result.top);
       });
+    },
+
+    disposeMPlacement : function() {
+      this.__cleanupFromLastPlaceToWidgetLiveUpdate();
     }
-  },
-
-
-  destruct : function()
-  {
-    this.__cleanupFromLastPlaceToWidgetLiveUpdate();
   }
 });

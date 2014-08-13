@@ -21,6 +21,10 @@ qx.Class.define("qx.test.ui.form.Form",
   extend : qx.test.ui.LayoutTestCase,
   include : qx.dev.unit.MMock,
 
+  construct: function() {
+    this.initMMock();
+  },
+
   members :
   {
 

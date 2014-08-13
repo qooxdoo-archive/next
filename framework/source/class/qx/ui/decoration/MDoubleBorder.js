@@ -25,11 +25,11 @@ qx.Mixin.define("qx.ui.decoration.MDoubleBorder",
 {
   include : [qx.ui.decoration.MSingleBorder, qx.ui.decoration.MBackgroundImage],
 
-  construct : function() {
-    // override the methods of single border and background image
-    this._getDefaultInsetsForBorder = this.__getDefaultInsetsForDoubleBorder;
-    this._styleBorder = this.__styleDoubleBorder;
-  },
+  // construct : function() { // TODO
+  //   // override the methods of single border and background image
+  //   this._getDefaultInsetsForBorder = this.__getDefaultInsetsForDoubleBorder;
+  //   this._styleBorder = this.__styleDoubleBorder;
+  // },
 
 
   /*

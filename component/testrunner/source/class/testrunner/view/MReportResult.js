@@ -33,15 +33,17 @@
  */
 qx.Mixin.define("testrunner.view.MReportResult", {
 
-  construct : function()
-  {
-    this.__results = {};
-    this.__autErrors = {};
-  },
   members :
   {
     __results : null,
     __autErrors : null,
+
+
+    initMReportResult : function()
+    {
+      this.__results = {};
+      this.__autErrors = {};
+    },
 
 
     /**

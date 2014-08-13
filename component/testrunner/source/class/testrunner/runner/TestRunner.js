@@ -42,6 +42,7 @@ qx.Bootstrap.define("testrunner.runner.TestRunner", {
     if (qx.core.Environment.get("testrunner.reportServer")) {
       var viewClass = qx.Class.getByName(qx.core.Environment.get("testrunner.view"));
       qx.Class.include(viewClass, testrunner.view.MReportResult);
+      this.initMReportResult();
     }
 
     this.base(testrunner.runner.TestRunnerBasic, "constructor");

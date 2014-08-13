@@ -145,11 +145,11 @@ qx.Mixin.define("qx.ui.core.MBlocker",
         this.__blocker = this._createBlocker();
       }
       return this.__blocker;
+    },
+
+
+    disposeMBlocker : function() {
+      this._disposeObjects("__blocker");
     }
-  },
-
-
-  destruct : function() {
-    this._disposeObjects("__blocker");
   }
 });

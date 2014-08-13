@@ -217,22 +217,13 @@ qx.Mixin.define("qx.ui.window.MDesktop",
         this.__windows = [];
       }
       return this.__windows;
+    },
+
+
+    disposeMDesktop : function()
+    {
+      this._disposeArray("__windows");
+      this._disposeObjects("__manager");
     }
-  },
-
-
-
-
-
-  /*
-  *****************************************************************************
-     DESTRUCTOR
-  *****************************************************************************
-  */
-
-  destruct : function()
-  {
-    this._disposeArray("__windows");
-    this._disposeObjects("__manager");
   }
 });

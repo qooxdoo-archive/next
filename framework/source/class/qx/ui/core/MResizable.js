@@ -26,41 +26,6 @@
  */
 qx.Mixin.define("qx.ui.core.MResizable",
 {
-  /*
-  *****************************************************************************
-     CONSTRUCTOR
-  *****************************************************************************
-  */
-
-  construct : function()
-  {
-    // Register listeners to the content
-    var content = this.getContentElement();
-    content.addListener("pointerdown", this.__onResizePointerDown, this, true);
-    content.addListener("pointerup", this.__onResizePointerUp, this);
-    content.addListener("pointermove", this.__onResizePointerMove, this);
-    content.addListener("pointerout", this.__onResizePointerOut, this);
-    content.addListener("losecapture", this.__onResizeLoseCapture, this);
-
-    // Get a reference of the drag and drop handler
-    var domElement = content.getDomElement();
-    if (domElement == null) {
-      domElement = window;
-    }
-
-    this.__dragDropHandler = qx.event.Registration.getManager(domElement).getHandler(qx.event.handler.DragDrop);
-  },
-
-
-
-
-
-  /*
-  *****************************************************************************
-     PROPERTIES
-  *****************************************************************************
-  */
-
   properties :
   {
     /** Whether the top edge is resizable */
@@ -141,6 +106,25 @@ qx.Mixin.define("qx.ui.core.MResizable",
     RESIZE_LEFT : 4,
     RESIZE_RIGHT : 8,
 
+
+    initMResizable : function()
+    {
+      // Register listeners to the content
+      var content = this.getContentElement();
+      content.addListener("pointerdown", this.__onResizePointerDown, this, true);
+      content.addListener("pointerup", this.__onResizePointerUp, this);
+      content.addListener("pointermove", this.__onResizePointerMove, this);
+      content.addListener("pointerout", this.__onResizePointerOut, this);
+      content.addListener("losecapture", this.__onResizeLoseCapture, this);
+
+      // Get a reference of the drag and drop handler
+      var domElement = content.getDomElement();
+      if (domElement == null) {
+        domElement = window;
+      }
+
+      this.__dragDropHandler = qx.event.Registration.getManager(domElement).getHandler(qx.event.handler.DragDrop);
+    },
 
     /*
     ---------------------------------------------------------------------------
@@ -604,27 +588,18 @@ qx.Mixin.define("qx.ui.core.MResizable",
         this.resetCursor();
         this.getApplicationRoot().resetGlobalCursor();
       }
-    }
-  },
+    },
 
 
-
-
-
-  /*
-  *****************************************************************************
-     DESTRUCTOR
-  *****************************************************************************
-  */
-
-  destruct : function()
-  {
-    if (this.__resizeFrame != null && !qx.core.ObjectRegistry.inShutDown)
+    dipsposeMResizable : function()
     {
-      this.__resizeFrame.destroy();
-      this.__resizeFrame = null;
-    }
+      if (this.__resizeFrame != null && !qx.core.ObjectRegistry.inShutDown)
+      {
+        this.__resizeFrame.destroy();
+        this.__resizeFrame = null;
+      }
 
-    this.__dragDropHandler = null;
+      this.__dragDropHandler = null;
+    }
   }
 });

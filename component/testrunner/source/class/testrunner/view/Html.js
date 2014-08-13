@@ -34,7 +34,7 @@
  * @require(qx.module.Css)
  * @require(qx.module.Cookie)
  * @require(qx.module.Template)
- *
+ * @require(qx.event.handler.Iframe)
  */
 qx.Bootstrap.define("testrunner.view.Html", {
 
@@ -93,6 +93,8 @@ qx.Bootstrap.define("testrunner.view.Html", {
     this._makeCommands();
 
     this.__testResults = {};
+
+    this.initMAutoRun();
   },
 
 

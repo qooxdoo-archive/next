@@ -351,21 +351,12 @@ qx.Mixin.define("qx.ui.core.MMovable",
       if (this.getUseMoveFrame()) {
         this.__getMoveFrame().exclude();
       }
+    },
+
+
+    disposeMMovable : function() {
+      this._disposeObjects("__moveFrame", "__moveHandle");
+      this.__dragRange = null;
     }
-  },
-
-
-
-
-
-  /*
-  *****************************************************************************
-     DESTRUCTOR
-  *****************************************************************************
-  */
-
-  destruct : function() {
-    this._disposeObjects("__moveFrame", "__moveHandle");
-    this.__dragRange = null;
   }
 });

@@ -94,20 +94,22 @@
  */
 qx.Mixin.define("qx.dev.unit.MMock",
 {
-  construct: function()
-  {
-    var sinon = this.__getSinon();
-    this.__exposeAssertions();
-
-    this.__sandbox = sinon.sandbox;
-  },
-
   members :
   {
 
     __sandbox: null,
 
     __fakeXhr: null,
+
+
+    initMMock: function()
+    {
+      var sinon = this.__getSinon();
+      this.__exposeAssertions();
+
+      this.__sandbox = sinon.sandbox;
+    },
+
 
     /**
      * Expose Sinon.JS assertions. Provides methods such

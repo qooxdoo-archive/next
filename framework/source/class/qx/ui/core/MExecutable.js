@@ -185,12 +185,11 @@ qx.Mixin.define("qx.ui.core.MExecutable",
           }
         }
       }
+    },
+
+    disposeMExecutable : function() {
+      this._applyCommand(null, this.getCommand());
+      this.__executableBindingIds = null;
     }
-  },
-
-
-  destruct : function() {
-    this._applyCommand(null, this.getCommand());
-    this.__executableBindingIds = null;
   }
 });

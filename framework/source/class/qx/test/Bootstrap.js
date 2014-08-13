@@ -28,6 +28,11 @@ qx.Class.define("qx.test.Bootstrap",
   extend : qx.dev.unit.TestCase,
   include : qx.dev.unit.MMock,
 
+  construct: function() {
+    this.initMMock();
+  },
+
+
   members :
   {
     testDefineAnonymous : function() {

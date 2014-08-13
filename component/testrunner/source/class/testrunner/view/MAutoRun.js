@@ -20,14 +20,6 @@
  */
 qx.Mixin.define("testrunner.view.MAutoRun", {
 
-  construct : function()
-  {
-    var parsedUri = qx.util.Uri.parseUri(location.href, true);
-    if (parsedUri.queryKey && parsedUri.queryKey.autorun) {
-      this.autoRun = true;
-    }
-  },
-
   properties :
   {
     /** Automatically run the selected tests after loading */
@@ -35,6 +27,15 @@ qx.Mixin.define("testrunner.view.MAutoRun", {
     {
       check :"Boolean",
       init : false
+    }
+  },
+
+  members : {
+    initMAutoRun : function() {
+      var parsedUri = qx.util.Uri.parseUri(location.href, true);
+      if (parsedUri.queryKey && parsedUri.queryKey.autorun) {
+        this.autoRun = true;
+      }
     }
   }
 });

@@ -45,6 +45,10 @@ qx.Class.define("qx.test.io.request.Xhr",
              qx.dev.unit.MMock,
              qx.dev.unit.MRequirements],
 
+  construct: function() {
+    this.initMMock();
+  },
+
   members :
   {
     setUp: function() {

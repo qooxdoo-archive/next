@@ -22,11 +22,6 @@
  */
 qx.Mixin.define("testrunner.view.MPerformance", {
 
-  construct : function()
-  {
-    this.__measurements = [];
-  },
-
   properties :
   {
     /**
@@ -55,6 +50,9 @@ qx.Mixin.define("testrunner.view.MPerformance", {
      * @param renderTime {Integer} browser rendering time
      */
     logMeasurement : function(clazz, msg, iterations, ownTime, renderTime) {
+      if (this.__measurements === undefined) {
+        this.__measurements = [];
+      }
       this.__measurements.push([clazz, msg, iterations, ownTime, renderTime].join("; "));
     }
   }

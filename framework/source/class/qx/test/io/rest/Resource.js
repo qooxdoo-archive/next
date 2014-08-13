@@ -34,6 +34,10 @@ qx.Class.define("qx.test.io.rest.Resource",
   include : [qx.dev.unit.MRequirements,
              qx.dev.unit.MMock],
 
+  construct: function() {
+    this.initMMock();
+  },
+
   members:
   {
     setUp: function() {

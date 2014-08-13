@@ -22,6 +22,10 @@ qx.Class.define("qx.test.mobile.dialog.Menu",
   extend : qx.test.mobile.MobileTestCase,
   include : [qx.dev.unit.MMock],
 
+  construct: function() {
+    this.initMMock();
+  },
+
   members :
   {
     testInit : function()
