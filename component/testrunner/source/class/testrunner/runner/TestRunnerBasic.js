@@ -58,10 +58,10 @@ qx.Bootstrap.define("testrunner.runner.TestRunnerBasic", {
     // Create view
     this.__testsInView = [];
     var viewSetting = qx.core.Environment.get("testrunner.view");
-    var viewClass = qx.Class.getByName(viewSetting);
+    var viewClass = qx.Bootstrap.getByName(viewSetting);
 
     if (qx.core.Environment.get("testrunner.performance")) {
-      qx.Class.include(viewClass, testrunner.view.MPerformance);
+      // qx.Class.include(viewClass, testrunner.view.MPerformance); TODO
     }
 
     this.view = new viewClass();
@@ -382,7 +382,7 @@ qx.Bootstrap.define("testrunner.runner.TestRunnerBasic", {
             + 'try {'
             + 'this[arguments.callee.originalName].apply(this, argumentsArray);'
             + '} catch(ex) {'
-            + 'this.fireDataEvent("assertionFailed", ex);'
+            + 'this.emit("assertionFailed", ex);'
             + '}';
 
           // need to use the AUT window's Function since IE 6/7/8 can't catch
@@ -723,7 +723,7 @@ qx.Bootstrap.define("testrunner.runner.TestRunnerBasic", {
      */
     _handleGlobalError : function(ex)
     {
-      this.error(ex);
+      qx.log.Logger.error(ex);
     },
 
     dispose : function()

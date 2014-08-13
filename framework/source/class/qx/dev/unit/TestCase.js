@@ -21,9 +21,9 @@
 /**
  * Base class for all unit tests.
  */
-qx.Class.define("qx.dev.unit.TestCase",
+qx.Bootstrap.define("qx.dev.unit.TestCase",
 {
-  extend  : qx.core.Object,
+  extend  : qx.event.Emitter,
   include : [qx.core.MAssert],
 
   events :
@@ -94,8 +94,8 @@ qx.Class.define("qx.dev.unit.TestCase",
      */
     resume : function(deferredFunction, self)
     {
-      this.getTestResult().run(
-        this.getTestFunc(),
+      this.testResult.run(
+        this.testFunc,
         deferredFunction || (function() {}),
         self || this,
         true

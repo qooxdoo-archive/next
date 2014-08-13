@@ -42,7 +42,7 @@
  * </pre>
  */
 
-qx.Class.define("qx.dev.unit.TestClass",
+qx.Bootstrap.define("qx.dev.unit.TestClass",
 {
   extend : qx.dev.unit.AbstractTestSuite,
 
@@ -59,7 +59,7 @@ qx.Class.define("qx.dev.unit.TestClass",
    */
   construct : function(clazz)
   {
-    this.base(arguments);
+    this.base(qx.dev.unit.AbstractTestSuite, "constructor");
 
     if (!clazz)
     {
@@ -67,7 +67,7 @@ qx.Class.define("qx.dev.unit.TestClass",
       return;
     }
 
-    if (!qx.Class.isSubClassOf(clazz, qx.dev.unit.TestCase))
+    if (!qx.Bootstrap.isSubClassOf(clazz, qx.dev.unit.TestCase))
     {
       this.addFail("Sub class check.", "The test class '" + clazz.classname + "'is not a sub class of 'qx.dev.unit.TestCase'");
       return;
@@ -83,7 +83,7 @@ qx.Class.define("qx.dev.unit.TestClass",
       }
     }
 
-    this.setName(clazz.classname);
+    this.name = clazz.classname;
   },
 
 

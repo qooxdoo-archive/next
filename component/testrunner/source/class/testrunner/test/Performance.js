@@ -28,55 +28,55 @@ qx.Class.define("testrunner.test.Performance",
 
   members :
   {
-    ITERATIONS : 42,
-
-    testSingle : function()
-    {
-      var displayIterations = 23;
-      var that = this;
-      this.measure(
-
-        // descriptive message
-        "do one thing",
-
-        // callback containing the code to be measured
-        function() {
-          // work, work, work...
-          that.info("let's pretend we did this " + displayIterations + " times")
-        },
-
-        // finalize function (cleanup, etc.) - time spent here is *not* measured
-        function() {
-          that.info("Finalizing.");
-        },
-
-        // number of iterations to show in the results, e.g. the amount of times
-        // a loop within the callback is executed
-        displayIterations);
-    },
-
-    testRepeated : function()
-    {
-      var that = this;
-      this.measureRepeated(
-
-        // descriptive message
-        "do some useful stuff " + this.ITERATIONS + " times",
-
-        // callback containing the code to be measured
-        function(iteration) {
-          // work, work, work...
-          that.info(iteration, " iterations left to do");
-        },
-
-        // finalize function (cleanup, etc.) - time spent here is *not* measured
-        function() {
-          that.info("Finalizing.");
-        },
-
-        // Amount of times the callback function will be called
-        this.ITERATIONS
-      );
-    }
+    ITERATIONS : 42
+    // TODO
+    // testSingle : function()
+    // {
+    //   var displayIterations = 23;
+    //   var that = this;
+    //   this.measure(
+    //
+    //     // descriptive message
+    //     "do one thing",
+    //
+    //     // callback containing the code to be measured
+    //     function() {
+    //       // work, work, work...
+    //       that.info("let's pretend we did this " + displayIterations + " times")
+    //     },
+    //
+    //     // finalize function (cleanup, etc.) - time spent here is *not* measured
+    //     function() {
+    //       that.info("Finalizing.");
+    //     },
+    //
+    //     // number of iterations to show in the results, e.g. the amount of times
+    //     // a loop within the callback is executed
+    //     displayIterations);
+    // },
+    //
+    // testRepeated : function()
+    // {
+    //   var that = this;
+    //   this.measureRepeated(
+    //
+    //     // descriptive message
+    //     "do some useful stuff " + this.ITERATIONS + " times",
+    //
+    //     // callback containing the code to be measured
+    //     function(iteration) {
+    //       // work, work, work...
+    //       that.info(iteration, " iterations left to do");
+    //     },
+    //
+    //     // finalize function (cleanup, etc.) - time spent here is *not* measured
+    //     function() {
+    //       that.info("Finalizing.");
+    //     },
+    //
+    //     // Amount of times the callback function will be called
+    //     this.ITERATIONS
+    //   );
+    // }
   }
 });

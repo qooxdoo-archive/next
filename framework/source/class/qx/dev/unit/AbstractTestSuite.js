@@ -21,15 +21,12 @@
  * A TestSuite is a collection of test functions, classes and other test suites,
  * which should be run together.
  */
-qx.Class.define("qx.dev.unit.AbstractTestSuite",
+qx.Bootstrap.define("qx.dev.unit.AbstractTestSuite",
 {
-  extend : qx.core.Object,
-  type : "abstract",
+  extend : Object,
 
 
-  construct : function()
-  {
-    this.base(arguments);
+  construct : function() {
     this._tests = [];
   },
 
@@ -108,9 +105,5 @@ qx.Class.define("qx.dev.unit.AbstractTestSuite",
 
       return methods;
     }
-  },
-
-  destruct : function() {
-    this._disposeArray("_tests");
   }
 });

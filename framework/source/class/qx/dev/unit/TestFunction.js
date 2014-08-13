@@ -21,9 +21,9 @@
 /**
  * Wrapper object for a method containing unit test code.
  */
-qx.Class.define("qx.dev.unit.TestFunction",
+qx.Bootstrap.define("qx.dev.unit.TestFunction",
 {
-  extend : qx.core.Object,
+  extend : Object,
 
 
 
@@ -50,11 +50,11 @@ qx.Class.define("qx.dev.unit.TestFunction",
     }
 
     if (testCase) {
-      this.setClassName(testCase.classname);
-      this.setTestClass(testCase);
+      this.className = testCase.classname;
+      this.testClass = testCase;
     }
 
-    this.setName(methodName);
+    this.name = methodName;
   },
 
 
@@ -107,13 +107,13 @@ qx.Class.define("qx.dev.unit.TestFunction",
      */
     run : function(testResult)
     {
-      var inst = this.getTestClass();
-      var method = this.getName();
+      var inst = this.testClass;
+      var method = this.name;
       var testFunc = this;
       testResult.run(this, function()
       {
-        inst.setTestFunc(testFunc);
-        inst.setTestResult(testResult);
+        inst.testFunc = testFunc;
+        inst.testResult = testResult;
 
         try {
           inst[method]();
@@ -129,7 +129,7 @@ qx.Class.define("qx.dev.unit.TestFunction",
      */
     setUp : function()
     {
-      var inst = this.getTestClass();
+      var inst = this.testClass;
       if (qx.lang.Type.isFunction(inst.setUp)) {
         inst.setUp();
       }
@@ -140,7 +140,7 @@ qx.Class.define("qx.dev.unit.TestFunction",
      */
     tearDown : function()
     {
-      var inst = this.getTestClass();
+      var inst = this.testClass;
       if (qx.lang.Type.isFunction(inst.tearDown)) {
         inst.tearDown();
       }
@@ -153,7 +153,7 @@ qx.Class.define("qx.dev.unit.TestFunction",
      * @return {String} The test's full name
      */
     getFullName : function() {
-      return [ this.getClassName(), this.getName() ].join(":");
+      return [ this.className, this.name ].join(":");
     }
   }
 });

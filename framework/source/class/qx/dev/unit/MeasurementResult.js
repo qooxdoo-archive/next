@@ -21,7 +21,7 @@
  * Performance test result object. Used to communicate measurements to the unit
  * testing framework.
  */
-qx.Class.define("qx.dev.unit.MeasurementResult", {
+qx.Bootstrap.define("qx.dev.unit.MeasurementResult", {
 
   extend : Object,
 

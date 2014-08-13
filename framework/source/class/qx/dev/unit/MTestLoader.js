@@ -138,12 +138,12 @@ qx.Mixin.define("qx.dev.unit.MTestLoader", {
       {
         var cls = classes[i];
         var clsDesc = {};
-        clsDesc.classname = cls.getName();
+        clsDesc.classname = cls.name;
         clsDesc.tests = [];
         var methods = cls.getTestMethods();
 
         for (var j=0; j<methods.length; j++) {
-          clsDesc.tests.push(methods[j].getName());
+          clsDesc.tests.push(methods[j].name);
         }
 
         desc.push(clsDesc);
@@ -166,13 +166,13 @@ qx.Mixin.define("qx.dev.unit.MTestLoader", {
 
       for (var i=0; i<classes.length; i++)
       {
-        if (className == classes[i].getName())
+        if (className == classes[i].name)
         {
           var methods = classes[i].getTestMethods();
 
           for (var j=0; j<methods.length; j++)
           {
-            if (methodName && methods[j].getName() != methodName) {
+            if (methodName && methods[j].name != methodName) {
               continue;
             }
 
@@ -197,7 +197,7 @@ qx.Mixin.define("qx.dev.unit.MTestLoader", {
 
       for (var i=0; i<classes.length; i++)
       {
-        if (classes[i].getName().indexOf(namespaceName) == 0) {
+        if (classes[i].name.indexOf(namespaceName) == 0) {
           classes[i].run(testResult);
         }
       }

@@ -22,7 +22,7 @@
 /**
  * Useful debug capabilities
  */
-qx.Class.define("qx.dev.Debug",
+qx.Bootstrap.define("qx.dev.Debug",
 {
   statics :
   {
@@ -313,7 +313,7 @@ qx.Class.define("qx.dev.Debug",
       ) {
         return model;
 
-      } else if (qx.Class.hasInterface(model.constructor, qx.data.IListData)) {
+      } else if (qx.Interface.classImplements(model.constructor, qx.data.IListData)) {
         // go threw the data structure
         for (var i = 0; i < model.length; i++) {
           // print out the indentation
@@ -385,10 +385,6 @@ qx.Class.define("qx.dev.Debug",
         this.disposeProfilingActive = false;
 
         var undisposedObjects = [];
-        // If destroy calls another destroy, flushing the queue once is not enough
-        while (!qx.ui.core.queue.Dispose.isEmpty()) {
-          qx.ui.core.queue.Dispose.flush();
-        }
         var nextHashLast = qx.core.ObjectRegistry.getNextHash();
         var postId = qx.core.ObjectRegistry.getPostId();
         var traces = qx.core.ObjectRegistry.getStackTraces();
@@ -405,25 +401,11 @@ qx.Class.define("qx.dev.Debug",
               continue;
             }
             // Event handlers
-            if (qx.Class.implementsInterface(obj, qx.event.IEventHandler)) {
-              continue;
-            }
-            // Pooled Decorators
-            if (obj.$$pooled) {
-              continue;
-            }
-            // Dynamic decorators
-            if (qx.Class.implementsInterface(obj, qx.ui.decoration.IDecorator) &&
-              qx.theme.manager.Decoration.getInstance().isCached(obj)) {
+            if (qx.Interface.classImplements(obj.constructor, qx.event.IEventHandler)) {
               continue;
             }
             // ignored objects
             if (obj.$$ignoreDisposeWarning) {
-              continue;
-            }
-            // Dynamic fonts
-            if (obj instanceof qx.bom.Font &&
-              qx.theme.manager.Font.getInstance().isDynamic(obj)) {
               continue;
             }
             undisposedObjects.push({

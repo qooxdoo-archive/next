@@ -135,11 +135,11 @@ qx.Bootstrap.define("qx.dev.unit.TestResult",
         this._timeout = {};
       }
 
-      var testClass = test.getTestClass();
+      var testClass = test.testClass;
       if (!testClass.hasListener("assertionFailed")) {
-        testClass.addListener("assertionFailed", function(ev) {
+        testClass.on("assertionFailed", function(data) {
           var error = [{
-            exception : ev.getData(),
+            exception : data,
             test      : test
           }];
           this.emit("failure", error);
@@ -163,8 +163,7 @@ qx.Bootstrap.define("qx.dev.unit.TestResult",
       if (this._timeout[test.getFullName()])
       {
         if (this._timeout[test.getFullName()] !== "failed") {
-          this._timeout[test.getFullName()].stop();
-          this._timeout[test.getFullName()].dispose();
+          window.clearTimeout(this._timeout[test.getFullName()]);
         }
         delete this._timeout[test.getFullName()];
       }
@@ -218,7 +217,7 @@ qx.Bootstrap.define("qx.dev.unit.TestResult",
             return;
           }
 
-          if (ex.getDelay()) {
+          if (ex.delay) {
             var that = this;
             var defaultTimeoutFunction = function() {
               throw new qx.core.AssertionError(
@@ -226,11 +225,11 @@ qx.Bootstrap.define("qx.dev.unit.TestResult",
                 "Timeout reached before resume() was called."
               );
             };
-            var timeoutFunc = (ex.getDeferredFunction() ? ex.getDeferredFunction() : defaultTimeoutFunction);
-            var context = (ex.getContext() ? ex.getContext() : window);
-            this._timeout[test.getFullName()] = qx.event.Timer.once(function() {
+            var timeoutFunc = (ex.deferredFunction ? ex.deferredFunction : defaultTimeoutFunction);
+            var context = (ex.context ? ex.context : window);
+            this._timeout[test.getFullName()] = window.setTimeout(function() {
                this.run(test, timeoutFunc, context);
-            }, that, ex.getDelay());
+            }.bind(that), ex.delay);
             this.emit("wait", test);
           }
 
@@ -307,8 +306,8 @@ qx.Bootstrap.define("qx.dev.unit.TestResult",
     tearDown : function(test)
     {
       test.tearDown();
-      var testClass = test.getTestClass();
-      var specificTearDown = "tearDown" + qx.lang.String.firstUp(test.getName());
+      var testClass = test.testClass;
+      var specificTearDown = "tearDown" + qx.lang.String.firstUp(test.name);
       if (testClass[specificTearDown]) {
         testClass[specificTearDown]();
       }

@@ -74,16 +74,16 @@ qx.Class.define("testrunner.test.DemoTest",
     {
       this.assertTrue(false, "Well, what did you expect?");
       this.assertEquals(0, 1, "Nope");
-      this.debug("Executed code after failed assertion!");
+      qx.log.Logger.debug("Executed code after failed assertion!");
     },
 
     testAsyncSimple : function()
     {
       var self = this;
-      this.info("Setting timeout");
+      qx.log.Logger.info("Setting timeout");
       window.setTimeout(function() {
         self.resume(function() {
-          this.info("Async test OK");
+          qx.log.Logger.info("Async test OK");
         }, self);
       }, 1000);
 
@@ -99,7 +99,7 @@ qx.Class.define("testrunner.test.DemoTest",
     testAsyncFail : function()
     {
       var self = this;
-      this.info("Setting timeout");
+      qx.log.Logger.info("Setting timeout");
       window.setTimeout(function() {
         self.resume(function() {
           throw new Error("YARR");

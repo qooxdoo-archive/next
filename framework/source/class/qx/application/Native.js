@@ -23,9 +23,9 @@
  *
  * @require(qx.core.Init)
  */
-qx.Class.define("qx.application.Native",
+qx.Bootstrap.define("qx.application.Native",
 {
-  extend : qx.core.Object,
+  extend : Object,
   implement : [qx.application.IApplication],
 
 
