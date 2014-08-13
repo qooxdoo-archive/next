@@ -25,6 +25,7 @@
  * Android < 2.2.
  *
  * @ignore(iScroll)
+ * @require(qx.module.Io)
  * @asset(qx/mobile/js/iscroll*.js)
  */
 qx.Mixin.define("qx.ui.mobile.container.MIScroll",
@@ -142,20 +143,21 @@ qx.Mixin.define("qx.ui.mobile.container.MIScroll",
     {
       if (!window.iScroll)
       {
+        var resource;
         if (qx.core.Environment.get("qx.debug"))
         {
-          var resource = "qx/mobile/js/iscroll.js";
+          resource = "qx/mobile/js/iscroll.js";
         } else {
-          var resource = "qx/mobile/js/iscroll.min.js";
+          resource = "qx/mobile/js/iscroll.min.js";
         }
         var path = qx.util.ResourceManager.getInstance().toUri(resource);
         if (qx.core.Environment.get("qx.debug")) {
           path += "?" + new Date().getTime();
         }
-        var loader = new qx.bom.request.Script();
-        loader.on("load", this.__onScrollLoaded, this);
-        loader.open("GET", path);
-        loader.send();
+        qxWeb.io.script()
+          .on("load", this.__onScrollLoaded, this)
+          .open("GET", path)
+          .send();
       } else {
         this.once("appear", function() {
           this._setScroll(this.__createScrollInstance());
@@ -248,14 +250,23 @@ qx.Mixin.define("qx.ui.mobile.container.MIScroll",
 
 
     /**
+     * Stops event propagation
+     * @param e {Event} Event
+     */
+    _stopPropagation : function(e) {
+      e.stopPropagation();
+    },
+
+
+    /**
      * Registers all needed event listener.
      */
     __registerEventListeners : function()
     {
-      qxWeb(window).on("orientationchange", this._refresh, this);
-      qxWeb(window).on("resize", this._refresh, this);
-      this.on("touchmove", qx.bom.Event.stopPropagation);
-      this.on("appear", this._refresh, this); // TODO refresh on content size change (was domUpdated event)
+      qxWeb(window).on("orientationchange", this._refresh, this)
+        .on("resize", this._refresh, this);
+      this.on("touchmove", this._stopPropagation)
+        .on("appear", this._refresh, this); // TODO refresh on content size change (was domUpdated event)
     },
 
 
@@ -264,10 +275,10 @@ qx.Mixin.define("qx.ui.mobile.container.MIScroll",
      */
     __unregisterEventListeners : function()
     {
-      qxWeb(window).off("orientationchange", this._refresh, this);
-      qxWeb(window).off("resize", this._refresh, this);
-      this.off("touchmove", qx.bom.Event.stopPropagation);
-      this.off("appear", this._refresh, this);
+      qxWeb(window).off("orientationchange", this._refresh, this)
+        .off("resize", this._refresh, this);
+      this.off("touchmove", this._stopPropagation)
+        .off("appear", this._refresh, this);
     },
 
 

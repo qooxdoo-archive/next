@@ -238,7 +238,7 @@ qx.Bootstrap.define("qx.ui.mobile.dialog.Menu",
         listScrollerHeight = Math.min(newListScrollerHeight, listScrollerHeight);
       }
 
-      qx.bom.element.Style.set(this.__listScroller[0], "maxHeight", listScrollerHeight + "px");
+      this.__listScroller.setStyle("maxHeight", listScrollerHeight + "px");
 
       this.base(qx.ui.mobile.dialog.Popup, "_updatePosition");
     },

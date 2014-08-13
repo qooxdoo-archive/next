@@ -474,7 +474,7 @@ qx.Bootstrap.define("qx.ui.mobile.container.ScrollComposite",
       if (this.fixedHeight === true) {
         cssProperty = "height";
       }
-      qx.bom.element.Style.set(this[0], cssProperty, this.height);
+      this.setStyle(cssProperty, this.height);
     },
 
 

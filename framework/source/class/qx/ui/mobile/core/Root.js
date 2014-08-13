@@ -51,7 +51,7 @@ qx.Bootstrap.define("qx.ui.mobile.core.Root",
 
     // [BUG #7785] Document element's clientHeight is calculated wrong on iPad iOS7
     if (qx.core.Environment.get("os.name") == "ios") {
-      this.on("touchmove", qx.bom.Event.preventDefault, this);
+      this.on("touchmove", this._preventDefault);
 
       if (window.innerHeight != document.documentElement.clientHeight) {
         this.addClass("ios-viewport-fix");
@@ -176,7 +176,7 @@ qx.Bootstrap.define("qx.ui.mobile.core.Root",
       }
 
       // start from font-size computed style in pixels if available;
-      fontSize = qx.bom.element.Style.get(document.documentElement, "fontSize");
+      fontSize = qxWeb(document.documentElement).getStyle("fontSize");
       if (fontSize.indexOf("px") !== -1)
       {
         fontSize = parseFloat(fontSize);
@@ -235,7 +235,7 @@ qx.Bootstrap.define("qx.ui.mobile.core.Root",
     * @return {Integer} the width of the container element.
     */
     getWidth : function() {
-      return qx.bom.element.Dimension.getWidth(this.__root);
+      return qxWeb(this.__root).getWidth();
     },
 
 
@@ -244,7 +244,7 @@ qx.Bootstrap.define("qx.ui.mobile.core.Root",
     * @return {Integer} the height of the container element.
     */
     getHeight : function() {
-      return qx.bom.element.Dimension.getHeight(this.__root);
+      return qxWeb(this.__root).getHeight();
     },
 
 
@@ -272,10 +272,15 @@ qx.Bootstrap.define("qx.ui.mobile.core.Root",
     },
 
 
+    _preventDefault : function(evt) {
+      evt.preventDefault();
+    },
+
+
     dispose : function() {
       this.base(arguments);
       this.__root = null;
-      this.off("touchmove", qx.bom.Event.preventDefault, this);
+      this.off("touchmove", this._preventDefault);
       qxWeb(window).off("orientationchange", this._onOrientationChange, this);
     }
   }

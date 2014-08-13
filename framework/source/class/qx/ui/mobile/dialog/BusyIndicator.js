@@ -30,7 +30,9 @@
  *   this.getRoot().add(busyIndicator);
  * </pre>
  *
- * This example create a widget to display the busy indicator.
+ * This example creates a widget to display the busy indicator.
+ *
+ * @require(qx.module.Animation)
  */
 qx.Bootstrap.define("qx.ui.mobile.dialog.BusyIndicator",
 {
@@ -80,7 +82,7 @@ qx.Bootstrap.define("qx.ui.mobile.dialog.BusyIndicator",
      * Listener for appear event.
      */
     _onAppear : function() {
-      this.__animationHandle = qx.bom.element.Animation.animate(this.getIconWidget()[0], qx.ui.mobile.dialog.BusyIndicator.SPINNER_ANIMATION);
+      this.__animationHandle = this.getIconWidget().animate(qx.ui.mobile.dialog.BusyIndicator.SPINNER_ANIMATION);
     },
 
 

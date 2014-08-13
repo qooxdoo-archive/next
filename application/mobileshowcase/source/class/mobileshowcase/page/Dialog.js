@@ -211,7 +211,7 @@ qx.Bootstrap.define("mobileshowcase.page.Dialog",
      * Creates the picker slot data for month names, based on current locale settings.
      */
     _createMonthPickerSlot : function() {
-      var names = qx.locale.Date.getMonthNames("wide", qx.locale.Manager.getInstance().getLocale());
+      var names = qx.locale.Date.getMonthNames("wide", qx.locale.Manager.getInstance().locale);
       var slotData = [];
       for (var i = 0; i < names.length; i++) {
         slotData.push("" + names[i]);

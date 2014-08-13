@@ -65,6 +65,7 @@ qx.Bootstrap.define("qx.ui.mobile.form.Slider",
     this.base(qx.ui.mobile.core.Widget, "constructor");
     this._registerEventListener();
     this._refresh();
+    this.displayValue = undefined;
 
     this.addClass("gap");
     this.initMValue();
@@ -191,7 +192,7 @@ qx.Bootstrap.define("qx.ui.mobile.form.Slider",
 
 
     /**
-     * Registers all needed event listener.
+     * Registers all needed event listeners.
      */
     _registerEventListener : function()
     {
@@ -223,7 +224,7 @@ qx.Bootstrap.define("qx.ui.mobile.form.Slider",
     /**
      * Refreshes the slider and the knob position.
      */
-    _refresh : function()
+    _refresh : function(ev)
     {
       this._updateSizes();
       this._updateKnobPosition();
@@ -235,10 +236,9 @@ qx.Bootstrap.define("qx.ui.mobile.form.Slider",
      */
     _updateSizes : function()
     {
-      var containerElement = this[0];
-      if(containerElement) {
-        this._containerElementWidth = qx.bom.element.Dimension.getWidth(containerElement);
-        this._containerElementLeft = qx.bom.element.Location.getLeft(containerElement);
+      if(this[0]) {
+        this._containerElementWidth = this.getWidth();
+        this._containerElementLeft = this.getPosition().left;
         this._pixelPerStep = this._getPixelPerStep(this._containerElementWidth);
       }
     },
@@ -336,19 +336,19 @@ qx.Bootstrap.define("qx.ui.mobile.form.Slider",
 
       var knobElement = this._getKnobElement();
       if (knobElement) {
-        qx.bom.element.Style.set(this._getKnobElement(), "width", width - (width - position) + "px");
-        qx.bom.element.Attribute.set(this._getKnobElement(), "data-value", this.value);
-        qx.bom.element.Attribute.set(this._getKnobElement(), "data-percent", Math.floor(percent));
+        qxWeb(knobElement).setStyle("width", width - (width - position) + "px")
+          .setAttribute("data-value", this.value)
+          .setAttribute("data-percent", Math.floor(percent));
       }
     },
 
 
     // Property apply
     _applyDisplayValue : function(value, old ) {
-      if(old != null) {
+      if (old != null) {
         this.removeClass(old);
       }
-      if(value != null) {
+      if (value != null) {
         this.addClass(value);
       }
     },

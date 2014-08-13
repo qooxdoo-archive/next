@@ -395,7 +395,7 @@ qx.Bootstrap.define("qx.ui.mobile.container.Scroll",
      * @return {Boolean} <code>true</code> or <code>false</code>
      */
     _isScrollableY: function() {
-      if (this._getParentWidget() === null) {
+      if (!this._getParentWidget()) {
         return false;
       }
 

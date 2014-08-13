@@ -426,13 +426,13 @@ qx.Bootstrap.define("qx.ui.mobile.dialog.Picker",
      * @param target {Element} The target element.
      */
     _fixPickerSlotHeight : function(target) {
-      this.__labelHeight = qx.bom.element.Style.get(target.children[0],"height", 1);
+      this.__labelHeight = qxWeb(target.children[0]).getStyle("height", 1);
       this.__labelHeight = parseFloat(this.__labelHeight,10);
 
       var labelCount = this._getModelByElement(target).length;
       var pickerSlotHeight = labelCount * this.__labelHeight;
 
-      qx.bom.element.Style.set(target, "height", pickerSlotHeight+"px");
+      qxWeb(target).setStyle("height", pickerSlotHeight + "px");
     },
 
 
@@ -445,7 +445,7 @@ qx.Bootstrap.define("qx.ui.mobile.dialog.Picker",
 
       this.__targetIndex[target.id] = this.__selectedIndex[target.id];
 
-      qx.bom.element.Style.set(target, "transitionDuration", "0s");
+      qxWeb(target).setStyle("transitionDuration", "0s");
 
       this._fixPickerSlotHeight(target);
 
@@ -477,7 +477,7 @@ qx.Bootstrap.define("qx.ui.mobile.dialog.Picker",
         // Depending on this detection, the value increases/decreases.
         var viewportTop = evt.clientY;
 
-        var offsetParent = qx.bom.element.Location.getOffsetParent(target);
+        var offsetParent = qxWeb(target).getOffsetParent();
         var targetTop = qx.bom.element.Location.getTop(offsetParent, "margin");
         var relativeTop = viewportTop - targetTop;
         var decreaseIncreaseLimit = offsetParent.offsetHeight/2;
@@ -550,23 +550,24 @@ qx.Bootstrap.define("qx.ui.mobile.dialog.Picker",
      */
     _updateSlot : function(targetElement, useTransition) {
       this._fixPickerSlotHeight(targetElement);
+      var target = qxWeb(targetElement);
 
-      if(typeof useTransition === undefined) {
+      if (typeof useTransition === undefined) {
         useTransition = true;
       }
 
-      if(qx.core.Environment.get("os.name") == "ios") {
+      if (qx.core.Environment.get("os.name") == "ios") {
         var transitionDuration = "200ms";
-        if(useTransition === false) {
+        if (useTransition === false) {
           transitionDuration = "0s";
         }
-        qx.bom.element.Style.set(targetElement,"transitionDuration", transitionDuration);
+        target.setStyle("transitionDuration", transitionDuration);
       }
 
       var selectedIndex = this.__selectedIndex[targetElement.id];
       var offsetTop = -selectedIndex * this.__labelHeight;
 
-      qx.bom.element.Style.set(targetElement,"transform","translate3d(0px,"+offsetTop+"px,0px)");
+      target.setStyle("transform", "translate3d(0px," + offsetTop + "px,0px)");
     },
 
 

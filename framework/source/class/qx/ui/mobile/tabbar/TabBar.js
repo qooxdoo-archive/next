@@ -110,7 +110,7 @@ qx.Bootstrap.define("qx.ui.mobile.tabbar.TabBar",
       while (!(target instanceof qx.ui.mobile.tabbar.TabButton)) {
         if (target._getParentWidget) {
           var layoutParent = target._getParentWidget();
-          if (layoutParent == null || layoutParent instanceof qx.ui.mobile.tabbar.TabBar) {
+          if (!layoutParent || layoutParent instanceof qx.ui.mobile.tabbar.TabBar) {
             target = null;
             break;
           }

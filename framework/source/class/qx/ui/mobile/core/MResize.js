@@ -65,9 +65,10 @@ qx.Mixin.define("qx.ui.mobile.core.MResize",
       var parent = this._getParentWidget();
 
       if (parent && parent[0]) {
-        var element = this[0];
-        qx.bom.element.Style.set(element, "height", "auto");
-        qx.bom.element.Style.set(element, "width", "auto");
+        this.setStyles({
+          "height": "auto",
+          "width": "auto"
+        });
       }
     },
 
@@ -107,14 +108,11 @@ qx.Mixin.define("qx.ui.mobile.core.MResize",
      *
      * @param height {Integer} The height to set
      */
-    _setHeight : function(height)
-    {
-      var element = this[0];
-      if (qx.core.Environment.get("qx.mobile.nativescroll"))
-      {
-        qx.bom.element.Style.set(element, "minHeight", height + "px");
+    _setHeight : function(height) {
+      if (qx.core.Environment.get("qx.mobile.nativescroll")) {
+        this.setStyle("minHeight", height + "px");
       } else {
-        qx.bom.element.Style.set(element, "height", height + "px");
+        this.setStyle("height", height + "px");
       }
     },
 
@@ -125,14 +123,11 @@ qx.Mixin.define("qx.ui.mobile.core.MResize",
      *
      * @param width {Integer} The width to set
      */
-    _setWidth : function(width)
-    {
-      var element = this[0];
-      if (qx.core.Environment.get("qx.mobile.nativescroll"))
-      {
-        qx.bom.element.Style.set(element, "minWidth", width + "px");
+    _setWidth : function(width) {
+      if (qx.core.Environment.get("qx.mobile.nativescroll")) {
+        this.setStyle("minWidth", width + "px");
       } else {
-        qx.bom.element.Style.set(element, "width", width + "px");
+        this.setStyle("width", width + "px");
       }
     }
   }

@@ -197,10 +197,12 @@ qx.Bootstrap.define("qx.ui.mobile.list.List",
         return;
       }
 
+      element = qxWeb(element);
+
       var row = -1;
-      if (qx.bom.element.Class.has(element, "list-item")) {
-        if (qx.bom.element.Attribute.get(element, "data-selectable") != "false" &&
-            qx.dom.Element.hasChild(this[0], element)) {
+      if (element.hasClass("list-item")) {
+        if (element.getAttribute("data-selectable") != "false" &&
+            this.getChildren().indexOf(element) !== -1) {
           row = parseInt(element.getAttribute("data-row"), 10);
         }
         if (row != -1) {
@@ -208,7 +210,7 @@ qx.Bootstrap.define("qx.ui.mobile.list.List",
         }
       } else {
         var group = parseInt(element.getAttribute("data-group"), 10);
-        if (qx.bom.element.Attribute.get(element, "data-selectable") != "false") {
+        if (element.getAttribute("data-selectable") != "false") {
           this.emit("changeGroupSelection", group);
         }
       }
@@ -223,14 +225,14 @@ qx.Bootstrap.define("qx.ui.mobile.list.List",
       this.__isScrollingBlocked = null;
       this.__trackElement = null;
 
-      var element = this._getElement(evt);
-      if (element &&
-          qx.bom.element.Class.has(element, "list-item") &&
-          qx.bom.element.Class.has(element, "removable")) {
+      var element = qxWeb(this._getElement(evt));
+      if (element[0] &&
+          element.hasClass("list-item") &&
+          element.hasClass("removable")) {
         this.__trackElement = element;
 
-        this.__minDeleteDistance = qx.bom.element.Dimension.getWidth(element) / 2;
-        qx.bom.element.Class.add(element, "track");
+        this.__minDeleteDistance = element.getWidth() / 2;
+        element.addClass("track");
       }
     },
 
@@ -243,8 +245,8 @@ qx.Bootstrap.define("qx.ui.mobile.list.List",
       if (!this.__trackElement) {
         return;
       }
-      var element = this.__trackElement;
-      var delta = evt.getDelta();
+
+      var delta = evt.delta;
 
       var deltaX = Math.round(delta.x * 0.1) / 0.1;
 
@@ -259,8 +261,8 @@ qx.Bootstrap.define("qx.ui.mobile.list.List",
       var opacity = 1 - (Math.abs(deltaX) / this.__minDeleteDistance);
       opacity = Math.round(opacity * 100) / 100;
 
-      qx.bom.element.Style.set(element, "transform", "translate3d(" + deltaX + "px,0,0)");
-      qx.bom.element.Style.set(element, "opacity", opacity);
+      this.__trackElement.setStyle("transform", "translate3d(" + deltaX + "px,0,0)")
+        .setStyle("opacity", opacity);
 
       evt.preventDefault();
     },
@@ -276,14 +278,14 @@ qx.Bootstrap.define("qx.ui.mobile.list.List",
       }
       var element = this.__trackElement;
 
-      if (Math.abs(evt.getDelta().x) > this.__minDeleteDistance) {
+      if (Math.abs(evt.delta.x) > this.__minDeleteDistance) {
         var row = parseInt(element.getAttribute("data-row"), 10);
         this.emit("removeItem", row);
       } else {
         qx.bom.AnimationFrame.request(function() {
-          qx.bom.element.Style.set(element, "transform", "translate3d(0,0,0)");
-          qx.bom.element.Style.set(element, "opacity", "1");
-          qx.bom.element.Class.remove(element, "track");
+          element.setStyle("transform", "translate3d(0,0,0)")
+            .setStyle("opacity", "1")
+            .removeClass("track");
         }.bind(this));
       }
     },

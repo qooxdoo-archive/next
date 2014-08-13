@@ -336,21 +336,17 @@ qx.Bootstrap.define("qx.ui.mobile.layout.Card",
      */
     __stopAnimation : function()
     {
-      if (this.__inAnimation)
-      {
-        var fromElement = this.__currentWidget[0];
-        var toElement = this.__nextWidget[0];
-
-        if(qx.core.Environment.get("browser.name") == "iemobile" || qx.core.Environment.get("browser.name") == "ie") {
-          qx.bom.Event.removeNativeListener(fromElement, "MSAnimationEnd", this._onAnimationEnd, false);
-          qx.bom.Event.removeNativeListener(toElement, "MSAnimationEnd", this._onAnimationEnd, false);
+      if (this.__inAnimation) {
+        if (qx.core.Environment.get("browser.name") == "iemobile" || qx.core.Environment.get("browser.name") == "ie") {
+          this.__currentWidget.off("MSAnimationEnd", this._onAnimationEnd, false);
+          this.__nextWidget.off("MSAnimationEnd", this._onAnimationEnd, false);
         } else {
           this.__currentWidget.off("animationEnd", this._onAnimationEnd, this);
           this.__nextWidget.off("animationEnd", this._onAnimationEnd, this);
         }
 
-        qx.bom.element.Class.removeClasses(fromElement, this.__getAnimationClasses("out"));
-        qx.bom.element.Class.removeClasses(toElement, this.__getAnimationClasses("in"));
+        this.__currentWidget.removeClasses(this.__getAnimationClasses("out"));
+        this.__nextWidget.removeClasses(this.__getAnimationClasses("in"));
 
         this._swapWidget();
         this._widget.removeClass("animationParent");

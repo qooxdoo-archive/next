@@ -81,10 +81,11 @@ qx.Bootstrap.define("qx.ui.mobile.container.Drawer",
     }
 
     this.__parent = this._getParentWidget();
-    this.__parent.addClass("drawer-parent");
-
-    this.__parent.on("swipe", this._onParentSwipe,this);
-    this.__parent.on("pointerdown", this._onParentPointerDown,this);
+    if (this.__parent) {
+      this.__parent.addClass("drawer-parent")
+        .on("swipe", this._onParentSwipe,this)
+        .on("pointerdown", this._onParentPointerDown,this);
+    }
 
     this.__pointerStartPosition = [0,0];
 

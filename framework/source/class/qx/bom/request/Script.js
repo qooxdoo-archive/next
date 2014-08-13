@@ -163,6 +163,7 @@ qx.Bootstrap.define("qx.bom.request.Script",
      *   does not support methods other than GET.
      * @param url {String}
      *   The URL to which to send the request.
+     * @return {qx.bom.request.Script} Self for chaining.
      */
     open: function(method, url) {
       if (this._disposed) {
@@ -181,6 +182,7 @@ qx.Bootstrap.define("qx.bom.request.Script",
       }
 
       this._readyStateChange(1);
+      return this;
     },
 
     /**

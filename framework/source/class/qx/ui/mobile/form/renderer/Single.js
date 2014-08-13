@@ -284,11 +284,11 @@ qx.Bootstrap.define("qx.ui.mobile.form.renderer.Single",
 
     // override
     showErrorForItem : function(item) {
-      var errorNode = qx.dom.Element.create('div');
-      errorNode.innerHTML = item.invalidMessage;
-      qx.bom.element.Class.add(errorNode, 'form-element-error');
-      qx.dom.Element.insertAfter(errorNode, this._getParentRow(item)[0]);
-      this.__errorMessageContainers.push(errorNode);
+      var errorNode = qxWeb.create('<div>')
+        .setHtml(item.invalidMessage)
+        .addClass('form-element-error')
+        .insertAfter(this._getParentRow(item)[0]);
+      this.__errorMessageContainers.push(errorNode[0]);
     },
 
 
@@ -319,7 +319,7 @@ qx.Bootstrap.define("qx.ui.mobile.form.renderer.Single",
     _getParentRow : function(item) {
       var parent = item._getParentWidget();
 
-      while (!parent.hasClass("form-row")) {
+      while (parent && !parent.hasClass("form-row")) {
         parent = parent._getParentWidget();
       }
 

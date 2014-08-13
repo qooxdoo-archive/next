@@ -114,9 +114,9 @@ qx.Bootstrap.define("qx.ui.mobile.form.TextArea",
     __getScrollContainer : function() {
       var scroll = this;
       while (!(scroll instanceof qx.ui.mobile.container.Scroll)) {
-        if (scroll.getLayoutParent) {
+        if (scroll._getParentWidget) {
           var layoutParent = scroll._getParentWidget();
-          if (layoutParent == null || layoutParent instanceof qx.ui.mobile.core.Root) {
+          if (!layoutParent || layoutParent instanceof qx.ui.mobile.core.Root) {
             return null;
           }
           scroll = layoutParent;

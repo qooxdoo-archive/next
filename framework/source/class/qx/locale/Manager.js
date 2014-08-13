@@ -416,9 +416,9 @@ qx.Bootstrap.define("qx.locale.Manager",
     __lookupAndExpand : function(catalog, messageId, args, locale)
     {
       if (qx.core.Environment.get("qx.debug")) {
-        this.assertObject(catalog);
-        this.assertString(messageId);
-        this.assertArray(args);
+        qx.core.Assert.assertObject(catalog);
+        qx.core.Assert.assertString(messageId);
+        qx.core.Assert.assertArray(args);
       }
       var txt;
 

@@ -86,8 +86,8 @@ qx.Bootstrap.define("qx.ui.mobile.page.Page",
      * Event handler. Called when the device is ready.
      */
     _onDeviceReady : function() {
-      qx.bom.Event.addNativeListener(document, "backbutton", qx.ui.mobile.page.Page._onBackButton);
-      qx.bom.Event.addNativeListener(document, "menubutton", qx.ui.mobile.page.Page._onMenuButton);
+      qxWeb(document).on("backbutton", qx.ui.mobile.page.Page._onBackButton)
+        .on("menubutton", qx.ui.mobile.page.Page._onMenuButton);
     },
 
 
@@ -447,7 +447,7 @@ qx.Bootstrap.define("qx.ui.mobile.page.Page",
   defer : function(statics) {
     if (qx.core.Environment.get("phonegap") && qx.core.Environment.get("os.name") == "android")
     {
-      qx.bom.Event.addNativeListener(document, "deviceready", statics._onDeviceReady);
+      qxWeb(document).on("deviceready", statics._onDeviceReady);
     }
   }
 });

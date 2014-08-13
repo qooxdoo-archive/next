@@ -138,20 +138,21 @@ qx.Bootstrap.define("qx.ui.mobile.core.Blocker",
     /**
      * Event handler. Called whenever the size of the blocker should be updated.
      */
-    _updateSize : function()
-    {
-      if(qx.ui.mobile.core.Blocker.ROOT == this._getParentWidget())
-      {
-        this[0].style.top = qx.bom.Viewport.getScrollTop() + "px";
-        this[0].style.left = qx.bom.Viewport.getScrollLeft() + "px";
-        this[0].style.width = qx.bom.Viewport.getWidth() + "px";
-        this[0].style.height = qx.bom.Viewport.getHeight()  + "px";
+    _updateSize : function() {
+      if (qx.ui.mobile.core.Blocker.ROOT == this._getParentWidget()) {
+        var win = qxWeb(window);
+        this.setStyles({
+          top : win.getScrollTop() + "px",
+          left : win.getScrollLeft() + "px",
+          width : win.getWidth() + "px",
+          height : win.getHeight()  + "px"
+        });
       }
-      else if(this._getParentWidget() != null)
-      {
-        var dimension = qx.bom.element.Dimension.getSize(this._getParentWidget()[0]);
-        this[0].style.width = dimension.width + "px";
-        this[0].style.height = dimension.height  + "px";
+      else if (this._getParentWidget().length !== 0) {
+        this.setStyles({
+          width : this._getParentWidget().getWidth() + "px",
+          height : this._getParentWidget().getHeight()  + "px"
+        });
       }
     },
 
@@ -166,6 +167,10 @@ qx.Bootstrap.define("qx.ui.mobile.core.Blocker",
       this._updateSize();
     },
 
+    __preventDefault : function(evt) {
+      evt.preventDefault();
+    },
+
 
     /**
      * Registers all needed event listener.
@@ -174,8 +179,8 @@ qx.Bootstrap.define("qx.ui.mobile.core.Blocker",
     {
       qxWeb(window).on("resize", this._updateSize, this)
         .on("scroll", this._onScroll, this);
-      this.on("pointerdown", qx.bom.Event.preventDefault, this);
-      this.on("pointerup", qx.bom.Event.preventDefault, this);
+      this.on("pointerdown", this.__preventDefault)
+        .on("pointerup", this.__preventDefault);
     },
 
 
@@ -186,8 +191,8 @@ qx.Bootstrap.define("qx.ui.mobile.core.Blocker",
     {
       qxWeb(window).off("resize", this._updateSize, this)
         .off("scroll", this._onScroll, this);
-      this.off("pointerdown", qx.bom.Event.preventDefault, this);
-      this.off("pointerup", qx.bom.Event.preventDefault, this);
+      this.off("pointerdown", this.__preventDefault)
+        .off("pointerup", this.__preventDefault);
     },
 
 

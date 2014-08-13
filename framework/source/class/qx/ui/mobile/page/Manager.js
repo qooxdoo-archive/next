@@ -523,7 +523,7 @@ qx.Bootstrap.define("qx.ui.mobile.page.Manager",
      * Creates spaces for aligning master and detail container aside each other.
      */
     _createDetailContainerGap : function() {
-      qx.bom.element.Style.set(this.__detailContainer[0], this._getGapPropertyKey(), this.__masterContainer.size / 16 + "rem");
+      this.__detailContainer.setStyle(this._getGapPropertyKey(), this.__masterContainer.size / 16 + "rem");
       qxWeb(window).emit("resize");
     },
 
@@ -532,7 +532,7 @@ qx.Bootstrap.define("qx.ui.mobile.page.Manager",
      * Moves detailContainer to the left edge of viewport.
      */
     _removeDetailContainerGap : function() {
-      qx.bom.element.Style.set(this.__detailContainer[0], this._getGapPropertyKey(), null);
+      this.__detailContainer.setStyle(this._getGapPropertyKey(), null);
       qxWeb(window).emit("resize");
     },
 

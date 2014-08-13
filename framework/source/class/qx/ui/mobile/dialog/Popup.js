@@ -176,9 +176,12 @@ qx.Bootstrap.define("qx.ui.mobile.dialog.Popup",
         var rootHeight = qx.ui.mobile.dialog.Popup.ROOT.getHeight();
         var rootWidth = qx.ui.mobile.dialog.Popup.ROOT.getWidth();
 
-        var rootPosition = qx.bom.element.Location.get(qx.ui.mobile.dialog.Popup.ROOT[0]);
-        var anchorPosition = qx.bom.element.Location.get(this.__anchor[0]);
-        var popupDimension = qx.bom.element.Dimension.getSize(this[0]);
+        var rootPosition = qx.ui.mobile.dialog.Popup.ROOT.getPosition();
+        var anchorPosition = this.__anchor.getPosition();
+        var popupDimension = {
+          width: this.getWidth(),
+          height: this.getHeight()
+        };
 
         this.__lastPopupDimension = popupDimension;
 
@@ -341,7 +344,7 @@ qx.Bootstrap.define("qx.ui.mobile.dialog.Popup",
       var clientX = evt.getViewportLeft();
       var clientY = evt.getViewportTop();
 
-      var popupLocation = qx.bom.element.Location.get(this[0]);
+      var popupLocation = this.getPosition();
 
       var isOutsideWidget =  clientX < popupLocation.left
         || clientX > popupLocation.left + this.__lastPopupDimension.width
