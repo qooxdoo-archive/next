@@ -78,6 +78,7 @@ qx.Bootstrap.define("qx.ui.mobile.form.RadioGroup",
     if (varargs != null) {
       this.add.apply(this, arguments);
     }
+    this.initMModelSelection();
   },
 
 
@@ -469,6 +470,12 @@ qx.Bootstrap.define("qx.ui.mobile.form.RadioGroup",
       if (value) {
         value.value = true;
       }
+    },
+
+
+    dispose : function() {
+      this.disposeMModelSelection();
+      this.disposeMSingleSelectionHandling();
     }
   }
 });

@@ -24,24 +24,6 @@
  */
 qx.Mixin.define("qx.ui.mobile.form.MText",
 {
-
-  /*
-  *****************************************************************************
-     CONSTRUCTOR
-  *****************************************************************************
-  */
-
-  /**
-   * @param value {var?null} The value of the widget.
-   */
-  construct : function(value)
-  {
-    this.maxLength = undefined;
-    this.placeholder = undefined;
-    this.readOnly = undefined;
-  },
-
-
   /*
   *****************************************************************************
      PROPERTIES
@@ -98,6 +80,18 @@ qx.Mixin.define("qx.ui.mobile.form.MText",
 
   members :
   {
+
+    /**
+     * Initializes this mixin. Should be called from the including class'
+     * constructor.
+     */
+    initMText : function() {
+      this.maxLength = undefined;
+      this.placeholder = undefined;
+      this.readOnly = undefined;
+    },
+
+
     // property apply
     _applyMaxLength : function(value, old)
     {

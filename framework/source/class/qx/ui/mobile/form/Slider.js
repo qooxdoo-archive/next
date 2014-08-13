@@ -67,6 +67,8 @@ qx.Bootstrap.define("qx.ui.mobile.form.Slider",
     this._refresh();
 
     this.addClass("gap");
+    this.initMValue();
+    this.initMForm();
   },
 
 
@@ -480,6 +482,7 @@ qx.Bootstrap.define("qx.ui.mobile.form.Slider",
       this.base(qx.ui.mobile.core.Widget, "dispose");
       this._knobElement = null;
       this._unregisterEventListener();
+      this.disposeMForm();
     }
   }
 });

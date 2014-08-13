@@ -22,15 +22,6 @@
  */
 qx.Mixin.define("qx.ui.form.MForm",
 {
-
-  construct : function()
-  {
-    if (qx.core.Environment.get("qx.dynlocale")) {
-      qx.locale.Manager.getInstance().addListener("changeLocale", this.__onChangeLocale, this);
-    }
-  },
-
-
   properties : {
 
     /**
@@ -78,6 +69,18 @@ qx.Mixin.define("qx.ui.form.MForm",
 
 
   members : {
+
+    /**
+     * Initializes this mixin. Should be called from the including class'
+     * constructor.
+     */
+    initMForm : function() {
+      if (qx.core.Environment.get("qx.dynlocale")) {
+        qx.locale.Manager.getInstance().on("changeLocale", this.__onChangeLocale, this);
+      }
+    },
+
+
     // apply method
     _applyValid: function(value, old) {
       value ? this.removeState("invalid") : this.addState("invalid");
@@ -107,14 +110,12 @@ qx.Mixin.define("qx.ui.form.MForm",
       },
 
       "false" : null
-    })
-  },
+    }),
 
-
-  destruct : function()
-  {
-    if (qx.core.Environment.get("qx.dynlocale")) {
-      qx.locale.Manager.getInstance().removeListener("changeLocale", this.__onChangeLocale, this);
+    disposeMForm : function() {
+      if (qx.core.Environment.get("qx.dynlocale")) {
+        qx.locale.Manager.getInstance().off("changeLocale", this.__onChangeLocale, this);
+      }
     }
   }
 });

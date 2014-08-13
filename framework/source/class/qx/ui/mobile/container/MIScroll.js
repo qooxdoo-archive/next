@@ -32,19 +32,6 @@ qx.Mixin.define("qx.ui.mobile.container.MIScroll",
 
   /*
   *****************************************************************************
-     CONSTRUCTOR
-  *****************************************************************************
-  */
-
-  construct : function()
-  {
-    this.__initScroll();
-    this.__registerEventListeners();
-  },
-
-
-  /*
-  *****************************************************************************
      MEMBERS
   *****************************************************************************
   */
@@ -53,27 +40,35 @@ qx.Mixin.define("qx.ui.mobile.container.MIScroll",
   {
     __scroll : null,
 
+
+    /**
+     * Initializes this mixin. Should be called from the including class'
+     * constructor.
+     */
+    initMIScroll : function()
+    {
+      this.__initScroll();
+      this.__registerEventListeners();
+    },
+
+
     /**
      * Mixin method. Creates the scroll element.
      *
      * @return {Element} The scroll element
      */
-    _createScrollElement : function()
-    {
-      var scroll = qx.dom.Element.create("div");
-      qx.bom.element.Class.add(scroll,"iscroll");
-      return scroll;
+    _createScrollElement : function() {
+      return qxWeb.create("<div class='iscroll'>")[0];
     },
 
 
     /**
      * Mixin method. Returns the scroll content element..
      *
-     * @return {Element} The scroll content element
+     * @return {qxWeb} The scroll content element
      */
-    _getScrollContentElement : function()
-    {
-      return this[0].childNodes[0];
+    _getScrollContentElement : function() {
+      return this.getChildren().eq(0);
     },
 
 
@@ -95,7 +90,7 @@ qx.Mixin.define("qx.ui.mobile.container.MIScroll",
       if(!this[0]) {
         return 0;
       }
-      return this._getScrollContentElement().scrollHeight - this[0].offsetHeight;
+      return this._getScrollContentElement()[0].scrollHeight - this[0].offsetHeight;
     },
 
 
@@ -107,7 +102,7 @@ qx.Mixin.define("qx.ui.mobile.container.MIScroll",
       if(!this[0]) {
         return 0;
       }
-      return this._getScrollContentElement().scrollWidth - this[0].offsetWidth;
+      return this._getScrollContentElement()[0].scrollWidth - this[0].offsetWidth;
     },
 
 
@@ -123,12 +118,12 @@ qx.Mixin.define("qx.ui.mobile.container.MIScroll",
     {
       if (this.__scroll && this._isScrollable()) {
         // Normalize scrollable values
-        var lowerLimitY = qx.bom.element.Dimension.getHeight(this._getScrollContentElement()) - this[0].offsetHeight;
+        var lowerLimitY = this._getScrollContentElement().getHeight() - this[0].offsetHeight;
         if (y > lowerLimitY) {
           y = lowerLimitY;
         }
 
-        var lowerLimitX = qx.bom.element.Dimension.getWidth(this._getScrollContentElement()) - this[0].offsetWidth;
+        var lowerLimitX = this._getScrollContentElement().getWidth() - this[0].offsetWidth;
         if (x > lowerLimitX) {
           x = lowerLimitX;
         }

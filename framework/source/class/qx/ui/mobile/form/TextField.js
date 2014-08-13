@@ -46,6 +46,8 @@ qx.Bootstrap.define("qx.ui.mobile.form.TextField",
     }
 
     this.on("keypress", this._onKeyPress, this);
+    this.initMValue(value);
+    this.initMText();
   },
 
   /*

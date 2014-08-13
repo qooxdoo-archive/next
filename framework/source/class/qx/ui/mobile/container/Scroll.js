@@ -65,6 +65,8 @@ qx.Bootstrap.define("qx.ui.mobile.container.Scroll",
 
     this._currentX = 0;
     this._currentY = 0;
+
+    this.initMIScroll();
   },
 
 

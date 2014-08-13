@@ -24,34 +24,6 @@
  */
 qx.Mixin.define("qx.ui.mobile.form.MValue",
 {
-
-  /*
-  *****************************************************************************
-     CONSTRUCTOR
-  *****************************************************************************
-  */
-
-  /**
-   * @param value {var?null} The value of the widget.
-   */
-  construct : function(value)
-  {
-    if (value) {
-      this.value = value;
-    }
-
-    if (this._getTagName() == "input" || this._getTagName() == "textarea") {
-      this.on("change", this._onChangeContent, this);
-      this.on("input", this._onInput, this);
-    }
-
-    this.on("focus", this._onFocus,this);
-    this.on("blur", this._onBlur,this);
-  },
-
-
-
-
   /*
   *****************************************************************************
      EVENTS
@@ -64,9 +36,9 @@ qx.Mixin.define("qx.ui.mobile.form.MValue",
      * The event is fired on every keystroke modifying the value of the field.
      *
      * The method {@link qx.event.type.Data#getData} returns the
-     * current value of the text field.
+     * current value of the text field. TODOC
      */
-    "input" : "qx.event.type.Data",
+    "keyInput" : null,
 
 
     /**
@@ -80,7 +52,7 @@ qx.Mixin.define("qx.ui.mobile.form.MValue",
      * The method {@link qx.event.type.Data#getData} returns the
      * current text value of the field.
      */
-    "changeValue" : "qx.event.type.Data"
+    "changeValue" : null
   },
 
 
@@ -131,6 +103,28 @@ qx.Mixin.define("qx.ui.mobile.form.MValue",
     __oldValue : null,
     __inputTimeoutHandle : null,
     __hasFocus : null,
+
+
+    /**
+     * Initializes this mixin. Should be called from the including class'
+     * constructor.
+     *
+     * @param value {var?null} The value of the widget.
+     */
+    initMValue : function(value)
+    {
+      if (value) {
+        this.value = value;
+      }
+
+      if (this._getTagName() == "input" || this._getTagName() == "textarea") {
+        this.on("change", this._onChangeContent, this);
+        this.on("input", this._onInput, this);
+      }
+
+      this.on("focus", this._onFocus,this);
+      this.on("blur", this._onBlur,this);
+    },
 
 
     /**
@@ -234,24 +228,24 @@ qx.Mixin.define("qx.ui.mobile.form.MValue",
     /**
      * Event handler. Called when the {@link #changeValue} event occurs.
      *
-     * @param evt {qx.event.type.Data} The event, containing the changed content.
+     * @param evt {Event} The native change event
      */
     _onChangeContent : function(evt)
     {
-      this.__fireChangeValue(this._convertValue(evt.getData()));
+      this.__fireChangeValue(this._convertValue(evt.target.value));
     },
 
 
     /**
      * Event handler. Called when the {@link #input} event occurs.
      *
-     * @param evt {qx.event.type.Data} The event, containing the changed content.
+     * @param evt {Event} The native input event
      */
     _onInput : function(evt)
     {
-      var data = evt.getData();
-      this.emit("input", data, true);
-      if (this.getLiveUpdate()) {
+      var data = evt.target.value;
+      this.emit("keyInput", {value: data, target: this});
+      if (this.liveUpdate) {
         if (this._setValue) {
           this._setValue(data);
         } else {

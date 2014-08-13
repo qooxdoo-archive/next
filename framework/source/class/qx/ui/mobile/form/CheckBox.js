@@ -67,6 +67,7 @@ qx.Bootstrap.define("qx.ui.mobile.form.CheckBox",
     }
 
     this.on("tap", this._onTap, this);
+    this.initMValue(value);
   },
 
   /*

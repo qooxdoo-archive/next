@@ -45,6 +45,8 @@ qx.Bootstrap.define("qx.ui.mobile.form.NumberField",
     if (value) {
       this.value = value;
     }
+    this.initMValue(value);
+    this.initMText();
   },
 
   /*

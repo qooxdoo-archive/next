@@ -63,20 +63,7 @@ qx.Bootstrap.define("qx.ui.mobile.form.RadioButton",
       this.value = value;
     }
     this.on("tap", this._onTap, this);
-  },
-
-
-  /*
-  *****************************************************************************
-     EVENTS
-  *****************************************************************************
-  */
-  events :
-  {
-    /**
-     * Fired when the selection value is changed.
-     */
-    changeValue : "qx.event.type.Data"
+    this.initMValue(value);
   },
 
 

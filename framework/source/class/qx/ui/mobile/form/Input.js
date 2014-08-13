@@ -97,6 +97,7 @@ qx.Bootstrap.define("qx.ui.mobile.form.Input",
     dispose : function() {
       this.base(qx.ui.mobile.core.Widget, "dispose");
       this.off("focus", this._onSelected, this);
+      this.disposeMForm();
     }
   }
 });

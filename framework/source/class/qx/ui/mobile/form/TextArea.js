@@ -59,6 +59,9 @@ qx.Bootstrap.define("qx.ui.mobile.form.TextArea",
       this.on("input", this._fixChildElementsHeight, this);
       this.on("changeValue", this._fixChildElementsHeight, this);
     }
+    this.initMValue(value);
+    this.initMForm();
+    this.initMText();
   },
 
 
@@ -133,6 +136,7 @@ qx.Bootstrap.define("qx.ui.mobile.form.TextArea",
         this.off("input", this._fixChildElementsHeight, this);
         this.off("changeValue", this._fixChildElementsHeight, this);
       }
+      this.disposeMForm();
     }
   }
 });

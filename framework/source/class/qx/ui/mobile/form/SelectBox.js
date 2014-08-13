@@ -93,6 +93,9 @@ qx.Bootstrap.define("qx.ui.mobile.form.SelectBox",
 
     // When selectionDialogs changes selection, get chosen selectedIndex from it.
     this.__selectionDialog.on("changeSelection", this._onChangeSelection, this);
+    this.initMValue();
+    this.initMForm();
+    this.initMText();
   },
 
 
@@ -386,6 +389,8 @@ qx.Bootstrap.define("qx.ui.mobile.form.SelectBox",
 
       this.off("focus", this.blur);
       this.off("tap", this._onTap, this);
+
+      this.disposeMForm();
     }
   }
 });

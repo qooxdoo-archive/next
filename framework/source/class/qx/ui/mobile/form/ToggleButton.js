@@ -83,6 +83,8 @@ qx.Bootstrap.define("qx.ui.mobile.form.ToggleButton",
     this.on("swipe", this._onSwipe, this);
 
     this.addClass("gap");
+    this.initMValue(value);
+    this.initMForm();
   },
 
 
@@ -210,13 +212,13 @@ qx.Bootstrap.define("qx.ui.mobile.form.ToggleButton",
       return elapsedTime>500;
     },
 
-    dispose : function()
-    {
+    dispose : function() {
       this.base(qx.ui.mobile.core.Widget, "dispose");
       this.off("tap", this._onTap, this);
       this.off("swipe", this._onSwipe, this);
 
       this._disposeObjects("__switch","__labelUnchecked","__labelChecked");
+      this.disposeMForm();
     }
   }
 });

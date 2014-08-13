@@ -24,17 +24,6 @@
  */
 qx.Mixin.define("qx.ui.form.MModelSelection",
 {
-
-  construct : function() {
-    // create the selection array
-    this.__modelSelection = new qx.data.Array();
-
-    // listen to the changes
-    this.__modelSelection.addListener("change", this.__onModelSelectionArrayChange, this);
-    this.addListener("changeSelection", this.__onModelSelectionChange, this);
-  },
-
-
   events :
   {
     /**
@@ -50,6 +39,20 @@ qx.Mixin.define("qx.ui.form.MModelSelection",
 
     __modelSelection : null,
     __inSelectionChange : false,
+
+
+    /**
+     * Initializes this mixin. Should be called from the including class'
+     * constructor.
+     */
+    initMModelSelection : function() {
+      // create the selection array
+      this.__modelSelection = new qx.data.Array();
+
+      // listen to the changes
+      this.__modelSelection.on("change", this.__onModelSelectionArrayChange, this);
+      this.on("changeSelection", this.__onModelSelectionChange, this);
+    },
 
 
     /**
@@ -167,10 +170,10 @@ qx.Mixin.define("qx.ui.form.MModelSelection",
 
       var returnArray = this.__modelSelection.splice.apply(this.__modelSelection, modelSelection);
       returnArray.dispose();
-    }
-  },
+    },
 
-  destruct : function() {
-    this._disposeObjects("__modelSelection");
+    disposeMModelSelection : function() {
+      this._disposeObjects("__modelSelection");
+    }
   }
 });

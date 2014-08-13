@@ -350,9 +350,7 @@ qx.Bootstrap.define("qx.Mixin",
         "statics"    : "object",   // Map
         "members"    : "object",   // Map
         "properties" : "object",   // Map
-        "events"     : "object",   // Map
-        "destruct"   : "function", // Function
-        "construct"  : "function"  // Function
+        "events"     : "object"
       },
 
       "default" : null
