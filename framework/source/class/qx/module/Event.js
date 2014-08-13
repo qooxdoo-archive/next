@@ -408,6 +408,7 @@ qx.Bootstrap.define("qx.module.Event", {
 
       var wrappedCallback = function() {
         qxWeb(window).off("load", onWindowLoad);
+        qx.module.Event._isReady = true;
         callback();
       };
 
