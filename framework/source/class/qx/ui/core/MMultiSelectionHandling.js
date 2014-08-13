@@ -24,52 +24,11 @@
  */
 qx.Mixin.define("qx.ui.core.MMultiSelectionHandling",
 {
-  /*
-  *****************************************************************************
-     CONSTRUCTOR
-  *****************************************************************************
-  */
-
-  construct : function()
-  {
-    // Create selection manager
-    var clazz = this.SELECTION_MANAGER;
-    var manager = this.__manager = new clazz(this);
-
-    // Add widget event listeners
-    this.addListener("pointerdown", manager.handlePointerDown, manager);
-    this.addListener("tap", manager.handleTap, manager);
-    this.addListener("pointerover", manager.handlePointerOver, manager);
-    this.addListener("pointermove", manager.handlePointerMove, manager);
-    this.addListener("losecapture", manager.handleLoseCapture, manager);
-    this.addListener("keypress", manager.handleKeyPress, manager);
-
-    this.addListener("addItem", manager.handleAddItem, manager);
-    this.addListener("removeItem", manager.handleRemoveItem, manager);
-
-    // Add manager listeners
-    manager.addListener("changeSelection", this._onSelectionChange, this);
-  },
-
-
-  /*
-  *****************************************************************************
-     EVENTS
-  *****************************************************************************
-  */
-
   events :
   {
     /** Fires after the selection was modified */
     "changeSelection" : "qx.event.type.Data"
   },
-
-
-  /*
-  *****************************************************************************
-     PROPERTIES
-  *****************************************************************************
-  */
 
 
   properties :
@@ -114,17 +73,32 @@ qx.Mixin.define("qx.ui.core.MMultiSelectionHandling",
   },
 
 
-  /*
-  *****************************************************************************
-     MEMBERS
-  *****************************************************************************
-  */
-
-
   members :
   {
     /** @type {qx.ui.core.selection.Abstract} The selection manager */
     __manager : null,
+
+
+    initMMultiSelectionHandling : function()
+    {
+      // Create selection manager
+      var clazz = this.SELECTION_MANAGER;
+      var manager = this.__manager = new clazz(this);
+
+      // Add widget event listeners
+      this.addListener("pointerdown", manager.handlePointerDown, manager);
+      this.addListener("tap", manager.handleTap, manager);
+      this.addListener("pointerover", manager.handlePointerOver, manager);
+      this.addListener("pointermove", manager.handlePointerMove, manager);
+      this.addListener("losecapture", manager.handleLoseCapture, manager);
+      this.addListener("keypress", manager.handleKeyPress, manager);
+
+      this.addListener("addItem", manager.handleAddItem, manager);
+      this.addListener("removeItem", manager.handleRemoveItem, manager);
+
+      // Add manager listeners
+      manager.addListener("changeSelection", this._onSelectionChange, this);
+    },
 
 
     /*
@@ -369,18 +343,11 @@ qx.Mixin.define("qx.ui.core.MMultiSelectionHandling",
      */
     _onSelectionChange : function(e) {
       this.fireDataEvent("changeSelection", e.getData());
+    },
+
+
+    disposeMMultiSelectionHandling : function() {
+      this._disposeObjects("__manager");
     }
-  },
-
-
-  /*
-  *****************************************************************************
-     CONSTRUCTOR
-  *****************************************************************************
-  */
-
-
-  destruct : function() {
-    this._disposeObjects("__manager");
   }
 });

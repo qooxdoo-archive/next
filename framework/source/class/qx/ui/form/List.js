@@ -77,6 +77,7 @@ qx.Class.define("qx.ui.form.List",
 
     // initialize the search string
     this.__pressedString = "";
+    this.initMMultiSelectionHandling();
   },
 
 
@@ -448,6 +449,7 @@ qx.Class.define("qx.ui.form.List",
   */
 
   destruct : function() {
+    this.disposeMMultiSelectionHandling();
     this._disposeObjects("__content");
   }
 });

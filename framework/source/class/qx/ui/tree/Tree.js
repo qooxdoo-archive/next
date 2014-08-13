@@ -76,6 +76,7 @@ qx.Class.define("qx.ui.tree.Tree",
 
     this.addListener("changeSelection", this._onChangeSelection, this);
     this.addListener("keypress", this._onKeyPress, this);
+    this.initMMultiSelectionHandling();
   },
 
 
@@ -593,6 +594,7 @@ qx.Class.define("qx.ui.tree.Tree",
 
 
   destruct : function() {
+    this.disposeMMultiSelectionHandling();
     this._disposeObjects("__content");
   }
 });
