@@ -189,7 +189,7 @@ qx.Bootstrap.define("qx.ui.mobile.form.Slider",
      */
     _createKnobElement : function()
     {
-      return qx.dom.Element.create("div");
+      return qxWeb.create("<div>")[0];
     },
 
 

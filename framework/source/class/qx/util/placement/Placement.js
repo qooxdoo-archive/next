@@ -38,14 +38,14 @@ qx.Bootstrap.define("qx.util.placement.Placement",
      * The axis object to use for the horizontal placement
      */
     axisX : {
-      check: "Class"
+      check: "Object"
     },
 
     /**
      * The axis object to use for the vertical placement
      */
     axisY : {
-      check: "Class"
+      check: "Object"
     },
 
     /**
@@ -125,12 +125,10 @@ qx.Bootstrap.define("qx.util.placement.Placement",
         }
       }
 
-      this.__instance.set({
-        axisX: this.__getAxis(modeX),
-        axisY: this.__getAxis(modeY),
-        edge: edge,
-        align: align
-      });
+      this.__instance.axisX = this.__getAxis(modeX);
+      this.__instance.axisY = this.__getAxis(modeY);
+      this.__instance.edge = edge;
+      this.__instance.align = align;
 
       return this.__instance.compute(size, area, target, offsets);
     },
@@ -196,25 +194,25 @@ qx.Bootstrap.define("qx.util.placement.Placement",
     {
       if (qx.core.Environment.get("qx.debug"))
       {
-        this.assertObject(size, "size");
-        this.assertNumber(size.width, "size.width");
-        this.assertNumber(size.height, "size.height");
+        qx.core.Assert.assertObject(size, "size");
+        qx.core.Assert.assertNumber(size.width, "size.width");
+        qx.core.Assert.assertNumber(size.height, "size.height");
 
-        this.assertObject(area, "area");
-        this.assertNumber(area.width, "area.width");
-        this.assertNumber(area.height, "area.height");
+        qx.core.Assert.assertObject(area, "area");
+        qx.core.Assert.assertNumber(area.width, "area.width");
+        qx.core.Assert.assertNumber(area.height, "area.height");
 
-        this.assertObject(target, "target");
-        this.assertNumber(target.top, "target.top");
-        this.assertNumber(target.right, "target.right");
-        this.assertNumber(target.bottom, "target.bottom");
-        this.assertNumber(target.left, "target.left");
+        qx.core.Assert.assertObject(target, "target");
+        qx.core.Assert.assertNumber(target.top, "target.top");
+        qx.core.Assert.assertNumber(target.right, "target.right");
+        qx.core.Assert.assertNumber(target.bottom, "target.bottom");
+        qx.core.Assert.assertNumber(target.left, "target.left");
 
-        this.assertObject(offsets, "offsets");
-        this.assertNumber(offsets.top, "offsets.top");
-        this.assertNumber(offsets.right, "offsets.right");
-        this.assertNumber(offsets.bottom, "offsets.bottom");
-        this.assertNumber(offsets.left, "offsets.left");
+        qx.core.Assert.assertObject(offsets, "offsets");
+        qx.core.Assert.assertNumber(offsets.top, "offsets.top");
+        qx.core.Assert.assertNumber(offsets.right, "offsets.right");
+        qx.core.Assert.assertNumber(offsets.bottom, "offsets.bottom");
+        qx.core.Assert.assertNumber(offsets.left, "offsets.left");
       }
 
       var axisX = this.axisX || this.__defaultAxis;

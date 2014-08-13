@@ -107,7 +107,7 @@ qx.Bootstrap.define("qx.ui.mobile.page.Manager",
       this.__masterContainer.forceHide();
 
       setTimeout(function() {
-        if (qx.bom.Viewport.isLandscape()) {
+        if (qxWeb.env.isLandscape()) {
           this.__masterContainer.show();
         }
       }.bind(this), 300);
@@ -376,7 +376,7 @@ qx.Bootstrap.define("qx.ui.mobile.page.Manager",
      * @param evt {qx.event.type.Event} source event.
      */
     _onDetailPageStart : function(evt) {
-      if(qx.bom.Viewport.isPortrait() && this.hideMasterOnDetailStart) {
+      if(!qxWeb.env.isLandscape() && this.hideMasterOnDetailStart) {
         this.__masterContainer.hide();
       }
     },
@@ -465,7 +465,7 @@ qx.Bootstrap.define("qx.ui.mobile.page.Manager",
     _onMasterChangeVisibility: function(data) {
       var isMasterVisible = ("visible" === data.value);
 
-      if (qx.bom.Viewport.isLandscape()) {
+      if (qxWeb.env.isLandscape()) {
         if (this.allowMasterHideOnLandscape) {
           if (isMasterVisible) {
             this._createDetailContainerGap();
@@ -492,7 +492,7 @@ qx.Bootstrap.define("qx.ui.mobile.page.Manager",
     */
     _onLayoutChange : function() {
       if (this.__isTablet) {
-        if (qx.bom.Viewport.isLandscape()) {
+        if (qxWeb.env.isLandscape()) {
           this.__masterContainer.hideOnParentTap = false;
           if (this.__masterContainer.isHidden()) {
             this.__masterContainer.show();

@@ -221,7 +221,7 @@ qx.Bootstrap.define("qx.bom.Viewport",
 
 
     /**
-     * Returns the current orientation of the viewport in degree.
+     * Returns the current orientation of the viewport in degrees.
      *
      * All possible values and their meaning:
      *

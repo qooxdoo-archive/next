@@ -66,6 +66,19 @@ qx.Bootstrap.define("qx.module.Environment", {
     add : function(key, value) {
       qx.core.Environment.add(key, value);
       return this;
+    },
+
+
+    /**
+     * Whether the viewport orientation is currently in landscape mode.
+     *
+     * @attachStatic {qxWeb, env.isLandscape}
+     * @param win {Window?window} The window to query
+     * @return {Boolean} <code>true</code> when the viewport orientation
+     *     is currently in landscape mode.
+     */
+    isLandscape : function(win) {
+      return qx.bom.Viewport.isLandscape(win);
     }
   },
 
@@ -86,7 +99,11 @@ qx.Bootstrap.define("qx.module.Environment", {
     qx.core.Environment.get("event.mspointer");
 
     qxWeb.$attachStatic({
-      "env" : {get: statics.get, add: statics.add}
+      "env" : {
+        get: statics.get,
+        add: statics.add,
+        isLandscape: statics.isLandscape
+      }
     });
   }
 });

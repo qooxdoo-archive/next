@@ -478,7 +478,9 @@ qx.Bootstrap.define("qx.ui.mobile.dialog.Picker",
         var viewportTop = evt.clientY;
 
         var offsetParent = qxWeb(target).getOffsetParent();
-        var targetTop = qx.bom.element.Location.getTop(offsetParent, "margin");
+        var targetTop = offsetParent.getPosition().top;
+        targetTop -= parseInt(offsetParent.getStyle("marginTop"), 10);
+
         var relativeTop = viewportTop - targetTop;
         var decreaseIncreaseLimit = offsetParent.offsetHeight/2;
 

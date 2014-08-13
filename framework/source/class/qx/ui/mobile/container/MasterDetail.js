@@ -121,7 +121,7 @@ qx.Bootstrap.define("qx.ui.mobile.container.MasterDetail",
      * Synchronizes the layout.
      */
     __syncLayout  : function() {
-      var isPortrait = qx.bom.Viewport.isPortrait();
+      var isPortrait = !qxWeb.env.isLandscape();
       if (isPortrait) {
         this.addClass("portrait");
         this.removeClass("landscape");

@@ -144,7 +144,7 @@ qx.Bootstrap.define("qx.ui.mobile.core.Root",
      */
     getAppScale: function()
     {
-      var pixelRatio = parseFloat(qx.bom.client.Device.getDevicePixelRatio().toFixed(2));
+      var pixelRatio = parseFloat(qx.core.Environment.get("device.pixelRatio").toFixed(2));
       var fontScale = this.getFontScale();
 
       if (!isNaN(pixelRatio*fontScale)) {
@@ -259,7 +259,7 @@ qx.Bootstrap.define("qx.ui.mobile.core.Root",
       if (evt) {
         isPortrait = evt.isPortrait();
       } else {
-        isPortrait = qx.bom.Viewport.isPortrait();
+        isPortrait = !qxWeb.env.isLandscape();
       }
 
       if (isPortrait) {
