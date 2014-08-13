@@ -123,7 +123,7 @@ qx.Bootstrap.define("qx.application.Routing", {
         }
       }
 
-      var path = this.state;
+      var path = this.getState();
       path = this._getPathOrFallback(path, defaultPath);
       this._executeGet(path, null, true);
     },
@@ -244,9 +244,9 @@ qx.Bootstrap.define("qx.application.Routing", {
      *
      * @param evt {qx.event.type.Data} The changeHash event.
      */
-    __onChangeHash : function(path)
+    __onChangeHash : function(data)
     {
-      path = this._getPathOrFallback(path);
+      var path = this._getPathOrFallback(data.value);
 
       if (path != this.__currentGetPath) {
         this._executeGet(path, null, true);
@@ -418,7 +418,7 @@ qx.Bootstrap.define("qx.application.Routing", {
         return {
           data : entry,
           action : "back"
-        }
+        };
       }
 
       var length = forward.length;
