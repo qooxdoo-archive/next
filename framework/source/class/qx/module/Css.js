@@ -336,6 +336,34 @@ qx.Bootstrap.define("qx.module.Css", {
 
 
     /**
+     * Returns the distance between the first element in the collection
+     * and the given element.
+     *
+     * Supported modes:
+     * <code>margin</code>: Calculate from the margin box of the element (bigger than the visual appearance: including margins of given element)
+     * <code>box</code>: Calculates the offset box of the element (default, uses the same size as visible)
+     * <code>border</code>: Calculate the border box (useful to align to border edges of two elements).
+     * <code>scroll</code>: Calculate the scroll box (relevant for absolute positioned content).
+     * <code>padding</code>: Calculate the padding box (relevant for static/relative positioned content).
+     *
+     * @attach {qxWeb}
+     * @param element {Element} Second element
+     * @param mode1 {String?} Mode for first element
+     * @param mode2 {String?} Mode for second element
+     * @return {Map} Returns a map with the keys <code>left</code> and
+     * <code>top</code> containing the distance of the elements from each other.
+     */
+    getRelativeDistance: function(element, mode1, mode2) {
+      var elem = this[0];
+      if (elem && element && qx.dom.Node.isElement(elem) &&
+        qx.dom.Node.isElement(element))
+      {
+        return qx.bom.element.Location.getRelative(elem, element, mode1, mode2);
+      }
+    },
+
+
+    /**
      * Returns the content height of the first element in the collection.
      * This is the maximum height the element can use, excluding borders,
      * margins, padding or scroll bars.
@@ -563,6 +591,7 @@ qx.Bootstrap.define("qx.module.Css", {
       "getHeight" : statics.getHeight,
       "getWidth" : statics.getWidth,
       "getOffset" : statics.getOffset,
+      "getRelativeDistance" : statics.getRelativeDistance,
       "getContentHeight" : statics.getContentHeight,
       "getContentWidth" : statics.getContentWidth,
 

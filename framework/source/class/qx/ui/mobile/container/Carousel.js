@@ -83,7 +83,7 @@ qx.Bootstrap.define("qx.ui.mobile.container.Carousel",
     carouselScroller.on("track", this._onTrack, this);
     carouselScroller.on("swipe", this._onSwipe, this);
 
-    this.on("touchmove", qx.bom.Event.preventDefault, this);
+    this.on("touchmove", this._onTouchmove, this);
 
     this.on("appear", this._onContainerUpdate, this);
 
@@ -344,7 +344,8 @@ qx.Bootstrap.define("qx.ui.mobile.container.Carousel",
     * Event handler for <code>transitionEnd</code> event on carouselScroller.
     */
     _onScrollerTransitionEnd : function() {
-      var opacity = qx.bom.element.Style.get(this.__carouselScroller[0], "opacity");
+      this.__carouselScroller.getStyle("opacity");
+      var opacity = this.__carouselScroller.getStyle("opacity");
       if (opacity === 0) {
         var pageIndex = null;
         if (this.currentIndex == this.__pages.length - 1) {
@@ -389,8 +390,8 @@ qx.Bootstrap.define("qx.ui.mobile.container.Carousel",
      * @param opacity {Integer} the target value of the opacity.
      */
     _setScrollersOpacity : function(opacity) {
-      if (this.__carouselScroller) {
-        qx.bom.element.Style.set(this.__carouselScroller[0], "opacity", opacity);
+      if (this.__carouselScroller.length > 0) {
+        this.__carouselScroller.setStyle("opacity", opacity);
       }
     },
 
@@ -425,8 +426,7 @@ qx.Bootstrap.define("qx.ui.mobile.container.Carousel",
       if (!this[0]) {
         return;
       }
-      var carouselSize = qx.bom.element.Dimension.getSize(this[0]);
-      this.__carouselWidth = carouselSize.width;
+      this.__carouselWidth = this.getWidth();
 
       if (this.height !== null) {
         this.setStyle("height", this.height / 16 + "rem");
@@ -434,12 +434,12 @@ qx.Bootstrap.define("qx.ui.mobile.container.Carousel",
         this.setStyle("height", "100%");
       }
 
-      this.__carouselScroller.setStyle("width", this.__pages.length * carouselSize.width + "px");
+      this.__carouselScroller.setStyle("width", this.__pages.length * this.__carouselWidth + "px");
 
       for (var i = 0; i < this.__pages.length; i++) {
         this.__pages[i].setStyles({
-          width:  carouselSize.width + "px",
-          height: carouselSize.height + "px"
+          width:  this.__carouselWidth + "px",
+          height: this.getHeight() + "px"
         });
       }
 
@@ -461,6 +461,16 @@ qx.Bootstrap.define("qx.ui.mobile.container.Carousel",
     _refreshScrollerPosition : function() {
       this.__carouselScrollerWidth = this.__carouselScroller.getWidth();
       this._scrollToPage(this.currentIndex);
+    },
+
+
+    /**
+     * Prevents the touchmove event's default behavior
+     *
+     * @param e {Event} touchmove event
+     */
+    _onTouchmove: function(e) {
+      e.preventDefault();
     },
 
 
@@ -497,7 +507,7 @@ qx.Bootstrap.define("qx.ui.mobile.container.Carousel",
      * @param evt {qx.event.type.Pointer} The pointer event.
      */
     _onPointerDown : function(evt) {
-      if(!evt.isPrimary()) {
+      if(!evt.isPrimary) {
         return;
       }
 
@@ -515,17 +525,17 @@ qx.Bootstrap.define("qx.ui.mobile.container.Carousel",
      * @param evt {qx.event.type.Track} The track event.
      */
     _onTrack : function(evt) {
-      if(!evt.isPrimary()) {
+      if(!evt._original.isPrimary) { // TODO: add 'isPrimary' property to track event?
         return;
       }
 
       this._setTransitionDuration(0);
 
-      this.__deltaX = evt.getDelta().x;
-      this.__deltaY = evt.getDelta().y;
+      this.__deltaX = evt._original.delta.x; // TODO: add 'delta' property to track event?
+      this.__deltaY = evt._original.delta.y;
 
       if (this.__isPageScrollTarget === null) {
-        this.__isPageScrollTarget = (evt.getDelta().axis == "y");
+        this.__isPageScrollTarget = (evt._original.delta.axis == "y");
       }
 
       if (!this.__isPageScrollTarget) {
@@ -550,7 +560,7 @@ qx.Bootstrap.define("qx.ui.mobile.container.Carousel",
     * @param evt {qx.event.type.Pointer} the pointerup event.
     */
     _onPointerUp : function(evt) {
-      if(!evt.isPrimary()) {
+      if(!evt.isPrimary) {
         return;
       }
 
@@ -564,18 +574,18 @@ qx.Bootstrap.define("qx.ui.mobile.container.Carousel",
      * @param evt {qx.event.type.Swipe} The swipe event.
      */
     _onSwipe : function(evt) {
-      if(!evt.isPrimary()) {
+      if(!evt._original.isPrimary) { // TODO
         return;
       }
 
-      if (evt.getDuration() < 750 && Math.abs(evt.getDistance()) > 50) {
-        var duration = this._calculateTransitionDuration(this.__deltaX, evt.getDuration());
-        duration = Math.min(this.getTransitionDuration(),duration);
+      if (evt.swipe.duration < 750 && Math.abs(evt.swipe.distance) > 50) {
+        var duration = this._calculateTransitionDuration(this.__deltaX, evt.swipe.duration);
+        duration = Math.min(this.transitionDuration, duration);
 
         this._setTransitionDuration(duration);
-        if (evt.getDirection() == "left") {
+        if (evt.swipe.direction == "left") {
           this.nextPage();
-        } else if (evt.getDirection() == "right") {
+        } else if (evt.swipe.direction == "right") {
           this.previousPage();
         }
       } else {
@@ -717,7 +727,7 @@ qx.Bootstrap.define("qx.ui.mobile.container.Carousel",
 
         this.__pagination.setStyle("left", left);
 
-        this.__pagination.translateX = translate;
+        this.__pagination.translate([translate + "px", 0, 0]);
       }
     },
 
@@ -730,7 +740,7 @@ qx.Bootstrap.define("qx.ui.mobile.container.Carousel",
       if(isNaN(x) || this.__carouselScroller.length === 0) {
         return;
       }
-      this.__carouselScroller.translateX = x;
+      this.__carouselScroller.translate([x + "px", 0, 0]);
     },
 
 
@@ -743,7 +753,7 @@ qx.Bootstrap.define("qx.ui.mobile.container.Carousel",
         this.__carouselScroller.off("track", this._onTrack, this);
         this.__carouselScroller.off("pointerup", this._onPointerUp, this);
         this.__carouselScroller.off("swipe", this._onSwipe, this);
-        this.__carouselScroller.off("touchmove", qx.bom.Event.preventDefault, this);
+        this.__carouselScroller.off("touchmove", this._onTouchmove, this);
       }
 
       this.off("appear", this._onContainerUpdate, this);

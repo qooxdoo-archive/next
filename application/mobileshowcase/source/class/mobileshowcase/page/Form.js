@@ -72,7 +72,7 @@ qx.Bootstrap.define("mobileshowcase.page.Form",
 
       var popupContent = new qx.ui.mobile.container.Composite();
       this.__closeResultPopup = new qx.ui.mobile.form.Button("OK");
-      this.__closeResultPopup.addListener("tap", function() {
+      this.__closeResultPopup.on("tap", function() {
         this.__resultPopup.hide();
       },this);
 
@@ -90,7 +90,7 @@ qx.Bootstrap.define("mobileshowcase.page.Form",
     */
     _createSubmitButton : function() {
       var submitButton = new qx.ui.mobile.form.Button("Submit");
-      submitButton.addListener("tap", this._onSubmitButtonTap, this);
+      submitButton.on("tap", this._onSubmitButtonTap, this);
       submitButton.enabled = false;
       return submitButton;
     },
@@ -102,7 +102,7 @@ qx.Bootstrap.define("mobileshowcase.page.Form",
     */
     _createResetButton : function() {
       var resetButton = new qx.ui.mobile.form.Button("Reset");
-      resetButton.addListener("tap", this._onResetButtonTap, this);
+      resetButton.on("tap", this._onResetButtonTap, this);
       return resetButton;
     },
 
@@ -135,9 +135,8 @@ qx.Bootstrap.define("mobileshowcase.page.Form",
       this.__rememberPass = new qx.ui.mobile.form.CheckBox();
       form.add(this.__rememberPass, "Remember password? ");
       this.__rememberPass.model = "password_reminder";
-      this.__rememberPass.bind("model",this.__password,"value");
-
-      this.__password.bind("value",this.__rememberPass,"model");
+      qx.data.SingleValueBinding.bind(this.__rememberPass, "model",this.__password,"value");
+      qx.data.SingleValueBinding.bind(this.__password, "value",this.__rememberPass,"model");
 
       // NUMBER FIELD
       this.__numberField = new qx.ui.mobile.form.NumberField();
@@ -151,7 +150,7 @@ qx.Bootstrap.define("mobileshowcase.page.Form",
       this.__radio2 = new qx.ui.mobile.form.RadioButton();
 
       var radioGroup = new qx.ui.mobile.form.RadioGroup();
-      radioGroup.setAllowEmptySelection(true);
+      radioGroup.allowEmptySelection = true;
       radioGroup.add(this.__radio1, this.__radio2);
       form.add(this.__radio1, "Male");
       form.add(this.__radio2, "Female");
@@ -181,7 +180,7 @@ qx.Bootstrap.define("mobileshowcase.page.Form",
       form.add(this.__slide,"Are you human? Drag the slider to prove it.");
 
       this.__save = new qx.ui.mobile.form.ToggleButton(false,"Agree","Reject",13);
-      this.__save.addListener("changeValue", this._enableFormSubmitting, this);
+      this.__save.on("changeValue", this._enableFormSubmitting, this);
       form.add(this.__save, "Agree? ");
 
       this._createValidationRules(form.getValidationManager());
@@ -234,8 +233,8 @@ qx.Bootstrap.define("mobileshowcase.page.Form",
     },
 
 
-    _enableFormSubmitting : function(evt) {
-      this.__submitButton.enabled = evt.getData();
+    _enableFormSubmitting : function(data) {
+      this.__submitButton.enabled = data.value;
     },
 
 
@@ -265,7 +264,7 @@ qx.Bootstrap.define("mobileshowcase.page.Form",
         // Scroll to invalid field.
         var invalidItems = this.__form.getInvalidItems();
 
-        this._getScrollContainer().scrollToWidget(invalidItems[0].getLayoutParent(), 500);
+        this._getScrollContainer().scrollToWidget(invalidItems[0]._getParentWidget(), 500);
       }
     },
 

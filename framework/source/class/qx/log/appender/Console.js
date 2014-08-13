@@ -308,17 +308,17 @@ qx.Bootstrap.define("qx.log.appender.Console",
     __onKeyPress : function(e)
     {
       if (e instanceof qx.event.type.Tap || e instanceof qx.event.type.Pointer) {
-        var target = e.getTarget();
+        var target = e.target;
         if (target && target.className && target.className.indexOf && target.className.indexOf("navigationbar") != -1) {
           this.toggle();
         }
         return;
       }
 
-      var iden = e.getKeyIdentifier();
+      var iden = e.keyIdentifier;
 
       // Console toggling
-      if ((iden == "F7") || (iden == "D" && e.isCtrlPressed()))
+      if ((iden == "F7") || (iden == "D" && e.ctrlKey))
       {
         this.toggle();
         e.preventDefault();
@@ -330,7 +330,7 @@ qx.Bootstrap.define("qx.log.appender.Console",
       }
 
       // Active element not in console
-      if (!qx.dom.Hierarchy.contains(this.__main, e.getTarget())) {
+      if (!qx.dom.Hierarchy.contains(this.__main, e.target)) {
         return;
       }
 

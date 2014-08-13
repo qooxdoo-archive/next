@@ -313,7 +313,7 @@ qx.Bootstrap.define("qx.ui.mobile.form.SelectBox",
      * @param evt {qx.event.type.Data} data event.
      */
     _onChangeSelection : function (evt) {
-      this.selection = evt.getData().index;
+      this.selection = evt.index;
       this._render();
     },
 
@@ -327,7 +327,7 @@ qx.Bootstrap.define("qx.ui.mobile.form.SelectBox",
 
       // request focus so that it leaves previous widget
       // such as text field and hide virtual keyboard.
-      evt.getOriginalTarget().focus();
+      evt._original.target.focus();
     },
 
 

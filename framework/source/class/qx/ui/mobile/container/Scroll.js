@@ -382,8 +382,8 @@ qx.Bootstrap.define("qx.ui.mobile.container.Scroll",
       var contentWidth = this[0].scrollWidth;
 
       var scrollContentElement = this._getScrollContentElement();
-      if(scrollContentElement) {
-        contentWidth = qx.bom.element.Dimension.getWidth(scrollContentElement);
+      if(scrollContentElement.length > 0) {
+        contentWidth = scrollContentElement.getWidth();
       }
 
       return parentWidth < contentWidth;
@@ -403,8 +403,8 @@ qx.Bootstrap.define("qx.ui.mobile.container.Scroll",
       var contentHeight = this[0].scrollHeight;
 
       var scrollContentElement = this._getScrollContentElement();
-      if(scrollContentElement) {
-        contentHeight = qx.bom.element.Dimension.getHeight(scrollContentElement);
+      if(scrollContentElement.length > 0) {
+        contentHeight = scrollContentElement.getHeight();
       }
 
       return parentHeight < contentHeight;
@@ -435,13 +435,16 @@ qx.Bootstrap.define("qx.ui.mobile.container.Scroll",
     */
     _scrollToElement : function(element, time)
     {
-      var contentElement = this._getScrollContentElement() || this[0];
-      if (contentElement && this._isScrollable()) {
+      var contentElement = this._getScrollContentElement();
+      if (contentElement.length === 0) {
+        contentElement  = this;
+      }
+      if (contentElement.length > 0 && this._isScrollable()) {
         if (typeof time === "undefined") {
           time = 0;
         }
 
-        var location = qx.bom.element.Location.getRelative(contentElement, element, "scroll", "scroll");
+        var location = contentElement.getRelativeDistance(element, "scroll", "scroll");
         var offset = this._getScrollOffset();
 
         this._scrollTo(-location.left - offset[0], -location.top - offset[1], time);

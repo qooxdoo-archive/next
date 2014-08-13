@@ -231,7 +231,7 @@ qx.Mixin.define("qx.ui.mobile.container.MNativeScroll",
     /**
      * Mixin method. Returns the scroll content element.
      *
-     * @return {Element} The scroll content element
+     * @return {qxWeb} The scroll content element
      */
     _getScrollContentElement: function() {
       return null;

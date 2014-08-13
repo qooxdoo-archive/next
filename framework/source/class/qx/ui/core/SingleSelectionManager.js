@@ -243,7 +243,7 @@ qx.Bootstrap.define("qx.ui.core.SingleSelectionManager",
         return;
       }
 
-      if (!this.isAllowEmptySelection() && newSelected == null) {
+      if (!this.allowEmptySelection && newSelected == null) {
         var firstElement = this.getSelectables(true)[0];
 
         if (firstElement) {
