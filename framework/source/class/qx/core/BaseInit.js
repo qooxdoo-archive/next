@@ -41,7 +41,7 @@ qx.Bootstrap.define("qx.core.BaseInit",
      * @return {Object} The application instance.
      */
     getApplication : function() {
-      return this.__application || null;
+      return qx.core.BaseInit.__application || null;
     },
 
 
@@ -55,7 +55,7 @@ qx.Bootstrap.define("qx.core.BaseInit",
         return;
       }
 
-      if (this.__application) {
+      if (qx.core.BaseInit.__application) {
         return;
       }
 
@@ -69,22 +69,22 @@ qx.Bootstrap.define("qx.core.BaseInit",
         qx.log.Logger.warn("Could not detect operating system!");
       }
 
-      qx.log.Logger.debug(this, "Load runtime: " + (new Date - qx.Bootstrap.LOADSTART) + "ms");
+      qx.log.Logger.debug(qx.core.BaseInit, "Load runtime: " + (new Date - qx.Bootstrap.LOADSTART) + "ms");
 
       var app = qx.core.Environment.get("qx.application");
       var clazz = qx.Bootstrap.getByName(app);
 
       if (clazz)
       {
-        this.__application = new clazz;
+        qx.core.BaseInit.__application = new clazz();
+
+        var start = new Date();
+        qx.core.BaseInit.__application.main();
+        qx.log.Logger.debug(qx.core.BaseInit, "Main runtime: " + (new Date - start) + "ms");
 
         var start = new Date;
-        this.__application.main();
-        qx.log.Logger.debug(this, "Main runtime: " + (new Date - start) + "ms");
-
-        var start = new Date;
-        this.__application.finalize();
-        qx.log.Logger.debug(this, "Finalize runtime: " + (new Date - start) + "ms");
+        qx.core.BaseInit.__application.finalize();
+        qx.log.Logger.debug(qx.core.BaseInit, "Finalize runtime: " + (new Date - start) + "ms");
       }
       else
       {
@@ -101,7 +101,7 @@ qx.Bootstrap.define("qx.core.BaseInit",
      */
     __close : function(e)
     {
-      var app = this.__application;
+      var app = qx.core.BaseInit.__application;
       if (app) {
         app.close();
       }
@@ -115,7 +115,7 @@ qx.Bootstrap.define("qx.core.BaseInit",
      */
     __shutdown : function()
     {
-      var app = this.__application;
+      var app = qx.core.BaseInit.__application;
 
       if (app) {
         app.terminate();
