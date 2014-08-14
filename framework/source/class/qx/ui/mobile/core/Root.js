@@ -222,7 +222,7 @@ qx.Bootstrap.define("qx.ui.mobile.core.Root",
       // Force relayout - important for new Android devices and Firefox.
       setTimeout(function() {
         docElement.style.display = "none";
-        docElement.clientWidth = docElement.clientWidth;
+        docElement.offsetWidth;
         docElement.style.display = "";
       }, 0);
 
