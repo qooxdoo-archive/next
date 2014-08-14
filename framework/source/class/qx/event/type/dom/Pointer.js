@@ -28,8 +28,6 @@ qx.Bootstrap.define("qx.event.type.dom.Pointer", {
   statics : {
 
     MOUSE_PROPERTIES : [
-      "bubbles",
-      "cancelable",
       "view",
       "detail",
       "screenX",
@@ -44,10 +42,7 @@ qx.Bootstrap.define("qx.event.type.dom.Pointer", {
       "metaKey",
       "button",
       "which",
-      "relatedTarget",
-      // IE8 properties:
-      "fromElement",
-      "toElement"
+      "relatedTarget"
     ],
 
     POINTER_PROPERTIES : {
@@ -275,7 +270,7 @@ qx.Bootstrap.define("qx.event.type.dom.Pointer", {
       }
 
       if (evt.initMouseEvent) {
-        evt.initMouseEvent(this._type, properties.bubbles, properties.cancelable, properties.view, properties.detail,
+        evt.initMouseEvent(this._type, domEvent.bubbles, domEvent.cancelable, properties.view, properties.detail,
           properties.screenX, properties.screenY, properties.clientX, properties.clientY, properties.ctrlKey,
           properties.altKey, properties.shiftKey, properties.metaKey, properties.button, properties.relatedTarget);
       }
