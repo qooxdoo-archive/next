@@ -403,10 +403,8 @@ qx.Bootstrap.define("qx.ui.mobile.core.Widget",
 
 
     // property apply
-    _applyId : function(value, old)
-    {
-      if (old !== null)
-      {
+    _applyId : function(value, old) {
+      if (old !== null) {
         // Unregister widget with old id
         qx.ui.mobile.core.Widget.unregisterWidget(old);
       }
@@ -415,7 +413,6 @@ qx.Bootstrap.define("qx.ui.mobile.core.Widget",
       this[0].id = value;
       // Register the widget
       qx.ui.mobile.core.Widget.registerWidget(this);
-
     },
 
     /**
@@ -424,17 +421,16 @@ qx.Bootstrap.define("qx.ui.mobile.core.Widget",
      * @param old {Boolean?}, the old value of the widget
      *
      */
-    _applyEnabled : function(value,old)
-    {
-      if (value)
-      {
+    _applyEnabled : function(value, old) {
+      if (value) {
         this.removeClass("disabled");
-        this.setStyle('anonymous', this.anonymous);
+        if (!this.anonymous) {
+          this.setStyle("pointerEvents", "auto");
+        }
       }
-      else
-      {
+      else {
         this.addClass("disabled");
-        this.setStyle('anonymous', true);
+        this.setStyle("pointerEvents", "none");
       }
     },
 
