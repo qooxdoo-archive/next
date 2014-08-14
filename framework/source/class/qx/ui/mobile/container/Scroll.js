@@ -238,9 +238,9 @@ qx.Bootstrap.define("qx.ui.mobile.container.Scroll",
           } else {
             // Dynamically created waypoints, based upon a selector.
             var element = this[0];
-            var waypointElements = qx.bom.Selector.query(waypoint,element);
+            var waypointElements = qxWeb(waypoint, element);
             for (var j = 0; j < waypointElements.length; j++) {
-              var position = qx.bom.element.Location.getRelative(waypointElements[j],element);
+              var position = qxWeb(waypointElements[j]).getRelativeDistance(element);
               results.push({
                 "offset": position.top + this._currentY,
                 "input": waypoint,
