@@ -97,9 +97,9 @@ qx.Bootstrap.define("qx.event.handler.PointerCore", {
     } else {
       if (qx.core.Environment.get("event.mspointer")) {
         this.__nativePointerEvents = true;
+        this.__eventNames = ["pointerdown", "pointermove", "pointerup", "pointercancel", "pointerover", "pointerout"];
+        this._initPointerObserver();
       }
-      this.__eventNames = ["pointerdown", "pointermove", "pointerup", "pointercancel", "pointerover", "pointerout"];
-      this._initPointerObserver();
     }
     if (!qx.core.Environment.get("event.mspointer")) {
       if (qx.core.Environment.get("device.touch")) {
