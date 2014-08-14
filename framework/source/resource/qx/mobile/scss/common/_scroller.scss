@@ -30,7 +30,7 @@
 
   overflow-y:scroll;
   overflow-x:scroll;
-  
+
   -webkit-overflow-scrolling:touch;
   -ms-overflow-style: -ms-autohiding-scrollbar;
 }
@@ -41,12 +41,12 @@
   .root.ios .scroll.native > * {
     -webkit-animation: fixWebkitOverflowScroll 1ms;
   }
+}
 
-  @-webkit-keyframes fixWebkitOverflowScroll
-  {
-    0% {padding-bottom: 1px;}
-    100% {padding-bottom: 0px}
-  }
+@-webkit-keyframes fixWebkitOverflowScroll
+{
+  0% {padding-bottom: 1px;}
+  100% {padding-bottom: 0px}
 }
 
 .scrollbarV > div {

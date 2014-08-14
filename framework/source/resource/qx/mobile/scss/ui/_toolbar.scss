@@ -40,8 +40,6 @@
   z-index: 1;
   padding: $toolbar-padding;
   height: rem(50);
-
-  height: -moz-calc(rem(50) + $toolbar-padding);
 }
 
 .toolbar-button img {
