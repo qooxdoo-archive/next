@@ -287,6 +287,7 @@ qx.Bootstrap.define("qx.event.handler.GestureCore", {
         since it bubbles.
        */
       if (this._hasIntermediaryHandler(target)) {
+        delete this.__gesture[domEvent.pointerId];
         return;
       }
 
