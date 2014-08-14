@@ -161,12 +161,12 @@ qx.Class.define("qx.test.mobile.container.Composite",
       if (qx.core.Environment.get("qx.debug"))
       {
         this.assertException(function() {
-           composite.addAfter(widget2, widget3);
+           composite.insertAfter(widget2, widget3);
         });
       }
 
       var widget3 = new qx.ui.mobile.core.Widget();
-      composite.addAfter(widget3, widget2);
+      composite.insertAfter(widget3, widget2);
 
       this.assertEquals(composite.indexOf(widget3), 2);
 
@@ -174,7 +174,7 @@ qx.Class.define("qx.test.mobile.container.Composite",
 
       composite.remove(widget3);
 
-      composite.addAfter(widget3, widget1);
+      composite.insertAfter(widget3, widget1);
 
       this.assertEquals(composite.getContentElement().childNodes[1], widget3.getContainerElement());
 

@@ -28,7 +28,7 @@
  * <pre class='javascript'>
  *   var image = new qx.ui.mobile.basic.Image("path/to/icon.png");
  *
- *   this.getRoot().add(image);
+ *   this.getRoot().append(image);
  * </pre>
  *
  * This example create a widget to display the image

@@ -34,7 +34,7 @@
  *     alert(value);
  *   }, this);
  *
- *   this.getRoot.add(button);
+ *   this.getRoot.append(button);
  * </pre>
  *
  * This example creates a toggle button and attaches an
@@ -73,7 +73,7 @@ qx.Bootstrap.define("qx.ui.mobile.form.ToggleButton",
     this._setAttribute("data-label-unchecked", this.__labelUnchecked);
 
     this.__switch = this._createSwitch();
-    this._add(this.__switch);
+    this.append(this.__switch);
 
     if (value) {
       this.value = value;

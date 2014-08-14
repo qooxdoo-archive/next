@@ -37,7 +37,7 @@
  *  page.on("initialize", function()
  *  {
  *    var button = new qx.ui.mobile.form.Button("Next Page");
- *    page.getContent().add(button);
+ *    page.getContent().append(button);
  *  },this);
  *
  *  page.on("back", function()
@@ -280,7 +280,7 @@ qx.Bootstrap.define("qx.ui.mobile.page.NavigationPage",
       this.__backButton = this._createBackButton();
       this.__backButton.on("tap", this._onBackButtonTap, this);
       this._showBackButton();
-      container.add(this.__backButton);
+      container.append(this.__backButton);
       return container;
     },
 
@@ -297,7 +297,7 @@ qx.Bootstrap.define("qx.ui.mobile.page.NavigationPage",
       this.__actionButton = this._createButton();
       this.__actionButton.on("tap", this._onButtonTap, this);
       this._showButton();
-      container.add(this.__actionButton);
+      container.append(this.__actionButton);
       return container;
     },
 
@@ -536,11 +536,11 @@ qx.Bootstrap.define("qx.ui.mobile.page.NavigationPage",
 
       if (this.__content) {
         this.__content.layoutPrefs = {flex :1};
-        this.__scrollContainer.add(this.__content);
+        this.__scrollContainer.append(this.__content);
       }
       if (this.__scrollContainer) {
         this.__scrollContainer.layoutPrefs = {flex :1};
-        this.add(this.__scrollContainer);
+        this.append(this.__scrollContainer);
       }
     },
 

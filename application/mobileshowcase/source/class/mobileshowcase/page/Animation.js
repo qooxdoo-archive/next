@@ -84,7 +84,7 @@ qx.Bootstrap.define("mobileshowcase.page.Animation",
         var animation = mobileshowcase.page.Animation.ANIMATION_DATA[index].animation;
         qx.core.Init.getApplication().getRouting().executeGet("/animation/" + animation);
       }, this);
-      this.getContent().add(list);
+      this.getContent().append(list);
     }
   }
 });

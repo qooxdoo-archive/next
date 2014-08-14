@@ -195,7 +195,7 @@ qx.Class.define("qx.test.ui.tree.Tree",
 
       //this.info("before addAfter: " + this.__printChildren(tRoot.getChildren()));
       var item2 = new qx.ui.tree.TreeFile("2");
-      tRoot.addAfter(item2, item1);
+      tRoot.insertAfter(item2, item1);
       //this.info("after addAfter: " + this.__printChildren(tRoot.getChildren()));
 
       this.assertIdentical(item1, this._tree.getPreviousNodeOf(item2), "check: 1 before 2");
@@ -253,7 +253,7 @@ qx.Class.define("qx.test.ui.tree.Tree",
       tRoot.add(item4);
 
       //this.info("before addAfter: " + this.__printChildren(tRoot.getChildren()));
-      tRoot.addAfter(item1, item3);
+      tRoot.insertAfter(item1, item3);
       //this.info("after addAfter: " + this.__printChildren(tRoot.getChildren()));
 
       this.assertIdentical(item1, this._tree.getPreviousNodeOf(item4), "check: 1 before 4");

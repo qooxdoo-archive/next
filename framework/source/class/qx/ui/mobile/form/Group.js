@@ -31,8 +31,8 @@
  *   var list = new qx.ui.mobile.list.List();
  *   var group = new qx.ui.mobile.form.Group([list]);
  *
- *   this.getRoot.add(title);
- *   this.getRoot.add(group);
+ *   this.getRoot.append(title);
+ *   this.getRoot.append(group);
  * </pre>
  *
  * This example creates a group and adds a list to it.
@@ -65,7 +65,7 @@ qx.Bootstrap.define("qx.ui.mobile.form.Group",
     // Convenience: Add all widgets of array to group.
     if(widgets) {
       for(var i = 0; i < widgets.length; i++) {
-        this.add(widgets[i]);
+        this.append(widgets[i]);
       }
     }
 

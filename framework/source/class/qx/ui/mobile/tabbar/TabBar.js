@@ -29,12 +29,12 @@
  *   var tabBar = new qx.ui.mobile.tabbar.TabBar();
  *   var tabButton1 = new qx.ui.mobile.tabbar.TabButton("Tab 1");
  *   tabButton1.view = view1;
- *   tabBar.add(tabButton1);
+ *   tabBar.append(tabButton1);
  *   var tabButton2 = new qx.ui.mobile.tabbar.TabButton("Tab 2");
  *   tabButton2.view = view2;
- *   tabBar.add(tabButton2);
+ *   tabBar.append(tabButton2);
  *
- *   this.getRoot.add(tabBar);
+ *   this.getRoot.append(tabBar);
  * </pre>
  *
  * This example creates a tab bar and adds two tab buttons to it.
@@ -149,10 +149,10 @@ qx.Bootstrap.define("qx.ui.mobile.tabbar.TabBar",
      *
      * @param button {qx.ui.mobile.tabbar.TabButton} The button to add
      */
-    add : function(button)
+    append : function(button)
     {
       button.layoutPrefs = {flex:1};
-      this._add(button);
+      this.base(qx.ui.mobile.core.Widget, "append", button);
       if (!this.selection) {
         this.selection = button;
       }
@@ -180,7 +180,7 @@ qx.Bootstrap.define("qx.ui.mobile.tabbar.TabBar",
      */
     remove : function(button)
     {
-      this._remove(button);
+      button.remove();
       if (this.selection == button) {
         this.selection = null;
       }

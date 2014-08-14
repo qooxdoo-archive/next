@@ -28,12 +28,12 @@
  * <pre class='javascript'>
  *   var bar = new qx.ui.mobile.navigationbar.NavigationBar();
  *   var backButton = new qx.ui.mobile.navigationbar.BackButton();
- *   bar.add(backButton);
+ *   bar.append(backButton);
  *   var title = new qx.ui.mobile.navigationbar.Title();
  *   title.layoutPrefs = {flex:1};
- *   var.add(title);
+ *   var.append(title);
  *
- *   this.getRoot.add(bar);
+ *   this.getRoot.append(bar);
  * </pre>
  *
  * This example creates a navigation bar and adds a back button and a title to it.

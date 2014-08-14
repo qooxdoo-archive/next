@@ -60,7 +60,7 @@ qx.Bootstrap.define("qx.ui.mobile.core.Blocker",
       qx.ui.mobile.core.Blocker.ROOT = qx.core.Init.getApplication().getRoot();
     }
     this.forceHide();
-    qx.ui.mobile.core.Blocker.ROOT.add(this);
+    qx.ui.mobile.core.Blocker.ROOT.append(this);
   },
 
 
@@ -198,7 +198,7 @@ qx.Bootstrap.define("qx.ui.mobile.core.Blocker",
 
     dispose : function() {
       this.base(qx.ui.mobile.core.Widget, "dispose");
-      qx.ui.mobile.core.Blocker.ROOT.remove(this);
+      this.remove();
       this.__unregisterEventListener();
       delete qx.ui.mobile.core.Blocker.__instance;
     }

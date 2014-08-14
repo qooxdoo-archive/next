@@ -38,7 +38,7 @@
  *     });
  *     slider.on("changeValue", handler, this);
  *
- *   this.getRoot.add(slider);
+ *   this.getRoot.append(slider);
  * </pre>
  *
  * This example creates a slider and attaches an

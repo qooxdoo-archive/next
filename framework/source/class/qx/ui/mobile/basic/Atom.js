@@ -31,7 +31,7 @@
  *
  * <pre class='javascript'>
  *   var atom = new qx.ui.mobile.basic.Atom("Icon Right", "icon/32/actions/go-next.png");
- *   this.getRoot().add(atom);
+ *   this.getRoot().append(atom);
  * </pre>
  *
  * This example creates an atom with the label "Icon Right" and an icon.
@@ -314,12 +314,12 @@ qx.Bootstrap.define("qx.ui.mobile.basic.Atom",
       this.__childrenContainer.anonymous = true;
 
       if(this.__icon) {
-        this.__childrenContainer.add(this.__icon);
+        this.__childrenContainer.append(this.__icon);
       }
 
       if(this.__label) {
         this.__label.addClass("qx-flex-center");
-        this.__childrenContainer.add(this.__label);
+        this.__childrenContainer.append(this.__label);
       }
 
       // Show/Hide Label/Icon
@@ -330,7 +330,7 @@ qx.Bootstrap.define("qx.ui.mobile.basic.Atom",
         this.__icon.exclude();
       }
 
-      this._add(this.__childrenContainer);
+      this.append(this.__childrenContainer);
     },
 
 

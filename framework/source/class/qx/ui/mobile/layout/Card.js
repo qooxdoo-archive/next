@@ -35,9 +35,9 @@
  * var container = new qx.ui.mobile.container.Composite(layout);
  *
  * var label1 = new qx.ui.mobile.basic.Label("1");
- * container.add(label1);
+ * container.append(label1);
  * var label2 = new qx.ui.mobile.basic.Label("2");
- * container.add(label2);
+ * container.append(label2);
  *
  * label2.show();
  * </pre>

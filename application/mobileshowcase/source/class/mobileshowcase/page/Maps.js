@@ -128,8 +128,8 @@ qx.Bootstrap.define("mobileshowcase.page.Maps",
       this._showMyPositionButton.addClass("map-shadow");
       groupFullScreen.addClass("map-shadow");
 
-      menuContainer.add(groupFullScreen);
-      menuContainer.add(groupPosition);
+      menuContainer.append(groupFullScreen);
+      menuContainer.append(groupPosition);
 
       return menuContainer;
     },

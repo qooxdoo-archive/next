@@ -55,7 +55,7 @@ qx.Bootstrap.define("mobileshowcase.page.Canvas",
       var clearButton = new qx.ui.mobile.navigationbar.Button("Clear");
       clearButton.on("tap", this.__clearCanvas, this);
 
-      this.getRightContainer().add(clearButton);
+      this.getRightContainer().append(clearButton);
 
       var canvasSize = Math.max(q(window).getWidth() * 1.5, q(window).getHeight() * 1.5);
 
@@ -77,7 +77,7 @@ qx.Bootstrap.define("mobileshowcase.page.Canvas",
         .setStyle("width", this.__canvasSize + "px")
         .setStyle("height", this.__canvasSize + "px");
 
-      this.getContent().add(canvas);
+      this.getContent().append(canvas);
 
       this.__clearCanvas();
       this._drawExample();

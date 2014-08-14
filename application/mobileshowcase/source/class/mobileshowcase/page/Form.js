@@ -59,13 +59,13 @@ qx.Bootstrap.define("mobileshowcase.page.Form",
       this.base(mobileshowcase.page.Abstract, "_initialize");
       this.__form = this.__createForm();
 
-      this.getContent().add(new qx.ui.mobile.form.renderer.Single(this.__form));
+      this.getContent().append(new qx.ui.mobile.form.renderer.Single(this.__form));
 
       this.__submitButton = this._createSubmitButton();
-      this.getContent().add(this.__submitButton);
+      this.getContent().append(this.__submitButton);
 
       this.__resetButton = this._createResetButton();
-      this.getContent().add(this.__resetButton);
+      this.getContent().append(this.__resetButton);
 
       this.__result = new qx.ui.mobile.form.Label();
       this.__result.addClass("registration-result");
@@ -76,8 +76,8 @@ qx.Bootstrap.define("mobileshowcase.page.Form",
         this.__resultPopup.hide();
       },this);
 
-      popupContent.add(this.__result);
-      popupContent.add(this.__closeResultPopup);
+      popupContent.append(this.__result);
+      popupContent.append(this.__closeResultPopup);
 
       this.__resultPopup = new qx.ui.mobile.dialog.Popup(popupContent);
       this.__resultPopup.title = "Registration Result";

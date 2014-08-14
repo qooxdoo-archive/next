@@ -34,7 +34,7 @@
  *   var container = new qx.ui.mobile.container.Navigation();
  *   this.getRoot(container);
  *   var page = new qx.ui.mobile.page.NavigationPage();
- *   container.add(page);
+ *   container.append(page);
  *   page.show();
  * </pre>
  */
@@ -55,12 +55,12 @@ qx.Bootstrap.define("qx.ui.mobile.container.Navigation",
 
     this.__navigationBar = this._createNavigationBar();
     if (this.__navigationBar) {
-      this._add(this.__navigationBar);
+      this._append(this.__navigationBar);
     }
 
     this.__content = this._createContent();
     this.__content.layoutPrefs = {flex: 1};
-    this._add(this.__content);
+    this._append(this.__content);
   },
 
 
@@ -103,23 +103,22 @@ qx.Bootstrap.define("qx.ui.mobile.container.Navigation",
 
 
     // overridden
-    add : function(widget) {
-      if (qx.core.Environment.get("qx.debug"))
-      {
+    append : function(widget) {
+      if (qx.core.Environment.get("qx.debug")) {
         this.assertInterface(widget, qx.ui.mobile.container.INavigation);
       }
 
-      this.getContent().add(widget);
+      this.getContent().append(widget);
     },
 
 
-    // overridden
+    // overridden TODO remove
     remove : function(widget) {
       if (qx.core.Environment.get("qx.debug"))
       {
         this.assertInterface(widget, qx.ui.mobile.container.INavigation);
       }
-      this.getContent().remove(widget);
+      widget.remove();
     },
 
 
@@ -225,18 +224,18 @@ qx.Bootstrap.define("qx.ui.mobile.container.Navigation",
 
       var leftContainer = widget.getLeftContainer();
       if (leftContainer) {
-        navigationBar.add(leftContainer);
+        navigationBar.append(leftContainer);
       }
 
       var title = widget.getTitleWidget();
       if (title) {
         title.layoutPrefs = {flex:1};
-        navigationBar.add(title);
+        navigationBar.append(title);
       }
 
       var rightContainer = widget.getRightContainer();
       if (rightContainer) {
-        navigationBar.add(rightContainer);
+        navigationBar.append(rightContainer);
       }
 
       this.emit("update", widget);

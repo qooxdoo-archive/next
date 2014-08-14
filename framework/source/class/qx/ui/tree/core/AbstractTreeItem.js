@@ -433,7 +433,7 @@ qx.Class.define("qx.ui.tree.core.AbstractTreeItem",
       container.addBefore(treeItem, nextItem);
 
       if (treeItem.hasChildren()) {
-        container.addAfter(treeItem.getChildrenContainer(), treeItem);
+        container.insertAfter(treeItem.getChildrenContainer(), treeItem);
       }
       qx.lang.Array.insertAt(this.__children, treeItem, index);
 

@@ -93,9 +93,9 @@ qx.Bootstrap.define("qx.ui.mobile.page.Manager",
       this.__masterNavigation.on("update", this._onMasterContainerUpdate, this);
       this.__detailNavigation.on("update", this._onDetailContainerUpdate, this);
 
-      root.add(this.__detailContainer);
-      this.__masterContainer.add(this.__masterNavigation);
-      this.__detailContainer.add(this.__detailNavigation);
+      root.append(this.__detailContainer);
+      this.__masterContainer.append(this.__masterNavigation);
+      this.__detailContainer.append(this.__detailNavigation);
 
       qxWeb(window).on("orientationchange", this._onLayoutChange, this);
       this.__masterContainer.on("resize", this._onLayoutChange, this);
@@ -112,7 +112,7 @@ qx.Bootstrap.define("qx.ui.mobile.page.Manager",
         }
       }.bind(this), 300);
     } else {
-      root.add(this.__detailNavigation);
+      root.append(this.__detailNavigation);
     }
   },
 
@@ -416,7 +416,7 @@ qx.Bootstrap.define("qx.ui.mobile.page.Manager",
         }
 
         page.setIsTablet(this.__isTablet);
-        target.add(page);
+        target.append(page);
       }
     },
 
@@ -426,8 +426,8 @@ qx.Bootstrap.define("qx.ui.mobile.page.Manager",
      * @param widget {qx.ui.mobile.core.Widget} source widget.
      */
     _onMasterContainerUpdate : function(widget) {
-      widget.getRightContainer().remove(this.__hideMasterButton);
-      widget.getRightContainer().add(this.__hideMasterButton);
+      this.__hideMasterButton.remove();
+      widget.getRightContainer().append(this.__hideMasterButton);
     },
 
 
@@ -436,8 +436,8 @@ qx.Bootstrap.define("qx.ui.mobile.page.Manager",
      * @param widget {qx.ui.mobile.core.Widget} source widget.
      */
     _onDetailContainerUpdate : function(widget) {
-      widget.getLeftContainer().remove(this.__masterButton);
-      widget.getLeftContainer().add(this.__masterButton);
+      this.__masterButton.remove();
+      widget.getLeftContainer().append(this.__masterButton);
     },
 
 

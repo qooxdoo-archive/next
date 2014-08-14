@@ -62,7 +62,7 @@ qx.Bootstrap.define("mobileshowcase.page.Drawer",
       for(var i = 0; i < drawers.length; i++) {
         var openDrawerButton = new qx.ui.mobile.form.Button("Open "+drawers[i].orientation +" drawer");
         openDrawerButton.on("tap", drawers[i].show, drawers[i]);
-        drawerGroup.add(openDrawerButton);
+        drawerGroup.append(openDrawerButton);
       }
 
       return drawerGroup;
@@ -80,19 +80,19 @@ qx.Bootstrap.define("mobileshowcase.page.Drawer",
 
       var drawerBottom = this._createDrawer("bottom");
       drawerBottom.size = drawerSize;
-      drawerBottom.add(this._createDrawerContent(drawerBottom));
+      drawerBottom.append(this._createDrawerContent(drawerBottom));
 
       var drawerTop = this._createDrawer("top");
       drawerTop.size = drawerSize;
-      drawerTop.add(this._createDrawerContent(drawerTop));
+      drawerTop.append(this._createDrawerContent(drawerTop));
 
       var drawerLeft = this._createDrawer("left");
       drawerLeft.size = drawerSize;
-      drawerLeft.add(this._createDrawerContent(drawerLeft));
+      drawerLeft.append(this._createDrawerContent(drawerLeft));
 
       var drawerRight = this._createDrawer("right");
       drawerRight.size = drawerSize;
-      drawerRight.add(this._createDrawerContent(drawerRight));
+      drawerRight.append(this._createDrawerContent(drawerRight));
 
       // Z POSITION TOGGLE BUTTON
 
@@ -109,11 +109,11 @@ qx.Bootstrap.define("mobileshowcase.page.Drawer",
 
       var toggleModeGroup = new qx.ui.mobile.form.Group([frontBackToggleButton]);
 
-      this.getContent().add(new qx.ui.mobile.form.Title("Position"));
-      this.getContent().add(toggleModeGroup);
+      this.getContent().append(new qx.ui.mobile.form.Title("Position"));
+      this.getContent().append(toggleModeGroup);
 
-      this.getContent().add(new qx.ui.mobile.form.Title("Action"));
-      this.getContent().add(this._createDrawerMenu([drawerTop, drawerRight, drawerBottom, drawerLeft]));
+      this.getContent().append(new qx.ui.mobile.form.Title("Action"));
+      this.getContent().append(this._createDrawerMenu([drawerTop, drawerRight, drawerBottom, drawerLeft]));
     },
 
 

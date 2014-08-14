@@ -30,13 +30,13 @@
  *    page1.on("initialize", function()
  *    {
  *      var sel = new qx.ui.mobile.form.SelectBox();
- *      page1.add(sel);
+ *      page1.append(sel);
  *      var model = new qx.data.Array(["item1","item2"]);
  *      sel.model = model;
  *      model.push("item3");
  *
  *      var but = new qx.ui.mobile.form.Button("setSelection");
- *      page1.add(but);
+ *      page1.append(but);
  *      but.on("tap", function(){
  *        sel.selection = "item3";
  *      }, this);
@@ -48,7 +48,7 @@
  *      var title = new qx.ui.mobile.form.Title("item2");
  *      title.bind("value",sel,"value");
  *      sel.bind("value",title,"value");
- *      page1.add(title);
+ *      page1.append(title);
  *   },this);
  *
  *   page1.show();

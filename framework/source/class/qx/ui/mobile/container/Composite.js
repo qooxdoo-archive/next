@@ -36,10 +36,10 @@
  *   composite.setLayout(new qx.ui.mobile.layout.HBox());
  *
  *   // add some children
- *   composite.add(new qx.ui.mobile.basic.Label("Name: "));
- *   composite.add(new qx.ui.mobile.form.TextField());
+ *   composite.append(new qx.ui.mobile.basic.Label("Name: "));
+ *   composite.append(new qx.ui.mobile.form.TextField());
  *
- *   this.getRoot().add(composite);
+ *   this.getRoot().append(composite);
  * </pre>
  *
  * This example horizontally groups a label and text field by using a

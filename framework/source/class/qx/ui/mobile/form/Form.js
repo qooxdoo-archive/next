@@ -28,10 +28,10 @@
  * <pre class='javascript'>
  *   var title = new qx.ui.mobile.form.Title("Group");
  *   var form = new qx.ui.mobile.form.Form();
- *   form.add(new qx.ui.mobile.form.TextField(), "Username: ");
+ *   form.app(new qx.ui.mobile.form.TextField(), "Username: ");
  *
- *   this.getRoot().add(title);
- *   this.getRoot().add(new qx.ui.mobile.form.renderer.Single(form));
+ *   this.getRoot().append(title);
+ *   this.getRoot().append(new qx.ui.mobile.form.renderer.Single(form));
  * </pre>
  *
  * This example creates a form and adds a row with a text field in it.

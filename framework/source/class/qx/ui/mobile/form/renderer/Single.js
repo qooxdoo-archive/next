@@ -166,7 +166,7 @@ qx.Bootstrap.define("qx.ui.mobile.form.renderer.Single",
       var scrollContainer = new qx.ui.mobile.container.Scroll();
       scrollContainer.addClass("form-row-scroll");
 
-      scrollContainer.add(item, {
+      scrollContainer.append(item, {
         flex: 1
       });
 
@@ -212,11 +212,11 @@ qx.Bootstrap.define("qx.ui.mobile.form.renderer.Single",
         var label = new qx.ui.mobile.form.Label(name);
         label.setLabelFor(item.id);
         label.layoutPrefs = {flex:1};
-        row.add(label);
+        row.append(label);
         this._labels.push(label);
       }
-      row.add(item);
-      this._add(row);
+      row.append(item);
+      this.append(row);
       this._rows.push(row);
     },
 
@@ -227,7 +227,7 @@ qx.Bootstrap.define("qx.ui.mobile.form.renderer.Single",
     _addSeparationRow : function() {
       var row = new qx.ui.mobile.form.Row();
       row.addClass("form-separation-row");
-      this._add(row);
+      this.append(row);
       this._rows.push(row);
     },
 
@@ -238,7 +238,7 @@ qx.Bootstrap.define("qx.ui.mobile.form.renderer.Single",
     _addGroupHeaderRow : function() {
       var row = new qx.ui.mobile.form.Row();
       row.addClass("form-row-group-first");
-      this._add(row);
+      this.append(row);
       this._rows.push(row);
     },
 
@@ -249,7 +249,7 @@ qx.Bootstrap.define("qx.ui.mobile.form.renderer.Single",
     _addGroupFooterRow : function() {
       var row = new qx.ui.mobile.form.Row();
       row.addClass("form-row-group-last");
-      this._add(row);
+      this.append(row);
       this._rows.push(row);
     },
 
@@ -265,8 +265,8 @@ qx.Bootstrap.define("qx.ui.mobile.form.renderer.Single",
       var row = new qx.ui.mobile.form.Row();
       row.addClass("form-row-group-title");
       var titleLabel = new qx.ui.mobile.basic.Label(title);
-      row.add(titleLabel);
-      this._add(row);
+      row.append(titleLabel);
+      this.append(row);
       this._labels.push(titleLabel);
       this._rows.push(row);
     },
@@ -276,8 +276,8 @@ qx.Bootstrap.define("qx.ui.mobile.form.renderer.Single",
     addButton : function(button) {
       var row = new qx.ui.mobile.form.Row(new qx.ui.mobile.layout.HBox());
       button.layoutPrefs = {flex:1};
-      row.add(button);
-      this._add(row);
+      row.append(button);
+      this.append(row);
       this._rows.push(row);
     },
 

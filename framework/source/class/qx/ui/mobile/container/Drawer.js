@@ -36,7 +36,7 @@
  *  drawer.setTapOffset(100);
  *
  *  var button = new qx.ui.mobile.form.Button("A Button");
- *  drawer.add(button);
+ *  drawer.append(button);
  * </pre>
  *
  * @require(qx.module.Transform)
@@ -73,11 +73,11 @@ qx.Bootstrap.define("qx.ui.mobile.container.Drawer",
         this.assertInstance(parent, qx.ui.mobile.container.Composite);
       }
 
-      parent.add(this);
+      parent.append(this);
 
       qx.core.Init.getApplication().on("back", this.forceHide, this);
     } else {
-      qx.core.Init.getApplication().getRoot().add(this);
+      qx.core.Init.getApplication().getRoot().append(this);
     }
 
     this.__parent = this._getParentWidget();

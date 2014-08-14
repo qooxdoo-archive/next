@@ -38,8 +38,8 @@
  *   scrollComposite.setLayout(new qx.ui.mobile.layout.HBox());
  *
  *   // add some children
- *   scrollComposite.add(new qx.ui.mobile.basic.Label("Name: "));
- *   scrollComposite.add(new qx.ui.mobile.form.TextField());
+ *   scrollComposite.append(new qx.ui.mobile.basic.Label("Name: "));
+ *   scrollComposite.append(new qx.ui.mobile.form.TextField());
  * </pre>
  *
  * This example horizontally groups a label and text field by using a
@@ -76,7 +76,7 @@ qx.Bootstrap.define("qx.ui.mobile.container.ScrollComposite",
 
     this._setLayout(new qx.ui.mobile.layout.HBox());
     this._scrollContainer.layoutPrefs = {flex:1};
-    this._add(this._scrollContainer);
+    this.append(this._scrollContainer);
 
     this._updateScrollIndicator(this.__lastOffset[1]);
 
@@ -382,15 +382,15 @@ qx.Bootstrap.define("qx.ui.mobile.container.ScrollComposite",
 
 
     //overridden
-    add : function(child, options) {
-      this._scrollContainer.add(child,options);
+    append : function(child) {
+      this._scrollContainer.append(child);
       this._handleSize(child);
     },
 
 
     // overridden
     addAfter : function(child, after) {
-      child.addAfter(after);
+      child.insertAfter(after);
       this._handleSize(child);
     },
 
@@ -441,7 +441,7 @@ qx.Bootstrap.define("qx.ui.mobile.container.ScrollComposite",
     // overridden
     remove : function(child) {
       this._unhandleSize(child);
-      this._scrollContainer.remove(child);
+      child.remove();
     },
 
 

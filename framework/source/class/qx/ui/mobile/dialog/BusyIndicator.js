@@ -27,7 +27,7 @@
  *
  * <pre class='javascript'>
  *   var busyIndicator = new qx.ui.mobile.dialog.BusyIndicator("Please wait");
- *   this.getRoot().add(busyIndicator);
+ *   this.getRoot().append(busyIndicator);
  * </pre>
  *
  * This example creates a widget to display the busy indicator.

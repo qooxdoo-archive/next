@@ -35,8 +35,8 @@
  *     this.model = evt.getdata() ? "Title Activated" : "Title Deactivated";
  *   });
  *
- *   this.getRoot.add(checkBox);
- *   this.getRoot.add(title);
+ *   this.getRoot.append(checkBox);
+ *   this.getRoot.append(title);
  * </pre>
  *
  * This example adds 2 widgets , a checkBox and a Title and binds them together by their model and value properties.

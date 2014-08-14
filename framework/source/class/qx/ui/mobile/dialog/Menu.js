@@ -62,8 +62,8 @@ qx.Bootstrap.define("qx.ui.mobile.dialog.Menu",
     this.__clearButton = this._createClearButton();
     this.__listScroller = this._createListScroller(this.__selectionList);
 
-    this.__menuContainer.add(this.__listScroller);
-    this.__menuContainer.add(this.__clearButton);
+    this.__menuContainer.append(this.__listScroller);
+    this.__menuContainer.append(this.__clearButton);
 
     this.base(qx.ui.mobile.dialog.Popup, "constructor", this.__menuContainer, anchor);
 
@@ -212,7 +212,7 @@ qx.Bootstrap.define("qx.ui.mobile.dialog.Menu",
     _createListScroller : function(selectionList) {
       var listScroller = new qx.ui.mobile.container.Scroll({"snap":".list-item"});
       selectionList.layoutPrefs = {flex: 1};
-      listScroller.add(selectionList);
+      listScroller.append(selectionList);
       listScroller.addClass("menu-scroller");
       return listScroller;
     },

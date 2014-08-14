@@ -45,11 +45,11 @@
  *
  * var container = new qx.ui.mobile.container.Composite(layout);
  *
- * container.add(new qx.ui.mobile.basic.Label("1"));
+ * container.append(new qx.ui.mobile.basic.Label("1"));
  * var item2 = new qx.ui.mobile.basic.Label("2");
  * item2.layoutPrefs = {flex:1};
- * container.add(item2);
- * container.add(new qx.ui.mobile.basic.Label("3"));
+ * container.append(item2);
+ * container.append(new qx.ui.mobile.basic.Label("3"));
  * </pre>
  */
 qx.Bootstrap.define("qx.ui.mobile.layout.HBox",

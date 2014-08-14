@@ -78,7 +78,7 @@ qx.Bootstrap.define("mobileshowcase.page.Overview",
         qx.core.Init.getApplication().getRouting().executeGet("/"+path);
       }, this);
 
-      this.getContent().add(list);
+      this.getContent().append(list);
 
     }
   }

@@ -100,7 +100,7 @@ qx.Bootstrap.define("mobileshowcase.page.Event",
       containerTouchArea.on("pointercancel", this._onPointer, this);
       containerTouchArea.on("pointerout", this._onPointer, this);
 
-      container.add(containerTouchArea);
+      container.append(containerTouchArea);
 
       // GESTURE TARGET OBJECT
       this.__gestureTarget = new qx.ui.mobile.basic.Image("mobileshowcase/icon/HTML5_Badge_512.png");
@@ -114,7 +114,7 @@ qx.Bootstrap.define("mobileshowcase.page.Event",
       this.__gestureTarget.setDraggable(false);
       this.__gestureTarget.translate([(-5000) + "px", 0]);
 
-      container.add(this.__gestureTarget);
+      container.append(this.__gestureTarget);
 
       // POINTER VISUALIZATION CIRCLES
       for (var i = 0; i < 15; i++) {
@@ -125,11 +125,11 @@ qx.Bootstrap.define("mobileshowcase.page.Event",
         circle.translate([(-5000) + "px", 0]);
         circle.anonymous = true;
 
-        containerTouchArea.add(circle);
+        containerTouchArea.append(circle);
       }
 
       var label = this.__label = new qx.ui.mobile.basic.Label("Touch / Tap / Swipe this area");
-      containerTouchArea.add(label);
+      containerTouchArea.append(label);
 
       var descriptionText = "<b>Testing Pointer Events:</b> Touch / Tap / Swipe the area<br />\n\
       <b>Testing Multi-Pointer Events:</b> Touch the area with multiple fingers<br />\n\
@@ -142,9 +142,9 @@ qx.Bootstrap.define("mobileshowcase.page.Event",
       var descriptionGroup = new qx.ui.mobile.form.Group([descriptionLabel]);
       var containerGroup = new qx.ui.mobile.form.Group([container]);
       descriptionGroup.layoutPrefs = {flex: 1};
-      this.getContent().add(descriptionGroup);
+      this.getContent().append(descriptionGroup);
       containerGroup.layoutPrefs = {flex: 1};
-      this.getContent().add(containerGroup);
+      this.getContent().append(containerGroup);
 
       // Center background gradient, when multiple pointers are available.
       this.__container.setStyle("background", "-" + this.__vendorPrefix + "-radial-gradient(50% 50%, cover, #1a82f7, #2F2727)");

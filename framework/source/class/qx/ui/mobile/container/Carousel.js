@@ -37,11 +37,11 @@
  *  var carouselPage1 = new qx.ui.mobile.container.Composite();
  *  var carouselPage2 = new qx.ui.mobile.container.Composite();
  *
- *  carouselPage1.add(new qx.ui.mobile.basic.Label("This is a carousel. Please swipe left."));
- *  carouselPage2.add(new qx.ui.mobile.basic.Label("Now swipe right."));
+ *  carouselPage1.append(new qx.ui.mobile.basic.Label("This is a carousel. Please swipe left."));
+ *  carouselPage2.append(new qx.ui.mobile.basic.Label("Now swipe right."));
  *
- *  carousel.add(carouselPage1);
- *  carousel.add(carouselPage2);
+ *  carousel.append(carouselPage1);
+ *  carousel.append(carouselPage2);
  * </pre>
  *
  */
@@ -99,12 +99,10 @@ qx.Bootstrap.define("qx.ui.mobile.container.Carousel",
 
     this.setLayout(new qx.ui.mobile.layout.VBox());
 
-    this._add(carouselScroller, {
-      flex: 1
-    });
-    this._add(pagination, {
-      flex: 1
-    });
+    carouselScroller.layoutPrefs = {flex: 1};
+    this._append(carouselScroller);
+    pagination.layoutPrefs = {flex: 1};
+    this._append(pagination);
   },
 
 
@@ -197,7 +195,8 @@ qx.Bootstrap.define("qx.ui.mobile.container.Carousel",
      * Adds a page to the end of the carousel.
      * @param page {qx.ui.mobile.container.Composite} The composite which should be added as a page to the end of carousel.
      */
-    add : function(page) {
+    append : function(page) {
+      this.base(qx.ui.mobile.container.Composite, "append", page);
       if (qx.core.Environment.get("qx.debug")) {
         if (!page instanceof qx.ui.mobile.container.Composite) {
           throw new Error("Page is expected to be an instance of qx.ui.mobile.container.Composite.");
@@ -207,13 +206,12 @@ qx.Bootstrap.define("qx.ui.mobile.container.Carousel",
       page.addClass("carousel-page");
 
       this.__pages.push(page);
-      this.__carouselScroller.add(page, {
-        flex: 1
-      });
+      page.layoutPrefs = {flex: 1};
+      this.__carouselScroller.append(page);
 
       var paginationLabel = this._createPaginationLabel();
       this.__paginationLabels.push(paginationLabel);
-      this.__pagination.add(paginationLabel);
+      this.__pagination.append(paginationLabel);
 
       this._setTransitionDuration(0);
       this._onContainerUpdate();
@@ -234,8 +232,8 @@ qx.Bootstrap.define("qx.ui.mobile.container.Carousel",
         var targetPage = this.__pages[pageIndex];
         var paginationLabel = this.__paginationLabels[pageIndex];
 
-        this.__carouselScroller.remove(targetPage);
-        this.__pagination.remove(paginationLabel);
+        targetPage.remove();
+        paginationLabel.remove();
 
         paginationLabel.off("tap", this._onPaginationLabelTap, {
           self: this,
@@ -374,7 +372,7 @@ qx.Bootstrap.define("qx.ui.mobile.container.Carousel",
       var paginationIndex = this.__pages.length;
       var paginationLabel = new qx.ui.mobile.container.Composite();
       var paginationLabelText = new qx.ui.mobile.basic.Label("" + paginationIndex);
-      paginationLabel.add(paginationLabelText);
+      paginationLabel.append(paginationLabelText);
 
       paginationLabel.addClass("carousel-pagination-label");
       paginationLabel.on("tap", this._onPaginationLabelTap, {

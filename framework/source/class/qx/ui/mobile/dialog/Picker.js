@@ -20,7 +20,7 @@
 
 /**
  * @deprecated {4.1} Please use qx.ui.mobile.control.Picker instead.
- * 
+ *
  * The picker widget gives the user the possibility to select a value out of an array
  * of values. The picker widget is always shown in a {@link qx.ui.mobile.dialog.Popup}.
  *
@@ -45,7 +45,7 @@
  *
  * var showPickerButton = new qx.ui.mobile.form.Button("Show Picker");
  * showPickerButton.on("tap", picker.show, picker);
- * this.getContent().add(showPickerButton);
+ * this.getContent().append(showPickerButton);
  *
  * // Listener when user has confirmed his selection.
  * // Contains the selectedIndex and values of all slots in a array.
@@ -99,12 +99,12 @@ qx.Bootstrap.define("qx.ui.mobile.dialog.Picker",
     this.__pickerCancelButton.on("tap", this.hide, this);
 
     this.__pickerButtonContainer = new qx.ui.mobile.container.Composite(new qx.ui.mobile.layout.HBox());
-    this.__pickerButtonContainer.add(this.__pickerConfirmButton);
-    this.__pickerButtonContainer.add(this.__pickerCancelButton);
+    this.__pickerButtonContainer.append(this.__pickerConfirmButton);
+    this.__pickerButtonContainer.append(this.__pickerCancelButton);
     this.__pickerButtonContainer.addClass("gap");
 
-    this.__pickerContent.add(this.__pickerContainer);
-    this.__pickerContent.add(this.__pickerButtonContainer);
+    this.__pickerContent.append(this.__pickerContainer);
+    this.__pickerContent.append(this.__pickerButtonContainer);
 
     this.modal = !!anchor;
 
@@ -613,7 +613,7 @@ qx.Bootstrap.define("qx.ui.mobile.dialog.Picker",
         var pickerSlot = this._createPickerSlot(slotIndex);
         this.__slotElements.push(pickerSlot[0]);
         pickerSlot.layoutPrefs = {flex: 1};
-        this.__pickerContainer.add(pickerSlot);
+        this.__pickerContainer.append(pickerSlot);
 
         this._renderPickerSlotContent(pickerSlot, slotIndex);
       }
@@ -636,7 +636,7 @@ qx.Bootstrap.define("qx.ui.mobile.dialog.Picker",
         var pickerLabel = this._createPickerValueLabel(labelValue);
 
         pickerLabel.layoutPrefs = {flex: 1};
-        pickerSlot.add(pickerLabel);
+        pickerSlot.append(pickerLabel);
       }
     },
 

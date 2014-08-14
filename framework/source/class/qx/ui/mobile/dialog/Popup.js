@@ -84,7 +84,7 @@ qx.Bootstrap.define("qx.ui.mobile.dialog.Popup",
     if(qx.ui.mobile.dialog.Popup.ROOT == null) {
       qx.ui.mobile.dialog.Popup.ROOT = qx.core.Init.getApplication().getRoot();
     }
-    qx.ui.mobile.dialog.Popup.ROOT.add(this);
+    qx.ui.mobile.dialog.Popup.ROOT.append(this);
 
     this.__anchor = anchor;
 
@@ -429,16 +429,16 @@ qx.Bootstrap.define("qx.ui.mobile.dialog.Popup",
       if(this.__childrenContainer == null) {
         this.__childrenContainer = new qx.ui.mobile.container.Composite(new qx.ui.mobile.layout.VBox());
         this.__childrenContainer.defaultCssClass = "popup-content";
-        this._add(this.__childrenContainer);
+        this._append(this.__childrenContainer);
       }
 
-      if(this._createTitleWidget()) {
-        this.__childrenContainer.remove(this._createTitleWidget());
-        this.__childrenContainer.add(this._createTitleWidget());
+      if(this._getTitleWidget()) {
+        this._getTitleWidget().remove();
+        this.__childrenContainer.append(this._getTitleWidget());
       }
 
       widget.layoutPrefs = {flex: 1};
-      this.__childrenContainer.add(widget);
+      this.__childrenContainer.append(widget);
 
       this.__widget = widget;
     },
@@ -449,7 +449,7 @@ qx.Bootstrap.define("qx.ui.mobile.dialog.Popup",
      *
      * @return {qx.ui.mobile.basic.Atom} The title atom widget.
      */
-    _createTitleWidget : function()
+    _getTitleWidget : function()
     {
       if(this.__titleWidget) {
         return this.__titleWidget;
@@ -481,10 +481,10 @@ qx.Bootstrap.define("qx.ui.mobile.dialog.Popup",
           this.__titleWidget.addClass('popup-title');
 
           if(this.__widget) {
-            this._createTitleWidget()._addBefore(this.__widget);
+            this._getTitleWidget().insertBefore(this.__widget);
           } else {
             if(this.__childrenContainer) {
-              this.__childrenContainer.add(this._createTitleWidget());
+              this.__childrenContainer.append(this._getTitleWidget());
             }
           }
         }
@@ -503,10 +503,10 @@ qx.Bootstrap.define("qx.ui.mobile.dialog.Popup",
           this.__titleWidget.addClass('popup-title');
 
           if (this.__widget) {
-            this._createTitleWidget().addBefore(this.__widget);
+            this._getTitleWidget().insertBefore(this.__widget);
           } else {
             if (this.__childrenContainer) {
-              this.__childrenContainer.add(this._createTitleWidget());
+              this.__childrenContainer.append(this._getTitleWidget());
             }
           }
         }
@@ -519,8 +519,7 @@ qx.Bootstrap.define("qx.ui.mobile.dialog.Popup",
      * or you haven't passed it in the constructor.
      * @param widget {qx.ui.mobile.core.Widget} - what to show in the popup
      */
-    add : function(widget)
-    {
+    append : function(widget) {
       this.removeWidget();
       this._initializeChild(widget);
     },
@@ -556,7 +555,7 @@ qx.Bootstrap.define("qx.ui.mobile.dialog.Popup",
     {
       if(this.__widget)
       {
-        this.__childrenContainer.remove(this.__widget);
+        this.__widget.remove();
         return this.__widget;
       }
       else

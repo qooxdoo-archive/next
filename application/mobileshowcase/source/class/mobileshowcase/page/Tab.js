@@ -78,10 +78,10 @@ qx.Bootstrap.define("mobileshowcase.page.Tab",
       var tabButton4 = new qx.ui.mobile.tabbar.TabButton("Website");
       tabButton4.view = view4;
 
-      tabBar.add(tabButton4);
-      tabBar.add(tabButton2);
-      tabBar.add(tabButton3);
-      tabBar.add(tabButton1);
+      tabBar.append(tabButton4);
+      tabBar.append(tabButton2);
+      tabBar.append(tabButton3);
+      tabBar.append(tabButton1);
 
       return tabBar;
     },
@@ -96,7 +96,7 @@ qx.Bootstrap.define("mobileshowcase.page.Tab",
     __createView : function(text)
     {
       var label = new qx.ui.mobile.basic.Label(text);
-      this.getContent().add(label);
+      this.getContent().append(label);
       return label;
     }
   }

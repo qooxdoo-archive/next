@@ -398,14 +398,15 @@ qx.Bootstrap.define("qx.ui.mobile.core.Widget",
     },
 
 
-    /**
-     * Adds a new child widget.
-     *
-     * @param child {Widget} the widget to add.
-     */
-    _add : function(child)
+    _append : function(child) {
+      this.base(qx.ui.mobile.core.Widget, "append", child);
+    },
+
+
+    // overridden
+    append : function(child)
     {
-      this.append(child[0]);
+      this.base(qxWeb, "append", child);
 
       this.updateLayoutProperties(child);
 
@@ -428,48 +429,10 @@ qx.Bootstrap.define("qx.ui.mobile.core.Widget",
       var ref = this.getChildren()[index];
 
       if (ref) {
-        child._addBefore(ref);
+        child.insertBefore(ref);
       } else {
-        this._add(child);
+        this.append(child);
       }
-    },
-
-
-    /**
-     * Add a widget before another already inserted widget
-     *
-     * @param child {Widget} widget to add
-     * @param before {Widget} widget before the new widget will be inserted.
-     * @param layoutProperties {Map?null} Optional layout data for widget.
-     */
-    _addBefore : function(widget)
-    {
-      this.insertBefore(widget);
-    },
-
-
-    /**
-     * Add a widget after another already inserted widget.
-     *
-     * @param child {Widget} The widget to add.
-     * @param widget {Widget} Widget, after which the new widget will be inserted.
-     * @param layoutProperties {Map?null} Optional layout data for widget.
-     */
-    _addAfter : function(widget)
-    {
-      this.insertAfter(widget);
-    },
-
-
-
-    /**
-     * Removes a given child from the widget.
-     *
-     * @param child {Widget} The widget to remove.
-     */
-    _remove : function(child)
-    {
-      child.remove();
     },
 
 
@@ -481,7 +444,7 @@ qx.Bootstrap.define("qx.ui.mobile.core.Widget",
     _removeAt : function(index)
     {
       var child = this.getChildren()[index];
-      this._remove(child);
+      child.remove();
     },
 
 
@@ -884,7 +847,7 @@ qx.Bootstrap.define("qx.ui.mobile.core.Widget",
         qx.ui.mobile.core.Widget.unregisterWidget(this.id);
       }
 
-      // this.remove(); TODO delete widget remove API
+      this.remove();
     }
   },
 

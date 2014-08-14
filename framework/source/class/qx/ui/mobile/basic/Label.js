@@ -27,7 +27,7 @@
  * <pre class='javascript'>
  *   var label = new qx.ui.mobile.basic.Label("Hello World");
  *
- *   this.getRoot().add(label);
+ *   this.getRoot().append(label);
  * </pre>
  *
  * This example create a widget to display the label.

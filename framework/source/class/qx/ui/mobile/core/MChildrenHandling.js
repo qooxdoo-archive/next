@@ -49,16 +49,6 @@ qx.Mixin.define("qx.ui.mobile.core.MChildrenHandling",
     },
 
 
-    /**
-     * Adds a new child widget.
-     *
-     * @param child {Widget} the widget to add.
-     * @param layoutProperties {Map?null} Optional layout data for widget.
-     */
-    add : function(child, layoutProperties) {
-      this._add(child, layoutProperties);
-    },
-
 
     /**
      * Add a child widget at the specified index
@@ -70,40 +60,6 @@ qx.Mixin.define("qx.ui.mobile.core.MChildrenHandling",
     addAt : function(child, index)
     {
       this._addAt(child, index);
-    },
-
-
-    /**
-     * Add a widget before another already inserted widget
-     *
-     * @param child {Widget} Widget to add
-     * @param before {Widget} Widget before the new widget will be inserted.
-     * @param layoutProperties {Map?null} Optional layout data for widget.
-     */
-    addBefore : function(child, before) {
-      child._addBefore(before);
-    },
-
-
-    /**
-     * Add a widget after another already inserted widget
-     *
-     * @param child {Widget} Widget to add
-     * @param after {Widget} Widget, after which the new widget will be inserted
-     * @param layoutProperties {Map?null} Optional layout data for widget.
-     */
-    addAfter : function(child, after) {
-      child._addAfter(after);
-    },
-
-
-    /**
-     * Remove the given child widget.
-     *
-     * @param child {Widget} the widget to remove
-     */
-    remove : function(child) {
-      this._remove(child);
     },
 
 
@@ -146,12 +102,8 @@ qx.Mixin.define("qx.ui.mobile.core.MChildrenHandling",
     {
       members.indexOf = members._indexOf;
 
-      members.add = members._add;
       members.addAt = members._addAt;
-      members.addBefore = members._addBefore;
-      members.addAfter = members._addAfter;
 
-      members.remove = members._remove;
       members.removeAt = members._removeAt;
       members.removeAll = members._removeAll;
     }

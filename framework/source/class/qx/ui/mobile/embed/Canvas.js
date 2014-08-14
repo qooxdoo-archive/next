@@ -31,7 +31,7 @@
  *
  * canvas.setWidth(150);
  * canvas.setHeight(150);
- * this.getContent().add(canvas);
+ * this.getContent().append(canvas);
  *
  * var ctx = canvas.getContext2d();
  * ctx.strokeStyle = '#3D72C9';

@@ -35,7 +35,7 @@
  *  collapsible.collapsed = false;
  *
  *  var label = new qx.ui.mobile.basic.Label("This is the content of the Collapsible.");
- *  collapsible.add(label);
+ *  collapsible.append(label);
  *
  * </pre>
  *
@@ -66,8 +66,9 @@ qx.Bootstrap.define("qx.ui.mobile.container.Collapsible",
     this._content = this._createContent();
     this._content.addClass("collapsible-content");
 
-    this._add(this._header);
-    this._add(this._content);
+    // use the append of the superclass to prevent recursive append calls
+    this._append(this._header);
+    this._append(this._content);
 
     this.collapsed = undefined;
     this.combined = undefined;
@@ -123,11 +124,10 @@ qx.Bootstrap.define("qx.ui.mobile.container.Collapsible",
     /**
     * Adds a new child widget to the Collapsible's content composite.
     * @param child {qx.ui.mobile.core.Widget} the widget to add.
-    * @param layoutProperties {Map?} (default:null) Optional layout data for widget.
     */
-    add : function(child, layoutProperties) {
+    append : function(child) {
       if(child && this._content instanceof qx.ui.mobile.container.Composite) {
-        this._content.add(child, layoutProperties);
+        this._content.append(child);
       }
     },
 

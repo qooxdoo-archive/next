@@ -84,7 +84,7 @@ qx.Bootstrap.define("mobileshowcase.page.Theming",
     {
       this.base(mobileshowcase.page.Abstract, "_initialize");
 
-      this.getContent().add(new qx.ui.mobile.form.Title("Select a theme"));
+      this.getContent().append(new qx.ui.mobile.form.Title("Select a theme"));
 
       this.__createThemeChooser();
       this.__createThemeScaleControl();
@@ -129,14 +129,14 @@ qx.Bootstrap.define("mobileshowcase.page.Theming",
         radioButton.on("tap", this.__switchTheme.bind(this, i));
       }
 
-      themeGroup.add(new qx.ui.mobile.form.renderer.Single(themeForm));
-      this.getContent().add(themeGroup);
+      themeGroup.append(new qx.ui.mobile.form.renderer.Single(themeForm));
+      this.getContent().append(themeGroup);
     },
 
 
     /** Creates and adds the image resolution demonstration. */
     __createImageResolutionHandlingDemo : function() {
-      this.getContent().add(new qx.ui.mobile.form.Title("Resolution-specific Images"));
+      this.getContent().append(new qx.ui.mobile.form.Title("Resolution-specific Images"));
       var demoImage = new qx.ui.mobile.basic.Image("mobileshowcase/icon/image.png");
       demoImage.addClass("resolution-demo-image");
 
@@ -145,9 +145,9 @@ qx.Bootstrap.define("mobileshowcase.page.Theming",
       this._updateDemoImageLabel();
 
       var demoImageGroup = new qx.ui.mobile.form.Group();
-      demoImageGroup.add(demoImage);
-      demoImageGroup.add(this.__demoImageLabel);
-      this.getContent().add(demoImageGroup);
+      demoImageGroup.append(demoImage);
+      demoImageGroup.append(this.__demoImageLabel);
+      this.getContent().append(demoImageGroup);
     },
 
 
@@ -189,7 +189,7 @@ qx.Bootstrap.define("mobileshowcase.page.Theming",
      */
     __createThemeScaleControl : function()
     {
-      this.getContent().add(new qx.ui.mobile.form.Title("Adjust font scale"));
+      this.getContent().append(new qx.ui.mobile.form.Title("Adjust font scale"));
 
       var form = new qx.ui.mobile.form.Form();
       var slider = this.__slider = new qx.ui.mobile.form.Slider();
@@ -205,7 +205,7 @@ qx.Bootstrap.define("mobileshowcase.page.Theming",
       form.addButton(useScaleButton);
 
       var scaleGroup = new qx.ui.mobile.form.Group([new qx.ui.mobile.form.renderer.Single(form)],false);
-      this.getContent().add(scaleGroup);
+      this.getContent().append(scaleGroup);
     },
 
 

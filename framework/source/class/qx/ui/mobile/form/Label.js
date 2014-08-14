@@ -37,8 +37,8 @@
  *
  *   label.setLabelFor(checkBox.id);
  *
- *   this.getRoot().add(label);
- *   this.getRoot().add(checkBox);
+ *   this.getRoot().append(label);
+ *   this.getRoot().append(checkBox);
  * </pre>
  *
  * This example create a widget to display the label.

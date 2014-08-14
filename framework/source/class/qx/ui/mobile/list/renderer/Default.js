@@ -149,17 +149,17 @@ qx.Bootstrap.define("qx.ui.mobile.list.renderer.Default",
     _init : function()
     {
       this.__image = this._createImage();
-      this.add(this.__image);
+      this.append(this.__image);
 
       this.__rightContainer = this._createRightContainer();
       this.__rightContainer.layoutPrefs = {flex:1};
-      this.add(this.__rightContainer);
+      this.append(this.__rightContainer);
 
       this.__title = this._createTitle();
-      this.__rightContainer.add(this.__title);
+      this.__rightContainer.append(this.__title);
 
       this.__subtitle = this._createSubtitle();
-      this.__rightContainer.add(this.__subtitle);
+      this.__rightContainer.append(this.__subtitle);
     },
 
 

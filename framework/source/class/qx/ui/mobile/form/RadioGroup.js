@@ -39,7 +39,7 @@
  *    form.add(radio2, "UK");
  *    form.add(radio3, "USA");
  *
- *    this.getRoot.add(new qx.ui.mobile.form.renderer.Single(form));
+ *    this.getRoot.append(new qx.ui.mobile.form.renderer.Single(form));
  * </pre>
  */
 qx.Bootstrap.define("qx.ui.mobile.form.RadioGroup",

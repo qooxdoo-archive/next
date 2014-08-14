@@ -57,11 +57,11 @@ qx.Bootstrap.define("mobileshowcase.page.List",
       this._loadingIndicator = new qx.ui.mobile.dialog.BusyIndicator("Loading more items ...");
       this._loadingIndicator.exclude();
       this._loadingIndicator.addClass("waypoint-loading-indicator");
-      this.add(this._loadingIndicator);
+      this.append(this._loadingIndicator);
 
       this._waypointsLabel = new qx.ui.mobile.container.Composite();
       this._waypointsLabel.addClass("waypoint-info");
-      this.add(this._waypointsLabel);
+      this.append(this._waypointsLabel);
 
       var scrollContainer = this._scrollContainer = this._getScrollContainer();
       scrollContainer.setWaypointsY(this._waypointsY);
@@ -111,7 +111,7 @@ qx.Bootstrap.define("mobileshowcase.page.List",
        this._model.removeAt(data);
       }, this);
 
-      this.getContent().add(list);
+      this.getContent().append(list);
     },
 
 

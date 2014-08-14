@@ -33,9 +33,9 @@
  *   var scroll = new qx.ui.mobile.container.Scroll()
  *
  *   // add a children
- *   scroll.add(new qx.ui.mobile.basic.Label("Name: "));
+ *   scroll.append(new qx.ui.mobile.basic.Label("Name: "));
  *
- *   this.getRoot().add(scroll);
+ *   this.getRoot().append(scroll);
  * </pre>
  *
  * This example creates a scroll container and adds a label to it.

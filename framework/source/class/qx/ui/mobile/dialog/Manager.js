@@ -314,17 +314,17 @@ qx.Bootstrap.define("qx.ui.mobile.dialog.Manager",
         var wLayout = new qx.ui.mobile.layout.HBox();
         wLayout.alignX = "center";
         var waitingWidget = new qx.ui.mobile.container.Composite(wLayout);
-        widget.add(waitingWidget);
-        waitingWidget.add(new qx.ui.mobile.dialog.BusyIndicator(text));
+        widget.append(waitingWidget);
+        waitingWidget.append(new qx.ui.mobile.dialog.BusyIndicator(text));
       }
       else
       {
         var lLayout = new qx.ui.mobile.layout.HBox();
         lLayout.alignX = "center";
         var labelWidget = new qx.ui.mobile.container.Composite(lLayout);
-        labelWidget.add(new qx.ui.mobile.basic.Label(text));
+        labelWidget.append(new qx.ui.mobile.basic.Label(text));
         labelWidget.addClass("gap");
-        widget.add(labelWidget);
+        widget.append(labelWidget);
         if(dialogType == qx.ui.mobile.dialog.Manager.INPUT_DIALOG)
         {
           var iLayout = new qx.ui.mobile.layout.HBox();
@@ -332,8 +332,8 @@ qx.Bootstrap.define("qx.ui.mobile.dialog.Manager",
           var inputWidget = new qx.ui.mobile.container.Composite(iLayout);
           inputWidget.addClass("gap");
           var inputText = new qx.ui.mobile.form.TextField();
-          inputWidget.add(inputText);
-          widget.add(inputWidget);
+          inputWidget.append(inputText);
+          widget.append(inputWidget);
         }
 
         var bLayout = new qx.ui.mobile.layout.HBox();
@@ -346,7 +346,7 @@ qx.Bootstrap.define("qx.ui.mobile.dialog.Manager",
           /* see the comment in android.css for width: 0 for toolbar-button class*/
           button.addClass('dialog-button');
           button.layoutPrefs = {flex:1};
-          buttonContainer.add(button);
+          buttonContainer.append(button);
           var callback = (function(index){
             return function()
             {
@@ -359,7 +359,7 @@ qx.Bootstrap.define("qx.ui.mobile.dialog.Manager",
           })(i);
           button.on("tap", callback);
         }
-        widget.add(buttonContainer);
+        widget.append(buttonContainer);
       }
       dialog.modal = true;
       dialog.show();

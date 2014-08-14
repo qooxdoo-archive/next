@@ -73,10 +73,10 @@ qx.Bootstrap.define("mobileshowcase.page.Toolbar",
       this.base(mobileshowcase.page.Abstract, "_initialize");
 
       var label = new qx.ui.mobile.form.Title("Search");
-      this.getContent().add(label);
+      this.getContent().append(label);
 
       var toolbar = this.__toolbar = new qx.ui.mobile.toolbar.ToolBar();
-      this.add(toolbar);
+      this.append(toolbar);
 
       var searchBtn = new qx.ui.mobile.toolbar.Button("Search");
       searchBtn.on("tap", function() {
@@ -111,10 +111,10 @@ qx.Bootstrap.define("mobileshowcase.page.Toolbar",
         this.__deleteDialog = qx.ui.mobile.dialog.Manager.getInstance().warning('Deleting', 'Are you sure?', this.__processDelete, this, ["Yes", "No"]);
       }, this);
 
-      toolbar.add(searchBtn);
-      toolbar.add(this.__goBackBtn);
-      toolbar.add(this.__loadButton);
-      toolbar.add(deleteButton);
+      toolbar.append(searchBtn);
+      toolbar.append(this.__goBackBtn);
+      toolbar.append(this.__loadButton);
+      toolbar.append(deleteButton);
     },
 
 
@@ -142,9 +142,9 @@ qx.Bootstrap.define("mobileshowcase.page.Toolbar",
       var cancelButton = new qx.ui.mobile.form.Button("No");
 
       okButton.layoutPrefs = {flex:1};
-      buttonsWidget.add(okButton);
+      buttonsWidget.append(okButton);
       cancelButton.layoutPrefs = {flex:1};
-      buttonsWidget.add(cancelButton);
+      buttonsWidget.append(cancelButton);
 
       okButton.on("tap", function(){
         this.__areYouSurePopup.hide();
@@ -196,8 +196,8 @@ qx.Bootstrap.define("mobileshowcase.page.Toolbar",
         this.__searchDialog.hide();
       }, this);
 
-      popupWidget.add(searchField);
-      popupWidget.add(searchButton);
+      popupWidget.append(searchField);
+      popupWidget.append(searchButton);
 
       this.__searchDialog = new qx.ui.mobile.dialog.Popup(popupWidget);
       this.__searchDialog.hideOnBlockerTap = true;

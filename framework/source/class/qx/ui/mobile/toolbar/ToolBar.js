@@ -73,7 +73,7 @@ qx.Bootstrap.define("qx.ui.mobile.toolbar.ToolBar",
       * @param child {qx.ui.mobile.core.Widget} the widget to add.
       * @param layoutProperties {Map?null} Optional layout data for widget.
       */
-    add : function(child, layoutProperties)
+    append : function(child, layoutProperties)
     {
       if(!(child instanceof qx.ui.mobile.toolbar.Separator))
       {
@@ -81,7 +81,7 @@ qx.Bootstrap.define("qx.ui.mobile.toolbar.ToolBar",
         qx.lang.Object.mergeWith(layoutProperties, {flex: 1}, false);
       }
       child.layoutPrefs = layoutProperties;
-      this.base(qx.ui.mobile.container.Composite, "add", child);
+      this.base(qx.ui.mobile.container.Composite, "append", child);
     }
   }
 });

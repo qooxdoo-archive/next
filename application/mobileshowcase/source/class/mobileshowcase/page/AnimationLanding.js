@@ -75,7 +75,7 @@ qx.Bootstrap.define("mobileshowcase.page.AnimationLanding",
         this._getParentWidget().getLayout().showAnimation = true;
         qx.core.Init.getApplication().getRouting().executeGet("/animation/" + animationData[index].animation);
       }, this);
-      this.getContent().add(list);
+      this.getContent().append(list);
     },
 
 

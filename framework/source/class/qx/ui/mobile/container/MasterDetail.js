@@ -33,8 +33,8 @@
  * <pre class="javascript">
  * var container = new qx.ui.mobile.container.MasterDetail();
  *
- * container.getMaster().add(new qx.ui.mobile.container.Navigation());
- * container.getDetail().add(new qx.ui.mobile.container.Navigation());
+ * container.getMaster().append(new qx.ui.mobile.container.Navigation());
+ * container.getDetail().append(new qx.ui.mobile.container.Navigation());
  *
  * </pre>
  */
@@ -74,7 +74,7 @@ qx.Bootstrap.define("qx.ui.mobile.container.MasterDetail",
     this.__master = this._createMasterContainer();
     this.__detail = this._createDetailContainer();
     this.__detail.layoutPrefs = {flex:4};
-    this.add(this.__detail);
+    this.append(this.__detail);
 
     qx.event.Registration.addListener(window, "orientationchange", this._onOrientationChange, this);
 

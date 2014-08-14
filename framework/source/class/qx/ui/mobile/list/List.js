@@ -63,7 +63,7 @@
  *     alert("Index: " + evt)
  *   }, this);
  *
- *   this.getRoot().add(list);
+ *   this.getRoot().append(list);
  * </pre>
  *
  * This example creates a list with a delegate that configures the list item with
