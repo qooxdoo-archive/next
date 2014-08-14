@@ -79,10 +79,6 @@ qx.Bootstrap.define("qx.ui.mobile.container.Scroll",
     scrollEnd : "qx.event.type.Event",
 
 
-    /** Fired when the user scrolls to the end of scroll area. */
-    pageEnd : "qx.event.type.Event",
-
-
     /** Fired when a vertical or horizontal waypoint is triggered. Data:
     * <code> {"offset": 0,
     *        "input": "10%",

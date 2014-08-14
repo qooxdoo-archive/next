@@ -213,9 +213,6 @@ qx.Mixin.define("qx.ui.mobile.container.MIScroll",
             container._setCurrentX(-this.x);
             container._setCurrentY(-this.y);
             container.emit("scrollEnd");
-            if(this.y == this.maxScrollY) {
-              container.emit("pageEnd");
-            }
           }
         },
         onScrollMove : function() {
@@ -224,9 +221,6 @@ qx.Mixin.define("qx.ui.mobile.container.MIScroll",
           {
             container._setCurrentX(-this.x);
             container._setCurrentY(-this.y);
-            if(this.y == this.maxScrollY) {
-              container.emit("pageEnd");
-            }
           }
         },
         onBeforeScrollStart : function(e) {
