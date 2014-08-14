@@ -97,7 +97,6 @@ qx.Class.define("qx.test.mobile.basic.Atom",
       var imageURL = qx.util.ResourceManager.getInstance().toUri("qx/icon/Tango/48/places/user-home.png");
       var atom = new qx.ui.mobile.basic.Atom("myTextmyTextmyTextmyTextmyText", imageURL);
       this.getRoot().add(atom);
-      this.getRoot()._domUpdated();
 
       var iconElement = atom.getIconWidget().getContentElement();
       var labelElement = atom.getLabelWidget().getContentElement();
@@ -125,9 +124,6 @@ qx.Class.define("qx.test.mobile.basic.Atom",
       labelLeft = qx.bom.element.Location.getLeft(labelElement);
       iconLeft = qx.bom.element.Location.getLeft(iconElement);
       this.assertTrue(iconLeft >= labelLeft, "setIconPosition(right): iconElement.left is lower than labelElement.left");
-
-
-      this.getRoot()._domUpdated();
     },
 
 

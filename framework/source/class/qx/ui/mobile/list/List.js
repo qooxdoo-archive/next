@@ -513,8 +513,6 @@ qx.Bootstrap.define("qx.ui.mobile.list.List",
       var newNode = this.__provider.getItemElement(this.model.getItem(index), index);
 
       this[0].replaceChild(newNode, oldNode);
-
-      this._domUpdated();
     },
 
 
@@ -566,8 +564,6 @@ qx.Bootstrap.define("qx.ui.mobile.list.List",
 
         this.append(itemElement);
       }
-
-      this._domUpdated();
     },
 
 

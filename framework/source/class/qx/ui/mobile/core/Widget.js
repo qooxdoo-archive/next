@@ -70,13 +70,6 @@ qx.Bootstrap.define("qx.ui.mobile.core.Widget",
   events :
   {
     /**
-     * Fired after a massive DOM manipulation, e.g. when DOM elements were
-     * added or styles were changed. Listen to this event, if you need to
-     * recalculate a layout or have to update your view.
-     */
-    domupdated : "qx.event.type.Event",
-
-    /**
      * Fired after the widget appears on the screen.
      */
     appear : "qx.event.type.Event", //TODO?
@@ -213,16 +206,12 @@ qx.Bootstrap.define("qx.ui.mobile.core.Widget",
     /** @type {Integer} Incremental counter of the current id */
     __idCounter : 0,
 
-    /** @type {Integer} ID of the timeout for the DOM update */
-    __domUpdatedScheduleId : null,
 
     /**
      * Event handler. Called when the application is in shutdown.
      * @internal
      */
-    onShutdown : function()
-    {
-      window.clearTimeout(qx.ui.mobile.core.Widget.__domUpdatedScheduleId);
+    onShutdown : function() {
       delete qx.ui.mobile.core.Widget.__registry;
     },
 
@@ -278,39 +267,6 @@ qx.Bootstrap.define("qx.ui.mobile.core.Widget",
     getWidgetById : function(id) {
       return qx.ui.mobile.core.Widget.__registry[id];
     },
-
-
-    /**
-     * Schedules the {@link #domUpdated} method. The method will be called after a timeout
-     * to prevent the triggered events to be fired too often, during massive DOM manipulations.
-     *
-     * @internal
-     */
-    scheduleDomUpdated : function()
-    {
-      if (!qx.ui.mobile.core.Widget.__domUpdatedScheduleId) {
-        qx.ui.mobile.core.Widget.__domUpdatedScheduleId = window.setTimeout(
-          qx.ui.mobile.core.Widget.domUpdated,
-          0
-        );
-      }
-    },
-
-
-    /**
-     * Fires the DOM updated event directly. Triggers the {@link qx.event.handler.Appear#refresh} and
-     * {@link qx.ui.mobile.core.DomUpdatedHandler#refresh} methods. Do not use this
-     * method during massive DOM manipulations. Use {@link #scheduleDomUpdated} instead.
-     *
-     * @internal
-     */
-    domUpdated : qx.event.GlobalError.observeMethod(function()
-    {
-      var clazz = qx.ui.mobile.core.Widget;
-      window.clearTimeout(clazz.__domUpdatedScheduleId);
-      clazz.__domUpdatedScheduleId = null;
-      // qx.ui.mobile.core.DomUpdatedHandler.refresh();
-    }),
 
 
     /**
@@ -386,15 +342,6 @@ qx.Bootstrap.define("qx.ui.mobile.core.Widget",
     },
 
 
-    /**
-     * Triggers the {@link #scheduleDomUpdated} method. This method needs to be called
-     * when the DOM has changed, e.g. an element was added / removed / styled.
-     */
-    _domUpdated : function() {
-      qx.ui.mobile.core.Widget.scheduleDomUpdated();
-    },
-
-
     /*
     ---------------------------------------------------------------------------
       ID Handling
@@ -466,8 +413,6 @@ qx.Bootstrap.define("qx.ui.mobile.core.Widget",
       if (layout) {
         layout.connectToChildWidget(child);
       }
-
-      this._domUpdated();
     },
 
 
@@ -500,8 +445,6 @@ qx.Bootstrap.define("qx.ui.mobile.core.Widget",
     _addBefore : function(widget)
     {
       this.insertBefore(widget);
-
-      this._domUpdated();
     },
 
 
@@ -515,8 +458,6 @@ qx.Bootstrap.define("qx.ui.mobile.core.Widget",
     _addAfter : function(widget)
     {
       this.insertAfter(widget);
-
-      this._domUpdated();
     },
 
 
@@ -529,7 +470,6 @@ qx.Bootstrap.define("qx.ui.mobile.core.Widget",
     _remove : function(child)
     {
       child.remove();
-      this._domUpdated();
     },
 
 
@@ -601,7 +541,6 @@ qx.Bootstrap.define("qx.ui.mobile.core.Widget",
       }
 
       this.__layoutManager = layout;
-      this._domUpdated();
     },
 
 
@@ -661,7 +600,6 @@ qx.Bootstrap.define("qx.ui.mobile.core.Widget",
       if (layout) {
         layout.setLayoutProperties(widget);
       }
-      this._domUpdated();
     },
 
 
@@ -679,7 +617,6 @@ qx.Bootstrap.define("qx.ui.mobile.core.Widget",
       if (layout) {
         layout.updateLayout(widget, action, properties);
       }
-      this._domUpdated();
     },
 
 
@@ -688,20 +625,6 @@ qx.Bootstrap.define("qx.ui.mobile.core.Widget",
       Content handling
     ---------------------------------------------------------------------------
     */
-
-
-    /**
-    * Sets the innerHTML of the content element and calls the {@link #_domUpdated}
-    * method.
-    *
-    * @param value {String?""} The html to set in the content element.
-    */
-    setHtml : function(value)
-    {
-      this.base(qxWeb, "setHtml", value || "");
-      this._domUpdated();
-      return this;
-    },
 
 
     _applyActivatable : function(value, old) {
@@ -774,8 +697,6 @@ qx.Bootstrap.define("qx.ui.mobile.core.Widget",
       }
 
       this.setAttribute(attribute, value);
-
-      this._domUpdated();
     },
 
 
@@ -795,20 +716,6 @@ qx.Bootstrap.define("qx.ui.mobile.core.Widget",
     },
 
 
-    /**
-     * Sets the value of a certain style of the container element. The
-     * <code>null</code> value resets the attribute.
-     *
-     * @param style {String} The style of which the value should be set
-     * @param value {var} The value of the style. <code>Null</code> will reset the attribute.
-     */
-    setStyle : function(style, value) {
-      this.base(qxWeb, "setStyle", style, value);
-
-      this._domUpdated();
-      return this;
-    },
-
 
     /*
     ---------------------------------------------------------------------------
@@ -825,62 +732,6 @@ qx.Bootstrap.define("qx.ui.mobile.core.Widget",
       if (value) {
         this.addClass(value);
       }
-    },
-
-
-    /**
-     * Adds a CSS class to the container element of the widget. Use this method
-     * to enhance the default appearance of the widget.
-     *
-     * @param cssClass {String} The CSS class to add
-     */
-    addClass : function(cssClass) {
-      this.base(qxWeb, "addClass", cssClass);
-      this._domUpdated();
-      return this;
-    },
-
-
-    /**
-     * Adds an array of CSS classes to the container element of the widget. Use this method
-     * to enhance the default appearance of the widget.
-     *
-     * @param cssClasses {String[]} The CSS classes to add, wrapped by an array.
-     */
-    addClasses : function(cssClasses) {
-      if (cssClasses){
-        this.base(qxWeb, "addClasses", cssClasses);
-        this._domUpdated();
-      }
-      return this;
-    },
-
-
-    /**
-     * Removes a CSS class from the container element of the widget.
-     *
-     * @param cssClass {String} The CSS class to remove
-     */
-    removeClass : function(cssClass) {
-      if (this.hasClass(cssClass)) {
-        this.base(qxWeb, "removeClass", cssClass);
-        this._domUpdated();
-      }
-      return this;
-    },
-
-
-    /**
-     * Removes an array of CSS classes from the container element of the widget.
-     *
-     * @param cssClasses {String[]} The CSS classes to remove from widget.
-     */
-    removeClasses : function(cssClasses) {
-      if (cssClasses){
-        this.base(qxWeb, "removeClasses", cssClasses);
-        this._domUpdated();
-      }
-      return this;
     },
 
 
@@ -920,7 +771,6 @@ qx.Bootstrap.define("qx.ui.mobile.core.Widget",
       else if (value == "hidden") {
         this.setStyle("visibility", "hidden");
       }
-      this._domUpdated();
     },
 
 

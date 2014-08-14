@@ -289,7 +289,6 @@ qx.Bootstrap.define("qx.ui.mobile.basic.Image",
       {
         this.emit("loaded");
       }
-      this._domUpdated();
     },
 
 

@@ -512,7 +512,6 @@ qx.Bootstrap.define("qx.ui.mobile.container.Scroll",
     dispose : function() {
       this.base(qx.ui.mobile.container.Composite, "dispose");
       this.off("appear", this._updateWaypoints, this);
-      this.off("domupdated", this._updateWaypoints, this);
 
       this._waypointsX = this._waypointsY = null;
 

@@ -275,8 +275,6 @@ qx.Bootstrap.define("qx.ui.mobile.form.SelectBox",
         var selectedItem = this.model.getItem(this.selection);
         this._setAttribute("value", selectedItem);
       }
-
-      this._domUpdated();
     },
 
 

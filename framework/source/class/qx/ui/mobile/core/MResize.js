@@ -26,31 +26,6 @@
  */
 qx.Mixin.define("qx.ui.mobile.core.MResize",
 {
-  /*
-  *****************************************************************************
-     PROPERTIES
-  *****************************************************************************
-  */
-
-  properties :
-  {
-    /** Whether the resize should fire the "domupdated" event. Set this to "true"
-     *  whenever other elements should react on this size change (e.g. when the size
-     *  change does not infect the size of the application, but other widgets should
-     *  react).
-     */
-    fireDomUpdatedOnResize : {
-      check : "Boolean",
-      init : false
-    }
-  },
-
-
-  /*
-  *****************************************************************************
-     MEMBERS
-  *****************************************************************************
-  */
 
   members :
   {
@@ -89,16 +64,8 @@ qx.Mixin.define("qx.ui.mobile.core.MResize",
           return;
         }
 
-        if (!this.fireDomUpdatedOnResize) {
-          this._setHeight(height);
-          this._setWidth(width);
-        } else if (this.__lastHeight != height && this.__lastWidth != width) {
-          this._setHeight(height);
-          this._setWidth(width);
-          this.__lastWidth = width;
-          this.__lastHeight = height;
-          this._domUpdated();
-        }
+        this._setHeight(height);
+        this._setWidth(width);
       }
     },
 

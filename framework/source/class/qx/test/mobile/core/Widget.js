@@ -164,16 +164,6 @@ qx.Class.define("qx.test.mobile.core.Widget",
     },
 
 
-    testDomUpdatedFired : function()
-    {
-      var widget = new qx.ui.mobile.core.Widget();
-      this.assertEventNotFired(widget, "domupdated", qx.ui.mobile.core.Widget.domUpdated);
-      this.getRoot().add(widget);
-      this.assertEventFired(widget, "domupdated", qx.ui.mobile.core.Widget.domUpdated);
-      widget.dispose();
-    },
-
-
     testVisibility : function()
     {
       var widget = new qx.ui.mobile.core.Widget();

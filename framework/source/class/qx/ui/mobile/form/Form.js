@@ -438,10 +438,6 @@ qx.Bootstrap.define("qx.ui.mobile.form.Form",
         }
       }
 
-      if(this.__renderer != null) {
-        this.__renderer._domUpdated();
-      }
-
       return validateResult;
     },
 

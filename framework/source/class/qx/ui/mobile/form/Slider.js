@@ -204,7 +204,6 @@ qx.Bootstrap.define("qx.ui.mobile.form.Slider",
 
       qxWeb(window).on("resize", this._refresh, this)
         .on("orientationchange", this._refresh, this);
-      this.once("domupdated", this._refresh, this);
     },
 
 
@@ -219,7 +218,6 @@ qx.Bootstrap.define("qx.ui.mobile.form.Slider",
 
       qxWeb(window).off("resize", this._refresh, this)
         .off("orientationchange", this._refresh, this);
-      this.off("domupdated", this._refresh, this);
     },
 
 

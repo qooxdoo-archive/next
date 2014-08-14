@@ -163,13 +163,13 @@ qx.Bootstrap.define("qx.ui.mobile.dialog.Popup",
      */
     _updatePosition : function()
     {
-      // Traverse single anchor classes for removal, for preventing 'domupdated' event if no CSS classes changed.
+      // Traverse single anchor classes for removal
       var anchorClasses = ['top', 'bottom', 'left', 'right', 'anchor'];
       for (var i = 0; i < anchorClasses.length; i++) {
         this.removeClass(anchorClasses[i]);
       }
 
-      if(this.__anchor)
+      if (this.__anchor)
       {
         this.addClass('anchor');
 
@@ -440,8 +440,6 @@ qx.Bootstrap.define("qx.ui.mobile.dialog.Popup",
       widget.layoutPrefs = {flex: 1};
       this.__childrenContainer.add(widget);
 
-      widget.on("domupdated", this._updatePosition, this);
-
       this.__widget = widget;
     },
 
@@ -558,7 +556,6 @@ qx.Bootstrap.define("qx.ui.mobile.dialog.Popup",
     {
       if(this.__widget)
       {
-        this.__widget.off("domupdated", this._updatePosition, this);
         this.__childrenContainer.remove(this.__widget);
         return this.__widget;
       }
