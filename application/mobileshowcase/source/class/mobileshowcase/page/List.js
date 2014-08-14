@@ -37,6 +37,7 @@ qx.Bootstrap.define("mobileshowcase.page.List",
   members :
   {
     _model: null,
+    _scrollContainer : null,
     _waypointsY: null,
     _waypointsLabel : null,
     _loadingIndicator: null,
@@ -62,7 +63,7 @@ qx.Bootstrap.define("mobileshowcase.page.List",
       this._waypointsLabel.addClass("waypoint-info");
       this.add(this._waypointsLabel);
 
-      var scrollContainer = this._getScrollContainer();
+      var scrollContainer = this._scrollContainer = this._getScrollContainer();
       scrollContainer.setWaypointsY(this._waypointsY);
       scrollContainer.on("waypoint", this._onWaypoint, this);
 
@@ -70,7 +71,7 @@ qx.Bootstrap.define("mobileshowcase.page.List",
 
       var list = new qx.ui.mobile.list.List({
         configureItem: function(item, data, row) {
-          item.setImage("mobileshowcase/icon/internet-mail.png");
+          item.setImage(data.image);
           item.setTitle(data.title);
           item.setSubtitle(data.subtitle);
           item.selectable = data.selectable;
@@ -161,6 +162,7 @@ qx.Bootstrap.define("mobileshowcase.page.List",
         data.push({
           title: "Item #" + i,
           subtitle: "Subtitle for Item #" + i,
+          image: "mobileshowcase/icon/internet-mail.png",
           selectable: i < 6,
           removable: i > 5 && i < 11
         });
@@ -188,11 +190,13 @@ qx.Bootstrap.define("mobileshowcase.page.List",
           this._model.push({
             title: "Item #" + (initialModelLength + i),
             subtitle: "Subtitle for Item #" + (initialModelLength + i),
+            image: "mobileshowcase/icon/internet-mail.png",
             selectable: false,
             removable: false
           });
         }
 
+        this._scrollContainer.refresh();
         this._loadingIndicator.exclude();
         this._isLoading = false;
       }.bind(this), 2000);

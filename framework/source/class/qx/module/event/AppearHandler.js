@@ -93,7 +93,7 @@ qx.Bootstrap.define("qx.module.event.AppearHandler", {
       var clazz = qx.module.event.AppearHandler;
       clazz.intervalId = window.setInterval(function() {
         clazz.elements.forEach(clazz._check);
-      }, 250);
+      }, 100);
     }
 
   },

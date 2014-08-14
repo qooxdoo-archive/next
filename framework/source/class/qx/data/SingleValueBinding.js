@@ -32,6 +32,9 @@ qx.Bootstrap.define("qx.data.SingleValueBinding",
     // internal counter for bound objects
     __bindingHash: 0,
 
+    /** internal reference for all bindings indexed by target object */
+    __bindingsByTarget : {},
+
 
     /**
      * The function is responsible for binding a source objects property to
@@ -992,9 +995,20 @@ qx.Bootstrap.define("qx.data.SingleValueBinding",
       if (this.__bindings[sourceObject.$$bindingHash] === undefined) {
         this.__bindings[sourceObject.$$bindingHash] = [];
       }
-      this.__bindings[sourceObject.$$bindingHash].push(
-        [id, sourceObject, sourceEvent, targetObject, targetProperty]
-      );
+
+      var binding = [id, sourceObject, sourceEvent, targetObject, targetProperty];
+      this.__bindings[sourceObject.$$bindingHash].push(binding);
+
+
+      // add same binding data indexed by target object
+      // define an id for the object if not already set
+      if (targetObject.$$bindingHash === undefined) {
+        targetObject.$$bindingHash = qx.data.SingleValueBinding.__bindingHash++;
+      }
+      if (this.__bindingsByTarget[targetObject.$$bindingHash] === undefined) {
+        this.__bindingsByTarget[targetObject.$$bindingHash] = [];
+      }
+      this.__bindingsByTarget[targetObject.$$bindingHash].push(binding);
     },
 
 
@@ -1131,12 +1145,22 @@ qx.Bootstrap.define("qx.data.SingleValueBinding",
       }
 
       // remove the id from the internal reference system
-      var bindings = this.__bindings[sourceObject.$$bindingHash];
+      var bindings = this.getAllBindingsForObject(sourceObject.$$bindingHash);
       // check if the binding exists
       if (bindings != undefined) {
         for (var i = 0; i < bindings.length; i++) {
           if (bindings[i][0] == id) {
-            qx.lang.Array.remove(bindings, bindings[i]);
+            // remove binding data from internal reference indexed by target object
+            var target = bindings[i][3];
+            if (this.__bindingsByTarget[target.$$bindingHash]) {
+              qx.lang.Array.remove(this.__bindingsByTarget[target.$$bindingHash], bindings[i]);
+            }
+
+            // remove binding data from internal reference indexed by source object
+            var source = bindings[i][1];
+            if (this.__bindings[source.$$bindingHash]) {
+              qx.lang.Array.remove(this.__bindings[source.$$bindingHash], bindings[i]);
+            }
             return;
           }
         }
@@ -1164,12 +1188,49 @@ qx.Bootstrap.define("qx.data.SingleValueBinding",
       }
 
       // get the bindings
-      var bindings = this.__bindings[object.$$bindingHash];
+      var bindings = this.getAllBindingsForObject(object);
       if (bindings != undefined)
       {
         // remove every binding with the removeBindingFromObject function
         for (var i = bindings.length - 1; i >= 0; i--) {
           this.removeBindingFromObject(object, bindings[i][0]);
+        }
+      }
+    },
+
+
+    /**
+     * Removes all bindings between given objects.
+     *
+     * @param object {qx.core.Object} The object of which the bindings should be
+     *   removed.
+     * @param relatedObject {qx.core.Object} The object of which related
+     *   bindings should be removed.
+     * @throws {qx.core.AssertionError} If the object is not in the internal
+     *   registry of the bindings.
+     * @throws {Error} If one of the bindings listed internally can not be
+     *   removed.
+     */
+    removeRelatedBindings : function(object, relatedObject) {
+      // check for the null value
+      if (qx.core.Environment.get("qx.debug")) {
+        qx.core.Assert.assertNotNull(object,
+          "Can not remove the bindings for null object!");
+        qx.core.Assert.assertNotNull(relatedObject,
+          "Can not remove the bindings for null object!");
+      }
+
+      // get the bindings
+      var bindings = this.getAllBindingsForObject(object);
+      if (bindings != undefined)
+      {
+        // remove every binding with the removeBindingFromObject function
+        for (var i = bindings.length - 1; i >= 0; i--) {
+          var source = bindings[i][1];
+          var target = bindings[i][3];
+          if (source === relatedObject || target === relatedObject) {
+            this.removeBindingFromObject(object, bindings[i][0]);
+          }
         }
       }
     },
@@ -1191,7 +1252,33 @@ qx.Bootstrap.define("qx.data.SingleValueBinding",
         this.__bindings[object.$$bindingHash] = [];
       }
 
-      return this.__bindings[object.$$bindingHash];
+      // get all bindings of object as source
+      var sourceBindings = this.__bindings[object.$$bindingHash];
+
+      // get all bindings of object as target
+      var targetBindings = this.__bindingsByTarget[object.$$bindingHash] ? this.__bindingsByTarget[object.$$bindingHash] : [];
+
+      return qx.lang.Array.unique(sourceBindings.concat(targetBindings));
+    },
+
+
+    /**
+     * Removes all bindings in the whole application. After that not a single
+     * binding is left.
+     */
+    removeAllBindings : function() {
+      // go through all registered objects
+      for (var hash in this.__bindings) {
+        var object = qx.core.ObjectRegistry.fromHashCode(hash);
+        // check for the object, perhaps its already deleted
+        if (object == null) {
+          delete this.__bindings[hash];
+          continue;
+        }
+        this.removeAllBindingsForObject(object);
+      }
+      // reset the bindings map
+      this.__bindings = {};
     },
 
 

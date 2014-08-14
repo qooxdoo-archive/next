@@ -77,7 +77,7 @@ qx.Bootstrap.define("qx.ui.mobile.list.List",
 
 
   /**
-   * @param delegate {Object?null} The {@link #delegate} to use
+   * @param delegate {qx.ui.mobile.list.IListDelegate?null} The {@link #delegate} to use
    */
   construct : function(delegate)
   {
@@ -91,6 +91,8 @@ qx.Bootstrap.define("qx.ui.mobile.list.List",
 
     if (delegate) {
       this.delegate = delegate;
+    } else {
+      this.delegate = this;
     }
 
     if (qx.core.Environment.get("qx.dynlocale")) {
@@ -162,6 +164,16 @@ qx.Bootstrap.define("qx.ui.mobile.list.List",
     itemCount : {
       check : "Number",
       init : 0
+    },
+
+
+    /**
+    * The height of a list item.
+    */
+    itemHeight : {
+      check : "Number",
+      init : null,
+      nullable : true
     }
   },
 
@@ -187,13 +199,51 @@ qx.Bootstrap.define("qx.ui.mobile.list.List",
 
 
     /**
+     * Default list delegate. Expects a map which contains an image, a subtitle, and a title:
+     * <code>{title : "Row1", subtitle : "Sub1", image : "path/to/image.png"}</code>
+     *
+     * @param item {qx.ui.mobile.list.renderer.Abstract} Instance of list item renderer to modify
+     * @param data {var} The data of the row. Can be used to configure the given item.
+     * @param row {Integer} The row index.
+     */
+    configureItem: function(item, data, row) {
+      if(typeof data.image != "undefined") {
+        item.setImage(data.image);
+      }
+      if(typeof data.subtitle != "undefined") {
+        item.setSubtitle(data.subtitle);
+      }
+      if(typeof data.title != "undefined") {
+        item.setTitle(data.title);
+      }
+      if(typeof data.enabled != "undefined") {
+        item.setEnabled(data.enabled);
+      }
+      if(typeof data.removable != "undefined") {
+        item.setRemovable(data.removable);
+      }
+      if(typeof data.selectable != "undefined") {
+        item.setSelectable(data.selectable);
+      }
+      if(typeof data.activatable != "undefined") {
+        item.setActivatable(data.activatable);
+      }
+      if(typeof data.arrow != "undefined") {
+        item.setShowArrow(data.arrow);
+      }
+      if(typeof data.selected != "undefined") {
+        item.setSelected(data.selected);
+      }
+    },
+
+
+    /**
      * Event handler for the "tap" event.
      *
      * @param evt {qx.event.type.Tap} The tap event
      */
     _onTap : function(evt)
     {
-
       var element = this._getElement(evt);
       if(!element) {
         return;
@@ -504,7 +554,17 @@ qx.Bootstrap.define("qx.ui.mobile.list.List",
           }
         }
         var item = model.getItem(index);
-        this.append(this.__provider.getItemElement(item, index));
+        var itemElement = this.__provider.getItemElement(item, index);
+
+        var itemHeight = null;
+        if (this.itemHeight !== null) {
+          itemHeight = this.itemHeight + "px";
+        }
+        // Fixed height
+		qxWeb(itemElement).setStyle("minHeight", itemHeight)
+          .setStyle("maxHeight", itemHeight);
+
+        this.append(itemElement);
       }
 
       this._domUpdated();

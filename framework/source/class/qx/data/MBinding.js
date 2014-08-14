@@ -24,9 +24,9 @@
  */
 qx.Mixin.define("qx.data.MBinding",
 {
+
   members :
   {
-
     /**
      * The bind method delegates the call to the
      * {@link qx.data.SingleValueBinding#bind} function. As source, the current
@@ -66,6 +66,19 @@ qx.Mixin.define("qx.data.MBinding",
      */
     removeBinding: function(id){
       qx.data.SingleValueBinding.removeBindingFromObject(this, id);
+    },
+
+
+    /**
+     * Removes all bindings between the object and the related one.
+     *
+     * @param relatedObject {qx.core.Object} The object of which related
+     *   bindings should be removed.
+     * @throws {Error} If one of the bindings listed internally can not be
+     *   removed.
+     */
+    removeRelatedBindings : function(relatedObject) {
+      qx.data.SingleValueBinding.removeRelatedBindings(this, relatedObject);
     },
 
 

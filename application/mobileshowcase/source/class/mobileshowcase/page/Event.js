@@ -294,8 +294,8 @@ qx.Bootstrap.define("mobileshowcase.page.Event",
     * @param evt {qx.event.type.Pointer} The pointer event.
     */
     _getPointerPosition : function(evt) {
-      var containerLeft = this.__container.getLeft();
-      var containerTop = this.__container.getTop();
+      var containerLeft = this.__container.getPosition().left;
+      var containerTop = this.__container.getPosition().top;
       return [evt.clientX - containerLeft, evt.clientY - containerTop];
     },
 

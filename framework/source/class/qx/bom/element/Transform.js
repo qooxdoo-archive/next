@@ -29,9 +29,6 @@ qx.Bootstrap.define("qx.bom.element.Transform",
 {
   statics :
   {
-    /** The dimensions of the transforms */
-    __dimensions : ["X", "Y", "Z"],
-
     /** Internal storage of the CSS names */
     __cssKeys : qx.core.Environment.get("css.transform"),
 
@@ -45,12 +42,18 @@ qx.Bootstrap.define("qx.bom.element.Transform",
      * and each array entry will be used for the X, Y or Z dimension in that
      * order e.g. <code>{scale: [2, 0.5]}</code> will result in a element
      * double the size in X direction and half the size in Y direction.
+     * The values can be either singular, which means a single value will
+     * be added to the CSS. If you give an array, the values will be join to
+     * a string.
+     * 3d suffixed properties will be taken for translate and scale if they are
+     * available and an array with three values is given.
      * Make sure your browser supports all transformations you apply.
+     *
      * @param el {Element} The element to apply the transformation.
      * @param transforms {Map} The map containing the transforms and value.
      */
     transform : function(el, transforms) {
-      var transformCss = this.__mapToCss(transforms);
+      var transformCss = this.getTransformValue(transforms);
       if (this.__cssKeys != null) {
         var style = this.__cssKeys["name"];
         el.style[style] = transformCss;
@@ -110,7 +113,7 @@ qx.Bootstrap.define("qx.bom.element.Transform",
      * @return {String} The CSS value.
      */
     getCss : function(transforms) {
-      var transformCss = this.__mapToCss(transforms);
+      var transformCss = this.getTransformValue(transforms);
       if (this.__cssKeys != null) {
         var style = this.__cssKeys["name"];
         return qx.bom.Style.getCssName(style) + ":" + transformCss + ";";
@@ -278,32 +281,89 @@ qx.Bootstrap.define("qx.bom.element.Transform",
 
 
     /**
-     * Internal helper which converts the given transforms map to a valid CSS
-     * string.
+     * Converts the given transforms map to a valid CSS string.
+     *
      * @param transforms {Map} A map containing the transforms.
      * @return {String} The CSS transforms.
      */
-    __mapToCss : function(transforms) {
+    getTransformValue : function(transforms) {
       var value = "";
-      for (var func in transforms) {
+      var properties3d = ["translate", "scale"];
 
-        var params = transforms[func];
+      for (var property in transforms) {
+        var params = transforms[property];
+
         // if an array is given
-        if (qx.lang.Type.isArray(params)) {
-          for (var i=0; i < params.length; i++) {
-            if (params[i] == undefined ||
-              (i == 2 && !qx.core.Environment.get("css.transform.3d"))) {
-              continue;
-            }
-            value += func + this.__dimensions[i] + "(";
-            value += params[i];
-            value += ") ";
+        if (qx.Bootstrap.getClass(params) == "Array") {
+          // use 3d properties for translate and scale if all 3 parameter are given
+          if (params.length === 3 &&
+            properties3d.indexOf(property) > -1 &&
+            qx.core.Environment.get("css.transform.3d")
+          ) {
+            value += this._compute3dProperty(property, params);
           }
+
+          // use axis related properties
+          else {
+            value += this._computeAxisProperties(property, params);
+          }
+
         // case for single values given
         } else {
           // single value case
-          value += func + "(" + transforms[func] + ") ";
+          value += property + "(" + params + ") ";
         }
+      }
+
+      return value.trim();
+    },
+
+
+    /**
+     * Helper function to create 3d property.
+     *
+     * @param property {String} Property of transform, e.g. translate
+     * @param params {Array} Array with three values, each one stands for an axis.
+     *
+     * @return {String} Computed property and its value
+     */
+    _compute3dProperty : function(property, params)
+    {
+      var cssValue = "";
+      property += "3d";
+
+      for (var i=0; i < params.length; i++) {
+        if (params[i] == null) {
+          params[i] = 0;
+        }
+      }
+
+      cssValue += property + "(" + params.join(", ") + ") ";
+
+      return cssValue;
+    },
+
+
+    /**
+     * Helper function to create axis related properties.
+     *
+     * @param property {String} Property of transform, e.g. rotate
+     * @param params {Array} Array with values, each one stands for an axis.
+     *
+     * @return {String} Computed property and its value
+     */
+    _computeAxisProperties : function(property, params)
+    {
+      var value = "";
+      var dimensions = ["X", "Y", "Z"];
+      for (var i=0; i < params.length; i++) {
+        if (params[i] == null ||
+          (i == 2 && !qx.core.Environment.get("css.transform.3d"))) {
+          continue;
+        }
+        value += property + dimensions[i] + "(";
+        value += params[i];
+        value += ") ";
       }
 
       return value;

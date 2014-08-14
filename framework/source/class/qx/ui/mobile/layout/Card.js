@@ -312,8 +312,8 @@ qx.Bootstrap.define("qx.ui.mobile.layout.Card",
       var toElementAnimation = this.__cardAnimation.getAnimation(this.__animation, "in", this.__reverse);
       var fromElementAnimation = this.__cardAnimation.getAnimation(this.__animation, "out", this.__reverse);
 
-      toElement.addClass(toCssClasses);
-      fromElement.addClass(fromCssClasses);
+      toElement.addClasses(toCssClasses);
+      fromElement.addClasses(fromCssClasses);
 
       toElement.animate(toElementAnimation);
       fromElement.animate(fromElementAnimation);

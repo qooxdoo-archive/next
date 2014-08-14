@@ -67,26 +67,24 @@ var getConfig = function() {
     common: common,
 
     /* grunt-contrib-clean */
-    // defer replacement of generate:clean and generate:distclean
-    /*
     clean: {
       options: {
         force: true
       },
-      clean: ["<%= common.SOURCE_PATH %>/script/<%= common.APPLICATION %>*.js",
-              "<%= common.BUILD_PATH %>/script/<%= common.APPLICATION %>*.js"],
-      dist:  ["<%= common.SOURCE_PATH %>/script",
+      source: ["<%= common.SOURCE_PATH %>/script"],
+      build: ["<%= common.BUILD_PATH %>"],
+      api: ["<%= common.ROOT %>/api"],
+      test: ["<%= common.ROOT %>/test"],
+      inspector: ["<%= common.ROOT %>/inspector"],
+      app: ["<%= common.SOURCE_PATH %>/script",
               "<%= common.BUILD_PATH %>",
               "<%= common.ROOT %>/api",
               "<%= common.ROOT %>/test",
-              "<%= common.ROOT %>/inspector",
-              "<%= common.ROOT %>/simulator"],
+              "<%= common.ROOT %>/inspector"],
       cache: ["<%= common.CACHE_KEY.compile %>",
               "<%= common.CACHE_KEY.downloads %>"]
     },
-    */
     /* grunt-qx-source */
-    /*
     source: {
       options: {
         appName: "<%= common.APPLICATION %>",
@@ -103,9 +101,7 @@ var getConfig = function() {
         ]
       }
     },
-    */
     /* grunt-qx-build */
-    /*
     build: {
       options: {
         appName: "<%= common.APPLICATION %>",
@@ -129,7 +125,6 @@ var getConfig = function() {
         ]
       }
     },
-    */
     /* grunt-qx-info */
     info: {
       options: {
@@ -166,12 +161,12 @@ var mergeConfig = function(config, renameMap) {
   //    * Recycle '={confKey}'-syntax from config.json or sth. better?
   //    * Introduce '!{confKeyProp}'-syntax for removing of confKeyProp?!
   //
-  // for (task in config) {
-  //   for (prop in config[task]) {
+  // for (task in mergedConfig) {
+  //   for (prop in mergedConfig[task]) {
   //     if (prop === "options") {
-  //       for (confKey in config[task].options) {
-  //         if (q.Bootstrap.isObject(config[task].options[confKey])) {
-  //           for (confKeyProp in config[task].options[confKey]) {
+  //       for (confKey in mergedConfig[task].options) {
+  //         if (q.Bootstrap.isObject(mergedConfig[task].options[confKey])) {
+  //           for (confKeyProp in mergedConfig[task].options[confKey]) {
   //             if (confKeyProp[0] === "!") {
   //               // remove !{confKeyProp}
   //               delete mergedConfig[task].options[confKey][confKeyProp.substr(1)];
@@ -180,8 +175,8 @@ var mergeConfig = function(config, renameMap) {
   //           }
   //         }
   //         if (confKey[0] === "=") {
-  //           // overwrite std config and remove "={confKey}"
-  //           mergedConfig[task].options[confKey.substr(1)] = config[task].options[confKey];
+  //           // overwrite std mergedConfig and remove "={confKey}"
+  //           mergedConfig[task].options[confKey.substr(1)] = mergedConfig[task].options[confKey];
   //           delete mergedConfig[task].options[confKey];
   //         }
   //       }

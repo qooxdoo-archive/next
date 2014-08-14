@@ -86,22 +86,62 @@ Learn what's the `difference between the grunt-cli and grunt itself
 <http://gruntjs.com/getting-started>`_.
 
 
+Setup the qooxdoo Grunt toolchain
+=================================
+
+The toolchain itself needs a setup where all required npm packages are installed
+and the qooxdoo packages are wired together. You have to run:
+
+.. code-block:: bash
+
+   $ cd /tool/grunt
+   $ ./setup.js
+
+Make sure that your current user owns all files within the SDK under
+``tool/grunt`` and the path where global npm packages are installed to (run
+``npm`` solely to get this path shown in the very last line) is also writable for your
+current user.  Otherwise change the ownership (e.g. ``sudo chown -R $USER
+myGlobalNpmNodeModulesPath`` - so this could be ``sudo chown -R $USER
+/opt/local/lib/node_modules/``). This enables the script (and you) to use npm
+from now on without ``sudo`` which is a `best practice strongly recommended by
+the creator of npm itself
+<http://foohack.com/2010/08/intro-to-npm/#what_no_sudo>`_. Another way to
+achieve this is by `creating your own global node_modules dir within your home
+dir (see section "Get away from sudo: npm without root")
+<http://justjs.com/posts/npm-link-developing-your-own-npm-modules-without-tears>`_.
+
+
 Using the Generator through Grunt
 =================================
 
 Every job (i.e. *source*, *build* ...) you know from the Generator can also be
 run through the Grunt frontend (in Grunt lingo those are called **tasks**
-then). This ensures that you are still able to use all the Generator
-functionality already available. Here are some Grunt tasks and their Generator
-job counterparts:
+then) via ``grunt generate:{oldJobName}``. This ensures that you are still able to use
+all the Generator functionality already available.
+
+We've reimplemented some former jobs as Grunt task in JavaScript
+and they may already be used instead of their Generator job counterparts.
+But note that the task implementation might not be feature-complete yet.
+Currently implemented are ``info``, ``source``, ``build`` and ``clean``.
+
+Here are those Grunt tasks and their Generator job counterparts:
 
 ============================   ======================================   ===========================================
 Grunt                          Generator                                Comments
 ============================   ======================================   ===========================================
-grunt                          generate.py                              *runs the default job from the* ``config.json``
+grunt                          generate.py                              *runs the default task/job*
 grunt source                   generate.py source                       \-
-grunt info                     generate.py info                         *different output because of different implementation*
-grunt generate:info            generate.py info                         *all jobs are also available via generate:{jobName}*
+grunt build                    generate.py build                        \-
+grunt info                     generate.py info                         *different output but same functionality*
+grunt clean                    generate.py distclean                    *removes local app artifacts with cache*
+grunt clean:app                \-                                       *removes local app artifacts w/o cache*
+grunt clean:build              generate.py clean                        *removes only build dir / Generator removes build and source/script!*
+grunt clean:source             generate.py clean                        *removes only source/script dir / Generator removes build and source/script!*
+grunt clean:api                \-                                       *removes only api dir*
+grunt clean:test               \-                                       *removes only test dir*
+grunt clean:inspector          \-                                       *removes only inspector dir*
+grunt clean:cache              \-                                       *removes only global cache dir*
+grunt generate:source          generate.py source                       *all jobs are also available via generate:{jobName}*
 ============================   ======================================   ===========================================
 
 See also the FAQ below for important differences between Grunt
@@ -127,15 +167,9 @@ This is how a Gruntfile might look like after creating a new qooxdoo app:
 
 .. code-block:: javascript
 
-    // global conf
-    var common = {
-      QOOXDOO_VERSION: '3.5',
-      QOOXDOO_PATH: '../qooxdoo-sdk'
-    };
-
     // requires
-    var qxConf = require(common.QOOXDOO_PATH + '/tool/grunt/config/application.js');
-    var qxTasks = require(common.QOOXDOO_PATH + '/tool/grunt/tasks/tasks.js');
+    var util = require('util');
+    var qx = require("${REL_QOOXDOO_PATH}/tool/grunt");
 
     // grunt
     module.exports = function(grunt) {
@@ -146,7 +180,12 @@ This is how a Gruntfile might look like after creating a new qooxdoo app:
           }
         },
 
-        common: common,
+        common: {
+          "APPLICATION" : "${Namespace}",
+          "QOOXDOO_PATH" : "${REL_QOOXDOO_PATH}",
+          "LOCALES": ["en"],
+          "QXTHEME": "${Namespace}.theme.Theme"
+        }
 
         /*
         myTask: {
@@ -158,10 +197,11 @@ This is how a Gruntfile might look like after creating a new qooxdoo app:
         */
       };
 
-      var mergedConf = qxConf.mergeConfig(config);
+      var mergedConf = qx.config.mergeConfig(config);
+      // console.log(util.inspect(mergedConf, false, null));
       grunt.initConfig(mergedConf);
 
-      qxTasks.registerTasks(grunt);
+      qx.task.registerTasks(grunt);
 
       // grunt.loadNpmTasks('grunt-my-plugin');
     };
@@ -174,7 +214,7 @@ The only parts specific to qooxdoo are:
 This will register a task for each Generator job (under the same name). The
 tasks may be written in Python (from the Generator) or in JavaScript. After
 ``qxTasks.registerTasks()`` you are free to include the Grunt plugins
-you like to use.
+you like to use (custom or 3rd party).
 
 
 Gruntify existing apps
@@ -217,5 +257,4 @@ How can I run the Generator job I have known before or why does ``grunt xyz`` di
     This happens probably because we are registering a task (now implemented in
     JavaScript) under the same name as before because it should replace the former
     one eventually. You are always able to run former Generator jobs via ``grunt
-    generate:jobName`` or of course with ``generate.py xyz``. The only task
-    which is not delegated to the Generator right now is ``info``.
+    generate:jobName`` or of course with ``generate.py xyz``.

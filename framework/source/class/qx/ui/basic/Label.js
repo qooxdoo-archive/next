@@ -224,7 +224,6 @@ qx.Class.define("qx.ui.basic.Label",
   {
     __font : null,
     __invalidContentSize : null,
-    __buddyEnabledBinding : null,
     __tapListenerId : null,
     __webfontListenerId : null,
 
@@ -431,15 +430,14 @@ qx.Class.define("qx.ui.basic.Label",
     {
       if (old != null)
       {
-        old.removeBinding(this.__buddyEnabledBinding);
-        this.__buddyEnabledBinding = null;
+        this.removeRelatedBindings(old);
         this.removeListenerById(this.__tapListenerId);
         this.__tapListenerId = null;
       }
 
       if (value != null)
       {
-        this.__buddyEnabledBinding = value.bind("enabled", this, "enabled");
+        value.bind("enabled", this, "enabled");
         this.__tapListenerId = this.addListener("tap", function() {
           // only focus focusable elements [BUG #3555]
           if (value.isFocusable()) {
@@ -549,18 +547,10 @@ qx.Class.define("qx.ui.basic.Label",
       qx.locale.Manager.getInstance().removeListener("changeLocale", this._onChangeLocale, this);
     }
 
-    // remove the binding
-    if (this.__buddyEnabledBinding != null) {
-      var buddy = this.getBuddy();
-      if (buddy != null && !buddy.isDisposed()) {
-        buddy.removeBinding(this.__buddyEnabledBinding);
-      }
-    }
-
     if (this.__font && this.__webfontListenerId) {
       this.__font.removeListenerById(this.__webfontListenerId);
     }
 
-    this.__font = this.__buddyEnabledBinding = null;
+    this.__font = null;
   }
 });

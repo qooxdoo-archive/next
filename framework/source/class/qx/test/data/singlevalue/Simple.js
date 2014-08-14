@@ -235,16 +235,23 @@ qx.Bootstrap.define("qx.test.data.singlevalue.Simple",
       // get all bindings
       var allBindings = qx.data.SingleValueBinding.getAllBindings();
 
-      this.assertEquals(2, allBindings[this.__a.$$bindingHash].length, "Too much or too less objects in the array!");
-      this.assertEquals(1, allBindings[this.__b.$$bindingHash].length, "Too much or too less objects in the array!");
+      // check if only the added hashs are in the object
+      var hashArray = [this.__a.toHashCode(), this.__b.toHashCode()];
+      var i = 0;
+      for (var hash in allBindings) {
+        this.assertInArray(hash, hashArray, "This hash should be in!");
+        i++;
+      }
+      this.assertEquals(2, i, "Too much or too less objects in the array!");
+
       // check for the binding ids
-      // this.assertEquals(id1, allBindings[this.__a.toHashCode()][0][0], "This id should be in!");
-      // this.assertEquals(id2, allBindings[this.__a.toHashCode()][1][0], "This id should be in!");
-      // this.assertEquals(id3, allBindings[this.__b.toHashCode()][0][0], "This id should be in!");
-      //
-      // // check for the length
-      // this.assertEquals(2, allBindings[this.__a.toHashCode()].length, "Not the right amount in the data!");
-      // this.assertEquals(1, allBindings[this.__b.toHashCode()].length, "Not the right amount in the data!");
+      this.assertEquals(id1, allBindings[this.__a.toHashCode()][0][0], "This id should be in!");
+      this.assertEquals(id2, allBindings[this.__a.toHashCode()][1][0], "This id should be in!");
+      this.assertEquals(id3, allBindings[this.__b.toHashCode()][0][0], "This id should be in!");
+
+      // check for the length
+      this.assertEquals(2, allBindings[this.__a.toHashCode()].length, "Not the right amount in the data!");
+      this.assertEquals(1, allBindings[this.__b.toHashCode()].length, "Not the right amount in the data!");
     },
 
 
@@ -546,6 +553,41 @@ qx.Bootstrap.define("qx.test.data.singlevalue.Simple",
       this.assertException(function() {
         qx.data.SingleValueBinding.bind(undefined, "appearance", this.__b, "appearance");
       }, qx.core.AssertionError, "");
+    },
+
+
+    testRemoveRelatedBindings: function(){
+      var c = new qx.test.data.singlevalue.TextFieldDummy();
+
+      // add three bindings
+      qx.data.SingleValueBinding.bind(this.__a, "appearance", this.__b, "appearance");
+      qx.data.SingleValueBinding.bind(this.__a, "zIndex", this.__b, "zIndex");
+      qx.data.SingleValueBinding.bind(this.__b, "zIndex", this.__a, "zIndex");
+
+      // add another binding to __a, which should not be affected
+      qx.data.SingleValueBinding.bind(c, "appearance", this.__a, "appearance");
+
+      // add another binding to __b, which should not be affected
+      qx.data.SingleValueBinding.bind(c, "appearance", this.__b, "appearance");
+
+      // check if the bindings are there
+      var bindingsA = qx.data.SingleValueBinding.getAllBindingsForObject(this.__a);
+      var bindingsB = qx.data.SingleValueBinding.getAllBindingsForObject(this.__b);
+      this.assertEquals(4, bindingsA.length, "There are more than 4 bindings!");
+      this.assertEquals(4, bindingsB.length, "There are more than 3 bindings!");
+
+      // remove related bindings between __a and __b, do not affect bindings to c
+      qx.data.SingleValueBinding.removeRelatedBindings(this.__a, this.__b);
+
+      // __a object should have one binding to object c
+      bindingsA = qx.data.SingleValueBinding.getAllBindingsForObject(this.__a);
+      this.assertEquals(1, bindingsA.length, "There must be one binding!");
+      this.assertTrue(bindingsA[0][1] === c, "Source object of the binding must be object 'c'!");
+
+      // __b object should have one binding to object c
+      bindingsB = qx.data.SingleValueBinding.getAllBindingsForObject(this.__b);
+      this.assertEquals(1, bindingsB.length, "There must be one binding!");
+      this.assertTrue(bindingsA[0][1] === c, "Source object of the binding must be object 'c'!");
     }
   }
 });

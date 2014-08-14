@@ -94,15 +94,13 @@ qx.Bootstrap.define("qx.event.Emitter",
     off : function(name, listener, ctx) {
       var storage = this.__getStorage(name);
       var foundId;
-      for (var i = storage.length - 1; i >= 0; i--) {
-        storage.forEach(function(entry) {
-          if (entry.listener == listener && entry.ctx == ctx) {
-            storage.splice(i, 1);
-            foundId = entry.id;
-            return;
-          }
-        });
-      }
+      storage.forEach(function(entry, i, storage) {
+        if (entry.listener == listener && entry.ctx == ctx) {
+          storage.splice(i, 1);
+          foundId = entry.id;
+          return;
+        }
+      });
       return foundId === undefined ? null : foundId;
     },
 

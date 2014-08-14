@@ -1,4 +1,3 @@
-"use strict";
 /* ************************************************************************
 
    qooxdoo - the new era of web development
@@ -31,8 +30,8 @@ qx.Mixin.define("qx.ui.mobile.container.MNativeScroll",
   members :
   {
     _snapPoints : null,
-    _isMomentum : null,
-    _momentumStartTimerID : null,
+    _onTrack : null,
+    _snapTimeoutId : null,
 
 
     /**
@@ -82,17 +81,28 @@ qx.Mixin.define("qx.ui.mobile.container.MNativeScroll",
     /**
      * Event handler for <code>trackstart</code> events.
      */
-    _onTrackStart: function() {
+    _onTrackStart: function(evt) {
+      this._onTrack = true;
+
       if (qx.core.Environment.get("os.name") == "ios") {
-        // If scroll container is scrollable
-        if (this._isScrollableY()) {
-          var scrollTop = this[0].scrollTop;
-          var maxScrollTop = this[0].scrollHeight - this._getParentWidget()[0].offsetHeight;
-          if (scrollTop === 0) {
-            this[0].scrollTop = 1;
-          } else if (scrollTop == maxScrollTop) {
-            this[0].scrollTop = maxScrollTop - 1;
-          }
+        this._preventPageBounce();
+      }
+    },
+
+
+    /**
+     * Prevents the iOS page bounce if scroll container reaches the upper or lower vertical scroll limit.
+     */
+    _preventPageBounce: function() {
+      // If scroll container is scrollable
+      if (this._isScrollableY()) {
+        var element = this[0];
+        var scrollTop = element.scrollTop;
+        var maxScrollTop = element.scrollHeight - this.getLayoutParent().getContentElement().offsetHeight;
+        if (scrollTop === 0) {
+          element.scrollTop = 1;
+        } else if (scrollTop == maxScrollTop) {
+          element.scrollTop = maxScrollTop - 1;
         }
       }
     },
@@ -103,7 +113,16 @@ qx.Mixin.define("qx.ui.mobile.container.MNativeScroll",
     * @param evt {qx.event.type.Track} the <code>track</code> event
     */
     _onTrackEnd: function(evt) {
-      this._snap();
+      this._onTrack = false;
+
+      if(this._snapTimeoutId) {
+        clearTimeout(this._snapTimeoutId);
+      }
+      this._snapTimeoutId = setTimeout(function() {
+        this._snap();
+      }.bind(this), 100);
+
+      evt.stopPropagation();
     },
 
 
@@ -114,32 +133,17 @@ qx.Mixin.define("qx.ui.mobile.container.MNativeScroll",
       var scrollLeft = this[0].scrollLeft;
       var scrollTop = this[0].scrollTop;
 
-      if (qx.core.Environment.get("os.name") == "ios") {
-        var scrollDeltaY = Math.abs(this._currentY - scrollTop);
-        var lowerLimitY = this[0].scrollHeight - this[0].offsetHeight;
-
-        if(this._momentumStartTimerID) {
-          clearTimeout(this._momentumStartTimerID);
-        }
-
-        if (scrollDeltaY > 2 && scrollTop > 1 && scrollTop < lowerLimitY && !this._isMomentum) {
-          this._momentumStartTimerID = setTimeout(function() {
-            this.emit("momentumStart");
-            this._isMomentum = true;
-          }.bind(this), 50);
-        }
-
-        if(scrollDeltaY > 100 || scrollTop <= 0 || scrollTop < this[0].scrollHeight) {
-          if(this._isMomentum) {
-            this._snap();
-            this._isMomentum = false;
-            this.emit("momentumEnd",this[0].scrollTop);
-          }
-        }
-      }
-
       this._setCurrentX(scrollLeft);
       this._setCurrentY(scrollTop);
+
+      if(this._snapTimeoutId) {
+        clearTimeout(this._snapTimeoutId);
+      }
+      this._snapTimeoutId = setTimeout(function() {
+        if(!this._onTrack) {
+          this._snap();
+        }
+      }.bind(this), 100);
     },
 
 
@@ -193,12 +197,18 @@ qx.Mixin.define("qx.ui.mobile.container.MNativeScroll",
     * Snaps the scrolling area to the nearest snap point.
     */
     _snap : function() {
+      this.fireEvent("scrollEnd");
+      var element = this[0];
+      
+      if(element.scrollTop < 1 || element.scrollTop > this._getScrollHeight()) {
+        return;
+      }
       var current = this._getPosition();
-      var nextX = this._determineSnapPoint(current[0],"left");
-      var nextY = this._determineSnapPoint(current[1],"top");
+      var nextX = this._determineSnapPoint(current[0], "left");
+      var nextY = this._determineSnapPoint(current[1], "top");
 
-      if(nextX != current[0] || nextY != current[1]) {
-        this._scrollTo(nextX, nextY, 100);
+      if (nextX != current[0] || nextY != current[1]) {
+        this._scrollTo(nextX, nextY, 300);
       }
     },
 
@@ -274,45 +284,36 @@ qx.Mixin.define("qx.ui.mobile.container.MNativeScroll",
      * @param time {Integer} is always <code>0</code> for this mixin.
      */
     _scrollTo: function(x, y, time) {
-      var position = this._getPosition();
-
       var element = this[0];
-
-      var startX = -position[0] + element.scrollLeft;
-      var startY = -position[1] + element.scrollTop;
-      var endX = -x + element.scrollLeft;
-      var endY = -y + element.scrollTop;
-
-      if(!this._isScrollableY()) {
-        endY = 0;
+      if(!time) {
+        element.scrollLeft = x;
+        element.scrollTop = y;
+        return;
       }
 
-      if(!this._isScrollableX()) {
-        endX = 0;
-      }
+      var startY = element.scrollTop;
+      var startX = element.scrollLeft;
 
-      var animationMap = {
-        "duration": time,
-        "keyFrames": {
-          0: {
-            "transform": "translate3d(" + startX + "px," + startY + "px,0)"
+      if (element) {
+        this.animate({
+          "duration": time,
+          "keyFrames": {
+            0: {
+              "scrollTop": startY,
+              "scrollLeft": startX
+            },
+            100: {
+              "scrollTop": y,
+              "scrollLeft": x
+            }
           },
-          100: {
-            "transform": "translate3d(" + endX + "px," + endY + "px,0)"
-          }
-        },
-        "timing": "ease-out"
-      };
-
-      if (element && element.children.length > 0) {
-        this.getChildren().eq(0)
-          .animate(animationMap)
-          .on("end", function() {
-            element.scrollLeft = x;
-            element.scrollTop = y;
-          }, this);
+          "keep": 100,
+          "timing": "ease-out"
+        });
       }
-    },
+    }
+  },
+
 
     disposeMNativeScroll : function() {
       this.off("scroll", this._onScroll, this)

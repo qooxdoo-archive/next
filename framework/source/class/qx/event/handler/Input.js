@@ -194,7 +194,8 @@ qx.Class.define("qx.event.handler.Input",
             qx.bom.Event.addNativeListener(target, "change", this._onChangeValueWrapper);
           }
 
-          if (qx.core.Environment.get("engine.name") == "mshtml") {
+          // special enter bugfix for opera
+          if ((qx.core.Environment.get("engine.name") == "opera") || (qx.core.Environment.get("engine.name") == "mshtml")) {
             if (target.type === "text" || target.type === "password") {
               this._onKeyPressWrapped = qx.lang.Function.listener(this._onKeyPress, this, target);
               qx.bom.Event.addNativeListener(target, "keypress", this._onKeyPressWrapped);
@@ -233,6 +234,15 @@ qx.Class.define("qx.event.handler.Input",
         if (parseFloat(qx.core.Environment.get("engine.version")) < 532 && tag == "textarea") {
           qx.bom.Event.addNativeListener(target, "keypress", this._onInputWrapper);
         }
+        qx.bom.Event.addNativeListener(target, "input", this._onInputWrapper);
+      },
+
+      "opera" : function(target) {
+        // register key events for filtering "enter" on input events
+        qx.bom.Event.addNativeListener(target, "keyup", this._onKeyUpWrapper);
+        qx.bom.Event.addNativeListener(target, "keydown", this._onKeyDownWrapper);
+        // register an blur event for preventing the input event on blur
+
         qx.bom.Event.addNativeListener(target, "input", this._onInputWrapper);
       },
 
@@ -293,7 +303,7 @@ qx.Class.define("qx.event.handler.Input",
           }
         }
 
-        if (qx.core.Environment.get("engine.name") == "mshtml") {
+        if ((qx.core.Environment.get("engine.name") == "opera") || (qx.core.Environment.get("engine.name") == "mshtml")) {
           if (target.type === "text" || target.type === "password") {
             qx.bom.Event.removeNativeListener(target, "keypress", this._onKeyPressWrapped);
           }
@@ -328,6 +338,13 @@ qx.Class.define("qx.event.handler.Input",
         if (parseFloat(qx.core.Environment.get("engine.version")) < 532 && tag == "textarea") {
           qx.bom.Event.removeNativeListener(target, "keypress", this._onInputWrapper);
         }
+        qx.bom.Event.removeNativeListener(target, "input", this._onInputWrapper);
+      },
+
+      "opera" : function(target) {
+        // unregister key events for filtering "enter" on input events
+        qx.bom.Event.removeNativeListener(target, "keyup", this._onKeyUpWrapper);
+        qx.bom.Event.removeNativeListener(target, "keydown", this._onKeyDownWrapper);
         qx.bom.Event.removeNativeListener(target, "input", this._onInputWrapper);
       },
 

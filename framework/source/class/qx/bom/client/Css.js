@@ -258,6 +258,77 @@ qx.Bootstrap.define("qx.bom.client.Css",
       return qx.bom.client.Css.__WEBKIT_LEGACY_GRADIENT;
     },
 
+    /**
+     * Checks if rgba colors can be used:
+     * http://www.w3.org/TR/2010/PR-css3-color-20101028/#rgba-color
+     *
+     * @return {Boolean} <code>true</code>, if rgba colors are supported.
+     * @internal
+     */
+    getRgba : function() {
+      var el;
+      try {
+        el = document.createElement("div");
+      } catch (ex) {
+        el = document.createElement();
+      }
+
+      // try catch for IE
+      try {
+        el.style["color"] = "rgba(1, 2, 3, 0.5)";
+        if (el.style["color"].indexOf("rgba") != -1) {
+          return true;
+        }
+      } catch (ex) {}
+
+      return false;
+    },
+
+
+    /**
+     * Returns the (possibly vendor-prefixed) name the browser uses for the
+     * <code>boxSizing</code> style property.
+     *
+     * @return {String|null} boxSizing property name or <code>null</code> if
+     * boxSizing is not supported.
+     * @internal
+     */
+    getBoxSizing : function() {
+      return qx.bom.Style.getPropertyName("boxSizing");
+    },
+
+
+    /**
+     * Returns the browser-specific name used for the <code>display</code> style
+     * property's <code>inline-block</code> value.
+     *
+     * @internal
+     * @return {String|null}
+     */
+    getInlineBlock : function() {
+      var el = document.createElement("span");
+      el.style.display = "inline-block";
+      if (el.style.display == "inline-block") {
+        return "inline-block";
+      }
+      el.style.display = "-moz-inline-box";
+      if (el.style.display !== "-moz-inline-box") {
+        return "-moz-inline-box";
+      }
+      return null;
+    },
+
+
+    /**
+     * Checks if CSS opacity is supported
+     *
+     * @internal
+     * @return {Boolean} <code>true</code> if opacity is supported
+     */
+    getOpacity : function() {
+      return (typeof document.documentElement.style.opacity == "string");
+    },
+
 
     /**
      * Checks if CSS texShadow is supported
@@ -310,6 +381,18 @@ qx.Bootstrap.define("qx.bom.client.Css",
       document.body.removeChild(el);
 
       return supported;
+    },
+
+
+    /**
+     * Checks if the Alpha Image Loader must be used to display transparent PNGs.
+     *
+     * @return {Boolean} <code>true</code> if the Alpha Image Loader is required
+     */
+    getAlphaImageLoaderNeeded : function()
+    {
+      return qx.bom.client.Engine.getName() == "mshtml" &&
+             qx.bom.client.Browser.getDocumentMode() < 9;
     },
 
 
@@ -383,19 +466,29 @@ qx.Bootstrap.define("qx.bom.client.Css",
 
 
   defer : function(statics) {
+    qx.core.Environment.add("css.textoverflow", statics.getTextOverflow);
     qx.core.Environment.add("css.placeholder", statics.getPlaceholder);
+    qx.core.Environment.add("css.borderradius", statics.getBorderRadius);
+    qx.core.Environment.add("css.boxshadow", statics.getBoxShadow);
     qx.core.Environment.add("css.gradient.linear", statics.getLinearGradient);
     qx.core.Environment.add("css.gradient.filter", statics.getFilterGradient);
     qx.core.Environment.add("css.gradient.radial", statics.getRadialGradient);
     qx.core.Environment.add("css.gradient.legacywebkit", statics.getLegacyWebkitGradient);
+    qx.core.Environment.add("css.boxmodel", statics.getBoxModel);
+    qx.core.Environment.add("css.rgba", statics.getRgba);
     qx.core.Environment.add("css.borderimage", statics.getBorderImage);
     qx.core.Environment.add("css.borderimage.standardsyntax", statics.getBorderImageSyntax);
     qx.core.Environment.add("css.usermodify", statics.getUserModify);
     qx.core.Environment.add("css.userselect", statics.getUserSelect);
     qx.core.Environment.add("css.userselect.none", statics.getUserSelectNone);
     qx.core.Environment.add("css.appearance", statics.getAppearance);
+    qx.core.Environment.add("css.float", statics.getFloat);
+    qx.core.Environment.add("css.boxsizing", statics.getBoxSizing);
+    qx.core.Environment.add("css.inlineblock", statics.getInlineBlock);
+    qx.core.Environment.add("css.opacity", statics.getOpacity);
     qx.core.Environment.add("css.textShadow", statics.getTextShadow);
     qx.core.Environment.add("css.textShadow.filter", statics.getFilterTextShadow);
+    qx.core.Environment.add("css.alphaimageloaderneeded", statics.getAlphaImageLoaderNeeded);
     qx.core.Environment.add("css.pointerevents", statics.getPointerEvents);
     qx.core.Environment.add("css.flexboxSyntax", statics.getFlexboxSyntax);
   }

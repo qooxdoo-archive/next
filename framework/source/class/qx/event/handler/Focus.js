@@ -126,7 +126,21 @@ qx.Class.define("qx.event.handler.Focus",
      */
     FOCUSABLE_ELEMENTS : qx.core.Environment.select("engine.name",
     {
-      "mshtml|gecko" :
+      "mshtml" :
+      {
+        a : 1,
+        body : 1,
+        button : 1,
+        frame : 1,
+        iframe : 1,
+        img : 1,
+        input : 1,
+        object : 1,
+        select : 1,
+        textarea : 1
+      },
+
+      "gecko" :
       {
         a : 1,
         body : 1,
@@ -439,6 +453,24 @@ qx.Class.define("qx.event.handler.Focus",
 
         qx.bom.Event.addNativeListener(this._window, "focus", this.__onNativeFocusWrapper, true);
         qx.bom.Event.addNativeListener(this._window, "blur", this.__onNativeBlurWrapper, true);
+      },
+
+      "opera" : function()
+      {
+        // Bind methods
+        this.__onNativeMouseDownWrapper = qx.lang.Function.listener(this.__onNativeMouseDown, this);
+        this.__onNativeMouseUpWrapper = qx.lang.Function.listener(this.__onNativeMouseUp, this);
+
+        this.__onNativeFocusInWrapper = qx.lang.Function.listener(this.__onNativeFocusIn, this);
+        this.__onNativeFocusOutWrapper = qx.lang.Function.listener(this.__onNativeFocusOut, this);
+
+
+        // Register events
+        qx.bom.Event.addNativeListener(this._document, "mousedown", this.__onNativeMouseDownWrapper, true);
+        qx.bom.Event.addNativeListener(this._document, "mouseup", this.__onNativeMouseUpWrapper, true);
+
+        qx.bom.Event.addNativeListener(this._window, "DOMFocusIn", this.__onNativeFocusInWrapper, true);
+        qx.bom.Event.addNativeListener(this._window, "DOMFocusOut", this.__onNativeFocusOutWrapper, true);
       }
     }),
 
@@ -479,6 +511,15 @@ qx.Class.define("qx.event.handler.Focus",
 
         qx.bom.Event.removeNativeListener(this._window, "focus", this.__onNativeFocusWrapper, true);
         qx.bom.Event.removeNativeListener(this._window, "blur", this.__onNativeBlurWrapper, true);
+      },
+
+      "opera" : function()
+      {
+        qx.bom.Event.removeNativeListener(this._document, "mousedown", this.__onNativeMouseDownWrapper, true);
+        qx.bom.Event.removeNativeListener(this._document, "mouseup", this.__onNativeMouseUpWrapper, true);
+
+        qx.bom.Event.removeNativeListener(this._window, "DOMFocusIn", this.__onNativeFocusInWrapper, true);
+        qx.bom.Event.removeNativeListener(this._window, "DOMFocusOut", this.__onNativeFocusOutWrapper, true);
       }
     }),
 
@@ -538,6 +579,39 @@ qx.Class.define("qx.event.handler.Focus",
         this.tryActivate(target);
       },
 
+      "opera" : function(domEvent)
+      {
+        var target = qx.bom.Event.getTarget(domEvent);
+        if (target == this._document || target == this._window)
+        {
+          this.__doWindowFocus();
+
+          if (this.__previousFocus)
+          {
+            this.setFocus(this.__previousFocus);
+            delete this.__previousFocus;
+          }
+
+          if (this.__previousActive)
+          {
+            this.setActive(this.__previousActive);
+            delete this.__previousActive;
+          }
+        }
+        else
+        {
+          this.setFocus(target);
+          this.tryActivate(target);
+
+          // Clear selection
+          if (!this.__isSelectable(target))
+          {
+            target.selectionStart = 0;
+            target.selectionEnd = 0;
+          }
+        }
+      },
+
       "default" : null
     })),
 
@@ -576,6 +650,34 @@ qx.Class.define("qx.event.handler.Focus",
 
         if (target === this.getActive()) {
           this.resetActive();
+        }
+      },
+
+      "opera" : function(domEvent)
+      {
+        var target = qx.bom.Event.getTarget(domEvent);
+        if (target == this._document)
+        {
+          this.__doWindowBlur();
+
+          // Store old focus/active elements
+          // Opera do not fire focus events for them
+          // when refocussing the window (in my opinion an error)
+          this.__previousFocus = this.getFocus();
+          this.__previousActive = this.getActive();
+
+          this.resetFocus();
+          this.resetActive();
+        }
+        else
+        {
+          if (target === this.getFocus()) {
+            this.resetFocus();
+          }
+
+          if (target === this.getActive()) {
+            this.resetActive();
+          }
         }
       },
 
@@ -730,7 +832,18 @@ qx.Class.define("qx.event.handler.Focus",
         }
       },
 
-      "webkit|gecko" : function(domEvent) {
+      "webkit" : function(domEvent) {
+        var target = qx.bom.Event.getTarget(domEvent);
+        var focusTarget = this.__findFocusableElement(target);
+
+        if (focusTarget) {
+          this.setFocus(focusTarget);
+        } else {
+          qx.bom.Event.preventDefault(domEvent);
+        }
+      },
+
+      "gecko" : function(domEvent) {
         var target = qx.bom.Event.getTarget(domEvent);
         var focusTarget = this.__findFocusableElement(target);
 
@@ -796,7 +909,19 @@ qx.Class.define("qx.event.handler.Focus",
      */
     __fixFocus : qx.event.GlobalError.observeMethod(qx.core.Environment.select("engine.name",
     {
-      "mshtml|webkit" : function(target)
+      "mshtml" : function(target)
+      {
+        var focusedElement = this.getFocus();
+        if (focusedElement && target != focusedElement &&
+            (focusedElement.nodeName.toLowerCase() === "input" ||
+            focusedElement.nodeName.toLowerCase() === "textarea")) {
+          target = focusedElement;
+        }
+
+        return target;
+      },
+
+      "webkit" : function(target)
       {
         var focusedElement = this.getFocus();
         if (focusedElement && target != focusedElement &&
@@ -821,7 +946,15 @@ qx.Class.define("qx.event.handler.Focus",
      */
     __onNativeSelectStart : qx.event.GlobalError.observeMethod(qx.core.Environment.select("engine.name",
     {
-      "mshtml|webkit" : function(domEvent)
+      "mshtml" : function(domEvent)
+      {
+        var target = qx.bom.Event.getTarget(domEvent);
+        if (!this.__isSelectable(target)) {
+          qx.bom.Event.preventDefault(domEvent);
+        }
+      },
+
+      "webkit" : function(domEvent)
       {
         var target = qx.bom.Event.getTarget(domEvent);
         if (!this.__isSelectable(target)) {

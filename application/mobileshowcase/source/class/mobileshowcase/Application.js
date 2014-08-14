@@ -125,7 +125,7 @@ qx.Bootstrap.define("mobileshowcase.Application",
       routing.onGet("/animation", this._show, animation);
 
       routing.onGet("/animation/{animation}", function(data) {
-        animationLanding.setAnimation(data.params.animation);
+        animationLanding.animation = data.params.animation;
         if (animationLanding.isVisible()) {
           animation.show({
             "animation": data.params.animation

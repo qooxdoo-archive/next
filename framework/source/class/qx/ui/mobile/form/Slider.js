@@ -240,7 +240,7 @@ qx.Bootstrap.define("qx.ui.mobile.form.Slider",
     {
       if(this[0]) {
         this._containerElementWidth = this.getWidth();
-        this._containerElementLeft = this.getPosition().left;
+        this._containerElementLeft = this[0].getBoundingClientRect().left;
         this._pixelPerStep = this._getPixelPerStep(this._containerElementWidth);
       }
     },

@@ -602,9 +602,13 @@ qx.Bootstrap.define("qx.core.Environment",
     /** Internal cache for all checks. */
     __cache : {},
 
-    /** Internal map for environment keys to check methods. */
+    /**
+     * Internal map for environment keys to check methods.
+     * Gets populated dynamically at runtime - keys in comments only for documentation.
+     */
     _checksMap:
     {
+      /*
       "engine.version" : "qx.bom.client.Engine.getVersion",
       "engine.name" : "qx.bom.client.Engine.getName",
       "browser.name" : "qx.bom.client.Browser.getName",
@@ -693,6 +697,7 @@ qx.Bootstrap.define("qx.core.Environment",
       "xml.attributens" : "qx.bom.client.Xml.getAttributeNS",
       "xml.createelementns" : "qx.bom.client.Xml.getCreateElementNS",
       "qx.mobile.nativescroll" : "qx.bom.client.Scroll.getNativeScroll"
+      */
     },
 
     _defaults:

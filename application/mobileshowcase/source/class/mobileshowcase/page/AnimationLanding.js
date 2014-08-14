@@ -88,9 +88,8 @@ qx.Bootstrap.define("mobileshowcase.page.AnimationLanding",
 
 
     // overridden
-    _back : function()
-    {
-      qx.core.Init.getApplication().getRouting().executeGet("/animation", {animation:this.getAnimation(), reverse:true});
+    _back : function() {
+      qx.core.Init.getApplication().getRouting().executeGet("/animation", {animation: this.animation, reverse: true});
     }
   }
 });
