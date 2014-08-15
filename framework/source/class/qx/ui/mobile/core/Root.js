@@ -45,7 +45,7 @@ qx.Bootstrap.define("qx.ui.mobile.core.Root",
 
     this.addClass("mobile");
     this.addClass(qx.core.Environment.get("os.name"));
-    this.addClass("v"+qx.core.Environment.get("os.version").charAt(0));
+    this.addClass("v" + qx.core.Environment.get("os.version").charAt(0));
 
     qxWeb(window).on("orientationchange", this._onOrientationChange, this);
 

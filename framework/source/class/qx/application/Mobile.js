@@ -66,13 +66,7 @@ qx.Bootstrap.define("qx.application.Mobile",
 
 
     // interface method
-    main : function() {
-      this.__root = this._createRootWidget();
-
-      if (qx.core.Environment.get("qx.mobile.nativescroll") == false) {
-        this.__root.showScrollbarY = false;
-      }
-    },
+    main : function() {},
 
 
     /**
@@ -81,7 +75,19 @@ qx.Bootstrap.define("qx.application.Mobile",
      * @return {qx.ui.mobile.core.Widget} The application's root widget.
      */
     getRoot : function() {
+      if (!this.__root) {
+        this.__root = this._createRootWidget();
+
+        if (qx.core.Environment.get("qx.mobile.nativescroll") == false) {
+          this.__root.showScrollbarY = false;
+        }
+      }
       return this.__root;
+    },
+
+
+    setRoot : function(root) {
+      this.__root = root;
     },
 
 
