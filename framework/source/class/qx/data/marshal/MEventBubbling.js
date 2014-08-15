@@ -1,3 +1,4 @@
+"use strict";
 /* ************************************************************************
 
    qooxdoo - the new era of web development
@@ -89,13 +90,13 @@ qx.Mixin.define("qx.data.marshal.MEventBubbling",
     _registerEventChaining : function(value, old, name)
     {
       // assign a new hash if not already available
-      if (!this.$$eventBubblingHash === undefined) {
-        this.$$eventBubblingHash = qx.data.MEventBubbling.__eventBubblingHash++;
+      if (this.$$eventBubblingHash === undefined) {
+        this.$$eventBubblingHash = qx.data.marshal.MEventBubbling.__eventBubblingHash++;
       }
-
+      var listeners;
       // if an old value is given, remove the old listener if possible
       if (old != null && old["$$idBubble-" + this.$$eventBubblingHash] != null) {
-        var listeners = old["$$idBubble-" + this.$$eventBubblingHash];
+        listeners = old["$$idBubble-" + this.$$eventBubblingHash];
         for (var i = 0; i < listeners.length; i++) {
           old.offById(listeners[i]);
         }
@@ -108,7 +109,7 @@ qx.Mixin.define("qx.data.marshal.MEventBubbling",
         var listener = this.__changePropertyListener.bind(this, name);
         // add the listener
         var id = value.on("changeBubble", listener, this);
-        var listeners = value["$$idBubble-" + this.$$eventBubblingHash];
+        listeners = value["$$idBubble-" + this.$$eventBubblingHash];
         if (listeners == null) {
           listeners = [];
           value["$$idBubble-" + this.$$eventBubblingHash] = listeners;
@@ -130,33 +131,35 @@ qx.Mixin.define("qx.data.marshal.MEventBubbling",
     {
       var value = data.value;
       var old = data.old;
+      var newName;
 
       // if the target is an array
       if (qx.Interface.classImplements(data.target.constructor, qx.data.IListData)) {
+        var index;
+        var rest;
 
         if (data.name.indexOf) {
           var dotIndex = data.name.indexOf(".") != -1 ? data.name.indexOf(".") : data.name.length;
           var bracketIndex = data.name.indexOf("[") != -1 ? data.name.indexOf("[") : data.name.length;
-
           // braktes in the first spot is ok [BUG #5985]
           if (bracketIndex == 0) {
-            var newName = name + data.name;
+            newName = name + data.name;
           } else if (dotIndex < bracketIndex) {
-            var index = data.name.substring(0, dotIndex);
-            var rest = data.name.substring(dotIndex + 1, data.name.length);
+            index = data.name.substring(0, dotIndex);
+            rest = data.name.substring(dotIndex + 1, data.name.length);
             if (rest[0] != "[") {
               rest = "." + rest;
             }
-            var newName =  name + "[" + index + "]" + rest;
+            newName =  name + "[" + index + "]" + rest;
           } else if (bracketIndex < dotIndex) {
-            var index = data.name.substring(0, bracketIndex);
-            var rest = data.name.substring(bracketIndex, data.name.length);
-            var newName =  name + "[" + index + "]" + rest;
+            index = data.name.substring(0, bracketIndex);
+            rest = data.name.substring(bracketIndex, data.name.length);
+            newName =  name + "[" + index + "]" + rest;
           } else {
-            var newName =  name + "[" + data.name + "]";
+            newName =  name + "[" + data.name + "]";
           }
         } else {
-          var newName =  name + "[" + data.name + "]";
+          newName =  name + "[" + data.name + "]";
         }
 
       // if the target is not an array
@@ -165,7 +168,7 @@ qx.Mixin.define("qx.data.marshal.MEventBubbling",
         if (parseInt(name) == name && name !== "") {
           name = "[" + name + "]";
         }
-        var newName =  name + "." + data.name;
+        newName =  name + "." + data.name;
       }
 
       this.emit(
