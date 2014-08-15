@@ -24,20 +24,19 @@
  */
 qx.Bootstrap.define("qx.core.Init",
 {
-  /*
-  *****************************************************************************
-     STATICS
-  *****************************************************************************
-  */
-
   statics :
   {
+    __application : null,
+
+
     /**
      * Returns the instantiated qooxdoo application.
      *
-     * @return {qx.core.Object} The application instance.
+     * @return {Object} The application instance.
      */
-    getApplication : qx.core.BaseInit.getApplication,
+    getApplication : function() {
+      return qx.core.Init.__application || null;
+    },
 
 
     /**
@@ -45,7 +44,47 @@ qx.Bootstrap.define("qx.core.Init",
      * of the class defined by the setting <code>qx.application</code>.
      *
      */
-    ready : qx.core.BaseInit.ready,
+    ready : function() {
+      if (!(qx.$$loader.scriptLoaded && qxWeb.isReady())) {
+        return;
+      }
+
+      if (qx.core.Init.__application) {
+        return;
+      }
+
+      if (qx.core.Environment.get("engine.name") == "") {
+        qx.log.Logger.warn("Could not detect engine!");
+      }
+      if (qx.core.Environment.get("engine.version") == "") {
+        qx.log.Logger.warn("Could not detect the version of the engine!");
+      }
+      if (qx.core.Environment.get("os.name") == "") {
+        qx.log.Logger.warn("Could not detect operating system!");
+      }
+
+      qx.log.Logger.debug(qx.core.Init, "Load runtime: " + (new Date - qx.Bootstrap.LOADSTART) + "ms");
+
+      var app = qx.core.Environment.get("qx.application");
+      var clazz = qx.Bootstrap.getByName(app);
+
+      if (clazz)
+      {
+        qx.core.Init.__application = new clazz();
+
+        var start = new Date();
+        qx.core.Init.__application.main();
+        qx.log.Logger.debug(qx.core.Init, "Main runtime: " + (new Date - start) + "ms");
+
+        var start = new Date;
+        qx.core.Init.__application.finalize();
+        qx.log.Logger.debug(qx.core.Init, "Finalize runtime: " + (new Date - start) + "ms");
+      }
+      else
+      {
+        qx.log.Logger.warn("Missing application class: " + app);
+      }
+    },
 
 
     /**
