@@ -32,13 +32,6 @@ qx.Interface.define("qx.application.IApplication",
 
 
     /**
-     * Called when the application's main method was executed to handle
-     * "final" tasks like rendering or retrieving data.
-     *
-     */
-    finalize : function() {},
-
-    /**
      * Called in the document.beforeunload event of the browser. If the method
      * returns a string value, the user will be asked by the browser, whether
      * he really wants to leave the page. The return string will be displayed in

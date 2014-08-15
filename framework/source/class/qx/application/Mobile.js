@@ -66,8 +66,7 @@ qx.Bootstrap.define("qx.application.Mobile",
 
 
     // interface method
-    main : function()
-    {
+    main : function() {
       this.__root = this._createRootWidget();
 
       if (qx.core.Environment.get("qx.mobile.nativescroll") == false) {
@@ -105,29 +104,19 @@ qx.Bootstrap.define("qx.application.Mobile",
      *
      * @return {qx.ui.mobile.core.Widget} The application's root widget.
      */
-    _createRootWidget : function()
-    {
+    _createRootWidget : function() {
       return new qx.ui.mobile.core.Root();
     },
 
 
     // interface method
-    finalize : function()
-    {
+    close : function() {
       // empty
     },
 
 
     // interface method
-    close : function()
-    {
-      // empty
-    },
-
-
-    // interface method
-    terminate : function()
-    {
+    terminate : function() {
       // empty
     }
   }
