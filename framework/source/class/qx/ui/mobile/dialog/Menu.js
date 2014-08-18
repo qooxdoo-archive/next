@@ -139,7 +139,7 @@ qx.Bootstrap.define("qx.ui.mobile.dialog.Menu",
      */
     clearButtonLabel :
     {
-      init : "None",
+      init : "Clear",
       check : "String",
       apply : "_applyClearButtonLabel"
     },

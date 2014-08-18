@@ -112,16 +112,6 @@ qx.Bootstrap.define("qx.ui.mobile.container.Navigation",
     },
 
 
-    // overridden TODO remove
-    remove : function(widget) {
-      if (qx.core.Environment.get("qx.debug"))
-      {
-        this.assertInterface(widget, qx.ui.mobile.container.INavigation);
-      }
-      widget.remove();
-    },
-
-
     /**
      * Returns the content container. Add all your widgets to this container.
      *
@@ -259,8 +249,8 @@ qx.Bootstrap.define("qx.ui.mobile.container.Navigation",
       this.getLayout().off("animationStart",this._onAnimationStart, this);
       this.getLayout().off("animationEnd",this._onAnimationEnd, this);
 
-      this._disposeObjects("__navigationBar", "__content","__layout");
-      this.__navigationBar = this.__content = this.__layout = null;
+      this.__navigationBar.dispose();
+      this.__content.dispose();
     }
   }
 });

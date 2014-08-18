@@ -562,14 +562,14 @@ qx.Bootstrap.define("qx.ui.mobile.page.Manager",
 
 
     dispose : function() {
-      if(this.__masterPages) {
+      if (this.__masterPages) {
         for(var i = 0; i < this.__masterPages.length; i++) {
           var masterPage = this.__masterPages[i];
 
           masterPage.off("start", this._onMasterPageStart, this);
         }
       }
-      if(this.__detailPages) {
+      if (this.__detailPages) {
         for(var j = 0; j < this.__detailPages.length; j++) {
           var detailPage = this.__detailPages[j];
 
@@ -577,7 +577,7 @@ qx.Bootstrap.define("qx.ui.mobile.page.Manager",
         }
       }
 
-      if(this.__isTablet) {
+      if (this.__isTablet) {
         this.__masterContainer.off("changeVisibility", this._onMasterChangeVisibility, this);
         this.__masterContainer.off("resize", this._onLayoutChange, this);
         qxWeb(window).on("orientationchange", this._onLayoutChange, this);
@@ -585,8 +585,13 @@ qx.Bootstrap.define("qx.ui.mobile.page.Manager",
 
       this.__masterPages = this.__detailPages =  null;
 
-      this._disposeObjects("__detailNavigation", "__masterNavigation", "__masterButton");
+      this.__detailNavigation.dispose();
+      if (this.__masterNavigation) {
+        this.__masterNavigation.dispose();
+      }
+      if (this.__masterButton) {
+        this.__masterButton.dispose();
+      }
     }
-
   }
 });

@@ -199,7 +199,7 @@ qx.Mixin.define("qx.ui.mobile.container.MNativeScroll",
     _snap : function() {
       this.fireEvent("scrollEnd");
       var element = this[0];
-      
+
       if(element.scrollTop < 1 || element.scrollTop > this._getScrollHeight()) {
         return;
       }
@@ -311,8 +311,7 @@ qx.Mixin.define("qx.ui.mobile.container.MNativeScroll",
           "timing": "ease-out"
         });
       }
-    }
-  },
+    },
 
 
     disposeMNativeScroll : function() {

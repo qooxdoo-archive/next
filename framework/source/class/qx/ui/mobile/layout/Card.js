@@ -370,12 +370,6 @@ qx.Bootstrap.define("qx.ui.mobile.layout.Card",
         classes.push("reverse");
       }
       return classes;
-    },
-
-
-    dispose : function() {
-      this.base(qx.ui.mobile.layout.Abstract, "dispose");
-      this._disposeObjects("__cardAnimation");
     }
   }
 });

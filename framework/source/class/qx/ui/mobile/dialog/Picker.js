@@ -144,12 +144,7 @@ qx.Bootstrap.define("qx.ui.mobile.dialog.Picker",
     // overridden
     defaultCssClass :
     {
-<<<<<<< HEAD
-      init : "picker"
-=======
-      refine : true,
       init : "picker-dialog"
->>>>>>> master
     }
   },
 
