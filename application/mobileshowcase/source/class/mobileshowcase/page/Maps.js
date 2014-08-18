@@ -31,8 +31,6 @@ qx.Bootstrap.define("mobileshowcase.page.Maps",
   construct : function() {
     this.base(mobileshowcase.page.Abstract, "constructor", false);
     this.title = "Maps";
-
-    this._geolocationEnabled = qx.core.Environment.get("html.geolocation");
   },
 
 
@@ -43,7 +41,6 @@ qx.Bootstrap.define("mobileshowcase.page.Maps",
     _markers : null,
     _myPositionMarker : null,
     _mapnikLayer : null,
-    _geolocationEnabled : false,
     _showMyPositionButton : null,
 
 
@@ -51,11 +48,6 @@ qx.Bootstrap.define("mobileshowcase.page.Maps",
     _initialize : function()
     {
       this.base(mobileshowcase.page.Abstract, "_initialize");
-
-      if(this._geolocationEnabled) {
-        this._initGeoLocation();
-      }
-
       this._loadMapLibrary();
 
       // Listens on window orientation change and resize, and triggers redraw of map.
@@ -113,9 +105,6 @@ qx.Bootstrap.define("mobileshowcase.page.Maps",
       this._showMyPositionButton = new qx.ui.mobile.form.Button("Find me!");
       this._showMyPositionButton.on("tap", this._getGeoPosition, this);
 
-      // Button is disabled when Geolocation is not available.
-      this._showMyPositionButton.enabled = this._geolocationEnabled;
-
       toggleNavigationButton.on("changeValue", function() {
         var newNavBarState = !this.navigationBarHidden;
         this.navigationBarHidden = newNavBarState;
@@ -139,19 +128,17 @@ qx.Bootstrap.define("mobileshowcase.page.Maps",
      * Loads JavaScript library which is needed for the map.
      */
     _loadMapLibrary : function() {
-      var req = new qx.bom.request.Script();
-
-      req.onload = function() {
+      qxWeb.io.script()
+      .on("load", function() {
         this._map = new OpenLayers.Map("osmMap");
         this._mapnikLayer = new OpenLayers.Layer.OSM("mapnik", null, {});
 
         this._map.addLayer(this._mapnikLayer);
 
         this._zoomToDefaultPosition();
-      }.bind(this);
-
-      req.open("GET", this._mapUri);
-      req.send();
+      }, this)
+      .open("GET", this._mapUri)
+      .send();
     },
 
 
@@ -212,16 +199,6 @@ qx.Bootstrap.define("mobileshowcase.page.Maps",
 
 
     /**
-     * Prepares qooxdoo GeoLocation and installs needed listeners.
-     */
-    _initGeoLocation : function() {
-      var geo = qx.bom.GeoLocation.getInstance();
-      geo.on("position", this._onGeolocationSuccess,this);
-      geo.on("error", this._onGeolocationError,this);
-    },
-
-
-    /**
      * Callback function when Geolocation did work.
      */
     _onGeolocationSuccess : function(position) {
@@ -247,11 +224,16 @@ qx.Bootstrap.define("mobileshowcase.page.Maps",
 
 
     /**
-     * Retreives GeoPosition out of qx.bom.Geolocation and zooms to this point on map.
+     * Retreives GeoPosition and zooms to this point on map.
      */
     _getGeoPosition : function() {
-      var geo = qx.bom.GeoLocation.getInstance();
-      geo.getCurrentPosition(false, 1000, 1000);
+      var successHandler = this._onGeolocationSuccess.bind(this);
+      var errorHandler = this._onGeolocationError.bind(this);
+      navigator.geolocation.getCurrentPosition(successHandler, errorHandler, {
+        enableHighAccuracy: false,
+        timeout: 1000,
+        maximumAge: 1000
+      });
     },
 
 
