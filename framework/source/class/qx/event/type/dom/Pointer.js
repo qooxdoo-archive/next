@@ -220,28 +220,27 @@ qx.Bootstrap.define("qx.event.type.dom.Pointer", {
 
       qx.event.type.dom.Pointer.normalize(domEvent);
 
-      var properties = {};
-
       // mouse properties
+      var mouseProperties = {};
       var mousePropNames = qx.event.type.dom.Pointer.MOUSE_PROPERTIES;
       for (var i = 0; i < mousePropNames.length; i++) {
         var propName = mousePropNames[i];
-        if (propName in domEvent) {
-          properties[propName] = domEvent[propName];
-        }
         if (customProps && customProps[propName] !== undefined) {
-          properties[propName] = customProps[propName];
+          mouseProperties[propName] = customProps[propName];
+        } else if (propName in domEvent) {
+          mouseProperties[propName] = domEvent[propName];
         }
       }
 
       // pointer properties
+      var pointerProperties = {};
       for (var pointerPropName in qx.event.type.dom.Pointer.POINTER_PROPERTIES) {
-        properties[pointerPropName] = qx.event.type.dom.Pointer.POINTER_PROPERTIES[pointerPropName];
+        pointerProperties[pointerPropName] = qx.event.type.dom.Pointer.POINTER_PROPERTIES[pointerPropName];
         if (pointerPropName in domEvent) {
-          properties[pointerPropName] = domEvent[pointerPropName];
+          pointerProperties[pointerPropName] = domEvent[pointerPropName];
         }
         if (customProps && customProps[pointerPropName] !== undefined) {
-          properties[pointerPropName] = customProps[pointerPropName];
+          pointerProperties[pointerPropName] = customProps[pointerPropName];
         }
       }
 
@@ -261,26 +260,33 @@ qx.Bootstrap.define("qx.event.type.dom.Pointer", {
       }
 
       if (buttons) {
-        properties.buttons = buttons;
-        properties.pressure = buttons ? 0.5 : 0;
+        if (qxWeb.env.get("engine.name") !== "gecko") {
+          // Firefox doesn't allow setting the buttons property
+          pointerProperties.buttons = buttons;
+        }
+        pointerProperties.pressure = buttons ? 0.5 : 0;
       }
 
       if (domEvent.pressure) {
-        properties.pressure = domEvent.pressure;
+        pointerProperties.pressure = domEvent.pressure;
       }
 
       if (evt.initMouseEvent) {
-        evt.initMouseEvent(this._type, domEvent.bubbles, domEvent.cancelable, properties.view, properties.detail,
-          properties.screenX, properties.screenY, properties.clientX, properties.clientY, properties.ctrlKey,
-          properties.altKey, properties.shiftKey, properties.metaKey, properties.button, properties.relatedTarget);
+        evt.initMouseEvent(this._type, mouseProperties.bubbles, mouseProperties.cancelable, mouseProperties.view, mouseProperties.detail,
+          mouseProperties.screenX, mouseProperties.screenY, mouseProperties.clientX, mouseProperties.clientY, mouseProperties.ctrlKey,
+          mouseProperties.altKey, mouseProperties.shiftKey, mouseProperties.metaKey, mouseProperties.button, mouseProperties.relatedTarget);
       }
       else if (evt.initUIEvent) {
         evt.initUIEvent(this._type,
-          properties.bubbles, properties.cancelable, properties.view, properties.detail);
+          mouseProperties.bubbles, mouseProperties.cancelable, mouseProperties.view, mouseProperties.detail);
+
+        for (var prop in mouseProperties) {
+          evt[prop] = mouseProperties[prop];
+        }
       }
 
-      for (var prop in properties) {
-        evt[prop] = properties[prop];
+      for (var prop in pointerProperties) {
+        evt[prop] = pointerProperties[prop];
       }
 
       // normalize Windows 8 pointer types
