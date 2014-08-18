@@ -47,8 +47,8 @@ qx.Bootstrap.define("${Namespace}.page.Login",
       loginForm.add(pwd, "Password");
 
       // Use form renderer
-      this.getContent().add(new qx.ui.mobile.form.renderer.Single(loginForm));
-      this.getContent().add(loginButton);
+      this.getContent().append(new qx.ui.mobile.form.renderer.Single(loginForm));
+      this.getContent().append(loginButton);
     },
 
 

@@ -30,7 +30,7 @@ qx.Bootstrap.define("${Namespace}.page.Overview",
     {
       this.base(qx.ui.mobile.page.NavigationPage, "_initialize");
 
-      this.getContent().add(new qx.ui.mobile.basic.Label("Your first app."));
+      this.getContent().append(new qx.ui.mobile.basic.Label("Your first app."));
     },
 
 
