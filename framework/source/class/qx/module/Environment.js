@@ -94,9 +94,12 @@ qx.Bootstrap.define("qx.module.Environment", {
 
     qx.core.Environment.get("device.name");
     qx.core.Environment.get("device.type");
+    qx.core.Environment.get("device.pixelRatio");
 
     qx.core.Environment.get("event.touch");
     qx.core.Environment.get("event.mspointer");
+
+    qx.core.Environment.get("qx.mobile.nativescroll");
 
     qxWeb.$attachStatic({
       "env" : {

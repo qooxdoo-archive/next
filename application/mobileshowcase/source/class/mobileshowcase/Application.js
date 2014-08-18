@@ -102,8 +102,8 @@ qx.Bootstrap.define("mobileshowcase.Application",
       // Initialize the navigation
       var routing = this.getRouting();
 
-      if (qx.core.Environment.get("device.type") == "tablet" ||
-       qx.core.Environment.get("device.type") == "desktop") {
+      if (qxWeb.env.get("device.type") == "tablet" ||
+       qxWeb.env.get("device.type") == "desktop") {
         routing.onGet("/.*", this._show, overview);
         routing.onGet("/", this._show, basic);
       }

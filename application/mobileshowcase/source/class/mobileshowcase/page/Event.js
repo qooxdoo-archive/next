@@ -21,6 +21,7 @@
 
 /**
  * Mobile page responsible for showing the "event" showcase.
+ * @require(qx.module.AnimationFrame)
  */
 qx.Bootstrap.define("mobileshowcase.page.Event",
 {
@@ -35,9 +36,9 @@ qx.Bootstrap.define("mobileshowcase.page.Event",
 
     this.__pointers = {};
 
-    if(qx.core.Environment.get("browser.name")=="firefox") {
+    if(qxWeb.env.get("browser.name")=="firefox") {
       this.__vendorPrefix = "moz";
-    } else if (qx.core.Environment.get("engine.name") == "mshtml") {
+    } else if (qxWeb.env.get("engine.name") == "mshtml") {
       this.__vendorPrefix = "ms";
     }
   },
@@ -150,8 +151,8 @@ qx.Bootstrap.define("mobileshowcase.page.Event",
       this.__container.setStyle("background", "-" + this.__vendorPrefix + "-radial-gradient(50% 50%, cover, #1a82f7, #2F2727)");
 
       // Start rendering
-      qx.bom.AnimationFrame.request(this._renderLabel, this);
-      qx.bom.AnimationFrame.request(this._renderLogo, this);
+      qxWeb.requestAnimationFrame(this._renderLabel, this);
+      qxWeb.requestAnimationFrame(this._renderLogo, this);
     },
 
 
@@ -172,7 +173,7 @@ qx.Bootstrap.define("mobileshowcase.page.Event",
      * @param evt {qx.event.type.Track} The track event.
      */
     __onTrack : function(evt) {
-      if (qx.core.Environment.get("qx.mobile.nativescroll") === false) {
+      if (qxWeb.env.get("qx.mobile.nativescroll") === false) {
         this._getScrollContainer().disable();
       }
 
@@ -180,7 +181,7 @@ qx.Bootstrap.define("mobileshowcase.page.Event",
       this.__logoLeft = this.__logoStartLeft + delta.x;
       this.__logoTop = this.__logoStartTop + delta.y;
 
-      qx.bom.AnimationFrame.request(this._renderLogo, this);
+      qxWeb.requestAnimationFrame(this._renderLogo, this);
     },
 
 
@@ -190,7 +191,7 @@ qx.Bootstrap.define("mobileshowcase.page.Event",
      * @param evt {qx.event.type.Track} The track event.
      */
     __onTrackEnd : function() {
-      if (qx.core.Environment.get("qx.mobile.nativescroll") === false) {
+      if (qxWeb.env.get("qx.mobile.nativescroll") === false) {
         this._getScrollContainer().enable();
       }
 
@@ -206,7 +207,7 @@ qx.Bootstrap.define("mobileshowcase.page.Event",
      */
     __onRotate : function(evt) {
       this.__currentRotation = this.__initialRotation + evt.angle;
-      qx.bom.AnimationFrame.request(this._renderLogo, this);
+      qxWeb.requestAnimationFrame(this._renderLogo, this);
     },
 
 
@@ -222,7 +223,7 @@ qx.Bootstrap.define("mobileshowcase.page.Event",
       this.__currentScale = Math.max(this.__currentScale,this.__minScale);
       this.__currentScale = Math.min(this.__currentScale,this.__maxScale);
 
-      qx.bom.AnimationFrame.request(this._renderLogo, this);
+      qxWeb.requestAnimationFrame(this._renderLogo, this);
     },
 
 
@@ -236,7 +237,7 @@ qx.Bootstrap.define("mobileshowcase.page.Event",
       if (pointer) {
         this.__pointers[evt._original.pointerId].events.push(evt.type);
       }
-      qx.bom.AnimationFrame.request(this._renderLabel, this);
+      qxWeb.requestAnimationFrame(this._renderLabel, this);
     },
 
 
@@ -319,7 +320,7 @@ qx.Bootstrap.define("mobileshowcase.page.Event",
         }
 
         // Disable iScroll before
-        if (qx.core.Environment.get("qx.mobile.nativescroll") == false) {
+        if (qxWeb.env.get("qx.mobile.nativescroll") == false) {
           this._getScrollContainer().disable();
         }
 
@@ -359,12 +360,12 @@ qx.Bootstrap.define("mobileshowcase.page.Event",
         }
 
         // Re-enable iScroll
-        if (qx.core.Environment.get("qx.mobile.nativescroll") == false) {
+        if (qxWeb.env.get("qx.mobile.nativescroll") == false) {
           this._getScrollContainer().enable();
         }
       }
 
-      qx.bom.AnimationFrame.request(this._renderLabel, this);
+      qxWeb.requestAnimationFrame(this._renderLabel, this);
     },
 
 

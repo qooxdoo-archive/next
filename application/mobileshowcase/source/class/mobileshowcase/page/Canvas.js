@@ -31,7 +31,7 @@ qx.Bootstrap.define("mobileshowcase.page.Canvas",
   {
     this.base(mobileshowcase.page.Abstract, "constructor", false);
     this.title = "Canvas";
-    this.__ratio = qx.core.Environment.get("device.pixelRatio");
+    this.__ratio = qxWeb.env.get("device.pixelRatio");
   },
 
 

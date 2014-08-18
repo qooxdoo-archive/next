@@ -78,6 +78,21 @@ qx.Bootstrap.define("qx.module.util.String", {
 
 
     /**
+     * Print a list of arguments using a format string
+     * In the format string occurrences of %n are replaced by the n'th element of the args list.
+     * Example:
+     * <pre class='javascript'>qx.lang.String.format("Hello %1, my name is %2", ["Egon", "Franz"]) == "Hello Egon, my name is Franz"</pre>
+     *
+     * @signature function(pattern, args)
+     * @attachStatic {qxWeb, string.format}
+     * @param pattern {String} format string
+     * @param args {Array} array of arguments to insert into the format string
+     * @return {String} the formatted string
+     */
+    format : qx.lang.String.format,
+
+
+    /**
      * Check whether the string starts with the given substring.
      *
      * @attachStatic {qxWeb, string.startsWith}
@@ -134,6 +149,7 @@ qx.Bootstrap.define("qx.module.util.String", {
         hyphenate : statics.hyphenate,
         firstUp : statics.firstUp,
         firstLow : statics.firstLow,
+        format : statics.format,
         startsWith : statics.startsWith,
         endsWith : statics.endsWith,
         escapeRegexpChars : statics.escapeRegexpChars,

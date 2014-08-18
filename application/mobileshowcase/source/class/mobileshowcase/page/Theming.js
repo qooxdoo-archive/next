@@ -29,6 +29,7 @@
  * Mobile page responsible for switching between provided themes.
  *
  * @asset(qx/mobile/css/*)
+ * @require(qx.module.util.String)
  */
 qx.Bootstrap.define("mobileshowcase.page.Theming",
 {
@@ -70,11 +71,7 @@ qx.Bootstrap.define("mobileshowcase.page.Theming",
       for(var i = 0; i < mobileshowcase.page.Theming.THEMES.length; i++) {
         var cssResource = mobileshowcase.page.Theming.THEMES[i].css;
         var cssURI = qx.util.ResourceManager.getInstance().toUri(cssResource);
-
-        var req = new qx.bom.request.Xhr();
-
-        req.open("GET", cssURI);
-        req.send();
+        qxWeb.io.xhr(cssURI).send();
       }
     },
 
@@ -156,12 +153,12 @@ qx.Bootstrap.define("mobileshowcase.page.Theming",
     */
     _updateDemoImageLabel : function()
     {
-      var pixelRatio = parseFloat(qx.bom.client.Device.getDevicePixelRatio().toFixed(2));
+      var pixelRatio = parseFloat(q.env.get("device.pixelRatio").toFixed(2));
       var fontScale = qx.core.Init.getApplication().getRoot().getFontScale();
       var appScale = qx.core.Init.getApplication().getRoot().getAppScale();
 
       var demoLabelTemplate = "<div>Best available image for total app scale<span>%1</span></div> <div><br/></div> <div>Device pixel ratio:<span>%2</span></div>  <div>Computed font scale:<span>%3</span></div> ";
-      var labelContent = qx.lang.String.format(demoLabelTemplate, [this.__format(appScale), this.__format(pixelRatio), this.__format(fontScale)]);
+      var labelContent = qxWeb.string.format(demoLabelTemplate, [this.__format(appScale), this.__format(pixelRatio), this.__format(fontScale)]);
 
       this.__demoImageLabel.value = labelContent;
     },

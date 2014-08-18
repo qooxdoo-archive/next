@@ -102,7 +102,7 @@ qx.Bootstrap.define("mobileshowcase.page.Toolbar",
       this.__loadButton.on("tap", function(){
         var popup = this.__createSearchPopup();
         popup.show();
-        qx.lang.Function.delay(popup.hide, 3000, popup);
+        window.setTimeout(popup.hide.bind(popup), 3000);
       }, this);
 
 
