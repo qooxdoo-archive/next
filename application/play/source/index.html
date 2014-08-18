@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8" />
+  <title>Play</title>
+  <script type="text/javascript" src="script/play.js"></script>
+</head>
+<body>
+  <div class="header">
+    <h1>Play</h1>
+    <p id="version-label">qooxdoo {{version}}</p>
+    <div class="decoration">&nbsp;</div>
+  </div>
+  <div id="toolbar">
+  </div>
+  <div class="play-content qx-hbox">
+    <pre id="editor" class="qx-hbox qx-flex1"></pre>
+    <div id="playarea" class="qx-vbox qx-flex6">
+      <div id="playroot" class="qx-flex1"></div>
+    </div>
+  </div>
+
+  <script src="./resource/play/js/ace/ace.js" type="text/javascript" charset="utf-8"></script>
+  <script>
+    // init ACE
+    var editor = ace.edit("editor");
+    editor.getSession().setMode("ace/mode/javascript");
+  </script>
+</body>
+</html>
