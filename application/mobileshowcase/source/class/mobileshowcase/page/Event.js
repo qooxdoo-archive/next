@@ -233,7 +233,7 @@ qx.Bootstrap.define("mobileshowcase.page.Event",
      * @param evt {qx.event.type.Pointer} The pointer event.
      */
     _onGesture : function(evt) {
-      var pointer = this.__pointers[evt._original.pointerId];
+      var pointer = this.__pointers[evt._original.pointerId]; //TODO: evt.pointerId
       if (pointer) {
         this.__pointers[evt._original.pointerId].events.push(evt.type);
       }
@@ -249,7 +249,7 @@ qx.Bootstrap.define("mobileshowcase.page.Event",
     _updatePointerPosition : function(evt) {
       var position = this._getPointerPosition(evt);
 
-      this._setPointerCirclePosition(evt._original.pointerId, position[0], position[1]);
+      this._setPointerCirclePosition(evt.pointerId, position[0], position[1]);
     },
 
 
@@ -295,8 +295,8 @@ qx.Bootstrap.define("mobileshowcase.page.Event",
     * @param evt {qx.event.type.Pointer} The pointer event.
     */
     _getPointerPosition : function(evt) {
-      var containerLeft = this.__container.getPosition().left;
-      var containerTop = this.__container.getPosition().top;
+      var containerLeft = this.__container.getLocation().left;
+      var containerTop = this.__container.getLocation().top;
       return [evt.clientX - containerLeft, evt.clientY - containerTop];
     },
 

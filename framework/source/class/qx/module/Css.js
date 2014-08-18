@@ -447,6 +447,25 @@ qx.Bootstrap.define("qx.module.Css", {
 
 
     /**
+     * Returns the location of the first element in the collection in context of
+     * the document dimensions.
+     *
+     * @attach {qxWeb}
+     * @return {Map} a map with the keys <code>top</code>, <code>left</code>,
+     * <code>right</code> and <code>bottom</code>
+     */
+    getLocation : function()
+    {
+      var obj = this[0];
+      if (qx.dom.Node.isElement(obj)) {
+        return qx.bom.element.Location.get(obj);
+      }
+
+      return null;
+    },
+
+
+    /**
      * Includes a Stylesheet file
      *
      * @attachStatic {qxWeb}
@@ -596,6 +615,7 @@ qx.Bootstrap.define("qx.module.Css", {
       "getContentWidth" : statics.getContentWidth,
 
       "getPosition" : statics.getPosition,
+      "getLocation" : statics.getLocation,
 
       "hide" : statics.hide,
       "show" : statics.show
