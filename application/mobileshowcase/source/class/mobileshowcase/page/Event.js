@@ -113,6 +113,9 @@ qx.Bootstrap.define("mobileshowcase.page.Event",
       this.__gestureTarget.on("pinch", this.__onPinch, this);
       this.__gestureTarget.on("rotate", this.__onRotate, this);
       this.__gestureTarget.setDraggable(false);
+      this.__gestureTarget.on("dragstart", function(ev) {
+        ev.preventDefault();
+      });
       this.__gestureTarget.translate([(-5000) + "px", 0]);
 
       container.append(this.__gestureTarget);
