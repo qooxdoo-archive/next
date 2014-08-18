@@ -292,7 +292,7 @@ qx.Bootstrap.define("qx.event.handler.PointerCore", {
       }
 
       var type = qx.event.handler.PointerCore.MOUSE_TO_POINTER_MAPPING[domEvent.type];
-      var target = qx.bom.Event.getTarget(domEvent);
+      target = this.__defaultTarget;
 
       var buttonsPressed = qx.lang.Array.sum(this.__buttonStates);
 
@@ -405,7 +405,13 @@ qx.Bootstrap.define("qx.event.handler.PointerCore", {
       if (type == "pointerdown" || type == "pointerup" || type == "pointermove") {
         gestureEvent = new qx.event.type.dom.Pointer(
           qx.event.handler.PointerCore.POINTER_TO_GESTURE_MAPPING[type],
-          domEvent);
+          domEvent,
+          {
+            bubbles: true,
+            pointerType: domEvent.pointerType,
+            pointerId: domEvent.pointerId
+          }
+        );
         qx.event.type.dom.Pointer.normalize(gestureEvent);
         gestureEvent.srcElement = target;
       }

@@ -217,30 +217,37 @@ qx.Bootstrap.define("qx.event.type.dom.Pointer", {
 
     _initEvent : function(domEvent, customProps) {
       var evt = this._event;
+      var mouseProperties = {};
+      var pointerProperties = {};
 
       qx.event.type.dom.Pointer.normalize(domEvent);
 
+      // custom properties
+      for (var prop in customProps) {
+        if (prop in domEvent) {
+          mouseProperties[prop] = customProps[prop];
+        } else {
+          pointerProperties[prop] = customProps[prop];
+        }
+      }
+
       // mouse properties
-      var mouseProperties = {};
       var mousePropNames = qx.event.type.dom.Pointer.MOUSE_PROPERTIES;
       for (var i = 0; i < mousePropNames.length; i++) {
         var propName = mousePropNames[i];
-        if (customProps && customProps[propName] !== undefined) {
-          mouseProperties[propName] = customProps[propName];
-        } else if (propName in domEvent) {
+        if (!(propName in mouseProperties) && propName in domEvent) {
           mouseProperties[propName] = domEvent[propName];
         }
       }
 
       // pointer properties
-      var pointerProperties = {};
       for (var pointerPropName in qx.event.type.dom.Pointer.POINTER_PROPERTIES) {
-        pointerProperties[pointerPropName] = qx.event.type.dom.Pointer.POINTER_PROPERTIES[pointerPropName];
-        if (pointerPropName in domEvent) {
-          pointerProperties[pointerPropName] = domEvent[pointerPropName];
-        }
-        if (customProps && customProps[pointerPropName] !== undefined) {
-          pointerProperties[pointerPropName] = customProps[pointerPropName];
+        if (!(pointerPropName in pointerProperties)) {
+          if (pointerPropName in domEvent) {
+            pointerProperties[pointerPropName] = domEvent[pointerPropName];
+          } else {
+            pointerProperties[pointerPropName] = qx.event.type.dom.Pointer.POINTER_PROPERTIES[pointerPropName];
+          }
         }
       }
 

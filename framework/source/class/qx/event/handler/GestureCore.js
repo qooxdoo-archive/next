@@ -187,7 +187,7 @@ qx.Bootstrap.define("qx.event.handler.GestureCore", {
         )
       };
 
-      if(domEvent.isPrimary) {
+      if (domEvent.isPrimary) {
         this.__isMultiPointerGesture = false;
         this.__primaryTarget = target;
         this.__fireTrack("trackstart", domEvent, target);
@@ -692,7 +692,7 @@ qx.Bootstrap.define("qx.event.handler.GestureCore", {
     __fireLongTap : function(domEvent, target) {
       var gesture = this.__gesture[domEvent.pointerId];
       if (gesture) {
-        this._fireEvent(domEvent, "longtap", domEvent.target || target);
+        this._fireEvent(domEvent, "longtap", this.__defaultTarget);
         gesture.longTapTimer = null;
         gesture.isTap = false;
       }
