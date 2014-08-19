@@ -17,6 +17,7 @@ testrunner.globalSetup = function() {
   if (document.msCSSOMElementFloatMetrics) {
     document.msCSSOMElementFloatMetrics = null;
   }
+  this.initMMock();
 };
 
 testrunner.globalTeardown = function() {
@@ -2072,7 +2073,6 @@ testrunner.define({
     }
     var callback = function (ev) {
       this.count++;
-      debugger;
     }
     var callback2 = function (ev) {
       this.count += 2;
@@ -2578,6 +2578,7 @@ testrunner.define({
   },
 
   testDisposeHandler: function() {
+    debugger
     var cb = function() {};
     this.sandbox
       .on("tap", cb)
