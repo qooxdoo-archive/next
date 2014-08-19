@@ -197,7 +197,7 @@ qx.Mixin.define("qx.ui.mobile.container.MNativeScroll",
     * Snaps the scrolling area to the nearest snap point.
     */
     _snap : function() {
-      this.fireEvent("scrollEnd");
+      this.emit("scrollEnd");
       var element = this[0];
 
       if(element.scrollTop < 1 || element.scrollTop > this._getScrollHeight()) {
