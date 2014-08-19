@@ -155,7 +155,7 @@ qx.Bootstrap.define("qx.event.handler.PointerCore", {
       }
       var type = qx.event.handler.PointerCore.MSPOINTER_TO_POINTER_MAPPING[domEvent.type] || domEvent.type;
       var target = qx.bom.Event.getTarget(domEvent);
-      var evt = new qx.event.type.dom.Pointer(type, domEvent);
+      var evt = new qx.event.type.dom.Pointer(type, domEvent, {bubbles: true});
       this._fireEvent(evt, type, target);
     },
 
@@ -216,7 +216,8 @@ qx.Bootstrap.define("qx.event.handler.PointerCore", {
           screenY: touch.screenY,
           target: touchTarget,
           pointerType: "touch",
-          pointerId: touch.identifier + 2
+          pointerId: touch.identifier + 2,
+          bubbles: true
         };
 
         if (domEvent.type == "touchstart") {
@@ -280,7 +281,7 @@ qx.Bootstrap.define("qx.event.handler.PointerCore", {
 
       var type = qx.event.handler.PointerCore.MOUSE_TO_POINTER_MAPPING[domEvent.type];
       var buttonsPressed = qx.lang.Array.sum(this.__buttonStates);
-      var mouseProps = {pointerType : "mouse", pointerId: 1};
+      var mouseProps = {pointerType : "mouse", pointerId: 1, bubbles : true};
 
       // if the button state changes but not from or to zero
       if (this.__lastButtonState != buttonsPressed && buttonsPressed !== 0 && this.__lastButtonState !== 0) {
