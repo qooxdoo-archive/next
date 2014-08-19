@@ -81,7 +81,7 @@ qx.Mixin.define("qx.dev.unit.MTestLoader", {
     {
       var suite = new qx.dev.unit.TestSuite();
       suite.add(namespace);
-      this.setSuite(suite);
+      this.suite = suite;
     },
 
 
@@ -91,7 +91,7 @@ qx.Mixin.define("qx.dev.unit.MTestLoader", {
     runJsUnit : function()
     {
       var testResult = new qx.dev.unit.JsUnitTestResult();
-      this.getSuite().run(testResult);
+      this.suite.run(testResult);
       testResult.exportToJsUnit();
     },
 
@@ -120,7 +120,7 @@ qx.Mixin.define("qx.dev.unit.MTestLoader", {
         this.error("The test '" + test.getFullName() + "' had an error: " + ex, ex);
       }, this);
 
-      this.getSuite().run(testResult);
+      this.suite.run(testResult);
     },
 
 
@@ -132,7 +132,7 @@ qx.Mixin.define("qx.dev.unit.MTestLoader", {
     getTestDescriptions : function()
     {
       var desc = [];
-      var classes = this.getSuite().getTestClasses();
+      var classes = this.suite.getTestClasses();
 
       for (var i=0; i<classes.length; i++)
       {
@@ -162,7 +162,7 @@ qx.Mixin.define("qx.dev.unit.MTestLoader", {
      */
     runTests : function(testResult, className, methodName)
     {
-      var classes = this.getSuite().getTestClasses();
+      var classes = this.suite.getTestClasses();
 
       for (var i=0; i<classes.length; i++)
       {
@@ -193,7 +193,7 @@ qx.Mixin.define("qx.dev.unit.MTestLoader", {
      */
     runTestsFromNamespace : function(testResult, namespaceName)
     {
-      var classes = this.getSuite().getTestClasses();
+      var classes = this.suite.getTestClasses();
 
       for (var i=0; i<classes.length; i++)
       {

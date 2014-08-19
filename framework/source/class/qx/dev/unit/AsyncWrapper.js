@@ -44,14 +44,14 @@ qx.Bootstrap.define("qx.dev.unit.AsyncWrapper",
   {
     for (var i=0; i<2; i++) {
       if (qx.lang.Type.isFunction(arguments[i])) {
-        this.setDeferredFunction(arguments[i]);
+        this.deferredFunction = arguments[i];
       } else if (qx.lang.Type.isNumber(arguments[i])) {
-        this.setDelay(arguments[i]);
+        this.delay = arguments[i];
       }
     }
 
     if (context) {
-      this.setContext(context);
+      this.context = context;
     }
   },
 
@@ -74,7 +74,7 @@ qx.Bootstrap.define("qx.dev.unit.AsyncWrapper",
     /** The amount of time in milliseconds to wait */
     delay :
     {
-      check: "Integer",
+      check: "Number",
       nullable : false,
       init : 5000
     }

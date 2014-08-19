@@ -234,7 +234,7 @@ qx.Bootstrap.define("testrunner.runner.TestRunnerBasic", {
       var testClass = this._defineTestClass(testClassName, membersMap);
 
       if (this.loader) {
-        this.loader.getSuite().add(testClass);
+        this.loader.suite.add(testClass);
       }
       else {
         this.loader = new qx.dev.unit.TestLoaderBasic(testNameSpace);
