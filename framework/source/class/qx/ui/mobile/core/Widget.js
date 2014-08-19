@@ -595,12 +595,10 @@ qx.Bootstrap.define("qx.ui.mobile.core.Widget",
 
       if (old) {
         this.off("pointerdown", this._addActiveState, this);
-        this.off("pointerup", this._removeActiveState, this);
       }
 
       if (value) {
         this.on("pointerdown", this._addActiveState, this);
-        this.on("pointerup", this._removeActiveState, this);
       }
 
       //TODO: remove active state on viewport scroll (see mobile.core.EventHandler.__onPointerMove)
@@ -610,6 +608,7 @@ qx.Bootstrap.define("qx.ui.mobile.core.Widget",
     _addActiveState : function() {
       if (this.getAttribute("data-selectable") != "false") {
         this.addClass("active");
+        qxWeb(document.documentElement).once("pointerup", this._removeActiveState, this);
       }
     },
 
