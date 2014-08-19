@@ -2578,7 +2578,6 @@ testrunner.define({
   },
 
   testDisposeHandler: function() {
-    debugger
     var cb = function() {};
     this.sandbox
       .on("tap", cb)
