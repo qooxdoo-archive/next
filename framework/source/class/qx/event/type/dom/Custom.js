@@ -63,8 +63,10 @@ qx.Bootstrap.define("qx.event.type.dom.Custom", {
     this._event.stopPropagation = function() {
       this._stopped = true;
       if (this._nativeStopPropagation) {
-        this._original.stopPropagation();
-        this._nativeStopPropagation();
+        if (this._original.type.indexOf("gesture") !== 0) {
+          this._original.stopPropagation();
+          this._nativeStopPropagation();
+        }
       } else {
         this._original.cancelBubble = true;
       }
