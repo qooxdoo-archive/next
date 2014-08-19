@@ -545,7 +545,8 @@ qx.Bootstrap.define("qx.test.data.marshal.Json",
 
     testBubbleEventsWithRemove: function() {
       qx.Bootstrap.define("qx.Test", {
-        extend : qx.event.Emitter,
+        extend : Object,
+        include : [qx.event.MEmitter],
         include : qx.data.marshal.MEventBubbling,
         properties : {
           fonts: {
@@ -629,7 +630,8 @@ qx.Bootstrap.define("qx.test.data.marshal.Json",
      */
     testGetModelClass: function() {
       qx.Bootstrap.define("qx.test.model.C", {
-        extend : qx.event.Emitter,
+        extend : Object,
+        include : [qx.event.MEmitter],
         properties : {
           s : {event : "s"},
           b : {event : "b"},
@@ -691,7 +693,8 @@ qx.Bootstrap.define("qx.test.data.marshal.Json",
 
     testGetModelClassIgnore: function() {
       qx.Bootstrap.define("qx.test.model.C", {
-        extend : qx.event.Emitter,
+        extend : Object,
+        include : [qx.event.MEmitter],
         properties : {
           b : {event : "b"}
         }

@@ -97,8 +97,8 @@
  */
 qx.Bootstrap.define("qx.bom.History",
 {
-  extend : qx.event.Emitter,
-
+  extend : Object,
+  include : [qx.event.MEmitter],
 
   construct : function()
   {

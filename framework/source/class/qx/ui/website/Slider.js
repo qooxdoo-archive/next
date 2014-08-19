@@ -406,7 +406,7 @@ qx.Bootstrap.define("qx.ui.website.Slider",
     /**
      * Reads the pointer's position and sets slider value to the nearest step.
      *
-     * @param e {qx.event.Emitter} Incoming event object
+     * @param e {Event} Incoming event object
      */
     _onSliderPointerUp : function(e) {
       if ((e.getDocumentLeft() === 0 && e.getDocumentTop() === 0) ||
@@ -420,7 +420,7 @@ qx.Bootstrap.define("qx.ui.website.Slider",
     /**
      * Listener for the pointerdown event. Initializes drag or tracking mode.
      *
-     * @param e {qx.event.Emitter} Incoming event object
+     * @param e {Event} Incoming event object
      */
     _onPointerDown : function(e) {
       // this can happen if the user releases the button while dragging outside
@@ -442,7 +442,7 @@ qx.Bootstrap.define("qx.ui.website.Slider",
      * Listener for the pointerup event. Used for cleanup of previously
      * initialized modes.
      *
-     * @param e {qx.event.Emitter} Incoming event object
+     * @param e {Event} Incoming event object
      */
     _onDocPointerUp : function(e) {
       if (this.__dragMode === true) {
@@ -461,7 +461,7 @@ qx.Bootstrap.define("qx.ui.website.Slider",
     /**
      * Listener for the pointermove event for the knob. Only used in drag mode.
      *
-     * @param e {qx.event.Emitter} Incoming event object
+     * @param e {Event} Incoming event object
      */
     _onPointerMove : function(e) {
       e.preventDefault();

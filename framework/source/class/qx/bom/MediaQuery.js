@@ -55,7 +55,9 @@
  */
 qx.Bootstrap.define("qx.bom.MediaQuery", {
 
-  extend: qx.event.Emitter,
+  extend: Object,
+  include : [qx.event.MEmitter],
+
 
   /**
    * @param query {String} the media query to evaluate

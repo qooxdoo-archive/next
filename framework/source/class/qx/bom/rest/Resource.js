@@ -121,7 +121,8 @@
  */
 qx.Bootstrap.define("qx.bom.rest.Resource",
 {
-  extend: qx.event.Emitter,
+  extend: Object,
+  include : [qx.event.MEmitter],
 
   /**
    * @param description {Map?} Each key of the map is interpreted as

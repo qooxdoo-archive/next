@@ -401,7 +401,8 @@ qx.Bootstrap.define("qx.test.data.singlevalue.Simple",
     testConversionClass : function()
     {
       qx.Bootstrap.define("qx.test.TwoProperties", {
-        extend : qx.event.Emitter,
+        extend : Object,
+        include : [qx.event.MEmitter],
         properties : {
           a : { event : true, nullable : true },
           b : { event : true, nullable : true }
@@ -463,7 +464,8 @@ qx.Bootstrap.define("qx.test.data.singlevalue.Simple",
 
     testResetNotNull : function() {
       qx.Bootstrap.define("qx.test.SVB", {
-        extend : qx.event.Emitter,
+        extend : Object,
+        include : [qx.event.MEmitter],
         properties : {
           x : {
             nullable: true,
@@ -492,7 +494,8 @@ qx.Bootstrap.define("qx.test.data.singlevalue.Simple",
 
     testResetNotNullInit : function() {
       qx.Bootstrap.define("qx.test.SVB", {
-        extend : qx.event.Emitter,
+        extend : Object,
+        include : [qx.event.MEmitter],
         properties : {
           x : {
             nullable: true,

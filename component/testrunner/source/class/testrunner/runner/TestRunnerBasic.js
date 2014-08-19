@@ -25,8 +25,8 @@
  */
 qx.Bootstrap.define("testrunner.runner.TestRunnerBasic", {
 
-  extend : qx.event.Emitter,
-  include : qx.data.MBinding,
+  extend : Object,
+  include : [qx.event.MEmitter, qx.data.MBinding],
 
   statics :
   {

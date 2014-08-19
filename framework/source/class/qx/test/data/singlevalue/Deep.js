@@ -32,7 +32,8 @@ qx.Bootstrap.define("qx.test.data.singlevalue.Deep",
     // define a test class
     qx.Bootstrap.define("qx.test.MultiBinding",
     {
-      extend : qx.event.Emitter,
+      extend : Object,
+      include : [qx.event.MEmitter],
 
       properties :
       {

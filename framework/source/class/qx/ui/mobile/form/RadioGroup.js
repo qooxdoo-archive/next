@@ -44,7 +44,7 @@
  */
 qx.Bootstrap.define("qx.ui.mobile.form.RadioGroup",
 {
-  extend : qx.event.Emitter,
+  extend : Object,
   implement : [
     qx.ui.core.ISingleSelection,
     qx.ui.form.IForm,
@@ -52,7 +52,8 @@ qx.Bootstrap.define("qx.ui.mobile.form.RadioGroup",
   ],
   include : [
     qx.ui.core.MSingleSelectionHandling,
-    qx.ui.form.MModelSelection
+    qx.ui.form.MModelSelection,
+    qx.event.MEmitter
   ],
 
 

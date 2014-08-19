@@ -43,7 +43,7 @@ qx.Bootstrap.define("qx.event.handler.OrientationCore", {
   /**
    *
    * @param targetWindow {Window} DOM window object
-   * @param emitter {qx.event.Emitter} Event emitter object
+   * @param emitter {Object} Event emitter object
    */
   construct : function(targetWindow, emitter)
   {

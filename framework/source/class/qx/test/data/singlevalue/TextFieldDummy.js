@@ -19,7 +19,8 @@
 
 qx.Bootstrap.define("qx.test.data.singlevalue.TextFieldDummy",
 {
-  extend : qx.event.Emitter,
+  extend : Object,
+  include : [qx.event.MEmitter],
   construct : function(value) {
     if (value != null) {
       this.value = value;

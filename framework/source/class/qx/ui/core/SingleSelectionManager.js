@@ -27,8 +27,8 @@
  */
 qx.Bootstrap.define("qx.ui.core.SingleSelectionManager",
 {
-  extend : qx.event.Emitter,
-
+  extend : Object,
+  include : [qx.event.MEmitter],
 
   /*
   *****************************************************************************

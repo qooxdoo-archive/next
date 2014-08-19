@@ -24,8 +24,8 @@
  */
 qx.Bootstrap.define("qx.dev.unit.TestResult",
 {
-  extend : qx.event.Emitter,
-
+  extend : Object,
+  include : [qx.event.MEmitter],
 
 
   /*

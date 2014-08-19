@@ -23,16 +23,9 @@
  */
 qx.Bootstrap.define("testrunner.view.Abstract", {
 
-  //type : "abstract",
+  extend : Object,
+  include : [qx.event.MEmitter],
 
-  extend : qx.event.Emitter,
-
-
-  /*
-  *****************************************************************************
-     EVENTS
-  *****************************************************************************
-  */
 
   events :
   {

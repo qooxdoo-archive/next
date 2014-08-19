@@ -48,7 +48,7 @@ qx.Bootstrap.define("qx.data.marshal.Json",
      * @param includeBubbleEvents {Boolean} Whether the model should support
      *   the bubbling of change events or not.
      *
-     * @return {qx.event.Emitter} An instance of the corresponding class.
+     * @return {Object} An instance of the corresponding class.
      */
     createModel : function(data, includeBubbleEvents) {
       // singleton for the json marshaler
@@ -119,7 +119,6 @@ qx.Bootstrap.define("qx.data.marshal.Json",
       if (
         !qx.lang.Type.isObject(data)
         || !!data.$$isString // check for localized strings
-        || data instanceof qx.event.Emitter
         || data instanceof qxWeb
       ) {
         // check for arrays
@@ -186,16 +185,16 @@ qx.Bootstrap.define("qx.data.marshal.Json",
         }
       }
 
-      // try to get the superclass, qx.event.Emitter as default
+      // try to get the superclass, Object as default
       if (this.__delegate && this.__delegate.getModelSuperClass) {
         var superClass =
-          this.__delegate.getModelSuperClass(hash, parentProperty, depth) || qx.event.Emitter;
+          this.__delegate.getModelSuperClass(hash, parentProperty, depth) || Object;
       } else {
-        var superClass = qx.event.Emitter;
+        var superClass = Object;
       }
 
       // try to get the mixins
-      var mixins = [qx.data.MBinding];
+      var mixins = [qx.data.MBinding, qx.event.MEmitter];
       if (this.__delegate && this.__delegate.getModelMixins) {
         var delegateMixins = this.__delegate.getModelMixins(hash, parentProperty, depth);
         // check if its an array
@@ -234,7 +233,7 @@ qx.Bootstrap.define("qx.data.marshal.Json",
      *   will be stored in.
      * @param depth {Number} The depth of the object relative to the data root.
      * @param data {Map} The data for which an instance should be created.
-     * @return {qx.event.Emitter} An instance of the corresponding class.
+     * @return {Object} An instance of the corresponding class.
      */
     __createInstance: function(hash, data, parentProperty, depth) {
       var delegateClass;
@@ -278,7 +277,7 @@ qx.Bootstrap.define("qx.data.marshal.Json",
      *
      * @param data {Object} The object for which models should be created.
      *
-     * @return {qx.event.Emitter} The created model object.
+     * @return {Object} The created model object.
      */
     toModel: function(data) {
       return this.__toModel(data, null, 0);
@@ -292,7 +291,7 @@ qx.Bootstrap.define("qx.data.marshal.Json",
      * @param parentProperty {String|null} The name of the property the
      *   data will be stored in.
      * @param depth {Number} The depth of the data relative to the data's root.
-     * @return {qx.event.Emitter} The created model object.
+     * @return {Object} The created model object.
      */
     __toModel: function(data, parentProperty, depth) {
       var isObject = qx.lang.Type.isObject(data);
@@ -301,7 +300,6 @@ qx.Bootstrap.define("qx.data.marshal.Json",
       if (
         (!isObject && !isArray)
         || !!data.$$isString // check for localized strings
-        || data instanceof qx.event.Emitter
         || data instanceof qxWeb
       ) {
         return data;

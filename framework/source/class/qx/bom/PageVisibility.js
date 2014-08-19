@@ -25,7 +25,9 @@
  */
 qx.Bootstrap.define("qx.bom.PageVisibility",
 {
-  extend : qx.event.Emitter,
+  extend : Object,
+  include : [qx.event.MEmitter],
+
 
   statics : {
     /**

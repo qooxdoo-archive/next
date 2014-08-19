@@ -508,7 +508,8 @@ qx.Class.define("qx.test.Bootstrap",
 
     testPropertyEventEmitter : function() {
       var C = qx.Bootstrap.define(null, {
-        extend : qx.event.Emitter,
+        extend : Object,
+        include : [qx.event.MEmitter],
         properties : {
           a: {
             event : true,

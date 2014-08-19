@@ -29,7 +29,8 @@
  */
 qx.Bootstrap.define("qx.locale.Manager",
 {
-  extend : qx.event.Emitter,
+  extend : Object,
+  include : [qx.event.MEmitter],
 
   construct : function()
   {

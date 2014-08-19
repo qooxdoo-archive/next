@@ -25,7 +25,8 @@
  */
 qx.Bootstrap.define("qx.ui.mobile.list.provider.Provider",
 {
-  extend : qx.event.Emitter,
+  extend : Object,
+  include : [qx.event.MEmitter],
 
 
   properties:

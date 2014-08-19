@@ -38,13 +38,9 @@
  */
 qx.Bootstrap.define("qx.ui.mobile.form.Form",
 {
-  extend : qx.event.Emitter,
+  extend : Object,
+  include : [qx.event.MEmitter],
 
-  /*
-  *****************************************************************************
-     CONSTRUCTOR
-  *****************************************************************************
-  */
 
   construct : function()
   {

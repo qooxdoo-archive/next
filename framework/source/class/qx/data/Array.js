@@ -26,8 +26,8 @@
  */
 qx.Bootstrap.define("qx.data.Array",
 {
-  extend : qx.event.Emitter,
-  include : qx.data.marshal.MEventBubbling,
+  extend : Object,
+  include : [qx.data.marshal.MEventBubbling, qx.event.MEmitter],
   implement : [qx.data.IListData],
 
   /**

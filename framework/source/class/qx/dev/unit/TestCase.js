@@ -23,8 +23,8 @@
  */
 qx.Bootstrap.define("qx.dev.unit.TestCase",
 {
-  extend  : qx.event.Emitter,
-  include : [qx.core.MAssert],
+  extend  : Object,
+  include : [qx.core.MAssert, qx.event.MEmitter],
 
   events :
   {
@@ -134,7 +134,7 @@ qx.Bootstrap.define("qx.dev.unit.TestCase",
         var args = qx.lang.Array.fromArguments(arguments);
 
         that.resume(func.bind.apply(func, [self || this].concat(args)), self);
-      }
+      };
     },
 
 

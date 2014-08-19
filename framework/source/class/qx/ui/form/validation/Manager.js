@@ -24,7 +24,8 @@
  */
 qx.Bootstrap.define("qx.ui.form.validation.Manager",
 {
-  extend : qx.event.Emitter,
+  extend : Object,
+  include : [qx.event.MEmitter],
 
   construct : function() {
     // storage for all form items

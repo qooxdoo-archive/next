@@ -55,7 +55,8 @@
  */
 qx.Bootstrap.define("qx.bom.AnimationFrame",
 {
-  extend : qx.event.Emitter,
+  extend : Object,
+  include : [qx.event.MEmitter],
 
   events : {
     /** Fired as soon as the animation has ended. */
