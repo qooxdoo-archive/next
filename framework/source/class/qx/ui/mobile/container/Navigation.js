@@ -32,7 +32,7 @@
  *
  * <pre class='javascript'>
  *   var container = new qx.ui.mobile.container.Navigation();
- *   this.getRoot(container);
+ *   this.getRoot().add(container);
  *   var page = new qx.ui.mobile.page.NavigationPage();
  *   container.append(page);
  *   page.show();
