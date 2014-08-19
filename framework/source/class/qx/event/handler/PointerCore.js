@@ -79,12 +79,9 @@ qx.Bootstrap.define("qx.event.handler.PointerCore", {
    * Create a new instance
    *
    * @param target {Element} element on which to listen for native touch events
-   * @param emitter {qx.event.Emitter?} Event emitter (used if dispatchEvent
-   * is not supported, e.g. in IE8)
    */
-  construct : function(target, emitter) {
+  construct : function(target) {
     this.__defaultTarget = target;
-    this.__emitter = emitter;
     this.__eventNames = [];
     this.__buttonStates = [];
     this.__activeTouches = [];
@@ -114,7 +111,6 @@ qx.Bootstrap.define("qx.event.handler.PointerCore", {
 
   members : {
     __defaultTarget : null,
-    __emitter : null,
     __eventNames : null,
     __nativePointerEvents : false,
     __wrappedListener : null,
@@ -134,20 +130,11 @@ qx.Bootstrap.define("qx.event.handler.PointerCore", {
     /**
      * Register native event listeners
      * @param callback {Function} listener callback
-     * @param useEmitter {Boolean} attach listener to Emitter instead of
-     * native event
      */
-    _initObserver : function(callback, useEmitter) {
+    _initObserver : function(callback) {
       this.__wrappedListener = qx.lang.Function.listener(callback, this);
       this.__eventNames.forEach(function(type) {
-        if (useEmitter && qx.dom.Node.isDocument(this.__defaultTarget)) {
-          if (!this.__defaultTarget.$$emitter) {
-            this.__defaultTarget.$$emitter = new qx.event.Emitter();
-          }
-          this.__defaultTarget.$$emitter.on(type, this.__wrappedListener);
-        } else {
-          qx.bom.Event.addNativeListener(this.__defaultTarget, type, this.__wrappedListener);
-        }
+        qx.bom.Event.addNativeListener(this.__defaultTarget, type, this.__wrappedListener);
       }.bind(this));
     },
 
@@ -429,7 +416,7 @@ qx.Bootstrap.define("qx.event.handler.PointerCore", {
      */
     dispose : function() {
       this._stopObserver();
-      this.__defaultTarget = this.__emitter = null;
+      this.__defaultTarget = null;
     }
   }
 });
