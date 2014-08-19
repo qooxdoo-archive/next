@@ -1,3 +1,23 @@
+/* ************************************************************************
+
+   qooxdoo - the new era of web development
+
+   http://qooxdoo.org
+
+   Copyright:
+     2014 1&1 Internet AG, Germany, http://www.1und1.de
+
+   License:
+     LGPL: http://www.gnu.org/licenses/lgpl.html
+     EPL: http://www.eclipse.org/org/documents/epl-v10.php
+     See the LICENSE file in the project's top-level directory for details.
+
+   Authors:
+     * Martin Wittemann (martinwittemann)
+
+************************************************************************ */
+
+
 /**
  * @ignoreDeprecated(alert)
  */
@@ -128,38 +148,30 @@ qx.Bootstrap.define("play.Samples",
      * @lint ignoreDeprecated(alert)
      */
     "sample Form" : function() {
-      var page = new qx.ui.mobile.page.NavigationPage();
-      page.title = "Login";
-      page.on("initialize", function() {
-        var form = new qx.ui.mobile.form.Form();
+      var form = new qx.ui.mobile.form.Form();
 
-        // User name
-        var user = new qx.ui.mobile.form.TextField();
-        user.required = true;
-        form.add(user, "Username");
+      // User name
+      var user = new qx.ui.mobile.form.TextField();
+      user.required = true;
+      form.add(user, "Username");
 
-        // Password
-        var pwd = new qx.ui.mobile.form.PasswordField();
-        pwd.required = true;
-        form.add(pwd, "Password");
+      // Password
+      var pwd = new qx.ui.mobile.form.PasswordField();
+      pwd.required = true;
+      form.add(pwd, "Password");
 
-        // Use form renderer
-        page.getContent().append(new qx.ui.mobile.form.renderer.Single(form));
+      // Use form renderer
+      this.getRoot().append(new qx.ui.mobile.form.renderer.Single(form));
 
-        // login button
-        var button = new qx.ui.mobile.form.Button("Login");
-        page.getContent().append(button);
+      // login button
+      var button = new qx.ui.mobile.form.Button("Login");
+      this.getRoot().append(button);
 
-        button.on("tap", function() {
-          if (form.validate()) {  // use form validation
-            alert("Loggin in " + user.getValue());
-          }
-        }, this);
-      },this);
-
-      this.getManager().addDetail(page);
-
-      page.show();
+      button.on("tap", function() {
+        if (form.validate()) {  // use form validation
+          alert("Loggin in " + user.getValue());
+        }
+      }, this);
     }
   }
 });

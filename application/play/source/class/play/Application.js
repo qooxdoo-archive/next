@@ -1,3 +1,22 @@
+/* ************************************************************************
+
+   qooxdoo - the new era of web development
+
+   http://qooxdoo.org
+
+   Copyright:
+     2014 1&1 Internet AG, Germany, http://www.1und1.de
+
+   License:
+     LGPL: http://www.gnu.org/licenses/lgpl.html
+     EPL: http://www.eclipse.org/org/documents/epl-v10.php
+     See the LICENSE file in the project's top-level directory for details.
+
+   Authors:
+     * Martin Wittemann (martinwittemann)
+
+************************************************************************ */
+
 /**
  * @asset(play/*)
  * @ignore(ace.edit)
@@ -26,16 +45,7 @@ qx.Bootstrap.define("play.Application",
 
       // buttons
       var runButton = new qx.ui.mobile.form.Button("Run");
-      runButton.appendTo("#toolbar").on("tap", function() {
-        this.getRoot().setHtml("");
-        if (this.__manager) {
-          this.__manager.dispose();
-          delete this.__manager;
-        }
-        var code = editor.getValue();
-        var f = new Function(code);
-        f.bind(this)();
-      }, this);
+      runButton.appendTo("#toolbar").on("tap", this.run, this);
 
       var samplesButton = new qx.ui.mobile.form.Button("Samples");
       samplesButton.on("tap", function() {
@@ -50,22 +60,48 @@ qx.Bootstrap.define("play.Application",
         editor.clearSelection();
         runButton.emit("tap");
       }).title = "Samples";
-      var closeButton = new qx.ui.mobile.form.Button("Close");
-      closeButton.setStyle("marginTop", "10px")
+
+      (new qx.ui.mobile.form.Button("Close"))
+        .setStyle("marginTop", "10px")
         .on("tap", function() {
           samplesMenu.hide();
         })
         .appendTo(samplesMenu.getContents());
 
-      var shortenButton = new qx.ui.mobile.form.Button("Shorten URL");
-      shortenButton.appendTo("#toolbar").enabled = false;;
+      (new qx.ui.mobile.form.Button("Shorten URL"))
+        .on("tap", this.shortenUrl, this)
+        .appendTo("#toolbar");
 
       // new app root
       this.__root = new qx.ui.mobile.core.Root(document.getElementById("playroot"));
       this.setRoot(this.__root);
 
       // run initial app
-      samplesMenu.selectedIndex = 0;
+      if (!play.CodeStore.init()) {
+        samplesMenu.selectedIndex = 0;
+      }
+    },
+
+
+    run : function() {
+      this.getRoot().setHtml("");
+      if (this.__manager) {
+        this.__manager.dispose();
+        delete this.__manager;
+      }
+      var code = ace.edit("editor").getValue();
+      play.CodeStore.add(code);
+      var f = new Function(code);
+      f.bind(this)();
+    },
+
+
+    shortenUrl : function() {
+      window.open(
+        "http://tinyurl.com/create.php?url=" + encodeURIComponent(location.href),
+        "tinyurl",
+        "width=800,height=600,resizable=yes,scrollbars=yes"
+      );
     },
 
 
