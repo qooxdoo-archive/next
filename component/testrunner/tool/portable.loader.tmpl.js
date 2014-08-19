@@ -9,7 +9,7 @@ if (!testrunner.define) testrunner.define = function(testDefinition) {
 }
 
 qx.$$start = new Date();
-  
+
 if (!qx.$$environment) qx.$$environment = {};
 var envinfo = %{EnvSettings};
 for (var k in envinfo) qx.$$environment[k] = envinfo[k];
@@ -32,7 +32,7 @@ qx.$$loader = {
   closureParts : %{ClosureParts},
   bootIsInline : %{BootIsInline},
   addNoCacheParam : %{NoCacheParam},
-  
+
   decodeUris : function(compressedUris)
   {
     var libs = qx.$$libraries;
@@ -53,9 +53,9 @@ qx.$$loader = {
       %{DecodeUrisPlug}
       uris.push(euri);
     }
-    return uris;      
+    return uris;
   }
-};  
+};
 
 function loadScript(uri, callback) {
   var elem = document.createElement("script");
@@ -118,7 +118,7 @@ qx.$$loader.importPackageData = function (dataMap, callback) {
     var qxlocs = qx.$$locales;
     for (var lang in locMap){
       if (!qxlocs[lang]) qxlocs[lang] = locMap[lang];
-      else 
+      else
         for (var k in locMap[lang]) qxlocs[lang][k] = locMap[lang][k];
     }
   }
@@ -127,7 +127,7 @@ qx.$$loader.importPackageData = function (dataMap, callback) {
     var qxtrans = qx.$$translations;
     for (var lang in trMap){
       if (!qxtrans[lang]) qxtrans[lang] = trMap[lang];
-      else 
+      else
         for (var k in trMap[lang]) qxtrans[lang][k] = trMap[lang][k];
     }
   }
@@ -136,14 +136,11 @@ qx.$$loader.importPackageData = function (dataMap, callback) {
   }
 }
 
-qx.$$loader.signalStartup = function () 
+qx.$$loader.signalStartup = function ()
 {
   qx.$$loader.scriptLoaded = true;
-  if (window.qx && qx.event && qx.event.handler && qx.event.handler.Application) {
-    qx.event.handler.Application.onScriptLoaded();
-    qx.$$loader.applicationHandlerReady = true; 
-  } else {
-    qx.$$loader.applicationHandlerReady = false;
+  if (window.qx && qx.core && qx.core.Init) {
+    qx.core.Init.ready();
   }
 }
 
