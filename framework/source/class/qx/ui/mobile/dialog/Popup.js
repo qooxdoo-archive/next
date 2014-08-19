@@ -59,7 +59,7 @@
  *
  * Same as the first example, but this time the popup will be shown at the 25,100 coordinates.
  *
- *
+ * @require(qx.module.Blocker)
  */
 qx.Bootstrap.define("qx.ui.mobile.dialog.Popup",
 {
@@ -137,7 +137,7 @@ qx.Bootstrap.define("qx.ui.mobile.dialog.Popup",
 
 
     /**
-     * Indicates whether the a modal popup should disappear when user taps/clicks on Blocker.
+     * Indicates whether the modal popup should disappear when user taps/clicks on Blocker.
      */
     hideOnBlockerTap :
     {
@@ -258,10 +258,13 @@ qx.Bootstrap.define("qx.ui.mobile.dialog.Popup",
 
       if(this.modal === true)
       {
-        qx.ui.mobile.core.Blocker.getInstance().show();
+        qxWeb(document).block()
+        // TODO: Use SCSS to style the blocker
+        .getBlocker().removeClass("qx-blocker")
+        .addClass("blocker");
 
         if(this.hideOnBlockerTap) {
-          qx.ui.mobile.core.Blocker.getInstance().on("tap", this.hide, this);
+          qxWeb(document).getBlocker().on("tap", this.hide, this);
         }
       }
     },
@@ -282,10 +285,10 @@ qx.Bootstrap.define("qx.ui.mobile.dialog.Popup",
 
       if(this.modal)
       {
-        qx.ui.mobile.core.Blocker.getInstance().hide();
+        qxWeb(document).unblock();
       }
 
-      qx.ui.mobile.core.Blocker.getInstance().off("tap", this.hide, this);
+      qxWeb(document).getBlocker().off("tap", this.hide, this);
     },
 
 
@@ -565,19 +568,6 @@ qx.Bootstrap.define("qx.ui.mobile.dialog.Popup",
         }
         return null;
       }
-    },
-
-
-    /**
-     * @deprecated {3.5} Please use qx.ui.mobile.core.Blocker.getInstance() instead.
-     *
-     * Returns the blocker widget.
-     *
-     * @return {qx.ui.mobile.core.Blocker} Returns the blocker widget.
-     */
-    _getBlocker : function()
-    {
-      return qx.ui.mobile.core.Blocker.getInstance();
     },
 
 

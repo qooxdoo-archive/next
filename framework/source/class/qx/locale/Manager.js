@@ -65,7 +65,7 @@ qx.Bootstrap.define("qx.locale.Manager",
 
     /**
      * Returns the singleton instance of this class
-     * @return {qx.ui.mobile.core.Blocker} The Blocker singleton
+     * @return {qx.locale.Manager} The Blocker singleton
      */
     getInstance: function() {
       var clazz = qx.locale.Manager;
