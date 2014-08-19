@@ -30,6 +30,8 @@
  *
  * @asset(qx/mobile/css/*)
  * @require(qx.module.util.String)
+ * @require(qx.module.Blocker)
+ * @require(qx.module.Io)
  */
 qx.Bootstrap.define("mobileshowcase.page.Theming",
 {
@@ -227,15 +229,17 @@ qx.Bootstrap.define("mobileshowcase.page.Theming",
      * @param cssFile {String} The css file url.
      */
     __changeCSS : function(cssFile) {
-      var blocker = qx.ui.mobile.core.Blocker.getInstance();
-
-      blocker.setStyle("transition", "all 500ms")
-        .setStyle("backgroundColor", "rgba(255,255,255,0)")
-        .show()
+      var blocker = qxWeb(document).block().getBlocker();
+      blocker
+        .setStyle("transition", "all 500ms")
+        .setStyle("zIndex", 1e10)
+        .setStyle("backgroundColor", "rgb(255,255,255)")
+        .setStyle("opacity", 0)
         .on("transitionend", this._onAppFadedOut.bind(this, cssFile));
 
       setTimeout(function() {
-        blocker.setStyle("backgroundColor", "rgba(255,255,255,1)");
+        blocker.setStyle("backgroundColor", "rgb(255,255,255)")
+        .setStyle("opacity", 1);
       }, 0);
     },
 
@@ -243,7 +247,7 @@ qx.Bootstrap.define("mobileshowcase.page.Theming",
      * Event handler when Application has faded out.
      */
     _onAppFadedOut: function(cssFile) {
-      var blocker = qx.ui.mobile.core.Blocker.getInstance();
+      var blocker = qxWeb(document).getBlocker();
       blocker.off("transitionend", this._onAppFadedOut, this);
 
       var root = qxWeb(".root");
@@ -262,7 +266,8 @@ qx.Bootstrap.define("mobileshowcase.page.Theming",
 
       window.setTimeout(function() {
         blocker.on("transitionend", this._onAppFadedIn, this)
-          .setStyle("backgroundColor", "rgba(255,255,255,0)");
+          .setStyle("backgroundColor", "rgb(255,255,255)")
+          .setStyle("opacity", 0);
       }.bind(this), 100);
     },
 
@@ -271,7 +276,7 @@ qx.Bootstrap.define("mobileshowcase.page.Theming",
      * Event handler when Application has faded in again.
      */
     _onAppFadedIn: function() {
-      var blocker = qx.ui.mobile.core.Blocker.getInstance();
+      var blocker = qxWeb(document).getBlocker();
       blocker.off("transitionend", this._onAppFadedIn, this)
         .setStyle("transition", null)
         .setStyle("backgroundColor", null)
