@@ -98,7 +98,7 @@ qx.Mixin.define("qx.ui.mobile.container.MNativeScroll",
       if (this._isScrollableY()) {
         var element = this[0];
         var scrollTop = element.scrollTop;
-        var maxScrollTop = element.scrollHeight - this.getLayoutParent().getContentElement().offsetHeight;
+        var maxScrollTop = element.scrollHeight - this._getParentWidget()[0].offsetHeight;
         if (scrollTop === 0) {
           element.scrollTop = 1;
         } else if (scrollTop == maxScrollTop) {

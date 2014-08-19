@@ -401,7 +401,7 @@ qx.Bootstrap.define("qx.ui.mobile.container.Scroll",
       var contentWidth = this[0].scrollWidth;
 
       var scrollContentElement = this._getScrollContentElement();
-      if(scrollContentElement.length > 0) {
+      if (scrollContentElement) {
         contentWidth = scrollContentElement.getWidth();
       }
 
@@ -422,7 +422,7 @@ qx.Bootstrap.define("qx.ui.mobile.container.Scroll",
       var contentHeight = this[0].scrollHeight;
 
       var scrollContentElement = this._getScrollContentElement();
-      if(scrollContentElement.length > 0) {
+      if(scrollContentElement) {
         contentHeight = scrollContentElement.getHeight();
       }
 
@@ -455,7 +455,7 @@ qx.Bootstrap.define("qx.ui.mobile.container.Scroll",
     _scrollToElement : function(element, time)
     {
       var contentElement = this._getScrollContentElement();
-      if (contentElement.length === 0) {
+      if (contentElement) {
         contentElement  = this;
       }
       if (contentElement.length > 0 && this._isScrollable()) {
