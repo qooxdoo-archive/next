@@ -106,14 +106,6 @@ qx.Bootstrap.define("play.Application",
         "tinyurl",
         "width=800,height=600,resizable=yes,scrollbars=yes"
       );
-    },
-
-
-    getManager : function() {
-      if (!this.__manager) {
-        this.__manager = new qx.ui.mobile.page.Manager(false);
-      }
-      return this.__manager;
     }
   }
 });

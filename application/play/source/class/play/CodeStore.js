@@ -34,6 +34,7 @@ qx.Bootstrap.define("play.CodeStore", {
       if (state && state.charAt(0) == "{") {
         var code = this.__parseURLCode(state);
         editor.setValue(code);
+        editor.clearSelection();
         qx.core.Init.getApplication().run();
         return true;
       }
@@ -51,6 +52,7 @@ qx.Bootstrap.define("play.CodeStore", {
         var code = play.CodeStore.__parseURLCode(state);
         var editor = ace.edit("editor");
         editor.setValue(code);
+        editor.clearSelection();
         qx.core.Init.getApplication().run();
       }
     },
