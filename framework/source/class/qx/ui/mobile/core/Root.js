@@ -27,12 +27,6 @@ qx.Bootstrap.define("qx.ui.mobile.core.Root",
   extend : qx.ui.mobile.container.Composite,
 
 
-  /*
-  *****************************************************************************
-     CONSTRUCTOR
-  *****************************************************************************
-  */
-
   /**
    * @param root {Element?null} Optional. The root DOM element of the widget. Default is the body of the document.
    * @param layout {qx.ui.mobile.layout.Abstract ? qx.ui.mobile.layout.VBox} The layout of the root widget.
@@ -67,12 +61,6 @@ qx.Bootstrap.define("qx.ui.mobile.core.Root",
   },
 
 
-  /*
-  *****************************************************************************
-     PROPERTIES
-  *****************************************************************************
-  */
-
   properties :
   {
     // overridden
@@ -94,28 +82,6 @@ qx.Bootstrap.define("qx.ui.mobile.core.Root",
   },
 
 
-  /*
-  *****************************************************************************
-     EVENTS
-  *****************************************************************************
-  */
-
-  events :
-  {
-    /**
-     * Event is fired when the app scale factor of the application has (or
-     * might have) changed.
-     */
-    "changeAppScale" : null
-  },
-
-
-  /*
-  *****************************************************************************
-     MEMBERS
-  *****************************************************************************
-  */
-
   members :
   {
     __root : null,
@@ -129,104 +95,6 @@ qx.Bootstrap.define("qx.ui.mobile.core.Root",
     // property apply
     _applyShowScrollbarY : function(value, old) {
       this.setStyle("overflow-y", value ? "auto" : "hidden");
-    },
-
-
-    /**
-     * Returns the application's total scale factor. It takes into account both
-     * the application's font scale (determined by {@link #getFontScale}) and
-     * the device pixel ratio. The latter could be modified at runtime by the
-     * browsers font scaling/zooming feature.
-     *
-     * @return {Number|null} the app scale factor. If a valid app scale could
-     * be determined, it is rounded to a two decimal number. If it could not be
-     * determined, <code>null</code> is returned.
-     */
-    getAppScale: function()
-    {
-      var pixelRatio = parseFloat(qx.core.Environment.get("device.pixelRatio").toFixed(2));
-      var fontScale = this.getFontScale();
-
-      if (!isNaN(pixelRatio*fontScale)) {
-        return parseFloat((pixelRatio*fontScale).toFixed(2));
-      } else {
-        return null;
-      }
-    },
-
-
-    /**
-     * Returns the application's font scale factor.
-     *
-     * @return {Number|null} the font scale factor. If a valid font scale could
-     * be determined, it is rounded to a three decimal number. For displaying
-     * the scale factor, you might want to round to two decimals
-     * (<code>.toFixed(2)</code>). If it could not be determined,
-     * <code>null</code> is returned.
-     */
-    getFontScale: function()
-    {
-      var fontScale = null;
-      var appScale = 1;
-
-      // determine font-size style in percent if available
-      var fontSize = document.documentElement.style.fontSize;
-      if (fontSize.indexOf("%") !== -1) {
-        appScale = (parseInt(fontSize, 10) / 100);
-      }
-
-      // start from font-size computed style in pixels if available;
-      fontSize = qxWeb(document.documentElement).getStyle("fontSize");
-      if (fontSize.indexOf("px") !== -1)
-      {
-        fontSize = parseFloat(fontSize);
-
-        if (fontSize>15 && fontSize<17) {
-          // iron out minor deviations from the base 16px size
-          fontSize = 16;
-        }
-
-        if (appScale !== 1) {
-          // if font-size style is set in percent
-          fontSize = Math.round(fontSize/appScale);
-        }
-
-        // relative to the 16px base font
-        fontScale = (fontSize/16);
-
-        // apply percentage-based font-size
-        fontScale *= appScale;
-
-        // round to a tree-decimal float
-        fontScale = parseFloat(fontScale.toFixed(3));
-      }
-
-      return fontScale;
-    },
-
-
-    /**
-    * Sets the application's font scale factor, i.e. relative to a default 100%
-    * font size.
-    *
-    * @param value {Number} the font scale factor.
-    */
-    setFontScale : function(value) {
-      if (qx.core.Environment.get("qx.debug")) {
-        this.assertNumber(value, "The scale factor is asserted to be of type Number");
-      }
-
-      var docElement = document.documentElement;
-      docElement.style.fontSize = value * 100 + "%";
-
-      // Force relayout - important for new Android devices and Firefox.
-      setTimeout(function() {
-        docElement.style.display = "none";
-        docElement.offsetWidth;
-        docElement.style.display = "";
-      }, 0);
-
-      this.emit("changeAppScale");
     },
 
 

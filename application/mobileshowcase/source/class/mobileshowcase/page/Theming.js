@@ -88,26 +88,26 @@ qx.Bootstrap.define("mobileshowcase.page.Theming",
       this.__createImageResolutionHandlingDemo();
 
       // react on possible font size changes (triggering a different device pixel ratio)
-      q(window).on("resize", this._onChangeScale);
+      q(window).on("resize", this._onResize);
 
       qx.core.Init.getApplication().getRoot().on("changeAppScale", this._updateDemoImageLabel, this);
     },
 
 
     /** Check on possible scale changes. */
-    _onChangeScale : qx.module.util.Function.debounce(function(e)
+    _onResize : qx.module.util.Function.debounce(function(e)
     {
-      var root = qx.core.Init.getApplication().getRoot();
+      var appScaling = qx.application.Scaling.getInstance();
 
-      var appScale = root.getAppScale();
-      var fontScale = root.getFontScale();
+      var appScale = qx.ui.mobile.basic.Image.getAppScale();
+      var fontScale = appScaling.get();
 
       if(appScale != this.__appScale || fontScale != this.__fontScale)
       {
         this.__appScale = appScale;
         this.__fontScale = fontScale;
 
-        root.emit("changeAppScale");
+        appScaling.emit("changeAppScale");
       }
     }.bind(this), 200),
 
@@ -154,8 +154,8 @@ qx.Bootstrap.define("mobileshowcase.page.Theming",
     _updateDemoImageLabel : function()
     {
       var pixelRatio = parseFloat(q.env.get("device.pixelRatio").toFixed(2));
-      var fontScale = qx.core.Init.getApplication().getRoot().getFontScale();
-      var appScale = qx.core.Init.getApplication().getRoot().getAppScale();
+      var fontScale = qx.application.Scaling.getInstance().get();
+      var appScale = qx.ui.mobile.basic.Image.getAppScale();
 
       var demoLabelTemplate = "<div>Best available image for total app scale<span>%1</span></div> <div><br/></div> <div>Device pixel ratio:<span>%2</span></div>  <div>Computed font scale:<span>%3</span></div> ";
       var labelContent = qxWeb.string.format(demoLabelTemplate, [this.__format(appScale), this.__format(pixelRatio), this.__format(fontScale)]);
@@ -210,7 +210,7 @@ qx.Bootstrap.define("mobileshowcase.page.Theming",
     * Handler for "tap" event on applyScaleButton. Applies the app's root font size in relation to slider value.
     */
     _onApplyScaleButtonTap : function() {
-      qx.core.Init.getApplication().getRoot().setFontScale(this.__slider.getValue()/100);
+      qx.application.Scaling.getInstance().set(this.__slider.getValue()/100);
 
       this._updateDemoImageLabel();
 
@@ -300,7 +300,7 @@ qx.Bootstrap.define("mobileshowcase.page.Theming",
 
 
     dispose : function() {
-     q(window).off("resize", this._onChangeScale);
+     q(window).off("resize", this._onResize);
      qx.core.Init.getApplication().getRoot().off("changeAppScale", this._updateDemoImageLabel, this);
     }
   }

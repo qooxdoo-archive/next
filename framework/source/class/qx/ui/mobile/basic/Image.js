@@ -34,6 +34,7 @@
  * This example create a widget to display the image
  * <code>path/to/icon.png</code>.
  *
+ * @ignore(qx.application.Scaling.*)
  */
 qx.Bootstrap.define("qx.ui.mobile.basic.Image",
 {
@@ -96,7 +97,29 @@ qx.Bootstrap.define("qx.ui.mobile.basic.Image",
 
 
     /** @type {String} a 1px*1px sized transparent image. */
-    PLACEHOLDER_IMAGE : null
+    PLACEHOLDER_IMAGE : null,
+
+    /**
+     * Returns the application's total scale factor. It takes into account both
+     * the application's font scale (determined by {@link qx.application.Scaling.get}) and
+     * the device pixel ratio. The latter could be modified at runtime by the
+     * browsers font scaling/zooming feature.
+     *
+     * @return {Number|null} the app scale factor. If a valid app scale could
+     * be determined, it is rounded to a two decimal number. If it could not be
+     * determined, <code>null</code> is returned.
+     */
+    getAppScale: function()
+    {
+      var pixelRatio = parseFloat(qx.core.Environment.get("device.pixelRatio").toFixed(2));
+      var fontScale = qx.application.Scaling.getInstance().get();
+
+      if (!isNaN(pixelRatio*fontScale)) {
+        return parseFloat((pixelRatio*fontScale).toFixed(2));
+      } else {
+        return null;
+      }
+    }
   },
 
 
@@ -183,13 +206,16 @@ qx.Bootstrap.define("qx.ui.mobile.basic.Image",
     * {@link #_createHighResolutionOverlay} is called.
     *
     * @param lowResImgSrc {String} source of the low resolution image.
-    * @return {String} The soure of an high-resolution image source or <code>null</code>.
+    * @return {String|null} The source of an high-resolution image source or <code>null</code>.
     */
     _findHighResolutionSource: function(lowResImgSrc) {
+      if (!qx.application.Scaling) {
+        return null;
+      }
       var pixelRatioCandidates = qx.ui.mobile.basic.Image.PIXEL_RATIOS;
 
       // Calculate the optimal ratio, based on the rem scale factor of the application and the device pixel ratio.
-      var factor = qx.ui.mobile.basic.Image.ROOT.getAppScale();
+      var factor = qx.ui.mobile.basic.Image.getAppScale();
       if (factor <= 1) {
         return false;
       }
