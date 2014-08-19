@@ -38,19 +38,20 @@ qx.Bootstrap.define("play.Application",
       }
 
       var editor = ace.edit("editor");
+      editor.getSession().setMode("ace/mode/javascript");
 
       // init version label
       var data = {version : q.env.get("qx.version")};
-      q("#version-label").setHtml(q.template.render(q("#version-label").getHtml(), data));
+      q("#version-label")
+        .setHtml(q.template.render(q("#version-label").getHtml(), data))
+        .setStyle("visibility", "visible");
 
-      // buttons
+      // show content
+      q(".play-content").setStyle("visibility", "visible");
+
+
       var runButton = new qx.ui.mobile.form.Button("Run");
       runButton.appendTo("#toolbar").on("tap", this.run, this);
-
-      var samplesButton = new qx.ui.mobile.form.Button("Samples");
-      samplesButton.on("tap", function() {
-        samplesMenu.show();
-      }).appendTo("#toolbar");
 
       var samples = new play.Samples();
       var samplesMenu = new qx.ui.mobile.dialog.Menu(samples);
@@ -60,6 +61,9 @@ qx.Bootstrap.define("play.Application",
         editor.clearSelection();
         runButton.emit("tap");
       }).title = "Samples";
+
+      var samplesButton = new qx.ui.mobile.form.Button("Samples");
+      samplesButton.on("tap", samplesMenu.show, samplesMenu).appendTo("#toolbar");
 
       (new qx.ui.mobile.form.Button("Close"))
         .setStyle("marginTop", "10px")
