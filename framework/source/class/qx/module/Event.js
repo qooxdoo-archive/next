@@ -323,7 +323,7 @@ qx.Bootstrap.define("qx.module.Event", {
         }
         return false;
       }
-      return this[0].$$emitter.getListeners()[type].length > 0;
+      return Object.keys(this[0].$$emitter.getListeners()[type]).length > 0;
     },
 
 

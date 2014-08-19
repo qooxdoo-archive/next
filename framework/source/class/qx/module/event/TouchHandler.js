@@ -66,7 +66,7 @@ qx.Bootstrap.define("qx.module.event.TouchHandler", {
           var hasTouchListener = false;
           var listeners = element.$$emitter.getListeners();
           qx.module.event.TouchHandler.TYPES.forEach(function(type) {
-            if (type in listeners && listeners[type].length > 0) {
+            if (type in listeners && Object.keys(listeners[type]).length > 0) {
               hasTouchListener = true;
             }
           });

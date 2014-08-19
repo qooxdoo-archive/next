@@ -58,7 +58,7 @@ qx.Bootstrap.define("qx.module.event.GestureHandler", {
         var listeners = element.$$emitter.getListeners();
         for (var type in listeners) {
           if (qx.module.event.GestureHandler.TYPES.indexOf(type) !== -1) {
-            if (listeners[type].length > 0) {
+            if (Object.keys(listeners[type]).length > 0) {
               return;
             }
           }
