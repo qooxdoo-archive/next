@@ -279,16 +279,13 @@ qx.Bootstrap.define("qx.event.handler.PointerCore", {
       }
 
       var type = qx.event.handler.PointerCore.MOUSE_TO_POINTER_MAPPING[domEvent.type];
-      target = this.__defaultTarget;
-
       var buttonsPressed = qx.lang.Array.sum(this.__buttonStates);
-
       var mouseProps = {pointerType : "mouse", pointerId: 1};
 
       // if the button state changes but not from or to zero
       if (this.__lastButtonState != buttonsPressed && buttonsPressed !== 0 && this.__lastButtonState !== 0) {
         var moveEvt = new qx.event.type.dom.Pointer("pointermove", domEvent, mouseProps);
-        this._fireEvent(moveEvt, "pointermove", target);
+        this._fireEvent(moveEvt, "pointermove", this.__defaultTarget);
       }
       this.__lastButtonState = buttonsPressed;
 
@@ -308,7 +305,7 @@ qx.Bootstrap.define("qx.event.handler.PointerCore", {
       }
 
       var evt = new qx.event.type.dom.Pointer(type, domEvent, mouseProps);
-      this._fireEvent(evt, type, target);
+      this._fireEvent(evt, type, this.__defaultTarget);
     },
 
 
