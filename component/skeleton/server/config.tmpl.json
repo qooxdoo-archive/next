@@ -90,7 +90,7 @@
         //"qx.Class",
         //"qx.Mixin",
         //"qx.Interface",
-        "qx.core.BaseInit",
+        "qx.core.Init",
         "$${APPLICATION}.Application"
       ],
 
@@ -206,7 +206,7 @@
     {
       "let" :
       {
-        "API_INCLUDE" : ["qx.core.BaseInit", "$${APPLICATION}.Application"],
+        "API_INCLUDE" : ["qx.core.Init", "$${APPLICATION}.Application"],
         "API_EXCLUDE" : ["qx.test.*", "$${APPLICATION}.test.*", "qx.bom.*", "qx.dom.*"]
       }
     },

@@ -35,8 +35,7 @@ qx.Bootstrap.define("testrunner.runner.TestRunnerBasic", {
      */
     start : function()
     {
-      var init = qx.core.Init ? qx.core.Init : qx.core.BaseInit;
-      var runner = init.getApplication().runner;
+      var runner = qx.core.Init.getApplication().runner;
       runner._loadExternalTests();
       if (typeof runner.view.toggleAllTests == "function") {
         runner.view.toggleAllTests(true);

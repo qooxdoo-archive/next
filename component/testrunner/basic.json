@@ -50,14 +50,13 @@
       ],
 
       "include" : [
-        "qx.core.BaseInit",
+        "qx.core.Init",
         "${TESTRUNNER_MAIN_CLASS}",
         "${TESTRUNNER_VIEW}",
         "${TEST_INCLUDE}"
       ],
 
       "exclude" : [
-        "qx.core.Init",
         "qx.dev.Debug", // Can be removed once qx bug #5330 is fixed
         "${TEST_EXCLUDE}"
       ],

@@ -31,10 +31,10 @@
       // Emulate setTimeout/setInterval features in Rhino
       // http://stackoverflow.com/questions/2261705/how-to-run-a-javascript-function-asynchronously-without-using-settimeout
       var timer = new java.util.Timer();
-      var counter = 1; 
+      var counter = 1;
       var ids = {};
 
-      window.setTimeout = function (fn,delay) 
+      window.setTimeout = function (fn,delay)
       {
         if (delay === 0) {
           delay = 1;
@@ -45,7 +45,7 @@
         return id;
       };
 
-      window.clearTimeout = function (id) 
+      window.clearTimeout = function (id)
       {
         if (ids[id])
         {
@@ -55,12 +55,12 @@
         }
       };
 
-      window.setInterval = function (fn,delay) 
+      window.setInterval = function (fn,delay)
       {
         if (delay === 0) {
           delay = 1;
         }
-        var id = counter++; 
+        var id = counter++;
         ids[id] = new JavaAdapter(java.util.TimerTask,{run: fn});
         timer.schedule(ids[id],delay,delay);
         return id;
@@ -148,7 +148,7 @@
 
         signalStartup: function() {
             qx.$$loader.scriptLoaded = true;
-            qx.core.BaseInit.ready();
+            qx.core.Init.ready();
             qx.$$loader.applicationHandlerReady = true;
         },
 
