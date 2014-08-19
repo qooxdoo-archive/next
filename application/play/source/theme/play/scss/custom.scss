@@ -59,3 +59,8 @@ html, body {
   border: 1px solid #ddd;
 }
 
+.play-content > * {
+  -webkit-flex: 1 1 50%;
+  -ms-flex: 1 1 50%;
+  flex: 1 1 50%;
+}
