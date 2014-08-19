@@ -99,24 +99,6 @@ qx.Bootstrap.define("qx.ui.mobile.core.Root",
 
 
     /**
-    * Returns the rendered width.
-    * @return {Integer} the width of the container element.
-    */
-    getWidth : function() {
-      return qxWeb(this.__root).getWidth();
-    },
-
-
-    /**
-    * Returns the rendered height.
-    * @return {Integer} the height of the container element.
-    */
-    getHeight : function() {
-      return qxWeb(this.__root).getHeight();
-    },
-
-
-    /**
      * Event handler. Called when the orientation of the device is changed.
      *
      * @param evt {qx.event.type.Orientation} The handled orientation change event
@@ -146,8 +128,7 @@ qx.Bootstrap.define("qx.ui.mobile.core.Root",
 
 
     dispose : function() {
-      this.base(arguments);
-      this.__root = null;
+      this.base(qx.ui.mobile.container.Composite, "dispose");
       this.off("touchmove", this._preventDefault);
       qxWeb(window).off("orientationchange", this._onOrientationChange, this);
     }
