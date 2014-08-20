@@ -55,13 +55,11 @@ qx.Bootstrap.define("qx.ui.mobile.basic.Image",
   {
     this.base(qx.ui.mobile.core.Widget, "constructor");
 
-    if (qx.ui.mobile.basic.Image.ROOT === null) {
-      qx.ui.mobile.basic.Image.ROOT = qx.core.Init.getApplication().getRoot();
-    }
-
     this.source = source ? source : null;
 
-    qx.ui.mobile.basic.Image.ROOT.on("changeAppScale", this._onChangeAppScale, this);
+    if (qx.application.Scaling) {
+      qx.application.Scaling.getInstance().on("changeAppScale", this._onChangeAppScale, this);
+    }
   },
 
 
@@ -91,10 +89,6 @@ qx.Bootstrap.define("qx.ui.mobile.basic.Image",
   {
     /** @type {Array} Possible pixel ratios of the current device operating system */
     PIXEL_RATIOS : null,
-
-    /** @type {qx.ui.mobile.core.Root} the mobile application root */
-    ROOT : null,
-
 
     /** @type {String} a 1px*1px sized transparent image. */
     PLACEHOLDER_IMAGE : null,
@@ -344,7 +338,10 @@ qx.Bootstrap.define("qx.ui.mobile.basic.Image",
 
     dispose : function() {
       this.base(qx.ui.mobile.core.Widget, "dispose");
-      qx.ui.mobile.basic.Image.ROOT.off("changeAppScale", this._onChangeAppScale, this);
+
+      if (qx.application.Scaling) {
+        qx.application.Scaling.getInstance().on("changeAppScale", this._onChangeAppScale, this);
+      }
     }
   },
 
