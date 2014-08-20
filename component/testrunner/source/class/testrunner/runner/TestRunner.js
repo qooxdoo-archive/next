@@ -159,7 +159,7 @@ qx.Bootstrap.define("testrunner.runner.TestRunner", {
     // overridden
     _defineTestClass : function(testClassName, membersMap)
     {
-      var qxClass = qx.Class;
+      var qxClass = qx.Bootstrap;
       var classDef = {
         extend : qx.dev.unit.TestCase,
         members : membersMap
@@ -259,7 +259,7 @@ qx.Bootstrap.define("testrunner.runner.TestRunner", {
           return;
         }
 
-        if (!this.loader.getSuite()) {
+        if (!this.loader.suite) {
           this.__loadTimer = qx.event.Timer.once(this._onLoadIframe, this, 100);
           return;
         }

@@ -251,7 +251,7 @@ qx.Bootstrap.define("testrunner.runner.TestRunnerBasic", {
      */
     _defineTestClass : function(testClassName, membersMap)
     {
-      var qxClass = qx.Class;
+      var qxClass = qx.Bootstrap;
       return qxClass.define(testClassName,
       {
         extend : qx.dev.unit.TestCase,

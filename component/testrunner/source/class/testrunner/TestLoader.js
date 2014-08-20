@@ -1,3 +1,4 @@
+"use strict";
 /* ************************************************************************
 
    qooxdoo - the new era of web development
@@ -17,7 +18,7 @@
 
 ************************************************************************ */
 
-qx.Class.define("testrunner.TestLoader",
+qx.Bootstrap.define("testrunner.TestLoader",
 {
   extend : qx.dev.unit.TestLoader,
 
@@ -50,7 +51,7 @@ qx.Class.define("testrunner.TestLoader",
     main : function()
     {
       testrunner.TestLoader.instance = this;
-      this.base(arguments);
+      this.base(qx.dev.unit.TestLoader, "main");
     }
   }
 });

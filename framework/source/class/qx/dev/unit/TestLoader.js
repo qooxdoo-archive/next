@@ -1,3 +1,4 @@
+"use strict";
 /* ************************************************************************
 
    qooxdoo - the new era of web development
@@ -21,7 +22,7 @@
  * The test loader is the base class of a native application, which can be used
  * to run tests from a non-GUI application or from within JSUnit.
  */
-qx.Class.define("qx.dev.unit.TestLoader",
+qx.Bootstrap.define("qx.dev.unit.TestLoader",
 {
   extend : qx.application.Standalone,
 
@@ -39,7 +40,7 @@ qx.Class.define("qx.dev.unit.TestLoader",
     // overridden
     main : function()
     {
-      this.base(arguments);
+      this.base(qx.application.Standalone, "main");
 
       // Dependencies to loggers
       qx.log.appender.Console;
