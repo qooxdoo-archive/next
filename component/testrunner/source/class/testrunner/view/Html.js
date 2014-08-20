@@ -35,6 +35,7 @@
  * @require(qx.module.Cookie)
  * @require(qx.module.Template)
  * @require(qx.event.handler.Iframe)
+ * @require(qx.module.util.Function)
  */
 qx.Bootstrap.define("testrunner.view.Html", {
 
@@ -247,16 +248,12 @@ qx.Bootstrap.define("testrunner.view.Html", {
         this.toggleAllTests(ev.getTarget().checked, true);
       }, this);
 
-      this.__filterTimer = new qx.event.Timer(500);
-      this.__filterTimer.addListener("interval", function(ev) {
+      this.__filter = q.func.debounce(function() {
         var filter = q("#testfilter").getValue();
-        this.__filterTimer.stop();
         this.filterTests(filter);
-      }, this);
+      }.bind(this), 500);
 
-      q("#testfilter").on("keyup", function(ev) {
-        this.__filterTimer.restart();
-      }, this)
+      q("#testfilter").on("keyup", this.__filter, this)
       .on("search", function() {
         var filter = q("#testfilter").getValue();
         this.filterTests(filter);
@@ -359,7 +356,7 @@ qx.Bootstrap.define("testrunner.view.Html", {
           '<input type="submit" title="Reload the test suite (Ctrl+Shift+R)" id="setiframesrc" value="Reload"></input>' +
           '<input type="text" id="iframesrc"></input>' +
         '</div>')
-      .append(q.create('<iframe onload="qx.event.handler.Iframe.onevent(this)" id="autframe">'))
+      .append(q.create('<iframe id="autframe">'))
       .appendTo("#frame_log");
 
       q("#setiframesrc").on("tap", this.__reloadAut, this);
@@ -721,7 +718,7 @@ qx.Bootstrap.define("testrunner.view.Html", {
       {
         var autWindow = window;
         if (qx.core.Environment.get("testrunner.testOrigin") == "iframe") {
-          autWindow = qx.bom.Iframe.getWindow(this.getIframe());
+          autWindow = this.getIframe().contentWindow;
         }
 
         var mixin = autWindow.qx.dev.unit.MMeasure;
@@ -841,14 +838,14 @@ qx.Bootstrap.define("testrunner.view.Html", {
      */
     _makeCommands : function()
     {
-      var runTests = new qx.ui.command.Command("Ctrl+R");
-      runTests.addListener("execute", this.__runTests, this);
+      // var runTests = new qx.ui.command.Command("Ctrl+R");
+      // runTests.addListener("execute", this.__runTests, this);
 
-      var stopTests = new qx.ui.command.Command("Ctrl+S");
-      stopTests.addListener("execute", this.__stopTests, this);
+      // var stopTests = new qx.ui.command.Command("Ctrl+S");
+      // stopTests.addListener("execute", this.__stopTests, this);
 
-      var reloadAut = new qx.ui.command.Command("Ctrl+Shift+R");
-      reloadAut.addListener("execute", this.__reloadAut, this);
+      // var reloadAut = new qx.ui.command.Command("Ctrl+Shift+R");
+      // reloadAut.addListener("execute", this.__reloadAut, this);
     }
 
   }
