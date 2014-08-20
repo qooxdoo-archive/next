@@ -70,7 +70,7 @@ qx.Bootstrap.define("qx.ui.mobile.container.Drawer",
 
     if (parent) {
       if (qx.core.Environment.get("qx.debug")) {
-        this.assertInstance(parent, qx.ui.mobile.container.Composite);
+        qx.core.Assert.assertInstance(parent, qx.ui.mobile.container.Composite);
       }
 
       parent.append(this);

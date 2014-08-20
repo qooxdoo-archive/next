@@ -40,10 +40,6 @@ qx.Bootstrap.define("qx.ui.mobile.core.Widget",
   {
     this.base(qxWeb, "constructor");
 
-    if (qx.core.Environment.get("qx.debug")) {
-      qx.Mixin.add(this.constructor, qx.core.MAssert); //TODO: Assertion module
-    }
-
     if (this.length === 0) {
       this.push(this._createContainerElement());
     }
@@ -72,12 +68,12 @@ qx.Bootstrap.define("qx.ui.mobile.core.Widget",
     /**
      * Fired after the widget appears on the screen.
      */
-    appear : "qx.event.type.Event", //TODO?
+    appear : "Event",
 
     /**
      * Fired after the widget disappears from the screen.
      */
-    disappear : "qx.event.type.Event" //TODO?
+    disappear : "Event"
   },
 
 
@@ -221,8 +217,7 @@ qx.Bootstrap.define("qx.ui.mobile.core.Widget",
      * @return {Integer} The current id
      * @internal
      */
-    getCurrentId : function()
-    {
+    getCurrentId : function() {
       return qx.ui.mobile.core.Widget.__idCounter;
     },
 
@@ -234,8 +229,7 @@ qx.Bootstrap.define("qx.ui.mobile.core.Widget",
      *
      * @internal
      */
-    registerWidget : function(widget)
-    {
+    registerWidget : function(widget) {
       var id = widget.id;
       var registry = qx.ui.mobile.core.Widget.__registry;
       if (qx.core.Environment.get("qx.debug")) {
@@ -252,8 +246,7 @@ qx.Bootstrap.define("qx.ui.mobile.core.Widget",
      *
      * @internal
      */
-    unregisterWidget : function(id)
-    {
+    unregisterWidget : function(id) {
       delete qx.ui.mobile.core.Widget.__registry[id];
     },
 
@@ -495,7 +488,7 @@ qx.Bootstrap.define("qx.ui.mobile.core.Widget",
     {
       if (qx.core.Environment.get("qx.debug")) {
         if (layout) {
-          this.assertInstance(layout, qx.ui.mobile.layout.Abstract);
+          qx.core.Assert.assertInstance(layout, qx.ui.mobile.layout.Abstract);
         }
       }
 

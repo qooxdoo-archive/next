@@ -77,13 +77,13 @@ qx.Bootstrap.define("qx.ui.mobile.basic.Image",
     /**
      * Fired if the image source can not be loaded.
      */
-    loadingFailed : "qx.event.type.Event",
+    loadingFailed : null,
 
 
     /**
      * Fired if the image has been loaded.
      */
-    loaded : "qx.event.type.Event"
+    loaded : null
   },
 
 

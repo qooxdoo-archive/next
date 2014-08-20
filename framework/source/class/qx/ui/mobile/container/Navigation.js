@@ -105,7 +105,7 @@ qx.Bootstrap.define("qx.ui.mobile.container.Navigation",
     // overridden
     append : function(widget) {
       if (qx.core.Environment.get("qx.debug")) {
-        this.assertInterface(widget, qx.ui.mobile.container.INavigation);
+        qx.core.Assert.assertInterface(widget, qx.ui.mobile.container.INavigation);
       }
 
       this.getContent().append(widget);
