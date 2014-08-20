@@ -458,7 +458,7 @@ qx.Bootstrap.define("qx.ui.mobile.container.Scroll",
       if (contentElement) {
         contentElement  = this;
       }
-      if (contentElement.length > 0 && this._isScrollable()) {
+      if (contentElement && this._isScrollable()) {
         if (typeof time === "undefined") {
           time = 0;
         }

@@ -301,27 +301,27 @@ qx.Bootstrap.define("qx.module.Event", {
 
       if (listener) {
         var attachedListeners = this[0].$$emitter.getListeners()[type];
-        for (var i = 0; i < attachedListeners.length; i++) {
+        attachedListeners.forEach(function(item) {
           var hasListener = false;
-          if (attachedListeners[i].listener == listener) {
+          if (item.listener == listener) {
             hasListener = true;
           }
-          if (attachedListeners[i].listener.original &&
-              attachedListeners[i].listener.original == listener) {
+          if (item.listener.original &&
+              item.listener.original == listener) {
             hasListener =  true;
           }
 
           if (hasListener) {
             if (context !== undefined) {
-              if (attachedListeners[i].ctx === context) {
+              if (item.ctx === context) {
                 return true;
               }
             } else {
               return true;
             }
           }
-        }
-        return false;
+          return false;
+        });
       }
       return Object.keys(this[0].$$emitter.getListeners()[type]).length > 0;
     },

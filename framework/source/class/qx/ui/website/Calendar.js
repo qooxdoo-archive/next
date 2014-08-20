@@ -232,7 +232,7 @@ qx.Bootstrap.define("qx.ui.website.Calendar", {
 
 
   construct : function(selector, context) {
-    this.base(arguments, selector, context);
+    this.base(qx.ui.website.Widget, "constructor", selector, context);
   },
 
 
@@ -246,7 +246,7 @@ qx.Bootstrap.define("qx.ui.website.Calendar", {
 
     // overridden
     init : function() {
-      if (!this.base(arguments)) {
+      if (!this.base(qx.ui.website.Widget, "init")) {
         return false;
       }
 
@@ -284,7 +284,7 @@ qx.Bootstrap.define("qx.ui.website.Calendar", {
       var currentDate = null;
 
       if(!value || !(minDate || maxDate)){
-        this.base(arguments, value);
+        this.base(qx.ui.website.Widget, "setEnabled", value);
       }else{
 
         this.find("button.qx-calendar-day").map(function(button){
@@ -827,7 +827,7 @@ qx.Bootstrap.define("qx.ui.website.Calendar", {
 
       this.setHtml("");
 
-      return this.base(arguments);
+      return this.base(qx.ui.website.Widget, "dispose");
     }
 
   },

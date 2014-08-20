@@ -400,10 +400,6 @@ qx.Bootstrap.define("qx.dev.Debug",
             if (obj.constructor.$$instance === obj) {
               continue;
             }
-            // Event handlers
-            if (qx.Interface.classImplements(obj.constructor, qx.event.IEventHandler)) {
-              continue;
-            }
             // ignored objects
             if (obj.$$ignoreDisposeWarning) {
               continue;

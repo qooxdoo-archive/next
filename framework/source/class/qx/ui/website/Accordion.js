@@ -100,7 +100,7 @@ qx.Bootstrap.define("qx.ui.website.Accordion", {
 
 
     construct: function(selector, context) {
-        this.base(arguments, selector, context);
+        this.base(qx.ui.website.Tabs, "constructor", selector, context);
     },
 
 

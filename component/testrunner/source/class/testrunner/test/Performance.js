@@ -20,7 +20,7 @@
 /**
  * Performance test examples.
  */
-qx.Class.define("testrunner.test.Performance",
+qx.Bootstrap.define("testrunner.test.Performance",
 {
   extend : qx.dev.unit.TestCase,
 

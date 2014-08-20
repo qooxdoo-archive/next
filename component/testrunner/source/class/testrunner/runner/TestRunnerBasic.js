@@ -717,7 +717,6 @@ qx.Bootstrap.define("testrunner.runner.TestRunnerBasic", {
       this._disposeArray("testList");
       this._disposeArray("testPackageList");
       this._disposeObjects("view", "currentTestData", "loader");
-      this.base(qx.core.Object, "dispose");
     }
 
   }

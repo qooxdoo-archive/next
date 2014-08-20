@@ -1,4 +1,0 @@
-/**
- * qx.theme.simple package
- *
- */

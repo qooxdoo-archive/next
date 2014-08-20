@@ -143,7 +143,7 @@ qx.Bootstrap.define("qx.ui.website.Widget", {
 
 
   construct : function(selector, context) {
-    var col = this.base(arguments, selector, context);
+    var col = this.base(qxWeb, "constructor", selector, context);
     Array.prototype.push.apply(this, Array.prototype.slice.call(col, 0, col.length));
   },
 

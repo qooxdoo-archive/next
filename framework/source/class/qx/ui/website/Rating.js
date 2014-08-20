@@ -125,7 +125,7 @@ qx.Bootstrap.define("qx.ui.website.Rating", {
 
 
   construct : function(selector, context) {
-    this.base(arguments, selector, context);
+    this.base(qx.ui.website.Widget, "constructor", selector, context);
   },
 
 
@@ -139,7 +139,7 @@ qx.Bootstrap.define("qx.ui.website.Rating", {
 
     // overridden
     init : function() {
-      if (!this.base(arguments)) {
+      if (!this.base(qx.ui.website.Widget, "init")) {
         return false;
       }
 
@@ -290,7 +290,7 @@ qx.Bootstrap.define("qx.ui.website.Rating", {
       });
       this.setHtml("");
 
-      return this.base(arguments);
+      return this.base(qx.ui.website.Widget, "dispose");
     }
   },
 

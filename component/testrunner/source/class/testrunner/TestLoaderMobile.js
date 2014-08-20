@@ -17,7 +17,7 @@
 
 ************************************************************************ */
 
-qx.Class.define("testrunner.TestLoaderMobile",
+qx.Bootstrap.define("testrunner.TestLoaderMobile",
 {
   extend : qx.dev.unit.TestLoaderMobile,
 
@@ -50,7 +50,7 @@ qx.Class.define("testrunner.TestLoaderMobile",
     main : function()
     {
       testrunner.TestLoader.instance = this;
-      this.base(arguments);
+      this.base(qx.dev.unit.TestLoaderMobile, "main");
     }
   }
 });

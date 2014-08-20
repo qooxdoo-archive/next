@@ -21,8 +21,7 @@
     "TESTS_SCRIPT" : "tests.js",         // output script name
     "TEST_LOADER"  : "testrunner.TestLoader",
     "BUILD_PATH"   : "build",
-    "CACHE"        : "${TMPDIR}/qx${QOOXDOO_VERSION}/cache",
-    "THEME"        : "qx.theme.Indigo"
+    "CACHE"        : "${TMPDIR}/qx${QOOXDOO_VERSION}/cache"
   },
 
   "config-warnings" :
@@ -224,14 +223,12 @@
       "include" :
       [
         "${TESTRUNNER_MAIN_CLASS}",
-        "${TESTRUNNER_VIEW}",
-        "${THEME}"
+        "${TESTRUNNER_VIEW}"
       ],
 
       "environment" :
       {
         "qx.application"   : "${TESTRUNNER_MAIN_CLASS}",
-        "qx.theme"         : "${THEME}",
         "qx.version"       : "${QOOXDOO_VERSION}",
         "qx.revision"      : "${QOOXDOO_REVISION}",
         "qx.testNameSpace" : "${TEST_NAMESPACE}",
@@ -275,14 +272,13 @@
         }
       ],
 
-      "=include" : ["${TEST_LOADER}", "${TEST_INCLUDE}", "${QXTHEME}"],
+      "=include" : ["${TEST_LOADER}", "${TEST_INCLUDE}"],
 
       "exclude" : ["${TEST_EXCLUDE}"],
 
       "environment" :
       {
-        "qx.theme" : "${QXTHEME}",
-        "qx.globalErrorHandling" : true,
+        "qx.globalErrorHandling" : false,
         "testrunner.testParts" : false,
         "qx.allowUrlSettings" : true,
         "qx.application" : "${TEST_LOADER}",
@@ -465,7 +461,6 @@
       "include" :
       [
         "${TESTRUNNER_MAIN_CLASS}",
-        "${THEME}",
         "${TESTRUNNER_VIEW}"
       ]
     },

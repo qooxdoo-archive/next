@@ -77,14 +77,14 @@ qx.Bootstrap.define("qx.ui.website.Button", {
 
 
   construct : function(selector, context) {
-    this.base(arguments, selector, context);
+    this.base(qx.ui.website.Widget, "constructor", selector, context);
   },
 
 
   members : {
     // overridden
     init : function() {
-      if (!this.base(arguments)) {
+      if (!this.base(qx.ui.website.Widget, "init")) {
         return false;
       }
 
@@ -160,7 +160,7 @@ qx.Bootstrap.define("qx.ui.website.Button", {
         if (menu.getStyle("display") === "none") {
           menu.placeTo(this, "bottom-left");
           menu.show();
-          qxWeb(document).once("tap", function() {
+          qxWeb(document).once("tap", function(ev) {
             menu.hide();
           });
         } else {

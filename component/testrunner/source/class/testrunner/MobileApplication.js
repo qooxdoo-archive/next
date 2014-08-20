@@ -20,7 +20,7 @@
 /**
  * TestRunner Mobile main application class.
  */
-qx.Class.define("testrunner.MobileApplication",
+qx.Bootstrap.define("testrunner.MobileApplication",
 {
   extend : qx.application.Mobile,
 
@@ -37,7 +37,7 @@ qx.Class.define("testrunner.MobileApplication",
     main : function()
     {
       // Call super class
-      this.base(arguments);
+      this.base(qx.application.Mobile, "main");
 
       // Enable logging in debug variant
       if (qx.core.Environment.get("qx.debug"))
@@ -50,17 +50,5 @@ qx.Class.define("testrunner.MobileApplication",
 
       this.runner = new testrunner.runner.TestRunner();
     }
-  },
-
-
-  /*
-  *****************************************************************************
-     DESTRUCTOR
-  *****************************************************************************
-  */
-
-  destruct : function()
-  {
-    this._disposeObjects("runner");
   }
 });

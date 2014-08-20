@@ -198,7 +198,7 @@ qx.Bootstrap.define("qx.ui.website.Tabs", {
 
 
   construct: function(selector, context) {
-    this.base(arguments, selector, context);
+    this.base(qx.ui.website.Widget, "constructor", selector, context);
   },
 
 
@@ -214,7 +214,7 @@ qx.Bootstrap.define("qx.ui.website.Tabs", {
   members: {
 
     init: function() {
-      if (!this.base(arguments)) {
+      if (!this.base(qx.ui.website.Widget, "init")) {
         return false;
       }
       var mediaQuery = this.getConfig("mediaQuery");
@@ -821,7 +821,7 @@ qx.Bootstrap.define("qx.ui.website.Tabs", {
 
       this.setHtml("").removeClasses([cssPrefix, "qx-flex-ready"]);
 
-      return this.base(arguments);
+      return this.base(qx.ui.website.Widget, "dispose");
     }
 
   },

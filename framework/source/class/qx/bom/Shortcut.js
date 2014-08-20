@@ -22,9 +22,11 @@
 /**
  * Shortcuts can be used to globally define keyboard shortcuts.
  */
-qx.Class.define("qx.bom.Shortcut",
+qx.Bootstrap.define("qx.bom.Shortcut",
 {
-  extend : qx.core.Object,
+  extend : Object,
+
+  include : [qx.event.MEmitter],
 
 
 
@@ -45,16 +47,14 @@ qx.Class.define("qx.bom.Shortcut",
    */
   construct : function(shortcut)
   {
-    this.base(arguments);
-
     this.__modifier = {};
     this.__key = null;
 
     if (shortcut != null) {
-      this.setShortcut(shortcut);
+      this.shortcut = shortcut;
     }
 
-    this.initEnabled();
+    this._applyEnabled(true);
   },
 
 
@@ -140,7 +140,7 @@ qx.Class.define("qx.bom.Shortcut",
      * @param target {Object} Object which issued the execute event
      */
     execute : function(target) {
-      this.fireDataEvent("execute", target);
+      this.emit("execute", target);
     },
 
 
@@ -151,12 +151,13 @@ qx.Class.define("qx.bom.Shortcut",
      */
     __onKeyDown : function(event)
     {
-      if (this.getEnabled() && this.__matchesKeyEvent(event))
+      if (this.enabled && this.__matchesKeyEvent(event))
       {
-        if (!this.isAutoRepeat()) {
-          this.execute(event.getTarget());
+        if (!this.autoRepeat) {
+          this.execute(event.target);
         }
-        event.stop();
+        event.stopPropagation();
+        event.preventDefault();
       }
     },
 
@@ -168,12 +169,13 @@ qx.Class.define("qx.bom.Shortcut",
      */
     __onKeyPress : function(event)
     {
-      if (this.getEnabled() && this.__matchesKeyEvent(event))
+      if (this.enabled && this.__matchesKeyEvent(event))
       {
-        if (this.isAutoRepeat()) {
-          this.execute(event.getTarget());
+        if (this.autoRepeat) {
+          this.execute(event.target);
         }
-        event.stop();
+        event.stopPropagation();
+        event.preventDefault();
       }
     },
 
@@ -190,11 +192,13 @@ qx.Class.define("qx.bom.Shortcut",
     _applyEnabled : function(value, old)
     {
       if (value) {
-        qx.event.Registration.addListener(document.documentElement, "keydown", this.__onKeyDown, this);
-        qx.event.Registration.addListener(document.documentElement, "keypress", this.__onKeyPress, this);
+        qxWeb(document.documentElement)
+          .on("keydown", this.__onKeyDown, this)
+          .on("keypress", this.__onKeyPress, this);
       } else {
-        qx.event.Registration.removeListener(document.documentElement, "keydown", this.__onKeyDown, this);
-        qx.event.Registration.removeListener(document.documentElement, "keypress", this.__onKeyPress, this);
+        qxWeb(document.documentElement)
+          .on("keydown", this.__onKeyDown, this)
+          .on("keypress", this.__onKeyPress, this);
       }
     },
 
@@ -299,19 +303,19 @@ qx.Class.define("qx.bom.Shortcut",
       // for check special keys
       // and check if a shortcut is a single char and special keys are pressed
       if (
-        (!this.__modifier.Shift && e.isShiftPressed()) ||
-        (this.__modifier.Shift && !e.isShiftPressed()) ||
-        (!this.__modifier.Control && e.isCtrlPressed()) ||
-        (this.__modifier.Control && !e.isCtrlPressed()) ||
-        (!this.__modifier.Meta && e.isMetaPressed()) ||
-        (this.__modifier.Meta && !e.isMetaPressed()) ||
-        (!this.__modifier.Alt && e.isAltPressed()) ||
-        (this.__modifier.Alt && !e.isAltPressed())
+        (!this.__modifier.Shift && e.shiftKey) ||
+        (this.__modifier.Shift && !e.shiftKey) ||
+        (!this.__modifier.Control && e.ctrlKey) ||
+        (this.__modifier.Control && !e.ctrlKey) ||
+        (!this.__modifier.Meta && e.metaKey) ||
+        (this.__modifier.Meta && !e.metaKey) ||
+        (!this.__modifier.Alt && e.altKey) ||
+        (this.__modifier.Alt && !e.altKey)
       ) {
         return false;
       }
 
-      if (key == e.getKeyIdentifier()) {
+      if (key == e.keyIdentifier) {
         return true;
       }
 
@@ -419,23 +423,14 @@ qx.Class.define("qx.bom.Shortcut",
       }
 
       return str.join("+");
+    },
+
+
+    dispose : function() {
+      // this will remove the event listener
+      this.enabled = false;
+
+      this.__modifier = this.__key = null;
     }
-  },
-
-
-
-
-  /*
-  *****************************************************************************
-     DESTRUCTOR
-  *****************************************************************************
-  */
-
-  destruct : function()
-  {
-    // this will remove the event listener
-    this.setEnabled(false);
-
-    this.__modifier = this.__key = null;
   }
 });

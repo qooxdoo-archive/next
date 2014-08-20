@@ -1,4 +1,0 @@
-/**
- * qx.test.theme package
- *
- */

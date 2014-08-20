@@ -145,7 +145,7 @@ qx.Bootstrap.define("qx.ui.website.Slider",
   },
 
   construct : function(selector, context) {
-    this.base(arguments, selector, context);
+    this.base(qx.ui.website.Widget, "constructor", selector, context);
   },
 
   events :
@@ -164,7 +164,7 @@ qx.Bootstrap.define("qx.ui.website.Slider",
 
 
     init : function() {
-      if (!this.base(arguments)) {
+      if (!this.base(qx.ui.website.Widget, "init")) {
         return false;
       }
 
@@ -641,7 +641,7 @@ qx.Bootstrap.define("qx.ui.website.Slider",
 
       this.setHtml("");
 
-      return this.base(arguments);
+      return this.base(qx.ui.website.Widget, "dispose");
     }
   },
 

@@ -29,7 +29,7 @@
  * i.e. using deeper namespaces and a corresponding file structure within the
  * <tt>test</tt> folder.
  */
-qx.Class.define("testrunner.test.DemoTest",
+qx.Bootstrap.define("testrunner.test.DemoTest",
 {
   extend : qx.dev.unit.TestCase,
 

@@ -157,7 +157,7 @@ qx.Mixin.define("qx.ui.mobile.container.MNativeScroll",
           this._snapPoints = [];
           var snapTargets = this[0].querySelectorAll(snap);
           for (var i = 0; i < snapTargets.length; i++) {
-            var snapPoint = this._getContentElement.getRelativeDistance(snapTargets[i], "scroll", "scroll");
+            var snapPoint = this.getRelativeDistance(snapTargets[i], "scroll", "scroll");
             this._snapPoints.push(snapPoint);
           }
         }

@@ -34,7 +34,7 @@ qx.Bootstrap.define("qx.ui.website.Table", {
   extend : qx.ui.website.Widget,
 
   construct : function(selector, context) {
-    this.base(arguments, selector, context);
+    this.base(qx.ui.website.Widget, "constructor", selector, context);
   },
 
   events : {
@@ -187,7 +187,7 @@ qx.Bootstrap.define("qx.ui.website.Table", {
     // overridden
     init : function() {
 
-      if (!this.base(arguments)) {
+      if (!this.base(qx.ui.website.Widget, "init")) {
         return false;
       }
 

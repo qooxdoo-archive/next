@@ -21,10 +21,6 @@
 
 /**
  * Methods to convert colors between different color spaces.
- *
- * @ignore(qx.theme.*)
- * @ignore(qx.Class)
- * @ignore(qx.Class.*)
  */
 qx.Bootstrap.define("qx.util.ColorUtil",
 {
@@ -132,39 +128,6 @@ qx.Bootstrap.define("qx.util.ColorUtil",
 
 
     /**
-     * Whether the color theme manager is loaded. Generally
-     * part of the GUI of qooxdoo.
-     *
-     * @return {Boolean} <code>true</code> when color theme support is ready.
-     **/
-    supportsThemes : function() {
-      if (qx.Class) {
-        return qx.Class.isDefined("qx.theme.manager.Color");
-      }
-      return false;
-    },
-
-
-    /**
-     * Whether the incoming value is a themed color.
-     *
-     * @param value {String} the color value to test
-     * @return {Boolean} true if the color is a themed color
-     */
-    isThemedColor : function(value)
-    {
-      if (!this.supportsThemes()) {
-        return false;
-      }
-
-      if (qx.theme && qx.theme.manager && qx.theme.manager.Color) {
-        return qx.theme.manager.Color.getInstance().isDynamic(value);
-      }
-      return false;
-    },
-
-
-    /**
      * Try to convert an incoming string to an RGB array.
      * Supports themed, named and system colors, but also RGB strings,
      * hex3 and hex6 values.
@@ -175,10 +138,6 @@ qx.Bootstrap.define("qx.util.ColorUtil",
      */
     stringToRgb : function(str)
     {
-      if (this.supportsThemes() && this.isThemedColor(str)) {
-        str = qx.theme.manager.Color.getInstance().resolveDynamic(str);
-      }
-
       if (this.isNamedColor(str))
       {
         return this.NAMED[str].concat();

@@ -20,9 +20,9 @@
 /**
  * This appender is used to log to an existing DOM element
  */
-qx.Class.define("qx.log.appender.Element",
+qx.Bootstrap.define("qx.log.appender.Element",
 {
-  extend : qx.core.Object,
+  extend : Object,
 
 
 
@@ -37,8 +37,6 @@ qx.Class.define("qx.log.appender.Element",
    */
   construct : function(element)
   {
-    this.base(arguments);
-
     var style =
     [
       '.qxappender .level-debug{background:white}',
@@ -131,18 +129,10 @@ qx.Class.define("qx.log.appender.Element",
 
       // Scroll down
       elem.scrollTop = elem.scrollHeight;
+    },
+
+    dispose : function() {
+      this.__element = null;
     }
-  },
-
-
-
-  /*
-  *****************************************************************************
-     DESTRUCTOR
-  *****************************************************************************
-  */
-
-  destruct : function() {
-    this.__element = null;
   }
 });

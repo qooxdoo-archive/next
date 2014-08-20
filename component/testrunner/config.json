@@ -81,7 +81,7 @@
   {
     "APPLICATION"  : "testrunner",
     "QOOXDOO_PATH" : "../..",
-    "API_EXCLUDE"  : ["qx.test.*", "${APPLICATION}.theme.*", "${APPLICATION}.test.*"],
+    "API_EXCLUDE"  : ["qx.test.*", "${APPLICATION}.test.*"],
     "LOCALES"      : [ "en" ],
     "CACHE"        : "${TMPDIR}/qx${QOOXDOO_VERSION}/cache",
     "ROOT"         : ".",

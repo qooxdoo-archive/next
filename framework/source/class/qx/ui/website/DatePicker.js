@@ -120,7 +120,7 @@ qx.Bootstrap.define("qx.ui.website.DatePicker", {
   },
 
   construct : function(selector, context) {
-    this.base(arguments, selector, context);
+    this.base(qx.ui.website.Widget, "constructor", selector, context);
   },
 
   members : {
@@ -146,7 +146,7 @@ qx.Bootstrap.define("qx.ui.website.DatePicker", {
      * @return {Boolean} <code>true</code> if the widget has been initialized
      */
     init : function(date) {
-      if (!this.base(arguments)) {
+      if (!this.base(qx.ui.website.Widget, "init")) {
         return false;
       }
 
@@ -363,7 +363,7 @@ qx.Bootstrap.define("qx.ui.website.DatePicker", {
         calendar.dispose();
       });
 
-      return this.base(arguments);
+      return this.base(qx.ui.website.Widget, "dispose");
     }
   },
 

@@ -49,7 +49,6 @@
  *
  * @ignore(qx.data)
  * @ignore(qx.data.IListData)
- * @ignore(qx.Class.*)
  */
 qx.Bootstrap.define("qx.lang.Array",
 {
