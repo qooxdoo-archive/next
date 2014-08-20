@@ -41,13 +41,6 @@ qx.Bootstrap.define("qx.ui.mobile.basic.Image",
   extend : qx.ui.mobile.core.Widget,
 
 
-
-  /*
-  *****************************************************************************
-     CONSTRUCTOR
-  *****************************************************************************
-  */
-
   /**
    * @param source {String?null} The URL of the image to display.
    */
@@ -63,24 +56,12 @@ qx.Bootstrap.define("qx.ui.mobile.basic.Image",
   },
 
 
-
-  /*
-  *****************************************************************************
-     EVENTS
-  *****************************************************************************
-  */
-
   events :
   {
-    /**
-     * Fired if the image source can not be loaded.
-     */
+    /** Fired if the image source can not be loaded. */
     loadingFailed : null,
 
-
-    /**
-     * Fired if the image has been loaded.
-     */
+    /** Fired if the image has been loaded. */
     loaded : null
   },
 
@@ -88,10 +69,10 @@ qx.Bootstrap.define("qx.ui.mobile.basic.Image",
   statics :
   {
     /** @type {Array} Possible pixel ratios of the current device operating system */
-    PIXEL_RATIOS : null,
+    PIXEL_RATIOS : ["3", "2", "1.5"],
 
     /** @type {String} a 1px*1px sized transparent image. */
-    PLACEHOLDER_IMAGE : null,
+    PLACEHOLDER_IMAGE : "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7",
 
     /**
      * Returns the application's total scale factor. It takes into account both
@@ -117,12 +98,6 @@ qx.Bootstrap.define("qx.ui.mobile.basic.Image",
   },
 
 
-  /*
-  *****************************************************************************
-     PROPERTIES
-  *****************************************************************************
-  */
-
   properties :
   {
     /**
@@ -137,14 +112,6 @@ qx.Bootstrap.define("qx.ui.mobile.basic.Image",
     }
   },
 
-
-
-
-  /*
-  *****************************************************************************
-     MEMBERS
-  *****************************************************************************
-  */
 
   members :
   {
@@ -328,7 +295,7 @@ qx.Bootstrap.define("qx.ui.mobile.basic.Image",
      * @param isDraggable {Boolean} target value.
      */
     setDraggable : function(isDraggable) {
-      if(isDraggable){
+      if (isDraggable){
         this._setAttribute("draggable", "true");
       } else {
         this._setAttribute("draggable", "false");
@@ -343,11 +310,5 @@ qx.Bootstrap.define("qx.ui.mobile.basic.Image",
         qx.application.Scaling.getInstance().on("changeAppScale", this._onChangeAppScale, this);
       }
     }
-  },
-
-
-  defer : function(statics) {
-    statics.PIXEL_RATIOS = ["3", "2", "1.5"];
-    statics.PLACEHOLDER_IMAGE = "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7";
   }
 });
