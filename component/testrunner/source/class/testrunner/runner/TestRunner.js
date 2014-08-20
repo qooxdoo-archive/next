@@ -41,12 +41,6 @@ qx.Bootstrap.define("testrunner.runner.TestRunner", {
       this.TEST_MIXINS.push(qx.dev.unit.MMeasure);
     }
 
-    if (qx.core.Environment.get("testrunner.reportServer")) {
-      var viewClass = qx.Class.getByName(qx.core.Environment.get("testrunner.view"));
-      qx.Class.include(viewClass, testrunner.view.MReportResult);
-      this.initMReportResult();
-    }
-
     this.base(testrunner.runner.TestRunnerBasic, "constructor");
 
     // Get log appender element from view
@@ -74,7 +68,6 @@ qx.Bootstrap.define("testrunner.runner.TestRunner", {
     __iframe : null,
     frameWindow : null,
     __loadAttempts : null,
-    __loadTimer : null,
     __logAppender : null,
     _externalTestClasses : null,
 
@@ -147,12 +140,14 @@ qx.Bootstrap.define("testrunner.runner.TestRunner", {
      */
     _loadInlineTests : function(nameSpace)
     {
-      nameSpace = nameSpace || this._testNameSpace;
-      this.testSuiteState = ("loading");
-      this.loader = new qx.dev.unit.TestLoaderInline();
-      this.loader.testNamespace = (nameSpace);
-      this._wrapAssertions();
-      this._getTestModel();
+      //TODO
+      throw new Error("Inline tests not yet reimplemented");
+      // nameSpace = nameSpace || this._testNameSpace;
+      // this.testSuiteState = ("loading");
+      // this.loader = new qx.dev.unit.TestLoaderInline();
+      // this.loader.testNamespace = (nameSpace);
+      // this._wrapAssertions();
+      // this._getTestModel();
     },
 
 
@@ -212,7 +207,7 @@ qx.Bootstrap.define("testrunner.runner.TestRunner", {
      */
     _onLoadIframe : function(ev)
     {
-      if (ev && ev.getType() == "load") {
+      if (ev && ev.type == "load") {
         this.testSuiteState = ("loading");
       }
 
@@ -222,12 +217,6 @@ qx.Bootstrap.define("testrunner.runner.TestRunner", {
       this.__loadAttempts++;
 
       this.frameWindow = this.__iframe.contentWindow;
-
-      if (this.__loadTimer)
-      {
-        this.__loadTimer.stop();
-        this.__loadTimer = null;
-      }
 
       if (this.__loadAttempts <= 300) {
 
@@ -247,7 +236,7 @@ qx.Bootstrap.define("testrunner.runner.TestRunner", {
 
         // Repeat until testrunner in iframe is loaded
         if (!this.frameWindow.testrunner) {
-          this.__loadTimer = qx.event.Timer.once(this._onLoadIframe, this, 100);
+          window.setTimeout(this._onLoadIframe.bind(this), 100);
           return;
         }
 
@@ -255,12 +244,12 @@ qx.Bootstrap.define("testrunner.runner.TestRunner", {
         // Avoid errors in slow browsers
 
         if (!this.loader) {
-          this.__loadTimer = qx.event.Timer.once(this._onLoadIframe, this, 100);
+          window.setTimeout(this._onLoadIframe.bind(this), 100);
           return;
         }
 
         if (!this.loader.suite) {
-          this.__loadTimer = qx.event.Timer.once(this._onLoadIframe, this, 100);
+          window.setTimeout(this._onLoadIframe.bind(this), 100);
           return;
         }
       }
@@ -320,7 +309,7 @@ qx.Bootstrap.define("testrunner.runner.TestRunner", {
 
     dispose : function()
     {
-      this._disposeObjects("__logAppender", "__loadTimer");
+      this._disposeObjects("__logAppender");
       this.__iframe = null;
       delete this.__iframe;
       this.frameWindow = null;

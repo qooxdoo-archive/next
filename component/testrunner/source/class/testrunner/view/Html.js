@@ -34,7 +34,6 @@
  * @require(qx.module.Css)
  * @require(qx.module.Cookie)
  * @require(qx.module.Template)
- * @require(qx.event.handler.Iframe)
  * @require(qx.module.util.Function)
  */
 qx.Bootstrap.define("testrunner.view.Html", {
@@ -74,7 +73,7 @@ qx.Bootstrap.define("testrunner.view.Html", {
     }
 
     this.__nativeProfiling = (qx.core.Environment.get("testrunner.performance") &&
-      qx.Class.hasMixin(this.constructor, testrunner.view.MPerformance) &&
+      qx.Mixin.getClassByMixin(this.constructor, testrunner.view.MPerformance) &&
       typeof console != "undefined" && console.profile);
 
     this._getHeader().appendTo("body");
@@ -491,13 +490,6 @@ qx.Bootstrap.define("testrunner.view.Html", {
       }
 
       this._markTestInList(testResultData);
-
-      if (qx.core.Environment.get("testrunner.reportServer")) {
-        this.saveTestResult(testResultData);
-        if (state == "failure" || state == "error") {
-          this.reportResult(testName);
-        }
-      }
     },
 
 
@@ -713,7 +705,7 @@ qx.Bootstrap.define("testrunner.view.Html", {
 
       this._applyCookieSelection();
 
-      if (qx.Class.hasMixin(this.constructor, testrunner.view.MPerformance) &&
+      if (qx.Mixin.getClassByMixin(this.constructor, testrunner.view.MPerformance) &&
         window.console && window.console.profile)
       {
         var autWindow = window;

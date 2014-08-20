@@ -24,7 +24,7 @@
  */
 qx.Bootstrap.define("qx.dev.unit.TestLoader",
 {
-  extend : qx.application.Standalone,
+  extend : qx.application.Basic,
 
   include : [qx.dev.unit.MTestLoader],
 
@@ -40,7 +40,7 @@ qx.Bootstrap.define("qx.dev.unit.TestLoader",
     // overridden
     main : function()
     {
-      this.base(qx.application.Standalone, "main");
+      this.base(qx.application.Basic, "main");
 
       // Dependencies to loggers
       qx.log.appender.Console;

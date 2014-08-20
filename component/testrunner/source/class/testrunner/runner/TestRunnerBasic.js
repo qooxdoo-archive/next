@@ -595,7 +595,7 @@ qx.Bootstrap.define("testrunner.runner.TestRunnerBasic", {
         this.currentTestData.state = ("success");
       }
 
-      qx.event.Timer.once(this.runTests, this, 0);
+      window.setTimeout(this.runTests.bind(this), 0);
     },
 
 
@@ -607,26 +607,6 @@ qx.Bootstrap.define("testrunner.runner.TestRunnerBasic", {
     _onTestEndMeasurement : function(data)
     {
       this.__addExceptions(this.currentTestData, data);
-
-      var url = qx.core.Environment.get("testrunner.reportPerfResultUrl");
-      if (url) {
-        var measureData = data[0].exception.getData();
-        measureData.testname = this.currentTestData.getFullName();
-        measureData.browsername = qx.core.Environment.get("browser.name");
-        measureData.browserversion = qx.core.Environment.get("browser.version");
-        measureData.osname = qx.core.Environment.get("os.name") || "unknown";
-        measureData.osversion = qx.core.Environment.get("os.version") || "unknown";
-
-        var parsedUri = qx.util.Uri.parseUri(location.href);
-        if (parsedUri.queryKey && parsedUri.queryKey.branch) {
-          measureData.branch = parsedUri.queryKey.branch;
-        }
-
-        url += "?" + qx.util.Uri.toParameter(measureData, false);
-        var req = new qx.bom.request.Script();
-        req.open("GET", url);
-        req.send();
-      }
     },
 
     /**

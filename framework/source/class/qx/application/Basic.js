@@ -20,9 +20,9 @@
 /**
  * For a basic, out-of-browser application (running e.g. on Node.js, Rhino).
  */
-qx.Class.define("qx.application.Basic",
+qx.Bootstrap.define("qx.application.Basic",
 {
-  extend : qx.core.Object,
+  extend : Object,
   implement : [qx.application.IApplication],
 
 
