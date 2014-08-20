@@ -185,9 +185,10 @@ qx.Bootstrap.define("mobileshowcase.page.List",
       this._loadingIndicator.show();
       this._isLoading = true;
 
-      setTimeout(function() {
+      window.setTimeout(function() {
+        var newData = [this._model.length, 0];
         for (var i = 0; i < 20; i++) {
-          this._model.push({
+          newData.push({
             title: "Item #" + (initialModelLength + i),
             subtitle: "Subtitle for Item #" + (initialModelLength + i),
             image: "mobileshowcase/icon/internet-mail.png",
@@ -196,10 +197,11 @@ qx.Bootstrap.define("mobileshowcase.page.List",
           });
         }
 
+        this._model.splice.apply(this._model, newData);
         this._scrollContainer.refresh();
         this._loadingIndicator.exclude();
         this._isLoading = false;
-      }.bind(this), 2000);
+      }.bind(this), 1000);
     },
 
 

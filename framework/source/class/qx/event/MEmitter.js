@@ -208,15 +208,8 @@ qx.Mixin.define("qx.event.MEmitter",
     getEntryById : function(id) {
       for (var name in this.__listener) {
         var store = this.__listener[name];
-        var found;
-        store.forEach(function(entry) {
-          if (entry.id === id) {
-            found = entry;
-            return; // break forEach
-          }
-        });
-        if (found) {
-          return found;
+        if (store[id]) {
+          return store[id];
         }
       }
     },
