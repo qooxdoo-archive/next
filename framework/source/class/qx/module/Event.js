@@ -301,7 +301,9 @@ qx.Bootstrap.define("qx.module.Event", {
 
       if (listener) {
         var attachedListeners = this[0].$$emitter.getListeners()[type];
-        attachedListeners.forEach(function(item) {
+        var keys = Object.keys(attachedListeners);
+        for (var i = 0, l = keys.length; i < l; i++) {
+          var item = attachedListeners[keys[i]];
           var hasListener = false;
           if (item.listener == listener) {
             hasListener = true;
@@ -321,7 +323,7 @@ qx.Bootstrap.define("qx.module.Event", {
             }
           }
           return false;
-        });
+        }
       }
       return Object.keys(this[0].$$emitter.getListeners()[type]).length > 0;
     },
