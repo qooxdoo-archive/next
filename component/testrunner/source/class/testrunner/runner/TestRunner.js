@@ -21,6 +21,8 @@
 /**
  * The TestRunner is responsible for loading the test classes and keeping track
  * of the test suite's state.
+ *
+ * @require(qx.module.Io)
  */
 qx.Bootstrap.define("testrunner.runner.TestRunner", {
 
@@ -85,7 +87,7 @@ qx.Bootstrap.define("testrunner.runner.TestRunner", {
         case "iframe":
           // Load the tests from a standalone AUT
           this.__iframe = this.view.getIframe();
-          qx.event.Registration.addListener(this.__iframe, "load", this._onLoadIframe, this);
+          q(this.__iframe).on("load", this._onLoadIframe, this);
           var src = qx.core.Environment.get("qx.testPageUri");
           src += "?testclass=" + this._testNameSpace;
           this.testSuiteState = "loading";
@@ -103,11 +105,11 @@ qx.Bootstrap.define("testrunner.runner.TestRunner", {
 
           if (pushType == "uri") {
             this.__iframe = this.view.getIframe();
-            this.frameWindow = qx.bom.Iframe.getWindow(this.__iframe);
+            this.frameWindow = this.__iframe.contentWindow;
 
             var evtFunc = function(event) {
               // Load the tests from a standalone AUT
-              qx.event.Registration.addListener(this.__iframe, "load", this._onLoadIframe, this);
+              q(this.__iframe).on("load", this._onLoadIframe, this);
               var src = event.data + "?testclass=" + this._testNameSpace;
               this.testSuiteState = "loading";
               this.view.autUri = src;
@@ -120,21 +122,19 @@ qx.Bootstrap.define("testrunner.runner.TestRunner", {
             }, 1000);
           }
           else if (pushType == "code") {
-            var req = new qx.io.request.Xhr("../build/script/tests.js");
-            req.addListener("success", function(e) {
-              var test = req.getResponse();
+            q.io.xhr("../build/script/tests.js").on("load", function(req) {
+              var test = req.responseText;
               this.__iframe = this.view.getIframe();
-              var doc = qx.bom.Iframe.getDocument(this.__iframe);
+              var doc = q.getDocument(this.__iframe);
               var el =doc.createElement("script");
               el.text = test;
               doc.getElementsByTagName("head")[0].appendChild(el);
 
-              this.loader = qx.bom.Iframe.getWindow(this.__iframe).testrunner.TestLoader.getInstance();
+              this.loader = this.__iframe.contentWindow.testrunner.TestLoader.getInstance();
               this.loader.testNamespace = (this._testNameSpace);
               this._wrapAssertions(this.frameWindow);
               this._getTestModel();
-            }, this);
-            req.send();
+            }, this).send();
           }
       }
     },
@@ -182,7 +182,7 @@ qx.Bootstrap.define("testrunner.runner.TestRunner", {
     _getTestResult : function()
     {
       if (this._origin == "iframe" || this._origin == "push") {
-        var frameWindow = qx.bom.Iframe.getWindow(this.__iframe);
+        var frameWindow = this.__iframe.contentWindow;
         var testResult = new frameWindow.qx.dev.unit.TestResult();
 
       } else {
@@ -221,7 +221,7 @@ qx.Bootstrap.define("testrunner.runner.TestRunner", {
       }
       this.__loadAttempts++;
 
-      this.frameWindow = qx.bom.Iframe.getWindow(this.__iframe);
+      this.frameWindow = this.__iframe.contentWindow;
 
       if (this.__loadTimer)
       {
@@ -302,7 +302,7 @@ qx.Bootstrap.define("testrunner.runner.TestRunner", {
      */
     __fetchIframeLog : function()
     {
-      var w = qx.bom.Iframe.getWindow(this.__iframe);
+      var w = this.__iframe.contentWindow;
 
       var logger;
       if (w.qx && w.qx.log && w.qx.log.Logger)
