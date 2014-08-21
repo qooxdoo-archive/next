@@ -1,4 +1,0 @@
-/**
- * qx.bom.media package
- *
- */
