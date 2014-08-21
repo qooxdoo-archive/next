@@ -110,7 +110,7 @@ qx.Class.define("qx.test.locale.Locale",
       // check listener
       var fired = false;
       var evtLocale = "";
-      this.__listenerId = manager.addListener("changeLocale", function(e) {
+      this.__listenerId = manager.on("changeLocale", function(e) {
         fired = true;
         evtLocale = e.getData();
       });

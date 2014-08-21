@@ -76,7 +76,7 @@ qx.Bootstrap.define("qx.ui.mobile.container.MasterDetail",
     this.__detail.layoutPrefs = {flex:4};
     this.append(this.__detail);
 
-    qx.event.Registration.addListener(window, "orientationchange", this._onOrientationChange, this);
+    qxWeb(window).on("orientationchange", this._onOrientationChange, this);
 
     this.__syncLayout();
   },

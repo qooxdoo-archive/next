@@ -92,7 +92,7 @@ qx.Bootstrap.define("qx.test.data.store.Json",
 
 
     testLoadUrl : function() {
-      this.__store.addListener("loaded", function() {
+      this.__store.on("loaded", function() {
         this.resume(function() {
           var model = this.__store.getModel();
           this.assertEquals("String", model.getString(), "The model is not created how it should!");
@@ -110,7 +110,7 @@ qx.Bootstrap.define("qx.test.data.store.Json",
       var url = this.url,
           states = [];
 
-      this.__store.addListener("changeState", function(evt) {
+      this.__store.on("changeState", function(evt) {
         var state = evt.getData();
         states.push(state);
 
@@ -128,7 +128,7 @@ qx.Bootstrap.define("qx.test.data.store.Json",
 
 
     testLoadResource : function() {
-      this.__store.addListener("loaded", function() {
+      this.__store.on("loaded", function() {
         this.resume(function() {
           var model = this.__store.getModel();
           this.assertEquals("String", model.getString(), "The model is not created how it should!");
@@ -143,7 +143,7 @@ qx.Bootstrap.define("qx.test.data.store.Json",
 
 
     testLoadAlias : function() {
-      this.__store.addListener("loaded", function() {
+      this.__store.on("loaded", function() {
         this.resume(function() {
           var model = this.__store.getModel();
           this.assertEquals("String", model.getString(), "The model is not created how it should!");
@@ -168,7 +168,7 @@ qx.Bootstrap.define("qx.test.data.store.Json",
 
 
     testWholePrimitive: function() {
-      this.__store.addListener("loaded", function() {
+      this.__store.on("loaded", function() {
         this.resume(function() {
           var model = this.__store.getModel();
           this.assertEquals("String", model.getString(), "The model is not created how it should!");
@@ -186,7 +186,7 @@ qx.Bootstrap.define("qx.test.data.store.Json",
 
 
     testWholeArray: function() {
-      this.__store.addListener("loaded", function() {
+      this.__store.on("loaded", function() {
         this.resume(function() {
           var model = this.__store.getModel();
           this.assertNotNull(model.getArray(), "The model is not created how it should!");
@@ -204,7 +204,7 @@ qx.Bootstrap.define("qx.test.data.store.Json",
 
 
     testWholeObject: function() {
-      this.__store.addListener("loaded", function() {
+      this.__store.on("loaded", function() {
         this.resume(function() {
           var model = this.__store.getModel();
           this.assertNotNull(model.getO(), "The model is not created how it should!");
@@ -250,7 +250,7 @@ qx.Bootstrap.define("qx.test.data.store.Json",
       };
       this.__store = new qx.data.store.Json(null, delegate);
 
-      this.__store.addListener("loaded", function() {
+      this.__store.on("loaded", function() {
         this.resume(function() {
           var model = this.__store.getModel();
           this.assertNotNull(model.getO(), "The model is not created how it should!");
@@ -279,7 +279,7 @@ qx.Bootstrap.define("qx.test.data.store.Json",
       };
       this.__store = new qx.data.store.Json(null, delegate);
 
-      this.__store.addListener("loaded", function() {
+      this.__store.on("loaded", function() {
         this.resume(function() {
           var model = this.__store.getModel();
           this.assertNotNull(model.getO(), "The model is not created how it should!");
@@ -309,7 +309,7 @@ qx.Bootstrap.define("qx.test.data.store.Json",
       };
       this.__store = new qx.data.store.Json(null, delegate);
 
-      this.__store.addListener("loaded", function() {
+      this.__store.on("loaded", function() {
         this.resume(function() {
           var model = this.__store.getModel();
           this.assertTrue(qx.Bootstrap.isSubClassOf(model.constructor, qx.test.O));
@@ -341,7 +341,7 @@ qx.Bootstrap.define("qx.test.data.store.Json",
       };
       this.__store = new qx.data.store.Json(null, delegate);
 
-      this.__store.addListener("loaded", function() {
+      this.__store.on("loaded", function() {
         this.resume(function() {
           var model = this.__store.getModel();
           this.assertNotNull(model.getO(), "The model is not created how it should!");
@@ -365,7 +365,7 @@ qx.Bootstrap.define("qx.test.data.store.Json",
       };
       this.__store = new qx.data.store.Json(null, delegate);
 
-      this.__store.addListener("loaded", function() {
+      this.__store.on("loaded", function() {
         this.resume(function() {
           var model = this.__store.getModel();
           this.assertNotNull(model.getO(), "The model is not created how it should!");
@@ -400,7 +400,7 @@ qx.Bootstrap.define("qx.test.data.store.Json",
       };
       this.__store = new qx.data.store.Json(null, delegate);
 
-      this.__store.addListener("loaded", function() {
+      this.__store.on("loaded", function() {
         this.resume(function() {
           var model = this.__store.getModel();
           this.assertTrue(model.a(), "Mixin not included.");
@@ -446,7 +446,7 @@ qx.Bootstrap.define("qx.test.data.store.Json",
       };
       this.__store = new qx.data.store.Json(null, delegate);
 
-      this.__store.addListener("loaded", function() {
+      this.__store.on("loaded", function() {
         this.resume(function() {
           var model = this.__store.getModel();
           this.assertTrue(model.a(), "Mixin not included.");
@@ -475,7 +475,7 @@ qx.Bootstrap.define("qx.test.data.store.Json",
       this.__store.dispose();
       this.__store = new qx.data.store.Json(null, delegate);
 
-      this.__store.addListener("loaded", function() {
+      this.__store.on("loaded", function() {
         this.resume(function() {
           this.assertCalled(delegate.manipulateData);
         }, this);
@@ -501,7 +501,7 @@ qx.Bootstrap.define("qx.test.data.store.Json",
       this.__store.dispose();
       this.__store = new qx.data.store.Json(null, delegate);
 
-      this.__store.addListener("loaded", function() {
+      this.__store.on("loaded", function() {
         this.resume(function() {
           this.assertCalled(delegate.configureRequest);
         }, this);
@@ -515,7 +515,7 @@ qx.Bootstrap.define("qx.test.data.store.Json",
 
 
     testDisposeOldModel: function(){
-      this.__store.addListener("loaded", function() {
+      this.__store.on("loaded", function() {
         this.resume(function() {
           var model = this.__store.getModel();
           // check if the new model is not the old model
@@ -548,7 +548,7 @@ qx.Bootstrap.define("qx.test.data.store.Json",
     testDisposeRequestDone: function() {
       this.setUpFakeRequest();
       var url = this.url;
-      this.__store.addListener("loaded", function() {
+      this.__store.on("loaded", function() {
         this.resume(function() {
           this.__store.dispose();
           this.assertCalled(this.request.dispose);
@@ -559,7 +559,7 @@ qx.Bootstrap.define("qx.test.data.store.Json",
 
 
     testErrorEvent : function() {
-      this.__store.addListener("error", function(ev) {
+      this.__store.on("error", function(ev) {
         this.resume(function() {
           this.assertNotNull(ev);
         }, this);
@@ -577,7 +577,7 @@ qx.Bootstrap.define("qx.test.data.store.Json",
       server.respondWith("GET", "/foo", [ 500,
         {"Content-Type": "application/json"}, "SERVER ERROR" ]);
 
-      this.__store.addListener("error", function(e)
+      this.__store.on("error", function(e)
       {
         this.resume(function(){
           this.assertTrue(e.getData().getPhase() == "statusError");

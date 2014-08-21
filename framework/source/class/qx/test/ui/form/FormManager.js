@@ -499,7 +499,7 @@ qx.Class.define("qx.test.ui.form.FormManager",
 
     testEvent : function() {
       var handler = this.spy();
-      this.__form.addListener("change", handler);
+      this.__form.on("change", handler);
       this.__form.add(this.__tf1, "TF1");
       this.assertCalledOnce(handler);
 

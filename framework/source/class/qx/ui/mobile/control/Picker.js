@@ -28,7 +28,7 @@
  * <pre>
  * var picker = new qx.ui.mobile.control.Picker();
  * picker.height = 200;
- * picker.addListener("changeSelection", function(evt) {
+ * picker.on("changeSelection", function(evt) {
  *   var data = evt.getData();
  * },this);
  *
