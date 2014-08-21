@@ -105,6 +105,6 @@ qx.Bootstrap.define("qx.test.data.singlevalue.WithQxWeb",
 
       this.__a.p2 = this.__c;
       this.assertEquals("123", this.__c.p1, "Deep binding on the target does not work.");
-    },
+    }
   }
 });
