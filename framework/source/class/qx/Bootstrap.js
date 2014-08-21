@@ -539,7 +539,6 @@ qx.Bootstrap.define("qx.Bootstrap",
 
     /**
      * Define a new class using the qooxdoo class system.
-     * Lightweight version of {@link qx.Class#define} with less features.
      *
      * @signature function(name, config)
      * @param name {String?} Name of the class. If null, the class will not be

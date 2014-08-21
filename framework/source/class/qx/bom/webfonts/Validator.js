@@ -18,36 +18,22 @@
  * Checks whether a given font is available on the document and fires events
  * accordingly.
  */
-qx.Class.define("qx.bom.webfonts.Validator", {
+qx.Bootstrap.define("qx.bom.webfonts.Validator", {
 
-  extend : qx.core.Object,
+  extend : Object,
+  include : [qx.event.MEmitter],
 
-
-  /*
-  *****************************************************************************
-     CONSTRUCTOR
-  *****************************************************************************
-  */
 
   /**
    * @param fontFamily {String} The name of the font to be verified
    */
-  construct : function(fontFamily)
-  {
-    this.base(arguments);
+  construct : function(fontFamily) {
     if (fontFamily) {
-      this.setFontFamily(fontFamily);
+      this.fontFamily = fontFamily;
     }
     this.__requestedHelpers = this._getRequestedHelpers();
   },
 
-
-
-  /*
-  *****************************************************************************
-     STATICS
-  *****************************************************************************
-  */
 
   statics :
   {
@@ -104,13 +90,6 @@ qx.Class.define("qx.bom.webfonts.Validator", {
   },
 
 
-
-  /*
-  *****************************************************************************
-     PROPERTIES
-  *****************************************************************************
-  */
-
   properties :
   {
     /**
@@ -136,13 +115,6 @@ qx.Class.define("qx.bom.webfonts.Validator", {
   },
 
 
-
-  /*
-  *****************************************************************************
-     EVENTS
-  *****************************************************************************
-  */
-
   events :
   {
     /**
@@ -150,16 +122,9 @@ qx.Class.define("qx.bom.webfonts.Validator", {
      * is a map with the keys "family" (the font-family name) and "valid"
      * (Boolean).
      */
-    "changeStatus" : "qx.event.type.Data"
+    "changeStatus" : "Map"
   },
 
-
-
-  /*
-  *****************************************************************************
-     MEMBERS
-  *****************************************************************************
-  */
 
   members :
   {
@@ -263,8 +228,8 @@ qx.Class.define("qx.bom.webfonts.Validator", {
      */
     _getRequestedHelpers : function()
     {
-      var fontsSans = [this.getFontFamily()].concat(qx.bom.webfonts.Validator.COMPARISON_FONTS.sans);
-      var fontsSerif = [this.getFontFamily()].concat(qx.bom.webfonts.Validator.COMPARISON_FONTS.serif);
+      var fontsSans = [this.fontFamily].concat(qx.bom.webfonts.Validator.COMPARISON_FONTS.sans);
+      var fontsSerif = [this.fontFamily].concat(qx.bom.webfonts.Validator.COMPARISON_FONTS.serif);
       return {
         sans : this._getHelperElement(fontsSans),
         serif : this._getHelperElement(fontsSerif)
@@ -345,40 +310,32 @@ qx.Class.define("qx.bom.webfonts.Validator", {
       if (this._isFontValid()) {
         this.__checkTimer.stop();
         this._reset();
-        this.fireDataEvent("changeStatus", {
-          family : this.getFontFamily(),
+        this.emit("changeStatus", {
+          family : this.fontFamily,
           valid : true
         });
       }
       else
       {
         var now = new Date().getTime();
-        if (now - this.__checkStarted >= this.getTimeout()) {
+        if (now - this.__checkStarted >= this.timeout) {
           this.__checkTimer.stop();
           this._reset();
-          this.fireDataEvent("changeStatus", {
-            family : this.getFontFamily(),
+          this.emit("changeStatus", {
+            family : this.fontFamily,
             valid : false
           });
         }
       }
+    },
+
+
+    dispose : function() {
+      this._reset();
+      this.__checkTimer.stop();
+      this.__checkTimer.removeListener("interval", this.__onTimerInterval, this);
+      this._disposeObjects("__checkTimer");
     }
 
-  },
-
-
-
-  /*
-  *****************************************************************************
-     DESTRUCTOR
-  *****************************************************************************
-  */
-
-  destruct : function()
-  {
-    this._reset();
-    this.__checkTimer.stop();
-    this.__checkTimer.removeListener("interval", this.__onTimerInterval, this);
-    this._disposeObjects("__checkTimer");
   }
 });

@@ -49,7 +49,7 @@ qx.Class.define("qx.test.performance.data.Marshaling",
           }
         },
         function() {
-          qx.Class.undefine("qx.data.model.a");
+          delete qx.data.model.a;
         },
         this.CREATE_ITERATIONS
       );
@@ -68,7 +68,7 @@ qx.Class.define("qx.test.performance.data.Marshaling",
           }
         },
         function() {
-          qx.Class.undefine("qx.data.model.a");
+          delete qx.data.model.a;
         },
         this.CREATE_ITERATIONS
       );
@@ -92,7 +92,7 @@ qx.Class.define("qx.test.performance.data.Marshaling",
           for (var i=0; i < self.__objects.length; i++) {
             self.__objects[i].dispose();
           }
-          qx.Class.undefine("qx.data.model.a");
+          delete qx.data.model.a;
         },
         this.CREATE_ITERATIONS
       );

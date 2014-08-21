@@ -23,7 +23,7 @@
  * itself if it can determinate which types should be used. In all other cases,
  * you can you this methods / options for the default conversion.
  */
-qx.Class.define("qx.data.Conversion",
+qx.Bootstrap.define("qx.data.Conversion",
 {
   statics :
   {

@@ -34,7 +34,7 @@
  * will search the entire document for any nodes named "bar", not just the
  * <code>foo</code> node.
  */
-qx.Class.define("qx.xml.Element",
+qx.Bootstrap.define("qx.xml.Element",
 {
   statics :
   {
@@ -308,11 +308,6 @@ qx.Class.define("qx.xml.Element",
     }
   },
 
-  /*
-  *****************************************************************************
-     DEFER
-  *****************************************************************************
-  */
 
   defer : function(statics)
   {

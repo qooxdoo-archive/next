@@ -21,7 +21,7 @@
  * The test loader is the base class of a native application, which can be used
  * to run tests from a non-GUI application or from within JSUnit.
  */
-qx.Class.define("qx.dev.unit.TestLoaderMobile",
+qx.Bootstrap.define("qx.dev.unit.TestLoaderMobile",
 {
   extend : qx.application.Mobile,
 
@@ -39,14 +39,14 @@ qx.Class.define("qx.dev.unit.TestLoaderMobile",
     // overridden
     main : function()
     {
-      this.base(arguments);
+      this.base(qx.application.Mobile, "main");
 
       // Dependencies to loggers
       qx.log.appender.Console;
 
       var url = this._getClassNameFromUrl();
       if (url !== "__unknown_class__") {
-        this.setTestNamespace(this._getClassNameFromUrl());
+        this.testNamespace = this._getClassNameFromUrl();
       }
 
       if (window.top.jsUnitTestSuite)

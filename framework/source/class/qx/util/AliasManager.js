@@ -43,23 +43,14 @@
  * For resources, only aliases that resolve to proper resource id's can be __managed__
  * resources, and will be considered __unmanaged__ resources otherwise.
  */
-qx.Class.define("qx.util.AliasManager",
+qx.Bootstrap.define("qx.util.AliasManager",
 {
-  type : "singleton",
   extend : qx.util.ValueManager,
-
-
-
-
-  /*
-  *****************************************************************************
-     CONSTRUCTOR
-  *****************************************************************************
-  */
+  include : [qx.core.MSingleton],
 
   construct : function()
   {
-    this.base(arguments);
+    this.base(qx.util.ValueManager, "constructor");
 
     // Contains defined aliases (like icons/, widgets/, application/, ...)
     this.__aliases = {};
@@ -69,17 +60,8 @@ qx.Class.define("qx.util.AliasManager",
   },
 
 
-
-
-  /*
-  *****************************************************************************
-     MEMBERS
-  *****************************************************************************
-  */
-
   members :
   {
-
     __aliases : null,
 
     /**
@@ -190,18 +172,5 @@ qx.Class.define("qx.util.AliasManager",
       }
       return res;
     }
-  },
-
-
-
-
-  /*
-  *****************************************************************************
-     DESTRUCTOR
-  *****************************************************************************
-  */
-
-  destruct : function() {
-    this.__aliases = null;
   }
 });

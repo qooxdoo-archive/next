@@ -18,7 +18,7 @@
  * Requests web fonts from {@link qx.bom.webfonts.Manager} and fires events
  * when their loading status is known.
  */
-qx.Class.define("qx.bom.webfonts.WebFont", {
+qx.Bootstrap.define("qx.bom.webfonts.WebFont", {
 
   extend : qx.bom.Font,
 

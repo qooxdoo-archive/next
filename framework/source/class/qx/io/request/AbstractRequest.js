@@ -30,7 +30,7 @@
  * To adjust the behavior of {@link #send} override
  * {@link #_getConfiguredUrl} and {@link #_getConfiguredRequestHeaders}.
  */
-qx.Class.define("qx.io.request.AbstractRequest",
+qx.OldCLass.define("qx.io.request.AbstractRequest",
 {
   type : "abstract",
 
@@ -193,7 +193,6 @@ qx.Class.define("qx.io.request.AbstractRequest",
     requestData: {
       check: function(value) {
         return qx.lang.Type.isString(value) ||
-               qx.Class.isSubClassOf(value.constructor, qx.core.Object) ||
                qx.lang.Type.isObject(value);
       },
       nullable: true
@@ -846,10 +845,6 @@ qx.Class.define("qx.io.request.AbstractRequest",
 
       if (qx.lang.Type.isString(data)) {
         return data;
-      }
-
-      if (qx.Class.isSubClassOf(data.constructor, qx.core.Object)) {
-        return qx.util.Serializer.toUriParameter(data);
       }
 
       if (isJson && (qx.lang.Type.isObject(data) || qx.lang.Type.isArray(data))) {

@@ -323,9 +323,9 @@ qx.Class.define("qx.test.dev.unit.Sinon",
       this.getSandbox().restore();
       this.sinon = null;
 
-      qx.Class.undefine("qx.test.Affe");
-      qx.Class.undefine("qx.test.Animal");
-      qx.Class.undefine("qx.test.Gibbon");
+      delete qx.test.Affe;
+      delete qx.test.Animal;
+      delete qx.test.Gibbon;
     }
   }
 });

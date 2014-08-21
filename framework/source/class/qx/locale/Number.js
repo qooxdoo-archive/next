@@ -26,7 +26,7 @@
  * @cldr()
  */
 
-qx.Class.define("qx.locale.Number",
+qx.Bootstrap.define("qx.locale.Number",
 {
   statics :
   {

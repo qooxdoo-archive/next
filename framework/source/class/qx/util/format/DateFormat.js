@@ -66,18 +66,11 @@
  *
  * The same format patterns will be used for both parsing and output formatting.
  */
-qx.Class.define("qx.util.format.DateFormat",
+qx.Bootstrap.define("qx.util.format.DateFormat",
 {
-  extend : qx.core.Object,
+  extend : Object,
   implement : qx.util.format.IFormat,
 
-
-
-  /*
-  *****************************************************************************
-     CONSTRUCTOR
-  *****************************************************************************
-  */
 
   /**
    * @param format {String|null} The format to use. If null, the locale's default
@@ -87,17 +80,15 @@ qx.Class.define("qx.util.format.DateFormat",
    */
   construct : function(format, locale)
   {
-    this.base(arguments);
-
     if (!locale)
     {
-      this.__locale = qx.locale.Manager.getInstance().getLocale();
-      this.__bindingId = qx.locale.Manager.getInstance().bind("locale", this, "locale");
+      this.__locale = qx.locale.Manager.getInstance().locale;
+      this.__bindingId = qx.data.SingleValueBinding.bind(qx.locale.Manager.getInstance(), "locale", this, "locale");
     }
     else
     {
       this.__locale = locale;
-      this.setLocale(locale);
+      this.locale = locale;
     }
 
     this.__initialLocale = this.__locale;
@@ -118,12 +109,6 @@ qx.Class.define("qx.util.format.DateFormat",
     }
   },
 
-
-  /*
-  *****************************************************************************
-     PROPERTIES
-  *****************************************************************************
-  */
 
   properties :
   {
@@ -430,7 +415,7 @@ qx.Class.define("qx.util.format.DateFormat",
      */
     _applyLocale : function(value, old)
     {
-      this.__locale = value === null ? this.setLocale(this.__initialLocale) : value;
+      this.__locale = value === null ? this.locale = this.__initialLocale : value;
     },
 
     /**
@@ -1763,23 +1748,13 @@ qx.Class.define("qx.util.format.DateFormat",
         regex       : "(GMT[\\+\\-]\\d\\d:\\d\\d)",
         manipulator : ignoreManipulator
       });
+    },
+
+
+    dispose : function() {
+      if (this.__bindingId != null) {
+        qx.locale.Manager.getInstance().removeBinding(this.__bindingId);
+      }
     }
-  },
-
-
-
-
-  /*
-  *****************************************************************************
-     DESTRUCTOR
-  *****************************************************************************
-  */
-
-  destruct : function()
-  {
-    if (this.__bindingId != null) {
-      qx.locale.Manager.getInstance().removeBinding(this.__bindingId);
-    }
-    this.__formatTree = this.__parseFeed = this.__parseRules = null;
   }
 });

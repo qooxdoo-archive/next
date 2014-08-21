@@ -23,11 +23,10 @@
  * @ignore(qx.data, qx.data.IListData)
  * @ignore(qx.locale, qx.locale.LocalizedString)
  */
-qx.Class.define("qx.util.Serializer",
+qx.Bootstrap.define("qx.util.Serializer",
 {
   statics :
   {
-
     /**
      * Serializes the properties of the given qooxdoo object. To get the
      * serialization working, every property needs to have a string
@@ -44,7 +43,7 @@ qx.Class.define("qx.util.Serializer",
      *   objects into strings.
      * @return {String} The serialized object.
      */
-    toUriParameter : function(object, qxSerializer, dateFormat)
+    toUriParameter : function(object, qxSerializer, dateFormat) // TODO use new properties
     {
       var result = "";
       var properties = qx.util.PropertyUtil.getAllProperties(object.constructor);
@@ -59,7 +58,7 @@ qx.Class.define("qx.util.Serializer",
         // handle arrays
         if (qx.lang.Type.isArray(value)) {
           var isdataArray = qx.data && qx.data.IListData &&
-            qx.Class.hasInterface(value && value.constructor, qx.data.IListData);
+            qx.Interface.classImplements(value && value.constructor, qx.data.IListData);
           for (var i = 0; i < value.length; i++) {
             var valueAtI = isdataArray ? value.getItem(i) : value[i];
             result += this.__toUriParameter(name, valueAtI, qxSerializer);
@@ -137,7 +136,7 @@ qx.Class.define("qx.util.Serializer",
       }
 
       // data array
-      if (qx.data && qx.data.IListData && qx.Class.hasInterface(object.constructor, qx.data.IListData))
+      if (qx.data && qx.data.IListData && qx.Interface.classImplements(object.constructor, qx.data.IListData))
       {
         result = [];
         for (var i = 0; i < object.getLength(); i++)
@@ -264,7 +263,7 @@ qx.Class.define("qx.util.Serializer",
       }
 
       // data array
-      if (qx.data && qx.data.IListData && qx.Class.hasInterface(object.constructor, qx.data.IListData)) {
+      if (qx.data && qx.data.IListData && qx.Interface.classImplements(object.constructor, qx.data.IListData)) {
         result += "[";
         for (var i = 0; i < object.getLength(); i++) {
           result += qx.util.Serializer.toJson(object.getItem(i), qxSerializer, dateFormat) + ",";

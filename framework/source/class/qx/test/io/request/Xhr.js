@@ -100,7 +100,7 @@ qx.Class.define("qx.test.io.request.Xhr",
       this.req.dispose();
 
       // May fail in IE
-      try { qx.Class.undefine("Klass"); } catch(e) {}
+      try { delete Klass; } catch(e) {}
     },
 
     //

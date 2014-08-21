@@ -24,14 +24,8 @@
  * @require(qx.log.appender.Util)
  * @ignore(debug.*)
  */
-qx.Class.define("qx.log.appender.PhoneGap",
+qx.Bootstrap.define("qx.log.appender.PhoneGap",
 {
-  /*
-  *****************************************************************************
-     STATICS
-  *****************************************************************************
-  */
-
   statics :
   {
     /**
@@ -52,14 +46,6 @@ qx.Class.define("qx.log.appender.PhoneGap",
     }
   },
 
-
-
-
-  /*
-  *****************************************************************************
-     DEFER
-  *****************************************************************************
-  */
 
   defer : function(statics)
   {

@@ -140,17 +140,6 @@ qx.Class.define("qx.test.mobile.core.Widget",
     },
 
 
-    testTranslationAvailable : function()
-    {
-      var widget = new qx.ui.mobile.core.Widget();
-
-      this.assertTrue(qx.Class.hasMixin(qx.ui.mobile.core.Widget, qx.locale.MTranslation), "No translation mixin found");
-      this.assertFunction(widget.tr);
-
-      widget.dispose();
-    },
-
-
     testDispose : function()
     {
       var widget = new qx.ui.mobile.core.Widget();

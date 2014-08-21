@@ -519,17 +519,5 @@ qx.Bootstrap.define("qx.ui.mobile.container.Scroll",
         this.disposeMIScroll();
       }
     }
-  },
-
-
-  defer : function(statics)
-  {
-    // TODO
-    // if (qx.core.Environment.get("qx.mobile.nativescroll") == false)
-    // {
-    //   qx.Class.include(statics, qx.ui.mobile.container.MIScroll);
-    // } else {
-    //   qx.Class.include(statics, qx.ui.mobile.container.MNativeScroll);
-    // }
   }
 });

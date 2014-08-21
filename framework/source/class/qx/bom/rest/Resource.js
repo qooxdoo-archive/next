@@ -1017,7 +1017,7 @@ qx.Bootstrap.define("qx.bom.rest.Resource",
             {
               // Check prototype value
               // undefined is the best, but null may be used as a placeholder for
-              // private variables (hint: checks in qx.Class.define). We accept both.
+              // private variables.
               if (this.constructor.prototype[key] != null) {
                 continue;
               }

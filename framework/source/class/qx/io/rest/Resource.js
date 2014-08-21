@@ -117,7 +117,7 @@
  * Action specific events follow the pattern "&lt;action&gt;Success" and
  * "&lt;action&gt;Error", e.g. "indexSuccess".
  */
-qx.Class.define("qx.io.rest.Resource",
+qx.OldCLass.define("qx.io.rest.Resource",
 {
   extend: qx.core.Object,
 

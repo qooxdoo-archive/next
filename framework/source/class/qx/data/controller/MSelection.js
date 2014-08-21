@@ -28,19 +28,7 @@
 qx.Mixin.define("qx.data.controller.MSelection",
 {
 
-  /*
-  *****************************************************************************
-     CONSTRUCTOR
-  *****************************************************************************
-  */
-
-  construct : function()
-  {
-    // check for a target property
-    if (!qx.Class.hasProperty(this.constructor, "target")) {
-      throw new Error("Target property is needed.");
-    }
-
+  construct : function() {
     // create a default selection array
     if (this.getSelection() == null) {
       this.__ownSelection = new qx.data.Array();
@@ -48,13 +36,6 @@ qx.Mixin.define("qx.data.controller.MSelection",
     }
   },
 
-
-
-  /*
-  *****************************************************************************
-     PROPERTIES
-  *****************************************************************************
-  */
 
   properties : {
     /**
@@ -84,12 +65,6 @@ qx.Mixin.define("qx.data.controller.MSelection",
     "changeSelection" : "qx.event.type.Data"
   },
 
-
-  /*
-  *****************************************************************************
-     MEMBERS
-  *****************************************************************************
-  */
 
   members :
   {
@@ -297,7 +272,7 @@ qx.Mixin.define("qx.data.controller.MSelection",
      */
     __targetSupportsMultiSelection: function() {
       var targetClass = this.getTarget().constructor;
-      return qx.Class.implementsInterface(targetClass, qx.ui.core.IMultiSelection);
+      return qx.Interface.classImplements(targetClass, qx.ui.core.IMultiSelection);
     },
 
 
@@ -307,7 +282,7 @@ qx.Mixin.define("qx.data.controller.MSelection",
      */
     __targetSupportsSingleSelection: function() {
       var targetClass = this.getTarget().constructor;
-      return qx.Class.implementsInterface(targetClass, qx.ui.core.ISingleSelection);
+      return qx.Interface.classImplements(targetClass, qx.ui.core.ISingleSelection);
     },
 
 
@@ -388,12 +363,6 @@ qx.Mixin.define("qx.data.controller.MSelection",
 
   },
 
-
-  /*
-  *****************************************************************************
-     DESTRUCTOR
-  *****************************************************************************
-  */
 
   destruct : function()
   {

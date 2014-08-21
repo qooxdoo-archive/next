@@ -78,7 +78,7 @@ qx.Class.define("qx.test.performance.oo.Definition",
         this.__duration
       );
 
-      qx.Class.undefine("qx.test.performance.oo.A");
+      delete qx.test.performance.oo.A;
     },
 
     testInstantiateClasses: function() {
@@ -104,7 +104,7 @@ qx.Class.define("qx.test.performance.oo.Definition",
         null,
         this.__duration
       );
-      qx.Class.undefine("qx.test.performance.oo.A");
+      delete qx.test.performance.oo.A;
     }
   }
 });

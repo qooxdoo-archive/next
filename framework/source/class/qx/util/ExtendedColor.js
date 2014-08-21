@@ -21,7 +21,7 @@
 /**
  * Support for extended CSS color names
  */
-qx.Class.define("qx.util.ExtendedColor",
+qx.Bootstrap.define("qx.util.ExtendedColor",
 {
   statics :
   {

@@ -21,39 +21,19 @@
 /**
  * Abstract base class for all managers of themed values.
  */
-qx.Class.define("qx.util.ValueManager",
+qx.Bootstrap.define("qx.util.ValueManager",
 {
-  type : "abstract",
-  extend : qx.core.Object,
+  extend : Object,
 
 
-
-
-  /*
-  *****************************************************************************
-     CONSTRUCTOR
-  *****************************************************************************
-  */
-
-  construct : function()
-  {
-    this.base(arguments);
-
+  construct : function() {
     // Create empty dynamic map
     this._dynamic = {};
   },
 
 
-
-  /*
-  *****************************************************************************
-     MEMBERS
-  *****************************************************************************
-  */
-
   members :
   {
-
     _dynamic : null,
 
     /**
@@ -108,19 +88,5 @@ qx.Class.define("qx.util.ValueManager",
     _getDynamic : function() {
       return this._dynamic;
     }
-
-  },
-
-
-
-
-  /*
-  *****************************************************************************
-     DESTRUCTOR
-  *****************************************************************************
-  */
-
-  destruct : function() {
-    this._dynamic = null;
   }
 });

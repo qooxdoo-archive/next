@@ -22,9 +22,9 @@
  * populated with the marshaled response. Note the action is invoked on the
  * resource, not the store.
  */
-qx.Class.define("qx.data.store.Rest",
+qx.Bootstrap.define("qx.data.store.Rest",
 {
-  extend: qx.core.Object,
+  extend: Object,
 
   /**
    * @param resource {qx.io.rest.Resource} The resource.
@@ -35,15 +35,8 @@ qx.Class.define("qx.data.store.Rest",
    */
   construct: function(resource, actionName, delegate)
   {
-    this.base(arguments);
-
-    try {
-      this.setResource(resource);
-      this.setActionName(actionName);
-    } catch(e) {
-      this.dispose();
-      throw e;
-    }
+    this.resource = resource;
+    this.actionName = actionName;
 
     this._delegate = delegate;
     this._marshaler = new qx.data.marshal.Json(delegate);
@@ -92,7 +85,7 @@ qx.Class.define("qx.data.store.Rest",
      * Configure the resource's request by processing the delegate.
      */
     __configureRequest: function() {
-      var resource = this.getResource(),
+      var resource = this.resource(),
           delegate = this._delegate;
 
       // Overrides existing callback, if any
@@ -103,11 +96,11 @@ qx.Class.define("qx.data.store.Rest",
      * Listen to events fired by the resource.
      */
     __addListeners: function() {
-      var resource = this.getResource(),
-          actionName = this.getActionName();
+      var resource = this.resource(),
+          actionName = this.actionName();
 
       if (resource && actionName) {
-        resource.addListener(this.getActionName() + "Success", this.__onActionSuccessBound);
+        resource.addListener(this.actionName() + "Success", this.__onActionSuccessBound);
       }
     },
 
@@ -122,7 +115,7 @@ qx.Class.define("qx.data.store.Rest",
       var data = e.getData(),
           marshaler = this._marshaler,
           model,
-          oldModel = this.getModel(),
+          oldModel = this.model,
           delegate = this._delegate;
 
       // Skip if data is empty
@@ -138,7 +131,7 @@ qx.Class.define("qx.data.store.Rest",
         marshaler.toClass(data, true);
         model = marshaler.toModel(data);
         if (model) {
-          this.setModel(model);
+          this.model = model;
         }
       }
 
@@ -147,14 +140,5 @@ qx.Class.define("qx.data.store.Rest",
         oldModel.dispose();
       }
     }
-  },
-
-  destruct: function() {
-    var model = this.getModel();
-    if (model && typeof model.dispose === "function") {
-      model.dispose();
-    }
-
-    this._marshaler && this._marshaler.dispose();
   }
 });

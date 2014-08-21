@@ -62,7 +62,7 @@
  *
  * Internally uses {@link qx.bom.request.Xhr}.
  */
-qx.Class.define("qx.io.request.Xhr",
+qx.OldCLass.define("qx.io.request.Xhr",
 {
   extend: qx.io.request.AbstractRequest,
 

@@ -29,7 +29,7 @@
  * also apply to this class.
  *
  */
-qx.Class.define("qx.data.store.Jsonp",
+qx.Bootstrap.define("qx.data.store.Jsonp",
 {
   extend : qx.data.store.Json,
 
@@ -88,8 +88,8 @@ qx.Class.define("qx.data.store.Jsonp",
       this._setRequest(req);
 
       // default when null
-      req.setCallbackParam(this.getCallbackParam());
-      req.setCallbackName(this.getCallbackName());
+      req.setCallbackParam(this.callbackParam);
+      req.setCallbackName(this.callbackName);
 
       // send
       req.setUrl(url);

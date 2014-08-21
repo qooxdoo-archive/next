@@ -20,7 +20,6 @@
 /**
  * This class is internal because it's tailored to {@link qx.io.rest.Resource}
  * which needs more functionality than {@link qx.bom.request.Xhr} provides.
- * The usage of {@link qx.io.request.Xhr} isn't possible either due to it's qx.Class nature.
  *
  * For alternatives to this class have a look at:
  *

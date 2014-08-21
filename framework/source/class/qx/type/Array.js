@@ -23,16 +23,10 @@
  * convenience methods to the regular array like <code>remove</code> or
  * <code>contains</code>.
  */
-qx.Class.define("qx.type.Array",
+qx.Bootstrap.define("qx.type.Array",
 {
   extend : qx.type.BaseArray,
 
-
-  /*
-  *****************************************************************************
-     CONSTRUCTOR
-  *****************************************************************************
-  */
 
   /**
    * Creates a new Array with the given length or the listed items.
@@ -49,7 +43,7 @@ qx.Class.define("qx.type.Array",
    *        OR an argument list of elements.
    */
   construct : function(length_or_items) {
-    qx.type.BaseArray.apply(this,arguments);
+    qx.type.BaseArray.apply(this, arguments);
   },
 
 

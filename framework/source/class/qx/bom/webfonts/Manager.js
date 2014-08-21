@@ -18,22 +18,15 @@
  * Manages font-face definitions, making sure that each rule is only applied
  * once.
  */
-qx.Class.define("qx.bom.webfonts.Manager", {
+qx.Bootstrap.define("qx.bom.webfonts.Manager", {
 
-  extend : qx.core.Object,
+  extend : Object,
+  include : [qx.core.MSingleton],
 
-  type : "singleton",
-
-
-  /*
-  *****************************************************************************
-     CONSTRUCTOR
-  *****************************************************************************
-  */
 
   construct : function()
   {
-    this.base(arguments);
+    this.initMSingleton();
     this.__createdStyles = [];
     this.__validators = {};
     this.__preferredFormats = this.getPreferredFormats();
@@ -46,13 +39,6 @@ qx.Class.define("qx.bom.webfonts.Manager", {
   },
 
 
-
-  /*
-  *****************************************************************************
-     STATICS
-  *****************************************************************************
-  */
-
   statics :
   {
     /**
@@ -64,16 +50,11 @@ qx.Class.define("qx.bom.webfonts.Manager", {
     /**
      * Timeout (in ms) to wait before deciding that a web font was not loaded.
      */
-    VALIDATION_TIMEOUT : 5000
+    VALIDATION_TIMEOUT : 5000,
+
+    getInstance : qx.core.MSingleton.getInstance
   },
 
-
-
-  /*
-  *****************************************************************************
-     MEMBERS
-  *****************************************************************************
-  */
 
   members :
   {
@@ -418,22 +399,16 @@ qx.Class.define("qx.bom.webfonts.Manager", {
           }
         }
       }
-    }
-  },
+    },
 
-  /*
-  *****************************************************************************
-    DESTRUCTOR
-  *****************************************************************************
-  */
 
-  destruct : function()
-  {
-    delete this.__createdStyles;
-    this.removeStyleSheet();
-    for (var prop in this.__validators) {
-      this.__validators[prop].dispose();
+    dispose : function() {
+      delete this.__createdStyles;
+      this.removeStyleSheet();
+      for (var prop in this.__validators) {
+        this.__validators[prop].dispose();
+      }
+      qx.bom.webfonts.Validator.removeDefaultHelperElements();
     }
-    qx.bom.webfonts.Validator.removeDefaultHelperElements();
   }
 });

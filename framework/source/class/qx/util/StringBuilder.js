@@ -32,16 +32,10 @@
  * So this class seems to be the best compromise to handle
  * string concatenation.
  */
-qx.Class.define("qx.util.StringBuilder",
+qx.Bootstrap.define("qx.util.StringBuilder",
 {
   extend : qx.type.BaseArray,
 
-
-  /*
-  *****************************************************************************
-     CONSTRUCTOR
-  *****************************************************************************
-  */
 
   /**
    * Creates a new StringBuilder with the given length or as a concatenation of the given arguments substrings.
@@ -63,11 +57,6 @@ qx.Class.define("qx.util.StringBuilder",
     qx.type.BaseArray.apply(this, arguments);
   },
 
-  /*
-  *****************************************************************************
-    MEMBERS
-  *****************************************************************************
-  */
 
   members :
   {
@@ -119,14 +108,6 @@ qx.Class.define("qx.util.StringBuilder",
     }
   },
 
-
-
-
-  /*
-  *****************************************************************************
-     DEFER
-  *****************************************************************************
-  */
 
   defer : function(statics, members)
   {

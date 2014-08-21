@@ -40,10 +40,10 @@
  * the {@link qx.io.request.Xhr} request.
  *
  */
-qx.Class.define("qx.data.store.Json",
+qx.Bootstrap.define("qx.data.store.Json",
 {
-  extend : qx.core.Object,
-
+  extend : Object,
+  include : [qx.event.MEmitter],
 
   /**
    * @param url {String|null} The url where to find the data. The store starts
@@ -55,15 +55,12 @@ qx.Class.define("qx.data.store.Json",
    */
   construct : function(url, delegate)
   {
-    this.base(arguments);
-
-
     // store the marshaler and the delegate
     this._marshaler = new qx.data.marshal.Json(delegate);
     this._delegate = delegate;
 
     if (url != null) {
-      this.setUrl(url);
+      this.url = url;
     }
   },
 
@@ -229,7 +226,7 @@ qx.Class.define("qx.data.store.Json",
 
       state = requestPhaseToStorePhase[requestPhase];
       if (state) {
-        this.setState(state);
+        this.state = state;
       }
     },
 
@@ -270,10 +267,10 @@ qx.Class.define("qx.data.store.Json",
        // create the class
        this._marshaler.toClass(data, true);
 
-       var oldModel = this.getModel();
+       var oldModel = this.model;
 
        // set the initial data
-       this.setModel(this._marshaler.toModel(data));
+       this.model = this._marshaler.toModel(data);
 
        // get rid of the old model
        if (oldModel && oldModel.dispose) {
@@ -281,7 +278,7 @@ qx.Class.define("qx.data.store.Json",
        }
 
        // fire complete event
-       this.fireDataEvent("loaded", this.getModel());
+       this.fireDataEvent("loaded", this.model);
 
        // get rid of the request object
        if (this.__request) {
@@ -295,28 +292,17 @@ qx.Class.define("qx.data.store.Json",
      * Reloads the data with the url set in the {@link #url} property.
      */
     reload: function() {
-      var url = this.getUrl();
+      var url = this.url;
       if (url != null) {
         this._createRequest(url);
       }
+    },
+
+
+    dispose: function() {
+      if (this.__request != null) {
+        this._disposeObjects("__request");
+      }
     }
-  },
-
-  /*
-   *****************************************************************************
-      DESTRUCT
-   *****************************************************************************
-   */
-
-  destruct : function()
-  {
-    if (this.__request != null) {
-      this._disposeObjects("__request");
-    }
-
-    // The marshaler internally uses the singleton pattern
-    // (constructor.$$instance.
-    this._disposeSingletonObjects("_marshaler");
-    this._delegate = null;
   }
 });

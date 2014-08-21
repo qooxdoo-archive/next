@@ -20,7 +20,7 @@
 /**
  * Includes library functions to work with browser windows
  */
-qx.Class.define("qx.bom.Window",
+qx.Bootstrap.define("qx.bom.Window",
 {
   statics :
   {

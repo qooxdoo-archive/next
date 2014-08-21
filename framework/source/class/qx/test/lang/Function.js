@@ -155,14 +155,11 @@ qx.Class.define("qx.test.lang.Function",
 
         members : {
           bar : function() {}
-        },
-
-        destruct : function() {}
+        }
       });
 
       var name = new qx.test.Name();
       this.assertEquals("qx.test.Name.constructor()", qx.lang.Function.getName(qx.test.Name));
-      this.assertEquals("qx.test.Name.destruct()", qx.lang.Function.getName(qx.test.Name.$$destructor));
 
       name.setProp(1);
       name.getProp();

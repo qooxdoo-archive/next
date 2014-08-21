@@ -20,17 +20,11 @@
 /**
  * A formatter and parser for numbers.
  */
-qx.Class.define("qx.util.format.NumberFormat",
+qx.Bootstrap.define("qx.util.format.NumberFormat",
 {
-  extend : qx.core.Object,
+  extend : Object,
   implement : qx.util.format.IFormat,
 
-
-  /*
-  *****************************************************************************
-     CONSTRUCTOR
-  *****************************************************************************
-  */
 
   /**
    * @param locale {String} optional locale to be used
@@ -38,7 +32,6 @@ qx.Class.define("qx.util.format.NumberFormat",
    */
   construct : function(locale)
   {
-    this.base(arguments);
     if (arguments.length > 0) {
       if (arguments.length === 1) {
         if (qx.lang.Type.isString(locale)) {
@@ -52,12 +45,6 @@ qx.Class.define("qx.util.format.NumberFormat",
     }
   },
 
-
-  /*
-  *****************************************************************************
-     PROPERTIES
-  *****************************************************************************
-  */
 
   properties :
   {
@@ -132,14 +119,6 @@ qx.Class.define("qx.util.format.NumberFormat",
   },
 
 
-
-
-  /*
-  *****************************************************************************
-     MEMBERS
-  *****************************************************************************
-  */
-
   members :
   {
 
@@ -171,10 +150,10 @@ qx.Class.define("qx.util.format.NumberFormat",
         num = -num;
       }
 
-      if (this.getMaximumFractionDigits() != null)
+      if (this.maximumFractionDigits != null)
       {
         // Do the rounding
-        var mover = Math.pow(10, this.getMaximumFractionDigits());
+        var mover = Math.pow(10, this.maximumFractionDigits);
         num = Math.round(num * mover) / mover;
       }
 
@@ -185,32 +164,32 @@ qx.Class.define("qx.util.format.NumberFormat",
       // Prepare the integer part
       var integerStr = numStr.substring(0, integerDigits);
 
-      while (integerStr.length < this.getMinimumIntegerDigits()) {
+      while (integerStr.length < this.minimumIntegerDigits) {
         integerStr = "0" + integerStr;
       }
 
-      if (this.getMaximumIntegerDigits() != null && integerStr.length > this.getMaximumIntegerDigits())
+      if (this.maximumIntegerDigit) != null && integerStr.length > this.maximumIntegerDigits)
       {
         // NOTE: We cut off even though we did rounding before, because there
         //     may be rounding errors ("12.24000000000001" -> "12.24")
-        integerStr = integerStr.substring(integerStr.length - this.getMaximumIntegerDigits());
+        integerStr = integerStr.substring(integerStr.length - this.maximumIntegerDigits);
       }
 
       // Prepare the fraction part
       var fractionStr = numStr.substring(integerDigits + 1);
 
-      while (fractionStr.length < this.getMinimumFractionDigits()) {
+      while (fractionStr.length < this.minimumFractionDigits) {
         fractionStr += "0";
       }
 
-      if (this.getMaximumFractionDigits() != null && fractionStr.length > this.getMaximumFractionDigits())
+      if (this.maximumFractionDigits != null && fractionStr.length > this.maximumFractionDigits)
       {
         // We have already rounded -> Just cut off the rest
-        fractionStr = fractionStr.substring(0, this.getMaximumFractionDigits());
+        fractionStr = fractionStr.substring(0, this.maximumFractionDigits);
       }
 
       // Add the thousand groupings
-      if (this.getGroupingUsed())
+      if (this.groupingUsed)
       {
         var origIntegerStr = integerStr;
         integerStr = "";
@@ -225,8 +204,8 @@ qx.Class.define("qx.util.format.NumberFormat",
 
       // Workaround: prefix and postfix are null even their defaultValue is "" and
       //             allowNull is set to false?!?
-      var prefix = this.getPrefix() ? this.getPrefix() : "";
-      var postfix = this.getPostfix() ? this.getPostfix() : "";
+      var prefix = this.prefix ? this.prefix : "";
+      var postfix = this.postfix ? this.postfix : "";
 
       // Assemble the number
       var str = prefix + (negative ? "-" : "") + integerStr;
@@ -256,11 +235,11 @@ qx.Class.define("qx.util.format.NumberFormat",
 
       var regex = new RegExp(
         "^" +
-        qx.lang.String.escapeRegexpChars(this.getPrefix()) +
+        qx.lang.String.escapeRegexpChars(this.prefix) +
         '([-+]){0,1}'+
         '([0-9]{1,3}(?:'+ groupSepEsc + '{0,1}[0-9]{3}){0,}){0,1}' +
         '(' + decimalSepEsc + '\\d+){0,1}' +
-        qx.lang.String.escapeRegexpChars(this.getPostfix()) +
+        qx.lang.String.escapeRegexpChars(this.postfix) +
         "$"
       );
 

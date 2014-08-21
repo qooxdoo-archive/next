@@ -47,41 +47,25 @@
  * * If you want to bind a tree widget, use {@link qx.data.controller.Tree}
  * * If you want to bind a form widget, use {@link qx.data.controller.Form}
  */
-qx.Class.define("qx.data.controller.Object",
+qx.Bootstrap.define("qx.data.controller.Object",
 {
-  extend : qx.core.Object,
+  extend : Object,
 
-
-  /*
-  *****************************************************************************
-     CONSTRUCTOR
-  *****************************************************************************
-  */
 
   /**
    * @param model {qx.core.Object?null} The model for the model property.
    */
-  construct : function(model)
-  {
-    this.base(arguments);
-
+  construct : function(model) {
     // create a map for all created binding ids
     this.__bindings = {};
     // create an array to store all current targets
     this.__targets = [];
 
     if (model != null) {
-      this.setModel(model);
+      this.model = model;
     }
   },
 
-
-
-  /*
-  *****************************************************************************
-     PROPERTIES
-  *****************************************************************************
-  */
 
   properties :
   {
@@ -96,13 +80,6 @@ qx.Class.define("qx.data.controller.Object",
     }
   },
 
-
-
-  /*
-  *****************************************************************************
-     MEMBERS
-  *****************************************************************************
-  */
 
   members :
   {
@@ -238,19 +215,19 @@ qx.Class.define("qx.data.controller.Object",
     ) {
 
       // do nothing if no model is set
-      if (this.getModel() == null) {
+      if (this.model == null) {
         return;
       }
 
       // create the binding
-      var id = this.getModel().bind(
+      var id = this.model.bind(
         sourceProperty, targetObject, targetProperty, options
       );
       // create the reverse binding if necessary
       var idReverse = null
       if (bidirectional) {
         idReverse = targetObject.bind(
-          targetProperty, this.getModel(), sourceProperty, reverseOptions
+          targetProperty, this.model, sourceProperty, reverseOptions
         );
       }
 
@@ -277,7 +254,7 @@ qx.Class.define("qx.data.controller.Object",
      */
     removeTarget: function(targetObject, targetProperty, sourceProperty) {
       this.__removeTargetFrom(
-        targetObject, targetProperty, sourceProperty, this.getModel()
+        targetObject, targetProperty, sourceProperty, this.model
       );
 
       // delete the target in the targets reference
@@ -342,20 +319,14 @@ qx.Class.define("qx.data.controller.Object",
           return;
         }
       }
-    }
-  },
+    },
 
 
-  /*
-   *****************************************************************************
-      DESTRUCT
-   *****************************************************************************
-   */
-
-  destruct : function() {
-    // set the model to null to get the bindings removed
-    if (this.getModel() != null && !this.getModel().isDisposed()) {
-      this.setModel(null);
+    dispose : function() {
+      // set the model to null to get the bindings removed
+      if (this.model != null) {
+        this.model = null;
+      }
     }
   }
 });

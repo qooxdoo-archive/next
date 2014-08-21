@@ -24,7 +24,7 @@
  * The native JavaScript Number is not modified by this class.
  *
  */
-qx.Class.define("qx.lang.Number",
+qx.Bootstrap.define("qx.lang.Number",
 {
   statics :
   {

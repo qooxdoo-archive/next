@@ -24,27 +24,16 @@
  * A wrapper for CSS font styles. Fond objects can be applied to instances
  * of {@link qx.html.Element}.
  */
-qx.Class.define("qx.bom.Font",
+qx.Bootstrap.define("qx.bom.Font",
 {
-  extend : qx.core.Object,
+  extend : Object,
 
-
-
-
-  /*
-  *****************************************************************************
-     CONSTRUCTOR
-  *****************************************************************************
-  */
 
   /**
    * @param size {String?} The font size (Unit: pixel)
    * @param family {String[]?} A sorted list of font families
    */
-  construct : function(size, family)
-  {
-    this.base(arguments);
-
+  construct : function(size, family) {
     this.__lookupMap =
     {
       fontFamily: "",
@@ -58,22 +47,14 @@ qx.Class.define("qx.bom.Font",
     };
 
     if (size !== undefined) {
-      this.setSize(size);
+      this.size = size;
     }
 
     if (family !== undefined) {
-      this.setFamily(family);
+      this.family = family;
     }
   },
 
-
-
-
-  /*
-  *****************************************************************************
-     STATICS
-  *****************************************************************************
-  */
 
   statics :
   {
@@ -171,14 +152,6 @@ qx.Class.define("qx.bom.Font",
   },
 
 
-
-
-  /*
-  *****************************************************************************
-     PROPERTIES
-  *****************************************************************************
-  */
-
   properties :
   {
     /** The font size (Unit: pixel) */
@@ -251,14 +224,6 @@ qx.Class.define("qx.bom.Font",
   },
 
 
-
-
-  /*
-  *****************************************************************************
-     MEMBERS
-  *****************************************************************************
-  */
-
   members :
   {
     __lookupMap : null,
@@ -323,7 +288,7 @@ qx.Class.define("qx.bom.Font",
     _applyColor : function(value, old) {
       this.__lookupMap.color = null;
       if (value) {
-        this.__lookupMap.color = qx.theme.manager.Color.getInstance().resolve(value);
+        this.__lookupMap.color = value;
       }
     },
 

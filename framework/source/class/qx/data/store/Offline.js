@@ -23,9 +23,9 @@
  * the update functionality, you have to use a model which supports the
  * {@link qx.data.marshal.MEventBubbling#changeBubble} event.
  */
-qx.Class.define("qx.data.store.Offline",
+qx.Bootstrap.define("qx.data.store.Offline",
 {
-  extend : qx.core.Object,
+  extend : Object,
 
 
   /**
@@ -37,15 +37,8 @@ qx.Class.define("qx.data.store.Offline",
    */
   construct : function(key, storage, delegate)
   {
-    this.base(arguments);
-
-    try {
-      if (qx.core.Environment.get("qx.debug")) {
-        this.assertNotUndefined(key);
-      }
-    } catch(e) {
-      this.dispose();
-      throw e;
+    if (qx.core.Environment.get("qx.debug")) {
+      qx.core.Assert.assertNotUndefined(key);
     }
 
     if (storage == "session") {
@@ -105,7 +98,7 @@ qx.Class.define("qx.data.store.Offline",
      * Internal helper for writing the set model to the browser storage.
      */
     __storeModel : function() {
-      var value = qx.util.Serializer.toNativeObject(this.getModel());
+      var value = qx.util.Serializer.toNativeObject(this.model);
       this._storage.setItem(this._key, value);
     },
 
@@ -125,16 +118,11 @@ qx.Class.define("qx.data.store.Offline",
     _setModel : function(data) {
       this._marshaler.toClass(data, true);
 
-      // Dispose previous
-      if (this.getModel()) {
-        this.getModel().dispose();
-      }
-
       var model = this._marshaler.toModel(data, true);
       if (model === undefined) {
         model = null;
       }
-      this.setModel(model);
+      this.model = model;
     },
 
 
@@ -144,16 +132,6 @@ qx.Class.define("qx.data.store.Offline",
      */
     getKey : function() {
       return this._key;
-    }
-  },
-
-  destruct : function() {
-    if (this.getModel()) {
-      this.getModel().dispose();
-    }
-
-    if (this._marshaler) {
-      this._marshaler.dispose();
     }
   }
 });

@@ -73,7 +73,7 @@ qx.Bootstrap.define("qx.lang.Array",
       }
 
       if (qx.data && qx.data.IListData) {
-        if (qx.Class && qx.Class.hasInterface(object, qx.data.IListData)) {
+        if (object.constructor && qx.Interface.classImplements(object.constructor, qx.data.IListData)) {
           var object = object.toArray();
         }
       }

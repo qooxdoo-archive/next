@@ -23,7 +23,7 @@
  * This class is rather to be used internally. For all regular usage of the
  * property system the default API should be sufficient.
  */
-qx.Class.define("qx.util.PropertyUtil",
+qx.Bootstrap.define("qx.util.PropertyUtil",
 {
   statics :
   {

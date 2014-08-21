@@ -29,9 +29,10 @@
  * For more information see:
  * http://www.w3.org/TR/workers/
  */
-qx.Class.define("qx.bom.WebWorker",
+qx.Bootstrap.define("qx.bom.WebWorker",
 {
-  extend : qx.core.Object,
+  extend : Object,
+  include : [qx.event.MEmitter],
 
 
   /**
@@ -39,9 +40,7 @@ qx.Class.define("qx.bom.WebWorker",
    *
    * @param src {String} The path to worker as an URL
    */
-  construct: function(src)
-  {
-    this.base(arguments);
+  construct: function(src) {
     this.__isNative = qx.core.Environment.get("html.webworker"); // only IE9
     this.__isNative ? this.__initNative(src) : this.__initFake(src);
   },
@@ -50,10 +49,10 @@ qx.Class.define("qx.bom.WebWorker",
   events :
   {
     /** Fired when worker sends a message */
-    "message": "qx.event.type.Data",
+    "message": "var",
 
     /** Fired when an error occurs */
-    "error": "qx.event.type.Data"
+    "error": "Error"
   },
 
 
@@ -77,8 +76,8 @@ qx.Class.define("qx.bom.WebWorker",
       this._handleMessageBound = qx.lang.Function.bind(this._handleMessage, this);
       this._handleErrorBound = qx.lang.Function.bind(this._handleError, this);
 
-      qx.bom.Event.addNativeListener(this._worker, "message", this._handleMessageBound);
-      qx.bom.Event.addNativeListener(this._worker, "error", this._handleErrorBound);
+      this._worker.addEventListener("message", this._handleMessageBound);
+      this._worker.addEventListener("error", this._handleErrorBound);
     },
 
     /**
@@ -92,7 +91,7 @@ qx.Class.define("qx.bom.WebWorker",
       req.onload = function() {
         that.__fake = (function() {
           var postMessage = function(e) {
-            that.fireDataEvent('message', e);
+            that.emit('message', e);
           };
           //set up context vars before evaluating the code
           eval("var onmessage = null, postMessage = " + postMessage + ";" +
@@ -125,7 +124,7 @@ qx.Class.define("qx.bom.WebWorker",
           try {
             that.__fake.onmessage && that.__fake.onmessage({data: msg});
           } catch (ex) {
-            that.fireDataEvent("error", ex);
+            that.emit("error", ex);
           }
         }, 0);
       }
@@ -137,7 +136,7 @@ qx.Class.define("qx.bom.WebWorker",
      * @param e {Event} message event
      */
     _handleMessage: function(e) {
-      this.fireDataEvent("message", e.data);
+      this.emit("message", e.data);
     },
 
 
@@ -146,24 +145,22 @@ qx.Class.define("qx.bom.WebWorker",
      * @param e {Event} error event
      */
     _handleError: function(e) {
-      this.fireDataEvent("error", e.message);
-    }
-  },
+      this.emit("error", e.message);
+    },
 
 
-  destruct : function()
-  {
-    if (this.__isNative) {
-      qx.bom.Event.removeNativeListener(this._worker, "message", this._handleMessageBound);
-      qx.bom.Event.removeNativeListener(this._worker, "error", this._handleErrorBound);
-      if (this._worker)
-      {
-        this._worker.terminate();
-        this._worker = null;
-      }
-    } else {
-      if (this.__fake) {
-        this.__fake = null;
+    dispose : function() {
+      if (this.__isNative) {
+        qx.bom.Event.removeNativeListener(this._worker, "message", this._handleMessageBound);
+        qx.bom.Event.removeNativeListener(this._worker, "error", this._handleErrorBound);
+        if (this._worker) {
+          this._worker.terminate();
+          this._worker = null;
+        }
+      } else {
+        if (this.__fake) {
+          this.__fake = null;
+        }
       }
     }
   }

@@ -43,9 +43,9 @@
  * * If you want to bind a list like widget, use {@link qx.data.controller.List}
  * * If you want to bind a tree widget, use {@link qx.data.controller.Tree}
  */
-qx.Class.define("qx.data.controller.Form",
+qx.Bootstrap.define("qx.data.controller.Form",
 {
-  extend : qx.core.Object,
+  extend : Object,
 
   /**
    * @param model {qx.core.Object | null} The model to bind the target to. The
@@ -57,19 +57,16 @@ qx.Class.define("qx.data.controller.Form",
    *   Otherwise, the data will be synced automatically on every change of
    *   the form.
    */
-  construct : function(model, target, selfUpdate)
-  {
-    this.base(arguments);
-
+  construct : function(model, target, selfUpdate) {
     this._selfUpdate = !!selfUpdate;
     this.__bindingOptions = {};
 
     if (model != null) {
-      this.setModel(model);
+      this.model = model;
     }
 
     if (target != null) {
-      this.setTarget(target);
+      this.target = target;
     }
   },
 
@@ -126,12 +123,12 @@ qx.Class.define("qx.data.controller.Form",
       this.__bindingOptions[name] = [model2target, target2model];
 
       // return if not both, model and target are given
-      if (this.getModel() == null || this.getTarget() == null) {
+      if (this.model == null || this.target == null) {
         return;
       }
 
       // renew the affected binding
-      var item = this.getTarget().getItems()[name];
+      var item = this.target.getItems()[name];
       var targetProperty =
         this.__isModelSelectable(item) ? "modelSelection[0]" : "value";
 
@@ -155,7 +152,7 @@ qx.Class.define("qx.data.controller.Form",
      * @return {qx.core.Object} The created model.
      */
     createModel : function(includeBubbleEvents) {
-      var target = this.getTarget();
+      var target = this.target;
 
       // throw an error if no target is set
       if (target == null) {
@@ -173,12 +170,12 @@ qx.Class.define("qx.data.controller.Form",
             // check if the target is a selection
             var clazz = items[name].constructor;
             var itemValue = null;
-            if (qx.Class.hasInterface(clazz, qx.ui.core.ISingleSelection)) {
+            if (qx.Interface.classImplements(clazz, qx.ui.core.ISingleSelection)) {
               // use the first element of the selection because passed to the
               // marshaler (and its single selection anyway) [BUG #3541]
               itemValue = items[name].getModelSelection().getItem(0) || null;
             } else {
-              itemValue = items[name].getValue();
+              itemValue = items[name].value;
             }
             // call the converter if available [BUG #4382]
             if (this.__bindingOptions[name] && this.__bindingOptions[name][1]) {
@@ -196,7 +193,7 @@ qx.Class.define("qx.data.controller.Form",
       }
 
       var model = qx.data.marshal.Json.createModel(data, includeBubbleEvents);
-      this.setModel(model);
+      this.model = model;
 
       return model;
     },
@@ -211,11 +208,11 @@ qx.Class.define("qx.data.controller.Form",
      */
     updateModel: function(){
       // only do stuff if self update is enabled and a model or target is set
-      if (!this._selfUpdate || !this.getModel() || !this.getTarget()) {
+      if (!this._selfUpdate || !this.model || !this.target) {
         return;
       }
 
-      var items = this.getTarget().getItems();
+      var items = this.target.getItems();
       for (var name in items) {
         var item = items[name];
         var sourceProperty =
@@ -225,7 +222,7 @@ qx.Class.define("qx.data.controller.Form",
         options = options && this.__bindingOptions[name][1];
 
         qx.data.SingleValueBinding.updateTarget(
-          item, sourceProperty, this.getModel(), name, options
+          item, sourceProperty, this.model, name, options
         );
       }
     },
@@ -239,7 +236,7 @@ qx.Class.define("qx.data.controller.Form",
       }
 
       // do nothing if no target is set
-      if (this.getModel() == null) {
+      if (this.model == null) {
         return;
       }
 
@@ -255,12 +252,12 @@ qx.Class.define("qx.data.controller.Form",
 
       // set the model to null to reset all items before removing them
       if (this.__objectController != null && value == null) {
-        this.__objectController.setModel(null);
+        this.__objectController.model = null;
       }
 
       // first, get rid off all bindings (avoids wrong data population)
       if (this.__objectController != null) {
-        var items = this.getTarget().getItems();
+        var items = this.target.getItems();
         for (var name in items) {
           var item = items[name];
           var targetProperty =
@@ -271,11 +268,11 @@ qx.Class.define("qx.data.controller.Form",
 
       // set the model of the object controller if available
       if (this.__objectController != null) {
-        this.__objectController.setModel(value);
+        this.__objectController.model = value;
       }
 
       // do nothing is no target is set
-      if (this.getTarget() == null) {
+      if (this.target == null) {
         return;
       }
 
@@ -294,11 +291,11 @@ qx.Class.define("qx.data.controller.Form",
     __setUpBinding : function() {
       // create the object controller
       if (this.__objectController == null) {
-        this.__objectController = new qx.data.controller.Object(this.getModel());
+        this.__objectController = new qx.data.controller.Object(this.model);
       }
 
       // get the form items
-      var items = this.getTarget().getItems();
+      var items = this.target.getItems();
 
       // connect all items
       for (var name in items) {
@@ -319,12 +316,12 @@ qx.Class.define("qx.data.controller.Form",
         // ignore not working items
         } catch (ex) {
           if (qx.core.Environment.get("qx.debug")) {
-            this.warn("Could not bind property " + name + " of " + this.getModel());
+            this.warn("Could not bind property " + name + " of " + this.model);
           }
         }
       }
       // make sure the initial values of the model are taken for resetting [BUG #5874]
-      this.getTarget().redefineResetter();
+      this.target.redefineResetter();
     },
 
 
@@ -363,24 +360,16 @@ qx.Class.define("qx.data.controller.Form",
      * @return {Boolean} true, if given item fits.
      */
     __isModelSelectable : function(item) {
-      return qx.Class.hasInterface(item.constructor, qx.ui.core.ISingleSelection) &&
-      qx.Class.hasInterface(item.constructor, qx.ui.form.IModelSelection);
+      return qx.Interface.classImplements(item.constructor, qx.ui.core.ISingleSelection) &&
+      qx.Interface.classImplements(item.constructor, qx.ui.form.IModelSelection);
+    },
+
+
+    dispose : function() {
+      // dispose the object controller because the bindings need to be removed
+      if (this.__objectController) {
+        this.__objectController.dispose();
+      }
     }
-
-  },
-
-
-
-  /*
-   *****************************************************************************
-      DESTRUCTOR
-   *****************************************************************************
-   */
-
-   destruct : function() {
-     // dispose the object controller because the bindings need to be removed
-     if (this.__objectController) {
-       this.__objectController.dispose();
-     }
-   }
+  }
 });

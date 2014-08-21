@@ -23,14 +23,8 @@
  * Static class, which contains functionality to localize the names of keyboard keys.
  */
 
-qx.Class.define("qx.locale.Key",
+qx.Bootstrap.define("qx.locale.Key",
 {
-  /*
-  *****************************************************************************
-     STATICS
-  *****************************************************************************
-  */
-
   statics :
   {
     /**
@@ -64,12 +58,6 @@ qx.Class.define("qx.locale.Key",
     }
   },
 
-
-  /*
-  *****************************************************************************
-     DEFER
-  *****************************************************************************
-  */
 
   defer : function(statics)
   {
