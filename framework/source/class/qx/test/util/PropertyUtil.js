@@ -30,7 +30,7 @@ qx.Class.define("qx.test.util.PropertyUtil",
   {
     setUp : function()
     {
-      this.button = new qx.ui.form.Button();
+      this.button = new qx.ui.mobile.form.Button();
       this.getRoot().add(this.button);
       this.flush();
     },
@@ -41,49 +41,6 @@ qx.Class.define("qx.test.util.PropertyUtil",
       this.button.destroy();
     },
 
-
-    testGetUserValue : function()
-    {
-      var Prop = qx.util.PropertyUtil;
-      this.assertUndefined(Prop.getUserValue(this.button, "label"));
-
-      this.button.setLabel("juhu");
-      this.assertEquals("juhu", Prop.getUserValue(this.button, "label"));
-
-      // center has a themed value
-      this.assertUndefined(Prop.getUserValue(this.button, "center"));
-    },
-
-
-    testGetThemeValue : function()
-    {
-      var Prop = qx.util.PropertyUtil;
-      this.assertUndefined(Prop.getThemeValue(this.button, "content"));
-      this.assertEquals(true, Prop.getThemeValue(this.button, "center"));
-    },
-
-
-    testGetInitValue : function()
-    {
-      var Prop = qx.util.PropertyUtil;
-      this.assertUndefined(Prop.getInitValue(this.button, "content"));
-      this.assertEquals(false, Prop.getInitValue(this.button, "rich"));
-    },
-
-
-    testSetThemed : function()
-    {
-      var Prop = qx.util.PropertyUtil;
-      this.assertNull(this.button.getIcon());
-
-      Prop.setThemed(this.button, "icon", "right.png");
-      this.assertEquals("right.png", this.button.getIcon());
-      this.assertEquals("right.png", Prop.getThemeValue(this.button, "icon"));
-
-      Prop.resetThemed(this.button, "icon");
-      this.assertNull(this.button.getIcon());
-      this.assertUndefined(Prop.getThemeValue(this.button, "icon"));
-    },
 
     testGetProperties : function()
     {
