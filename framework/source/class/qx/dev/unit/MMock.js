@@ -45,7 +45,7 @@
  *       obj.onCondition("xyz");
  *
  *       // Assert that spy was called
- *       this.assertCalled(obj.doSpecial);
+ *       qx.core.Assert.assertCalled(obj.doSpecial);
  *     },
  *
  *     tearDown: function() {

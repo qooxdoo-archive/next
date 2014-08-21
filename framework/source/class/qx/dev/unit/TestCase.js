@@ -123,7 +123,7 @@ qx.Bootstrap.define("qx.dev.unit.TestCase",
     resumeHandler : function(deferredFunction, self)
     {
       if(qx.core.Environment.get("qx.debug")) {
-        this.assertFunction(deferredFunction, "First parameter of resumeHandler() must be a function!");
+        qx.core.Assert.assertFunction(deferredFunction, "First parameter of resumeHandler() must be a function!");
       }
 
       var func = deferredFunction;
