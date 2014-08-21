@@ -17,7 +17,7 @@
 
 ************************************************************************ */
 
-qx.Class.define("qx.test.log.Util",
+qx.Bootstrap.define("qx.test.log.Util",
 {
   extend : qx.dev.unit.TestCase,
 

@@ -17,7 +17,7 @@
 
 ************************************************************************ */
 
-qx.Class.define("qx.test.util.Delegate",
+qx.Bootstrap.define("qx.test.util.Delegate",
 {
   extend : qx.dev.unit.TestCase,
   include : qx.dev.unit.MMock,

@@ -16,7 +16,7 @@
      * Martin Wittemann (wittemann)
 
 ************************************************************************ */
-qx.Class.define("qx.test.bom.element.Transform",
+qx.Bootstrap.define("qx.test.bom.element.Transform",
 {
   extend : qx.dev.unit.TestCase,
   include : [qx.dev.unit.MRequirements],

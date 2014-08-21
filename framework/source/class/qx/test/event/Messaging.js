@@ -17,7 +17,7 @@
 
 ************************************************************************ */
 
-qx.Class.define("qx.test.event.Messaging",
+qx.Bootstrap.define("qx.test.event.Messaging",
 {
   extend : qx.dev.unit.TestCase,
   include : qx.dev.unit.MMock,

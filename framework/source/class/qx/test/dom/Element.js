@@ -14,7 +14,7 @@
  *
  ******************************************************************************/
 
-qx.Class.define("qx.test.dom.Element", {
+qx.Bootstrap.define("qx.test.dom.Element", {
   extend : qx.dev.unit.TestCase,
 
   members : {

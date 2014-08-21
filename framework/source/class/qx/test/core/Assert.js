@@ -17,7 +17,7 @@
      * Fabian Jakobs (fjakobs)
 
 ************************************************************************ */
-qx.Class.define("qx.test.core.Assert",
+qx.Bootstrap.define("qx.test.core.Assert",
 {
   extend : qx.dev.unit.TestCase,
 

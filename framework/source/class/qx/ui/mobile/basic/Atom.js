@@ -336,7 +336,9 @@ qx.Bootstrap.define("qx.ui.mobile.basic.Atom",
 
     dispose : function() {
       this.base(qx.ui.mobile.core.Widget, "dispose");
-      this._disposeObjects("__label", "__icon", "__childrenContainer");
+      this.__label.dispose();
+      this.__icon.dispose();
+      this.__childrenContainer.dispose();
     }
   }
 });

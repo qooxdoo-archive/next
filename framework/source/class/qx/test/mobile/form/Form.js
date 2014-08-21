@@ -17,7 +17,7 @@
 
 ************************************************************************ */
 
-qx.Class.define("qx.test.mobile.form.Form",
+qx.Bootstrap.define("qx.test.mobile.form.Form",
 {
   extend : qx.test.mobile.MobileTestCase,
 
@@ -30,20 +30,19 @@ qx.Class.define("qx.test.mobile.form.Form",
     {
       var form = this.__createForm();
       var renderer = new qx.ui.mobile.form.renderer.Single(form);
-      this.getRoot().add(renderer);
+      this.getRoot().append(renderer);
       this.assertFalse(form.validate());
 
-      this.assertEquals(2, renderer._getChildren()[1].getChildren().length);
-      this.assertTrue(qx.bom.element.Class.has(renderer._getChildren()[1].getChildren()[1].getContainerElement(), 'invalid'));
+      this.assertEquals(2, renderer.getChildren().eq(1).getChildren().length);
+      this.assertTrue(qx.bom.element.Class.has(renderer.getChildren().eq(1).getChildren().eq(1)[0], 'invalid'));
 
       this.__username.setValue('myusername');
       this.assertTrue(form.validate());
-      this.assertEquals(2, renderer._getChildren()[1].getChildren().length);
-      this.assertFalse(qx.bom.element.Class.has(renderer._getChildren()[1]._getChildren()[1].getContainerElement(), 'invalid'));
+      this.assertEquals(2, renderer.getChildren().eq(1).getChildren().length);
+      this.assertFalse(qx.bom.element.Class.has(renderer.getChildren().eq(1).getChildren().eq(1)[0], 'invalid'));
 
       this.__username.dispose();
       renderer.dispose();
-      form.dispose();
     },
 
     __createForm : function()

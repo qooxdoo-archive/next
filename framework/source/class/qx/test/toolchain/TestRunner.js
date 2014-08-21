@@ -17,7 +17,7 @@
 
 ************************************************************************ */
 
-qx.Class.define("qx.test.toolchain.TestRunner",
+qx.Bootstrap.define("qx.test.toolchain.TestRunner",
 {
   extend : qx.dev.unit.TestCase,
 

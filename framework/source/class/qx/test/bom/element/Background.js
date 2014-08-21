@@ -24,7 +24,7 @@
  * @asset(qx/static/blank.gif)
  */
 
-qx.Class.define("qx.test.bom.element.Background",
+qx.Bootstrap.define("qx.test.bom.element.Background",
 {
   extend : qx.dev.unit.TestCase,
 

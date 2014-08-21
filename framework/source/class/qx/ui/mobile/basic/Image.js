@@ -264,7 +264,7 @@ qx.Bootstrap.define("qx.ui.mobile.basic.Image",
       // Output a warning if the image could not loaded and quit
       if (imageInfo.failed)
       {
-        this.warn("Image could not be loaded: " + source);
+        qx.log.Logger.warn("Image could not be loaded: " + source);
         this.emit("loadingFailed");
       }
       else if (imageInfo.aborted)

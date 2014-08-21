@@ -17,7 +17,7 @@
 
 ************************************************************************ */
 
-qx.Class.define("qx.test.mobile.form.ToggleButton",
+qx.Bootstrap.define("qx.test.mobile.form.ToggleButton",
 {
   extend : qx.test.mobile.MobileTestCase,
 
@@ -26,11 +26,11 @@ qx.Class.define("qx.test.mobile.form.ToggleButton",
     testValue : function()
     {
       var button = new qx.ui.mobile.form.ToggleButton(true);
-      this.getRoot().add(button);
+      this.getRoot().append(button);
 
       this.assertBoolean(button.getValue());
       this.assertTrue(button.getValue());
-      this.assertTrue(qx.bom.element.Class.has(button.getContentElement(), "checked"));
+      this.assertTrue(button.hasClass("checked"));
 
       this.assertEventFired(button, "changeValue", function() {
         button.setValue(false);
@@ -45,7 +45,7 @@ qx.Class.define("qx.test.mobile.form.ToggleButton",
     testToggle : function()
     {
       var button = new qx.ui.mobile.form.ToggleButton(true);
-      this.getRoot().add(button);
+      this.getRoot().append(button);
 
       this.assertBoolean(button.getValue());
       this.assertTrue(button.getValue());

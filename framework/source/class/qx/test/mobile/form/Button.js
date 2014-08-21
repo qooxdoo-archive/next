@@ -17,7 +17,7 @@
 
 ************************************************************************ */
 
-qx.Class.define("qx.test.mobile.form.Button",
+qx.Bootstrap.define("qx.test.mobile.form.Button",
 {
   extend : qx.test.mobile.MobileTestCase,
 
@@ -26,18 +26,18 @@ qx.Class.define("qx.test.mobile.form.Button",
     testLabel : function()
     {
       var button = new qx.ui.mobile.form.Button("affe");
-      this.getRoot().add(button);
+      this.getRoot().append(button);
 
       this.assertString(button.label);
       this.assertEquals("affe", button.label );
-      this.assertEquals(button.label, button.getLabelWidget().getContentElement().innerHTML);
+      this.assertEquals(button.label, button.getLabelWidget().getHtml());
 
       this.assertEventFired(button, "changeLabel", function() {
         button.label = "";
       });
 
       this.assertEquals("", button.label);
-      this.assertEquals(button.label, button.getLabelWidget().getContentElement().innerHTML);
+      this.assertNull(button.getLabelWidget().getHtml());
 
       button.dispose();
     }

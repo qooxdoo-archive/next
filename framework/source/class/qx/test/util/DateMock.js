@@ -17,7 +17,7 @@
 
 ************************************************************************ */
 
-qx.Class.define("qx.test.util.DateMock",
+qx.Bootstrap.define("qx.test.util.DateMock",
 {
   extend : Object,
 

@@ -18,7 +18,7 @@
 
 ************************************************************************ */
 
-qx.Class.define("qx.test.util.placement.KeepAlignAxis",
+qx.Bootstrap.define("qx.test.util.placement.KeepAlignAxis",
 {
   extend : qx.dev.unit.TestCase,
 

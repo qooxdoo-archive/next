@@ -18,7 +18,7 @@
 ************************************************************************ */
 
 
-qx.Class.define("qx.test.bom.AnimationFrame",
+qx.Bootstrap.define("qx.test.bom.AnimationFrame",
 {
   extend : qx.dev.unit.TestCase,
   include : [qx.dev.unit.MMock],

@@ -20,7 +20,7 @@
 /**
  * @ignore(qx.test.i.*)
  */
-qx.Class.define("qx.test.Interface",
+qx.Bootstrap.define("qx.test.Interface",
 {
   extend : qx.dev.unit.TestCase,
 

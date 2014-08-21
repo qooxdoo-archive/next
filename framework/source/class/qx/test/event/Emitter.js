@@ -17,7 +17,7 @@
 
 ************************************************************************ */
 
-qx.Class.define("qx.test.event.Emitter",
+qx.Bootstrap.define("qx.test.event.Emitter",
 {
   extend : qx.dev.unit.TestCase,
   include : qx.dev.unit.MMock,

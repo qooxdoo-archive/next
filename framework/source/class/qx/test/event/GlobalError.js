@@ -17,7 +17,7 @@
 
 ************************************************************************ */
 
-qx.Class.define("qx.test.event.GlobalError",
+qx.Bootstrap.define("qx.test.event.GlobalError",
 {
   extend : qx.dev.unit.TestCase,
   include : qx.dev.unit.MRequirements,

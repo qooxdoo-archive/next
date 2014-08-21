@@ -17,7 +17,7 @@
 
 ************************************************************************ */
 
-qx.Class.define("qx.test.mobile.core.Widget",
+qx.Bootstrap.define("qx.test.mobile.core.Widget",
 {
   extend : qx.test.mobile.MobileTestCase,
 
@@ -27,7 +27,7 @@ qx.Class.define("qx.test.mobile.core.Widget",
     {
       var widget = new qx.ui.mobile.core.Widget();
       widget.id = "affe";
-      this.getRoot().add(widget);
+      this.getRoot().append(widget);
 
       var element = document.getElementById("affe");
       this.assertElement(element);
@@ -36,27 +36,13 @@ qx.Class.define("qx.test.mobile.core.Widget",
     },
 
 
-    testNameProperty : function()
-    {
-      var widget = new qx.ui.mobile.core.Widget();
-      widget.name = "affe";
-      this.getRoot().add(widget);
-
-      var element = document.getElementsByName("affe")[0];
-      this.assertElement(element);
-
-      this.assertEquals(widget.name, "affe");
-      widget.dispose();
-    },
-
-
     testSetCssClass : function()
     {
       var widget = new qx.ui.mobile.core.Widget();
 
-      this.getRoot().add(widget);
+      this.getRoot().append(widget);
 
-      var element = widget.getContainerElement();
+      var element = widget[0];
 
       var className = qx.bom.element.Class.get(element);
       this.assertEquals(className, "");
@@ -76,18 +62,18 @@ qx.Class.define("qx.test.mobile.core.Widget",
     testAddRemoveCssClass : function()
     {
       var widget = new qx.ui.mobile.core.Widget();
-      this.getRoot().add(widget);
+      this.getRoot().append(widget);
 
-      var element = widget.getContainerElement();
+      var element = widget[0];
 
       var className = qx.bom.element.Class.get(element);
       this.assertEquals(className, "");
 
-      widget.addCssClass("affe");
-      this.assertTrue(widget.hasCssClass("affe"));
+      widget.addClass("affe");
+      this.assertTrue(widget.hasClass("affe"));
 
       widget.removeClass("affe");
-      this.assertFalse(widget.hasCssClass("affe"));
+      this.assertFalse(widget.hasClass("affe"));
 
       widget.dispose();
     },
@@ -96,7 +82,7 @@ qx.Class.define("qx.test.mobile.core.Widget",
     testAutoId : function()
     {
       var widget = new qx.ui.mobile.core.Widget();
-      this.getRoot().add(widget);
+      this.getRoot().append(widget);
 
       var clazz =  qx.ui.mobile.core.Widget;
       // decrement is 2 when qx.core.Environment.get("qx.debug.dispose") because the _root is recreated on every test,
@@ -156,7 +142,7 @@ qx.Class.define("qx.test.mobile.core.Widget",
     testVisibility : function()
     {
       var widget = new qx.ui.mobile.core.Widget();
-      this.getRoot().add(widget);
+      this.getRoot().append(widget);
 
       this.__assertShow(widget);
 
@@ -164,8 +150,8 @@ qx.Class.define("qx.test.mobile.core.Widget",
       this.assertFalse(widget.isVisible(), "Exclude: Widget should not be visible");
       this.assertTrue(widget.isExcluded(), "Exclude: Widget should be excluded");
       this.assertTrue(widget.isHidden(), "Exclude: Widget should be hidden");
-      this.assertTrue(widget.hasCssClass("exclude"), "Exclude: No exclude class set");
-      this.assertEquals("visible", widget._getStyle("visibility"), "Exclude: Visibility style should be null");
+      this.assertTrue(widget.hasClass("exclude"), "Exclude: No exclude class set");
+      this.assertEquals("visible", widget.getStyle("visibility"), "Exclude: Visibility style should be null");
 
       widget.show();
       this.__assertShow(widget);
@@ -175,9 +161,9 @@ qx.Class.define("qx.test.mobile.core.Widget",
       this.assertFalse(widget.isExcluded(), "Hide: Widget should not be excluded");
       this.assertTrue(widget.isHidden(), "Hide: Widget should be hidden");
       this.assertTrue(widget.isSeeable(), "Hide: Widget should be seeable");
-      this.assertEquals("block", widget._getStyle("display"), "Hide: Display style should be block");
-      this.assertFalse(widget.hasCssClass("exclude"), "Hide: Exclude class set");
-      this.assertEquals("hidden", widget._getStyle("visibility"), "Hide: Visibility style should be hidden");
+      this.assertEquals("block", widget.getStyle("display"), "Hide: Display style should be block");
+      this.assertFalse(widget.hasClass("exclude"), "Hide: Exclude class set");
+      this.assertEquals("hidden", widget.getStyle("visibility"), "Hide: Visibility style should be hidden");
 
       widget.show();
       this.__assertShow(widget);
@@ -191,58 +177,43 @@ qx.Class.define("qx.test.mobile.core.Widget",
       this.assertFalse(widget.isExcluded(), "Show: Widget should not be excluded");
       this.assertFalse(widget.isHidden(), "Show: Widget should not be hidden");
       this.assertTrue(widget.isSeeable(), "Show: Widget should be seeable");
-      this.assertEquals("block", widget._getStyle("display"), "Show: Display style should be block");
-      this.assertFalse(widget.hasCssClass("exclude"), "Hide: Exclude class set");
-      this.assertEquals("visible", widget._getStyle("visibility"), "Show: Visibility style should be visible");
+      this.assertEquals("block", widget.getStyle("display"), "Show: Display style should be block");
+      this.assertFalse(widget.hasClass("exclude"), "Hide: Exclude class set");
+      this.assertEquals("visible", widget.getStyle("visibility"), "Show: Visibility style should be visible");
     },
 
     testEnabled : function()
     {
       var widget = new qx.ui.mobile.core.Widget();
-      this.getRoot().add(widget);
+      this.getRoot().append(widget);
 
       this.assertEquals(true,widget.enabled);
-      this.assertFalse(qx.bom.element.Class.has(widget.getContainerElement(),'disabled'));
+      this.assertFalse(qx.bom.element.Class.has(widget[0],'disabled'));
 
       widget.enabled = false;
       this.assertEquals(false,widget.enabled);
-      this.assertEquals(true,qx.bom.element.Class.has(widget.getContainerElement(),'disabled'));
+      this.assertEquals(true,qx.bom.element.Class.has(widget[0],'disabled'));
 
-      this.assertEquals('none', qx.bom.element.Style.get(widget.getContainerElement(),'pointerEvents'));
+      this.assertEquals('none', qx.bom.element.Style.get(widget[0],'pointerEvents'));
 
       widget.dispose();
 
       widget = new qx.ui.mobile.core.Widget();
-      this.getRoot().add(widget);
+      this.getRoot().append(widget);
 
       widget.enabled = true;
       widget.anonymous = true;
-      this.assertFalse(qx.bom.element.Class.has(widget.getContainerElement(),'disabled'));
-      this.assertEquals('none', qx.bom.element.Style.get(widget.getContainerElement(),'pointerEvents'));
+      this.assertFalse(qx.bom.element.Class.has(widget[0],'disabled'));
+      this.assertEquals('none', qx.bom.element.Style.get(widget[0],'pointerEvents'));
 
       widget.enabled = false;
-      this.assertEquals(true,qx.bom.element.Class.has(widget.getContainerElement(),'disabled'));
-      this.assertEquals('none', qx.bom.element.Style.get(widget.getContainerElement(),'pointerEvents'));
+      this.assertEquals(true,qx.bom.element.Class.has(widget[0],'disabled'));
+      this.assertEquals('none', qx.bom.element.Style.get(widget[0],'pointerEvents'));
 
       widget.enabled = true;
-      this.assertEquals('none', qx.bom.element.Style.get(widget.getContainerElement(),'pointerEvents'));
+      this.assertEquals('none', qx.bom.element.Style.get(widget[0],'pointerEvents'));
 
       widget.dispose();
-
-    },
-
-
-    testToggleCss : function() {
-        var widget = new qx.ui.mobile.core.Widget();
-        this.getRoot().add(widget);
-
-        widget.toggleCssClass("test");
-        this.assertTrue(widget.hasCssClass("test"));
-
-        widget.toggleCssClass("test");
-        this.assertFalse(widget.hasCssClass("test"));
-
-        widget.dispose();
     }
   }
 });

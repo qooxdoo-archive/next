@@ -16,7 +16,7 @@
      * Martin Wittemann (martinwittemann)
 
 ************************************************************************ */
-qx.Class.define("qx.test.data.controller.Form",
+qx.Bootstrap.define("qx.test.data.controller.Form",
 {
   extend : qx.dev.unit.TestCase,
 

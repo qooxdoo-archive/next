@@ -1,4 +1,4 @@
-qx.Class.define("qx.test.log.fixture.ClassA",
+qx.Bootstrap.define("qx.test.log.fixture.ClassA",
 {
   extend : Object,
 

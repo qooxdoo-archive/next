@@ -17,7 +17,7 @@
 
 ************************************************************************ */
 
-qx.Class.define("qx.test.mobile.tabbar.TabBar",
+qx.Bootstrap.define("qx.test.mobile.tabbar.TabBar",
 {
   extend : qx.test.mobile.MobileTestCase,
 
@@ -25,12 +25,12 @@ qx.Class.define("qx.test.mobile.tabbar.TabBar",
   {
     __createTabBar : function() {
       var tabBar = new qx.ui.mobile.tabbar.TabBar();
-      this.getRoot().add(tabBar);
+      this.getRoot().append(tabBar);
       return tabBar;
     },
 
     __assertChildNodesLength : function(tabBar, tabNumber) {
-      var childrenLength = tabBar.getContentElement().childNodes.length;
+      var childrenLength = tabBar.getChildren().length;
       this.assertEquals(tabNumber, childrenLength);
     },
 
@@ -39,15 +39,15 @@ qx.Class.define("qx.test.mobile.tabbar.TabBar",
       var tabBar = this.__createTabBar();
 
       var button1 = new qx.ui.mobile.tabbar.TabButton("Button 1");
-      tabBar.add(button1);
+      tabBar.append(button1);
       this.__assertChildNodesLength(tabBar, 1);
 
       var button2 = new qx.ui.mobile.tabbar.TabButton("Button 2");
-      tabBar.add(button2);
+      tabBar.append(button2);
       this.__assertChildNodesLength(tabBar, 2);
 
       var button3 = new qx.ui.mobile.tabbar.TabButton("Button 3");
-      tabBar.add(button3);
+      tabBar.append(button3);
       this.__assertChildNodesLength(tabBar, 3);
 
       button1.dispose();
@@ -62,11 +62,11 @@ qx.Class.define("qx.test.mobile.tabbar.TabBar",
       var tabBar = this.__createTabBar();
 
       var button1 = new qx.ui.mobile.tabbar.TabButton("Button 1");
-      tabBar.add(button1);
+      tabBar.append(button1);
       var button2 = new qx.ui.mobile.tabbar.TabButton("Button 2");
-      tabBar.add(button2);
+      tabBar.append(button2);
       var button3 = new qx.ui.mobile.tabbar.TabButton("Button 3");
-      tabBar.add(button3);
+      tabBar.append(button3);
 
       this.__assertChildNodesLength(tabBar, 3);
 
@@ -89,15 +89,15 @@ qx.Class.define("qx.test.mobile.tabbar.TabBar",
       var tabBar = this.__createTabBar();
 
       var button1 = new qx.ui.mobile.tabbar.TabButton();
-      tabBar.add(button1);
+      tabBar.append(button1);
       this.assertEquals(tabBar.selection, button1);
 
       var button2 = new qx.ui.mobile.tabbar.TabButton();
-      tabBar.add(button2);
+      tabBar.append(button2);
       this.assertEquals(tabBar.selection, button1);
 
       var button3 = new qx.ui.mobile.tabbar.TabButton();
-      tabBar.add(button3);
+      tabBar.append(button3);
       this.assertEquals(tabBar.selection, button1);
 
       tabBar.selection = button2;
@@ -125,17 +125,17 @@ qx.Class.define("qx.test.mobile.tabbar.TabBar",
       var view1 = new qx.ui.mobile.basic.Label("1");
       view1.exclude();
       button1.view = view1;
-      tabBar.add(button1);
+      tabBar.append(button1);
       this.assertTrue(view1.isVisible());
 
       var button2 = new qx.ui.mobile.tabbar.TabButton("Button 2");
-      tabBar.add(button2);
+      tabBar.append(button2);
       var view2 = new qx.ui.mobile.basic.Label("2");
       button2.view = view2;
       this.assertFalse(view2.isVisible());
 
       var button3 = new qx.ui.mobile.tabbar.TabButton("Button 3");
-      tabBar.add(button3);
+      tabBar.append(button3);
       tabBar.selection = button3;
       var view3 = new qx.ui.mobile.basic.Label("3");
 

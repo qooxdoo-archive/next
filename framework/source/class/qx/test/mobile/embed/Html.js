@@ -17,7 +17,7 @@
 
 ************************************************************************ */
 
-qx.Class.define("qx.test.mobile.embed.Html",
+qx.Bootstrap.define("qx.test.mobile.embed.Html",
 {
   extend : qx.test.mobile.MobileTestCase,
 
@@ -25,18 +25,18 @@ qx.Class.define("qx.test.mobile.embed.Html",
   {
     testHtml : function() {
       var html = new qx.ui.mobile.embed.Html("<strong>affe</strong>");
-      this.getRoot().add(html);
+      this.getRoot().append(html);
 
       this.assertString(html.html);
       this.assertEquals(html.html, "<strong>affe</strong>");
-      this.assertEquals(html.html, html.getContentElement().innerHTML);
+      this.assertEquals(html.html, html.getHtml());
 
       this.assertEventFired(html, "changeHtml", function() {
         html.html = "";
       });
 
       this.assertEquals(html.html, "");
-      this.assertEquals(html.html, html.getContentElement().innerHTML);
+      this.assertNull(html.getHtml());
 
       html.dispose();
     }

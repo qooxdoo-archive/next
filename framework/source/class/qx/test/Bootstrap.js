@@ -23,7 +23,7 @@
  * @ignore(qx.test.ExtendQxObject, qx.test.ExtendSuper.*, qx.test.Super.*)
  * @ignore(qx.test.ROOT, qx.test.MyClass.*, qx.test.Car, qx.test.Bmw.*)
  */
-qx.Class.define("qx.test.Bootstrap",
+qx.Bootstrap.define("qx.test.Bootstrap",
 {
   extend : qx.dev.unit.TestCase,
   include : qx.dev.unit.MMock,
@@ -255,20 +255,20 @@ qx.Class.define("qx.test.Bootstrap",
         extend : qx.test.Car,
 
         construct : function affe(name, prize) {
-          this.base(arguments, name);
+          this.base(qx.test.Car, "constructor", name);
         },
 
         members :
         {
           startEngine : function()
           {
-            var ret = this.base(arguments);
+            var ret = this.base(qx.test.Car, "startEngine");
             return "brrr " + ret;
           },
 
           stopEngine : function()
           {
-            var ret = arguments.callee.base.call();
+            var ret = this.base(qx.test.Car, "stopEngine");
             return "brrr " + ret;
           },
 
@@ -279,7 +279,7 @@ qx.Class.define("qx.test.Bootstrap",
           getMaxSpeed : function()
           {
             // call base in non overridden method
-            this.base(arguments);
+            this.base(qx.test.Car, "getMaxSpeed");
           }
         },
 

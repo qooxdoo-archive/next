@@ -3,7 +3,7 @@
  * @ignore(qx.test.performance.Extend)
  */
 
-qx.Class.define("qx.test.performance.BaseCall",
+qx.Bootstrap.define("qx.test.performance.BaseCall",
 {
   extend : qx.dev.unit.TestCase,
   include : qx.dev.unit.MMeasure,
@@ -62,7 +62,7 @@ qx.Class.define("qx.test.performance.BaseCall",
   }
 });
 
-qx.Class.define("qx.test.performance.Base", {
+qx.Bootstrap.define("qx.test.performance.Base", {
   extend : Object,
 
   members : {
@@ -73,12 +73,12 @@ qx.Class.define("qx.test.performance.Base", {
 /**
  * @ignore(qx.test.performance.Base.*)
  */
-qx.Class.define("qx.test.performance.Extend", {
+qx.Bootstrap.define("qx.test.performance.Extend", {
   extend : qx.test.performance.Base,
 
   members : {
     foo_base : function(a,b,c) {
-      this.base(arguments, a, b, c);
+      this.base(qx.test.performance.Base, "foo_base", a, b, c);
     },
 
     foo_call : function(a, b, c) {

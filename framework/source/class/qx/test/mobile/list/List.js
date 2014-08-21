@@ -23,7 +23,7 @@
  * @asset(qx/icon/Tango/48/places/folder.png)
  */
 
-qx.Class.define("qx.test.mobile.list.List",
+qx.Bootstrap.define("qx.test.mobile.list.List",
 {
   extend : qx.test.mobile.MobileTestCase,
 
@@ -33,7 +33,7 @@ qx.Class.define("qx.test.mobile.list.List",
     * Returns the img element on the given list, of the element item identified by elementIndex.
     */
     getImageElement : function(list, elementIndex) {
-      return list.getContentElement().childNodes[elementIndex].childNodes[0];
+      return list.getChildren()[elementIndex].childNodes[0];
     },
 
 
@@ -41,7 +41,7 @@ qx.Class.define("qx.test.mobile.list.List",
     * Returns the title text on the given list, of the element item identified by elementIndex.
     */
     getTitleElement : function(list, elementIndex) {
-      return list.getContentElement().childNodes[elementIndex].childNodes[1].childNodes[0];
+      return list.getChildren()[elementIndex].childNodes[1].childNodes[0];
     },
 
 
@@ -49,7 +49,7 @@ qx.Class.define("qx.test.mobile.list.List",
      * Returns the subtitle text on the given list, of the element item identified by elementIndex.
      */
     getSubtitleElement : function(list, elementIndex) {
-      return list.getContentElement().childNodes[elementIndex].childNodes[1].childNodes[1]
+      return list.getChildren()[elementIndex].childNodes[1].childNodes[1]
     },
 
 
@@ -67,7 +67,7 @@ qx.Class.define("qx.test.mobile.list.List",
 
     __createList : function(createItemRenderer, configureItemFunction) {
       var list = new qx.ui.mobile.list.List();
-      this.getRoot().add(list);
+      this.getRoot().append(list);
       list.delegate = {
         configureItem : configureItemFunction ? configureItemFunction : this.__configureItemFunction,
         createItemRenderer :  createItemRenderer ? createItemRenderer : null
@@ -86,7 +86,7 @@ qx.Class.define("qx.test.mobile.list.List",
 
 
     __assertItemsAndModelLength : function(list, dataLength) {
-      var childrenLength = list.getContentElement().childNodes.length;
+      var childrenLength = list.getChildren().length;
       this.assertEquals(dataLength, childrenLength);
     },
 

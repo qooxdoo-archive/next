@@ -17,7 +17,7 @@
 
 ************************************************************************ */
 
-qx.Class.define("qx.test.mobile.form.NumberField",
+qx.Bootstrap.define("qx.test.mobile.form.NumberField",
 {
   extend : qx.test.mobile.MobileTestCase,
 
@@ -26,16 +26,16 @@ qx.Class.define("qx.test.mobile.form.NumberField",
     testValue : function()
     {
       var numberField = new qx.ui.mobile.form.NumberField();
-      this.getRoot().add(numberField);
+      this.getRoot().append(numberField);
 
       this.assertEquals('',numberField.getValue());
-      this.assertEquals(null, qx.bom.element.Attribute.get(numberField.getContainerElement(),'value'));
+      this.assertEquals(null, qx.bom.element.Attribute.get(numberField[0],'value'));
       this.assertEventFired(numberField, "changeValue", function() {
         numberField.setValue(15);
       });
 
       this.assertEquals(15,numberField.getValue());
-      this.assertEquals(15,qx.bom.element.Attribute.get(numberField.getContainerElement(),'value'));
+      this.assertEquals(15,qx.bom.element.Attribute.get(numberField[0],'value'));
 
       numberField.dispose();
     },
@@ -44,9 +44,9 @@ qx.Class.define("qx.test.mobile.form.NumberField",
     testMinimum : function()
     {
       var numberField = new qx.ui.mobile.form.NumberField();
-      this.getRoot().add(numberField);
+      this.getRoot().append(numberField);
 
-      this.assertEquals('', numberField.minimum);
+      this.assertUndefined(numberField.minimum);
 
       numberField.minimum = 42;
 
@@ -60,9 +60,9 @@ qx.Class.define("qx.test.mobile.form.NumberField",
     testMaximum : function()
     {
       var numberField = new qx.ui.mobile.form.NumberField();
-      this.getRoot().add(numberField);
+      this.getRoot().append(numberField);
 
-      this.assertEquals('', numberField.maximum);
+      this.assertUndefined(numberField.maximum);
 
       numberField.maximum = 42;
 
@@ -75,9 +75,9 @@ qx.Class.define("qx.test.mobile.form.NumberField",
     testStep : function()
     {
       var numberField = new qx.ui.mobile.form.NumberField();
-      this.getRoot().add(numberField);
+      this.getRoot().append(numberField);
 
-      this.assertEquals('', numberField.step);
+      this.assertUndefined(numberField.step);
 
       numberField.step = 42;
 
@@ -90,17 +90,17 @@ qx.Class.define("qx.test.mobile.form.NumberField",
     testResetValue : function()
     {
       var numberField = new qx.ui.mobile.form.NumberField();
-      this.getRoot().add(numberField);
+      this.getRoot().append(numberField);
 
-      this.assertEquals('',numberField.getValue());
-      this.assertEquals(null, qx.bom.element.Attribute.get(numberField.getContainerElement(),'value'));
+      this.assertEquals('', numberField.getValue());
+      this.assertEquals(null, qx.bom.element.Attribute.get(numberField[0],'value'));
 
       numberField.setValue(15);
       this.assertEquals(15,numberField.getValue());
 
       numberField.resetValue();
 
-      this.assertEquals(null,qx.bom.element.Attribute.get(numberField.getContainerElement(),'value'));
+      this.assertEquals(null,qx.bom.element.Attribute.get(numberField[0],'value'));
       this.assertEquals('',numberField.getValue());
 
       numberField.dispose();
@@ -110,13 +110,13 @@ qx.Class.define("qx.test.mobile.form.NumberField",
     testEnabled : function()
     {
       var numberField = new qx.ui.mobile.form.NumberField();
-      this.getRoot().add(numberField);
+      this.getRoot().append(numberField);
       this.assertEquals(true, numberField.enabled);
-      this.assertFalse(qx.bom.element.Class.has(numberField.getContainerElement(),'disabled'));
+      this.assertFalse(qx.bom.element.Class.has(numberField[0],'disabled'));
 
       numberField.enabled = false;
       this.assertEquals(false, numberField.enabled);
-      this.assertEquals(true, qx.bom.element.Class.has(numberField.getContainerElement(),'disabled'));
+      this.assertEquals(true, qx.bom.element.Class.has(numberField[0],'disabled'));
 
       numberField.dispose();
     }

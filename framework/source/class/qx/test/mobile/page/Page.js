@@ -18,7 +18,7 @@
 ************************************************************************ */
 
 
-qx.Class.define("qx.test.mobile.page.Page",
+qx.Bootstrap.define("qx.test.mobile.page.Page",
 {
   extend : qx.test.mobile.MobileTestCase,
 
@@ -30,14 +30,14 @@ qx.Class.define("qx.test.mobile.page.Page",
       var startEvent = false;
 
       var page = new qx.ui.mobile.page.Page();
-      this.getRoot().add(page);
+      this.getRoot().append(page);
 
-      page.addListener("initialize", function() {
+      page.on("initialize", function() {
         this.assertFalse(startEvent);
         initializedEvent = true;
       }, this);
 
-      page.addListener("start", function() {
+      page.on("start", function() {
         this.assertTrue(initializedEvent);
         startEvent = true;
       }, this);
@@ -52,11 +52,11 @@ qx.Class.define("qx.test.mobile.page.Page",
 
     testBack : function() {
       var page = new qx.ui.mobile.page.Page();
-      this.getRoot().add(page);
+      this.getRoot().append(page);
 
       var eventFired = false;
 
-      page.addListener("back", function() {
+      page.on("back", function() {
         eventFired = true;
       }, this);
       page.back();
@@ -69,11 +69,11 @@ qx.Class.define("qx.test.mobile.page.Page",
 
     testMenu: function() {
       var page = new qx.ui.mobile.page.Page();
-      this.getRoot().add(page);
+      this.getRoot().append(page);
 
       var eventFired = false;
 
-      page.addListener("menu", function() {
+      page.on("menu", function() {
         eventFired = true;
       }, this);
       page.menu();

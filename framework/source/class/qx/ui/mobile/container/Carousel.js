@@ -239,7 +239,7 @@ qx.Bootstrap.define("qx.ui.mobile.container.Carousel",
           self: this,
           targetIndex: pageIndex - 1
         });
-        qx.util.DisposeUtil.disposeContainer(paginationLabel);
+        paginationLabel.dispose();
 
         this.__pages.splice(pageIndex, 1);
         this.__paginationLabels.splice(pageIndex, 1);
@@ -764,7 +764,8 @@ qx.Bootstrap.define("qx.ui.mobile.container.Carousel",
     dispose : function() {
       this._removeListeners();
 
-      this._disposeObjects("__carouselScroller"," __pagination");
+      this.__carouselScroller.dispose();
+      this.__pagination.dispose();
 
       qx.util.DisposeUtil.disposeContainer(this);
       qx.util.DisposeUtil.disposeArray(this,"__paginationLabels");

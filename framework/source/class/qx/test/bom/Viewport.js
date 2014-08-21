@@ -17,7 +17,7 @@
 
 ************************************************************************ */
 
-qx.Class.define("qx.test.bom.Viewport",
+qx.Bootstrap.define("qx.test.bom.Viewport",
 {
   extend : qx.dev.unit.TestCase,
 

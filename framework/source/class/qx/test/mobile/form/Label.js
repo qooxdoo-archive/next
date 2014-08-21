@@ -17,7 +17,7 @@
 
 ************************************************************************ */
 
-qx.Class.define("qx.test.mobile.form.Label",
+qx.Bootstrap.define("qx.test.mobile.form.Label",
 {
   extend : qx.test.mobile.MobileTestCase,
 
@@ -29,7 +29,7 @@ qx.Class.define("qx.test.mobile.form.Label",
       var target = new qx.ui.mobile.form.TextField("foo");
       label.setLabelFor(target.id);
 
-      var foundValue = label.getContentElement().getAttribute("for");
+      var foundValue = label.getAttribute("for");
 
       this.assertEquals(target.id,foundValue,"'For' attribute has an unexpected value.");
 

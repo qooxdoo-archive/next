@@ -17,7 +17,7 @@
 
 ************************************************************************ */
 
-qx.Class.define("qx.test.bom.client.Device",
+qx.Bootstrap.define("qx.test.bom.client.Device",
 {
   extend : qx.dev.unit.TestCase,
 

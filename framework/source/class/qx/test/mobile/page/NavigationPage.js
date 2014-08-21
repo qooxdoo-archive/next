@@ -18,7 +18,7 @@
 ************************************************************************ */
 
 
-qx.Class.define("qx.test.mobile.page.NavigationPage",
+qx.Bootstrap.define("qx.test.mobile.page.NavigationPage",
 {
   extend : qx.test.mobile.MobileTestCase,
 

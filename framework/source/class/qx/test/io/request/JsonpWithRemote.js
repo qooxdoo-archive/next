@@ -26,7 +26,7 @@
  * @asset(qx/test/jsonp_primitive.php)
  */
 
-qx.Class.define("qx.test.io.request.JsonpWithRemote",
+qx.Bootstrap.define("qx.test.io.request.JsonpWithRemote",
 {
   extend : qx.dev.unit.TestCase,
 

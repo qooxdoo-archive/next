@@ -18,7 +18,7 @@
 
 ************************************************************************ */
 
-qx.Class.define("qx.test.util.placement.BestFitAxis",
+qx.Bootstrap.define("qx.test.util.placement.BestFitAxis",
 {
   extend : qx.dev.unit.TestCase,
 

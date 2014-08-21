@@ -17,7 +17,7 @@
 
 ************************************************************************ */
 
-qx.Class.define("qx.test.mobile.container.Drawer",
+qx.Bootstrap.define("qx.test.mobile.container.Drawer",
 {
   extend : qx.test.mobile.MobileTestCase,
 
@@ -31,7 +31,7 @@ qx.Class.define("qx.test.mobile.container.Drawer",
 
       var drawerCandidate = parentContainer.getChildren()[0];
 
-      this.assertEquals(drawer, drawerCandidate, "Unexpected children of composite.");
+      this.assertEquals(drawer[0], drawerCandidate, "Unexpected children of composite.");
 
       drawer.dispose();
     },
@@ -43,7 +43,7 @@ qx.Class.define("qx.test.mobile.container.Drawer",
 
       var drawerCandidate = this.getRoot().getChildren()[0];
 
-      this.assertEquals(drawer, drawerCandidate, "Unexpected children of root.");
+      this.assertEquals(drawer[0], drawerCandidate, "Unexpected children of root.");
 
       drawer.dispose();
     },

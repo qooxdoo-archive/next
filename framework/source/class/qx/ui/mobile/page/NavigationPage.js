@@ -599,8 +599,11 @@ qx.Bootstrap.define("qx.ui.mobile.page.NavigationPage",
     dispose : function()
     {
       this.base(qx.ui.mobile.page.Page, "dispose");
-      this._disposeObjects("__leftContainer", "__rightContainer", "__backButton",
-        "__actionButton", "__title");
+      this.__leftContainer && this.__leftContainer.dispose();
+      this.__rightContainer && this.__rightContainer.dispose();
+      this.__backButton && this.__backButton.dispose();
+      this.__actionButton && this.__actionButton.dispose();
+      this.__title && this.__title.dispose();
       this.__leftContainer = this.__rightContainer = this.__backButton = this.__actionButton = null;
       this.__title = this.__content = this.__scrollContainer = null;
       this._isTablet = null;

@@ -17,7 +17,7 @@
 
 ************************************************************************ */
 
-qx.Class.define("qx.test.util.ResponseParser",
+qx.Bootstrap.define("qx.test.util.ResponseParser",
 {
   extend : qx.dev.unit.TestCase,
 

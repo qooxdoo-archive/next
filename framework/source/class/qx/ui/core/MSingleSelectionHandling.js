@@ -202,11 +202,6 @@ qx.Mixin.define("qx.ui.core.MSingleSelectionHandling",
       this.__manager.allowEmptySelection = this.allowEmptySelection;
 
       return this.__manager;
-    },
-
-
-    disposeMSingleSelectionHandling : function() {
-      this._disposeObjects("__manager");
     }
   }
 });

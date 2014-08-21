@@ -17,7 +17,7 @@
 
 ************************************************************************ */
 
-qx.Class.define("qx.test.log.RingBuffer",
+qx.Bootstrap.define("qx.test.log.RingBuffer",
 {
   extend : qx.dev.unit.TestCase,
 

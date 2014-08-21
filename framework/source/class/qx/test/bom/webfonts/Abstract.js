@@ -14,7 +14,7 @@
 
 ************************************************************************ */
 
-qx.Class.define("qx.test.bom.webfonts.Abstract", {
+qx.Bootstrap.define("qx.test.bom.webfonts.Abstract", {
 
   extend : qx.dev.unit.TestCase,
 

@@ -173,7 +173,7 @@ qx.Mixin.define("qx.ui.form.MModelSelection",
     },
 
     disposeMModelSelection : function() {
-      this._disposeObjects("__modelSelection");
+      qx.util.DisposeUtil.disposeObjects(this, ["__modelSelection"]);
     }
   }
 });

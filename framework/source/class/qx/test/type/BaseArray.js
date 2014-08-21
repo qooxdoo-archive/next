@@ -21,14 +21,14 @@
  * @ignore(qx.test.type.TestArray)
  */
 
-qx.Class.define("qx.test.type.BaseArray",
+qx.Bootstrap.define("qx.test.type.BaseArray",
 {
   extend : qx.dev.unit.TestCase,
 
   construct : function()
   {
-    this.base(arguments);
-    qx.Class.define("qx.test.type.TestArray", {
+    this.base(qx.dev.unit.TestCase, "constructor");
+    qx.Bootstrap.define("qx.test.type.TestArray", {
       extend : qx.type.BaseArray
     });
   },

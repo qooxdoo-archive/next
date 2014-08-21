@@ -17,7 +17,7 @@
 
 ************************************************************************ */
 
-qx.Class.define("qx.test.mobile.toolbar.Toolbar",
+qx.Bootstrap.define("qx.test.mobile.toolbar.Toolbar",
 {
   extend : qx.test.mobile.MobileTestCase,
 
@@ -25,12 +25,12 @@ qx.Class.define("qx.test.mobile.toolbar.Toolbar",
   {
     __createToolbar : function() {
       var toolBar = new qx.ui.mobile.toolbar.ToolBar();
-      this.getRoot().add(toolBar);
+      this.getRoot().append(toolBar);
       return toolBar;
     },
 
     __assertChildNodesLength : function(toolBar, toolbarKidsNumber) {
-      var childrenLength = toolBar.getContentElement().childNodes.length;
+      var childrenLength = toolBar.getChildren().length;
       this.assertEquals(toolbarKidsNumber, childrenLength);
     },
 
@@ -39,19 +39,19 @@ qx.Class.define("qx.test.mobile.toolbar.Toolbar",
       var toolBar = this.__createToolbar();
 
       var button1 = new qx.ui.mobile.toolbar.Button("Button 1");
-      toolBar.add(button1);
+      toolBar.append(button1);
       this.__assertChildNodesLength(toolBar, 1);
 
       var button2 = new qx.ui.mobile.toolbar.Button("Button with long name 2");
-      toolBar.add(button2);
+      toolBar.append(button2);
       this.__assertChildNodesLength(toolBar, 2);
 
       var button3 = new qx.ui.mobile.toolbar.Button("Button 3");
-      toolBar.add(button3);
+      toolBar.append(button3);
       this.__assertChildNodesLength(toolBar, 3);
 
-      this.assertEquals(qx.bom.element.Dimension.getWidth(button1.getContainerElement()), qx.bom.element.Dimension.getWidth(button2.getContainerElement()));
-      this.assertEquals(qx.bom.element.Dimension.getWidth(button3.getContainerElement()), qx.bom.element.Dimension.getWidth(button2.getContainerElement()));
+      this.assertEquals(qx.bom.element.Dimension.getWidth(button1[0]), qx.bom.element.Dimension.getWidth(button2[0]));
+      this.assertEquals(qx.bom.element.Dimension.getWidth(button3[0]), qx.bom.element.Dimension.getWidth(button2[0]));
 
       button1.dispose();
       button2.dispose();
@@ -65,13 +65,13 @@ qx.Class.define("qx.test.mobile.toolbar.Toolbar",
       var toolBar = this.__createToolbar();
 
       var button1 = new qx.ui.mobile.toolbar.Button("Button 1");
-      toolBar.add(button1);
+      toolBar.append(button1);
 
       var button2 = new qx.ui.mobile.toolbar.Button("Button 2");
-      toolBar.add(button2);
+      toolBar.append(button2);
 
       var button3 = new qx.ui.mobile.toolbar.Button("Button 3");
-      toolBar.add(button3);
+      toolBar.append(button3);
 
       this.__assertChildNodesLength(toolBar, 3);
 

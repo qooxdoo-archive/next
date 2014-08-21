@@ -17,7 +17,7 @@
 
 ************************************************************************ */
 
-qx.Class.define("qx.test.mobile.dialog.Menu",
+qx.Bootstrap.define("qx.test.mobile.dialog.Menu",
 {
   extend : qx.test.mobile.MobileTestCase,
   include : [qx.dev.unit.MMock],
@@ -57,12 +57,12 @@ qx.Class.define("qx.test.mobile.dialog.Menu",
 
       var expected = menu.getSelectionList().getListItemHeight() * visibleItems;
 
-      var listHeight = qx.bom.element.Style.get(menu._getListScroller().getContentElement(),"height");
+      var listHeight = menu._getListScroller().getStyle("height");
 
       listHeight = Math.floor(parseFloat(listHeight,10) * 100);
       expected = Math.floor(expected * 100);
 
-      this.assertEquals(listHeight, expected);
+      this.assertEquals(expected, listHeight);
 
       menu.dispose();
     },
@@ -88,7 +88,7 @@ qx.Class.define("qx.test.mobile.dialog.Menu",
 
       var expectedListHeight = parseInt(parentHeight, 10);
 
-      var listHeight = qx.bom.element.Style.get(menu._getListScroller().getContentElement(), "height");
+      var listHeight = menu._getListScroller().getStyle("height");
       listHeight = parseInt(listHeight, 10);
 
       this.assertEquals(expectedListHeight,listHeight);

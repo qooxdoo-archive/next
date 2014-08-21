@@ -14,7 +14,7 @@
 
 ************************************************************************ */
 
-qx.Class.define("qx.test.dev.StackTrace",
+qx.Bootstrap.define("qx.test.dev.StackTrace",
 {
   extend : qx.dev.unit.TestCase,
 

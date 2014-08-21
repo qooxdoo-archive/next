@@ -18,7 +18,7 @@
 ************************************************************************ */
 
 
-qx.Class.define("qx.test.bom.PageVisibility",
+qx.Bootstrap.define("qx.test.bom.PageVisibility",
 {
   extend : qx.dev.unit.TestCase,
   include : [qx.dev.unit.MMock],

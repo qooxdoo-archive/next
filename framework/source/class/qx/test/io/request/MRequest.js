@@ -39,7 +39,7 @@ qx.Mixin.define("qx.test.io.request.MRequest",
   {
 
     setUpKlass: function() {
-      qx.Class.define("Klass", {
+      qx.Bootstrap.define("Klass", {
         extend : Object,
 
         properties :

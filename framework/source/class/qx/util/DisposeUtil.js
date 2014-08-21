@@ -22,10 +22,6 @@
  *
  * @ignore(qx.log.Logger)
  * @ignore(qx.log)
- * @ignore(qx.ui.container.Composite)
- * @ignore(qx.ui.container.Scroll)
- * @ignore(qx.ui.container.SlideBar)
- * @ignore(qx.ui.container.Stack)
  * @ignore(qx.ui.mobile)
  * @ignore(qx.ui.mobile.container.Composite)
  * @ignore(qx.ui.mobile.core.Widget)
@@ -42,8 +38,7 @@ qx.Bootstrap.define("qx.util.DisposeUtil",
      * @param arr {Array} List of fields (which store objects) to dispose
      * @param disposeSingletons {Boolean?} true, if singletons should be disposed
      */
-    disposeObjects : function(obj, arr, disposeSingletons)
-    {
+    disposeObjects : function(obj, arr, disposeSingletons) {
       var name;
       for (var i=0, l=arr.length; i<l; i++)
       {
@@ -78,8 +73,7 @@ qx.Bootstrap.define("qx.util.DisposeUtil",
      * @param obj {Object} Object which contains the field
      * @param field {String} Name of the field which refers to the array
      */
-    disposeArray : function(obj, field)
-    {
+    disposeArray : function(obj, field) {
       var data = obj[field];
       if (!data) {
         return;
@@ -123,8 +117,7 @@ qx.Bootstrap.define("qx.util.DisposeUtil",
      * @param obj {Object} Object which contains the field
      * @param field {String} Name of the field which refers to the array
      */
-    disposeMap : function(obj, field)
-    {
+    disposeMap : function(obj, field) {
       var data = obj[field];
       if (!data) {
         return;
@@ -164,8 +157,7 @@ qx.Bootstrap.define("qx.util.DisposeUtil",
      * @param trigger {Object} Other object
      *
      */
-    disposeTriggeredBy : function(disposeMe, trigger)
-    {
+    disposeTriggeredBy : function(disposeMe, trigger) {
       var triggerDispose = trigger.dispose;
       trigger.dispose = function(){
         triggerDispose.call(trigger);
@@ -179,8 +171,7 @@ qx.Bootstrap.define("qx.util.DisposeUtil",
      * @param container {qx.ui.container.Composite | qx.ui.container.Scroll |
      *   qx.ui.container.SlideBar | qx.ui.container.Stack} Container of the widgets to be disposed
      */
-    disposeContainer : function(container)
-    {
+    disposeContainer : function(container) {
       if(qx.core.Environment.get("qx.debug"))
       {
         if(qx.ui.mobile && container instanceof qx.ui.mobile.core.Widget) {
@@ -207,21 +198,22 @@ qx.Bootstrap.define("qx.util.DisposeUtil",
 
 
     /**
-     * Helper function to collect all children widgets of an container recursivly.
+     * Helper function to collect all children widgets of an container recursively.
      * @param container {qx.ui.container.Composite | qx.ui.container.Scroll | qx.ui.container.SlideBar | qx.ui.container.Stack} Container to be destroyed
      * @param arr {Array} Array wich holds all children widgets
      */
-    _collectContainerChildren : function(container, arr)
-    {
+    _collectContainerChildren : function(container, arr) {
       var children = container.getChildren();
 
       for(var i=0; i<children.length; i++)
       {
-        var item = children[i];
-        arr.push(item);
+        var item = qx.ui.mobile.core.Widget.getWidgetById(children[i].id);
+        if (item) {
+          arr.push(item);
 
-        if (this.__isChildrenContainer(item)) {
-          this._collectContainerChildren(item, arr);
+          if (this.__isChildrenContainer(item)) {
+            this._collectContainerChildren(item, arr);
+          }
         }
       }
     },
@@ -234,14 +226,10 @@ qx.Bootstrap.define("qx.util.DisposeUtil",
      * @return {Boolean} <code>true</code> if the object is a container for
      * child widgets
      */
-    __isChildrenContainer : function(obj)
-    {
+    __isChildrenContainer : function(obj) {
       var classes = [];
       if(qx.ui.mobile && obj instanceof qx.ui.mobile.core.Widget) {
         classes = [qx.ui.mobile.container.Composite];
-      } else {
-        classes = [qx.ui.container.Composite, qx.ui.container.Scroll,
-        qx.ui.container.SlideBar, qx.ui.container.Stack];
       }
 
       for (var i=0,l=classes.length; i<l; i++) {

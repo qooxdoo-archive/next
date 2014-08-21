@@ -21,7 +21,7 @@
  * @ignore(qx.Mix, qx.MLogger, qx.MMix1, qx.MMix1.foo)
  * @ignore(qx.MMix2)
  */
-qx.Class.define("qx.test.Mixin",
+qx.Bootstrap.define("qx.test.Mixin",
 {
   extend : qx.dev.unit.TestCase,
 

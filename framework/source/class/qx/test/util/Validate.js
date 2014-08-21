@@ -18,7 +18,7 @@
 ************************************************************************ */
 
 
-qx.Class.define("qx.test.util.Validate",
+qx.Bootstrap.define("qx.test.util.Validate",
 {
   extend : qx.dev.unit.TestCase,
 

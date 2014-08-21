@@ -22,7 +22,7 @@
  * @ignore(qx.String)
  */
 
-qx.Class.define("qx.test.type.BaseString",
+qx.Bootstrap.define("qx.test.type.BaseString",
 {
   extend : qx.dev.unit.TestCase,
 
@@ -144,7 +144,7 @@ qx.Class.define("qx.test.type.BaseString",
 
     testExtend : function()
     {
-      qx.Class.define("qx.String",
+      qx.Bootstrap.define("qx.String",
       {
         extend : qx.type.BaseString,
 

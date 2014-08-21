@@ -21,7 +21,7 @@
  * @asset(qx/icon/Tango/48/places/folder.png)
  */
 
-qx.Class.define("qx.test.mobile.basic.Image",
+qx.Bootstrap.define("qx.test.mobile.basic.Image",
 {
   extend : qx.test.mobile.MobileTestCase,
 
@@ -35,7 +35,7 @@ qx.Class.define("qx.test.mobile.basic.Image",
         return;
       }
       var image = new qx.ui.mobile.basic.Image("qx/icon/Tango/48/places/folder.png");
-      image.addListener("loaded", function() {
+      image.on("loaded", function() {
         this.resume(function() {
           // use a timeout to dispose the image because it needs to
           // end its processing after the event has been fired.
@@ -46,7 +46,7 @@ qx.Class.define("qx.test.mobile.basic.Image",
       }, this);
 
 
-      this.getRoot().add(image);
+      this.getRoot().append(image);
       this.wait();
     },
 
@@ -54,9 +54,9 @@ qx.Class.define("qx.test.mobile.basic.Image",
     testLoadingFailed : function()
     {
       var image = new qx.ui.mobile.basic.Image("does not exist.png" + Math.random());
-      this.getRoot().add(image);
+      this.getRoot().append(image);
 
-      image.addListener("loadingFailed", function() {
+      image.on("loadingFailed", function() {
         this.resume(function() {
           // use a timeout to dispose the image because it needs to
           // end its processing after the event has been fired.

@@ -217,7 +217,7 @@ qx.Bootstrap.define("qx.ui.mobile.form.ToggleButton",
       this.off("tap", this._onTap, this);
       this.off("swipe", this._onSwipe, this);
 
-      this._disposeObjects("__switch","__labelUnchecked","__labelChecked");
+      this.__switch && this.__switch.dispose();
       this.disposeMForm();
     }
   }

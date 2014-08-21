@@ -25,7 +25,7 @@
  * @asset(qx/icon/Tango/32/places/folder-open.png)
  */
 
-qx.Class.define("qx.test.mobile.basic.Atom",
+qx.Bootstrap.define("qx.test.mobile.basic.Atom",
 {
   extend : qx.test.mobile.MobileTestCase,
 
@@ -34,15 +34,15 @@ qx.Class.define("qx.test.mobile.basic.Atom",
     testLabel : function()
     {
       var atom = new qx.ui.mobile.basic.Atom("myText");
-      this.getRoot().add(atom);
+      this.getRoot().append(atom);
 
       this.assertString(atom.label);
       this.assertEquals(atom.label, "myText");
-      this.assertEquals(atom.label, atom.getLabelWidget().getContainerElement().innerHTML);
+      this.assertEquals(atom.label, atom.getLabelWidget().getHtml());
 
       atom.label = "mySecondText";
       this.assertEquals(atom.label, "mySecondText");
-      this.assertEquals(atom.label, atom.getLabelWidget().getContainerElement().innerHTML);
+      this.assertEquals(atom.label, atom.getLabelWidget().getHtml());
 
       atom.dispose();
     },
@@ -51,20 +51,20 @@ qx.Class.define("qx.test.mobile.basic.Atom",
     {
       var imageURL = qx.util.ResourceManager.getInstance().toUri("qx/icon/Tango/48/places/user-home.png");
       var atom = new qx.ui.mobile.basic.Atom("myText", imageURL);
-      this.getRoot().add(atom);
+      this.getRoot().append(atom);
 
       this.assertString(atom.icon);
       this.assertEquals(atom.getIconWidget().source, imageURL);
-      // atom.getIconWidget().getContainerElement().src is usually in the form:
+      // atom.getIconWidget()[0].src is usually in the form:
       // http://127.0.0.1/tablet/framework/test/html/qx/icon/Tango/48/places/folder-remote.png
       // but http://127.0.0.1/tablet/framework/test/html/ differs on where you test it
-      this.assertTrue(atom.getIconWidget().getContainerElement().src.indexOf("qx/icon/Tango/48/places/user-home.png") != -1);
+      this.assertTrue(atom.getIconWidget().getAttribute("src").indexOf("qx/icon/Tango/48/places/user-home.png") != -1);
 
       var image2URL = qx.util.ResourceManager.getInstance().toUri("qx/icon/Tango/32/places/folder-open.png");
 
       atom.icon = image2URL;
       this.assertEquals(atom.icon, image2URL);
-      this.assertTrue(atom.getIconWidget().getContainerElement().src.indexOf("qx/icon/Tango/32/places/folder-open.png") != -1);
+      this.assertTrue(atom.getIconWidget().getAttribute("src").indexOf("qx/icon/Tango/32/places/folder-open.png") != -1);
 
       atom.dispose();
     },
@@ -73,7 +73,7 @@ qx.Class.define("qx.test.mobile.basic.Atom",
     {
       var imageURL = qx.util.ResourceManager.getInstance().toUri("qx/icon/Tango/48/places/user-home.png");
       var atom = new qx.ui.mobile.basic.Atom("myText", imageURL);
-      this.getRoot().add(atom);
+      this.getRoot().append(atom);
 
       this.assertTrue(atom.getIconWidget().isVisible());
       this.assertTrue(atom.getLabelWidget().isVisible());
@@ -96,30 +96,30 @@ qx.Class.define("qx.test.mobile.basic.Atom",
     {
       var imageURL = qx.util.ResourceManager.getInstance().toUri("qx/icon/Tango/48/places/user-home.png");
       var atom = new qx.ui.mobile.basic.Atom("myTextmyTextmyTextmyTextmyText", imageURL);
-      this.getRoot().add(atom);
+      this.getRoot().append(atom);
 
-      var iconElement = atom.getIconWidget().getContentElement();
-      var labelElement = atom.getLabelWidget().getContentElement();
+      var iconElement = atom.getIconWidget()[0];
+      var labelElement = atom.getLabelWidget()[0];
 
       atom.iconPosition = 'top';
       this.assertTrue(qx.bom.element.Location.getTop(iconElement) <= qx.bom.element.Location.getTop(labelElement), "setIconPosition(top): iconElement.top is greater than labelElement.top");
-      this.assertTrue(atom.getIconWidget().getLayoutParent().getLayout().classname.indexOf("VBox") !== -1,"Layout of IconPosition Top should be VBox ");
-      this.assertFalse(atom.getIconWidget().getLayoutParent().getLayout().reversed,"Layout should not be reversed.");
+      this.assertTrue(atom.getIconWidget()._getParentWidget().getLayout().classname.indexOf("VBox") !== -1,"Layout of IconPosition Top should be VBox ");
+      this.assertFalse(atom.getIconWidget()._getParentWidget().getLayout().reversed,"Layout should not be reversed.");
 
       atom.iconPosition = 'bottom';
-      this.assertTrue(atom.getIconWidget().getLayoutParent().getLayout().classname.indexOf("VBox") !== -1,"Layout of IconPosition Bottom should be VBox ");
-      this.assertTrue(atom.getIconWidget().getLayoutParent().getLayout().reversed,"Layout should be reversed.");
+      this.assertTrue(atom.getIconWidget()._getParentWidget().getLayout().classname.indexOf("VBox") !== -1,"Layout of IconPosition Bottom should be VBox ");
+      this.assertTrue(atom.getIconWidget()._getParentWidget().getLayout().reversed,"Layout should be reversed.");
 
       atom.iconPosition = 'left';
-      this.assertTrue(atom.getIconWidget().getLayoutParent().getLayout().classname.indexOf("HBox") !== -1,"Layout of IconPosition Left should be HBox ");
+      this.assertTrue(atom.getIconWidget()._getParentWidget().getLayout().classname.indexOf("HBox") !== -1,"Layout of IconPosition Left should be HBox ");
       var labelLeft = qx.bom.element.Location.getLeft(labelElement);
       var iconLeft = qx.bom.element.Location.getLeft(iconElement);
       this.assertTrue(iconLeft <= labelLeft, "setIconPosition(left): iconElement.left is greater than labelElement.left");
-      this.assertFalse(atom.getIconWidget().getLayoutParent().getLayout().reversed,"Layout should not be reversed.");
+      this.assertFalse(atom.getIconWidget()._getParentWidget().getLayout().reversed,"Layout should not be reversed.");
 
       atom.iconPosition = 'right';
-      this.assertTrue(atom.getIconWidget().getLayoutParent().getLayout().classname.indexOf("HBox") !== -1,"Layout of IconPosition Right should be HBox ");
-      this.assertTrue(atom.getIconWidget().getLayoutParent().getLayout().reversed,"Layout should be reversed.");
+      this.assertTrue(atom.getIconWidget()._getParentWidget().getLayout().classname.indexOf("HBox") !== -1,"Layout of IconPosition Right should be HBox ");
+      this.assertTrue(atom.getIconWidget()._getParentWidget().getLayout().reversed,"Layout should be reversed.");
 
       labelLeft = qx.bom.element.Location.getLeft(labelElement);
       iconLeft = qx.bom.element.Location.getLeft(iconElement);
@@ -137,7 +137,7 @@ qx.Class.define("qx.test.mobile.basic.Atom",
       atom.label = testText;
       atom.icon = imageURL;
 
-      var atomElement = atom.getContentElement();
+      var atomElement = atom[0];
       var atomChildrenLength = atomElement.children[0].children.length;
 
       var atomIconTag = atomElement.children[0].children[0].tagName;

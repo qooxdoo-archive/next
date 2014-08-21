@@ -71,7 +71,7 @@ qx.Mixin.define("qx.data.marshal.MEventBubbling",
     _applyEventPropagation : function(value, old, name)
     {
       this.emit("changeBubble", {
-        value: value, name: name, old: old, item: this, target: this
+        value: value, name: name + "", old: old, item: this, target: this
       });
 
       this._registerEventChaining(value, old, name);

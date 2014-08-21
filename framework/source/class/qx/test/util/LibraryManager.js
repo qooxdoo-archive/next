@@ -17,13 +17,13 @@
 
 ************************************************************************ */
 
-qx.Class.define("qx.test.util.LibraryManager",
+qx.Bootstrap.define("qx.test.util.LibraryManager",
 {
   extend : qx.dev.unit.TestCase,
 
   construct : function()
   {
-    this.base(arguments);
+    this.base(qx.dev.unit.TestCase, "constructor");
 
     this.__mgr = qx.util.LibraryManager.getInstance();
     this.libKeys = ["sourceUri", "resourceUri"];

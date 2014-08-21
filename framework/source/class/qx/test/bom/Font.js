@@ -18,9 +18,9 @@
 
 ************************************************************************ */
 
-qx.Class.define("qx.test.bom.Font",
+qx.Bootstrap.define("qx.test.bom.Font",
 {
-  extend : qx.test.ui.LayoutTestCase,
+  extend : qx.dev.unit.TestCase,
 
   include : [qx.dev.unit.MRequirements],
 
@@ -38,7 +38,6 @@ qx.Class.define("qx.test.bom.Font",
 
 
     tearDown : function() {
-      this.base(arguments);
       this.__font.dispose();
     },
 

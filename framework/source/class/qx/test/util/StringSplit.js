@@ -34,7 +34,7 @@
 ************************************************************************ */
 
 
-qx.Class.define("qx.test.util.StringSplit",
+qx.Bootstrap.define("qx.test.util.StringSplit",
 {
   extend : qx.dev.unit.TestCase,
 

@@ -1,4 +1,4 @@
-qx.Class.define("qx.test.performance.oo.Definition",
+qx.Bootstrap.define("qx.test.performance.oo.Definition",
 {
   extend : qx.dev.unit.TestCase,
   include : qx.dev.unit.MMeasure,
@@ -33,7 +33,7 @@ qx.Class.define("qx.test.performance.oo.Definition",
     testDefineClass: function() {
       this.measureIterations("Define Classes", null,
         function() {
-          qx.Class.define(null, {
+          qx.Bootstrap.define(null, {
             extend: Object,
             properties: {
               a: {
@@ -82,7 +82,7 @@ qx.Class.define("qx.test.performance.oo.Definition",
     },
 
     testInstantiateClasses: function() {
-      qx.Class.define("qx.test.performance.oo.A", {
+      qx.Bootstrap.define("qx.test.performance.oo.A", {
         extend: Object,
         properties: {
           a: {

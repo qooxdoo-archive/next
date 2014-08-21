@@ -22,14 +22,14 @@
  * @ignore(qx.test.SerializerModelEnc)
  */
 
-qx.Class.define("qx.test.util.Serializer",
+qx.Bootstrap.define("qx.test.util.Serializer",
 {
   extend : qx.dev.unit.TestCase,
 
   construct : function() {
     this.__s = qx.util.Serializer;
 
-    qx.Class.define("qx.test.SerializerModel", {
+    qx.Bootstrap.define("qx.test.SerializerModel", {
       extend : Object,
       properties : {
         data1 : {
@@ -107,7 +107,7 @@ qx.Class.define("qx.test.util.Serializer",
 
 
     testUrlKeyEncoded : function() {
-      qx.Class.define("qx.test.SerializerModelEnc", {
+      qx.Bootstrap.define("qx.test.SerializerModelEnc", {
         extend: Object,
         properties : {
           "äüö" : {

@@ -17,7 +17,7 @@
 
 ************************************************************************ */
 
-qx.Class.define("qx.test.util.Base64", {
+qx.Bootstrap.define("qx.test.util.Base64", {
   extend : qx.dev.unit.TestCase,
 
   members : {

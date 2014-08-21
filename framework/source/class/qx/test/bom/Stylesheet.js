@@ -24,7 +24,7 @@
  * @asset(qx/test/style.css)
  */
 
-qx.Class.define("qx.test.bom.Stylesheet",
+qx.Bootstrap.define("qx.test.bom.Stylesheet",
 {
   extend : qx.dev.unit.TestCase,
 

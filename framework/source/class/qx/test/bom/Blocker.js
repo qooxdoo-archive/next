@@ -17,7 +17,7 @@
 
 ************************************************************************ */
 
-qx.Class.define("qx.test.bom.Blocker",
+qx.Bootstrap.define("qx.test.bom.Blocker",
 {
   extend : qx.dev.unit.TestCase,
 

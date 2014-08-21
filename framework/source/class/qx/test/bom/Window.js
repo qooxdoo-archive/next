@@ -17,7 +17,7 @@
 
 ************************************************************************ */
 
-qx.Class.define("qx.test.bom.Window",
+qx.Bootstrap.define("qx.test.bom.Window",
 {
   extend : qx.dev.unit.TestCase,
 

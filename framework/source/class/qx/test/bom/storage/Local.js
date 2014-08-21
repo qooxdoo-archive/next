@@ -17,7 +17,7 @@
 
 ************************************************************************ */
 
-qx.Class.define("qx.test.bom.storage.Local",
+qx.Bootstrap.define("qx.test.bom.storage.Local",
 {
   extend : qx.test.bom.storage.WebStorageTestCase,
   include: [qx.dev.unit.MRequirements],

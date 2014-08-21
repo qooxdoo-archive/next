@@ -476,7 +476,6 @@ qx.Bootstrap.define("qx.ui.mobile.form.RadioGroup",
 
     dispose : function() {
       this.disposeMModelSelection();
-      this.disposeMSingleSelectionHandling();
     }
   }
 });

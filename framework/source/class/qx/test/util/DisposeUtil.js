@@ -17,7 +17,7 @@
 
 ************************************************************************ */
 
-qx.Class.define("qx.test.util.DisposeUtil",
+qx.Bootstrap.define("qx.test.util.DisposeUtil",
 {
   extend : qx.dev.unit.TestCase,
 

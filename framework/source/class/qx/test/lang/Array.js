@@ -18,7 +18,7 @@
 
 ************************************************************************ */
 
-qx.Class.define("qx.test.lang.Array",
+qx.Bootstrap.define("qx.test.lang.Array",
 {
   extend : qx.dev.unit.TestCase,
 

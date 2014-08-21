@@ -17,7 +17,7 @@
 
 ************************************************************************ */
 
-qx.Class.define("qx.test.bom.Event",
+qx.Bootstrap.define("qx.test.bom.Event",
 {
   extend : qx.dev.unit.TestCase,
 

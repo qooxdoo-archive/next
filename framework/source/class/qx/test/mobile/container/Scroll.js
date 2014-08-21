@@ -17,7 +17,7 @@
 
 ************************************************************************ */
 
-qx.Class.define("qx.test.mobile.container.Scroll",
+qx.Bootstrap.define("qx.test.mobile.container.Scroll",
 {
   extend : qx.test.mobile.MobileTestCase,
 
@@ -26,7 +26,7 @@ qx.Class.define("qx.test.mobile.container.Scroll",
     testCreate : function()
     {
       var container = new qx.ui.mobile.container.Scroll();
-      this.getRoot().add(container);
+      this.getRoot().append(container);
       container.dispose();
     }
   }

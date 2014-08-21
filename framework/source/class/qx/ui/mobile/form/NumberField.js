@@ -70,7 +70,8 @@ qx.Bootstrap.define("qx.ui.mobile.form.NumberField",
     minimum :
     {
       check : "Number",
-      init : '',
+      init : undefined,
+      nullable: true,
       apply : "_onChangeMinimum"
     },
 
@@ -82,7 +83,8 @@ qx.Bootstrap.define("qx.ui.mobile.form.NumberField",
     maximum :
     {
       check : "Number",
-      init : '',
+      init : undefined,
+      nullable: true,
       apply : "_onChangeMaximum"
     },
 
@@ -93,7 +95,8 @@ qx.Bootstrap.define("qx.ui.mobile.form.NumberField",
     step :
     {
       check : "Number",
-      init : '',
+      init : undefined,
+      nullable: true,
       apply : "_onChangeStep"
     }
   },

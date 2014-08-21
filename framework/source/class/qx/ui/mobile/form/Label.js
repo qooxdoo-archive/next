@@ -177,7 +177,7 @@ qx.Bootstrap.define("qx.ui.mobile.form.Label",
     */
     _changeEnabled: function(evt) {
       if (evt) {
-        this.enabled = evt.getData();
+        this.enabled = evt.value;
       }
     },
 

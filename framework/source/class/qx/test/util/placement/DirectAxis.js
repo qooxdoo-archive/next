@@ -18,7 +18,7 @@
 
 ************************************************************************ */
 
-qx.Class.define("qx.test.util.placement.DirectAxis",
+qx.Bootstrap.define("qx.test.util.placement.DirectAxis",
 {
   extend : qx.dev.unit.TestCase,
 

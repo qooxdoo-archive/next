@@ -330,7 +330,7 @@ qx.Bootstrap.define("qx.ui.mobile.form.renderer.Single",
     // override
     resetForm : function() {
       for (var i = 0; i < this.__errorMessageContainers.length; i++) {
-        this.__errorMessageContainers[i].parentNode.removeChild(this.__errorMessageContainers[i]);
+        qxWeb(this.__errorMessageContainers[i]).remove();
       }
     },
 
@@ -338,8 +338,8 @@ qx.Bootstrap.define("qx.ui.mobile.form.renderer.Single",
     dispose : function() {
       this.base(qx.ui.mobile.form.renderer.AbstractRenderer, "dispose");
       this.resetForm();
-      this._disposeArray("_labels");
-      this._disposeArray("_rows");
+      qx.util.DisposeUtil.disposeArray(this, "_labels");
+      qx.util.DisposeUtil.disposeArray(this, "_rows");
     }
   }
 });

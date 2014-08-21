@@ -17,7 +17,7 @@
 
 ************************************************************************ */
 
-qx.Class.define("qx.test.EditDistance",
+qx.Bootstrap.define("qx.test.EditDistance",
 {
   extend : qx.dev.unit.TestCase,
 

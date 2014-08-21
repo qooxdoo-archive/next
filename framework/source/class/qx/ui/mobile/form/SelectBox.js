@@ -383,7 +383,8 @@ qx.Bootstrap.define("qx.ui.mobile.form.SelectBox",
       this.base(qx.ui.mobile.core.Widget, "dispose");
       this.__selectionDialog.off("changeSelection", this._onChangeSelection, this);
 
-      this._disposeObjects("__selectionDialog","__selectionDialogTitle");
+      this.__selectionDialog && this.__selectionDialog.dispose();
+      this.__selectionDialogTitle && this.__selectionDialogTitle.dispose();
 
       this.off("focus", this.blur);
       this.off("tap", this._onTap, this);

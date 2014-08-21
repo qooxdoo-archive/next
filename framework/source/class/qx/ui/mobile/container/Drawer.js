@@ -273,7 +273,7 @@ qx.Bootstrap.define("qx.ui.mobile.container.Drawer",
           this.removeClass("hidden");
         }.bind(this), 0);
       } else {
-        this.base(arguments);
+        this.base(qx.ui.mobile.container.Composite, "show");
         this.__inTransition = false;
         this.removeClass("hidden");
       }

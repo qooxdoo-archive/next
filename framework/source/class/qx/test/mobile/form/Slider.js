@@ -17,7 +17,7 @@
 
 ************************************************************************ */
 
-qx.Class.define("qx.test.mobile.form.Slider",
+qx.Bootstrap.define("qx.test.mobile.form.Slider",
 {
   extend : qx.test.mobile.MobileTestCase,
 
@@ -27,7 +27,7 @@ qx.Class.define("qx.test.mobile.form.Slider",
     {
       var slider = new qx.ui.mobile.form.Slider();
       slider.step = 4;
-      this.getRoot().add(slider);
+      this.getRoot().append(slider);
 
       this.assertEquals(0,slider.value);
       this.assertEquals(0,qx.bom.element.Dataset.get(slider._getKnobElement(),"value"));
@@ -36,19 +36,19 @@ qx.Class.define("qx.test.mobile.form.Slider",
       this.assertEventFired(slider, "changeValue", function() {
         slider.nextValue();
       }, function(evt) {
-        this.assertEquals(4, evt.getData());
+        this.assertEquals(4, evt.value);
       }.bind(this));
 
       this.assertEventFired(slider, "changeValue", function() {
         slider.setValue(11);
       }, function(evt) {
-        this.assertEquals(11, evt.getData());
+        this.assertEquals(11, evt.value);
       }.bind(this));
 
       this.assertEventFired(slider, "changeValue", function() {
         slider.previousValue();
       }, function(evt) {
-        this.assertEquals(7, evt.getData());
+        this.assertEquals(7, evt.value);
       }.bind(this));
 
       slider.dispose();
@@ -57,10 +57,10 @@ qx.Class.define("qx.test.mobile.form.Slider",
     testEnabled : function()
     {
       var slider = new qx.ui.mobile.form.Slider();
-      this.getRoot().add(slider);
+      this.getRoot().append(slider);
       slider.enabled = false;
       this.assertEquals(false,slider.enabled);
-      this.assertEquals(true,qx.bom.element.Class.has(slider.getContainerElement(),'disabled'));
+      this.assertEquals(true,qx.bom.element.Class.has(slider[0],'disabled'));
 
       slider.dispose();
     }

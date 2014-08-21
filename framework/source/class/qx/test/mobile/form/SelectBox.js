@@ -18,7 +18,7 @@
 
 ************************************************************************ */
 
-qx.Class.define("qx.test.mobile.form.SelectBox",
+qx.Bootstrap.define("qx.test.mobile.form.SelectBox",
 {
   extend : qx.test.mobile.MobileTestCase,
 
@@ -64,7 +64,6 @@ qx.Class.define("qx.test.mobile.form.SelectBox",
 
       // Attempting to set null value throws validation error.
       this.assertException(function() {
-        //debugger
         selectBox.selection = null;
       });
 

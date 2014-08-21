@@ -21,7 +21,7 @@
  * @ignore(qx.test.Name.*)
  */
 
-qx.Class.define("qx.test.lang.Function",
+qx.Bootstrap.define("qx.test.lang.Function",
 {
   extend : qx.dev.unit.TestCase,
 
@@ -123,7 +123,7 @@ qx.Class.define("qx.test.lang.Function",
 
     testGetName : function()
     {
-      qx.Class.define("qx.test.Name",
+      qx.Bootstrap.define("qx.test.Name",
       {
         extend : Object,
         construct : function() {},

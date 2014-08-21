@@ -17,7 +17,7 @@
 
 ************************************************************************ */
 
-qx.Class.define("qx.test.bom.client.Css",
+qx.Bootstrap.define("qx.test.bom.client.Css",
 {
   extend : qx.dev.unit.TestCase,
 

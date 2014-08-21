@@ -17,7 +17,7 @@
 
 ************************************************************************ */
 
-qx.Class.define("qx.test.mobile.navigationbar.NavigationBar",
+qx.Bootstrap.define("qx.test.mobile.navigationbar.NavigationBar",
 {
   extend : qx.test.mobile.MobileTestCase,
 
@@ -26,16 +26,16 @@ qx.Class.define("qx.test.mobile.navigationbar.NavigationBar",
     testCreate : function()
     {
       var bar = new qx.ui.mobile.navigationbar.NavigationBar();
-      this.getRoot().add(bar);
+      this.getRoot().append(bar);
 
       var back = new qx.ui.mobile.navigationbar.BackButton("Back");
-      bar.add(back);
+      bar.append(back);
 
       var title = new qx.ui.mobile.navigationbar.Title("Title");
-      bar.add(title);
+      bar.append(title);
 
       var button = new qx.ui.mobile.navigationbar.Button("Action");
-      bar.add(button);
+      bar.append(button);
 
       this.assertEquals(3, bar.getChildren().length);
 

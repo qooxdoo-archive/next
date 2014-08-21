@@ -17,7 +17,7 @@
 
 ************************************************************************ */
 
-qx.Class.define("qx.test.lang.Type",
+qx.Bootstrap.define("qx.test.lang.Type",
 {
   extend : qx.dev.unit.TestCase,
 

@@ -376,7 +376,8 @@ qx.Bootstrap.define("qx.core.Assert",
 
       var id;
       try {
-        id = obj.on(event, listener, obj);
+        obj.on(event, listener, obj);
+        id = obj.getListenerId();
         invokeFunc.call(obj);
       } catch (ex) {
         throw ex;

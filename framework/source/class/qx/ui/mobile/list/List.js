@@ -510,9 +510,9 @@ qx.Bootstrap.define("qx.ui.mobile.list.List",
     __renderRow : function(index) {
       var renderedItems = this.find(".list-item");
       var oldNode = renderedItems[index];
-      var newNode = this.__provider.getItemElement(this.model.getItem(index), index);
+      var newItem = this.__provider.getItemElement(this.model.getItem(index), index);
 
-      this[0].replaceChild(newNode, oldNode);
+      this[0].replaceChild(newItem[0], oldNode);
     },
 
 
@@ -622,7 +622,6 @@ qx.Bootstrap.define("qx.ui.mobile.list.List",
     dispose : function() {
       this.base(qx.ui.mobile.core.Widget, "dispose");
       this.__trackElement = null;
-      this._disposeObjects("__provider");
       if (qx.core.Environment.get("qx.dynlocale")) {
         qx.locale.Manager.getInstance().off("changeLocale", this._onChangeLocale, this);
       }

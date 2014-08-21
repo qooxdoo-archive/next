@@ -17,7 +17,7 @@
 
 ************************************************************************ */
 
-qx.Class.define("qx.test.mobile.container.MasterDetail",
+qx.Bootstrap.define("qx.test.mobile.container.MasterDetail",
 {
   extend : qx.test.mobile.MobileTestCase,
 
@@ -26,7 +26,7 @@ qx.Class.define("qx.test.mobile.container.MasterDetail",
     testCreate : function()
     {
       var container = new qx.ui.mobile.container.MasterDetail();
-      this.getRoot().add(container);
+      this.getRoot().append(container);
       container.dispose();
     }
   }

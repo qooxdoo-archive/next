@@ -17,7 +17,7 @@
 
 ************************************************************************ */
 
-qx.Class.define("qx.test.mobile.basic.Label",
+qx.Bootstrap.define("qx.test.mobile.basic.Label",
 {
   extend : qx.test.mobile.MobileTestCase,
 
@@ -25,19 +25,20 @@ qx.Class.define("qx.test.mobile.basic.Label",
   {
     testValue : function()
     {
+
       var label = new qx.ui.mobile.basic.Label("affe");
-      this.getRoot().add(label);
+      this.getRoot().append(label);
 
       this.assertString(label.value);
       this.assertEquals(label.value, "affe");
-      this.assertEquals(label.value, label.getContentElement().innerHTML);
+      this.assertEquals(label.value, label.getHtml());
 
       this.assertEventFired(label, "changeValue", function() {
         label.value = "";
       });
 
       this.assertEquals(label.value, "");
-      this.assertEquals(label.value, label.getContentElement().innerHTML);
+      this.assertNull(label.getHtml());
 
       label.dispose();
     }

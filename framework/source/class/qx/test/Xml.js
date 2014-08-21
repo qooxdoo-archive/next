@@ -17,7 +17,7 @@
 
 ************************************************************************ */
 
-qx.Class.define("qx.test.Xml",
+qx.Bootstrap.define("qx.test.Xml",
 {
   extend : qx.dev.unit.TestCase,
 

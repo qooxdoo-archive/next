@@ -17,7 +17,7 @@
 
 ************************************************************************ */
 
-qx.Class.define("qx.test.util.ResourceManager",
+qx.Bootstrap.define("qx.test.util.ResourceManager",
 {
   extend : qx.dev.unit.TestCase,
 

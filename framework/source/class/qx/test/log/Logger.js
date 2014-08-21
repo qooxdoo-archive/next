@@ -17,7 +17,7 @@
 
 ************************************************************************ */
 
-qx.Class.define("qx.test.log.Logger",
+qx.Bootstrap.define("qx.test.log.Logger",
 {
   extend : qx.dev.unit.TestCase,
 

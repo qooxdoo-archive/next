@@ -28,7 +28,7 @@
  * @asset(qx/test/webworker.js)
  */
 
-qx.Class.define("qx.test.bom.WebWorker",
+qx.Bootstrap.define("qx.test.bom.WebWorker",
 {
   extend : qx.dev.unit.TestCase,
 

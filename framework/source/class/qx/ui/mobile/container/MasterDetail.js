@@ -163,7 +163,8 @@ qx.Bootstrap.define("qx.ui.mobile.container.MasterDetail",
     dispose : function() {
       this.base(qx.ui.mobile.container.Composite, "dispose");
       qxWeb(window).off("orientationchange", this._onOrientationChange, this);
-      this._disposeObjects("__master", "__detail");
+      this.__master.dispose();
+      this.__detail.dispose();
       this.__master = this.__detail = null;
     }
   }

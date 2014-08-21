@@ -17,7 +17,7 @@
 
 ************************************************************************ */
 
-qx.Class.define("qx.test.core.InheritanceDummy",
+qx.Bootstrap.define("qx.test.core.InheritanceDummy",
 {
   extend : Object,
 

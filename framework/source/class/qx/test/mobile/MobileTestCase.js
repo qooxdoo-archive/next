@@ -17,7 +17,7 @@
 
 ************************************************************************ */
 
-qx.Class.define("qx.test.mobile.MobileTestCase",
+qx.Bootstrap.define("qx.test.mobile.MobileTestCase",
 {
   extend : qx.dev.unit.TestCase,
   include : [qx.dev.unit.MRequirements],
@@ -47,17 +47,14 @@ qx.Class.define("qx.test.mobile.MobileTestCase",
           getRoot : function() {
             return self.getRoot();
           },
-          addListener: function() {
-            return self.addListener.apply(self,arguments);
+          on: function() {
+            return self.on.apply(self,arguments);
           },
-          removeListener: function() {
-            return self.removeListener.apply(self,arguments);
+          off: function() {
+            return self.off.apply(self,arguments);
           },
-          fireEvent: function() {
-            return self.fireEvent.apply(self,arguments);
-          },
-          fireDataEvent: function() {
-            return self.fireDataEvent.apply(self,arguments);
+          emit: function() {
+            return self.emit.apply(self,arguments);
           },
           close : function() {},
           terminate : function() {}

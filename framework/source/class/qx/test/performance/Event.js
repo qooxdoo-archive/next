@@ -16,7 +16,7 @@
      * Martin Wittemann (martinwittemann)
 
 ************************************************************************ */
-qx.Class.define("qx.test.performance.Event",
+qx.Bootstrap.define("qx.test.performance.Event",
 {
   extend : qx.dev.unit.TestCase,
   include : [qx.dev.unit.MMeasure, qx.event.MEmitter],

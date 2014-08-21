@@ -17,7 +17,7 @@
 
 ************************************************************************ */
 
-qx.Class.define("qx.test.bom.element.AnimationHandle",
+qx.Bootstrap.define("qx.test.bom.element.AnimationHandle",
 {
   extend : qx.dev.unit.TestCase,
   include : [ qx.dev.unit.MMock, qx.dev.unit.MRequirements ],

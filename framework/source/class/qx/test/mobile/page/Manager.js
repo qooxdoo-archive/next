@@ -17,7 +17,7 @@
 
 ************************************************************************ */
 
-qx.Class.define("qx.test.mobile.page.Manager",
+qx.Bootstrap.define("qx.test.mobile.page.Manager",
 {
   extend : qx.test.mobile.MobileTestCase,
 
