@@ -67,61 +67,54 @@ qx.Bootstrap.define("qx.dev.StackTrace",
         throw new Error();
       }
       catch(ex) {
-        if (qx.dev.StackTrace.hasEnvironmentCheck &&
-            qx.core.Environment.get("ecmascript.error.stacktrace"))
+        var errorTrace = qx.dev.StackTrace.getStackTraceFromError(ex);
+        var callerTrace = qx.dev.StackTrace.getStackTraceFromCaller(arguments);
+        qx.lang.Array.removeAt(errorTrace, 0);
+
+        trace = callerTrace.length > errorTrace.length ? callerTrace : errorTrace;
+        for (var i=0; i<Math.min(callerTrace.length, errorTrace.length); i++)
         {
-          var errorTrace = qx.dev.StackTrace.getStackTraceFromError(ex);
-          var callerTrace = qx.dev.StackTrace.getStackTraceFromCaller(arguments);
-          qx.lang.Array.removeAt(errorTrace, 0);
-
-          trace = callerTrace.length > errorTrace.length ? callerTrace : errorTrace;
-          for (var i=0; i<Math.min(callerTrace.length, errorTrace.length); i++)
-          {
-            var callerCall = callerTrace[i];
-            if (callerCall.indexOf("anonymous") >= 0) {
-              continue;
-            }
-
-            var methodName = null;
-            var callerArr = callerCall.split(".");
-            var mO = /(.*?)\(/.exec(callerArr[callerArr.length - 1]);
-            if (mO && mO.length == 2) {
-              methodName = mO[1];
-              callerArr.pop();
-            }
-            if (callerArr[callerArr.length - 1] == "prototype") {
-              callerArr.pop();
-            }
-            var callerClassName = callerArr.join(".");
-
-            var errorCall = errorTrace[i];
-            var errorArr = errorCall.split(":");
-            var errorClassName = errorArr[0];
-            var lineNumber = errorArr[1];
-            var columnNumber;
-            if (errorArr[2]) {
-              columnNumber = errorArr[2];
-            }
-
-            var className = null;
-            if (qx.Bootstrap.getByName(errorClassName)) {
-              className = errorClassName;
-            } else {
-              className = callerClassName;
-            }
-            var line = className;
-            if (methodName) {
-              line += "." + methodName;
-            }
-            line += ":" + lineNumber;
-            if (columnNumber) {
-              line += ":" + columnNumber;
-            }
-            trace[i] = line;
+          var callerCall = callerTrace[i];
+          if (callerCall.indexOf("anonymous") >= 0) {
+            continue;
           }
-        }
-        else {
-          trace = this.getStackTraceFromCaller(arguments);
+
+          var methodName = null;
+          var callerArr = callerCall.split(".");
+          var mO = /(.*?)\(/.exec(callerArr[callerArr.length - 1]);
+          if (mO && mO.length == 2) {
+            methodName = mO[1];
+            callerArr.pop();
+          }
+          if (callerArr[callerArr.length - 1] == "prototype") {
+            callerArr.pop();
+          }
+          var callerClassName = callerArr.join(".");
+
+          var errorCall = errorTrace[i];
+          var errorArr = errorCall.split(":");
+          var errorClassName = errorArr[0];
+          var lineNumber = errorArr[1];
+          var columnNumber;
+          if (errorArr[2]) {
+            columnNumber = errorArr[2];
+          }
+
+          var className = null;
+          if (qx.Bootstrap.getByName(errorClassName)) {
+            className = errorClassName;
+          } else {
+            className = callerClassName;
+          }
+          var line = className;
+          if (methodName) {
+            line += "." + methodName;
+          }
+          line += ":" + lineNumber;
+          if (columnNumber) {
+            line += ":" + columnNumber;
+          }
+          trace[i] = line;
         }
       }
 
@@ -208,13 +201,7 @@ qx.Bootstrap.define("qx.dev.StackTrace",
           fileName,
           url;
 
-      var traceProp = qx.dev.StackTrace.hasEnvironmentCheck ?
-          qx.core.Environment.get("ecmascript.error.stacktrace") : null;
-
-      if (traceProp === "stack") {
-        if (!error.stack) {
-          return trace;
-        }
+      if (error.stack) {
         // Gecko style, e.g. "()@http://localhost:8080/webcomponent-test-SNAPSHOT/webcomponent/js/com/ptvag/webcomponent/common/log/Logger:253"
         lineRe = /@(.+):(\d+)$/gm;
 
@@ -252,8 +239,7 @@ qx.Bootstrap.define("qx.dev.StackTrace",
           }
         }
       }
-      else if (traceProp === "stacktrace")
-      {
+      else if (error.stacktrace) {
         // Opera
         var stacktrace = error.stacktrace;
         if (!stacktrace) {
@@ -373,13 +359,5 @@ qx.Bootstrap.define("qx.dev.StackTrace",
       }
       return trace;
     }
-  },
-
-  defer : function(statics)
-  {
-    // This is necessary to avoid an infinite loop when logging the absence
-    // of the "ecmascript.error.stacktrace" environment key.
-    statics.hasEnvironmentCheck = qx.bom && qx.bom.client &&
-      qx.bom.client.EcmaScript && qx.bom.client.EcmaScript.getStackTrace;
   }
 });
