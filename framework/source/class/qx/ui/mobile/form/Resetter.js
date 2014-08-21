@@ -203,7 +203,7 @@ qx.Bootstrap.define("qx.ui.mobile.form.Resetter",
      * Returns true, if the given item implements the
      * {@link qx.ui.core.ISingleSelection} interface.
      *
-     * @param formItem {qx.core.Object} The item to check.
+     * @param formItem {Object} The item to check.
      * @return {Boolean} true, if the given item implements the
      *   necessary interface.
      */
@@ -217,7 +217,7 @@ qx.Bootstrap.define("qx.ui.mobile.form.Resetter",
      * Returns true, if the given item implements the
      * {@link qx.data.controller.ISelection} interface.
      *
-     * @param formItem {qx.core.Object} The item to check.
+     * @param formItem {Object} The item to check.
      * @return {Boolean} true, if the given item implements the
      *   necessary interface.
      */
@@ -230,7 +230,7 @@ qx.Bootstrap.define("qx.ui.mobile.form.Resetter",
     /**
      * Returns true, if the value property is supplied by the form item.
      *
-     * @param formItem {qx.core.Object} The item to check.
+     * @param formItem {Object} The item to check.
      * @return {Boolean} true, if the given item implements the
      *   necessary interface.
      */

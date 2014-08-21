@@ -47,7 +47,7 @@ qx.Class.define("qx.test.dev.unit.Sinon",
       this.sinon = qx.dev.unit.Sinon.getSinon();
 
       qx.Class.define("qx.test.Animal", {
-        extend: qx.core.Object,
+        extend: Object,
         members: {
           getKind: function() { return "Animal"; }
         }

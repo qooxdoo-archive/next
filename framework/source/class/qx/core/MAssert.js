@@ -19,8 +19,7 @@
 
 /**
  * This mixin includes all assertions from {@link qx.core.Assert} to conveniently
- * call assertions. It is included into {@link qx.core.Object} if debugging code
- * is enabled. It is further included into all unit tests
+ * call assertions. It is further included into all unit tests
  * {@link qx.dev.unit.TestCase}.
  *
  * @require(qx.core.Assert)
@@ -486,28 +485,6 @@ qx.Mixin.define("qx.core.MAssert",
      */
     assertElement : function(value, msg) {
       qx.core.Assert.assertElement(value, msg);
-    },
-
-
-    /**
-     * Assert that the value is an instance of {@link qx.core.Object}.
-     *
-     * @param value {var} Value to check
-     * @param msg {String} Message to be shown if the assertion fails.
-     */
-    assertQxObject : function(value, msg) {
-      qx.core.Assert.assertQxObject(value, msg);
-    },
-
-
-    /**
-     * Assert that the value is an instance of {@link qx.ui.core.Widget}.
-     *
-     * @param value {var} Value to check
-     * @param msg {String} Message to be shown if the assertion fails.
-     */
-    assertQxWidget : function(value, msg) {
-      qx.core.Assert.assertQxWidget(value, msg);
     }
   }
 });

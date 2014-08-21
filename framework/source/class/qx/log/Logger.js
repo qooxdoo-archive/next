@@ -20,8 +20,6 @@
 /**
  * Main qooxdoo logging class.
  *
- * Used as central logging feature by qx.core.Object.
- *
  * Extremely modular and lightweight to support logging at bootstrap and
  * at shutdown as well.
  *
@@ -344,7 +342,7 @@ qx.Bootstrap.define("qx.log.Logger",
      * <code>qx.debug</code> is set to <code>true</code>.
      *
      *
-     * @param object {qx.core.Object} Instance to check for overriding.
+     * @param object {Object} Instance to check for overriding.
      * @param baseclass {Class} The baseclass as starting point.
      * @param methodName {String} The method name which is deprecated for overriding.
      * @param msg {String?} Optional message to be printed.
@@ -443,8 +441,6 @@ qx.Bootstrap.define("qx.log.Logger",
       // Add relation fields
       if (object)
       {
-        // Do not explicitly check for instanceof qx.core.Object, in order not
-        // to introduce an unwanted load-time dependency
         if (object.$$hash !== undefined) {
           entry.object = object.$$hash;
         } else if (object.$$type) {

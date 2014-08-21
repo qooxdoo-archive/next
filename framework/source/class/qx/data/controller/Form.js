@@ -48,7 +48,7 @@ qx.Bootstrap.define("qx.data.controller.Form",
   extend : Object,
 
   /**
-   * @param model {qx.core.Object | null} The model to bind the target to. The
+   * @param model {Object | null} The model to bind the target to. The
    *   given object will be set as {@link #model} property.
    * @param target {qx.ui.form.Form | null} The form which contains the form
    *   items. The given form will be set as {@link #target} property.
@@ -76,7 +76,6 @@ qx.Bootstrap.define("qx.data.controller.Form",
     /** Data object containing the data which should be shown in the target. */
     model :
     {
-      check: "qx.core.Object",
       apply: "_applyModel",
       event: "changeModel",
       nullable: true,
@@ -149,7 +148,7 @@ qx.Bootstrap.define("qx.data.controller.Form",
      *
      * @param includeBubbleEvents {Boolean} Whether the model should support
      *   the bubbling of change events or not.
-     * @return {qx.core.Object} The created model.
+     * @return {Object} The created model.
      */
     createModel : function(includeBubbleEvents) {
       var target = this.target;

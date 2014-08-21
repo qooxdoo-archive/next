@@ -224,7 +224,7 @@ qx.Bootstrap.define("qx.test.data.store.Json",
       // define a test class
       qx.Bootstrap.define("qx.test.AB",
       {
-        extend : qx.core.Object,
+        extend : Object,
 
         properties :
         {
@@ -299,7 +299,7 @@ qx.Bootstrap.define("qx.test.data.store.Json",
       // define a test class
       qx.Bootstrap.define("qx.test.O",
       {
-        extend : qx.core.Object
+        extend : Object
       });
 
       var delegate = {
@@ -331,7 +331,7 @@ qx.Bootstrap.define("qx.test.data.store.Json",
       // define a test class
       qx.Bootstrap.define("qx.test.O",
       {
-        extend : qx.core.Object
+        extend : Object
       });
 
       var delegate = {
@@ -526,7 +526,7 @@ qx.Bootstrap.define("qx.test.data.store.Json",
       }, this);
 
       // set a fake model
-      var fakeModel = new qx.core.Object();
+      var fakeModel = new Object();
       this.__store.setModel(fakeModel);
 
       var url = this.url;

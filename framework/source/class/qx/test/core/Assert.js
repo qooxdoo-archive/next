@@ -23,60 +23,6 @@ qx.Class.define("qx.test.core.Assert",
 
   members :
   {
-    testQxWidget : function()
-    {
-      // working widget
-      var widget = new qx.ui.core.Widget();
-      this.assertQxWidget(widget);
-      widget.dispose();
-
-      var comp = new qx.ui.container.Composite();
-      this.assertQxWidget(comp);
-      comp.dispose();
-
-      // not working
-      this.assertException(function() {
-        qx.core.Assert.assertQxWidget(true);
-      }, qx.core.AssertionError, null, "1");
-
-      this.assertException(function() {
-        qx.core.Assert.assertQxWidget({});
-      }, qx.core.AssertionError, null, "2");
-
-      var o = new qx.core.Object();
-      this.assertException(function() {
-        qx.core.Assert.assertQxWidget(o);
-      }, qx.core.AssertionError, null, "3");
-      o.dispose();
-    },
-
-
-    testQxObject : function()
-    {
-      // working widget
-      var o = new qx.core.Object();
-      this.assertQxObject(o);
-      o.dispose();
-
-      var widget = new qx.ui.core.Widget();
-      this.assertQxObject(widget);
-      widget.dispose();
-
-      // not working
-      this.assertException(function() {
-        qx.core.Assert.assertQxObject(true);
-      }, qx.core.AssertionError, null, "1");
-
-      this.assertException(function() {
-        qx.core.Assert.assertQxObject({});
-      }, qx.core.AssertionError, null, "2");
-
-      this.assertException(function() {
-        qx.core.Assert.assertQxObject(new qx.type.BaseString());
-      }, qx.core.AssertionError, null, "2");
-    },
-
-
     testCSSColor : function()
     {
       // working
@@ -134,7 +80,7 @@ qx.Class.define("qx.test.core.Assert",
       this.assertException(function() {
         var f = function(a, b) {
           qx.core.Assert.assertArgumentsCount(arguments, 2, 2);
-        }
+        };
         f("1", "2", "3", "4", "5");
       }, qx.core.AssertionError, /but found '5' arguments\./g);
     },
@@ -143,15 +89,15 @@ qx.Class.define("qx.test.core.Assert",
     testAssertEventFired : function()
     {
       //  assertEventFired : function(obj, event, invokeFunc, listenerFunc, msg)
-      var obj = new qx.core.Object();
+      var obj = new qx.event.Emitter();
 
       this.assertEventFired(obj, "xyz", function() {
-        this.fireEvent("xyz");
+        obj.emit("xyz");
       });
 
       this.assertException(function() {
         qx.core.Assert.assertEventFired(obj, "xyz", function() {
-          this.fireEvent("xyz1");
+          obj.emit("xyz1");
         });
       }, qx.core.AssertionError);
     }

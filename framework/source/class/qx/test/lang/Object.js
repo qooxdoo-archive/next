@@ -216,24 +216,6 @@ qx.Class.define("qx.test.lang.Object",
       this.assertTrue(obj.b);
     },
 
-    /**
-     * Some behavior, which must be consistent in all browsers for some
-     * assertions to work.
-     */
-    testObjectAssertions : function()
-    {
-      var objConstructor = ({}).constructor;
-
-      this.assertIdentical(({a: 12}).constructor, objConstructor);
-      this.assertIdentical(new Object().constructor, objConstructor);
-
-      var qxObj = new qx.core.Object();
-      this.assertNotIdentical(qxObj.constructor, objConstructor);
-      this.assertNotIdentical((1).constructor, objConstructor);
-      this.assertNotIdentical(("Juhu").constructor, objConstructor);
-      this.assertNotIdentical((/abc/).constructor, objConstructor);
-      qxObj.dispose();
-    },
 
     testEquals : function(){
 

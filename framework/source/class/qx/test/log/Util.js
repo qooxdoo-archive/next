@@ -23,29 +23,6 @@ qx.Class.define("qx.test.log.Util",
 
   members :
   {
-    testToTextWithObject : function()
-    {
-      var time = new Date(1000);
-      var obj = new qx.core.Object();
-      var entry =
-      {
-        time : time,
-        offset : 900,
-        level: "warn",
-        items: [],
-        win: window,
-        object: obj.$$hash
-      };
-
-      var text = qx.log.appender.Util.toText(entry);
-      this.assertEquals(
-        "000900 qx.core.Object[" + obj.$$hash + "]:",
-        text
-      );
-      obj.dispose();
-    },
-
-
     testToTextWithClass : function()
     {
       var time = new Date(1000);
@@ -56,12 +33,12 @@ qx.Class.define("qx.test.log.Util",
         level: "warn",
         items: [],
         win: window,
-        clazz: qx.core.Object
+        clazz: qx.event.Emitter
       };
 
       var text = qx.log.appender.Util.toText(entry);
       this.assertEquals(
-        "000900 qx.core.Object:",
+        "000900 qx.event.Emitter:",
         text
       )
     }

@@ -1021,7 +1021,7 @@ qx.Class.define("qx.test.ui.form.FormValidator",
     // add error ////////////////////
     testAddWrong : function() {
       this.assertException(function() {
-        this.__manager.add(new qx.core.Object());
+        this.__manager.add(new Object());
       });
       this.assertException(function() {
         this.__manager.add(123);

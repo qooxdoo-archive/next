@@ -53,7 +53,7 @@ qx.Bootstrap.define("qx.data.controller.Object",
 
 
   /**
-   * @param model {qx.core.Object?null} The model for the model property.
+   * @param model {Object?null} The model for the model property.
    */
   construct : function(model) {
     // create a map for all created binding ids
@@ -72,7 +72,7 @@ qx.Bootstrap.define("qx.data.controller.Object",
     /** The model object which does have the properties for the binding. */
     model :
     {
-      check: "qx.core.Object",
+      check: "Object",
       event: "changeModel",
       apply: "_applyModel",
       nullable: true,
@@ -91,8 +91,8 @@ qx.Bootstrap.define("qx.data.controller.Object",
      * Apply-method which will be called if a new model has been set.
      * All bindings will be moved to the new model.
      *
-     * @param value {qx.core.Object|null} The new model.
-     * @param old {qx.core.Object|null} The old model.
+     * @param value {Object|null} The new model.
+     * @param old {Object|null} The old model.
      */
     _applyModel: function(value, old) {
       // for every target
@@ -148,7 +148,7 @@ qx.Bootstrap.define("qx.data.controller.Object",
      * Adds a new target to the controller. After adding the target, the given
      * property of the model will be bound to the targets property.
      *
-     * @param targetObject {qx.core.Object} The object on which the property
+     * @param targetObject {Object} The object on which the property
      *   should be bound.
      *
      * @param targetProperty {String} The property to which the binding should
@@ -190,7 +190,7 @@ qx.Bootstrap.define("qx.data.controller.Object",
     * Does the work for {@link #addTarget} but without saving the target
     * to the internal target registry.
     *
-    * @param targetObject {qx.core.Object} The object on which the property
+    * @param targetObject {Object} The object on which the property
     *   should be bound.
     *
     * @param targetProperty {String} The property to which the binding should
@@ -244,7 +244,7 @@ qx.Bootstrap.define("qx.data.controller.Object",
     /**
      * Removes the target identified by the three properties.
      *
-     * @param targetObject {qx.core.Object} The target object on which the
+     * @param targetObject {Object} The target object on which the
      *   binding exist.
      *
      * @param targetProperty {String} The targets property name used by the
@@ -274,7 +274,7 @@ qx.Bootstrap.define("qx.data.controller.Object",
      * Does the work for {@link #removeTarget} but without removing the target
      * from the internal registry.
      *
-     * @param targetObject {qx.core.Object} The target object on which the
+     * @param targetObject {Object} The target object on which the
      *   binding exist.
      *
      * @param targetProperty {String} The targets property name used by the
@@ -289,7 +289,7 @@ qx.Bootstrap.define("qx.data.controller.Object",
       targetObject, targetProperty, sourceProperty, sourceObject
     ) {
       // check for not fitting targetObjects
-      if (!(targetObject instanceof qx.core.Object)) {
+      if (!(targetObject instanceof Object)) {
         // just do nothing
         return;
       }

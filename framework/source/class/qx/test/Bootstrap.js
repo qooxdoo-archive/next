@@ -170,21 +170,6 @@ qx.Class.define("qx.test.Bootstrap",
     },
 
 
-    "test: extend from qx.core.Object" : function()
-    {
-      qx.Bootstrap.define("qx.test.ExtendQxObject", {
-        extend: qx.core.Object
-      });
-
-      var obj = new qx.test.ExtendQxObject();
-      this.assertInstance(obj, qx.core.Object);
-
-      obj.dispose();
-
-      delete qx.test.ExtendQxObject;
-    },
-
-
     "test: extend from Bootstrap class" : function()
     {
       qx.Bootstrap.define("qx.test.Super", {
@@ -529,9 +514,9 @@ qx.Class.define("qx.test.Bootstrap",
     },
 
 
-    testPropertyEventCoreObject : function() {
+    testPropertyEventPureObject : function() {
       C = qx.Bootstrap.define("C", {
-        extend : qx.core.Object,
+        extend : Object,
         properties : {
           a: {
             event : true,
@@ -643,9 +628,6 @@ qx.Class.define("qx.test.Bootstrap",
       });
       this.assertException(function() {
         c.r = 83924;
-      });
-      this.assertException(function() {
-        c.q = new qx.core.Object();
       });
     },
 

@@ -117,7 +117,6 @@
  * "&lt;action&gt;Error", e.g. "indexSuccess".
  *
  * @group (IO)
- * @ignore(qx.core.Object.*)
  */
 qx.Bootstrap.define("qx.bom.rest.Resource",
 {
@@ -811,8 +810,7 @@ qx.Bootstrap.define("qx.bom.rest.Resource",
      * @lint ignoreUnused(longPollHandler)
      *
      * @param action {String} Action to poll.
-     * @return {String} Id of handler responsible for long-polling. To stop
-     *  polling, remove handler using {@link qx.core.Object#removeListenerById}.
+     * @return {String} Id of listener responsible for long-polling.
      */
     longPoll: function(action) {
       var res = this,

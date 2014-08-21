@@ -74,9 +74,6 @@ qx.Class.define("qx.test.lang.Type",
 
       this.assertTrue(Type.isObject({}));
       this.assertTrue(Type.isObject(new Object()));
-      var qxObj = new qx.core.Object();
-      this.assertTrue(Type.isObject(qxObj));
-      qxObj.dispose();
 
       this.assertFalse(Type.isObject(), "undefined is not an object");
       this.assertFalse(Type.isObject(function() {}), "function is not an object");

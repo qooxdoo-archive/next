@@ -63,7 +63,7 @@ qx.Class.define("qx.test.performance.BaseCall",
 });
 
 qx.Class.define("qx.test.performance.Base", {
-  extend : qx.core.Object,
+  extend : Object,
 
   members : {
     foo_base : function(a,b,c) {}

@@ -35,7 +35,6 @@
 /**
  * Collection of helper methods operating on functions.
  *
- * @ignore(qx.core.Object)
  * @require(qx.lang.Array)
  */
 qx.Bootstrap.define("qx.lang.Function",
@@ -161,17 +160,6 @@ qx.Bootstrap.define("qx.lang.Function",
 
       return function(event)
       {
-        if (qx.core.Environment.get("qx.debug"))
-        {
-          if (qx.core.Object && options.self && qx.lang.Type.isObject(options.self) && options.self.isDisposed && qx.lang.Type.isFunction(options.self.isDisposed))
-          {
-            qx.core.Assert && qx.core.Assert.assertFalse(
-              options.self.isDisposed(),
-              "Trying to call a bound function with a disposed object as context: " + options.self.toString() + " :: " + qx.lang.Function.getName(func)
-            );
-          }
-        }
-
         // Convert (and copy) incoming arguments
         var args = qx.lang.Array.fromArguments(arguments);
 

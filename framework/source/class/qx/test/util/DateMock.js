@@ -19,11 +19,10 @@
 
 qx.Class.define("qx.test.util.DateMock",
 {
-  extend : qx.core.Object,
+  extend : Object,
 
   construct : function(dateMap)
   {
-    this.base(arguments);
     this.__date = dateMap;
   },
 

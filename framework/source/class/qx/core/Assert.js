@@ -815,61 +815,6 @@ qx.Bootstrap.define("qx.core.Assert",
         msg || "",
         "Expected value to be a DOM element but found  '", value, "'!"
       );
-    },
-
-
-    /**
-     * Assert that the value is an instance of {@link qx.core.Object}.
-     *
-     * @param value {var} Value to check
-     * @param msg {String} Message to be shown if the assertion fails.
-     */
-    assertQxObject : function(value, msg)
-    {
-      this.__isQxInstance(value, "qx.core.Object") || this.__fail(
-        msg || "",
-        "Expected value to be a qooxdoo object but found ", value, "!"
-      );
-    },
-
-
-    /**
-     * Assert that the value is an instance of {@link qx.ui.core.Widget}.
-     *
-     * @param value {var} Value to check
-     * @param msg {String} Message to be shown if the assertion fails.
-     */
-    assertQxWidget : function(value, msg)
-    {
-      this.__isQxInstance(value, "qx.ui.core.Widget") || this.__fail(
-        msg || "",
-        "Expected value to be a qooxdoo widget but found ", value, "!"
-      );
-    },
-
-
-    /**
-     * Internal helper for checking the instance of a qooxdoo object using the
-     * classname.
-     *
-     * @param object {var} The object to check.
-     * @param classname {String} The classname of the class as string.
-     * @return {Boolean} <code>true</code> if the object is an instance of the
-     * class
-     */
-    __isQxInstance : function(object, classname)
-    {
-      if (!object) {
-        return false;
-      }
-      var clazz = object.constructor;
-      while(clazz) {
-        if (clazz.classname === classname) {
-          return true;
-        }
-        clazz = clazz.superclass;
-      }
-      return false;
     }
   }
 });

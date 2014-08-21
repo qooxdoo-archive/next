@@ -214,7 +214,7 @@ qx.Bootstrap.define("qx.core.ObjectRegistry",
      * <code>null</code> is returned.
      *
      * @param hash {String} The object's hash code.
-     * @return {qx.core.Object} The corresponding object or <code>null</code>.
+     * @return {Object} The corresponding object or <code>null</code>.
      */
     fromHashCode : function(hash) {
       return this.__registry[hash] || null;

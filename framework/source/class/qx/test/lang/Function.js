@@ -89,23 +89,6 @@ qx.Class.define("qx.test.lang.Function",
     },
 
 
-    testBindWithDisposedContext : function()
-    {
-      if (!this.isDebugOn()) {
-        return;
-      }
-
-      var obj = new qx.core.Object();
-      obj.dispose();
-      var callback = function() {};
-
-      var bound = qx.lang.Function.bind(callback, obj);
-      this.assertException(function() {
-        bound()
-      }, qx.core.AssertionError);
-    },
-
-
     testBindWithUndefinedArguments : function()
     {
       var undef;
@@ -142,7 +125,7 @@ qx.Class.define("qx.test.lang.Function",
     {
       qx.Class.define("qx.test.Name",
       {
-        extend : qx.core.Object,
+        extend : Object,
         construct : function() {},
 
         properties : {

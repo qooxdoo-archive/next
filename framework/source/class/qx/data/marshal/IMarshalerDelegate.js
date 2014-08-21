@@ -93,7 +93,7 @@ qx.Interface.define("qx.data.marshal.IMarshalerDelegate",
      * @param depth {Number} The depth level of the data.
      * @return {Class|null} Returns the class which should be used as superclass
      *   corresponding to the given hash of the properties. If <code>null</code>
-     *   will be returned, {@link qx.core.Object} will be used as superclass.
+     *   will be returned, {@link Object} will be used as superclass.
      */
     getModelSuperClass : function(properties, parentProperty, depth) {},
 

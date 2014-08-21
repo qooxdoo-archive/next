@@ -36,7 +36,7 @@ qx.Bootstrap.define("qx.util.DisposeUtil",
   {
     /**
      * Disconnects and disposes given objects from instance.
-     * Only works with qx.core.Object based objects e.g. Widgets.
+     * Only works with Object offering a dispose method
      *
      * @param obj {Object} Object which contains the fields
      * @param arr {Array} List of fields (which store objects) to dispose

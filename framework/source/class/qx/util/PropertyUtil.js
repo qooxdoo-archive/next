@@ -55,7 +55,7 @@ qx.Bootstrap.define("qx.util.PropertyUtil",
       var properties = {};
       var superclass = clazz;
       // go threw the class hierarchy
-      while (superclass != qx.core.Object) {
+      while (superclass != Object) {
         var currentProperties = this.getProperties(superclass);
         for (var property in currentProperties) {
           properties[property] = currentProperties[property];

@@ -1,6 +1,6 @@
 qx.Class.define("qx.test.log.fixture.ClassA",
 {
-  extend : qx.core.Object,
+  extend : Object,
 
   construct : function()
   {

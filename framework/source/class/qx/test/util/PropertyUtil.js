@@ -88,7 +88,7 @@ qx.Class.define("qx.test.util.PropertyUtil",
     testGetProperties : function()
     {
       qx.Class.define("qx.test.propA", {
-        extend : qx.core.Object,
+        extend : Object,
         properties : {
           a : {}
         }

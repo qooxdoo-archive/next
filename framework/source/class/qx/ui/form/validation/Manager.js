@@ -432,7 +432,7 @@ qx.Bootstrap.define("qx.ui.form.validation.Manager",
      * Returns true, if the given item implements the {@link qx.ui.form.IForm}
      * interface.
      *
-     * @param formItem {qx.core.Object} The item to check.
+     * @param formItem {Object} The item to check.
      * @return {Boolean} true, if the given item implements the
      *   necessary interface.
      */
@@ -446,7 +446,7 @@ qx.Bootstrap.define("qx.ui.form.validation.Manager",
      * Returns true, if the given item implements the
      * {@link qx.ui.core.ISingleSelection} interface.
      *
-     * @param formItem {qx.core.Object} The item to check.
+     * @param formItem {Object} The item to check.
      * @return {Boolean} true, if the given item implements the
      *   necessary interface.
      */

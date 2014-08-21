@@ -250,7 +250,7 @@ qx.Class.define("qx.test.Interface",
 
       qx.Bootstrap.define("qx.test.i.Properties1",
       {
-        extend : qx.core.Object,
+        extend : Object,
         implement : [qx.test.i.IProperties1],
 
         properties :
@@ -264,7 +264,7 @@ qx.Class.define("qx.test.Interface",
         this.assertException(function() {
           qx.Bootstrap.define("qx.test.i.Properties2",
           {
-            extend : qx.core.Object,
+            extend : Object,
             implement : [qx.test.i.IProperties1],
 
             members :
@@ -288,7 +288,7 @@ qx.Class.define("qx.test.Interface",
 
       qx.Bootstrap.define("qx.test.i.Properties3",
       {
-        extend : qx.core.Object,
+        extend : Object,
         implement : [qx.test.i.IProperties2],
 
         members :

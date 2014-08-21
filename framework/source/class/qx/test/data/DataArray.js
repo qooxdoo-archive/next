@@ -710,15 +710,6 @@ qx.Bootstrap.define("qx.test.data.DataArray",
     },
 
 
-    testNotAutoDisposeItems : function() {
-      var o = new qx.core.Object();
-      this.__a.push(o);
-      this.__a.dispose();
-      this.assertFalse(o.isDisposed());
-      o.dispose();
-    },
-
-
     testFilter : function() {
       var self = this;
       var b = this.__a.filter(function(item, index, array) {

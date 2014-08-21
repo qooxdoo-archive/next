@@ -75,10 +75,10 @@ qx.Bootstrap.define("qx.data.SingleValueBinding",
      * to the textfield. If now the value of b changed or even the a will get a
      * new b, the binding still shows the right value.
      *
-     * @param sourceObject {qx.core.Object} The source of the binding.
+     * @param sourceObject {Object} The source of the binding.
      * @param sourcePropertyChain {String} The property chain which represents
      *   the source property.
-     * @param targetObject {qx.core.Object} The object which the source should
+     * @param targetObject {Object} The object which the source should
      *   be bind to.
      * @param targetPropertyChain {String} The property chain to the target
      *   object.
@@ -402,10 +402,10 @@ qx.Bootstrap.define("qx.data.SingleValueBinding",
      * target side of the binding. Only works if the target property is a
      * property chain
      *
-     * @param sourceObject {qx.core.Object} The source of the binding.
+     * @param sourceObject {Object} The source of the binding.
      * @param sourcePropertyChain {String} The property chain which represents
      *   the source property.
-     * @param targetObject {qx.core.Object} The object which the source should
+     * @param targetObject {Object} The object which the source should
      *   be bind to.
      * @param targetPropertyChain {String} The property name of the target
      *   object.
@@ -537,10 +537,10 @@ qx.Bootstrap.define("qx.data.SingleValueBinding",
      * Helper for updating the target. Gets the current set data from the source
      * and set that on the target.
      *
-     * @param sourceObject {qx.core.Object} The source of the binding.
+     * @param sourceObject {Object} The source of the binding.
      * @param sourcePropertyChain {String} The property chain which represents
      *   the source property.
-     * @param targetObject {qx.core.Object} The object which the source should
+     * @param targetObject {Object} The object which the source should
      *   be bind to.
      * @param targetPropertyChain {String} The property name of the target
      *   object.
@@ -567,7 +567,7 @@ qx.Bootstrap.define("qx.data.SingleValueBinding",
     /**
      * Internal helper for getting the current set value at the property chain.
      *
-     * @param o {qx.core.Object} The source of the binding.
+     * @param o {Object} The source of the binding.
      * @param propertyChain {String} The property chain which represents
      *   the source property.
      * @return {var?undefined} Returns the set value if defined.
@@ -618,7 +618,7 @@ qx.Bootstrap.define("qx.data.SingleValueBinding",
      * change + propertyname. If this three possibilities fail, an error will be
      * thrown.
      *
-     * @param source {qx.core.Object} The source where the property is stored.
+     * @param source {Object} The source where the property is stored.
      * @param propertyname {String} The name of the property.
      * @return {String} The name of the corresponding property.
      */
@@ -651,7 +651,7 @@ qx.Bootstrap.define("qx.data.SingleValueBinding",
      * Resets the value of the given target after resolving the target property
      * chain.
      *
-     * @param targetObject {qx.core.Object} The object where the property chain
+     * @param targetObject {Object} The object where the property chain
      *   starts.
      * @param targetPropertyChain {String} The names of the properties,
      *   separated with a dot.
@@ -684,7 +684,7 @@ qx.Bootstrap.define("qx.data.SingleValueBinding",
      * Sets the given value to the given target after resolving the
      * target property chain.
      *
-     * @param targetObject {qx.core.Object} The object where the property chain
+     * @param targetObject {Object} The object where the property chain
      *   starts.
      * @param targetPropertyChain {String} The names of the properties,
      *   separated with a dot.
@@ -731,11 +731,11 @@ qx.Bootstrap.define("qx.data.SingleValueBinding",
      * Helper-Function resolving the object on which the last property of the
      * chain should be set.
      *
-     * @param targetObject {qx.core.Object} The object where the property chain
+     * @param targetObject {Object} The object where the property chain
      *   starts.
      * @param targetPropertyChain {String} The names of the properties,
      *   separated with a dot.
-     * @return {qx.core.Object | null} The object on which the last property
+     * @return {Object | null} The object on which the last property
      *   should be set.
      */
     __getTargetFromChain : function(targetObject, targetPropertyChain)
@@ -781,13 +781,13 @@ qx.Bootstrap.define("qx.data.SingleValueBinding",
      * initially set the value.
      *
      * @param value {var} The value to set.
-     * @param targetObject {qx.core.Object} The object which contains the target
+     * @param targetObject {Object} The object which contains the target
      *   property.
      * @param targetPropertyChain {String} The name of the target property in the
      *   target object.
      * @param options {Map} The options map perhaps containing the user defined
      *   converter.
-     * @param sourceObject {qx.core.Object} The source object of the binding (
+     * @param sourceObject {Object} The source object of the binding (
      *   used for the onUpdate callback).
      */
     __setInitialValue : function(value, targetObject, targetPropertyChain, options, sourceObject) {
@@ -880,11 +880,11 @@ qx.Bootstrap.define("qx.data.SingleValueBinding",
      * so it should NOT be used from outside this class. For an outside usage,
      * use {@link #bind}.
      *
-     * @param sourceObject {qx.core.Object} The source of the binding.
+     * @param sourceObject {Object} The source of the binding.
      * @param sourceEvent {String} The event of the source object which could
      *   be the change event in common but has to be an
      *   {@link qx.event.type.Data} event.
-     * @param targetObject {qx.core.Object} The object which the source should
+     * @param targetObject {Object} The object which the source should
      *   be bind to.
      * @param targetProperty {String} The property name of the target object.
      * @param options {Map} A map containing the options. See
@@ -895,7 +895,7 @@ qx.Bootstrap.define("qx.data.SingleValueBinding",
      * @return {var} Returns the internal id for that binding. This can be used
      *   for referencing the binding or e.g. for removing. This is not an atomic
      *   id so you can't you use it as a hash-map index. It's the id which will
-     *   be returned by the {@link qx.core.Object#addListener} method.
+     *   be returned by the {@link qx.event.MEmitter#on} method.
      * @throws {qx.core.AssertionError} If the event is no data event or
      *   there is no property definition for the target object and target
      *   property.
@@ -980,9 +980,9 @@ qx.Bootstrap.define("qx.data.SingleValueBinding",
      * of all bindings.
      *
      * @param id {var} The listener id of the id for a deeper binding.
-     * @param sourceObject {qx.core.Object} The source Object of the binding.
+     * @param sourceObject {Object} The source Object of the binding.
      * @param sourceEvent {String} The name of the source event.
-     * @param targetObject {qx.core.Object} The target object.
+     * @param targetObject {Object} The target object.
      * @param targetProperty {String} The name of the property on the target
      *   object.
      */
@@ -1019,12 +1019,12 @@ qx.Bootstrap.define("qx.data.SingleValueBinding",
      * the value.
      *
      * @param value {var} The value which possibly should be converted.
-     * @param targetObject {qx.core.Object} The target object.
+     * @param targetObject {Object} The target object.
      * @param targetPropertyChain {String} The property name of the target object.
      * @param options {Map} The options map which can includes the converter.
      *   For a detailed information on the map, take a look at
      *   {@link #bind}.
-     * @param sourceObject {qx.core.Object} The source obejct for the binding.
+     * @param sourceObject {Object} The source obejct for the binding.
      *
      * @return {var} The converted value. If no conversion has been done, the
      *   value property will be returned.
@@ -1063,7 +1063,7 @@ qx.Bootstrap.define("qx.data.SingleValueBinding",
      * Helper method which tries to figure out if the given property on the
      * given object does have a change event and if returns the name of it.
      *
-     * @param sourceObject {qx.core.Object} The object to check.
+     * @param sourceObject {Object} The object to check.
      * @param sourceProperty {String} The name of the property.
      *
      * @return {String} The name of the change event.
@@ -1118,7 +1118,7 @@ qx.Bootstrap.define("qx.data.SingleValueBinding",
      * Removes the binding with the given id from the given sourceObject. The
      * id hast to be the id returned by any of the bind functions.
      *
-     * @param sourceObject {qx.core.Object} The source object of the binding.
+     * @param sourceObject {Object} The source object of the binding.
      * @param id {var} The id of the binding.
      * @throws {Error} If the binding could not be found.
      */
@@ -1172,7 +1172,7 @@ qx.Bootstrap.define("qx.data.SingleValueBinding",
     /**
      * Removes all bindings for the given object.
      *
-     * @param object {qx.core.Object} The object of which the bindings should be
+     * @param object {Object} The object of which the bindings should be
      *   removed.
      * @throws {qx.core.AssertionError} If the object is not in the internal
      *   registry of the bindings.
@@ -1202,9 +1202,9 @@ qx.Bootstrap.define("qx.data.SingleValueBinding",
     /**
      * Removes all bindings between given objects.
      *
-     * @param object {qx.core.Object} The object of which the bindings should be
+     * @param object {Object} The object of which the bindings should be
      *   removed.
-     * @param relatedObject {qx.core.Object} The object of which related
+     * @param relatedObject {Object} The object of which related
      *   bindings should be removed.
      * @throws {qx.core.AssertionError} If the object is not in the internal
      *   registry of the bindings.
@@ -1239,7 +1239,7 @@ qx.Bootstrap.define("qx.data.SingleValueBinding",
     /**
      * Returns an array which lists all bindings.
      *
-     * @param object {qx.core.Object} The object of which the bindings should
+     * @param object {Object} The object of which the bindings should
      *   be returned.
      *
      * @return {Array} An array of binding informations. Every binding
@@ -1299,7 +1299,7 @@ qx.Bootstrap.define("qx.data.SingleValueBinding",
      * Debug function which shows some valuable information about the given
      * binding in console. For that it uses {@link qx.log.Logger}.
      *
-     * @param object {qx.core.Object} the source of the binding.
+     * @param object {Object} the source of the binding.
      * @param id {var} The id of the binding.
      */
     showBindingInLog : function(object, id) {

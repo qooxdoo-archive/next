@@ -1,6 +1,6 @@
 qx.Class.define("qx.test.core.EventEmitterDummy",
 {
-  extend    : qx.core.Object,
+  extend    : Object,
   events : {
     "plain" : "qx.event.type.Event",
     "error" : "qx.__12345__",

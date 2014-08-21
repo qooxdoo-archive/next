@@ -33,7 +33,7 @@ qx.Bootstrap.define("qx.util.Serializer",
      * representation because the value of the property will be concatenated to the
      * serialized string.
      *
-     * @param object {qx.core.Object} Any qooxdoo object
+     * @param object {Object} Any qooxdoo object
      * @param qxSerializer {Function} Function used for serializing qooxdoo
      *   objects stored in the propertys of the object. Check for the type of
      *   classes <ou want to serialize and return the serialized value. In all
@@ -95,7 +95,7 @@ qx.Bootstrap.define("qx.util.Serializer",
         value = value.name;
       }
 
-      if (value instanceof qx.core.Object && qxSerializer != null) {
+      if (qxSerializer != null) {
         var encValue = encodeURIComponent(qxSerializer(value));
         if (encValue === undefined) {
           var encValue = encodeURIComponent(value);
@@ -111,8 +111,7 @@ qx.Bootstrap.define("qx.util.Serializer",
      * Serializes the properties of the given qooxdoo object into a native
      * object.
      *
-     * @param object {qx.core.Object}
-     *   Any qooxdoo object
+     * @param object {Object} Any qooxdoo object
      *
      * @param qxSerializer {Function}
      *   Function used for serializing qooxdoo objects stored in the propertys
@@ -173,44 +172,6 @@ qx.Bootstrap.define("qx.util.Serializer",
         return object.name;
       }
 
-      // qooxdoo object
-      if (object instanceof qx.core.Object)
-      {
-        if (qxSerializer != null)
-        {
-          var returnValue = qxSerializer(object);
-
-          // if we have something returned, return that
-          if (returnValue != undefined)
-          {
-            return returnValue;
-          }
-
-          // continue otherwise
-        }
-
-        result = {};
-
-        var properties =
-          qx.util.PropertyUtil.getAllProperties(object.constructor);
-
-        for (var name in properties)
-        {
-          // ignore property groups
-          if (properties[name].group != undefined)
-          {
-            continue;
-          }
-
-          var value = object["get" + qx.lang.String.firstUp(name)]();
-          result[name] = qx.util.Serializer.toNativeObject(
-            value, qxSerializer, dateFormat
-          );
-        }
-
-        return result;
-      }
-
       // date objects with date format
       if (qx.lang.Type.isDate(object) && dateFormat != null) {
         return dateFormat.format(object);
@@ -244,7 +205,7 @@ qx.Bootstrap.define("qx.util.Serializer",
     /**
      * Serializes the properties of the given qooxdoo object into a json object.
      *
-     * @param object {qx.core.Object} Any qooxdoo object
+     * @param object {Object} Any qooxdoo object
      * @param qxSerializer {Function?} Function used for serializing qooxdoo
      *   objects stored in the propertys of the object. Check for the type of
      *   classes <ou want to serialize and return the serialized value. In all
@@ -294,33 +255,6 @@ qx.Bootstrap.define("qx.util.Serializer",
       // return names for qooxdoo interfaces and mixins
       if (object.$$type == "Interface" || object.$$type == "Mixin") {
         return '"' + object.name + '"';
-      }
-
-
-      // qooxdoo object
-      if (object instanceof qx.core.Object) {
-        if (qxSerializer != null) {
-          var returnValue = qxSerializer(object);
-          // if we have something returned, ruturn that
-          if (returnValue != undefined) {
-            return '"' + returnValue + '"';
-          }
-          // continue otherwise
-        }
-        result += "{";
-        var properties = qx.util.PropertyUtil.getAllProperties(object.constructor);
-        for (var name in properties) {
-          // ignore property groups
-          if (properties[name].group != undefined) {
-            continue;
-          }
-          var value = object["get" + qx.lang.String.firstUp(name)]();
-          result += '"' + name + '":' + qx.util.Serializer.toJson(value, qxSerializer, dateFormat) + ",";
-        }
-        if (result != "{") {
-          result = result.substring(0, result.length - 1);
-        }
-        return result + "}";
       }
 
       // localized strings

@@ -19,11 +19,10 @@
 
 qx.Class.define("qx.test.core.InheritanceDummy",
 {
-  extend : qx.core.Object,
+  extend : Object,
 
   construct : function()
   {
-    this.base(arguments);
     this.children = [];
   },
 

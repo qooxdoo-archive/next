@@ -34,7 +34,7 @@ qx.Mixin.define("qx.data.MBinding",
      *
      * @param sourcePropertyChain {String} The property chain which represents
      *   the source property.
-     * @param targetObject {qx.core.Object} The object which the source should
+     * @param targetObject {Object} The object which the source should
      *   be bind to.
      * @param targetProperty {String} The property name of the target object.
      * @param options {Map} A map containing the options. See
@@ -72,7 +72,7 @@ qx.Mixin.define("qx.data.MBinding",
     /**
      * Removes all bindings between the object and the related one.
      *
-     * @param relatedObject {qx.core.Object} The object of which related
+     * @param relatedObject {Object} The object of which related
      *   bindings should be removed.
      * @throws {Error} If one of the bindings listed internally can not be
      *   removed.

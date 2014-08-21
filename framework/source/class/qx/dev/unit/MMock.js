@@ -61,7 +61,7 @@
  * // Implementation
  * qx&#046;Class.define("qx.Klass",
  * {
- *   extend : qx.core.Object,
+ *   extend : Object,
  *
  *   members :
  *   {

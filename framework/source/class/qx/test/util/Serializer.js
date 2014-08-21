@@ -30,7 +30,7 @@ qx.Class.define("qx.test.util.Serializer",
     this.__s = qx.util.Serializer;
 
     qx.Class.define("qx.test.SerializerModel", {
-      extend : qx.core.Object,
+      extend : Object,
       properties : {
         data1 : {
           nullable: true
@@ -108,7 +108,7 @@ qx.Class.define("qx.test.util.Serializer",
 
     testUrlKeyEncoded : function() {
       qx.Class.define("qx.test.SerializerModelEnc", {
-        extend: qx.core.Object,
+        extend: Object,
         properties : {
           "äüö" : {
             init: "ÄÜÖ"
@@ -181,11 +181,11 @@ qx.Class.define("qx.test.util.Serializer",
 
 
     testUrlQxClass : function() {
-      this.__model.setData1(qx.core.Object);
+      this.__model.setData1(Object);
       this.__model.setData2(qx.data.IListData);
       this.__model.setData3(qx.data.MBinding);
       this.assertEquals(
-        "data1=qx.core.Object&data2=qx.data.IListData&data3=qx.data.MBinding",
+        "data1=Object&data2=qx.data.IListData&data3=qx.data.MBinding",
         this.__s.toUriParameter(this.__model)
       );
     },
@@ -323,11 +323,11 @@ qx.Class.define("qx.test.util.Serializer",
 
 
     testJsonQxClass : function() {
-      this.__model.setData1(qx.core.Object);
+      this.__model.setData1(Object);
       this.__model.setData2(qx.data.IListData);
       this.__model.setData3(qx.data.MBinding);
 
-      this.assertEquals('{"data1":"qx.core.Object","data2":"qx.data.IListData","data3":"qx.data.MBinding"}', this.__s.toJson(this.__model));
+      this.assertEquals('{"data1":"Object","data2":"qx.data.IListData","data3":"qx.data.MBinding"}', this.__s.toJson(this.__model));
     },
 
 
@@ -430,7 +430,7 @@ qx.Class.define("qx.test.util.Serializer",
     testNativeObjectEmpty : function() {
       this.__model.setData1(new qx.data.Array());
       this.__model.setData2([]);
-      this.__model.setData3(new qx.core.Object());
+      this.__model.setData3(new Object());
       this.assertJsonEquals(
         {
           "data1" : [],
@@ -482,12 +482,12 @@ qx.Class.define("qx.test.util.Serializer",
 
 
     testNativeObjectQxClass : function() {
-      this.__model.setData1(qx.core.Object);
+      this.__model.setData1(Object);
       this.__model.setData2(qx.data.IListData);
       this.__model.setData3(qx.data.MBinding);
       this.assertJsonEquals(
         {
-          "data1" : "qx.core.Object",
+          "data1" : "Object",
           "data2" : "qx.data.IListData",
           "data3" : "qx.data.MBinding"
         },

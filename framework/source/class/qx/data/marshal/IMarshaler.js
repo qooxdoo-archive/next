@@ -43,7 +43,7 @@ qx.Interface.define("qx.data.marshal.IMarshaler",
      *
      * @param data {Object} The object for which models should be created.
      *
-     * @return {qx.core.Object} The created model object.
+     * @return {Object} The created model object.
      */
     toModel : function(data) {}
   }
