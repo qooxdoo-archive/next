@@ -290,7 +290,16 @@ qx.Bootstrap.define("qx.Mixin",
      * @internal
      */
     isCompatible : function(mixin, clazz) {
-      var list = qx.util.OOUtil.getMixins(clazz);
+      var list = [];
+
+      while (clazz) {
+        if (clazz.$$includes) {
+          list.push.apply(list, clazz.$$flatIncludes);
+        }
+
+        clazz = clazz.superclass;
+      }
+
       list.push(mixin);
       return qx.Mixin.checkCompatibility(list);
     },

@@ -21,6 +21,7 @@
 /**
  * Utility class with type check for all native JavaScript data types.
  * @ignore(qx.data.*)
+ * @ignore(qx.Interface.*)
  */
 qx.Bootstrap.define("qx.lang.Type",
 {
@@ -77,7 +78,7 @@ qx.Bootstrap.define("qx.lang.Type",
       return (
         value !== null && (
         value instanceof Array ||
-        (value && qx.data && qx.data.IListData && qx.util.OOUtil.hasInterface(value.constructor, qx.data.IListData) ) ||
+        (value && qx.data && qx.data.IListData && qx.Interface.classImplements(value.constructor, qx.data.IListData) ) ||
         qx.Bootstrap.getClass(value) == "Array" ||
         (!!value && !!value.$$isArray))
       );

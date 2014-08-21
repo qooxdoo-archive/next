@@ -25,7 +25,6 @@
  *
  * @ignore(qx.data)
  * @ignore(qx.data.IListData)
- * @ignore(qx.util.OOUtil)
  * @ignore(qx.Interface.*)
  * @ignore(qx.Mixin.*)
  */
