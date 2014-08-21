@@ -51,7 +51,7 @@
     "QOOXDOO_PATH" : "..",
     "API_INCLUDE"    : ["q", "qxWeb", "qx.*"],
     "API_EXCLUDE"  : ["qx.test.*"],
-    "TEST_INCLUDE" : "qx.test.data.singlevalue.*",
+    "TEST_INCLUDE" : "qx.test.*",
     "TEST_PERFORMANCE_INCLUDE" : "qx.test.performance.*",
     "LOCALES"      : [
        "cs",  // Czech

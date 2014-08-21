@@ -168,7 +168,7 @@ qx.Bootstrap.define("qx.util.format.NumberFormat",
         integerStr = "0" + integerStr;
       }
 
-      if (this.maximumIntegerDigit) != null && integerStr.length > this.maximumIntegerDigits)
+      if (this.maximumIntegerDigit != null && integerStr.length > this.maximumIntegerDigits)
       {
         // NOTE: We cut off even though we did rounding before, because there
         //     may be rounding errors ("12.24000000000001" -> "12.24")
