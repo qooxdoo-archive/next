@@ -39,6 +39,7 @@ qx.Bootstrap.define("play.Application",
 
       var editor = ace.edit("editor");
       editor.getSession().setMode("ace/mode/javascript");
+      editor.getSession().setTabSize(2);
 
       // init version label
       var data = {version : q.env.get("qx.version")};

@@ -59,15 +59,10 @@
 qx.Bootstrap.define("qx.dev.FakeServer", {
 
   extend : Object,
+  include : [qx.core.MSingleton],
 
   construct : function() {
-    var clazz = qx.dev.FakeServer;
-
-    if (!clazz.$$allowconstruct) {
-        var msg = clazz+" is a singleton! It is not possible to instantiate it directly." +
-                  "Use the static getInstance() method instead.";
-        throw new Error(msg);
-    }
+    this.initMSingleton();
 
     this.getFakeServer();
     this.__responses = [];
@@ -83,17 +78,7 @@ qx.Bootstrap.define("qx.dev.FakeServer", {
      * @internal
      * @return {Object} The singleton instance
      */
-    getInstance : function()
-    {
-      if (!this.$$instance)
-      {
-        this.$$allowconstruct = true;
-        this.$$instance = new this();
-        delete this.$$allowconstruct;
-      }
-
-      return this.$$instance;
-    }
+    getInstance : qx.core.MSingleton.getInstance
   },
 
   members :

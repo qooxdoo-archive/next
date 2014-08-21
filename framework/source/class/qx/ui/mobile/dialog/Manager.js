@@ -46,6 +46,7 @@
 qx.Bootstrap.define("qx.ui.mobile.dialog.Manager",
 {
   extend : Object,
+  include : [qx.core.MSingleton],
 
 
   /*
@@ -68,19 +69,11 @@ qx.Bootstrap.define("qx.ui.mobile.dialog.Manager",
      * Returns the singleton instance of this class
      * @return {qx.ui.mobile.dialog.Manager} The dialog manager singleton
      */
-    getInstance: function() {
-      var clazz = qx.ui.mobile.dialog.Manager;
-      if (!clazz.__instance) {
-        clazz.__instance = new clazz();
-      }
-      return clazz.__instance;
-    }
+    getInstance: qx.core.MSingleton.getInstance
   },
 
   construct: function() {
-    if (qx.ui.mobile.dialog.Manager.__instance) {
-      throw new Error("'" + this.classname + "' is a singleton class and can not be instantiated directly. Please use '" + this.classname + ".getInstance()' instead.");
-    }
+    this.initMSingleton();
   },
 
   /*

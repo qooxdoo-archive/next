@@ -30,13 +30,11 @@
 qx.Bootstrap.define("qx.locale.Manager",
 {
   extend : Object,
-  include : [qx.event.MEmitter],
+  include : [qx.event.MEmitter, qx.core.MSingleton],
 
   construct : function()
   {
-    if (qx.locale.Manager.__instance) {
-      throw new Error("'" + this.classname + "' is a singleton class and can not be instantiated directly. Please use '" + this.classnme + ".getInstance()' instead.");
-    }
+    this.initMSingleton();
 
     this.__translations = qx.$$translations || {};
     this.__locales      = qx.$$locales || {};
@@ -65,15 +63,9 @@ qx.Bootstrap.define("qx.locale.Manager",
 
     /**
      * Returns the singleton instance of this class
-     * @return {qx.locale.Manager} The Blocker singleton
+     * @return {qx.locale.Manager} The locale manager singleton
      */
-    getInstance: function() {
-      var clazz = qx.locale.Manager;
-      if (!clazz.__instance) {
-        clazz.__instance = new clazz();
-      }
-      return clazz.__instance;
-    },
+    getInstance: qx.core.MSingleton.getInstance,
 
 
     /**

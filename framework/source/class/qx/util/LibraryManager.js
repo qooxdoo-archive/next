@@ -24,6 +24,7 @@
 qx.Bootstrap.define("qx.util.LibraryManager", {
 
   extend : Object,
+  include : [qx.core.MSingleton],
 
   statics :
   {
@@ -37,20 +38,12 @@ qx.Bootstrap.define("qx.util.LibraryManager", {
      * Returns the singleton instance of this class
      * @return {qx.util.LibraryManager} The Blocker singleton
      */
-    getInstance: function() {
-      var clazz = qx.util.LibraryManager;
-      if (!clazz.__instance) {
-        clazz.__instance = new clazz();
-      }
-      return clazz.__instance;
-    }
+    getInstance: qx.core.MSingleton.getInstance
   },
 
 
   construct : function() {
-    if (qx.util.LibraryManager.__instance) {
-      throw new Error("'" + this.classname + "' is a singleton class and can not be instantiated directly. Please use '" + this.classnme + ".getInstance()' instead.");
-    }
+    this.initMSingleton();
   },
 
 

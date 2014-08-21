@@ -25,6 +25,7 @@
 qx.Bootstrap.define("qx.util.ResourceManager",
 {
   extend  : Object,
+  include : [qx.core.MSingleton],
 
   statics : {
     __instance: null,
@@ -39,20 +40,12 @@ qx.Bootstrap.define("qx.util.ResourceManager",
      * Returns the singleton instance of this class
      * @return {qx.util.ResourceManager} The Blocker singleton
      */
-    getInstance: function() {
-      var clazz = qx.util.ResourceManager;
-      if (!clazz.__instance) {
-        clazz.__instance = new clazz();
-      }
-      return clazz.__instance;
-    }
+    getInstance: qx.core.MSingleton.getInstance
   },
 
 
   construct : function() {
-    if (qx.util.ResourceManager.__instance) {
-      throw new Error("'" + this.classname + "' is a singleton class and can not be instantiated directly. Please use '" + this.classnme + ".getInstance()' instead.");
-    }
+    this.initMSingleton();
   },
 
 

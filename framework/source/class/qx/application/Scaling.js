@@ -18,26 +18,19 @@
 qx.Bootstrap.define("qx.application.Scaling", {
   extend : Object,
 
-  include : [qx.event.MEmitter],
+  include : [qx.event.MEmitter, qx.core.MSingleton],
 
   statics : {
     /**
      * Returns the singleton instance of this class
      * @return {qx.application.Scaling} The Scaling singleton
      */
-    getInstance: function() {
-      var clazz = qx.application.Scaling;
-      if (!clazz.__instance) {
-        clazz.__instance = new clazz();
-      }
-      return clazz.__instance;
-    }
+    getInstance: qx.core.MSingleton.getInstance
   },
 
+
   construct : function() {
-    if (this.constructor.__instance) {
-      throw new Error("'" + this.classname + "' is a singleton class and can not be instantiated directly. Please use '" + this.classnme + ".getInstance()' instead.");
-    }
+    this.initMSingleton();
   },
 
 
