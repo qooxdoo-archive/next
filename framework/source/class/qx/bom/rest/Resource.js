@@ -1000,78 +1000,34 @@ qx.Bootstrap.define("qx.bom.rest.Resource",
         }
       }
 
-      this.destruct();
-
       // Additional checks
       if (qx.core.Environment.get("qx.debug"))
       {
-        if (qx.core.Environment.get("qx.debug.dispose.level") > 0)
-        {
-          var key, value;
-          for (key in this)
-          {
-            value = this[key];
+        var action;
 
-            // Check for Objects but respect values attached to the prototype itself
-            if (value !== null && typeof value === "object" && !(qx.lang.Type.isString(value)))
-            {
-              // Check prototype value
-              // undefined is the best, but null may be used as a placeholder for
-              // private variables.
-              if (this.constructor.prototype[key] != null) {
-                continue;
-              }
-
-              var ff2 = navigator.userAgent.indexOf("rv:1.8.1") != -1;
-              var ie6 = navigator.userAgent.indexOf("MSIE 6.0") != -1;
-              // keep the old behavior for IE6 and FF2
-              if (ff2 || ie6) {
-                if (qx.core.Object && value instanceof qx.core.Object || qx.core.Environment.get("qx.debug.dispose.level") > 1) {
-                  qx.Bootstrap.warn(this, "Missing destruct definition for '" + key + "' in " + this.classname + "[" + this.toHashCode() + "]: " + value);
-                  delete this[key];
-                }
-              } else {
-                if (qx.core.Environment.get("qx.debug.dispose.level") > 1) {
-                  qx.Bootstrap.warn(this, "Missing destruct definition for '" + key + "' in " + this.classname + "[" + this.toHashCode() + "]: " + value);
-                  delete this[key];
-                }
-              }
-            }
+        for (action in this.__requests) {
+          if (this.__requests[action]) {
+            this.__requests[action].forEach(function(req) {
+              req.dispose();
+            });
           }
         }
-      }
-    },
 
-    /**
-     * Desctructs the Resource.
-     *
-     * All created requests, routes and pollTimers will be disposed.
-     */
-    destruct: function() {
-      var action;
-
-      for (action in this.__requests) {
-        if (this.__requests[action]) {
-          this.__requests[action].forEach(function(req) {
-            req.dispose();
-          });
+        if (this.__pollTimers) {
+          for (action in this.__pollTimers) {
+            this.stopPollByAction(action);
+          }
         }
-      }
 
-      if (this.__pollTimers) {
-        for (action in this.__pollTimers) {
-          this.stopPollByAction(action);
+        if (this.__longPollHandlers) {
+          for (action in this.__longPollHandlers) {
+            var id = this.__longPollHandlers[action];
+            this.removeListenerById(id);
+          }
         }
-      }
 
-      if (this.__longPollHandlers) {
-        for (action in this.__longPollHandlers) {
-          var id = this.__longPollHandlers[action];
-          this.removeListenerById(id);
-        }
+        this.__requests = this.__routes = this.__pollTimers = null;
       }
-
-      this.__requests = this.__routes = this.__pollTimers = null;
     }
   }
 });

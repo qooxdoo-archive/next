@@ -87,18 +87,6 @@ qx.Class.define("qx.test.data.controller.Tree",
           init: "green",
           nullable: true
         }
-      },
-
-      destruct : function()
-      {
-        if (this.getChildren()) {
-          this.getChildren().setAutoDisposeItems(true);
-          this.getChildren().dispose();
-        }
-        if (this.getAltChildren()) {
-          this.getAltChildren().setAutoDisposeItems(true);
-          this.getAltChildren().dispose();
-        }
       }
     });
   },
