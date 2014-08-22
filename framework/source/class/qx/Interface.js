@@ -163,8 +163,11 @@ qx.Bootstrap.define("qx.Interface",
         }
 
         for (var i=0, l=ifaces.length; i<l; i++) {
-          qx.Interface.__checkMembers(clazz, ifaces[i]);
-          qx.Interface.__checkProperties(clazz, ifaces[i]);
+          if (!qx.Interface.__checkMembers(clazz, ifaces[i]) ||
+              !qx.Interface.__checkProperties(clazz, ifaces[i])) {
+            throw new Error("Class '" + clazz.classname +
+                "' does not implement the interface '" + iface.name + "'.");
+          }
         }
 
       }
@@ -224,13 +227,12 @@ qx.Bootstrap.define("qx.Interface",
         for (var key in members) {
           if (qx.lang.Type.isFunction(members[key])) {
             if (!qx.lang.Type.isFunction(clazz.prototype[key])) {
-              throw new Error("Class '" + clazz.classname +
-                "' does not implement the member '" + key +
-                "' required by the interface '" + iface.name + "'.");
+              return false;
             }
           }
         }
       }
+      return true;
     },
 
 
@@ -256,12 +258,11 @@ qx.Bootstrap.define("qx.Interface",
             }
           }
           if (!found) {
-            throw new Error("Class '" + clazz.classname +
-              "' does not implement the property '" + key +
-              "' required by the interface '" + iface.name + "'.");
+            return false;
           }
         }
       }
+      return true;
     },
 
 
@@ -275,8 +276,11 @@ qx.Bootstrap.define("qx.Interface",
      */
     assert : function(clazz, iface, wrap)
     {
-      this.__checkMembers(clazz, iface, wrap, true);
-      this.__checkProperties(clazz, iface, true);
+      if (!this.__checkMembers(clazz, iface, wrap, true) ||
+          !this.__checkProperties(clazz, iface, true)) {
+        throw new Error("Class '" + clazz.classname +
+          "' does not implement the interface '" + iface.name + "'.");
+      }
 
       // Validate extends, recursive
       var extend = iface.$$extends;
@@ -298,10 +302,8 @@ qx.Bootstrap.define("qx.Interface",
      * @return {Boolean} <code>true</code> if interface is implemented
      */
     classImplements : function(clazz, iface) {
-      try {
-        this.__checkMembers(clazz, iface);
-        this.__checkProperties(clazz, iface);
-      } catch(ex) {
+      if (!this.__checkMembers(clazz, iface) ||
+          !this.__checkProperties(clazz, iface)) {
         return false;
       }
 
