@@ -47,7 +47,7 @@ qx.Bootstrap.define("qx.test.dom.Node",
 
         blockElements.push(blockElement);
 
-        this.info("Testing node " + qx.dom.Node.getName(blockElement));
+        qx.log.Logger.info("Testing node " + qx.dom.Node.getName(blockElement));
         this.assertTrue(qx.dom.Node.isBlockNode(blockElement));
       }
 
@@ -73,7 +73,7 @@ qx.Bootstrap.define("qx.test.dom.Node",
 
         inlineElements.push(inlineElement);
 
-        this.info("Testing node " + qx.dom.Node.getName(inlineElement));
+        qx.log.Logger.info("Testing node " + qx.dom.Node.getName(inlineElement));
         this.assertFalse(qx.dom.Node.isBlockNode(inlineElement));
       }
 

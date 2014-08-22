@@ -48,11 +48,13 @@ qx.Bootstrap.define("qx.test.mobile.layout.VBox",
       this.getRoot().append(composite);
 
       var widget1 = new qx.ui.mobile.core.Widget();
-      composite.append(widget1, {flex:1});
+      widget1.layoutPrefs = {flex:1};
+      composite.append(widget1);
       this.assertTrue(widget1.hasClass("qx-flex1"));
 
       var widget2 = new qx.ui.mobile.core.Widget();
-      composite.append(widget2, {flex:2});
+      widget2.layoutPrefs = {flex:2};
+      composite.append(widget2);
       this.assertTrue(widget2.hasClass("qx-flex2"));
 
       widget1.dispose();
@@ -66,16 +68,18 @@ qx.Bootstrap.define("qx.test.mobile.layout.VBox",
       this.getRoot().append(composite);
 
       var widget1 = new qx.ui.mobile.core.Widget();
-      composite.append(widget1, {flex:1});
-      composite.remove(widget1);
+      widget1.layoutPrefs = {flex:1};
+      composite.append(widget1);
+      widget1.remove();
       this.assertFalse(widget1.hasClass("qx-flex1"));
 
       var widget2 = new qx.ui.mobile.core.Widget();
-      composite.append(widget2, {flex:2});
-      composite.remove(widget2);
+      widget2.layoutPrefs = {flex:2};
+      composite.append(widget2);
+      widget2.remove();
       this.assertFalse(widget2.hasClass("qx-flex2"));
 
-      this.getRoot().remove(composite);
+      composite.remove();
       this.assertTrue(composite.hasClass("qx-vbox"));
 
       widget1.dispose();

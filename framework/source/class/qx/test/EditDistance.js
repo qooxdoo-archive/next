@@ -60,7 +60,7 @@ qx.Bootstrap.define("qx.test.EditDistance",
         throw new Error("Implementation could not transform: " + strA + " to " + strB + "! Result was: " + result);
       }
 
-      // this.debug("Successfully transformed: " + strA + " to " + strB + ".");
+      // qx.log.Logger.debug("Successfully transformed: " + strA + " to " + strB + ".");
     },
 
 

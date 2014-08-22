@@ -173,7 +173,7 @@ qx.Bootstrap.define("qx.test.event.GlobalError",
         this.assertString(ex.getUri());
         this.assertInteger(ex.getLineNumber());
 
-        // this.debug(ex.toString() + " at " + ex.getUri() + ":" + ex.getLineNumber());
+        // qx.log.Logger.debug(ex.toString() + " at " + ex.getUri() + ":" + ex.getLineNumber());
       }, this); }
 
       this.errorHandler.setErrorHandler(handler, this);
@@ -195,7 +195,7 @@ qx.Bootstrap.define("qx.test.event.GlobalError",
         self.resume(function()
         {
           if (qx.core.Environment.get("engine.name") == "webkit") {
-            this.warn("window.onerror is not supported by Webkit");
+            qx.log.Logger.warn("window.onerror is not supported by Webkit");
           } else {
             this.fail("window.onerror should be supported! Note: this test fails in IE if the debugger is active!");
           }
@@ -244,7 +244,7 @@ qx.Bootstrap.define("qx.test.event.GlobalError",
         this.assertEquals(originalUri, ex.getUri());
         this.assertEquals(originalLineNumber, ex.getLineNumber());
 
-        // this.debug(ex.toString() + " at " + ex.getUri() + ":" + ex.getLineNumber());
+        // qx.log.Logger.debug(ex.toString() + " at " + ex.getUri() + ":" + ex.getLineNumber());
       }, this); };
 
       this.errorHandler.setErrorHandler(handler, this);
@@ -266,7 +266,7 @@ qx.Bootstrap.define("qx.test.event.GlobalError",
         self.resume(function()
         {
           if (qx.core.Environment.get("engine.name") == "webkit") {
-            this.warn("window.onerror is not supported by Webkit");
+            qx.log.Logger.warn("window.onerror is not supported by Webkit");
           } else {
             this.fail("window.onerror should be supported! Note: this test fails in IE if the debugger is active!");
           }

@@ -13,7 +13,7 @@ qx.Mixin.define("qx.test.io.MRemoteTest",
 
 
     needsPHPWarning : function() {
-      this.warn("This test can only be run from a web server with PHP support.");
+      qx.log.Logger.warn("This test can only be run from a web server with PHP support.");
     }
   }
 });

@@ -204,7 +204,7 @@ qx.Bootstrap.define("qx.test.io.request.XhrWithRemote",
     //       this.resume(function() {
     //         // In seconds
     //         duration = (new Date() - startedAt) / 1000;
-    //         this.debug("Request #" + count + " completed (" +  duration + ")");
+    //         qx.log.Logger.debug("Request #" + count + " completed (" +  duration + ")");
     //         if (count == upTo) {
     //           return;
     //         }

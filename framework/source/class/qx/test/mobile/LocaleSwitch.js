@@ -61,25 +61,25 @@ qx.Bootstrap.define("qx.test.mobile.LocaleSwitch",
 
     testLabel : function()
     {
-      var manager = qx.locale.Manager.getInstance();
+      var manager = qx.locale.Manager;
 
       var label = new qx.ui.mobile.basic.Label(manager.tr("test one"));
       this.getRoot().append(label);
 
       this.assertEquals("test one", label.value);
-      manager.locale = "de_QX";
+      this.manager.locale = "de_QX";
       this.assertEquals("Eins", label.value);
-      manager.locale = "en_QX";
+      this.manager.locale = "en_QX";
 
       label.value = manager.tr("test Hello %1!", manager.tr("test Jonny"));
       this.assertEquals("test Hello test Jonny!", label.value);
-      manager.locale = "de_QX";
+      this.manager.locale = "de_QX";
       this.assertEquals("Servus Jonathan!", label.value);
 
       // de -> en
       label.value = manager.tr("test two");
       this.assertEquals("Zwei", label.value);
-      manager.locale = "en_QX";
+      this.manager.locale = "en_QX";
       this.assertEquals("test two", label.value);
 
       label.dispose();
@@ -87,7 +87,7 @@ qx.Bootstrap.define("qx.test.mobile.LocaleSwitch",
 
     testList : function()
     {
-      var manager = qx.locale.Manager.getInstance();
+      var manager = qx.locale.Manager;
       var list = new qx.ui.mobile.list.List({
         configureItem : function(item, data, row) {
           item.setTitle(data.title);
@@ -150,10 +150,10 @@ qx.Bootstrap.define("qx.test.mobile.LocaleSwitch",
 
       this.assertEquals("test one", title.value);
       this.assertEquals("test two", renderer._labels[0].value);
-      manager.locale = "de_QX";
+      this.manager.locale = "de_QX";
       this.assertEquals("Eins", title.value);
       this.assertEquals("Zwei", renderer._labels[0].value);
-      manager.locale = "en_QX";
+      this.manager.locale = "en_QX";
 
       title.dispose();
     }

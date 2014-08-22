@@ -75,15 +75,15 @@ qx.Bootstrap.define("qx.test.bom.Basic",
       this.assertFalse(attrib.get(test3, "disabled"));
       this.assertEquals(2, attrib.get(test3, "tabindex"));
 
-      this.info("test4");
+      qx.log.Logger.info("test4");
       this.assertTrue(attrib.get(document.getElementById("test4"), "disabled"));
       this.assertFalse(attrib.get(document.getElementById("test4"), "readonly"));
 
-      this.info("test5");
+      qx.log.Logger.info("test5");
       this.assertTrue(attrib.get(document.getElementById("test5"), "disabled"));
       this.assertTrue(attrib.get(document.getElementById("test5"), "readonly"));
 
-      this.info("test6");
+      qx.log.Logger.info("test6");
       this.assert(qx.lang.String.endsWith(attrib.get(document.getElementById("test6"), "href"), "/foo.html"));
 
       var test6Color = style.get(document.getElementById("test6"), "color");
@@ -100,11 +100,11 @@ qx.Bootstrap.define("qx.test.bom.Basic",
       this.assertEquals("<b>foo</b>-link", attrib.get(document.getElementById("test6"), "html").toLowerCase());
       this.assertEquals(1, opac.get(document.getElementById("test6")));
 
-      this.info("test7");
+      qx.log.Logger.info("test7");
       this.assertEquals("bottom", attrib.get(document.getElementById("test7"), "valign"));
       this.assertEquals(3, attrib.get(document.getElementById("test7").getElementsByTagName("td")[0], "colspan"));
 
-      this.info("test8");
+      qx.log.Logger.info("test8");
       style.set(document.getElementById("test8"), "color", "red");
       style.set(document.getElementById("test8"), "backgroundColor", "black");
 

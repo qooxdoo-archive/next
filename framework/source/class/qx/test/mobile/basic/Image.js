@@ -31,7 +31,7 @@ qx.Bootstrap.define("qx.test.mobile.basic.Image",
     {
       var source = qx.util.ResourceManager.getInstance().toUri("qx/icon/Tango/48/places/folder.png");
       if (qx.io.ImageLoader.isLoaded(source)) {
-        this.debug("testLoadedEvent skipped! Image already loaded.");
+        qx.log.Logger.debug("testLoadedEvent skipped! Image already loaded.");
         return;
       }
       var image = new qx.ui.mobile.basic.Image("qx/icon/Tango/48/places/folder.png");

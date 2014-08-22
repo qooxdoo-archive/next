@@ -167,7 +167,7 @@ qx.Bootstrap.define("qx.test.mobile.container.Composite",
 
       this.assertEquals(composite[0].childNodes[2], widget3[0]);
 
-      composite.remove(widget3);
+      widget3.remove();
 
       widget3.insertAfter(widget1);
 

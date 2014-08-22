@@ -75,11 +75,11 @@ qx.Bootstrap.define("qx.test.mobile.toolbar.Toolbar",
 
       this.__assertChildNodesLength(toolBar, 3);
 
-      toolBar.remove(button2);
+      button2.remove();
       this.__assertChildNodesLength(toolBar, 2);
-      toolBar.remove(button1);
+      button1.remove();
       this.__assertChildNodesLength(toolBar, 1);
-      toolBar.remove(button3);
+      button3.remove();
       this.__assertChildNodesLength(toolBar, 0);
 
       button1.dispose();

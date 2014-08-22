@@ -70,11 +70,11 @@ qx.Bootstrap.define("qx.test.mobile.tabbar.TabBar",
 
       this.__assertChildNodesLength(tabBar, 3);
 
-      tabBar.remove(button2);
+      button2.remove();
       this.__assertChildNodesLength(tabBar, 2);
-      tabBar.remove(button1);
+      button1.remove();
       this.__assertChildNodesLength(tabBar, 1);
-      tabBar.remove(button3);
+      button3.remove();
       this.__assertChildNodesLength(tabBar, 0);
 
       button1.dispose();
@@ -90,21 +90,21 @@ qx.Bootstrap.define("qx.test.mobile.tabbar.TabBar",
 
       var button1 = new qx.ui.mobile.tabbar.TabButton();
       tabBar.append(button1);
-      this.assertEquals(tabBar.selection, button1);
+      this.assertEquals(button1, tabBar.selection);
 
       var button2 = new qx.ui.mobile.tabbar.TabButton();
       tabBar.append(button2);
-      this.assertEquals(tabBar.selection, button1);
+      this.assertEquals(button1, tabBar.selection);
 
       var button3 = new qx.ui.mobile.tabbar.TabButton();
       tabBar.append(button3);
-      this.assertEquals(tabBar.selection, button1);
+      this.assertEquals(button1, tabBar.selection);
 
       tabBar.selection = button2;
-      this.assertEquals(tabBar.selection, button2);
+      this.assertEquals(button2, tabBar.selection);
 
-      tabBar.remove(button2);
-      this.assertEquals(tabBar.selection, null);
+      button2.remove();
+      this.assertEquals(null, tabBar.selection);
 
       this.assertEventFired(tabBar, "changeSelection", function() {
         tabBar.selection = button1;
@@ -146,7 +146,7 @@ qx.Bootstrap.define("qx.test.mobile.tabbar.TabBar",
       this.assertFalse(view1.isVisible());
       this.assertTrue(view3.isVisible());
 
-      tabBar.remove(button3);
+      button3.remove();
       this.assertFalse(view1.isVisible());
       this.assertFalse(view2.isVisible());
       this.assertFalse(view3.isVisible());
