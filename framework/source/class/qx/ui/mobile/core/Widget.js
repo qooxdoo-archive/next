@@ -25,19 +25,11 @@
  * @require(qx.module.event.GestureHandler)
  * @require(qx.module.event.AppearHandler)
  */
-qx.Bootstrap.define("qx.ui.mobile.core.Widget",
-{
+qx.Bootstrap.define("qx.ui.mobile.core.Widget", {
   extend : qxWeb,
 
 
-  /*
-  *****************************************************************************
-     CONSTRUCTOR
-  *****************************************************************************
-  */
-
-  construct : function()
-  {
+  construct : function() {
     this.base(qxWeb, "constructor");
 
     if (this.length === 0) {
@@ -55,16 +47,7 @@ qx.Bootstrap.define("qx.ui.mobile.core.Widget",
   },
 
 
-
-
-  /*
-  *****************************************************************************
-     EVENTS
-  *****************************************************************************
-  */
-
-  events :
-  {
+  events : {
     /**
      * Fired after the widget appears on the screen.
      */
@@ -77,24 +60,14 @@ qx.Bootstrap.define("qx.ui.mobile.core.Widget",
   },
 
 
-
-
-  /*
-  *****************************************************************************
-     PROPERTIES
-  *****************************************************************************
-  */
-
-  properties :
-  {
+  properties : {
     /**
      * The default CSS class used for this widget. The default CSS class
      * should contain the common appearance of the widget.
      * It is applied to the container element of the widget. Use {@link #addCssClass}
      * to enhance the default appearance of the widget.
      */
-    defaultCssClass :
-    {
+    defaultCssClass : {
       check : "String",
       init : null,
       nullable : true,
@@ -105,8 +78,7 @@ qx.Bootstrap.define("qx.ui.mobile.core.Widget",
     /**
      * Whether this widget is enabled or not
      */
-    enabled :
-    {
+    enabled : {
       init: true,
       check : "Boolean",
       nullable: false,
@@ -120,8 +92,7 @@ qx.Bootstrap.define("qx.ui.mobile.core.Widget",
      * to <code>false</code> when the widget is a child of another widget and
      * shouldn't react on events.
      */
-    anonymous :
-    {
+    anonymous : {
       check : "Boolean",
       init : null,
       nullable : true,
@@ -133,8 +104,7 @@ qx.Bootstrap.define("qx.ui.mobile.core.Widget",
      * The ID of the widget. When the ID is set to <code>null</code> an auto
      * id will be generated.
      */
-    id :
-    {
+    id : {
       check : "String",
       nullable : true,
       apply : "_applyId",
@@ -151,8 +121,7 @@ qx.Bootstrap.define("qx.ui.mobile.core.Widget",
      *   <li><b>excluded</b>: Hide the widget. The space will be released.</li>
      * </ul>
      */
-    visibility :
-    {
+    visibility : {
       check : ["visible", "hidden", "excluded"],
       init : "visible",
       apply : "_applyVisibility",
@@ -165,16 +134,14 @@ qx.Bootstrap.define("qx.ui.mobile.core.Widget",
      * a css class <code>active</code> is automatically added to the widget, which
      * can indicate the acitvation status.
      */
-    activatable :
-    {
+    activatable : {
       check : "Boolean",
       init : false,
       apply : "_applyActivatable"
     },
 
 
-    layoutPrefs :
-    {
+    layoutPrefs : {
       check : "Object",
       apply: "_applyLayoutPrefs",
       init : null,
@@ -183,16 +150,7 @@ qx.Bootstrap.define("qx.ui.mobile.core.Widget",
   },
 
 
-
-
-  /*
-  *****************************************************************************
-     STATICS
-  *****************************************************************************
-  */
-
-  statics :
-  {
+  statics : {
     /** @type {String} Prefix for the auto id */
     ID_PREFIX : "qx_id_",
 
@@ -267,8 +225,7 @@ qx.Bootstrap.define("qx.ui.mobile.core.Widget",
      *
      * @internal
      */
-    ATTRIBUTE_MAPPING :
-    {
+    ATTRIBUTE_MAPPING : {
       "selectable" :
       {
         attribute : "data-selectable",
@@ -296,16 +253,7 @@ qx.Bootstrap.define("qx.ui.mobile.core.Widget",
   },
 
 
-
-
-  /*
-  *****************************************************************************
-     MEMBERS
-  *****************************************************************************
-  */
-
-  members :
-  {
+  members : {
     __layoutManager : null,
 
     /*
@@ -397,8 +345,7 @@ qx.Bootstrap.define("qx.ui.mobile.core.Widget",
 
 
     // overridden
-    append : function(child)
-    {
+    append : function(child) {
       this.base(qxWeb, "append", child);
 
       this.updateLayoutProperties(child);
@@ -407,6 +354,8 @@ qx.Bootstrap.define("qx.ui.mobile.core.Widget",
       if (layout) {
         layout.connectToChildWidget(child);
       }
+
+      return this;
     },
 
 
@@ -429,13 +378,33 @@ qx.Bootstrap.define("qx.ui.mobile.core.Widget",
     },
 
 
+    // overridden
+    remove : function() {
+      var parent = this._getParentWidget();
+      if (parent) {
+        parent.disconnectChild(this);
+        var layout = parent.getLayout ? parent.getLayout() : null;
+        if (layout) {
+          layout.disconnectFromChildWidget(this);
+        }
+      }
+      return this.base(qxWeb, "remove");
+    },
+
+
+    /**
+     * Called on a parent widget when a child is removed.
+     * @param child {qx.ui.mobile.core.Widget} Removed child widget
+     */
+    disconnectChild : function(child) {},
+
+
     /**
      * Remove the widget at the specified index.
      *
      * @param index {Integer} Index of the widget to remove.
      */
-    _removeAt : function(index)
-    {
+    _removeAt : function(index) {
       var child = this.getChildren()[index];
       child.remove();
     },
@@ -445,8 +414,7 @@ qx.Bootstrap.define("qx.ui.mobile.core.Widget",
      * Removes all children from the widget.
      * @return {Array} An Array including the removed children.
      */
-    _removeAll : function()
-    {
+    _removeAll : function() {
       var children = this.getChildren();
       children.forEach(function(child) {
         qxWeb(child).remove();
@@ -464,8 +432,7 @@ qx.Bootstrap.define("qx.ui.mobile.core.Widget",
      * @return {Integer} The index position or <code>-1</code> when
      *   the given widget is no child of this layout.
      */
-    _indexOf : function(child)
-    {
+    _indexOf : function(child) {
       return this.getChildren().indexOf(child);
     },
 
@@ -511,8 +478,7 @@ qx.Bootstrap.define("qx.ui.mobile.core.Widget",
      * @param child {Widget} The child widget
      * @param layoutProperties {Map?null} Optional layout data for widget
      */
-    _initializeChildLayout : function(child, layoutProperties)
-    {
+    _initializeChildLayout : function(child, layoutProperties) {
       child.setLayoutProperties(layoutProperties);
       var layout = this._getLayout();
       if (layout) {
@@ -536,8 +502,7 @@ qx.Bootstrap.define("qx.ui.mobile.core.Widget",
      *
      * @param properties {Map} Incoming layout property data
      */
-    _applyLayoutPrefs : function(value, old)
-    {
+    _applyLayoutPrefs : function(value, old) {
       // Check values through parent
       var parent = this._getParentWidget();
       if (parent) {
@@ -554,8 +519,7 @@ qx.Bootstrap.define("qx.ui.mobile.core.Widget",
      *
      * @internal
      */
-    updateLayoutProperties : function(widget)
-    {
+    updateLayoutProperties : function(widget) {
       var layout = this._getLayout();
       if (layout) {
         layout.setLayoutProperties(widget);
@@ -632,8 +596,7 @@ qx.Bootstrap.define("qx.ui.mobile.core.Widget",
      * @param old {var} The old value
      * @param attribute {String} The property name
      */
-    _applyAttribute : function(value, old, attribute)
-    {
+    _applyAttribute : function(value, old, attribute) {
       this._setAttribute(attribute, value);
     },
 
@@ -645,8 +608,7 @@ qx.Bootstrap.define("qx.ui.mobile.core.Widget",
      * @param attribute {String} The attribute name.
      * @param value {var} The attribute value. <code>Null</code> will reset the attribute.
      */
-    _setAttribute : function(attribute, value)
-    {
+    _setAttribute : function(attribute, value) {
       var mapping = qx.ui.mobile.core.Widget.ATTRIBUTE_MAPPING[attribute];
       if (mapping)
       {
@@ -669,8 +631,7 @@ qx.Bootstrap.define("qx.ui.mobile.core.Widget",
     /**
      * Ignore pointer events on this widget
      */
-    _applyAnonymous : function(value, old, style)
-    {
+    _applyAnonymous : function(value, old, style) {
       this.setStyle("pointerEvents", value ? "none" : null);
     },
 
@@ -683,8 +644,7 @@ qx.Bootstrap.define("qx.ui.mobile.core.Widget",
     */
 
     // property apply
-    _applyDefaultCssClass : function(value, old)
-    {
+    _applyDefaultCssClass : function(value, old) {
       if (old) {
         this.removeClass(old);
       }
@@ -717,8 +677,7 @@ qx.Bootstrap.define("qx.ui.mobile.core.Widget",
 
 
     // property apply
-    _applyVisibility : function(value, old)
-    {
+    _applyVisibility : function(value, old) {
       if (value == "excluded") {
         this.addClass("exclude");
       }

@@ -173,14 +173,9 @@ qx.Bootstrap.define("qx.ui.mobile.tabbar.TabBar",
     },
 
 
-    /**
-     * Removes a tab button from the tab bar.
-     *
-     * @param button {qx.ui.mobile.tabbar.TabButton} The button to remove
-     */
-    remove : function(button)
+    // overridden
+    disconnectChild : function(button)
     {
-      button.remove();
       if (this.selection == button) {
         this.selection = null;
       }
