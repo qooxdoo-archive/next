@@ -428,7 +428,6 @@ qx.Bootstrap.define("qx.core.Assert",
      */
     assertException : function(callback, exception, re, msg)
     {
-      var exception = exception || Error;
       var error;
 
       try {
@@ -440,13 +439,15 @@ qx.Bootstrap.define("qx.core.Assert",
         this.__logError = true;
       }
 
-      if (error == null) {
+      if (!error) {
         this.__fail(msg || "", "The function did not raise an exception!");
       }
 
-      error instanceof exception || this.__fail(msg || "",
+      if (exception && !(error instanceof exception)) {
+        this.__fail(msg || "",
         "The raised exception does not have the expected type! ",
         exception , " != ", error);
+      }
 
       if (re) {
         this.assertMatch(error.toString(), re, msg);
