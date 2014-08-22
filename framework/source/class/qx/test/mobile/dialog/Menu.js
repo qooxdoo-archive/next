@@ -44,30 +44,6 @@ qx.Bootstrap.define("qx.test.mobile.dialog.Menu",
     },
 
 
-    testSetListHeight : function()
-    {
-      var model = new qx.data.Array(["item1","item2","item3"]);
-
-      var menu = new qx.ui.mobile.dialog.Menu(model);
-
-      var visibleItems = 2;
-
-      menu.visibleListItems = visibleItems;
-      menu.show();
-
-      var expected = menu.getSelectionList().getListItemHeight() * visibleItems;
-
-      var listHeight = menu._getListScroller().getStyle("height");
-
-      listHeight = Math.floor(parseFloat(listHeight,10) * 100);
-      expected = Math.floor(expected * 100);
-
-      this.assertEquals(expected, listHeight);
-
-      menu.dispose();
-    },
-
-
     testMaxListHeight : function() {
       var stub = this.stub(qx.bom.element.Dimension, "getHeight", function() {
         return 500;
