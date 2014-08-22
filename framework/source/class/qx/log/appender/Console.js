@@ -316,7 +316,7 @@ qx.Bootstrap.define("qx.log.appender.Console",
         return;
       }
 
-      var iden = e.getKeyIdentifier();
+      var iden = e.getKeyIdentifier ? e.getKeyIdentifier() : null;
 
       // Console toggling
       if ((iden == "F7") || (iden == "D" && e.ctrlKey))
