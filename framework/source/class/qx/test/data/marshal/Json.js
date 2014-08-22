@@ -30,6 +30,11 @@ qx.Bootstrap.define("qx.test.data.marshal.Json",
   extend : qx.dev.unit.TestCase,
   include : qx.dev.unit.MMock,
 
+  construct : function() {
+    this.initMMock();
+  },
+
+
   members :
   {
     __marshaler : null,
@@ -546,8 +551,7 @@ qx.Bootstrap.define("qx.test.data.marshal.Json",
     testBubbleEventsWithRemove: function() {
       qx.Bootstrap.define("qx.Test", {
         extend : Object,
-        include : [qx.event.MEmitter],
-        include : qx.data.marshal.MEventBubbling,
+        include : [qx.event.MEmitter, qx.data.marshal.MEventBubbling],
         properties : {
           fonts: {
             "event": "changeFonts",
@@ -854,13 +858,14 @@ qx.Bootstrap.define("qx.test.data.marshal.Json",
 
 
     testBubbleSpliceRemoveAndAdd : function() {
-      var data = [{label: "Desktop"}];
+      var data = [{label: "Desktop"}, {label: "Mobile"}];
 
       var model = qx.data.marshal.Json.createModel(data, true);
       var spy = this.spy();
       model.on("changeBubble", spy);
 
-      model.splice(1, 1, model.getItem(0));
+      var newItem = qx.data.marshal.Json.createModel({label: "Server"}, true);
+      model.splice(1, 1, newItem);
       this.assertCalledOnce(spy);
 
       model.getItem(0).label = "pistole";

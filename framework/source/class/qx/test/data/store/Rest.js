@@ -24,6 +24,11 @@ qx.Bootstrap.define("qx.test.data.store.Rest",
   include : [qx.dev.unit.MMock,
              qx.dev.unit.MRequirements],
 
+
+  construct : function() {
+    this.initMMock();
+  },
+
   members:
   {
     setUp: function() {

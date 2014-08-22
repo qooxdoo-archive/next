@@ -31,8 +31,11 @@
 qx.Bootstrap.define("qx.test.data.store.Json",
 {
   extend : qx.dev.unit.TestCase,
-
   include : qx.dev.unit.MMock,
+
+  construct : function() {
+    this.initMMock();
+  },
 
   members :
   {

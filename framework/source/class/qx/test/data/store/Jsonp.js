@@ -34,6 +34,10 @@ qx.Bootstrap.define("qx.test.data.store.Jsonp",
   include : [qx.dev.unit.MRequirements,
              qx.dev.unit.MMock],
 
+  construct : function() {
+    this.initMMock();
+  },
+
   members :
   {
     __store : null,

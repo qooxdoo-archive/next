@@ -28,6 +28,7 @@ qx.Bootstrap.define("qx.test.data.singlevalue.Deep",
 
   construct : function() {
     this.base(qx.dev.unit.TestCase, "constructor");
+    this.initMMock();
 
     // define a test class
     qx.Bootstrap.define("qx.test.MultiBinding",

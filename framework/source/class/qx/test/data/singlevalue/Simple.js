@@ -226,7 +226,7 @@ qx.Bootstrap.define("qx.test.data.singlevalue.Simple",
    },
 
 
-    testGetAllBindings: function(){
+    testGetAllBindings: function() {
       // add three bindings
       var id1 = qx.data.SingleValueBinding.bind(this.__a, "appearance", this.__b, "appearance");
       var id2 = qx.data.SingleValueBinding.bind(this.__a, "zIndex", this.__b, "zIndex");
@@ -234,24 +234,17 @@ qx.Bootstrap.define("qx.test.data.singlevalue.Simple",
 
       // get all bindings
       var allBindings = qx.data.SingleValueBinding.getAllBindings();
-
-      // check if only the added hashs are in the object
-      var hashArray = [this.__a.toHashCode(), this.__b.toHashCode()];
-      var i = 0;
-      for (var hash in allBindings) {
-        this.assertInArray(hash, hashArray, "This hash should be in!");
-        i++;
-      }
-      this.assertEquals(2, i, "Too much or too less objects in the array!");
+      this.assertNotUndefined(allBindings[this.__a.$$bindingHash]);
+      this.assertNotUndefined(allBindings[this.__b.$$bindingHash]);
 
       // check for the binding ids
-      this.assertEquals(id1, allBindings[this.__a.toHashCode()][0][0], "This id should be in!");
-      this.assertEquals(id2, allBindings[this.__a.toHashCode()][1][0], "This id should be in!");
-      this.assertEquals(id3, allBindings[this.__b.toHashCode()][0][0], "This id should be in!");
+      this.assertEquals(id1, allBindings[this.__a.$$bindingHash][0][0], "This id should be in!");
+      this.assertEquals(id2, allBindings[this.__a.$$bindingHash][1][0], "This id should be in!");
+      this.assertEquals(id3, allBindings[this.__b.$$bindingHash][0][0], "This id should be in!");
 
       // check for the length
-      this.assertEquals(2, allBindings[this.__a.toHashCode()].length, "Not the right amount in the data!");
-      this.assertEquals(1, allBindings[this.__b.toHashCode()].length, "Not the right amount in the data!");
+      this.assertEquals(2, allBindings[this.__a.$$bindingHash].length, "Not the right amount in the data!");
+      this.assertEquals(1, allBindings[this.__b.$$bindingHash].length, "Not the right amount in the data!");
     },
 
 
