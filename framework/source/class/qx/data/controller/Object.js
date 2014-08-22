@@ -50,6 +50,7 @@
 qx.Bootstrap.define("qx.data.controller.Object",
 {
   extend : Object,
+  include : [qx.event.MEmitter],
 
 
   /**
@@ -106,7 +107,7 @@ qx.Bootstrap.define("qx.data.controller.Object",
         var reverseOptions = this.__targets[i][5];
 
         // remove it from the old if possible
-        if (old != undefined && !old.isDisposed()) {
+        if (old != undefined) {
           this.__removeTargetFrom(targetObject, targetProperty, sourceProperty, old);
         }
 
@@ -119,19 +120,19 @@ qx.Bootstrap.define("qx.data.controller.Object",
         } else {
           // in shutdown situations, it may be that something is already
           // disposed [BUG #4343]
-          if (targetObject.isDisposed() || qx.core.ObjectRegistry.inShutDown) {
+          if (qx.core.ObjectRegistry.inShutDown) {
             continue;
           }
           // if the model is null, reset the current target
           if (targetProperty.indexOf("[") == -1) {
-            targetObject["reset" + qx.lang.String.firstUp(targetProperty)]();
+            targetObject[targetProperty] = undefined;
           } else {
             var open = targetProperty.indexOf("[");
             var index = parseInt(
               targetProperty.substring(open + 1, targetProperty.length - 1), 10
             );
             targetProperty = targetProperty.substring(0, open);
-            var targetArray = targetObject["get" + qx.lang.String.firstUp(targetProperty)]();
+            var targetArray = targetObject[targetProperty];
             if (index == "last") {
               index = targetArray.length;
             }
@@ -220,19 +221,22 @@ qx.Bootstrap.define("qx.data.controller.Object",
       }
 
       // create the binding
-      var id = this.model.bind(
-        sourceProperty, targetObject, targetProperty, options
+      var id = qx.data.SingleValueBinding.bind(
+        this.model, sourceProperty, targetObject, targetProperty, options
       );
       // create the reverse binding if necessary
       var idReverse = null
       if (bidirectional) {
-        idReverse = targetObject.bind(
-          targetProperty, this.model, sourceProperty, reverseOptions
+        idReverse = qx.data.SingleValueBinding.bind(
+          targetObject, targetProperty, this.model, sourceProperty, reverseOptions
         );
       }
 
       // save the binding
-      var targetHash = targetObject.toHashCode();
+      var targetHash = targetObject.$$bindingHash;
+      if (!targetHash) {
+        debugger;
+      }
       if (this.__bindings[targetHash] == undefined) {
         this.__bindings[targetHash] = [];
       }
@@ -294,7 +298,7 @@ qx.Bootstrap.define("qx.data.controller.Object",
         return;
       }
 
-      var currentListing = this.__bindings[targetObject.toHashCode()];
+      var currentListing = this.__bindings[targetObject.$$bindingHash];
       // if no binding is stored
       if (currentListing == undefined || currentListing.length == 0) {
         return;
@@ -309,10 +313,10 @@ qx.Bootstrap.define("qx.data.controller.Object",
         ) {
           // remove the binding
           var id = currentListing[i][0];
-          sourceObject.removeBinding(id);
+          qx.data.SingleValueBinding.removeBindingFromObject(sourceObject, id);
           // check for the reverse binding
           if (currentListing[i][1] != null) {
-            targetObject.removeBinding(currentListing[i][1]);
+            qx.data.SingleValueBinding.removeBindingFromObject(targetObject, currentListing[i][1]);
           }
           // delete the entry and return
           currentListing.splice(i, 1);

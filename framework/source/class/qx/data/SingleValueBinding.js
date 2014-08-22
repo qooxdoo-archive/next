@@ -1145,7 +1145,7 @@ qx.Bootstrap.define("qx.data.SingleValueBinding",
       }
 
       // remove the id from the internal reference system
-      var bindings = this.getAllBindingsForObject(sourceObject.$$bindingHash);
+      var bindings = this.getAllBindingsForObject(sourceObject);
       // check if the binding exists
       if (bindings != undefined) {
         for (var i = 0; i < bindings.length; i++) {
@@ -1165,6 +1165,7 @@ qx.Bootstrap.define("qx.data.SingleValueBinding",
           }
         }
       }
+
       throw new Error("Binding could not be found!");
     },
 
