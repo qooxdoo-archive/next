@@ -24,7 +24,7 @@
  * @asset(qx/icon/Tango/22/actions/media-playback-stop.png)
  * @asset(testrunner/view/mobile/*)
  */
-qx.Class.define("testrunner.view.mobile.Mobile", {
+qx.Bootstrap.define("testrunner.view.mobile.Mobile", {
 
   extend : testrunner.view.Abstract,
 
@@ -50,7 +50,7 @@ qx.Class.define("testrunner.view.mobile.Mobile", {
      */
     _onMainButtonTap : function()
     {
-      var suiteState = this.getTestSuiteState();
+      var suiteState = this.testSuiteState;
       if (suiteState == "ready" || suiteState == "finished" || suiteState == "aborted") {
         if (suiteState == "finished" || suiteState == "aborted") {
           this._clearResults();
@@ -60,10 +60,10 @@ qx.Class.define("testrunner.view.mobile.Mobile", {
           finishedAt : null,
           tests : {}
         };
-        this.fireEvent("runTests");
+        this.emit("runTests");
       }
       else if (suiteState == "running") {
-        this.fireEvent("stopTests");
+        this.emit("stopTests");
       }
     },
 
@@ -74,30 +74,30 @@ qx.Class.define("testrunner.view.mobile.Mobile", {
     {
       this.__testRows = {};
       var mainPage = this.__mainPage = new qx.ui.mobile.page.NavigationPage();
-      mainPage.setTitle("qx Test Runner");
+      mainPage.title = "qx Test Runner";
 
       var mainButton = this.__mainButton = new testrunner.view.mobile.MainButton();
-      mainButton.addListener("tap", this._onMainButtonTap, this);
-      mainPage.getRightContainer().add(mainButton);
+      mainButton.on("tap", this._onMainButtonTap, this);
+      mainPage.getRightContainer().append(mainButton);
 
-      mainPage.addListener("initialize", function()
+      mainPage.on("initialize", function()
       {
         this.__testRows = {};
         var list = this.__testListWidget = new qx.ui.mobile.list.List({
           configureItem : this._configureListItem.bind(this)
         });
-        list.addListener("changeSelection", this._onListChangeSelection, this);
-        mainPage.getContent().add(list);
+        list.on("changeSelection", this._onListChangeSelection, this);
+        mainPage.getContent().append(list);
 
         var statusBar = this._getStatusBar();
-        mainPage.add(statusBar);
+        mainPage.append(statusBar);
       }, this);
 
       var detailPage = this.__detailPage = new qx.ui.mobile.page.NavigationPage();
-      detailPage.setShowBackButton(true);
-      detailPage.setBackButtonText("Back");
-      detailPage.setTitle("Result Details");
-      detailPage.addListener("back", function() {
+      detailPage.showBackButton = true;
+      detailPage.backButtonText = "Back";
+      detailPage.title = "Result Details";
+      detailPage.on("back", function() {
         mainPage.show({animation:"slide", reverse:true});
       },this);
 
@@ -121,15 +121,14 @@ qx.Class.define("testrunner.view.mobile.Mobile", {
       if (!data) {
         return;
       }
-      this.__testRows[data.getFullName()] = row;
+      this.__testRows[data.fullName] = row;
       // This doesn't work since property changes on the item don't trigger
       // re-rendering of the list
       //data.bind("state", item, "subtitle");
 
-      var el = item.getContentElement();
-      qx.bom.element.Class.removeClasses(el, ["start", "success", "failure", "skip"]);
-      var testState = data.getState();
-      var hasExceptions = data.getExceptions().length > 0;
+      item.removeClasses(["start", "success", "failure", "skip"]);
+      var testState = data.state;
+      var hasExceptions = data.exceptions.length > 0;
 
       var cssClass, selectable;
       var subtitle = "<strong>" + testState + "</strong>";
@@ -156,23 +155,23 @@ qx.Class.define("testrunner.view.mobile.Mobile", {
       }
 
       if (cssClass) {
-        qx.bom.element.Class.add(el, cssClass);
+        item.addClass(cssClass);
       }
-      item.setSelectable(selectable);
-      item.setShowArrow(selectable);
+      item.selectable = selectable;
+      item.showArrow = selectable;
 
       if (hasExceptions) {
-        subtitle += "<br/>" + this._getExceptionSummary(data.getExceptions());
+        subtitle += "<br/>" + this._getExceptionSummary(data.exceptions);
       }
       item.setSubtitle(subtitle);
 
-      item.setTitle(data.getFullName());
+      item.setTitle(data.fullName);
       var self = this;
-      data.addListener("changeState", function(ev) {
-        var idx = self.__testRows[this.getFullName()];
+      data.on("changeState", function(ev) {
+        var idx = self.__testRows[data.fullName];
         // Force the list to update by re-applying the model
-        self.__testListWidget.getModel().setItem(idx, null);
-        self.__testListWidget.getModel().setItem(idx, data);
+        self.__testListWidget.model.setItem(idx, null);
+        self.__testListWidget.model.setItem(idx, data);
       });
     },
 
@@ -198,9 +197,9 @@ qx.Class.define("testrunner.view.mobile.Mobile", {
     {
       var statusBar = new qx.ui.mobile.container.Composite(new qx.ui.mobile.layout.HBox());
       var statusGroup = new qx.ui.mobile.form.Group([statusBar]);
-      statusGroup.getContentElement().id = "statusgroup";
+      statusGroup.setAttribute("id", "statusgroup");
       this.__statusLabel = new qx.ui.mobile.basic.Label("Loading...");
-      statusBar.add(this.__statusLabel);
+      statusBar.append(this.__statusLabel);
       return statusGroup;
     },
 
@@ -213,13 +212,12 @@ qx.Class.define("testrunner.view.mobile.Mobile", {
     {
       if (!this.__iframe) {
         this.__iframe = qx.bom.Iframe.create({
-          onload: "qx.event.handler.Iframe.onevent(this)",
           id: "autframe"
         });
 
         var iframeWidget = new qx.ui.mobile.core.Widget();
-        iframeWidget.getContentElement().appendChild(this.__iframe);
-        this.__mainPage.getContent().addAfter(iframeWidget, this.__testListWidget);
+        iframeWidget.append(this.__iframe);
+        iframeWidget.insertAfter(this.__testListWidget);
       }
 
       return this.__iframe;
@@ -253,7 +251,7 @@ qx.Class.define("testrunner.view.mobile.Mobile", {
         return;
       }
 
-      this.__statusLabel.getContentElement().innerHTML = value;
+      this.__statusLabel.setHtml(value);
     },
 
     /**
@@ -267,34 +265,34 @@ qx.Class.define("testrunner.view.mobile.Mobile", {
       switch(value)
       {
         case "init":
-          this.setStatus("Waiting for tests");
+          this.status = "Waiting for tests";
           break;
         case "loading" :
-          this.setStatus("Loading tests...");
+          this.status = "Loading tests...";
           break;
         case "ready" :
-          this.setStatus(this.getSelectedTests().length + " tests ready to run.");
+          this.status = this.selectedTests.length + " tests ready to run.";
           break;
         case "error" :
-          this.setStatus("Couldn't load test suite!");
+          this.status = "Couldn't load test suite!";
           break;
         case "running" :
-          this.setStatus("Running tests...");
+          this.status = "Running tests...";
           break;
         case "finished" :
           this.__suiteResults.finishedAt = new Date().getTime();
-          this.setStatus("Test suite finished. " + this._getSummary());
+          this.status = "Test suite finished. " + this._getSummary();
           //re-apply selection so the same suite can be executed again
-          this.setSelectedTests(new qx.data.Array());
-          this.setSelectedTests(this.__testList);
+          this.selectedTests = new qx.data.Array();
+          this.selectedTests = this.__testList;
           break;
         case "aborted" :
-          this.setSelectedTests(new qx.data.Array());
-          this.setSelectedTests(this.__testList);
-          this.setStatus("Test run aborted");
+          this.selectedTests = new qx.data.Array();
+          this.selectedTests = this.__testList;
+          this.status = "Test run aborted";
           break;
       }
-      this.__mainButton.setState(value);
+      this.__mainButton.state = value;
     },
 
     /**
@@ -322,8 +320,8 @@ qx.Class.define("testrunner.view.mobile.Mobile", {
       }
       this.__testList = testrunner.runner.ModelUtil.getItemsByProperty(value, "type", "test");
       this.__testList = new qx.data.Array(this.__testList);
-      this.__testListWidget.setModel(this.__testList.concat());
-      this.setSelectedTests(this.__testList);
+      this.__testListWidget.model = this.__testList.concat();
+      this.selectedTests = this.__testList;
     },
 
 
@@ -338,10 +336,10 @@ qx.Class.define("testrunner.view.mobile.Mobile", {
      */
     _onTestChangeState : function(testResultData)
     {
-      var testName = testResultData.getFullName();
-      var state = testResultData.getState();
+      var testName = testResultData.fullName;
+      var state = testResultData.state;
 
-      var exceptions = testResultData.getExceptions();
+      var exceptions = testResultData.exceptions;
 
       //Update test results map
       if (!this.__suiteResults.tests[testName]) {
@@ -409,28 +407,28 @@ qx.Class.define("testrunner.view.mobile.Mobile", {
     /**
      * Displays the details page for a test result when a list entry is tapped.
      *
-     * @param ev {qx.event.type.Data} The list's changeSelection event
+     * @param index {Number} The index of the tapped item
      */
-    _onListChangeSelection : function(ev)
+    _onListChangeSelection : function(index)
     {
       this.__detailPage.removeAll();
-      var testName = qx.lang.Object.getKeyFromValue(this.__testRows, ev.getData());
+      var testName = qx.lang.Object.getKeyFromValue(this.__testRows, index);
       for (var i=0,l=this.__testList.length; i<l; i++) {
-        if (this.__testList.getItem(i).getFullName() == testName) {
-          var exceptions = this.__testList.getItem(i).getExceptions();
+        if (this.__testList.getItem(i).fullName == testName) {
+          var exceptions = this.__testList.getItem(i).exceptions;
           for (var x=0,y=exceptions.length; x<y; x++) {
             var ex = exceptions[x].exception;
             var msg = ex.toString ? ex.toString() : ex.message;
             var stack = ex.getStackTrace ? ex.getStackTrace() : qx.dev.StackTrace.getStackTraceFromError(ex);
             var msgLabel = new qx.ui.mobile.basic.Label(msg);
-            msgLabel.setWrap(true);
+            msgLabel.wrap = true;
             var stackLabel = new qx.ui.mobile.basic.Label(stack.join("<br/>"));
-            stackLabel.setWrap(true);
+            stackLabel.wrap = true;
             var detailContainer = new qx.ui.mobile.container.Composite(new qx.ui.mobile.layout.VBox());
-            detailContainer.add(msgLabel);
-            detailContainer.add(stackLabel);
+            detailContainer.append(msgLabel);
+            detailContainer.append(stackLabel);
             var detailGroup = new qx.ui.mobile.form.Group([detailContainer]);
-            this.__detailPage.add(detailGroup);
+            this.__detailPage.append(detailGroup);
           }
           if (exceptions.length > 0) {
             this.__detailPage.show();

@@ -20,7 +20,7 @@
 /**
  * Basic TestRunner main application class.
  */
-qx.Class.define("testrunner.ApplicationBasic", {
+qx.Bootstrap.define("testrunner.ApplicationBasic", {
 
   extend : qx.application.Basic,
 
@@ -29,9 +29,7 @@ qx.Class.define("testrunner.ApplicationBasic", {
 
     main : function()
     {
-      if (qx.core.Environment.get("runtime.name") == "rhino") {
-        qx.log.Logger.register(qx.log.appender.RhinoConsole);
-      } else if (qx.core.Environment.get("runtime.name") == "node.js") {
+       if (qx.core.Environment.get("runtime.name") == "node.js") {
         qx.log.Logger.register(qx.log.appender.NodeConsole);
       }
 
@@ -46,8 +44,8 @@ qx.Class.define("testrunner.ApplicationBasic", {
 
       this.runner = new testrunner.runner.TestRunnerBasic();
 
-      this.runner.addListener("changeTestSuiteState", function(ev) {
-        var state = ev.getData();
+      this.runner.on("changeTestSuiteState", function(data) {
+        var state = data.value;
 
         switch(state) {
           // async test suite loading
@@ -58,7 +56,7 @@ qx.Class.define("testrunner.ApplicationBasic", {
       }, this);
 
       // sync test suite loading
-      if (this.runner.getTestSuiteState() === "ready") {
+      if (this.runner.testSuiteState === "ready") {
         this.runner.view.run();
       }
     },
@@ -114,6 +112,6 @@ qx.Class.define("testrunner.ApplicationBasic", {
 
   destruct : function()
   {
-    this._disposeObjects("runner");
+    this.__runner.dispose();
   }
 });

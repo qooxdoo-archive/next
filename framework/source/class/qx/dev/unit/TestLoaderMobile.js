@@ -46,7 +46,7 @@ qx.Bootstrap.define("qx.dev.unit.TestLoaderMobile",
 
       var url = this._getClassNameFromUrl();
       if (url !== "__unknown_class__") {
-        this.testNamespace = this._getClassNameFromUrl();
+        this.setTestNamespace(this._getClassNameFromUrl());
       }
 
       if (window.top.jsUnitTestSuite)

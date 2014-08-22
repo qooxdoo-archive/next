@@ -42,7 +42,7 @@ qx.Bootstrap.define("qx.dev.unit.TestLoaderNative",
       // Dependencies to loggers
       qx.log.appender.Console;
 
-      this.testNamespace = this._getClassNameFromUrl();
+      this.setTestNamespace(this._getClassNameFromUrl());
 
       if (window.top.jsUnitTestSuite)
       {
