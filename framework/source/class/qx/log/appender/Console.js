@@ -32,6 +32,7 @@
  *
  * @require(qx.module.Core)
  * @require(qx.module.event.GestureHandler)
+ * @require(qx.module.event.Keyboard)
  */
 qx.Bootstrap.define("qx.log.appender.Console",
 {
@@ -315,7 +316,7 @@ qx.Bootstrap.define("qx.log.appender.Console",
         return;
       }
 
-      var iden = e.keyIdentifier;
+      var iden = e.getKeyIdentifier();
 
       // Console toggling
       if ((iden == "F7") || (iden == "D" && e.ctrlKey))
