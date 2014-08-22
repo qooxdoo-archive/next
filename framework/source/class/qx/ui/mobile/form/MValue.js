@@ -210,8 +210,7 @@ qx.Mixin.define("qx.ui.mobile.form.MValue",
      *
      * @return {var} The set value
      */
-    getValue: function()
-    {
+    getValue: function() {
       return this._convertValue(this._getValue ? this._getValue() : this.getAttribute("value"));
     },
 

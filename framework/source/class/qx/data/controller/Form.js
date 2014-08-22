@@ -46,6 +46,7 @@
 qx.Bootstrap.define("qx.data.controller.Form",
 {
   extend : Object,
+  include : [qx.event.MEmitter],
 
   /**
    * @param model {Object | null} The model to bind the target to. The
@@ -77,21 +78,20 @@ qx.Bootstrap.define("qx.data.controller.Form",
     model :
     {
       apply: "_applyModel",
-      event: "changeModel",
+      event: true,
       nullable: true,
-      dereference: true
+      init: null
     },
 
 
     /** The target widget which should show the data. */
     target :
     {
-      check: "qx.ui.form.Form",
+      // check: "qx.ui.form.Form", TODO
       apply: "_applyTarget",
-      event: "changeTarget",
+      event: true,
       nullable: true,
-      init: null,
-      dereference: true
+      init: null
     }
   },
 
@@ -315,7 +315,7 @@ qx.Bootstrap.define("qx.data.controller.Form",
         // ignore not working items
         } catch (ex) {
           if (qx.core.Environment.get("qx.debug")) {
-            this.warn("Could not bind property " + name + " of " + this.model);
+            qx.log.Logger.warn("Could not bind property " + name + " of " + this.model);
           }
         }
       }

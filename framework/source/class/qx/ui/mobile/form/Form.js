@@ -366,7 +366,9 @@ qx.Bootstrap.define("qx.ui.mobile.form.Form",
     reset : function() {
       this._resetter.reset();
       this._validationManager.reset();
-      this.__renderer.resetForm();
+      if (this.__renderer) {
+        this.__renderer.resetForm();
+      }
     },
 
 
