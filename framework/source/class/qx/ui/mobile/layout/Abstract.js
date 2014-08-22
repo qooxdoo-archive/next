@@ -155,6 +155,21 @@ qx.Bootstrap.define("qx.ui.mobile.layout.Abstract",
     },
 
 
+    /**
+     * This method is called by the widget to disconnect the widget from
+     * the layout.
+     *
+     * @param widget {qx.ui.mobile.core.Widget} The widget to disconnect from
+     */
+    disconnectFromWidget : function(widget)
+    {
+      if (this._widget) {
+        this._widget.removeClasses(this._getCssClasses());
+        this._widget = null;
+      }
+    },
+
+
 
     /**
      * Connects the layout to a given child widget. Can be overridden in a concrete

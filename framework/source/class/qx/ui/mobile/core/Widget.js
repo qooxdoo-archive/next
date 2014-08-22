@@ -484,8 +484,7 @@ qx.Bootstrap.define("qx.ui.mobile.core.Widget",
      * @param layout {qx.ui.mobile.layout.Abstract} The new layout or
      *     <code>null</code> to reset the layout.
      */
-    _setLayout : function(layout)
-    {
+    _setLayout : function(layout) {
       if (qx.core.Environment.get("qx.debug")) {
         if (layout) {
           qx.core.Assert.assertInstance(layout, qx.ui.mobile.layout.Abstract);
@@ -494,6 +493,11 @@ qx.Bootstrap.define("qx.ui.mobile.core.Widget",
 
       if (layout) {
         layout.connectToWidget(this);
+      } else {
+        var oldLayout = this.getLayout();
+        if (oldLayout) {
+          oldLayout.disconnectFromWidget(this);
+        }
       }
 
       this.__layoutManager = layout;
