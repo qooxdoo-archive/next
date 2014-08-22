@@ -42,6 +42,10 @@ qx.Bootstrap.define("qx.test.bom.request.Jsonp",
              qx.dev.unit.MRequirements,
              qx.dev.unit.MMock],
 
+  construct : function() {
+    this.initMMock();
+  },
+
   members :
   {
     setUp: function() {

@@ -157,7 +157,7 @@ qx.Bootstrap.define("qx.bom.Font",
     /** The font size (Unit: pixel) */
     size :
     {
-      check : "Integer",
+      check : "Number",
       nullable : true,
       apply : "_applySize"
     },

@@ -23,6 +23,10 @@ qx.Bootstrap.define("qx.test.bom.PageVisibility",
   extend : qx.dev.unit.TestCase,
   include : [qx.dev.unit.MMock],
 
+  construct : function() {
+    this.initMMock();
+  },
+
   members :
   {
     setUp : function() {

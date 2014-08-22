@@ -33,6 +33,10 @@ qx.Bootstrap.define("qx.test.bom.request.Xhr",
     DONE: 4
   },
 
+  construct : function() {
+    this.initMMock();
+  },
+
   members :
   {
     /**

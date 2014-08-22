@@ -22,6 +22,10 @@ qx.Bootstrap.define("qx.test.application.Routing",
   extend : qx.dev.unit.TestCase,
   include : qx.dev.unit.MMock,
 
+  construct : function() {
+    this.initMMock();
+  },
+
   members : {
     __r : null,
     __initialState : null,

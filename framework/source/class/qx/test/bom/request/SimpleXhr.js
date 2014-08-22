@@ -23,6 +23,10 @@ qx.Bootstrap.define("qx.test.bom.request.SimpleXhr",
 
   include : [qx.dev.unit.MMock],
 
+  construct : function() {
+    this.initMMock();
+  },
+
   members :
   {
     setUp : function()

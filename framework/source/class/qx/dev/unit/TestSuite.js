@@ -99,6 +99,7 @@ qx.Bootstrap.define("qx.dev.unit.TestSuite",
       {
         if (qx.Bootstrap.isSubClassOf(namespace, qx.dev.unit.TestCase))
         {
+          // TODO: replacement for $$classtype in new Class system
           if (namespace.$$classtype !== "abstract") {
             this.addTestClass(namespace);
           }

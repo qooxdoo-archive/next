@@ -236,13 +236,13 @@ qx.Bootstrap.define("qx.bom.webfonts.Manager", {
 
       if (!this.__validators[familyName]) {
         this.__validators[familyName] = new qx.bom.webfonts.Validator(familyName);
-        this.__validators[familyName].setTimeout(qx.bom.webfonts.Manager.VALIDATION_TIMEOUT);
-        this.__validators[familyName].addListenerOnce("changeStatus", this.__onFontChangeStatus, this);
+        this.__validators[familyName].timeout = qx.bom.webfonts.Manager.VALIDATION_TIMEOUT;
+        this.__validators[familyName].once("changeStatus", this.__onFontChangeStatus, this);
       }
 
       if (callback) {
         var cbContext = context || window;
-        this.__validators[familyName].addListenerOnce("changeStatus", callback, cbContext);
+        this.__validators[familyName].once("changeStatus", callback, cbContext);
       }
 
       this.__validators[familyName].validate();
@@ -254,13 +254,12 @@ qx.Bootstrap.define("qx.bom.webfonts.Manager", {
      *
      * @param ev {qx.event.type.Data} qx.bom.webfonts.Validator#changeStatus
      */
-    __onFontChangeStatus : function(ev)
+    __onFontChangeStatus : function(result)
     {
-      var result = ev.getData();
       if (result.valid === false) {
-        qx.event.Timer.once(function() {
+        window.setTimeout(function() {
           this.remove(result.family);
-        }, this, 250);
+        }.bind(this), 250);
       }
     },
 

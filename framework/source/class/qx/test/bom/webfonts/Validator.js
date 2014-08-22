@@ -41,9 +41,8 @@ qx.Bootstrap.define("qx.test.bom.webfonts.Validator", {
 
     testValidFont : function()
     {
-      this.__val.setFontFamily("monospace, courier");
-      this.__val.addListener("changeStatus", function(ev) {
-        var result = ev.getData();
+      this.__val.fontFamily = "monospace, courier";
+      this.__val.on("changeStatus", function(result) {
         this.resume(function(ev) {
           this.assertTrue(result.valid);
         }, this);
@@ -58,10 +57,9 @@ qx.Bootstrap.define("qx.test.bom.webfonts.Validator", {
 
     testInvalidFont : function()
     {
-      this.__val.setFontFamily("zzzzzzzzzzzzzzz");
-      this.__val.setTimeout(250);
-      this.__val.addListener("changeStatus", function(ev) {
-        var result = ev.getData();
+      this.__val.fontFamily = "zzzzzzzzzzzzzzz";
+      this.__val.timeout = 250;
+      this.__val.on("changeStatus", function(result) {
         this.resume(function(ev) {
           this.assertFalse(result.valid);
         }, this);

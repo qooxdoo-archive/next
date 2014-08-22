@@ -36,7 +36,7 @@ qx.Bootstrap.define("qx.test.bom.request.XhrWithRemote",
 
   construct : function()
   {
-    this.base(arguments);
+    this.initMMock();
   },
 
   members :

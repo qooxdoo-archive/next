@@ -22,6 +22,10 @@ qx.Bootstrap.define("qx.test.bom.element.AnimationHandle",
   extend : qx.dev.unit.TestCase,
   include : [ qx.dev.unit.MMock, qx.dev.unit.MRequirements ],
 
+  construct : function() {
+    this.initMMock();
+  },
+
   members :
   {
     setUp : function() {

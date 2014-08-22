@@ -37,7 +37,7 @@ qx.Bootstrap.define("qx.test.util.PropertyUtil",
 
 
     tearDown : function() {
-      this.base(arguments);
+      this.base(qx.test.ui.LayoutTestCase, "tearDown");
       this.button.destroy();
     },
 

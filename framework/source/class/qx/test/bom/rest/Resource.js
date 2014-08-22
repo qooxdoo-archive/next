@@ -27,6 +27,10 @@ qx.Bootstrap.define("qx.test.bom.rest.Resource",
   include : [qx.dev.unit.MRequirements,
              qx.dev.unit.MMock],
 
+  construct : function() {
+    this.initMMock();
+  },
+
   members:
   {
     setUp: function() {

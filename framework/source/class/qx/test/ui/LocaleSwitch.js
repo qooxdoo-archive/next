@@ -25,7 +25,7 @@ qx.Bootstrap.define("qx.test.ui.LocaleSwitch",
 
   construct : function()
   {
-    this.base(arguments);
+    this.base(qx.test.ui.LayoutTestCase, "constructor");
     var manager = this.manager = qx.locale.Manager.getInstance();
 
     // add dummy translations

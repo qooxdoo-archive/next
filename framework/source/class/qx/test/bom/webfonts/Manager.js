@@ -97,18 +97,16 @@ qx.Bootstrap.define("qx.test.bom.webfonts.Manager", {
     "test: create rule for valid font" : function()
     {
       var font = new qx.bom.webfonts.WebFont();
-      font.set({
-        size: 18,
-        family: ["monospace"],
-        sources: [this.__fontDefinitions.finelinerScript]
-      });
+      font.size = 18;
+      font.family = ["monospace"];
+      font.sources = [this.__fontDefinitions.finelinerScript];
 
-      qx.event.Timer.once(function() {
+      window.setTimeout(function() {
         this.resume(function() {
           var foundRule = this.__findRule(this.__fontDefinitions.finelinerScript.family);
           this.assertTrue(foundRule, "@font-face rule not found in document styles!");
         }, this);
-      }, this, 2000);
+      }.bind(this), 2000);
 
       this.wait(3000);
     },
@@ -117,10 +115,8 @@ qx.Bootstrap.define("qx.test.bom.webfonts.Manager", {
     {
       qx.bom.webfonts.Manager.VALIDATION_TIMEOUT = 100;
       var font = new qx.bom.webfonts.WebFont();
-      font.set({
-        family: ["monospace"],
-        sources: [this.__fontDefinitions.invalid]
-      });
+      font.family = ["monospace"];
+      font.sources = [this.__fontDefinitions.invalid];
 
       var that = this;
       window.setTimeout(function() {

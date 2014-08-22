@@ -19,7 +19,6 @@
 
 qx.Bootstrap.define("qx.test.bom.storage.WebStorageTestCase",
 {
-  type : "abstract",
   extend : qx.dev.unit.TestCase,
 
   members :
@@ -93,5 +92,9 @@ qx.Bootstrap.define("qx.test.bom.storage.WebStorageTestCase",
       }, this);
       this.assertEquals(10, i);
     }
+  },
+
+  defer : function(statics) {
+    qx.test.bom.storage.WebStorageTestCase.$$classtype = "abstract";
   }
 });

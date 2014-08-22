@@ -30,7 +30,7 @@ qx.Bootstrap.define("qx.test.ui.form.FormManager",
   {
     this.initMMock();
 
-    this.base(arguments);
+    this.base(qx.test.ui.LayoutTestCase, "constructor");
 
     // create the test renderer
     qx.Bootstrap.define("qx.test.DummyFormRenderer", {
@@ -41,7 +41,7 @@ qx.Bootstrap.define("qx.test.ui.form.FormManager",
         this.groups = [];
         this.buttons = [];
 
-        this.base(arguments, form);
+        this.base(qx.ui.form.renderer.AbstractRenderer, "constructor", form);
       },
 
       properties : {

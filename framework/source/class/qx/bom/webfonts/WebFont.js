@@ -80,7 +80,7 @@ qx.Bootstrap.define("qx.bom.webfonts.WebFont", {
         qx.bom.webfonts.Manager.getInstance().require(familyName, sourcesList, this._onWebFontChangeStatus, this);
       }
 
-      this.setFamily(families.concat(this.getFamily()));
+      this.family = families.concat(this.family);
     },
 
 

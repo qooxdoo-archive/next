@@ -23,6 +23,10 @@ qx.Bootstrap.define("qx.test.bom.AnimationFrame",
   extend : qx.dev.unit.TestCase,
   include : [qx.dev.unit.MMock],
 
+  construct : function() {
+    this.initMMock();
+  },
+
   members :
   {
     setUp : function()

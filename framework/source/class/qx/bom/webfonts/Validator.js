@@ -109,7 +109,7 @@ qx.Bootstrap.define("qx.bom.webfonts.Validator", {
      */
     timeout :
     {
-      check : "Integer",
+      check : "Number",
       init : 5000
     }
   },
@@ -148,15 +148,13 @@ qx.Bootstrap.define("qx.bom.webfonts.Validator", {
       this.__checkStarted = new Date().getTime();
 
       if (this.__checkTimer) {
-        this.__checkTimer.restart();
+        window.clearInterval(this.__checkTimer);
       }
       else {
-        this.__checkTimer = new qx.event.Timer(100);
-        this.__checkTimer.addListener("interval", this.__onTimerInterval, this);
         // Give the browser a chance to render the new elements
-        qx.event.Timer.once(function() {
-          this.__checkTimer.start();
-        }, this, 0);
+        window.setTimeout(function() {
+          this.__checkTimer = window.setInterval(this.__onTimerInterval.bind(this), 100);
+        }.bind(this), 0);
       }
     },
 
@@ -308,7 +306,7 @@ qx.Bootstrap.define("qx.bom.webfonts.Validator", {
     __onTimerInterval : function()
     {
       if (this._isFontValid()) {
-        this.__checkTimer.stop();
+        window.clearInterval(this.__checkTimer);
         this._reset();
         this.emit("changeStatus", {
           family : this.fontFamily,
@@ -319,7 +317,7 @@ qx.Bootstrap.define("qx.bom.webfonts.Validator", {
       {
         var now = new Date().getTime();
         if (now - this.__checkStarted >= this.timeout) {
-          this.__checkTimer.stop();
+          window.clearInterval(this.__checkTimer);
           this._reset();
           this.emit("changeStatus", {
             family : this.fontFamily,
@@ -332,9 +330,7 @@ qx.Bootstrap.define("qx.bom.webfonts.Validator", {
 
     dispose : function() {
       this._reset();
-      this.__checkTimer.stop();
-      this.__checkTimer.removeListener("interval", this.__onTimerInterval, this);
-      this._disposeObjects("__checkTimer");
+      window.clearInterval(this.__checkTimer);
     }
 
   }

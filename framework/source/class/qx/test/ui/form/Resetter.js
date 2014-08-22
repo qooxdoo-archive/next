@@ -21,7 +21,7 @@ qx.Bootstrap.define("qx.test.ui.form.Resetter",
   extend : qx.test.ui.LayoutTestCase,
 
   construct : function() {
-    this.base(arguments);
+    this.base(qx.test.ui.LayoutTestCase, "constructor");
   },
 
   members :
