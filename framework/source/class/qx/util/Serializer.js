@@ -182,6 +182,16 @@ qx.Bootstrap.define("qx.util.Serializer",
         return object.toString();
       }
 
+      // qooxdoo objects
+      if (object.$$properties) {
+        var result = {};
+        for (var name in object.$$properties) {
+          result[name] = qx.util.Serializer.toNativeObject(
+            object[name], qxSerializer, dateFormat);
+        }
+        return result;
+      }
+
       // JavaScript objects
       if (qx.lang.Type.isObject(object))
       {

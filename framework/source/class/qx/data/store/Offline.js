@@ -26,6 +26,7 @@
 qx.Bootstrap.define("qx.data.store.Offline",
 {
   extend : Object,
+  include : [qx.event.MEmitter],
 
 
   /**
@@ -78,13 +79,12 @@ qx.Bootstrap.define("qx.data.store.Offline",
     _applyModel : function(value, old) {
       // take care of the old stuff.
       if (old) {
-        old.removeListenerById(this.__modelListenerId);
-        old.dispose();
+        old.offById(this.__modelListenerId);
         this.__modelListenerId = null;
       }
 
       if (value) {
-        this.__modelListenerId = value.addListener(
+        this.__modelListenerId = value.on(
           "changeBubble", this.__storeModel, this
         );
         this.__storeModel();

@@ -40,9 +40,6 @@ qx.Bootstrap.define("qx.test.data.store.Offline",
     {
       this.getSandbox().restore();
 
-      if (this.__store) {
-        this.__store.dispose();
-      }
       // erase the data from the storages
       qx.bom.Storage.getLocal().removeItem(this.__testKey);
     },
@@ -69,7 +66,6 @@ qx.Bootstrap.define("qx.test.data.store.Offline",
       // fallback for the storage is local
       store = new qx.data.store.Offline(this.__testKey);
       this.assertEquals(store._storage, qx.bom.Storage.getLocal());
-      store.dispose();
 
       // assert no exception
       this.__initDefaultStore();
@@ -82,21 +78,17 @@ qx.Bootstrap.define("qx.test.data.store.Offline",
       var spy = this.spy(qx.data.marshal, "Json");
       var store = new qx.data.store.Offline(this.__testKey, "local", del);
       this.assertCalledWith(spy, del);
-
-      store.dispose();
     },
 
 
     testCheckEmptyModel : function() {
       this.__initDefaultStore();
-      this.assertNull(this.__store.getModel());
+      this.assertNull(this.__store.model);
 
       var model = this.__createDefaultModel();
-      this.__store.setModel(model);
-      this.__store.setModel(null);
+      this.__store.model = (model);
+      this.__store.model = (null);
       this.assertNull(qx.bom.Storage.getLocal().getItem(this.__testKey));
-
-      model.dispose();
     },
 
 
@@ -104,10 +96,8 @@ qx.Bootstrap.define("qx.test.data.store.Offline",
       this.__initDefaultStore();
 
       var model = this.__createDefaultModel();
-      this.__store.setModel(model);
-      this.assertEquals("a", this.__store.getModel().getA());
-
-      model.dispose();
+      this.__store.model = (model);
+      this.assertEquals("a", this.__store.model.a);
     },
 
 
@@ -115,13 +105,11 @@ qx.Bootstrap.define("qx.test.data.store.Offline",
       this.__initDefaultStore();
 
       var model = this.__createDefaultModel();
-      this.__store.setModel(model);
-      this.assertEquals("a", this.__store.getModel().getA());
+      this.__store.model = (model);
+      this.assertEquals("a", this.__store.model.a);
 
-      model.setA("A");
-      this.assertEquals("A", this.__store.getModel().getA());
-
-      model.dispose();
+      model.a = "A";
+      this.assertEquals("A", this.__store.model.a);
     },
 
 
@@ -129,16 +117,12 @@ qx.Bootstrap.define("qx.test.data.store.Offline",
       this.__initDefaultStore();
 
       var model = this.__createDefaultModel();
-      this.__store.setModel(model);
-      this.assertEquals("a", this.__store.getModel().getA());
-
-      // dipose the store to test the load of the model
-      this.__store.dispose();
-      model.dispose();
+      this.__store.model = (model);
+      this.assertEquals("a", this.__store.model.a);
 
       this.__initDefaultStore();
-      this.assertNotNull(this.__store.getModel());
-      this.assertEquals("a", this.__store.getModel().getA());
+      this.assertNotNull(this.__store.model);
+      this.assertEquals("a", this.__store.model.a);
     },
 
 
@@ -146,9 +130,8 @@ qx.Bootstrap.define("qx.test.data.store.Offline",
       this.stub(qx.bom.Storage.getLocal(), "getItem").returns({b : "b"});
       this.__initDefaultStore();
 
-      this.assertNotUndefined(this.__store.getModel());
-      this.assertFunction(this.__store.getModel().getB);
-      this.assertEquals("b", this.__store.getModel().getB());
+      this.assertNotUndefined(this.__store.model);
+      this.assertEquals("b", this.__store.model.b);
     },
 
 
@@ -156,24 +139,17 @@ qx.Bootstrap.define("qx.test.data.store.Offline",
       this.__initDefaultStore();
 
       var model = this.__createDefaultModel();
-      this.__store.setModel(model);
-      this.assertEquals("a", this.__store.getModel().getA());
-
-      // dipose the store to test the load of the model
-      this.__store.dispose();
-      model.dispose();
+      this.__store.model = (model);
+      this.assertEquals("a", this.__store.model.a);
 
       this.__initDefaultStore();
-      this.assertNotNull(this.__store.getModel());
-      this.__store.getModel().setA("b");
-      this.assertEquals("b", this.__store.getModel().getA(), "1");
-
-      // dipose the store to test the load of the model
-      this.__store.dispose();
+      this.assertNotNull(this.__store.model);
+      this.__store.model.a = "b";
+      this.assertEquals("b", this.__store.model.a, "1");
 
       this.__initDefaultStore();
-      this.assertNotNull(this.__store.getModel());
-      this.assertEquals("b", this.__store.getModel().getA(), "2");
+      this.assertNotNull(this.__store.model);
+      this.assertEquals("b", this.__store.model.a, "2");
     },
 
 
@@ -181,35 +157,27 @@ qx.Bootstrap.define("qx.test.data.store.Offline",
       this.__initDefaultStore();
 
       var model1 = this.__createDefaultModel();
-      this.__store.setModel(model1);
+      this.__store.model = (model1);
 
       var model2 = qx.data.marshal.Json.createModel({x: "x"}, true);
-      this.__store.setModel(model2);
-
-      // get rid of all the created stuff
-      this.__store.dispose();
-      model1.dispose();
-      model2.dispose();
+      this.__store.model = (model2);
 
       this.__initDefaultStore();
-      this.assertNotNull(this.__store.getModel());
-      this.assertFunction(this.__store.getModel().getX);
-      this.assertEquals("x", this.__store.getModel().getX());
+      this.assertNotNull(this.__store.model);
+      this.assertEquals("x", this.__store.model.x);
     },
 
 
     testBigModel : function() {
-      var data = {a: [{b: 1, C: true}, 12.567, "a"]};
+      var data = {a: [{b: 1, c: true}, 12.567, "a"]};
       var model = qx.data.marshal.Json.createModel(data, true);
 
       this.__initDefaultStore();
 
-      this.__store.setModel(model);
-      this.assertEquals(1, this.__store.getModel().getA().getItem(0).getB());
-      this.assertEquals(true, this.__store.getModel().getA().getItem(0).getC());
-      this.assertEquals("a", this.__store.getModel().getA().getItem(2));
-
-      model.dispose();
+      this.__store.model = (model);
+      this.assertEquals(1, this.__store.model.a.getItem(0).b);
+      this.assertEquals(true, this.__store.model.a.getItem(0).c);
+      this.assertEquals("a", this.__store.model.a.getItem(2));
     }
   }
 });
