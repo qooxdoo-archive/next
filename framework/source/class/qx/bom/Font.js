@@ -78,22 +78,22 @@ qx.Bootstrap.define("qx.bom.Font",
         switch(part = parts[i])
         {
           case "bold":
-            font.setBold(true);
+            font.bold = true;
             break;
 
           case "italic":
-            font.setItalic(true);
+            font.italic = true;
             break;
 
           case "underline":
-            font.setDecoration("underline");
+            font.decoration = "underline";
             break;
 
           default:
             var temp = parseInt(part, 10);
 
             if (temp == part || qx.lang.String.contains(part, "px")) {
-              font.setSize(temp);
+              font.size = temp;
             } else {
               name.push(part);
             }
@@ -103,7 +103,7 @@ qx.Bootstrap.define("qx.bom.Font",
       }
 
       if (name.length > 0) {
-        font.setFamily(name);
+        font.family = name;
       }
 
       return font;
@@ -119,7 +119,9 @@ qx.Bootstrap.define("qx.bom.Font",
     fromConfig : function(config)
     {
       var font = new qx.bom.Font;
-      font.set(config);
+      for (var prop in config) {
+        font[prop] = config[prop];
+      }
       return font;
     },
 
@@ -209,7 +211,7 @@ qx.Bootstrap.define("qx.bom.Font",
     /** The text color for this font */
     color :
     {
-      check : "Color",
+      check : "String",
       nullable: true,
       apply: "_applyColor"
     },

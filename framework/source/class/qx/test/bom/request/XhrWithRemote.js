@@ -632,10 +632,10 @@ qx.Bootstrap.define("qx.test.bom.request.XhrWithRemote",
 
       // Network error (async)
       // Is sync in Opera >= 11.5
-      qx.event.Timer.once(function() {
+      window.setTimeout(function() {
         req.open("GET", "http://fail.tld");
         req.send();
-      }, this, 0);
+      }.bind(this), 0);
 
       // May take a while to detect network error
       this.wait(15000);
@@ -762,10 +762,10 @@ qx.Bootstrap.define("qx.test.bom.request.XhrWithRemote",
 
       // Network error
       // Is sync in Opera >= 11.5
-      qx.event.Timer.once(function() {
+      window.setTimeout(function() {
         req.open("GET", "http://fail.tld");
         req.send();
-      }, this, 0);
+      }.bind(this), 0);
 
       // May take a while to detect network error
       this.wait(15000);
@@ -775,7 +775,7 @@ qx.Bootstrap.define("qx.test.bom.request.XhrWithRemote",
     // Call order
     //
 
-    "test: call handler in order when request successful": function() {
+    "test: call handlers in order when request successful": function() {
       var req = this.req;
       var url = this.getUrl("qx/test/xmlhttp/sample.txt");
 
@@ -815,10 +815,10 @@ qx.Bootstrap.define("qx.test.bom.request.XhrWithRemote",
       this.spy(req, "onloadend");
 
       // Is sync in Opera >= 11.5
-      qx.event.Timer.once(function() {
+      window.setTimeout(function() {
         req.open("GET", "http://fail.tld");
         req.send();
-      }, this, 0);
+      }.bind(this), 0);
 
       // May take a while to detect network error
       this.wait(15000);

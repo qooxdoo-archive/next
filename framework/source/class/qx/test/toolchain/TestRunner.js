@@ -25,12 +25,12 @@ qx.Bootstrap.define("qx.test.toolchain.TestRunner",
   {
     testAsynchronous: function() {
 
-      qx.event.Timer.once(
+      window.setTimeout(
         function() {
         this.resume(function() {
           // do nothing
         }, this);
-      }, this, 1000);
+      }.bind(this), 1000);
 
       this.wait();
     }

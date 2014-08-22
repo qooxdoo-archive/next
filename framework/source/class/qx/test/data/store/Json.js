@@ -587,11 +587,11 @@ qx.Bootstrap.define("qx.test.data.store.Json",
         });
       }, this);
 
-      qx.event.Timer.once(function()
+      window.setTimeout(function()
       {
         this.__store.setUrl("/foo");
         server.respond();
-      }, this, 500)
+      }.bind(this), 500)
 
       this.wait(1000);
     }

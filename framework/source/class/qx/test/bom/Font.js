@@ -37,14 +37,9 @@ qx.Bootstrap.define("qx.test.bom.Font",
     },
 
 
-    tearDown : function() {
-      this.__font.dispose();
-    },
-
-
     testBold : function()
     {
-      this.__font.setBold(true);
+      this.__font.bold = true;
 
       var styles = this.__font.getStyles();
       this.assertEquals("bold", styles.fontWeight, "Wrong style value for 'bold' property!");
@@ -53,7 +48,7 @@ qx.Bootstrap.define("qx.test.bom.Font",
 
     testItalic : function()
     {
-      this.__font.setItalic(true);
+      this.__font.italic = true;
 
       var styles = this.__font.getStyles();
       this.assertEquals("italic", styles.fontStyle, "Wrong style value for 'italic' property!");
@@ -62,7 +57,7 @@ qx.Bootstrap.define("qx.test.bom.Font",
 
     testDecorationUnderline : function()
     {
-      this.__font.setDecoration("underline");
+      this.__font.decoration = "underline";
 
       var styles = this.__font.getStyles();
       this.assertEquals("underline", styles.textDecoration, "Wrong style value for 'decoration' property!");
@@ -71,7 +66,7 @@ qx.Bootstrap.define("qx.test.bom.Font",
 
     testDecorationLineThrough : function()
     {
-      this.__font.setDecoration("line-through");
+      this.__font.decoration = "line-through";
 
       var styles = this.__font.getStyles();
       this.assertEquals("line-through", styles.textDecoration, "Wrong style value for 'decoration' property!");
@@ -80,7 +75,7 @@ qx.Bootstrap.define("qx.test.bom.Font",
 
     testDecorationOverline : function()
     {
-      this.__font.setDecoration("overline");
+      this.__font.decoration = "overline";
 
       var styles = this.__font.getStyles();
       this.assertEquals("overline", styles.textDecoration, "Wrong style value for 'decoration' property!");
@@ -89,7 +84,7 @@ qx.Bootstrap.define("qx.test.bom.Font",
 
     testFontFamily : function()
     {
-      this.__font.setFamily( ["Arial"] );
+      this.__font.family = ["Arial"];
 
       var styles = this.__font.getStyles();
       this.assertEquals("Arial", styles.fontFamily, "Wrong style value for 'family' property!");
@@ -98,7 +93,7 @@ qx.Bootstrap.define("qx.test.bom.Font",
 
     testFontFamilyMultipleWords : function()
     {
-      this.__font.setFamily( ['Times New Roman'] );
+      this.__font.family = ['Times New Roman'];
 
       var styles = this.__font.getStyles();
       this.assertEquals('"Times New Roman"', styles.fontFamily, "Wrong style value for 'family' property!");
@@ -107,7 +102,7 @@ qx.Bootstrap.define("qx.test.bom.Font",
 
     testLineHeight : function()
     {
-      this.__font.setLineHeight(1.5);
+      this.__font.lineHeight = 1.5;
 
       var styles = this.__font.getStyles();
       this.assertEquals(1.5, styles.lineHeight, "Wrong style value for 'lineHeight' property!");
@@ -116,7 +111,7 @@ qx.Bootstrap.define("qx.test.bom.Font",
 
     testSize : function()
     {
-      this.__font.setSize(20);
+      this.__font.size = 20;
 
       var styles = this.__font.getStyles();
       this.assertEquals("20px", styles.fontSize, "Wrong style value for 'size' property!");
@@ -125,7 +120,7 @@ qx.Bootstrap.define("qx.test.bom.Font",
 
     testColor : function()
     {
-      this.__font.setColor("red");
+      this.__font.color = "red";
 
       var styles = this.__font.getStyles();
       this.assertEquals("red", styles.color, "Wrong style value for 'color' property!");
@@ -136,38 +131,10 @@ qx.Bootstrap.define("qx.test.bom.Font",
     {
       this.require(["noIe"]);
 
-      this.__font.setTextShadow("red 1px 1px 3px, green -1px -1px 3px, white -1px 1px 3px, white 1px -1px 3px");
+      this.__font.textShadow = "red 1px 1px 3px, green -1px -1px 3px, white -1px 1px 3px, white 1px -1px 3px";
 
       var styles = this.__font.getStyles();
       this.assertEquals("red 1px 1px 3px, green -1px -1px 3px, white -1px 1px 3px, white 1px -1px 3px", styles.textShadow, "Wrong style value for 'textShadow' property!");
-    },
-
-
-    testColorAtWidget : function()
-    {
-      this.__font.setColor("#ff0000");
-
-      var label= new qx.ui.basic.Label("myLabel");
-      label.setFont(this.__font);
-
-      this.getRoot().add(label);
-      this.flush();
-
-      var useRgbValue = true;
-
-      if (qx.core.Environment.get("browser.name") == "ie" &&
-          qx.core.Environment.get("browser.documentmode") < 9) {
-        useRgbValue = false;
-      }
-
-      var checkValue = useRgbValue ? "rgb(26, 26, 26)" : "#1a1a1a";
-      var color = label.getContentElement().getDomElement().style["color"];
-
-      // the current implementation has a higher priority for the color which is
-      // set using the color theme. So this default color should show up and not
-      // the defined color of the font.
-      this.assertEquals(checkValue, color, "Wrong style applied for 'color' property!");
-      label.destroy();
     },
 
 
@@ -194,10 +161,10 @@ qx.Bootstrap.define("qx.test.bom.Font",
 
     testGetSomeStyles : function()
     {
-      this.__font.setBold(true);
-      this.__font.setItalic(true);
-      this.__font.setColor("#3f3f3f");
-      this.__font.setDecoration("underline");
+      this.__font.bold = true;
+      this.__font.italic = true;
+      this.__font.color = "#3f3f3f";
+      this.__font.decoration = "underline";
 
       var styles = this.__font.getStyles();
       var keys = Object.keys(styles);
@@ -245,8 +212,6 @@ qx.Bootstrap.define("qx.test.bom.Font",
       this.assertEquals(expected.textDecoration, found.textDecoration, "Wrong value for 'textDecoration'");
       this.assertEquals(expected.fontFamily, found.fontFamily, "Wrong value for 'fontFamily'");
       this.assertEquals(expected.textColor, found.textColor, "Wrong value for 'textColor'");
-
-      font.dispose();
     },
 
 
@@ -270,8 +235,6 @@ qx.Bootstrap.define("qx.test.bom.Font",
       this.assertEquals(expected.fontSize, found.fontSize, "Wrong value for 'fontSize'");
       this.assertEquals(expected.textDecoration, found.textDecoration, "Wrong value for 'textDecoration'");
       this.assertEquals(expected.fontFamily, found.fontFamily, "Wrong value for 'fontFamily'");
-
-      font.dispose();
     }
   }
 });

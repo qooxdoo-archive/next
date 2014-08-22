@@ -121,13 +121,13 @@ qx.Bootstrap.define("qx.test.bom.History", {
     __checkState : function()
     {
       this.assertEquals("foo", this.__history._readState(), "check3");
-      this.assertEquals("Title Foo", this.__history.getTitle());
+      this.assertEquals("Title Foo", this.__history.title);
     },
 
 
     testNavigateBackAfterSetState : function()
     {
-      this.__history.setState("affe");
+      this.__history.state = "affe";
 
       var self = this;
       window.setTimeout(function() {
@@ -143,7 +143,7 @@ qx.Bootstrap.define("qx.test.bom.History", {
     {
       var self = this;
       this.assertEquals("affe", this.__history._readState(), "check0");
-      this.__history.setState("foo");
+      this.__history.state = "foo";
       window.setTimeout(function() {
         self.resume(function() {
           this.__setState_checkFooAndSetBar();
@@ -157,7 +157,7 @@ qx.Bootstrap.define("qx.test.bom.History", {
     {
       var self = this;
       this.assertEquals("foo", this.__history._readState(), "check1");
-      this.__history.setState("bar");
+      this.__history.state = "bar";
       window.setTimeout(function() {
         self.resume(function() {
           this.__setState_checkBarAndGoBack();
@@ -186,14 +186,14 @@ qx.Bootstrap.define("qx.test.bom.History", {
       // "request" event just will be fired, if a user goes back or farward in
       // the history
       var self = this;
-      this.__history.addListenerOnce("request", function() {
+      this.__history.once("request", function() {
         self.resume(function() {
           // "request" event has been fired
           this.assertTrue(true);
         }, self);
       }, this);
 
-      this.__history.setState("bar");
+      this.__history.state = "bar";
       history.back();
       this.wait();
     },
@@ -201,9 +201,9 @@ qx.Bootstrap.define("qx.test.bom.History", {
 
     testRequestEventAddHistory : function()
     {
-      this.__history.addListenerOnce("request", function(ev) {
+      this.__history.once("request", function(state) {
         this.resume(function() {
-          this.assertEquals("baz", ev.getData());
+          this.assertEquals("baz", state);
         }, this);
       }, this);
 

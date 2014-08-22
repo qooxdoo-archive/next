@@ -888,7 +888,7 @@ qx.Bootstrap.define("qx.test.bom.rest.Resource",
       this.respondSubsequent(null, 0);
       this.respondSubsequent(null, 1);
 
-      res.removeListenerById(handlerId);
+      res.offById(handlerId);
       this.respondSubsequent(null, 2);
 
       this.assertCalledTwice(res.refresh);

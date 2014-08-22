@@ -146,9 +146,9 @@ qx.Bootstrap.define("qx.test.io.request.XhrWithRemote",
       req.send();
 
       // Abort loading. Give remote some time to respond.
-      qx.event.Timer.once(function() {
+      window.setTimeout(function() {
         req.abort();
-      }, this, 500);
+      }.bind(this), 500);
 
       this.wait();
     },

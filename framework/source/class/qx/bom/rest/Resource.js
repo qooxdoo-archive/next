@@ -525,19 +525,19 @@ qx.Bootstrap.define("qx.bom.rest.Resource",
       var reqHandler = this._getRequestHandler();
 
       // Handle successful request
-      req.addListenerOnce(
+      req.once(
         "success",
         reqHandler.onsuccess.callback(req, action),
         reqHandler.onsuccess.context
       );
       // Handle erroneous request
-      req.addListenerOnce(
+      req.once(
         "fail",
         reqHandler.onfail.callback(req, action),
         reqHandler.onfail.context
       );
       // Handle loadend (Note that loadEnd is fired after "success")
-      req.addListenerOnce(
+      req.once(
         "loadEnd",
         reqHandler.onloadend.callback(req, action),
         reqHandler.onloadend.context
@@ -844,7 +844,7 @@ qx.Bootstrap.define("qx.bom.rest.Resource",
       }
 
       var handlerId = this.__longPollHandlers[action] =
-        this.addListener(action + "Success", function longPollHandler() {
+        this.on(action + "Success", function longPollHandler() {
           if (res.isDisposed()) {
             return;
           }
@@ -1020,7 +1020,7 @@ qx.Bootstrap.define("qx.bom.rest.Resource",
         if (this.__longPollHandlers) {
           for (action in this.__longPollHandlers) {
             var id = this.__longPollHandlers[action];
-            this.removeListenerById(id);
+            this.offById(id);
           }
         }
 

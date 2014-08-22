@@ -550,7 +550,7 @@ qx.Bootstrap.define("qx.bom.request.SimpleXhr",
      * @param ctx {var?} The context of the listener.
      * @return {qx.bom.request.Xhr} Self for chaining.
      */
-    addListenerOnce: function(name, listener, ctx) {
+    once: function(name, listener, ctx) {
       this._transport._emitter.once(name, listener, ctx);
       return this;
     },

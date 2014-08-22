@@ -63,8 +63,8 @@ qx.Bootstrap.define("qx.test.bom.WebWorker",
       this._worker = new qx.bom.WebWorker(this._url);
 
       this._send = function(message, fn) {
-        this._worker.addListener("message", function(e) {
-          this.assertType(e.getData(), typeof message);
+        this._worker.on("message", function(data) {
+          this.assertType(data, typeof message);
           fn.call(this, message, e);
         }, this);
         this._worker.postMessage(message);
@@ -83,53 +83,53 @@ qx.Bootstrap.define("qx.test.bom.WebWorker",
     },
 
     testMessageEvent: function() {
-      this._send("message", function(mess, e) {
-        this.assertIdentical(mess, e.getData());
+      this._send("message", function(mess, message) {
+        this.assertIdentical(mess, message);
       });
     },
 
     testErrorEvent: function() {
       var message = "error";
 
-      this._worker.addListener("error", function(e) {
-        this.assertTrue(/error/.test(e.getData()));
+      this._worker.on("error", function(message) {
+        this.assertTrue(/error/.test(message));
       }, this);
       this._worker.postMessage(message);
     },
 
     testPostMessageWithNumber: function() {
-      this._send(1, function(mess, e) {
-        this.assertIdentical(mess, e.getData());
+      this._send(1, function(mess, message) {
+        this.assertIdentical(mess, message);
       });
     },
 
     testPostMessageWithBoolean: function() {
-      this._send(true, function(mess, e) {
-        this.assertIdentical(mess, e.getData());
+      this._send(true, function(mess, message) {
+        this.assertIdentical(mess, message);
       });
     },
 
     testPostMessageWithNull: function() {
-      this._send(null, function(mess, e) {
-        this.assertIdentical(mess, e.getData());
+      this._send(null, function(mess, message) {
+        this.assertIdentical(mess, message);
       });
     },
 
     testPostMessageWithObject: function() {
       //this._send({a:"1", b:2, c:3});
-      this._send({a:"1", b:2, c:true}, function(mess, e) {
-        this.assertIdentical(mess.a, e.getData().a);
-        this.assertIdentical(mess.b, e.getData().b);
-        this.assertIdentical(mess.c, e.getData().c);
+      this._send({a:"1", b:2, c:true}, function(mess, message) {
+        this.assertIdentical(mess.a, message.a);
+        this.assertIdentical(mess.b, message.b);
+        this.assertIdentical(mess.c, message.c);
       });
     },
 
     testPostMessageWithArray: function() {
       //this._send(["1", 2, true]);
-      this._send(["1", 2, true], function(mess, e) {
-        this.assertIdentical(mess[0], e.getData()[0]);
-        this.assertIdentical(mess[1], e.getData()[1]);
-        this.assertIdentical(mess[2], e.getData()[2]);
+      this._send(["1", 2, true], function(mess, message) {
+        this.assertIdentical(mess[0], message[0]);
+        this.assertIdentical(mess[1], message[1]);
+        this.assertIdentical(mess[2], message[2]);
       });
     }
   }
