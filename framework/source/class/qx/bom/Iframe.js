@@ -38,7 +38,6 @@ qx.Bootstrap.define("qx.bom.Iframe",
      */
     DEFAULT_ATTRIBUTES :
     {
-      // onload : "qx.event.handler.Iframe.onevent(this)", TODO
       frameBorder: 0,
       frameSpacing: 0,
       marginWidth: 0,
