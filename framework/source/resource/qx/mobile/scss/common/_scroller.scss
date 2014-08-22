@@ -28,8 +28,8 @@
 .scroll.native {
   @include touch-action(pan);
 
-  overflow-y:scroll;
-  overflow-x:scroll;
+  overflow-y:auto;
+  overflow-x:auto;
 
   -webkit-overflow-scrolling:touch;
   -ms-overflow-style: -ms-autohiding-scrollbar;
