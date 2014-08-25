@@ -1,3 +1,4 @@
+"use strict";
 /* ************************************************************************
 
    qooxdoo - the new era of web development
@@ -234,9 +235,6 @@ qx.Bootstrap.define("qx.data.controller.Object",
 
       // save the binding
       var targetHash = targetObject.$$bindingHash;
-      if (!targetHash) {
-        debugger;
-      }
       if (this.__bindings[targetHash] == undefined) {
         this.__bindings[targetHash] = [];
       }
