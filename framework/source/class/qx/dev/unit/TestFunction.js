@@ -47,7 +47,7 @@ qx.Bootstrap.define("qx.dev.unit.TestFunction",
   construct : function(testCase, methodName, testFunction)
   {
     if (testFunction) {
-      this.setTestFunction(testFunction);
+      this.testFunction = testFunction;
     }
 
     if (testCase) {
