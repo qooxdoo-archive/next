@@ -31,13 +31,13 @@ qx.Bootstrap.define("qx.test.application.Routing",
     __initialState : null,
 
     setUp : function() {
-      this.__initialState = qx.bom.History.getInstance().getState();
+      this.__initialState = qx.bom.History.getInstance().state;
       this.__r = new qx.application.Routing();
     },
 
 
     tearDown : function() {
-      qx.bom.History.getInstance().setState(this.__initialState);
+      qx.bom.History.getInstance().state = this.__initialState;
       this.__r.dispose();
     },
 
@@ -171,7 +171,7 @@ qx.Bootstrap.define("qx.test.application.Routing",
       this.assertNotCalled(handler);
       this.assertCalledOnce(defaultHandler);
 
-      qx.bom.History.getInstance().setState("/a/b/c");
+      qx.bom.History.getInstance().state = "/a/b/c";
       this.assertCalledOnce(handler);
     },
 

@@ -24,6 +24,7 @@
 qx.Bootstrap.define("qx.test.lang.Function",
 {
   extend : qx.dev.unit.TestCase,
+  include : qx.dev.unit.MRequirements,
 
   members :
   {
@@ -102,6 +103,7 @@ qx.Bootstrap.define("qx.test.lang.Function",
 
     testCreateDelayGlobalError : function()
     {
+      this.require(["qx.globalErrorHandling"]);
       var fail = function() {
         throw new Error("fail");
       };
@@ -144,10 +146,8 @@ qx.Bootstrap.define("qx.test.lang.Function",
       var name = new qx.test.Name();
       this.assertEquals("qx.test.Name.constructor()", qx.lang.Function.getName(qx.test.Name));
 
-      name.setProp(1);
-      name.getProp();
-      this.assertEquals("qx.test.Name.prototype.setProp()", qx.lang.Function.getName(name.setProp));
-      this.assertEquals("qx.test.Name.prototype.getProp()", qx.lang.Function.getName(name.getProp));
+      name.prop = 1;
+      name.prop;
 
       this.assertEquals("qx.test.Name.foo()", qx.lang.Function.getName(qx.test.Name.foo));
       this.assertEquals("qx.test.Name.prototype.bar()", qx.lang.Function.getName(name.bar));

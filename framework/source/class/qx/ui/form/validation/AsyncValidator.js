@@ -124,13 +124,13 @@ qx.Bootstrap.define("qx.ui.form.validation.AsyncValidator",
       if (this.__usedForForm) {
         // message processing
         if (message !== undefined) {
-          this.__manager.setInvalidMessage(message);
+          this.__manager.invalidMessage = message;
         }
         this.__manager.setFormValid(valid);
       } else {
         // message processing
         if (message !== undefined) {
-          this.__item.setInvalidMessage(message);
+          this.__item.invalidMessage = message;
         }
         this.__manager.setItemValid(this.__item, valid);
       }

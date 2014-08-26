@@ -99,14 +99,14 @@ qx.Mixin.define("qx.ui.form.MForm",
       "true" : function(e)
       {
         // invalid message
-        var invalidMessage = this.getInvalidMessage();
+        var invalidMessage = this.invalidMessage;
         if (invalidMessage && invalidMessage.translate) {
-          this.setInvalidMessage(invalidMessage.translate());
+          this.invalidMessage = invalidMessage.translate();
         }
         // required invalid message
-        var requiredInvalidMessage = this.getRequiredInvalidMessage();
+        var requiredInvalidMessage = this.requiredInvalidMessage;
         if (requiredInvalidMessage && requiredInvalidMessage.translate) {
-          this.setRequiredInvalidMessage(requiredInvalidMessage.translate());
+          this.requiredInvalidMessage = requiredInvalidMessage.translate();
         }
       },
 

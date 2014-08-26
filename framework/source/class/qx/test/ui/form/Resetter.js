@@ -18,11 +18,7 @@
 ************************************************************************ */
 qx.Bootstrap.define("qx.test.ui.form.Resetter",
 {
-  extend : qx.test.ui.LayoutTestCase,
-
-  construct : function() {
-    this.base(qx.test.ui.LayoutTestCase, "constructor");
-  },
+  extend : qx.test.mobile.MobileTestCase,
 
   members :
   {
@@ -32,14 +28,15 @@ qx.Bootstrap.define("qx.test.ui.form.Resetter",
     __resetter : null,
 
     setUp: function() {
-      this.__username = new qx.ui.form.TextField();
-      this.__password1 = new qx.ui.form.TextField();
-      this.__password2 = new qx.ui.form.TextField();
-      this.__resetter = new qx.ui.form.Resetter();
+      this.base(qx.test.mobile.MobileTestCase, "setUp");
+      this.__username = new qx.ui.mobile.form.TextField();
+      this.__password1 = new qx.ui.mobile.form.TextField();
+      this.__password2 = new qx.ui.mobile.form.TextField();
+      this.__resetter = new qx.ui.mobile.form.Resetter();
     },
 
     tearDown: function() {
-      this.__resetter.dispose();
+      this.base(qx.test.mobile.MobileTestCase, "tearDown");
       this.__username.dispose();
       this.__password1.dispose();
       this.__password2.dispose();
@@ -93,69 +90,63 @@ qx.Bootstrap.define("qx.test.ui.form.Resetter",
 
 
     testResetWithSelectBox : function() {
-      var box = new qx.ui.form.SelectBox();
-      var item1 = new qx.ui.form.ListItem("1");
-      var item2 = new qx.ui.form.ListItem("2");
-
-      box.add(item1);
-      box.add(item2);
-      box.setSelection([item2]);
+      var box = new qx.ui.mobile.form.SelectBox();
+      box.model = new qx.data.Array(["1", "2"]);
+      box.selection = 1;
 
       // check the initial selection
-      this.assertEquals(item2, box.getSelection()[0], "1");
+      this.assertEquals(1, box.selection, "1");
 
       // add the box to the manager
       this.__resetter.add(box);
       // change the selection
-      box.setSelection([item1]);
+      box.selection = 0;
       // check the new selection
-      this.assertEquals(item1, box.getSelection()[0], "");
+      this.assertEquals(0, box.selection, "2");
 
       // reset the manager
       this.__resetter.reset();
 
       // check if the selection has been reseted
-      this.assertEquals(item2, box.getSelection()[0], "3");
-
-      item2.dispose();
-      item1.dispose();
+      this.assertEquals(1, box.selection, "3");
       box.dispose();
     },
 
 
     testDifferentWidgets : function() {
       // set up
-      var slider = new qx.ui.form.Slider();
-      var textarea = new qx.ui.form.TextArea();
-      var radiobutton = new qx.ui.form.RadioButton();
-      var list = new qx.ui.form.List();
-      var l1 = new qx.ui.form.ListItem("1");
-      list.add(l1);
-      var l2 = new qx.ui.form.ListItem("2");
-      list.add(l2);
+      var slider = new qx.ui.mobile.form.Slider();
+      var textarea = new qx.ui.mobile.form.TextArea();
+      var radiobutton = new qx.ui.mobile.form.RadioButton();
+      var list = new qx.ui.mobile.list.List();
+      // var l1 = new qx.ui.form.ListItem("1");
+      // list.add(l1);
+      // var l2 = new qx.ui.form.ListItem("2");
+      // list.add(l2);
       var model = new qx.data.Array("a", "b", "c");
-      var vsb = new qx.ui.form.VirtualSelectBox(model);
+      var vsb = new qx.ui.mobile.form.SelectBox();
+      vsb.model = model;
 
       // set the init values
       slider.setValue(22);
       textarea.setValue("aaa");
       radiobutton.setValue(false);
-      list.setSelection([l2]);
-      vsb.getSelection().setItem(0, "b");
+      //list.setSelection([l2]);
+      vsb.setValue("b");
 
       // add the resetter
       this.__resetter.add(slider);
       this.__resetter.add(textarea);
       this.__resetter.add(radiobutton);
-      this.__resetter.add(list);
+      //this.__resetter.add(list);
       this.__resetter.add(vsb);
 
       // change the values
       slider.setValue(55);
       textarea.setValue("bbb");
       radiobutton.setValue(true);
-      list.setSelection([l1]);
-      vsb.getSelection().setItem(0, "c");
+      //list.setSelection([l1]);
+      vsb.setValue("c");
 
       // reset
       this.__resetter.reset();
@@ -164,15 +155,15 @@ qx.Bootstrap.define("qx.test.ui.form.Resetter",
       this.assertEquals(22, slider.getValue());
       this.assertEquals("aaa", textarea.getValue());
       this.assertEquals(false, radiobutton.getValue());
-      this.assertEquals(l2, list.getSelection()[0]);
-      this.assertEquals("b", vsb.getSelection().getItem(0));
+      //this.assertEquals(l2, list.getSelection()[0]);
+      this.assertEquals("b", model.getItem(vsb.selection));
 
       // tear down
       list.dispose();
       radiobutton.dispose();
       textarea.dispose();
       slider.dispose();
-      vsb.destroy();
+      vsb.dispose();
       model.dispose();
     },
 
@@ -210,33 +201,26 @@ qx.Bootstrap.define("qx.test.ui.form.Resetter",
 
     testRefineSelection : function()
     {
-      var box = new qx.ui.form.SelectBox();
-      var item1 = new qx.ui.form.ListItem("1");
-      var item2 = new qx.ui.form.ListItem("2");
-
-      box.add(item1);
-      box.add(item2);
-      box.setSelection([item2]);
+      var box = new qx.ui.mobile.form.SelectBox();
+      box.model = new qx.data.Array(["1", "2"]);
+      box.selection = 1;
 
       // add the box to the manager
       this.__resetter.add(box);
       // change the selection
-      box.setSelection([item1]);
+      box.selection = 0;
       // check the new selection
-      this.assertEquals(item1, box.getSelection()[0]);
+      this.assertEquals(0, box.selection);
 
       // redefine the manager
       this.__resetter.redefine();
       // change the selection
-      box.setSelection([item2]);
+      box.selection = 1;
       // reset the manager
       this.__resetter.reset();
 
       // check if the selection has been reseted
-      this.assertEquals(item1, box.getSelection()[0]);
-
-      item2.dispose();
-      item1.dispose();
+      this.assertEquals(0, box.selection);
       box.dispose();
     },
 

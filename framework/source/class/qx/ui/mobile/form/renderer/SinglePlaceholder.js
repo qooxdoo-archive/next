@@ -71,7 +71,7 @@ qx.Bootstrap.define("qx.ui.mobile.form.renderer.SinglePlaceholder",
           }
         }
 
-        if (!item.isValid()) {
+        if (!item.valid) {
           this.showErrorForItem(item);
         }
       }

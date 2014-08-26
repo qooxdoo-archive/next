@@ -84,7 +84,7 @@ qx.Bootstrap.define("qx.test.dom.Hierarchy",
       qx.bom.Iframe.setSource(this.__iframe, src);
       document.body.appendChild(this.__iframe);
 
-      qx.event.Registration.addListener(this.__iframe, "load", function(e) {
+      qxWeb(this.__iframe).once("load", function(e) {
         this.resume(function() {
           this.assertTrue(qx.dom.Hierarchy.isRendered(this.__iframe));
         }, this);

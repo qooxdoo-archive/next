@@ -22,6 +22,11 @@ qx.Bootstrap.define("qx.test.event.Emitter",
   extend : qx.dev.unit.TestCase,
   include : qx.dev.unit.MMock,
 
+  construct : function() {
+    this.base(qx.dev.unit.TestCase, "constructor");
+    this.initMMock();
+  },
+
   members : {
     __ee : null,
 

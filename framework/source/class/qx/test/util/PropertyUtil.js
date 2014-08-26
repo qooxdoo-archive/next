@@ -23,7 +23,7 @@
 
 qx.Bootstrap.define("qx.test.util.PropertyUtil",
 {
-  extend : qx.test.ui.LayoutTestCase,
+  extend : qx.test.mobile.MobileTestCase,
 
 
   members :
@@ -37,7 +37,7 @@ qx.Bootstrap.define("qx.test.util.PropertyUtil",
 
 
     tearDown : function() {
-      this.base(qx.test.ui.LayoutTestCase, "tearDown");
+      this.base(qx.test.mobile.MobileTestCase, "tearDown");
       this.button.destroy();
     },
 

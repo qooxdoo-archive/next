@@ -24,7 +24,7 @@ qx.Bootstrap.define("qx.test.locale.Date",
   members :
   {
     setUp : function() {
-      qx.locale.Manager.getInstance().setLocale("C");
+      qx.locale.Manager.getInstance().locale = "C";
     },
 
 
@@ -40,13 +40,13 @@ qx.Bootstrap.define("qx.test.locale.Date",
       }
 
       var narrowDays = ["S","M","T","W","T","F","S"];
-      this.assertJsonEquals(narrowDays, Date.getDayNames("narrow", useLocale, "stand-alone").map(function(v) {return v+""}));
+      this.assertJsonEquals(narrowDays, Date.getDayNames("narrow", useLocale, "stand-alone").map(function(v) {return v+"";}));
       for (var i=0; i<7; i++) {
         this.assertEquals(narrowDays[i], Date.getDayName("narrow", i, useLocale, "stand-alone"));
       }
 
       var wideDays = ["Sunday","Monday","Tuesday","Wednesday","Thursday","Friday","Saturday"];
-      this.assertJsonEquals(wideDays, Date.getDayNames("wide").map(function(v) {return v+""}));
+      this.assertJsonEquals(wideDays, Date.getDayNames("wide").map(function(v) {return v+"";}));
 
       for (var i=0; i<7; i++) {
         this.assertEquals(wideDays[i], Date.getDayName("wide", i));
@@ -55,22 +55,22 @@ qx.Bootstrap.define("qx.test.locale.Date",
       // german
       useLocale = "de_DE";
 
-      qx.locale.Manager.getInstance().setLocale(useLocale);
+      qx.locale.Manager.getInstance().locale = useLocale;
 
-      var abbrDays = ["So.","Mo.","Di.","Mi.","Do.","Fr.","Sa."];
+      abbrDays = ["So.","Mo.","Di.","Mi.","Do.","Fr.","Sa."];
       this.assertJsonEquals(abbrDays, Date.getDayNames("abbreviated").map(function(v) {return v+"";}));
       for (var i=0; i<7; i++) {
         this.assertEquals(abbrDays[i], Date.getDayName("abbreviated", i));
       }
 
-      var narrowDays = ["S","M","D","M","D","F","S"];
-      this.assertJsonEquals(narrowDays, Date.getDayNames("narrow", useLocale, "stand-alone").map(function(v) {return v+""}));
+      narrowDays = ["S","M","D","M","D","F","S"];
+      this.assertJsonEquals(narrowDays, Date.getDayNames("narrow", useLocale, "stand-alone").map(function(v) {return v+"";}));
       for (var i=0; i<7; i++) {
         this.assertEquals(narrowDays[i], Date.getDayName("narrow", i, useLocale, "stand-alone"));
       }
 
-      var wideDays = ["Sonntag","Montag","Dienstag","Mittwoch","Donnerstag","Freitag","Samstag"];
-      this.assertJsonEquals(wideDays, Date.getDayNames("wide").map(function(v) {return v+""}));
+      wideDays = ["Sonntag","Montag","Dienstag","Mittwoch","Donnerstag","Freitag","Samstag"];
+      this.assertJsonEquals(wideDays, Date.getDayNames("wide").map(function(v) {return v+"";}));
 
       for (var i=0; i<7; i++) {
         this.assertEquals(wideDays[i], Date.getDayName("wide", i));
@@ -99,8 +99,6 @@ qx.Bootstrap.define("qx.test.locale.Date",
 
       this.assertEquals("AM", Date.getAmMarker("C"));
       this.assertEquals("PM", Date.getPmMarker("C"));
-
-
     }
 
   }

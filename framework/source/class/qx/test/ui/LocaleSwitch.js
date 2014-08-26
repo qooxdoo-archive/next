@@ -19,13 +19,13 @@
 
 qx.Bootstrap.define("qx.test.ui.LocaleSwitch",
 {
-  extend : qx.test.ui.LayoutTestCase,
+  extend : qx.test.mobile.MobileTestCase,
   include : qx.locale.MTranslation,
 
 
   construct : function()
   {
-    this.base(qx.test.ui.LayoutTestCase, "constructor");
+    this.base(qx.test.mobile.MobileTestCase, "constructor");
     var manager = this.manager = qx.locale.Manager.getInstance();
 
     // add dummy translations
@@ -54,22 +54,7 @@ qx.Bootstrap.define("qx.test.ui.LocaleSwitch",
   members :
   {
     setUp : function() {
-      this.manager.setLocale("en_QX");
-    },
-
-
-    testCommandInMenuButton : function()
-    {
-      var command = new qx.ui.command.Command("Shift-A");
-      var menuButton = new qx.ui.menu.Button("Juhu", null, command);
-      this.assertEquals("Shift+A", command.toString());
-      this.assertEquals("Shift+A", menuButton.getChildControl("shortcut").getValue());
-
-      this.manager.setLocale("de_QX");
-      this.assertEquals("Umschalt+A", command.toString());
-      this.assertEquals("Umschalt+A", menuButton.getChildControl("shortcut").getValue());
-      menuButton.dispose();
-      command.dispose();
+      this.manager.locale = "en_QX";
     },
 
 
@@ -77,8 +62,8 @@ qx.Bootstrap.define("qx.test.ui.LocaleSwitch",
     {
       var manager = qx.locale.Manager.getInstance();
 
-      var label = new qx.ui.basic.Label(this.tr("test one"));
-      this.getRoot().add(label);
+      var label = new qx.ui.mobile.basic.Label(this.tr("test one"));
+      this.getRoot().append(label);
 
       this.assertEquals("test one", label.getValue());
       manager.setLocale("de_QX");

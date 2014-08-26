@@ -17,14 +17,9 @@
 
 ************************************************************************ */
 
-/**
- * @require(qx.io.remote.Request)
- * @require(qx.ui.core.scroll.MScrollBarFactory)
- */
-
 qx.Bootstrap.define("qx.test.core.Environment",
 {
-  extend : qx.test.ui.LayoutTestCase,
+  extend : qx.dev.unit.TestCase,
 
   members :
   {
@@ -410,14 +405,10 @@ qx.Bootstrap.define("qx.test.core.Environment",
       this.assertBoolean(qx.core.Environment.get("qx.allowUrlSettings"), "1");
       this.assertBoolean(qx.core.Environment.get("qx.allowUrlVariants"), "2");
       this.assertString(qx.core.Environment.get("qx.application"), "3");
-      this.assertNumber(qx.core.Environment.get("qx.debug.dispose.level"), "5");
       this.assertBoolean(qx.core.Environment.get("qx.globalErrorHandling"), "6");
-      this.assertBoolean(qx.core.Environment.get("qx.debug.io.remote"), "7");
-      this.assertBoolean(qx.core.Environment.get("qx.debug.io.remote.data"), "8");
       this.assertBoolean(qx.core.Environment.get("qx.nativeScrollBars"), "9");
       this.assertNumber(qx.core.Environment.get("qx.debug.property.level"), "10");
       this.assertBoolean(qx.core.Environment.get("qx.debug"), "11");
-      this.assertBoolean(qx.core.Environment.get("qx.aspects"), "12");
       this.assertBoolean(qx.core.Environment.get("qx.dynlocale"), "13");
       this.assertBoolean(qx.core.Environment.get("qx.mobile.nativescroll"), "15");
       this.assertBoolean(qx.core.Environment.get("qx.dynlocale"), "17");

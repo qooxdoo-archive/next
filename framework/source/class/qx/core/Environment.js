@@ -481,21 +481,7 @@
  *       <td><i>default:</i> <code>false</code></td>
  *     </tr>
  *     <tr>
- *       <td>qx.debug.dispose.level</td><td><i>Integer</i></td><td><code>0</code></td>
- *       <td><i>default:</i> <code>0</code></td>
- *     </tr>
- *     <tr>
  *       <td>qx.debug.io</td><td><i>Boolean</i></td><td><code>true</code></td>
- *       <td><i>default:</i> <code>false</code></td>
- *     </tr>
- *     <tr>
- *     <tr>
- *       <td>qx.debug.io.remote</td><td><i>Boolean</i></td><td><code>true</code></td>
- *       <td><i>default:</i> <code>false</code></td>
- *     </tr>
- *     <tr>
- *     <tr>
- *       <td>qx.debug.io.remote.data</td><td><i>Boolean</i></td><td><code>true</code></td>
  *       <td><i>default:</i> <code>false</code></td>
  *     </tr>
  *     <tr>

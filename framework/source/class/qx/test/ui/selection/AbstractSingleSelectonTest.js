@@ -19,8 +19,7 @@
 
 qx.Bootstrap.define("qx.test.ui.selection.AbstractSingleSelectonTest",
 {
-  extend : qx.test.ui.LayoutTestCase,
-  type : "abstract",
+  extend : qx.test.dev.unit.TestCase,
 
   members :
   {

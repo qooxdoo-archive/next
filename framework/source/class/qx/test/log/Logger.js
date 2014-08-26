@@ -91,10 +91,10 @@ qx.Bootstrap.define("qx.test.log.Logger",
       qx.log.Logger.register(appender);
 
       qx.log.Logger.debug(Object, "m1");
-      qx.log.Logger.debug(qxWeb(), "m3");
+      qx.log.Logger.debug(qxWeb(), "m2");
 
       var events = appender.getAllLogEvents();
-      this.assertEquals(qxWeb, events[2].clazz);
+      this.assertEquals(qxWeb, events[1].clazz);
 
       qx.log.Logger.unregister(appender);
     },

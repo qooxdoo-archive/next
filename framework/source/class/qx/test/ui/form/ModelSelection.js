@@ -18,7 +18,7 @@
 ************************************************************************ */
 qx.Bootstrap.define("qx.test.ui.form.ModelSelection",
 {
-  extend : qx.test.ui.LayoutTestCase,
+  extend : qx.test.dev.unit.TestCase,
 
   members :
   {

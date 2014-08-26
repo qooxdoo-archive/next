@@ -23,25 +23,25 @@
 
 qx.Bootstrap.define("qx.test.ui.form.FormManager",
 {
-  extend : qx.test.ui.LayoutTestCase,
+  extend : qx.test.mobile.MobileTestCase,
   include : qx.dev.unit.MMock,
 
   construct : function()
   {
     this.initMMock();
 
-    this.base(qx.test.ui.LayoutTestCase, "constructor");
+    this.base(qx.test.mobile.MobileTestCase, "constructor");
 
     // create the test renderer
     qx.Bootstrap.define("qx.test.DummyFormRenderer", {
-      extend : qx.ui.form.renderer.AbstractRenderer,
+      extend : qx.ui.mobile.form.renderer.AbstractRenderer,
       implement : qx.ui.form.renderer.IFormRenderer,
 
       construct : function(form) {
         this.groups = [];
         this.buttons = [];
 
-        this.base(qx.ui.form.renderer.AbstractRenderer, "constructor", form);
+        this.base(qx.ui.mobile.form.renderer.AbstractRenderer, "constructor", form);
       },
 
       properties : {
@@ -62,7 +62,9 @@ qx.Bootstrap.define("qx.test.ui.form.FormManager",
 
         addButton : function(button, options) {
           this.buttons.push({button: button, options: options});
-        }
+        },
+
+        resetForm : function() {}
       }
     });
   },
@@ -75,16 +77,17 @@ qx.Bootstrap.define("qx.test.ui.form.FormManager",
 
 
     setUp : function() {
-      this.__form = new qx.ui.form.Form();
-      this.__tf1 = new qx.ui.form.TextField();
-      this.__tf2 = new qx.ui.form.TextField();
+      this.base(qx.test.mobile.MobileTestCase, "setUp");
+      this.__form = new qx.ui.mobile.form.Form();
+      this.__tf1 = new qx.ui.mobile.form.TextField();
+      this.__tf2 = new qx.ui.mobile.form.TextField();
     },
 
 
     tearDown : function() {
+      this.base(qx.test.mobile.MobileTestCase, "tearDown");
       this.__tf2.dispose();
       this.__tf1.dispose();
-      this.__form.dispose();
     },
 
 
@@ -148,7 +151,7 @@ qx.Bootstrap.define("qx.test.ui.form.FormManager",
 
     testAddTwoWithValidator : function() {
       // add the widgets
-      this.__tf1.setRequired(true);
+      this.__tf1.required = true;
       this.__form.add(this.__tf1, "TF1");
       this.__form.add(this.__tf2, "TF2", qx.util.Validate.email());
 
@@ -255,8 +258,8 @@ qx.Bootstrap.define("qx.test.ui.form.FormManager",
 
 
     testAddTwoButtons : function() {
-      var b1 = new qx.ui.form.Button();
-      var b2 = new qx.ui.form.RepeatButton();
+      var b1 = new qx.ui.mobile.form.Button();
+      var b2 = new qx.ui.mobile.form.ToggleButton();
 
       this.__form.addButton(b1);
       this.__form.addButton(b2);
@@ -275,8 +278,8 @@ qx.Bootstrap.define("qx.test.ui.form.FormManager",
 
 
     testRemoveButton : function() {
-      var b1 = new qx.ui.form.Button();
-      var b2 = new qx.ui.form.RepeatButton();
+      var b1 = new qx.ui.mobile.form.Button();
+      var b2 = new qx.ui.mobile.form.ToggleButton();
 
       this.__form.addButton(b1);
       this.__form.addButton(b2);
@@ -306,8 +309,8 @@ qx.Bootstrap.define("qx.test.ui.form.FormManager",
 
 
     testAddTwoWithButtons : function() {
-      var b1 = new qx.ui.form.Button();
-      var b2 = new qx.ui.form.RepeatButton();
+      var b1 = new qx.ui.mobile.form.Button();
+      var b2 = new qx.ui.mobile.form.ToggleButton();
 
       // add the widgets
       this.__form.add(this.__tf1, "TF1");
@@ -352,8 +355,8 @@ qx.Bootstrap.define("qx.test.ui.form.FormManager",
 
 
     testAddTwoWithButtonsOptions : function() {
-      var b1 = new qx.ui.form.Button();
-      var b2 = new qx.ui.form.RepeatButton();
+      var b1 = new qx.ui.mobile.form.Button();
+      var b2 = new qx.ui.mobile.form.ToggleButton();
 
       // add the widgets
       this.__form.add(this.__tf1, "TF1");
@@ -413,21 +416,16 @@ qx.Bootstrap.define("qx.test.ui.form.FormManager",
 
     testAll : function() {
       var widgets = [];
-      widgets.push(new qx.ui.control.DateChooser());
-      widgets.push(new qx.ui.form.CheckBox());
-      widgets.push(new qx.ui.form.ComboBox());
-      widgets.push(new qx.ui.form.DateField());
-      widgets.push(new qx.ui.form.List());
-      widgets.push(new qx.ui.form.PasswordField());
-      widgets.push(new qx.ui.form.RadioButton());
-      widgets.push(new qx.ui.form.SelectBox());
-      widgets.push(new qx.ui.form.Slider());
-      widgets.push(new qx.ui.form.Spinner());
-      widgets.push(new qx.ui.form.TextArea());
-      widgets.push(new qx.ui.form.TextField());
-      widgets.push(new qx.ui.groupbox.CheckGroupBox());
-      widgets.push(new qx.ui.form.RadioButtonGroup());
-      widgets.push(new qx.ui.groupbox.RadioGroupBox());
+      widgets.push(new qx.ui.mobile.form.CheckBox());
+      widgets.push(new qx.ui.mobile.form.NumberField());
+      widgets.push(new qx.ui.mobile.form.PasswordField());
+      widgets.push(new qx.ui.mobile.form.RadioButton());
+      widgets.push(new qx.ui.mobile.form.SelectBox());
+      widgets.push(new qx.ui.mobile.form.Slider());
+      widgets.push(new qx.ui.mobile.form.TextArea());
+      widgets.push(new qx.ui.mobile.form.TextField());
+      widgets.push(new qx.ui.mobile.form.ToggleButton());
+      widgets.push(new qx.ui.mobile.form.RadioGroup());
 
       // add all
       for (var i = 0; i < widgets.length; i++) {
@@ -476,7 +474,7 @@ qx.Bootstrap.define("qx.test.ui.form.FormManager",
       this.__form.add(this.__tf1, "TF1");
       this.__form.add(this.__tf2, "TF2", null, "b");
       this.__form.addGroupHeader("x");
-      var tf3 = new qx.ui.form.TextField();
+      var tf3 = new qx.ui.mobile.form.TextField();
       this.__form.add(tf3, "TF3");
 
       var items = this.__form.getItems();
@@ -485,7 +483,7 @@ qx.Bootstrap.define("qx.test.ui.form.FormManager",
       this.assertEquals(items.b, this.__tf2);
       this.assertEquals(items.TF3, tf3);
 
-      tf3.destroy();
+      tf3.dispose();
     },
 
 
@@ -515,7 +513,7 @@ qx.Bootstrap.define("qx.test.ui.form.FormManager",
       this.__form.removeGroupHeader("GROUP");
       this.assertEquals(5, handler.callCount);
 
-      var b = new qx.ui.form.Button();
+      var b = new qx.ui.mobile.form.Button();
       this.__form.addButton(b);
       this.assertEquals(6, handler.callCount);
 
@@ -528,7 +526,7 @@ qx.Bootstrap.define("qx.test.ui.form.FormManager",
 
     testSingleRenderer : function()
     {
-      var b1 = new qx.ui.form.Button();
+      var b1 = new qx.ui.mobile.form.Button();
 
       // add the widgets
       this.__form.addGroupHeader("header");
@@ -536,14 +534,14 @@ qx.Bootstrap.define("qx.test.ui.form.FormManager",
       this.__form.addButton(b1);
 
       // just check if the renderer is created without an error
-      (new qx.ui.form.renderer.Single(this.__form)).dispose();
+      new qx.ui.mobile.form.renderer.Single(this.__form);
 
       b1.dispose();
     },
 
     testSinglePlaceholderRenderer : function()
     {
-      var b1 = new qx.ui.form.Button();
+      var b1 = new qx.ui.mobile.form.Button();
 
       // add the widgets
       this.__form.addGroupHeader("header");
@@ -551,22 +549,7 @@ qx.Bootstrap.define("qx.test.ui.form.FormManager",
       this.__form.addButton(b1);
 
       // just check if the renderer is created without an error
-      (new qx.ui.form.renderer.SinglePlaceholder(this.__form)).dispose();
-
-      b1.dispose();
-    },
-
-    testDoubleRenderer : function()
-    {
-      var b1 = new qx.ui.form.Button();
-
-      // add the widgets
-      this.__form.addGroupHeader("header");
-      this.__form.add(this.__tf1, "TF1");
-      this.__form.addButton(b1);
-
-      // just check if the renderer is created without an error
-      (new qx.ui.form.renderer.Double(this.__form)).dispose();
+      new qx.ui.mobile.form.renderer.SinglePlaceholder(this.__form);
 
       b1.dispose();
     }

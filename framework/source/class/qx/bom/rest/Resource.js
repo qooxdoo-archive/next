@@ -991,14 +991,6 @@ qx.Bootstrap.define("qx.bom.rest.Resource",
       // Mark as disposed (directly, not at end, to omit recursions)
       this.$$disposed = true;
 
-      // Debug output
-      if (qx.core.Environment.get("qx.debug"))
-      {
-        if (qx.core.Environment.get("qx.debug.dispose.level") > 2) {
-          qx.Bootstrap.debug(this, "Disposing " + this.classname + "[" + this.toHashCode() + "]");
-        }
-      }
-
       // Additional checks
       if (qx.core.Environment.get("qx.debug"))
       {

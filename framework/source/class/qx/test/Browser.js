@@ -18,7 +18,7 @@
 ************************************************************************ */
 qx.Bootstrap.define("qx.test.Browser",
 {
-  extend : qx.test.ui.LayoutTestCase,
+  extend : qx.dev.unit.TestCase,
 
   members :
   {

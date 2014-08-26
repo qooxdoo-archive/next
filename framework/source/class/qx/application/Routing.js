@@ -84,6 +84,8 @@
  */
 qx.Bootstrap.define("qx.application.Routing", {
 
+  extend : qx.dev.unit.TestCase,
+
   construct : function()
   {
     this.__messaging = new qx.event.Messaging();

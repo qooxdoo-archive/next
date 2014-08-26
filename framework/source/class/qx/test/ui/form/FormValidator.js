@@ -18,10 +18,10 @@
 ************************************************************************ */
 qx.Bootstrap.define("qx.test.ui.form.FormValidator",
 {
-  extend : qx.test.ui.LayoutTestCase,
+  extend : qx.test.mobile.MobileTestCase,
 
   construct : function() {
-    this.base(qx.test.ui.LayoutTestCase, "constructor");
+    this.base(qx.test.mobile.MobileTestCase, "constructor");
   },
 
   members :
@@ -32,14 +32,15 @@ qx.Bootstrap.define("qx.test.ui.form.FormValidator",
     __manager : null,
 
     setUp: function() {
-      this.__username = new qx.ui.form.TextField();
-      this.__password1 = new qx.ui.form.TextField();
-      this.__password2 = new qx.ui.form.TextField();
+      this.base(qx.test.mobile.MobileTestCase, "setUp");
+      this.__username = new qx.ui.mobile.form.TextField();
+      this.__password1 = new qx.ui.mobile.form.TextField();
+      this.__password2 = new qx.ui.mobile.form.TextField();
       this.__manager = new qx.ui.form.validation.Manager();
     },
 
     tearDown: function() {
-      this.__manager.dispose();
+      this.base(qx.test.mobile.MobileTestCase, "tearDown");
       this.__username.dispose();
       this.__password1.dispose();
       this.__password2.dispose();
@@ -51,7 +52,7 @@ qx.Bootstrap.define("qx.test.ui.form.FormValidator",
     {
       var isString = qx.lang.Type.isString(value);
       var valid = isString && value.length > 0;
-      valid ? formItem.setInvalidMessage("") : formItem.setInvalidMessage("fail");
+      valid ? formItem.invalidMessage = "" : formItem.invalidMessage = "fail";
       return valid;
     },
 
@@ -111,7 +112,6 @@ qx.Bootstrap.define("qx.test.ui.form.FormValidator",
       this.__manager.add(this.__username, asyncValidator, {a: 1});
 
       this.__manager.validate();
-      asyncValidator.dispose();
     },
 
 
@@ -135,18 +135,16 @@ qx.Bootstrap.define("qx.test.ui.form.FormValidator",
       this.__manager.add(this.__password1, asyncValidator2, {a: 2});
 
       this.__manager.validate();
-      asyncValidator.dispose();
-      asyncValidator2.dispose();
     },
 
 
     testSyncFormContext : function()
     {
       var self = this;
-      this.__manager.setValidator(function() {
+      this.__manager.validator = function() {
         self.assertEquals(1, this.a);
-      });
-      this.__manager.setContext({a: 1});
+      };
+      this.__manager.context = {a: 1};
 
       this.__manager.validate();
     },
@@ -158,12 +156,11 @@ qx.Bootstrap.define("qx.test.ui.form.FormValidator",
       var asyncValidator = new qx.ui.form.validation.AsyncValidator(
       function() {
         self.assertEquals(1, this.a);
-      })
-      this.__manager.setValidator(asyncValidator);
-      this.__manager.setContext({a: 1});
+      });
+      this.__manager.validator = asyncValidator;
+      this.__manager.context = {a: 1};
 
       this.__manager.validate();
-      asyncValidator.dispose();
     },
     // //////////////////////////////
 
@@ -175,10 +172,10 @@ qx.Bootstrap.define("qx.test.ui.form.FormValidator",
       // validate = fail (no text entered)
       this.assertFalse(this.__manager.validate());
       this.assertFalse(this.__manager.getValid());
-      this.assertFalse(this.__username.getValid());
+      this.assertFalse(this.__username.valid);
 
       // check the invalid messages
-      this.assertEquals("fail", this.__username.getInvalidMessage());
+      this.assertEquals("fail", this.__username.invalidMessage);
       this.assertEquals("fail", this.__manager.getInvalidMessages()[0]);
 
       // enter text in the usernamen
@@ -187,7 +184,7 @@ qx.Bootstrap.define("qx.test.ui.form.FormValidator",
       // validate = true
       this.assertTrue(this.__manager.validate());
       this.assertTrue(this.__manager.getValid());
-      this.assertTrue(this.__username.getValid());
+      this.assertTrue(this.__username.valid);
 
       // remove the username
       this.__username.resetValue();
@@ -195,24 +192,25 @@ qx.Bootstrap.define("qx.test.ui.form.FormValidator",
       // validate = faíl
       this.assertFalse(this.__manager.validate());
       this.assertFalse(this.__manager.getValid());
-      this.assertFalse(this.__username.getValid());
+      this.assertFalse(this.__username.valid);
     },
 
 
-    testSyncSelfContained1NotNullRadioButtonGroup: function() {
-      var rbg = new qx.ui.form.RadioButtonGroup();
-      rbg.setRequired(true);
-      rbg.getRadioGroup().setAllowEmptySelection(true);
-      var rb1 = new qx.ui.form.RadioButton("a");
-      var rb2 = new qx.ui.form.RadioButton("b");
+    testSyncSelfContained1NotNullRadioGroup: function() {
+      var rbg = new qx.ui.mobile.form.RadioGroup();
+      rbg.required = true;
+      rbg.allowEmptySelection = true;
+      var rb1 = new qx.ui.mobile.form.RadioButton();
+      var rb2 = new qx.ui.mobile.form.RadioButton();
       rbg.add(rb1);
       rbg.add(rb2);
       this.__manager.add(rbg);
 
       // validate = fail (no text entered)
+      //debugger
       this.assertFalse(this.__manager.validate());
       this.assertFalse(this.__manager.getValid());
-      this.assertFalse(rbg.getValid());
+      this.assertFalse(rbg.valid);
 
       // select something
       rbg.setSelection([rb1]);
@@ -220,7 +218,7 @@ qx.Bootstrap.define("qx.test.ui.form.FormValidator",
       // validate = true
       this.assertTrue(this.__manager.validate());
       this.assertTrue(this.__manager.getValid());
-      this.assertTrue(rbg.getValid());
+      this.assertTrue(rbg.valid);
       rbg.dispose();
     },
 
@@ -231,9 +229,9 @@ qx.Bootstrap.define("qx.test.ui.form.FormValidator",
       var self = this;
       this.assertEventFired(this.__manager, "changeValid", function() {
         self.__manager.validate();
-      }, function(e) {
-        self.assertFalse(e.getData());
-        self.assertNull(e.getOldData());
+      }, function(data) {
+        self.assertFalse(data.value);
+        self.assertNull(data.old);
       });
 
       // make the form valid
@@ -241,9 +239,9 @@ qx.Bootstrap.define("qx.test.ui.form.FormValidator",
 
       this.assertEventFired(this.__manager, "changeValid", function() {
         self.__manager.validate();
-      }, function(e) {
-        self.assertTrue(e.getData());
-        self.assertFalse(e.getOldData());
+      }, function(data) {
+        self.assertTrue(data.value);
+        self.assertFalse(data.old);
       });
     },
 
@@ -255,14 +253,14 @@ qx.Bootstrap.define("qx.test.ui.form.FormValidator",
 
       // validate = fail (no text entered)
       this.assertFalse(this.__manager.validate());
-      this.assertFalse(this.__username.getValid());
-      this.assertFalse(this.__password1.getValid());
-      this.assertFalse(this.__password2.getValid());
+      this.assertFalse(this.__username.valid);
+      this.assertFalse(this.__password1.valid);
+      this.assertFalse(this.__password2.valid);
 
       // check the invalid messages
-      this.assertEquals("fail", this.__username.getInvalidMessage());
-      this.assertEquals("fail", this.__password1.getInvalidMessage());
-      this.assertEquals("fail", this.__password2.getInvalidMessage());
+      this.assertEquals("fail", this.__username.invalidMessage);
+      this.assertEquals("fail", this.__password1.invalidMessage);
+      this.assertEquals("fail", this.__password2.invalidMessage);
       this.assertEquals("fail", this.__manager.getInvalidMessages()[0]);
       this.assertEquals("fail", this.__manager.getInvalidMessages()[1]);
       this.assertEquals("fail", this.__manager.getInvalidMessages()[2]);
@@ -274,12 +272,12 @@ qx.Bootstrap.define("qx.test.ui.form.FormValidator",
 
       // validate again = fail (username empty)
       this.assertFalse(this.__manager.validate());
-      this.assertFalse(this.__username.getValid());
-      this.assertTrue(this.__password1.getValid());
-      this.assertTrue(this.__password2.getValid());
+      this.assertFalse(this.__username.valid);
+      this.assertTrue(this.__password1.valid);
+      this.assertTrue(this.__password2.valid);
 
       // check the invalid messages
-      this.assertEquals("fail", this.__username.getInvalidMessage());
+      this.assertEquals("fail", this.__username.invalidMessage);
       this.assertEquals("fail", this.__manager.getInvalidMessages()[0]);
       this.assertEquals(1, this.__manager.getInvalidMessages().length);
 
@@ -289,9 +287,9 @@ qx.Bootstrap.define("qx.test.ui.form.FormValidator",
 
       // validate = true
       this.assertTrue(this.__manager.validate());
-      this.assertTrue(this.__username.getValid());
-      this.assertTrue(this.__password1.getValid());
-      this.assertTrue(this.__password2.getValid());
+      this.assertTrue(this.__username.valid);
+      this.assertTrue(this.__password1.valid);
+      this.assertTrue(this.__password2.valid);
       this.assertEquals(0, this.__manager.getInvalidMessages().length);
 
       // remove the username
@@ -299,9 +297,9 @@ qx.Bootstrap.define("qx.test.ui.form.FormValidator",
 
       // validate last time = false
       this.assertFalse(this.__manager.validate());
-      this.assertFalse(this.__username.getValid());
-      this.assertTrue(this.__password1.getValid());
-      this.assertTrue(this.__password2.getValid());
+      this.assertFalse(this.__username.valid);
+      this.assertTrue(this.__password1.valid);
+      this.assertTrue(this.__password2.valid);
       this.assertEquals(1, this.__manager.getInvalidMessages().length);
     },
 
@@ -317,7 +315,6 @@ qx.Bootstrap.define("qx.test.ui.form.FormValidator",
 
     // //////////////////////////////
 
-
     // sync related //////////////
 
     __testSyncRelatedNoIndividual: function(validator) {
@@ -325,17 +322,17 @@ qx.Bootstrap.define("qx.test.ui.form.FormValidator",
       this.__manager.add(this.__password1);
       this.__manager.add(this.__password2);
 
-      this.__password1.setValue("affe");
+      this.__password1.value = "affe";
 
-      this.__manager.setValidator(validator);
+      this.__manager.validator = validator;
 
       this.assertFalse(this.__manager.validate());
       this.assertFalse(this.__manager.getValid());
 
-      this.assertEquals("fail", this.__manager.getInvalidMessage());
+      this.assertEquals("fail", this.__manager.invalidMessage);
       this.assertEquals("fail", this.__manager.getInvalidMessages()[0]);
 
-      this.__password2.setValue("affe");
+      this.__password2.value = "affe";
 
       this.assertTrue(this.__manager.validate());
       this.assertTrue(this.__manager.getValid());
@@ -348,7 +345,7 @@ qx.Bootstrap.define("qx.test.ui.form.FormValidator",
       this.__testSyncRelatedNoIndividual(function(formItems, manager) {
         var valid = formItems[1].getValue() == formItems[2].getValue();
         if (!valid) {
-          manager.setInvalidMessage("fail");
+          manager.invalidMessage = "fail";
         }
         return valid;
       });
@@ -371,22 +368,22 @@ qx.Bootstrap.define("qx.test.ui.form.FormValidator",
 
       this.__password1.setValue("affe");
 
-      this.__manager.setValidator(function(formItems, manager) {
+      this.__manager.validator = function(formItems, manager) {
         var valid = formItems[1].getValue() == formItems[2].getValue();
         if (!valid) {
-          manager.setInvalidMessage("fail");
+          manager.invalidMessage = "fail";
         }
         return valid;
-      });
+      };
 
       // false: username and password2 empty && password 1 != password2
       this.assertFalse(this.__manager.validate());
       this.assertFalse(this.__manager.getValid());
-      this.assertFalse(this.__username.getValid());
-      this.assertFalse(this.__password2.getValid());
+      this.assertFalse(this.__username.valid);
+      this.assertFalse(this.__password2.valid);
 
       var messages = this.__manager.getInvalidMessages();
-      this.assertEquals("fail", this.__manager.getInvalidMessage());
+      this.assertEquals("fail", this.__manager.invalidMessage);
       this.assertEquals("fail", messages[0]);
       this.assertEquals("fail", messages[1]);
       this.assertEquals("fail", messages[2]);
@@ -407,9 +404,9 @@ qx.Bootstrap.define("qx.test.ui.form.FormValidator",
       this.assertTrue(this.__manager.validate());
       this.assertTrue(this.__manager.getValid());
       this.assertEquals(0, this.__manager.getInvalidMessages().length);
-      this.assertTrue(this.__username.getValid());
-      this.assertTrue(this.__password1.getValid());
-      this.assertTrue(this.__password2.getValid());
+      this.assertTrue(this.__username.valid);
+      this.assertTrue(this.__password1.valid);
+      this.assertTrue(this.__password2.valid);
 
       // change back to not valid
       this.__password1.setValue("user");
@@ -418,7 +415,7 @@ qx.Bootstrap.define("qx.test.ui.form.FormValidator",
       this.assertFalse(this.__manager.validate());
       this.assertFalse(this.__manager.getValid());
       this.assertEquals(1, this.__manager.getInvalidMessages().length);
-      this.assertTrue(this.__username.getValid());
+      this.assertTrue(this.__username.valid);
     },
 
     // //////////////////////////////
@@ -427,9 +424,9 @@ qx.Bootstrap.define("qx.test.ui.form.FormValidator",
     // required /////////////////////
     testRequired: function() {
       // set all 3 fields to required
-      this.__username.setRequired(true);
-      this.__password1.setRequired(true);
-      this.__password2.setRequired(true);
+      this.__username.required = true;
+      this.__password1.required = true;
+      this.__password2.required = true;
 
       // add the fields to the form manager
       this.__manager.add(this.__username);
@@ -438,9 +435,9 @@ qx.Bootstrap.define("qx.test.ui.form.FormValidator",
 
       // validate = fail (no text entered)
       this.assertFalse(this.__manager.validate());
-      this.assertFalse(this.__username.getValid());
-      this.assertFalse(this.__password1.getValid());
-      this.assertFalse(this.__password2.getValid());
+      this.assertFalse(this.__username.valid);
+      this.assertFalse(this.__password1.valid);
+      this.assertFalse(this.__password2.valid);
 
       // enter text to the two passwordfields
       this.__password1.setValue("1");
@@ -448,29 +445,29 @@ qx.Bootstrap.define("qx.test.ui.form.FormValidator",
 
       // validate again = fail (username empty)
       this.assertFalse(this.__manager.validate());
-      this.assertFalse(this.__username.getValid());
-      this.assertTrue(this.__password1.getValid());
-      this.assertTrue(this.__password2.getValid());
+      this.assertFalse(this.__username.valid);
+      this.assertTrue(this.__password1.valid);
+      this.assertTrue(this.__password2.valid);
 
       // enter text in the usernamen
       this.__username.setValue("affe");
 
       // validate last time = true
       this.assertTrue(this.__manager.validate());
-      this.assertTrue(this.__username.getValid());
-      this.assertTrue(this.__password1.getValid());
-      this.assertTrue(this.__password2.getValid());
+      this.assertTrue(this.__username.valid);
+      this.assertTrue(this.__password1.valid);
+      this.assertTrue(this.__password2.valid);
     },
 
 
     testRequiredFieldMessage : function() {
       // set a global and an individual requred field message
-      this.__manager.setRequiredFieldMessage("affe");
-      this.__password1.setRequiredInvalidMessage("AFFEN");
+      this.__manager.requiredFieldMessage = "affe";
+      this.__password1.requiredInvalidMessage = "AFFEN";
 
       // set fields to required
-      this.__username.setRequired(true);
-      this.__password1.setRequired(true);
+      this.__username.required = true;
+      this.__password1.required = true;
 
       // add the fields to the form manager
       this.__manager.add(this.__username);
@@ -480,28 +477,10 @@ qx.Bootstrap.define("qx.test.ui.form.FormValidator",
       this.assertFalse(this.__manager.validate());
 
       // check the messages
-      this.assertEquals("affe", this.__username.getInvalidMessage());
-      this.assertEquals("AFFEN", this.__password1.getInvalidMessage());
+      this.assertEquals("affe", this.__username.invalidMessage);
+      this.assertEquals("AFFEN", this.__password1.invalidMessage);
     },
 
-
-    testRequiredNumberZero : function() {
-      // initialize with value 1
-      var spinner = new qx.ui.form.Spinner(-1, 1, 1);
-      spinner.setRequired(true);
-      this.__manager.add(spinner);
-
-      // validate --> should be valid due to value 1 set
-      this.assertTrue(this.__manager.validate());
-      this.assertTrue(spinner.getValid());
-
-      spinner.setValue(0);
-      // validate --> should be valid due to value 0 set
-      this.assertTrue(this.__manager.validate());
-      this.assertTrue(spinner.getValid());
-
-      spinner.dispose();
-    },
 
     // //////////////////////////////
 
@@ -518,8 +497,8 @@ qx.Bootstrap.define("qx.test.ui.form.FormValidator",
         this.resume(function() {
           // check the status after the complete
           this.assertFalse(this.__manager.isValid());
-          this.assertFalse(this.__username.getValid());
-          this.assertEquals("fail", this.__username.getInvalidMessage());
+          this.assertFalse(this.__username.valid);
+          this.assertEquals("fail", this.__username.invalidMessage);
         }, this);
       }, this);
 
@@ -539,7 +518,7 @@ qx.Bootstrap.define("qx.test.ui.form.FormValidator",
         this.resume(function() {
           // check the status after the complete
           this.assertTrue(this.__manager.isValid());
-          this.assertTrue(this.__username.getValid());
+          this.assertTrue(this.__username.valid);
         }, this);
       }, this);
 
@@ -562,11 +541,11 @@ qx.Bootstrap.define("qx.test.ui.form.FormValidator",
         this.resume(function() {
           // check the status after the complete
           this.assertFalse(this.__manager.isValid());
-          this.assertFalse(this.__username.getValid());
+          this.assertFalse(this.__username.valid);
 
-          this.assertEquals("fail", this.__username.getInvalidMessage());
-          this.assertEquals("fail", this.__password1.getInvalidMessage());
-          this.assertEquals("fail", this.__password2.getInvalidMessage());
+          this.assertEquals("fail", this.__username.invalidMessage);
+          this.assertEquals("fail", this.__password1.invalidMessage);
+          this.assertEquals("fail", this.__password2.invalidMessage);
 
           this.assertEquals(3, this.__manager.getInvalidMessages().length);
           this.assertEquals("fail", this.__manager.getInvalidMessages()[0]);
@@ -594,7 +573,7 @@ qx.Bootstrap.define("qx.test.ui.form.FormValidator",
         this.resume(function() {
           // check the status after the complete
           this.assertTrue(this.__manager.isValid());
-          this.assertTrue(this.__username.getValid());
+          this.assertTrue(this.__username.valid);
         }, this);
       }, this);
 
@@ -631,17 +610,17 @@ qx.Bootstrap.define("qx.test.ui.form.FormValidator",
       this.__manager.add(this.__password1, asyncValidator2);
       this.__manager.add(this.__password2, asyncValidator3);
 
-      this.__username.setValid(false);
-      this.__password1.setValid(false);
-      this.__password2.setValid(false);
+      this.__username.valid = false;
+      this.__password1.valid = false;
+      this.__password2.valid = false;
 
       this.__manager.on("complete", function() {
         this.resume(function() {
           // check the status after the complete
           this.assertFalse(this.__manager.isValid());
-          this.assertTrue(this.__username.getValid());
-          this.assertFalse(this.__password1.getValid());
-          this.assertTrue(this.__password2.getValid());
+          this.assertTrue(this.__username.valid);
+          this.assertFalse(this.__password1.valid);
+          this.assertTrue(this.__password2.valid);
         }, this);
       }, this);
 
@@ -665,8 +644,8 @@ qx.Bootstrap.define("qx.test.ui.form.FormValidator",
         this.resume(function() {
           // check the status after the complete
           this.assertFalse(this.__manager.isValid());
-          this.assertFalse(this.__username.getValid());
-          this.assertEquals("fail", this.__username.getInvalidMessage());
+          this.assertFalse(this.__username.valid);
+          this.assertEquals("fail", this.__username.invalidMessage);
 
           this.assertEquals("fail", this.__manager.getInvalidMessages()[0]);
           this.assertEquals(1, this.__manager.getInvalidMessages().length);
@@ -701,19 +680,19 @@ qx.Bootstrap.define("qx.test.ui.form.FormValidator",
         this.resume(function() {
           // check the status after the complete
           this.assertFalse(this.__manager.isValid());
-          this.assertTrue(this.__username.getValid());
-          this.assertTrue(this.__password1.getValid());
-          this.assertTrue(this.__password2.getValid());
+          this.assertTrue(this.__username.valid);
+          this.assertTrue(this.__password1.valid);
+          this.assertTrue(this.__password2.valid);
         }, this);
       }, this);
 
-      this.__manager.setValidator(new qx.ui.form.validation.AsyncValidator(
+      this.__manager.validator = new qx.ui.form.validation.AsyncValidator(
         function(formItems, validator) {
           window.setTimeout(function() {
             validator.setValid(formItems[1].getValue() == formItems[2].getValue());
           }, 100);
         }
-      ));
+      );
 
       this.__username.setValue("u");
       this.__password1.setValue("a");
@@ -738,20 +717,20 @@ qx.Bootstrap.define("qx.test.ui.form.FormValidator",
         this.resume(function() {
           // check the status after the complete
           this.assertTrue(this.__manager.isValid());
-          this.assertTrue(this.__username.getValid());
-          this.assertTrue(this.__password1.getValid());
-          this.assertTrue(this.__password2.getValid());
+          this.assertTrue(this.__username.valid);
+          this.assertTrue(this.__password1.valid);
+          this.assertTrue(this.__password2.valid);
 
         }, this);
       }, this);
 
-      this.__manager.setValidator(new qx.ui.form.validation.AsyncValidator(
+      this.__manager.validator = new qx.ui.form.validation.AsyncValidator(
         function(formItems, validator) {
           window.setTimeout(function() {
             validator.setValid(formItems[1].getValue() == formItems[2].getValue());
           }, 100);
         }
-      ));
+      );
 
       this.__username.setValue("u");
       this.__password1.setValue("a");
@@ -778,9 +757,9 @@ qx.Bootstrap.define("qx.test.ui.form.FormValidator",
         this.resume(function() {
           // check the status after the complete
           this.assertFalse(this.__manager.isValid());
-          this.assertFalse(this.__username.getValid());
-          this.assertTrue(this.__password1.getValid());
-          this.assertTrue(this.__password2.getValid());
+          this.assertFalse(this.__username.valid);
+          this.assertTrue(this.__password1.valid);
+          this.assertTrue(this.__password2.valid);
         }, this);
       }, this);
 
@@ -804,9 +783,9 @@ qx.Bootstrap.define("qx.test.ui.form.FormValidator",
         this.resume(function() {
           // check the status after the complete
           this.assertFalse(this.__manager.isValid());
-          this.assertTrue(this.__username.getValid());
-          this.assertFalse(this.__password1.getValid());
-          this.assertTrue(this.__password2.getValid());
+          this.assertTrue(this.__username.valid);
+          this.assertFalse(this.__password1.valid);
+          this.assertTrue(this.__password2.valid);
         }, this);
       }, this);
 
@@ -830,9 +809,9 @@ qx.Bootstrap.define("qx.test.ui.form.FormValidator",
         this.resume(function() {
           // check the status after the complete
           this.assertTrue(this.__manager.isValid());
-          this.assertTrue(this.__username.getValid());
-          this.assertTrue(this.__password1.getValid());
-          this.assertTrue(this.__password2.getValid());
+          this.assertTrue(this.__username.valid);
+          this.assertTrue(this.__password1.valid);
+          this.assertTrue(this.__password2.valid);
         }, this);
       }, this);
 
@@ -849,7 +828,7 @@ qx.Bootstrap.define("qx.test.ui.form.FormValidator",
     testMixedSelfContained2SyncRequired : function(attribute) {
       var asyncValidator1 = new qx.ui.form.validation.AsyncValidator(this.__asyncValidator);
 
-      this.__password1.setRequired(true);
+      this.__password1.required = true;
       this.__manager.add(this.__username, asyncValidator1);
       this.__manager.add(this.__password1);
 
@@ -857,8 +836,8 @@ qx.Bootstrap.define("qx.test.ui.form.FormValidator",
         this.resume(function() {
           // check the status after the complete
           this.assertFalse(this.__manager.isValid());
-          this.assertTrue(this.__username.getValid());
-          this.assertFalse(this.__password1.getValid());
+          this.assertTrue(this.__username.valid);
+          this.assertFalse(this.__password1.valid);
         }, this);
       }, this);
 
@@ -885,20 +864,20 @@ qx.Bootstrap.define("qx.test.ui.form.FormValidator",
         this.resume(function() {
           // check the status after the complete
           this.assertTrue(this.__manager.isValid());
-          this.assertTrue(this.__username.getValid());
-          this.assertTrue(this.__password1.getValid());
-          this.assertTrue(this.__password2.getValid());
+          this.assertTrue(this.__username.valid);
+          this.assertTrue(this.__password1.valid);
+          this.assertTrue(this.__password2.valid);
 
         }, this);
       }, this);
 
-      this.__manager.setValidator(new qx.ui.form.validation.AsyncValidator(
+      this.__manager.validator = new qx.ui.form.validation.AsyncValidator(
         function(formItems, validator) {
           window.setTimeout(function() {
             validator.setValid(formItems[1].getValue() == formItems[2].getValue());
           }, 100);
         }
-      ));
+      );
 
       this.__username.setValue("u");
       this.__password1.setValue("a");
@@ -922,20 +901,20 @@ qx.Bootstrap.define("qx.test.ui.form.FormValidator",
         this.resume(function() {
           // check the status after the complete
           this.assertFalse(this.__manager.isValid());
-          this.assertTrue(this.__username.getValid());
-          this.assertFalse(this.__password1.getValid());
-          this.assertTrue(this.__password2.getValid());
+          this.assertTrue(this.__username.valid);
+          this.assertFalse(this.__password1.valid);
+          this.assertTrue(this.__password2.valid);
 
         }, this);
       }, this);
 
-      this.__manager.setValidator(new qx.ui.form.validation.AsyncValidator(
+      this.__manager.validator = new qx.ui.form.validation.AsyncValidator(
         function(formItems, validator) {
           window.setTimeout(function() {
             validator.setValid(formItems[1].getValue() == formItems[2].getValue());
           }, 100);
         }
-      ));
+      );
 
       this.__username.setValue("u");
       this.__password2.setValue("a");
@@ -957,20 +936,20 @@ qx.Bootstrap.define("qx.test.ui.form.FormValidator",
         this.resume(function() {
           // check the status after the complete
           this.assertFalse(this.__manager.isValid());
-          this.assertFalse(this.__username.getValid());
-          this.assertTrue(this.__password1.getValid());
-          this.assertTrue(this.__password2.getValid());
+          this.assertFalse(this.__username.valid);
+          this.assertTrue(this.__password1.valid);
+          this.assertTrue(this.__password2.valid);
 
         }, this);
       }, this);
 
-      this.__manager.setValidator(new qx.ui.form.validation.AsyncValidator(
+      this.__manager.validator = new qx.ui.form.validation.AsyncValidator(
         function(formItems, validator) {
           window.setTimeout(function() {
             validator.setValid(formItems[1].getValue() == formItems[2].getValue());
           }, 100);
         }
-      ));
+      );
 
       this.__password1.setValue("a");
       this.__password2.setValue("a");
@@ -992,20 +971,20 @@ qx.Bootstrap.define("qx.test.ui.form.FormValidator",
         this.resume(function() {
           // check the status after the complete
           this.assertFalse(this.__manager.isValid());
-          this.assertTrue(this.__username.getValid());
-          this.assertTrue(this.__password1.getValid());
-          this.assertTrue(this.__password2.getValid());
+          this.assertTrue(this.__username.valid);
+          this.assertTrue(this.__password1.valid);
+          this.assertTrue(this.__password2.valid);
 
         }, this);
       }, this);
 
-      this.__manager.setValidator(new qx.ui.form.validation.AsyncValidator(
+      this.__manager.validator = new qx.ui.form.validation.AsyncValidator(
         function(formItems, validator) {
           window.setTimeout(function() {
             validator.setValid(formItems[1].getValue() == formItems[2].getValue());
           }, 100);
         }
-      ));
+      );
 
       this.__username.setValue("u");
       this.__password1.setValue("a");
@@ -1033,7 +1012,7 @@ qx.Bootstrap.define("qx.test.ui.form.FormValidator",
     },
 
     testAddSelectBoxWithValidator : function() {
-      var box = new qx.ui.form.SelectBox();
+      var box = new qx.ui.mobile.form.SelectBox();
       this.assertException(function() {
         this.__manager.add(box, function() {});
       });

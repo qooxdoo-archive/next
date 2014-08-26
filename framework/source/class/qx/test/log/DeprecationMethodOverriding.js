@@ -33,41 +33,36 @@ qx.Bootstrap.define("qx.test.log.DeprecationMethodOverriding",
     {
       var instance = new qx.test.log.fixture.ClassA();
       this.__test(instance, 1, 1, null);
-      instance.dispose();
     },
 
     "testClassB1: overrides method" : function()
     {
       var instance = new qx.test.log.fixture.ClassB1();
       this.__test(instance, 2, 2, /qx.test.log.fixture.ClassB1.prototype._applyOldProperty()/);
-      instance.dispose();
     },
 
     "testClassC1: doesn't override method" : function()
     {
       var instance = new qx.test.log.fixture.ClassC1();
       this.__test(instance, 2, 3, /qx.test.log.fixture.ClassB1.prototype._applyOldProperty()/);
-      instance.dispose();
     },
 
     "testClassB2: doesn't override method" : function()
     {
       var instance = new qx.test.log.fixture.ClassB2();
       this.__test(instance, 1, 2, null);
-      instance.dispose();
     },
 
     "testClassC2: overrides method" : function()
     {
       var instance = new qx.test.log.fixture.ClassC2();
       this.__test(instance, 2, 3, /qx.test.log.fixture.ClassC2.prototype._applyOldProperty()/);
-      instance.dispose();
     },
 
     __test : function(instance, callCountOldProperty, callCountNewProperty, reqExpWarnMsg)
     {
-      instance.setOldProperty("Jo");
-      instance.setNewProperty("Do");
+      instance.oldProperty = "Jo";
+      instance.newProperty = "Do";
 
       this.assertEquals(callCountOldProperty, instance.getCallCountApplyOldProperty());
       this.assertEquals(callCountNewProperty, instance.getCallCountApplyNewProperty());

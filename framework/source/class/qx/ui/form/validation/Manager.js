@@ -277,16 +277,10 @@ qx.Bootstrap.define("qx.ui.form.validation.Manager",
      * @return {var} Validation result
      */
     __validateRequired : function(formItem) {
-      var required;
-      if (typeof formItem.required == "function") {
-        required = formItem.required;
-      } else {
-        required = formItem.required;
-      }
-      if (required) {
+      if (formItem.required) {
         // if its a widget supporting the selection
         if (this.__supportsSingleSelection(formItem)) {
-          var validatorResult = !!formItem.selection[0];
+          var validatorResult = !!formItem.getSelection()[0];
         // otherwise, a value should be supplied
         } else {
           var value = formItem.value;
@@ -326,7 +320,7 @@ qx.Bootstrap.define("qx.ui.form.validation.Manager",
       // check for asynchronous validation
       if (this.__isAsyncValidator(validator)) {
         // used to check if all async validations are done
-        this.__asyncResults[formItem.toHashCode()] = null;
+        this.__asyncResults[formItem.id] = null;
         validator.validate(formItem, formItem.value, this, context);
         return null;
       }
@@ -340,14 +334,15 @@ qx.Bootstrap.define("qx.ui.form.validation.Manager",
         }
 
       } catch (e) {
+        var invalidMessage;
         if (e instanceof qx.core.ValidationError) {
           validatorResult = false;
           if (e.message && e.message != qx.type.BaseError.DEFAULTMESSAGE) {
-            var invalidMessage = e.message;
+            invalidMessage = e.message;
           } else {
-            var invalidMessage = e.comment;
+            invalidMessage = e.getComment();
           }
-        this.invalidMessage = invalidMessage;
+        formItem.invalidMessage = invalidMessage;
         } else {
           throw e;
         }
@@ -382,7 +377,7 @@ qx.Bootstrap.define("qx.ui.form.validation.Manager",
       this.invalidMessage = "";
 
       if (this.__isAsyncValidator(formValidator)) {
-        this.__asyncResults[this.toHashCode()] = null;
+        this.__asyncResults[this.id] = null;
         formValidator.validateForm(items, this, context);
         return null;
       }
@@ -395,11 +390,11 @@ qx.Bootstrap.define("qx.ui.form.validation.Manager",
       } catch (e) {
         if (e instanceof qx.core.ValidationError) {
           formValid = false;
-
+          var invalidMessage;
           if (e.message && e.message != qx.type.BaseError.DEFAULTMESSAGE) {
-            var invalidMessage = e.message;
+            invalidMessage = e.message;
           } else {
-            var invalidMessage = e.comment;
+            invalidMessage = e.getComment();
           }
           this.invalidMessage = invalidMessage;
         } else {
@@ -468,7 +463,11 @@ qx.Bootstrap.define("qx.ui.form.validation.Manager",
       this.__valid = value;
       // check for the change event
       if (oldValue != value) {
-        this.emit("changeValid", value);
+        this.emit("changeValid", {
+          value : value,
+          old : oldValue,
+          target : this
+        });
       }
     },
 
@@ -489,7 +488,7 @@ qx.Bootstrap.define("qx.ui.form.validation.Manager",
      * @return {Boolean|null} The valid state of the manager.
      */
     isValid: function() {
-      return this.valid;
+      return this.__valid;
     },
 
 
@@ -564,7 +563,7 @@ qx.Bootstrap.define("qx.ui.form.validation.Manager",
      */
     setItemValid: function(formItem, valid) {
       // store the result
-      this.__asyncResults[formItem.toHashCode()] = valid;
+      this.__asyncResults[formItem.id] = valid;
       formItem.valid = valid;
       this.__checkValidationComplete();
     },
@@ -582,7 +581,7 @@ qx.Bootstrap.define("qx.ui.form.validation.Manager",
      * @internal
      */
     setFormValid : function(valid) {
-      this.__asyncResults[this.toHashCode()] = valid;
+      this.__asyncResults[this.id] = valid;
       this.__checkValidationComplete();
     },
 

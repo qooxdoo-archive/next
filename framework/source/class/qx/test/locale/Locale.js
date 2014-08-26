@@ -29,15 +29,15 @@ qx.Bootstrap.define("qx.test.locale.Locale",
 
     setUp : function() {
       var manager = qx.locale.Manager.getInstance();
-      this.__defaultLocale = manager.getLocale();
+      this.__defaultLocale = manager.locale;
     },
 
 
     tearDown : function() {
       var manager = qx.locale.Manager.getInstance();
-      manager.setLocale(this.__defaultLocale);
+      manager.locale = this.__defaultLocale;
       if (this.__listenerId) {
-        manager.removeListenerById(this.__listenerId);
+        manager.offById(this.__listenerId);
       }
     },
 
@@ -64,7 +64,7 @@ qx.Bootstrap.define("qx.test.locale.Locale",
         "test one car": "Ein Auto",
         "test %1 cars": "%1 Autos"
       });
-      manager.setLocale("en_QX");
+      manager.locale = "en_QX";
 
       this.assertEquals("en", manager.getLanguage());
       this.assertEquals("QX", manager.getTerritory());
@@ -110,13 +110,14 @@ qx.Bootstrap.define("qx.test.locale.Locale",
       // check listener
       var fired = false;
       var evtLocale = "";
-      this.__listenerId = manager.on("changeLocale", function(e) {
+      manager.on("changeLocale", function(locale) {
         fired = true;
-        evtLocale = e.getData();
+        evtLocale = locale;
       });
+      this.__listenerId = manager.getListenerId();
 
       // change locale
-      manager.setLocale("de_QX");
+      manager.locale = "de_QX";
       this.assertTrue(fired);
       this.assertEquals("de_QX", evtLocale);
 
@@ -156,19 +157,19 @@ qx.Bootstrap.define("qx.test.locale.Locale",
         "test one": "Eins!",
         "test two": "Zwei!"
       });
-      manager.setLocale("en_QX");
+      manager.locale = "en_QX";
 
-      var textField = new qx.ui.form.TextField();
-      textField.setInvalidMessage(this.tr("test one"));
-      textField.setRequiredInvalidMessage(this.tr("test two"));
+      var textField = new qx.ui.mobile.form.TextField();
+      textField.invalidMessage = this.tr("test one");
+      textField.requiredInvalidMessage = this.tr("test two");
 
-      this.assertEquals("one!", textField.getInvalidMessage());
-      this.assertEquals("two!", textField.getRequiredInvalidMessage());
+      this.assertEquals("one!", textField.invalidMessage);
+      this.assertEquals("two!", textField.requiredInvalidMessage);
 
-      manager.setLocale("de_QX");
+      manager.locale = "de_QX";
 
-      this.assertEquals("Eins!", textField.getInvalidMessage());
-      this.assertEquals("Zwei!", textField.getRequiredInvalidMessage());
+      this.assertEquals("Eins!", textField.invalidMessage);
+      this.assertEquals("Zwei!", textField.requiredInvalidMessage);
       textField.dispose();
     },
 
@@ -197,19 +198,19 @@ qx.Bootstrap.define("qx.test.locale.Locale",
       }
 
       var manager = qx.locale.Manager.getInstance();
-      var oldLocale = manager.getLocale();
+      var oldLocale = manager.locale;
       manager.addTranslation("en_QX", {
         "test one": "one!",
         "test two": "two!"
       });
-      manager.setLocale("en_QX");
+      manager.locale = "en_QX";
 
       // try the reset of the locale
-      manager.resetLocale();
-      this.assertEquals(null, manager.getLocale());
+      manager.locale = undefined;
+      this.assertEquals(null, manager.locale);
 
       // make sure we set the locale which was there before the test
-      manager.setLocale(oldLocale);
+      manager.locale = oldLocale;
     }
 
   }
