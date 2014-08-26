@@ -20,6 +20,7 @@
 
 /**
  * For a basic, out-of-browser application (running e.g. on Node.js, Rhino).
+ * @require(qx.core.Init)
  */
 qx.Bootstrap.define("qx.application.Basic",
 {
