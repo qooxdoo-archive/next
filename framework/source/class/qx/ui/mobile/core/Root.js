@@ -34,8 +34,7 @@ qx.Bootstrap.define("qx.ui.mobile.core.Root",
   construct : function(root, layout)
   {
     this.__root = root || document.body;
-    this.push(this.__root);
-    this.base(qx.ui.mobile.container.Composite, "constructor", layout || new qx.ui.mobile.layout.VBox());
+    this.base(qx.ui.mobile.container.Composite, "constructor", this.__root, layout || new qx.ui.mobile.layout.VBox());
 
     this.addClass("mobile");
     this.addClass(qx.core.Environment.get("os.name"));
