@@ -164,22 +164,22 @@ qx.Mixin.define("qx.event.MEmitter",
      */
     hasListener : function(name, listener, context) {
       var storage = this.__getStorage(name);
-      if (storage.length == 0) {
+      if (storage.length === 0) {
         return false;
       }
 
       if (listener) {
-        for (var id in storage) {
-          if (storage.listener === listener) {
+        storage.forEach(function(stored) {
+          if (stored.listener === listener) {
             if (!context) {
               return true;
             } else {
-              if (storage.ctx === context) {
+              if (stored.ctx === context) {
                 return true;
               }
             }
           }
-        }
+        });
         return false;
       }
 
