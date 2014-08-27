@@ -75,13 +75,20 @@ qx.Bootstrap.define("qx.ui.mobile.list.List",
 {
   extend : qx.ui.mobile.core.Widget,
 
+  statics : {
+    list : function(delegate) {
+      return new qx.ui.mobile.list.List(this[0], delegate);
+    }
+  },
+
 
   /**
    * @param delegate {qx.ui.mobile.list.IListDelegate?null} The {@link #delegate} to use
    */
-  construct : function(delegate)
+  construct : function()
   {
-    this.base(qx.ui.mobile.core.Widget, "constructor");
+    var element = this.fixArguments(arguments);
+    this.base(qx.ui.mobile.core.Widget, "constructor", element);
     this.__provider = new qx.ui.mobile.list.provider.Provider(this);
 
     this.on("tap", this._onTap, this);
@@ -89,8 +96,8 @@ qx.Bootstrap.define("qx.ui.mobile.list.List",
     this.on("track", this._onTrack, this);
     this.on("trackend", this._onTrackEnd, this);
 
-    if (delegate) {
-      this.delegate = delegate;
+    if (arguments[0]) {
+      this.delegate = arguments[0];
     } else {
       this.delegate = this;
     }
@@ -626,5 +633,9 @@ qx.Bootstrap.define("qx.ui.mobile.list.List",
         qx.locale.Manager.getInstance().off("changeLocale", this._onChangeLocale, this);
       }
     }
+  },
+
+  defer : function(statics) {
+    qxWeb.$attach({list : statics.list});
   }
 });
