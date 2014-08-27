@@ -711,6 +711,12 @@ qx.Bootstrap.define("qx.Bootstrap",
       }
     },
 
+
+    hasProperty : function(clazz, propertyName) {
+      return !!((clazz.$$properties && clazz.$$properties[propertyName]) ||
+        (clazz.prototype.$$properties && clazz.prototype.$$properties[propertyName]));
+    },
+
     /*
     ---------------------------------------------------------------------------
       STRING UTILITY FUNCTIONS
