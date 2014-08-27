@@ -42,11 +42,12 @@ qx.Bootstrap.define("qx.ui.mobile.form.Button",
 {
   extend : qx.ui.mobile.basic.Atom,
 
-  /*
-  *****************************************************************************
-     PROPERTIES
-  *****************************************************************************
-  */
+  statics : {
+    button : function(label, icon) {
+      return new qx.ui.mobile.form.Button(this[0], label, icon);
+    }
+  },
+
 
   properties :
   {
@@ -83,5 +84,9 @@ qx.Bootstrap.define("qx.ui.mobile.form.Button",
     getValue : function() {
       return this.label;
     }
+  },
+
+  defer : function(statics) {
+    qxWeb.$attach({button : statics.button});
   }
 });

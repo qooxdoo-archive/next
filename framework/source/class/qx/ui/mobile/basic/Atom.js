@@ -41,29 +41,39 @@ qx.Bootstrap.define("qx.ui.mobile.basic.Atom",
   extend : qx.ui.mobile.core.Widget,
 
 
-  /*
-  *****************************************************************************
-     CONSTRUCTOR
-  *****************************************************************************
-  */
-
   /**
    * @param label {String} Label to use
    * @param icon {String?null} Icon to use
+   * @signature function(label, icon)
    */
-  construct : function(label, icon)
+  construct : function()
   {
-    this.base(qx.ui.mobile.core.Widget, "constructor");
-    this.__createChildren(label, icon);
+    var element = this.fixArguments(arguments);
+    this.base(qx.ui.mobile.core.Widget, "constructor", element);
 
+    var layout;
+    var verticalLayout = [ "top", "bottom" ].indexOf(this.iconPosition) != -1;
+    // If Atom has no Label, only Icon is shown, and should vertically centered.
+    var hasNoLabel = !this.__label;
+
+    if(verticalLayout || hasNoLabel){
+      layout = new qx.ui.mobile.layout.VBox();
+    } else {
+      layout = new qx.ui.mobile.layout.HBox();
+    }
+
+    this.addClass("qx-flex-center");
+
+    if (arguments[0]) {
+      this.label = arguments[0];
+    }
+    if (arguments[1]) {
+      this.icon = arguments[1];
+    }
+    this._applyIconPosition("left");
     this.addClass("gap");
   },
 
-  /*
-  *****************************************************************************
-     PROPERTIES
-  *****************************************************************************
-  */
 
   properties :
   {
@@ -89,19 +99,6 @@ qx.Bootstrap.define("qx.ui.mobile.basic.Atom",
       apply : "_applyIcon",
       nullable : true,
       event : "changeIcon"
-    },
-
-
-    /**
-     * @deprecated {4.0} Please use SCSS variable $application-gap-size instead.
-     * The space between the icon and the label
-     */
-    gap :
-    {
-      check : "Number",
-      nullable : false,
-      apply : "_applyGap",
-      init : 4
     },
 
 
@@ -161,7 +158,7 @@ qx.Bootstrap.define("qx.ui.mobile.basic.Atom",
       var isReverse = ["right", "bottom"].indexOf(value) != -1;
       targetLayout.reversed = isReverse;
 
-      this.__childrenContainer.setLayout(targetLayout);
+      this._setLayout(targetLayout);
     },
 
 
@@ -193,15 +190,6 @@ qx.Bootstrap.define("qx.ui.mobile.basic.Atom",
       }
     },
 
-    /* @deprecated {3.5} Please use SCSS variable $application-gap-size instead. */
-    _applyGap : function(value, old)
-    {
-      if (qx.core.Environment.get("qx.debug"))
-      {
-        qx.log.Logger.deprecatedMethodWarning(arguments.callee,"The property 'gap' is deprecated. Please use SCSS variable $application-gap-size instead.");
-      }
-    },
-
 
     // property apply
     _applyLabel : function(value, old)
@@ -210,6 +198,7 @@ qx.Bootstrap.define("qx.ui.mobile.basic.Atom",
         this.__label.value = value;
       } else {
         this.__label = this._createLabelWidget(value);
+        this.append(this.__label);
       }
     },
 
@@ -221,6 +210,11 @@ qx.Bootstrap.define("qx.ui.mobile.basic.Atom",
         this.__icon.source = value;
       } else {
         this.__icon = this._createIconWidget(value);
+        if (this.__label) {
+          this.__icon.insertBefore(this.__label);
+        } else {
+          this.append(this.__icon);
+        }
       }
     },
 
@@ -272,7 +266,7 @@ qx.Bootstrap.define("qx.ui.mobile.basic.Atom",
       var labelWidget = new qx.ui.mobile.basic.Label(label);
       labelWidget.anonymous = true;
       labelWidget.textWrap = false;
-      labelWidget.addClass("gap");
+      labelWidget.addClasses(["gap", "qx-flex-center"]);
       return labelWidget;
     },
 
@@ -284,20 +278,7 @@ qx.Bootstrap.define("qx.ui.mobile.basic.Atom",
      * @param icon {String} A path to an image resource
      *
      */
-    __createChildren : function(label, icon) {
-      this.__label = this._createLabelWidget(label);
-      if(label)
-      {
-        this.label = label;
-      }
-
-      this.__icon = this._createIconWidget(icon);
-      if (icon) {
-        this.icon = icon;
-      } else {
-        this.__icon.exclude();
-      }
-
+    __createChildrenContainer : function(label, icon) {
       var layout;
       var verticalLayout = [ "top", "bottom" ].indexOf(this.iconPosition) != -1;
       // If Atom has no Label, only Icon is shown, and should vertically centered.
@@ -312,25 +293,6 @@ qx.Bootstrap.define("qx.ui.mobile.basic.Atom",
       this.__childrenContainer = new qx.ui.mobile.container.Composite(layout);
       this.__childrenContainer.addClass("qx-flex-center");
       this.__childrenContainer.anonymous = true;
-
-      if(this.__icon) {
-        this.__childrenContainer.append(this.__icon);
-      }
-
-      if(this.__label) {
-        this.__label.addClass("qx-flex-center");
-        this.__childrenContainer.append(this.__label);
-      }
-
-      // Show/Hide Label/Icon
-      if(this.showChildren === 'icon' && this.__label) {
-        this.__label.exclude();
-      }
-      if(this.showChildren === 'label' && this.__icon) {
-        this.__icon.exclude();
-      }
-
-      this.append(this.__childrenContainer);
     },
 
 
@@ -338,7 +300,6 @@ qx.Bootstrap.define("qx.ui.mobile.basic.Atom",
       this.base(qx.ui.mobile.core.Widget, "dispose");
       this.__label.dispose();
       this.__icon.dispose();
-      this.__childrenContainer.dispose();
     }
   }
 });

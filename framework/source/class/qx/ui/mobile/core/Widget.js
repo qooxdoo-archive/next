@@ -24,15 +24,18 @@
  * @require(qx.module.Core)
  * @require(qx.module.event.GestureHandler)
  * @require(qx.module.event.AppearHandler)
+ * @require(qx.module.Dataset)
  */
 qx.Bootstrap.define("qx.ui.mobile.core.Widget", {
   extend : qxWeb,
 
 
-  construct : function() {
+  construct : function(element) {
     this.base(qxWeb, "constructor");
 
-    if (this.length === 0) {
+    if (element) {
+      this.push(element);
+    } else {
       this.push(this._createContainerElement());
     }
 
@@ -44,6 +47,8 @@ qx.Bootstrap.define("qx.ui.mobile.core.Widget", {
     this.name = undefined;
     this.anonymous = undefined;
     this.activatable = undefined;
+    this[0].$$instance = this;
+    this._initDomConfig();
   },
 
 
@@ -255,6 +260,30 @@ qx.Bootstrap.define("qx.ui.mobile.core.Widget", {
 
   members : {
     __layoutManager : null,
+
+
+    fixArguments : function(args) {
+      if (qxWeb.isElement(args[0])) {
+        return Array.prototype.shift.call(args);
+      }
+    },
+
+
+    _initDomConfig : function() {
+      var data = this.getAllData();
+      for (var prop in data) {
+        if (prop.indexOf("qxConfig") === 0) {
+          var propName = prop.substr(8).toLowerCase();
+          if (qx.Bootstrap.hasProperty(this.constructor, propName)) {
+            var value = data[prop];
+            try {
+              value = JSON.parse(value);
+            } catch(ex) {}
+            this[propName] = value;
+          }
+        }
+      }
+    },
 
     /*
     ---------------------------------------------------------------------------

@@ -74,11 +74,14 @@ qx.Bootstrap.define("qxWeb", {
         }
       }
 
+      var col;
       if (arg[0] && arg[0].getAttribute && arg[0].getAttribute("data-qx-class")) {
         clazz = qx.Bootstrap.getByName(arg[0].getAttribute("data-qx-class")) || clazz;
+        col = new clazz(clean[0]);
+      } else {
+        col = qx.lang.Array.cast(clean, clazz);
       }
 
-      var col = qx.lang.Array.cast(clean, clazz);
       for (var i=0; i < qxWeb.__init.length; i++) {
         qxWeb.__init[i].call(col);
       }
@@ -202,6 +205,9 @@ qx.Bootstrap.define("qxWeb", {
       (selector.history && selector.location && selector.document))
     {
       selector = [selector];
+    }
+    if (selector.length == 1 && selector[0].$$instance) {
+      return selector[0].$$instance;
     }
     return qxWeb.$init(selector, qxWeb);
   },
