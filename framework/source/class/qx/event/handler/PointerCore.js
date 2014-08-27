@@ -399,7 +399,6 @@ qx.Bootstrap.define("qx.event.handler.PointerCore", {
           }
         );
         qx.event.type.dom.Pointer.normalize(gestureEvent);
-        gestureEvent.srcElement = target;
       }
 
       if (!this.__nativePointerEvents) {
