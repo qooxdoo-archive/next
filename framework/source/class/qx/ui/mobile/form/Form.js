@@ -404,6 +404,7 @@ qx.Bootstrap.define("qx.ui.mobile.form.Form",
      * {@link qx.ui.form.validation.Manager#validate} method.
      *
      * @return {Boolean | null} The validation result.
+     * @lint ignoreDeprecated(alert)
      */
     validate : function() {
       var validateResult = this._validationManager.validate();

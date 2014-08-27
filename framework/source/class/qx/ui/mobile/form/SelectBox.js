@@ -384,7 +384,6 @@ qx.Bootstrap.define("qx.ui.mobile.form.SelectBox",
       this.__selectionDialog.off("changeSelection", this._onChangeSelection, this);
 
       this.__selectionDialog && this.__selectionDialog.dispose();
-      this.__selectionDialogTitle && this.__selectionDialogTitle.dispose();
 
       this.off("focus", this.blur);
       this.off("tap", this._onTap, this);
