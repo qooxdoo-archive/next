@@ -33,7 +33,7 @@ qx.Bootstrap.define("qx.bom.Window",
     /** Window handle which is currently blocked. */
     __blockerWindow : null,
 
-    /** Timer instance to poll for unblocking if the modale window was closed */
+    /** Timer id to poll for unblocking if the modal window was closed */
     __timer : null,
 
     /** Supported options and their mapping to window options */
@@ -173,14 +173,12 @@ qx.Bootstrap.define("qx.bom.Window",
         {
           this.getBlocker().block();
 
-          if (this.__timer == null)
-          {
-            this.__timer = new qx.event.Timer(500);
-            this.__timer.addListener("interval", this.__checkForUnblocking, this);
+          if (this.__timer) {
+            window.clearInterval(this.__timer);
           }
 
           this.__blockerWindow = window.open(url, name, configurationString);
-          this.__timer.restart();
+          this.__timer = window.setInterval(this.__checkForUnblocking.bind(this), 500);
 
           newWindow = this.__blockerWindow;
         }
@@ -272,7 +270,7 @@ qx.Bootstrap.define("qx.bom.Window",
       if (this.isClosed(this.__blockerWindow))
       {
         this.getBlocker().unblock();
-        this.__timer.stop();
+        window.clearInterval(this.__timer);
       }
     },
 
