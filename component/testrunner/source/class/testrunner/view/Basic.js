@@ -20,7 +20,7 @@
 /**
  * Testrunner view intended for browserless environments, e.g. node.js, Rhino
  */
-qx.Class.define("testrunner.view.Basic", {
+qx.Bootstrap.define("testrunner.view.Basic", {
 
   extend : testrunner.view.Abstract,
 
@@ -35,7 +35,7 @@ qx.Class.define("testrunner.view.Basic", {
     run : function()
     {
       this.__testResults = {};
-      this.fireEvent("runTests");
+      this.emit("runTests");
     },
 
 
@@ -44,7 +44,7 @@ qx.Class.define("testrunner.view.Basic", {
      */
     stop : function()
     {
-      this.fireEvent("stopTests");
+      this.emit("stopTests");
     },
 
 
@@ -106,26 +106,26 @@ qx.Class.define("testrunner.view.Basic", {
       switch(value)
       {
         case "init":
-          this.setStatus("Waiting for tests");
+          this.status = "Waiting for tests";
           break;
         case "loading" :
-          this.setStatus("Loading tests...");
+          this.status = "Loading tests...";
           break;
         case "ready" :
-          this.setStatus(this.getSelectedTests().length + " tests ready");
+          this.status = this.selectedTests.length + " tests ready";
           break;
         case "error" :
-          this.setStatus("Error loading test suite or no tests in suite!");
+          this.status = "Error loading test suite or no tests in suite!";
           break;
         case "running" :
-          this.setStatus("Running tests...");
+          this.status = "Running tests...";
           break;
         case "finished" :
-          this.setStatus("Test suite finished.");
+          this.status = "Test suite finished.";
           this.info(this.getSummary());
           break;
         case "aborted" :
-          this.setStatus("Test run aborted");
+          this.status = "Test run aborted";
           break;
       }
     },
@@ -153,8 +153,8 @@ qx.Class.define("testrunner.view.Basic", {
     _onTestChangeState : function(testResultData)
     {
       var testName = testResultData.getFullName();
-      var state = testResultData.getState();
-      var exceptions = testResultData.getExceptions();
+      var state = testResultData.state;
+      var exceptions = testResultData.exceptions;
 
       //Update test results map
       if (!this.__testResults[testName]) {

@@ -21,7 +21,7 @@
  * Simple, console-only TestRunner view. Use
  * qx.core.Init.getApplication().runner.view.run() to run the test suite.
  */
-qx.Class.define("testrunner.view.Console", {
+qx.Bootstrap.define("testrunner.view.Console", {
 
   extend : testrunner.view.Abstract,
 
@@ -42,7 +42,7 @@ qx.Class.define("testrunner.view.Console", {
     button.id = "run";
     var text = document.createTextNode("Run Tests");
     button.appendChild(text);
-    qx.bom.Event.addNativeListener(button, "click", function() {
+    button.addEventListener("click", function() {
       qx.core.Init.getApplication().runner.view.run();
     });
     document.body.appendChild(button);
@@ -68,7 +68,7 @@ qx.Class.define("testrunner.view.Console", {
         finishedAt : null,
         tests : {}
       };
-      this.fireEvent("runTests");
+      this.emit("runTests");
     },
 
     /**
@@ -76,7 +76,7 @@ qx.Class.define("testrunner.view.Console", {
      */
     stop : function()
     {
-      this.fireEvent("stopTests");
+      this.emit("stopTests");
     },
 
 
@@ -107,26 +107,26 @@ qx.Class.define("testrunner.view.Console", {
       switch(value)
       {
         case "init":
-          this.setStatus("Waiting for tests");
+          this.status = "Waiting for tests";
           break;
         case "loading" :
-          this.setStatus("Loading tests...");
+          this.status = "Loading tests...";
           break;
         case "ready" :
-          this.setStatus(this.getSelectedTests().length + " tests ready. Call qx.core.Init.getApplication().runner.view.run() to start.");
+          this.status = this.getSelectedTests().length + " tests ready. Call qx.core.Init.getApplication().runner.view.run() to start.";
           break;
         case "error" :
-          this.setStatus("Couldn't load test suite!");
+          this.status = "Couldn't load test suite!";
           break;
         case "running" :
-          this.setStatus("Running tests...");
+          this.status = "Running tests...";
           break;
         case "finished" :
           this.__suiteResults.finishedAt = new Date().getTime();
-          this.setStatus("Test suite finished. Call qx.core.Init.getApplication().runner.view.getTestResults() to get the results.");
+          this.status = "Test suite finished. Call qx.core.Init.getApplication().runner.view.getTestResults() to get the results.";
           break;
         case "aborted" :
-          this.setStatus("Test run aborted");
+          this.status = "Test run aborted";
           break;
       };
     },
@@ -138,7 +138,7 @@ qx.Class.define("testrunner.view.Console", {
         return;
       }
       var testList = testrunner.runner.ModelUtil.getItemsByProperty(value, "type", "test");
-      this.setSelectedTests(new qx.data.Array(testList));
+      this.selectedTests = new qx.data.Array(testList);
     },
 
 
@@ -154,9 +154,9 @@ qx.Class.define("testrunner.view.Console", {
     _onTestChangeState : function(testResultData)
     {
       var testName = testResultData.getFullName();
-      var state = testResultData.getState();
+      var state = testResultData.state;
 
-      var exceptions = testResultData.getExceptions();
+      var exceptions = testResultData.exceptions;
 
       //Update test results map
       if (!this.__suiteResults.tests[testName]) {
@@ -294,7 +294,6 @@ qx.Class.define("testrunner.view.Console", {
 
   destruct : function()
   {
-    this._disposeMap("testResults");
     this.__iframe = null;
     delete this.__iframe;
   }
