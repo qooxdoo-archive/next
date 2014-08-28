@@ -532,6 +532,14 @@ qx.Bootstrap.define("qx.test.Bootstrap",
 
 
     testPropertyChecks : function() {
+      var O = qx.Bootstrap.define(null, {
+        implement: [qx.ui.core.ISingleSelectionProvider],
+        members: {
+          getItems: function() {},
+          isItemSelectable: function() {}
+        }
+      });
+
       var C = qx.Bootstrap.define(null, {
         properties : {
           s: {
@@ -563,6 +571,9 @@ qx.Bootstrap.define("qx.test.Bootstrap",
           },
           q : {
             check : "qx.dev.unit.TestClass"
+          },
+          i : {
+            check : "qx.ui.core.ISingleSelectionProvider"
           }
         }
       });
@@ -578,6 +589,7 @@ qx.Bootstrap.define("qx.test.Bootstrap",
       c.e = new Error();
       c.r = /./g;
       c.q = new qx.dev.unit.TestClass();
+      c.i = new O();
 
       this.assertException(function() {
         c.s = true;
@@ -605,6 +617,9 @@ qx.Bootstrap.define("qx.test.Bootstrap",
       });
       this.assertException(function() {
         c.r = 83924;
+      });
+      this.assertException(function() {
+        c.i = c;
       });
     },
 

@@ -436,7 +436,6 @@ qx.Bootstrap.define("qx.Bootstrap",
 
               // check
               if (def.check) {
-                // TODO: classes and interfaces
                 var ok = true;
                 if (typeof def.check == "string") {
                   if (this[def.check] instanceof Function) {
@@ -450,7 +449,17 @@ qx.Bootstrap.define("qx.Bootstrap",
                         if (type !== def.check) {
                           var checkClass = qx.Bootstrap.getByName(def.check);
                           // check against class
-                          if (!checkClass || !(value instanceof checkClass)) {
+                          if (!checkClass) {
+                            throw new Error("Error in property '" + name + "' of class '" + this.classname + "': Type '" + def.check + "' is not defined!'");
+                          }
+                          // interface
+                          if (checkClass.$$type == "Interface" && qx.Interface) {
+                            if (!value.constructor || !qx.Interface.classImplements(value.constructor, checkClass)) {
+                              throw new Error("Error in property '" + name + "' of class '" + this.classname + "': Value must implement '" + def.check + "'!");
+                            }
+                          }
+                          // class
+                          else if (!(value instanceof checkClass)) {
                             throw new Error("Error in property '" + name + "' of class '" + this.classname + "': Value must be '" + def.check + "' but is '" + type + "'!");
                           }
                         }
