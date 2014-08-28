@@ -247,7 +247,7 @@ qx.Mixin.define("qx.ui.mobile.container.MNativeScroll",
      * @return {qxWeb} The scroll content element
      */
     _getScrollContentElement: function() {
-      return null;
+      return this;
     },
 
 
