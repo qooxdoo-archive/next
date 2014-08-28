@@ -73,7 +73,7 @@ qx.Bootstrap.define("qx.core.Init",
      * @param e {Event} Incoming beforeunload event.
      */
     __close : function(e) {
-      var app = this.getApplication();
+      var app = qx.core.Init.getApplication();
       if (app) {
         var ret = app.close();
         if (ret !== undefined) {
@@ -88,7 +88,7 @@ qx.Bootstrap.define("qx.core.Init",
      * created application instance.
      */
     __shutdown : function() {
-      var app = this.getApplication();
+      var app = qx.core.Init.getApplication();
 
       if (app) {
         app.terminate();
