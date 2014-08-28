@@ -88,11 +88,10 @@ qx.Bootstrap.define("qx.bom.webfonts.WebFont", {
     /**
      * Propagates web font status changes
      *
-     * @param ev {qx.event.type.Data} "changeStatus"
+     * @param result {Object} "changeStatus" event data
      */
-    _onWebFontChangeStatus : function(ev)
+    _onWebFontChangeStatus : function(result)
     {
-      var result = ev.getData();
       this.fireDataEvent("changeStatus", result);
       if (qx.core.Environment.get("qx.debug")) {
         if (result.valid === false) {

@@ -882,11 +882,9 @@ qx.Bootstrap.define("qx.data.SingleValueBinding",
      * use {@link #bind}.
      *
      * @param sourceObject {Object} The source of the binding.
-     * @param sourceEvent {String} The event of the source object which could
-     *   be the change event in common but has to be an
-     *   {@link qx.event.type.Data} event.
+     * @param sourceEvent {String} The name pf source object's change event.
      * @param targetObject {Object} The object which the source should
-     *   be bind to.
+     *   be bound to.
      * @param targetProperty {String} The property name of the target object.
      * @param options {Map} A map containing the options. See
      *   {@link #bind} for more information.

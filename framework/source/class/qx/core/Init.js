@@ -70,7 +70,7 @@ qx.Bootstrap.define("qx.core.Init",
      * Runs before the document is unloaded. Calls the application's close
      * method to check if the unload process should be stopped.
      *
-     * @param e {qx.event.type.Native} Incoming beforeunload event.
+     * @param e {Event} Incoming beforeunload event.
      */
     __close : function(e) {
       var app = this.getApplication();

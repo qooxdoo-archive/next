@@ -29,12 +29,11 @@ qx.Bootstrap.define("qx.locale.Key",
   statics :
   {
     /**
-     * Return localized name of a key identifier
-     * {@link qx.event.type.KeySequence}
+     * Return the localized name of a key identifier
      *
      * @param size {String} format of the key identifier.
      *       Possible values: "short", "full"
-     * @param keyIdentifier {String} key identifier to translate {@link qx.event.type.KeySequence}
+     * @param keyIdentifier {String} key identifier to translate
      * @param locale {String} optional locale to be used
      * @return {String} localized key name
      */

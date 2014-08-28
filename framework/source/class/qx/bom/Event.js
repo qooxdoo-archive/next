@@ -62,8 +62,7 @@
 
 /**
  * Wrapper around native event management capabilities of the browser.
- * This class should not be used directly normally. It's better
- * to use {@link qx.event.Registration} instead.
+ * This class should not normally be used directly.
  */
 qx.Bootstrap.define("qx.bom.Event",
 {

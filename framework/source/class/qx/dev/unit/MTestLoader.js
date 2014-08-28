@@ -104,7 +104,7 @@ qx.Mixin.define("qx.dev.unit.MTestLoader", {
     {
       var testResult = new qx.dev.unit.TestResult();
 
-      testResult.addListener("failure", function(e)
+      testResult.on("failure", function(e)
       {
         var ex = e.getData()[0].exception;
         var test = e.getData()[0].test;
@@ -114,7 +114,7 @@ qx.Mixin.define("qx.dev.unit.MTestLoader", {
         }
       }, this);
 
-      testResult.addListener("error", function(e)
+      testResult.on("error", function(e)
       {
         var ex = e.getData()[0].exception;
         var test = e.getData()[0].test;

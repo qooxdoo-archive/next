@@ -71,7 +71,7 @@ qx.Bootstrap.define("qx.bom.Shortcut",
      * Fired when the command is executed. Sets the "data" property of the event to
      * the object that issued the command.
      */
-    "execute" : "qx.event.type.Data"
+    "execute" : "Object"
   },
 
 
@@ -148,7 +148,7 @@ qx.Bootstrap.define("qx.bom.Shortcut",
     /**
      * Key down event handler.
      *
-     * @param event {qx.event.type.KeySequence} The key event object
+     * @param event {Event} The key event object
      */
     __onKeyDown : function(event)
     {
@@ -166,7 +166,7 @@ qx.Bootstrap.define("qx.bom.Shortcut",
     /**
      * Key press event handler.
      *
-     * @param event {qx.event.type.KeySequence} The key event object
+     * @param event {Event} The key event object
      */
     __onKeyPress : function(event)
     {
@@ -288,7 +288,7 @@ qx.Bootstrap.define("qx.bom.Shortcut",
     /**
      * Checks whether the given key event matches the shortcut's shortcut
      *
-     * @param e {qx.event.type.KeySequence} the key event object
+     * @param e {Event} the key event object
      * @return {Boolean} whether the shortcuts shortcut matches the key event
      */
     __matchesKeyEvent : function(e)

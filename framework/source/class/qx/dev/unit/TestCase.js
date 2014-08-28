@@ -36,7 +36,7 @@ qx.Bootstrap.define("qx.dev.unit.TestCase",
      *
      * Event data: The {@link qx.core.AssertionError}
      */
-    assertionFailed : "qx.event.type.Data"
+    assertionFailed : "qx.core.AssertionError"
   },
 
   properties :
@@ -110,7 +110,7 @@ qx.Bootstrap.define("qx.dev.unit.TestCase",
      * to wrap an event handler or callback function within the resume call sequence.
      * It provides the deferred function with all parameters from original caller.
      <pre>
-      obj.addListener("appear", this.resumeHandler(function(e){
+      obj.on("someEvent", this.resumeHandler(function(e){
         // do some nice
       }));
 

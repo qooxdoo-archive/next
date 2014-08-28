@@ -42,48 +42,48 @@ qx.Bootstrap.define("qx.dev.unit.TestResult",
      *
      * Event data: The test {@link qx.dev.unit.TestFunction}
      */
-    startTest : "qx.event.type.Data",
+    startTest : "qx.dev.unit.TestFunction",
 
     /** Fired after the test has finished
      *
      * Event data: The test {@link qx.dev.unit.TestFunction}
      */
-    endTest   : "qx.event.type.Data",
+    endTest   : "qx.dev.unit.TestFunction",
 
     /**
      * Fired if the test raised an {@link qx.core.AssertionError}
      *
      * Event data: The test {@link qx.dev.unit.TestFunction}
      */
-    error     : "qx.event.type.Data",
+    error     : "qx.dev.unit.TestFunction",
 
     /**
      * Fired if the test failed with a different exception
      *
      * Event data: The test {@link qx.dev.unit.TestFunction}
      */
-    failure   : "qx.event.type.Data",
+    failure   : "qx.dev.unit.TestFunction",
 
     /**
      * Fired if an asynchronous test sets a timeout
      *
      * Event data: The test {@link qx.dev.unit.TestFunction}
      */
-    wait   : "qx.event.type.Data",
+    wait   : "qx.dev.unit.TestFunction",
 
     /**
      * Fired if the test was skipped, e.g. because a requirement was not met.
      *
      * Event data: The test {@link qx.dev.unit.TestFunction}
      */
-    skip : "qx.event.type.Data",
+    skip : "qx.dev.unit.TestFunction",
 
     /**
      * Fired if a performance test returned results.
      *
      * Event data: The test {@link qx.dev.unit.TestFunction}
      */
-    endMeasurement : "qx.event.type.Data"
+    endMeasurement : "qx.dev.unit.TestFunction"
   },
 
 
