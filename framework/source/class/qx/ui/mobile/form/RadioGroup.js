@@ -76,7 +76,7 @@ qx.Bootstrap.define("qx.ui.mobile.form.RadioGroup",
     // add listener before call add!!!
     this.on("changeSelection", this.__onChangeSelection, this);
 
-    if (!varargs) {
+    if (varargs) {
       this.add.apply(this, arguments);
     }
     this.initMModelSelection();
