@@ -498,6 +498,16 @@ qx.Bootstrap.define("qx.Bootstrap",
           }(name, def))
         });
       }
+
+      // generic setter
+      if (properties && Object.keys(properties).length > 0 && !proto.set) {
+        proto.set = function(map) {
+          for (var key in map) {
+            this[key] = map[key];
+          }
+          return this;
+        };
+      }
     },
 
 

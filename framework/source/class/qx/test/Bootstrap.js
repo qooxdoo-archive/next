@@ -970,6 +970,42 @@ qx.Bootstrap.define("qx.test.Bootstrap",
           }
         });
       });
+    },
+
+    testGenericSet : function() {
+      var C = qx.Bootstrap.define(null, {
+        extend : Object,
+        properties : {
+          a : {},
+          b : {}
+        }
+      });
+
+      var c = new C();
+      c.set({
+        a: "foo",
+        b: "bar"
+      });
+
+      this.assertEquals("foo", c.a);
+      this.assertEquals("bar", c.b);
+    },
+
+    testGenericSetExists : function() {
+      var meth = function() {};
+      var C = qx.Bootstrap.define(null, {
+        extend : Object,
+        properties : {
+          a : {},
+          b : {}
+        },
+        members : {
+          set : meth
+        }
+      });
+
+      var c = new C();
+      this.assertEquals(meth, c.set);
     }
   }
 });
