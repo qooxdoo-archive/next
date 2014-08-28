@@ -510,30 +510,7 @@ qx.Bootstrap.define("qx.test.Bootstrap",
       c.a = 12;
 
       this.assertCalledOnce(handler);
-      this.assertCalledWith(handler, {value: 12, old: 11});
-    },
-
-
-    testPropertyEventPureObject : function() {
-      C = qx.Bootstrap.define("C", {
-        extend : Object,
-        properties : {
-          a: {
-            event : true,
-            init: 11
-          }
-        }
-      });
-
-      var c = new C();
-
-      var handler = this.spy();
-      c.addListener("changeA", handler);
-      c.a = 12;
-
-      this.assertCalledOnce(handler);
-      this.assertEquals(12, handler.args[0][0].getData());
-      this.assertEquals(11, handler.args[0][0].getOldData());
+      this.assertCalledWith(handler, {value: 12, old: 11, target: c});
     },
 
 
