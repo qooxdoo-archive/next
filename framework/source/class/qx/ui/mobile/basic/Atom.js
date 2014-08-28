@@ -42,7 +42,7 @@ qx.Bootstrap.define("qx.ui.mobile.basic.Atom",
 
 
   /**
-   * @param label {String} Label to use
+   * @param label {String?} Label to use
    * @param icon {String?null} Icon to use
    * @signature function(label, icon)
    */

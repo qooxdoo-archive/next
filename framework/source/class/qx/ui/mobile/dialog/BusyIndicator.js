@@ -40,7 +40,7 @@ qx.Bootstrap.define("qx.ui.mobile.dialog.BusyIndicator",
 
 
   /**
-   * @param label {String} Label to use
+   * @param label {String?} Label to use
    */
   construct : function(label)
   {

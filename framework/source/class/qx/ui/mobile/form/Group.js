@@ -49,7 +49,7 @@ qx.Bootstrap.define("qx.ui.mobile.form.Group",
   */
 
   /**
-   * @param widgets {qx.ui.mobile.core.Widget[]}
+   * @param widgets {qx.ui.mobile.core.Widget[]?}
    * @param showBorder {Boolean?} initial value of the property showBorder.
    */
   construct : function(widgets, showBorder)

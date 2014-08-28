@@ -47,7 +47,7 @@ qx.Bootstrap.define("qx.ui.mobile.container.Scroll",
   include : [qx.ui.mobile.container.MNativeScroll],
 
   /**
-  * @param scrollProperties {Object} A map with scroll properties which are passed to the scrolling container (may contain iScroll properties).
+  * @param scrollProperties {Object?} A map with scroll properties which are passed to the scrolling container (may contain iScroll properties).
   */
   construct : function(scrollProperties)
   {

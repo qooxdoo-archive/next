@@ -65,7 +65,7 @@ qx.Bootstrap.define("qx.ui.mobile.form.RadioGroup",
 
 
   /**
-   * @param varargs {qxWeb} A variable number of items, which are
+   * @param varargs {qxWeb?} A variable number of items, which are
    *     initially added to the radio group, the first item will be selected.
    */
   construct : function(varargs)
@@ -76,7 +76,7 @@ qx.Bootstrap.define("qx.ui.mobile.form.RadioGroup",
     // add listener before call add!!!
     this.on("changeSelection", this.__onChangeSelection, this);
 
-    if (varargs != null) {
+    if (!varargs) {
       this.add.apply(this, arguments);
     }
     this.initMModelSelection();
