@@ -298,8 +298,8 @@ qx.Bootstrap.define("qx.ui.mobile.basic.Atom",
 
     dispose : function() {
       this.base(qx.ui.mobile.core.Widget, "dispose");
-      this.__label.dispose();
-      this.__icon.dispose();
+      this.__label && this.__label.dispose();
+      this.__icon && this.__icon.dispose();
     }
   }
 });
