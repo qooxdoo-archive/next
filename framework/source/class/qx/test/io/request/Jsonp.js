@@ -35,6 +35,10 @@ qx.Bootstrap.define("qx.test.io.request.Jsonp",
   include : [qx.test.io.request.MRequest,
              qx.dev.unit.MMock],
 
+  construct : function() {
+    this.initMMock();
+  },
+
   members :
   {
     setUp: function() {
@@ -45,7 +49,7 @@ qx.Bootstrap.define("qx.test.io.request.Jsonp",
     setUpRequest: function() {
       this.req && this.req.dispose();
       this.req = new qx.io.request.Jsonp;
-      this.req.setUrl("url");
+      this.req.url = "url";
     },
 
     // Also called in shared tests, i.e. shared tests
@@ -70,7 +74,7 @@ qx.Bootstrap.define("qx.test.io.request.Jsonp",
 
     "test: set url property on construct": function() {
       var req = new qx.io.request.Jsonp("url");
-      this.assertEquals("url", req.getUrl());
+      this.assertEquals("url", req.url);
       req.dispose();
     },
 

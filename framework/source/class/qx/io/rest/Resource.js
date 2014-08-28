@@ -118,9 +118,10 @@
  * Action specific events follow the pattern "&lt;action&gt;Success" and
  * "&lt;action&gt;Error", e.g. "indexSuccess".
  */
-qx.OldCLass.define("qx.io.rest.Resource",
+qx.Bootstrap.define("qx.io.rest.Resource",
 {
-  extend: qx.core.Object,
+  extend: Object,
+  include: [qx.event.MEmitter],
 
   /**
    * @param description {Map?} Each key of the map is interpreted as
@@ -139,8 +140,6 @@ qx.OldCLass.define("qx.io.rest.Resource",
    */
   construct: function(description)
   {
-    this.base(arguments);
-
     this.__longPollHandlers = {};
     this.__pollTimers = {};
     this.__routes = {};
@@ -245,6 +244,16 @@ qx.OldCLass.define("qx.io.rest.Resource",
       return new qx.bom.rest.Resource(description);
     },
 
+    _createEventData: function(response, request, action, phase) {
+      return {
+        response: response,
+        request: request,
+        action: action,
+        phase: phase,
+        id: Date.now()
+      };
+    },
+
     /**
      * Tailors (apply dependency injection) the given resource to fit our needs.
      *
@@ -260,9 +269,9 @@ qx.OldCLass.define("qx.io.rest.Resource",
           onsuccess: {
             callback: function(req, action) {
               return function() {
-                var props = [req.getResponse(), null, false, req, action, req.getPhase()];
-                this.fireEvent(action + "Success", qx.event.type.Rest, props);
-                this.fireEvent("success", qx.event.type.Rest, props);
+                var data = this._createEventData(req.getResponse(), req, action, req.getPhase());
+                this.emit(action + "Success", data);
+                this.emit("success", data);
               };
             },
             context: this
@@ -270,9 +279,9 @@ qx.OldCLass.define("qx.io.rest.Resource",
           onfail: {
             callback: function(req, action) {
               return function() {
-                var props = [req.getResponse(), null, false, req, action, req.getPhase()];
-                this.fireEvent(action + "Error", qx.event.type.Rest, props);
-                this.fireEvent("error", qx.event.type.Rest, props);
+                var data = this._createEventData(req.getResponse(), req, action, req.getPhase());
+                this.emit(action + "Error", data);
+                this.emit("error", data);
               };
             },
             context: this
@@ -489,13 +498,14 @@ qx.OldCLass.define("qx.io.rest.Resource",
      * @param params {Map?} Map of parameters. See {@link #invoke}.
      * @param immediately {Boolean?false} <code>true</code>, if the poll should
      *   invoke a call immediately.
-     * @return {qx.event.Timer} Timer that periodically invokes action. Use to
-     *   stop or resume. Is automatically disposed on disposal of object.
+     * @return {Number} Id of the interval that periodically invokes action. Use to
+     *   clear.
      */
     poll: function(action, interval, params, immediately) {
       // Dispose timer previously created for action
       if (this.__pollTimers[action]) {
-        this.__pollTimers[action].dispose();
+        window.clearInterval(this.__pollTimers[action]);
+        delete this.__pollTimers[action];
       }
 
       // Fallback to previous params
@@ -521,9 +531,7 @@ qx.OldCLass.define("qx.io.rest.Resource",
         }
       };
 
-      var timer = this.__pollTimers[action] = new qx.event.Timer(interval);
-      timer.addListener("interval", intervalListener, this._resource);
-      timer.start();
+      var timer = this.__pollTimers[action] = window.setInterval(intervalListener.bind(this._resource), interval);
       return timer;
     },
 
@@ -662,33 +670,28 @@ qx.OldCLass.define("qx.io.rest.Resource",
       if (!this.constructor.$$events[type]) {
         this.constructor.$$events[type] = "qx.event.type.Rest";
       }
-    }
-  },
+    },
 
-  /**
-   * Desctructs the Resource.
-   *
-   * All created requests, routes and pollTimers will be disposed.
-   */
-  destruct: function() {
-    var action;
 
-    if (this.__pollTimers) {
-      for (action in this.__pollTimers) {
-        var timer = this.__pollTimers[action];
-        timer.stop();
-        timer.dispose();
+    dispose: function() {
+      var action;
+
+      if (this.__pollTimers) {
+        for (action in this.__pollTimers) {
+          var timer = this.__pollTimers[action];
+          window.clearInterval(timer);
+        }
       }
-    }
 
-    if (this.__longPollHandlers) {
-      for (action in this.__longPollHandlers) {
-        var id = this.__longPollHandlers[action];
-        this.removeListenerById(id);
+      if (this.__longPollHandlers) {
+        for (action in this.__longPollHandlers) {
+          var id = this.__longPollHandlers[action];
+          this.off(id);
+        }
       }
-    }
 
-    this._resource.destruct();
-    this._resource = this.__routes = this.__pollTimers = this.__longPollHandlers = null;
+      this.__resource && this._resource.dispose();
+      this._resource = this.__routes = this.__longPollHandlers = null;
+    }
   }
 });

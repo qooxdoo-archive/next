@@ -307,7 +307,7 @@ qx.Bootstrap.define("qx.test.io.rest.Resource",
           req1, req2,
           getSuccess = this.spy();
 
-      res.addListener("getSuccess", getSuccess);
+      res.on("getSuccess", getSuccess);
 
       req1 = this.req;
       res.get();
@@ -775,7 +775,7 @@ qx.Bootstrap.define("qx.test.io.rest.Resource",
 
       this.stub(req, "dispose");
 
-      res.addListener("getSuccess", function(e) {
+      res.on("getSuccess", function(e) {
         responses.push(e.getData());
       }, this);
       res.longPoll("get");

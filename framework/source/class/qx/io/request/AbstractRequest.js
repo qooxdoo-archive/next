@@ -31,21 +31,18 @@
  * To adjust the behavior of {@link #send} override
  * {@link #_getConfiguredUrl} and {@link #_getConfiguredRequestHeaders}.
  */
-qx.OldCLass.define("qx.io.request.AbstractRequest",
+qx.Bootstrap.define("qx.io.request.AbstractRequest",
 {
-  type : "abstract",
-
-  extend : qx.core.Object,
+  extend : Object,
+  include: [qx.event.MEmitter],
 
   /**
    * @param url {String?} The URL of the resource to request.
    */
   construct : function(url)
   {
-    this.base(arguments);
-
     if (url !== undefined) {
-      this.setUrl(url);
+      this.url = url;
     }
 
     this.__requestHeaders = {};
@@ -359,7 +356,7 @@ qx.OldCLass.define("qx.io.request.AbstractRequest",
         url = url.replace(/\#.*/, "");
       }
 
-      transport.timeout = this.getTimeout();
+      transport.timeout = this.timeout;
 
       // Support transports with enhanced feature set
       method = this._getMethod();
@@ -378,7 +375,7 @@ qx.OldCLass.define("qx.io.request.AbstractRequest",
       // Send request
       //
 
-      serializedData = this._serializeData(this.getRequestData());
+      serializedData = this._serializeData(this.requestData);
 
       this._setRequestHeaders();
 
@@ -452,7 +449,7 @@ qx.OldCLass.define("qx.io.request.AbstractRequest",
     * @return {Map} Authentication related request headers.
     */
     __getAuthRequestHeaders: function() {
-      var auth = this.getAuthentication(),
+      var auth = this.authentication,
           headers = {};
 
       if (auth) {
@@ -671,7 +668,7 @@ qx.OldCLass.define("qx.io.request.AbstractRequest",
 
       if (this.__response !== response) {
         this.__response = response;
-        this.fireEvent("changeResponse", qx.event.type.Data, [this.__response, oldResponse]);
+        this.emit("changeResponse", {value: this.__response, old: oldResponse, target: this});
       }
     },
 
@@ -691,7 +688,7 @@ qx.OldCLass.define("qx.io.request.AbstractRequest",
         this.debug("Fire readyState: " + readyState);
       }
 
-      this.fireEvent("readyStateChange");
+      this.emit("readyStateChange");
 
       // Transport switches to readyState DONE on abort and may already
       // have successful HTTP status when response is served from cache.
@@ -745,7 +742,7 @@ qx.OldCLass.define("qx.io.request.AbstractRequest",
         // A remote error failure
         if (this.getStatus() !== 0) {
           this._fireStatefulEvent("statusError");
-          this.fireEvent("fail");
+          this.emit("fail");
         }
       }
     },
@@ -754,14 +751,14 @@ qx.OldCLass.define("qx.io.request.AbstractRequest",
      * Handle "load" event.
      */
     _onLoad: function() {
-      this.fireEvent("load");
+      this.emit("load");
     },
 
     /**
      * Handle "loadEnd" event.
      */
     _onLoadEnd: function() {
-      this.fireEvent("loadEnd");
+      this.emit("loadEnd");
     },
 
     /**
@@ -778,17 +775,17 @@ qx.OldCLass.define("qx.io.request.AbstractRequest",
       this._fireStatefulEvent("timeout");
 
       // A network error failure
-      this.fireEvent("fail");
+      this.emit("fail");
     },
 
     /**
      * Handle "error" event.
      */
     _onError: function() {
-      this.fireEvent("error");
+      this.emit("error");
 
       // A network error failure
-      this.fireEvent("fail");
+      this.emit("fail");
     },
 
     /*
@@ -809,7 +806,7 @@ qx.OldCLass.define("qx.io.request.AbstractRequest",
         qx.core.Assert.assertString(evt);
       }
       this._setPhase(evt);
-      this.fireEvent(evt);
+      this.emit(evt, {target: this});
     },
 
     /**
@@ -827,7 +824,7 @@ qx.OldCLass.define("qx.io.request.AbstractRequest",
       }
 
       this.__phase = phase;
-      this.fireDataEvent("changePhase", phase, previousPhase);
+      this.emit("changePhase", {value: phase, old: previousPhase, target: this});
     },
 
     /**
@@ -837,7 +834,7 @@ qx.OldCLass.define("qx.io.request.AbstractRequest",
      * @return {String|null} Serialized data.
      */
     _serializeData: function(data) {
-      var isPost = typeof this.getMethod !== "undefined" && this.getMethod() == "POST",
+      var isPost = "method" in this && this.method == "POST",
           isJson = (/application\/.*\+?json/).test(this.getRequestHeader("Content-Type"));
 
       if (!data) {
@@ -855,27 +852,26 @@ qx.OldCLass.define("qx.io.request.AbstractRequest",
       if (qx.lang.Type.isObject(data)) {
         return qx.util.Uri.toParameter(data, isPost);
       }
+    },
+
+    dispose: function()
+    {
+      var transport = this._transport,
+          noop = function() {};
+
+      if (this._transport) {
+        transport.onreadystatechange = transport.onload = transport.onloadend =
+        transport.onabort = transport.ontimeout = transport.onerror = noop;
+
+        // [BUG #8315] dispose asynchronously to work with Sinon.js fake server
+        window.setTimeout(function() {
+          transport.dispose();
+        }, 0);
+      }
     }
   },
 
-  environment:
-  {
-    "qx.debug.io": false
-  },
-
-  destruct: function()
-  {
-    var transport = this._transport,
-        noop = function() {};
-
-    if (this._transport) {
-      transport.onreadystatechange = transport.onload = transport.onloadend =
-      transport.onabort = transport.ontimeout = transport.onerror = noop;
-
-      // [BUG #8315] dispose asynchronously to work with Sinon.js fake server
-      window.setTimeout(function() {
-        transport.dispose();
-      }, 0);
-    }
+  defer: function() {
+    qx.core.Environment.add("qx.debug.io", false);
   }
 });

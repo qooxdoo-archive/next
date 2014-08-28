@@ -59,7 +59,7 @@ qx.Bootstrap.define("qx.test.io.request.Xhr",
     setUpRequest: function() {
       this.req && this.req.dispose();
       this.req = new qx.io.request.Xhr();
-      this.req.setUrl("url");
+      this.req.url = "url";
     },
 
     setUpFakeTransport: function() {
@@ -109,13 +109,13 @@ qx.Bootstrap.define("qx.test.io.request.Xhr",
 
     "test: set url property on construct": function() {
       var req = new qx.io.request.Xhr("url");
-      this.assertEquals("url", req.getUrl());
+      this.assertEquals("url", req.url);
       req.dispose();
     },
 
     "test: set method property on construct": function() {
       var req = new qx.io.request.Xhr("url", "POST");
-      this.assertEquals("POST", req.getMethod());
+      this.assertEquals("POST", req.method);
       req.dispose();
     },
 
@@ -125,7 +125,7 @@ qx.Bootstrap.define("qx.test.io.request.Xhr",
 
     "test: send POST request": function() {
       this.setUpFakeTransport();
-      this.req.setMethod("POST");
+      this.req.method = "POST";
       this.req.send();
 
       this.assertCalledWith(this.transport.open, "POST");
@@ -135,7 +135,7 @@ qx.Bootstrap.define("qx.test.io.request.Xhr",
       this.require(["http"]);
 
       this.setUpFakeTransport();
-      this.req.setAsync(false);
+      this.req.async = false;
       this.req.send();
 
       this.assertCalledWith(this.transport.open, "GET", "url", false);
@@ -148,8 +148,8 @@ qx.Bootstrap.define("qx.test.io.request.Xhr",
 
     "test: set content type urlencoded for POST request with body when no type given": function() {
       this.setUpFakeTransport();
-      this.req.setMethod("POST");
-      this.req.setRequestData("Affe");
+      this.req.method = "POST";
+      this.req.requestData = "Affe";
       this.req.send();
 
       this.assertCalledWith(this.transport.setRequestHeader,
@@ -160,8 +160,8 @@ qx.Bootstrap.define("qx.test.io.request.Xhr",
       var msg;
 
       this.setUpFakeTransport();
-      this.req.setMethod("POST");
-      this.req.setRequestData("Affe");
+      this.req.method = "POST";
+      this.req.requestData = "Affe";
       this.req.setRequestHeader("Content-Type", "application/json");
       this.req.send();
 
@@ -172,8 +172,8 @@ qx.Bootstrap.define("qx.test.io.request.Xhr",
 
     "test: send string data with POST request": function() {
       this.setUpFakeTransport();
-      this.req.setMethod("POST");
-      this.req.setRequestData("str");
+      this.req.method = "POST";
+      this.req.requestData = "str";
       this.req.send();
 
       this.assertCalledWith(this.transport.send, "str");
@@ -181,8 +181,8 @@ qx.Bootstrap.define("qx.test.io.request.Xhr",
 
     "test: send obj data with POST request": function() {
       this.setUpFakeTransport();
-      this.req.setMethod("POST");
-      this.req.setRequestData({"af fe": true});
+      this.req.method = "POST";
+      this.req.requestData = {"af fe": true};
       this.req.send();
 
       this.assertCalledWith(this.transport.send, "af+fe=true");
@@ -192,12 +192,11 @@ qx.Bootstrap.define("qx.test.io.request.Xhr",
       this.setUpFakeTransport();
       this.setUpKlass();
       var obj = new Klass();
-      this.req.setMethod("POST");
-      this.req.setRequestData(obj);
+      this.req.method = "POST";
+      this.req.requestData = obj;
       this.req.send();
 
       this.assertCalledWith(this.transport.send, "affe=true");
-      obj.dispose();
     },
 
     "test: serialize data": function() {
@@ -234,7 +233,7 @@ qx.Bootstrap.define("qx.test.io.request.Xhr",
       this.setUpFakeTransport();
       var spy = this.transport.setRequestHeader.withArgs("X-Requested-With", "XMLHttpRequest");
 
-      this.req.setUrl("http://example.com");
+      this.req.url = "http://example.com";
       this.req.send();
 
       this.assertNotCalled(spy);
@@ -242,7 +241,7 @@ qx.Bootstrap.define("qx.test.io.request.Xhr",
 
     "test: set cache control header": function() {
       this.setUpFakeTransport();
-      this.req.setCache("no-cache");
+      this.req.cache = "no-cache";
       this.req.send();
 
       this.assertCalledWith(this.transport.setRequestHeader, "Cache-Control", "no-cache");
@@ -250,7 +249,7 @@ qx.Bootstrap.define("qx.test.io.request.Xhr",
 
     "test: set accept header": function() {
       this.setUpFakeTransport();
-      this.req.setAccept("application/json");
+      this.req.accept = "application/json";
       this.req.send();
 
       this.assertCalledWith(this.transport.setRequestHeader, "Accept", "application/json");
@@ -285,9 +284,9 @@ qx.Bootstrap.define("qx.test.io.request.Xhr",
       transport.status = 200;
       transport.responseText = "Affe";
 
-      req.addListener("success", function(e) {
-        that.assertEquals(e.getTarget(), req);
-        that.assertEquals("Affe", e.getTarget().getResponseText());
+      req.on("success", function(e) {
+        that.assertEquals(e.target, req);
+        that.assertEquals("Affe", e.target.getResponseText());
       });
 
       transport.onreadystatechange();
@@ -304,7 +303,7 @@ qx.Bootstrap.define("qx.test.io.request.Xhr",
       transport.status = 200;
       transport.responseText = "Affe";
 
-      req.addListener("success", function() {
+      req.on("success", function() {
         that.assertEquals(this, req);
         that.assertEquals("Affe", this.getResponseText());
       });
@@ -325,11 +324,11 @@ qx.Bootstrap.define("qx.test.io.request.Xhr",
           readyStates = [],
           statuses = [];
 
-      req.setUrl("/found");
-      req.setMethod("GET");
+      req.url = "/found";
+      req.method = "GET";
 
       readyStates.push(req.getReadyState());
-      req.addListener("readyStateChange", function() {
+      req.on("readyStateChange", function() {
         readyStates.push(req.getReadyState());
         statuses.push(req.getStatus());
       }, this);
@@ -387,7 +386,7 @@ qx.Bootstrap.define("qx.test.io.request.Xhr",
       this.assertEventFired(req, "changeResponse", function() {
         transport.onreadystatechange();
       }, function(e) {
-        that.assertEquals("Affe", e.getData());
+        that.assertEquals("Affe", e.value);
       });
 
     },
@@ -437,7 +436,7 @@ qx.Bootstrap.define("qx.test.io.request.Xhr",
           auth, call, key, credentials;
 
       auth = new qx.io.request.authentication.Basic("affe", "geheim");
-      this.req.setAuthentication(auth);
+      this.req.authentication = auth;
       this.req.send();
 
       call = transport.setRequestHeader.getCall(1);

@@ -47,21 +47,21 @@ qx.Bootstrap.define("qx.test.io.request.JsonpWithRemote",
       var req = this.req = new qx.io.request.Jsonp(),
           url = this.noCache(this.getUrl("qx/test/jsonp_primitive.php"));
 
-      req.addListener("load", function(e) {
+      req.on("load", function(e) {
         this.resume(function() {
           this.assertObject(req.getResponse());
           this.assertTrue(req.getResponse()["boolean"]);
         }, this);
       }, this);
 
-      req.setUrl(url);
+      req.url = url;
       req.send();
 
       this.wait();
     },
 
     noCache: function(url) {
-      return qx.util.Uri.appendParamsToUrl(url, "nocache=" + (new Date).valueOf());
+      return qx.util.Uri.appendParamsToUrl(url, "nocache=" + Date.now());
     }
 
   }

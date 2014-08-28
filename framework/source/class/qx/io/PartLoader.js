@@ -23,15 +23,16 @@
  *
  * It contains functionality to load parts and to retrieve part instances.
  */
-qx.OldCLass.define("qx.io.PartLoader",
+qx.Bootstrap.define("qx.io.PartLoader",
 {
-  type : "singleton",
-  extend : qx.core.Object,
+  extend : Object,
+
+  include: [qx.core.MSingleton, qx.event.MEmitter],
 
 
   construct : function()
   {
-    this.base(arguments);
+    this.initMSingleton();
 
 
     var loader = this._loader = qx.Part.getInstance();
@@ -39,11 +40,11 @@ qx.OldCLass.define("qx.io.PartLoader",
     var self = this;
     loader.onpart = function(part) {
       if (part.getReadyState() == "complete") {
-        self.fireDataEvent("partLoaded", part);
+        self.emit("partLoaded", part);
       } else {
-        self.fireDataEvent("partLoadingError", part.getName());
+        self.emit("partLoadingError", part.getName());
       }
-    }
+    };
   },
 
 
@@ -53,19 +54,20 @@ qx.OldCLass.define("qx.io.PartLoader",
      * Fired if a parts was loaded. The data of the event instance point to the
      * loaded part instance.
      */
-    "partLoaded" : "qx.event.type.Data",
+    "partLoaded" : "Object",
 
     /**
      * Fired if a part could not be loaded. The event's
      * {@link qx.event.type.Data#getData} method returns the name of the failed
      * part.
      */
-    "partLoadingError" : "qx.event.type.Data"
+    "partLoadingError" : "Object"
   },
 
 
   statics :
   {
+    getInstance : qx.core.MSingleton.getInstance,
     /**
      * Loads one or more parts asynchronously. The callback is called after all
      * parts and their dependencies are fully loaded. If the parts are already

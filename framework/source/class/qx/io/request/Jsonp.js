@@ -33,7 +33,7 @@
  *
  * <pre class="javascript">
  * var req = new qx.io.request.Jsonp();
- * req.setUrl("http://feeds.delicious.com/v2/json/popular");
+ * req.url = "http://feeds.delicious.com/v2/json/popular";
  *
  * // Some services have a fixed callback name
  * // req.setCallbackName("callback");
@@ -71,7 +71,7 @@
  *
  * Internally uses {@link qx.bom.request.Jsonp}.
  */
-qx.OldCLass.define("qx.io.request.Jsonp",
+qx.Bootstrap.define("qx.io.request.Jsonp",
 {
   extend: qx.io.request.AbstractRequest,
 
@@ -81,7 +81,7 @@ qx.OldCLass.define("qx.io.request.Jsonp",
     /**
      * Fired when request completes without error and data has been received.
      */
-    "success": "qx.event.type.Event",
+    "success": null,
 
     /**
      * Fired when request completes without error.
@@ -91,7 +91,7 @@ qx.OldCLass.define("qx.io.request.Jsonp",
      * is fired. If you are only interested in the JSON data received, consider
      * listening to the {@link #success} event instead.
      */
-    "load": "qx.event.type.Event",
+    "load": null,
 
     /**
      * Fired when request completes without error but no data was received.
@@ -108,7 +108,7 @@ qx.OldCLass.define("qx.io.request.Jsonp",
      * hard-coded callback, set a custom callback name with
      * {@link #setCallbackName}.
      */
-    "statusError": "qx.event.type.Event"
+    "statusError": null
   },
 
   properties:
@@ -153,15 +153,15 @@ qx.OldCLass.define("qx.io.request.Jsonp",
      * @return {String} The configured URL.
      */
     _getConfiguredUrl: function() {
-      var url = this.getUrl(),
+      var url = this.url,
           serializedData;
 
-      if (this.getRequestData()) {
-        serializedData = this._serializeData(this.getRequestData());
+      if (this.requestData) {
+        serializedData = this._serializeData(this.requestData);
         url = qx.util.Uri.appendParamsToUrl(url, serializedData);
       }
 
-      if (!this.getCache()) {
+      if (!this.cache) {
         // Make sure URL cannot be served from cache and new request is made
         url = qx.util.Uri.appendParamsToUrl(url, {nocache: new Date().valueOf()});
       }

@@ -63,7 +63,7 @@
  *
  * Internally uses {@link qx.bom.request.Xhr}.
  */
-qx.OldCLass.define("qx.io.request.Xhr",
+qx.Bootstrap.define("qx.io.request.Xhr",
 {
   extend: qx.io.request.AbstractRequest,
 
@@ -73,10 +73,10 @@ qx.OldCLass.define("qx.io.request.Xhr",
    */
   construct: function(url, method) {
     if (method !== undefined) {
-      this.setMethod(method);
+      this.method = method;
     }
 
-    this.base(arguments, url);
+    this.base(qx.io.request.AbstractRequest, "constructor", url);
     this._parser = this._createResponseParser();
   },
 
@@ -224,17 +224,17 @@ qx.OldCLass.define("qx.io.request.Xhr",
      * @return {String} The configured URL.
      */
     _getConfiguredUrl: function() {
-      var url = this.getUrl(),
+      var url = this.url,
           serializedData;
 
-      if (this.getMethod() === "GET" && this.getRequestData()) {
-        serializedData = this._serializeData(this.getRequestData());
+      if (this.method === "GET" && this.requestData) {
+        serializedData = this._serializeData(this.requestData);
         url = qx.util.Uri.appendParamsToUrl(url, serializedData);
       }
 
-      if (this.getCache() === false) {
+      if (this.cache === false) {
         // Make sure URL cannot be served from cache and new request is made
-        url = qx.util.Uri.appendParamsToUrl(url, {nocache: new Date().valueOf()});
+        url = qx.util.Uri.appendParamsToUrl(url, {nocache: Date.now()});
       }
 
       return url;
@@ -243,29 +243,29 @@ qx.OldCLass.define("qx.io.request.Xhr",
     // overridden
     _getConfiguredRequestHeaders: function() {
       var headers = {},
-          isAllowsBody = qx.util.Request.methodAllowsRequestBody(this.getMethod());
+          isAllowsBody = qx.util.Request.methodAllowsRequestBody(this.method);
 
       // Follow convention to include X-Requested-With header when same origin
-      if (!qx.util.Request.isCrossDomain(this.getUrl())) {
+      if (!qx.util.Request.isCrossDomain(this.url)) {
         headers["X-Requested-With"] = "XMLHttpRequest";
       }
 
       // Include Cache-Control header if configured
-      if (qx.lang.Type.isString(this.getCache())) {
-        headers["Cache-Control"] = this.getCache();
+      if (qx.lang.Type.isString(this.cache)) {
+        headers["Cache-Control"] = this.cache;
       }
 
       // By default, set content-type urlencoded for requests with body
-      if (this.getRequestData() !== "null" && isAllowsBody) {
+      if (this.requestData !== "null" && isAllowsBody) {
         headers["Content-Type"] = "application/x-www-form-urlencoded";
       }
 
       // What representations to accept
-      if (this.getAccept()) {
+      if (this.accept) {
         if (qx.core.Environment.get("qx.debug.io")) {
-          this.debug("Accepting: '" + this.getAccept() + "'");
+          this.debug("Accepting: '" + this.accept + "'");
         }
-        headers["Accept"] = this.getAccept();
+        headers["Accept"] = this.accept;
       }
 
       return headers;
@@ -273,12 +273,12 @@ qx.OldCLass.define("qx.io.request.Xhr",
 
     // overridden
     _getMethod: function() {
-      return this.getMethod();
+      return this.method;
     },
 
     // overridden
     _isAsync: function() {
-      return this.isAsync();
+      return this.async;
     },
 
     /*

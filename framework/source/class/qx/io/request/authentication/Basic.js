@@ -21,10 +21,10 @@
 /**
  * Basic authentication.
  */
-qx.OldCLass.define("qx.io.request.authentication.Basic",
+qx.Bootstrap.define("qx.io.request.authentication.Basic",
 {
 
-  extend: qx.core.Object,
+  extend: Object,
 
   implement: qx.io.request.authentication.IAuthentication,
 
@@ -50,9 +50,5 @@ qx.OldCLass.define("qx.io.request.authentication.Basic",
         {key: "Authorization", value: "Basic " + this.__credentials}
       ];
     }
-  },
-
-  destruct : function() {
-    this.__credentials = null;
   }
 });

@@ -611,18 +611,18 @@ qx.Bootstrap.define("qx.bom.rest.Resource",
      * @param data {Map} Data.
      */
     __configureRequest: function(req, config, data) {
-      req.setUrl(config.url);
+      req.url = config.url;
 
-      if (!req.setMethod && config.method !== "GET") {
+      if (!("method" in req) && config.method !== "GET") {
         throw new Error("Request (" + req.classname + ") doesn't support other HTTP methods than 'GET'");
       }
 
-      if (req.setMethod) {
-        req.setMethod(config.method);
+      if ("method" in req) {
+        req.method = config.method;
       }
 
       if (data) {
-        req.setRequestData(data);
+        req.requestData = data;
       }
     },
 
@@ -637,10 +637,10 @@ qx.Bootstrap.define("qx.bom.rest.Resource",
       if (data) {
         var contentType = req.getRequestHeader("Content-Type");
 
-        if (req.getMethod && qx.util.Request.methodAllowsRequestBody(req.getMethod())) {
+        if (req.method && qx.util.Request.methodAllowsRequestBody(req.method)) {
           if ((/application\/.*\+?json/).test(contentType)) {
             data = qx.lang.Json.stringify(data);
-            req.setRequestData(data);
+            req.requestData = data;
           }
         }
       }
