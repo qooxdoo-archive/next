@@ -47,7 +47,7 @@ qx.Bootstrap.define("qx.ui.mobile.core.Widget", {
     this.name = undefined;
     this.anonymous = undefined;
     this.activatable = undefined;
-    this[0].$$instance = this;
+    this[0].$$widget = this;
     this._initDomConfig();
   },
 
@@ -252,6 +252,32 @@ qx.Bootstrap.define("qx.ui.mobile.core.Widget", {
       "readOnly" :
       {
         attribute : "readonly"
+      }
+    },
+
+    /**
+     * Fetches elements with a data attribute named <code>data-qx-widget</code>
+     * containing the class name of the desired widget and initializes them as
+     * widgets.
+     *
+     * @param selector {String?} Optional selector expression or filter function to
+     * restrict the list of elements
+     * @attachStatic {qxWeb}
+     */
+    initWidgets : function(selector) {
+      var elements = document.querySelectorAll("*[data-qx-widget]");
+      if (selector) {
+        var filterFunc = selector;
+        if (qx.Bootstrap.getClass(selector) == "String") {
+          filterFunc = function(el) {
+            var matches = el.webkitMatchesSelector || el.mozMatchesSelector || el.msMatchesSelector;
+            return matches.call(el, selector);
+          };
+        }
+        elements = Array.prototype.filter.call(elements, filterFunc);
+      }
+      for (var i=0, l=elements.length; i<l; i++) {
+        qxWeb(elements[i]);
       }
     }
 
@@ -838,5 +864,8 @@ qx.Bootstrap.define("qx.ui.mobile.core.Widget", {
 
   defer : function(statics) {
     qxWeb(window).on("unload", statics.onShutdown, statics);
+    qxWeb.$attachStatic({
+      initWidgets : statics.initWidgets
+    });
   }
 });

@@ -214,6 +214,54 @@ qx.Bootstrap.define("qx.test.mobile.core.Widget",
       this.assertEquals('none', qx.bom.element.Style.get(widget[0],'pointerEvents'));
 
       widget.dispose();
+    },
+
+    testInitWidget : function() {
+      var el1 = document.createElement("div");
+      el1.setAttribute("data-qx-widget", "qx.ui.mobile.core.Widget");
+      this.getRoot()[0].appendChild(el1);
+
+      var el2 = document.createElement("div");
+      el2.setAttribute("data-qx-widget", "qx.ui.mobile.core.Widget");
+      this.getRoot()[0].appendChild(el2);
+
+      qx.ui.mobile.core.Widget.initWidgets();
+
+      this.assertInstance(el1.$$widget, qx.ui.mobile.core.Widget);
+      this.assertInstance(el2.$$widget, qx.ui.mobile.core.Widget);
+    },
+
+    testInitWidgetSelector : function() {
+      var el1 = document.createElement("div");
+      el1.setAttribute("data-qx-widget", "qx.ui.mobile.core.Widget");
+      this.getRoot()[0].appendChild(el1);
+
+      var el2 = document.createElement("div");
+      el2.setAttribute("class", "foo");
+      el2.setAttribute("data-qx-widget", "qx.ui.mobile.core.Widget");
+      this.getRoot()[0].appendChild(el2);
+
+      qx.ui.mobile.core.Widget.initWidgets(".foo");
+
+      this.assertUndefined(el1.$$widget);
+      this.assertInstance(el2.$$widget, qx.ui.mobile.core.Widget);
+    },
+
+    testInitWidgetFunction : function() {
+      var el1 = document.createElement("div");
+      this.getRoot()[0].appendChild(el1);
+
+      var el2 = document.createElement("div");
+      el2.affe = true;
+      el2.setAttribute("data-qx-widget", "qx.ui.mobile.core.Widget");
+      this.getRoot()[0].appendChild(el2);
+
+      qx.ui.mobile.core.Widget.initWidgets(function(el) {
+        return !!el2.affe;
+      });
+
+      this.assertUndefined(el1.$$widget);
+      this.assertInstance(el2.$$widget, qx.ui.mobile.core.Widget);
     }
   }
 });

@@ -75,8 +75,8 @@ qx.Bootstrap.define("qxWeb", {
       }
 
       var col;
-      if (arg[0] && arg[0].getAttribute && arg[0].getAttribute("data-qx-class")) {
-        clazz = qx.Bootstrap.getByName(arg[0].getAttribute("data-qx-class")) || clazz;
+      if (arg[0] && arg[0].getAttribute && arg[0].getAttribute("data-qx-widget")) {
+        clazz = qx.Bootstrap.getByName(arg[0].getAttribute("data-qx-widget")) || clazz;
         col = new clazz(clean[0]);
       } else {
         col = qx.lang.Array.cast(clean, clazz);
