@@ -103,23 +103,23 @@ qx.Bootstrap.define("qx.test.mobile.basic.Atom",
 
       atom.iconPosition = 'top';
       this.assertTrue(qx.bom.element.Location.getTop(iconElement) <= qx.bom.element.Location.getTop(labelElement), "setIconPosition(top): iconElement.top is greater than labelElement.top");
-      this.assertTrue(atom.getIconWidget()._getParentWidget().getLayout().classname.indexOf("VBox") !== -1,"Layout of IconPosition Top should be VBox ");
-      this.assertFalse(atom.getIconWidget()._getParentWidget().getLayout().reversed,"Layout should not be reversed.");
+      this.assertTrue(atom.getIconWidget()._getParentWidget()._getLayout().classname.indexOf("VBox") !== -1,"Layout of IconPosition Top should be VBox ");
+      this.assertFalse(atom.getIconWidget()._getParentWidget()._getLayout().reversed,"Layout should not be reversed.");
 
       atom.iconPosition = 'bottom';
-      this.assertTrue(atom.getIconWidget()._getParentWidget().getLayout().classname.indexOf("VBox") !== -1,"Layout of IconPosition Bottom should be VBox ");
-      this.assertTrue(atom.getIconWidget()._getParentWidget().getLayout().reversed,"Layout should be reversed.");
+      this.assertTrue(atom.getIconWidget()._getParentWidget()._getLayout().classname.indexOf("VBox") !== -1,"Layout of IconPosition Bottom should be VBox ");
+      this.assertTrue(atom.getIconWidget()._getParentWidget()._getLayout().reversed,"Layout should be reversed.");
 
       atom.iconPosition = 'left';
-      this.assertTrue(atom.getIconWidget()._getParentWidget().getLayout().classname.indexOf("HBox") !== -1,"Layout of IconPosition Left should be HBox ");
+      this.assertTrue(atom.getIconWidget()._getParentWidget()._getLayout().classname.indexOf("HBox") !== -1,"Layout of IconPosition Left should be HBox ");
       var labelLeft = qx.bom.element.Location.getLeft(labelElement);
       var iconLeft = qx.bom.element.Location.getLeft(iconElement);
       this.assertTrue(iconLeft <= labelLeft, "setIconPosition(left): iconElement.left is greater than labelElement.left");
-      this.assertFalse(atom.getIconWidget()._getParentWidget().getLayout().reversed,"Layout should not be reversed.");
+      this.assertFalse(atom.getIconWidget()._getParentWidget()._getLayout().reversed,"Layout should not be reversed.");
 
       atom.iconPosition = 'right';
-      this.assertTrue(atom.getIconWidget()._getParentWidget().getLayout().classname.indexOf("HBox") !== -1,"Layout of IconPosition Right should be HBox ");
-      this.assertTrue(atom.getIconWidget()._getParentWidget().getLayout().reversed,"Layout should be reversed.");
+      this.assertTrue(atom.getIconWidget()._getParentWidget()._getLayout().classname.indexOf("HBox") !== -1,"Layout of IconPosition Right should be HBox ");
+      this.assertTrue(atom.getIconWidget()._getParentWidget()._getLayout().reversed,"Layout should be reversed.");
 
       labelLeft = qx.bom.element.Location.getLeft(labelElement);
       iconLeft = qx.bom.element.Location.getLeft(iconElement);
@@ -138,11 +138,11 @@ qx.Bootstrap.define("qx.test.mobile.basic.Atom",
       atom.icon = imageURL;
 
       var atomElement = atom[0];
-      var atomChildrenLength = atomElement.children[0].children.length;
+      var atomChildrenLength = atomElement.children.length;
 
-      var atomIconTag = atomElement.children[0].children[0].tagName;
-      var atomIconInnerHtml = atomElement.children[0].children[0].innerHTML;
-      var atomLabelInnerHtml = atomElement.children[0].children[1].innerHTML;
+      var atomIconTag = atomElement.children[0].tagName;
+      var atomIconInnerHtml = atomElement.children[0].innerHTML;
+      var atomLabelInnerHtml = atomElement.children[1].innerHTML;
 
       this.assertEquals("IMG", atomIconTag, 'Unexpected atom children tag');
       this.assertEquals(2, atomChildrenLength, 'Unexpected count of atom element children');
