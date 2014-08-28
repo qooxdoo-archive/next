@@ -598,7 +598,11 @@ qx.Bootstrap.define("qx.module.Traversing", {
       if (arg instanceof qxWeb) {
         return arg[0];
       } else if (qx.lang.Type.isString(arg)) {
-        return qxWeb(arg)[0];
+        try {
+          return qxWeb(arg)[0];
+        } catch(ex) {
+          return null;
+        }
       }
       return arg;
     },
