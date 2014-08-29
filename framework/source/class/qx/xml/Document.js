@@ -130,14 +130,6 @@ qx.Bootstrap.define("qx.xml.Document",
   },
 
 
-
-
-  /*
-  *****************************************************************************
-     DEFER
-  *****************************************************************************
-  */
-
   classDefined : function(statics)
   {
     // Detecting available ActiveX implementations.

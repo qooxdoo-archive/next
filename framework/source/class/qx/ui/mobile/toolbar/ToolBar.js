@@ -26,12 +26,6 @@ qx.Bootstrap.define("qx.ui.mobile.toolbar.ToolBar",
 {
   extend : qx.ui.mobile.container.Composite,
 
-
- /*
-  *****************************************************************************
-     CONSTRUCTOR
-  *****************************************************************************
-  */
   construct : function(layout)
   {
     this.base(qx.ui.mobile.container.Composite, "constructor", layout);
@@ -42,12 +36,6 @@ qx.Bootstrap.define("qx.ui.mobile.toolbar.ToolBar",
     }
   },
 
-
-  /*
-  *****************************************************************************
-      PROPERTIES
-  *****************************************************************************
-  */
 
   properties :
   {

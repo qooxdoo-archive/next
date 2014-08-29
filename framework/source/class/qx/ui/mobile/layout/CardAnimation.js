@@ -28,11 +28,6 @@ qx.Bootstrap.define("qx.ui.mobile.layout.CardAnimation",
   extend : Object,
 
 
-  /*
-  *****************************************************************************
-     CONSTRUCTOR
-  *****************************************************************************
-  */
   construct : function()
   {
     this._cardAnimationsMap = {

@@ -50,11 +50,6 @@ qx.Bootstrap.define("qx.ui.mobile.layout.Card",
   extend : qx.ui.mobile.layout.Abstract,
 
 
-  /*
-  *****************************************************************************
-     CONSTRUCTOR
-  *****************************************************************************
-  */
   construct : function()
   {
     this.base(qx.ui.mobile.layout.Abstract, "constructor");
@@ -62,12 +57,6 @@ qx.Bootstrap.define("qx.ui.mobile.layout.Card",
     this.__cardAnimation = new qx.ui.mobile.layout.CardAnimation();
   },
 
-
-  /*
-  *****************************************************************************
-     EVENTS
-  *****************************************************************************
-  */
 
   events :
   {

@@ -42,12 +42,6 @@ qx.Bootstrap.define("qx.ui.mobile.form.Group",
   extend : qx.ui.mobile.container.Composite,
 
 
-  /*
-  *****************************************************************************
-     CONSTRUCTOR
-  *****************************************************************************
-  */
-
   /**
    * @param widgets {qx.ui.mobile.core.Widget[]?}
    * @param showBorder {Boolean?} initial value of the property showBorder.
@@ -72,12 +66,6 @@ qx.Bootstrap.define("qx.ui.mobile.form.Group",
   },
 
 
-  /*
-  *****************************************************************************
-     PROPERTIES
-  *****************************************************************************
-  */
-
   properties :
   {
     // overridden
@@ -98,12 +86,6 @@ qx.Bootstrap.define("qx.ui.mobile.form.Group",
     }
   },
 
-
-  /*
-  *****************************************************************************
-     MEMBERS
-  *****************************************************************************
-  */
 
   members :
   {

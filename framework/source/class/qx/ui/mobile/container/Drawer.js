@@ -46,12 +46,6 @@ qx.Bootstrap.define("qx.ui.mobile.container.Drawer",
   extend : qx.ui.mobile.container.Composite,
 
 
-  /*
-  *****************************************************************************
-     CONSTRUCTOR
-  *****************************************************************************
-  */
-
   /**
    * @param parent {qx.ui.mobile.container.Composite?null} The widget to which
    * the drawer should be added, if null it is added to app root.
@@ -93,12 +87,6 @@ qx.Bootstrap.define("qx.ui.mobile.container.Drawer",
   },
 
 
-  /*
-  *****************************************************************************
-     EVENTS
-  *****************************************************************************
-  */
-
   events :
   {
     /**
@@ -108,11 +96,6 @@ qx.Bootstrap.define("qx.ui.mobile.container.Drawer",
   },
 
 
-  /*
-  *****************************************************************************
-     PROPERTIES
-  *****************************************************************************
-  */
   properties : {
     // overridden
     defaultCssClass : {
@@ -171,11 +154,6 @@ qx.Bootstrap.define("qx.ui.mobile.container.Drawer",
   },
 
 
-  /*
-  *****************************************************************************
-     MEMBERS
-  *****************************************************************************
-  */
   members :
   {
     __pointerStartPosition : null,

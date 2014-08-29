@@ -58,11 +58,6 @@ qx.Bootstrap.define("qx.ui.mobile.container.MasterDetail",
     }
   },
 
-  /*
-  *****************************************************************************
-     CONSTRUCTOR
-  *****************************************************************************
-  */
 
   /**
    * @param layout {qx.ui.mobile.layout.Abstract?null} The layout that should be used for this

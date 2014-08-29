@@ -31,12 +31,6 @@ qx.Bootstrap.define("qx.ui.core.SingleSelectionManager",
   extend : Object,
   include : [qx.event.MEmitter],
 
-  /*
-  *****************************************************************************
-     CONSTRUCTOR
-  *****************************************************************************
-  */
-
 
   /**
    * Construct the single selection manager.
@@ -55,25 +49,11 @@ qx.Bootstrap.define("qx.ui.core.SingleSelectionManager",
   },
 
 
-  /*
-  *****************************************************************************
-     EVENTS
-  *****************************************************************************
-  */
-
-
   events :
   {
     /** Fires after the selection was modified */
     "changeSelected" : "qx.event.type.Data"
   },
-
-
-  /*
-  *****************************************************************************
-     PROPERTIES
-  *****************************************************************************
-  */
 
 
   properties :
@@ -90,13 +70,6 @@ qx.Bootstrap.define("qx.ui.core.SingleSelectionManager",
       apply : "__applyAllowEmptySelection"
     }
   },
-
-
-  /*
-  *****************************************************************************
-     MEMBERS
-  *****************************************************************************
-  */
 
 
   members :

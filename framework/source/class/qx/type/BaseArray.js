@@ -59,12 +59,6 @@ qx.Bootstrap.define("qx.type.BaseArray",
   extend : Array,
 
 
-  /*
-  *****************************************************************************
-     CONSTRUCTOR
-  *****************************************************************************
-  */
-
   /**
    * Creates a new Array with the given length or the listed elements.
    *
@@ -88,12 +82,6 @@ qx.Bootstrap.define("qx.type.BaseArray",
    */
   construct : function(length_or_items) {},
 
-
-  /*
-  *****************************************************************************
-     MEMBERS
-  *****************************************************************************
-  */
 
   members :
   {

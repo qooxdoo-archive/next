@@ -48,13 +48,6 @@ qx.Bootstrap.define("qx.dev.unit.TestClass",
   extend : qx.dev.unit.AbstractTestSuite,
 
 
-
-  /*
-  *****************************************************************************
-     CONSTRUCTOR
-  *****************************************************************************
-  */
-
   /**
    * @param clazz {Class} Test class. Must be a sub class of {@link TestCase}.
    */
@@ -87,13 +80,6 @@ qx.Bootstrap.define("qx.dev.unit.TestClass",
     this.name = clazz.classname;
   },
 
-
-
-  /*
-  *****************************************************************************
-     PROPERTIES
-  *****************************************************************************
-  */
 
   properties :
   {

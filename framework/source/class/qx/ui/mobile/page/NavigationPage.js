@@ -58,12 +58,6 @@ qx.Bootstrap.define("qx.ui.mobile.page.NavigationPage",
   implement : qx.ui.mobile.container.INavigation,
 
 
-  /*
-  *****************************************************************************
-     CONSTRUCTOR
-  *****************************************************************************
-  */
-
   /**
    * @param wrapContentByGroup {Boolean?} Defines whether a group box should wrap the content. This can be used for defining a page margin.
    * @param layout {qx.ui.mobile.layout.Abstract?} The layout of this page.
@@ -77,11 +71,6 @@ qx.Bootstrap.define("qx.ui.mobile.page.NavigationPage",
     }
   },
 
-  /*
-  *****************************************************************************
-     EVENTS
-  *****************************************************************************
-  */
 
   events :
   {
@@ -89,12 +78,6 @@ qx.Bootstrap.define("qx.ui.mobile.page.NavigationPage",
     action : "qx.event.type.Event"
   },
 
-
-  /*
-  *****************************************************************************
-     PROPERTIES
-  *****************************************************************************
-  */
 
   properties :
   {

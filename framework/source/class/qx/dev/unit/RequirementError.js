@@ -27,13 +27,6 @@ qx.Bootstrap.define("qx.dev.unit.RequirementError", {
 
   extend : Error,
 
-
-  /*
-  *****************************************************************************
-     CONSTRUCTOR
-  *****************************************************************************
-  */
-
   /**
    * @param requirement {String?} The requirement ID, e.g. "SSL"
    * @param message {String?} Optional error message
@@ -54,11 +47,6 @@ qx.Bootstrap.define("qx.dev.unit.RequirementError", {
   },
 
 
-  /*
-  *****************************************************************************
-     MEMBERS
-  *****************************************************************************
-  */
   members :
   {
     __message : null,

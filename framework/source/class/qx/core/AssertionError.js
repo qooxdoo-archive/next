@@ -27,14 +27,6 @@ qx.Bootstrap.define("qx.core.AssertionError",
   extend : qx.type.BaseError,
 
 
-
-
-  /*
-  *****************************************************************************
-     CONSTRUCTOR
-  *****************************************************************************
-  */
-
   /**
    * @param comment {String} Comment passed to the assertion call
    * @param failMessage {String} Fail message provided by the assertion
@@ -45,13 +37,6 @@ qx.Bootstrap.define("qx.core.AssertionError",
     this.__trace = qx.dev.StackTrace.getStackTrace();
   },
 
-
-
-  /*
-  *****************************************************************************
-     MEMBERS
-  *****************************************************************************
-  */
 
   members :
   {

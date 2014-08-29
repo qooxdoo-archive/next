@@ -26,12 +26,6 @@ qx.Bootstrap.define("qx.ui.mobile.form.Row",
   extend : qx.ui.mobile.container.Composite,
 
 
-  /*
-  *****************************************************************************
-     CONSTRUCTOR
-  *****************************************************************************
-  */
-
   /**
    * @param layout {qx.ui.mobile.layout.Abstract?null} The layout that should be used for this
    *     container
@@ -42,14 +36,6 @@ qx.Bootstrap.define("qx.ui.mobile.form.Row",
     this.selectable = false;
   },
 
-
-
-
-  /*
-  *****************************************************************************
-     PROPERTIES
-  *****************************************************************************
-  */
 
   properties :
   {
@@ -71,14 +57,6 @@ qx.Bootstrap.define("qx.ui.mobile.form.Row",
     }
   },
 
-
-
-
-  /*
-  *****************************************************************************
-     MEMBERS
-  *****************************************************************************
-  */
 
   members :
   {

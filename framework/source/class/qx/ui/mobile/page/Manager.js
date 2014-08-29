@@ -46,12 +46,6 @@ qx.Bootstrap.define("qx.ui.mobile.page.Manager",
   extend : Object,
 
 
-  /*
-  *****************************************************************************
-     CONSTRUCTOR
-  *****************************************************************************
-  */
-
   /**
    * @param isTablet {Boolean?} flag which triggers the manager to layout for tablet (or big screens/displays) or mobile devices. If parameter is null,
    * qx.core.Environment.get("device.type") is called for decision.
@@ -158,12 +152,6 @@ qx.Bootstrap.define("qx.ui.mobile.page.Manager",
     }
   },
 
-
-  /*
-  *****************************************************************************
-     MEMBERS
-  *****************************************************************************
-  */
 
   members :
   {

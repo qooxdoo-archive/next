@@ -27,13 +27,6 @@ qx.Bootstrap.define("qx.dev.unit.TestFunction",
   extend : Object,
 
 
-
-  /*
-  *****************************************************************************
-     CONSTRUCTOR
-  *****************************************************************************
-  */
-
   /**
    * There are two ways to define a test function. First by passing a class
    * and a method name to the contructor or second by giving a the method
@@ -59,14 +52,6 @@ qx.Bootstrap.define("qx.dev.unit.TestFunction",
   },
 
 
-
-
-  /*
-  *****************************************************************************
-     PROPERTIES
-  *****************************************************************************
-  */
-
   properties :
   {
     /** The test function */
@@ -90,13 +75,6 @@ qx.Bootstrap.define("qx.dev.unit.TestFunction",
     }
   },
 
-
-
-  /*
-  *****************************************************************************
-     MEMBERS
-  *****************************************************************************
-  */
 
   members :
   {

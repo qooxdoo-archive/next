@@ -47,11 +47,6 @@ qx.Bootstrap.define("qx.ui.mobile.form.RadioButton",
   extend : qx.ui.mobile.form.Input,
   include : [qx.ui.mobile.form.MValue],
 
-  /*
-  *****************************************************************************
-     CONSTRUCTOR
-  *****************************************************************************
-  */
 
   /**
    * @param value {Boolean?null} The value of the checkbox.
@@ -67,11 +62,6 @@ qx.Bootstrap.define("qx.ui.mobile.form.RadioButton",
   },
 
 
-  /*
-  *****************************************************************************
-     PROPERTIES
-  *****************************************************************************
-  */
   properties :
   {
     // overridden

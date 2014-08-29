@@ -51,12 +51,6 @@ qx.Bootstrap.define("qx.ui.mobile.container.Carousel",
   include : qx.ui.mobile.core.MResize,
 
 
-  /*
-  *****************************************************************************
-     CONSTRUCTOR
-  *****************************************************************************
-  */
-
   /**
   * @param transitionDuration {Integer ? 0.4} transition duration on carouselPage change in seconds.
   */
@@ -106,11 +100,6 @@ qx.Bootstrap.define("qx.ui.mobile.container.Carousel",
   },
 
 
-  /*
-  *****************************************************************************
-     PROPERTIES
-  *****************************************************************************
-  */
   properties : {
     // overridden
     defaultCssClass : {
@@ -167,11 +156,6 @@ qx.Bootstrap.define("qx.ui.mobile.container.Carousel",
   },
 
 
-  /*
-  *****************************************************************************
-     MEMBERS
-  *****************************************************************************
-  */
   members :
   {
     __carouselScroller : null,

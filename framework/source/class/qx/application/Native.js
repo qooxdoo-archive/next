@@ -29,14 +29,6 @@ qx.Bootstrap.define("qx.application.Native",
   implement : [qx.application.IApplication],
 
 
-
-
-  /*
-  *****************************************************************************
-     MEMBERS
-  *****************************************************************************
-  */
-
   members :
   {
     // interface method

@@ -28,12 +28,6 @@ qx.Bootstrap.define("qx.ui.mobile.form.TextField",
   implement : [qx.ui.form.IStringForm],
 
 
-  /*
-  *****************************************************************************
-     CONSTRUCTOR
-  *****************************************************************************
-  */
-
   /**
    * @param value {var?null} The value of the widget.
    */
@@ -50,11 +44,6 @@ qx.Bootstrap.define("qx.ui.mobile.form.TextField",
     this.initMText();
   },
 
-  /*
-  *****************************************************************************
-     PROPERTIES
-  *****************************************************************************
-  */
 
   properties :
   {

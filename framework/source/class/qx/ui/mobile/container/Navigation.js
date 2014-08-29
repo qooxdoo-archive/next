@@ -43,12 +43,6 @@ qx.Bootstrap.define("qx.ui.mobile.container.Navigation",
   extend : qx.ui.mobile.container.Composite,
 
 
-  /*
-  *****************************************************************************
-     CONSTRUCTOR
-  *****************************************************************************
-  */
-
   construct : function()
   {
     this.base(qx.ui.mobile.container.Composite, "constructor", new qx.ui.mobile.layout.VBox());
@@ -64,11 +58,6 @@ qx.Bootstrap.define("qx.ui.mobile.container.Navigation",
   },
 
 
-  /*
-  *****************************************************************************
-     PROPERTIES
-  *****************************************************************************
-  */
   properties : {
     // overridden
     defaultCssClass : {
@@ -77,23 +66,12 @@ qx.Bootstrap.define("qx.ui.mobile.container.Navigation",
   },
 
 
-  /*
-  *****************************************************************************
-     EVENTS
-  *****************************************************************************
-  */
   events :
   {
     /** Fired when the navigation bar gets updated */
     "update" : "qx.ui.mobile.core.Widget"
   },
 
-
-  /*
-  *****************************************************************************
-     MEMBERS
-  *****************************************************************************
-  */
 
   members :
   {

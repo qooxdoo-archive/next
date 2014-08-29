@@ -31,11 +31,6 @@ qx.Bootstrap.define("qx.ui.mobile.form.renderer.AbstractRenderer",
   extend : qx.ui.mobile.core.Widget,
   implement : qx.ui.form.renderer.IFormRenderer,
 
-  /*
-  *****************************************************************************
-     CONSTRUCTOR
-  *****************************************************************************
-  */
 
   /**
    * @param form {qx.ui.mobile.form.Form} The form to be rendered
@@ -50,11 +45,6 @@ qx.Bootstrap.define("qx.ui.mobile.form.renderer.AbstractRenderer",
     form.on("change", this._onFormChange, this);
   },
 
-  /*
-  *****************************************************************************
-     PROPERTIES
-  *****************************************************************************
-  */
 
   properties :
   {
@@ -65,11 +55,6 @@ qx.Bootstrap.define("qx.ui.mobile.form.renderer.AbstractRenderer",
     }
   },
 
-  /*
-  *****************************************************************************
-     MEMBERS
-  *****************************************************************************
-  */
 
    members :
   {

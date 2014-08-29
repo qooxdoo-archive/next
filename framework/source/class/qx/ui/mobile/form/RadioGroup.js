@@ -57,13 +57,6 @@ qx.Bootstrap.define("qx.ui.mobile.form.RadioGroup",
   ],
 
 
-  /*
-  *****************************************************************************
-     CONSTRUCTOR
-  *****************************************************************************
-  */
-
-
   /**
    * @param varargs {qxWeb?} A variable number of items, which are
    *     initially added to the radio group, the first item will be selected.
@@ -81,13 +74,6 @@ qx.Bootstrap.define("qx.ui.mobile.form.RadioGroup",
     }
     this.initMModelSelection();
   },
-
-
-  /*
-  *****************************************************************************
-     PROPERTIES
-  *****************************************************************************
-  */
 
 
   properties :
@@ -165,13 +151,6 @@ qx.Bootstrap.define("qx.ui.mobile.form.RadioGroup",
       event : "changeInvalidMessage"
     }
   },
-
-
-  /*
-  *****************************************************************************
-     MEMBERS
-  *****************************************************************************
-  */
 
 
   members :

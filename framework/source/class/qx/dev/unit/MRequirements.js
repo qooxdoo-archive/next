@@ -43,11 +43,7 @@ qx.Mixin.define("qx.dev.unit.MRequirements", {
 
   include : [qx.dev.unit.MRequirementsBasic],
 
-  /*
-  *****************************************************************************
-     STATICS
-  *****************************************************************************
-  */
+
   statics :
   {
     /** @type {Boolean} Result of {@link #hasPhp}. Stored as class member to avoid
@@ -55,11 +51,7 @@ qx.Mixin.define("qx.dev.unit.MRequirements", {
     __hasPhp : null
   },
 
-  /*
-  *****************************************************************************
-     MEMBERS
-  *****************************************************************************
-  */
+
   members :
   {
 

@@ -48,11 +48,6 @@ qx.Bootstrap.define("qx.ui.mobile.form.CheckBox",
   extend : qx.ui.mobile.form.Input,
   include : [qx.ui.mobile.form.MValue],
 
-  /*
-  *****************************************************************************
-     CONSTRUCTOR
-  *****************************************************************************
-  */
 
   /**
    * @param value {Boolean?false} The value of the checkbox.
@@ -70,11 +65,6 @@ qx.Bootstrap.define("qx.ui.mobile.form.CheckBox",
     this.initMValue(value);
   },
 
-  /*
-  *****************************************************************************
-     PROPERTIES
-  *****************************************************************************
-  */
 
   properties :
   {

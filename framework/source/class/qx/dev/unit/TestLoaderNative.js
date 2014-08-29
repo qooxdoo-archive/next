@@ -27,12 +27,6 @@ qx.Bootstrap.define("qx.dev.unit.TestLoaderNative",
   extend : qx.application.Native,
 
 
-  /*
-  *****************************************************************************
-     MEMBERS
-  *****************************************************************************
-  */
-
   members :
   {
     // overridden

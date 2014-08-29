@@ -27,14 +27,6 @@ qx.Bootstrap.define("qx.dev.unit.AsyncWrapper",
   extend : Object,
 
 
-
-
-  /*
-  *****************************************************************************
-     CONSTRUCTOR
-  *****************************************************************************
-  */
-
   /**
    * @param delay {Integer?} The amount of time in milliseconds to wait
    * @param deferredFunction {Function?} The function to run after the timeout

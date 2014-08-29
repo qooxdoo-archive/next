@@ -25,15 +25,8 @@
 qx.Bootstrap.define("qx.dev.unit.TestLoader",
 {
   extend : qx.application.Basic,
-
   include : [qx.dev.unit.MTestLoader],
 
-
-  /*
-  *****************************************************************************
-     MEMBERS
-  *****************************************************************************
-  */
 
   members :
   {

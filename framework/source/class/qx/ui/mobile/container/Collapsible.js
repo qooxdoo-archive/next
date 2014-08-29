@@ -45,12 +45,6 @@ qx.Bootstrap.define("qx.ui.mobile.container.Collapsible",
   extend : qx.ui.mobile.core.Widget,
 
 
-  /*
-  *****************************************************************************
-     CONSTRUCTOR
-  *****************************************************************************
-  */
-
   /**
   * @param title {String?} the text which should be displayed in the Collapsible's header label.
   */
@@ -77,11 +71,6 @@ qx.Bootstrap.define("qx.ui.mobile.container.Collapsible",
   },
 
 
-  /*
-  *****************************************************************************
-     PROPERTIES
-  *****************************************************************************
-  */
   properties : {
     // overridden
     defaultCssClass : {
@@ -110,11 +99,6 @@ qx.Bootstrap.define("qx.ui.mobile.container.Collapsible",
   },
 
 
-  /*
-  *****************************************************************************
-     MEMBERS
-  *****************************************************************************
-  */
   members :
   {
     _header : null,

@@ -27,14 +27,6 @@ qx.Bootstrap.define("qx.core.WindowError",
   extend : Error,
 
 
-
-
-  /*
-  *****************************************************************************
-     CONSTRUCTOR
-  *****************************************************************************
-  */
-
   /**
    * @param failMessage {String} The error message
    * @param uri {String} URI where error was raised
@@ -56,13 +48,6 @@ qx.Bootstrap.define("qx.core.WindowError",
     this.__lineNumber = lineNumber === undefined ? -1 : lineNumber;
   },
 
-
-
-  /*
-  *****************************************************************************
-     MEMBERS
-  *****************************************************************************
-  */
 
   members :
   {
