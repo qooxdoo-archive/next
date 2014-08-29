@@ -50,11 +50,7 @@ qx.Bootstrap.define("qx.util.Serializer",
       var properties = qx.util.PropertyUtil.getAllProperties(object.constructor);
 
       for (var name in properties) {
-        // ignore property groups
-        if (properties[name].group != undefined) {
-          continue;
-        }
-        var value = object["get" + qx.lang.String.firstUp(name)]();
+        var value = object[name];
 
         // handle arrays
         if (qx.lang.Type.isArray(value)) {
@@ -64,7 +60,7 @@ qx.Bootstrap.define("qx.util.Serializer",
             var valueAtI = isdataArray ? value.getItem(i) : value[i];
             result += this.__toUriParameter(name, valueAtI, qxSerializer);
           }
-        } else if (qx.lang.Type.isDate(value) && dateFormat != null) {
+        } else if (qx.lang.Type.isDate(value) && dateFormat) {
           result += this.__toUriParameter(
             name, dateFormat.format(value), qxSerializer
           );

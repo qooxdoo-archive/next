@@ -643,6 +643,11 @@ qx.Bootstrap.define("qx.io.request.AbstractRequest",
       return this.getReadyState() === 4;
     },
 
+
+    isDisposed: function() {
+      return !!this.$$disposed;
+    },
+
     /*
     ---------------------------------------------------------------------------
       RESPONSE
@@ -845,6 +850,11 @@ qx.Bootstrap.define("qx.io.request.AbstractRequest",
         return data;
       }
 
+      // duck typing for qx classes
+      if (data.classname && data.$$name) {
+        return qx.util.Serializer.toUriParameter(data);
+      }
+
       if (isJson && (qx.lang.Type.isObject(data) || qx.lang.Type.isArray(data))) {
         return qx.lang.Json.stringify(data);
       }
@@ -856,6 +866,7 @@ qx.Bootstrap.define("qx.io.request.AbstractRequest",
 
     dispose: function()
     {
+      this.$$disposed = true;
       var transport = this._transport,
           noop = function() {};
 

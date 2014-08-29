@@ -54,7 +54,7 @@ qx.Bootstrap.define("qx.test.io.rest.ResourceWithRemote",
       res.map("get", "GET", url);
       res.on("getSuccess", function(e) {
         this.resume(function() {
-          this.assertEquals("SAMPLE", e.getData());
+          this.assertEquals("SAMPLE", e.response);
         }, this);
       }, this);
 
@@ -71,8 +71,8 @@ qx.Bootstrap.define("qx.test.io.rest.ResourceWithRemote",
       res.map("get", "GET", url);
       res.on("error", function(e) {
         this.resume(function() {
-          this.assertEquals("statusError", e.getPhase());
-          this.assertEquals("get", e.getAction());
+          this.assertEquals("statusError", e.phase);
+          this.assertEquals("get", e.action);
         }, this);
       }, this);
 
@@ -92,7 +92,7 @@ qx.Bootstrap.define("qx.test.io.rest.ResourceWithRemote",
       // Response headers must contain explicit cache control for this
       // to work in IE
       res.on("getSuccess", function(e) {
-        var response = e.getData();
+        var response = e.response;
         count++;
 
         this.assert(response.length === 32, "Response must be MD5");
@@ -118,7 +118,7 @@ qx.Bootstrap.define("qx.test.io.rest.ResourceWithRemote",
 
       res.map("get", "GET", url);
       res.on("getSuccess", function(e) {
-        var response = e.getData();
+        var response = e.response;
         responses.push(response);
 
         if (++count >= 5) {

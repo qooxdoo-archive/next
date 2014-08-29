@@ -572,7 +572,7 @@ qx.Bootstrap.define("qx.io.rest.Resource",
           immediateResponseCount += 1;
           if (immediateResponseCount > res._getThrottleCount()) {
             if (qx.core.Environment.get("qx.debug")) {
-              res.debug("Received successful response more than " +
+              qx.log.Logger.debug(res, "Received successful response more than " +
                 res._getThrottleCount() + " times subsequently, each within " +
                 res._getThrottleLimit() + " ms. Throttling.");
             }
@@ -589,7 +589,7 @@ qx.Bootstrap.define("qx.io.rest.Resource",
       }
 
       var handlerId = this.__longPollHandlers[action] =
-        this.addListener(action + "Success", function longPollHandler() {
+        this.on(action + "Success", function longPollHandler() {
           if (res.isDisposed()) {
             return;
           }
@@ -602,6 +602,10 @@ qx.Bootstrap.define("qx.io.rest.Resource",
 
       this.invoke(action);
       return handlerId;
+    },
+
+    isDisposed : function() {
+      return !!this.$$disposed;
     },
 
     /**
@@ -674,6 +678,7 @@ qx.Bootstrap.define("qx.io.rest.Resource",
 
 
     dispose: function() {
+      this.$$disposed = true;
       var action;
 
       if (this.__pollTimers) {
@@ -690,7 +695,7 @@ qx.Bootstrap.define("qx.io.rest.Resource",
         }
       }
 
-      this.__resource && this._resource.dispose();
+      this._resource && this._resource.dispose();
       this._resource = this.__routes = this.__longPollHandlers = null;
     }
   }

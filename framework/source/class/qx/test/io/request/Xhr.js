@@ -292,25 +292,6 @@ qx.Bootstrap.define("qx.test.io.request.Xhr",
       transport.onreadystatechange();
     },
 
-    // Documentation only
-    "test: event handler's this is request": function() {
-      this.setUpFakeTransport();
-      var req = this.req,
-          transport = this.transport,
-          that = this;
-
-      transport.readyState = 4;
-      transport.status = 200;
-      transport.responseText = "Affe";
-
-      req.on("success", function() {
-        that.assertEquals(this, req);
-        that.assertEquals("Affe", this.getResponseText());
-      });
-
-      transport.onreadystatechange();
-    },
-
     //
     // Properties
     //

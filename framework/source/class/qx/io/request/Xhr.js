@@ -30,8 +30,8 @@
  * <pre class="javascript">
  * var req = new qx.io.request.Xhr("/some/path/file.json");
  *
- * req.addListener("success", function(e) {
- *   var req = e.getTarget();
+ * req.on("success", function(e) {
+ *   var req = e.target;
  *
  *   // Response parsed according to the server's
  *   // response content type, e.g. JSON

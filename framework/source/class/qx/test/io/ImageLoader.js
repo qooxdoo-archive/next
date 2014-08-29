@@ -142,7 +142,7 @@ qx.Bootstrap.define("qx.test.io.ImageLoader",
         this.resume(function() {
           this.assertEquals("gif", qx.io.ImageLoader.getFormat(this.__imageSource));
         }, self);
-      }.binf(this), 500);
+      }.bind(this), 500);
 
       this.wait();
     },

@@ -47,7 +47,7 @@ qx.Mixin.define("qx.event.MEmitter",
      */
     on : function(name, listener, ctx) {
       this.$$lastListenerId = qx.event.MEmitter.__storageId++;
-      this.__getStorage(name)[this.$$lastListenerId] = {
+      this._getStorage(name)[this.$$lastListenerId] = {
         name: name,
         listener: listener,
         ctx: ctx,
@@ -69,7 +69,7 @@ qx.Mixin.define("qx.event.MEmitter",
      */
     once : function(name, listener, ctx) {
       this.$$lastListenerId = qx.event.MEmitter.__storageId++;
-      this.__getStorage(name)[this.$$lastListenerId] = {
+      this._getStorage(name)[this.$$lastListenerId] = {
         name: name,
         listener: listener,
         ctx: ctx,
@@ -91,7 +91,7 @@ qx.Mixin.define("qx.event.MEmitter",
      * <code>null</code> if it wasn't found
      */
     off : function(name, listener, ctx) {
-      var storage = this.__getStorage(name);
+      var storage = this._getStorage(name);
       var foundId;
       storage.forEach(function(entry, i, storage) {
         if (entry.listener == listener && entry.ctx == ctx) {
@@ -138,7 +138,7 @@ qx.Mixin.define("qx.event.MEmitter",
      * @param data {var?undefined} The data which should be passed to the listener.
      */
     emit : function(name, data) {
-      var storage = this.__getStorage(name);
+      var storage = this._getStorage(name);
       storage.forEach(function(entry) {
         entry.listener.call(entry.ctx, data);
         if (entry.once) {
@@ -147,7 +147,7 @@ qx.Mixin.define("qx.event.MEmitter",
       });
 
       // call on any
-      storage = this.__getStorage("*");
+      storage = this._getStorage("*");
       storage.forEach(function(entry) {
         entry.listener.call(entry.ctx, data);
       });
@@ -163,7 +163,7 @@ qx.Mixin.define("qx.event.MEmitter",
      * @return {Boolean} <code>true</code>, if the listener is already attached
      */
     hasListener : function(name, listener, context) {
-      var storage = this.__getStorage(name);
+      var storage = this._getStorage(name);
       if (storage.length === 0) {
         return false;
       }
@@ -221,7 +221,7 @@ qx.Mixin.define("qx.event.MEmitter",
      * @return {Array} An array which is the storage for the listener and
      *   the given event name.
      */
-    __getStorage : function(name) {
+    _getStorage : function(name) {
       if (this.__listener == null) {
         this.__listener = {};
       }

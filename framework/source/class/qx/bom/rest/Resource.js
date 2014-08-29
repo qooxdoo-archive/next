@@ -331,7 +331,7 @@ qx.Bootstrap.define("qx.bom.rest.Resource",
           callback: function(req, action) {
             return function() {
               var response = {
-                  "id": parseInt(req.toHashCode(), 10),
+                  "id": parseInt(req.$$hash, 10),
                   "response": req.getResponse(),
                   "request": req,
                   "action": action
@@ -346,7 +346,7 @@ qx.Bootstrap.define("qx.bom.rest.Resource",
           callback: function(req, action) {
             return function() {
               var response = {
-                  "id": parseInt(req.toHashCode(), 10),
+                  "id": parseInt(req.$$hash, 10),
                   "response": req.getResponse(),
                   "request": req,
                   "action": action
@@ -418,6 +418,7 @@ qx.Bootstrap.define("qx.bom.rest.Resource",
      */
     __createRequest: function(action) {
       var req = this._getRequest();
+      qx.core.ObjectRegistry.register(req);
 
       if (!qx.lang.Type.isArray(this.__requests[action])) {
         this.__requests[action] = [];
@@ -546,7 +547,7 @@ qx.Bootstrap.define("qx.bom.rest.Resource",
 
       req.send();
 
-      return parseInt(req.toHashCode(), 10);
+      return parseInt(req.$$hash, 10);
     },
 
     /**

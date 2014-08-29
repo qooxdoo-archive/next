@@ -37,7 +37,7 @@ qx.Bootstrap.define("qx.util.PropertyUtil",
      *   properties.
      */
     getProperties : function(clazz) {
-      return clazz.$$properties;
+      return clazz.prototype.$$properties;
     },
 
 
