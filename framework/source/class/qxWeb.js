@@ -384,7 +384,7 @@ qx.Bootstrap.define("qxWeb", {
   /**
    * @ignore(q)
    */
-  defer : function(statics) {
+  classDefined : function(statics) {
     if (window.q == undefined) {
       window.q = statics;
     }
