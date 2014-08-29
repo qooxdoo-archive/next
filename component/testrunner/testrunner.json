@@ -278,7 +278,6 @@
 
       "environment" :
       {
-        "qx.globalErrorHandling" : false,
         "testrunner.testParts" : false,
         "qx.allowUrlSettings" : true,
         "qx.application" : "${TEST_LOADER}",

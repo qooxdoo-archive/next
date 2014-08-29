@@ -43,17 +43,9 @@ qx.Bootstrap.define("testrunner.runner.TestRunnerBasic", {
     }
   },
 
-  /*
-  *****************************************************************************
-     CONSTRUCTOR
-  *****************************************************************************
-  */
+
   construct : function()
   {
-    if (qx.core.Environment.get("qx.globalErrorHandling")) {
-      qx.event.GlobalError.setErrorHandler(this._handleGlobalError, this);
-    }
-
     // Create view
     this.__testsInView = [];
     var viewSetting = qx.core.Environment.get("testrunner.view");
@@ -694,16 +686,6 @@ qx.Bootstrap.define("testrunner.runner.TestRunnerBasic", {
       return testList;
     },
 
-
-    /**
-     * Logs any errors caught by qooxdoo's global error handling.
-     *
-     * @param ex{Error} Caught exception
-     */
-    _handleGlobalError : function(ex)
-    {
-      qx.log.Logger.error(ex);
-    },
 
     dispose : function()
     {

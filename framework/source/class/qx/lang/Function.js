@@ -173,10 +173,6 @@ qx.Bootstrap.define("qx.lang.Function",
             return func.apply(options.self||this, args);
           };
 
-          if (qx.core.Environment.get("qx.globalErrorHandling")) {
-            returns = qx.event.GlobalError.observeMethod(returns);
-          }
-
           if (options.delay) {
             return window.setTimeout(returns, options.delay);
           }

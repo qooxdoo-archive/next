@@ -47,17 +47,10 @@ qx.Bootstrap.define("qx.test.dev.StackTrace",
       if (!qx.core.Environment.get("ecmascript.error.stacktrace")) {
         this.skip("Test skipped since the client doesn't provide stack traces");
       }
-      var qxErrorClasses = [qx.type.BaseError, qx.core.GlobalError,
-        qx.core.WindowError, qx.dev.unit.RequirementError];
+      var qxErrorClasses = [qx.type.BaseError, qx.dev.unit.RequirementError];
       for (var i=0, l=qxErrorClasses.length; i<l; i++) {
         var cls = qxErrorClasses[i];
-        var e;
-        if (cls.toString().indexOf("GlobalError") > 0) {
-          e = new cls(new Error());
-        }
-        else {
-          e = new cls();
-        }
+        var e = new cls();
         try {
           throw e;
         }

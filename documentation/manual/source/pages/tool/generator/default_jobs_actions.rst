@@ -476,8 +476,7 @@ Create a test runner app for unit tests of the current library.
 
       "environment" :
       {
-        "qx.theme" : "${QXTHEME}",
-        "qx.globalErrorHandling" : true
+        "qx.theme" : "${QXTHEME}"
       },
 
       "cache" :

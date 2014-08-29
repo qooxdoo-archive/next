@@ -101,28 +101,6 @@ qx.Bootstrap.define("qx.test.lang.Function",
     },
 
 
-    testCreateDelayGlobalError : function()
-    {
-      this.require(["qx.globalErrorHandling"]);
-      var fail = function() {
-        throw new Error("fail");
-      };
-
-      var onError = function() { this.resume(function() {
-        qx.event.GlobalError.setErrorHandler(null, null);
-      })};
-      qx.event.GlobalError.setErrorHandler(onError, this);
-
-      var delayed = qx.lang.Function.create(fail, {
-        self: this,
-        delay: 20
-      });
-
-      delayed();
-      this.wait(100);
-    },
-
-
     testGetName : function()
     {
       qx.Bootstrap.define("qx.test.Name",

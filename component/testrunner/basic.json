@@ -69,7 +69,6 @@
         "qx.revision"    : "${QOOXDOO_REVISION}",
         "qx.application" : "${TESTRUNNER_MAIN_CLASS}",
         "qx.testNameSpace" : "${TEST_NAMESPACE}",
-        "qx.globalErrorHandling" : false,
         "testrunner.view" : "${TESTRUNNER_VIEW}",
         "testrunner.testParts" : false,
         "testrunner.reportServer" : null,

@@ -405,7 +405,6 @@ qx.Bootstrap.define("qx.test.core.Environment",
       this.assertBoolean(qx.core.Environment.get("qx.allowUrlSettings"), "1");
       this.assertBoolean(qx.core.Environment.get("qx.allowUrlVariants"), "2");
       this.assertString(qx.core.Environment.get("qx.application"), "3");
-      this.assertBoolean(qx.core.Environment.get("qx.globalErrorHandling"), "6");
       this.assertBoolean(qx.core.Environment.get("qx.nativeScrollBars"), "9");
       this.assertNumber(qx.core.Environment.get("qx.debug.property.level"), "10");
       this.assertBoolean(qx.core.Environment.get("qx.debug"), "11");
