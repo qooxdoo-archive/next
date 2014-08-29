@@ -756,7 +756,6 @@ qx.Bootstrap.define("qx.ui.mobile.core.Widget", {
     __setVisibility : function(action, properties) {
       this.visibility = action;
 
-
       var parent = this._getParentWidget();
       if (parent) {
         parent.updateLayout(this, action, properties);

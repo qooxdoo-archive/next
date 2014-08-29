@@ -139,8 +139,7 @@ qx.Bootstrap = {
   },
 
 
-  base : function(clazz, name, varargs)
-  {
+  base : function(clazz, name, varargs) {
     if (arguments.length === 1) {
       return clazz.prototype[name].call(this);
     } else {
