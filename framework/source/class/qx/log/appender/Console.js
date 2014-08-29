@@ -365,7 +365,7 @@ qx.Bootstrap.define("qx.log.appender.Console",
   *****************************************************************************
   */
 
-  defer : function(statics) {
+  classDefined : function(statics) {
     qxWeb(document.documentElement).on("keypress", statics.__onKeyPress, statics);
     qxWeb(document.documentElement).on("longtap", statics.__onKeyPress, statics);
   }

@@ -68,7 +68,7 @@ qx.Bootstrap.define("qx.log.appender.Native",
   *****************************************************************************
   */
 
-  defer : function(statics) {
+  classDefined : function(statics) {
     qx.log.Logger.register(statics);
   }
 });

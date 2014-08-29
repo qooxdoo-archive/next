@@ -98,7 +98,7 @@ qx.Bootstrap.define("qx.module.util.Object", {
     }
   },
 
-  defer : function(statics) {
+  classDefined : function(statics) {
     qxWeb.$attachStatic({
       "object" : {
         "clone" : statics.clone,

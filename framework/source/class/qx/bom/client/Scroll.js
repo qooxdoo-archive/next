@@ -89,7 +89,7 @@ qx.Bootstrap.define("qx.bom.client.Scroll",
   },
 
 
-  defer : function(statics) {
+  classDefined : function(statics) {
     qx.core.Environment.add("os.scrollBarOverlayed", statics.scrollBarOverlayed);
     qx.core.Environment.add("qx.mobile.nativescroll", statics.getNativeScroll);
   }

@@ -185,7 +185,7 @@ qx.Bootstrap.define("qx.module.event.Keyboard", {
     }
   },
 
-  defer : function(statics) {
+  classDefined : function(statics) {
     qxWeb.$registerEventNormalization(qx.module.event.Keyboard.TYPES, statics.normalize);
 
     if (qxWeb.env.get("engine.name") === "mshtml" && qxWeb.env.get("browser.documentmode") === 9)

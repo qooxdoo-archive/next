@@ -23,7 +23,7 @@
  * It can only be included into instances of {@link Widget}.
  *
  * To optimize the method calls the including widget should call the method
- * {@link #remap} in its defer function. This will map the protected
+ * {@link #remap} in its classDefined function. This will map the protected
  * methods to the public ones and save one method call for each function.
  */
 qx.Mixin.define("qx.ui.mobile.core.MChildrenHandling",
@@ -94,7 +94,7 @@ qx.Mixin.define("qx.ui.mobile.core.MChildrenHandling",
     /**
      * Mapping of protected methods to public.
      * This omits an additional function call when using these methods. Call
-     * this methods in the defer block of the including class.
+     * this methods in the classDefined block of the including class.
      *
      * @param members {Map} The including classes members map
      */

@@ -525,7 +525,7 @@ qx.Bootstrap.define("qx.bom.element.Style",
     }
   },
 
-  defer : function(statics) {
+  classDefined : function(statics) {
     statics.__detectVendorProperties();
   }
 });

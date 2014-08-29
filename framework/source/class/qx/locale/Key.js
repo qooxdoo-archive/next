@@ -59,7 +59,7 @@ qx.Bootstrap.define("qx.locale.Key",
   },
 
 
-  defer : function(statics)
+  classDefined : function(statics)
   {
     var keyNames = {};
     var Manager = qx.locale.Manager;

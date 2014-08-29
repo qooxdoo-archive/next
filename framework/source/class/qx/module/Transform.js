@@ -276,7 +276,7 @@ qx.Bootstrap.define("qx.module.Transform",
   },
 
 
-  defer : function(statics) {
+  classDefined : function(statics) {
     qxWeb.$attach({
       "transform" : statics.transform,
       "translate" : statics.translate,

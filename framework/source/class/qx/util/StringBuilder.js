@@ -110,7 +110,7 @@ qx.Bootstrap.define("qx.util.StringBuilder",
   },
 
 
-  defer : function(statics, members)
+  classDefined : function(statics, members)
   {
     members.add = members.push;
     members.toString = members.get;

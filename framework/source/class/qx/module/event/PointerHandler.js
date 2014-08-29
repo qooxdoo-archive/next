@@ -91,7 +91,7 @@ qx.Bootstrap.define("qx.module.event.PointerHandler", {
     }
   },
 
-  defer : function(statics) {
+  classDefined : function(statics) {
     qxWeb.$registerEventHook(statics.TYPES, statics.register, statics.unregister);
   }
 });

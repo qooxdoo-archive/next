@@ -38,7 +38,7 @@ qx.Bootstrap.define("qx.module.AnimationFrame", {
   },
 
 
-  defer : function(statics) {
+  classDefined : function(statics) {
     qxWeb.$attachStatic({
       "requestAnimationFrame" : statics.requestAnimationFrame
     });

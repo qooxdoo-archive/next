@@ -1120,7 +1120,7 @@ qx.Bootstrap.define("qx.core.Environment",
   },
 
 
-  defer : function(statics) {
+  classDefined : function(statics) {
     // create default values for the environment class
     statics._initDefaultQxValues();
     // load the checks from the generator

@@ -54,7 +54,7 @@ qx.Bootstrap.define("qx.bom.client.Json",
     }
   },
 
-  defer : function(statics) {
+  classDefined : function(statics) {
     qx.core.Environment.add("json", statics.getJson);
   }
 });

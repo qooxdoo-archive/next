@@ -656,7 +656,7 @@ qx.Bootstrap.define("qx.log.Logger",
   },
 
 
-  defer : function(statics)
+  classDefined : function(statics)
   {
     var logs = qx.Bootstrap.$$logs;
     for (var i=0; i<logs.length; i++) {

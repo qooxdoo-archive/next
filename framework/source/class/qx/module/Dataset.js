@@ -92,7 +92,7 @@ qx.Bootstrap.define("qx.module.Dataset", {
 
   },
 
-  defer : function(statics)
+  classDefined : function(statics)
   {
     qxWeb.$attach({
       "getData" : statics.getData,

@@ -591,7 +591,7 @@ qx.Bootstrap.define("qx.module.Css", {
   },
 
 
-  defer : function(statics) {
+  classDefined : function(statics) {
     qxWeb.$attach({
       "setStyle" : statics.setStyle,
       "getStyle" : statics.getStyle,

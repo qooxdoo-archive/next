@@ -50,7 +50,7 @@ qx.Bootstrap.define("qx.bom.client.PhoneGap",
     }
   },
 
-  defer : function(statics) {
+  classDefined : function(statics) {
     qx.core.Environment.add("phonegap", statics.getPhoneGap);
     qx.core.Environment.add("phonegap.notification", statics.getNotification);
   }

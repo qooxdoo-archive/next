@@ -322,7 +322,7 @@ qx.Bootstrap.define("qx.core.ObjectRegistry",
     }
   },
 
-  defer : function(statics)
+  classDefined : function(statics)
   {
     if (window && window.top)
     {

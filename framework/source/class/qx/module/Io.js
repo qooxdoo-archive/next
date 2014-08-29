@@ -109,7 +109,7 @@ qx.Bootstrap.define("qx.module.Io", {
   },
 
 
-  defer : function(statics) {
+  classDefined : function(statics) {
     qxWeb.$attachStatic({
       io : {
         xhr : statics.xhr,

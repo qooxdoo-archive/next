@@ -73,7 +73,7 @@ qx.Bootstrap.define("qx.module.event.Rotate", {
     }
   },
 
-  defer : function(statics) {
+  classDefined : function(statics) {
     qxWeb.$registerEventNormalization(qx.module.event.Rotate.TYPES, statics.normalize);
   }
 });

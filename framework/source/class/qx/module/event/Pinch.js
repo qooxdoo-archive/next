@@ -73,7 +73,7 @@ qx.Bootstrap.define("qx.module.event.Pinch", {
     }
   },
 
-  defer : function(statics) {
+  classDefined : function(statics) {
     qxWeb.$registerEventNormalization(qx.module.event.Pinch.TYPES, statics.normalize);
   }
 });

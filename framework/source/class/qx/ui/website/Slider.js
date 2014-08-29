@@ -648,7 +648,7 @@ qx.Bootstrap.define("qx.ui.website.Slider",
 
 
   // Make the slider widget available as a qxWeb module
-  defer : function(statics) {
+  classDefined : function(statics) {
     qxWeb.$attach({slider : statics.slider});
   }
 });

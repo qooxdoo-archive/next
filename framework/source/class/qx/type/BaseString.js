@@ -341,7 +341,7 @@ qx.Bootstrap.define("qx.type.BaseString",
    *****************************************************************************
    */
 
-   defer : function(statics, members)
+   classDefined : function(statics, members)
    {
      var mappedFunctions = [
        'charAt',

@@ -97,7 +97,7 @@ qx.Bootstrap.define("qx.bom.client.Pdfjs",
   /**
    * Register PDF.js detection asynchronously.
    */
-  defer : function(statics) {
+  classDefined : function(statics) {
     qx.core.Environment.addAsync("plugin.pdfjs", statics.getPdfjs);
   }
 });

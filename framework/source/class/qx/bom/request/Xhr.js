@@ -888,7 +888,7 @@ qx.Bootstrap.define("qx.bom.request.Xhr",
     }
   },
 
-  defer: function() {
+  classDefined : function() {
     qx.core.Environment.add("qx.debug.io", false);
   }
 });

@@ -48,7 +48,7 @@ qx.Bootstrap.define("qx.module.Rest", {
     }
   },
 
-  defer : function(statics) {
+  classDefined : function(statics) {
     qxWeb.$attachStatic({
       "rest" : {
         "resource" : statics.resource

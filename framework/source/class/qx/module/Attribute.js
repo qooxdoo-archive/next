@@ -253,7 +253,7 @@ qx.Bootstrap.define("qx.module.Attribute", {
   },
 
 
-  defer : function(statics) {
+  classDefined : function(statics) {
     qxWeb.$attach({
       "getHtml" : statics.getHtml,
       "setHtml" : statics.setHtml,

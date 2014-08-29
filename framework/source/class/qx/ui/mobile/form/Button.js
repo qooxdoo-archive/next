@@ -86,7 +86,7 @@ qx.Bootstrap.define("qx.ui.mobile.form.Button",
     }
   },
 
-  defer : function(statics) {
+  classDefined : function(statics) {
     qxWeb.$attach({button : statics.button});
   }
 });

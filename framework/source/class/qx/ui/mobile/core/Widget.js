@@ -861,7 +861,7 @@ qx.Bootstrap.define("qx.ui.mobile.core.Widget", {
   },
 
 
-  defer : function(statics) {
+  classDefined : function(statics) {
     qxWeb(window).on("unload", statics.onShutdown, statics);
     qxWeb.$attachStatic({
       initWidgets : statics.initWidgets

@@ -179,7 +179,7 @@ qx.Bootstrap.define("qx.module.event.Native", {
     }
   },
 
-  defer : function(statics) {
+  classDefined : function(statics) {
     qxWeb.$registerEventNormalization(statics.TYPES, statics.normalize);
   }
 });

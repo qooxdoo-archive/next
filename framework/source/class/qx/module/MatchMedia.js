@@ -107,7 +107,7 @@ qx.Bootstrap.define("qx.module.MatchMedia", {
     }
   },
 
-  defer: function (statics) {
+  classDefined : function (statics) {
     qxWeb.$attachStatic({
       matchMedia: statics.matchMedia,
       addSizeClasses: statics.addSizeClasses

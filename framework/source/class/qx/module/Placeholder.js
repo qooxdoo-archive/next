@@ -171,7 +171,7 @@ qx.Bootstrap.define("qx.module.Placeholder", {
   },
 
 
-  defer : function(statics) {
+  classDefined : function(statics) {
     qxWeb.$attachStatic({
       "placeholder" : {update: statics.update}
     });

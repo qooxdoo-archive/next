@@ -834,7 +834,7 @@ qx.Bootstrap.define("qx.ui.website.Calendar", {
   },
 
 
-  defer : function(statics) {
+  classDefined : function(statics) {
     qxWeb.$attach({calendar : statics.calendar});
   }
 });

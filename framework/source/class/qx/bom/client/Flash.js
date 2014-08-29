@@ -215,7 +215,7 @@ qx.Bootstrap.define("qx.bom.client.Flash",
     }
   },
 
-  defer : function(statics) {
+  classDefined : function(statics) {
     qx.core.Environment.add("plugin.flash", statics.isAvailable);
     qx.core.Environment.add("plugin.flash.version", statics.getVersion);
     qx.core.Environment.add("plugin.flash.express", statics.getExpressInstall);

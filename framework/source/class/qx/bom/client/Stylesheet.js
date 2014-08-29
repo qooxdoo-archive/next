@@ -84,7 +84,7 @@ qx.Bootstrap.define("qx.bom.client.Stylesheet",
 
 
 
-  defer : function (statics) {
+  classDefined : function (statics) {
     qx.core.Environment.add("html.stylesheet.createstylesheet", statics.getCreateStyleSheet);
     qx.core.Environment.add("html.stylesheet.addimport", statics.getAddImport);
     qx.core.Environment.add("html.stylesheet.removeimport", statics.getRemoveImport);

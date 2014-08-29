@@ -444,7 +444,7 @@ qx.Bootstrap.define("qx.ui.mobile.page.Page",
   *****************************************************************************
   */
 
-  defer : function(statics) {
+  classDefined : function(statics) {
     if (qx.core.Environment.get("phonegap") && qx.core.Environment.get("os.name") == "android")
     {
       qxWeb(document).on("deviceready", statics._onDeviceReady);

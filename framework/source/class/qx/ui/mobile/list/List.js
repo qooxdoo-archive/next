@@ -635,7 +635,7 @@ qx.Bootstrap.define("qx.ui.mobile.list.List",
     }
   },
 
-  defer : function(statics) {
+  classDefined : function(statics) {
     qxWeb.$attach({list : statics.list});
   }
 });

@@ -146,7 +146,7 @@ qx.Bootstrap.define("qx.bom.client.Device",
   },
 
 
-  defer : function(statics) {
+  classDefined : function(statics) {
       qx.core.Environment.add("device.name", statics.getName);
       qx.core.Environment.add("device.touch", statics.getTouch);
       qx.core.Environment.add("device.type", statics.getType);

@@ -94,7 +94,7 @@ qx.Bootstrap.define("qx.test.bom.storage.WebStorageTestCase",
     }
   },
 
-  defer : function(statics) {
+  classDefined : function(statics) {
     qx.test.bom.storage.WebStorageTestCase.$$classtype = "abstract";
   }
 });

@@ -48,7 +48,7 @@ qx.Bootstrap.define("qx.log.appender.PhoneGap",
   },
 
 
-  defer : function(statics)
+  classDefined : function(statics)
   {
     function register()
     {

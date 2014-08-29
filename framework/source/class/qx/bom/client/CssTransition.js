@@ -75,7 +75,7 @@ qx.Bootstrap.define("qx.bom.client.CssTransition",
   },
 
 
-  defer : function(statics) {
+  classDefined : function(statics) {
     qx.core.Environment.add("css.transition", statics.getSupport);
   }
 });

@@ -466,7 +466,7 @@ qx.Bootstrap.define("qx.bom.client.Css",
 
 
 
-  defer : function(statics) {
+  classDefined : function(statics) {
     qx.core.Environment.add("css.textoverflow", statics.getTextOverflow);
     qx.core.Environment.add("css.placeholder", statics.getPlaceholder);
     qx.core.Environment.add("css.borderradius", statics.getBorderRadius);

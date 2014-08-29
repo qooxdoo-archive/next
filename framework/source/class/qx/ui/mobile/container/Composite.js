@@ -65,7 +65,7 @@ qx.Bootstrap.define("qx.ui.mobile.container.Composite",
   },
 
 
-  defer : function(statics, members)
+  classDefined : function(statics, members)
   {
     qx.ui.mobile.core.MChildrenHandling.remap(members);
     qx.ui.mobile.core.MLayoutHandling.remap(members);

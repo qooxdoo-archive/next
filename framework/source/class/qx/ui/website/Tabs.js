@@ -828,7 +828,7 @@ qx.Bootstrap.define("qx.ui.website.Tabs", {
   },
 
 
-  defer: function(statics) {
+  classDefined : function(statics) {
     qxWeb.$attach({
       tabs: statics.tabs
     });

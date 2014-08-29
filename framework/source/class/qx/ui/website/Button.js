@@ -175,7 +175,7 @@ qx.Bootstrap.define("qx.ui.website.Button", {
   },
 
 
-  defer : function(statics) {
+  classDefined : function(statics) {
     qxWeb.$attach({button : statics.button});
   }
 });

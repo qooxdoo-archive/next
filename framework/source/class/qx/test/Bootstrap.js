@@ -125,7 +125,7 @@ qx.Bootstrap.define("qx.test.Bootstrap",
         statics : {
           methodA : null
         },
-        defer : function(statics)
+        classDefined : function(statics)
         {
           statics.methodA = function() { return true; };
         }
@@ -761,15 +761,15 @@ qx.Bootstrap.define("qx.test.Bootstrap",
     },
 
 
-    testDefer : function() {
-      var defer = this.spy();
+    testClassDefined : function() {
+      var classDefined = this.spy();
       var C = qx.Bootstrap.define(null, {
         extend: Object,
-        defer: defer
+        classDefined: classDefined
       });
 
       new C();
-      this.assertCalledOnce(defer);
+      this.assertCalledOnce(classDefined);
     },
 
     testValidateConfig : function() {
@@ -824,7 +824,7 @@ qx.Bootstrap.define("qx.test.Bootstrap",
 
       this.assertException(function() {
         qx.Bootstrap.define(null, {
-          defer: false
+          classDefined: false
         });
       });
     },

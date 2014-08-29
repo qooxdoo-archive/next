@@ -211,7 +211,7 @@ qx.Bootstrap.define("qx.module.event.Mouse", {
     }
   },
 
-  defer : function(statics) {
+  classDefined : function(statics) {
     qxWeb.$registerEventNormalization(qx.module.event.Mouse.TYPES, statics.normalize);
   }
 });

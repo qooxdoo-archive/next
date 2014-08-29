@@ -111,7 +111,7 @@ qx.Bootstrap.define("qx.module.Template", {
   },
 
 
-  defer : function(statics) {
+  classDefined : function(statics) {
     qxWeb.$attachStatic({
       "template" : {get: statics.get, render: statics.render, renderToNode: statics.renderToNode}
     });

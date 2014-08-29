@@ -160,7 +160,7 @@ qx.Bootstrap.define("qx.module.util.Function", {
     }
   },
 
-  defer : function(statics) {
+  classDefined : function(statics) {
     qxWeb.$attachStatic({
       func : {
         debounce : statics.debounce,

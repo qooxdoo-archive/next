@@ -129,7 +129,7 @@ qx.Bootstrap.define("qx.ui.mobile.dialog.BusyIndicator",
   },
 
 
-  defer : function() {
+  classDefined : function() {
     qx.ui.mobile.dialog.BusyIndicator.SPINNER_ANIMATION = {
       duration: 750,
       timing: "linear",

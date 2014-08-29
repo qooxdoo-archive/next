@@ -84,7 +84,7 @@ qx.Bootstrap.define("qx.module.Environment", {
   },
 
 
-  defer : function(statics) {
+  classDefined : function(statics) {
     // make sure the desired keys are available (browser.* and engine.*)
     qx.core.Environment.get("browser.name");
     qx.core.Environment.get("browser.version");

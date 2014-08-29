@@ -1278,7 +1278,7 @@ qx.Bootstrap.define("qx.ui.website.Table", {
   },
 
 
-  defer : function(statics) {
+  classDefined : function(statics) {
     qxWeb.$attach({
       table: statics.table
     });

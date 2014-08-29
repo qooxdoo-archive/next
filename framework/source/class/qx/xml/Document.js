@@ -138,7 +138,7 @@ qx.Bootstrap.define("qx.xml.Document",
   *****************************************************************************
   */
 
-  defer : function(statics)
+  classDefined : function(statics)
   {
     // Detecting available ActiveX implementations.
     if (qx.core.Environment.get("plugin.activex"))

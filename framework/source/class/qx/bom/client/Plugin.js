@@ -404,7 +404,7 @@ qx.Bootstrap.define("qx.bom.client.Plugin",
     }
   },
 
-  defer : function(statics) {
+  classDefined : function(statics) {
     qx.core.Environment.add("plugin.quicktime", statics.getQuicktime);
     qx.core.Environment.add("plugin.quicktime.version", statics.getQuicktimeVersion);
     qx.core.Environment.add("plugin.windowsmedia", statics.getWindowsMedia);

@@ -191,7 +191,7 @@ qx.Bootstrap.define("qx.module.util.Array", {
   },
 
 
-  defer : function(statics) {
+  classDefined : function(statics) {
     qxWeb.$attachStatic({
       array : {
         cast : statics.cast,

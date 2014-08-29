@@ -83,7 +83,7 @@ qx.Bootstrap.define("qx.data.Conversion",
   },
 
 
-  defer : function() {
+  classDefined : function() {
     // the converter need to be set in the defer because the reference to
     // the converter function is not available during the class create
     qx.data.Conversion.TOSTRINGOPTIONS.converter = qx.data.Conversion.toString;

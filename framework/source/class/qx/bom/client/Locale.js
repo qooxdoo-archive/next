@@ -100,7 +100,7 @@ qx.Bootstrap.define("qx.bom.client.Locale",
     }
   },
 
-  defer : function(statics) {
+  classDefined : function(statics) {
     qx.core.Environment.add("locale", statics.getLocale);
     qx.core.Environment.add("locale.variant", statics.getVariant);
   }

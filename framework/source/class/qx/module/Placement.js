@@ -292,7 +292,7 @@ qxWeb.define("qx.module.Placement", {
 
   },
 
-  defer : function(statics)
+  classDefined : function(statics)
   {
     qxWeb.$attach({
      "placeTo" : statics.placeTo

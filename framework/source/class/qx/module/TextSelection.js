@@ -182,7 +182,7 @@ qx.Bootstrap.define("qx.module.TextSelection", {
   },
 
 
-  defer : function(statics) {
+  classDefined : function(statics) {
     qxWeb.$attach({
       "getTextSelection" : statics.getTextSelection,
       "getTextSelectionLength" : statics.getTextSelectionLength,

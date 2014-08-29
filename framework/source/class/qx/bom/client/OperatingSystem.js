@@ -226,7 +226,7 @@ qx.Bootstrap.define("qx.bom.client.OperatingSystem",
     }
   },
 
-  defer : function(statics) {
+  classDefined : function(statics) {
     qx.core.Environment.add("os.name", statics.getName);
     qx.core.Environment.add("os.version", statics.getVersion);
   }

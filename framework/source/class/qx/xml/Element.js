@@ -310,7 +310,7 @@ qx.Bootstrap.define("qx.xml.Element",
   },
 
 
-  defer : function(statics)
+  classDefined : function(statics)
   {
     statics.XML_SERIALIZER = (window.XMLSerializer &&
      !( qx.core.Environment.get("engine.name") == "mshtml" &&

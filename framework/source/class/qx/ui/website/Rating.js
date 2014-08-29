@@ -296,7 +296,7 @@ qx.Bootstrap.define("qx.ui.website.Rating", {
   },
 
 
-  defer : function(statics) {
+  classDefined : function(statics) {
     qxWeb.$attach({rating : statics.rating});
   }
 });

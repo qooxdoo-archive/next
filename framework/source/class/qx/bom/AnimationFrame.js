@@ -197,7 +197,7 @@ qx.Bootstrap.define("qx.bom.AnimationFrame",
   /**
    * @ignore(performance.timing.*)
    */
-  defer : function(statics) {
+  classDefined : function(statics) {
     // check and use the high resolution start time if available
     statics.__start = window.performance && performance.timing && performance.timing.navigationStart;
     // if not, simply use the current time

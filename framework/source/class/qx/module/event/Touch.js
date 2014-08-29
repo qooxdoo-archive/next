@@ -55,7 +55,7 @@ qx.Bootstrap.define("qx.module.event.Touch", {
     }
   },
 
-  defer : function(statics) {
+  classDefined : function(statics) {
     qxWeb.$registerEventNormalization(statics.TYPES, statics.normalize);
   }
 });

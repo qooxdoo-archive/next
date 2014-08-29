@@ -214,7 +214,7 @@ qxWeb.define("qx.module.Blocker", {
   },
 
 
-  defer : function(statics)
+  classDefined : function(statics)
   {
     qxWeb.$attach({
       "block" : statics.block,

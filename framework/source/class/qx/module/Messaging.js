@@ -85,7 +85,7 @@ qx.Bootstrap.define("qx.module.Messaging", {
   },
 
 
-  defer : function(statics) {
+  classDefined : function(statics) {
     qxWeb.$attachStatic({
       "messaging" : new qx.event.Messaging()
     });

@@ -725,7 +725,7 @@ qx.Bootstrap.define("qx.module.Event", {
   },
 
 
-  defer : function(statics) {
+  classDefined : function(statics) {
     qxWeb.$attach({
       "on" : statics.on,
       "off" : statics.off,

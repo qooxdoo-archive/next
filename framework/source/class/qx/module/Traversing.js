@@ -854,7 +854,7 @@ qx.Bootstrap.define("qx.module.Traversing", {
   },
 
 
-  defer : function(statics) {
+  classDefined : function(statics) {
     qxWeb.$attach({
       "add" : statics.add,
       "getChildren" : statics.getChildren,

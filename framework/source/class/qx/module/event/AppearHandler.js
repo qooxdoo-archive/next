@@ -99,7 +99,7 @@ qx.Bootstrap.define("qx.module.event.AppearHandler", {
 
   },
 
-  defer : function(statics) {
+  classDefined : function(statics) {
     qxWeb.$registerEventHook(statics.TYPES, statics.register, statics.unregister);
   }
 });

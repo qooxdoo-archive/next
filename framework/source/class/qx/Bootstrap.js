@@ -47,8 +47,8 @@ qx.Bootstrap = {
     "statics"    : ["Object"],    // Map
     "properties" : ["Object"],    // Map
     "members"    : ["Object"],    // Map
-    "defer"      : ["Function"],  // Function
-    "events"     : ["Object"]     // TODO: remove
+    "classDefined" : ["Function"],  // Function
+    "events"     : ["Object"]     // Map
   },
 
 
@@ -218,9 +218,9 @@ qx.Bootstrap = {
       if (formerClass) {
         // Add/overwrite properties and return early if necessary
         if (Object.keys(clazz).length !== 0) {
-          // Execute defer to prevent too early overrides
-          if (config.defer) {
-            config.defer(clazz, proto);
+          // Execute classDefined to prevent too early overrides
+          if (config.classDefined) {
+            config.classDefined(clazz, proto);
           }
 
           for (var curProp in clazz) {
@@ -276,9 +276,9 @@ qx.Bootstrap = {
       }
     }
 
-    // Execute defer section
-    if (config.defer) {
-      config.defer(clazz, proto);
+    // Execute classDefined section
+    if (config.classDefined) {
+      config.classDefined(clazz, proto);
     }
 
     return clazz;
@@ -567,7 +567,7 @@ qx.Bootstrap.define("qx.Bootstrap",
      *       <tr><th>construct</th><td>Function</td><td>The constructor of the class.</td></tr>
      *       <tr><th>statics</th><td>Map</td><td>Map of static values / functions of the class.</td></tr>
      *       <tr><th>members</th><td>Map</td><td>Map of instance members of the class.</td></tr>
-     *       <tr><th>defer</th><td>Function</td><td>Function that is called at the end of
+     *       <tr><th>classDefined</th><td>Function</td><td>Function that is called at the end of
      *          processing the class declaration.</td></tr>
      *     </table>
      * @return {Class} The defined class.

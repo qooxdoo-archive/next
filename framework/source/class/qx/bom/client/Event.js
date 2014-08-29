@@ -143,7 +143,7 @@ qx.Bootstrap.define("qx.bom.client.Event",
     }
   },
 
-  defer : function(statics) {
+  classDefined : function(statics) {
     qx.core.Environment.add("event.touch", statics.getTouch);
     qx.core.Environment.add("event.mouseevent", statics.getMouseEvent);
     qx.core.Environment.add("event.customevent", statics.getCustomEvent);

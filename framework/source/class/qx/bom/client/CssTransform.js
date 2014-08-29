@@ -143,7 +143,7 @@ qx.Bootstrap.define("qx.bom.client.CssTransform",
 
 
 
-  defer : function(statics) {
+  classDefined : function(statics) {
     qx.core.Environment.add("css.transform", statics.getSupport);
     qx.core.Environment.add("css.transform.3d", statics.get3D);
   }

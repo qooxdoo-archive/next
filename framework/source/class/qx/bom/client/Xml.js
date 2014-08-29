@@ -69,7 +69,7 @@ qx.Bootstrap.define("qx.bom.client.Xml",
     }
   },
 
-  defer : function(statics)
+  classDefined : function(statics)
   {
     qx.core.Environment.add("xml.getelementsbytagnamens", statics.getElementsByTagNameNS);
     qx.core.Environment.add("xml.attributens", statics.getAttributeNS);

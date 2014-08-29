@@ -225,7 +225,7 @@ qx.Bootstrap.define("qx.bom.client.Browser",
     }[qx.bom.client.Engine.getName()]
   },
 
-  defer : function(statics) {
+  classDefined : function(statics) {
     qx.core.Environment.add("browser.name", statics.getName);
     qx.core.Environment.add("browser.version", statics.getVersion);
     qx.core.Environment.add("browser.documentmode", statics.getDocumentMode);

@@ -97,7 +97,7 @@ qx.Bootstrap.define("qx.core.Init",
   },
 
 
-  defer : function(statics)
+  classDefined : function(statics)
   {
     qxWeb.ready(statics.ready, statics);
     qxWeb(window).on("beforeunload", statics.__close, statics)

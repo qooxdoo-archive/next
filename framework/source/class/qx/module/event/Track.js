@@ -77,7 +77,7 @@ qx.Bootstrap.define("qx.module.event.Track", {
     }
   },
 
-  defer : function(statics) {
+  classDefined : function(statics) {
     qxWeb.$registerEventNormalization(qx.module.event.Track.TYPES, statics.normalize);
   }
 });

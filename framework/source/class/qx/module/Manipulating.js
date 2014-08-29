@@ -584,7 +584,7 @@ qx.Bootstrap.define("qx.module.Manipulating", {
   },
 
 
-  defer : function(statics) {
+  classDefined : function(statics) {
     qxWeb.$attachStatic({
       "create" : statics.create
     });

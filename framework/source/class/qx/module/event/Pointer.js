@@ -156,7 +156,7 @@ qx.Bootstrap.define("qx.module.event.Pointer", {
     }
   },
 
-  defer : function(statics) {
+  classDefined : function(statics) {
     qxWeb.$registerEventNormalization(qx.module.event.Pointer.TYPES, statics.normalize);
   }
 });

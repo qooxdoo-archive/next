@@ -134,7 +134,7 @@ qx.Bootstrap.define("qx.module.event.Swipe", {
     }
   },
 
-  defer : function(statics) {
+  classDefined : function(statics) {
     qxWeb.$registerEventNormalization(qx.module.event.Swipe.TYPES, statics.normalize);
   }
 });

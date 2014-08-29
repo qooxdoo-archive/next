@@ -183,7 +183,7 @@ qx.Bootstrap.define("qx.module.Storage", {
   },
 
 
-  defer : function(statics) {
+  classDefined : function(statics) {
     qxWeb.$attachStatic({
       "localStorage" : {
         setItem : statics.setLocalItem,

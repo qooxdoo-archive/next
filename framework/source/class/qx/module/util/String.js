@@ -143,7 +143,7 @@ qx.Bootstrap.define("qx.module.util.String", {
   },
 
 
-  defer : function(statics) {
+  classDefined : function(statics) {
     qxWeb.$attachStatic({
       string : {
         camelCase : statics.camelCase,

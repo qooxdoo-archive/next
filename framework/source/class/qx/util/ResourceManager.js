@@ -211,7 +211,7 @@ qx.Bootstrap.define("qx.util.ResourceManager",
   },
 
 
-  defer : function(statics)
+  classDefined : function(statics)
   {
     if ((qx.core.Environment.get("engine.name") == "mshtml"))
     {

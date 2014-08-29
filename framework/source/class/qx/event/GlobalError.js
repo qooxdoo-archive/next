@@ -161,7 +161,7 @@ qx.Bootstrap.define("qx.event.GlobalError",
   },
 
 
-  defer : function(statics)
+  classDefined : function(statics)
   {
     var key = "qx.globalErrorHandling";
     // only use the environment class if already loaded

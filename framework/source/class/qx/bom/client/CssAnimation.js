@@ -204,7 +204,7 @@ qx.Bootstrap.define("qx.bom.client.CssAnimation",
   },
 
 
-  defer : function(statics) {
+  classDefined : function(statics) {
     qx.core.Environment.add("css.animation", statics.getSupport);
     qx.core.Environment.add("css.animation.requestframe", statics.getRequestAnimationFrame);
   }

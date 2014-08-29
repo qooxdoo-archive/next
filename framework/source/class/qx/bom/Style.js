@@ -154,7 +154,7 @@ qx.Bootstrap.define("qx.bom.Style",
     }
   },
 
-  defer : function(statics) {
+  classDefined : function(statics) {
     if (window.CSS && window.CSS.supports) {
       qx.bom.Style.__supports = window.CSS.supports.bind(window.CSS);
     } else if (window.supportsCSS) {

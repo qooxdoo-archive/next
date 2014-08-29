@@ -119,7 +119,7 @@ qx.Bootstrap.define("qx.log.appender.NodeConsole", {
   /**
    * @ignore(process.*)
    */
-  defer : function(statics)
+  classDefined : function(statics)
   {
     if (typeof(process) !== "undefined") {
       statics.__OUT = process.stdout;

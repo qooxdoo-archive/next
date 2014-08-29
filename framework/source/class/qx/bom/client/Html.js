@@ -264,7 +264,7 @@ qx.Bootstrap.define("qx.bom.client.Html",
     }
   },
 
-  defer : function (statics) {
+  classDefined : function (statics) {
     qx.core.Environment.add("html.webworker", statics.getWebWorker);
     qx.core.Environment.add("html.filereader", statics.getFileReader);
     qx.core.Environment.add("html.geolocation", statics.getGeoLocation);

@@ -303,7 +303,7 @@ qx.Bootstrap.define("qx.module.Animation", {
   },
 
 
-  defer : function(statics) {
+  classDefined : function(statics) {
     qxWeb.$attach({
       "animate" : statics.animate,
       "animateReverse" : statics.animateReverse,

@@ -166,7 +166,7 @@ qx.Bootstrap.define("qx.module.dev.FakeServer", {
     }
   },
 
-  defer : function(statics) {
+  classDefined : function(statics) {
     qxWeb.$attachStatic({
       "dev": {
         "fakeServer" : {

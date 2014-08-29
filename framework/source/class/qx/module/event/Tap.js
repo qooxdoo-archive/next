@@ -152,7 +152,7 @@ qx.Bootstrap.define("qx.module.event.Tap", {
     }
   },
 
-  defer : function(statics) {
+  classDefined : function(statics) {
     qxWeb.$registerEventNormalization(qx.module.event.Tap.TYPES, statics.normalize);
   }
 });

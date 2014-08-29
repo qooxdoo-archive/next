@@ -637,7 +637,7 @@ qx.Bootstrap.define("qx.bom.request.Script",
     }
   },
 
-  defer: function() {
+  classDefined : function() {
     if (qx && qx.core && qx.core.Environment) {
       qx.core.Environment.add("qx.debug.io", false);
     }
