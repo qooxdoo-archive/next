@@ -32,13 +32,12 @@ qx.Bootstrap.define("qx.test.util.PropertyUtil",
     {
       this.button = new qx.ui.mobile.form.Button();
       this.getRoot().add(this.button);
-      this.flush();
     },
 
 
     tearDown : function() {
       this.base(qx.test.mobile.MobileTestCase, "tearDown");
-      this.button.destroy();
+      this.button.remove().dispose();
     },
 
 

@@ -19,7 +19,7 @@
 ************************************************************************ */
 
 
-qx.Class.define("qx.test.util.placement.Placement",
+qx.Bootstrap.define("qx.test.util.placement.Placement",
 {
   extend : qx.dev.unit.TestCase,
 

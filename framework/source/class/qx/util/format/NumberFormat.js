@@ -25,6 +25,7 @@ qx.Bootstrap.define("qx.util.format.NumberFormat",
 {
   extend : Object,
   implement : qx.util.format.IFormat,
+  include : [qx.event.MEmitter],
 
 
   /**

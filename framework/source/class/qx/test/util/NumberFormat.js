@@ -29,16 +29,15 @@ qx.Bootstrap.define("qx.test.util.NumberFormat",
     setUp : function() {
       this.assertNotUndefined(qx.util.format.NumberFormat);
 
-      this.__oldLocale = qx.locale.Manager.getInstance().getLocale();
-      qx.locale.Manager.getInstance().setLocale("de_DE");
+      this.__oldLocale = qx.locale.Manager.getInstance().locale;
+      qx.locale.Manager.getInstance().locale = "de_DE";
 
       this.__nf = new qx.util.format.NumberFormat();
     },
 
 
     tearDown : function() {
-      qx.locale.Manager.getInstance().setLocale(this.__oldLocale);
-      this.__nf.dispose();
+      qx.locale.Manager.getInstance().locale = this.__oldLocale;
     },
 
     testNumberFormatConstructor: function() {
@@ -150,8 +149,8 @@ qx.Bootstrap.define("qx.test.util.NumberFormat",
     testLocaleSwitch : function()
     {
       var nf = this.__nf;
-      nf.setMinimumFractionDigits(0);
-      nf.setMaximumFractionDigits(2);
+      nf.minimumFractionDigits = 0;
+      nf.maximumFractionDigits = 2;
 
       var numberStr = "0.5";
 
@@ -164,7 +163,7 @@ qx.Bootstrap.define("qx.test.util.NumberFormat",
         "testing if parsing fails on string '" + numberStr + "'"
       );
 
-      qx.locale.Manager.getInstance().setLocale("en_US");
+      qx.locale.Manager.getInstance().locale = "en_US";
 
       this.assertEquals(0.5, nf.parse("0.5"),
         "parsing failed after locale change");
@@ -173,7 +172,7 @@ qx.Bootstrap.define("qx.test.util.NumberFormat",
     testNumberFormatChange : function()
     {
       var nf = this.__nf;
-      nf.setPostfix(" %");
+      nf.postfix = " %";
 
       var numberStr = "5 Percent";
 
@@ -186,7 +185,7 @@ qx.Bootstrap.define("qx.test.util.NumberFormat",
         "testing if parsing fails on string '" + numberStr + "'"
       );
 
-      nf.setPostfix(" Percent");
+      nf.postfix = " Percent";
       this.assertEquals(5, nf.parse(numberStr),
         "parsing failed after number format change");
     }

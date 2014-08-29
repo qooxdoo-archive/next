@@ -1754,7 +1754,7 @@ qx.Bootstrap.define("qx.util.format.DateFormat",
 
     dispose : function() {
       if (this.__bindingId != null) {
-        qx.locale.Manager.getInstance().removeBinding(this.__bindingId);
+        qx.data.SingleValueBinding.removeBindingFromObject(qx.locale.Manager.getInstance(), this.__bindingId);
       }
     }
   }

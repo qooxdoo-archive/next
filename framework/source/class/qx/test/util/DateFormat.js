@@ -133,19 +133,15 @@ qx.Bootstrap.define("qx.test.util.DateFormat",
       var dateFmt = new qx.util.format.DateFormat(formatStr, "de_DE");
 
       this.assertEquals("GMT+01:00", dateFmt.format(date));
-      date.dispose();
 
       date = new qx.test.util.DateMock({timezoneOffset: 60, time: 1316000836451});
       this.assertEquals("GMT-01:00", dateFmt.format(date));
-      date.dispose();
 
       date = new qx.test.util.DateMock({timezoneOffset: -90, time: 1316000836451});
       this.assertEquals("GMT+01:30", dateFmt.format(date));
-      date.dispose();
 
       date = new qx.test.util.DateMock({timezoneOffset: 90, time: 1316000836451});
       this.assertEquals("GMT-01:30", dateFmt.format(date));
-      date.dispose();
 
       dateFmt.dispose();
     },
@@ -238,7 +234,7 @@ qx.Bootstrap.define("qx.test.util.DateFormat",
 
     testPattern_M_ : function(){
       var df;
-      var locale = qx.locale.Manager.getInstance().getLocale();
+      var locale = qx.locale.Manager.getInstance().locale;
       for(var i=0; i<this.__dates.length; i++)
       {
         var date = this.__dates[i].date;
@@ -269,7 +265,7 @@ qx.Bootstrap.define("qx.test.util.DateFormat",
 
     testPattern_L_ : function(){
       var df;
-      var locale = qx.locale.Manager.getInstance().getLocale();
+      var locale = qx.locale.Manager.getInstance().locale;
       for(var i=0; i<this.__dates.length; i++)
       {
         var date = this.__dates[i].date;
@@ -368,7 +364,7 @@ qx.Bootstrap.define("qx.test.util.DateFormat",
 
     testPattern_E_ : function(){
       var df;
-      var locale = qx.locale.Manager.getInstance().getLocale();
+      var locale = qx.locale.Manager.getInstance().locale;
 
       for(var i=0; i<this.__dates.length; i++)
       {
@@ -400,11 +396,11 @@ qx.Bootstrap.define("qx.test.util.DateFormat",
 
     testPattern_c_ : function(){
       var df;
-      var locale = qx.locale.Manager.getInstance().getLocale();
+      var locale = qx.locale.Manager.getInstance().locale;
       var locales = [locale,"en_US","ro_RO","de_DE","fr_FR"];
       for(var k=0; k<locales.length; k++)
       {
-        qx.locale.Manager.getInstance().setLocale(locales[k]);
+        qx.locale.Manager.getInstance().locale = locales[k];
         for(var i=0; i<this.__dates.length; i++)
         {
           var date = this.__dates[i].date;
@@ -429,12 +425,12 @@ qx.Bootstrap.define("qx.test.util.DateFormat",
           df.dispose();
         }
       }
-      qx.locale.Manager.getInstance().setLocale(locale);
+      qx.locale.Manager.getInstance().locale = locale;
     },
 
     testPattern_e_ : function(){
       var df;
-      var locale = qx.locale.Manager.getInstance().getLocale();
+      var locale = qx.locale.Manager.getInstance().locale;
       for(var i=0; i<this.__dates.length; i++)
       {
         var date = this.__dates[i].date;
@@ -466,7 +462,7 @@ qx.Bootstrap.define("qx.test.util.DateFormat",
 
     testPattern_e_parse : function(){
       var df, parsedDate;
-      var locale = qx.locale.Manager.getInstance().getLocale();
+      var locale = qx.locale.Manager.getInstance().locale;
       for(var i=0; i<this.__dates.length; i++)
       {
         var date = this.__dates[i].date;
@@ -501,7 +497,7 @@ qx.Bootstrap.define("qx.test.util.DateFormat",
 
     testPattern_a_ : function(){
       var df;
-      var locale = qx.locale.Manager.getInstance().getLocale();
+      var locale = qx.locale.Manager.getInstance().locale;
       for(var i=0; i<this.__dates.length; i++)
       {
         var date = this.__dates[i].date;
@@ -751,7 +747,7 @@ qx.Bootstrap.define("qx.test.util.DateFormat",
   testChangingLocales : function()
   {
     var manager = qx.locale.Manager.getInstance();
-    manager.setLocale('en_US');
+    manager.locale = 'en_US';
 
     var df = new qx.util.format.DateFormat("EEEE yyyy-mm-dd");
     var dfFR = new qx.util.format.DateFormat("EEEE yyyy-mm-dd","fr_FR");
@@ -763,24 +759,24 @@ qx.Bootstrap.define("qx.test.util.DateFormat",
 
     this.assertEquals(df.format(d),dfUS.format(d));
 
-    manager.setLocale('fr_FR');
+    manager.locale = 'fr_FR';
     this.assertEquals(df.format(d),dfFR.format(d));
-    manager.setLocale('de_DE');
+    manager.locale = 'de_DE';
     this.assertEquals(df.format(d),dfDE.format(d));
 
-    manager.resetLocale();
+    manager.locale = null;
     this.assertEquals(df.format(d),dfUS.format(d));
 
-    manager.setLocale('fr_FR');
+    manager.locale = 'fr_FR';
     this.assertEquals(df.format(d),dfFR.format(d));
 
-    df.resetLocale();
+    df.locale = null;
     this.assertEquals(df.format(d),dfUS.format(d));
 
-    dfFR.setLocale('de_DE');
+    dfFR.locale = 'de_DE';
     this.assertEquals(dfFR.format(d),dfDE.format(d));
 
-    dfFR.resetLocale();
+    dfFR.locale = null;
 
     df.dispose();
     dfFR.dispose();
