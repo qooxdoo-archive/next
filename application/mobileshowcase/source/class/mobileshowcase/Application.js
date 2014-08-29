@@ -44,6 +44,7 @@ qx.Bootstrap.define("mobileshowcase.Application",
      */
     main : function()
     {
+      debugger;
       // Call super class
       this.base(qx.application.Mobile, "main");
 
