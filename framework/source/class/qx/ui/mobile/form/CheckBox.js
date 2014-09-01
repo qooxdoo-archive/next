@@ -52,11 +52,12 @@ qx.Bootstrap.define("qx.ui.mobile.form.CheckBox",
   /**
    * @param value {Boolean?false} The value of the checkbox.
    */
-  construct : function(value)
+  construct : function(value, element)
   {
-    this.base(qx.ui.mobile.form.Input, "constructor");
+    this.base(qx.ui.mobile.form.Input, "constructor", element);
+    value = !!value;
 
-    if(typeof value != undefined) {
+    if (value) {
       this.value = value;
       this._state = value;
     }
@@ -136,5 +137,10 @@ qx.Bootstrap.define("qx.ui.mobile.form.CheckBox",
       this.base(qx.ui.mobile.form.Input, "dispose");
       this.off("tap", this._onTap, this);
     }
+  },
+
+
+  classDefined : function(statics) {
+    qxWeb.$attachWidget(statics);
   }
 });

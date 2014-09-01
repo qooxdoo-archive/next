@@ -75,19 +75,12 @@ qx.Bootstrap.define("qx.ui.mobile.list.List",
 {
   extend : qx.ui.mobile.core.Widget,
 
-  statics : {
-    list : function(delegate) {
-      return new qx.ui.mobile.list.List(this[0], delegate);
-    }
-  },
-
 
   /**
    * @param delegate {qx.ui.mobile.list.IListDelegate?null} The {@link #delegate} to use
    */
-  construct : function()
+  construct : function(delegate, element)
   {
-    var element = this.fixArguments(arguments);
     this.base(qx.ui.mobile.core.Widget, "constructor", element);
     this.__provider = new qx.ui.mobile.list.provider.Provider(this);
 
@@ -96,8 +89,8 @@ qx.Bootstrap.define("qx.ui.mobile.list.List",
     this.on("track", this._onTrack, this);
     this.on("trackend", this._onTrackEnd, this);
 
-    if (arguments[0]) {
-      this.delegate = arguments[0];
+    if (delegate) {
+      this.delegate = delegate;
     } else {
       this.delegate = this;
     }
@@ -636,6 +629,6 @@ qx.Bootstrap.define("qx.ui.mobile.list.List",
   },
 
   classDefined : function(statics) {
-    qxWeb.$attach({list : statics.list});
+    qxWeb.$attachWidget(statics);
   }
 });

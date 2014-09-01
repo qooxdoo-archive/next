@@ -38,9 +38,9 @@ qx.Bootstrap.define("qx.ui.mobile.form.Input",
   ],
 
 
-  construct : function()
+  construct : function(element)
   {
-    this.base(qx.ui.mobile.core.Widget, "constructor");
+    this.base(qx.ui.mobile.core.Widget, "constructor", element);
     this._setAttribute("type", this._getType());
     this.addClass("gap");
 

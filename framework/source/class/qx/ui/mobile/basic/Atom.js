@@ -46,9 +46,8 @@ qx.Bootstrap.define("qx.ui.mobile.basic.Atom",
    * @param icon {String?null} Icon to use
    * @signature function(label, icon)
    */
-  construct : function()
+  construct : function(label, icon, element)
   {
-    var element = this.fixArguments(arguments);
     this.base(qx.ui.mobile.core.Widget, "constructor", element);
 
     var layout;
@@ -64,11 +63,11 @@ qx.Bootstrap.define("qx.ui.mobile.basic.Atom",
 
     this.addClass("qx-flex-center");
 
-    if (arguments[0]) {
-      this.label = arguments[0];
+    if (label) {
+      this.label = label;
     }
-    if (arguments[1]) {
-      this.icon = arguments[1];
+    if (icon) {
+      this.icon = icon;
     }
     this._applyIconPosition("left");
     this.addClass("gap");

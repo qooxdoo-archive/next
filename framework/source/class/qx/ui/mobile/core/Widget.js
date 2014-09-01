@@ -161,6 +161,35 @@ qx.Bootstrap.define("qx.ui.mobile.core.Widget", {
 
 
   statics : {
+
+    attachWidget : function(clazz) {
+      var name = clazz.classname.split(".");
+      name = qx.lang.String.firstLow(name[name.length - 1]);
+      var data = {};
+      // get the first non-default constructor in the inheritance hierarchy
+      var constr = clazz;
+      while (Function.prototype.toString.call(constr).indexOf("defaultConstructor()") >= 0) {
+        constr = constr.superclass;
+      }
+      // parse the constructor function to get the arguments count
+      var index = 0;
+      var match = /function\s*\((.*?)\)/g.exec(Function.prototype.toString.call(constr));
+      if (match && match[1]) {
+        index = Math.max(match[1].split(",").length - 1, 0);
+      }
+      data[name] = function() {
+        var args = qx.lang.Array.fromArguments(arguments);
+        // Add the DOM element as last argument
+        args[index] = this[0];
+        // Set the context for the 'bind' call (will be replaced by new)
+        Array.prototype.unshift.call(args, null);
+        // Create temporary constructor with bound arguments
+        var Temp = clazz.bind.apply(clazz, args);
+        return new Temp();
+      };
+      qxWeb.$attach(data);
+    },
+
     /** @type {String} Prefix for the auto id */
     ID_PREFIX : "qx_id_",
 
@@ -291,13 +320,6 @@ qx.Bootstrap.define("qx.ui.mobile.core.Widget", {
 
   members : {
     __layoutManager : null,
-
-
-    fixArguments : function(args) {
-      if (qxWeb.isElement(args[0])) {
-        return Array.prototype.shift.call(args);
-      }
-    },
 
 
     _initDomConfig : function() {
@@ -869,7 +891,8 @@ qx.Bootstrap.define("qx.ui.mobile.core.Widget", {
   classDefined : function(statics) {
     qxWeb(window).on("unload", statics.onShutdown, statics);
     qxWeb.$attachStatic({
-      initWidgets : statics.initWidgets
+      initWidgets : statics.initWidgets,
+      $attachWidget : statics.attachWidget
     });
   }
 });

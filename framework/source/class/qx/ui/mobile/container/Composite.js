@@ -55,12 +55,11 @@ qx.Bootstrap.define("qx.ui.mobile.container.Composite",
    * @param layout {qx.ui.mobile.layout.Abstract?null} The layout that should be used for this
    *     container
    */
-  construct : function()
+  construct : function(layout, element)
   {
-    var element = this.fixArguments(arguments);
     this.base(qx.ui.mobile.core.Widget, "constructor", element);
-    if (arguments[0]) {
-      this.setLayout(arguments[0]);
+    if (layout) {
+      this.setLayout(layout);
     }
   },
 
