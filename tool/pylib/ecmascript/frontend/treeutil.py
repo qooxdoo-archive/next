@@ -37,7 +37,7 @@ def findQxDefine(rootNode):
     for node in nodeIterator(rootNode, tree.NODE_VARIABLE_TYPES):
         if isQxDefine(node)[0]:
             return node.parent.parent
-        
+
     return None
 
 
@@ -48,7 +48,7 @@ def findQxDefineR(rootNode):
     for node in nodeIterator(rootNode, tree.NODE_VARIABLE_TYPES):
         if isQxDefine(node)[0]:
             yield node.parent.parent
-        
+
 
 ##
 # Find the enclosing qx.*.define call, if any, of node.
@@ -128,7 +128,7 @@ def findChild(node, type):
         for child in node.children:
             return findChild(child, type)
     return None
-        
+
 ##
 # Some nice short description of foo(); this can contain html and
 # {@link #foo Links} to items in the current file.
@@ -159,7 +159,7 @@ def selectNode(node, path, ignoreComments=False):
     "@key"        returns the value of the attribute "key" of the current node.
                   This must be the last statement.
 
-    Example: "../../params/1/keyvalue[@key='defer']/value/function/body/block"
+    Example: "../../params/1/keyvalue[@key='classDefined']/value/function/body/block"
 
     """
     re_indexedNode = re.compile("^(.*)\[(\d+)\]$")
@@ -185,8 +185,8 @@ def selectNode(node, path, ignoreComments=False):
 
             # parent
             if part == '..':
-                nextn = node.parent 
-            
+                nextn = node.parent
+
             # attribute -- ends recursion
             elif part[0] == "@":
                 try:
@@ -198,8 +198,8 @@ def selectNode(node, path, ignoreComments=False):
             # index, e.g. "2"
             elif is_number(part):
                 pos = int(part) - 1
-                nextn = node.getChildByPosition(pos, ignoreComments) 
-            
+                nextn = node.getChildByPosition(pos, ignoreComments)
+
             # indexed node, e.g. "arguments[3]"
             elif is_indexed(part):
                 match = re_indexedNode.match(part)
@@ -208,7 +208,7 @@ def selectNode(node, path, ignoreComments=False):
                 childsOfType = node.getChildsByTypes([nodetype])
                 if len(childsOfType) > index:
                     nextn = childsOfType[index]
-                     
+
             # attributed node, e.g. "arguments[@key=val]"
             elif is_attributed(part):
                 match = re_attributeNode.match(part)
@@ -744,7 +744,7 @@ def findCommentedRoot(node):
 
 ##
 # Find the leftmost child downward the tree of the passed node
-# 
+#
 def findLeftmostChild(node):
     child = node
     while child.hasChildren():
@@ -823,12 +823,12 @@ def isNEWoperand(node):
 
 def isCallOperand(node):
     return (
-        node.hasParentContext("call/operand") or 
+        node.hasParentContext("call/operand") or
         isNEWoperand(node)
     )
 
 ##
-# Check if node is the (function) value of the 'defer' class member
+# Check if node is the (function) value of the 'classDefined' class member
 #
 def isDeferFunction(node):
     # quick check for function
@@ -836,15 +836,15 @@ def isDeferFunction(node):
         return False
 
     # quick check for map and map key
-    if not (isKeyValue(node) and node.parent.parent.get('key') == 'defer'):
+    if not (isKeyValue(node) and node.parent.parent.get('key') == 'classDefined'):
         return False
 
     # get enclosing qx.*.define
     qxDefine_node = findEnclosingQxDefine(node)
     class_map = getClassMap(qxDefine_node)
-    # get its 'defer' section
-    if 'defer' in class_map:
-        defer_function = class_map['defer']
+    # get its 'classDefined' section
+    if 'classDefined' in class_map:
+        defer_function = class_map['classDefined']
     else:
         defer_function = None
     # compare
@@ -856,7 +856,7 @@ def isKeyValue(node):
 ##
 # Check, and if not present create, a closure wrapper for the syntax tree.
 #
-# The resulting tree will look like 
+# The resulting tree will look like
 #    (function(){ ...[passed-in trees]...})()
 # (with a leading <file> node).
 #
@@ -891,7 +891,7 @@ class NodeVisitor(object):
 
     def __init__(self, debug=False):
         self.debug = debug
-        
+
     def visit(self, node):
         if hasattr(self, "visit_"+node.type):
             if self.debug:

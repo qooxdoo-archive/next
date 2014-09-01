@@ -594,7 +594,7 @@ class CodeGenerator(object):
                             log_progress()
                             #self._console.info("removing %s" % clazz.id)
 
-                # removing entire classes might remove dependencies of construct, defer, extend, etc,
+                # removing entire classes might remove dependencies of construct, classDefined, extend, etc,
                 # so this might have again zero'ed usage counts of remaining features, so we have to loop
 
             # Lastly, when we cannot reduce anymore by looking at feature usage,

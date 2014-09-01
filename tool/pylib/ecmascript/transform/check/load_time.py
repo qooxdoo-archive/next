@@ -42,7 +42,7 @@ class LoadTimeAnnotator(scopes.ScopeVisitor):
             node.hasParentContext("call/operand/group")):
                 scopeNode.is_load_time = scopeNode.parent.is_load_time if scopeNode.parent else False
 
-        # 'defer' function is load-time = True
+        # 'classDefined' function is load-time = True
         elif treeutil.isDeferFunction(node):
             scopeNode.is_load_time = True
             scopeNode.is_defer = True

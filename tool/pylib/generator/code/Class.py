@@ -60,10 +60,10 @@ class Class(Resource, MClassHints, MClassI18N, MClassDependencies, MClassCode, M
         self.cacheId    = "class-%s" % self.path  # cache object for class-specific infos (outside tree, compile)
         self.treeId     = None # cache id for the source tree; filled in tree()
         self._tmp_tree  = None # for out-of-band optimization
-        
+
         console = context["console"]
         cache   = context["cache"]
-        
+
         self.defaultIgnoredNamesDynamic = [lib.namespace for lib in self.context['jobconf'].get("library", [])]
 
 
@@ -102,7 +102,7 @@ class Class(Resource, MClassHints, MClassI18N, MClassDependencies, MClassCode, M
         else:
             self._type = "normal"
         return self._type
-        
+
 
     type = property(_getType)
 
@@ -118,10 +118,10 @@ class Class(Resource, MClassHints, MClassI18N, MClassDependencies, MClassCode, M
         cache = self.context['cache']
         classInfo, modTime = cache.read(self.cacheId, self.path, memory=True)
         if self.writeCond():
-            print "\nReading %s " % self.cacheId , 
+            print "\nReading %s " % self.cacheId ,
         if classInfo:
             if self.writeCond():
-                print "(keys: %s)" % ( 
+                print "(keys: %s)" % (
                     ["%s:%s" % (i,self.foo(classInfo[i][1]) if (type(classInfo[i])==tuple and len(classInfo[i])>1) else "-") for i in classInfo])
                 for k in classInfo.keys():
                     if k.startswith("deps-"):
@@ -133,11 +133,11 @@ class Class(Resource, MClassHints, MClassI18N, MClassDependencies, MClassCode, M
             if self.writeCond():
                 print "()"
             return {}, None
- 
+
     def _writeClassCache(self, classInfo):
         cache = self.context['cache']
         if self.writeCond():
-            print "\nWriting %s (keys: %s)" % (self.cacheId, 
+            print "\nWriting %s (keys: %s)" % (self.cacheId,
                 ["%s:%s" % (i,self.foo(classInfo[i][1]) if (type(classInfo[i])==tuple and len(classInfo[i])>1) else "-") for i in classInfo])
             for k in classInfo.keys():
                 if k.startswith("deps-"):
@@ -162,7 +162,7 @@ class Class(Resource, MClassHints, MClassI18N, MClassDependencies, MClassCode, M
 # Throw this in cases of dependency problems
 class DependencyError(ValueError): pass
 
- 
+
 ##
 # Auxiliary class for ClassDependencies() (although of more general appeal)
 class ClassMap(object):
@@ -180,7 +180,7 @@ class ClassMap(object):
             'settings'  : [],
             'variants'  : [],
             'events'    : [],
-            'defer'     : [],
+            'classDefined'     : [], # was defer
             'destruct'  : [],
         }
         return
@@ -207,7 +207,7 @@ class ClassDependencies(object):
         for classid, classMapObj in self.data['classes'].items():
             classMap = classMapObj.data
             for attrib in classMap:
-                if isinstance(classMap[attrib], types.ListType):    # .defer
+                if isinstance(classMap[attrib], types.ListType):    # .classDefined
                     for dep in classMap[attrib]:
                         yield dep
                 elif isinstance(classMap[attrib], types.DictType):  # .statics, .members, ...
@@ -233,7 +233,7 @@ class ClassDependencies(object):
                         res = data[submap][attribId]
                         break
         return res
-        
+
 
 ##
 # Class to represent ["qx.util.*", "qx.core.Object"] et al.

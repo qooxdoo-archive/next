@@ -45,20 +45,6 @@
 
   "jobs" :
   {
-    // provide "libraries" e.g. for 'lint' job
-    "libraries" :
-    {
-      "library" :
-      [
-        {
-          "manifest" : "${QOOXDOO_PATH}/component/library/logpane/Manifest.json"
-        },
-        {
-          "manifest" : "${QOOXDOO_PATH}/component/library/versionlabel/Manifest.json"
-        }
-      ]
-    },
-
     // this one so that source, build-script and build-resources use common settings
     "playground-compile" :
     {
