@@ -46,7 +46,7 @@ module.exports = {
 
     getFeatureTable: function(test) {
       var classCode = "qx.Bootstrap.define('qx.bom.client.Engine', {\n"+
-                      "  defer : function(statics) {\n"+
+                      "  classDefined : function(statics) {\n"+
                       "    qx.core.Environment.add('engine.version', statics.getVersion);\n"+
                       "    qx.core.Environment.add('engine.name', statics.getName);\n"+
                       "  }\n"+
@@ -943,7 +943,7 @@ module.exports = {
         '      qx.core.Environment.get("engine.name");\n'+             // 6
         '    }\n'+                                                     // 7
         '  },\n'+                                                      // 8
-        '  defer: function(statics) {\n'+                              // 9
+        '  classDefined: function(statics) {\n'+                       // 9
         '    qx.core.Environment.get("engine.name");\n'+               // 10
         '  }\n'+                                                       // 11
         '});';                                                         // 12
@@ -956,7 +956,7 @@ module.exports = {
         },
         {
           from: {
-            isLoadTime: true,  // because of 'defer' special treatment
+            isLoadTime: true,  // because of 'classDefined' special treatment
             block: {
               loc: {
                 start: {line: 9},

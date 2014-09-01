@@ -41,7 +41,7 @@ module.exports = {
         '      qx.core.Environment.get("engine.name");\n'+             // 6
         '    }\n'+                                                     // 7
         '  },\n'+                                                      // 8
-        '  defer: function(statics) {\n'+                              // 9
+        '  classDefined: function(statics) {\n'+                       // 9
         '    qx.core.Environment.get("engine.name");\n'+               // 10
         '  }\n'+                                                       // 11
         '});';                                                         // 12
@@ -54,15 +54,15 @@ module.exports = {
       var scopes = escope.analyze(tree).scopes;
       var scope1_global = scopes[0];
       var scope2_addEnvCallToLoad = scopes[1];
-      var scope3_defer = scopes[2];
+      var scope3_classDefined = scopes[2];
 
       this.ltAnnotator.annotate(scope1_global, true);
       this.ltAnnotator.annotate(scope2_addEnvCallToLoad, true);
-      this.ltAnnotator.annotate(scope3_defer, true);
+      this.ltAnnotator.annotate(scope3_classDefined, true);
 
       test.deepEqual(scope1_global.isLoadTime, true);
       test.deepEqual(scope2_addEnvCallToLoad.isLoadTime, false);
-      test.deepEqual(scope3_defer.isLoadTime, true);
+      test.deepEqual(scope3_classDefined.isLoadTime, true);
 
       test.done();
     }

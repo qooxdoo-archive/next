@@ -31,7 +31,7 @@
  *  <dd>boolean whether loadTime or not</dd>
  *  <dt>Where?</dt>
  *  <dd>specific nodes which also define an own scope
-        (e.g. the global scope or the <code>defer</code>
+        (e.g. the global scope or the <code>classDefined</code>
         FunctionExpression)</dd>
  * </dl>
  */
@@ -42,19 +42,19 @@
 var annotateKey = "isLoadTime";
 
 /**
- * Check whether node is <code>defer()</code> call.
+ * Check whether node is <code>classDefined()</code> call.
  *
  * @param {Object} node - esprima node
  * @return {boolean}
  */
-function isDeferFunction(node) {
+function isClassDefinedFunction(node) {
   return (
     node.type === "FunctionExpression" &&
     node.parent &&
     node.parent.type === 'Property' &&
     node.parent.key &&
     node.parent.key.type === 'Identifier' &&
-    node.parent.key.name === 'defer'
+    node.parent.key.name === 'classDefined'
   );
 }
 
@@ -87,7 +87,7 @@ module.exports = {
     if (scope.type === 'global') {
       scope[annotateKey] = true;
     } else if (scope.type === 'function') {
-      if (isDeferFunction(node)) {
+      if (isClassDefinedFunction(node)) {
         scope[annotateKey] = true;
       } else if (isImmediateCall(node)) {
         scope[annotateKey] = parentLoad; // inherit

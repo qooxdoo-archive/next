@@ -168,7 +168,7 @@ qx.Bootstrap.define("qx.bom.client.Transport",
     }
   },
 
-  defer : function(statics) {
+  classDefined : function(statics) {
     qx.core.Environment.add("io.maxrequests", statics.getMaxConcurrentRequestCount);
     qx.core.Environment.add("io.ssl", statics.getSsl);
     qx.core.Environment.add("io.xhr", statics.getXmlHttpRequest);

@@ -157,7 +157,7 @@ function get_non_class_deps(etree, deps_map, optObj) {
  *         yep : [...]
  *       }
  *       destruct : [...],
- *       defer : [...],
+ *       classDefined : [...],
  *       ...
  *     }
  *   }
