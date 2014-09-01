@@ -23,10 +23,8 @@
  *
  * @require(qx.module.Core)
  */
-qx.Bootstrap.define("qx.core.Init",
-{
-  statics :
-  {
+qx.Bootstrap.define("qx.core.Init", {
+  statics : {
     __application : null,
 
 
@@ -53,16 +51,16 @@ qx.Bootstrap.define("qx.core.Init",
         return;
       }
 
-      qx.log.Logger.debug(qx.core.Init, "Load runtime: " + (new Date - qx.Bootstrap.LOADSTART) + "ms");
+      qx.log.Logger.debug(qx.core.Init, "Load runtime: " + (new Date() - qx.Bootstrap.LOADSTART) + "ms");
 
       var app = qx.core.Environment.get("qx.application");
-      var clazz = qx.Bootstrap.getByName(app);
+      var Clazz = qx.Bootstrap.getByName(app);
 
-      qx.core.Init.__application = new clazz();
+      qx.core.Init.__application = new Clazz();
 
       var start = new Date();
       qx.core.Init.__application.main();
-      qx.log.Logger.debug(qx.core.Init, "Main runtime: " + (new Date - start) + "ms");
+      qx.log.Logger.debug(qx.core.Init, "Main runtime: " + (new Date() - start) + "ms");
     },
 
 
@@ -97,8 +95,7 @@ qx.Bootstrap.define("qx.core.Init",
   },
 
 
-  classDefined : function(statics)
-  {
+  classDefined : function(statics) {
     qxWeb.ready(statics.ready, statics);
     qxWeb(window).on("beforeunload", statics.__close, statics)
       .on("unload", statics.__shutdown, statics);

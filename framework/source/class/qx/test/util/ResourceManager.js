@@ -17,6 +17,9 @@
 
 ************************************************************************ */
 
+/**
+ * @asset(qx/test/colorstrip.gif)
+ */
 qx.Bootstrap.define("qx.test.util.ResourceManager",
 {
   extend : qx.dev.unit.TestCase,
@@ -26,51 +29,51 @@ qx.Bootstrap.define("qx.test.util.ResourceManager",
     testHasResource : function()
     {
       var ResourceManager = qx.util.ResourceManager.getInstance();
-      this.assertTrue(ResourceManager.has("qx/static/blank.gif"));
+      this.assertTrue(ResourceManager.has("qx/test/colorstrip.gif"));
     },
 
     testGetData : function() {
-      var resourceData = [ 1, 1, "gif", "qx" ];
+      var resourceData = [ 192, 10, "gif", "qx" ];
       var ResourceManager = qx.util.ResourceManager.getInstance();
-      this.assertArrayEquals(ResourceManager.getData("qx/static/blank.gif"),
-                        resourceData, "Resource data not identical");
+      this.assertArrayEquals(resourceData, ResourceManager.getData("qx/test/colorstrip.gif"),
+                             "Resource data not identical");
     },
 
     testGetImageWidth : function()
     {
       var ResourceManager = qx.util.ResourceManager.getInstance();
-      this.assertEquals(ResourceManager.getImageWidth("qx/static/blank.gif"), 1);
+      this.assertEquals(192, ResourceManager.getImageWidth("qx/test/colorstrip.gif"));
     },
 
     testGetImageHeight : function()
     {
       var ResourceManager = qx.util.ResourceManager.getInstance();
-      this.assertEquals(ResourceManager.getImageWidth("qx/static/blank.gif"), 1);
+      this.assertEquals(10, ResourceManager.getImageHeight("qx/test/colorstrip.gif"));
     },
 
     testGetImageFormat : function()
     {
       var ResourceManager = qx.util.ResourceManager.getInstance();
-      this.assertEquals(ResourceManager.getImageFormat("qx/static/blank.gif"), "gif");
+      this.assertEquals("gif", ResourceManager.getImageFormat("qx/test/colorstrip.gif"));
     },
 
     testIsClippedImage : function()
     {
       var ResourceManager = qx.util.ResourceManager.getInstance();
-      this.assertFalse(ResourceManager.getCombinedFormat("qx/static/blank.gif") != "");
+      this.assertFalse(ResourceManager.getCombinedFormat("qx/test/colorstrip.gif") != "");
     },
 
     testToUri : function()
     {
       var ResourceManager = qx.util.ResourceManager.getInstance();
-      var resourceUri = qx.$$libraries["qx"].resourceUri + "/" + "qx/static/blank.gif";
+      var resourceUri = qx.$$libraries["qx"].resourceUri + "/" + "qx/test/colorstrip.gif";
       if (qx.core.Environment.get("engine.name") == "mshtml" &&
         qx.core.Environment.get("io.ssl"))
       {
         var href = window.location.href;
         resourceUri = href.substring(0, href.lastIndexOf("/") + 1) + resourceUri;
       }
-      this.assertEquals(resourceUri, ResourceManager.toUri("qx/static/blank.gif"));
+      this.assertEquals(resourceUri, ResourceManager.toUri("qx/test/colorstrip.gif"));
     }
   }
 });

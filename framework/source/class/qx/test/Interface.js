@@ -42,7 +42,7 @@ qx.Bootstrap.define("qx.test.Interface",
 
 
     tearDown : function() {
-      qx.Bootstrap.undefine("qx.test.i.ICar");
+      delete qx.test.i.ICar;
     },
 
 
@@ -75,7 +75,7 @@ qx.Bootstrap.define("qx.test.Interface",
       var audi = new qx.test.i.Audi("audi");
 
       this.assertTrue(qx.Interface.classImplements(qx.test.i.Audi, qx.test.i.ICar));
-      qx.Bootstrap.undefine("qx.test.i.Audi");
+      delete qx.test.i.Audi;
     },
 
 
@@ -102,7 +102,7 @@ qx.Bootstrap.define("qx.test.Interface",
           properties : { color : { } }
         });
       this.assertTrue(qx.Interface.classImplements(qx.test.i.Bmw1, qx.test.i.ICar));
-      qx.Bootstrap.undefine("qx.test.i.Bmw1");
+      delete qx.test.i.Bmw1;
     },
 
 
@@ -121,7 +121,7 @@ qx.Bootstrap.define("qx.test.Interface",
           properties : { color : { } }
         });
       this.assertFalse(qx.Interface.classImplements(qx.test.i.Bmw2, qx.test.i.ICar));
-      qx.Bootstrap.undefine("qx.test.i.Bmw2");
+      delete qx.test.i.Bmw2;
     },
 
 
@@ -141,7 +141,7 @@ qx.Bootstrap.define("qx.test.Interface",
           properties : { color : { } }
         });
       this.assertTrue(qx.Interface.classImplements(qx.test.i.Bmw3, qx.test.i.ICar));
-      qx.Bootstrap.undefine("qx.test.i.Bmw3");
+      delete qx.test.i.Bmw;
     },
 
 
@@ -165,7 +165,7 @@ qx.Bootstrap.define("qx.test.Interface",
           }
         });
       this.assertFalse(qx.Interface.classImplements(qx.test.i.Bmw4, qx.test.i.ICar));
-      qx.Bootstrap.undefine("qx.test.i.Bmw4");
+      delete qx.test.i.Bmw4;
     },
 
 
@@ -188,7 +188,7 @@ qx.Bootstrap.define("qx.test.Interface",
             implement : [ qx.test.i.ICar ]
           });
         },
-        Error, "does not implement the member 'startEngine'");
+        Error, "does not implement the interface");
 
         // members not defined
         this.assertException(function()
@@ -209,7 +209,7 @@ qx.Bootstrap.define("qx.test.Interface",
             properties : { color : { } }
           });
         },
-        Error, "does not implement the member 'startEngine'");
+        Error, "does not implement the interface");
 
         // property not defined
         this.assertException(function()
@@ -235,7 +235,7 @@ qx.Bootstrap.define("qx.test.Interface",
             }
           });
         },
-        Error, "does not implement the property 'color'");
+        Error, "does not implement the interface");
       }
     },
 
@@ -520,7 +520,7 @@ qx.Bootstrap.define("qx.test.Interface",
       {
         this.assertException(function() {
           qx.Bootstrap.define("qx.test.i.Implement2", def);
-        }, Error, "does not implement the member", "No members defined.");
+        }, Error, "does not implement", "No members defined.");
       }
 
       // no properties
@@ -531,7 +531,7 @@ qx.Bootstrap.define("qx.test.Interface",
       {
         this.assertException(function() {
           qx.Bootstrap.define("qx.test.i.Implement4", def);
-        }, Error, new RegExp("does not implement the property"), "No properties defined.");
+        }, Error, new RegExp("does not implement"), "No properties defined.");
       }
     }
   }

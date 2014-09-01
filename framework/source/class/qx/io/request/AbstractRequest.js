@@ -882,7 +882,7 @@ qx.Bootstrap.define("qx.io.request.AbstractRequest",
     }
   },
 
-  defer: function() {
+  classDefined: function() {
     qx.core.Environment.add("qx.debug.io", false);
   }
 });

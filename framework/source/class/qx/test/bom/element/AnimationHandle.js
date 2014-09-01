@@ -36,6 +36,10 @@ qx.Bootstrap.define("qx.test.bom.element.AnimationHandle",
       }
     },
 
+    tearDown : function() {
+      this.getSandbox().restore();
+    },
+
     "test stop of CSS animation" : function() {
       var el = qx.dom.Element.create("div");
       var handle = qx.bom.element.Animation.animate(el, {

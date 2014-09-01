@@ -23,6 +23,7 @@
  *
  * @ignore(qx.data, qx.data.IListData)
  * @ignore(qx.locale, qx.locale.LocalizedString)
+ * @ignore(qxWeb)
  */
 qx.Bootstrap.define("qx.util.Serializer",
 {
@@ -39,8 +40,8 @@ qx.Bootstrap.define("qx.util.Serializer",
      *   objects stored in the propertys of the object. Check for the type of
      *   classes <ou want to serialize and return the serialized value. In all
      *   other cases, just return nothing.
-     * @param dateFormat {qx.util.format.DateFormat} If a date formater is given,
-     *   the format method of this given formater is used to convert date
+     * @param dateFormat {qx.util.format.DateFormat} If a date formatter is given,
+     *   the format method of this given formatter is used to convert date
      *   objects into strings.
      * @return {String} The serialized object.
      */
@@ -53,7 +54,7 @@ qx.Bootstrap.define("qx.util.Serializer",
         var value = object[name];
 
         // handle arrays
-        if (qx.lang.Type.isArray(value)) {
+        if (qx.lang.Type.isArray(value) && (qxWeb && !(value instanceof qxWeb))) {
           var isdataArray = qx.data && qx.data.IListData &&
             qx.Interface.classImplements(value && value.constructor, qx.data.IListData);
           for (var i = 0; i < value.length; i++) {
@@ -92,13 +93,14 @@ qx.Bootstrap.define("qx.util.Serializer",
         value = value.name;
       }
 
-      if (qxSerializer != null) {
-        var encValue = encodeURIComponent(qxSerializer(value));
+      var encValue;
+      if (value && value.classname && value.$$name && qxSerializer) {
+        encValue = encodeURIComponent(qxSerializer(value));
         if (encValue === undefined) {
-          var encValue = encodeURIComponent(value);
+          encValue = encodeURIComponent(value);
         }
       } else {
-        var encValue = encodeURIComponent(value);
+        encValue = encodeURIComponent(value);
       }
       return encodeURIComponent(name) + "=" + encValue + "&";
     },
@@ -115,8 +117,8 @@ qx.Bootstrap.define("qx.util.Serializer",
      *   of the object. Check for the type of classes you want to serialize
      *   and return the serialized value. In all other cases, just return
      *   nothing.
-     * @param dateFormat {qx.util.format.DateFormat} If a date formater is given,
-     *   the format method of this given formater is used to convert date
+     * @param dateFormat {qx.util.format.DateFormat} If a date formatter is given,
+     *   the format method of this given formatter is used to convert date
      *   objects into strings.
      * @return {String}
      *   The serialized object.
@@ -145,20 +147,6 @@ qx.Bootstrap.define("qx.util.Serializer",
         return result;
       }
 
-      // other arrays
-      if (qx.lang.Type.isArray(object))
-      {
-        result = [];
-        for (var i = 0; i < object.length; i++)
-        {
-          result.push(qx.util.Serializer.toNativeObject(
-            object[i], qxSerializer, dateFormat)
-          );
-        }
-
-        return result;
-      }
-
       // return names for qooxdoo classes
       if (object.$$type == "Class") {
         return object.classname;
@@ -170,7 +158,7 @@ qx.Bootstrap.define("qx.util.Serializer",
       }
 
       // date objects with date format
-      if (qx.lang.Type.isDate(object) && dateFormat != null) {
+      if (qx.lang.Type.isDate(object) && dateFormat) {
         return dateFormat.format(object);
       }
 
@@ -179,13 +167,45 @@ qx.Bootstrap.define("qx.util.Serializer",
         return object.toString();
       }
 
-      // qooxdoo objects
-      if (object.$$properties) {
-        var result = {};
-        for (var name in object.$$properties) {
-          result[name] = qx.util.Serializer.toNativeObject(
-            object[name], qxSerializer, dateFormat);
+      // qooxdoo object
+      if (object.classname && object.$$name) {
+        if (qxSerializer) {
+          var returnValue = qxSerializer(object);
+
+          // if we have something returned, return that
+          if (returnValue) {
+            return returnValue;
+          }
+
+          // continue otherwise
         }
+
+        result = {};
+
+        var properties =
+          qx.util.PropertyUtil.getAllProperties(object.constructor);
+
+        for (var name in properties) {
+          var value = object[name];
+          result[name] = qx.util.Serializer.toNativeObject(
+            value, qxSerializer, dateFormat
+          );
+        }
+
+        return result;
+      }
+
+      // other arrays
+      if (qx.lang.Type.isArray(object))
+      {
+        result = [];
+        for (var i = 0; i < object.length; i++)
+        {
+          result.push(qx.util.Serializer.toNativeObject(
+            object[i], qxSerializer, dateFormat)
+          );
+        }
+
         return result;
       }
 
@@ -214,39 +234,28 @@ qx.Bootstrap.define("qx.util.Serializer",
      *
      * @param object {Object} Any qooxdoo object
      * @param qxSerializer {Function?} Function used for serializing qooxdoo
-     *   objects stored in the propertys of the object. Check for the type of
+     *   objects stored in the properties of the object. Check for the type of
      *   classes <ou want to serialize and return the serialized value. In all
      *   other cases, just return nothing.
-     * @param dateFormat {qx.util.format.DateFormat?} If a date formater is given,
-     *   the format method of this given formater is used to convert date
+     * @param dateFormat {qx.util.format.DateFormat?} If a date formatter is given,
+     *   the format method of this given formatter is used to convert date
      *   objects into strings.
      * @return {String} The serialized object.
      */
     toJson : function(object, qxSerializer, dateFormat) {
       var result = "";
 
-      // null or undefined
-      if (object == null) {
+      if (object === null || object === undefined) {
         return "null";
       }
 
       // data array
-      if (qx.data && qx.data.IListData && qx.Interface.classImplements(object.constructor, qx.data.IListData)) {
+      if (qx.data && qx.data.IListData && object.constructor &&
+          qx.Interface.classImplements(object.constructor, qx.data.IListData))
+      {
         result += "[";
         for (var i = 0; i < object.getLength(); i++) {
           result += qx.util.Serializer.toJson(object.getItem(i), qxSerializer, dateFormat) + ",";
-        }
-        if (result != "[") {
-          result = result.substring(0, result.length - 1);
-        }
-        return result + "]";
-      }
-
-      // other arrays
-      if (qx.lang.Type.isArray(object)) {
-        result += "[";
-        for (var i = 0; i < object.length; i++) {
-          result += qx.util.Serializer.toJson(object[i], qxSerializer, dateFormat) + ",";
         }
         if (result != "[") {
           result = result.substring(0, result.length - 1);
@@ -270,8 +279,42 @@ qx.Bootstrap.define("qx.util.Serializer",
         // no return here because we want to have the string checks as well!
       }
 
-      // date objects with formater
-      if (qx.lang.Type.isDate(object) && dateFormat != null) {
+      // qooxdoo object
+      if (object.classname && object.$$name) {
+        if (qxSerializer) {
+          var returnValue = qxSerializer(object);
+          // if we have something returned, ruturn that
+          if (returnValue) {
+            return '"' + returnValue + '"';
+          }
+          // continue otherwise
+        }
+        result += "{";
+        var properties = qx.util.PropertyUtil.getAllProperties(object.constructor);
+        for (var name in properties) {
+          var value = object[name];
+          result += '"' + name + '":' + qx.util.Serializer.toJson(value, qxSerializer, dateFormat) + ",";
+        }
+        if (result != "{") {
+          result = result.substring(0, result.length - 1);
+        }
+        return result + "}";
+      }
+
+      // other arrays
+      if (qx.lang.Type.isArray(object)) {
+        result += "[";
+        for (var i = 0; i < object.length; i++) {
+          result += qx.util.Serializer.toJson(object[i], qxSerializer, dateFormat) + ",";
+        }
+        if (result != "[") {
+          result = result.substring(0, result.length - 1);
+        }
+        return result + "]";
+      }
+
+      // date objects with formatter
+      if (qx.lang.Type.isDate(object) && dateFormat) {
         return '"' + dateFormat.format(object) + '"';
       }
 

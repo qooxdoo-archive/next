@@ -306,10 +306,10 @@ qx.Bootstrap.define("qx.test.bom.request.SimpleXhr",
 
 
     //
-    // addListenerOnce()
+    // once()
     //
 
-    "test: addListenerOnce() event handler": function() {
+    "test: once() event handler": function() {
       var req = this.req,
           stubbedTransport = this.req._createTransport(),
           name = "test-success",
@@ -319,7 +319,7 @@ qx.Bootstrap.define("qx.test.bom.request.SimpleXhr",
       this.stub(stubbedTransport._emitter, "once");
       req._transport = stubbedTransport;
 
-      req.addListenerOnce(name, listener, ctx);
+      req.once(name, listener, ctx);
       this.assertCalledWith(stubbedTransport._emitter.once, name, listener, ctx);
     },
 
