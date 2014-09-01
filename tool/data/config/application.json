@@ -20,11 +20,6 @@
     {
       "path" : "${QOOXDOO_PATH}/component/inspector/inspector.json",
       "as"   : "inspector"
-    },
-
-    {
-      "path" : "${QOOXDOO_PATH}/component/simulator/simulator.json",
-      "as"   : "simulator"
     }
   ],
 
