@@ -206,8 +206,8 @@ qx.Bootstrap.define("qxWeb", {
     {
       selector = [selector];
     }
-    if (selector.length == 1 && selector[0].$$instance) {
-      return selector[0].$$instance;
+    if (selector.length == 1 && selector[0].$$widget) {
+      return selector[0].$$widget;
     }
     return qxWeb.$init(selector, qxWeb);
   },

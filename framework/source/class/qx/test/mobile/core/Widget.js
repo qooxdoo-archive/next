@@ -262,6 +262,17 @@ qx.Bootstrap.define("qx.test.mobile.core.Widget",
 
       this.assertUndefined(el1.$$widget);
       this.assertInstance(el2.$$widget, qx.ui.mobile.core.Widget);
+    },
+
+    testRestoreInstance : function() {
+      var widget = new qx.ui.mobile.core.Widget();
+      widget.id = "affe";
+      this.getRoot().append(widget);
+
+      var element = document.getElementById("affe");
+      this.assertEquals(widget, qxWeb(element));
+
+      widget.dispose();
     }
   }
 });
