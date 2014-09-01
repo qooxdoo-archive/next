@@ -49,6 +49,11 @@ qx.Bootstrap.define("qx.ui.mobile.core.Widget", {
     this.activatable = undefined;
     this[0].$$widget = this;
     this._initDomConfig();
+    // avoid infinite recursion if an extending constructor creates a
+    // collection containing the content element
+    window.setTimeout(function() {
+      this.setAttribute("data-qx-widget", this.classname);
+    }.bind(this), 0);
   },
 
 
