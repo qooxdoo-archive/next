@@ -35,7 +35,9 @@ qx.Bootstrap.define("qx.test.data.store.Rest",
       this.setUpDoubleRequest();
 
       var marshal = this.marshal = new qx.data.marshal.Json();
-      marshal = this.shallowStub(marshal, qx.data.marshal.Json);
+      marshal = this.shallowStub(marshal, qx.data.marshal.Json,
+        ["dispose", "emit", "on", "once", "off", "offById", "getListenerId",
+         "hasListener", "getListeners", "getEntryById", "_getStorage"]);
       this.injectStub(qx.data.marshal, "Json", marshal);
 
       marshal.toModel.returns({});
@@ -44,21 +46,22 @@ qx.Bootstrap.define("qx.test.data.store.Rest",
       this.store = new qx.data.store.Rest(this.res, "index");
     },
 
+
     setUpResource: function() {
       this.res && this.res.dispose();
       var description = {"index": {method: "GET", url: "/photos"}};
       return this.res = new qx.io.rest.Resource(description);
     },
 
+
     setUpDoubleRequest: function() {
       var req = this.req = new qx.io.request.Xhr(),
           res = this.res;
 
       // Stub request methods, leave event system intact
-      req = this.shallowStub(req, qx.io.request.AbstractRequest);
-
-      // Not dispose stub yet
-      this.stub(req, "dispose");
+      req = this.shallowStub(req, qx.io.request.AbstractRequest,
+        ["dispose", "emit", "on", "once", "off", "offById", "getListenerId",
+         "hasListener", "getListeners", "getEntryById", "_getStorage"]);
 
       // Inject double and return
       this.injectStub(qx.io.request, "Xhr", req);
@@ -66,10 +69,10 @@ qx.Bootstrap.define("qx.test.data.store.Rest",
       return req;
     },
 
+
     tearDown: function() {
       this.getSandbox().restore();
       this.req.dispose();
-      this.marshal.dispose();
       this.res.dispose();
       this.store.dispose();
     },
@@ -77,8 +80,8 @@ qx.Bootstrap.define("qx.test.data.store.Rest",
     "test: construct with res and action name": function() {
       var store = this.store;
 
-      this.assertIdentical(store.getResource(), this.res);
-      this.assertIdentical(store.getActionName(), "index");
+      this.assertIdentical(store.resource, this.res);
+      this.assertIdentical(store.actionName, "index");
     },
 
     "test: construct throws with missing res": function() {
@@ -89,7 +92,7 @@ qx.Bootstrap.define("qx.test.data.store.Rest",
       // Unfortunately, qx.core.Property throws a generic error
       this.assertException(function() {
         store = new qx.data.store.Rest(null, "index");
-      }, Error, (/property res/));
+      }, Error, (/property 'resource'/));
       store && store.dispose();
     },
 
@@ -97,10 +100,9 @@ qx.Bootstrap.define("qx.test.data.store.Rest",
       this.require(["debug"]);
 
       var store;
-
       this.assertException(function() {
         store = new qx.data.store.Rest({}, "index");
-      }, qx.core.AssertionError);
+      });
       store && store.dispose();
     },
 
@@ -112,7 +114,7 @@ qx.Bootstrap.define("qx.test.data.store.Rest",
 
       this.assertException(function() {
         store = new qx.data.store.Rest(res, null);
-      }, Error, (/property actionName/));
+      }, Error, (/property 'actionName'/));
       store && store.dispose();
     },
 
@@ -120,9 +122,9 @@ qx.Bootstrap.define("qx.test.data.store.Rest",
       var res = this.res,
           store;
 
-      this.stub(res, "addListener");
+      this.stub(res, "on");
       store = new qx.data.store.Rest(res, "index");
-      this.assertCalled(res.addListener);
+      this.assertCalled(res.on);
       store.dispose();
     },
 
@@ -133,7 +135,6 @@ qx.Bootstrap.define("qx.test.data.store.Rest",
           data = {"key": "value"};
 
       res.index();
-
       this.respond(data);
       this.assertCalledWith(marshal.toModel, data);
     },
@@ -173,7 +174,7 @@ qx.Bootstrap.define("qx.test.data.store.Rest",
           req = this.req;
 
       var configureRequest = this.spy(function(req) {
-        req.setUserData("affe", true);
+        req.affe = true;
       });
 
       var delegate = {
@@ -187,7 +188,7 @@ qx.Bootstrap.define("qx.test.data.store.Rest",
 
       res.index();
       this.assertCalledWith(configureRequest, req);
-      this.assertTrue(req.getUserData("affe"));
+      this.assertTrue(req.affe);
       this.assertCalled(req.send);
 
       store.dispose();
@@ -216,9 +217,11 @@ qx.Bootstrap.define("qx.test.data.store.Rest",
       store.dispose();
     },
 
+
     hasDebug: function() {
       return qx.core.Environment.get("qx.debug");
     },
+
 
     // Fake response
     respond: function(response) {
@@ -229,12 +232,12 @@ qx.Bootstrap.define("qx.test.data.store.Rest",
       // Set parsed response
       req.getResponse.returns(response);
 
-      req.fireEvent("success");
+      req.emit("success");
     },
+
 
     skip: function(msg) {
       throw new qx.dev.unit.RequirementError(null, msg);
     }
-
   }
 });

@@ -26,6 +26,7 @@
 qx.Bootstrap.define("qx.data.store.Rest",
 {
   extend: Object,
+  include : [qx.event.MEmitter],
 
   /**
    * @param resource {qx.io.rest.Resource} The resource.
@@ -86,22 +87,16 @@ qx.Bootstrap.define("qx.data.store.Rest",
      * Configure the resource's request by processing the delegate.
      */
     __configureRequest: function() {
-      var resource = this.resource(),
-          delegate = this._delegate;
-
       // Overrides existing callback, if any
-      resource.configureRequest(delegate.configureRequest);
+      this.resource.configureRequest(this._delegate.configureRequest);
     },
 
     /**
      * Listen to events fired by the resource.
      */
     __addListeners: function() {
-      var resource = this.resource(),
-          actionName = this.actionName();
-
-      if (resource && actionName) {
-        resource.addListener(this.actionName() + "Success", this.__onActionSuccessBound);
+      if (this.resource && this.actionName) {
+        this.resource.on(this.actionName + "Success", this.__onActionSuccessBound);
       }
     },
 
@@ -113,7 +108,7 @@ qx.Bootstrap.define("qx.data.store.Rest",
      * @param e {qx.event.type.Rest} Rest event.
      */
     __onActionSuccess: function(e) {
-      var data = e.getData(),
+      var data = e.response,
           marshaler = this._marshaler,
           model,
           oldModel = this.model,
@@ -121,7 +116,6 @@ qx.Bootstrap.define("qx.data.store.Rest",
 
       // Skip if data is empty
       if (data) {
-
         // Manipulate received data
         if (delegate && delegate.manipulateData) {
           data = delegate.manipulateData(data);
@@ -135,10 +129,12 @@ qx.Bootstrap.define("qx.data.store.Rest",
           this.model = model;
         }
       }
+    },
 
-      // Dispose instance marshaled before
-      if (oldModel && oldModel.dispose) {
-        oldModel.dispose();
+
+    dispose : function() {
+      if (this.resource && this.actionName) {
+        this.resource.off(this.actionName + "Success", this.__onActionSuccessBound);
       }
     }
   }

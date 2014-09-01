@@ -20,8 +20,6 @@
 /**
  * @asset(qx/test/*)
  *
- * @ignore(qx.data.model)
- * @ignore(qx.test.model.*)
  * @ignore(qx.Test)
  * @ignore(qx.test.Array)
  */
@@ -49,6 +47,9 @@ qx.Bootstrap.define("qx.test.data.marshal.Json",
     },
 
 
+    /**
+     * @ignore(qx.data.model)
+     */
     tearDown : function() {
       // remove the former created classes
       qx.data.model = {};
@@ -113,6 +114,12 @@ qx.Bootstrap.define("qx.test.data.marshal.Json",
     },
 
 
+    /**
+     * @ignore(qx.data.model.a.classname)
+     * @ignore(qx.data.model.b.classname)
+     * @ignore(qx.data.model.a.prototype.$$properties.a)
+     * @ignore(qx.data.model.b.prototype.$$properties.b)
+     */
     testClassCreationObject: function() {
       this.__data = {a: {b: 'test'}};
 
@@ -630,7 +637,7 @@ qx.Bootstrap.define("qx.test.data.marshal.Json",
 
 
     /**
-     * @ignore(qx.test.model)
+     * @ignore(qx.test.model.C)
      */
     testGetModelClass: function() {
       qx.Bootstrap.define("qx.test.model.C", {
@@ -695,6 +702,9 @@ qx.Bootstrap.define("qx.test.data.marshal.Json",
     },
 
 
+    /**
+     * @ignore(qx.test.model.C)
+     */
     testGetModelClassIgnore: function() {
       qx.Bootstrap.define("qx.test.model.C", {
         extend : Object,

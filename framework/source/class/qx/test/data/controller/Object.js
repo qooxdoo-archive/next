@@ -16,6 +16,9 @@
      * Martin Wittemann (martinwittemann)
 
 ************************************************************************ */
+/**
+ * @ignore(qx.test.Dummy)
+ */
 qx.Bootstrap.define("qx.test.data.controller.Object",
 {
   extend : qx.dev.unit.TestCase,

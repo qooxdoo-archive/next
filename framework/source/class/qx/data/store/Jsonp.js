@@ -43,10 +43,10 @@ qx.Bootstrap.define("qx.data.store.Jsonp",
    */
   construct : function(url, delegate, callbackParam) {
     if (callbackParam != undefined) {
-      this.setCallbackParam(callbackParam);
+      this.callbackParam = callbackParam;
     }
 
-    this.base(arguments, url, delegate);
+    this.base(qx.data.store.Json, "constructor", url, delegate);
   },
 
 
@@ -89,15 +89,15 @@ qx.Bootstrap.define("qx.data.store.Jsonp",
       this._setRequest(req);
 
       // default when null
-      req.setCallbackParam(this.callbackParam);
-      req.setCallbackName(this.callbackName);
+      req.callbackParam = this.callbackParam;
+      req.callbackName = this.callbackName;
 
       // send
-      req.setUrl(url);
+      req.url = url;
 
       // register the internal event before the user has the change to
       // register its own event in the delegate
-      req.addListener("success", this._onSuccess, this);
+      req.on("success", this._onSuccess, this);
 
       // check for the request configuration hook
       var del = this._delegate;
@@ -106,10 +106,10 @@ qx.Bootstrap.define("qx.data.store.Jsonp",
       }
 
       // map request phase to it’s own phase
-      req.addListener("changePhase", this._onChangePhase, this);
+      req.on("changePhase", this._onChangePhase, this);
 
       // add failed, aborted and timeout listeners
-      req.addListener("fail", this._onFail, this);
+      req.on("fail", this._onFail, this);
 
       req.send();
     }

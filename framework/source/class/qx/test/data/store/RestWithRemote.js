@@ -56,9 +56,9 @@ qx.Bootstrap.define("qx.test.data.store.RestWithRemote",
       var res = this.res,
           store = this.store;
 
-      res.addListener("success", function() {
+      res.on("success", function() {
         this.resume(function() {
-          this.assertEquals("String", store.getModel().getString());
+          this.assertEquals("String", store.model.string);
         }, this);
       }, this);
 
@@ -69,16 +69,16 @@ qx.Bootstrap.define("qx.test.data.store.RestWithRemote",
     "test: bind model property": function() {
       var res = this.res,
           store = this.store,
-          label = new qx.ui.basic.Label();
+          label = new qx.ui.mobile.basic.Label();
 
-      res.addListener("success", function() {
+      res.on("success", function() {
         this.resume(function() {
-          this.assertEquals("String", label.getValue());
+          this.assertEquals("String", label.value);
         }, this);
       }, this);
 
+      qx.data.SingleValueBinding.bind(store, "model.string", label, "value");
       res.index();
-      store.bind("model.string", label, "value");
 
       this.wait();
     },

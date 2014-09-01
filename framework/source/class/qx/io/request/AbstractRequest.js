@@ -747,7 +747,7 @@ qx.Bootstrap.define("qx.io.request.AbstractRequest",
         // A remote error failure
         if (this.getStatus() !== 0) {
           this._fireStatefulEvent("statusError");
-          this.emit("fail");
+          this.emit("fail", {target: this});
         }
       }
     },
@@ -787,10 +787,10 @@ qx.Bootstrap.define("qx.io.request.AbstractRequest",
      * Handle "error" event.
      */
     _onError: function() {
-      this.emit("error");
+      this.emit("error", {target: this});
 
       // A network error failure
-      this.emit("fail");
+      this.emit("fail", {target: this});
     },
 
     /*

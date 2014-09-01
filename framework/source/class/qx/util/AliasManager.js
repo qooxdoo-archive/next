@@ -49,9 +49,14 @@ qx.Bootstrap.define("qx.util.AliasManager",
   extend : qx.util.ValueManager,
   include : [qx.core.MSingleton],
 
+  statics : {
+    getInstance : qx.core.MSingleton.getInstance
+  },
+
   construct : function()
   {
     this.base(qx.util.ValueManager, "constructor");
+    this.initMSingleton();
 
     // Contains defined aliases (like icons/, widgets/, application/, ...)
     this.__aliases = {};

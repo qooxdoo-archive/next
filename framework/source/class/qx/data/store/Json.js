@@ -72,14 +72,14 @@ qx.Bootstrap.define("qx.data.store.Json",
      * Data event fired after the model has been created. The data will be the
      * created model.
      */
-    "loaded" : "qx.event.type.Data",
+    "loaded" : "Object",
 
     /**
      * Fired when an error (aborted, timeout or failed) occurred
      * during the load. The data contains the respons of the request.
      * If you want more details, use the {@link #changeState} event.
      */
-    "error" : "qx.event.type.Data"
+    "error" : "qx.io.request.Xhr"
   },
 
 
@@ -90,7 +90,7 @@ qx.Bootstrap.define("qx.data.store.Json",
      */
     model : {
       nullable: true,
-      event: "changeModel"
+      event: true
     },
 
 
@@ -105,7 +105,7 @@ qx.Bootstrap.define("qx.data.store.Json",
         "completed", "aborted", "timeout", "failed"
       ],
       init : "configured",
-      event : "changeState"
+      event : true
     },
 
 
@@ -115,7 +115,7 @@ qx.Bootstrap.define("qx.data.store.Json",
     url : {
       check: "String",
       apply: "_applyUrl",
-      event: "changeUrl",
+      event: true,
       nullable: true
     }
   },
@@ -178,14 +178,14 @@ qx.Bootstrap.define("qx.data.store.Json",
       this._setRequest(req);
 
       // request json representation
-      req.setAccept("application/json");
+      req.accept = "application/json";
 
       // parse as json no matter what content type is returned
       req.setParser("json");
 
       // register the internal event before the user has the change to
       // register its own event in the delegate
-      req.addListener("success", this._onSuccess, this);
+      req.on("success", this._onSuccess, this);
 
       // check for the request configuration hook
       var del = this._delegate;
@@ -194,10 +194,10 @@ qx.Bootstrap.define("qx.data.store.Json",
       }
 
       // map request phase to it’s own phase
-      req.addListener("changePhase", this._onChangePhase, this);
+      req.on("changePhase", this._onChangePhase, this);
 
       // add failed, aborted and timeout listeners
-      req.addListener("fail", this._onFail, this);
+      req.on("fail", this._onFail, this);
 
       req.send();
     },
@@ -210,8 +210,8 @@ qx.Bootstrap.define("qx.data.store.Json",
      *
      * @param ev {qx.event.type.Data} The request’s changePhase event.
      */
-    _onChangePhase : function(ev) {
-      var requestPhase = ev.getData(),
+    _onChangePhase : function(data) {
+      var requestPhase = data.value,
           requestPhaseToStorePhase = {},
           state;
 
@@ -238,8 +238,8 @@ qx.Bootstrap.define("qx.data.store.Json",
      * @param ev {qx.event.type.Event} The request’s fail event.
      */
     _onFail : function(ev) {
-      var req = ev.getTarget();
-      this.fireDataEvent("error", req);
+      var req = ev.target;
+      this.emit("error", req);
     },
 
 
@@ -252,11 +252,11 @@ qx.Bootstrap.define("qx.data.store.Json",
      */
     _onSuccess : function(ev)
     {
-      if (this.isDisposed()) {
+      if (this.$$dispose) {
         return;
       }
 
-       var req = ev.getTarget(),
+       var req = ev.target,
            data = req.getResponse();
 
        // check for the data manipulation hook
@@ -273,13 +273,8 @@ qx.Bootstrap.define("qx.data.store.Json",
        // set the initial data
        this.model = this._marshaler.toModel(data);
 
-       // get rid of the old model
-       if (oldModel && oldModel.dispose) {
-         oldModel.dispose();
-       }
-
        // fire complete event
-       this.fireDataEvent("loaded", this.model);
+       this.emit("loaded", this.model);
 
        // get rid of the request object
        if (this.__request) {
@@ -301,8 +296,9 @@ qx.Bootstrap.define("qx.data.store.Json",
 
 
     dispose: function() {
+      this.$$dispose = true;
       if (this.__request != null) {
-        this._disposeObjects("__request");
+        this.__request.dispose();
       }
     }
   }

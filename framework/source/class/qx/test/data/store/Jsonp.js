@@ -85,10 +85,10 @@ qx.Bootstrap.define("qx.test.data.store.Jsonp",
       this.setUpFakeRequest();
 
       var store = new qx.data.store.Jsonp();
-      store.setCallbackParam("myCallback");
-      store.setUrl("/url");
+      store.callbackParam = "myCallback";
+      store.url = ("/url");
 
-      this.assertCalledWith(this.request.setCallbackParam, "myCallback");
+      this.assertEquals("myCallback", this.request.callbackParam);
       store.dispose();
     },
 
@@ -97,27 +97,27 @@ qx.Bootstrap.define("qx.test.data.store.Jsonp",
       this.setUpFakeRequest();
 
       var store = new qx.data.store.Jsonp();
-      store.setCallbackName("myCallback");
-      store.setUrl("/url");
+      store.callbackName = "myCallback";
+      store.url = ("/url");
 
-      this.assertCalledWith(this.request.setCallbackName, "myCallback");
+      this.assertEquals("myCallback", this.request.callbackName);
       store.dispose();
     },
 
 
     testWholePrimitive: function() {
-      this.__store.addListener("loaded", function() {
+      this.__store.on("loaded", function() {
         this.resume(function() {
-          var model = this.__store.getModel();
-          this.assertEquals("String", model.getString(), "The model is not created how it should!");
-          this.assertEquals(12, model.getNumber(), "The model is not created how it should!");
-          this.assertEquals(true, model.getBoolean(), "The model is not created how it should!");
-          this.assertNull(model.getNull(), "The model is not created how it should!");
+          var model = this.__store.model;
+          this.assertEquals("String", model.string, "The model is not created how it should!");
+          this.assertEquals(12, model.number, "The model is not created how it should!");
+          this.assertEquals(true, model.boolean, "The model is not created how it should!");
+          this.assertNull(model["null"], "The model is not created how it should!");
         }, this);
       }, this);
 
       var url = this.url;
-      this.__store.setUrl(url);
+      this.__store.url = (url);
 
       this.wait();
     },
@@ -132,14 +132,14 @@ qx.Bootstrap.define("qx.test.data.store.Jsonp",
 
       var store = new qx.data.store.Jsonp(null, delegate, "callback");
 
-      store.addListener("loaded", function() {
+      store.on("loaded", function() {
         this.resume(function() {
           this.assertTrue(manipulated);
         }, this);
       }, this);
 
       var url = this.url;
-      store.setUrl(url);
+      store.url = (url);
 
       this.wait();
       store.dispose();
@@ -158,14 +158,14 @@ qx.Bootstrap.define("qx.test.data.store.Jsonp",
 
       var store = new qx.data.store.Jsonp(null, delegate, "callback");
 
-      store.addListener("loaded", function() {
+      store.on("loaded", function() {
         this.resume(function() {
           this.assertCalled(delegate.configureRequest);
         }, this);
       }, this);
 
       var url = this.url;
-      store.setUrl(url);
+      store.url = (url);
 
       this.wait();
     },
@@ -184,13 +184,13 @@ qx.Bootstrap.define("qx.test.data.store.Jsonp",
     testDisposeRequestDone: function() {
       this.setUpFakeRequest();
       var url = this.url;
-      this.__store.addListener("loaded", function() {
+      this.__store.on("loaded", function() {
         this.resume(function() {
           this.__store.dispose();
           this.assertCalled(this.request.dispose);
         }, this);
       }, this);
-      this.__store.setUrl(url);
+      this.__store.url = (url);
     },
 
 
@@ -201,11 +201,11 @@ qx.Bootstrap.define("qx.test.data.store.Jsonp",
         !(qx.core.Environment.get("browser.name") == "ie") &&
         !(qx.core.Environment.get("browser.name") == "opera"))
         {
-        this.__store.addListener("error", function() {
+        this.__store.on("error", function() {
           this.resume(function() {}, this);
         }, this);
 
-        this.__store.setUrl("affe");
+        this.__store.url = ("affe");
 
         this.wait();
       }

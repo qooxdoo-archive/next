@@ -42,6 +42,9 @@ qx.Bootstrap.define("qx.test.data.DataArrayWithChangeBubble",
 
 
     testRootArray : function() {
+      if (qx.data.model) {
+        delete qx.data.model.b;
+      }
       var m = [{b: 10}];
       m = qx.data.marshal.Json.createModel(m, true);
 

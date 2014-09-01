@@ -42,6 +42,8 @@ qx.Bootstrap.define("qx.test.data.store.Offline",
 
       // erase the data from the storages
       qx.bom.Storage.getLocal().removeItem(this.__testKey);
+
+      delete qx.data.model.a;
     },
 
 
@@ -139,7 +141,7 @@ qx.Bootstrap.define("qx.test.data.store.Offline",
       this.__initDefaultStore();
 
       var model = this.__createDefaultModel();
-      this.__store.model = (model);
+      this.__store.model = model;
       this.assertEquals("a", this.__store.model.a);
 
       this.__initDefaultStore();
