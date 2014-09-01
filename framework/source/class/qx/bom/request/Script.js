@@ -65,6 +65,7 @@ qx.Bootstrap.define("qx.bom.request.Script",
 
     this.__onNativeLoadBound = this._onNativeLoad.bind(this);
     this.__onNativeErrorBound = this._onNativeError.bind(this);
+    this.__onTimeoutBound = this._onTimeout.bind(this);
 
     this.__headElement = document.head || document.getElementsByTagName( "head" )[0] ||
                          document.documentElement;
@@ -229,6 +230,10 @@ qx.Bootstrap.define("qx.bom.request.Script",
       var script = this.__createScriptElement(),
           head = this.__headElement,
           that = this;
+
+      if (this.timeout > 0) {
+        this.__timeoutId = window.setTimeout(this.__onTimeoutBound, this.timeout);
+      }
 
       if (this.__environmentGet("qx.debug.io")) {
         qx.Bootstrap.debug(qx.bom.request.Script, "Send native request");
@@ -403,6 +408,10 @@ qx.Bootstrap.define("qx.bom.request.Script",
           this.__disposeScriptElement();
         }
 
+        if (this.__timeoutId) {
+          window.clearTimeout(this.__timeoutId);
+        }
+
         this._disposed = true;
       }
     },
@@ -443,6 +452,15 @@ qx.Bootstrap.define("qx.bom.request.Script",
 
 
     /**
+     * Handle timeout.
+     */
+    _onTimeout: function() {
+      this.__failure();
+      this._emit("timeout");
+    },
+
+
+    /**
      * Handle native load.
      */
     _onNativeLoad: function() {
@@ -472,6 +490,10 @@ qx.Bootstrap.define("qx.bom.request.Script",
         if (this.__environmentGet("qx.debug.io")) {
           qx.Bootstrap.debug(qx.bom.request.Script, "Detected error");
         }
+      }
+
+      if (this.__timeoutId) {
+        window.clearTimeout(this.__timeoutId);
       }
 
       window.setTimeout(function() {
@@ -521,6 +543,16 @@ qx.Bootstrap.define("qx.bom.request.Script",
      * @type {Function} Bound _onNativeError handler.
      */
     __onNativeErrorBound: null,
+
+    /**
+     * @type {Function} Bound _onTimeout handler.
+     */
+    __onTimeoutBound: null,
+
+    /**
+     * @type {Number} Timeout timer iD.
+     */
+    __timeoutId: null,
 
     /**
      * @type {Boolean} Whether request was aborted.
