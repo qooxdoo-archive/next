@@ -12,24 +12,23 @@ html, body {
 .header {
   background-image: linear-gradient(to bottom, #505154, #323335);
   color: white;
-}
 
-.header h1 {
-  margin: 10px;
-  display: inline-block;
-}
+  h1 {
+    margin: 10px;
+    display: inline-block;
+  }
 
-.header #version-label {
-  float: right;
-  margin: 20px;
-  display: inline-block;
-}
+  #version-label {
+    float: right;
+    margin: 20px;
+    display: inline-block;
+  }
 
-.header .decoration {
-  height: 10px;
-  background-image: linear-gradient(to bottom, #5583d0, #5583d0 1px, #3d72c9 1px, #3d72c9);
+  .decoration {
+    height: 10px;
+    background-image: linear-gradient(to bottom, #5583d0, #5583d0 1px, #3d72c9 1px, #3d72c9);
+  }
 }
-
 
 #toolbar > * {
   display: inline-block;
@@ -44,23 +43,22 @@ html, body {
   left: 0;
   right: 0;
   top: 112px;
-}
 
-.play-content #playarea {
-  border: 1px solid #ddd;
-  overflow: hidden;
-}
+  #playarea {
+    border: 1px solid #ddd;
+    overflow: hidden;
+  }
 
+  #editor {
+    margin: 0 10px 0 0;
+    width: 50%;
+    height: 100%;
+    border: 1px solid #ddd;
+  }
 
-.play-content #editor {
-  margin: 0 10px 0 0;
-  width: 50%;
-  height: 100%;
-  border: 1px solid #ddd;
-}
-
-.play-content > * {
-  -webkit-flex: 1 1 50%;
-  -ms-flex: 1 1 50%;
-  flex: 1 1 50%;
+  & > * {
+    -webkit-flex: 1 1 50%;
+    -ms-flex: 1 1 50%;
+    flex: 1 1 50%;
+  }
 }
