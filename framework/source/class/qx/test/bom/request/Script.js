@@ -156,12 +156,6 @@ qx.Bootstrap.define("qx.test.bom.request.Script",
     // Error handling
 
     "test: properties indicate failure when request failed": function() {
-
-      // Known to fail in legacy IEs
-      if (this.isIeBelow(9)) {
-        this.skip();
-      }
-
       var that = this,
           req = this.req;
 
@@ -470,12 +464,6 @@ qx.Bootstrap.define("qx.test.bom.request.Script",
     },
 
     "test: call ontimeout when request exceeds timeout limit": function() {
-
-      // Known to fail in legacy IEs
-      if (this.isIeBelow(9)) {
-        this.skip();
-      }
-
       var that = this;
 
       this.req.timeout = 25;

@@ -86,11 +86,11 @@ qx.Bootstrap.define("qx.test.bom.rest.Resource",
       var res = this.res,
           req = this.req;
 
-      res.configureRequest(qx.lang.Function.bind(function(req) {
+      res.configureRequest(function(req) {
         this.assertCalledWith(req.setMethod, "GET");
         this.assertCalled(req.setUrl, "/photos");
         this.assertNotCalled(req.send);
-      }, this));
+      }.bind(this));
 
       res.get();
     },
