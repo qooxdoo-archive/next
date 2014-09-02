@@ -75,9 +75,14 @@ qx.Bootstrap.define("qxWeb", {
       }
 
       var col;
-      if (arg[0] && arg[0].getAttribute && arg[0].getAttribute("data-qx-widget")) {
+      if (arg.length === 1 && arg[0] && arg[0].getAttribute && arg[0].getAttribute("data-qx-widget")) {
         clazz = qx.Bootstrap.getByName(arg[0].getAttribute("data-qx-widget")) || clazz;
-        col = new clazz(clean[0]);
+        // add DOM element as last widget constructor argument
+        var index = qx.Bootstrap.getConstructorArgumentsCount(clazz);
+        var args = [];
+        args[index] = clean[0];
+        var Temp = qx.Bootstrap.curryConstructor(clazz, args);
+        col = new Temp();
       } else {
         col = qx.lang.Array.cast(clean, clazz);
       }

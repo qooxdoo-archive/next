@@ -735,6 +735,34 @@ qx.Bootstrap.define("qx.Bootstrap",
         (clazz.prototype.$$properties && clazz.prototype.$$properties[propertyName]));
     },
 
+
+    /**
+     * TODOC
+     * @param  {[type]} func [description]
+     * @return {[type]}      [description]
+     * @internal
+     */
+    getConstructorArgumentsCount : function(constr) {
+      // get the first non-default constructor in the inheritance hierarchy
+      while (Function.prototype.toString.call(constr).indexOf("defaultConstructor()") >= 0) {
+        constr = constr.superclass;
+      }
+      // parse the function to get the arguments count
+      var index = 0;
+      var match = /function\s*\((.*?)\)/g.exec(Function.prototype.toString.call(constr));
+      if (match && match[1]) {
+        index = Math.max(match[1].split(",").length - 1, 0);
+      }
+      return index;
+    },
+
+    curryConstructor : function(clazz, args) {
+      // Set the context for the 'bind' call (will be replaced by new)
+      Array.prototype.unshift.call(args, null);
+      // Create temporary constructor with bound arguments
+      return clazz.bind.apply(clazz, args);
+    },
+
     /*
     ---------------------------------------------------------------------------
       STRING UTILITY FUNCTIONS

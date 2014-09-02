@@ -166,25 +166,12 @@ qx.Bootstrap.define("qx.ui.mobile.core.Widget", {
       var name = clazz.classname.split(".");
       name = qx.lang.String.firstLow(name[name.length - 1]);
       var data = {};
-      // get the first non-default constructor in the inheritance hierarchy
-      var constr = clazz;
-      while (Function.prototype.toString.call(constr).indexOf("defaultConstructor()") >= 0) {
-        constr = constr.superclass;
-      }
-      // parse the constructor function to get the arguments count
-      var index = 0;
-      var match = /function\s*\((.*?)\)/g.exec(Function.prototype.toString.call(constr));
-      if (match && match[1]) {
-        index = Math.max(match[1].split(",").length - 1, 0);
-      }
+      var index = qx.Bootstrap.getConstructorArgumentsCount(clazz);
       data[name] = function() {
         var args = qx.lang.Array.fromArguments(arguments);
         // Add the DOM element as last argument
         args[index] = this[0];
-        // Set the context for the 'bind' call (will be replaced by new)
-        Array.prototype.unshift.call(args, null);
-        // Create temporary constructor with bound arguments
-        var Temp = clazz.bind.apply(clazz, args);
+        var Temp = qx.Bootstrap.curryConstructor(clazz, args);
         return new Temp();
       };
       qxWeb.$attach(data);
