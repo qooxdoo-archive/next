@@ -559,7 +559,7 @@ qx.Bootstrap.define("qx.ui.mobile.list.List",
           itemHeight = this.itemHeight + "px";
         }
         // Fixed height
-		qxWeb(itemElement).setStyle("minHeight", itemHeight)
+        itemElement.setStyle("minHeight", itemHeight)
           .setStyle("maxHeight", itemHeight);
 
         this.append(itemElement);
