@@ -27,7 +27,7 @@
  *
  * <pre class='javascript'>
  *   var bar = new qx.ui.mobile.navigationbar.NavigationBar();
- *   var backButton = new qx.ui.mobile.navigationbar.BackButton();
+ *   var backButton = new qx.ui.mobile.Button();
  *   bar.append(backButton);
  *   var title = new qx.ui.mobile.navigationbar.Title();
  *   title.layoutPrefs = {flex:1};

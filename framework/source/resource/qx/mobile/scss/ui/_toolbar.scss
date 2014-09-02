@@ -2,7 +2,7 @@
 // TOOLBAR
 //
 
-.toolbar-button {
+.toolbar .button {
   @extend .button;
   @extend .qx-hbox;
   @include background-clip(padding-box);
@@ -25,7 +25,7 @@
   padding-right: $toolbar-padding;
 }
 
-.toolbar-button.active {
+.toolbar .button.active {
   @include background($toolbar-active-background);
   color: $toolbar-active-text-color;
 }
@@ -42,15 +42,15 @@
   height: rem(50);
 }
 
-.toolbar-button img {
+.toolbar .button img {
   vertical-align: middle;
 }
 
-.toolbar-button > div {
+.toolbar .button > div {
   @extend .qx-flex1;
 }
 
-.toolbar-button .label {
+.toolbar .button .label {
   height: auto;
   padding-top:rem(2);
   text-align:center;

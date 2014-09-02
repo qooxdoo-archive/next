@@ -242,7 +242,7 @@ qx.Bootstrap.define("qx.ui.mobile.page.Manager",
 
     /**
      * Returns the button for showing/hiding the masterContainer.
-     * @return {qx.ui.mobile.navigationbar.Button}
+     * @return {qx.ui.mobile.Button}
      */
     getMasterButton : function() {
       return this.__masterButton;
@@ -269,19 +269,19 @@ qx.Bootstrap.define("qx.ui.mobile.page.Manager",
 
      /**
      * Factory method for the master button, which is responsible for showing/hiding masterContainer.
-     * @return {qx.ui.mobile.navigationbar.Button}
+     * @return {qx.ui.mobile.Button}
      */
     _createMasterButton : function() {
-      return new qx.ui.mobile.navigationbar.Button(this.masterTitle);
+      return new qx.ui.mobile.Button(this.masterTitle);
     },
 
 
     /**
      * Factory method for the hide master button, which is responsible for hiding masterContainer on Landscape view.
-     * @return {qx.ui.mobile.navigationbar.Button}
+     * @return {qx.ui.mobile.Button}
      */
     _createHideMasterButton : function() {
-      return new qx.ui.mobile.navigationbar.Button("Hide");
+      return new qx.ui.mobile.Button("Hide");
     },
 
 

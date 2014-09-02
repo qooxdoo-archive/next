@@ -28,13 +28,13 @@ qx.Bootstrap.define("qx.test.mobile.navigationbar.NavigationBar",
       var bar = new qx.ui.mobile.navigationbar.NavigationBar();
       this.getRoot().append(bar);
 
-      var back = new qx.ui.mobile.navigationbar.BackButton("Back");
+      var back = new qx.ui.mobile.Button("Back");
       bar.append(back);
 
       var title = new qx.ui.mobile.navigationbar.Title("Title");
       bar.append(title);
 
-      var button = new qx.ui.mobile.navigationbar.Button("Action");
+      var button = new qx.ui.mobile.Button("Action");
       bar.append(button);
 
       this.assertEquals(3, bar.getChildren().length);

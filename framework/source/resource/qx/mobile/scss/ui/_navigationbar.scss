@@ -34,7 +34,7 @@
   line-height:  $navigationbar-height;
 }
 
-.navigationbar-button, .navigationbar-backbutton {
+.navigationbar .button {
   @include background($navigationbarbutton-background);
   @include border-radius($navigationbarbutton-border-radius);
   @include background-clip(padding-box);
@@ -63,7 +63,7 @@
   padding: $navigationbar-padding;
 }
 
-.navigationbar-button.active, .navigationbar-backbutton.active {
+.navigationbar .button.active {
   @include background($navigationbarbutton-active-background);
   color: $navigationbarbutton-active-text-color;
   border: rem(1) solid $navigationbarbutton-active-border-color;

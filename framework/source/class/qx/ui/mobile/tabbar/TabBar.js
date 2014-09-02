@@ -44,12 +44,6 @@ qx.Bootstrap.define("qx.ui.mobile.tabbar.TabBar",
   extend : qx.ui.mobile.core.Widget,
 
 
- /*
-  *****************************************************************************
-     CONSTRUCTOR
-  *****************************************************************************
-  */
-
   construct : function()
   {
     this.base(qx.ui.mobile.core.Widget, "constructor");
@@ -57,14 +51,6 @@ qx.Bootstrap.define("qx.ui.mobile.tabbar.TabBar",
     this.on("tap", this._onTap, this);
   },
 
-
-
-
- /*
-  *****************************************************************************
-     PROPERTIES
-  *****************************************************************************
-  */
 
   properties :
   {
@@ -88,14 +74,6 @@ qx.Bootstrap.define("qx.ui.mobile.tabbar.TabBar",
     }
   },
 
-
-
-
- /*
-  *****************************************************************************
-     MEMBERS
-  *****************************************************************************
-  */
 
   members :
   {

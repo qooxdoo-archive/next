@@ -78,13 +78,13 @@ qx.Bootstrap.define("mobileshowcase.page.Toolbar",
       var toolbar = this.__toolbar = new qx.ui.mobile.toolbar.ToolBar();
       this.append(toolbar);
 
-      var searchBtn = new qx.ui.mobile.toolbar.Button("Search");
+      var searchBtn = new qx.ui.mobile.Button("Search");
       searchBtn.on("tap", function() {
         var searchDialog = this.__createSearchDialog();
         searchDialog.show();
       }, this);
 
-      this.__goBackBtn = new qx.ui.mobile.toolbar.Button(
+      this.__goBackBtn = new qx.ui.mobile.Button(
         null, mobileshowcase.page.Toolbar.__toolbarButtonImages[0]
       );
       this.__goBackBtn.showChildren = "icon";
@@ -94,7 +94,7 @@ qx.Bootstrap.define("mobileshowcase.page.Toolbar",
         popup.show();
       }, this);
 
-      this.__loadButton = new qx.ui.mobile.toolbar.Button(
+      this.__loadButton = new qx.ui.mobile.Button(
         null, mobileshowcase.page.Toolbar.__toolbarButtonImages[1]
       );
       this.__loadButton.showChildren = "icon";
@@ -106,7 +106,7 @@ qx.Bootstrap.define("mobileshowcase.page.Toolbar",
       }, this);
 
 
-      var deleteButton = new qx.ui.mobile.toolbar.Button("Delete");
+      var deleteButton = new qx.ui.mobile.Button("Delete");
       deleteButton.on("tap", function(){
         this.__deleteDialog = qx.ui.mobile.dialog.Manager.getInstance().warning('Deleting', 'Are you sure?', this.__processDelete, this, ["Yes", "No"]);
       }, this);

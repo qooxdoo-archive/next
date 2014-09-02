@@ -289,10 +289,10 @@ qx.Bootstrap.define("qx.ui.mobile.page.NavigationPage",
       * Creates the navigation bar back button.
       * Creates the scroll container.
       *
-      * @return {qx.ui.mobile.navigationbar.BackButton} The created back button widget
+      * @return {qx.ui.mobile.Button} The created back button widget
       */
     _createBackButton : function() {
-      return new qx.ui.mobile.navigationbar.BackButton(this.backButtonText);
+      return new qx.ui.mobile.Button(this.backButtonText);
     },
 
 
@@ -301,10 +301,10 @@ qx.Bootstrap.define("qx.ui.mobile.page.NavigationPage",
       * Creates the navigation bar button.
       * Creates the content container.
       *
-      * @return {qx.ui.mobile.navigationbar.Button} The created button widget
+      * @return {qx.ui.mobile.Button} The created button widget
       */
     _createButton : function() {
-     return new qx.ui.mobile.navigationbar.Button(this.buttonText, this.buttonIcon);
+     return new qx.ui.mobile.Button(this.buttonText, this.buttonIcon);
     },
 
 
@@ -367,7 +367,7 @@ qx.Bootstrap.define("qx.ui.mobile.page.NavigationPage",
     /**
      * Returns the back button widget.
      *
-     * @return {qx.ui.mobile.navigationbar.BackButton} The back button widget
+     * @return {qx.ui.mobile.Button} The back button widget
      */
     _getBackButton : function()
     {
@@ -378,7 +378,7 @@ qx.Bootstrap.define("qx.ui.mobile.page.NavigationPage",
     /**
      * Returns the action button widget.
      *
-     * @return {qx.ui.mobile.navigationbar.Button} The action button widget
+     * @return {qx.ui.mobile.Button} The action button widget
      */
     _getButton : function()
     {

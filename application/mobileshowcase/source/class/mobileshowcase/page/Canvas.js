@@ -52,7 +52,7 @@ qx.Bootstrap.define("mobileshowcase.page.Canvas",
 
       this.__lastPoint = {};
 
-      var clearButton = new qx.ui.mobile.navigationbar.Button("Clear");
+      var clearButton = new qx.ui.mobile.Button("Clear");
       clearButton.on("tap", this.__clearCanvas, this);
 
       this.getRightContainer().append(clearButton);

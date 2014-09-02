@@ -28,22 +28,8 @@ qx.Bootstrap.define("qx.ui.mobile.tabbar.TabButton",
 {
   extend : qx.ui.mobile.Button,
 
-
- /*
-  *****************************************************************************
-     PROPERTIES
-  *****************************************************************************
-  */
-
   properties :
   {
-    // overridden
-    defaultCssClass :
-    {
-      init : "tabButton"
-    },
-
-
     /**
      * The associated view.
      */

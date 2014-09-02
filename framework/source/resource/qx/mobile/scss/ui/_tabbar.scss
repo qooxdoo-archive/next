@@ -1,5 +1,5 @@
 //
-// TABBAR   
+// TABBAR
 //
 .tabBar {
   padding-top: $tabbar-button-distance;
@@ -7,17 +7,24 @@
   padding-right: $tabbar-button-distance;
   border-bottom: rem(3) solid $tabbar-divider-color;
   min-height: $tabbar-height;
+
+  .button + .button {
+    margin-left: $tabbar-button-distance;
+  }
 }
 
-.tabButton {
+.tabBar .button {
   @include background($tabbar-inactive-background);
   @include border-radius-top($tabbar-border-radius);
+  @include border-radius-bottom(0);
   @include background-clip(padding-box);
   @include box-sizing(border-box);
 
   color:  $tabbar-inactive-text-color;
 
   line-height:  $tabbar-height - $tabbar-button-distance;
+  font-weight: normal;
+  font-size: rem(16);
 
   // This is for equal sizes od the buttons when added in a toolbar or
   // other container with flex :1
@@ -27,17 +34,13 @@
 
   text-align: center;
 
-  $tab-button-border: rem(1) solid $tabbar-inactive-border-color;  
+  $tab-button-border: rem(1) solid $tabbar-inactive-border-color;
   border-top: $tab-button-border;
   border-left: $tab-button-border;
   border-right: $tab-button-border;
 }
 
-.tabButton + .tabButton {
-  margin-left: $tabbar-button-distance;
-}
-
-.tabButton.active, .tabButton.selected {
+.tabBar .button.active, .tabBar .button.selected {
   @include background($tabbar-active-background);
   border: rem(1) solid $tabbar-active-border-color;
   border-bottom: 0px solid transparent;
