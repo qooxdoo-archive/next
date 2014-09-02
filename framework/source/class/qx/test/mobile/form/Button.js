@@ -25,7 +25,7 @@ qx.Bootstrap.define("qx.test.mobile.form.Button",
   {
     testLabel : function()
     {
-      var button = new qx.ui.mobile.form.Button("affe");
+      var button = new qx.ui.mobile.Button("affe");
       this.getRoot().append(button);
 
       this.assertString(button.label);

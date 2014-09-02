@@ -46,7 +46,7 @@ qx.Bootstrap.define("mobileshowcase.page.Drawer",
 
     /** Factory method for the a demo drawer's content. */
     _createDrawerContent : function(target) {
-      var closeDrawerButton = new qx.ui.mobile.form.Button("Close");
+      var closeDrawerButton = new qx.ui.mobile.Button("Close");
       closeDrawerButton.on("tap", function() {
         target.hide();
       }, this);
@@ -60,7 +60,7 @@ qx.Bootstrap.define("mobileshowcase.page.Drawer",
     _createDrawerMenu : function(drawers) {
       var drawerGroup = new qx.ui.mobile.form.Group();
       for(var i = 0; i < drawers.length; i++) {
-        var openDrawerButton = new qx.ui.mobile.form.Button("Open "+drawers[i].orientation +" drawer");
+        var openDrawerButton = new qx.ui.mobile.Button("Open "+drawers[i].orientation +" drawer");
         openDrawerButton.on("tap", drawers[i].show, drawers[i]);
         drawerGroup.append(openDrawerButton);
       }

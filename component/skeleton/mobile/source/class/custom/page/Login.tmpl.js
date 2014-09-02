@@ -39,7 +39,7 @@ qx.Bootstrap.define("${Namespace}.page.Login",
       pwd.required = true;
 
       // Login Button
-      var loginButton = new qx.ui.mobile.form.Button("Login");
+      var loginButton = new qx.ui.mobile.Button("Login");
       loginButton.on("tap", this._onButtonTap, this);
 
       var loginForm = this.__form = new qx.ui.mobile.form.Form();

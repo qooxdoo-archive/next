@@ -55,7 +55,7 @@ qx.Bootstrap.define("mobileshowcase.page.Carousel",
       var page3label = new qx.ui.mobile.basic.Label("Carousel pages may contain any widgets like labels, images, buttons etc.");
       page3.append(page3label);
 
-      var nextButton = new qx.ui.mobile.form.Button("Next Page");
+      var nextButton = new qx.ui.mobile.Button("Next Page");
       nextButton.addClass("example-button");
       nextButton.on("tap", function() {
         setTimeout(function() {
@@ -63,7 +63,7 @@ qx.Bootstrap.define("mobileshowcase.page.Carousel",
         }.bind(this), 0);
       }, carousel);
 
-      var previousButton = new qx.ui.mobile.form.Button("Previous Page");
+      var previousButton = new qx.ui.mobile.Button("Previous Page");
       previousButton.addClass("example-button");
       previousButton.on("tap", function() {
         setTimeout(function() {
@@ -83,7 +83,7 @@ qx.Bootstrap.define("mobileshowcase.page.Carousel",
       page5.addClass("carousel-example-5");
       page5.append(new qx.ui.mobile.basic.Label("You can add as many pages as you want."),{flex:1});
 
-      var moreButton = new qx.ui.mobile.form.Button("Add more pages");
+      var moreButton = new qx.ui.mobile.Button("Add more pages");
       moreButton.addClass("example-button");
       moreButton.on("tap", function() {
         for (var i = 0; i < 50; i++) {

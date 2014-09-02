@@ -51,7 +51,7 @@ qx.Bootstrap.define("play.Application",
       q(".play-content").setStyle("visibility", "visible");
 
 
-      var runButton = new qx.ui.mobile.form.Button("Run");
+      var runButton = new qx.ui.mobile.Button("Run");
       runButton.appendTo("#toolbar").on("tap", this.run, this);
 
       var samples = new play.Samples();
@@ -63,17 +63,17 @@ qx.Bootstrap.define("play.Application",
         runButton.emit("tap");
       }).title = "Samples";
 
-      var samplesButton = new qx.ui.mobile.form.Button("Samples");
+      var samplesButton = new qx.ui.mobile.Button("Samples");
       samplesButton.on("tap", samplesMenu.show, samplesMenu).appendTo("#toolbar");
 
-      (new qx.ui.mobile.form.Button("Close"))
+      (new qx.ui.mobile.Button("Close"))
         .setStyle("marginTop", "10px")
         .on("tap", function() {
           samplesMenu.hide();
         })
         .appendTo(samplesMenu.getContents());
 
-      (new qx.ui.mobile.form.Button("Shorten URL"))
+      (new qx.ui.mobile.Button("Shorten URL"))
         .on("tap", this.shortenUrl, this)
         .appendTo("#toolbar");
 

@@ -35,7 +35,7 @@
  *      sel.model = model;
  *      model.push("item3");
  *
- *      var but = new qx.ui.mobile.form.Button("setSelection");
+ *      var but = new qx.ui.mobile.Button("setSelection");
  *      page1.append(but);
  *      but.on("tap", function(){
  *        sel.selection = "item3";

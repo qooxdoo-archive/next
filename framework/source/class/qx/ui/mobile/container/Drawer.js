@@ -35,7 +35,7 @@
  *  drawer.orientation = "right";
  *  drawer.setTapOffset(100);
  *
- *  var button = new qx.ui.mobile.form.Button("A Button");
+ *  var button = new qx.ui.mobile.Button("A Button");
  *  drawer.append(button);
  * </pre>
  *

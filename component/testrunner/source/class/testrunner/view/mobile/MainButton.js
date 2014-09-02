@@ -1,10 +1,10 @@
 qx.Bootstrap.define("testrunner.view.mobile.MainButton", {
 
-  extend : qx.ui.mobile.form.Button,
+  extend : qx.ui.mobile.Button,
 
   construct : function(label, icon)
   {
-    this.base(qx.ui.mobile.form.Button, "constructor", label, icon);
+    this.base(qx.ui.mobile.Button, "constructor", label, icon);
     qx.bom.element.Class.replace(this[0], "button", "navigationbar-backbutton");
   },
 

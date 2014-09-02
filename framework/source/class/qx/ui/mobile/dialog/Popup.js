@@ -26,7 +26,7 @@
  * There are 3 usages for now:
  *
  * <pre class='javascript'>
- * var widget = new qx.ui.mobile.form.Button("Error!");
+ * var widget = new qx.ui.mobile.Button("Error!");
  * var popup = new qx.ui.mobile.dialog.Popup(widget);
  * popup.show();
  * </pre>
@@ -35,7 +35,7 @@
  * It will be centered to the screen.
  * <pre class='javascript'>
  * var label = new qx.ui.mobile.basic.Label("Item1");
- * var widget = new qx.ui.mobile.form.Button("Error!");
+ * var widget = new qx.ui.mobile.Button("Error!");
  * var popup = new qx.ui.mobile.dialog.Popup(widget, label);
  * popup.show();
  * widget.on("tap", function(){
@@ -51,7 +51,7 @@
  * Once created, the instance is reused between show/hide calls.
  *
  * <pre class='javascript'>
- * var widget = new qx.ui.mobile.form.Button("Error!");
+ * var widget = new qx.ui.mobile.Button("Error!");
  * var popup = new qx.ui.mobile.dialog.Popup(widget);
  * popup.placeTo(25,100);
  * popup.show();

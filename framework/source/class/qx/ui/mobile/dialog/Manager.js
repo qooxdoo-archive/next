@@ -326,7 +326,7 @@ qx.Bootstrap.define("qx.ui.mobile.dialog.Manager",
         buttonContainer.addClass("gap");
         for(var i=0, l=buttons.length; i<l; i++)
         {
-          var button = new qx.ui.mobile.form.Button(buttons[i]);
+          var button = new qx.ui.mobile.Button(buttons[i]);
           /* see the comment in android.css for width: 0 for toolbar-button class*/
           button.addClass('dialog-button');
           button.layoutPrefs = {flex:1};

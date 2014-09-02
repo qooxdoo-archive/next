@@ -258,7 +258,7 @@ qx.Bootstrap.define("qx.test.ui.form.FormManager",
 
 
     testAddTwoButtons : function() {
-      var b1 = new qx.ui.mobile.form.Button();
+      var b1 = new qx.ui.mobile.Button();
       var b2 = new qx.ui.mobile.form.ToggleButton();
 
       this.__form.addButton(b1);
@@ -278,7 +278,7 @@ qx.Bootstrap.define("qx.test.ui.form.FormManager",
 
 
     testRemoveButton : function() {
-      var b1 = new qx.ui.mobile.form.Button();
+      var b1 = new qx.ui.mobile.Button();
       var b2 = new qx.ui.mobile.form.ToggleButton();
 
       this.__form.addButton(b1);
@@ -309,7 +309,7 @@ qx.Bootstrap.define("qx.test.ui.form.FormManager",
 
 
     testAddTwoWithButtons : function() {
-      var b1 = new qx.ui.mobile.form.Button();
+      var b1 = new qx.ui.mobile.Button();
       var b2 = new qx.ui.mobile.form.ToggleButton();
 
       // add the widgets
@@ -355,7 +355,7 @@ qx.Bootstrap.define("qx.test.ui.form.FormManager",
 
 
     testAddTwoWithButtonsOptions : function() {
-      var b1 = new qx.ui.mobile.form.Button();
+      var b1 = new qx.ui.mobile.Button();
       var b2 = new qx.ui.mobile.form.ToggleButton();
 
       // add the widgets
@@ -513,7 +513,7 @@ qx.Bootstrap.define("qx.test.ui.form.FormManager",
       this.__form.removeGroupHeader("GROUP");
       this.assertEquals(5, handler.callCount);
 
-      var b = new qx.ui.mobile.form.Button();
+      var b = new qx.ui.mobile.Button();
       this.__form.addButton(b);
       this.assertEquals(6, handler.callCount);
 
@@ -526,7 +526,7 @@ qx.Bootstrap.define("qx.test.ui.form.FormManager",
 
     testSingleRenderer : function()
     {
-      var b1 = new qx.ui.mobile.form.Button();
+      var b1 = new qx.ui.mobile.Button();
 
       // add the widgets
       this.__form.addGroupHeader("header");
@@ -541,7 +541,7 @@ qx.Bootstrap.define("qx.test.ui.form.FormManager",
 
     testSinglePlaceholderRenderer : function()
     {
-      var b1 = new qx.ui.mobile.form.Button();
+      var b1 = new qx.ui.mobile.Button();
 
       // add the widgets
       this.__form.addGroupHeader("header");

@@ -199,7 +199,7 @@ qx.Bootstrap.define("mobileshowcase.page.Theming",
       slider.step = 10;
       form.add(slider, "Custom Font Scale in %");
 
-      var useScaleButton = new qx.ui.mobile.form.Button("Apply");
+      var useScaleButton = new qx.ui.mobile.Button("Apply");
       useScaleButton.on("tap", this._onApplyScaleButtonTap, this);
       form.addButton(useScaleButton);
 

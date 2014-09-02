@@ -71,7 +71,7 @@ qx.Bootstrap.define("mobileshowcase.page.Form",
       this.__result.addClass("registration-result");
 
       var popupContent = new qx.ui.mobile.container.Composite();
-      this.__closeResultPopup = new qx.ui.mobile.form.Button("OK");
+      this.__closeResultPopup = new qx.ui.mobile.Button("OK");
       this.__closeResultPopup.on("tap", function() {
         this.__resultPopup.hide();
       },this);
@@ -86,10 +86,10 @@ qx.Bootstrap.define("mobileshowcase.page.Form",
 
     /**
     * Factory for the Submit Button.
-    * @return {qx.ui.mobile.form.Button} reset button
+    * @return {qx.ui.mobile.Button} reset button
     */
     _createSubmitButton : function() {
-      var submitButton = new qx.ui.mobile.form.Button("Submit");
+      var submitButton = new qx.ui.mobile.Button("Submit");
       submitButton.on("tap", this._onSubmitButtonTap, this);
       submitButton.enabled = false;
       return submitButton;
@@ -98,10 +98,10 @@ qx.Bootstrap.define("mobileshowcase.page.Form",
 
     /**
     * Factory for the Reset Button.
-    * @return {qx.ui.mobile.form.Button} reset button
+    * @return {qx.ui.mobile.Button} reset button
     */
     _createResetButton : function() {
-      var resetButton = new qx.ui.mobile.form.Button("Reset");
+      var resetButton = new qx.ui.mobile.Button("Reset");
       resetButton.on("tap", this._onResetButtonTap, this);
       return resetButton;
     },

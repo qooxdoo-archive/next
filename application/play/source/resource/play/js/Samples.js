@@ -3,7 +3,7 @@ Samples = {
     var page = new qx.ui.mobile.page.NavigationPage();
     page.title = ("Hello World");
     page.on("initialize", function() {
-      var button = new qx.ui.mobile.form.Button("First Button");
+      var button = new qx.ui.mobile.Button("First Button");
       page.getContent().append(button);
 
       button.on("tap", function() {
@@ -22,7 +22,7 @@ Samples = {
     var page1 = new qx.ui.mobile.page.NavigationPage();
     page1.title = ("Page 1");
     page1.on("initialize", function() {
-      var button = new qx.ui.mobile.form.Button("Next Page");
+      var button = new qx.ui.mobile.Button("Next Page");
       page1.getContent().append(button);
 
       button.on("tap", function() {
@@ -105,7 +105,7 @@ Samples = {
     this.getRoot().append(new qx.ui.mobile.form.renderer.Single(form));
 
     // login button
-    var button = new qx.ui.mobile.form.Button("Login");
+    var button = new qx.ui.mobile.Button("Login");
     this.getRoot().append(button);
 
     button.on("tap", function() {

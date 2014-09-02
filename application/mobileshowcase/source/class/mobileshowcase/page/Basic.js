@@ -69,7 +69,7 @@ qx.Bootstrap.define("mobileshowcase.page.Basic",
       }, this);
 
       // EXAMPLE WIDGETS
-      var exButton = new qx.ui.mobile.form.Button("Button");
+      var exButton = new qx.ui.mobile.Button("Button");
 
       var exToggleButton = new qx.ui.mobile.form.ToggleButton(false);
 

@@ -63,7 +63,7 @@ qx.Bootstrap.define("mobileshowcase.page.Dialog",
       // DEFAULT POPUP
       this.__popup = null;
 
-      var closeDialogButton1 = new qx.ui.mobile.form.Button("Close Popup");
+      var closeDialogButton1 = new qx.ui.mobile.Button("Close Popup");
       this.__popup = new qx.ui.mobile.dialog.Popup(closeDialogButton1);
       this.__popup.title = "A Popup";
 
@@ -72,7 +72,7 @@ qx.Bootstrap.define("mobileshowcase.page.Dialog",
       }, this);
 
       // ANCHOR POPUP
-      var showAnchorButton = new qx.ui.mobile.form.Button("Anchor Popup");
+      var showAnchorButton = new qx.ui.mobile.Button("Anchor Popup");
       showAnchorButton.on("tap", function(e) {
           this.__anchorPopup.show();
       }, this);
@@ -91,7 +91,7 @@ qx.Bootstrap.define("mobileshowcase.page.Dialog",
       this.__menu.visibleListItems = 10;
 
        // PICKER DIALOG
-      var showPickerButton = new qx.ui.mobile.form.Button("Picker");
+      var showPickerButton = new qx.ui.mobile.Button("Picker");
       showPickerButton.on("tap", function(e) {
         this.__pickerDialog.show();
       }, this);
@@ -99,7 +99,7 @@ qx.Bootstrap.define("mobileshowcase.page.Dialog",
       this._createPicker(showPickerButton);
 
       // ANCHORED MENU POPUP
-      var showAnchorMenuButton = new qx.ui.mobile.form.Button("Anchor Menu");
+      var showAnchorMenuButton = new qx.ui.mobile.Button("Anchor Menu");
       showAnchorMenuButton.on("tap", function(e) {
         this.__anchorMenu.show();
       }, this);
@@ -109,18 +109,18 @@ qx.Bootstrap.define("mobileshowcase.page.Dialog",
       this.__anchorMenu.title = "Colors";
 
       // BUTTONS
-      var showPopupButton = new qx.ui.mobile.form.Button("Popup");
+      var showPopupButton = new qx.ui.mobile.Button("Popup");
       showPopupButton.on("tap", function(e) {
         this.__popup.show();
       }, this);
 
-      var busyIndicatorButton = new qx.ui.mobile.form.Button("Busy Indicator");
+      var busyIndicatorButton = new qx.ui.mobile.Button("Busy Indicator");
       busyIndicatorButton.on("tap", function(e) {
         this.__busyPopup.toggleVisibility();
         window.setTimeout(this.__busyPopup.hide.bind(this.__busyPopup), 3000);
       }, this);
 
-      var showMenuButton = new qx.ui.mobile.form.Button("Menu");
+      var showMenuButton = new qx.ui.mobile.Button("Menu");
       showMenuButton.on("tap", function(e) {
         this.__menu.show();
       }, this);
@@ -180,7 +180,7 @@ qx.Bootstrap.define("mobileshowcase.page.Dialog",
       picker.addSlot(this._createMonthPickerSlot());
       picker.addSlot(this._createYearPickerSlot());
 
-      var hidePickerButton = new qx.ui.mobile.form.Button("OK");
+      var hidePickerButton = new qx.ui.mobile.Button("OK");
       hidePickerButton.on("tap", function(e) {
         pickerDialog.hide();
       }, this);
@@ -251,8 +251,8 @@ qx.Bootstrap.define("mobileshowcase.page.Dialog",
       }
 
       var buttonsWidget = new qx.ui.mobile.container.Composite(new qx.ui.mobile.layout.HBox());
-      var okButton = new qx.ui.mobile.form.Button("Yes");
-      var cancelButton = new qx.ui.mobile.form.Button("No");
+      var okButton = new qx.ui.mobile.Button("Yes");
+      var cancelButton = new qx.ui.mobile.Button("No");
 
       buttonsWidget.append(okButton);
       buttonsWidget.append(cancelButton);

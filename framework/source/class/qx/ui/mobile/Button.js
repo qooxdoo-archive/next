@@ -26,7 +26,7 @@
  * Here is a little example of how to use the widget.
  *
  * <pre class='javascript'>
- *   var button = new qx.ui.mobile.form.Button("Hello World");
+ *   var button = new qx.ui.mobile.Button("Hello World");
  *
  *   button.on("tap", function(e) {
  *     alert("Button was clicked");
@@ -38,7 +38,7 @@
  * This example creates a button with the label "Hello World" and attaches an
  * event listener to the {@link qx.ui.mobile.core.Widget#tap} event.
  */
-qx.Bootstrap.define("qx.ui.mobile.form.Button",
+qx.Bootstrap.define("qx.ui.mobile.Button",
 {
   extend : qx.ui.mobile.basic.Atom,
 

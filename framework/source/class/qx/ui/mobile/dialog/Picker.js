@@ -43,7 +43,7 @@
  * picker.addSlot(pickerSlot1);
  * picker.addSlot(pickerSlot2);
  *
- * var showPickerButton = new qx.ui.mobile.form.Button("Show Picker");
+ * var showPickerButton = new qx.ui.mobile.Button("Show Picker");
  * showPickerButton.on("tap", picker.show, picker);
  * this.getContent().append(showPickerButton);
  *
@@ -92,10 +92,10 @@ qx.Bootstrap.define("qx.ui.mobile.dialog.Picker",
 
     this.__pickerContent = new qx.ui.mobile.container.Composite(new qx.ui.mobile.layout.VBox());
 
-    this.__pickerConfirmButton = new qx.ui.mobile.form.Button("Choose");
+    this.__pickerConfirmButton = new qx.ui.mobile.Button("Choose");
     this.__pickerConfirmButton.on("tap", this.confirm, this);
 
-    this.__pickerCancelButton = new qx.ui.mobile.form.Button("Cancel");
+    this.__pickerCancelButton = new qx.ui.mobile.Button("Cancel");
     this.__pickerCancelButton.on("tap", this.hide, this);
 
     this.__pickerButtonContainer = new qx.ui.mobile.container.Composite(new qx.ui.mobile.layout.HBox());

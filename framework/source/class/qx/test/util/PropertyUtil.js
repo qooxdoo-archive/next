@@ -30,7 +30,7 @@ qx.Bootstrap.define("qx.test.util.PropertyUtil",
   {
     setUp : function()
     {
-      this.button = new qx.ui.mobile.form.Button();
+      this.button = new qx.ui.mobile.Button();
       this.getRoot().add(this.button);
     },
 

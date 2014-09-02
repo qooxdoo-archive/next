@@ -102,7 +102,7 @@ qx.Bootstrap.define("mobileshowcase.page.Maps",
       var toggleNavigationButton = new qx.ui.mobile.form.ToggleButton(true,"Show","Hide",12);
 
       // SHOW MY POSITION BUTTON
-      this._showMyPositionButton = new qx.ui.mobile.form.Button("Find me!");
+      this._showMyPositionButton = new qx.ui.mobile.Button("Find me!");
       this._showMyPositionButton.on("tap", this._getGeoPosition, this);
 
       toggleNavigationButton.on("changeValue", function() {

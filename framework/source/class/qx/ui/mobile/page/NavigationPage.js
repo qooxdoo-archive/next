@@ -36,7 +36,7 @@
  *  page.backButtonText = "Back";
  *  page.on("initialize", function()
  *  {
- *    var button = new qx.ui.mobile.form.Button("Next Page");
+ *    var button = new qx.ui.mobile.Button("Next Page");
  *    page.getContent().append(button);
  *  },this);
  *

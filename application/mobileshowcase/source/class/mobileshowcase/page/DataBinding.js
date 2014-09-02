@@ -82,15 +82,15 @@ qx.Bootstrap.define("mobileshowcase.page.DataBinding",
       this.__list = this.__createListDataBindings();
       this.__list.visibility = "hidden";
 
-      this.__increaseButton = new qx.ui.mobile.form.Button("+");
+      this.__increaseButton = new qx.ui.mobile.Button("+");
       this.__increaseButton.on("pointerdown", this.__onIncrease, this);
       this.__increaseButton.on("pointerup", this.__onPointerUp, this);
 
-      this.__decreaseButton = new qx.ui.mobile.form.Button("-");
+      this.__decreaseButton = new qx.ui.mobile.Button("-");
       this.__decreaseButton.on("pointerdown", this.__onDecrease, this);
       this.__decreaseButton.on("pointerup", this.__onPointerUp, this);
 
-      this.__stopTimeButton = new qx.ui.mobile.form.Button("Take Time Snapshot");
+      this.__stopTimeButton = new qx.ui.mobile.Button("Take Time Snapshot");
       this.__stopTimeButton.on("tap", this.__onStopTimeButtonTap, this);
 
       // Slider Data Binding

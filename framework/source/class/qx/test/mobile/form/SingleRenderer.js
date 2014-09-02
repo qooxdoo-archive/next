@@ -32,7 +32,7 @@ qx.Bootstrap.define("qx.test.mobile.form.SingleRenderer",
     setUp : function() {
       this.base(qx.test.mobile.MobileTestCase, "setUp");
       this.__form = new qx.ui.mobile.form.Form();
-      this.__b = new qx.ui.mobile.form.Button("a");
+      this.__b = new qx.ui.mobile.Button("a");
       this.__form.addButton(this.__b);
       this.__t = new qx.ui.mobile.form.TextField("test");
       this.__form.add(this.__t, "label");

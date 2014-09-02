@@ -23,7 +23,7 @@
  */
 qx.Bootstrap.define("qx.ui.mobile.navigationbar.Button",
 {
-  extend : qx.ui.mobile.form.Button,
+  extend : qx.ui.mobile.Button,
 
 
  /*

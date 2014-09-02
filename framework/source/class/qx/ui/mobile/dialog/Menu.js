@@ -176,10 +176,10 @@ qx.Bootstrap.define("qx.ui.mobile.dialog.Menu",
     /**
      * Creates the clearButton. Override this to customize the widget.
      *
-     * @return {qx.ui.mobile.form.Button} the clearButton of this menu.
+     * @return {qx.ui.mobile.Button} the clearButton of this menu.
      */
     _createClearButton : function() {
-      var clearButton = new qx.ui.mobile.form.Button(this.clearButtonLabel);
+      var clearButton = new qx.ui.mobile.Button(this.clearButtonLabel);
       clearButton.on("tap", this.__onClearButtonTap, this);
       clearButton.exclude();
       return clearButton;

@@ -26,7 +26,7 @@
  */
 qx.Bootstrap.define("qx.ui.mobile.tabbar.TabButton",
 {
-  extend : qx.ui.mobile.form.Button,
+  extend : qx.ui.mobile.Button,
 
 
  /*

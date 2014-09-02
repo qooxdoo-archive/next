@@ -138,8 +138,8 @@ qx.Bootstrap.define("mobileshowcase.page.Toolbar",
       }
       var buttonsWidget = new qx.ui.mobile.container.Composite(new qx.ui.mobile.layout.HBox());
 
-      var okButton = new qx.ui.mobile.form.Button("Yes");
-      var cancelButton = new qx.ui.mobile.form.Button("No");
+      var okButton = new qx.ui.mobile.Button("Yes");
+      var cancelButton = new qx.ui.mobile.Button("No");
 
       okButton.layoutPrefs = {flex:1};
       buttonsWidget.append(okButton);
@@ -191,7 +191,7 @@ qx.Bootstrap.define("mobileshowcase.page.Toolbar",
         }
       }.bind(this));
 
-      var searchButton = new qx.ui.mobile.form.Button("Search");
+      var searchButton = new qx.ui.mobile.Button("Search");
       searchButton.on("tap", function(){
         this.__searchDialog.hide();
       }, this);

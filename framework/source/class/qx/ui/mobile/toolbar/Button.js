@@ -24,7 +24,7 @@
  */
 qx.Bootstrap.define("qx.ui.mobile.toolbar.Button",
 {
-  extend : qx.ui.mobile.form.Button,
+  extend : qx.ui.mobile.Button,
 
 
   properties :
