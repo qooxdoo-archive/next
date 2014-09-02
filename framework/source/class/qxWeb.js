@@ -58,7 +58,12 @@ qx.Bootstrap.define("qxWeb", {
      * @param clazz {Class} The class of the new collection.
      * @return {q} A new initialized collection.
      */
-    $init : function(arg, clazz) {
+    $init : function(arg, clazz, forceNew) {
+      // restore widget instance
+      if (!forceNew && arg.length && arg.length == 1 && arg[0] && arg[0].$$widget) {
+        return arg[0].$$widget;
+      }
+
       var clean = [];
       for (var i = 0; i < arg.length; i++) {
         // check for node or window object
@@ -211,9 +216,6 @@ qx.Bootstrap.define("qxWeb", {
     {
       selector = [selector];
     }
-    if (selector.length == 1 && selector[0].$$widget) {
-      return selector[0].$$widget;
-    }
     return qxWeb.$init(selector, qxWeb);
   },
 
@@ -228,10 +230,13 @@ qx.Bootstrap.define("qxWeb", {
      * @return {q} New collection containing the elements that passed the filter
      */
     filter : function(selector) {
+      var arr;
       if (qx.lang.Type.isFunction(selector)) {
-        return qxWeb.$init(Array.prototype.filter.call(this, selector), this.constructor);
+        arr = Array.prototype.filter.call(this, selector);
+      } else {
+        arr = qx.bom.Selector.matches(selector, this);
       }
-      return qxWeb.$init(qx.bom.Selector.matches(selector, this), this.constructor);
+      return qxWeb.$init(arr, qxWeb, true);
     },
 
 
@@ -242,7 +247,7 @@ qx.Bootstrap.define("qxWeb", {
      */
     unique : function() {
       var unique = qx.lang.Array.unique(this);
-      return qxWeb.$init(unique, this.constructor);
+      return qxWeb.$init(unique, qxWeb, true);
     },
 
 
@@ -257,9 +262,9 @@ qx.Bootstrap.define("qxWeb", {
       // Old IEs return an empty array if the second argument is undefined
       // check 'end' explicit for "undefined" [BUG #7322]
       if (end !== undefined) {
-        return qxWeb.$init(Array.prototype.slice.call(this, begin, end), this.constructor);
+        return qxWeb.$init(Array.prototype.slice.call(this, begin, end), qxWeb, true);
       }
-      return qxWeb.$init(Array.prototype.slice.call(this, begin), this.constructor);
+      return qxWeb.$init(Array.prototype.slice.call(this, begin), qxWeb, true);
     },
 
 
@@ -274,7 +279,7 @@ qx.Bootstrap.define("qxWeb", {
      * @return {q} A new collection containing the removed items.
      */
     splice : function(index , howMany, varargs) {
-      return qxWeb.$init(Array.prototype.splice.apply(this, arguments), this.constructor);
+      return qxWeb.$init(Array.prototype.splice.apply(this, arguments), qxWeb, true);
     },
 
 
@@ -287,7 +292,7 @@ qx.Bootstrap.define("qxWeb", {
      * @return {q} New collection containing the elements that passed the filter
      */
     map : function(callback, thisarg) {
-      return qxWeb.$init(Array.prototype.map.apply(this, arguments), qxWeb);
+      return qxWeb.$init(Array.prototype.map.apply(this, arguments), qxWeb, true);
     },
 
 
@@ -306,7 +311,7 @@ qx.Bootstrap.define("qxWeb", {
           clone.push(arguments[i]);
         }
       }
-      return qxWeb.$init(clone, this.constructor);
+      return qxWeb.$init(clone, qxWeb, true);
     },
 
 

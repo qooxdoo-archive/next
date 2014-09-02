@@ -46,7 +46,7 @@ qx.Bootstrap.define("qx.module.Manipulating", {
      * @return {qxWeb} Collection of elements
      */
     create : function(html, context) {
-      return qxWeb.$init(qx.bom.Html.clean([html], context), qxWeb);
+      return qxWeb.$init(qx.bom.Html.clean([html], context), qxWeb, true);
     },
 
 
