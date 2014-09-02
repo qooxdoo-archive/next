@@ -1,5 +1,5 @@
 //
-// NAVIGATIONBAR 
+// NAVIGATIONBAR
 //
 
 .navigationbar {
@@ -9,7 +9,7 @@
 
   min-height: $navigationbar-height;
   height: $navigationbar-height;
-  color: $navigationbar-text-color; 
+  color: $navigationbar-text-color;
 
   padding-left: rem(16);
   padding-right: rem(16);
@@ -18,7 +18,7 @@
   z-index:1;
 }
 
-// Fix for WP8 rendering problem on drawer. 
+// Fix for WP8 rendering problem on drawer.
 .root:not(.android):not(.ios) {
   outline: 1px solid rgba(0,0,0,0);
 }
@@ -61,11 +61,6 @@
 
 .left-container, .right-container {
   padding: $navigationbar-padding;
-}
-
-.navigationbar-button > div, .navigationbar-backbutton > div {
-  height: 100%;
-  line-height: 100%;
 }
 
 .navigationbar-button.active, .navigationbar-backbutton.active {
