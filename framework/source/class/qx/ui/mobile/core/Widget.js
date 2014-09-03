@@ -358,17 +358,6 @@ qx.Bootstrap.define("qx.ui.mobile.core.Widget", {
 
 
     /**
-     * Remove the widget at the specified index.
-     *
-     * @param index {Integer} Index of the widget to remove.
-     */
-    _removeAt : function(index) {
-      var child = this.getChildren()[index];
-      child.remove();
-    },
-
-
-    /**
      * Removes all children from the widget.
      * @return {Array} An Array including the removed children.
      */

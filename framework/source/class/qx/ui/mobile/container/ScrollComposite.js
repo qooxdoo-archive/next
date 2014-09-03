@@ -451,14 +451,6 @@ qx.Bootstrap.define("qx.ui.mobile.container.ScrollComposite",
     },
 
 
-    // overridden
-    removeAt : function(index) {
-      var children = this.getChildren();
-      this._unhandleSize(children[index]);
-      this._scrollContainer.removeAt(index);
-    },
-
-
     // Property apply
     _applyFixedHeight : function(value, old) {
       this._applyHeight(this.height);

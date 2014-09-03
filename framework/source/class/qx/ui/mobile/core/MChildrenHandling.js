@@ -44,16 +44,6 @@ qx.Mixin.define("qx.ui.mobile.core.MChildrenHandling",
 
 
     /**
-     * Remove the widget at the specified index.
-     *
-     * @param index {Integer} Index of the widget to remove.
-     */
-    removeAt : function(index) {
-      this._removeAt(index);
-    },
-
-
-    /**
      * Remove all children.
      */
     removeAll : function() {
@@ -77,8 +67,6 @@ qx.Mixin.define("qx.ui.mobile.core.MChildrenHandling",
     remap : function(members)
     {
       members.indexOf = members._indexOf;
-
-      members.removeAt = members._removeAt;
       members.removeAll = members._removeAll;
     }
   }
