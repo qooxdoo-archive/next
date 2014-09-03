@@ -358,33 +358,6 @@ qx.Bootstrap.define("qx.ui.mobile.core.Widget", {
 
 
     /**
-     * Removes all children from the widget.
-     * @return {Array} An Array including the removed children.
-     */
-    _removeAll : function() {
-      var children = this.getChildren();
-      children.forEach(function(child) {
-        qxWeb(child).remove();
-      });
-
-      return children;
-    },
-
-
-    /**
-     * Returns the index position of the given widget if it is
-     * a child widget. Otherwise it returns <code>-1</code>.
-     *
-     * @param child {Widget} the widget to query for
-     * @return {Integer} The index position or <code>-1</code> when
-     *   the given widget is no child of this layout.
-     */
-    _indexOf : function(child) {
-      return this.getChildren().indexOf(child);
-    },
-
-
-    /**
      * Set a layout manager for the widget. A layout manager can only be connected
      * with one widget. Reset the connection with a previous widget first, if you
      * like to use it in another widget instead.

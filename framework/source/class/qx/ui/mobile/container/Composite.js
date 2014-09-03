@@ -48,7 +48,7 @@
 qx.Bootstrap.define("qx.ui.mobile.container.Composite",
 {
   extend : qx.ui.mobile.core.Widget,
-  include : [ qx.ui.mobile.core.MChildrenHandling, qx.ui.mobile.core.MLayoutHandling],
+  include : [qx.ui.mobile.core.MLayoutHandling],
 
 
   /**
@@ -66,7 +66,6 @@ qx.Bootstrap.define("qx.ui.mobile.container.Composite",
 
   classDefined : function(statics, members)
   {
-    qx.ui.mobile.core.MChildrenHandling.remap(members);
     qx.ui.mobile.core.MLayoutHandling.remap(members);
   }
 });

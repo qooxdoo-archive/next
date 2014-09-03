@@ -184,7 +184,7 @@ qx.Bootstrap.define("qx.ui.mobile.container.Navigation",
         this.removeClass("hidden");
       }
 
-      navigationBar.removeAll();
+      navigationBar.empty();
 
       if (widget.basename) {
         this.setData("target-page", widget.basename.toLowerCase());

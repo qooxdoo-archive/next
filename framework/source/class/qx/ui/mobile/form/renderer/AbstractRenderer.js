@@ -66,7 +66,7 @@ qx.Bootstrap.define("qx.ui.mobile.form.renderer.AbstractRenderer",
      * form changes.
      */
     _onFormChange : function() {
-      this._removeAll();
+      this.empty();
       this.resetForm();
       this._render();
     },

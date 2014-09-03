@@ -391,7 +391,7 @@ qx.Bootstrap.define("qx.ui.mobile.container.ScrollComposite",
 
 
     // overridden
-    addAt : function(child, index, options) {
+    appendAt : function(child, index, options) {
       this._scrollContainer.appendAt(child, index, options);
       this._handleSize(child);
     },
@@ -428,11 +428,6 @@ qx.Bootstrap.define("qx.ui.mobile.container.ScrollComposite",
     },
 
 
-    indexOf : function(child) {
-      this._scrollContainer.indexOf(child);
-    },
-
-
     // overridden
     remove : function(child) {
       this._unhandleSize(child);
@@ -441,13 +436,13 @@ qx.Bootstrap.define("qx.ui.mobile.container.ScrollComposite",
 
 
     // overridden
-    removeAll : function() {
+    empty : function() {
       var children = this.getChildren();
       for(var i = 0; i < children.length; i++) {
         this._unhandleSize(children[i]);
       }
 
-      this._scrollContainer.removeAll();
+      this._scrollContainer.empty();
     },
 
 

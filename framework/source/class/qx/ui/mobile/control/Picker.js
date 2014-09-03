@@ -321,8 +321,6 @@ qx.Bootstrap.define("qx.ui.mobile.control.Picker",
 
     dispose : function() {
       this.base(qx.ui.mobile.container.Composite, "dispose");
-      this._pickerModel.dispose();
-      this._slots.dispose();
       qx.util.DisposeUtil.destroyContainer(this);
     }
   }
