@@ -81,20 +81,18 @@ qx.Bootstrap.define("qx.test.mobile.core.Widget",
 
     testAutoId : function()
     {
-      var widget = new qx.ui.mobile.core.Widget();
-      this.getRoot().append(widget);
+      var widget1 = new qx.ui.mobile.core.Widget();
+      var widget2 = new qx.ui.mobile.core.Widget();
 
-      var clazz =  qx.ui.mobile.core.Widget;
-      // decrement is 2 when qx.core.Environment.get("qx.debug.dispose") because the _root is recreated on every test,
-      // and it is a widget too
-      var decrement = qx.core.Environment.get("qx.debug.dispose") ? 2 : 1;
-      var id = clazz.ID_PREFIX + (clazz.getCurrentId() - decrement);
-      var element = document.getElementById(id);
-      this.assertElement(element);
+      var idPrefix = qx.ui.mobile.core.Widget.ID_PREFIX;
+      var id1 = widget1.getAttribute("id").replace(idPrefix, "");
+      var id2 = widget2.getAttribute("id").replace(idPrefix, "");
 
-      this.assertEquals(id, widget.getAttribute("id"));
+      // check that the id's are next to each other
+      this.assertEquals(parseInt(id1), parseInt(id2) - 1);
 
-      widget.dispose();
+      widget1.dispose();
+      widget2.dispose();
     },
 
 
