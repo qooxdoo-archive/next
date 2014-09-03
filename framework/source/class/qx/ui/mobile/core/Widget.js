@@ -55,17 +55,6 @@ qx.Bootstrap.define("qx.ui.mobile.core.Widget", {
 
 
     /**
-     * Returns the current widget id of the registry.
-
-     * @return {Integer} The current id
-     * @internal
-     */
-    getCurrentId : function() {
-      return qx.ui.mobile.core.Widget.__idCounter;
-    },
-
-
-    /**
      * Returns the widget with the given id.
      *
      * @param id {String} The id of the widget
