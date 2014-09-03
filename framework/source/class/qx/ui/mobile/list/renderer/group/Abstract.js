@@ -48,7 +48,7 @@ qx.Bootstrap.define("qx.ui.mobile.list.renderer.group.Abstract",
     {
       check : "Boolean",
       init : false,
-      apply : "_applyAttribute"
+      apply : "_applySelectable"
     },
 
 

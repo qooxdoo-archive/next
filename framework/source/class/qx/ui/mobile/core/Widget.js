@@ -67,33 +67,6 @@ qx.Bootstrap.define("qx.ui.mobile.core.Widget", {
 
 
     /**
-     * Mapping of attribute properties to their real attribute name.
-     *
-     * @internal
-     */
-    ATTRIBUTE_MAPPING : {
-      "selectable" :
-      {
-        attribute : "data-selectable",
-        values :
-        {
-          "true" : null,
-          "false" : "false"
-        }
-      },
-      "activatable" :
-      {
-        attribute : "data-activatable",
-        values :
-        {
-          "true" :"true",
-          "false" : null
-        }
-      }
-    },
-
-
-    /**
      * Fetches elements with a data attribute named <code>data-qx-widget</code>
      * containing the class name of the desired widget and initializes them as
      * widgets.
@@ -537,7 +510,7 @@ qx.Bootstrap.define("qx.ui.mobile.core.Widget", {
 
 
     _applyActivatable : function(value, old) {
-      this.setAttribute("activatable", value);
+      this.setAttribute("data-activatable", value ? "true" : null);
 
       if (old) {
         this.off("pointerdown", this._addActiveState, this);
@@ -580,23 +553,8 @@ qx.Bootstrap.define("qx.ui.mobile.core.Widget", {
     },
 
 
-    /**
-     * Sets an attribute with the given value of the container element. The
-     * <code>null</code> value resets the attribute.
-     *
-     * @param attribute {String} The attribute name.
-     * @param value {var} The attribute value. <code>Null</code> will reset the attribute.
-     */
-    setAttribute : function(attribute, value) {
-      var mapping = qx.ui.mobile.core.Widget.ATTRIBUTE_MAPPING[attribute];
-      if (mapping)
-      {
-        attribute = mapping.attribute || attribute;
-        var values = mapping.values;
-        value = values && typeof values[value] !== "undefined" ? values[value] : value;
-      }
-
-      this.base(qxWeb, "setAttribute", attribute, value);
+    _applySelectable : function(value, old) {
+      this.setAttribute("data-selectable", value ? null : "false");
     },
 
 

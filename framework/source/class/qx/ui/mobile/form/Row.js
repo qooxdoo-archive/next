@@ -53,7 +53,7 @@ qx.Bootstrap.define("qx.ui.mobile.form.Row",
     {
       check : "Boolean",
       init : false,
-      apply : "_applyAttribute"
+      apply : "_applySelectable"
     }
   },
 
