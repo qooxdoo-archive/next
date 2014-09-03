@@ -43,12 +43,6 @@ qx.Bootstrap.define("qx.ui.mobile.navigationbar.NavigationBar",
   extend : qx.ui.mobile.container.Composite,
 
 
- /*
-  *****************************************************************************
-     CONSTRUCTOR
-  *****************************************************************************
-  */
-
   construct : function(layout) {
     this.base(qx.ui.mobile.container.Composite, "constructor", layout);
     if (!layout) {
@@ -58,14 +52,6 @@ qx.Bootstrap.define("qx.ui.mobile.navigationbar.NavigationBar",
     }
   },
 
-
-
-
- /*
-  *****************************************************************************
-     PROPERTIES
-  *****************************************************************************
-  */
 
   properties :
   {

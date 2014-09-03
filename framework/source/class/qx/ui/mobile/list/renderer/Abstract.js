@@ -27,12 +27,6 @@ qx.Bootstrap.define("qx.ui.mobile.list.renderer.Abstract",
   //type : "abstract", TOOD: MAbstract
 
 
- /*
-  *****************************************************************************
-     CONSTRUCTOR
-  *****************************************************************************
-  */
-
   construct : function(layout)
   {
     this.base(qx.ui.mobile.container.Composite, "constructor", layout);
@@ -41,12 +35,6 @@ qx.Bootstrap.define("qx.ui.mobile.list.renderer.Abstract",
     this.showArrow = undefined;
   },
 
-
- /*
-  *****************************************************************************
-     PROPERTIES
-  *****************************************************************************
-  */
 
   properties :
   {
@@ -109,12 +97,6 @@ qx.Bootstrap.define("qx.ui.mobile.list.renderer.Abstract",
     }
   },
 
-
- /*
-  *****************************************************************************
-     MEMBERS
-  *****************************************************************************
-  */
 
   members :
   {

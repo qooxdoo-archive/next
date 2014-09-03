@@ -60,24 +60,12 @@ qx.Bootstrap.define("qx.ui.mobile.page.Page",
   extend : qx.ui.mobile.container.Composite,
   include : qx.ui.mobile.core.MResize,
 
- /*
-  *****************************************************************************
-     CONSTRUCTOR
-  *****************************************************************************
-  */
 
   construct : function(layout)
   {
     this.base(qx.ui.mobile.container.Composite, "constructor", layout || new qx.ui.mobile.layout.VBox());
   },
 
-
-
- /*
-  *****************************************************************************
-     STATICS
-  *****************************************************************************
-  */
 
   statics : {
     _currentPage : null,
@@ -173,12 +161,6 @@ qx.Bootstrap.define("qx.ui.mobile.page.Page",
     }
   },
 
-
- /*
-  *****************************************************************************
-     MEMBERS
-  *****************************************************************************
-  */
 
   members :
   {
@@ -436,13 +418,6 @@ qx.Bootstrap.define("qx.ui.mobile.page.Page",
     }
   },
 
-
-
- /*
-  *****************************************************************************
-      DEFER
-  *****************************************************************************
-  */
 
   classDefined : function(statics) {
     if (qx.core.Environment.get("phonegap") && qx.core.Environment.get("os.name") == "android")
