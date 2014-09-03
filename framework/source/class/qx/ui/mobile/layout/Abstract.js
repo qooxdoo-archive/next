@@ -275,7 +275,7 @@ qx.Bootstrap.define("qx.ui.mobile.layout.Abstract",
       }
 
       var cache = this.__cachedChildLayoutProperties;
-      var id = widget.id;
+      var id = widget.getAttribute("id");
       if (!cache[id]) {
         cache[id] = {};
       }

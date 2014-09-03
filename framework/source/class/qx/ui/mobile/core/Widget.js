@@ -42,7 +42,9 @@ qx.Bootstrap.define("qx.ui.mobile.core.Widget", {
     // Init member variables
 
     var clazz = qx.ui.mobile.core.Widget;
-    this.id = clazz.ID_PREFIX + clazz.__idCounter++;
+    if (this.getAttribute("id")) {
+      this.setAttribute("id", clazz.ID_PREFIX + clazz.__idCounter++);
+    }
     this.defaultCssClass = undefined;
     this.name = undefined;
     this.anonymous = undefined;
@@ -107,18 +109,6 @@ qx.Bootstrap.define("qx.ui.mobile.core.Widget", {
       init : null,
       nullable : true,
       apply : "_applyAnonymous"
-    },
-
-
-    /**
-     * The ID of the widget. When the ID is set to <code>null</code> an auto
-     * id will be generated.
-     */
-    id : {
-      check : "String",
-      nullable : true,
-      apply : "_applyId",
-      event : "changeId"
     },
 
 
@@ -351,26 +341,6 @@ qx.Bootstrap.define("qx.ui.mobile.core.Widget", {
       return qxWeb.create("<" + this._getTagName() + ">")[0];
     },
 
-
-    /*
-    ---------------------------------------------------------------------------
-      ID Handling
-    ---------------------------------------------------------------------------
-    */
-
-
-    // property apply
-    _applyId : function(value, old) {
-      if (old !== null) {
-        // Unregister widget with old id
-        qx.ui.mobile.core.Widget.unregisterWidget(old);
-      }
-
-      // Change the id of the DOM element
-      this[0].id = value;
-      // Register the widget
-      qx.ui.mobile.core.Widget.registerWidget(this);
-    },
 
     /**
      * Sets the enable property to the new value
@@ -865,10 +835,6 @@ qx.Bootstrap.define("qx.ui.mobile.core.Widget", {
       // Cleanup event listeners
       // Needed as we rely on the containerElement in the qx.ui.mobile.core.EventHandler
       // qx.event.Registration.removeAllListeners(this); TODO
-
-      if (this.id) {
-        qx.ui.mobile.core.Widget.unregisterWidget(this.id);
-      }
 
       this.remove();
     }

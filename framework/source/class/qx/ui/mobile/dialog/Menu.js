@@ -348,7 +348,7 @@ qx.Bootstrap.define("qx.ui.mobile.dialog.Menu",
      */
     scrollToItem : function(index) {
       if (index !== null && this.__selectionList.model != null) {
-        var listItems = qxWeb("#"+this.__listScroller.id+ " .list-item");
+        var listItems = qxWeb("#" + this.__listScroller.getAttribute("id") + " .list-item");
         var targetListItemElement = listItems[index];
         this.__listScroller.scrollToElement(targetListItemElement);
       }

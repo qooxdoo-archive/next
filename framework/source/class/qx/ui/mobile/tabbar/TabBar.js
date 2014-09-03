@@ -83,7 +83,7 @@ qx.Bootstrap.define("qx.ui.mobile.tabbar.TabBar",
      * @param evt {qx.event.type.Tap} The event object
      */
     _onTap: function(evt) {
-      var target = qx.ui.mobile.core.Widget.getWidgetById(evt.target.id);
+      var target = qx.ui.mobile.core.Widget.getWidgetById(evt.target.getAttribute("id"));
 
       while (!(target instanceof qx.ui.mobile.tabbar.TabButton)) {
         if (target._getParentWidget) {

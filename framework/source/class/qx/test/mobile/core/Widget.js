@@ -26,7 +26,7 @@ qx.Bootstrap.define("qx.test.mobile.core.Widget",
     testCreate : function()
     {
       var widget = new qx.ui.mobile.core.Widget();
-      widget.id = "affe";
+      widget.setAttribute("id", "affe");
       this.getRoot().append(widget);
 
       var element = document.getElementById("affe");
@@ -92,7 +92,7 @@ qx.Bootstrap.define("qx.test.mobile.core.Widget",
       var element = document.getElementById(id);
       this.assertElement(element);
 
-      this.assertEquals(widget.id, id);
+      this.assertEquals(id, widget.getAttribute("id"));
 
       widget.dispose();
     },
@@ -102,7 +102,7 @@ qx.Bootstrap.define("qx.test.mobile.core.Widget",
     {
       var widget = new qx.ui.mobile.core.Widget();
 
-      widget = qx.ui.mobile.core.Widget.getWidgetById(widget.id);
+      widget = qx.ui.mobile.core.Widget.getWidgetById(widget.getAttribute("id"));
       this.assertQxMobileWidget(widget);
 
       widget.dispose();
@@ -112,13 +112,13 @@ qx.Bootstrap.define("qx.test.mobile.core.Widget",
     testWidgetRegistrationSameId : function()
     {
       var widget = new qx.ui.mobile.core.Widget();
-      widget.id = "affe";
+      widget.setAttribute("id", "affe");
 
       if (qx.core.Environment.get("qx.debug"))
       {
         this.assertException(function() {
           var widget2 = new qx.ui.mobile.core.Widget();
-          widget2.id = "affe";
+          widget2.setAttribute("id", "affe");
         });
       }
 
@@ -130,7 +130,7 @@ qx.Bootstrap.define("qx.test.mobile.core.Widget",
     {
       var widget = new qx.ui.mobile.core.Widget();
 
-      var id = widget.id;
+      var id = widget.getAttribute("id");
       widget.dispose();
       widget = qx.ui.mobile.core.Widget.getWidgetById(id);
       this.assertUndefined(widget);
@@ -266,7 +266,7 @@ qx.Bootstrap.define("qx.test.mobile.core.Widget",
 
     testRestoreInstance : function() {
       var widget = new qx.ui.mobile.core.Widget();
-      widget.id = "affe";
+      widget.setAttribute("id", "affe");
       this.getRoot().append(widget);
 
       var element = document.getElementById("affe");

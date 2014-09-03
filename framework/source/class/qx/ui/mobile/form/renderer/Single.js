@@ -210,7 +210,7 @@ qx.Bootstrap.define("qx.ui.mobile.form.renderer.Single",
 
       if(name !== null) {
         var label = new qx.ui.mobile.form.Label(name);
-        label.setLabelFor(item.id);
+        label.setLabelFor(item.getAttribute("id"));
         label.layoutPrefs = {flex:1};
         row.append(label);
         this._labels.push(label);

@@ -208,7 +208,7 @@ qx.Bootstrap.define("qx.util.DisposeUtil",
 
       for(var i=0; i<children.length; i++)
       {
-        var item = qx.ui.mobile.core.Widget.getWidgetById(children[i].id);
+        var item = qx.ui.mobile.core.Widget.getWidgetById(children[i].getAttribute("id"));
         if (item) {
           arr.push(item);
 

@@ -348,7 +348,7 @@ qx.Bootstrap.define("qx.ui.mobile.page.NavigationPage",
         qx.log.Logger.deprecatedMethodWarning(arguments.callee,"The method 'scrollToWidget()' was moved to 'qx.ui.mobile.container.Scroll'.");
       }
       if(widget) {
-        this.__scrollContainer.scrollToElement(widget.id, time);
+        this.__scrollContainer.scrollToElement(widget.getAttribute("id"), time);
       }
     },
 

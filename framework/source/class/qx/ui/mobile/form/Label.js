@@ -35,7 +35,7 @@
  *   var checkBox = new qx.ui.mobile.form.CheckBox();
  *   var label = new qx.ui.mobile.form.Label("Label for CheckBox");
  *
- *   label.setLabelFor(checkBox.id);
+ *   label.setLabelFor(checkBox.getAttribute("id"));
  *
  *   this.getRoot().append(label);
  *   this.getRoot().append(checkBox);

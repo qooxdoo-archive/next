@@ -320,7 +320,7 @@ qx.Bootstrap.define("qx.ui.form.validation.Manager",
       // check for asynchronous validation
       if (this.__isAsyncValidator(validator)) {
         // used to check if all async validations are done
-        this.__asyncResults[formItem.id] = null;
+        this.__asyncResults[formItem.getAttribute("id")] = null;
         validator.validate(formItem, formItem.value, this, context);
         return null;
       }
@@ -377,7 +377,7 @@ qx.Bootstrap.define("qx.ui.form.validation.Manager",
       this.invalidMessage = "";
 
       if (this.__isAsyncValidator(formValidator)) {
-        this.__asyncResults[this.id] = null;
+        this.__asyncResults[this.id] = null; // TODO this is no this.id
         formValidator.validateForm(items, this, context);
         return null;
       }
@@ -563,7 +563,7 @@ qx.Bootstrap.define("qx.ui.form.validation.Manager",
      */
     setItemValid: function(formItem, valid) {
       // store the result
-      this.__asyncResults[formItem.id] = valid;
+      this.__asyncResults[formItem.getAttribute("id")] = valid;
       formItem.valid = valid;
       this.__checkValidationComplete();
     },
