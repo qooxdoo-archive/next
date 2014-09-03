@@ -258,7 +258,7 @@ qx.Bootstrap.define("qx.ui.mobile.control.Picker",
     setSelectedIndex: function(slotIndex, selectedIndex) {
       var slot = this._slots.getItem(slotIndex);
       slot.selectedIndex = selectedIndex;
-      if (this.isVisible()) {
+      if (this.visibility === "visible") {
         slot.container.scrollTo(0, selectedIndex * this._calcItemHeight());
       }
     },

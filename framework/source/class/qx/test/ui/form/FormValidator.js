@@ -207,7 +207,6 @@ qx.Bootstrap.define("qx.test.ui.form.FormValidator",
       this.__manager.add(rbg);
 
       // validate = fail (no text entered)
-      //debugger
       this.assertFalse(this.__manager.validate());
       this.assertFalse(this.__manager.getValid());
       this.assertFalse(rbg.valid);

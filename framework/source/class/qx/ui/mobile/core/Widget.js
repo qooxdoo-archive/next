@@ -695,54 +695,6 @@ qx.Bootstrap.define("qx.ui.mobile.core.Widget", {
     },
 
 
-    /**
-     * Whether the widget is locally visible.
-     *
-     * Note: This method does not respect the hierarchy.
-     *
-     * @return {Boolean} Returns <code>true</code> when the widget is visible
-     */
-    isVisible : function() {
-      return this.visibility === "visible";
-    },
-
-
-    /**
-     * Whether the widget is locally hidden.
-     *
-     * Note: This method does not respect the hierarchy.
-     *
-     * @return {Boolean} Returns <code>true</code> when the widget is hidden
-     */
-    isHidden : function() {
-      return this.visibility !== "visible";
-    },
-
-
-    /**
-     * Whether the widget is locally excluded.
-     *
-     * Note: This method does not respect the hierarchy.
-     *
-     * @return {Boolean} Returns <code>true</code> when the widget is excluded
-     */
-    isExcluded : function() {
-      return this.visibility=== "excluded";
-    },
-
-
-    /**
-     * Detects if the widget and all its parents are visible.
-     *
-     * Warning: forces rendering of the browser. Do not use this method during
-     * animations or performance critical tasks.
-     * @return {Boolean} <code>true</code>if the widget is seeable
-     */
-    isSeeable : function() {
-      return this[0].offsetWidth > 0;
-    },
-
-
     dispose : function() {
       // Cleanup event listeners
       // Needed as we rely on the containerElement in the qx.ui.mobile.core.EventHandler

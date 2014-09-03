@@ -146,7 +146,7 @@ qx.Bootstrap.define("qx.test.mobile.core.Widget",
 
       widget.exclude();
       this.assertFalse(widget.isVisible(), "Exclude: Widget should not be visible");
-      this.assertTrue(widget.isExcluded(), "Exclude: Widget should be excluded");
+      this.assertTrue(widget.visibility=== "excluded", "Exclude: Widget should be excluded");
       this.assertTrue(widget.isHidden(), "Exclude: Widget should be hidden");
       this.assertTrue(widget.hasClass("exclude"), "Exclude: No exclude class set");
       this.assertEquals("visible", widget.getStyle("visibility"), "Exclude: Visibility style should be null");
@@ -156,9 +156,9 @@ qx.Bootstrap.define("qx.test.mobile.core.Widget",
 
       widget.hide();
       this.assertFalse(widget.isVisible(), "Hide: Widget should not be visible");
-      this.assertFalse(widget.isExcluded(), "Hide: Widget should not be excluded");
+      this.assertFalse(widget.visibility=== "excluded"), "Hide: Widget should not be excluded");
       this.assertTrue(widget.isHidden(), "Hide: Widget should be hidden");
-      this.assertTrue(widget.isSeeable(), "Hide: Widget should be seeable");
+      this.assertTrue(widget[0].offsetWidth > 0, "Hide: Widget should be seeable");
       this.assertEquals("block", widget.getStyle("display"), "Hide: Display style should be block");
       this.assertFalse(widget.hasClass("exclude"), "Hide: Exclude class set");
       this.assertEquals("hidden", widget.getStyle("visibility"), "Hide: Visibility style should be hidden");
@@ -172,9 +172,9 @@ qx.Bootstrap.define("qx.test.mobile.core.Widget",
 
     __assertShow : function(widget) {
       this.assertTrue(widget.isVisible(), "Show: Widget should be visible");
-      this.assertFalse(widget.isExcluded(), "Show: Widget should not be excluded");
+      this.assertFalse(widget.visibility=== "excluded", "Show: Widget should not be excluded");
       this.assertFalse(widget.isHidden(), "Show: Widget should not be hidden");
-      this.assertTrue(widget.isSeeable(), "Show: Widget should be seeable");
+      this.assertTrue(widget[0].offsetWidth > 0), "Show: Widget should be seeable");
       this.assertEquals("block", widget.getStyle("display"), "Show: Display style should be block");
       this.assertFalse(widget.hasClass("exclude"), "Hide: Exclude class set");
       this.assertEquals("visible", widget.getStyle("visibility"), "Show: Visibility style should be visible");

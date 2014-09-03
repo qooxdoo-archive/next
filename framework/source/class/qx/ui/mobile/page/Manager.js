@@ -453,7 +453,7 @@ qx.Bootstrap.define("qx.ui.mobile.page.Manager",
       if (this.__isTablet) {
         if (qxWeb.env.isLandscape()) {
           this.__masterContainer.hideOnParentTap = false;
-          if (this.__masterContainer.isHidden()) {
+          if (this.__masterContainer.visibility !== "visible") {
             this.__masterContainer.show();
           } else {
             this._removeDetailContainerGap();
