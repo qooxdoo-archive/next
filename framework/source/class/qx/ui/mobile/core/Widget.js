@@ -308,7 +308,7 @@ qx.Bootstrap.define("qx.ui.mobile.core.Widget", {
 
       this.updateLayoutProperties(child);
 
-      var layout = this._getLayout();
+      var layout = this.getLayout();
       if (layout) {
         layout.connectToChildWidget(child);
       }
@@ -365,7 +365,7 @@ qx.Bootstrap.define("qx.ui.mobile.core.Widget", {
      * @param layout {qx.ui.mobile.layout.Abstract} The new layout or
      *     <code>null</code> to reset the layout.
      */
-    _setLayout : function(layout) {
+    setLayout : function(layout) {
       if (qx.core.Environment.get("qx.debug")) {
         if (layout) {
           qx.core.Assert.assertInstance(layout, qx.ui.mobile.layout.Abstract);
@@ -394,7 +394,7 @@ qx.Bootstrap.define("qx.ui.mobile.core.Widget", {
      */
     _initializeChildLayout : function(child, layoutProperties) {
       child.setLayoutProperties(layoutProperties);
-      var layout = this._getLayout();
+      var layout = this.getLayout();
       if (layout) {
         layout.connectToChildWidget(child);
       }
@@ -406,7 +406,7 @@ qx.Bootstrap.define("qx.ui.mobile.core.Widget", {
      *
      * @return  {qx.ui.mobile.layout.Abstract} the layout manager of the widget.
      */
-    _getLayout : function() {
+    getLayout : function() {
       return this.__layoutManager;
     },
 
@@ -434,7 +434,7 @@ qx.Bootstrap.define("qx.ui.mobile.core.Widget", {
      * @internal
      */
     updateLayoutProperties : function(widget) {
-      var layout = this._getLayout();
+      var layout = this.getLayout();
       if (layout) {
         layout.setLayoutProperties(widget);
       }
@@ -451,7 +451,7 @@ qx.Bootstrap.define("qx.ui.mobile.core.Widget", {
      * @internal
      */
     updateLayout : function(widget, action, properties) {
-      var layout = this._getLayout();
+      var layout = this.getLayout();
       if (layout) {
         layout.updateLayout(widget, action, properties);
       }

@@ -95,8 +95,8 @@ qx.Bootstrap.define("qx.ui.mobile.page.Manager",
       this.__masterContainer.on("resize", this._onLayoutChange, this);
 
       // On Tablet Mode, no Animation should be shown by default.
-      this.__masterNavigation.getLayout().showAnimation = false;
-      this.__detailNavigation.getLayout().showAnimation = false;
+      this.__masterNavigation.getContent().getLayout().showAnimation = false;
+      this.__detailNavigation.getContent().getLayout().showAnimation = false;
 
       this.__masterContainer.forceHide();
 

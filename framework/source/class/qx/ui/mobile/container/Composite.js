@@ -48,8 +48,6 @@
 qx.Bootstrap.define("qx.ui.mobile.container.Composite",
 {
   extend : qx.ui.mobile.core.Widget,
-  include : [qx.ui.mobile.core.MLayoutHandling],
-
 
   /**
    * @param layout {qx.ui.mobile.layout.Abstract?null} The layout that should be used for this
@@ -61,11 +59,5 @@ qx.Bootstrap.define("qx.ui.mobile.container.Composite",
     if (layout) {
       this.setLayout(layout);
     }
-  },
-
-
-  classDefined : function(statics, members)
-  {
-    qx.ui.mobile.core.MLayoutHandling.remap(members);
   }
 });

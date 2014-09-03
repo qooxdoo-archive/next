@@ -47,7 +47,7 @@ qx.Bootstrap.define("qx.ui.mobile.tabbar.TabBar",
   construct : function()
   {
     this.base(qx.ui.mobile.core.Widget, "constructor");
-    this._setLayout(new qx.ui.mobile.layout.HBox());
+    this.setLayout(new qx.ui.mobile.layout.HBox());
     this.on("tap", this._onTap, this);
   },
 

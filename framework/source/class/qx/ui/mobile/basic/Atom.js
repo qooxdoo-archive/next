@@ -157,7 +157,7 @@ qx.Bootstrap.define("qx.ui.mobile.basic.Atom",
       var isReverse = ["right", "bottom"].indexOf(value) != -1;
       targetLayout.reversed = isReverse;
 
-      this._setLayout(targetLayout);
+      this.setLayout(targetLayout);
     },
 
 

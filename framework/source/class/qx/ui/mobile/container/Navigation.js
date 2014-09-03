@@ -77,7 +77,6 @@ qx.Bootstrap.define("qx.ui.mobile.container.Navigation",
   {
     __navigationBar : null,
     __content : null,
-    __layout : null,
 
 
     // overridden
@@ -95,18 +94,8 @@ qx.Bootstrap.define("qx.ui.mobile.container.Navigation",
      *
      * @return {qx.ui.mobile.container.Composite} The content container
      */
-    getContent : function()
-    {
+    getContent : function() {
       return this.__content;
-    },
-
-
-    /**
-     * Returns the assigned card layout.
-     * @return {qx.ui.mobile.layout.Card} assigned Card Layout.
-     */
-    getLayout : function() {
-      return this.__layout;
     },
 
 
@@ -128,12 +117,12 @@ qx.Bootstrap.define("qx.ui.mobile.container.Navigation",
      */
     _createContent : function()
     {
-      this.__layout = new qx.ui.mobile.layout.Card();
-      this.__layout.on("updateLayout", this._onUpdateLayout, this);
-      this.__layout.on("animationStart", this._onAnimationStart, this);
-      this.__layout.on("animationEnd", this._onAnimationEnd, this);
+      var layout = new qx.ui.mobile.layout.Card();
+      layout.on("updateLayout", this._onUpdateLayout, this);
+      layout.on("animationStart", this._onAnimationStart, this);
+      layout.on("animationEnd", this._onAnimationEnd, this);
 
-      return new qx.ui.mobile.container.Composite(this.__layout);
+      return new qx.ui.mobile.container.Composite(layout);
     },
 
 
@@ -224,8 +213,8 @@ qx.Bootstrap.define("qx.ui.mobile.container.Navigation",
     dispose : function()
     {
       this.base(qx.ui.mobile.container.Composite, "dispose");
-      this.getLayout().off("animationStart",this._onAnimationStart, this);
-      this.getLayout().off("animationEnd",this._onAnimationEnd, this);
+      this.getContent().getLayout().off("animationStart",this._onAnimationStart, this);
+      this.getContent().getLayout().off("animationEnd",this._onAnimationEnd, this);
 
       this.__navigationBar.dispose();
       this.__content.dispose();

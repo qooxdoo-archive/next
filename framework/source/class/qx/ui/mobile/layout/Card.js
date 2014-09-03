@@ -112,8 +112,7 @@ qx.Bootstrap.define("qx.ui.mobile.layout.Card",
 
 
     // overridden
-    connectToChildWidget : function(widget)
-    {
+    connectToChildWidget : function(widget) {
       this.base(qx.ui.mobile.layout.Abstract, "connectToChildWidget");
       if (widget) {
         widget.addClass("layout-card-item");
@@ -124,18 +123,15 @@ qx.Bootstrap.define("qx.ui.mobile.layout.Card",
 
 
     // overridden
-    disconnectFromChildWidget : function(widget)
-    {
+    disconnectFromChildWidget : function(widget) {
       this.base(qx.ui.mobile.layout.Abstract, "disconnectFromChildWidget");
       widget.removeClass("layout-card-item");
     },
 
 
     // overridden
-    updateLayout : function(widget, action, properties)
-    {
-      if (action == "visible")
-      {
+    updateLayout : function(widget, action, properties) {
+      if (action == "visible") {
         this._showWidget(widget, properties);
       }
       this.base(qx.ui.mobile.layout.Abstract, "updateLayout", widget, action, properties);
