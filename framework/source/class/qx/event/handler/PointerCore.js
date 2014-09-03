@@ -155,9 +155,8 @@ qx.Bootstrap.define("qx.event.handler.PointerCore", {
         domEvent.stopPropagation();
       }
       var type = qx.event.handler.PointerCore.MSPOINTER_TO_POINTER_MAPPING[domEvent.type] || domEvent.type;
-      var target = qx.bom.Event.getTarget(domEvent);
       var evt = new qx.event.type.dom.Pointer(type, domEvent, {bubbles: true});
-      this._fireEvent(evt, type, target);
+      this._fireEvent(evt, type, domEvent.target);
     },
 
     /**
@@ -287,7 +286,7 @@ qx.Bootstrap.define("qx.event.handler.PointerCore", {
       // if the button state changes but not from or to zero
       if (this.__lastButtonState != buttonsPressed && buttonsPressed !== 0 && this.__lastButtonState !== 0) {
         var moveEvt = new qx.event.type.dom.Pointer("pointermove", domEvent, mouseProps);
-        this._fireEvent(moveEvt, "pointermove", this.__defaultTarget);
+        this._fireEvent(moveEvt, "pointermove", domEvent.target);
       }
       this.__lastButtonState = buttonsPressed;
 
@@ -307,7 +306,7 @@ qx.Bootstrap.define("qx.event.handler.PointerCore", {
       }
 
       var evt = new qx.event.type.dom.Pointer(type, domEvent, mouseProps);
-      this._fireEvent(evt, type, this.__defaultTarget);
+      this._fireEvent(evt, type, domEvent.target);
     },
 
 
