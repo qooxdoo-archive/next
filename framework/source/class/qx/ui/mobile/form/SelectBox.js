@@ -76,7 +76,7 @@ qx.Bootstrap.define("qx.ui.mobile.form.SelectBox",
     // This text node is for compatibility reasons, because Firefox can not
     // change appearance of SelectBoxes.
     this.setAttribute("type","text");
-    this.readOnly = true;
+    this.readonly = true;
 
     this.on("focus", this.blur);
     this.on("tap", this._onTap, this);

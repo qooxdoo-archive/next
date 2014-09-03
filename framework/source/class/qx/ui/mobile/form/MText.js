@@ -53,7 +53,7 @@ qx.Mixin.define("qx.ui.mobile.form.MText",
 
 
     /** Whether the field is read only */
-    readOnly :
+    readonly :
     {
       check : "Boolean",
       nullable : true,
@@ -73,7 +73,7 @@ qx.Mixin.define("qx.ui.mobile.form.MText",
     initMText : function() {
       this.maxLength = undefined;
       this.placeholder = undefined;
-      this.readOnly = undefined;
+      this.readonly = undefined;
     },
 
 
@@ -100,7 +100,7 @@ qx.Mixin.define("qx.ui.mobile.form.MText",
      * Points the focus of the form to this widget.
      */
     focus : function() {
-      if(this.readOnly || this.enabled === false) {
+      if(this.readonly || this.enabled === false) {
         return;
       }
 
