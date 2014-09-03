@@ -57,12 +57,6 @@ qx.Bootstrap.define("qx.ui.mobile.layout.VBox",
   extend : qx.ui.mobile.layout.AbstractBox,
 
 
- /*
-  *****************************************************************************
-     MEMBERS
-  *****************************************************************************
-  */
-
   members :
   {
     // overridden

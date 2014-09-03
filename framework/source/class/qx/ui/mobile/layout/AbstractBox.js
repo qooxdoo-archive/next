@@ -26,12 +26,6 @@ qx.Bootstrap.define("qx.ui.mobile.layout.AbstractBox",
   extend : qx.ui.mobile.layout.Abstract,
 
 
- /*
-  *****************************************************************************
-     CONSTRUCTOR
-  *****************************************************************************
-  */
-
   /**
    * @param alignX {String?null} Sets the {@link #alignX} property
    * @param alignY {String?null} Sets the {@link #alignY} property
@@ -52,14 +46,6 @@ qx.Bootstrap.define("qx.ui.mobile.layout.AbstractBox",
     }
   },
 
-
-
-
- /*
-  *****************************************************************************
-     PROPERTIES
-  *****************************************************************************
-  */
 
   properties :
   {
@@ -99,14 +85,6 @@ qx.Bootstrap.define("qx.ui.mobile.layout.AbstractBox",
     }
   },
 
-
-
-
- /*
-  *****************************************************************************
-     STATICS
-  *****************************************************************************
-  */
 
   statics :
   {
@@ -170,12 +148,6 @@ qx.Bootstrap.define("qx.ui.mobile.layout.AbstractBox",
     }
   },
 
-
- /*
-  *****************************************************************************
-     MEMBERS
-  *****************************************************************************
-  */
 
   members :
   {

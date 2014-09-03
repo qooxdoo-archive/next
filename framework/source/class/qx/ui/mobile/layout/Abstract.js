@@ -30,25 +30,12 @@ qx.Bootstrap.define("qx.ui.mobile.layout.Abstract",
   extend : Object,
   include : [qx.event.MEmitter],
 
- /*
-  *****************************************************************************
-     EVENTS
-  *****************************************************************************
-  */
-
   events :
   {
     /** Fired when the layout is updated. Data contains the "widget", "action", "properties" */
     updateLayout : "qx.event.type.Data"
   },
 
-
-
- /*
-  *****************************************************************************
-     MEMBERS
-  *****************************************************************************
-  */
 
   members:
   {
@@ -62,8 +49,7 @@ qx.Bootstrap.define("qx.ui.mobile.layout.Abstract",
      *
      * @return {Array} The css classes that the layout is using
      */
-    _getCssClasses: function()
-    {
+    _getCssClasses: function() {
       if (qx.core.Environment.get("qx.debug")) {
         throw new Error("Abstract method call");
       }
@@ -76,8 +62,7 @@ qx.Bootstrap.define("qx.ui.mobile.layout.Abstract",
      *
      * @return {Map} The supported child layout properties, e.g. <code>{"property":1}</code>
      */
-    _getSupportedChildLayoutProperties : function()
-    {
+    _getSupportedChildLayoutProperties : function() {
       return null;
     },
 
@@ -90,8 +75,7 @@ qx.Bootstrap.define("qx.ui.mobile.layout.Abstract",
      * @param property {String?null} Optional. The layout property to set.
      * @param value {var?} Optional. The value of the layout property.
      */
-    _setLayoutProperty : function(widget, property, value, oldValue)
-    {
+    _setLayoutProperty : function(widget, property, value, oldValue) {
       if (qx.core.Environment.get("qx.debug")) {
         throw new Error("Abstract method call");
       }
@@ -104,8 +88,7 @@ qx.Bootstrap.define("qx.ui.mobile.layout.Abstract",
      * @param widget {qx.ui.mobile.core.Widget} The target widget
      * @param properties {Map} The layout properties to set. Key / value pairs.
      */
-    setLayoutProperties : function(widget)
-    {
+    setLayoutProperties : function(widget) {
       var properties = widget.layoutPrefs;
       if (!properties) {
         return;
@@ -132,8 +115,7 @@ qx.Bootstrap.define("qx.ui.mobile.layout.Abstract",
      *
      * @param widget {qx.ui.mobile.core.Widget} The widget to connect to
      */
-    connectToWidget : function(widget)
-    {
+    connectToWidget : function(widget) {
       if (this._widget) {
         this._widget.removeClasses(this._getCssClasses());
       }
@@ -161,8 +143,7 @@ qx.Bootstrap.define("qx.ui.mobile.layout.Abstract",
      *
      * @param widget {qx.ui.mobile.core.Widget} The widget to disconnect from
      */
-    disconnectFromWidget : function(widget)
-    {
+    disconnectFromWidget : function(widget) {
       if (this._widget) {
         this._widget.removeClasses(this._getCssClasses());
         this._widget = null;
@@ -177,10 +158,7 @@ qx.Bootstrap.define("qx.ui.mobile.layout.Abstract",
      *
      * @param widget {qx.ui.mobile.core.Widget} The widget to connect to
      */
-    connectToChildWidget : function(widget)
-    {
-
-    },
+    connectToChildWidget : function(widget) {},
 
 
     /**
@@ -189,10 +167,7 @@ qx.Bootstrap.define("qx.ui.mobile.layout.Abstract",
      *
      * @param widget {qx.ui.mobile.core.Widget} The widget to connect to
      */
-    disconnectFromChildWidget : function(widget)
-    {
-
-    },
+    disconnectFromChildWidget : function(widget) {},
 
 
     /**
