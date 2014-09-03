@@ -176,7 +176,7 @@ qx.Mixin.define("qx.ui.mobile.form.MValue",
         if (this._setValue) {
           this._setValue(value);
         } else {
-          this._setAttribute("value", value);
+          this.setAttribute("value", value);
         }
         this.__fireChangeValue(value);
       }

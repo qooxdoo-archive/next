@@ -117,7 +117,7 @@ qx.Bootstrap.define("qx.ui.mobile.form.CheckBox",
         this.removeClass("checked");
       }
 
-      this._setAttribute("checked", value);
+      this.setAttribute("checked", value);
 
       this._state = value;
     },

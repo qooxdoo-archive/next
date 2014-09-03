@@ -41,7 +41,7 @@ qx.Bootstrap.define("qx.ui.mobile.form.Input",
   construct : function(element)
   {
     this.base(qx.ui.mobile.core.Widget, "constructor", element);
-    this._setAttribute("type", this._getType());
+    this.setAttribute("type", this._getType());
     this.addClass("gap");
 
     this.on("focus", this._onSelected, this);

@@ -180,7 +180,7 @@ qx.Bootstrap.define("qx.ui.mobile.form.Label",
         this.enabled = this.__forWidget.enabled;
       }
 
-      this._setAttribute("for", elementId);
+      this.setAttribute("for", elementId);
     },
 
 

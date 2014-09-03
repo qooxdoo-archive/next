@@ -80,7 +80,7 @@ qx.Mixin.define("qx.ui.mobile.form.MText",
     // property apply
     _applyMaxLength : function(value, old)
     {
-      this._setAttribute("maxlength", value);
+      this.setAttribute("maxlength", value);
     },
 
 
@@ -92,7 +92,7 @@ qx.Mixin.define("qx.ui.mobile.form.MText",
       if (qx.core.Environment.get("os.name") == "android" && value !== null) {
         value = " " + value;
       }
-      this._setAttribute("placeholder", value);
+      this.setAttribute("placeholder", value);
     },
 
 

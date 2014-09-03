@@ -106,7 +106,7 @@ qx.Bootstrap.define("qx.ui.mobile.form.NumberField",
      * Delegates value change on DOM element.
      */
     _onChangeStep : function(value,old) {
-      this._setAttribute("step",value);
+      this.setAttribute("step",value);
     },
 
 
@@ -115,7 +115,7 @@ qx.Bootstrap.define("qx.ui.mobile.form.NumberField",
      * Delegates value change on DOM element.
      */
     _onChangeMaximum : function(value,old) {
-      this._setAttribute("max",value);
+      this.setAttribute("max",value);
     },
 
 
@@ -124,7 +124,7 @@ qx.Bootstrap.define("qx.ui.mobile.form.NumberField",
      * Delegates value change on DOM element.
      */
     _onChangeMinimum : function(value,old) {
-      this._setAttribute("min",value);
+      this.setAttribute("min",value);
     }
   }
 });

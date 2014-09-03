@@ -187,7 +187,7 @@ qx.Bootstrap.define("qx.ui.mobile.container.Navigation",
       navigationBar.removeAll();
 
       if (widget.basename) {
-        this._setAttribute("data-target-page", widget.basename.toLowerCase());
+        this.setAttribute("data-target-page", widget.basename.toLowerCase());
       }
 
       var leftContainer = widget.getLeftContainer();

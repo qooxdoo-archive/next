@@ -129,7 +129,7 @@ qx.Bootstrap.define("qx.ui.mobile.list.renderer.group.Default",
      * @param groupTitle {String} the title of the group
      */
     setGroup: function(groupTitle) {
-      this._setAttribute("data-group", groupTitle);
+      this.setAttribute("data-group", groupTitle);
     },
 
 

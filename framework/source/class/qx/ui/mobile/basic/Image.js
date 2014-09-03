@@ -286,7 +286,7 @@ qx.Bootstrap.define("qx.ui.mobile.basic.Image",
      */
     _setSource : function(source)
     {
-      this._setAttribute("src", source);
+      this.setAttribute("src", source);
     },
 
 
@@ -296,9 +296,9 @@ qx.Bootstrap.define("qx.ui.mobile.basic.Image",
      */
     setDraggable : function(isDraggable) {
       if (isDraggable){
-        this._setAttribute("draggable", "true");
+        this.setAttribute("draggable", "true");
       } else {
-        this._setAttribute("draggable", "false");
+        this.setAttribute("draggable", "false");
       }
     },
 

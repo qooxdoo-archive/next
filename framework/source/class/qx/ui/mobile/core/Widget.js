@@ -100,12 +100,9 @@ qx.Bootstrap.define("qx.ui.mobile.core.Widget", {
           "true" :"true",
           "false" : null
         }
-      },
-      "readOnly" :
-      {
-        attribute : "readonly"
       }
     },
+
 
     /**
      * Fetches elements with a data attribute named <code>data-qx-widget</code>
@@ -274,6 +271,7 @@ qx.Bootstrap.define("qx.ui.mobile.core.Widget", {
         }
       }
     },
+
 
     /*
     ---------------------------------------------------------------------------
@@ -550,7 +548,7 @@ qx.Bootstrap.define("qx.ui.mobile.core.Widget", {
 
 
     _applyActivatable : function(value, old) {
-      this._setAttribute("activatable", value);
+      this.setAttribute("activatable", value);
 
       if (old) {
         this.off("pointerdown", this._addActiveState, this);
@@ -577,12 +575,6 @@ qx.Bootstrap.define("qx.ui.mobile.core.Widget", {
     },
 
 
-    /*
-    ---------------------------------------------------------------------------
-      Attributes handling
-    ---------------------------------------------------------------------------
-    */
-
     /**
      * Shortcut for each property that should change a certain attribute of the
      * container element.
@@ -595,7 +587,7 @@ qx.Bootstrap.define("qx.ui.mobile.core.Widget", {
      * @param attribute {String} The property name
      */
     _applyAttribute : function(value, old, attribute) {
-      this._setAttribute(attribute, value);
+      this.setAttribute(attribute, value);
     },
 
 
@@ -606,7 +598,7 @@ qx.Bootstrap.define("qx.ui.mobile.core.Widget", {
      * @param attribute {String} The attribute name.
      * @param value {var} The attribute value. <code>Null</code> will reset the attribute.
      */
-    _setAttribute : function(attribute, value) {
+    setAttribute : function(attribute, value) {
       var mapping = qx.ui.mobile.core.Widget.ATTRIBUTE_MAPPING[attribute];
       if (mapping)
       {
@@ -615,15 +607,8 @@ qx.Bootstrap.define("qx.ui.mobile.core.Widget", {
         value = values && typeof values[value] !== "undefined" ? values[value] : value;
       }
 
-      this.setAttribute(attribute, value);
+      this.base(qxWeb, "setAttribute", attribute, value);
     },
-
-
-    /*
-    ---------------------------------------------------------------------------
-      Styles handling
-    ---------------------------------------------------------------------------
-    */
 
 
     /**
@@ -633,13 +618,6 @@ qx.Bootstrap.define("qx.ui.mobile.core.Widget", {
       this.setStyle("pointerEvents", value ? "none" : null);
     },
 
-
-
-    /*
-    ---------------------------------------------------------------------------
-      CSS Handling
-    ---------------------------------------------------------------------------
-    */
 
     // property apply
     _applyDefaultCssClass : function(value, old) {
