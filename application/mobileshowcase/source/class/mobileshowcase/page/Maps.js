@@ -147,7 +147,7 @@ qx.Bootstrap.define("mobileshowcase.page.Maps",
      * In this case: Berlin, Germany.
      */
     _zoomToDefaultPosition : function() {
-      if (this.isVisible()) {
+      if (this.visibility === "visible") {
         this._zoomToPosition(13.41, 52.52, 15);
       }
     },
