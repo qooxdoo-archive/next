@@ -69,8 +69,8 @@ qx.Bootstrap.define("qx.ui.mobile.form.ToggleButton",
        this.__labelChecked = labelChecked;
     }
 
-    this.setAttribute("data-label-checked", this.__labelChecked);
-    this.setAttribute("data-label-unchecked", this.__labelUnchecked);
+    this.setData("label-checked", this.__labelChecked);
+    this.setData("label-unchecked", this.__labelUnchecked);
 
     this.__switch = this._createSwitch();
     this.append(this.__switch);

@@ -124,7 +124,7 @@ qx.Bootstrap.define("qx.ui.mobile.control.Picker",
 
     // property apply
     _applyVisibleItems : function(value) {
-      this.setAttribute("data-items", value);
+      this.setData("items", value);
     },
 
 

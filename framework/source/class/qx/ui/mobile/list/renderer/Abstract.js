@@ -163,7 +163,7 @@ qx.Bootstrap.define("qx.ui.mobile.list.renderer.Abstract",
         element = element.parentNode;
       }
 
-      return element.getAttribute("data-row");
+      return element.getData("row");
     },
 
 

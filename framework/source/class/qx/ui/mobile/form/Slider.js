@@ -337,8 +337,8 @@ qx.Bootstrap.define("qx.ui.mobile.form.Slider",
       var knobElement = this._getKnobElement();
       if (knobElement) {
         qxWeb(knobElement).setStyle("width", width - (width - position) + "px")
-          .setAttribute("data-value", this.value)
-          .setAttribute("data-percent", Math.floor(percent));
+          .setData("value", this.value)
+          .setData("percent", Math.floor(percent));
       }
     },
 

@@ -118,7 +118,7 @@ qx.Bootstrap.define("qx.ui.mobile.core.Widget", {
     // avoid infinite recursion if an extending constructor creates a
     // collection containing the content element
     window.setTimeout(function() {
-      this.setAttribute("data-qx-widget", this.classname);
+      this.setData("qx-widget", this.classname);
     }.bind(this), 0);
   },
 
@@ -497,7 +497,7 @@ qx.Bootstrap.define("qx.ui.mobile.core.Widget", {
 
 
     _applyActivatable : function(value, old) {
-      this.setAttribute("data-activatable", value ? "true" : null);
+      this.setData("activatable", value ? "true" : null);
 
       if (old) {
         this.off("pointerdown", this._addActiveState, this);
@@ -512,7 +512,7 @@ qx.Bootstrap.define("qx.ui.mobile.core.Widget", {
 
 
     _addActiveState : function() {
-      if (this.getAttribute("data-selectable") != "false") {
+      if (this.getData("selectable") != "false") {
         this.addClass("active");
         qxWeb(document.documentElement).once("pointerup", this._removeActiveState, this);
       }
@@ -541,7 +541,7 @@ qx.Bootstrap.define("qx.ui.mobile.core.Widget", {
 
 
     _applySelectable : function(value, old) {
-      this.setAttribute("data-selectable", value ? null : "false");
+      this.setData("selectable", value ? null : "false");
     },
 
 

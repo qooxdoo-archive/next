@@ -253,16 +253,16 @@ qx.Bootstrap.define("qx.ui.mobile.list.List",
 
       var row = -1;
       if (element.hasClass("list-item")) {
-        if (element.getAttribute("data-selectable") != "false" &&
+        if (element.getData("selectable") != "false" &&
             this.getChildren().indexOf(element) !== -1) {
-          row = parseInt(element.getAttribute("data-row"), 10);
+          row = parseInt(element.getData("row"), 10);
         }
         if (row != -1) {
           this.emit("changeSelection", row);
         }
       } else {
-        var group = parseInt(element.getAttribute("data-group"), 10);
-        if (element.getAttribute("data-selectable") != "false") {
+        var group = parseInt(element.getData("group"), 10);
+        if (element.getData("selectable") != "false") {
           this.emit("changeGroupSelection", group);
         }
       }
@@ -331,7 +331,7 @@ qx.Bootstrap.define("qx.ui.mobile.list.List",
       var element = this.__trackElement;
 
       if (Math.abs(evt.delta.x) > this.__minDeleteDistance) {
-        var row = parseInt(element.getAttribute("data-row"), 10);
+        var row = parseInt(element.getData("row"), 10);
         this.emit("removeItem", row);
       } else {
         qxWeb.requestAnimationFrame(function() {
