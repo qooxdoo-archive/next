@@ -169,7 +169,7 @@ qx.Bootstrap.define("qx.ui.mobile.page.Manager",
     /**
      * Creates the master container.
      *
-     * @return {qx.ui.mobile.container.Composite} The created container
+     * @return {qx.ui.mobile.core.Widget} The created container
      */
     _createMasterContainer : function() {
       var masterContainer = new qx.ui.mobile.container.Drawer(null, new qx.ui.mobile.layout.HBox());
@@ -184,10 +184,11 @@ qx.Bootstrap.define("qx.ui.mobile.page.Manager",
     /**
      * Creates the detail container.
      *
-     * @return {qx.ui.mobile.container.Composite} The created container
+     * @return {qx.ui.mobile.core.Widget} The created container
      */
     _createDetailContainer : function() {
-      var detailContainer = new qx.ui.mobile.container.Composite(new qx.ui.mobile.layout.VBox());
+      var detailContainer = new qx.ui.mobile.core.Widget();
+      detailContainer.setLayout(new qx.ui.mobile.layout.VBox());
       detailContainer.defaultCssClass = "master-detail-detail";
       return detailContainer;
     },
@@ -204,7 +205,7 @@ qx.Bootstrap.define("qx.ui.mobile.page.Manager",
 
     /**
      * Getter for the Detail Container
-     * @return {qx.ui.mobile.container.Composite} The Detail Container.
+     * @return {qx.ui.mobile.core.Widget} The Detail Container.
      */
     getDetailContainer : function() {
       return this.__detailContainer;

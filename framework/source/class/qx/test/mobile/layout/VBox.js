@@ -25,7 +25,8 @@ qx.Bootstrap.define("qx.test.mobile.layout.VBox",
   {
     testAdd : function()
     {
-      var composite = new qx.ui.mobile.container.Composite(new qx.ui.mobile.layout.VBox());
+      var composite = new qx.ui.mobile.core.Widget();
+      composite.setLayout(new qx.ui.mobile.layout.VBox());
       this.getRoot().append(composite);
 
 
@@ -44,7 +45,8 @@ qx.Bootstrap.define("qx.test.mobile.layout.VBox",
 
 
     testFlex : function() {
-      var composite = new qx.ui.mobile.container.Composite(new qx.ui.mobile.layout.VBox());
+      var composite = new qx.ui.mobile.core.Widget();
+      composite.setLayout(new qx.ui.mobile.layout.VBox());
       this.getRoot().append(composite);
 
       var widget1 = new qx.ui.mobile.core.Widget();
@@ -64,7 +66,8 @@ qx.Bootstrap.define("qx.test.mobile.layout.VBox",
 
 
     testRemove : function() {
-      var composite = new qx.ui.mobile.container.Composite(new qx.ui.mobile.layout.VBox());
+      var composite = new qx.ui.mobile.core.Widget();
+      composite.setLayout(new qx.ui.mobile.layout.VBox());
       this.getRoot().append(composite);
 
       var widget1 = new qx.ui.mobile.core.Widget();
@@ -89,7 +92,8 @@ qx.Bootstrap.define("qx.test.mobile.layout.VBox",
 
 
     testReset : function() {
-      var composite = new qx.ui.mobile.container.Composite(new qx.ui.mobile.layout.VBox());
+      var composite = new qx.ui.mobile.core.Widget();
+      composite.setLayout(new qx.ui.mobile.layout.VBox());
       this.getRoot().append(composite);
 
       composite.setLayout(null);

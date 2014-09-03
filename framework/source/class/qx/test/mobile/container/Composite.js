@@ -25,7 +25,7 @@ qx.Bootstrap.define("qx.test.mobile.container.Composite",
   {
     testAdd : function()
     {
-      var composite = new qx.ui.mobile.container.Composite();
+      var composite = new qx.ui.mobile.core.Widget();
       this.getRoot().append(composite);
 
       var widget1 = new qx.ui.mobile.core.Widget();
@@ -44,7 +44,7 @@ qx.Bootstrap.define("qx.test.mobile.container.Composite",
 
     testAddSame : function()
     {
-      var composite = new qx.ui.mobile.container.Composite();
+      var composite = new qx.ui.mobile.core.Widget();
       this.getRoot().append(composite);
 
       var widget1 = new qx.ui.mobile.core.Widget();
@@ -60,9 +60,9 @@ qx.Bootstrap.define("qx.test.mobile.container.Composite",
 
     testAddOther : function()
     {
-      var composite1 = new qx.ui.mobile.container.Composite();
+      var composite1 = new qx.ui.mobile.core.Widget();
       this.getRoot().append(composite1);
-      var composite2 = new qx.ui.mobile.container.Composite();
+      var composite2 = new qx.ui.mobile.core.Widget();
       this.getRoot().append(composite2);
 
       var widget = new qx.ui.mobile.core.Widget();
@@ -86,7 +86,7 @@ qx.Bootstrap.define("qx.test.mobile.container.Composite",
 
     testAddAt : function()
     {
-      var composite = new qx.ui.mobile.container.Composite();
+      var composite = new qx.ui.mobile.core.Widget();
       this.getRoot().append(composite);
 
       var widget1 = new qx.ui.mobile.core.Widget();
@@ -111,7 +111,7 @@ qx.Bootstrap.define("qx.test.mobile.container.Composite",
 
     testAddBefore : function()
     {
-      var composite = new qx.ui.mobile.container.Composite();
+      var composite = new qx.ui.mobile.core.Widget();
       this.getRoot().append(composite);
 
       var widget1 = new qx.ui.mobile.core.Widget();
@@ -143,7 +143,7 @@ qx.Bootstrap.define("qx.test.mobile.container.Composite",
 
     testAddAfter : function()
     {
-      var composite = new qx.ui.mobile.container.Composite();
+      var composite = new qx.ui.mobile.core.Widget();
       this.getRoot().append(composite);
 
       var widget1 = new qx.ui.mobile.core.Widget();
@@ -182,7 +182,7 @@ qx.Bootstrap.define("qx.test.mobile.container.Composite",
 
     testDestroy : function()
     {
-      var composite = new qx.ui.mobile.container.Composite();
+      var composite = new qx.ui.mobile.core.Widget();
       this.getRoot().append(composite);
 
       var widget1 = new qx.ui.mobile.core.Widget();
@@ -204,7 +204,7 @@ qx.Bootstrap.define("qx.test.mobile.container.Composite",
 
     testRemove : function()
     {
-      var composite = new qx.ui.mobile.container.Composite();
+      var composite = new qx.ui.mobile.core.Widget();
       this.getRoot().append(composite);
 
       var widget1 = new qx.ui.mobile.core.Widget();
@@ -229,7 +229,7 @@ qx.Bootstrap.define("qx.test.mobile.container.Composite",
 
     testRemoveAt : function()
     {
-      var composite = new qx.ui.mobile.container.Composite();
+      var composite = new qx.ui.mobile.core.Widget();
       this.getRoot().append(composite);
 
       this.assertException(function() {
@@ -262,7 +262,7 @@ qx.Bootstrap.define("qx.test.mobile.container.Composite",
 
     testRemoveAll : function()
     {
-      var composite = new qx.ui.mobile.container.Composite();
+      var composite = new qx.ui.mobile.core.Widget();
       this.getRoot().append(composite);
 
       var widget1 = new qx.ui.mobile.core.Widget();
@@ -284,7 +284,7 @@ qx.Bootstrap.define("qx.test.mobile.container.Composite",
 
     testHasChildren : function()
     {
-      var composite = new qx.ui.mobile.container.Composite();
+      var composite = new qx.ui.mobile.core.Widget();
       this.getRoot().append(composite);
 
       this.assertEquals(0, composite.getChildren().length);
@@ -304,7 +304,7 @@ qx.Bootstrap.define("qx.test.mobile.container.Composite",
 
     testIndexOf : function()
     {
-      var composite = new qx.ui.mobile.container.Composite();
+      var composite = new qx.ui.mobile.core.Widget();
       this.getRoot().append(composite);
 
       var widget1 = new qx.ui.mobile.core.Widget();

@@ -20,7 +20,7 @@
 
 /**
  * The navigation controller includes already a {@link qx.ui.mobile.navigationbar.NavigationBar}
- * and a {@link qx.ui.mobile.container.Composite} container with a {@link qx.ui.mobile.layout.Card} layout.
+ * and a {@link qx.ui.mobile.core.Widget} container with a {@link qx.ui.mobile.layout.Card} layout.
  * All widgets that implement the {@link qx.ui.mobile.container.INavigation}
  * interface can be added to the container. The added widget provide the title
  * widget and the left/right container, which will be automatically merged into
@@ -40,12 +40,13 @@
  */
 qx.Bootstrap.define("qx.ui.mobile.container.Navigation",
 {
-  extend : qx.ui.mobile.container.Composite,
+  extend : qx.ui.mobile.core.Widget,
 
 
   construct : function()
   {
-    this.base(qx.ui.mobile.container.Composite, "constructor", new qx.ui.mobile.layout.VBox());
+    this.base(qx.ui.mobile.core.Widget, "constructor");
+    this.setLayout(new qx.ui.mobile.layout.VBox());
 
     this.__navigationBar = this._createNavigationBar();
     if (this.__navigationBar) {
@@ -92,7 +93,7 @@ qx.Bootstrap.define("qx.ui.mobile.container.Navigation",
     /**
      * Returns the content container. Add all your widgets to this container.
      *
-     * @return {qx.ui.mobile.container.Composite} The content container
+     * @return {qx.ui.mobile.core.Widget} The content container
      */
     getContent : function() {
       return this.__content;
@@ -113,7 +114,7 @@ qx.Bootstrap.define("qx.ui.mobile.container.Navigation",
     /**
      * Creates the content container.
      *
-     * @return {qx.ui.mobile.container.Composite} The created content container
+     * @return {qx.ui.mobile.core.Widget} The created content container
      */
     _createContent : function()
     {
@@ -122,7 +123,9 @@ qx.Bootstrap.define("qx.ui.mobile.container.Navigation",
       layout.on("animationStart", this._onAnimationStart, this);
       layout.on("animationEnd", this._onAnimationEnd, this);
 
-      return new qx.ui.mobile.container.Composite(layout);
+      var content = new qx.ui.mobile.core.Widget();
+      content.setLayout(layout);
+      return content;
     },
 
 
@@ -212,7 +215,7 @@ qx.Bootstrap.define("qx.ui.mobile.container.Navigation",
 
     dispose : function()
     {
-      this.base(qx.ui.mobile.container.Composite, "dispose");
+      this.base(qx.ui.mobile.core.Widget, "dispose");
       this.getContent().getLayout().off("animationStart",this._onAnimationStart, this);
       this.getContent().getLayout().off("animationEnd",this._onAnimationEnd, this);
 

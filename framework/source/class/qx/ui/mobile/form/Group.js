@@ -39,7 +39,7 @@
  */
 qx.Bootstrap.define("qx.ui.mobile.form.Group",
 {
-  extend : qx.ui.mobile.container.Composite,
+  extend : qx.ui.mobile.core.Widget,
 
 
   /**
@@ -48,7 +48,7 @@ qx.Bootstrap.define("qx.ui.mobile.form.Group",
    */
   construct : function(widgets, showBorder)
   {
-    this.base(qx.ui.mobile.container.Composite, "constructor");
+    this.base(qx.ui.mobile.core.Widget, "constructor");
 
     this.addClass("bordered");
 

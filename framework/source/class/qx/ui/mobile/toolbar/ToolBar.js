@@ -24,11 +24,12 @@
  */
 qx.Bootstrap.define("qx.ui.mobile.toolbar.ToolBar",
 {
-  extend : qx.ui.mobile.container.Composite,
+  extend : qx.ui.mobile.core.Widget,
 
   construct : function(layout)
   {
-    this.base(qx.ui.mobile.container.Composite, "constructor", layout);
+    this.base(qx.ui.mobile.core.Widget, "constructor")
+    this.setLayout(layout);
     if (!layout) {
       layout = new qx.ui.mobile.layout.HBox();
       layout.alignY = "middle";
@@ -69,7 +70,7 @@ qx.Bootstrap.define("qx.ui.mobile.toolbar.ToolBar",
         qx.lang.Object.mergeWith(layoutProperties, {flex: 1}, false);
       }
       child.layoutPrefs = layoutProperties;
-      this.base(qx.ui.mobile.container.Composite, "append", child);
+      this.base(qx.ui.mobile.core.Widget, "append", child);
     }
   }
 });

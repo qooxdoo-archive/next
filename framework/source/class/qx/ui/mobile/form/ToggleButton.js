@@ -110,7 +110,7 @@ qx.Bootstrap.define("qx.ui.mobile.form.ToggleButton",
     /**
      * Returns the child control of the toggle button.
      *
-     * @return {qx.ui.mobile.container.Composite} the child control.
+     * @return {qx.ui.mobile.core.Widget} the child control.
      */
     _getChild : function() {
       return this.__switch;
@@ -119,10 +119,10 @@ qx.Bootstrap.define("qx.ui.mobile.form.ToggleButton",
 
     /**
      * Creates the switch control of the widget.
-     * @return {qx.ui.mobile.container.Composite} The switch control.
+     * @return {qx.ui.mobile.core.Widget} The switch control.
      */
     _createSwitch : function() {
-      var toggleButtonSwitch = new qx.ui.mobile.container.Composite();
+      var toggleButtonSwitch = new qx.ui.mobile.core.Widget();
       toggleButtonSwitch.addClass("togglebutton-switch");
       return toggleButtonSwitch;
     },

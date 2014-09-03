@@ -57,13 +57,14 @@
  */
 qx.Bootstrap.define("qx.ui.mobile.page.Page",
 {
-  extend : qx.ui.mobile.container.Composite,
+  extend : qx.ui.mobile.core.Widget,
   include : qx.ui.mobile.core.MResize,
 
 
   construct : function(layout)
   {
-    this.base(qx.ui.mobile.container.Composite, "constructor", layout || new qx.ui.mobile.layout.VBox());
+    this.base(qx.ui.mobile.core.Widget, "constructor");
+    this.setLayout(layout || new qx.ui.mobile.layout.VBox());
   },
 
 
@@ -175,7 +176,7 @@ qx.Bootstrap.define("qx.ui.mobile.page.Page",
       qx.ui.mobile.page.Page._currentPage = this;
       this.initialize();
       this.start();
-      this.base(qx.ui.mobile.container.Composite, "show", properties);
+      this.base(qx.ui.mobile.core.Widget, "show", properties);
     },
 
 
@@ -183,7 +184,7 @@ qx.Bootstrap.define("qx.ui.mobile.page.Page",
     exclude : function(properties)
     {
       this.stop();
-      this.base(qx.ui.mobile.container.Composite, "exclude", properties);
+      this.base(qx.ui.mobile.core.Widget, "exclude", properties);
     },
 
 

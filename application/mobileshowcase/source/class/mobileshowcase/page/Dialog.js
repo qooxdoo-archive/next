@@ -149,7 +149,7 @@ qx.Bootstrap.define("mobileshowcase.page.Dialog",
       showPickerButton.layoutPrefs = {flex:1};
       otherGroup.append(showPickerButton);
 
-      var groupContainer = new qx.ui.mobile.container.Composite();
+      var groupContainer = new qx.ui.mobile.core.Widget();
       groupContainer.addClass("dialog-group");
       groupContainer.setLayout(new qx.ui.mobile.layout.HBox());
       popupGroup.layoutPrefs =  {flex:1};
@@ -185,7 +185,7 @@ qx.Bootstrap.define("mobileshowcase.page.Dialog",
         pickerDialog.hide();
       }, this);
 
-      var pickerDialogContent = new qx.ui.mobile.container.Composite();
+      var pickerDialogContent = new qx.ui.mobile.core.Widget();
       pickerDialogContent.append(picker);
       pickerDialogContent.append(hidePickerButton);
       //pickerDialog.append(pickerDialogContent);
@@ -250,7 +250,8 @@ qx.Bootstrap.define("mobileshowcase.page.Dialog",
         return this.__anchorPopup;
       }
 
-      var buttonsWidget = new qx.ui.mobile.container.Composite(new qx.ui.mobile.layout.HBox());
+      var buttonsWidget = new qx.ui.mobile.core.Widget()
+      buttonsWidget.setLayout(new qx.ui.mobile.layout.HBox());
       var okButton = new qx.ui.mobile.Button("Yes");
       var cancelButton = new qx.ui.mobile.Button("No");
 

@@ -40,11 +40,12 @@
  */
 qx.Bootstrap.define("qx.ui.mobile.navigationbar.NavigationBar",
 {
-  extend : qx.ui.mobile.container.Composite,
+  extend : qx.ui.mobile.core.Widget,
 
 
   construct : function(layout) {
-    this.base(qx.ui.mobile.container.Composite, "constructor", layout);
+    this.base(qx.ui.mobile.core.Widget, "constructor");
+    this.setLayout(layout);
     if (!layout) {
       layout = new qx.ui.mobile.layout.HBox();
       layout.alignY = "middle";

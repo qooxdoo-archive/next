@@ -58,7 +58,7 @@ qx.Bootstrap.define("qx.ui.mobile.dialog.Menu",
       this.__selectionList.model = itemsModel;
     }
 
-    this.__menuContainer = new qx.ui.mobile.container.Composite();
+    this.__menuContainer = new qx.ui.mobile.core.Widget();
     this.__clearButton = this._createClearButton();
     this.__listScroller = this._createListScroller(this.__selectionList);
 

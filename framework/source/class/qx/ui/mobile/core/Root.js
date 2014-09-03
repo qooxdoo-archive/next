@@ -24,7 +24,7 @@
  */
 qx.Bootstrap.define("qx.ui.mobile.core.Root",
 {
-  extend : qx.ui.mobile.container.Composite,
+  extend : qx.ui.mobile.core.Widget,
 
 
   /**
@@ -34,7 +34,8 @@ qx.Bootstrap.define("qx.ui.mobile.core.Root",
   construct : function(root, layout)
   {
     this.__root = root || document.body;
-    this.base(qx.ui.mobile.container.Composite, "constructor", layout || new qx.ui.mobile.layout.VBox(), this.__root);
+    this.base(qx.ui.mobile.core.Widget, "constructor", this.__root);
+    this.setLayout(layout || new qx.ui.mobile.layout.VBox());
 
     this.addClass("mobile");
     this.addClass(qx.core.Environment.get("os.name"));
@@ -127,7 +128,7 @@ qx.Bootstrap.define("qx.ui.mobile.core.Root",
 
 
     dispose : function() {
-      this.base(qx.ui.mobile.container.Composite, "dispose");
+      this.base(qx.ui.mobile.core.Widget, "dispose");
       this.off("touchmove", this._preventDefault);
       qxWeb(window).off("orientationchange", this._onOrientationChange, this);
     }

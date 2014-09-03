@@ -430,7 +430,8 @@ qx.Bootstrap.define("qx.ui.mobile.dialog.Popup",
     _initializeChild : function(widget)
     {
       if(this.__childrenContainer == null) {
-        this.__childrenContainer = new qx.ui.mobile.container.Composite(new qx.ui.mobile.layout.VBox());
+        this.__childrenContainer = new qx.ui.mobile.core.Widget();
+        this.__childrenContainer.setLayout(new qx.ui.mobile.layout.VBox());
         this.__childrenContainer.defaultCssClass = "popup-content";
         this._append(this.__childrenContainer);
       }

@@ -23,12 +23,13 @@
  */
 qx.Bootstrap.define("qx.ui.mobile.list.renderer.group.Abstract",
 {
-  extend : qx.ui.mobile.container.Composite,
+  extend : qx.ui.mobile.core.Widget,
 
 
   construct : function(layout)
   {
-    this.base(qx.ui.mobile.container.Composite, "constructor", layout);
+    this.base(qx.ui.mobile.core.Widget, "constructor");
+    this.setLayout(layout);
     this.selectable = undefined;
   },
 

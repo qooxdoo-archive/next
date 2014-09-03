@@ -23,7 +23,7 @@
  */
 qx.Bootstrap.define("qx.ui.mobile.form.Row",
 {
-  extend : qx.ui.mobile.container.Composite,
+  extend : qx.ui.mobile.core.Widget,
 
 
   /**
@@ -32,7 +32,8 @@ qx.Bootstrap.define("qx.ui.mobile.form.Row",
    */
   construct : function(layout)
   {
-    this.base(qx.ui.mobile.container.Composite, "constructor", layout);
+    this.base(qx.ui.mobile.core.Widget, "constructor");
+    this.setLayout(layout);
     this.selectable = false;
   },
 

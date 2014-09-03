@@ -25,7 +25,7 @@ qx.Bootstrap.define("qx.test.mobile.container.Drawer",
   {
     testInitComposite : function()
     {
-      var parentContainer = new qx.ui.mobile.container.Composite();
+      var parentContainer = new qx.ui.mobile.core.Widget();
 
       var drawer = new qx.ui.mobile.container.Drawer(parentContainer);
 

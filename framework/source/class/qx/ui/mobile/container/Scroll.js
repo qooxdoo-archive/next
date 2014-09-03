@@ -43,7 +43,7 @@
  */
 qx.Bootstrap.define("qx.ui.mobile.container.Scroll",
 {
-  extend : qx.ui.mobile.container.Composite,
+  extend : qx.ui.mobile.core.Widget,
   include : [qx.ui.mobile.container.MNativeScroll],
 
   /**
@@ -51,7 +51,7 @@ qx.Bootstrap.define("qx.ui.mobile.container.Scroll",
   */
   construct : function(scrollProperties)
   {
-    this.base(qx.ui.mobile.container.Composite, "constructor");
+    this.base(qx.ui.mobile.core.Widget, "constructor");
 
     if(scrollProperties) {
       this._scrollProperties = scrollProperties;
@@ -319,7 +319,7 @@ qx.Bootstrap.define("qx.ui.mobile.container.Scroll",
 
     // overridden
     _createContainerElement: function() {
-      var element = this.base(qx.ui.mobile.container.Composite, "_createContainerElement");
+      var element = this.base(qx.ui.mobile.core.Widget, "_createContainerElement");
       var scrollElement = this._createScrollElement();
       if (scrollElement) {
         return scrollElement;
@@ -497,7 +497,7 @@ qx.Bootstrap.define("qx.ui.mobile.container.Scroll",
 
 
     dispose : function() {
-      this.base(qx.ui.mobile.container.Composite, "dispose");
+      this.base(qx.ui.mobile.core.Widget, "dispose");
       this.off("appear", this._updateWaypoints, this);
 
       this._waypointsX = this._waypointsY = null;

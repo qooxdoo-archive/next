@@ -20,7 +20,7 @@
 
 /**
  * Creates a Collapsible widget.
- * It contains a {@link qx.ui.mobile.basic.Label Label} for the header and a {@link qx.ui.mobile.container.Composite Composite}
+ * It contains a {@link qx.ui.mobile.basic.Label Label} for the header and a {@link qx.ui.mobile.core.Widget}
  * for the content.
  *
  * The visiblity of the content composite toggles when user taps on header.
@@ -110,7 +110,7 @@ qx.Bootstrap.define("qx.ui.mobile.container.Collapsible",
     * @param child {qx.ui.mobile.core.Widget} the widget to add.
     */
     append : function(child) {
-      if(child && this._content instanceof qx.ui.mobile.container.Composite) {
+      if(child && this._content instanceof qx.ui.mobile.core.Widget) {
         this._content.append(child);
       }
     },
@@ -138,7 +138,7 @@ qx.Bootstrap.define("qx.ui.mobile.container.Collapsible",
 
     /**
     * Getter for the Collapsible's content composite.
-    * @return {qx.ui.mobile.container.Composite} the content composite.
+    * @return {qx.ui.mobile.core.Widget} the content composite.
     */
     getContent : function() {
       return this._content;
@@ -159,10 +159,10 @@ qx.Bootstrap.define("qx.ui.mobile.container.Collapsible",
 
     /**
     * Factory method for the Collapsible's content.
-    * @return {qx.ui.mobile.container.Composite} the content composite.
+    * @return {v} the content composite.
     */
     _createContent : function() {
-      return new qx.ui.mobile.container.Composite();
+      return new qx.ui.mobile.core.Widget();
     },
 
 

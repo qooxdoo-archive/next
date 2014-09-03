@@ -43,18 +43,18 @@
  */
 qx.Bootstrap.define("qx.ui.mobile.container.Drawer",
 {
-  extend : qx.ui.mobile.container.Composite,
+  extend : qx.ui.mobile.core.Widget,
 
 
   /**
-   * @param parent {qx.ui.mobile.container.Composite?null} The widget to which
+   * @param parent {qx.ui.mobile.core.Widget?null} The widget to which
    * the drawer should be added, if null it is added to app root.
    * @param layout {qx.ui.mobile.layout.Abstract?null} The layout that should be
    * used for this container.
    */
   construct : function(parent, layout)
   {
-    this.base(qx.ui.mobile.container.Composite, "constructor");
+    this.base(qx.ui.mobile.core.Widget, "constructor");
 
     if (layout) {
       this.setLayout(layout);
@@ -64,7 +64,7 @@ qx.Bootstrap.define("qx.ui.mobile.container.Drawer",
 
     if (parent) {
       if (qx.core.Environment.get("qx.debug")) {
-        qx.core.Assert.assertInstance(parent, qx.ui.mobile.container.Composite);
+        qx.core.Assert.assertInstance(parent, qx.ui.mobile.core.Widget);
       }
 
       parent.append(this);
@@ -240,7 +240,7 @@ qx.Bootstrap.define("qx.ui.mobile.container.Drawer",
 
         var transitionTarget = this._getTransitionTarget();
         var onTransitionEnd = function(evt) {
-          this.base(qx.ui.mobile.container.Composite, "show");
+          this.base(qx.ui.mobile.core.Widget, "show");
           this._disableTransition();
           this.__inTransition = false;
           transitionTarget.off("transitionend", onTransitionEnd, this);
@@ -251,7 +251,7 @@ qx.Bootstrap.define("qx.ui.mobile.container.Drawer",
           this.removeClass("hidden");
         }.bind(this), 0);
       } else {
-        this.base(qx.ui.mobile.container.Composite, "show");
+        this.base(qx.ui.mobile.core.Widget, "show");
         this.__inTransition = false;
         this.removeClass("hidden");
       }
@@ -277,7 +277,7 @@ qx.Bootstrap.define("qx.ui.mobile.container.Drawer",
 
         var transitionTarget = this._getTransitionTarget();
         var listenerId = transitionTarget.on("transitionend", function(evt) {
-          this.base(qx.ui.mobile.container.Composite, "hide");
+          this.base(qx.ui.mobile.core.Widget, "hide");
           this._disableTransition();
           this.__parent.removeClass("blocked");
           this.__inTransition = false;
@@ -288,7 +288,7 @@ qx.Bootstrap.define("qx.ui.mobile.container.Drawer",
           this.addClass("hidden");
         }.bind(this), 0);
       } else {
-        this.base(qx.ui.mobile.container.Composite, "hide");
+        this.base(qx.ui.mobile.core.Widget, "hide");
         this.addClass("hidden");
         this.__inTransition = false;
         this.__parent.removeClass("blocked");
@@ -428,7 +428,7 @@ qx.Bootstrap.define("qx.ui.mobile.container.Drawer",
 
     dispose : function()
     {
-      this.base(qx.ui.mobile.container.Composite, "dispose");
+      this.base(qx.ui.mobile.core.Widget, "dispose");
       qx.core.Init.getApplication().off("back", this.forceHide, this);
 
       this.__parent.off("swipe", this._onParentSwipe, this);

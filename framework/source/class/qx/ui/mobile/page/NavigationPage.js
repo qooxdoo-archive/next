@@ -248,11 +248,12 @@ qx.Bootstrap.define("qx.ui.mobile.page.NavigationPage",
     /**
      * Creates the left container for the navigation bar.
      *
-     * @return {qx.ui.mobile.container.Composite} Creates the left container for the navigation bar.
+     * @return {qx.ui.mobile.core.Widget} Creates the left container for the navigation bar.
      */
     _createLeftContainer : function() {
       var layout =new qx.ui.mobile.layout.HBox();
-      var container = new qx.ui.mobile.container.Composite(layout);
+      var container = new qx.ui.mobile.core.Widget();
+      container.setLayout(layout);
       container.addClass("left-container");
       this.__backButton = this._createBackButton();
       this.__backButton.on("tap", this._onBackButtonTap, this);
@@ -265,11 +266,12 @@ qx.Bootstrap.define("qx.ui.mobile.page.NavigationPage",
     /**
      * Creates the right container for the navigation bar.
      *
-     * @return {qx.ui.mobile.container.Composite} Creates the right container for the navigation bar.
+     * @return {qx.ui.mobile.core.Widget} Creates the right container for the navigation bar.
      */
     _createRightContainer : function() {
       var layout = new qx.ui.mobile.layout.HBox();
-      var container = new qx.ui.mobile.container.Composite(layout);
+      var container = new qx.ui.mobile.core.Widget();
+      container.setLayout(layout);
       container.addClass("right-container");
       this.__actionButton = this._createButton();
       this.__actionButton.on("tap", this._onButtonTap, this);
@@ -350,7 +352,7 @@ qx.Bootstrap.define("qx.ui.mobile.page.NavigationPage",
     /**
      * Returns the content container. Add all your widgets to this container.
      *
-     * @return {qx.ui.mobile.container.Composite} The content container
+     * @return {qx.ui.mobile.core.Widget} The content container
      */
     getContent : function()
     {
@@ -536,11 +538,11 @@ qx.Bootstrap.define("qx.ui.mobile.page.NavigationPage",
     /**
      * Creates the content container.
      *
-     * @return {qx.ui.mobile.container.Composite} The created content container
+     * @return {qx.ui.mobile.core.Widget} The created content container
      */
     _createContent : function()
     {
-      var content = new qx.ui.mobile.container.Composite();
+      var content = new qx.ui.mobile.core.Widget();
       content.defaultCssClass = this.contentCssClass;
 
       if(this._wrapContentByGroup === true) {

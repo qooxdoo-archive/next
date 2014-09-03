@@ -32,7 +32,8 @@
  *
  * <pre class="javascript">
  * var layout = new qx.ui.mobile.layout.Card());
- * var container = new qx.ui.mobile.container.Composite(layout);
+ * var container = new qx.ui.mobile.core.Widget();
+ * container.setLayout(layout);
  *
  * var label1 = new qx.ui.mobile.basic.Label("1");
  * container.append(label1);

@@ -289,7 +289,8 @@ qx.Bootstrap.define("qx.ui.mobile.basic.Atom",
         layout = new qx.ui.mobile.layout.HBox();
       }
 
-      this.__childrenContainer = new qx.ui.mobile.container.Composite(layout);
+      this.__childrenContainer = new qx.ui.mobile.core.Widget();
+      this.__childrenContainer.setLayout(layout);
       this.__childrenContainer.addClass("qx-flex-center");
       this.__childrenContainer.anonymous = true;
     },
