@@ -53,18 +53,23 @@ qx.Mixin.define("qx.ui.mobile.form.MText",
 
 
     /** Whether the field is read only */
-    readonly :
+    readOnly :
     {
       check : "Boolean",
       nullable : true,
       init : null,
-      apply : "_applyAttribute"
+      apply : "_applyReadOnly"
     }
   },
 
 
   members :
   {
+
+    _applyReadOnly : function(value) {
+      this.setAttribute("readonly", value);
+    },
+
 
     /**
      * Initializes this mixin. Should be called from the including class'
@@ -73,7 +78,7 @@ qx.Mixin.define("qx.ui.mobile.form.MText",
     initMText : function() {
       this.maxLength = undefined;
       this.placeholder = undefined;
-      this.readonly = undefined;
+      this.readOnly = undefined;
     },
 
 
@@ -100,7 +105,7 @@ qx.Mixin.define("qx.ui.mobile.form.MText",
      * Points the focus of the form to this widget.
      */
     focus : function() {
-      if(this.readonly || this.enabled === false) {
+      if(this.readOnly || this.enabled === false) {
         return;
       }
 
