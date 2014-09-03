@@ -392,7 +392,7 @@ qx.Bootstrap.define("qx.ui.mobile.container.ScrollComposite",
 
     // overridden
     addAt : function(child, index, options) {
-      this._scrollContainer.addAt(child, index, options);
+      this._scrollContainer.appendAt(child, index, options);
       this._handleSize(child);
     },
 

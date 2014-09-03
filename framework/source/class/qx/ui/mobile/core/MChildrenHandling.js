@@ -43,20 +43,6 @@ qx.Mixin.define("qx.ui.mobile.core.MChildrenHandling",
     },
 
 
-
-    /**
-     * Add a child widget at the specified index
-     *
-     * @param child {Widget} widget to add
-     * @param index {Integer} Index, at which the widget will be inserted
-     * @param options {Map?null} Optional layout data for widget.
-     */
-    addAt : function(child, index)
-    {
-      this._addAt(child, index);
-    },
-
-
     /**
      * Remove the widget at the specified index.
      *
@@ -91,8 +77,6 @@ qx.Mixin.define("qx.ui.mobile.core.MChildrenHandling",
     remap : function(members)
     {
       members.indexOf = members._indexOf;
-
-      members.addAt = members._addAt;
 
       members.removeAt = members._removeAt;
       members.removeAll = members._removeAll;

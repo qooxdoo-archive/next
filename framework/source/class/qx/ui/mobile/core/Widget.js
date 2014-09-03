@@ -19,7 +19,7 @@
 ************************************************************************ */
 
 /**
- * This is the base class for all mobile widgets.
+ * This is the base class for all widgets.
  *
  * @require(qx.module.Core)
  * @require(qx.module.event.GestureHandler)
@@ -324,7 +324,7 @@ qx.Bootstrap.define("qx.ui.mobile.core.Widget", {
      * @param index {Integer} Index, at which the widget will be inserted
      * @param options {Map?null} Optional layout data for widget.
      */
-    _addAt : function(child, index, options)
+    appendAt : function(child, index, options)
     {
       var ref = this.getChildren()[index];
 
@@ -394,12 +394,6 @@ qx.Bootstrap.define("qx.ui.mobile.core.Widget", {
       return this.getChildren().indexOf(child);
     },
 
-
-   /*
-    ---------------------------------------------------------------------------
-      Layout handling
-    ---------------------------------------------------------------------------
-    */
 
     /**
      * Set a layout manager for the widget. A layout manager can only be connected
@@ -502,13 +496,6 @@ qx.Bootstrap.define("qx.ui.mobile.core.Widget", {
     },
 
 
-    /*
-    ---------------------------------------------------------------------------
-      Content handling
-    ---------------------------------------------------------------------------
-    */
-
-
     _applyActivatable : function(value, old) {
       this.setAttribute("data-activatable", value ? "true" : null);
 
@@ -575,14 +562,6 @@ qx.Bootstrap.define("qx.ui.mobile.core.Widget", {
         this.addClass(value);
       }
     },
-
-
-
-    /*
-    ---------------------------------------------------------------------------
-      Visibility handling
-    ---------------------------------------------------------------------------
-    */
 
 
     // property apply
