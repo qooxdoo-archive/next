@@ -30,6 +30,111 @@ qx.Bootstrap.define("qx.ui.mobile.core.Widget", {
   extend : qxWeb,
 
 
+  statics : {
+
+    attachWidget : function(clazz) {
+      var name = clazz.classname.split(".");
+      name = qx.lang.String.firstLow(name[name.length - 1]);
+      var data = {};
+      var index = qx.Bootstrap.getConstructorArgumentsCount(clazz);
+      data[name] = function() {
+        var args = qx.lang.Array.fromArguments(arguments);
+        // Add the DOM element as last argument
+        args[index] = this[0];
+        var Temp = qx.Bootstrap.curryConstructor(clazz, args);
+        return new Temp();
+      };
+      qxWeb.$attach(data);
+    },
+
+    /** @type {String} Prefix for the auto id */
+    ID_PREFIX : "qx_id_",
+
+    /** @type {Integer} Incremental counter of the current id */
+    __idCounter : 0,
+
+
+    /**
+     * Returns the current widget id of the registry.
+
+     * @return {Integer} The current id
+     * @internal
+     */
+    getCurrentId : function() {
+      return qx.ui.mobile.core.Widget.__idCounter;
+    },
+
+
+    /**
+     * Returns the widget with the given id.
+     *
+     * @param id {String} The id of the widget
+     * @return {Widget} The widget with the given id
+     */
+    getWidgetById : function(id) {
+      var el = document.getElementById(id);
+      return el ? el.$$widget : undefined;
+    },
+
+
+    /**
+     * Mapping of attribute properties to their real attribute name.
+     *
+     * @internal
+     */
+    ATTRIBUTE_MAPPING : {
+      "selectable" :
+      {
+        attribute : "data-selectable",
+        values :
+        {
+          "true" : null,
+          "false" : "false"
+        }
+      },
+      "activatable" :
+      {
+        attribute : "data-activatable",
+        values :
+        {
+          "true" :"true",
+          "false" : null
+        }
+      },
+      "readOnly" :
+      {
+        attribute : "readonly"
+      }
+    },
+
+    /**
+     * Fetches elements with a data attribute named <code>data-qx-widget</code>
+     * containing the class name of the desired widget and initializes them as
+     * widgets.
+     *
+     * @param selector {String?} Optional selector expression or filter function to
+     * restrict the list of elements
+     * @attachStatic {qxWeb}
+     */
+    initWidgets : function(selector) {
+      var elements = document.querySelectorAll("*[data-qx-widget]");
+      if (selector) {
+        var filterFunc = selector;
+        if (qx.Bootstrap.getClass(selector) == "String") {
+          filterFunc = function(el) {
+            var matches = el.webkitMatchesSelector || el.mozMatchesSelector || el.msMatchesSelector;
+            return matches.call(el, selector);
+          };
+        }
+        elements = Array.prototype.filter.call(elements, filterFunc);
+      }
+      for (var i=0, l=elements.length; i<l; i++) {
+        qxWeb(elements[i]);
+      }
+    }
+  },
+
+
   construct : function(element) {
     this.base(qxWeb, "constructor");
 
@@ -150,151 +255,6 @@ qx.Bootstrap.define("qx.ui.mobile.core.Widget", {
   },
 
 
-  statics : {
-
-    attachWidget : function(clazz) {
-      var name = clazz.classname.split(".");
-      name = qx.lang.String.firstLow(name[name.length - 1]);
-      var data = {};
-      var index = qx.Bootstrap.getConstructorArgumentsCount(clazz);
-      data[name] = function() {
-        var args = qx.lang.Array.fromArguments(arguments);
-        // Add the DOM element as last argument
-        args[index] = this[0];
-        var Temp = qx.Bootstrap.curryConstructor(clazz, args);
-        return new Temp();
-      };
-      qxWeb.$attach(data);
-    },
-
-    /** @type {String} Prefix for the auto id */
-    ID_PREFIX : "qx_id_",
-
-    /** @type {Map} Internal data structure to store widgets */
-    __registry : {},
-
-    /** @type {Integer} Incremental counter of the current id */
-    __idCounter : 0,
-
-
-    /**
-     * Event handler. Called when the application is in shutdown.
-     * @internal
-     */
-    onShutdown : function() {
-      delete qx.ui.mobile.core.Widget.__registry;
-    },
-
-    /**
-     * Returns the current widget id of the registry.
-
-     * @return {Integer} The current id
-     * @internal
-     */
-    getCurrentId : function() {
-      return qx.ui.mobile.core.Widget.__idCounter;
-    },
-
-
-    /**
-     * Registers a widget with its id for internal widget handling.
-     *
-     * @param widget {Widget} The widget to register
-     *
-     * @internal
-     */
-    registerWidget : function(widget) {
-      var id = widget.id;
-      var registry = qx.ui.mobile.core.Widget.__registry;
-      if (qx.core.Environment.get("qx.debug")) {
-        qx.core.Assert.assertUndefined(registry[id], "Widget with the id '" + id + "' is already registered");
-      }
-      registry[id] = widget;
-    },
-
-
-    /**
-     * Unregisters the widget with the given id.
-     *
-     * @param id {String} The id of the widget to unregister
-     *
-     * @internal
-     */
-    unregisterWidget : function(id) {
-      delete qx.ui.mobile.core.Widget.__registry[id];
-    },
-
-
-   /**
-     * Returns the widget with the given id.
-     *
-     * @param id {String} The id of the widget
-     * @return {Widget} The widget with the given id
-     */
-    getWidgetById : function(id) {
-      return qx.ui.mobile.core.Widget.__registry[id];
-    },
-
-
-    /**
-     * Mapping of attribute properties to their real attribute name.
-     *
-     * @internal
-     */
-    ATTRIBUTE_MAPPING : {
-      "selectable" :
-      {
-        attribute : "data-selectable",
-        values :
-        {
-          "true" : null,
-          "false" : "false"
-        }
-      },
-      "activatable" :
-      {
-        attribute : "data-activatable",
-        values :
-        {
-          "true" :"true",
-          "false" : null
-        }
-      },
-      "readOnly" :
-      {
-        attribute : "readonly"
-      }
-    },
-
-    /**
-     * Fetches elements with a data attribute named <code>data-qx-widget</code>
-     * containing the class name of the desired widget and initializes them as
-     * widgets.
-     *
-     * @param selector {String?} Optional selector expression or filter function to
-     * restrict the list of elements
-     * @attachStatic {qxWeb}
-     */
-    initWidgets : function(selector) {
-      var elements = document.querySelectorAll("*[data-qx-widget]");
-      if (selector) {
-        var filterFunc = selector;
-        if (qx.Bootstrap.getClass(selector) == "String") {
-          filterFunc = function(el) {
-            var matches = el.webkitMatchesSelector || el.mozMatchesSelector || el.msMatchesSelector;
-            return matches.call(el, selector);
-          };
-        }
-        elements = Array.prototype.filter.call(elements, filterFunc);
-      }
-      for (var i=0, l=elements.length; i<l; i++) {
-        qxWeb(elements[i]);
-      }
-    }
-
-  },
-
-
   members : {
     __layoutManager : null,
 
@@ -372,8 +332,7 @@ qx.Bootstrap.define("qx.ui.mobile.core.Widget", {
     _getParentWidget : function() {
       var parent = this.getParents();
       if (parent[0]) {
-        // TODO: store widget instance on DOM element?
-        return qx.ui.mobile.core.Widget.getWidgetById(parent[0].id);
+        return parent[0].$$widget;
       }
     },
 
@@ -842,7 +801,6 @@ qx.Bootstrap.define("qx.ui.mobile.core.Widget", {
 
 
   classDefined : function(statics) {
-    qxWeb(window).on("unload", statics.onShutdown, statics);
     qxWeb.$attachStatic({
       initWidgets : statics.initWidgets,
       $attachWidget : statics.attachWidget
