@@ -630,20 +630,6 @@ qx.Bootstrap.define("qx.ui.mobile.core.Widget", {
     },
 
 
-    /**
-     * Toggles the given CSS. Adds or removes the CSS class from the container element of the widget.
-     *
-     * @param cssClass {String} The CSS class to toggle
-     */
-    toggleClass : function(cssClass) {
-      if (this.hasClass(cssClass)) {
-        this.removeClass(cssClass);
-      } else {
-        this.addClass(cssClass);
-      }
-      return this;
-    },
-
 
     /*
     ---------------------------------------------------------------------------
