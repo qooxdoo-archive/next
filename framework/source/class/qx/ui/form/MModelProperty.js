@@ -44,7 +44,7 @@ qx.Mixin.define("qx.ui.form.MModelProperty",
     model :
     {
       nullable : true,
-      event : "changeModel",
+      event : true,
       apply : "_applyModel",
       dereference : true
     }

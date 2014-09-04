@@ -72,7 +72,7 @@ qx.Bootstrap.define("qx.data.store.Rest",
      */
     model: {
       nullable: true,
-      event: "changeModel"
+      event: true
     }
   },
 

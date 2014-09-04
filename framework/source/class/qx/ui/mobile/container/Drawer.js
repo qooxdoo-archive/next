@@ -119,7 +119,7 @@ qx.Bootstrap.define("qx.ui.mobile.container.Drawer",
       check : "Number",
       init : 300,
       apply : "_applySize",
-      event : "resize"
+      event : true
     },
 
 

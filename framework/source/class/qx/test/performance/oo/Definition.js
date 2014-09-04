@@ -39,7 +39,7 @@ qx.Bootstrap.define("qx.test.performance.oo.Definition",
               a: {
                 init: true,
                 check: "Boolean",
-                event: "changeA"
+                event: true
               },
               b: {
                 nullable: true,
@@ -88,7 +88,7 @@ qx.Bootstrap.define("qx.test.performance.oo.Definition",
           a: {
             init: true,
             check: "Boolean",
-            event: "changeA"
+            event: true
           },
           b: {
             nullable: true,

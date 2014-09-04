@@ -75,7 +75,7 @@ qx.Bootstrap.define("qx.ui.mobile.basic.Label",
       init : null,
       check : "_checkValue",
       apply : "_applyValue",
-      event : "changeValue"
+      event : true
     },
 
 

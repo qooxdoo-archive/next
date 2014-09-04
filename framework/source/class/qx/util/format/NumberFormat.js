@@ -107,7 +107,7 @@ qx.Bootstrap.define("qx.util.format.NumberFormat",
     {
       check : "String",
       init : "",
-      event : "changeNumberFormat"
+      event : true
     },
 
 
@@ -116,7 +116,7 @@ qx.Bootstrap.define("qx.util.format.NumberFormat",
     {
       check : "String",
       init : "",
-      event : "changeNumberFormat"
+      event : true
     }
   },
 

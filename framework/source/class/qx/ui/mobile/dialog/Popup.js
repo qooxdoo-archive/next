@@ -109,7 +109,7 @@ qx.Bootstrap.define("qx.ui.mobile.dialog.Popup",
       apply : "_applyTitle",
       nullable : true,
       check : "String",
-      event : "changeTitle"
+      event : true
     },
 
 
@@ -121,7 +121,7 @@ qx.Bootstrap.define("qx.ui.mobile.dialog.Popup",
       check : "String",
       apply : "_applyIcon",
       nullable : true,
-      event : "changeIcon"
+      event : true
     },
 
 

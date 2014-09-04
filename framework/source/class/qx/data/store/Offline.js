@@ -64,7 +64,7 @@ qx.Bootstrap.define("qx.data.store.Offline",
      */
     model : {
       nullable: true,
-      event: "changeModel",
+      event: true,
       apply: "_applyModel"
     }
   },

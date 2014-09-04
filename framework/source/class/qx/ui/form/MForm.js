@@ -33,7 +33,7 @@ qx.Mixin.define("qx.ui.form.MForm",
       check : "Boolean",
       init : true,
       apply : "_applyValid",
-      event : "changeValid"
+      event : true
     },
 
 
@@ -43,7 +43,7 @@ qx.Mixin.define("qx.ui.form.MForm",
     required : {
       check : "Boolean",
       init : false,
-      event : "changeRequired"
+      event : true
     },
 
 
@@ -53,7 +53,7 @@ qx.Mixin.define("qx.ui.form.MForm",
     invalidMessage : {
       check : "String",
       init: "",
-      event : "changeInvalidMessage"
+      event : true
     },
 
 
@@ -64,7 +64,7 @@ qx.Mixin.define("qx.ui.form.MForm",
     requiredInvalidMessage : {
       check : "String",
       nullable : true,
-      event : "changeInvalidMessage"
+      event : true
     }
   },
 

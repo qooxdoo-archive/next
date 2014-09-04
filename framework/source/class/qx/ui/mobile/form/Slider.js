@@ -92,7 +92,7 @@ qx.Bootstrap.define("qx.ui.mobile.form.Slider",
       check : "Number",
       init : 0,
       apply : "_refresh",
-      event : "changeMinimum"
+      event : true
     },
 
 
@@ -105,7 +105,7 @@ qx.Bootstrap.define("qx.ui.mobile.form.Slider",
       check : "Number",
       init : 100,
       apply : "_refresh",
-      event : "changeMaximum"
+      event : true
     },
 
 
@@ -117,7 +117,7 @@ qx.Bootstrap.define("qx.ui.mobile.form.Slider",
     {
       check : "Number",
       init : 1,
-      event : "changeStep"
+      event : true
     },
 
 

@@ -57,7 +57,7 @@ qx.Bootstrap.define("qx.ui.mobile.embed.Html",
       check : "String",
       init : null,
       nullable : true,
-      event : "changeHtml",
+      event : true,
       apply : "_applyHtml"
     }
   },

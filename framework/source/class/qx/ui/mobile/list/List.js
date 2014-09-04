@@ -138,7 +138,7 @@ qx.Bootstrap.define("qx.ui.mobile.list.List",
     delegate :
     {
       apply: "_applyDelegate",
-      event: "changeDelegate",
+      event: true,
       init: null,
       nullable: true
     },
@@ -151,7 +151,7 @@ qx.Bootstrap.define("qx.ui.mobile.list.List",
     {
       check : "qx.data.Array",
       apply : "_applyModel",
-      event: "changeModel",
+      event: true,
       nullable : true,
       init : null
     },

@@ -70,7 +70,7 @@ qx.Bootstrap.define("qx.ui.mobile.tabbar.TabBar",
       nullable : true,
       init : null,
       apply : "_applySelection",
-      event : "changeSelection"
+      event : true
     }
   },
 

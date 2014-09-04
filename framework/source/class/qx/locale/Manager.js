@@ -173,7 +173,7 @@ qx.Bootstrap.define("qx.locale.Manager",
       check : "String",
       nullable : true,
       apply : "_applyLocale",
-      event : "changeLocale"
+      event : true
     }
   },
 

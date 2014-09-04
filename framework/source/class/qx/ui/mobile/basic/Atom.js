@@ -88,7 +88,7 @@ qx.Bootstrap.define("qx.ui.mobile.basic.Atom",
       apply : "_applyLabel",
       nullable : true,
       check : "String",
-      event : "changeLabel"
+      event : true
     },
 
     /** Any URI String supported by qx.ui.mobile.basic.Image to display an icon */
@@ -97,7 +97,7 @@ qx.Bootstrap.define("qx.ui.mobile.basic.Atom",
       check : "String",
       apply : "_applyIcon",
       nullable : true,
-      event : "changeIcon"
+      event : true
     },
 
 

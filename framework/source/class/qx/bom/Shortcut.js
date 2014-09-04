@@ -68,7 +68,7 @@ qx.Bootstrap.define("qx.bom.Shortcut",
     {
       init : true,
       check : "Boolean",
-      event : "changeEnabled",
+      event : true,
       apply : "_applyEnabled"
     },
 

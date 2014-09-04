@@ -85,7 +85,7 @@ qx.Bootstrap.define("qx.ui.mobile.form.RadioGroup",
     {
       check : "Boolean",
       apply : "_applyEnabled",
-      event : "changeEnabled",
+      event : true,
       init: true
     },
 
@@ -118,7 +118,7 @@ qx.Bootstrap.define("qx.ui.mobile.form.RadioGroup",
       check : "Boolean",
       init : true,
       apply : "_applyValid",
-      event : "changeValid"
+      event : true
     },
 
     /**
@@ -127,7 +127,7 @@ qx.Bootstrap.define("qx.ui.mobile.form.RadioGroup",
     required : {
       check : "Boolean",
       init : false,
-      event : "changeRequired"
+      event : true
     },
 
     /**
@@ -136,7 +136,7 @@ qx.Bootstrap.define("qx.ui.mobile.form.RadioGroup",
     invalidMessage : {
       check : "String",
       init: "",
-      event : "changeInvalidMessage",
+      event : true,
       apply : "_applyInvalidMessage"
     },
 
@@ -148,7 +148,7 @@ qx.Bootstrap.define("qx.ui.mobile.form.RadioGroup",
     requiredInvalidMessage : {
       check : "String",
       nullable : true,
-      event : "changeInvalidMessage"
+      event : true
     }
   },
 

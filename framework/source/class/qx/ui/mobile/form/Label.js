@@ -91,7 +91,7 @@ qx.Bootstrap.define("qx.ui.mobile.form.Label",
       nullable : true,
       init : null,
       apply : "_applyValue",
-      event : "changeValue"
+      event : true
     },
 
 

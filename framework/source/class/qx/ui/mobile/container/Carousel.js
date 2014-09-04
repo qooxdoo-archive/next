@@ -143,7 +143,7 @@ qx.Bootstrap.define("qx.ui.mobile.container.Carousel",
       check : "Number",
       init : 0,
       apply : "_scrollToPage",
-      event : "changeCurrentIndex"
+      event : true
     },
 
 

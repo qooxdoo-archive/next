@@ -84,7 +84,7 @@ qx.Bootstrap.define("qx.ui.mobile.container.Collapsible",
       init : true,
       nullable : false,
       apply : "_applyCollapsed",
-      event : "changeCollapsed"
+      event : true
     },
 
 

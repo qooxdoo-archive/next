@@ -75,7 +75,7 @@ qx.Bootstrap.define("qx.data.controller.Object",
     model :
     {
       check: "Object",
-      event: "changeModel",
+      event: true,
       apply: "_applyModel",
       nullable: true,
       dereference: true

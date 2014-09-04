@@ -239,12 +239,12 @@ qx.Bootstrap.define("qx.test.data.store.Json",
         {
           a : {
             check : "String",
-            event : "changeA"
+            event : true
           },
 
           b : {
             check : "String",
-            event : "changeB"
+            event : true
           }
         }
       });

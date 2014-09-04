@@ -86,7 +86,7 @@ qx.Bootstrap.define("qx.ui.mobile.page.NavigationPage",
     {
       check : "String",
       init : "",
-      event : "changeTitle",
+      event : true,
       apply : "_applyTitle"
     },
 

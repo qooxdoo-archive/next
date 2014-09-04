@@ -158,7 +158,7 @@ qx.Bootstrap.define("qx.ui.mobile.core.Widget", {
       init: true,
       check : "Boolean",
       nullable: false,
-      event : "changeEnabled",
+      event : true,
       apply: "_applyEnabled"
     },
 
@@ -189,7 +189,7 @@ qx.Bootstrap.define("qx.ui.mobile.core.Widget", {
       check : ["visible", "hidden", "excluded"],
       init : "visible",
       apply : "_applyVisibility",
-      event : "changeVisibility"
+      event : true
     },
 
 

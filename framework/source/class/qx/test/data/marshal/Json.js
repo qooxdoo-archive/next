@@ -644,9 +644,9 @@ qx.Bootstrap.define("qx.test.data.marshal.Json",
         extend : Object,
         include : [qx.event.MEmitter],
         properties : {
-          s : {event : "s"},
-          b : {event : "b"},
-          n : {event : "n"}
+          s : {event : true},
+          b : {event : true},
+          n : {event : true}
         }
       });
 
@@ -710,7 +710,7 @@ qx.Bootstrap.define("qx.test.data.marshal.Json",
         extend : Object,
         include : [qx.event.MEmitter],
         properties : {
-          b : {event : "b"}
+          b : {event : true}
         }
       });
 
