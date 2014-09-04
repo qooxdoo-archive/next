@@ -106,19 +106,19 @@ qx.Bootstrap.define("qx.ui.mobile.list.List",
     /**
      * Fired when the selection is changed.
      */
-    changeSelection : "qx.event.type.Data",
+    changeSelection : "Number",
 
 
     /**
      * Fired when the group selection is changed.
      */
-    changeGroupSelection : "qx.event.type.Data",
+    changeGroupSelection : "Number",
 
 
     /**
      * Fired when an item should be removed from list.
      */
-    removeItem : "qx.event.type.Data"
+    removeItem : "Number"
   },
 
 

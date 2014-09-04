@@ -61,11 +61,17 @@ qx.Bootstrap.define("qx.ui.mobile.layout.Card",
 
   events :
   {
-    /** Fired when the animation of a page transition starts */
-    animationStart : "qx.event.type.Data",
+    /** 
+     * Fired when the animation of a page transition starts 
+     * [fromWidget, toWidget]
+     */
+    animationStart : "Array",
 
-    /** Fired when the animation of a page transition ends */
-    animationEnd : "qx.event.type.Data"
+    /** 
+     * Fired when the animation of a page transition ends
+     * [fromWidget, toWidget]
+     */
+    animationEnd : "Array"
   },
 
 

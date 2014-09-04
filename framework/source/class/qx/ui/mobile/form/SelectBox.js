@@ -98,8 +98,12 @@ qx.Bootstrap.define("qx.ui.mobile.form.SelectBox",
   {
     /**
      * Fired when user selects an item.
+     * {
+     *   index : number,
+     *   item : var
+     * }
      */
-    changeSelection : "qx.event.type.Data"
+    changeSelection : "Object"
   },
 
 

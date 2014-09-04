@@ -75,8 +75,12 @@ qx.Bootstrap.define("qx.ui.mobile.dialog.Menu",
   {
     /**
      * Fired when the selection is changed.
+     * { 
+     *   index : number
+     *   item : var
+     * }
      */
-    changeSelection : "qx.event.type.Data"
+    changeSelection : "Object"
   },
 
 

@@ -56,7 +56,7 @@ qx.Bootstrap.define("qx.ui.mobile.form.Form",
 
   events : {
     /** Fired as soon as something changes in the form.*/
-    "change" : "qx.event.type.Event"
+    "change" : null
   },
 
 

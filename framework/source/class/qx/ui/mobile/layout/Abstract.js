@@ -32,8 +32,16 @@ qx.Bootstrap.define("qx.ui.mobile.layout.Abstract",
 
   events :
   {
-    /** Fired when the layout is updated. Data contains the "widget", "action", "properties" */
-    updateLayout : "qx.event.type.Data"
+    /** 
+     * Fired when the layout is updated. Data contains the "widget", "action", "properties" 
+     * { 
+     *    widget : var
+     *    action : String
+     *    properties : Map
+     * }
+     */
+
+    updateLayout : "Object"
   },
 
 

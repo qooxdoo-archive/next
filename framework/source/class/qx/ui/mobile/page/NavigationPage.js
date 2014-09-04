@@ -75,7 +75,7 @@ qx.Bootstrap.define("qx.ui.mobile.page.NavigationPage",
   events :
   {
     /** Fired when the user tapped on the navigation button */
-    action : "qx.event.type.Event"
+    action : null
   },
 
 

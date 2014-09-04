@@ -94,12 +94,12 @@ qx.Bootstrap.define("qx.ui.mobile.container.Scroll",
     /**
     * Fired when a momentum starts on an iOS device.
     */
-    momentumStart : "qx.event.type.Event",
+    momentumStart : "qx.event.type.Event", //TODO: could be removed
 
     /**
     * Fired when a momentum ends on an iOS device.
     */
-    momentumEnd : "qx.event.type.Data"
+    momentumEnd : "qx.event.type.Data" //TODO: could be removed
   },
 
 
