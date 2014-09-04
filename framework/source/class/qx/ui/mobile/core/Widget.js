@@ -372,13 +372,13 @@ qx.Bootstrap.define("qx.ui.mobile.core.Widget", {
         }
       }
 
+      var oldLayout = this.getLayout();
+      if (oldLayout) {
+        oldLayout.disconnectFromWidget(this);
+      }
+
       if (layout) {
         layout.connectToWidget(this);
-      } else {
-        var oldLayout = this.getLayout();
-        if (oldLayout) {
-          oldLayout.disconnectFromWidget(this);
-        }
       }
 
       this.__layoutManager = layout;
