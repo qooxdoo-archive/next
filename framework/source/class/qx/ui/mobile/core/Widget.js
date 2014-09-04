@@ -106,7 +106,7 @@ qx.Bootstrap.define("qx.ui.mobile.core.Widget", {
     // Init member variables
 
     var clazz = qx.ui.mobile.core.Widget;
-    if (this.getAttribute("id")) {
+    if (!this.getAttribute("id")) {
       this.setAttribute("id", clazz.ID_PREFIX + clazz.__idCounter++);
     }
     this.defaultCssClass = undefined;
