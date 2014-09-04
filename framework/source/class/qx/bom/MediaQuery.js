@@ -95,15 +95,14 @@ qx.Bootstrap.define("qx.bom.MediaQuery", {
 
 
   members: {
-    /**
-     * The window object
-     */
+
     __ctxWindow: null,
 
-    /**
-     * The mediaquery Listener
-     */
+
     __mql: null,
+
+
+    __boundChanged: null,
 
     /**
      * Indicates if the document currently matches the media query list
@@ -139,7 +138,8 @@ qx.Bootstrap.define("qx.bom.MediaQuery", {
      * Initialize the mediaquery listener
      */
     __init: function () {
-      this.__mql.addListener(this.__changed.bind(this));
+      this.__boundChanged = this.__changed.bind(this);
+      this.__mql.addListener(this.__boundChanged);
     },
 
     /**
@@ -148,6 +148,10 @@ qx.Bootstrap.define("qx.bom.MediaQuery", {
     __changed: function () {
       this.matches = this.__mql.matches;
       this.emit("change", {matches: this.matches, query: this.query});
+    },
+
+    dispose: function() {
+      this.__mql.removeListener(this.__boundChanged);
     },
 
     /**
