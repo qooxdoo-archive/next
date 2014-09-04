@@ -46,7 +46,7 @@ qx.Bootstrap.define("qx.log.appender.Native",
      */
     process : function(entry) {
       var level = entry.level;
-      if (console[level]) {
+      if (console && console[level]) {
         var args = qx.log.appender.Util.toText(entry);
         console[level](args);
       }
