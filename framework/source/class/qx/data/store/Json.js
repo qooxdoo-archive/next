@@ -268,8 +268,6 @@ qx.Bootstrap.define("qx.data.store.Json",
        // create the class
        this._marshaler.toClass(data, true);
 
-       var oldModel = this.model;
-
        // set the initial data
        this.model = this._marshaler.toModel(data);
 

@@ -111,7 +111,6 @@ qx.Bootstrap.define("qx.data.store.Rest",
       var data = e.response,
           marshaler = this._marshaler,
           model,
-          oldModel = this.model,
           delegate = this._delegate;
 
       // Skip if data is empty

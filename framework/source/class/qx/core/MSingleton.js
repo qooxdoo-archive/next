@@ -20,6 +20,8 @@
 
 qx.Mixin.define("qx.core.MSingleton", {
   statics : {
+    __instance : null,
+
     getInstance: function() {
       if (!this.__instance) {
         this.__instance = new this();
