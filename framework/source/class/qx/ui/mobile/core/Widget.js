@@ -222,7 +222,7 @@ qx.Bootstrap.define("qx.ui.mobile.core.Widget", {
       var data = this.getAllData();
       for (var prop in data) {
         if (prop.indexOf("qxConfig") === 0) {
-          var propName = prop.substr(8).toLowerCase();
+          var propName = qx.lang.String.firstLow(prop.substr(8));
           if (qx.Bootstrap.hasProperty(this.constructor, propName)) {
             var value = data[prop];
             try {
