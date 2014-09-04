@@ -77,15 +77,18 @@ qx.Bootstrap.define("qx.ui.mobile.container.Scroll",
   events :
   {
     /** Fired when the scroll container reaches its end position (including momentum/inertia). */
-    scrollEnd : "qx.event.type.Event",
+    scrollEnd : null,
 
 
     /** Fired when a vertical or horizontal waypoint is triggered. Data:
-    * <code> {"offset": 0,
-    *        "input": "10%",
-    *        "index": 0}</code>
+    * <code> {
+    *   axis : "x" | "y",
+    *   index : Number,
+    *   element : Element,
+    *   direction : "right" | "left" | "down" | "up"
+    * }</code>
     */
-    waypoint : "qx.event.type.Data",
+    waypoint : "Object",
 
 
     /**

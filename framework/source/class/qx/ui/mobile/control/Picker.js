@@ -69,7 +69,7 @@ qx.Bootstrap.define("qx.ui.mobile.control.Picker",
      *   slot: 0
      * }</code>
      */
-    changeSelection : "qx.event.type.Data"
+    changeSelection : "Object"
   },
 
 
