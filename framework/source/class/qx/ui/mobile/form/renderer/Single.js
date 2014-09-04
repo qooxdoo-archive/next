@@ -173,31 +173,6 @@ qx.Bootstrap.define("qx.ui.mobile.form.renderer.Single",
       this._addRow(scrollContainer,name,new qx.ui.mobile.layout.VBox());
     },
 
-
-    /**
-     * @deprecated {3.5} Please use this._addRow(item, name, new qx.ui.mobile.layout.VBox()) instead.
-     *
-     * Adds a label and the widgets in two separate lines (rows).
-     * @param item {qx.ui.mobile.core.Widget} A form item to render.
-     * @param name {String} A name for the form item.
-     */
-    _addInSeparateLines : function(item, name) {
-      this._addRow(item, name, new qx.ui.mobile.layout.VBox());
-    },
-
-
-    /**
-     * @deprecated {3.5} Please use this._addRow(item, name, new qx.ui.mobile.layout.HBox()) instead.
-     *
-     * Adds a label and it according widget in one line (row).
-     * @param item {qx.ui.mobile.core.Widget} A form item to render.
-     * @param name {String} A name for the form item.
-     */
-    _addInOneLine : function(item, name) {
-      this._addRow(item, name, new qx.ui.mobile.layout.HBox());
-    },
-
-
     /**
     * Adds a label and its according widget in a row and applies the given layout.
     * @param item {qx.ui.mobile.core.Widget} A form item to render.
