@@ -35,6 +35,7 @@
       "api-data",
       "build",
       "clean",
+      "compile-scss",
       "distclean",
       "fix",
       "info",
@@ -56,10 +57,14 @@
   "let" :
   {
     "APPLICATION"  : "apiviewer",
+    "APPLICATION_PATH" : "apiviewer",
     "QOOXDOO_PATH" : "../..",
     "CACHE"        : "${TMPDIR}/qx${QOOXDOO_VERSION}/cache",
     "ROOT"         : ".",
-    "TEST_INCLUDE" : "${APPLICATION}.*"
+    "TEST_INCLUDE" : "${APPLICATION}.*",
+    "MOBILE_THEME" : "custom",
+    "MOBILE_THEME_PATH" : "${APPLICATION_PATH}/css/${MOBILE_THEME}.css",
+    "TEST_LOADER" : "testrunner.TestLoaderMobile"
   },
 
   "config-warnings" :
@@ -73,7 +78,7 @@
   "jobs" :
   {
     "libraries" : {
-      "extend" : [ "apicnf::libraries" ]  
+      "extend" : [ "apicnf::libraries" ]
     },
 
     "source" :
@@ -83,6 +88,24 @@
       "let" :
       {
         "API_INCLUDE"  : ["${APPLICATION}.*"]
+      }
+    },
+
+    "compile-scss" :
+    {
+      "desc"   : "Compile the theme scss once",
+      "extend" : ["cache"],
+      "let" :
+      {
+        "QX_MOBILE_THEME_PATH"      : "${QOOXDOO_PATH}/framework/source/resource/qx/mobile/scss",
+        "QX_SHARED_THEME_PATH"      : "${QOOXDOO_PATH}/framework/source/resource/qx/scss",
+        "APPLICATION_THEME_PATH"    : "source/theme/${APPLICATION_PATH}",
+        "APPLICATION_RESOURCE_PATH" : "source/resource/${APPLICATION_PATH}"
+      },
+      "shell" :
+      {
+        "command" : "sass -C -t compressed -I ${QX_MOBILE_THEME_PATH} -I ${QX_SHARED_THEME_PATH} --update ${APPLICATION_THEME_PATH}/scss:${APPLICATION_RESOURCE_PATH}/css",
+        "command-not-found" : "It seems that Sass (http://sass-lang.com/) is not installed and/or executable, which is needed for the SCSS-compilation."
       }
     },
 

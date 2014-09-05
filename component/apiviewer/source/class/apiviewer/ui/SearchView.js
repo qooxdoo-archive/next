@@ -21,24 +21,18 @@
 /**
  * Shows the search pane.
  */
-qx.Class.define("apiviewer.ui.SearchView",
+qx.Bootstrap.define("apiviewer.ui.SearchView",
 {
-  extend : qx.ui.container.Composite,
+  extend : qx.ui.mobile.core.Widget,
 
-
-  /*
-  *****************************************************************************
-     CONSTRUCTOR
-  *****************************************************************************
-  */
 
   construct : function()
   {
-    this.base(arguments);
+    this.base(qx.ui.mobile.core.Widget, "constructor");
 
-    var layout = new qx.ui.layout.VBox();
+    var layout = new qx.ui.mobile.layout.VBox();
     this.setLayout(layout);
-    this.setBackgroundColor("white");
+    this.setStyle("backgroundColor", "white");
 
     this.__initresult = false;
     this.listdata = [];
@@ -49,13 +43,6 @@ qx.Class.define("apiviewer.ui.SearchView",
   },
 
 
-
-  /*
-  *****************************************************************************
-     EVENTS
-  *****************************************************************************
-  */
-
   events : {
     /**
      * Fired when a search operation has finished
@@ -63,14 +50,6 @@ qx.Class.define("apiviewer.ui.SearchView",
     searchFinished: "qx.event.type.Event"
   },
 
-
-
-
-  /*
-  *****************************************************************************
-     MEMBERS
-  *****************************************************************************
-  */
 
   members :
   {
@@ -90,7 +69,7 @@ qx.Class.define("apiviewer.ui.SearchView",
      * @param term {String} Search term
      */
     search : function(term) {
-      this.addListenerOnce("searchFinished", function() {
+      this.once("searchFinished", function() {
         // select the first result
         // the timeout is needed since the detail view might not
         // be done rendering the initially selected item, in
@@ -116,7 +95,7 @@ qx.Class.define("apiviewer.ui.SearchView",
      */
     _showSearchForm : function()
     {
-
+      return; // TODO
       //--------------------------------------------------------
       // Outputs the generated index file content to a textarea
       //--------------------------------------------------------
@@ -190,7 +169,7 @@ qx.Class.define("apiviewer.ui.SearchView",
         typeToggleButton.setKeepFocus(true);
         typeToggleButton.setValue(true);
         typeContainer.add(typeToggleButton);
-        typeToggleButton.addListener("execute", function(e) {
+        typeToggleButton.on("execute", function(e) {
           this._searchResult(this.sinput.getValue() || "");
         }, this);
         this.__typeFilter.bind("["+i+"]", typeToggleButton, "value");
@@ -206,7 +185,7 @@ qx.Class.define("apiviewer.ui.SearchView",
         typeToggleButtonAll.setKeepFocus(true);
         typeToggleButtonAll.setMarginLeft(10);
         typeContainer.add(typeToggleButtonAll);
-        typeToggleButtonAll.addListener("changeValue", function(e) {
+        typeToggleButtonAll.on("changeValue", function(e) {
           for(var i=0; i<this.__typeFilter.length; i++){
             this.__typeFilter.setItem(i, e.getData());
           }
@@ -223,7 +202,7 @@ qx.Class.define("apiviewer.ui.SearchView",
       sform.add(new qx.ui.basic.Label("Namespace filter: "), {row: 2, column: 0});
       sform.add(this.namespaceTextField, {row: 2, column: 1});
 
-      this.namespaceTextField.addListener("keyup", function(e) {
+      this.namespaceTextField.on("keyup", function(e) {
         this._searchResult(this.sinput.getValue() || "");
       }, this);
 
@@ -254,7 +233,7 @@ qx.Class.define("apiviewer.ui.SearchView",
 
       this._selectionModel = table.getSelectionManager().getSelectionModel();
 
-      this._selectionModel.addListener("changeSelection", this._callDetailFrame, this);
+      this._selectionModel.on("changeSelection", this._callDetailFrame, this);
 
       this._table = table;
       // resize behavior
@@ -270,9 +249,9 @@ qx.Class.define("apiviewer.ui.SearchView",
       this.__initresult = true;
       this.__table = table;
 
-      //table.addListener("appear", this.__handleNote, this);
+      //table.on("appear", this.__handleNote, this);
 
-      //table.addListener("disappear", function(e) {
+      //table.on("disappear", function(e) {
       //  this.__note.hide();
       //}, this);
 
@@ -287,7 +266,7 @@ qx.Class.define("apiviewer.ui.SearchView",
       this.sinput.focus();
 
       // Submit events
-      this.sinput.addListener("changeValue", function(e) {
+      this.sinput.on("changeValue", function(e) {
         this._searchResult(this.sinput.getValue() || "");
       }, this);
     },
@@ -592,7 +571,7 @@ qx.Class.define("apiviewer.ui.SearchView",
       req.setAsynchronous(true);
       req.setTimeout(30000); // 30 sec
       req.setProhibitCaching(false);
-      req.addListener("completed", function(evt) {
+      req.on("completed", function(evt) {
         this.apiindex = eval("(" + evt.getContent() + ")");
         if (this.__searchTerm) {
           setTimeout(function() {
@@ -602,7 +581,7 @@ qx.Class.define("apiviewer.ui.SearchView",
         }
       }, this);
 
-      req.addListener("failed", function(evt) {
+      req.on("failed", function(evt) {
         this.warn("Couldn't load file: " + url);
       }, this);
 
@@ -685,20 +664,15 @@ qx.Class.define("apiviewer.ui.SearchView",
       } else {
         this.__initNote();
       }
+    },
+
+    dispose : function()
+    {
+      this.sinput.dispose();
+      this.__note.dispose();
+      this.listdata.forEach(function(item) {
+        item.dispose();
+      });
     }
-  },
-
-  /*
-  *****************************************************************************
-     DESTRUCTOR
-  *****************************************************************************
-  */
-
-  destruct : function()
-  {
-    this.apiindex = this._table = this.__table = this._tableModel = this.__typeFilter = this.__typesIndex =
-      this._selectionModel = null;
-    this._disposeObjects("sinput", "__note");
-    this._disposeArray("listdata");
   }
 });

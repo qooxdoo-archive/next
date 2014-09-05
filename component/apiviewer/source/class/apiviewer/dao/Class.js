@@ -20,7 +20,7 @@
 /**
  * This Class wraps the access to the documentation data of classes.
  */
-qx.Class.define("apiviewer.dao.Class",
+qx.Bootstrap.define("apiviewer.dao.Class",
 {
   extend : apiviewer.dao.Node,
 
@@ -29,8 +29,8 @@ qx.Class.define("apiviewer.dao.Class",
    */
   construct : function(classDocNode, pkg)
   {
-    this.base(arguments, classDocNode);
-    this.self(arguments).registerClass(this);
+    this.base(apiviewer.dao.Node, "constructor", classDocNode);
+    this.constructor.registerClass(this);
     this._package = pkg;
   },
 
@@ -231,7 +231,7 @@ qx.Class.define("apiviewer.dao.Class",
      */
     getSuperClass : function()
     {
-      return this.self(arguments).getClassByName(this._docNode.attributes.superClass);
+      return this.constructor.getClassByName(this._docNode.attributes.superClass);
     },
 
 
@@ -831,7 +831,7 @@ qx.Class.define("apiviewer.dao.Class",
 
     _initializeFields : function()
     {
-      this.base(arguments);
+      this.base(apiviewer.dao.Node, "_initializeFields");
 
       this._desc = "";
       this._see = [];
@@ -868,26 +868,9 @@ qx.Class.define("apiviewer.dao.Class",
           this._see.push(childNode.attributes.name);
           break;
         default:
-          return this.base(arguments, childNode);
+          return this.base(apiviewer.dao.Node, "_addChildNode", childNode);
       }
       return true;
     }
-
-  },
-
-
-  /*
-   *****************************************************************************
-      DESTRUCTOR
-   *****************************************************************************
-   */
-
-  destruct : function()
-  {
-    this._see = this._superInterfaces = this._superMixins = this._events =
-      this._statics = this._properties = this._constants = this._appearances =
-      this._members = this._package = null;
-    this._disposeObjects("_constructor");
   }
-
 });

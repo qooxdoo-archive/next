@@ -24,14 +24,16 @@
 /**
  * The package tree.
  */
-qx.Class.define("apiviewer.ui.PackageTree",
+qx.Bootstrap.define("apiviewer.ui.PackageTree",
 {
-  extend : qx.ui.tree.Tree,
+  extend : qx.ui.mobile.core.Widget, // TODO
 
 
   construct : function()
   {
-    this.base(arguments, "Documentation");
+
+    this.base(qx.ui.mobile.core.Widget, "constructor");
+    return;
 
     this.setDecorator(null);
     this.setPadding(0);
@@ -165,7 +167,7 @@ qx.Class.define("apiviewer.ui.PackageTree",
         treeNode.add(packageTreeNode);
 
         // defer adding of child nodes
-        packageTreeNode.addListener("changeOpen", this.__getPackageNodeOpener(packageTreeNode, packageDoc, depth + 1), this);
+        packageTreeNode.on("changeOpen", this.__getPackageNodeOpener(packageTreeNode, packageDoc, depth + 1), this);
 
         // Open the package node if it has child packages
         if (depth < qx.core.Environment.get("apiviewer.initialTreeDepth") && packageDoc.getPackages().length > 0) {
@@ -190,20 +192,10 @@ qx.Class.define("apiviewer.ui.PackageTree",
         // Register the tree node
         this._classTreeNodeHash[classDoc.getFullName()] = classTreeNode;
       }
+    },
+
+    dispose : function() {
+      this.__root.dispose();
     }
-
-  },
-
-
-  /*
-  *****************************************************************************
-     DESTRUCTOR
-  *****************************************************************************
-  */
-
-  destruct : function()
-  {
-    this._docTree = this._classTreeNodeHash = null;
-    this._disposeObjects("__root")
   }
 });

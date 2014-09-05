@@ -17,12 +17,12 @@
 
 ************************************************************************ */
 
-qx.Class.define("apiviewer.dao.ChildControl", {
+qx.Bootstrap.define("apiviewer.dao.ChildControl", {
   extend : apiviewer.dao.ClassItem,
 
   construct : function(classDocNode, parentClass, listName)
   {
-    this.base(arguments, classDocNode, parentClass);
+    this.base(apiviewer.dao.ClassItem, "constructor", classDocNode, parentClass);
     this._listName = listName;
   },
 
@@ -30,7 +30,7 @@ qx.Class.define("apiviewer.dao.ChildControl", {
 
     getTypes : function()
     {
-      var result = this.base(arguments);
+      var result = this.base(apiviewer.dao.ClassItem, "getTypes");
       var attributes = this._docNode.attributes;
       if (attributes.type) {
         result.push({

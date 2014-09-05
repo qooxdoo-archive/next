@@ -25,22 +25,13 @@
  * Shows the class details.
  * @require(qx.module.event.GestureHandler)
  */
-qx.Class.define("apiviewer.ui.ClassViewer",
+qx.Bootstrap.define("apiviewer.ui.ClassViewer",
 {
   extend : apiviewer.ui.AbstractViewer,
 
-
-
-
-  /*
-  *****************************************************************************
-     CONSTRUCTOR
-  *****************************************************************************
-  */
-
   construct : function()
   {
-    this.base(arguments);
+    this.base(apiviewer.ui.AbstractViewer, "constructor");
     this.addInfoPanel(new apiviewer.ui.panels.MethodPanel("constructor", "constructor"));
     this.addInfoPanel(new apiviewer.ui.panels.EventPanel("events", "events", true, true));
     this.addInfoPanel(new apiviewer.ui.panels.MethodPanel("methods-static", "static methods"));
@@ -49,17 +40,10 @@ qx.Class.define("apiviewer.ui.ClassViewer",
     this.addInfoPanel(new apiviewer.ui.panels.MethodPanel("methods", "methods"));
     this.addInfoPanel(new apiviewer.ui.panels.ChildControlsPanel("childControls", "child controls"));
 
-    this.getContentElement().setAttribute("class", "ClassViewer");
+    this.setAttribute("class", "ClassViewer");
 
     this._init(new apiviewer.dao.Class({}));
   },
-
-
-  /*
-  *****************************************************************************
-     STATICS
-  *****************************************************************************
-  */
 
   statics :
   {
@@ -284,17 +268,8 @@ qx.Class.define("apiviewer.ui.ClassViewer",
 
       return sourceViewUri;
     }
-
   },
 
-
-
-
-  /*
-  *****************************************************************************
-     MEMBERS
-  *****************************************************************************
-  */
 
   members :
   {
@@ -337,7 +312,7 @@ qx.Class.define("apiviewer.ui.ClassViewer",
       titleHtml.add(objectName, ' </span>');
 
       var className = classNode.getName();
-      var sourceUri = this.self(arguments).getSourceUri(classNode);
+      var sourceUri = this.constructor.getSourceUri(classNode);
       if (sourceUri) {
         className = '<a href="' + sourceUri + '" target="_blank" title="View Source">' + className + '</a>';
       }
@@ -801,18 +776,5 @@ qx.Class.define("apiviewer.ui.ClassViewer",
         }
       }
     }
-  },
-
-
-
-
-  /*
-  *****************************************************************************
-     DESTRUCTOR
-  *****************************************************************************
-  */
-
-  destruct : function() {
-    this._titleElem = this._classDescElem = this._markedElement = this._markedItemNode = null;
   }
 });

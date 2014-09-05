@@ -38,34 +38,20 @@
  * @asset(qx/icon/Tango/22/apps/utilities-graphics-viewer.png)
  * @asset(qx/icon/Tango/22/actions/media-seek-forward.png)
  */
-qx.Class.define("apiviewer.Viewer",
+qx.Bootstrap.define("apiviewer.Viewer",
 {
-  extend : qx.ui.container.Composite,
+  extend : qx.ui.mobile.core.Widget,
 
-
-
-
-  /*
-  *****************************************************************************
-     CONSTRUCTOR
-  *****************************************************************************
-  */
   construct : function()
   {
-    this.base(arguments);
+    this.base(qx.ui.mobile.core.Widget, "constructor");
 
     this.__menuItemStore = {};
 
-    var layout = new qx.ui.layout.VBox;
-
+    var layout = new qx.ui.mobile.layout.VBox();
     this.setLayout(layout);
 
-    this.add(this.__createHeader());
-
-    this.add(this.__createToolbar());
-
     var tree = new apiviewer.ui.PackageTree();
-    tree.setId("tree");
 
     this._searchView = new apiviewer.ui.SearchView();
 
@@ -73,7 +59,7 @@ qx.Class.define("apiviewer.Viewer",
     var toggleView = this.__createToggleView(tree, this._searchView, legend);
     var mainFrame = this.__createDetailFrame();
 
-    this.add(this.__createSplitPane(toggleView, mainFrame), {flex:1});
+    this.append(this.__createSplitPane(toggleView, mainFrame), {flex:1});
 
     // Search for the value of the "search" URL query key.
     var parsedUri = qx.util.Uri.parseUri(location.href);
@@ -84,12 +70,6 @@ qx.Class.define("apiviewer.Viewer",
     }
   },
 
-
-  /*
-  *****************************************************************************
-     MEMBERS
-  *****************************************************************************
-  */
 
   members :
   {
@@ -108,13 +88,13 @@ qx.Class.define("apiviewer.Viewer",
      */
     __createToggleView : function(treeWidget, searchWidget, infoWidget)
     {
-      var stack = new qx.ui.container.Stack;
+      var stack = new qx.ui.container.Stack();
       stack.setAppearance("toggleview");
       stack.add(treeWidget);
       stack.add(searchWidget);
       stack.add(infoWidget);
 
-      this.__toggleGroup.addListener("changeSelection", function(e)
+      this.__toggleGroup.on("changeSelection", function(e)
       {
         var selected = e.getData()[0];
         var show = selected != null ? selected.getUserData("value") : null;
@@ -151,191 +131,6 @@ qx.Class.define("apiviewer.Viewer",
     },
 
 
-   /**
-     * Creates the tool bar
-     *
-     * @return {qx.ui.toolbar.ToolBar} The configured tool bar
-     */
-    __createToolbar : function()
-    {
-      var toolbar = new qx.ui.toolbar.ToolBar;
-
-      var part = new qx.ui.toolbar.Part;
-      toolbar.add(part);
-      this.__firstPartHash = part.toHashCode();
-
-      var showPackages = new qx.ui.toolbar.RadioButton(this.tr("Content"), "icon/22/apps/utilities-dictionary.png");
-      showPackages.setUserData("value", "packages");
-      showPackages.setValue(true);
-      showPackages.setToolTipText(this.tr("Show/hide the packages."));
-      part.add(showPackages);
-
-      var showSearch = new qx.ui.toolbar.RadioButton(this.tr("Search"), "icon/22/actions/edit-find.png");
-      showSearch.setUserData("value", "search");
-      showSearch.setToolTipText(this.tr("Search for packages, classes and members."));
-      part.add(showSearch);
-
-      var showLegend = new qx.ui.toolbar.RadioButton(this.tr("Legend"), "icon/22/apps/utilities-help.png");
-      showLegend.setUserData("value", "legend");
-      showLegend.setToolTipText(this.tr("Show/hide the legend."));
-      part.add(showLegend);
-
-      var group = new qx.ui.form.RadioGroup(showPackages, showSearch, showLegend);
-      group.setAllowEmptySelection(true);
-      this.__toggleGroup = group;
-
-      toolbar.addSpacer();
-
-      var part = new qx.ui.toolbar.Part;
-      toolbar.add(part);
-
-      var expandBtn = new qx.ui.toolbar.CheckBox(this.tr("Properties"), "apiviewer/image/property18.gif");
-      expandBtn.setId("btn_expand");
-      expandBtn.setValue(true);
-      expandBtn.setToolTipText(this.tr("Show/hide all generated property methods."));
-      part.add(expandBtn);
-
-      var includesBtn = new qx.ui.toolbar.MenuButton(this.tr("Includes"), "apiviewer/image/overlay_mixin18.gif");
-      includesBtn.setId("menubtn_includes");
-      includesBtn.setToolTipText(this.tr("Show/hide members of other classes/mixins inherited/included in the current class"));
-      part.add(includesBtn);
-
-      var includesMenu = new qx.ui.menu.Menu();
-
-      var inheritBtn = new qx.ui.menu.CheckBox(this.tr("Inherited"));
-      inheritBtn.setId("btn_inherited");
-      inheritBtn.setToolTipText(this.tr("Show/hide inherited members of the current class."));
-      includesMenu.add(inheritBtn);
-
-      var mixinIncludedBtn = new qx.ui.menu.CheckBox(this.tr("Mixin Included"));
-      mixinIncludedBtn.setId("btn_included");
-      mixinIncludedBtn.setToolTipText(this.tr("Show/hide included members of the current class."));
-      mixinIncludedBtn.setValue(true);
-      includesMenu.add(mixinIncludedBtn);
-
-      includesBtn.setMenu(includesMenu);
-
-      var protectedBtn = new qx.ui.toolbar.CheckBox(this.tr("Protected"), "apiviewer/image/method_protected18.gif");
-      protectedBtn.setId("btn_protected");
-      protectedBtn.setToolTipText(this.tr("Show/hide protected members of the current class."));
-      part.add(protectedBtn);
-
-      var privateBtn = new qx.ui.toolbar.CheckBox(this.tr("Private"), "apiviewer/image/method_private18.gif");
-      privateBtn.setId("btn_private");
-      privateBtn.setToolTipText(this.tr("Show/hide private members of the current class."));
-      part.add(privateBtn);
-
-      var internalBtn = new qx.ui.toolbar.CheckBox(this.tr("Internal"), "apiviewer/image/method_internal18.gif");
-      internalBtn.setId("btn_internal");
-      internalBtn.setToolTipText(this.tr("Show/hide internal members of the current class."));
-      part.add(internalBtn);
-
-      // overflow handling
-      toolbar.setOverflowHandling(true);
-
-      // add a button for overflow handling
-      var chevron = new qx.ui.toolbar.MenuButton(null, "icon/22/actions/media-seek-forward.png");
-      chevron.setAppearance("toolbar-button");  // hide the down arrow icon
-      toolbar.add(chevron);
-      toolbar.setOverflowIndicator(chevron);
-
-      // add the overflow menu
-      this.__overflowMenu = new qx.ui.menu.Menu();
-      chevron.setMenu(this.__overflowMenu);
-
-      // add the listener
-      toolbar.addListener("hideItem", function(e) {
-        var item = e.getData();
-        var menuItems = this._getMenuItems(item);
-        for (var i = 0; i < menuItems.length; i++) {
-          menuItems[i].setVisibility("visible");
-          if(menuItems[i] instanceof qx.ui.menu.Button) {
-            menuItems[i].getMenu().setPosition("right-top");
-          }
-        };
-      }, this);
-
-      toolbar.addListener("showItem", function(e) {
-        var item = e.getData();
-        var menuItems = this._getMenuItems(item);
-        for (var i = 0; i < menuItems.length; i++) {
-          menuItems[i].setVisibility("excluded");
-          if(menuItems[i] instanceof qx.ui.menu.Button) {
-            menuItems[i].getMenu().setPosition("bottom-left");
-          }
-        };
-      }, this);
-
-      return toolbar;
-    },
-
-
-    /**
-     * Helper for the overflow handling. It is responsible for returning a
-     * corresponding menu item for the given toolbar item.
-     *
-     * @param toolbarPart {qx.ui.toolbar.Part} The toolbar part to look for.
-     * @return {qx.ui.core.Widget[]} The coresponding menu items.
-     */
-    _getMenuItems : function(toolbarPart) {
-      var partChildren = toolbarPart.getChildren();
-      var menuItems = [];
-
-      // only add a separator if the first part pops in
-      if (toolbarPart.toHashCode() === this.__firstPartHash) {
-        var cachedItem = this.__menuItemStore[toolbarPart.toHashCode()];
-        if (!cachedItem) {
-          cachedItem = new qx.ui.menu.Separator();
-          this.__overflowMenu.addAt(cachedItem, 0);
-          this.__menuItemStore[toolbarPart.toHashCode()] = cachedItem;
-        }
-        menuItems.push(cachedItem);
-      }
-
-      // take every item in the part
-      for (var i = partChildren.length -1; i >= 0; i--) {
-        var toolbarItem = partChildren[i];
-        cachedItem = this.__menuItemStore[toolbarItem.toHashCode()];
-
-        if (!cachedItem) {
-          if (toolbarItem instanceof qx.ui.toolbar.RadioButton)
-          {
-            var cachedItem = new qx.ui.menu.RadioButton(toolbarItem.getLabel());
-            // bidirectional binding takes care of everything
-            toolbarItem.bind("value", cachedItem, "value");
-            cachedItem.bind("value", toolbarItem, "value");
-          }
-          else if(toolbarItem instanceof qx.ui.toolbar.MenuButton)
-          {
-            cachedItem = new qx.ui.menu.Button(
-              toolbarItem.getLabel().translate(),
-              toolbarItem.getIcon(),
-              toolbarItem.getCommand(),
-              toolbarItem.getMenu()
-              );
-            cachedItem.setToolTipText(toolbarItem.getToolTipText());
-            cachedItem.setEnabled(toolbarItem.getEnabled());
-            toolbarItem.bind("enabled", cachedItem, "enabled");
-          }
-          else
-          {
-            cachedItem = new qx.ui.menu.CheckBox(toolbarItem.getLabel());
-            // bidirectional binding takes care of everything
-            toolbarItem.bind("value", cachedItem, "value");
-            cachedItem.bind("value", toolbarItem, "value");
-          }
-
-          this.__overflowMenu.addAt(cachedItem, 0);
-          this.__menuItemStore[toolbarItem.toHashCode()] = cachedItem;
-        }
-
-        menuItems.push(cachedItem);
-      };
-
-      return menuItems;
-    },
-
-
     /**
      * Create the detail Frame and adds the Class-, Package and Loader-views to it.
      *
@@ -354,31 +149,12 @@ qx.Class.define("apiviewer.Viewer",
       this._detailLoader.setId("detail_loader");
       detailFrame.add(this._detailLoader, {edge : 0});
 
-      this._tabView = new apiviewer.DetailFrameTabView();
+      // this._tabView = new apiviewer.DetailFrameTabView();
       this._tabView.setId("tabView");
       this._tabView.exclude();
       detailFrame.add(this._tabView, {edge : 0});
 
       return detailFrame;
-    },
-
-
-    /**
-     * Creates the main frame at the right
-     *
-     * @param toolbar {qx.ui.toolbar.ToolBar} Toolbar of the main frame
-     * @param detailFrame {qx.ui.core.Widget} the detail widget
-     * @return {qx.ui.layout.VBox} the main frame
-     */
-    __createMainFrame : function(toolbar, detailFrame)
-    {
-      var mainFrame = new qx.ui.container.Composite;
-      mainFrame.setLayout(new qx.ui.layout.VBox);
-
-      mainFrame.add(toolbar);
-      mainFrame.add(detailFrame, {flex:1});
-
-      return mainFrame;
     },
 
 
@@ -398,61 +174,30 @@ qx.Class.define("apiviewer.Viewer",
       return mainSplitPane;
     },
 
-    /**
-     * Creates the application header.
-     */
-    __createHeader : function()
-    {
-      var layout = new qx.ui.layout.HBox();
-      var header = new qx.ui.container.Composite(layout);
-      header.setAppearance("app-header");
-
-      var title = new qx.ui.basic.Label("API Documentation");
-      var version = new qxc.ui.versionlabel.VersionLabel();
-      version.setFont("default");
-
-      header.add(title);
-      header.add(new qx.ui.core.Spacer, {flex : 1});
-      header.add(version);
-
-      return header;
-    },
 
     /**
      * Focusses the search view's text field.
      */
     _onShowSearch : function() {
       this._searchView.sinput.focus();
+    },
+
+
+    dispose : function()
+    {
+      this._classTreeNodeHash = this.__toggleGroup = null;
+      this._tree.dispose();
+      this._detailLoader.dispose();
+      this._classViewer.dispose();
+      this._packageViewer.dispose();
+      this._searchView.dispose();
+      this._tabView.dispose();
     }
   },
 
 
-
-
-  /*
-  *****************************************************************************
-     SETTINGS
-  *****************************************************************************
-  */
-
-  environment :
-  {
-    "apiviewer.title"            : "qooxdoo",
-    "apiviewer.initialTreeDepth" : 1
-  },
-
-
-
-
-  /*
-  *****************************************************************************
-     DESTRUCTOR
-  *****************************************************************************
-  */
-
-  destruct : function()
-  {
-    this._classTreeNodeHash = this.__toggleGroup = null;
-    this._disposeObjects("_tree", "_detailLoader", "_classViewer", "_packageViewer", "_searchView", "_tabView");
+  classDefined : function() {
+    qx.core.Environment.add("apiviewer.title", "qooxdoo");
+    qx.core.Environment.add("apiviewer.initialTreeDepth", 1);
   }
 });

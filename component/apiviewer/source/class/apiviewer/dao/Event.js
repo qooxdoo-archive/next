@@ -17,12 +17,12 @@
 
 ************************************************************************ */
 
-qx.Class.define("apiviewer.dao.Event", {
+qx.Bootstrap.define("apiviewer.dao.Event", {
   extend : apiviewer.dao.ClassItem,
 
   construct : function(classDocNode, parentClass, listName)
   {
-    this.base(arguments, classDocNode, parentClass, listName);
+    this.base(apiviewer.dao.ClassItem, "constructor", classDocNode, parentClass, listName);
   },
 
   members : {
@@ -48,7 +48,7 @@ qx.Class.define("apiviewer.dao.Event", {
           this._type = childNode.children[0].attributes.type;
           break;
         default:
-          return this.base(arguments, childNode);
+          return this.base(apiviewer.dao.ClassItem, "_addChildNode", childNode);
       }
       return true;
     }

@@ -21,7 +21,7 @@
 
 ************************************************************************ */
 
-qx.Class.define("apiviewer.ui.panels.ChildControlsPanel", {
+qx.Bootstrap.define("apiviewer.ui.panels.ChildControlsPanel", {
 
   extend: apiviewer.ui.panels.InfoPanel,
 

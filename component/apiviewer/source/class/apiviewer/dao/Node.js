@@ -20,17 +20,15 @@
 /**
  * This class wraps the access to documentation nodes.
  */
-qx.Class.define("apiviewer.dao.Node", {
+qx.Bootstrap.define("apiviewer.dao.Node", {
 
-  extend : qx.core.Object,
+  extend : Object,
 
   /**
    * @param classDocNode {Map} documentation node
    */
   construct : function(classDocNode)
   {
-    this.base(arguments);
-
     this._docNode = classDocNode;
     classDocNode.children = classDocNode.children || [];
     classDocNode.attributes = classDocNode.attributes || {};
@@ -248,16 +246,5 @@ qx.Class.define("apiviewer.dao.Node", {
       }
       return true;
     }
-  },
-
-
-  /*
-  *****************************************************************************
-     DESTRUCTOR
-  *****************************************************************************
-  */
-
-  destruct : function() {
-    this._docNode = this._errors = null;
   }
 });

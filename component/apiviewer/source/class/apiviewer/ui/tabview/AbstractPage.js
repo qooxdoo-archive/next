@@ -17,14 +17,13 @@
 
 ************************************************************************ */
 
-qx.Class.define("apiviewer.ui.tabview.AbstractPage",
+qx.Bootstrap.define("apiviewer.ui.tabview.AbstractPage",
 {
-  extend : qx.ui.tabview.Page,
-  type : "abstract",
+  extend : qx.ui.mobile.core.Widget,
 
   construct : function(classNode)
   {
-    this.base(arguments);
+    this.base(qx.ui.mobile.core.Widget, "constructor");
 
     this.setLayout(new qx.ui.layout.Canvas());
     this.setShowCloseButton(true);
@@ -95,13 +94,13 @@ qx.Class.define("apiviewer.ui.tabview.AbstractPage",
         var id = bindings.pop();
         uiModel.removeBinding(id);
       }
-    }
-  },
+    },
 
-  destruct : function()
-  {
-    this.__removeBinding();
-    this._viewer.destroy();
-    this._viewer = null;
+
+    dispose : function()
+    {
+      this.__removeBinding();
+      this._viewer.dispose();
+    }
   }
 });

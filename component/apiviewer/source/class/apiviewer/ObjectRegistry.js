@@ -1,5 +1,5 @@
 
-qx.Class.define("apiviewer.ObjectRegistry",
+qx.Bootstrap.define("apiviewer.ObjectRegistry",
 {
   statics :
   {

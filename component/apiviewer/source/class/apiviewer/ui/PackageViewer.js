@@ -24,22 +24,14 @@
 /**
  * Shows the package details.
  */
-qx.Class.define("apiviewer.ui.PackageViewer",
+qx.Bootstrap.define("apiviewer.ui.PackageViewer",
 {
   extend : apiviewer.ui.AbstractViewer,
 
 
-
-
-  /*
-  *****************************************************************************
-     CONSTRUCTOR
-  *****************************************************************************
-  */
-
   construct : function()
   {
-    this.base(arguments);
+    this.base(apiviewer.ui.AbstractViewer, "constructor");
     this.addInfoPanel(new apiviewer.ui.panels.MethodPanel("functions", "functions"));
     this.addInfoPanel(new apiviewer.ui.panels.ClassPanel("classes", "classes", "class"));
     this.addInfoPanel(new apiviewer.ui.panels.ClassPanel("classes", "interfaces", "interface"));

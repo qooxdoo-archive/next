@@ -21,18 +21,18 @@
  * Implements the dynamic behavior of the API viewer.
  * The GUI is defined in {@link Viewer}.
  */
-qx.Class.define("apiviewer.TabViewController",
+qx.Bootstrap.define("apiviewer.TabViewController",
 {
-  extend : qx.core.Object,
+  extend : Object,
+  include : [qx.event.MEmitter],
 
   construct : function(widgetRegistry)
   {
-    this.base(arguments);
-
     apiviewer.TabViewController.instance = this;
 
-    this._tabView = widgetRegistry.getWidgetById("tabView");
-    this._tabView.addListener("changeSelection", this.__onChangeSelection, this);
+    // TODO
+    // this._tabView = widgetRegistry.getWidgetById("tabView");
+    // this._tabView.on("changeSelection", this.__onChangeSelection, this);
   },
 
 
@@ -57,7 +57,7 @@ qx.Class.define("apiviewer.TabViewController",
      * class viewer.
      */
     onSelectItem : function(itemName) {
-      this.fireDataEvent("classLinkTapped", itemName);
+      this.emit("classLinkTapped", itemName);
     },
 
     showItem : function(itemName) {
@@ -115,13 +115,14 @@ qx.Class.define("apiviewer.TabViewController",
     {
       var oldData = event.getOldData();
       var data = event.getData();
-      this.fireDataEvent("changeSelection", data, oldData);
-    }
-  },
+      this.emit("changeSelection", data, oldData);
+    },
 
-  destruct : function()
-  {
-    this._tabView.destroy();
-    this._tabView = null;
+
+    dispose : function()
+    {
+      this._tabView.dispose();
+      this._tabView = null;
+    }
   }
 });

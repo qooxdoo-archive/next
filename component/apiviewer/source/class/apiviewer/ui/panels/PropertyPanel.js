@@ -20,7 +20,7 @@
 
 ************************************************************************ */
 
-qx.Class.define("apiviewer.ui.panels.PropertyPanel", {
+qx.Bootstrap.define("apiviewer.ui.panels.PropertyPanel", {
 
   extend: apiviewer.ui.panels.InfoPanel,
 

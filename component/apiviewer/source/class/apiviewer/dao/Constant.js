@@ -17,12 +17,12 @@
 
 ************************************************************************ */
 
-qx.Class.define("apiviewer.dao.Constant", {
+qx.Bootstrap.define("apiviewer.dao.Constant", {
   extend : apiviewer.dao.ClassItem,
 
   construct : function(classDocNode, parentClass, listName)
   {
-    this.base(arguments, classDocNode, parentClass, listName);
+    this.base(apiviewer.dao.ClassItem, "constructor", classDocNode, parentClass, listName);
   },
 
   members : {
@@ -31,7 +31,5 @@ qx.Class.define("apiviewer.dao.Constant", {
     {
       return this._docNode.attributes.value;
     }
-
   }
-
 });

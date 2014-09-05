@@ -17,7 +17,7 @@
 
 ************************************************************************ */
 
-qx.Class.define("apiviewer.dao.Property",
+qx.Bootstrap.define("apiviewer.dao.Property",
 {
   extend : apiviewer.dao.ClassItem,
 
@@ -25,7 +25,7 @@ qx.Class.define("apiviewer.dao.Property",
   {
     getTypes : function()
     {
-      var result = this.base(arguments);
+      var result = this.base(apiviewer.dao.ClassItem, "getTypes");
       var docNode = this.getDocNode();
       var type = docNode.getType();
       if (type) {

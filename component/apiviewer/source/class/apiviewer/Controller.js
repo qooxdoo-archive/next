@@ -25,26 +25,16 @@
  * Implements the dynamic behavior of the API viewer.
  * The GUI is defined in {@link Viewer}.
  */
-qx.Class.define("apiviewer.Controller",
+qx.Bootstrap.define("apiviewer.Controller",
 {
-  extend : qx.core.Object,
+  extend : Object,
 
-
-
-
-  /*
-  *****************************************************************************
-     CONSTRUCTOR
-  *****************************************************************************
-  */
 
   /**
    * @param widgetRegistry {Viewer} the GUI
    */
   construct : function(widgetRegistry)
   {
-    this.base(arguments);
-
     this._widgetRegistry = apiviewer.MWidgetRegistry;
 
     this._titlePrefix = "API Documentation";
@@ -54,33 +44,25 @@ qx.Class.define("apiviewer.Controller",
 
     this._detailLoader = this._widgetRegistry.getWidgetById("detail_loader");
     this._tabViewController = new apiviewer.TabViewController(this._widgetRegistry);
-    this.__bindTabViewController();
+    // this.__bindTabViewController();
 
     this._tree = this._widgetRegistry.getWidgetById("tree");
-    this.__bindTree();
-
-    this.__bindToolbar();
+    // this.__bindTree();
 
     var btn_inherited = this._widgetRegistry.getWidgetById("btn_inherited");
     var btn_included = this._widgetRegistry.getWidgetById("btn_included");
 
-    btn_inherited.addListener("changeValue", this.__syncMenuButton, this);
-    btn_included.addListener("changeValue", this.__syncMenuButton, this);
+    // btn_inherited.on("changeValue", this.__syncMenuButton, this);
+    // btn_included.on("changeValue", this.__syncMenuButton, this);
 
 
     this._history = qx.bom.History.getInstance();
     this.__bindHistory();
-
-    qx.core.Init.getApplication().getRoot().addListener("pointerdown", function(e) {
-      this.__openInNewTab = e.isShiftPressed() || e.isCtrlOrCommandPressed();
-    }, this, true);
   },
 
 
   members :
   {
-    __openInNewTab : false,
-
     // overridden
     $$logCategory : "application",
 
@@ -93,37 +75,25 @@ qx.Class.define("apiviewer.Controller",
      */
     load : function(url)
     {
-      var req = new qx.io.remote.Request(url);
+      var req = new qx.io.request.Xhr(url);
 
-      req.setTimeout(180000);
-      req.setProhibitCaching(false);
-
-      req.addListener("completed", function(evt)
+      req.on("success", function(evt)
       {
         var loadEnd = new Date();
 
         if (qx.core.Environment.get("qx.debug")) {
-          this.debug("Time to load data from server: " + (loadEnd.getTime() - loadStart.getTime()) + "ms");
+          qx.log.Logger.debug("Time to load data from server: " + (loadEnd.getTime() - loadStart.getTime()) + "ms");
         }
 
-        var content = evt.getContent();
-
-        var start = new Date();
-        var treeData = eval("(" + content + ")");
-        var end = new Date();
-
-        if (qx.core.Environment.get("qx.debug")) {
-          this.debug("Time to eval tree data: " + (end.getTime() - start.getTime()) + "ms");
-        }
+        var treeData = evt.target.getResponse()
 
         // give the browser a chance to update its UI before doing more
-        qx.event.Timer.once(function() {
+        window.setTimeout(function() {
           this.__setDocTree(treeData);
 
-          qx.event.Timer.once(function()
-          {
+          window.setTimeout(function() {
             // Handle bookmarks
-            var state = this._history.getState();
+            var state = this._history.state;
             if (state)
             {
               this.__selectItem(this.__decodeState(state));
@@ -135,9 +105,9 @@ qx.Class.define("apiviewer.Controller",
               var fullName = firstPackage.attributes.fullName;
               this.__selectItem(fullName);
             }
-          }, this, 0);
+          }.bind(this), 0);
 
-        }, this, 0);
+        }.bind(this), 0);
       }, this);
 
       var failed = function(evt) {
@@ -150,8 +120,8 @@ qx.Class.define("apiviewer.Controller",
         }
       };
 
-      req.addListener("failed", failed, this);
-      req.addListener("aborted", failed, this);
+      req.on("failed", failed, this);
+      req.on("aborted", failed, this);
 
       var loadStart = new Date();
       req.send();
@@ -163,11 +133,11 @@ qx.Class.define("apiviewer.Controller",
      */
     __bindTabViewController : function()
     {
-      this._tabViewController.addListener("classLinkTapped", function(evt) {
+      this._tabViewController.on("classLinkTapped", function(evt) {
           this._updateHistory(evt.getData());
       }, this);
 
-      this._tabViewController.addListener("changeSelection", function(evt) {
+      this._tabViewController.on("changeSelection", function(evt) {
         var page = evt.getData()[0];
 
         if (this._ignoreTabViewSelection == true) {
@@ -195,7 +165,7 @@ qx.Class.define("apiviewer.Controller",
      */
     __bindTree : function()
     {
-      this._tree.addListener("changeSelection", function(evt) {
+      this._tree.on("changeSelection", function(evt) {
         var treeNode = evt.getData()[0];
         if (treeNode && treeNode.getUserData("nodeName") && !this._ignoreTreeSelection)
         {
@@ -205,39 +175,6 @@ qx.Class.define("apiviewer.Controller",
           this._updateHistory(nodeName);
         }
       }, this);
-    },
-
-
-    /**
-     * binds the actions of the toolbar buttons.
-     */
-    __bindToolbar : function()
-    {
-      var uiModel = apiviewer.UiModel.getInstance();
-
-      var btn_inherited = this._widgetRegistry.getWidgetById("btn_inherited");
-      btn_inherited.bind("value", uiModel, "showInherited");
-      uiModel.bind("showInherited", btn_inherited, "value");
-
-      var btn_included = this._widgetRegistry.getWidgetById("btn_included");
-      btn_included.bind("value", uiModel, "showIncluded");
-      uiModel.bind("showIncluded", btn_included, "value");
-
-      var btn_expand = this._widgetRegistry.getWidgetById("btn_expand");
-      btn_expand.bind("value", uiModel, "expandProperties");
-      uiModel.bind("expandProperties", btn_expand, "value");
-
-      var btn_protected = this._widgetRegistry.getWidgetById("btn_protected");
-      btn_protected.bind("value", uiModel, "showProtected");
-      uiModel.bind("showProtected", btn_protected, "value");
-
-      var btn_private = this._widgetRegistry.getWidgetById("btn_private");
-      btn_private.bind("value", uiModel, "showPrivate");
-      uiModel.bind("showPrivate", btn_private, "value");
-
-      var btn_internal = this._widgetRegistry.getWidgetById("btn_internal");
-      btn_internal.bind("value", uiModel, "showInternal");
-      uiModel.bind("showInternal", btn_internal, "value");
     },
 
 
@@ -276,7 +213,7 @@ qx.Class.define("apiviewer.Controller",
      */
     __bindHistory : function()
     {
-      this._history.addListener("changeState", function(evt) {
+      this._history.on("changeState", function(evt) {
         var item = this.__decodeState(evt.getData());
         if (item) {
           this.__selectItem(item);
@@ -297,15 +234,15 @@ qx.Class.define("apiviewer.Controller",
       var end = new Date();
 
       if (qx.core.Environment.get("qx.debug")) {
-        this.debug("Time to build data tree: " + (end.getTime() - start.getTime()) + "ms");
+        qx.log.Logger.debug("Time to build data tree: " + (end.getTime() - start.getTime()) + "ms");
       }
 
       var start = new Date();
-      this._tree.setTreeData(rootPackage);
+//      this._tree.setTreeData(rootPackage); TODO
       var end = new Date();
 
       if (qx.core.Environment.get("qx.debug")) {
-        this.debug("Time to update tree: " + (end.getTime() - start.getTime()) + "ms");
+        qx.log.Logger.debug("Time to update tree: " + (end.getTime() - start.getTime()) + "ms");
       }
 
       return true;
@@ -340,7 +277,7 @@ qx.Class.define("apiviewer.Controller",
       {
         this._classLoader.classLoadDependendClasses(classNode, function(cls)
         {
-          this._tabViewController.openClass(cls, this.__openInNewTab);
+          this._tabViewController.openClass(cls);
           cb();
         }, this);
       }
@@ -348,7 +285,7 @@ qx.Class.define("apiviewer.Controller",
       {
         this._classLoader.packageLoadDependendClasses(classNode, function()
         {
-          this._tabViewController.openPackage(classNode, this.__openInNewTab);
+          this._tabViewController.openPackage(classNode);
           cb();
         }, this);
       }
@@ -384,17 +321,17 @@ qx.Class.define("apiviewer.Controller",
 
       // ignore changeSelection events
       this._ignoreTreeSelection = true;
-      var couldSelectTreeNode = this._tree.selectTreeNodeByClassName(className);
+      var couldSelectTreeNode; // TODO  = this._tree.selectTreeNodeByClassName(className);
       this._ignoreTreeSelection = false;
 
-      if (!couldSelectTreeNode) {
-        this.error("Unknown class: " + className);
-        alert("Unknown class: " + className);
-        apiviewer.LoadingIndicator.getInstance().hide();
-        return;
-      }
+      // if (!couldSelectTreeNode) {
+      //   qx.log.Logger.error("Unknown class: " + className);
+      //   alert("Unknown class: " + className);
+      //   apiviewer.LoadingIndicator.getInstance().hide();
+      //   return;
+      // }
 
-      var nodeName = this._tree.getSelection()[0].getUserData("nodeName") || className;
+      var nodeName = className; // TODO this._tree.getSelection()[0].getUserData("nodeName") || className;
 
       /**
        * @lint ignoreDeprecated(alert)
@@ -447,21 +384,15 @@ qx.Class.define("apiviewer.Controller",
            return this.__getFirstPackage(child);
         }
       }
+    },
+
+
+    dispose : function() {
+      this._detailLoader.dispose();
+      this._classLoader.dispose();
+      this._tree.dispose();
+      this._history.dispose();
+      this._tabViewController.dispose();
     }
-
-  },
-
-
-
-  /*
-  *****************************************************************************
-     DESTRUCTOR
-  *****************************************************************************
-  */
-
-  destruct : function()
-  {
-    this._widgetRegistry = null;
-    this._disposeObjects("_detailLoader", "_classLoader", "_tree", "_history", "_tabViewController");
   }
 });

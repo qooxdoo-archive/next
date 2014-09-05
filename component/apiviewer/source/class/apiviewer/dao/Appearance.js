@@ -17,12 +17,12 @@
 
 ************************************************************************ */
 
-qx.Class.define("apiviewer.dao.Appearance", {
+qx.Bootstrap.define("apiviewer.dao.Appearance", {
   extend : apiviewer.dao.ClassItem,
 
   construct : function(classDocNode, parentClass, listName)
   {
-    this.base(arguments, classDocNode, parentClass, listName);
+    this.base(apiviewer.dao.ClassItem, "constructor", classDocNode, parentClass, listName);
   },
 
   members : {
@@ -56,7 +56,7 @@ qx.Class.define("apiviewer.dao.Appearance", {
           this._states = this._createNodeList(node, apiviewer.dao.State, this);
           break;
         default:
-          return this.base(arguments, node);
+          return this.base(apiviewer.dao.ClassItem, "_addChildNode", node);
       }
       return true;
     }

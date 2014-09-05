@@ -24,11 +24,8 @@
  * @require(qx.module.Attribute)
  * @require(qx.module.event.Native)
  */
-qx.Class.define("apiviewer.ui.panels.InfoPanel", {
-
-  type : "abstract",
-
-  extend: qx.core.Object,
+qx.Bootstrap.define("apiviewer.ui.panels.InfoPanel", {
+  extend: Object,
 
   /**
    * Creates an info panel. An info panel shows the information about one item
@@ -40,8 +37,7 @@ qx.Class.define("apiviewer.ui.panels.InfoPanel", {
    */
   construct: function(listName, labelText)
   {
-    this.base(arguments);
-    this.setListName(listName);
+    this.listName = listName;
     this._labelText = labelText;
     apiviewer.ObjectRegistry.register(this);
   },
@@ -862,7 +858,7 @@ qx.Class.define("apiviewer.ui.panels.InfoPanel", {
      */
     canDisplayItem : function(itemNode)
     {
-      return (itemNode.getListName() == this.getListName());
+      return (itemNode.listName == this.listName);
     },
 
 
@@ -1009,7 +1005,7 @@ qx.Class.define("apiviewer.ui.panels.InfoPanel", {
 
     __encodeObject : function(object)
     {
-      return "apiviewer.ObjectRegistry.getObjectFromHashCode('"+object.toHashCode()+"')";
+      return "apiviewer.ObjectRegistry.getObjectFromHashCode('" + object.toHashCode() + "')";
     },
 
 
@@ -1025,7 +1021,7 @@ qx.Class.define("apiviewer.ui.panels.InfoPanel", {
       var html = new qx.util.StringBuilder('<div class="info-panel"><h2>');
       html.add(
         '<img class="openclose" src="',
-        qx.util.ResourceManager.getInstance().toUri('apiviewer/image/' + (this.getIsOpen() ? 'close.gif' : 'open.gif')),
+        qx.util.ResourceManager.getInstance().toUri('apiviewer/image/' + (this.isOpen ? 'close.gif' : 'open.gif')),
         '" onclick="', this.__encodeObject(viewer),
         '.togglePanelVisibility(' + this.__encodeObject(this), ')"/> ',
         '<span onclick="', this.__encodeObject(viewer),
@@ -1053,7 +1049,7 @@ qx.Class.define("apiviewer.ui.panels.InfoPanel", {
         return [];
       }
 
-      var listName = this.getListName();
+      var listName = this.listName;
       var nodeArr = [];
       var fromClassHash = {};
 
@@ -1089,7 +1085,7 @@ qx.Class.define("apiviewer.ui.panels.InfoPanel", {
             listName == "methods"
           )
           ) {
-          currNodeArr = currNodeArr.concat(currClassNode.getNodesOfTypeFromMixins(this.getListName()));
+          currNodeArr = currNodeArr.concat(currClassNode.getNodesOfTypeFromMixins(this.listName));
         }
         // Add the nodes from this class
         for (var i=0; i<currNodeArr.length; i++)
@@ -1158,7 +1154,7 @@ qx.Class.define("apiviewer.ui.panels.InfoPanel", {
         this._postProcessLinks(this.getBodyElement());
         apiviewer.ui.AbstractViewer.fixLinks(this.getBodyElement());
         apiviewer.ui.AbstractViewer.highlightCode(this.getBodyElement());
-        this.getBodyElement().style.display = !this.getIsOpen() ? "none" : "";
+        this.getBodyElement().style.display = !this.isOpen ? "none" : "";
         this.getElement().style.display = "";
       }
       else
@@ -1270,7 +1266,7 @@ qx.Class.define("apiviewer.ui.panels.InfoPanel", {
         } else {
           fromClassNode = this.getDocNode();
         }
-        var node = fromClassNode.getItemByListAndName(this.getListName(), itemName);
+        var node = fromClassNode.getItemByListAndName(this.listName, itemName);
 
         // Update the close/open image
         var opencloseImgElem = textDiv.parentNode.previousSibling.firstChild;
@@ -1332,18 +1328,5 @@ qx.Class.define("apiviewer.ui.panels.InfoPanel", {
 
       el._processed = true;
     }
-  },
-
-
-
-
-  /*
-  *****************************************************************************
-     DESTRUCTOR
-  *****************************************************************************
-  */
-
-  destruct : function() {
-    this._titleElement = this._bodyElement = null;
   }
 });

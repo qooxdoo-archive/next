@@ -21,76 +21,70 @@
 
 ************************************************************************ */
 
-/* ************************************************************************
-
-
-************************************************************************ */
-
 /**
  * Your apiviewer application
  *
  * @asset(apiviewer/*)
+ * @require(qx.module.Template)
+ * @require(qx.ui.mobile.Button)
  */
-qx.Class.define("apiviewer.Application",
+qx.Bootstrap.define("apiviewer.Application",
 {
-  extend : qx.application.Standalone,
+  extend : qx.application.Mobile,
 
   construct : function()
   {
-    this.base(arguments);
+    this.base(qx.application.Mobile, "constructor");
     var uri = qx.util.ResourceManager.getInstance().toUri("apiviewer/css/apiviewer.css");
     qx.bom.Stylesheet.includeFile(uri);
   },
 
-  /*
-  *****************************************************************************
-     MEMBERS
-  *****************************************************************************
-  */
 
   members :
   {
     // overridden
     main : function()
     {
-      // Call super class
-      this.base(arguments);
-
       // Add log appenders
-      if (qx.core.Environment.get("qx.debug"))
-      {
+      if (qx.core.Environment.get("qx.debug")) {
         qx.log.appender.Native;
-        qx.log.appender.Console;
       }
 
-      qx.Class.include(qx.ui.core.Widget, apiviewer.MWidgetRegistry);
+      // init version label
+      var data = {version : q.env.get("qx.version")};
+      q("#version-label")
+        .setHtml(q.template.render(q("#version-label").getHtml(), data))
+        .setStyle("visibility", "visible");
 
-      this.viewer = new apiviewer.Viewer();
+      // initialize buttons
+      q("#contentButton");
+      q("#searchButton");
+      q("#legendButton");
+      q("#includesButton");
+      q("#protectedButton");
+      q("#privateButton");
+
+      // new app root
+      this.__root = new qx.ui.mobile.core.Root(document.getElementById("root"));
+      this.setRoot(this.__root);
+
+      qx.Mixin.add(qx.ui.mobile.core.Widget, apiviewer.MWidgetRegistry);
+
+      // this.viewer = new apiviewer.Viewer();
       this.controller = new apiviewer.Controller();
 
-      this.getRoot().add(this.viewer, {edge : 0});
-    },
-
-
-    // overridden
-    finalize : function()
-    {
-      this.base(arguments);
+      // this.getRoot().append(this.viewer);
+      var classViewer = new apiviewer.ui.ClassViewer();
+      this.getRoot().append(classViewer);
 
       // Finally load the data
       this.controller.load("script/apidata.json");
+    },
+
+
+    dispose : function() {
+      this.viewer.dispose();
+      this.controller.dispose();
     }
-  },
-
-
-  /*
-  *****************************************************************************
-     DESTRUCTOR
-  *****************************************************************************
-  */
-
-  destruct : function()
-  {
-    this._disposeObjects("viewer", "controller");
   }
 });

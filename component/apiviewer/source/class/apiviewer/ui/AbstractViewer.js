@@ -21,31 +21,26 @@
 
 ************************************************************************ */
 
-qx.Class.define("apiviewer.ui.AbstractViewer",
+qx.Bootstrap.define("apiviewer.ui.AbstractViewer",
 {
-  type : "abstract",
-  extend : qx.ui.embed.Html,
+  extend : qx.ui.mobile.core.Widget,
 
   construct : function()
   {
-    this.base(arguments);
+    this.base(qx.ui.mobile.core.Widget, "constructor");
 
-    this._infoPanelHash = {};
     this._infoPanels = [];
 
-    this.setOverflowX("auto");
-    this.setOverflowY("auto");
+    this.setStyle("overflowX", "auto");
+    this.setStyle("overflowY", "auto");
 
-    this.getContentElement().setStyle("-webkit-overflow-scrolling", "touch");
-    this.getContentElement().setStyle("touch-action", "pan-y");
-    this.getContentElement().setStyle("-ms-touch-action", "pan-y");
+    this.setStyle("-webkit-overflow-scrolling", "touch");
+    this.setStyle("touch-action", "pan-y");
+    this.setStyle("-ms-touch-action", "pan-y");
 
-    this.setAppearance("detailviewer");
+    // this.setAppearance("detailviewer");
 
-    this._infoPanelHash = {};
     this._infoPanels = [];
-
-    apiviewer.ObjectRegistry.register(this);
   },
 
 
@@ -153,16 +148,15 @@ qx.Class.define("apiviewer.ui.AbstractViewer",
 
   members :
   {
-    _infoPanelHash : null,
     _infoPanels : null,
     __classNode : null,
 
     _init : function(pkg){
       this.__initHtml();
 
-      this.setDocNode(pkg);
+      this.docNode = pkg;
 
-      this.addListenerOnce("appear", function(){
+      this.once("appear", function(){
         this._syncHtml();
         this._applyDocNode(this.__classNode);
       }, this);
@@ -247,21 +241,13 @@ qx.Class.define("apiviewer.ui.AbstractViewer",
     },
 
 
-    addInfoPanel : function(panel)
-    {
-      this._infoPanelHash[panel.toHashCode()] = panel;
+    addInfoPanel : function(panel) {
       this._infoPanels.push(panel);
     },
 
 
     getPanels : function() {
       return this._infoPanels;
-    },
-
-
-    getPanelFromHashCode : function(hashCode)
-    {
-      return this._infoPanelHash[hashCode];
     },
 
 
@@ -341,8 +327,7 @@ qx.Class.define("apiviewer.ui.AbstractViewer",
         var imgElem = panel.getTitleElement().getElementsByTagName("img")[0];
         imgElem.src = qx.util.ResourceManager.getInstance().toUri(panel.getIsOpen() ? 'apiviewer/image/close.gif' : 'apiviewer/image/open.gif');
 
-        panel.update(this, this.getDocNode()
-        );
+        panel.update(this, this.docNode);
       }
       catch(exc)
       {
@@ -395,20 +380,12 @@ qx.Class.define("apiviewer.ui.AbstractViewer",
           return sum1 - sum2;
         }
       });
+    },
+
+    dispose : function() {
+      this._infoPanels.forEach(function(item) {
+        item.dispose();
+      })
     }
-
-  },
-
-  /*
-  *****************************************************************************
-     DESTRUCTOR
-  *****************************************************************************
-  */
-
-  destruct : function()
-  {
-    this._classDescElem = this._titleElem = this._tocElem = this._infoPanelHash =
-      this.__classNode = null;
-    this._disposeArray("_infoPanels", 1);
   }
 });

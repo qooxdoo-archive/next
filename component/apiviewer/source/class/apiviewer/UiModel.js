@@ -1,7 +1,15 @@
-qx.Class.define("apiviewer.UiModel",
+qx.Bootstrap.define("apiviewer.UiModel",
 {
-  extend : qx.core.Object,
-  type : "singleton",
+  extend : Object,
+  include : [qx.core.MSingleton],
+
+  statics : {
+    getInstnace : qx.core.MSingleton.getInstance
+  },
+
+  construct : function() {
+    this.initMSingleton();
+  },
 
   properties :
   {
@@ -10,7 +18,7 @@ qx.Class.define("apiviewer.UiModel",
     {
       check: "Boolean",
       init: false,
-      event : "changeShowInherited"
+      event : true
     },
 
     /** whether to display included items */
@@ -18,7 +26,7 @@ qx.Class.define("apiviewer.UiModel",
     {
       check: "Boolean",
       init: true,
-      event : "changeShowIncluded"
+      event : true
     },
 
     /** whether to display protected items */
@@ -26,7 +34,7 @@ qx.Class.define("apiviewer.UiModel",
     {
       check: "Boolean",
       init: false,
-      event : "changeExpandProperties"
+      event : true
     },
 
     /** whether to display protected items */
@@ -34,7 +42,7 @@ qx.Class.define("apiviewer.UiModel",
     {
       check: "Boolean",
       init: false,
-      event : "changeShowProtected"
+      event : true
     },
 
     /** whether to display private items */
@@ -42,7 +50,7 @@ qx.Class.define("apiviewer.UiModel",
     {
       check: "Boolean",
       init: false,
-      event : "changeShowPrivate"
+      event : true
     },
 
     /** whether to display internal items */
@@ -50,7 +58,7 @@ qx.Class.define("apiviewer.UiModel",
     {
       check: "Boolean",
       init: false,
-      event : "changeShowInternal"
+      event : true
     }
   }
 });

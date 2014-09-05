@@ -17,12 +17,12 @@
 
 ************************************************************************ */
 
-qx.Class.define("apiviewer.dao.Param", {
+qx.Bootstrap.define("apiviewer.dao.Param", {
   extend : apiviewer.dao.ClassItem,
 
   construct : function(classDocNode, parentClass, method)
   {
-    this.base(arguments, classDocNode, parentClass);
+    this.base(apiviewer.dao.ClassItem, "constructor", classDocNode, parentClass);
     this._method = method;
   },
 
@@ -44,7 +44,7 @@ qx.Class.define("apiviewer.dao.Param", {
         }
       }
 
-      var result = this.base(arguments);
+      var result = this.base(arguments, "getTypes");
       var attributes = this._docNode.attributes;
       if (attributes.type) {
         result.push({
@@ -77,17 +77,5 @@ qx.Class.define("apiviewer.dao.Param", {
       return !!this._docNode.attributes.optional;
     }
 
-  },
-
-
-  /*
-   *****************************************************************************
-      DESTRUCTOR
-   *****************************************************************************
-   */
-
-  destruct : function() {
-    this._method = null;
   }
-
 });

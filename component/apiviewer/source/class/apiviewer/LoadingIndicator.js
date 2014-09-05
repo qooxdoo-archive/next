@@ -1,12 +1,22 @@
 /**
- * LoadingIndicator write docs about it
+ * @require(qx.module.Blocker)
  */
-qx.Class.define("apiviewer.LoadingIndicator",
+qx.Bootstrap.define("apiviewer.LoadingIndicator",
 {
-  type : "singleton",
-  extend : qx.core.Object,
+  extend : Object,
+  include : [qx.core.MSingleton],
+
+  statics : {
+    getInstance : qx.core.MSingleton.getInstance
+  },
+
 
   construct: function() {
+    this.initMSingleton();
+
+    return;
+
+    // TODO
     this.__blocker = new qx.ui.core.Blocker(apiviewer.MWidgetRegistry.getWidgetById("tabView"));
     this.__blocker.setColor("#D5D5D5");
     this.__blocker.setOpacity(0.5);
@@ -21,14 +31,14 @@ qx.Class.define("apiviewer.LoadingIndicator",
 
   members :
   {
-  __blocker : null,
-  show : function()
-  {
-    this.__blocker.block();
-  },
-  hide : function()
-  {
-    this.__blocker.unblock();
-  }
+    __blocker : null,
+
+    show : function() {
+      q(document).block("#D5D5D5", 0.5);
+    },
+
+    hide : function() {
+      q(document).unblock();
+    }
   }
 });

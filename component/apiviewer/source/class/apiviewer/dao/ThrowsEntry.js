@@ -17,13 +17,12 @@
 
 ************************************************************************ */
 
-qx.Class.define("apiviewer.dao.ThrowsEntry",
+qx.Bootstrap.define("apiviewer.dao.ThrowsEntry",
 {
   extend : apiviewer.dao.ClassItem,
 
-  construct : function(classDocNode, parentClass, method)
-  {
-    this.base(arguments, classDocNode, parentClass);
+  construct : function(classDocNode, parentClass, method) {
+    this.base(apiviewer.dao.ClassItem, "constructor", classDocNode, parentClass);
   },
 
   members :
@@ -41,7 +40,5 @@ qx.Class.define("apiviewer.dao.ThrowsEntry",
     {
       return this._docNode.attributes.text;
     }
-
   }
-
 });

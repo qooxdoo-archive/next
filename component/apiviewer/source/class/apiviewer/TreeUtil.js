@@ -25,32 +25,8 @@
  *
  * @ignore(apiviewer.dao)
  */
-qx.Class.define("apiviewer.TreeUtil",
+qx.Bootstrap.define("apiviewer.TreeUtil",
 {
-  extend : qx.core.Object,
-
-
-
-
-  /*
-  *****************************************************************************
-     CONSTRUCTOR
-  *****************************************************************************
-  */
-
-  construct : function() {
-    this.base(arguments);
-  },
-
-
-
-
-  /*
-  *****************************************************************************
-     STATICS
-  *****************************************************************************
-  */
-
   statics :
   {
     /**
@@ -401,13 +377,7 @@ qx.Class.define("apiviewer.TreeUtil",
   },
 
 
-  /*
-  *****************************************************************************
-     DEFER
-  *****************************************************************************
-  */
-
-  defer : function(statics, members, properties)
+  classDefined : function(statics)
   {
     /** {string[]} images to preload */
     statics.PRELOAD_IMAGES = [

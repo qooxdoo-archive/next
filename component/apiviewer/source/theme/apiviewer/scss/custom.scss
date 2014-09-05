@@ -1,0 +1,71 @@
+@import "common/all";
+@import "styles";
+@import "ui/all";
+
+html, body {
+  padding: 0;
+  margin: 0;
+  font-family: 'Lucida Grande', 'DejaVu Sans', Verdana, sans-serif;
+  background-color: rgb(244, 244, 244) !important;
+}
+
+.header {
+  background-image: linear-gradient(to bottom, #505154, #323335);
+  color: white;
+
+  h1 {
+    margin: 10px;
+    display: inline-block;
+  }
+
+  #version-label {
+    float: right;
+    margin: 20px;
+    display: inline-block;
+  }
+
+  .decoration {
+    height: 10px;
+    background-image: linear-gradient(to bottom, #5583d0, #5583d0 1px, #3d72c9 1px, #3d72c9);
+  }
+}
+
+#toolbar {
+  padding: 10px;
+}
+
+#toolbar > * {
+  display: inline-block;
+  margin: 0 2px;
+}
+
+#toolbar > *.right {
+  float: right;
+}
+
+.play-content {
+  padding: 10px !important;
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  top: 112px;
+
+  #playarea {
+    border: 1px solid #ddd;
+    overflow: hidden;
+  }
+
+  #editor {
+    margin: 0 10px 0 0;
+    width: 50%;
+    height: 100%;
+    border: 1px solid #ddd;
+  }
+
+  & > * {
+    -webkit-flex: 1 1 50%;
+    -ms-flex: 1 1 50%;
+    flex: 1 1 50%;
+  }
+}

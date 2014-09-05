@@ -20,14 +20,11 @@
 /**
  * Module for on demand class data loading.
  */
-qx.Class.define("apiviewer.ClassLoader",
+qx.Bootstrap.define("apiviewer.ClassLoader",
 {
-  extend : qx.core.Object,
+  extend : Object,
 
-  construct : function(baseUri)
-  {
-    this.base(arguments);
-
+  construct : function(baseUri) {
     this._baseUri = baseUri;
   },
 
@@ -54,7 +51,7 @@ qx.Class.define("apiviewer.ClassLoader",
       req.setTimeout(30000); // 30 sec
       req.setProhibitCaching(false);
 
-      req.addListener("completed", function(evt)
+      req.on("completed", function(evt)
       {
         var content = eval("(" + evt.getContent() + ")");
 
@@ -72,7 +69,7 @@ qx.Class.define("apiviewer.ClassLoader",
       /**
        * @lint ignoreDeprecated(alert)
        */
-      req.addListener("failed", function(evt) {
+      req.on("failed", function(evt) {
         alert("Couldn't load file: " + url);
       }, this);
 
@@ -127,20 +124,15 @@ qx.Class.define("apiviewer.ClassLoader",
 
 
 
-    classLoadDependendClasses : function(clazz, callback, self)
-    {
+    classLoadDependendClasses : function(clazz, callback, self) {
       var dependendClasses = clazz.getDependendClasses();
       this.__loadClassList(dependendClasses, callback, self);
     },
 
 
-    packageLoadDependendClasses : function(pkg, callback, self)
-    {
+    packageLoadDependendClasses : function(pkg, callback, self) {
       var classes = pkg.getClasses();
       this.__loadClassList(classes, callback, self);
     }
-
   }
-
-
 });

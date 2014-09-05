@@ -17,12 +17,12 @@
 
 ************************************************************************ */
 
-qx.Class.define("apiviewer.dao.Package", {
+qx.Bootstrap.define("apiviewer.dao.Package", {
   extend : apiviewer.dao.Node,
 
   construct : function(classDocNode, pkg)
   {
-    this.base(arguments, classDocNode);
+    this.base(apiviewer.dao.Node, "constructor", classDocNode);
     this._package = pkg;
     apiviewer.dao.Class.registerClass(this);
   },
@@ -162,7 +162,7 @@ qx.Class.define("apiviewer.dao.Package", {
 
     _initializeFields : function()
     {
-      this.base(arguments);
+      this.base(apiviewer.dao.Node, "_initializeFields");
 
       this._classes = [];
       this._packages = [];
@@ -186,22 +186,9 @@ qx.Class.define("apiviewer.dao.Package", {
           this._desc = node.attributes.text || "";
           break;
         default:
-          return this.base(arguments, node);
+          return this.base(apiviewer.dao.Node, "_addChildNode", node);
       }
       return true;
     }
-
-  },
-
-
-  /*
-  *****************************************************************************
-     DESTRUCTOR
-  *****************************************************************************
-  */
-
-  destruct : function() {
-    this._package = this._classes = this._functions = this._packages = null;
   }
-
 });

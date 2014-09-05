@@ -17,12 +17,12 @@
 
 ************************************************************************ */
 
-qx.Class.define("apiviewer.dao.State", {
+qx.Bootstrap.define("apiviewer.dao.State", {
   extend : apiviewer.dao.ClassItem,
 
   construct : function(classDocNode, parent)
   {
-    this.base(arguments, classDocNode, parent);
+    this.base(apiviewer.dao.ClassItem, "constructor", classDocNode, parent);
   },
 
   members : {
@@ -37,7 +37,5 @@ qx.Class.define("apiviewer.dao.State", {
     {
       return this._class;
     }
-
   }
-
 });

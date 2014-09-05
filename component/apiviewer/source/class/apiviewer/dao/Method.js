@@ -17,13 +17,13 @@
 
 ************************************************************************ */
 
-qx.Class.define("apiviewer.dao.Method",
+qx.Bootstrap.define("apiviewer.dao.Method",
 {
   extend : apiviewer.dao.ClassItem,
 
   construct : function(classDocNode, parentClass, listName)
   {
-    this.base(arguments, classDocNode, parentClass, listName);
+    this.base(apiviewer.dao.ClassItem, "constructor", classDocNode, parentClass, listName);
   },
 
   members :
@@ -154,25 +154,9 @@ qx.Class.define("apiviewer.dao.Method",
         case "throws":
           break;
         default:
-          return this.base(arguments, node);
+          return this.base(apiviewer.dao.ClassItem, "_addChildNode", node);
       }
       return true;
     }
-
-
-  },
-
-
-  /*
-   *****************************************************************************
-      DESTRUCTOR
-   *****************************************************************************
-   */
-
-  destruct : function()
-  {
-    this._params = this._throws = null;
-    this._disposeObjects("_return");
   }
-
 });

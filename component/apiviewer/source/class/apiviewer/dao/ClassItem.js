@@ -20,7 +20,7 @@
 /**
  * This Class wraps the access to the documentation data of a class item.
  */
-qx.Class.define("apiviewer.dao.ClassItem",
+qx.Bootstrap.define("apiviewer.dao.ClassItem",
 {
   extend : apiviewer.dao.Node,
 
@@ -33,7 +33,7 @@ qx.Class.define("apiviewer.dao.ClassItem",
   {
     this._class = parentClass;
     this._listName = listName;
-    this.base(arguments, classDocNode);
+    this.base(apiviewer.dao.Node, "constructor", classDocNode);
   },
 
   members :
@@ -195,7 +195,7 @@ qx.Class.define("apiviewer.dao.ClassItem",
     // overridden
     _initializeFields : function()
     {
-      this.base(arguments);
+      this.base(apiviewer.dao.Node, "_initializeFields");
 
       this._see = [];
       this._types = [];
@@ -215,23 +215,9 @@ qx.Class.define("apiviewer.dao.ClassItem",
           this._types = this._createNodeList(childNode);
           break;
         default:
-          return this.base(arguments, childNode);
+          return this.base(apiviewer.dao.Node, "_addChildNode", childNode);
       }
       return true;
     }
-
-  },
-
-
-  /*
-   *****************************************************************************
-      DESTRUCTOR
-   *****************************************************************************
-   */
-
-  destruct : function()
-  {
-    this._class = this._itemDocNode = this._requiredBy = this._see =
-      this._types = null;
   }
 });

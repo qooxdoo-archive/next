@@ -21,9 +21,9 @@
 /**
  * Shows the info pane.
  */
-qx.Class.define("apiviewer.ui.LegendView",
+qx.Bootstrap.define("apiviewer.ui.LegendView",
 {
-  extend : qx.ui.container.Scroll,
+  extend : qx.ui.mobile.container.Scroll,
 
 
 
@@ -36,8 +36,8 @@ qx.Class.define("apiviewer.ui.LegendView",
 
   construct : function()
   {
-    this.base(arguments);
-    this.setAppearance("legend");
+    this.base(qx.ui.mobile.container.Scroll, "constructor");
+    return; // TODO
 
     var layout = new qx.ui.layout.Grid(10, 10);
     layout.setColumnWidth(1, 150);
@@ -166,32 +166,13 @@ qx.Class.define("apiviewer.ui.LegendView",
       }), {row: i, column: 1});
     }
 
-    this.add(content)
+    this.add(content);
   },
 
 
-
-
-  /*
-  *****************************************************************************
-     MEMBERS
-  *****************************************************************************
-  */
 
   members :
   {
     __legend : null
-  },
-
-
-  /*
-  *****************************************************************************
-     DESTRUCTOR
-  *****************************************************************************
-  */
-
-  destruct : function()
-  {
-    this._disposeMap("__legend");
   }
 });
