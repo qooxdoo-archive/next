@@ -1,47 +1,54 @@
-//
-// TABBAR
-//
-.tabBar {
+.qx-tabbar {
   padding-top: $tabbar-button-distance;
   padding-left: $tabbar-button-distance;
   padding-right: $tabbar-button-distance;
-  border-bottom: rem(3) solid $tabbar-divider-color;
-  min-height: $tabbar-height;
 
   .button + .button {
     margin-left: $tabbar-button-distance;
   }
+
+  .button {
+    @include background($tabbar-inactive-background);
+    @include border-radius-top($tabbar-border-radius);
+    @include border-radius-bottom(0);
+    @include background-clip(padding-box);
+    @include box-sizing(border-box);
+
+    padding: 0 rem(12);
+
+    color:  $tabbar-inactive-text-color;
+
+    line-height:  $tabbar-height - $tabbar-button-distance;
+    font-weight: normal;
+    font-size: rem(16);
+
+    cursor: pointer;
+
+    text-align: center;
+
+    $tab-button-border: rem(1) solid $tabbar-inactive-border-color;
+    border-top: $tab-button-border;
+    border-left: $tab-button-border;
+    border-right: $tab-button-border;
+  }
+
+  .selected {
+    @include background($tabbar-active-background);
+    border: rem(1) solid $tabbar-active-border-color;
+    border-bottom: 0px solid transparent;
+  }
+
+  .button.qx-flex1 {
+    text-align: center;
+  }
 }
 
-.tabBar .button {
-  @include background($tabbar-inactive-background);
-  @include border-radius-top($tabbar-border-radius);
-  @include border-radius-bottom(0);
-  @include background-clip(padding-box);
-  @include box-sizing(border-box);
-
-  color:  $tabbar-inactive-text-color;
-
-  line-height:  $tabbar-height - $tabbar-button-distance;
-  font-weight: normal;
-  font-size: rem(16);
-
-  // This is for equal sizes od the buttons when added in a toolbar or
-  // other container with flex :1
-  width: 0;
-
-  cursor:pointer;
-
-  text-align: center;
-
-  $tab-button-border: rem(1) solid $tabbar-inactive-border-color;
-  border-top: $tab-button-border;
-  border-left: $tab-button-border;
-  border-right: $tab-button-border;
+.qx-tabbar.qx-hbox {
+  border-bottom: rem(3) solid $tabbar-divider-color;
 }
 
-.tabBar .button.active, .tabBar .button.selected {
-  @include background($tabbar-active-background);
-  border: rem(1) solid $tabbar-active-border-color;
-  border-bottom: 0px solid transparent;
+.qx-tabbar.qx-vbox {
+  .button {
+    @include border-radius(0);
+  }
 }
