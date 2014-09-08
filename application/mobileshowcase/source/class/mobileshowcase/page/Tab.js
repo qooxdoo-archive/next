@@ -66,22 +66,21 @@ qx.Bootstrap.define("mobileshowcase.page.Tab",
       view3.addClass("view3");
       view4.addClass("view4");
 
-      var tabButton1 = new qx.ui.mobile.tabbar.TabButton("Desktop");
-      tabButton1.view = view1;
-
-      var tabButton2 = new qx.ui.mobile.tabbar.TabButton("Mobile");
-      tabButton2.view = view2;
-
-      var tabButton3 = new qx.ui.mobile.tabbar.TabButton("Server");
-      tabButton3.view = view3;
-
-      var tabButton4 = new qx.ui.mobile.tabbar.TabButton("Website");
-      tabButton4.view = view4;
-
-      tabBar.append(tabButton4);
-      tabBar.append(tabButton2);
-      tabBar.append(tabButton3);
+      var tabButton1 = new qx.ui.mobile.Button("Desktop");
+      tabButton1.setData("qxConfigPage", ".view1");
       tabBar.append(tabButton1);
+
+      var tabButton2 = new qx.ui.mobile.Button("Mobile");
+      tabButton2.setData("qxConfigPage", ".view2");
+      tabBar.append(tabButton2);
+
+      var tabButton3 = new qx.ui.mobile.Button("Server");
+      tabButton3.setData("qxConfigPage", ".view3");
+      tabBar.append(tabButton3);
+
+      var tabButton4 = new qx.ui.mobile.Button("Website");
+      tabButton4.setData("qxConfigPage", ".view4");
+      tabBar.append(tabButton4);
 
       return tabBar;
     },
