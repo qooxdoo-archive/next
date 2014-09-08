@@ -193,6 +193,7 @@ qx.Bootstrap.define("qx.ui.mobile.tabbar.TabBar", {
         var firstButton = this.find("> .button").eq(0);
         selectedPage = this.getPage(firstButton);
       }
+      this.selected = null;
       this.selected = selectedPage;
 
       this._applyAlignment(this.align);
