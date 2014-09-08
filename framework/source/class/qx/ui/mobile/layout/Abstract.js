@@ -32,9 +32,9 @@ qx.Bootstrap.define("qx.ui.mobile.layout.Abstract",
 
   events :
   {
-    /** 
-     * Fired when the layout is updated. Data contains the "widget", "action", "properties" 
-     * { 
+    /**
+     * Fired when the layout is updated. Data contains the "widget", "action", "properties"
+     * {
      *    widget : var
      *    action : String
      *    properties : Map
@@ -117,6 +117,15 @@ qx.Bootstrap.define("qx.ui.mobile.layout.Abstract",
       }
     },
 
+    _onAddedChild : function(child) {
+      this.setLayoutProperties(child);
+      this.connectToChildWidget(child);
+    },
+
+    _onRemovedChild : function(child) {
+      this.disconnectFromChildWidget(child);
+    },
+
 
     /**
      * This method is called by the widget to connect the widget with the layout.
@@ -129,12 +138,12 @@ qx.Bootstrap.define("qx.ui.mobile.layout.Abstract",
       }
 
       this._widget = widget;
-      if (widget)
-      {
+      if (widget) {
+        widget.on("addedChild", this._onAddedChild, this);
+        widget.on("removedChild", this._onRemovedChild, this);
         widget.addClasses(this._getCssClasses());
         if (this.__cachedProperties) {
-          for (var property in this.__cachedProperties)
-          {
+          for (var property in this.__cachedProperties) {
             this[property] = undefined;
             this[property] = this.__cachedProperties[property];
           }
@@ -153,6 +162,8 @@ qx.Bootstrap.define("qx.ui.mobile.layout.Abstract",
      */
     disconnectFromWidget : function(widget) {
       if (this._widget) {
+        widget.off("addedChild", this._onAddedChild, this);
+        widget.off("removedChild", this._onRemovedChild, this);
         this._widget.removeClasses(this._getCssClasses());
         this._widget = null;
       }
