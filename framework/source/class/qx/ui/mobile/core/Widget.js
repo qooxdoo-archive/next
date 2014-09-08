@@ -365,7 +365,9 @@ qx.Bootstrap.define("qx.ui.mobile.core.Widget", {
     remove : function() {
       var parent = this._getParentWidget();
       this.base(qxWeb, "remove");
-      parent.emit("removedChild", this);
+      if (parent) {
+        parent.emit("removedChild", this);
+      }
       return this;
     },
 
