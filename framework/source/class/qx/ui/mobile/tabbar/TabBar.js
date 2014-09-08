@@ -45,6 +45,10 @@ qx.Bootstrap.define("qx.ui.mobile.tabbar.TabBar", {
       this.align = align;
     }
 
+    if (!orientation && !this.mediaQuery && !align) {
+      this._render();
+    }
+
     this.on("keydown", this._onKeyDown, this);
     this.on("addedChild", this._render, this);
     this.on("removedChild", this._onRemovedChild, this);
@@ -58,7 +62,7 @@ qx.Bootstrap.define("qx.ui.mobile.tabbar.TabBar", {
     },
 
     /**
-     * The currently selected page, wrapped in a qxWeb collection
+     * The currently selected button, wrapped in a qxWeb collection
      */
     selected: {
       nullable: true,
@@ -185,32 +189,34 @@ qx.Bootstrap.define("qx.ui.mobile.tabbar.TabBar", {
     _renderHorizontal: function() {
       this.setLayout(new qx.ui.mobile.layout.HBox());
 
-      var selectedPage;
+      var selectedButton = null;
       this.find("> .button")._forEachElementWrapped(function(button) {
         var page = this.getPage(button);
-        if (page.length === 0) {
-          return;
+        if (page.length == 1) {
+          var previousParent = page[0].$$qxTabPageParent;
+          if (previousParent) {
+            page.appendTo(previousParent);
+          }
+          else if(page.getParents() === this) {
+            page.insertAfter(this);
+          }
+          page.hide();
         }
-        var previousParent = page[0].$$qxTabPageParent;
-        if (previousParent) {
-          page.appendTo(previousParent);
-        }
-        else if(page.getParents() === this) {
-          page.insertAfter(this);
-        }
-        page.hide();
 
         if (button.hasClass("selected")) {
-          selectedPage = page;
+          selectedButton = button;
         }
       }.bind(this));
 
-      if (!selectedPage) {
+      if (!selectedButton) {
         var firstButton = this.find("> .button").eq(0);
-        selectedPage = this.getPage(firstButton);
+        if (firstButton.length === 1) {
+          // eq returns a generic collection
+          selectedButton = qxWeb(firstButton[0]);
+        }
       }
       this.selected = null;
-      this.selected = selectedPage;
+      this.selected = selectedButton;
 
       this._applyAlignment(this.align);
 
@@ -227,22 +233,18 @@ qx.Bootstrap.define("qx.ui.mobile.tabbar.TabBar", {
       this.find("> .button")
       ._forEachElementWrapped(function(button) {
         var page = this.getPage(button);
-        if (page.length === 0) {
-          return;
-        }
+        if (page.length ==1) {
+          // save the page's parent element for re-rendering in horizontal mode
+          var parent = page.getParents()[0];
+          if (parent !== this[0]) {
+            page[0].$$qxTabPageParent = page.getParents()[0];
+          }
 
-        // save the page's parent element for re-rendering in horizontal mode
-        var parent = page.getParents()[0];
-        if (parent !== this[0]) {
-          page[0].$$qxTabPageParent = page.getParents()[0];
+          page.insertAfter(button);
         }
-
-        page.insertAfter(button);
 
         if (button.hasClass("selected")) {
-          this.selected = this.getPage(button);
-        } else {
-          page.hide();
+          this.selected = button;
         }
 
       }.bind(this));
@@ -258,18 +260,13 @@ qx.Bootstrap.define("qx.ui.mobile.tabbar.TabBar", {
      * @param old {qxWeb?} The previously selected page
      */
     _applySelected : function(value, old) {
-      if (old) {
-        old.hide();
-      }
-      if (value) {
-        value.show();
-      }
-
       this.find("> .button")._forEachElementWrapped(function(button) {
-        if (value && value[0] && this.getPage(button)[0] === value[0]) {
+        if (value && value[0] === button[0]) {
           button.addClass("selected");
+          this.getPage(button).show();
         } else {
           button.removeClass("selected");
+          this.getPage(button).hide();
         }
       }.bind(this));
     },
@@ -349,7 +346,7 @@ qx.Bootstrap.define("qx.ui.mobile.tabbar.TabBar", {
         return;
       }
 
-      this.selected = this.getPage(qxWeb(tappedButton));
+      this.selected = qxWeb(tappedButton);
     },
 
 
@@ -375,7 +372,7 @@ qx.Bootstrap.define("qx.ui.mobile.tabbar.TabBar", {
       }
 
       if (next && next.length > 0) {
-        this.selected = this.getPage(next);
+        this.selected = qxWeb(next);
         next.focus();
       }
     },
