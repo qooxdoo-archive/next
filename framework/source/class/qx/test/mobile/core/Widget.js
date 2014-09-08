@@ -156,7 +156,7 @@ qx.Bootstrap.define("qx.test.mobile.core.Widget",
 
       widget.hide();
       this.assertFalse(widget.isVisible(), "Hide: Widget should not be visible");
-      this.assertFalse(widget.visibility=== "excluded"), "Hide: Widget should not be excluded");
+      this.assertFalse(widget.visibility === "excluded", "Hide: Widget should not be excluded");
       this.assertTrue(widget.isHidden(), "Hide: Widget should be hidden");
       this.assertTrue(widget[0].offsetWidth > 0, "Hide: Widget should be seeable");
       this.assertEquals("block", widget.getStyle("display"), "Hide: Display style should be block");
@@ -174,7 +174,7 @@ qx.Bootstrap.define("qx.test.mobile.core.Widget",
       this.assertTrue(widget.isVisible(), "Show: Widget should be visible");
       this.assertFalse(widget.visibility=== "excluded", "Show: Widget should not be excluded");
       this.assertFalse(widget.isHidden(), "Show: Widget should not be hidden");
-      this.assertTrue(widget[0].offsetWidth > 0), "Show: Widget should be seeable");
+      this.assertTrue(widget[0].offsetWidth > 0, "Show: Widget should be seeable");
       this.assertEquals("block", widget.getStyle("display"), "Show: Display style should be block");
       this.assertFalse(widget.hasClass("exclude"), "Hide: Exclude class set");
       this.assertEquals("visible", widget.getStyle("visibility"), "Show: Visibility style should be visible");
@@ -271,6 +271,95 @@ qx.Bootstrap.define("qx.test.mobile.core.Widget",
       this.assertEquals(widget, qxWeb(element));
 
       widget.dispose();
+    },
+
+    _testAddedChild : function(invokeFunc) {
+      var child = new qx.ui.mobile.core.Widget();
+      this.assertEventFired(this.getRoot(),
+        "addedChild",
+        invokeFunc.bind(this,child),
+        function(newChild) {
+          this.assertEquals(child, newChild);
+        }.bind(this)
+      );
+    },
+
+    testAddedChildAppend : function() {
+      this._testAddedChild(function(child) {
+        this.getRoot().append(child);
+      });
+    },
+
+    testAddedChildAppendAt : function() {
+      this._testAddedChild(function(child) {
+        this.getRoot().appendAt(child, 0);
+      });
+    },
+
+    testAddedChildInsertAfter : function() {
+      var sibling = new qx.ui.mobile.core.Widget();
+      this.getRoot().append(sibling);
+      this._testAddedChild(function(child) {
+        child.insertAfter(sibling);
+      });
+    },
+
+    testAddedChildInsertBefore : function() {
+      var sibling = new qx.ui.mobile.core.Widget();
+      this.getRoot().append(sibling);
+      this._testAddedChild(function(child) {
+        child.insertBefore(sibling);
+      });
+    },
+
+    testAddedChildAfter : function() {
+      var sibling = new qx.ui.mobile.core.Widget();
+      this.getRoot().append(sibling);
+      this._testAddedChild(function(child) {
+        sibling.after(child);
+      });
+    },
+
+    testAddedChildBefore : function() {
+      var sibling = new qx.ui.mobile.core.Widget();
+      this.getRoot().append(sibling);
+      this._testAddedChild(function(child) {
+        sibling.before(child);
+      });
+    },
+
+    testAddedChildAppendTo : function() {
+      this._testAddedChild(function(child) {
+        child.appendTo(this.getRoot());
+      });
+    },
+
+    testRemovedChildRemove : function() {
+      var child = new qx.ui.mobile.core.Widget();
+      this.getRoot().append(child);
+      this.assertEventFired(this.getRoot(),
+        "removedChild",
+        function() {
+          child.remove();
+        }.bind(this),
+        function(removedChild) {
+          this.assertEquals(child, removedChild);
+        }.bind(this)
+      );
+    },
+
+    testRemovedChildEmpty : function() {
+      var child = new qx.ui.mobile.core.Widget();
+      this.getRoot().append(child);
+      this.assertEventFired(this.getRoot(),
+        "removedChild",
+        function() {
+          this.getRoot().empty();
+        }.bind(this),
+        function(removedChildren) {
+          this.assertInArray(child, removedChildren);
+        }.bind(this)
+      );
     }
   }
 });
