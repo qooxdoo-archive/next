@@ -23,141 +23,122 @@ qx.Bootstrap.define("qx.test.mobile.tabbar.TabBar",
 
   members :
   {
-    __createTabBar : function() {
-      var tabBar = new qx.ui.mobile.tabbar.TabBar();
-      this.getRoot().append(tabBar);
-      return tabBar;
+    __tabBar : null,
+
+    setUp : function() {
+      this.base(qx.test.mobile.MobileTestCase, "setUp");
+      this.__tabBar = new qx.ui.mobile.tabbar.TabBar();
+      this.getRoot().append(this.__tabBar);
     },
 
-    __assertChildNodesLength : function(tabBar, tabNumber) {
-      var childrenLength = tabBar.getChildren().length;
+    tearDown : function() {
+      this.base(qx.test.mobile.MobileTestCase, "tearDown");
+      this.__tabBar.dispose();
+    },
+
+    __assertChildNodesLength : function(tabNumber) {
+      var childrenLength = this.__tabBar.getChildren().length;
       this.assertEquals(tabNumber, childrenLength);
     },
 
     testAdd : function()
     {
-      var tabBar = this.__createTabBar();
+      var tabBar = this.__tabBar;
 
-      var button1 = new qx.ui.mobile.tabbar.TabButton("Button 1");
+      var button1 = new qx.ui.mobile.Button("Button 1");
       tabBar.append(button1);
-      this.__assertChildNodesLength(tabBar, 1);
+      this.__assertChildNodesLength(1);
 
-      var button2 = new qx.ui.mobile.tabbar.TabButton("Button 2");
+      var button2 = new qx.ui.mobile.Button("Button 2");
       tabBar.append(button2);
-      this.__assertChildNodesLength(tabBar, 2);
+      this.__assertChildNodesLength(2);
 
-      var button3 = new qx.ui.mobile.tabbar.TabButton("Button 3");
+      var button3 = new qx.ui.mobile.Button("Button 3");
       tabBar.append(button3);
-      this.__assertChildNodesLength(tabBar, 3);
-
-      button1.dispose();
-      button2.dispose();
-      button3.dispose();
+      this.__assertChildNodesLength(3);
       tabBar.dispose();
     },
 
 
     testRemove : function()
     {
-      var tabBar = this.__createTabBar();
+      var tabBar = this.__tabBar;
 
-      var button1 = new qx.ui.mobile.tabbar.TabButton("Button 1");
+      var button1 = new qx.ui.mobile.Button("Button 1");
       tabBar.append(button1);
-      var button2 = new qx.ui.mobile.tabbar.TabButton("Button 2");
+      var button2 = new qx.ui.mobile.Button("Button 2");
       tabBar.append(button2);
-      var button3 = new qx.ui.mobile.tabbar.TabButton("Button 3");
+      var button3 = new qx.ui.mobile.Button("Button 3");
       tabBar.append(button3);
 
-      this.__assertChildNodesLength(tabBar, 3);
+      this.__assertChildNodesLength(3);
 
       button2.remove();
-      this.__assertChildNodesLength(tabBar, 2);
+      this.__assertChildNodesLength(2);
       button1.remove();
-      this.__assertChildNodesLength(tabBar, 1);
+      this.__assertChildNodesLength(1);
       button3.remove();
-      this.__assertChildNodesLength(tabBar, 0);
-
-      button1.dispose();
-      button2.dispose();
-      button3.dispose();
-      tabBar.dispose();
+      this.__assertChildNodesLength(0);
     },
 
 
-    testSelection : function()
+    testSelected : function()
     {
-      var tabBar = this.__createTabBar();
+      var tabBar = this.__tabBar;
 
-      var button1 = new qx.ui.mobile.tabbar.TabButton();
-      tabBar.append(button1);
-      this.assertEquals(button1, tabBar.selection);
+      var button1 = new qx.ui.mobile.Button();
+      tabBar.append(button1).connectPage(button1, "#foo");
+      this.assertEquals(button1, tabBar.selected);
 
-      var button2 = new qx.ui.mobile.tabbar.TabButton();
-      tabBar.append(button2);
-      this.assertEquals(button1, tabBar.selection);
+      var button2 = new qx.ui.mobile.Button();
+      tabBar.append(button2).connectPage(button2, "#bar");
+      this.assertEquals(button1, tabBar.selected);
 
-      var button3 = new qx.ui.mobile.tabbar.TabButton();
-      tabBar.append(button3);
-      this.assertEquals(button1, tabBar.selection);
-
-      tabBar.selection = button2;
-      this.assertEquals(button2, tabBar.selection);
+      tabBar.selected = button2;
+      this.assertEquals(button2, tabBar.selected);
 
       button2.remove();
-      this.assertEquals(null, tabBar.selection);
+      this.assertEquals(button1[0], tabBar.selected[0]);
 
-      this.assertEventFired(tabBar, "changeSelection", function() {
-        tabBar.selection = button1;
+      this.assertEventFired(tabBar, "changeSelected", function() {
+        tabBar.selected = null;
       });
-
-      button1.dispose();
-      button2.dispose();
-      button3.dispose();
-      tabBar.dispose();
     },
 
 
     testView : function()
     {
-      var tabBar = this.__createTabBar();
+      var tabBar = this.__tabBar;
 
-      var button1 = new qx.ui.mobile.tabbar.TabButton("Button 1");
-      var view1 = new qx.ui.mobile.basic.Label("1");
-      view1.exclude();
-      button1.view = view1;
-      tabBar.append(button1);
-      this.assertTrue(view1.isVisible());
+      var view1 = new qx.ui.mobile.basic.Label("1").
+        appendTo(this.getRoot()).hide();
+      this.assertTrue(view1.getStyle("visibility") == "hidden");
+      var button1 = new qx.ui.mobile.Button("Button 1")
+        .setData("qxConfigPage", "#" + view1.getAttribute("id"))
+        .appendTo(tabBar);
+      this.assertTrue(view1.getStyle("visibility") == "visible");
 
-      var button2 = new qx.ui.mobile.tabbar.TabButton("Button 2");
-      tabBar.append(button2);
-      var view2 = new qx.ui.mobile.basic.Label("2");
-      button2.view = view2;
-      this.assertFalse(view2.isVisible());
+      var view2 = new qx.ui.mobile.basic.Label("2").
+        appendTo(this.getRoot());
+      var button2 = new qx.ui.mobile.Button("Button 2")
+        .setData("qxConfigPage", "#" + view2.getAttribute("id"))
+        .appendTo(tabBar);
+      this.assertFalse(view2.getStyle("visibility") == "visible");
 
-      var button3 = new qx.ui.mobile.tabbar.TabButton("Button 3");
-      tabBar.append(button3);
-      tabBar.selection = button3;
-      var view3 = new qx.ui.mobile.basic.Label("3");
-
-      this.assertEventFired(button3, "changeView", function() {
-        button3.view = view3;
-      });
-
-      this.assertFalse(view1.isVisible());
-      this.assertTrue(view3.isVisible());
+      var view3 = new qx.ui.mobile.basic.Label("3").
+        appendTo(this.getRoot());
+      var button3 = new qx.ui.mobile.Button("Button 3")
+        .setData("qxConfigPage", "#" + view3.getAttribute("id"))
+        .appendTo(tabBar);
+      tabBar.selected = button3;
+      this.assertTrue(view1.getStyle("visibility") == "hidden");
+      this.assertTrue(view2.getStyle("visibility") == "hidden");
+      this.assertTrue(view3.getStyle("visibility") == "visible");
 
       button3.remove();
-      this.assertFalse(view1.isVisible());
-      this.assertFalse(view2.isVisible());
-      this.assertFalse(view3.isVisible());
-
-      button1.dispose();
-      button2.dispose();
-      button3.dispose();
-      view1.dispose();
-      view2.dispose();
-      view3.dispose();
-      tabBar.dispose();
+      this.assertTrue(view1.getStyle("visibility") == "visible");
+      this.assertTrue(view2.getStyle("visibility") == "hidden");
+      this.assertTrue(view3.getStyle("visibility") == "visible");
     }
   }
 
