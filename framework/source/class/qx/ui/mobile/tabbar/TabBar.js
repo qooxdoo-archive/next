@@ -85,7 +85,7 @@ qx.Bootstrap.define("qx.ui.mobile.tabbar.TabBar", {
      * <code>right</code>
      */
     align: {
-      init: "left",
+      init: "justify",
       check: function(value) {
         return ["left", "right", "justify"].indexOf(value) !== -1;
       },
