@@ -119,19 +119,6 @@ qx.Bootstrap.define("qx.ui.mobile.tabbar.TabBar", {
 
     __mediaQueryListener: null,
 
-    /**
-     * Connects a tab button to a DOM element. If the button is tapped,
-     * the page will be displayed. If any other button is tapped, the
-     * page will be hidden
-     * @param button {Element|qxWeb} The button element or a button widget instance
-     * @param pageSelector {String} A CSS selector that finds the associated page
-     * @return {qx.ui.mobile.TabBar} This widget for chaining
-     */
-    connectPage: function(button, pageSelector) {
-      qxWeb(button).setData("qxConfigPage", pageSelector);
-      return this._render();
-    },
-
 
     /**
      * Returns the tab page associated with the given button

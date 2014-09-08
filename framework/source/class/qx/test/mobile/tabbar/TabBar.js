@@ -86,12 +86,14 @@ qx.Bootstrap.define("qx.test.mobile.tabbar.TabBar",
     {
       var tabBar = this.__tabBar;
 
-      var button1 = new qx.ui.mobile.Button();
-      tabBar.append(button1).connectPage(button1, "#foo");
+      var button1 = new qx.ui.mobile.Button()
+        .setData("qxConfigPage", "#foo")
+        .appendTo(tabBar);
       this.assertEquals(button1, tabBar.selected);
 
-      var button2 = new qx.ui.mobile.Button();
-      tabBar.append(button2).connectPage(button2, "#bar");
+      var button2 = new qx.ui.mobile.Button()
+        .setData("qxConfigPage", "#bar")
+        .appendTo(tabBar);
       this.assertEquals(button1, tabBar.selected);
 
       tabBar.selected = button2;
