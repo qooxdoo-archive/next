@@ -294,16 +294,13 @@ qx.Bootstrap.define("qx.ui.mobile.core.Widget", {
       if (parent[0]) {
         return parent[0].$$widget;
       }
+      return null;
     },
 
 
     // TODO: remove
     _append : function(child) {
       this.base(qx.ui.mobile.core.Widget, "append", child);
-    },
-
-    add : function() {
-      debugger
     },
 
 
@@ -315,8 +312,7 @@ qx.Bootstrap.define("qx.ui.mobile.core.Widget", {
      * @param index {Integer} Index, at which the widget will be inserted
      * @param options {Map?null} Optional layout data for widget.
      */
-    appendAt : function(child, index, options)
-    {
+    appendAt : function(child, index, options) {
       var ref = this.getChildren()[index];
 
       if (ref) {
@@ -330,65 +326,44 @@ qx.Bootstrap.define("qx.ui.mobile.core.Widget", {
     // overridden
     append : function(child) {
       this.base(qxWeb, "append", child);
-
-      this.updateLayoutProperties(child);
-
-      var layout = this.getLayout();
-      if (layout) {
-        layout.connectToChildWidget(child);
-      }
-
       this.emit("addedChild", child);
-
       return this;
     },
 
 
     appendTo : function(parent) {
       this.base(qxWeb, "appendTo", parent);
-      this._emitOnParent("addedChild", this);
-      return this;
+      return this._emitOnParent("addedChild", this);
     },
 
 
     insertAfter : function(target) {
       this.base(qxWeb, "insertAfter", target);
-      this._emitOnParent("addedChild", this);
-      return this;
+      return this._emitOnParent("addedChild", this);
     },
 
 
     insertBefore : function(target) {
       this.base(qxWeb, "insertBefore", target);
-      this._emitOnParent("addedChild", this);
-      return this;
+      return this._emitOnParent("addedChild", this);
     },
 
 
     after : function(content) {
       this.base(qxWeb, "after", content);
-      this._emitOnParent("addedChild", content);
-      return this;
+      return this._emitOnParent("addedChild", content);
     },
 
 
     before : function(content) {
       this.base(qxWeb, "before", content);
-      this._emitOnParent("addedChild", content);
-      return this;
+      return this._emitOnParent("addedChild", content);
     },
 
 
     // overridden
     remove : function() {
       var parent = this._getParentWidget();
-      if (parent) {
-        parent.disconnectChild(this);
-        var layout = parent.getLayout ? parent.getLayout() : null;
-        if (layout) {
-          layout.disconnectFromChildWidget(this);
-        }
-      }
       this.base(qxWeb, "remove");
       parent.emit("removedChild", this);
       return this;
@@ -408,14 +383,8 @@ qx.Bootstrap.define("qx.ui.mobile.core.Widget", {
       if (parent.length === 1) {
         parent.emit(type, data);
       }
+      return this;
     },
-
-
-    /**
-     * Called on a parent widget when a child is removed.
-     * @param child {qx.ui.mobile.core.Widget} Removed child widget
-     */
-    disconnectChild : function(child) {},
 
 
     /**

@@ -46,6 +46,8 @@ qx.Bootstrap.define("qx.ui.mobile.tabbar.TabBar", {
     }
 
     this.on("keydown", this._onKeyDown, this);
+    this.on("addedChild", this._render, this);
+    this.on("removedChild", this._onRemovedChild, this);
   },
 
   properties: {
@@ -138,6 +140,20 @@ qx.Bootstrap.define("qx.ui.mobile.tabbar.TabBar", {
         return qxWeb(button.getData("qxConfigPage"));
       }
       return null;
+    },
+
+
+    _onRemovedChild : function(child) {
+      if (this.orientation === "horizontal" &&
+        this.selected && this.selected[0] === child[0]) {
+        var buttons = this.find("> .button");
+        for (var i=0, l=buttons.length; i<l; i++) {
+          if (buttons[i] !== child[0]) {
+            this.selected = qxWeb(buttons[i]);
+            return;
+          }
+        }
+      }
     },
 
 
@@ -368,6 +384,8 @@ qx.Bootstrap.define("qx.ui.mobile.tabbar.TabBar", {
     dispose: function() {
       this.find("> .button").off("tap", this._onTap, this);
       this.off("keydown", this._onKeyDown, this);
+      this.on("addedChild", this._render, this);
+      this.on("removedChild", this._onRemovedChild, this);
       this.mediaQuery = null;
     }
 
