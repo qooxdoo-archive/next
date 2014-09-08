@@ -65,7 +65,7 @@ qx.Bootstrap.define("qx.test.mobile.MobileTestCase",
 
     tearDown : function()
     {
-      this.getRoot().removeAll();
+      this.getRoot().empty();
       qx.core.Init.getApplication = qx.test.mobile.MobileTestCase._oldApplicationFunction;
       if (qx.core.Environment.get("qx.debug.dispose"))
       {
