@@ -61,13 +61,13 @@ qx.Bootstrap.define("qx.ui.mobile.layout.Card",
 
   events :
   {
-    /** 
-     * Fired when the animation of a page transition starts 
+    /**
+     * Fired when the animation of a page transition starts
      * [fromWidget, toWidget]
      */
     animationStart : "Array",
 
-    /** 
+    /**
      * Fired when the animation of a page transition ends
      * [fromWidget, toWidget]
      */
@@ -120,7 +120,7 @@ qx.Bootstrap.define("qx.ui.mobile.layout.Card",
 
     // overridden
     connectToChildWidget : function(widget) {
-      this.base(qx.ui.mobile.layout.Abstract, "connectToChildWidget");
+      this.base(qx.ui.mobile.layout.Abstract, "connectToChildWidget", widget);
       if (widget) {
         widget.addClass("layout-card-item");
         widget.addClass("qx-flex1");
@@ -131,7 +131,7 @@ qx.Bootstrap.define("qx.ui.mobile.layout.Card",
 
     // overridden
     disconnectFromChildWidget : function(widget) {
-      this.base(qx.ui.mobile.layout.Abstract, "disconnectFromChildWidget");
+      this.base(qx.ui.mobile.layout.Abstract, "disconnectFromChildWidget", widget);
       widget.removeClass("layout-card-item");
     },
 
