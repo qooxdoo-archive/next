@@ -32,6 +32,12 @@ qx.Bootstrap.define("qx.ui.mobile.core.Widget", {
 
   statics : {
 
+    /**
+     * Creates a factory method for this widget and attaches it to
+     * qxWeb collections
+     *
+     * @param clazz {String} Widget class name
+     */
     attachWidget : function(clazz) {
       var name = clazz.classname.split(".");
       name = qx.lang.String.firstLow(name[name.length - 1]);
@@ -102,8 +108,6 @@ qx.Bootstrap.define("qx.ui.mobile.core.Widget", {
     } else {
       this.push(this._createContainerElement());
     }
-
-    // Init member variables
 
     var clazz = qx.ui.mobile.core.Widget;
     if (!this.getAttribute("id")) {
@@ -205,6 +209,10 @@ qx.Bootstrap.define("qx.ui.mobile.core.Widget", {
     },
 
 
+    /**
+     * A map of property names/values that are used by the widget's
+     * parent layout.
+     */
     layoutPrefs : {
       check : "Object",
       apply: "_applyLayoutPrefs",
@@ -215,9 +223,14 @@ qx.Bootstrap.define("qx.ui.mobile.core.Widget", {
 
 
   members : {
+
     __layoutManager : null,
 
 
+    /**
+     * Reads data attributes prefixed with 'qx-config' and applies their
+     * values to widget properties of the same name (sans prefix).
+     */
     _initDomConfig : function() {
       var data = this.getAllData();
       for (var prop in data) {
@@ -289,6 +302,11 @@ qx.Bootstrap.define("qx.ui.mobile.core.Widget", {
     ---------------------------------------------------------------------------
     */
 
+
+    /**
+     * Returns this widget's parent
+     * @return {qx.ui.mobile.core.Widget|null} parent widget
+     */
     _getParentWidget : function() {
       var parent = this.getParents();
       if (parent[0]) {
@@ -331,30 +349,35 @@ qx.Bootstrap.define("qx.ui.mobile.core.Widget", {
     },
 
 
+    // overridden
     appendTo : function(parent) {
       this.base(qxWeb, "appendTo", parent);
       return this._emitOnParent("addedChild", this);
     },
 
 
+    // overridden
     insertAfter : function(target) {
       this.base(qxWeb, "insertAfter", target);
       return this._emitOnParent("addedChild", this);
     },
 
 
+    // overridden
     insertBefore : function(target) {
       this.base(qxWeb, "insertBefore", target);
       return this._emitOnParent("addedChild", this);
     },
 
 
+    // overridden
     after : function(content) {
       this.base(qxWeb, "after", content);
       return this._emitOnParent("addedChild", content);
     },
 
 
+    // overridden
     before : function(content) {
       this.base(qxWeb, "before", content);
       return this._emitOnParent("addedChild", content);
@@ -372,6 +395,7 @@ qx.Bootstrap.define("qx.ui.mobile.core.Widget", {
     },
 
 
+    // overridden
     empty : function() {
       var removed = this.getChildren();
       this.base(qxWeb, "empty");
@@ -380,6 +404,13 @@ qx.Bootstrap.define("qx.ui.mobile.core.Widget", {
     },
 
 
+    /**
+     * Emits an event on this widget's parent
+     *
+     * @param type {String} Event type
+     * @param data {var?} Event data
+     * @return {qx.ui.mobile.core.Widget} This widget for chaining
+     */
     _emitOnParent : function(type, data) {
       var parent = this._getParentWidget();
       if (parent.length === 1) {
@@ -465,6 +496,9 @@ qx.Bootstrap.define("qx.ui.mobile.core.Widget", {
     },
 
 
+    /**
+     * Adds the 'active' class while the widget is being pressed
+     */
     _addActiveState : function() {
       if (this.getData("selectable") != "false") {
         this.addClass("active");
@@ -473,6 +507,9 @@ qx.Bootstrap.define("qx.ui.mobile.core.Widget", {
     },
 
 
+    /**
+     * Removes the 'active' class when the widget is released
+     */
     _removeActiveState : function() {
       this.removeClass("active");
     },
@@ -535,53 +572,28 @@ qx.Bootstrap.define("qx.ui.mobile.core.Widget", {
 
 
     /**
-     * Sets the visibility of the widget.
-     *
-     * @param action {String} The causing action that triggered the layout update.
-     * @param properties {Map} The animation properties to set. Key / value pairs.
-     */
-    __setVisibility : function(action, properties) {
-      this.visibility = action;
-
-      var parent = this._getParentWidget();
-      if (parent) {
-        parent.updateLayout(this, action, properties);
-      }
-    },
-
-
-    /**
      * Make this widget visible.
-     *
-     * @param properties {Map} The animation properties to set. Key / value pairs.
-     *
      */
-    show : function(properties) {
-      this.__setVisibility("visible", properties);
+    show : function() {
+      this.visibility = "visible";
       return this;
     },
 
 
     /**
      * Hide this widget.
-     *
-     * @param properties {Map} The animation properties to set. Key / value pairs.
-     *
      */
-    hide : function(properties) {
-      this.__setVisibility("hidden", properties);
+    hide : function() {
+      this.visibility = "hidden";
       return this;
     },
 
 
     /**
      * Hide this widget and exclude it from the underlying layout.
-     *
-     * @param properties {Map} The animation properties to set. Key / value pairs.
-     *
      */
-    exclude : function(properties) {
-      this.__setVisibility("excluded", properties);
+    exclude : function() {
+      this.visibility = "excluded";
       return this;
     },
 

@@ -77,7 +77,7 @@ qx.Bootstrap.define("qx.ui.mobile.layout.Card",
 
   properties :
   {
-    /** The default animation to use for page transition */
+    /** The default animation to use for page transition TODO: remove (replaced by page.animation)*/
     defaultAnimation :
     {
       check : "String",
@@ -168,9 +168,8 @@ qx.Bootstrap.define("qx.ui.mobile.layout.Card",
      * Shows the widget with the given properties.
      *
      * @param widget {qx.ui.mobile.core.Widget} The target widget
-     * @param properties {Map} The layout properties to set. Key / value pairs.
      */
-    _showWidget : function(widget, properties)
+    _showWidget : function(widget)
     {
       if (this.__nextWidget == widget) {
         return;
@@ -181,10 +180,10 @@ qx.Bootstrap.define("qx.ui.mobile.layout.Card",
       }
 
       this.__nextWidget = widget;
+      var properties = widget.$$animationProperties || {};
 
 
       if (this.__currentWidget && this.showAnimation && qx.core.Environment.get("css.transform.3d")) {
-        properties = properties || {};
 
         // both are explicit identity checks for null
         if (properties.animation === null || this.getCardAnimation().getMap()[properties.animation] === null) {
@@ -192,7 +191,7 @@ qx.Bootstrap.define("qx.ui.mobile.layout.Card",
           return;
         }
 
-        this.__animation = properties.animation || this.defaultAnimation;
+        this.__animation = properties.animation;
 
         if (properties.action && properties.action === "back") {
           this.__reverse = true;

@@ -176,7 +176,9 @@ qx.Bootstrap.define("qx.ui.mobile.page.Page",
       qx.ui.mobile.page.Page._currentPage = this;
       this.initialize();
       this.start();
-      this.base(qx.ui.mobile.core.Widget, "show", properties);
+      this.$$animationProperties = properties;
+      this.base(qx.ui.mobile.core.Widget, "show");
+      delete this.$$animationProperties;
     },
 
 
@@ -184,7 +186,9 @@ qx.Bootstrap.define("qx.ui.mobile.page.Page",
     exclude : function(properties)
     {
       this.stop();
-      this.base(qx.ui.mobile.core.Widget, "exclude", properties);
+      this.$$animationProperties = properties;
+      this.base(qx.ui.mobile.core.Widget, "exclude");
+      delete this.$$animationProperties;
     },
 
 
