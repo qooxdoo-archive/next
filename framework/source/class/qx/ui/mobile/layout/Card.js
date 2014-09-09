@@ -77,15 +77,7 @@ qx.Bootstrap.define("qx.ui.mobile.layout.Card",
 
   properties :
   {
-    /** The default animation to use for page transition TODO: remove (replaced by page.animation)*/
-    defaultAnimation :
-    {
-      check : "String",
-      init : "slide"
-    },
-
-
-    /** Flag which indicates, whether animation is needed, or widgets should only swap. */
+    /** Flag which indicates whether animation is needed, or widgets should only swap. */
     showAnimation :
     {
       check : "Boolean",
@@ -191,7 +183,7 @@ qx.Bootstrap.define("qx.ui.mobile.layout.Card",
           return;
         }
 
-        this.__animation = properties.animation;
+        this.__animation = properties.animation || widget.defaultAnimation;
 
         if (properties.action && properties.action === "back") {
           this.__reverse = true;

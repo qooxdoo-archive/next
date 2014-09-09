@@ -159,6 +159,15 @@ qx.Bootstrap.define("qx.ui.mobile.page.Page",
       init: null,
       check: ["initialize", "start", "stop", "resume", "wait", "pause"],
       apply: "_applyLifeCycleState"
+    },
+
+
+    /**
+     * The default animation to use for page transitions
+     */
+    defaultAnimation: {
+      check : "String",
+      init : "slide"
     }
   },
 
