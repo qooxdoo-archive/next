@@ -364,17 +364,13 @@ qx.Bootstrap.define("qx.test.Bootstrap",
           },
           b: {
             init: 12
-          },
-          c : {}
+          }
         }
       });
 
       var c = new C();
       this.assertEquals(11, c.a);
       this.assertEquals(12, c.b);
-      this.assertException(function() {
-        var a = c.c;
-      });
 
       c.a = 0;
       this.assertEquals(0, c.a);
@@ -387,10 +383,7 @@ qx.Bootstrap.define("qx.test.Bootstrap",
           a: {
             init: 11
           },
-          b : {
-            nullable : false
-          },
-          c: {
+          b: {
             check : "String",
             init: ""
           }
@@ -404,17 +397,11 @@ qx.Bootstrap.define("qx.test.Bootstrap",
       c.a = undefined;
       this.assertEquals(11, c.a);
 
-      c.b = 12;
+      this.assertEquals("", c.b);
+      c.b = "13";
+      this.assertEquals("13", c.b);
       c.b = undefined;
-      this.assertException(function() {
-        var a = c.b;
-      });
-
-      this.assertEquals("", c.c);
-      c.c = "13";
-      this.assertEquals("13", c.c);
-      c.c = undefined;
-      this.assertEquals("", c.c);
+      this.assertEquals("", c.b);
     },
 
 
