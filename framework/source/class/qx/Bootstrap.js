@@ -724,6 +724,12 @@ qx.Bootstrap.define("qx.Bootstrap",
     },
 
 
+    /**
+     * Checks if the given class supports a property with the given name
+     * @param clazz {Function}  Class
+     * @param propertyName {String} Property name
+     * @return {Boolean} <code>true</code> if the class supports the property
+     */
     hasProperty : function(clazz, propertyName) {
       return !!((clazz.$$properties && clazz.$$properties[propertyName]) ||
         (clazz.prototype.$$properties && clazz.prototype.$$properties[propertyName]));
@@ -731,9 +737,10 @@ qx.Bootstrap.define("qx.Bootstrap",
 
 
     /**
-     * TODOC
-     * @param  {[type]} func [description]
-     * @return {[type]}      [description]
+     * Returns the amount of arguments supported by the given constructor.
+     *
+     * @param constr {Function} constructor function
+     * @return {Number} arguments length
      * @internal
      */
     getConstructorArgumentsCount : function(constr) {
