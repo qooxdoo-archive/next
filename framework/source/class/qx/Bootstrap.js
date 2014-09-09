@@ -413,8 +413,6 @@ qx.Bootstrap.define("qx.Bootstrap",
               var value = this["$$" + name];
               if (value === undefined && def.init !== undefined) {
                 return def.init;
-              } else if (value === undefined && !def.nullable) {
-                throw new Error("Error in property '" + name + "' of class '" + this.classname + "': Not (yet) initialized!");
               }
               return value;
             };
@@ -631,11 +629,6 @@ qx.Bootstrap.define("qx.Bootstrap",
 
     /**
      * Inherit a class from a super class.
-     *
-     * This function differentiates between class and constructor because the
-     * constructor written by the user might be wrapped and the <code>base</code>
-     * property has to be attached to the constructor, while the <code>superclass</code>
-     * property has to be attached to the wrapped constructor.
      *
      * @param clazz {Function} The class's wrapped constructor
      * @param construct {Function} The unwrapped constructor
