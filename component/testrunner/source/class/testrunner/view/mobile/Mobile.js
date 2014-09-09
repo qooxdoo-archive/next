@@ -195,7 +195,7 @@ qx.Bootstrap.define("testrunner.view.mobile.Mobile", {
      */
     _getStatusBar : function()
     {
-      var statusBar = new qx.ui.mobile.container.Composite(new qx.ui.mobile.layout.HBox());
+      var statusBar = new qx.ui.mobile.Widget(new qx.ui.mobile.layout.HBox());
       var statusGroup = new qx.ui.mobile.form.Group([statusBar]);
       statusGroup.setAttribute("id", "statusgroup");
       this.__statusLabel = new qx.ui.mobile.basic.Label("Loading...");
