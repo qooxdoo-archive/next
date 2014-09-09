@@ -366,11 +366,11 @@ qx.Bootstrap.define("qx.ui.mobile.tabbar.TabBar", {
 
 
     dispose: function() {
-      this.find("> .button").off("tap", this._onTap, this);
-      this.off("keydown", this._onKeyDown, this);
-      this.on("addedChild", this._render, this);
-      this.on("removedChild", this._onRemovedChild, this);
-      this.mediaQuery = null;
+      this.find("> .button").off("tap", this._onTap, this)
+        .off("keydown", this._onKeyDown, this)
+        .off("addedChild", this._render, this)
+        .off("removedChild", this._onRemovedChild, this)
+        .mediaQuery = null;
     }
 
   },
