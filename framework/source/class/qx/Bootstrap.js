@@ -406,6 +406,7 @@ qx.Bootstrap.define("qx.Bootstrap",
         var setter = def.set instanceof Function ? def.set : proto[def.set];
 
         Object.defineProperty(proto, name, {
+          enumerable : true,
 
           get : getter || (function(name, def) {
             return function() {
