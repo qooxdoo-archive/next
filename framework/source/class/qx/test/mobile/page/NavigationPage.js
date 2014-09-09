@@ -56,9 +56,9 @@ qx.Bootstrap.define("qx.test.mobile.page.NavigationPage",
       page.showBackButton = true;
       page.backButtonText = "Affe";
       this.assertEquals("Affe", page._getBackButton().getValue());
-      this.assertTrue(page._getBackButton().isVisible());
+      this.assertEquals("visible", page._getBackButton().visibility);
       page.showBackButton = false;
-      this.assertFalse(page._getBackButton().isVisible());
+      this.assertNotEquals("visible", page._getBackButton().visibility);
 
       page.dispose();
     },
@@ -73,9 +73,9 @@ qx.Bootstrap.define("qx.test.mobile.page.NavigationPage",
       page.showButton = true;
       page.buttonText = "Affe";
       this.assertEquals("Affe", page._getButton().getValue());
-      this.assertTrue(page._getButton().isVisible());
+      this.assertEquals("visible", page._getButton().visibility);
       page.showButton = false;
-      this.assertFalse(page._getButton().isVisible());
+      this.assertNotEquals("visible", page._getButton().visibility);
 
       page.dispose();
     }

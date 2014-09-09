@@ -42,13 +42,14 @@ qx.Bootstrap.define("qx.test.mobile.form.Label",
     {
       var label = new qx.ui.mobile.form.Label("foo-label");
       var target = new qx.ui.mobile.form.TextField("foo");
+      this.getRoot().append(target);
 
       target.enabled = false;
 
       label.setLabelFor(target.getAttribute("id"));
 
       // check if state is considered before label.for is set.
-      this.assertFalse(label.enabled);
+      this.assertEquals(target.enabled, label.enabled);
 
       target.enabled = true;
 

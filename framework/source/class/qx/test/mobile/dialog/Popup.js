@@ -27,11 +27,11 @@ qx.Bootstrap.define("qx.test.mobile.dialog.Popup",
       var label = new qx.ui.mobile.basic.Label("test");
       var popup = new qx.ui.mobile.dialog.Popup(label);
 
-      this.assertFalse(popup.isVisible());
+      this.assertNotEquals("visible", popup.visibility);
 
       popup.show();
 
-      this.assertTrue(popup.isVisible());
+      this.assertEquals("visible", popup.visibility);
 
       label.dispose();
       popup.dispose();
@@ -47,18 +47,18 @@ qx.Bootstrap.define("qx.test.mobile.dialog.Popup",
       popup.modal = false;
       popup.show();
 
-      this.assertTrue(popup.isVisible(), 'popup should be visible.');
+      this.assertEquals("visible", popup.visibility, 'popup should be visible.');
       this.assertEquals(0, qxWeb(document.body).getChildren(".blocker").length, 'Modal mode is false, blocker should be still hidden.');
 
       popup.hide();
 
-      this.assertFalse(popup.isVisible(), 'popup should not be visible.');
+      this.assertNotEquals("visible", popup.visibility, 'popup should not be visible.');
       this.assertEquals(0, qxWeb(document.body).getChildren(".blocker").length, 'Modal mode is false, called popup.hide(), blocker should be still hidden.');
 
       popup.show();
 
       this.assertEquals(0, qxWeb(document.body).getChildren(".blocker").length, 'Modal mode is false, called popup.show(), blocker should be still hidden.');
-      this.assertTrue(popup.isVisible(), 'popup should be visible.');
+      this.assertEquals("visible", popup.visibility, 'popup should be visible.');
 
       // Modal mode true test cases
       popup.modal = true;

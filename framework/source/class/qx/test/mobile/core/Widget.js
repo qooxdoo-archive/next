@@ -99,26 +99,10 @@ qx.Bootstrap.define("qx.test.mobile.core.Widget",
     testWidgetRegistration : function()
     {
       var widget = new qx.ui.mobile.core.Widget();
+      this.getRoot().append(widget);
 
       widget = qx.ui.mobile.core.Widget.getWidgetById(widget.getAttribute("id"));
       this.assertQxMobileWidget(widget);
-
-      widget.dispose();
-    },
-
-
-    testWidgetRegistrationSameId : function()
-    {
-      var widget = new qx.ui.mobile.core.Widget();
-      widget.setAttribute("id", "affe");
-
-      if (qx.core.Environment.get("qx.debug"))
-      {
-        this.assertException(function() {
-          var widget2 = new qx.ui.mobile.core.Widget();
-          widget2.setAttribute("id", "affe");
-        });
-      }
 
       widget.dispose();
     },
@@ -145,9 +129,8 @@ qx.Bootstrap.define("qx.test.mobile.core.Widget",
       this.__assertShow(widget);
 
       widget.exclude();
-      this.assertFalse(widget.isVisible(), "Exclude: Widget should not be visible");
-      this.assertTrue(widget.visibility=== "excluded", "Exclude: Widget should be excluded");
-      this.assertTrue(widget.isHidden(), "Exclude: Widget should be hidden");
+      this.assertNotEquals("visible", widget.visibility, "Exclude: Widget should not be visible");
+      this.assertEquals("excluded", widget.visibility, "Exclude: Widget should be excluded");
       this.assertTrue(widget.hasClass("exclude"), "Exclude: No exclude class set");
       this.assertEquals("visible", widget.getStyle("visibility"), "Exclude: Visibility style should be null");
 
@@ -155,9 +138,9 @@ qx.Bootstrap.define("qx.test.mobile.core.Widget",
       this.__assertShow(widget);
 
       widget.hide();
-      this.assertFalse(widget.isVisible(), "Hide: Widget should not be visible");
+      this.assertNotEquals("visible", widget.visibility, "Hide: Widget should not be visible");
       this.assertFalse(widget.visibility === "excluded", "Hide: Widget should not be excluded");
-      this.assertTrue(widget.isHidden(), "Hide: Widget should be hidden");
+      this.assertEquals("hidden", widget.visibility, "Hide: Widget should be hidden");
       this.assertTrue(widget[0].offsetWidth > 0, "Hide: Widget should be seeable");
       this.assertEquals("block", widget.getStyle("display"), "Hide: Display style should be block");
       this.assertFalse(widget.hasClass("exclude"), "Hide: Exclude class set");
@@ -171,9 +154,9 @@ qx.Bootstrap.define("qx.test.mobile.core.Widget",
 
 
     __assertShow : function(widget) {
-      this.assertTrue(widget.isVisible(), "Show: Widget should be visible");
-      this.assertFalse(widget.visibility=== "excluded", "Show: Widget should not be excluded");
-      this.assertFalse(widget.isHidden(), "Show: Widget should not be hidden");
+      this.assertEquals("visible", widget.visibility, "Show: Widget should be visible");
+      this.assertNotEquals("excluded", widget.visibility, "Show: Widget should not be excluded");
+      this.assertNotEquals("hidden", widget.visibility, "Show: Widget should not be hidden");
       this.assertTrue(widget[0].offsetWidth > 0, "Show: Widget should be seeable");
       this.assertEquals("block", widget.getStyle("display"), "Show: Display style should be block");
       this.assertFalse(widget.hasClass("exclude"), "Hide: Exclude class set");

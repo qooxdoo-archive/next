@@ -75,20 +75,20 @@ qx.Bootstrap.define("qx.test.mobile.basic.Atom",
       var atom = new qx.ui.mobile.basic.Atom("myText", imageURL);
       this.getRoot().append(atom);
 
-      this.assertTrue(atom.getIconWidget().isVisible());
-      this.assertTrue(atom.getLabelWidget().isVisible());
+      this.assertEquals("visible", atom.getIconWidget().visibility);
+      this.assertEquals("visible", atom.getLabelWidget().visibility);
 
       atom.showChildren = 'label';
-      this.assertFalse(atom.getIconWidget().isVisible());
-      this.assertTrue(atom.getLabelWidget().isVisible());
+      this.assertEquals("excluded", atom.getIconWidget().visibility);
+      this.assertEquals("visible", atom.getLabelWidget().visibility);
 
       atom.showChildren = 'icon';
-      this.assertTrue(atom.getIconWidget().isVisible());
-      this.assertFalse(atom.getLabelWidget().isVisible());
+      this.assertEquals("visible", atom.getIconWidget().visibility);
+      this.assertEquals("excluded", atom.getLabelWidget().visibility);
 
       atom.showChildren = 'both';
-      this.assertTrue(atom.getIconWidget().isVisible());
-      this.assertTrue(atom.getLabelWidget().isVisible());
+      this.assertEquals("visible", atom.getIconWidget().visibility);
+      this.assertEquals("visible", atom.getLabelWidget().visibility);
     },
 
 
