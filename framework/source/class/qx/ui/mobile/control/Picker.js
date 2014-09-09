@@ -43,12 +43,12 @@
  */
 qx.Bootstrap.define("qx.ui.mobile.control.Picker",
 {
-  extend : qx.ui.mobile.core.Widget,
+  extend : qx.ui.mobile.Widget,
 
 
   construct : function()
   {
-    this.base(qx.ui.mobile.core.Widget, "constructor");
+    this.base(qx.ui.mobile.Widget, "constructor");
 
     this._pickerModel = new qx.data.Array();
     this._slots = new qx.data.Array();
@@ -171,7 +171,7 @@ qx.Bootstrap.define("qx.ui.mobile.control.Picker",
       list.on("changeSelection", this._onChangeSelection.bind(this, slotIndex));
       list.model = slotModel;
 
-      var slotWrapper = new qx.ui.mobile.core.Widget();
+      var slotWrapper = new qx.ui.mobile.Widget();
 
       // Generate placeholder items at before and after picker data list,
       // for making sure the first and last item can be scrolled
@@ -195,10 +195,10 @@ qx.Bootstrap.define("qx.ui.mobile.control.Picker",
 
     /**
     * Creates a placeholder list item, for making sure the selected item is vertically centered.
-    * @return {qx.ui.mobile.core.Widget} the placeholder list item.
+    * @return {qx.ui.mobile.Widget} the placeholder list item.
     */
     _createPlaceholderItem : function() {
-      var placeholderItem = new qx.ui.mobile.core.Widget();
+      var placeholderItem = new qx.ui.mobile.Widget();
       placeholderItem.setStyle("minHeight", this._calcItemHeight() + "px")
         .addClass("list-item")
         .addClass("placeholder-item");
@@ -344,7 +344,7 @@ qx.Bootstrap.define("qx.ui.mobile.control.Picker",
       for (var i = this._slots.length - 1; i >= 0; i--) {
         this.removeSlot(i);
       }
-      this.base(qx.ui.mobile.core.Widget, "dispose");
+      this.base(qx.ui.mobile.Widget, "dispose");
     }
   }
 });

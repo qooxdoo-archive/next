@@ -87,7 +87,7 @@ qx.Bootstrap.define("qx.ui.mobile.form.renderer.Single",
      /**
      * Determines whether the given item can be display in one line
      * or whether a separate line for the text label is needed.
-     * @param item {qx.ui.mobile.core.Widget} the widget which should be added.
+     * @param item {qx.ui.mobile.Widget} the widget which should be added.
      * @return {Boolean} it indicates whether the widget can be displayed
      *  in same line as the label.
      */
@@ -149,7 +149,7 @@ qx.Bootstrap.define("qx.ui.mobile.form.renderer.Single",
     /**
      * @deprecated {4.0} Please use '_addToScrollContainer' instead.
      * Wraps the given item with a ScrollComposite.
-     * @param item {qx.ui.mobile.core.Widget} A form item to render.
+     * @param item {qx.ui.mobile.Widget} A form item to render.
      * @param name {String} A name for the form item.
      */
     _addInScrollComposite: function(item, name) {
@@ -159,7 +159,7 @@ qx.Bootstrap.define("qx.ui.mobile.form.renderer.Single",
 
     /**
      * Wraps the given item with a {@link qx.ui.mobile.container.Scroll scroll} container.
-     * @param item {qx.ui.mobile.core.Widget} A form item to render.
+     * @param item {qx.ui.mobile.Widget} A form item to render.
      * @param name {String} A name for the form item.
      */
     _addToScrollContainer : function(item,name) {
@@ -175,7 +175,7 @@ qx.Bootstrap.define("qx.ui.mobile.form.renderer.Single",
 
     /**
     * Adds a label and its according widget in a row and applies the given layout.
-    * @param item {qx.ui.mobile.core.Widget} A form item to render.
+    * @param item {qx.ui.mobile.Widget} A form item to render.
     * @param name {String} A name for the form item.
     * @param layout {qx.ui.mobile.layout.Abstract} layout of the rendered row.
     */
@@ -289,7 +289,7 @@ qx.Bootstrap.define("qx.ui.mobile.form.renderer.Single",
     * Returns the parent row of the item.
     *
     * @param item {qx.ui.form.IForm} the form item.
-    * @return {qx.ui.mobile.core.Widget} the parent row.
+    * @return {qx.ui.mobile.Widget} the parent row.
     */
     _getParentRow : function(item) {
       var parent = item._getParentWidget();

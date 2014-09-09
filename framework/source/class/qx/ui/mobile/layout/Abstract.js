@@ -64,7 +64,7 @@ qx.Bootstrap.define("qx.ui.mobile.layout.Abstract",
      * Abstracts method. Override this in your implementation.
      * The function is called for all given layout properties once.
      *
-     * @param widget {qx.ui.mobile.core.Widget} The target widget
+     * @param widget {qx.ui.mobile.Widget} The target widget
      * @param property {String?null} Optional. The layout property to set.
      * @param value {var?} Optional. The value of the layout property.
      */
@@ -78,7 +78,7 @@ qx.Bootstrap.define("qx.ui.mobile.layout.Abstract",
     /**
      * Sets the given layout properties to a widget.
      *
-     * @param widget {qx.ui.mobile.core.Widget} The target widget
+     * @param widget {qx.ui.mobile.Widget} The target widget
      * @param properties {Map} The layout properties to set. Key / value pairs.
      */
     setLayoutProperties : function(widget) {
@@ -115,7 +115,7 @@ qx.Bootstrap.define("qx.ui.mobile.layout.Abstract",
     /**
      * This method is called by the widget to connect the widget with the layout.
      *
-     * @param widget {qx.ui.mobile.core.Widget} The widget to connect to
+     * @param widget {qx.ui.mobile.Widget} The widget to connect to
      */
     connectToWidget : function(widget) {
       if (this._widget) {
@@ -143,7 +143,7 @@ qx.Bootstrap.define("qx.ui.mobile.layout.Abstract",
      * This method is called by the widget to disconnect the widget from
      * the layout.
      *
-     * @param widget {qx.ui.mobile.core.Widget} The widget to disconnect from
+     * @param widget {qx.ui.mobile.Widget} The widget to disconnect from
      */
     disconnectFromWidget : function(widget) {
       if (this._widget) {
@@ -160,7 +160,7 @@ qx.Bootstrap.define("qx.ui.mobile.layout.Abstract",
      * Connects the layout to a given child widget. Can be overridden in a concrete
      * interface implementation.
      *
-     * @param widget {qx.ui.mobile.core.Widget} The widget to connect to
+     * @param widget {qx.ui.mobile.Widget} The widget to connect to
      */
     connectToChildWidget : function(widget) {},
 
@@ -169,7 +169,7 @@ qx.Bootstrap.define("qx.ui.mobile.layout.Abstract",
      * Disconnects the layout from a given child widget. Can be overridden in a concrete
      * interface implementation.
      *
-     * @param widget {qx.ui.mobile.core.Widget} The widget to connect to
+     * @param widget {qx.ui.mobile.Widget} The widget to connect to
      */
     disconnectFromChildWidget : function(widget) {},
 
@@ -193,7 +193,7 @@ qx.Bootstrap.define("qx.ui.mobile.layout.Abstract",
     /**
      * Returns a child layout property value.
      *
-     * @param widget {qx.ui.mobile.core.Widget} The target widget
+     * @param widget {qx.ui.mobile.Widget} The target widget
      * @param property {String} The property to retrieve the value from
      * @return {var} The value of the given property
      */
@@ -208,7 +208,7 @@ qx.Bootstrap.define("qx.ui.mobile.layout.Abstract",
      * Adds a child layout property to the cache. When the value is
      * <code>null</code> the property will be deleted from the cache.
      *
-     * @param widget {qx.ui.mobile.core.Widget} The target widget
+     * @param widget {qx.ui.mobile.Widget} The target widget
      * @param property {String} The property to add
      * @param value {var} The value of the property to add
      */
@@ -227,7 +227,7 @@ qx.Bootstrap.define("qx.ui.mobile.layout.Abstract",
     /**
      * Returns the child layout property cache.
      *
-     * @param widget {qx.ui.mobile.core.Widget} The target widget
+     * @param widget {qx.ui.mobile.Widget} The target widget
      * @return {Map} The child layout property cache for the given widget.
      *     Key / value pairs.
      */

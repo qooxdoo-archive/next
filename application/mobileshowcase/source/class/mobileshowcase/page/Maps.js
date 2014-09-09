@@ -77,7 +77,7 @@ qx.Bootstrap.define("mobileshowcase.page.Maps",
       layout.alignX = "center";
       layout.alignY = "middle";
 
-      var mapContainer = new qx.ui.mobile.core.Widget();
+      var mapContainer = new qx.ui.mobile.Widget();
       mapContainer.setLayout(layout);
       mapContainer.id = "osmMap";
 
@@ -92,7 +92,7 @@ qx.Bootstrap.define("mobileshowcase.page.Maps",
         return null;
       }
 
-      var menuContainer = new qx.ui.mobile.core.Widget();
+      var menuContainer = new qx.ui.mobile.Widget();
       menuContainer.id = "mapMenu";
 
       // LABEL

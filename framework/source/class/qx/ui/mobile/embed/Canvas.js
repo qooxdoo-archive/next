@@ -49,7 +49,7 @@
  */
 qx.Bootstrap.define("qx.ui.mobile.embed.Canvas",
 {
-  extend : qx.ui.mobile.core.Widget,
+  extend : qx.ui.mobile.Widget,
 
 
   members :

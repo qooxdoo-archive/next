@@ -287,7 +287,7 @@ qx.Bootstrap.define("qx.ui.mobile.dialog.Manager",
     {
       var layout = new qx.ui.mobile.layout.VBox();
       layout.alignY = "middle";
-      var widget = new qx.ui.mobile.core.Widget();
+      var widget = new qx.ui.mobile.Widget();
       widget.setLayout(layout);
       var dialog = new qx.ui.mobile.dialog.Popup(widget);
 
@@ -298,7 +298,7 @@ qx.Bootstrap.define("qx.ui.mobile.dialog.Manager",
       {
         var wLayout = new qx.ui.mobile.layout.HBox();
         wLayout.alignX = "center";
-        var waitingWidget = new qx.ui.mobile.core.Widget();
+        var waitingWidget = new qx.ui.mobile.Widget();
         waitingWidget.setLayout(wLayout);
         widget.append(waitingWidget);
         waitingWidget.append(new qx.ui.mobile.dialog.BusyIndicator(text));
@@ -307,7 +307,7 @@ qx.Bootstrap.define("qx.ui.mobile.dialog.Manager",
       {
         var lLayout = new qx.ui.mobile.layout.HBox();
         lLayout.alignX = "center";
-        var labelWidget = new qx.ui.mobile.core.Widget();
+        var labelWidget = new qx.ui.mobile.Widget();
         labelWidget.setLayout(lLayout);
         labelWidget.append(new qx.ui.mobile.basic.Label(text));
         labelWidget.addClass("gap");
@@ -316,7 +316,7 @@ qx.Bootstrap.define("qx.ui.mobile.dialog.Manager",
         {
           var iLayout = new qx.ui.mobile.layout.HBox();
           iLayout.alignX = "center";
-          var inputWidget = new qx.ui.mobile.core.Widget();
+          var inputWidget = new qx.ui.mobile.Widget();
           inputWidget.setLayout(iLayout);
           inputWidget.addClass("gap");
           var inputText = new qx.ui.mobile.form.TextField();
@@ -326,7 +326,7 @@ qx.Bootstrap.define("qx.ui.mobile.dialog.Manager",
 
         var bLayout = new qx.ui.mobile.layout.HBox();
         bLayout.alignX = "center";
-        var buttonContainer = new qx.ui.mobile.core.Widget();
+        var buttonContainer = new qx.ui.mobile.Widget();
         buttonContainer.setLayout(bLayout);
         buttonContainer.addClass("gap");
         for(var i=0, l=buttons.length; i<l; i++)

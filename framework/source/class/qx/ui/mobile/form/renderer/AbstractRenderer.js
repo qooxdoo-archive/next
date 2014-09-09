@@ -28,7 +28,7 @@
  */
 qx.Bootstrap.define("qx.ui.mobile.form.renderer.AbstractRenderer",
 {
-  extend : qx.ui.mobile.core.Widget,
+  extend : qx.ui.mobile.Widget,
   implement : qx.ui.form.renderer.IFormRenderer,
 
 
@@ -37,7 +37,7 @@ qx.Bootstrap.define("qx.ui.mobile.form.renderer.AbstractRenderer",
    */
   construct : function(form)
   {
-    this.base(qx.ui.mobile.core.Widget, "constructor");
+    this.base(qx.ui.mobile.Widget, "constructor");
 
     this._form = form;
     this._render();
@@ -110,7 +110,7 @@ qx.Bootstrap.define("qx.ui.mobile.form.renderer.AbstractRenderer",
     /**
      * Shows an error to the user when a form element is in invalid state
      * usually it prints an error message, so that user can rectify the filling of the form element.
-     * @param item {qx.ui.mobile.core.Widget} the form item
+     * @param item {qx.ui.mobile.Widget} the form item
      */
     showErrorForItem : function(item) {
       throw new Error("Abstract method call");

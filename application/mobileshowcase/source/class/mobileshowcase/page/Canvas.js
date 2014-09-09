@@ -85,7 +85,7 @@ qx.Bootstrap.define("mobileshowcase.page.Canvas",
 
 
     _createScrollContainer : function() {
-      return new qx.ui.mobile.core.Widget();
+      return new qx.ui.mobile.Widget();
     },
 
 

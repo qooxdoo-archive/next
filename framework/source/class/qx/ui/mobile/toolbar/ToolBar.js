@@ -24,11 +24,11 @@
  */
 qx.Bootstrap.define("qx.ui.mobile.toolbar.ToolBar",
 {
-  extend : qx.ui.mobile.core.Widget,
+  extend : qx.ui.mobile.Widget,
 
   construct : function(layout)
   {
-    this.base(qx.ui.mobile.core.Widget, "constructor")
+    this.base(qx.ui.mobile.Widget, "constructor")
     this.setLayout(layout);
     if (!layout) {
       layout = new qx.ui.mobile.layout.HBox();
@@ -59,7 +59,7 @@ qx.Bootstrap.define("qx.ui.mobile.toolbar.ToolBar",
     /**
       * Adds a new child widget.
       *
-      * @param child {qx.ui.mobile.core.Widget} the widget to add.
+      * @param child {qx.ui.mobile.Widget} the widget to add.
       * @param layoutProperties {Map?null} Optional layout data for widget.
       */
     append : function(child, layoutProperties)
@@ -70,7 +70,7 @@ qx.Bootstrap.define("qx.ui.mobile.toolbar.ToolBar",
         qx.lang.Object.mergeWith(layoutProperties, {flex: 1}, false);
       }
       child.layoutPrefs = layoutProperties;
-      this.base(qx.ui.mobile.core.Widget, "append", child);
+      this.base(qx.ui.mobile.Widget, "append", child);
     }
   }
 });

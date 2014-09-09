@@ -215,7 +215,7 @@ qx.Bootstrap.define("testrunner.view.mobile.Mobile", {
           id: "autframe"
         });
 
-        var iframeWidget = new qx.ui.mobile.core.Widget();
+        var iframeWidget = new qx.ui.mobile.Widget();
         iframeWidget.append(this.__iframe);
         iframeWidget.insertAfter(this.__testListWidget);
       }

@@ -132,7 +132,7 @@ qx.Bootstrap.define("qx.ui.mobile.form.Form",
     /**
     * Returns the invalid items of the form, which were determined by {@link qx.ui.mobile.form.Form#validate} before.
     * It returns an empty array if no items are invalid.
-    * @return {qx.ui.mobile.core.Widget[]} The invalid items of the form.
+    * @return {qx.ui.mobile.Widget[]} The invalid items of the form.
     */
     getInvalidItems : function() {
       return this.__invalidItems;

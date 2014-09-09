@@ -57,13 +57,13 @@
  */
 qx.Bootstrap.define("qx.ui.mobile.page.Page",
 {
-  extend : qx.ui.mobile.core.Widget,
+  extend : qx.ui.mobile.Widget,
   include : qx.ui.mobile.core.MResize,
 
 
   construct : function(layout)
   {
-    this.base(qx.ui.mobile.core.Widget, "constructor");
+    this.base(qx.ui.mobile.Widget, "constructor");
     this.setLayout(layout || new qx.ui.mobile.layout.VBox());
   },
 
@@ -186,7 +186,7 @@ qx.Bootstrap.define("qx.ui.mobile.page.Page",
       this.initialize();
       this.start();
       this.$$animationProperties = properties;
-      this.base(qx.ui.mobile.core.Widget, "show");
+      this.base(qx.ui.mobile.Widget, "show");
       delete this.$$animationProperties;
     },
 
@@ -196,7 +196,7 @@ qx.Bootstrap.define("qx.ui.mobile.page.Page",
     {
       this.stop();
       this.$$animationProperties = properties;
-      this.base(qx.ui.mobile.core.Widget, "exclude");
+      this.base(qx.ui.mobile.Widget, "exclude");
       delete this.$$animationProperties;
     },
 

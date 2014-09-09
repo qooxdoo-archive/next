@@ -46,7 +46,7 @@ qx.Bootstrap.define("qx.ui.mobile.dialog.Menu",
 
   /**
    * @param itemsModel {qx.data.Array ?}, the model which contains the choosable items of the menu.
-   * @param anchor {qx.ui.mobile.core.Widget ?} The anchor widget for this item. If no anchor is available, the menu will be displayed modal and centered on screen.
+   * @param anchor {qx.ui.mobile.Widget ?} The anchor widget for this item. If no anchor is available, the menu will be displayed modal and centered on screen.
    */
   construct : function(itemsModel, anchor)
   {
@@ -58,7 +58,7 @@ qx.Bootstrap.define("qx.ui.mobile.dialog.Menu",
       this.__selectionList.model = itemsModel;
     }
 
-    this.__menuContainer = new qx.ui.mobile.core.Widget();
+    this.__menuContainer = new qx.ui.mobile.Widget();
     this.__clearButton = this._createClearButton();
     this.__listScroller = this._createListScroller(this.__selectionList);
 
@@ -75,7 +75,7 @@ qx.Bootstrap.define("qx.ui.mobile.dialog.Menu",
   {
     /**
      * Fired when the selection is changed.
-     * { 
+     * {
      *   index : number
      *   item : var
      * }

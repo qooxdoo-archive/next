@@ -73,7 +73,7 @@
  */
 qx.Bootstrap.define("qx.ui.mobile.list.List",
 {
-  extend : qx.ui.mobile.core.Widget,
+  extend : qx.ui.mobile.Widget,
 
 
   /**
@@ -81,7 +81,7 @@ qx.Bootstrap.define("qx.ui.mobile.list.List",
    */
   construct : function(delegate, element)
   {
-    this.base(qx.ui.mobile.core.Widget, "constructor", element);
+    this.base(qx.ui.mobile.Widget, "constructor", element);
     this.__provider = new qx.ui.mobile.list.provider.Provider(this);
 
     this.on("tap", this._onTap, this);
@@ -614,7 +614,7 @@ qx.Bootstrap.define("qx.ui.mobile.list.List",
 
 
     dispose : function() {
-      this.base(qx.ui.mobile.core.Widget, "dispose");
+      this.base(qx.ui.mobile.Widget, "dispose");
       this.__trackElement = null;
       if (qx.core.Environment.get("qx.dynlocale")) {
         qx.locale.Manager.getInstance().off("changeLocale", this._onChangeLocale, this);

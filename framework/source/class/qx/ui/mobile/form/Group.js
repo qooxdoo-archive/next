@@ -39,16 +39,16 @@
  */
 qx.Bootstrap.define("qx.ui.mobile.form.Group",
 {
-  extend : qx.ui.mobile.core.Widget,
+  extend : qx.ui.mobile.Widget,
 
 
   /**
-   * @param widgets {qx.ui.mobile.core.Widget[]?}
+   * @param widgets {qx.ui.mobile.Widget[]?}
    * @param showBorder {Boolean?} initial value of the property showBorder.
    */
   construct : function(widgets, showBorder)
   {
-    this.base(qx.ui.mobile.core.Widget, "constructor");
+    this.base(qx.ui.mobile.Widget, "constructor");
 
     this.addClass("bordered");
 

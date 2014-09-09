@@ -32,7 +32,7 @@
  *
  * <pre class="javascript">
  * var layout = new qx.ui.mobile.layout.Card());
- * var container = new qx.ui.mobile.core.Widget();
+ * var container = new qx.ui.mobile.Widget();
  * container.setLayout(layout);
  *
  * var label1 = new qx.ui.mobile.basic.Label("1");
@@ -159,7 +159,7 @@ qx.Bootstrap.define("qx.ui.mobile.layout.Card",
     /**
      * Shows the widget with the given properties.
      *
-     * @param widget {qx.ui.mobile.core.Widget} The target widget
+     * @param widget {qx.ui.mobile.Widget} The target widget
      */
     _showWidget : function(widget)
     {
@@ -218,7 +218,7 @@ qx.Bootstrap.define("qx.ui.mobile.layout.Card",
      * Fix size, only if widget has mixin MResize set,
      * and nextWidget is set.
      *
-     * @param widget {qx.ui.mobile.core.Widget} The target widget which should have a fixed size.
+     * @param widget {qx.ui.mobile.Widget} The target widget which should have a fixed size.
      */
     _fixWidgetSize : function(widget) {
       if(widget) {
@@ -235,7 +235,7 @@ qx.Bootstrap.define("qx.ui.mobile.layout.Card",
      * Releases recently fixed widget size (width/height). This is needed for allowing further
      * flexbox layouting.
      *
-     * @param widget {qx.ui.mobile.core.Widget} The target widget which should have a flexible size.
+     * @param widget {qx.ui.mobile.Widget} The target widget which should have a flexible size.
      */
     _releaseWidgetSize : function(widget) {
       if(widget) {
@@ -251,7 +251,7 @@ qx.Bootstrap.define("qx.ui.mobile.layout.Card",
     /**
      * Starts the animation for the page transition.
      *
-     * @param widget {qx.ui.mobile.core.Widget} The target widget
+     * @param widget {qx.ui.mobile.Widget} The target widget
      */
     __startAnimation : function(widget)
     {

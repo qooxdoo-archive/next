@@ -59,7 +59,7 @@ qx.Bootstrap.define("mobileshowcase.page.List",
       this._loadingIndicator.addClass("waypoint-loading-indicator");
       this.append(this._loadingIndicator);
 
-      this._waypointsLabel = new qx.ui.mobile.core.Widget();
+      this._waypointsLabel = new qx.ui.mobile.Widget();
       this._waypointsLabel.addClass("waypoint-info");
       this.append(this._waypointsLabel);
 

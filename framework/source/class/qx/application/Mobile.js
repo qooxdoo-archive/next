@@ -66,7 +66,7 @@ qx.Bootstrap.define("qx.application.Mobile",
     /**
      * Returns the application's root widget.
      *
-     * @return {qx.ui.mobile.core.Widget} The application's root widget.
+     * @return {qx.ui.mobile.Widget} The application's root widget.
      */
     getRoot : function() {
       if (!this.__root) {
@@ -102,7 +102,7 @@ qx.Bootstrap.define("qx.application.Mobile",
      * Creates the application's root widget. Override this function to create
      * your own root widget.
      *
-     * @return {qx.ui.mobile.core.Widget} The application's root widget.
+     * @return {qx.ui.mobile.Widget} The application's root widget.
      */
     _createRootWidget : function() {
       return new qx.ui.mobile.core.Root();

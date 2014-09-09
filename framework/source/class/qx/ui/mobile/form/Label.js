@@ -46,7 +46,7 @@
  */
 qx.Bootstrap.define("qx.ui.mobile.form.Label",
 {
-  extend : qx.ui.mobile.core.Widget,
+  extend : qx.ui.mobile.Widget,
 
 
   /**
@@ -54,7 +54,7 @@ qx.Bootstrap.define("qx.ui.mobile.form.Label",
    */
   construct : function(value)
   {
-    this.base(qx.ui.mobile.core.Widget, "constructor");
+    this.base(qx.ui.mobile.Widget, "constructor");
     if (value) {
       this.value = value;
     }
@@ -173,7 +173,7 @@ qx.Bootstrap.define("qx.ui.mobile.form.Label",
         this.__forWidget.off("changeEnabled", this._changeEnabled, this);
       }
 
-      this.__forWidget = qx.ui.mobile.core.Widget.getWidgetById(elementId);
+      this.__forWidget = qx.ui.mobile.Widget.getWidgetById(elementId);
 
       if (this.__forWidget) {
         this.__forWidget.on("changeEnabled", this._changeEnabled, this);
@@ -216,7 +216,7 @@ qx.Bootstrap.define("qx.ui.mobile.form.Label",
 
 
     dispose : function() {
-      this.base(qx.ui.mobile.core.Widget, "dispose");
+      this.base(qx.ui.mobile.Widget, "dispose");
       this.off("tap", this._onTap, this);
 
       if (this.__forWidget) {

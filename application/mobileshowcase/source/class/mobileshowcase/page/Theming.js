@@ -286,7 +286,7 @@ qx.Bootstrap.define("mobileshowcase.page.Theming",
 
     /**
      * Switches the theme of the application to the target theme.
-     * @param src {qx.ui.mobile.core.Widget} Source widget of this event.
+     * @param src {qx.ui.mobile.Widget} Source widget of this event.
      */
     __switchTheme : function(index) {
       var cssResource = mobileshowcase.page.Theming.THEMES[index].css;

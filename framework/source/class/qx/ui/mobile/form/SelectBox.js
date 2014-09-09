@@ -56,7 +56,7 @@
  */
 qx.Bootstrap.define("qx.ui.mobile.form.SelectBox",
 {
-  extend : qx.ui.mobile.core.Widget,
+  extend : qx.ui.mobile.Widget,
   include : [
     qx.ui.mobile.form.MValue,
     qx.ui.form.MForm,
@@ -71,7 +71,7 @@ qx.Bootstrap.define("qx.ui.mobile.form.SelectBox",
 
   construct : function()
   {
-    this.base(qx.ui.mobile.core.Widget, "constructor");
+    this.base(qx.ui.mobile.Widget, "constructor");
 
     // This text node is for compatibility reasons, because Firefox can not
     // change appearance of SelectBoxes.
@@ -368,7 +368,7 @@ qx.Bootstrap.define("qx.ui.mobile.form.SelectBox",
 
 
     dispose : function() {
-      this.base(qx.ui.mobile.core.Widget, "dispose");
+      this.base(qx.ui.mobile.Widget, "dispose");
       this.__selectionDialog.off("changeSelection", this._onChangeSelection, this);
 
       this.__selectionDialog && this.__selectionDialog.dispose();

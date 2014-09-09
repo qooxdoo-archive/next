@@ -24,7 +24,7 @@
  */
 qx.Bootstrap.define("qx.ui.mobile.toolbar.Separator",
 {
-  extend : qx.ui.mobile.core.Widget,
+  extend : qx.ui.mobile.Widget,
 
   properties :
   {

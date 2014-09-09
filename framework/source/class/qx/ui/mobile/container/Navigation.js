@@ -20,7 +20,7 @@
 
 /**
  * The navigation controller includes already a {@link qx.ui.mobile.navigationbar.NavigationBar}
- * and a {@link qx.ui.mobile.core.Widget} container with a {@link qx.ui.mobile.layout.Card} layout.
+ * and a {@link qx.ui.mobile.Widget} container with a {@link qx.ui.mobile.layout.Card} layout.
  * All widgets that implement the {@link qx.ui.mobile.container.INavigation}
  * interface can be added to the container. The added widget provide the title
  * widget and the left/right container, which will be automatically merged into
@@ -40,12 +40,12 @@
  */
 qx.Bootstrap.define("qx.ui.mobile.container.Navigation",
 {
-  extend : qx.ui.mobile.core.Widget,
+  extend : qx.ui.mobile.Widget,
 
 
   construct : function()
   {
-    this.base(qx.ui.mobile.core.Widget, "constructor");
+    this.base(qx.ui.mobile.Widget, "constructor");
     this.setLayout(new qx.ui.mobile.layout.VBox());
 
     this.__navigationBar = this._createNavigationBar();
@@ -70,7 +70,7 @@ qx.Bootstrap.define("qx.ui.mobile.container.Navigation",
   events :
   {
     /** Fired when the navigation bar gets updated */
-    "update" : "qx.ui.mobile.core.Widget"
+    "update" : "qx.ui.mobile.Widget"
   },
 
 
@@ -93,7 +93,7 @@ qx.Bootstrap.define("qx.ui.mobile.container.Navigation",
     /**
      * Returns the content container. Add all your widgets to this container.
      *
-     * @return {qx.ui.mobile.core.Widget} The content container
+     * @return {qx.ui.mobile.Widget} The content container
      */
     getContent : function() {
       return this.__content;
@@ -114,7 +114,7 @@ qx.Bootstrap.define("qx.ui.mobile.container.Navigation",
     /**
      * Creates the content container.
      *
-     * @return {qx.ui.mobile.core.Widget} The created content container
+     * @return {qx.ui.mobile.Widget} The created content container
      */
     _createContent : function()
     {
@@ -122,7 +122,7 @@ qx.Bootstrap.define("qx.ui.mobile.container.Navigation",
       layout.on("animationStart", this._onAnimationStart, this);
       layout.on("animationEnd", this._onAnimationEnd, this);
 
-      var content = new qx.ui.mobile.core.Widget();
+      var content = new qx.ui.mobile.Widget();
       content.on("addedChild", this._onAddedChild, this);
       content.on("removedChild", this._onRemovedChild, this);
       content.setLayout(layout);
@@ -162,7 +162,7 @@ qx.Bootstrap.define("qx.ui.mobile.container.Navigation",
      * Triggers an initial update if a child is added and listens for
      * visibility changes on the child
      *
-     * @param child {qx.ui.mobile.core.Widget} added child
+     * @param child {qx.ui.mobile.Widget} added child
      */
     _onAddedChild : function(child) {
       this._update(child);
@@ -174,7 +174,7 @@ qx.Bootstrap.define("qx.ui.mobile.container.Navigation",
      * Removes the visibility change listener from a removed child widget
      * and updates the view
      *
-     * @param child {qx.ui.mobile.core.Widget} added child
+     * @param child {qx.ui.mobile.Widget} added child
      */
     _onRemovedChild : function(child) {
       child.off("changeVisibility", this._onChangeChildVisibility, this);
@@ -185,7 +185,7 @@ qx.Bootstrap.define("qx.ui.mobile.container.Navigation",
     /**
      * Updates the navigation bar depending on the set widget.
      *
-     * @param widget {qx.ui.mobile.core.Widget} The widget that should be merged into the navigation bar.
+     * @param widget {qx.ui.mobile.Widget} The widget that should be merged into the navigation bar.
      */
     _update : function(widget) {
       var navigationBar = this.getNavigationBar();
@@ -238,7 +238,7 @@ qx.Bootstrap.define("qx.ui.mobile.container.Navigation",
 
     dispose : function()
     {
-      this.base(qx.ui.mobile.core.Widget, "dispose");
+      this.base(qx.ui.mobile.Widget, "dispose");
       this.getContent().off("addedChild", this._onAddedChild, this)
         .off("removedChild", this._onRemovedChild, this);
       this.getContent().getLayout().off("animationStart",this._onAnimationStart, this);

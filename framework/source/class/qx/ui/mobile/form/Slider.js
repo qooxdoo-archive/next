@@ -48,7 +48,7 @@
  */
 qx.Bootstrap.define("qx.ui.mobile.form.Slider",
 {
-  extend : qx.ui.mobile.core.Widget,
+  extend : qx.ui.mobile.Widget,
   include : [
     qx.ui.mobile.form.MValue,
     qx.ui.form.MForm,
@@ -64,7 +64,7 @@ qx.Bootstrap.define("qx.ui.mobile.form.Slider",
 
   construct : function()
   {
-    this.base(qx.ui.mobile.core.Widget, "constructor");
+    this.base(qx.ui.mobile.Widget, "constructor");
     this._registerEventListener();
     this._refresh();
     this.displayValue = undefined;
@@ -176,7 +176,7 @@ qx.Bootstrap.define("qx.ui.mobile.form.Slider",
     // overridden
     _createContainerElement : function()
     {
-      var container = this.base(qx.ui.mobile.core.Widget, "_createContainerElement");
+      var container = this.base(qx.ui.mobile.Widget, "_createContainerElement");
       container.appendChild(this._createKnobElement());
       return container;
     },
@@ -457,7 +457,7 @@ qx.Bootstrap.define("qx.ui.mobile.form.Slider",
 
 
     dispose : function() {
-      this.base(qx.ui.mobile.core.Widget, "dispose");
+      this.base(qx.ui.mobile.Widget, "dispose");
       this._knobElement = null;
       this._unregisterEventListener();
       this.disposeMForm();

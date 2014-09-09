@@ -41,7 +41,7 @@ qx.Bootstrap.define("qx.test.mobile.dialog.Popup",
     testShowHide : function() {
       this.require(["debug"]);
 
-      var popup = new qx.ui.mobile.dialog.Popup(new qx.ui.mobile.core.Widget());
+      var popup = new qx.ui.mobile.dialog.Popup(new qx.ui.mobile.Widget());
 
       // Modal mode false test cases, no changes expected.
       popup.modal = false;

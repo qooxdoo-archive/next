@@ -43,7 +43,7 @@
  * <pre class="javascript">
  * var layout = new qx.ui.mobile.layout.HBox().set({alignX:"center"});
  *
- * var container = new qx.ui.mobile.core.Widget();
+ * var container = new qx.ui.mobile.Widget();
  * container.setLayout(layout);
  *
  * container.append(new qx.ui.mobile.basic.Label("1"));

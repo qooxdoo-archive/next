@@ -229,7 +229,7 @@ qx.Bootstrap.define("qx.test.util.Serializer",
     },
 
     testJsonBig : function() {
-      var model = new qx.ui.mobile.core.Widget();
+      var model = new qx.ui.mobile.Widget();
       this.__s.toJson(model);
     },
 
@@ -400,7 +400,7 @@ qx.Bootstrap.define("qx.test.util.Serializer",
     },
 
     testNativeObjectBig : function() {
-      var model = new qx.ui.mobile.core.Widget();
+      var model = new qx.ui.mobile.Widget();
       this.__s.toNativeObject(model);
       model.dispose();
     },

@@ -239,7 +239,7 @@ qx.Class.define("inspector.components.Selector",
         hide : function() {
           var els = doc.getElementsByClassName(cssClass);
           for (var i=0, l=els.length; i<l; i++) {
-            var widget = win.qx.ui.mobile.core.Widget.getWidgetById(els[i].id);
+            var widget = win.qx.ui.mobile.Widget.getWidgetById(els[i].id);
             widget.removeCssClass(cssClass);
           }
         }
@@ -259,7 +259,7 @@ qx.Class.define("inspector.components.Selector",
         var bgCol = this.self(arguments).BACKGROUND_COLOR;
         var zIndex = this.self(arguments).Z_INDEX - 1;
         var opacity = this.self(arguments).OPACITY;
-        catchTapLayer = new this.__applicationWindow.qx.ui.mobile.core.Widget();
+        catchTapLayer = new this.__applicationWindow.qx.ui.mobile.Widget();
         catchTapLayer.addListenerOnce("appear", function() {
           var el = this.getContainerElement();
           el.style.position = "absolute";
@@ -291,7 +291,7 @@ qx.Class.define("inspector.components.Selector",
     /**
      * Helper method to add the passes widget to the inspected application in full size.
      *
-     * @param widget {qx.ui.core.Widget | qx.ui.mobile.core.Widget} to add in full size.
+     * @param widget {qx.ui.core.Widget | qx.ui.mobile.Widget} to add in full size.
      */
     __addToApplicationRoot : function(widget)
     {
@@ -326,7 +326,7 @@ qx.Class.define("inspector.components.Selector",
         }
 
         if (this.__isMobileApp) {
-          if(widget instanceof win.qx.ui.mobile.core.Widget) {
+          if(widget instanceof win.qx.ui.mobile.Widget) {
             applicationRoot.add(widget);
           }
         } else {
@@ -561,7 +561,7 @@ qx.Class.define("inspector.components.Selector",
     {
       var win = this.__applicationWindow;
       if (win.qx.ui.mobile) {
-        return win.qx.Class.isSubClassOf(object.constructor, win.qx.ui.mobile.core.Widget);
+        return win.qx.Class.isSubClassOf(object.constructor, win.qx.ui.mobile.Widget);
       }
       else {
         return null;

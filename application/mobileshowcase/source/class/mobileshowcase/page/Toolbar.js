@@ -136,7 +136,7 @@ qx.Bootstrap.define("mobileshowcase.page.Toolbar",
       if(this.__areYouSurePopup) {
         return this.__areYouSurePopup;
       }
-      var buttonsWidget = new qx.ui.mobile.core.Widget();
+      var buttonsWidget = new qx.ui.mobile.Widget();
       buttonsWidget.setLayout(new qx.ui.mobile.layout.HBox());
 
       var okButton = new qx.ui.mobile.Button("Yes");
@@ -182,7 +182,7 @@ qx.Bootstrap.define("mobileshowcase.page.Toolbar",
       if(this.__searchDialog) {
         return this.__searchDialog;
       }
-      var popupWidget = new qx.ui.mobile.core.Widget();
+      var popupWidget = new qx.ui.mobile.Widget();
       popupWidget.setLayout(new qx.ui.mobile.layout.VBox());
 
       var searchField = new qx.ui.mobile.form.TextField();

@@ -26,7 +26,7 @@
  * @require(qx.module.event.AppearHandler)
  * @require(qx.module.Dataset)
  */
-qx.Bootstrap.define("qx.ui.mobile.core.Widget", {
+qx.Bootstrap.define("qx.ui.mobile.Widget", {
   extend : qxWeb,
 
 
@@ -109,7 +109,7 @@ qx.Bootstrap.define("qx.ui.mobile.core.Widget", {
       this.push(this._createContainerElement());
     }
 
-    var clazz = qx.ui.mobile.core.Widget;
+    var clazz = qx.ui.mobile.Widget;
     if (!this.getAttribute("id")) {
       this.setAttribute("id", clazz.ID_PREFIX + clazz.__idCounter++);
     }
@@ -305,7 +305,7 @@ qx.Bootstrap.define("qx.ui.mobile.core.Widget", {
 
     /**
      * Returns this widget's parent
-     * @return {qx.ui.mobile.core.Widget|null} parent widget
+     * @return {qx.ui.mobile.Widget|null} parent widget
      */
     _getParentWidget : function() {
       var parent = this.getParents();
@@ -318,7 +318,7 @@ qx.Bootstrap.define("qx.ui.mobile.core.Widget", {
 
     // TODO: remove
     _append : function(child) {
-      this.base(qx.ui.mobile.core.Widget, "append", child);
+      this.base(qx.ui.mobile.Widget, "append", child);
     },
 
 
@@ -409,7 +409,7 @@ qx.Bootstrap.define("qx.ui.mobile.core.Widget", {
      *
      * @param type {String} Event type
      * @param data {var?} Event data
-     * @return {qx.ui.mobile.core.Widget} This widget for chaining
+     * @return {qx.ui.mobile.Widget} This widget for chaining
      */
     _emitOnParent : function(type, data) {
       var parent = this._getParentWidget();

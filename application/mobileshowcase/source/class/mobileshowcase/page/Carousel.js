@@ -39,18 +39,18 @@ qx.Bootstrap.define("mobileshowcase.page.Carousel",
       var carousel = new qx.ui.mobile.container.Carousel(0.5);
       carousel.height = null;
 
-      var page1 = new qx.ui.mobile.core.Widget();
+      var page1 = new qx.ui.mobile.Widget();
       page1.addClass("carousel-example-1");
 
       var page1Label =new qx.ui.mobile.basic.Label("This is a carousel. Please swipe left.");
       page1Label.addClass("carousel-label-1");
       page1.append(page1Label);
 
-      var page2 = new qx.ui.mobile.core.Widget();
+      var page2 = new qx.ui.mobile.Widget();
       page2.addClass("carousel-example-2");
       page2.append(new qx.ui.mobile.basic.Label("It contains multiple carousel pages."));
 
-      var page3 = new qx.ui.mobile.core.Widget();
+      var page3 = new qx.ui.mobile.Widget();
       page3.addClass("carousel-example-3");
       var page3label = new qx.ui.mobile.basic.Label("Carousel pages may contain any widgets like labels, images, buttons etc.");
       page3.append(page3label);
@@ -75,11 +75,11 @@ qx.Bootstrap.define("mobileshowcase.page.Carousel",
       page3group.setLayout(new qx.ui.mobile.layout.HBox());
       page3.append(page3group);
 
-      var page4 = new qx.ui.mobile.core.Widget();
+      var page4 = new qx.ui.mobile.Widget();
       page4.addClass("carousel-example-4");
       page4.append(new qx.ui.mobile.basic.Label("The carousel snaps on every page."));
 
-      var page5 = new qx.ui.mobile.core.Widget();
+      var page5 = new qx.ui.mobile.Widget();
       page5.addClass("carousel-example-5");
       page5.append(new qx.ui.mobile.basic.Label("You can add as many pages as you want."),{flex:1});
 
@@ -87,7 +87,7 @@ qx.Bootstrap.define("mobileshowcase.page.Carousel",
       moreButton.addClass("example-button");
       moreButton.on("tap", function() {
         for (var i = 0; i < 50; i++) {
-          var page = new qx.ui.mobile.core.Widget();
+          var page = new qx.ui.mobile.Widget();
           if (i % 2 === 0) {
             page.addClass("carousel-example-5");
           } else {
@@ -108,7 +108,7 @@ qx.Bootstrap.define("mobileshowcase.page.Carousel",
 
       page5.append(moreGroup);
 
-      var page6 = new qx.ui.mobile.core.Widget();
+      var page6 = new qx.ui.mobile.Widget();
       page6.addClass("carousel-example-6");
       page6.append(new qx.ui.mobile.basic.Label("Previous page is shown when you swipe right."),{flex:1});
 

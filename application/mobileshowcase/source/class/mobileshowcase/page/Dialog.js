@@ -149,7 +149,7 @@ qx.Bootstrap.define("mobileshowcase.page.Dialog",
       showPickerButton.layoutPrefs = {flex:1};
       otherGroup.append(showPickerButton);
 
-      var groupContainer = new qx.ui.mobile.core.Widget();
+      var groupContainer = new qx.ui.mobile.Widget();
       groupContainer.addClass("dialog-group");
       groupContainer.setLayout(new qx.ui.mobile.layout.HBox());
       popupGroup.layoutPrefs =  {flex:1};
@@ -168,7 +168,7 @@ qx.Bootstrap.define("mobileshowcase.page.Dialog",
 
     /**
     * Creates the date picker dialog.
-    * @param anchor {qx.ui.mobile.core.Widget} the anchor of the popup.
+    * @param anchor {qx.ui.mobile.Widget} the anchor of the popup.
     * @return {qx.ui.mobile.dialog.Picker} the date picker.
     */
     _createPicker : function(anchor) {
@@ -185,7 +185,7 @@ qx.Bootstrap.define("mobileshowcase.page.Dialog",
         pickerDialog.hide();
       }, this);
 
-      var pickerDialogContent = new qx.ui.mobile.core.Widget();
+      var pickerDialogContent = new qx.ui.mobile.Widget();
       pickerDialogContent.append(picker);
       pickerDialogContent.append(hidePickerButton);
       //pickerDialog.append(pickerDialogContent);
@@ -250,7 +250,7 @@ qx.Bootstrap.define("mobileshowcase.page.Dialog",
         return this.__anchorPopup;
       }
 
-      var buttonsWidget = new qx.ui.mobile.core.Widget()
+      var buttonsWidget = new qx.ui.mobile.Widget()
       buttonsWidget.setLayout(new qx.ui.mobile.layout.HBox());
       var okButton = new qx.ui.mobile.Button("Yes");
       var cancelButton = new qx.ui.mobile.Button("No");

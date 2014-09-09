@@ -20,7 +20,7 @@
 
 /**
  * Creates a Collapsible widget.
- * It contains a {@link qx.ui.mobile.basic.Label Label} for the header and a {@link qx.ui.mobile.core.Widget}
+ * It contains a {@link qx.ui.mobile.basic.Label Label} for the header and a {@link qx.ui.mobile.Widget}
  * for the content.
  *
  * The visiblity of the content composite toggles when user taps on header.
@@ -42,7 +42,7 @@
  */
 qx.Bootstrap.define("qx.ui.mobile.container.Collapsible",
 {
-  extend : qx.ui.mobile.core.Widget,
+  extend : qx.ui.mobile.Widget,
 
 
   /**
@@ -50,7 +50,7 @@ qx.Bootstrap.define("qx.ui.mobile.container.Collapsible",
   */
   construct : function(title)
   {
-    this.base(qx.ui.mobile.core.Widget, "constructor");
+    this.base(qx.ui.mobile.Widget, "constructor");
 
     this._header = this._createHeader();
     this._header.addClass("collapsible-header");
@@ -107,10 +107,10 @@ qx.Bootstrap.define("qx.ui.mobile.container.Collapsible",
 
     /**
     * Adds a new child widget to the Collapsible's content composite.
-    * @param child {qx.ui.mobile.core.Widget} the widget to add.
+    * @param child {qx.ui.mobile.Widget} the widget to add.
     */
     append : function(child) {
-      if(child && this._content instanceof qx.ui.mobile.core.Widget) {
+      if(child && this._content instanceof qx.ui.mobile.Widget) {
         this._content.append(child);
       }
     },
@@ -138,7 +138,7 @@ qx.Bootstrap.define("qx.ui.mobile.container.Collapsible",
 
     /**
     * Getter for the Collapsible's content composite.
-    * @return {qx.ui.mobile.core.Widget} the content composite.
+    * @return {qx.ui.mobile.Widget} the content composite.
     */
     getContent : function() {
       return this._content;
@@ -162,7 +162,7 @@ qx.Bootstrap.define("qx.ui.mobile.container.Collapsible",
     * @return {v} the content composite.
     */
     _createContent : function() {
-      return new qx.ui.mobile.core.Widget();
+      return new qx.ui.mobile.Widget();
     },
 
 
@@ -198,7 +198,7 @@ qx.Bootstrap.define("qx.ui.mobile.container.Collapsible",
 
 
     dispose : function() {
-      this.base(qx.ui.mobile.core.Widget, "dispose");
+      this.base(qx.ui.mobile.Widget, "dispose");
       this._header.off("tap", this._toggleCollapsed, this);
       this._disposeObjects("_header", "_content");
     }

@@ -34,7 +34,7 @@
  */
 qx.Bootstrap.define("qx.ui.mobile.embed.Html",
 {
-  extend : qx.ui.mobile.core.Widget,
+  extend : qx.ui.mobile.Widget,
 
 
   /**
@@ -42,7 +42,7 @@ qx.Bootstrap.define("qx.ui.mobile.embed.Html",
    */
   construct : function(html)
   {
-    this.base(qx.ui.mobile.core.Widget, "constructor");
+    this.base(qx.ui.mobile.Widget, "constructor");
     if (html) {
       this.html = html;
     }

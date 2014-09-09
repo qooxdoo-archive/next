@@ -43,7 +43,7 @@
  */
 qx.Bootstrap.define("qx.ui.mobile.container.Scroll",
 {
-  extend : qx.ui.mobile.core.Widget,
+  extend : qx.ui.mobile.Widget,
   include : [qx.ui.mobile.container.MNativeScroll],
 
   /**
@@ -51,7 +51,7 @@ qx.Bootstrap.define("qx.ui.mobile.container.Scroll",
   */
   construct : function(scrollProperties)
   {
-    this.base(qx.ui.mobile.core.Widget, "constructor");
+    this.base(qx.ui.mobile.Widget, "constructor");
 
     if(scrollProperties) {
       this._scrollProperties = scrollProperties;
@@ -322,7 +322,7 @@ qx.Bootstrap.define("qx.ui.mobile.container.Scroll",
 
     // overridden
     _createContainerElement: function() {
-      var element = this.base(qx.ui.mobile.core.Widget, "_createContainerElement");
+      var element = this.base(qx.ui.mobile.Widget, "_createContainerElement");
       var scrollElement = this._createScrollElement();
       if (scrollElement) {
         return scrollElement;
@@ -488,7 +488,7 @@ qx.Bootstrap.define("qx.ui.mobile.container.Scroll",
      * Scrolls the wrapper contents to the widgets coordinates in a given
      * period.
      *
-     * @param widget {qx.ui.mobile.core.Widget} the widget, the scroll container should scroll to.
+     * @param widget {qx.ui.mobile.Widget} the widget, the scroll container should scroll to.
      * @param time {Integer} Time slice in which scrolling should
      *              be done.
      */
@@ -500,7 +500,7 @@ qx.Bootstrap.define("qx.ui.mobile.container.Scroll",
 
 
     dispose : function() {
-      this.base(qx.ui.mobile.core.Widget, "dispose");
+      this.base(qx.ui.mobile.Widget, "dispose");
       this.off("appear", this._updateWaypoints, this);
 
       this._waypointsX = this._waypointsY = null;

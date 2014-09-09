@@ -37,7 +37,7 @@
  */
 qx.Bootstrap.define("qx.ui.mobile.basic.Label",
 {
-  extend : qx.ui.mobile.core.Widget,
+  extend : qx.ui.mobile.Widget,
 
 
   /**
@@ -45,7 +45,7 @@ qx.Bootstrap.define("qx.ui.mobile.basic.Label",
    */
   construct : function(value)
   {
-    this.base(qx.ui.mobile.core.Widget, "constructor");
+    this.base(qx.ui.mobile.Widget, "constructor");
     if (value) {
       this.value = value;
     }
@@ -148,7 +148,7 @@ qx.Bootstrap.define("qx.ui.mobile.basic.Label",
 
 
     dispose : function() {
-      this.base(qx.ui.mobile.core.Widget, "dispose");
+      this.base(qx.ui.mobile.Widget, "dispose");
       if (qx.core.Environment.get("qx.dynlocale")) {
         qx.locale.Manager.getInstance().off("changeLocale", this._onChangeLocale, this);
       }

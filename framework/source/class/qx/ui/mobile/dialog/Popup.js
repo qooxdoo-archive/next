@@ -63,7 +63,7 @@
  */
 qx.Bootstrap.define("qx.ui.mobile.dialog.Popup",
 {
-  extend : qx.ui.mobile.core.Widget,
+  extend : qx.ui.mobile.Widget,
 
 
   statics:
@@ -73,12 +73,12 @@ qx.Bootstrap.define("qx.ui.mobile.dialog.Popup",
 
 
   /**
-   * @param widget {qx.ui.mobile.core.Widget} the widget that will be shown in the popup
-   * @param anchor {qx.ui.mobile.core.Widget?} optional parameter, a widget to attach this popup to
+   * @param widget {qx.ui.mobile.Widget} the widget that will be shown in the popup
+   * @param anchor {qx.ui.mobile.Widget?} optional parameter, a widget to attach this popup to
    */
   construct : function(widget, anchor)
   {
-    this.base(qx.ui.mobile.core.Widget, "constructor");
+    this.base(qx.ui.mobile.Widget, "constructor");
     this.exclude();
 
     if(qx.ui.mobile.dialog.Popup.ROOT == null) {
@@ -249,7 +249,7 @@ qx.Bootstrap.define("qx.ui.mobile.dialog.Popup",
 
         // Needs to be added to screen, before rendering position, for calculating
         // objects height.
-        this.base(qx.ui.mobile.core.Widget, "show");
+        this.base(qx.ui.mobile.Widget, "show");
 
         // Now render position.
         this._updatePosition();
@@ -424,13 +424,13 @@ qx.Bootstrap.define("qx.ui.mobile.dialog.Popup",
     /**
      * This method creates the container where the popup's widget will be placed
      * and adds it to the popup.
-     * @param widget {qx.ui.mobile.core.Widget} - what to show in the popup
+     * @param widget {qx.ui.mobile.Widget} - what to show in the popup
      *
      */
     _initializeChild : function(widget)
     {
       if(this.__childrenContainer == null) {
-        this.__childrenContainer = new qx.ui.mobile.core.Widget();
+        this.__childrenContainer = new qx.ui.mobile.Widget();
         this.__childrenContainer.setLayout(new qx.ui.mobile.layout.VBox());
         this.__childrenContainer.defaultCssClass = "popup-content";
         this._append(this.__childrenContainer);
@@ -521,7 +521,7 @@ qx.Bootstrap.define("qx.ui.mobile.dialog.Popup",
     /**
      * Adds the widget that will be shown in this popup. This method can be used in the case when you have removed the widget from the popup
      * or you haven't passed it in the constructor.
-     * @param widget {qx.ui.mobile.core.Widget} - what to show in the popup
+     * @param widget {qx.ui.mobile.Widget} - what to show in the popup
      */
     append : function(widget) {
       this.removeWidget();
@@ -532,7 +532,7 @@ qx.Bootstrap.define("qx.ui.mobile.dialog.Popup",
     /**
      * A widget to attach this popup to.
      *
-     * @param widget {qx.ui.mobile.core.Widget} The anchor widget.
+     * @param widget {qx.ui.mobile.Widget} The anchor widget.
      */
     setAnchor : function(widget) {
       this.__anchor = widget;
@@ -552,7 +552,7 @@ qx.Bootstrap.define("qx.ui.mobile.dialog.Popup",
 
     /**
      * This method removes the widget shown in the popup.
-     * @return {qx.ui.mobile.core.Widget|null} The removed widget or <code>null</code>
+     * @return {qx.ui.mobile.Widget|null} The removed widget or <code>null</code>
      * if the popup doesn't have an attached widget
      */
     removeWidget : function()
@@ -573,7 +573,7 @@ qx.Bootstrap.define("qx.ui.mobile.dialog.Popup",
 
 
     dispose : function() {
-      this.base(qx.ui.mobile.core.Widget, "dispose");
+      this.base(qx.ui.mobile.Widget, "dispose");
       this.__unregisterEventListener();
       if (this.__childrenContainer) {
         this.__childrenContainer.dispose();

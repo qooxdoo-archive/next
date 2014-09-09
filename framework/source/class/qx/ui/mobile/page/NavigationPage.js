@@ -248,11 +248,11 @@ qx.Bootstrap.define("qx.ui.mobile.page.NavigationPage",
     /**
      * Creates the left container for the navigation bar.
      *
-     * @return {qx.ui.mobile.core.Widget} Creates the left container for the navigation bar.
+     * @return {qx.ui.mobile.Widget} Creates the left container for the navigation bar.
      */
     _createLeftContainer : function() {
       var layout =new qx.ui.mobile.layout.HBox();
-      var container = new qx.ui.mobile.core.Widget();
+      var container = new qx.ui.mobile.Widget();
       container.setLayout(layout);
       container.addClass("left-container");
       this.__backButton = this._createBackButton();
@@ -266,11 +266,11 @@ qx.Bootstrap.define("qx.ui.mobile.page.NavigationPage",
     /**
      * Creates the right container for the navigation bar.
      *
-     * @return {qx.ui.mobile.core.Widget} Creates the right container for the navigation bar.
+     * @return {qx.ui.mobile.Widget} Creates the right container for the navigation bar.
      */
     _createRightContainer : function() {
       var layout = new qx.ui.mobile.layout.HBox();
-      var container = new qx.ui.mobile.core.Widget();
+      var container = new qx.ui.mobile.Widget();
       container.setLayout(layout);
       container.addClass("right-container");
       this.__actionButton = this._createButton();
@@ -332,7 +332,7 @@ qx.Bootstrap.define("qx.ui.mobile.page.NavigationPage",
     * Scrolls the wrapper contents to the widgets coordinates in a given
     * period.
     *
-    * @param widget {qx.ui.mobile.core.Widget} the widget, the scroll container should scroll to.
+    * @param widget {qx.ui.mobile.Widget} the widget, the scroll container should scroll to.
     * @param time {Integer} Time slice in which scrolling should
     *              be done.
     *
@@ -352,7 +352,7 @@ qx.Bootstrap.define("qx.ui.mobile.page.NavigationPage",
     /**
      * Returns the content container. Add all your widgets to this container.
      *
-     * @return {qx.ui.mobile.core.Widget} The content container
+     * @return {qx.ui.mobile.Widget} The content container
      */
     getContent : function()
     {
@@ -414,7 +414,7 @@ qx.Bootstrap.define("qx.ui.mobile.page.NavigationPage",
     /**
      * Adds a widget, below the NavigationBar.
      *
-     * @param widget {qx.ui.mobile.core.Widget} The widget to add, after NavigationBar.
+     * @param widget {qx.ui.mobile.Widget} The widget to add, after NavigationBar.
      */
     addAfterNavigationBar : function(widget) {
       if (widget && this.__scrollContainer) {
@@ -538,11 +538,11 @@ qx.Bootstrap.define("qx.ui.mobile.page.NavigationPage",
     /**
      * Creates the content container.
      *
-     * @return {qx.ui.mobile.core.Widget} The created content container
+     * @return {qx.ui.mobile.Widget} The created content container
      */
     _createContent : function()
     {
-      var content = new qx.ui.mobile.core.Widget();
+      var content = new qx.ui.mobile.Widget();
       content.defaultCssClass = this.contentCssClass;
 
       if(this._wrapContentByGroup === true) {

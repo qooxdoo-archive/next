@@ -49,7 +49,7 @@ qx.Bootstrap.define("qx.ui.mobile.page.Manager",
   /**
    * @param isTablet {Boolean?} flag which triggers the manager to layout for tablet (or big screens/displays) or mobile devices. If parameter is null,
    * qx.core.Environment.get("device.type") is called for decision.
-   * @param root {qx.ui.mobile.core.Widget?} widget which should be used as root for this manager.
+   * @param root {qx.ui.mobile.Widget?} widget which should be used as root for this manager.
    */
   construct : function(isTablet, root)
   {
@@ -169,7 +169,7 @@ qx.Bootstrap.define("qx.ui.mobile.page.Manager",
     /**
      * Creates the master container.
      *
-     * @return {qx.ui.mobile.core.Widget} The created container
+     * @return {qx.ui.mobile.Widget} The created container
      */
     _createMasterContainer : function() {
       var masterContainer = new qx.ui.mobile.container.Drawer(null, new qx.ui.mobile.layout.HBox());
@@ -184,10 +184,10 @@ qx.Bootstrap.define("qx.ui.mobile.page.Manager",
     /**
      * Creates the detail container.
      *
-     * @return {qx.ui.mobile.core.Widget} The created container
+     * @return {qx.ui.mobile.Widget} The created container
      */
     _createDetailContainer : function() {
-      var detailContainer = new qx.ui.mobile.core.Widget();
+      var detailContainer = new qx.ui.mobile.Widget();
       detailContainer.setLayout(new qx.ui.mobile.layout.VBox());
       detailContainer.defaultCssClass = "master-detail-detail";
       return detailContainer;
@@ -205,7 +205,7 @@ qx.Bootstrap.define("qx.ui.mobile.page.Manager",
 
     /**
      * Getter for the Detail Container
-     * @return {qx.ui.mobile.core.Widget} The Detail Container.
+     * @return {qx.ui.mobile.Widget} The Detail Container.
      */
     getDetailContainer : function() {
       return this.__detailContainer;
@@ -383,7 +383,7 @@ qx.Bootstrap.define("qx.ui.mobile.page.Manager",
 
     /**
      * Called when masterContainer is updated.
-     * @param widget {qx.ui.mobile.core.Widget} source widget.
+     * @param widget {qx.ui.mobile.Widget} source widget.
      */
     _onMasterContainerUpdate : function(widget) {
       this.__hideMasterButton.remove();
@@ -393,7 +393,7 @@ qx.Bootstrap.define("qx.ui.mobile.page.Manager",
 
     /**
      * Called when detailContainer is updated.
-     * @param widget {qx.ui.mobile.core.Widget} source widget.
+     * @param widget {qx.ui.mobile.Widget} source widget.
      */
     _onDetailContainerUpdate : function(widget) {
       this.__masterButton.remove();

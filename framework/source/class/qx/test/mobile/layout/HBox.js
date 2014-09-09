@@ -25,15 +25,15 @@ qx.Bootstrap.define("qx.test.mobile.layout.HBox",
   {
     testAdd : function()
     {
-      var composite = new qx.ui.mobile.core.Widget();
+      var composite = new qx.ui.mobile.Widget();
       composite.setLayout(new qx.ui.mobile.layout.HBox());
       this.getRoot().append(composite);
 
       this.assertTrue(composite.hasClass("qx-hbox"));
-      var widget1 = new qx.ui.mobile.core.Widget();
+      var widget1 = new qx.ui.mobile.Widget();
       composite.append(widget1);
 
-      var widget2 = new qx.ui.mobile.core.Widget();
+      var widget2 = new qx.ui.mobile.Widget();
       composite.append(widget2);
 
       widget1.dispose();
@@ -43,16 +43,16 @@ qx.Bootstrap.define("qx.test.mobile.layout.HBox",
 
 
     testFlex : function() {
-      var composite = new qx.ui.mobile.core.Widget();
+      var composite = new qx.ui.mobile.Widget();
       composite.setLayout(new qx.ui.mobile.layout.HBox());
       this.getRoot().append(composite);
 
-      var widget1 = new qx.ui.mobile.core.Widget();
+      var widget1 = new qx.ui.mobile.Widget();
       widget1.layoutPrefs = {flex:1};
       composite.append(widget1);
       this.assertTrue(widget1.hasClass("qx-flex1"));
 
-      var widget2 = new qx.ui.mobile.core.Widget();
+      var widget2 = new qx.ui.mobile.Widget();
       widget2.layoutPrefs = {flex:2};
       composite.append(widget2);
       this.assertTrue(widget2.hasClass("qx-flex2"));
@@ -64,17 +64,17 @@ qx.Bootstrap.define("qx.test.mobile.layout.HBox",
 
 
     testRemove : function() {
-      var composite = new qx.ui.mobile.core.Widget();
+      var composite = new qx.ui.mobile.Widget();
       composite.setLayout(new qx.ui.mobile.layout.HBox());
       this.getRoot().append(composite);
 
-      var widget1 = new qx.ui.mobile.core.Widget();
+      var widget1 = new qx.ui.mobile.Widget();
       widget1.layoutPrefs = {flex:1};
       composite.append(widget1);
       widget1.remove();
       this.assertFalse(widget1.hasClass("qx-flex1"));
 
-      var widget2 = new qx.ui.mobile.core.Widget();
+      var widget2 = new qx.ui.mobile.Widget();
       widget2.layoutPrefs = {flex:2};
       composite.append(widget2);
       widget2.remove();
@@ -90,7 +90,7 @@ qx.Bootstrap.define("qx.test.mobile.layout.HBox",
 
 
     testReset : function() {
-      var composite = new qx.ui.mobile.core.Widget();
+      var composite = new qx.ui.mobile.Widget();
       composite.setLayout(new qx.ui.mobile.layout.HBox());
       this.getRoot().append(composite);
 

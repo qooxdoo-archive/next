@@ -36,7 +36,7 @@ qx.Interface.define("qx.ui.mobile.container.INavigation",
     /**
      * Returns the left container that is merged into the navigation bar.
      *
-     * @return {qx.ui.mobile.core.Widget} The left container of the navigation bar
+     * @return {qx.ui.mobile.Widget} The left container of the navigation bar
      */
     getLeftContainer : function() {},
 
@@ -44,7 +44,7 @@ qx.Interface.define("qx.ui.mobile.container.INavigation",
     /**
      * Returns the right container that is merged into the navigation bar.
      *
-     * @return {qx.ui.mobile.core.Widget} The right container of the navigation bar
+     * @return {qx.ui.mobile.Widget} The right container of the navigation bar
      */
     getRightContainer : function() {}
   }

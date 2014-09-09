@@ -38,7 +38,7 @@
  */
 qx.Bootstrap.define("qx.ui.mobile.basic.Atom",
 {
-  extend : qx.ui.mobile.core.Widget,
+  extend : qx.ui.mobile.Widget,
 
 
   /**
@@ -48,7 +48,7 @@ qx.Bootstrap.define("qx.ui.mobile.basic.Atom",
    */
   construct : function(label, icon, element)
   {
-    this.base(qx.ui.mobile.core.Widget, "constructor", element);
+    this.base(qx.ui.mobile.Widget, "constructor", element);
 
     var layout;
     var verticalLayout = [ "top", "bottom" ].indexOf(this.iconPosition) != -1;
@@ -289,7 +289,7 @@ qx.Bootstrap.define("qx.ui.mobile.basic.Atom",
         layout = new qx.ui.mobile.layout.HBox();
       }
 
-      this.__childrenContainer = new qx.ui.mobile.core.Widget();
+      this.__childrenContainer = new qx.ui.mobile.Widget();
       this.__childrenContainer.setLayout(layout);
       this.__childrenContainer.addClass("qx-flex-center");
       this.__childrenContainer.anonymous = true;
@@ -297,7 +297,7 @@ qx.Bootstrap.define("qx.ui.mobile.basic.Atom",
 
 
     dispose : function() {
-      this.base(qx.ui.mobile.core.Widget, "dispose");
+      this.base(qx.ui.mobile.Widget, "dispose");
       this.__label && this.__label.dispose();
       this.__icon && this.__icon.dispose();
     }

@@ -38,7 +38,7 @@
  */
 qx.Bootstrap.define("qx.ui.mobile.basic.Image",
 {
-  extend : qx.ui.mobile.core.Widget,
+  extend : qx.ui.mobile.Widget,
 
 
   /**
@@ -46,7 +46,7 @@ qx.Bootstrap.define("qx.ui.mobile.basic.Image",
    */
   construct : function(source)
   {
-    this.base(qx.ui.mobile.core.Widget, "constructor");
+    this.base(qx.ui.mobile.Widget, "constructor");
 
     this.source = source ? source : null;
 
@@ -304,7 +304,7 @@ qx.Bootstrap.define("qx.ui.mobile.basic.Image",
 
 
     dispose : function() {
-      this.base(qx.ui.mobile.core.Widget, "dispose");
+      this.base(qx.ui.mobile.Widget, "dispose");
 
       if (qx.application.Scaling) {
         qx.application.Scaling.getInstance().on("changeAppScale", this._onChangeAppScale, this);

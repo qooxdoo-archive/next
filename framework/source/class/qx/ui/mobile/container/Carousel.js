@@ -20,7 +20,7 @@
 
 /**
  * Creates a Carousel widget.
- * A carousel is a widget which can switch between several sub pages {@link  qx.ui.mobile.core.Widget}.
+ * A carousel is a widget which can switch between several sub pages {@link  qx.ui.mobile.Widget}.
  * A page switch is triggered by a swipe to left, for next page, or a swipe to right for
  * previous page.
  *
@@ -34,8 +34,8 @@
  * <pre class='javascript'>
  *
  *  var carousel = new qx.ui.mobile.container.Carousel();
- *  var carouselPage1 = new qx.ui.mobile.core.Widget();
- *  var carouselPage2 = new qx.ui.mobile.core.Widget();
+ *  var carouselPage1 = new qx.ui.mobile.Widget();
+ *  var carouselPage2 = new qx.ui.mobile.Widget();
  *
  *  carouselPage1.append(new qx.ui.mobile.basic.Label("This is a carousel. Please swipe left."));
  *  carouselPage2.append(new qx.ui.mobile.basic.Label("Now swipe right."));
@@ -47,7 +47,7 @@
  */
 qx.Bootstrap.define("qx.ui.mobile.container.Carousel",
 {
-  extend : qx.ui.mobile.core.Widget,
+  extend : qx.ui.mobile.Widget,
   include : qx.ui.mobile.core.MResize,
 
 
@@ -56,7 +56,7 @@ qx.Bootstrap.define("qx.ui.mobile.container.Carousel",
   */
   construct : function(transitionDuration)
   {
-    this.base(qx.ui.mobile.core.Widget, "constructor");
+    this.base(qx.ui.mobile.Widget, "constructor");
     if (transitionDuration) {
       this.transitionDuration = transitionDuration;
     }
@@ -68,7 +68,7 @@ qx.Bootstrap.define("qx.ui.mobile.container.Carousel",
     this.__pages = [];
     this.__paginationLabels = [];
 
-    var carouselScroller = this.__carouselScroller = new qx.ui.mobile.core.Widget();
+    var carouselScroller = this.__carouselScroller = new qx.ui.mobile.Widget();
     carouselScroller.setLayout(new qx.ui.mobile.layout.HBox());
     carouselScroller.transformUnit = "px";
     carouselScroller.addClass("carousel-scroller");
@@ -87,7 +87,7 @@ qx.Bootstrap.define("qx.ui.mobile.container.Carousel",
       .on("resize", this._onContainerUpdate, this);
     this.on("scroll", this._onNativeScroll, this);
 
-    var pagination = this.__pagination = new qx.ui.mobile.core.Widget();
+    var pagination = this.__pagination = new qx.ui.mobile.Widget();
     pagination.setLayout(new qx.ui.mobile.layout.HBox());
     pagination.transformUnit = "px";
     pagination.addClass("carousel-pagination");
@@ -178,13 +178,13 @@ qx.Bootstrap.define("qx.ui.mobile.container.Carousel",
     // overridden
     /**
      * Adds a page to the end of the carousel.
-     * @param page {qx.ui.mobile.core.Widget} The composite which should be added as a page to the end of carousel.
+     * @param page {qx.ui.mobile.Widget} The composite which should be added as a page to the end of carousel.
      */
     append : function(page) {
-      this.base(qx.ui.mobile.core.Widget, "append", page);
+      this.base(qx.ui.mobile.Widget, "append", page);
       if (qx.core.Environment.get("qx.debug")) {
-        if (!page instanceof qx.ui.mobile.core.Widget) {
-          throw new Error("Page is expected to be an instance of qx.ui.mobile.core.Widget.");
+        if (!page instanceof qx.ui.mobile.Widget) {
+          throw new Error("Page is expected to be an instance of qx.ui.mobile.Widget.");
         }
       }
 
@@ -206,7 +206,7 @@ qx.Bootstrap.define("qx.ui.mobile.container.Carousel",
     /**
      * Removes a carousel page from carousel identified by its index.
      * @param pageIndex {Integer} The page index which should be removed from carousel.
-     * @return {qx.ui.mobile.core.Widget} the page which was removed from carousel.
+     * @return {qx.ui.mobile.Widget} the page which was removed from carousel.
      */
     removePageByIndex : function(pageIndex) {
       if (this.__pages && this.__pages.length > pageIndex) {
@@ -351,11 +351,11 @@ qx.Bootstrap.define("qx.ui.mobile.container.Carousel",
 
     /**
      * Factory method for a paginationLabel.
-     * @return {qx.ui.mobile.core.Widget} the created pagination label.
+     * @return {qx.ui.mobile.Widget} the created pagination label.
      */
     _createPaginationLabel : function() {
       var paginationIndex = this.__pages.length;
-      var paginationLabel = new qx.ui.mobile.core.Widget();
+      var paginationLabel = new qx.ui.mobile.Widget();
       var paginationLabelText = new qx.ui.mobile.basic.Label("" + paginationIndex);
       paginationLabel.append(paginationLabelText);
 
@@ -722,7 +722,7 @@ qx.Bootstrap.define("qx.ui.mobile.container.Carousel",
       qx.util.DisposeUtil.disposeArray(this,"__paginationLabels");
 
       this.__pages = this.__paginationLabels = this.__snapPointsX = this.__onMoveOffset = this.__lastOffset = this.__boundsX = this.__isPageScrollTarget = null;
-      this.base(qx.ui.mobile.core.Widget, "dispose");
+      this.base(qx.ui.mobile.Widget, "dispose");
     }
   }
 });

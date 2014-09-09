@@ -40,11 +40,11 @@
  */
 qx.Bootstrap.define("qx.ui.mobile.navigationbar.NavigationBar",
 {
-  extend : qx.ui.mobile.core.Widget,
+  extend : qx.ui.mobile.Widget,
 
 
   construct : function(layout) {
-    this.base(qx.ui.mobile.core.Widget, "constructor");
+    this.base(qx.ui.mobile.Widget, "constructor");
     this.setLayout(layout);
     if (!layout) {
       layout = new qx.ui.mobile.layout.HBox();

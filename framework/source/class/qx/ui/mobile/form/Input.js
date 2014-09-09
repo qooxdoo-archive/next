@@ -25,7 +25,7 @@
  */
 qx.Bootstrap.define("qx.ui.mobile.form.Input",
 {
-  extend : qx.ui.mobile.core.Widget,
+  extend : qx.ui.mobile.Widget,
   include : [
     qx.ui.form.MForm,
     qx.ui.form.MModelProperty,
@@ -40,7 +40,7 @@ qx.Bootstrap.define("qx.ui.mobile.form.Input",
 
   construct : function(element)
   {
-    this.base(qx.ui.mobile.core.Widget, "constructor", element);
+    this.base(qx.ui.mobile.Widget, "constructor", element);
     this.setAttribute("type", this._getType());
     this.addClass("gap");
 
@@ -74,7 +74,7 @@ qx.Bootstrap.define("qx.ui.mobile.form.Input",
      * @param evt {qx.event.type.Event} <code>click</code> or <code>focus</code> event
      */
     _onSelected : function(evt) {
-      var widget = qx.ui.mobile.core.Widget.getWidgetById(evt.target.getAttribute("id"));
+      var widget = qx.ui.mobile.Widget.getWidgetById(evt.target.getAttribute("id"));
       if (!widget ||
         (!(widget instanceof qx.ui.mobile.form.TextField) && !(widget instanceof qx.ui.mobile.form.NumberField))) {
         return;
@@ -98,7 +98,7 @@ qx.Bootstrap.define("qx.ui.mobile.form.Input",
 
 
     dispose : function() {
-      this.base(qx.ui.mobile.core.Widget, "dispose");
+      this.base(qx.ui.mobile.Widget, "dispose");
       this.off("focus", this._onSelected, this);
       this.disposeMForm();
     }

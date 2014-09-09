@@ -42,7 +42,7 @@
  */
 qx.Bootstrap.define("qx.ui.mobile.form.ToggleButton",
 {
-  extend : qx.ui.mobile.core.Widget,
+  extend : qx.ui.mobile.Widget,
   include : [
     qx.ui.mobile.form.MValue,
     qx.ui.form.MForm,
@@ -62,7 +62,7 @@ qx.Bootstrap.define("qx.ui.mobile.form.ToggleButton",
    */
   construct : function(value, labelChecked, labelUnchecked)
   {
-    this.base(qx.ui.mobile.core.Widget, "constructor");
+    this.base(qx.ui.mobile.Widget, "constructor");
 
     if(labelChecked && labelUnchecked) {
        this.__labelUnchecked = labelUnchecked;
@@ -110,7 +110,7 @@ qx.Bootstrap.define("qx.ui.mobile.form.ToggleButton",
     /**
      * Returns the child control of the toggle button.
      *
-     * @return {qx.ui.mobile.core.Widget} the child control.
+     * @return {qx.ui.mobile.Widget} the child control.
      */
     _getChild : function() {
       return this.__switch;
@@ -119,10 +119,10 @@ qx.Bootstrap.define("qx.ui.mobile.form.ToggleButton",
 
     /**
      * Creates the switch control of the widget.
-     * @return {qx.ui.mobile.core.Widget} The switch control.
+     * @return {qx.ui.mobile.Widget} The switch control.
      */
     _createSwitch : function() {
-      var toggleButtonSwitch = new qx.ui.mobile.core.Widget();
+      var toggleButtonSwitch = new qx.ui.mobile.Widget();
       toggleButtonSwitch.addClass("togglebutton-switch");
       return toggleButtonSwitch;
     },
@@ -213,7 +213,7 @@ qx.Bootstrap.define("qx.ui.mobile.form.ToggleButton",
     },
 
     dispose : function() {
-      this.base(qx.ui.mobile.core.Widget, "dispose");
+      this.base(qx.ui.mobile.Widget, "dispose");
       this.off("tap", this._onTap, this);
       this.off("swipe", this._onSwipe, this);
 

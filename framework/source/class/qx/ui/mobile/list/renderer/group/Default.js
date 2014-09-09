@@ -154,10 +154,10 @@ qx.Bootstrap.define("qx.ui.mobile.list.renderer.group.Default",
     /**
      * Creates and returns the right container composite. Override this to adapt the widget code.
      *
-     * @return {qx.ui.mobile.core.Widget} the right container.
+     * @return {qx.ui.mobile.Widget} the right container.
      */
     _createRightContainer : function() {
-      var container =  new qx.ui.mobile.core.Widget();
+      var container =  new qx.ui.mobile.Widget();
       container.setLayout(new qx.ui.mobile.layout.VBox());
       return container;
     },

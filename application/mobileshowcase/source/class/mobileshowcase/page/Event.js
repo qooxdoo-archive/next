@@ -76,7 +76,7 @@ qx.Bootstrap.define("mobileshowcase.page.Event",
       var sclayout = new qx.ui.mobile.layout.VBox();
       sclayout.alignX = "center";
       sclayout.alignY = "middle";
-      var container =  this.__showcaseContainer = new qx.ui.mobile.core.Widget()
+      var container =  this.__showcaseContainer = new qx.ui.mobile.Widget()
       container.setLayout(sclayout);
       container.addClass("eventcontainer");
 
@@ -88,7 +88,7 @@ qx.Bootstrap.define("mobileshowcase.page.Event",
       var clayout = new qx.ui.mobile.layout.VBox();
       clayout.alignX = "center";
       clayout.alignY = "middle";
-      var containerTouchArea = this.__container = new qx.ui.mobile.core.Widget();
+      var containerTouchArea = this.__container = new qx.ui.mobile.Widget();
       containerTouchArea.setLayout(clayout);
       containerTouchArea.addClass("container-touch-area");
 
@@ -124,7 +124,7 @@ qx.Bootstrap.define("mobileshowcase.page.Event",
 
       // POINTER VISUALIZATION CIRCLES
       for (var i = 0; i < 15; i++) {
-        var circle = new qx.ui.mobile.core.Widget();
+        var circle = new qx.ui.mobile.Widget();
         circle.addClass("touch");
 
         this.__circles.push(circle);

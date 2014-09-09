@@ -23,7 +23,7 @@
  */
 qx.Bootstrap.define("qx.ui.mobile.form.TextArea",
 {
-  extend : qx.ui.mobile.core.Widget,
+  extend : qx.ui.mobile.Widget,
   include : [
     qx.ui.mobile.form.MValue,
     qx.ui.mobile.form.MText,
@@ -42,7 +42,7 @@ qx.Bootstrap.define("qx.ui.mobile.form.TextArea",
    */
   construct : function(value)
   {
-    this.base(qx.ui.mobile.core.Widget, "constructor");
+    this.base(qx.ui.mobile.Widget, "constructor");
 
     if (value) {
       this.value = value;
@@ -118,7 +118,7 @@ qx.Bootstrap.define("qx.ui.mobile.form.TextArea",
 
     dispose : function()
     {
-      this.base(qx.ui.mobile.core.Widget, "dispose");
+      this.base(qx.ui.mobile.Widget, "dispose");
       if (qx.core.Environment.get("qx.mobile.nativescroll") == false) {
         this.off("appear", this._fixChildElementsHeight, this);
         this.off("input", this._fixChildElementsHeight, this);
