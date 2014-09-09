@@ -212,7 +212,7 @@ qx.Bootstrap.define("qx.ui.mobile.container.Drawer",
      */
     show : function()
     {
-      if(this.visibility === "visible" || this.__inTransition === true) {
+      if (!this.isHidden() || this.__inTransition === true) {
         return;
       }
 
@@ -262,7 +262,7 @@ qx.Bootstrap.define("qx.ui.mobile.container.Drawer",
      * Hides the drawer.
      */
     hide : function() {
-      if(this.visibility !== "visible" || this.__inTransition === true) {
+      if (this.isHidden() || this.__inTransition === true) {
         return;
       }
 
@@ -354,7 +354,7 @@ qx.Bootstrap.define("qx.ui.mobile.container.Drawer",
      * @return {Boolean} the new visibility state.
      */
     toggleVisibility : function() {
-      if(this.visibility !== "visible") {
+      if(this.isHidden()) {
         this.show();
         return true;
       } else {
