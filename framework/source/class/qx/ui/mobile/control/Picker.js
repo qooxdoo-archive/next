@@ -303,7 +303,13 @@ qx.Bootstrap.define("qx.ui.mobile.control.Picker",
         slotModel.off("changeBubble", this._onSlotDataChange, scrollContainer);
         slotModel.off("change", this._onSlotDataChange, scrollContainer);
 
-        qx.util.DisposeUtil.destroyContainer(scrollContainer);
+        var container = this._slots.getItem(slotIndex).container;
+        container.find(".list").dispose();
+        container.find(".placeholder-item")._forEachElementWrapped(function(item) {
+          item.dispose();
+        });
+        container.getChildren().dispose();
+        container.dispose();
 
         this._pickerModel.removeAt(slotIndex);
         this._slots.removeAt(slotIndex);
@@ -319,9 +325,26 @@ qx.Bootstrap.define("qx.ui.mobile.control.Picker",
     },
 
 
+    /**
+     * Dispose a Picker slot and all its child widgets.
+     * @param slotIndex {Number} index of the slot to be disposed
+     */
+    _disposeSlot: function(slotIndex) {
+      var container = this._slots.getItem(slotIndex).container;
+      container.find(".list").dispose();
+      container.find(".placeholder-item")._forEachElementWrapped(function(item) {
+        item.dispose();
+      });
+      container.getChildren().dispose();
+      container.dispose();
+    },
+
+
     dispose : function() {
+      for (var i = this._slots.length - 1; i >= 0; i--) {
+        this.removeSlot(i);
+      }
       this.base(qx.ui.mobile.core.Widget, "dispose");
-      qx.util.DisposeUtil.destroyContainer(this);
     }
   }
 });

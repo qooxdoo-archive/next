@@ -627,11 +627,8 @@ qx.Bootstrap.define("qx.ui.mobile.core.Widget", {
 
 
     dispose : function() {
-      // Cleanup event listeners
-      // Needed as we rely on the containerElement in the qx.ui.mobile.core.EventHandler
-      // qx.event.Registration.removeAllListeners(this); TODO
-
-      this.remove();
+      this.allOff()
+        .remove();
     }
   },
 
