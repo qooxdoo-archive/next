@@ -125,6 +125,7 @@ qx.Bootstrap.define("qx.ui.mobile.layout.Card",
         widget.addClass("layout-card-item");
         widget.addClass("qx-flex1");
         widget.exclude();
+        widget.on("changeVisibility", this.updateLayout, this);
       }
     },
 
@@ -133,15 +134,15 @@ qx.Bootstrap.define("qx.ui.mobile.layout.Card",
     disconnectFromChildWidget : function(widget) {
       this.base(qx.ui.mobile.layout.Abstract, "disconnectFromChildWidget", widget);
       widget.removeClass("layout-card-item");
+      widget.off("changeVisibility", this.updateLayout, this);
     },
 
 
     // overridden
-    updateLayout : function(widget, action, properties) {
-      if (action == "visible") {
-        this._showWidget(widget, properties);
+    updateLayout : function(e) {
+      if (e.value == "visible") {
+        this._showWidget(e.target);
       }
-      this.base(qx.ui.mobile.layout.Abstract, "updateLayout", widget, action, properties);
     },
 
 

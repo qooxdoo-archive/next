@@ -417,22 +417,6 @@ qx.Bootstrap.define("qx.ui.mobile.core.Widget", {
     },
 
 
-
-    /**
-     * Initializes the layout of the given child widget.
-     *
-     * @param child {Widget} The child widget
-     * @param layoutProperties {Map?null} Optional layout data for widget
-     */
-    _initializeChildLayout : function(child, layoutProperties) {
-      child.setLayoutProperties(layoutProperties);
-      var layout = this.getLayout();
-      if (layout) {
-        layout.connectToChildWidget(child);
-      }
-    },
-
-
     /**
      * Returns the set layout manager for the widget.
      *
@@ -452,44 +436,20 @@ qx.Bootstrap.define("qx.ui.mobile.core.Widget", {
       // Check values through parent
       var parent = this._getParentWidget();
       if (parent) {
-        parent.updateLayoutProperties(this);
+        var layout = parent.getLayout();
+        if (layout) {
+          layout.setLayoutProperties(this);
+        }
       }
     },
 
 
     /**
-     * Updates the layout properties of a given widget.
+     * Sets up listeners to add/remove the 'active' class
      *
-     * @param widget {qx.ui.mobile.core.Widget} The widget that should be updated
-     * @param properties {Map} Incoming layout property data
-     *
-     * @internal
+     * @param value {Boolean} new value
+     * @param old {Boolean?} previous value
      */
-    updateLayoutProperties : function(widget) {
-      var layout = this.getLayout();
-      if (layout) {
-        layout.setLayoutProperties(widget);
-      }
-    },
-
-
-    /**
-     * Updates the layout with the given arguments.
-     *
-     * @param widget {qx.ui.mobile.core.Widget} The target widget
-     * @param action {String} The causing action that triggered the layout update.
-     * @param properties {Map} The animation properties to set. Key / value pairs.
-     *
-     * @internal
-     */
-    updateLayout : function(widget, action, properties) {
-      var layout = this.getLayout();
-      if (layout) {
-        layout.updateLayout(widget, action, properties);
-      }
-    },
-
-
     _applyActivatable : function(value, old) {
       this.setData("activatable", value ? "true" : null);
 

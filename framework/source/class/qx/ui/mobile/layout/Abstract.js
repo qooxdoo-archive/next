@@ -30,21 +30,6 @@ qx.Bootstrap.define("qx.ui.mobile.layout.Abstract",
   extend : Object,
   include : [qx.event.MEmitter],
 
-  events :
-  {
-    /**
-     * Fired when the layout is updated. Data contains the "widget", "action", "properties"
-     * {
-     *    widget : var
-     *    action : String
-     *    properties : Map
-     * }
-     */
-
-    updateLayout : "Object"
-  },
-
-
   members:
   {
     _widget : null,
@@ -187,22 +172,6 @@ qx.Bootstrap.define("qx.ui.mobile.layout.Abstract",
      * @param widget {qx.ui.mobile.core.Widget} The widget to connect to
      */
     disconnectFromChildWidget : function(widget) {},
-
-
-    /**
-     * Updates the layout. Method is called by a widget, when it changes its state.
-     *
-     * @param widget {qx.ui.mobile.core.Widget} The target widget
-     * @param action {String} The causing action that triggered the layout update.
-     * @param properties {Map} The animation properties to set. Key / value pairs.
-     */
-    updateLayout : function(widget, action, properties) {
-      this.emit("updateLayout", {
-        widget : widget,
-        action : action,
-        properties : properties
-      });
-    },
 
 
     /**

@@ -119,11 +119,12 @@ qx.Bootstrap.define("qx.ui.mobile.container.Navigation",
     _createContent : function()
     {
       var layout = new qx.ui.mobile.layout.Card();
-      layout.on("updateLayout", this._onUpdateLayout, this);
       layout.on("animationStart", this._onAnimationStart, this);
       layout.on("animationEnd", this._onAnimationEnd, this);
 
       var content = new qx.ui.mobile.core.Widget();
+      content.on("addedChild", this._onAddedChild, this);
+      content.on("removedChild", this._onRemovedChild, this);
       content.setLayout(layout);
       return content;
     },
@@ -146,16 +147,38 @@ qx.Bootstrap.define("qx.ui.mobile.container.Navigation",
 
 
     /**
-     * Event handler. Called when the "updateLayout" event occurs.
+     * Triggers an update if a child becomes visible
      *
-     * @param evt {qx.event.type.Data} The causing event
+     * @param e {Map} changeVisibility event data
      */
-    _onUpdateLayout : function(evt) {
-      var widget = evt.widget;
-      var action = evt.action;
-      if (action == "visible") {
-        this._update(widget);
+    _onChangeChildVisibility : function(e) {
+      if (e.value == "visible") {
+        this._update(e.target);
       }
+    },
+
+
+    /**
+     * Triggers an initial update if a child is added and listens for
+     * visibility changes on the child
+     *
+     * @param child {qx.ui.mobile.core.Widget} added child
+     */
+    _onAddedChild : function(child) {
+      this._update(child);
+      child.on("changeVisibility", this._onChangeChildVisibility, this);
+    },
+
+
+    /**
+     * Removes the visibility change listener from a removed child widget
+     * and updates the view
+     *
+     * @param child {qx.ui.mobile.core.Widget} added child
+     */
+    _onRemovedChild : function(child) {
+      child.off("changeVisibility", this._onChangeChildVisibility, this);
+      this._update(child);
     },
 
 
@@ -216,6 +239,8 @@ qx.Bootstrap.define("qx.ui.mobile.container.Navigation",
     dispose : function()
     {
       this.base(qx.ui.mobile.core.Widget, "dispose");
+      this.getContent().off("addedChild", this._onAddedChild, this)
+        .off("removedChild", this._onRemovedChild, this);
       this.getContent().getLayout().off("animationStart",this._onAnimationStart, this);
       this.getContent().getLayout().off("animationEnd",this._onAnimationEnd, this);
 
