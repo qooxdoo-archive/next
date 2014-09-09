@@ -223,6 +223,10 @@ qx.Bootstrap.define("qx.ui.mobile.form.Label",
         this.__forWidget.off("changeEnabled", this._changeEnabled, this);
         this.__forWidget = null;
       }
+
+      if (qx.core.Environment.get("qx.dynlocale")) {
+        qx.locale.Manager.getInstance().off("changeLocale", this._onChangeLocale, this);
+      }
     }
   }
 });

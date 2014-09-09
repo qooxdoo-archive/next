@@ -110,10 +110,11 @@ qx.Bootstrap.define("qx.test.locale.Locale",
       // check listener
       var fired = false;
       var evtLocale = "";
-      manager.on("changeLocale", function(locale) {
+      var onChangeLocale = function(locale) {
         fired = true;
         evtLocale = locale;
-      });
+      };
+      manager.on("changeLocale", onChangeLocale);
       this.__listenerId = manager.getListenerId();
 
       // change locale
@@ -140,6 +141,8 @@ qx.Bootstrap.define("qx.test.locale.Locale",
 
       cars = cars.translate();
       this.assertEquals("5 Autos", cars);
+
+      manager.off("changeLocale", onChangeLocale);
     },
 
 
