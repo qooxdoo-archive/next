@@ -26,9 +26,9 @@ qx.Bootstrap.define("qx.ui.mobile.list.renderer.group.Abstract",
   extend : qx.ui.mobile.core.Widget,
 
 
-  construct : function(layout)
+  construct : function(layout, element)
   {
-    this.base(qx.ui.mobile.core.Widget, "constructor");
+    this.base(qx.ui.mobile.core.Widget, "constructor", element);
     this.setLayout(layout);
     this.selectable = undefined;
   },

@@ -49,13 +49,13 @@ qx.Bootstrap.define("qx.ui.mobile.list.renderer.Default",
   extend : qx.ui.mobile.list.renderer.Abstract,
 
 
-  construct : function(layout)
+  construct : function(layout, element)
   {
     if (!layout) {
       layout = new qx.ui.mobile.layout.HBox();
     }
     layout.alignY = "middle";
-    this.base(qx.ui.mobile.list.renderer.Abstract, "constructor", layout);
+    this.base(qx.ui.mobile.list.renderer.Abstract, "constructor", layout, element);
     this._init();
   },
 

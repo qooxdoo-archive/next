@@ -24,12 +24,12 @@
 qx.Bootstrap.define("qx.ui.mobile.list.renderer.Abstract",
 {
   extend : qx.ui.mobile.core.Widget,
-  //type : "abstract", TOOD: MAbstract
+  //type : "abstract", TODO: MAbstract
 
 
-  construct : function(layout)
+  construct : function(layout, element)
   {
-    this.base(qx.ui.mobile.core.Widget, "constructor");
+    this.base(qx.ui.mobile.core.Widget, "constructor", element);
     this.setLayout(layout);
     this.selectable = undefined;
     this.removable = undefined;
