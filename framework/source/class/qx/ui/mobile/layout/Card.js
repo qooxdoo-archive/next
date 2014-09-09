@@ -281,14 +281,22 @@ qx.Bootstrap.define("qx.ui.mobile.layout.Card",
 
       this._widget.addClass("animationParent");
 
-      var toElementAnimation = this.__cardAnimation.getAnimation(this.__animation, "in", this.__reverse);
-      var fromElementAnimation = this.__cardAnimation.getAnimation(this.__animation, "out", this.__reverse);
+      var toElementAnimation;
+      var fromElementAnimation;
+      if (this.__animation) {
+        toElementAnimation = this.__cardAnimation.getAnimation(this.__animation, "in", this.__reverse);
+        fromElementAnimation = this.__cardAnimation.getAnimation(this.__animation, "out", this.__reverse);
+      }
 
       toElement.addClasses(toCssClasses);
       fromElement.addClasses(fromCssClasses);
 
-      toElement.animate(toElementAnimation);
-      fromElement.animate(fromElementAnimation);
+      if (toElementAnimation) {
+        toElement.animate(toElementAnimation);
+      }
+      if (fromElementAnimation) {
+        fromElement.animate(fromElementAnimation);
+      }
     },
 
 
