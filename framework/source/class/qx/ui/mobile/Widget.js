@@ -388,7 +388,7 @@ qx.Bootstrap.define("qx.ui.mobile.Widget", {
     remove : function() {
       var parent = this._getParentWidget();
       this.base(qxWeb, "remove");
-      if (parent) {
+      if (parent && parent.length === 1) {
         parent.emit("removedChild", this);
       }
       return this;
@@ -413,7 +413,7 @@ qx.Bootstrap.define("qx.ui.mobile.Widget", {
      */
     _emitOnParent : function(type, data) {
       var parent = this._getParentWidget();
-      if (parent.length === 1) {
+      if (parent && parent.length === 1) {
         parent.emit(type, data);
       }
       return this;
@@ -466,7 +466,7 @@ qx.Bootstrap.define("qx.ui.mobile.Widget", {
     _applyLayoutPrefs : function(value, old) {
       // Check values through parent
       var parent = this._getParentWidget();
-      if (parent) {
+      if (parent && parent.length === 1) {
         var layout = parent.getLayout();
         if (layout) {
           layout.setLayoutProperties(this);
