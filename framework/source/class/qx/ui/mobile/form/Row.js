@@ -61,6 +61,12 @@ qx.Bootstrap.define("qx.ui.mobile.form.Row",
 
   members :
   {
+
+    _applySelectable : function(value, old) {
+      this.setData("selectable", value ? null : "false");
+    },
+
+
     // overridden
     _getTagName : function()
     {

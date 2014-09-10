@@ -531,11 +531,6 @@ qx.Bootstrap.define("qx.ui.mobile.Widget", {
     },
 
 
-    _applySelectable : function(value, old) {
-      this.setData("selectable", value ? null : "false");
-    },
-
-
     /**
      * Ignore pointer events on this widget
      */
