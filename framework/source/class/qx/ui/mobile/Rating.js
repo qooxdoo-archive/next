@@ -198,6 +198,7 @@ qx.Bootstrap.define("qx.ui.mobile.Rating", {
     dispose : function() {
       qxWeb(document.documentElement).off("keydown", this._onKeyDown, this);
       this
+        .allOff("changeValue")
         .off("focus", this._onFocus, this)
         .off("blur", this._onBlur, this)
         .getChildren("span")

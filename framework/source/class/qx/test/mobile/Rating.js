@@ -97,9 +97,8 @@ qx.Bootstrap.define("qx.test.mobile.Rating", {
         calledCustom++;
       });
       this.__rating.dispose();
-      var rating2 = qxWeb(this.getRoot().find(".rating"));
-      rating2.value = 3;
-      rating2.emit("custom");
+      this.__rating.value = 3;
+      this.__rating.emit("custom");
 
       this.assertEquals(0, calledChange);
       this.assertEquals(1, calledCustom);
