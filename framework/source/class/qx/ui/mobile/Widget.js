@@ -599,8 +599,7 @@ qx.Bootstrap.define("qx.ui.mobile.Widget", {
 
 
     dispose : function() {
-      this.allOff()
-        .remove();
+      this.remove();
     }
   },
 
