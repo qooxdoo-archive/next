@@ -237,23 +237,7 @@ qx.Bootstrap.define("qx.ui.mobile.dialog.Menu",
      */
     _createSelectionList : function() {
       var self = this;
-      var selectionList = new qx.ui.mobile.list.List({
-        configureItem : function(item, data, row)
-        {
-          item.setTitle(data);
-          item.showArrow = false;
-
-          var isItemSelected = (self.selectedIndex == row);
-
-          if(isItemSelected) {
-            item.removeClass(self.unselectedItemClass);
-            item.addClass(self.selectedItemClass);
-          } else {
-            item.removeClass(self.selectedItemClass);
-            item.addClass(self.unselectedItemClass);
-          }
-        }
-      });
+      var selectionList = new qx.ui.mobile.list.List();
 
       // Add an changeSelection event
       selectionList.on("changeSelection", this.__onListChangeSelection, this);

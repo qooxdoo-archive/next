@@ -609,5 +609,6 @@ qx.Bootstrap.define("qx.ui.mobile.Widget", {
       initWidgets : statics.initWidgets,
       $attachWidget : statics.attachWidget
     });
+    qxWeb.$attachWidget(statics);
   }
 });

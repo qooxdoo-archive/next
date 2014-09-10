@@ -35,23 +35,7 @@ qx.Interface.define("qx.ui.mobile.list.IListDelegate",
 {
   members :
   {
-    /**
-     * Configure the list item renderer with the given data. Mandatory method.
-     * At least this method has to be defined for the delegate.
-     *
-     * @param item {qx.ui.mobile.list.renderer.Abstract} Instance of list item renderer to modify
-     * @param data {var} The data of the row. Can be used to configure the given item.
-     * @param row {Integer} The row index.
-     */
-    configureItem : function(item, data, row) {},
-
-
-
-    /**
-     * Creates an instance of the item renderer to use.
-     *
-     * @return {qx.ui.mobile.list.renderer.Abstract} An instance of the item renderer.
-     */
-    createItemRenderer : function() {}
+    group : function(data, row) {}
+    configureData : function(data) {}
   }
 });

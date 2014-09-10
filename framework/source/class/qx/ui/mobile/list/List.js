@@ -37,17 +37,6 @@
  *
  *   // Create the list with a delegate that
  *   var list = new qx.ui.mobile.list.List({
- *     configureItem: function(item, data, row)
- *     {
- *       item.setImage("path/to/image.png");
- *       item.setTitle(data.title);
- *       item.setSubtitle(data.subtitle);
- *     },
- *
- *     configureGroupItem: function(item, data) {
- *       item.setTitle(data.title);
- *     },
- *
  *     group: function(data, row) {
  *      return {
  *       title: row < 2 ? "Selectable" : "Unselectable"
@@ -70,10 +59,30 @@
  * the given data. A listener for the event {@link #changeSelection} is added.
  *
  * @require(qx.module.AnimationFrame)
+ * @require(qx.module.Template)
+ * @require(qx.ui.mobile.basic.Image)
  */
 qx.Bootstrap.define("qx.ui.mobile.list.List",
 {
   extend : qx.ui.mobile.Widget,
+
+
+
+  statics : {
+    itemTemplate : '<li class="list-item qx-hbox qx-flex-align-center {{#removable}}removable{{/removable}} {{#showArrow}}arrow{{/showArrow}}" {{#selectable}}data-selectable="true"{{/selectable}} data-row="{{row}}">' +
+                     '{{#image}}<img class="list-item-image" data-qx-widget="qx.ui.mobile.basic.Image" data-qx-config-source="{{image}}" style="pointer-events: none;">{{/image}}' +
+                     '<div class="qx-vbox qx-flex1">' +
+                       '{{#title}}<div class="label no-wrap list-item-title" style="pointer-events: none;">{{title}}</div>{{/title}}' +
+                       '{{#subtitle}}<div class="label no-wrap list-item-subtitle" style="pointer-events: none;">{{subtitle}}</div>{{/subtitle}}' +
+                     '</div>' +
+                   '</li>',
+    groupHeaderTemplate: '<li class="group-item qx-hbox qx-flex-align-center" {{#selectable}}data-selectable="true"{{/selectable}}>' +
+                           '{{#image}}<img class="group-item-image" style="pointer-events: none;" src="{{image}}">{{/image}}' +
+                           '{{#title}}<div class="qx-vbox qx-flex1">' +
+                             '<div class="label no-wrap group-item-title" style="pointer-events: none;">{{title}}</div>' +
+                           '</div>{{/title}}' +
+                         '</li>'
+  },
 
 
   /**
@@ -82,7 +91,6 @@ qx.Bootstrap.define("qx.ui.mobile.list.List",
   construct : function(delegate, element)
   {
     this.base(qx.ui.mobile.Widget, "constructor", element);
-    this.__provider = new qx.ui.mobile.list.provider.Provider(this);
 
     this.on("tap", this._onTap, this);
     this.on("trackstart", this._onTrackStart, this);
@@ -96,7 +104,7 @@ qx.Bootstrap.define("qx.ui.mobile.list.List",
     }
 
     if (qx.core.Environment.get("qx.dynlocale")) {
-      qx.locale.Manager.getInstance().on("changeLocale", this._onChangeLocale, this);
+      qx.locale.Manager.getInstance().on("changeLocale", this.render, this);
     }
   },
 
@@ -137,7 +145,7 @@ qx.Bootstrap.define("qx.ui.mobile.list.List",
      */
     delegate :
     {
-      apply: "_applyDelegate",
+      apply: "render",
       event: true,
       init: null,
       nullable: true
@@ -158,16 +166,6 @@ qx.Bootstrap.define("qx.ui.mobile.list.List",
 
 
     /**
-     * Number of items to display. Auto set by model.
-     * Reset to limit the amount of data that should be displayed.
-     */
-    itemCount : {
-      check : "Number",
-      init : 0
-    },
-
-
-    /**
     * The height of a list item.
     */
     itemHeight : {
@@ -180,7 +178,6 @@ qx.Bootstrap.define("qx.ui.mobile.list.List",
 
   members :
   {
-    __provider : null,
     __minDeleteDistance : null,
     __isScrollingBlocked : null,
     __trackElement : null,
@@ -189,45 +186,6 @@ qx.Bootstrap.define("qx.ui.mobile.list.List",
     // overridden
     _getTagName : function() {
       return "ul";
-    },
-
-
-    /**
-     * Default list delegate. Expects a map which contains an image, a subtitle, and a title:
-     * <code>{title : "Row1", subtitle : "Sub1", image : "path/to/image.png"}</code>
-     *
-     * @param item {qx.ui.mobile.list.renderer.Abstract} Instance of list item renderer to modify
-     * @param data {var} The data of the row. Can be used to configure the given item.
-     * @param row {Integer} The row index.
-     */
-    configureItem: function(item, data, row) {
-      if(typeof data.image != "undefined") {
-        item.setImage(data.image);
-      }
-      if(typeof data.subtitle != "undefined") {
-        item.setSubtitle(data.subtitle);
-      }
-      if(typeof data.title != "undefined") {
-        item.setTitle(data.title);
-      }
-      if(typeof data.enabled != "undefined") {
-        item.setEnabled(data.enabled);
-      }
-      if(typeof data.removable != "undefined") {
-        item.setRemovable(data.removable);
-      }
-      if(typeof data.selectable != "undefined") {
-        item.setSelectable(data.selectable);
-      }
-      if(typeof data.activatable != "undefined") {
-        item.setActivatable(data.activatable);
-      }
-      if(typeof data.arrow != "undefined") {
-        item.setShowArrow(data.arrow);
-      }
-      if(typeof data.selected != "undefined") {
-        item.setSelected(data.selected);
-      }
     },
 
 
@@ -247,7 +205,7 @@ qx.Bootstrap.define("qx.ui.mobile.list.List",
 
       var row = -1;
       if (element.hasClass("list-item")) {
-        if (element.getData("selectable") != "false" &&
+        if (element.getData("selectable") &&
             this.getChildren().indexOf(element) !== -1) {
           row = parseInt(element.getData("row"), 10);
         }
@@ -256,7 +214,7 @@ qx.Bootstrap.define("qx.ui.mobile.list.List",
         }
       } else {
         var group = parseInt(element.getData("group"), 10);
-        if (element.getData("selectable") != "false") {
+        if (element.getData("selectable")) {
           this.emit("changeGroupSelection", group);
         }
       }
@@ -363,59 +321,17 @@ qx.Bootstrap.define("qx.ui.mobile.list.List",
     {
       if (old != null) {
         old.off("changeBubble", this.__onModelChangeBubble, this);
+        old.off("change", this.__onModelChange, this);
+        old.off("changeLength", this.render, this);
       }
       if (value != null) {
         value.on("changeBubble", this.__onModelChangeBubble, this);
-      }
-
-      if (old != null) {
-        old.off("change", this.__onModelChange, this);
-      }
-      if (value != null) {
         value.on("change", this.__onModelChange, this);
+        value.on("changeLength", this.render, this);
       }
 
-      if (old != null) {
-        old.off("changeLength", this.__onModelChangeLength, this);
-      }
-      if (value != null) {
-        value.on("changeLength", this.__onModelChangeLength, this);
-      }
-
-      this.__render();
+      this.render();
     },
-
-
-    // property apply
-    _applyDelegate : function(value, old) {
-      this.__provider.delegate = value;
-    },
-
-
-    /**
-     * Listen on model 'changeLength' event.
-     * @param evt {qx.event.type.Data} data event which contains model change data.
-     */
-    __onModelChangeLength : function(evt) {
-      this.__render();
-    },
-
-
-    /**
-     * Locale change event handler
-     *
-     * @signature function(e)
-     * @param e {Event} the change event
-     */
-    _onChangeLocale : qx.core.Environment.select("qx.dynlocale",
-    {
-      "true" : function(e)
-      {
-        this.__render();
-      },
-
-      "false" : null
-    }),
 
 
     /**
@@ -424,7 +340,7 @@ qx.Bootstrap.define("qx.ui.mobile.list.List",
      */
     __onModelChange : function(data) {
       if (data.type == "order") {
-        this.__render();
+        this.render();
       }
     },
 
@@ -504,40 +420,52 @@ qx.Bootstrap.define("qx.ui.mobile.list.List",
     __renderRow : function(index) {
       var renderedItems = this.find(".list-item");
       var oldNode = renderedItems[index];
-      var newItem = this.__provider.getItemElement(this.model.getItem(index), index);
+      var newItem = this.__getRowTemplate(index);
 
       this[0].replaceChild(newItem[0], oldNode);
     },
 
 
-    /**
-    * @internal
-    * Returns the height of one single list item.
-    * @return {Integer} the height of a list item in px.
-    */
-    getListItemHeight : function() {
-      var listItemHeight = 0;
-      if (this.model != null && this.model.length > 0) {
-        var listHeight = this.getStyle("height");
-        listItemHeight = parseInt(listHeight) / this.model.length;
+    __getRowTemplate : function(index) {
+      var template = qx.ui.mobile.list.List.itemTemplate;
+      var data = this.model.getItem(index);
+      if (qx.Bootstrap.getClass(data) === "String") {
+        data = {title: data};
       }
-      return listItemHeight;
+      data.row = index;
+      data = this.__configureData(data);
+
+      var template = qxWeb.template.renderToNode(template, data).widget()
+      template.set({"activatable": !!data.selectable});
+      template.find("*").forEach(function(el) {
+        if (el.getAttribute("data-qx-widget")) {
+          qxWeb(el); // initialize widgets
+        }
+      });
+      return template;
+    },
+
+
+    __getGroupHeaderTemplate : function(group, groupIndex) {
+      var template = qx.ui.mobile.list.List.groupHeaderTemplate;
+      return qxWeb.template.renderToNode(template, group).widget()
+        .set({"activatable": !!group.selectable})
+        .setData("group", groupIndex);
     },
 
 
     /**
      * Renders the list.
      */
-    __render : function()
-    {
-      this.setHtml("");
+    render : function() {
+      this.empty();
 
       var model = this.model;
-      this.itemCount = model ? model.getLength() : 0;
+      var itemCount = model ? model.getLength() : 0;
 
       var groupIndex = 0;
 
-      for (var index = 0; index < this.itemCount; index++) {
+      for (var index = 0; index < itemCount; index++) {
         if (this.__hasGroup()) {
           var groupElement = this._renderGroup(index, groupIndex);
           if (groupElement) {
@@ -546,7 +474,7 @@ qx.Bootstrap.define("qx.ui.mobile.list.List",
           }
         }
         var item = model.getItem(index);
-        var itemElement = this.__provider.getItemElement(item, index);
+        var itemElement = this.__getRowTemplate(index);
 
         var itemHeight = null;
         if (this.itemHeight !== null) {
@@ -562,14 +490,6 @@ qx.Bootstrap.define("qx.ui.mobile.list.List",
 
 
     /**
-     * Triggers a re-rendering of this list.
-     */
-    render : function() {
-      this.__render();
-    },
-
-
-    /**
     * Renders a group header.
     *
     * @param itemIndex {Integer} the current list item index.
@@ -580,14 +500,26 @@ qx.Bootstrap.define("qx.ui.mobile.list.List",
       var group = this.__getGroup(itemIndex);
 
       if (itemIndex === 0) {
-        return this.__provider.getGroupElement(group, groupIndex);
+        return this.__getGroupHeaderTemplate(group, groupIndex);
       } else {
         var previousGroup = this.__getGroup(itemIndex - 1);
 
         if (!qx.lang.Object.equals(group, previousGroup)) {
-          return this.__provider.getGroupElement(group, groupIndex);
+          return this.__getGroupHeaderTemplate(group, groupIndex);
         }
       }
+    },
+
+
+    __configureData : function(data) {
+      var configureDataMethod = qx.util.Delegate.getMethod(this.delegate, "configureData");
+      if (data.selectable !== false) {
+        data.selectable = true;
+      }
+      if (configureDataMethod) {
+        return configureDataMethod(data);
+      }
+      return data;
     },
 
 
@@ -605,9 +537,9 @@ qx.Bootstrap.define("qx.ui.mobile.list.List",
      * @param index {Integer} the item index.
      * @return {Object} the group object, to which the item belongs to.
      */
-    __getGroup : function(index)
-    {
+    __getGroup : function(index) {
       var item = this.model.getItem(index);
+      item = this.__configureData(item);
       var group = qx.util.Delegate.getMethod(this.delegate, "group");
       return group(item, index);
     },
@@ -617,7 +549,7 @@ qx.Bootstrap.define("qx.ui.mobile.list.List",
       this.base(qx.ui.mobile.Widget, "dispose");
       this.__trackElement = null;
       if (qx.core.Environment.get("qx.dynlocale")) {
-        qx.locale.Manager.getInstance().off("changeLocale", this._onChangeLocale, this);
+        qx.locale.Manager.getInstance().off("changeLocale", this.render, this);
       }
     }
   },

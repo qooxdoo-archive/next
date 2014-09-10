@@ -47,11 +47,9 @@ qx.Bootstrap.define("mobileshowcase.page.Overview",
       this.base(qx.ui.mobile.page.NavigationPage, "_initialize");
 
       var list = new qx.ui.mobile.list.List({
-        configureItem : function(item, data, row)
-        {
-          item.setTitle(data.title);
-          item.setSubtitle(data.subtitle);
-          item.showArrow = true;
+        configureData : function(data) {
+          data.showArrow = true;
+          return data;
         }
       });
 

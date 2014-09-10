@@ -44,11 +44,13 @@ qx.Bootstrap.define("qx.ui.mobile.basic.Image",
   /**
    * @param source {String?null} The URL of the image to display.
    */
-  construct : function(source)
+  construct : function(source, element)
   {
-    this.base(qx.ui.mobile.Widget, "constructor");
+    this.base(qx.ui.mobile.Widget, "constructor", element);
 
-    this.source = source ? source : null;
+    if (source) {
+      this.source = source;
+    }
 
     if (qx.application.Scaling) {
       qx.application.Scaling.getInstance().on("changeAppScale", this._onChangeAppScale, this);
