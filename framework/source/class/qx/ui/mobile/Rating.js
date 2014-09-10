@@ -67,8 +67,16 @@ qx.Bootstrap.define("qx.ui.mobile.Rating", {
   construct : function(size, symbol, element) {
     this.base(qx.ui.mobile.Widget, "constructor", element);
 
-    this.size = size;
-    this.symbol = symbol;
+    if (size) {
+      this.size = size;
+    }
+    if (symbol) {
+      this.symbol = symbol;
+    }
+
+    if (!size && !symbol) {
+      this._render();
+    }
 
     if (this.getAttribute("tabindex") < 0) {
       this.setAttribute("tabindex", 0);

@@ -102,6 +102,14 @@ qx.Bootstrap.define("qx.test.mobile.Rating", {
 
       this.assertEquals(0, calledChange);
       this.assertEquals(1, calledCustom);
+    },
+
+    testDomConfig : function() {
+      this.__rating = qxWeb.create("<div data-qx-widget='qx.ui.mobile.Rating' data-qx-config-symbol='+' data-qx-config-size='3' data-qx-config-value='2'>")
+      .appendTo(this.getRoot());
+      this.assertEquals("+", this.__rating.getChildren().getHtml());
+      this.assertEquals(3, this.__rating.getChildren().length);
+      this.assertEquals(2, this.__rating.value);
     }
   }
 });
