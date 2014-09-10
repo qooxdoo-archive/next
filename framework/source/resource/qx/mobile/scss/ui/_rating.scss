@@ -3,8 +3,12 @@ $rating-background-disabled: 270deg, desaturate(#E3B64A, 100%), desaturate(#D577
 $rating-background-off: 270deg, #eee, #cfcfcf;
 $rating-color-off: #cfcfcf;
 
+.rating:focus {
+  outline: none;
+}
+
 .rating-item {
-  font-size: rem(22);
+  font-size: rem(34);
   background-image: -webkit-linear-gradient($rating-background);
   color: #E3B64A;
   @include background-clip(text);
