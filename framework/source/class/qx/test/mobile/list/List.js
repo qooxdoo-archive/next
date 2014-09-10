@@ -16,8 +16,7 @@
      * Tino Butz (tbtz)
 
 ************************************************************************ */
-/* ************************************************************************
-************************************************************************ */
+
 /**
  *
  * @asset(qx/icon/Tango/48/places/folder.png)
@@ -65,13 +64,9 @@ qx.Bootstrap.define("qx.test.mobile.list.List",
     },
 
 
-    __createList : function(createItemRenderer, configureItemFunction) {
+    __createList : function() {
       var list = new qx.ui.mobile.list.List();
       this.getRoot().append(list);
-      list.delegate = {
-        configureItem : configureItemFunction ? configureItemFunction : this.__configureItemFunction,
-        createItemRenderer :  createItemRenderer ? createItemRenderer : null
-      };
       list.model = this.__createModel();
       return list;
     },
@@ -109,21 +104,9 @@ qx.Bootstrap.define("qx.test.mobile.list.List",
     },
 
 
-
-    testCustomRenderer : function() {
-      var list = this.__createList(function() {
-        return new qx.ui.mobile.list.renderer.Default();
-      });
-      this.__assertItemsAndModelLength(list, 5);
-      this.__cleanUp(list);
-    },
-
-
     testSetModelNull : function()
     {
-      var list = this.__createList(function() {
-        return new qx.ui.mobile.list.renderer.Default();
-      });
+      var list = this.__createList();
       this.__assertItemsAndModelLength(list, 5);
       list.model.dispose();
       list.model = null;
@@ -134,9 +117,7 @@ qx.Bootstrap.define("qx.test.mobile.list.List",
 
     testModelChangeRemove : function()
     {
-      var list = this.__createList(function() {
-        return new qx.ui.mobile.list.renderer.Default();
-      });
+      var list = this.__createList();
       this.__assertItemsAndModelLength(list,5);
       list.model.removeAt(0);
       this.__assertItemsAndModelLength(list,4);
@@ -146,9 +127,7 @@ qx.Bootstrap.define("qx.test.mobile.list.List",
 
     testModelChangeEdit : function()
     {
-      var list = this.__createList(function() {
-        return new qx.ui.mobile.list.renderer.Default();
-      });
+      var list = this.__createList();
       this.__assertItemsAndModelLength(list,5);
 
       list.model.setItem(0, {title:"affe", subtitle:"1", image:"qx/icon/Tango/48/places/folder.png"});
@@ -164,9 +143,7 @@ qx.Bootstrap.define("qx.test.mobile.list.List",
     /** Test Case for [BUG #7267] for different length of edited string value. */
     testModelChangeStringLength : function()
     {
-      var list = this.__createList(function() {
-        return new qx.ui.mobile.list.renderer.Default();
-      });
+      var list = this.__createList();
 
       this.__assertItemsAndModelLength(list,5);
 
@@ -192,9 +169,7 @@ qx.Bootstrap.define("qx.test.mobile.list.List",
 
     testModelChangeAdd : function()
     {
-      var list = this.__createList(function() {
-        return new qx.ui.mobile.list.renderer.Default();
-      });
+      var list = this.__createList();
       this.__assertItemsAndModelLength(list,5);
       list.model.push({title:"6", subtitle:"6", image:"qx/icon/Tango/48/places/folder.png"});
       this.__assertItemsAndModelLength(list,6);
