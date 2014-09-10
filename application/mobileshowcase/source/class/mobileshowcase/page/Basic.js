@@ -93,11 +93,14 @@ qx.Bootstrap.define("mobileshowcase.page.Basic",
 
       var exCollapsible = this._createCollapsible();
 
+      var rating = new qx.ui.mobile.Rating();
+
       this._widgets.push(exButton);
       this._widgets.push(exToggleButton);
       this._widgets.push(exLabel);
       this._widgets.push(exImage);
       this._widgets.push(exCollapsible);
+      this._widgets.push(rating);
 
       // BUILD VIEW
 
@@ -122,6 +125,8 @@ qx.Bootstrap.define("mobileshowcase.page.Basic",
       this.getContent().append(new qx.ui.mobile.form.Group([exCollapsible],false));
       this.getContent().append(new qx.ui.mobile.form.Title("Atoms"));
       this.getContent().append(atomGroup);
+      this.getContent().append(new qx.ui.mobile.form.Title("Rating"));
+      this.getContent().append(rating);
     },
 
 
