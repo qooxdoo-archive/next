@@ -4,7 +4,7 @@
 // This stylesheet contains all styles, which are necessary/useful for ALL themes.
 //
 
-.mobile *, .mobile  {
+body {
   @include tap-highlight-color(rgba(0,0,0,0));
   margin: 0;
   padding: 0;
@@ -15,12 +15,12 @@ html, body {
   overflow: hidden;
 }
 
-.mobile input {
-  line-height:1;
-  vertical-align:middle;
+body input {
+  line-height: 1;
+  vertical-align: middle;
 }
 
-.mobile .selectable, .mobile input, .mobile .text-area {
+body .selectable, body input,  body .text-area {
   @include user-select(auto);
 }
 
@@ -47,15 +47,6 @@ a:hover, a:active {
   outline: none;
 }
 
-.mobile.root {
-  @include user-select(none);
-  @include text-size-adjust(none);
-  overflow-x: hidden;
-
-  height:100%;
-  width:100%;
-}
-
 img {
   @include flex-shrink(0);
 }
@@ -76,18 +67,18 @@ img.no-content {
   position:relative;
 }
 
-.root canvas {
+canvas {
   @include touch-action(none);
 }
 
 // QOOXDOO CONSOLE
 
-.mobile .qxconsole {
+.qxconsole {
   width: 100%;
   font-size: 13px;
 }
 
-.mobile .qxconsole .messages {
+.qxconsole .messages {
   overflow:scroll !important;
   -webkit-overflow-scrolling: touch;
 }
@@ -97,13 +88,13 @@ img.no-content {
 
 // Bugfix for Android 2.x, adds a scale(1) to the element,
 // to enable to transform child elements.
-.root.android.v2 img {
+body.android.v2 img {
   @include transform(scale(1));
 }
 
 // Android ICS (4.0 - 4.0.4) Fix for input field overlay bug
 // See: https://code.google.com/p/android/issues/detail?id=30964
-.root.android.v4 {
+body.android.v4 {
   .text-field:not(.selectbox), .number-field, .password-field {
     -webkit-user-modify: read-write-plaintext-only;
     -webkit-tap-highlight-color:rgba(0,0,0,0);
@@ -114,7 +105,7 @@ img.no-content {
 
 // Android 2.x Fix for password field overlay bug
 // See: http://stackoverflow.com/questions/9423101/disable-android-browsers-input-overlays
-.root.android.v2 {
+body.android.v2 {
   .password-field, .text-field:not(.selectbox), .number-field  {
     position:relative;
     top:-10000px;

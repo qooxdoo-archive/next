@@ -1,6 +1,17 @@
+html {
+  font-family:  $application-font;
+  color:  $application-text-color;
+  font-weight: normal;
+}
+
 .root {
   @include background($navigationpage-background);
-  font-weight: normal;
+  @include user-select(none);
+  @include text-size-adjust(none);
+  overflow-x: hidden;
+
+  height:100%;
+  width:100%;
 }
 
 .page {
@@ -20,11 +31,6 @@
 
 .content:not(.group) .form-title {
   text-indent:rem(15);
-}
-
-.root, .scroll {
-  font-family:  $application-font;
-  color:  $application-text-color;
 }
 
 .group {
