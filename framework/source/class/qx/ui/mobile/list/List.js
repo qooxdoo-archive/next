@@ -69,14 +69,14 @@ qx.Bootstrap.define("qx.ui.mobile.list.List",
 
 
   statics : {
-    itemTemplate : '<li class="list-item qx-hbox qx-flex-align-center {{#removable}}removable{{/removable}} {{#showArrow}}arrow{{/showArrow}}" {{#selectable}}data-selectable="true"{{/selectable}} data-row="{{row}}">' +
+    itemTemplate : '<li class="list-item qx-hbox qx-flex-align-center {{#removable}}removable{{/removable}} {{#showArrow}}arrow{{/showArrow}}" {{#selectable}}data-selectable="true" data-activatable="true"{{/selectable}} data-row="{{row}}">' +
                      '{{#image}}<img class="list-item-image" data-qx-widget="qx.ui.mobile.basic.Image" data-qx-config-source="{{image}}" style="pointer-events: none;">{{/image}}' +
                      '<div class="qx-vbox qx-flex1">' +
                        '{{#title}}<div class="label no-wrap list-item-title" style="pointer-events: none;">{{title}}</div>{{/title}}' +
                        '{{#subtitle}}<div class="label no-wrap list-item-subtitle" style="pointer-events: none;">{{subtitle}}</div>{{/subtitle}}' +
                      '</div>' +
                    '</li>',
-    groupHeaderTemplate: '<li class="group-item qx-hbox qx-flex-align-center" {{#selectable}}data-selectable="true"{{/selectable}}>' +
+    groupHeaderTemplate: '<li class="group-item qx-hbox qx-flex-align-center" {{#selectable}}data-selectable="true" data-activatable="true"{{/selectable}}>' +
                            '{{#image}}<img class="group-item-image" style="pointer-events: none;" src="{{image}}">{{/image}}' +
                            '{{#title}}<div class="qx-vbox qx-flex1">' +
                              '<div class="label no-wrap group-item-title" style="pointer-events: none;">{{title}}</div>' +
@@ -93,9 +93,12 @@ qx.Bootstrap.define("qx.ui.mobile.list.List",
     this.base(qx.ui.mobile.Widget, "constructor", element);
 
     this.on("tap", this._onTap, this);
+
     this.on("trackstart", this._onTrackStart, this);
     this.on("track", this._onTrack, this);
     this.on("trackend", this._onTrackEnd, this);
+
+    this.on("pointerdown", this._onPointerDown, this);
 
     if (delegate) {
       this.delegate = delegate;
@@ -218,6 +221,18 @@ qx.Bootstrap.define("qx.ui.mobile.list.List",
           this.emit("changeGroupSelection", group);
         }
       }
+    },
+
+
+    _onPointerDown : function(evt) {
+      var element = this._getElement(evt);
+      if(!element) {
+        return;
+      }
+      element = qxWeb(element).addClass("active");
+      qxWeb(document.documentElement).once("pointerup", function() {
+        this.removeClass("active")
+      }, element);
     },
 
 
@@ -435,8 +450,7 @@ qx.Bootstrap.define("qx.ui.mobile.list.List",
       data.row = index;
       data = this.__configureData(data);
 
-      var template = qxWeb.template.renderToNode(template, data).widget()
-      template.set({"activatable": !!data.selectable});
+      var template = qxWeb.template.renderToNode(template, data)
       template.find("*").forEach(function(el) {
         if (el.getAttribute("data-qx-widget")) {
           qxWeb(el); // initialize widgets
@@ -448,8 +462,7 @@ qx.Bootstrap.define("qx.ui.mobile.list.List",
 
     __getGroupHeaderTemplate : function(group, groupIndex) {
       var template = qx.ui.mobile.list.List.groupHeaderTemplate;
-      return qxWeb.template.renderToNode(template, group).widget()
-        .set({"activatable": !!group.selectable})
+      return qxWeb.template.renderToNode(template, group)
         .setData("group", groupIndex);
     },
 
