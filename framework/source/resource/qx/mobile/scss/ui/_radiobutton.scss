@@ -48,7 +48,7 @@
 }
 
 // Triggering CSS anti-aliasing on Android devices [BUG #7847]
-.root.android .radio:after {
+body.android .radio:after {
   content:".";
   color:rgba(0,0,0,0);
 }

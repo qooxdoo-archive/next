@@ -36,28 +36,6 @@ qx.Bootstrap.define("qx.ui.mobile.core.Root",
     this.__root = root || document.body;
     this.base(qx.ui.mobile.Widget, "constructor", this.__root);
     this.setLayout(layout || new qx.ui.mobile.layout.VBox());
-
-    this.addClass("mobile");
-    this.addClass(qx.core.Environment.get("os.name"));
-    this.addClass("v" + qx.core.Environment.get("os.version").charAt(0));
-
-    qxWeb(window).on("orientationchange", this._onOrientationChange, this);
-
-    // [BUG #7785] Document element's clientHeight is calculated wrong on iPad iOS7
-    if (qx.core.Environment.get("os.name") == "ios") {
-      this.on("touchmove", this._preventDefault);
-
-      if (window.innerHeight != document.documentElement.clientHeight) {
-        this.addClass("ios-viewport-fix");
-      }
-    }
-
-    var flexboxSyntax = qx.core.Environment.get("css.flexboxSyntax");
-    if (flexboxSyntax === "flex" || flexboxSyntax === "flexbox") {
-      this.addClass("qx-flex-ready");
-    }
-
-    this._onOrientationChange();
   },
 
 
@@ -95,30 +73,6 @@ qx.Bootstrap.define("qx.ui.mobile.core.Root",
     // property apply
     _applyShowScrollbarY : function(value, old) {
       this.setStyle("overflow-y", value ? "auto" : "hidden");
-    },
-
-
-    /**
-     * Event handler. Called when the orientation of the device is changed.
-     *
-     * @param evt {qx.event.type.Orientation} The handled orientation change event
-     */
-    _onOrientationChange : function(evt) {
-      var isPortrait = null;
-
-      if (evt) {
-        isPortrait = evt.isPortrait();
-      } else {
-        isPortrait = !qxWeb.env.isLandscape();
-      }
-
-      if (isPortrait) {
-        this.addClass("portrait");
-        this.removeClass("landscape");
-      } else {
-        this.addClass("landscape");
-        this.removeClass("portrait");
-      }
     },
 
 

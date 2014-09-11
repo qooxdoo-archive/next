@@ -18,7 +18,7 @@
   box-sizing:border-box;
 }
 
-.root.android.v2 .checkbox {
+body.android.v2 .checkbox {
   @include transform(scale(1));
 }
 

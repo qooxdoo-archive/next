@@ -27,11 +27,11 @@ $dialog-arrow-space: rem(2);
   @include pointer-none();
 }
 
-.root.ios .popup {
+body.ios .popup {
   -webkit-filter: drop-shadow(0 rem(2) rem(7) rgba(0,0,0,0.5));
 }
 
-.root:not(.ios) .popup {
+body:not(.ios) .popup {
   @include box-shadow(0px rem(2) rem(7) 0px rgba(0,0,0,0.5));
 }
 

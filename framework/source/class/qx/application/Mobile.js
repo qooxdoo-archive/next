@@ -60,7 +60,53 @@ qx.Bootstrap.define("qx.application.Mobile",
 
 
     // interface method
-    main : function() {},
+    main : function() {
+      qxWeb(document.body).addClasses([
+        qx.core.Environment.get("os.name"),
+        "v" + qx.core.Environment.get("os.version").charAt(0),
+      ]);
+
+      qxWeb(window).on("orientationchange", this._onOrientationChange, this);
+
+      // [BUG #7785] Document element's clientHeight is calculated wrong on iPad iOS7
+      if (qx.core.Environment.get("os.name") == "ios") {
+        qxWeb(document.body).on("touchmove", this._preventDefault);
+
+        if (window.innerHeight != document.documentElement.clientHeight) {
+          qxWeb(document.body).addClass("ios-viewport-fix");
+        }
+      }
+
+      var flexboxSyntax = qx.core.Environment.get("css.flexboxSyntax");
+      if (flexboxSyntax === "flex" || flexboxSyntax === "flexbox") {
+        qxWeb(document.body).addClass("qx-flex-ready");
+      }
+
+      this._onOrientationChange();
+    },
+
+
+
+    /**
+     * Event handler. Called when the orientation of the device is changed.
+     *
+     * @param evt {qx.event.type.Orientation} The handled orientation change event
+     */
+    _onOrientationChange : function(evt) {
+      var isPortrait = null;
+
+      if (evt) {
+        isPortrait = evt.isPortrait();
+      } else {
+        isPortrait = !qxWeb.env.isLandscape();
+      }
+
+      if (isPortrait) {
+        qxWeb(document.body).replaceClass("landscape", "portrait");
+      } else {
+        qxWeb(document.body).replaceClass("portrait", "landscape");
+      }
+    },
 
 
     /**

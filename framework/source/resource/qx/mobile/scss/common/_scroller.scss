@@ -5,7 +5,7 @@
 }
 
 // Bugfix for Blackberry Z10
-.root.blackberry {
+body.blackberry {
   .scroll {
     z-index: 0;
   }
@@ -21,7 +21,7 @@
 
 // Bugfix for Android 2.x, adds a scale(1) to the element,
 // to enable to transform child elements.
-.root.android.v2 .iscroll {
+body.android.v2 .iscroll {
   @include transform(scale(1));
 }
 
@@ -38,7 +38,7 @@
 // Fix for iOS 7 webkit-scrolling issue on orientationchange.
 // Scrolling did not work anymore if user triggered an device orientation change.
 @media (orientation: landscape) {
-  .root.ios .scroll.native > * {
+  body.ios .scroll.native > * {
     -webkit-animation: fixWebkitOverflowScroll 1ms;
   }
 }

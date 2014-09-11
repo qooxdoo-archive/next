@@ -10,7 +10,7 @@
   height: 100%;
 }
 
-.root.portrait .drawer:not(.hidden) + .master-detail-detail {
+body.portrait .drawer:not(.hidden) + .master-detail-detail {
   @include pointer-none();
 }
 
@@ -30,6 +30,6 @@
   border-top: rem(1) solid $navigationpage-border-color;
 }
 
-.root.portrait .master-detail-master:not(.hidden) {
+body.portrait .master-detail-master:not(.hidden) {
   @include box-shadow(0px 0px rem(10) rem(5) rgba(0,0,0,0.5));
 }
