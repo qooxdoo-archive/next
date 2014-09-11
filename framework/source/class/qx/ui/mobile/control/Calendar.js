@@ -350,6 +350,9 @@ qx.Bootstrap.define("qx.ui.mobile.control.Calendar", {
      * Re-build the calendar UI
      */
     _render: function() {
+      if (this.selectionMode === "range" && qx.Bootstrap.getClass(this.value) !== "Array") {
+        this.__range = [this.value];
+      }
       this._showValue(this.value);
     },
 
