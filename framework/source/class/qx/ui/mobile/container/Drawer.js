@@ -57,7 +57,7 @@ qx.Bootstrap.define("qx.ui.mobile.container.Drawer",
     this.base(qx.ui.mobile.Widget, "constructor");
 
     if (layout) {
-      this.setLayout(layout);
+      this.layout = layout;
     }
     this.orientation = undefined;
     this.positionZ = undefined;

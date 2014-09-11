@@ -69,7 +69,7 @@ qx.Bootstrap.define("qx.ui.mobile.container.Carousel",
     this.__paginationLabels = [];
 
     var carouselScroller = this.__carouselScroller = new qx.ui.mobile.Widget();
-    carouselScroller.setLayout(new qx.ui.mobile.layout.HBox());
+    carouselScroller.layout = new qx.ui.mobile.layout.HBox();
     carouselScroller.transformUnit = "px";
     carouselScroller.addClass("carousel-scroller");
 
@@ -88,11 +88,11 @@ qx.Bootstrap.define("qx.ui.mobile.container.Carousel",
     this.on("scroll", this._onNativeScroll, this);
 
     var pagination = this.__pagination = new qx.ui.mobile.Widget();
-    pagination.setLayout(new qx.ui.mobile.layout.HBox());
+    pagination.layout = new qx.ui.mobile.layout.HBox();
     pagination.transformUnit = "px";
     pagination.addClass("carousel-pagination");
 
-    this.setLayout(new qx.ui.mobile.layout.VBox());
+    this.layout = new qx.ui.mobile.layout.VBox();
 
     carouselScroller.layoutPrefs = {flex: 1};
     this._append(carouselScroller);

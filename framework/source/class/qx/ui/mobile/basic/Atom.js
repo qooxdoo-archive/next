@@ -148,7 +148,7 @@ qx.Bootstrap.define("qx.ui.mobile.basic.Atom",
       var targetLayout;
       var verticalLayout = ["top", "bottom"].indexOf(value) != -1;
 
-      if(verticalLayout) {
+      if (verticalLayout) {
         targetLayout = new qx.ui.mobile.layout.VBox();
       } else {
         targetLayout = new qx.ui.mobile.layout.HBox();
@@ -157,7 +157,7 @@ qx.Bootstrap.define("qx.ui.mobile.basic.Atom",
       var isReverse = ["right", "bottom"].indexOf(value) != -1;
       targetLayout.reversed = isReverse;
 
-      this.setLayout(targetLayout);
+      this.layout = targetLayout;
     },
 
 
@@ -173,17 +173,17 @@ qx.Bootstrap.define("qx.ui.mobile.basic.Atom",
     // property apply
     _applyShowChildren : function(value, old)
     {
-      if(this.__label) {
-        if(value === 'both' || value === 'label') {
+      if (this.__label) {
+        if (value === 'both' || value === 'label') {
           this.__label.show();
         } else if(value === 'icon') {
           this.__label.exclude();
         }
       }
-      if(this.__icon) {
-        if(value === 'both' || value === 'icon') {
+      if (this.__icon) {
+        if (value === 'both' || value === 'icon') {
           this.__icon.show();
-        } else if(value === 'label') {
+        } else if (value === 'label') {
           this.__icon.exclude();
         }
       }
@@ -283,14 +283,14 @@ qx.Bootstrap.define("qx.ui.mobile.basic.Atom",
       // If Atom has no Label, only Icon is shown, and should vertically centered.
       var hasNoLabel = !this.__label;
 
-      if(verticalLayout || hasNoLabel){
+      if (verticalLayout || hasNoLabel) {
         layout = new qx.ui.mobile.layout.VBox();
       } else {
         layout = new qx.ui.mobile.layout.HBox();
       }
 
       this.__childrenContainer = new qx.ui.mobile.Widget();
-      this.__childrenContainer.setLayout(layout);
+      this.__childrenContainer.layout = layout;
       this.__childrenContainer.addClass("qx-flex-center");
       this.__childrenContainer.anonymous = true;
     },

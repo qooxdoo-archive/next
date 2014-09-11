@@ -253,7 +253,7 @@ qx.Bootstrap.define("qx.ui.mobile.page.NavigationPage",
     _createLeftContainer : function() {
       var layout =new qx.ui.mobile.layout.HBox();
       var container = new qx.ui.mobile.Widget();
-      container.setLayout(layout);
+      container.layout = layout;
       container.addClass("left-container");
       this.__backButton = this._createBackButton();
       this.__backButton.on("tap", this._onBackButtonTap, this);
@@ -271,7 +271,7 @@ qx.Bootstrap.define("qx.ui.mobile.page.NavigationPage",
     _createRightContainer : function() {
       var layout = new qx.ui.mobile.layout.HBox();
       var container = new qx.ui.mobile.Widget();
-      container.setLayout(layout);
+      container.layout = layout;
       container.addClass("right-container");
       this.__actionButton = this._createButton();
       this.__actionButton.on("tap", this._onButtonTap, this);

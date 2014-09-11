@@ -218,6 +218,19 @@ qx.Bootstrap.define("qx.ui.mobile.Widget", {
       apply: "_applyLayoutPrefs",
       init : null,
       nullable: true
+    },
+
+
+    /**
+     * The layout manager responsible for arranging any children added
+     * to this widget
+     * @type {Object}
+     */
+    layout: {
+      init: null,
+      nullable: true,
+      apply: "_applyLayout",
+      check: "qx.ui.mobile.layout.Abstract"
     }
   },
 
@@ -420,41 +433,20 @@ qx.Bootstrap.define("qx.ui.mobile.Widget", {
     },
 
 
-    /**
-     * Set a layout manager for the widget. A layout manager can only be connected
-     * with one widget. Reset the connection with a previous widget first, if you
-     * like to use it in another widget instead.
-     *
-     * @param layout {qx.ui.mobile.layout.Abstract} The new layout or
-     *     <code>null</code> to reset the layout.
-     */
-    setLayout : function(layout) {
+    _applyLayout : function(value, old) {
       if (qx.core.Environment.get("qx.debug")) {
-        if (layout) {
-          qx.core.Assert.assertInstance(layout, qx.ui.mobile.layout.Abstract);
+        if (value) {
+          qx.core.Assert.assertInstance(value, qx.ui.mobile.layout.Abstract);
         }
       }
 
-      var oldLayout = this.getLayout();
-      if (oldLayout) {
-        oldLayout.disconnectFromWidget(this);
+      if (old) {
+        old.disconnectFromWidget(this);
       }
 
-      if (layout) {
-        layout.connectToWidget(this);
+      if (value) {
+        value.connectToWidget(this);
       }
-
-      this.__layoutManager = layout;
-    },
-
-
-    /**
-     * Returns the set layout manager for the widget.
-     *
-     * @return  {qx.ui.mobile.layout.Abstract} the layout manager of the widget.
-     */
-    getLayout : function() {
-      return this.__layoutManager;
     },
 
 
@@ -467,7 +459,7 @@ qx.Bootstrap.define("qx.ui.mobile.Widget", {
       // Check values through parent
       var parent = this._getParentWidget();
       if (parent && parent.length === 1) {
-        var layout = parent.getLayout();
+        var layout = parent.layout;
         if (layout) {
           layout.setLayoutProperties(this);
         }

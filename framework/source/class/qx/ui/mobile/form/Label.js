@@ -63,7 +63,7 @@ qx.Bootstrap.define("qx.ui.mobile.form.Label",
     var layout = new qx.ui.mobile.layout.HBox();
     layout.alignY = "middle";
     layout.alignX = "left";
-    this.setLayout(layout);
+    this.layout = layout;
     this.textWrap = true;
 
     if (qx.core.Environment.get("qx.dynlocale")) {

@@ -127,7 +127,7 @@ qx.Bootstrap.define("mobileshowcase.page.Dialog",
 
       var popupGroup = new qx.ui.mobile.form.Group([],false);
       popupGroup.append(this._createGroupTitle("Popup"));
-      popupGroup.setLayout(new qx.ui.mobile.layout.VBox());
+      popupGroup.layout = new qx.ui.mobile.layout.VBox();
       showPopupButton.layoutPrefs = {flex:1};
       popupGroup.append(showPopupButton);
       showAnchorButton.layoutPrefs = {flex:1};
@@ -135,7 +135,7 @@ qx.Bootstrap.define("mobileshowcase.page.Dialog",
 
       var menuGroup = new qx.ui.mobile.form.Group([],false);
       menuGroup.append(this._createGroupTitle("Menu"));
-      menuGroup.setLayout(new qx.ui.mobile.layout.VBox());
+      menuGroup.layout = new qx.ui.mobile.layout.VBox();
       showMenuButton.layoutPrefs = {flex:1};
       menuGroup.append(showMenuButton);
       showAnchorMenuButton.layoutPrefs = {flex:1};
@@ -143,7 +143,7 @@ qx.Bootstrap.define("mobileshowcase.page.Dialog",
 
       var otherGroup = new qx.ui.mobile.form.Group([],false);
       otherGroup.append(this._createGroupTitle("Other"));
-      otherGroup.setLayout(new qx.ui.mobile.layout.VBox());
+      otherGroup.layout = new qx.ui.mobile.layout.VBox();
       busyIndicatorButton.layoutPrefs = {flex:1};
       otherGroup.append(busyIndicatorButton);
       showPickerButton.layoutPrefs = {flex:1};
@@ -151,7 +151,7 @@ qx.Bootstrap.define("mobileshowcase.page.Dialog",
 
       var groupContainer = new qx.ui.mobile.Widget();
       groupContainer.addClass("dialog-group");
-      groupContainer.setLayout(new qx.ui.mobile.layout.HBox());
+      groupContainer.layout = new qx.ui.mobile.layout.HBox();
       popupGroup.layoutPrefs =  {flex:1};
       groupContainer.append(popupGroup);
       menuGroup.layoutPrefs =  {flex:1};
@@ -251,7 +251,7 @@ qx.Bootstrap.define("mobileshowcase.page.Dialog",
       }
 
       var buttonsWidget = new qx.ui.mobile.Widget()
-      buttonsWidget.setLayout(new qx.ui.mobile.layout.HBox());
+      buttonsWidget.layout = new qx.ui.mobile.layout.HBox();
       var okButton = new qx.ui.mobile.Button("Yes");
       var cancelButton = new qx.ui.mobile.Button("No");
 

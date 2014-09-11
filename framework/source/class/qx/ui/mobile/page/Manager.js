@@ -95,8 +95,8 @@ qx.Bootstrap.define("qx.ui.mobile.page.Manager",
       this.__masterContainer.on("resize", this._onLayoutChange, this);
 
       // On Tablet Mode, no Animation should be shown by default.
-      this.__masterNavigation.getContent().getLayout().showAnimation = false;
-      this.__detailNavigation.getContent().getLayout().showAnimation = false;
+      this.__masterNavigation.getContent().layout.showAnimation = false;
+      this.__detailNavigation.getContent().layout.showAnimation = false;
 
       this.__masterContainer.forceHide();
 
@@ -188,7 +188,7 @@ qx.Bootstrap.define("qx.ui.mobile.page.Manager",
      */
     _createDetailContainer : function() {
       var detailContainer = new qx.ui.mobile.Widget();
-      detailContainer.setLayout(new qx.ui.mobile.layout.VBox());
+      detailContainer.layout = new qx.ui.mobile.layout.VBox();
       detailContainer.defaultCssClass = "master-detail-detail";
       return detailContainer;
     },

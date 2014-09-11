@@ -174,7 +174,7 @@ qx.Bootstrap.define("qx.ui.mobile.tabbar.TabBar", {
      * @return {qx.ui.mobile.TabBar} The collection for chaining
      */
     _renderHorizontal: function() {
-      this.setLayout(new qx.ui.mobile.layout.HBox());
+      this.layout = new qx.ui.mobile.layout.HBox();
 
       var selectedButton = null;
       this.find("> .button")._forEachElementWrapped(function(button) {
@@ -216,7 +216,7 @@ qx.Bootstrap.define("qx.ui.mobile.tabbar.TabBar", {
      * @return {qx.ui.mobile.TabBar} The collection for chaining
      */
     _renderVertical: function() {
-      this.setLayout(new qx.ui.mobile.layout.VBox());
+      this.layout = new qx.ui.mobile.layout.VBox();
       this.find("> .button")
       ._forEachElementWrapped(function(button) {
         var page = this.getPage(button);

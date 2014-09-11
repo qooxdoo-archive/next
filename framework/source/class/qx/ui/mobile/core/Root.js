@@ -35,7 +35,7 @@ qx.Bootstrap.define("qx.ui.mobile.core.Root",
   {
     this.__root = root || document.body;
     this.base(qx.ui.mobile.Widget, "constructor", this.__root);
-    this.setLayout(layout || new qx.ui.mobile.layout.VBox());
+    this.layout = layout || new qx.ui.mobile.layout.VBox();
   },
 
 

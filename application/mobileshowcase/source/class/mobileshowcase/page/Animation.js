@@ -14,7 +14,7 @@
      See the LICENSE file in the project's top-level directory for details.
 
    Authors:
-     * Tino Butz (tbtz)
+     * Tino Butz (tbtz)
 
 ************************************************************************ */
 
@@ -79,7 +79,7 @@ qx.Bootstrap.define("mobileshowcase.page.Animation",
       list.on("changeSelection", function(index) {
         // In Tablet Mode, animation should be shown for this showcase part.
         // On animation landing >> showAnimation is set to false.
-        this._getParentWidget().getLayout().showAnimation = true;
+        this._getParentWidget().layout.showAnimation = true;
 
         var animation = mobileshowcase.page.Animation.ANIMATION_DATA[index].animation;
         qx.core.Init.getApplication().getRouting().executeGet("/animation/" + animation);

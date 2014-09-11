@@ -288,7 +288,7 @@ qx.Bootstrap.define("qx.ui.mobile.dialog.Manager",
       var layout = new qx.ui.mobile.layout.VBox();
       layout.alignY = "middle";
       var widget = new qx.ui.mobile.Widget();
-      widget.setLayout(layout);
+      widget.layout = layout;
       var dialog = new qx.ui.mobile.dialog.Popup(widget);
 
       dialog.modal = true;
@@ -299,7 +299,7 @@ qx.Bootstrap.define("qx.ui.mobile.dialog.Manager",
         var wLayout = new qx.ui.mobile.layout.HBox();
         wLayout.alignX = "center";
         var waitingWidget = new qx.ui.mobile.Widget();
-        waitingWidget.setLayout(wLayout);
+        waitingWidget.layout = wLayout;
         widget.append(waitingWidget);
         waitingWidget.append(new qx.ui.mobile.dialog.BusyIndicator(text));
       }
@@ -308,7 +308,7 @@ qx.Bootstrap.define("qx.ui.mobile.dialog.Manager",
         var lLayout = new qx.ui.mobile.layout.HBox();
         lLayout.alignX = "center";
         var labelWidget = new qx.ui.mobile.Widget();
-        labelWidget.setLayout(lLayout);
+        labelWidget.layout = lLayout;
         labelWidget.append(new qx.ui.mobile.basic.Label(text));
         labelWidget.addClass("gap");
         widget.append(labelWidget);
@@ -317,7 +317,7 @@ qx.Bootstrap.define("qx.ui.mobile.dialog.Manager",
           var iLayout = new qx.ui.mobile.layout.HBox();
           iLayout.alignX = "center";
           var inputWidget = new qx.ui.mobile.Widget();
-          inputWidget.setLayout(iLayout);
+          inputWidget.layout = iLayout;
           inputWidget.addClass("gap");
           var inputText = new qx.ui.mobile.form.TextField();
           inputWidget.append(inputText);
@@ -327,7 +327,7 @@ qx.Bootstrap.define("qx.ui.mobile.dialog.Manager",
         var bLayout = new qx.ui.mobile.layout.HBox();
         bLayout.alignX = "center";
         var buttonContainer = new qx.ui.mobile.Widget();
-        buttonContainer.setLayout(bLayout);
+        buttonContainer.layout = bLayout;
         buttonContainer.addClass("gap");
         for(var i=0, l=buttons.length; i<l; i++)
         {

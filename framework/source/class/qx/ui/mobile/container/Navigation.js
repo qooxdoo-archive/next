@@ -46,7 +46,7 @@ qx.Bootstrap.define("qx.ui.mobile.container.Navigation",
   construct : function()
   {
     this.base(qx.ui.mobile.Widget, "constructor");
-    this.setLayout(new qx.ui.mobile.layout.VBox());
+    this.layout = new qx.ui.mobile.layout.VBox();
 
     this.__navigationBar = this._createNavigationBar();
     if (this.__navigationBar) {
@@ -125,7 +125,7 @@ qx.Bootstrap.define("qx.ui.mobile.container.Navigation",
       var content = new qx.ui.mobile.Widget();
       content.on("addedChild", this._onAddedChild, this);
       content.on("removedChild", this._onRemovedChild, this);
-      content.setLayout(layout);
+      content.layout = layout;
       return content;
     },
 
@@ -241,8 +241,8 @@ qx.Bootstrap.define("qx.ui.mobile.container.Navigation",
       this.base(qx.ui.mobile.Widget, "dispose");
       this.getContent().off("addedChild", this._onAddedChild, this)
         .off("removedChild", this._onRemovedChild, this);
-      this.getContent().getLayout().off("animationStart",this._onAnimationStart, this);
-      this.getContent().getLayout().off("animationEnd",this._onAnimationEnd, this);
+      this.getContent().layout.off("animationStart",this._onAnimationStart, this);
+      this.getContent().layout.off("animationEnd",this._onAnimationEnd, this);
 
       this.__navigationBar.dispose();
       this.__content.dispose();

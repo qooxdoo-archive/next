@@ -120,7 +120,7 @@ qx.Bootstrap.define("mobileshowcase.page.Toolbar",
 
     __processDelete : function(index)
     {
-      if(index==0) {
+      if (index == 0) {
         this.__deleteDialog.dispose();
       } else {
         this.__deleteDialog.dispose();
@@ -133,11 +133,11 @@ qx.Bootstrap.define("mobileshowcase.page.Toolbar",
      */
     __createAreYouSurePopup : function(anchor)
     {
-      if(this.__areYouSurePopup) {
+      if (this.__areYouSurePopup) {
         return this.__areYouSurePopup;
       }
       var buttonsWidget = new qx.ui.mobile.Widget();
-      buttonsWidget.setLayout(new qx.ui.mobile.layout.HBox());
+      buttonsWidget.layout = new qx.ui.mobile.layout.HBox();
 
       var okButton = new qx.ui.mobile.Button("Yes");
       var cancelButton = new qx.ui.mobile.Button("No");
@@ -183,7 +183,7 @@ qx.Bootstrap.define("mobileshowcase.page.Toolbar",
         return this.__searchDialog;
       }
       var popupWidget = new qx.ui.mobile.Widget();
-      popupWidget.setLayout(new qx.ui.mobile.layout.VBox());
+      popupWidget.layout = new qx.ui.mobile.layout.VBox();
 
       var searchField = new qx.ui.mobile.form.TextField();
       searchField.on("keydown", function(evt) {

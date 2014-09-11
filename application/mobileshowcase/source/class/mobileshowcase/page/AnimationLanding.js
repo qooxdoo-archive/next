@@ -72,7 +72,7 @@ qx.Bootstrap.define("mobileshowcase.page.AnimationLanding",
       list.on("changeSelection", function(index) {
         // In Tablet Mode, animation should be shown for this showcase part.
         // On animation landing >> showAnimation is set to false.
-        this._getParentWidget().getLayout().showAnimation = true;
+        this._getParentWidget().layout.showAnimation = true;
         qx.core.Init.getApplication().getRouting().executeGet("/animation/" + animationData[index].animation);
       }, this);
       this.getContent().append(list);
@@ -83,7 +83,7 @@ qx.Bootstrap.define("mobileshowcase.page.AnimationLanding",
      * Deactivates the animation on parentContainer's layout.
      */
     __deactiveAnimation : function() {
-      this._getParentWidget().getLayout().showAnimation = false;
+      this._getParentWidget().layout.showAnimation = false;
     },
 
 

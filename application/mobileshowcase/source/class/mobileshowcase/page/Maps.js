@@ -78,7 +78,7 @@ qx.Bootstrap.define("mobileshowcase.page.Maps",
       layout.alignY = "middle";
 
       var mapContainer = new qx.ui.mobile.Widget();
-      mapContainer.setLayout(layout);
+      mapContainer.layout = layout;
       mapContainer.id = "osmMap";
 
       return mapContainer;

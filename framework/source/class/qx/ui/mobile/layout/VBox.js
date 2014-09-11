@@ -44,7 +44,7 @@
  * var layout = new qx.ui.mobile.layout.VBox().set({alignY:"middle"});
  *
  * var container = new qx.ui.mobile.Widget();
- * container.setLayout(layout);
+ * container.layout = layout;
  *
  * container.append(new qx.ui.mobile.basic.Label("1"));
  * var item2 = new qx.ui.mobile.basic.Label("2");

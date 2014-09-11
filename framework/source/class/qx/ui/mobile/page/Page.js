@@ -64,7 +64,7 @@ qx.Bootstrap.define("qx.ui.mobile.page.Page",
   construct : function(layout)
   {
     this.base(qx.ui.mobile.Widget, "constructor");
-    this.setLayout(layout || new qx.ui.mobile.layout.VBox());
+    this.layout = layout || new qx.ui.mobile.layout.VBox();
   },
 
 

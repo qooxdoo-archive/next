@@ -72,7 +72,7 @@ qx.Bootstrap.define("mobileshowcase.page.Carousel",
       }, carousel);
 
       var page3group = new qx.ui.mobile.form.Group([previousButton,nextButton],false);
-      page3group.setLayout(new qx.ui.mobile.layout.HBox());
+      page3group.layout = new qx.ui.mobile.layout.HBox();
       page3.append(page3group);
 
       var page4 = new qx.ui.mobile.Widget();
@@ -104,7 +104,7 @@ qx.Bootstrap.define("mobileshowcase.page.Carousel",
       }, carousel);
 
       var moreGroup = new qx.ui.mobile.form.Group([moreButton],false);
-      moreGroup.setLayout(new qx.ui.mobile.layout.HBox());
+      moreGroup.layout = new qx.ui.mobile.layout.HBox();
 
       page5.append(moreGroup);
 

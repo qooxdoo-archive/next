@@ -45,11 +45,11 @@ qx.Bootstrap.define("qx.ui.mobile.navigationbar.NavigationBar",
 
   construct : function(layout) {
     this.base(qx.ui.mobile.Widget, "constructor");
-    this.setLayout(layout);
+    this.layout = layout;
     if (!layout) {
       layout = new qx.ui.mobile.layout.HBox();
       layout.alignY = "middle";
-      this.setLayout(layout);
+      this.layout = layout;
     }
   },
 

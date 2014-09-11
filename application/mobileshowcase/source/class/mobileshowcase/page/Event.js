@@ -76,8 +76,8 @@ qx.Bootstrap.define("mobileshowcase.page.Event",
       var sclayout = new qx.ui.mobile.layout.VBox();
       sclayout.alignX = "center";
       sclayout.alignY = "middle";
-      var container =  this.__showcaseContainer = new qx.ui.mobile.Widget()
-      container.setLayout(sclayout);
+      var container =  this.__showcaseContainer = new qx.ui.mobile.Widget();
+      container.layout = sclayout;
       container.addClass("eventcontainer");
 
       container.on("touchmove", function(evt) {
@@ -89,7 +89,7 @@ qx.Bootstrap.define("mobileshowcase.page.Event",
       clayout.alignX = "center";
       clayout.alignY = "middle";
       var containerTouchArea = this.__container = new qx.ui.mobile.Widget();
-      containerTouchArea.setLayout(clayout);
+      containerTouchArea.layout = clayout;
       containerTouchArea.addClass("container-touch-area");
 
       containerTouchArea.on("tap", this._onGesture, this);

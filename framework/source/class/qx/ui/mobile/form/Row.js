@@ -33,7 +33,7 @@ qx.Bootstrap.define("qx.ui.mobile.form.Row",
   construct : function(layout)
   {
     this.base(qx.ui.mobile.Widget, "constructor");
-    this.setLayout(layout);
+    this.layout = layout;
     this.selectable = false;
   },
 
