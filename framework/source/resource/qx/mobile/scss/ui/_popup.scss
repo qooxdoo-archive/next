@@ -20,7 +20,7 @@ $dialog-arrow-space: rem(2);
   background-color: nth($dialog-background,1);
 
   border: rem(2) solid $dialog-border-color;
-  color: $dialog-title-text-color; 
+  color: $dialog-title-text-color;
 }
 
 .anchor-target {
@@ -39,7 +39,7 @@ $dialog-arrow-space: rem(2);
   font-weight: $dialog-font-weight;
   font-size: rem(16);
   margin-bottom: rem(3);
-} 
+}
 
 .popup-content {
   height : 100%;
@@ -124,4 +124,4 @@ $dialog-arrow-space: rem(2);
 .anchor.bottom.right:after {
   bottom: -($dialog-arrow-size);
   right: $dialog-arrow-position-offset + $dialog-arrow-space;
-} 
+}

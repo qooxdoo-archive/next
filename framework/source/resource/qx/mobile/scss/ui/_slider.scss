@@ -11,7 +11,7 @@
   overflow: visible;
 
   margin-bottom: $slider-knob-height;
-  margin-left: ($slider-knob-width/2); 
+  margin-left: ($slider-knob-width/2);
   margin-right: ($slider-knob-width/2);
 
   border: rem(1) solid $slider-border-color;
@@ -41,7 +41,7 @@
 }
 
 // Knob
-.slider > div:after { 
+.slider > div:after {
   @include border-radius($slider-knob-border-radius);
   @include box-shadow(0 0 rem(3) $slider-shadow);
   @include background($slider-knob-background);
