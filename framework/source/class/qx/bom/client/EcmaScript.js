@@ -59,10 +59,6 @@ qx.Bootstrap.define("qx.bom.client.EcmaScript",
 
 
   classDefined : function(statics) {
-
-    // date polyfill
-    qx.core.Environment.add("ecmascript.date.now", statics.getDateNow);
-
     // error bugfix
     qx.core.Environment.add("ecmascript.error.stacktrace", statics.getStackTrace);
   }
