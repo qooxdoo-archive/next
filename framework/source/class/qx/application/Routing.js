@@ -84,7 +84,7 @@
  */
 qx.Bootstrap.define("qx.application.Routing", {
 
-  extend : qx.dev.unit.TestCase,
+  extend : Object,
 
   construct : function()
   {
