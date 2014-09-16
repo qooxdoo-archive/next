@@ -17,7 +17,7 @@
 
 ************************************************************************ */
 
-qx.Bootstrap.define("qx.test.mobile.form.Button",
+qx.Bootstrap.define("qx.test.mobile.Button",
 {
   extend : qx.test.mobile.MobileTestCase,
 
@@ -40,6 +40,15 @@ qx.Bootstrap.define("qx.test.mobile.form.Button",
       this.assertNull(button.getLabelWidget().getHtml());
 
       button.dispose();
+    },
+
+    testFactory: function() {
+      var button = qxWeb.create("<div>").button().appendTo(this.getRoot());
+      this.assertInstance(button, qx.ui.mobile.Button);
+      this.assertEquals(button, button[0].$$widget);
+      this.wait(100, function() {
+        this.assertEquals("qx.ui.mobile.Button", button.getData("qxWidget"));
+      }, this);
     }
   }
 
