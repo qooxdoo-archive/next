@@ -139,24 +139,6 @@ qx.Bootstrap.define("qx.ui.mobile.layout.Card",
 
 
     /**
-     * Setter for this.__cardAnimation.
-     * @param value {qx.ui.mobile.layout.CardAnimation} the new CardAnimation object.
-     */
-    setCardAnimation : function(value) {
-      this.__cardAnimation = value;
-    },
-
-
-    /**
-     * Getter for this.__cardAnimation.
-     * @return {qx.ui.mobile.layout.CardAnimation} the current CardAnimation object.
-     */
-    getCardAnimation : function() {
-      return this.__cardAnimation;
-    },
-
-
-    /**
      * Shows the widget with the given properties.
      *
      * @param widget {qx.ui.mobile.Widget} The target widget
@@ -178,7 +160,7 @@ qx.Bootstrap.define("qx.ui.mobile.layout.Card",
       if (this.__currentWidget && this.showAnimation && qx.core.Environment.get("css.transform.3d")) {
 
         // both are explicit identity checks for null
-        if (properties.animation === null || this.getCardAnimation().getMap()[properties.animation] === null) {
+        if (properties.animation === null || this.__cardAnimation.getMap()[properties.animation] === null) {
           this._swapWidget();
           return;
         }

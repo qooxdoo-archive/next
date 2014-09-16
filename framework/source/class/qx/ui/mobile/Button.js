@@ -58,28 +58,6 @@ qx.Bootstrap.define("qx.ui.mobile.Button",
     }
   },
 
-  members :
-  {
-    /**
-     * Sets the value.
-     *
-     * @param value {String} The value to set
-     */
-    setValue : function(value) {
-      this.label = value;
-    },
-
-
-    /**
-     * Returns the set value.
-     *
-     * @return {String} The set value
-     */
-    getValue : function() {
-      return this.label;
-    }
-  },
-
 
   classDefined : function(statics) {
     qxWeb.$attachWidget(statics);
