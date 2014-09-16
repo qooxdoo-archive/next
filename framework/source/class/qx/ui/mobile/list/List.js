@@ -450,7 +450,7 @@ qx.Bootstrap.define("qx.ui.mobile.list.List",
       data.row = index;
       data = this.__configureData(data);
 
-      var template = qxWeb.template.renderToNode(template, data)
+      template = qxWeb.template.renderToNode(template, data);
       template.find("*").forEach(function(el) {
         if (el.getAttribute("data-qx-widget")) {
           qxWeb(el); // initialize widgets
@@ -462,8 +462,9 @@ qx.Bootstrap.define("qx.ui.mobile.list.List",
 
     __getGroupHeaderTemplate : function(group, groupIndex) {
       var template = qx.ui.mobile.list.List.groupHeaderTemplate;
-      return qxWeb.template.renderToNode(template, group)
-        .setData("group", groupIndex);
+      var fragment = qxWeb.template.renderToNode(template, group);
+      qxWeb(fragment[0].childNodes[0]).setData("group", groupIndex);
+      return fragment;
     },
 
 
