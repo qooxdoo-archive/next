@@ -110,6 +110,15 @@ qx.Bootstrap.define("qx.test.mobile.Rating", {
       this.assertEquals("+", this.__rating.getChildren().getHtml());
       this.assertEquals(3, this.__rating.getChildren().length);
       this.assertEquals(2, this.__rating.value);
+    },
+
+    testFactory: function() {
+      var rating = this.__rating = qxWeb.create("<div>").rating().appendTo(this.getRoot());
+      this.assertInstance(rating, qx.ui.mobile.Rating);
+      this.assertEquals(rating, rating[0].$$widget);
+      this.wait(100, function() {
+        this.assertEquals("qx.ui.mobile.Rating", rating.getData("qxWidget"));
+      }, this);
     }
   }
 });

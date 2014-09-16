@@ -47,6 +47,15 @@ qx.Bootstrap.define("qx.test.mobile.form.CheckBox",
       this.assertEquals(true,qx.bom.element.Class.has(checkBox[0],'disabled'));
 
       checkBox.dispose();
+    },
+
+    testFactory: function() {
+      var checkBox = qxWeb.create("<div>").checkBox().appendTo(this.getRoot());
+      this.assertInstance(checkBox, qx.ui.mobile.form.CheckBox);
+      this.assertEquals(checkBox, checkBox[0].$$widget);
+      this.wait(100, function() {
+        this.assertEquals("qx.ui.mobile.form.CheckBox", checkBox.getData("qxWidget"));
+      }, this);
     }
 
   }

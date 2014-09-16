@@ -73,23 +73,6 @@ qx.Bootstrap.define("qx.test.mobile.control.Calendar",
       this.assertArrayEquals(dayNames, displayedDays);
     },
 
-    // testTemplates : function() {
-    //   var newClass = "my-cool-calendar";
-    //   cal.setTemplate("table", cal.getTemplate("table")
-    //     .replace("{{cssPrefix}}-container", "{{cssPrefix}}-container " + newClass));
-
-    //   var newPrev = "prev";
-    //   cal.setTemplate("controls", cal.getTemplate("controls")
-    //     .replace("&lt;", newPrev));
-
-    //   cal.render();
-
-    //   this.assertEquals(1, q("." + newClass).length);
-
-    //   var displayedPrev = cal.find("thead tr:nth-child(1) td:nth-child(1) button").getHtml();
-    //   this.assertEquals(displayedPrev, newPrev);
-    // },
-
     testNewCollection : function() {
       var c1 = this.getRoot().find(".calendar");
       this.assertEquals(this.__now.toDateString(), c1.value.toDateString());
@@ -123,6 +106,15 @@ qx.Bootstrap.define("qx.test.mobile.control.Calendar",
       this.assertException(function() {
         this.__cal.value = new Date(2014, 1, 2);
       });
+    },
+
+    testFactory: function() {
+      this.__cal = qxWeb.create("<div>").calendar().appendTo(this.getRoot());
+      this.assertInstance(this.__cal, qx.ui.mobile.control.Calendar);
+      this.assertEquals(this.__cal, this.__cal[0].$$widget);
+      this.wait(100, function() {
+        this.assertEquals("qx.ui.mobile.control.Calendar", this.__cal.getData("qxWidget"));
+      }, this);
     }
   }
 });

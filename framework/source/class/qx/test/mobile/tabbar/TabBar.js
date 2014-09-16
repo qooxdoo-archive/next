@@ -141,6 +141,15 @@ qx.Bootstrap.define("qx.test.mobile.tabbar.TabBar",
       this.assertTrue(view1.getStyle("visibility") == "visible");
       this.assertTrue(view2.getStyle("visibility") == "hidden");
       this.assertTrue(view3.getStyle("visibility") == "visible");
+    },
+
+    testFactory: function() {
+      this.__tabBar = qxWeb.create("<div>").tabBar().appendTo(this.getRoot());
+      this.assertInstance(this.__tabBar, qx.ui.mobile.tabbar.TabBar);
+      this.assertEquals(this.__tabBar, this.__tabBar[0].$$widget);
+      this.wait(100, function() {
+        this.assertEquals("qx.ui.mobile.tabbar.TabBar", this.__tabBar.getData("qxWidget"));
+      }, this);
     }
   }
 

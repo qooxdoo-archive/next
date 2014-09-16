@@ -31,8 +31,8 @@ qx.Bootstrap.define("qx.test.mobile.list.List",
     /**
     * Returns the img element on the given list, of the element item identified by elementIndex.
     */
-    getImageElement : function(list, elementIndex) {
-      return list.getChildren()[elementIndex].childNodes[0];
+    getImageWidget : function(list, elementIndex) {
+      return list.getChildren().eq(elementIndex).getChildren(".list-item-image");
     },
 
 
@@ -154,14 +154,14 @@ qx.Bootstrap.define("qx.test.mobile.list.List",
       list.model.setItem(0, {title: newTitleText, subtitle: newSubtitleText, image: newImageSrc});
       this.__assertItemsAndModelLength(list,5);
 
-      var titleText = this.getTitleElement(list,0).innerHTML;;
+      var titleText = this.getTitleElement(list,0).innerHTML;
       var subtitleText = this.getSubtitleElement(list,0).innerHTML;
-      var imageSrc = this.getImageElement(list,0).src
+      var imageSrc = this.getImageWidget(list,0).source;
 
       // VERIFY
       this.assertEquals(newTitleText, titleText);
       this.assertEquals(newSubtitleText, subtitleText);
-      this.assertNotEquals("-1", imageSrc.indexOf(newImageSrc))
+      this.assertNotEquals("-1", imageSrc.indexOf(newImageSrc));
 
       this.__cleanUp(list);
     },
@@ -185,6 +185,16 @@ qx.Bootstrap.define("qx.test.mobile.list.List",
       this.assertArrayEquals([12,13,14], list._extractRowsToRender("[12-14].propertyName"));
 
       list.dispose();
+    },
+
+    testFactory: function() {
+      var list = qxWeb.create("<ul></ul>").list().appendTo(this.getRoot());
+      this.assertInstance(list, qx.ui.mobile.list.List);
+      this.assertEquals(list, list[0].$$widget);
+      this.wait(100, function() {
+        this.assertEquals("qx.ui.mobile.list.List", list.getData("qxWidget"));
+      }, this);
+
     }
   }
 });
