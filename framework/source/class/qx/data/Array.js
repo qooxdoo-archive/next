@@ -739,7 +739,7 @@ qx.Bootstrap.define("qx.data.Array",
      *
      * @param array {Array|qx.data.IListData} The items of this array will
      * be appended.
-     * @throws {Error} if the second argument is not an array.
+     * @throws {Error} if the argument is not an array.
      */
     append : function(array)
     {
