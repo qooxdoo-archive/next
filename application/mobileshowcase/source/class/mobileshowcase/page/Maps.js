@@ -79,7 +79,7 @@ qx.Bootstrap.define("mobileshowcase.page.Maps",
 
       var mapContainer = new qx.ui.mobile.Widget();
       mapContainer.layout = layout;
-      mapContainer.id = "osmMap";
+      mapContainer.setAttribute("id", "osmMap");
 
       return mapContainer;
     },
@@ -93,7 +93,7 @@ qx.Bootstrap.define("mobileshowcase.page.Maps",
       }
 
       var menuContainer = new qx.ui.mobile.Widget();
-      menuContainer.id = "mapMenu";
+      menuContainer.setAttribute("id", "mapMenu");
 
       // LABEL
       var descriptionLabel = new qx.ui.mobile.basic.Label("Page Title");
