@@ -6,6 +6,7 @@
   @include background-clip(padding-box);
   @include border-radius($list-border-radius);
 
+  margin: 0;
   padding: 0;
   cursor:pointer;
 

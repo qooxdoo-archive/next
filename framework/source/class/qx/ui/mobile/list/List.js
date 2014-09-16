@@ -501,6 +501,20 @@ qx.Bootstrap.define("qx.ui.mobile.list.List",
       }
     },
 
+    /**
+     * @internal
+     * Returns the height of one single list item.
+     * @return {Number} the height of a list item in px.
+     */
+    getListItemHeight : function() {
+      var listItemHeight = 0;
+      if (this.model && this.model.length > 0) {
+        var listHeight = this.getHeight();
+        listItemHeight = parseInt(listHeight) / this.model.length;
+      }
+      return listItemHeight;
+    },
+
 
     /**
     * Renders a group header.
