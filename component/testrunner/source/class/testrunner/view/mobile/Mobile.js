@@ -424,7 +424,7 @@ qx.Bootstrap.define("testrunner.view.mobile.Mobile", {
             msgLabel.wrap = true;
             var stackLabel = new qx.ui.mobile.basic.Label(stack.join("<br/>"));
             stackLabel.wrap = true;
-            var detailContainer = new qx.ui.mobile.container.Composite(new qx.ui.mobile.layout.VBox());
+            var detailContainer = new qx.ui.mobile.Widget(new qx.ui.mobile.layout.VBox());
             detailContainer.append(msgLabel);
             detailContainer.append(stackLabel);
             var detailGroup = new qx.ui.mobile.form.Group([detailContainer]);
