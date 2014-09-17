@@ -35,7 +35,7 @@ qx.Interface.define("qx.ui.mobile.list.IListDelegate",
 {
   members :
   {
-    group : function(data, row) {}
+    group : function(data, row) {},
     configureData : function(data) {}
   }
 });
