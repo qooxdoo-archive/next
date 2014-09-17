@@ -43,7 +43,7 @@ qx.Bootstrap.define("qx.test.mobile.form.SingleRenderer",
       this.__form.add(this.__s, "select");
 
       this.__renderer = new qx.ui.mobile.form.renderer.Single(this.__form);
-      this.getRoot().add(this.__renderer);
+      this.getRoot().append(this.__renderer);
     },
 
 
