@@ -124,6 +124,12 @@ qx.Bootstrap.define("qx.ui.mobile.form.renderer.AbstractRenderer",
      */
     resetForm : function() {
       throw new Error("Abstract method call");
+    },
+
+
+    dispose: function() {
+      this.base(qx.ui.mobile.Widget, "dispose");
+      this._form.off("change", this._onFormChange, this);
     }
   }
 
