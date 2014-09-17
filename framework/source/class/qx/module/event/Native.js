@@ -155,7 +155,7 @@ qx.Bootstrap.define("qx.module.event.Native", {
      * @internal
      */
     normalize : function(event, element) {
-      if (!event) {
+      if (!event || !(event instanceof Object)) {
         return event;
       }
       var fwdMethods = qx.module.event.Native.FORWARD_METHODS;
