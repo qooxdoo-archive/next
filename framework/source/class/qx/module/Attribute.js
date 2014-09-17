@@ -196,6 +196,21 @@ qx.Class.define("qx.module.Attribute", {
 
 
     /**
+     * Removes multiple properties for each item in the collection.
+     *
+     * @attach {qxWeb}
+     * @param properties {String[]} An array of property names
+     * @return {qxWeb} The collection for chaining
+     */
+    removeProperties : function(properties) {
+      for (var i=0; i<properties.length; i++) {
+        this.removeProperty(properties[i]);
+      }
+      return this;
+    },
+
+
+    /**
      * Returns the values of multiple properties for the first item in the collection
      *
      * @attach {qxWeb}
@@ -208,6 +223,21 @@ qx.Class.define("qx.module.Attribute", {
         properties[names[i]] = this.getProperty(names[i]);
       }
       return properties;
+    },
+
+
+    /**
+     * Deletes a property from each item in the collection
+     *
+     * @attach {qxWeb}
+     * @param name {String} Property name
+     * @return {qxWeb} The collection for chaining
+     */
+    removeProperty : function(name) {
+      if (this[0]) {
+        this[0][name] = undefined;
+      }
+      return this;
     },
 
 
@@ -267,8 +297,10 @@ qx.Class.define("qx.module.Attribute", {
 
       "getProperty" : statics.getProperty,
       "setProperty" : statics.setProperty,
+      "removeProperty" : statics.removeProperty,
       "getProperties" : statics.getProperties,
       "setProperties" : statics.setProperties,
+      "removeProperties" : statics.removeProperties,
 
       "getValue" : statics.getValue,
       "setValue" : statics.setValue
