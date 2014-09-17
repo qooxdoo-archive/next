@@ -21,7 +21,7 @@
  * @ignore(qx.Mix, qx.MLogger, qx.MMix1, qx.MMix1.foo)
  * @ignore(qx.MMix2)
  */
-qx.Bootstrap.define("qx.test.Mixin",
+qx.Class.define("qx.test.Mixin",
 {
   extend : qx.dev.unit.TestCase,
 
@@ -62,7 +62,7 @@ qx.Bootstrap.define("qx.test.Mixin",
         }
       });
 
-      qx.Bootstrap.define("qx.Mix",
+      qx.Class.define("qx.Mix",
       {
         extend    : Object,
         include   : qx.MMix1,
@@ -78,7 +78,7 @@ qx.Bootstrap.define("qx.test.Mixin",
       {
         this.assertException(function()
         {
-          qx.Bootstrap.define("qx.Mix1",
+          qx.Class.define("qx.Mix1",
           {
             extend    : Object,
             include   : [ qx.MMix1, qx.MMix2 ],
@@ -89,7 +89,7 @@ qx.Bootstrap.define("qx.test.Mixin",
 
         this.assertException(function()
         {
-          qx.Bootstrap.define("qx.Mix2",
+          qx.Class.define("qx.Mix2",
           {
             extend : Object,
             include : qx.MMix1,
@@ -107,7 +107,7 @@ qx.Bootstrap.define("qx.test.Mixin",
       }
 
       // this is allowed
-      qx.Bootstrap.define("qx.Mix3",
+      qx.Class.define("qx.Mix3",
       {
         extend : Object,
         include : qx.MMix1,
@@ -125,7 +125,7 @@ qx.Bootstrap.define("qx.test.Mixin",
       {
         this.assertException(function()
         {
-          qx.Bootstrap.define("qx.Mix4",
+          qx.Class.define("qx.Mix4",
           {
             extend     : Object,
             include    : qx.MMix1,
@@ -145,7 +145,7 @@ qx.Bootstrap.define("qx.test.Mixin",
         }
       });
 
-      var C = qx.Bootstrap.define(null, {
+      var C = qx.Class.define(null, {
         extend: Object,
         include: [MFoo]
       });
@@ -176,7 +176,7 @@ qx.Bootstrap.define("qx.test.Mixin",
         }
       });
 
-      var C = qx.Bootstrap.define(null, {
+      var C = qx.Class.define(null, {
         members: {
           bar: function() {}
         },

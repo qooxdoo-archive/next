@@ -24,7 +24,7 @@
 /**
  * Shows the package details.
  */
-qx.Bootstrap.define("apiviewer.ui.PackageViewer",
+qx.Class.define("apiviewer.ui.PackageViewer",
 {
   extend : apiviewer.ui.AbstractViewer,
 

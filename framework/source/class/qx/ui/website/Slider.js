@@ -61,7 +61,7 @@
  *
  * @group (Widget)
  */
-qx.Bootstrap.define("qx.ui.website.Slider",
+qx.Class.define("qx.ui.website.Slider",
 {
   extend : qx.ui.website.Widget,
 

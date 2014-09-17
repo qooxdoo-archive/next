@@ -16,7 +16,7 @@
      * Martin Wittemann (martinwittemann)
 
 ************************************************************************ */
-qx.Bootstrap.define("qx.test.Browser",
+qx.Class.define("qx.test.Browser",
 {
   extend : qx.dev.unit.TestCase,
 

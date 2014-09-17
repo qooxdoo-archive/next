@@ -37,7 +37,7 @@
 /**
  * Listens for native orientation change events
  */
-qx.Bootstrap.define("qx.event.handler.OrientationCore", {
+qx.Class.define("qx.event.handler.OrientationCore", {
 
   extend : Object,
 

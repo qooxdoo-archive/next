@@ -1,7 +1,7 @@
 /**
  * DetailFrameTabView write docs about it
  */
-qx.Bootstrap.define("apiviewer.DetailFrameTabView",
+qx.Class.define("apiviewer.DetailFrameTabView",
 {
 //   extend : qx.ui.tabview.TabView, TODO
 

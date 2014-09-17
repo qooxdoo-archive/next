@@ -23,7 +23,7 @@
  * @require(qx.module.Traversing)
  */
 
-qx.Bootstrap.define("qx.test.mobile.LocaleSwitch",
+qx.Class.define("qx.test.mobile.LocaleSwitch",
 {
   extend : qx.test.mobile.MobileTestCase,
   include : qx.locale.MTranslation,

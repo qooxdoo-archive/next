@@ -26,7 +26,7 @@
  *
  * http://www.w3.org/TR/css3-3d-transforms/
  */
-qx.Bootstrap.define("qx.bom.element.Transform",
+qx.Class.define("qx.bom.element.Transform",
 {
   statics :
   {
@@ -295,7 +295,7 @@ qx.Bootstrap.define("qx.bom.element.Transform",
         var params = transforms[property];
 
         // if an array is given
-        if (qx.Bootstrap.getClass(params) == "Array") {
+        if (qx.Class.getClass(params) == "Array") {
           // use 3d properties for translate and scale if all 3 parameter are given
           if (params.length === 3 &&
             properties3d.indexOf(property) > -1 &&

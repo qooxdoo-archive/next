@@ -29,7 +29,7 @@
  * @group (Widget)
  *
  */
-qx.Bootstrap.define("qx.ui.website.Table", {
+qx.Class.define("qx.ui.website.Table", {
 
   extend : qx.ui.website.Widget,
 

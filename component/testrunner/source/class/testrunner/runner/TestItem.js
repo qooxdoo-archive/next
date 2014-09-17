@@ -19,7 +19,7 @@
  * Common superclass for test suite model items
  */
 
-qx.Bootstrap.define("testrunner.runner.TestItem", {
+qx.Class.define("testrunner.runner.TestItem", {
 
   extend : Object,
   include : [qx.event.MEmitter],

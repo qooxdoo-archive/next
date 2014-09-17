@@ -24,7 +24,7 @@
  *
  * @group (Utilities)
  */
-qx.Bootstrap.define("qx.module.util.String", {
+qx.Class.define("qx.module.util.String", {
   statics : {
     /**
      * Converts a hyphenated string (separated by '-') to camel case.

@@ -17,7 +17,7 @@
 
 ************************************************************************ */
 
-qx.Bootstrap.define("apiviewer.dao.Method",
+qx.Class.define("apiviewer.dao.Method",
 {
   extend : apiviewer.dao.ClassItem,
 

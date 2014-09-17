@@ -38,7 +38,7 @@
  * @asset(qx/icon/Tango/22/apps/utilities-graphics-viewer.png)
  * @asset(qx/icon/Tango/22/actions/media-seek-forward.png)
  */
-qx.Bootstrap.define("apiviewer.Viewer",
+qx.Class.define("apiviewer.Viewer",
 {
   extend : qx.ui.mobile.core.Widget,
 

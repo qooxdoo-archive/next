@@ -17,7 +17,7 @@
 
 ************************************************************************ */
 
-qx.Bootstrap.define("qx.test.bom.storage.WebStorageTestCase",
+qx.Class.define("qx.test.bom.storage.WebStorageTestCase",
 {
   extend : qx.dev.unit.TestCase,
 

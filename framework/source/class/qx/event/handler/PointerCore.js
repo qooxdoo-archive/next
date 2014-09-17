@@ -24,7 +24,7 @@
  *
  * @require(qx.bom.client.Event)
  */
-qx.Bootstrap.define("qx.event.handler.PointerCore", {
+qx.Class.define("qx.event.handler.PointerCore", {
 
   extend : Object,
 

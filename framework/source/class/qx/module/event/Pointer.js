@@ -33,7 +33,7 @@
  *
  * @group (Event_Normalization)
  */
-qx.Bootstrap.define("qx.module.event.Pointer", {
+qx.Class.define("qx.module.event.Pointer", {
   statics :
   {
     /**

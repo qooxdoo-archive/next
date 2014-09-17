@@ -17,7 +17,7 @@
 
 ************************************************************************ */
 
-qx.Bootstrap.define("apiviewer.dao.ChildControl", {
+qx.Class.define("apiviewer.dao.ChildControl", {
   extend : apiviewer.dao.ClassItem,
 
   construct : function(classDocNode, parentClass, listName)

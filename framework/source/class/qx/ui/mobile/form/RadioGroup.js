@@ -42,7 +42,7 @@
  *    this.getRoot.append(new qx.ui.mobile.form.renderer.Single(form));
  * </pre>
  */
-qx.Bootstrap.define("qx.ui.mobile.form.RadioGroup",
+qx.Class.define("qx.ui.mobile.form.RadioGroup",
 {
   extend : Object,
   implement : [

@@ -25,7 +25,7 @@
  *
  * @group (Event_Normalization)
  */
-qx.Bootstrap.define("qx.module.event.Pinch", {
+qx.Class.define("qx.module.event.Pinch", {
   statics :
   {
     /**

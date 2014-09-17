@@ -55,7 +55,7 @@
  * for the first time.
  *
  */
-qx.Bootstrap.define("qx.ui.mobile.page.Page",
+qx.Class.define("qx.ui.mobile.page.Page",
 {
   extend : qx.ui.mobile.Widget,
   include : qx.ui.mobile.core.MResize,

@@ -21,7 +21,7 @@
 
 ************************************************************************ */
 
-qx.Bootstrap.define("apiviewer.ui.AbstractViewer",
+qx.Class.define("apiviewer.ui.AbstractViewer",
 {
   extend : qx.ui.mobile.core.Widget,
 

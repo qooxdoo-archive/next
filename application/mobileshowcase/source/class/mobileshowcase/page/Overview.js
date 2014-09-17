@@ -21,7 +21,7 @@
 /**
  * Mobile page responsible for showing the different showcases.
  */
-qx.Bootstrap.define("mobileshowcase.page.Overview",
+qx.Class.define("mobileshowcase.page.Overview",
 {
   extend : qx.ui.mobile.page.NavigationPage,
 

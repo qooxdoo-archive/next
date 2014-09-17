@@ -38,7 +38,7 @@
  *
  * This example creates a navigation bar and adds a back button and a title to it.
  */
-qx.Bootstrap.define("qx.ui.mobile.navigationbar.NavigationBar",
+qx.Class.define("qx.ui.mobile.navigationbar.NavigationBar",
 {
   extend : qx.ui.mobile.Widget,
 

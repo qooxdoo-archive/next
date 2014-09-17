@@ -56,7 +56,7 @@
  * @group (IO)
  */
 
-qx.Bootstrap.define("qx.bom.request.Script",
+qx.Class.define("qx.bom.request.Script",
 {
 
   construct : function()
@@ -179,7 +179,7 @@ qx.Bootstrap.define("qx.bom.request.Script",
       this.__url = url;
 
       if (this.__environmentGet("qx.debug.io")) {
-        qx.Bootstrap.debug(qx.bom.request.Script, "Open native request with " +
+        qx.Class.debug(qx.bom.request.Script, "Open native request with " +
           "url: " + url);
       }
 
@@ -236,7 +236,7 @@ qx.Bootstrap.define("qx.bom.request.Script",
       }
 
       if (this.__environmentGet("qx.debug.io")) {
-        qx.Bootstrap.debug(qx.bom.request.Script, "Send native request");
+        qx.Class.debug(qx.bom.request.Script, "Send native request");
       }
 
       // Attach script to DOM
@@ -354,7 +354,7 @@ qx.Bootstrap.define("qx.bom.request.Script",
       }
 
       if (this.__environmentGet("qx.debug")) {
-        qx.Bootstrap.debug("Response header cannot be determined for " +
+        qx.Class.debug("Response header cannot be determined for " +
           "requests made with script transport.");
       }
       return "unknown";
@@ -374,7 +374,7 @@ qx.Bootstrap.define("qx.bom.request.Script",
       }
 
       if (this.__environmentGet("qx.debug")) {
-        qx.Bootstrap.debug("Response headers cannot be determined for" +
+        qx.Class.debug("Response headers cannot be determined for" +
           "requests made with script transport.");
       }
 
@@ -473,7 +473,7 @@ qx.Bootstrap.define("qx.bom.request.Script",
       }
 
       if (this.__environmentGet("qx.debug.io")) {
-        qx.Bootstrap.debug(qx.bom.request.Script, "Received native load");
+        qx.Class.debug(qx.bom.request.Script, "Received native load");
       }
 
       // Determine status by calling user-provided check function
@@ -488,7 +488,7 @@ qx.Bootstrap.define("qx.bom.request.Script",
 
       if (this.status === 500) {
         if (this.__environmentGet("qx.debug.io")) {
-          qx.Bootstrap.debug(qx.bom.request.Script, "Detected error");
+          qx.Class.debug(qx.bom.request.Script, "Detected error");
         }
       }
 

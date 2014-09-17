@@ -23,7 +23,7 @@
  * @ignore(qx.ui.tooltip)
  * @ignore(qx.ui.tooltip.Manager.*)
  */
-qx.Bootstrap.define("qx.ui.form.validation.Manager",
+qx.Class.define("qx.ui.form.validation.Manager",
 {
   extend : Object,
   include : [qx.event.MEmitter],
@@ -70,7 +70,7 @@ qx.Bootstrap.define("qx.ui.form.validation.Manager",
     validator :
     {
       check : function(value) {
-        return value instanceof Function || qx.Bootstrap.isSubClassOf(value.constructor, qx.ui.form.validation.AsyncValidator)
+        return value instanceof Function || qx.Class.isSubClassOf(value.constructor, qx.ui.form.validation.AsyncValidator)
       },
       init : null,
       nullable : true
@@ -416,7 +416,7 @@ qx.Bootstrap.define("qx.ui.form.validation.Manager",
     __isAsyncValidator : function(validator) {
       var async = false;
       if (!qx.lang.Type.isFunction(validator)) {
-        async = qx.Bootstrap.isSubClassOf(
+        async = qx.Class.isSubClassOf(
           validator.constructor, qx.ui.form.validation.AsyncValidator
         );
       }

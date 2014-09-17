@@ -24,7 +24,7 @@
  * @asset(qx/test/colorstrip.gif)
  */
 
-qx.Bootstrap.define("qx.test.io.ImageLoader",
+qx.Class.define("qx.test.io.ImageLoader",
 {
   extend : qx.dev.unit.TestCase,
 

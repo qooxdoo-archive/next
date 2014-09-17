@@ -17,7 +17,7 @@
 
 ************************************************************************ */
 
-qx.Bootstrap.define("qx.test.renderer.Color",
+qx.Class.define("qx.test.renderer.Color",
 {
   extend : qx.dev.unit.TestCase,
 

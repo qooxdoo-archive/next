@@ -27,7 +27,7 @@
  *
  * @group (Event_Normalization)
  */
-qx.Bootstrap.define("qx.module.event.Native", {
+qx.Class.define("qx.module.event.Native", {
   statics :
   {
     /**
@@ -158,6 +158,7 @@ qx.Bootstrap.define("qx.module.event.Native", {
       if (!event || !(event instanceof Object)) {
         return event;
       }
+
       var fwdMethods = qx.module.event.Native.FORWARD_METHODS;
       for (var i=0, l=fwdMethods.length; i<l; i++) {
         event[fwdMethods[i]] = qx.bom.Event[fwdMethods[i]].bind(null, event);

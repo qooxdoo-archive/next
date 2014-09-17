@@ -23,7 +23,7 @@
  * with the API of the HTML web storage (http://www.w3.org/TR/webstorage/) which is
  * also the preferred implementation used.
  */
-qx.Bootstrap.define("qx.module.Storage", {
+qx.Class.define("qx.module.Storage", {
   statics :
   {
     /**

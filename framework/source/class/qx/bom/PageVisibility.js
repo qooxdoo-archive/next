@@ -24,7 +24,7 @@
  * It forwards all the browsers support and provides always a fallback which is
  * of course visible all the time.
  */
-qx.Bootstrap.define("qx.bom.PageVisibility",
+qx.Class.define("qx.bom.PageVisibility",
 {
   extend : Object,
   include : [qx.event.MEmitter],

@@ -28,7 +28,7 @@
  *
  * @group (Widget)
  */
-qx.Bootstrap.define("qx.ui.mobile.control.Calendar", {
+qx.Class.define("qx.ui.mobile.control.Calendar", {
   extend : qx.ui.mobile.Widget,
 
   properties: {
@@ -95,7 +95,7 @@ qx.Bootstrap.define("qx.ui.mobile.control.Calendar", {
     monthNames: {
       init: ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"],
       check: function(value) {
-        return qx.Bootstrap.getClass(value) === "Array" && value.length === 12;
+        return qx.Class.getClass(value) === "Array" && value.length === 12;
       },
       apply: "_render"
     },
@@ -106,7 +106,7 @@ qx.Bootstrap.define("qx.ui.mobile.control.Calendar", {
     dayNames: {
       init: ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"],
       check: function(value) {
-        return qx.Bootstrap.getClass(value) === "Array" && value.length === 7;
+        return qx.Class.getClass(value) === "Array" && value.length === 7;
       },
       apply: "_render"
     }
@@ -286,7 +286,7 @@ qx.Bootstrap.define("qx.ui.mobile.control.Calendar", {
      */
     _getValue : function() {
       var value = this.$$value;
-      return value ? (qx.Bootstrap.getClass(value) === "Array" ? value : new Date(value)) : null;
+      return value ? (qx.Class.getClass(value) === "Array" ? value : new Date(value)) : null;
     },
 
 
@@ -298,7 +298,7 @@ qx.Bootstrap.define("qx.ui.mobile.control.Calendar", {
      */
     _showValue : function(value) {
       // If value is an array, show the last selected date
-      value = qx.Bootstrap.getClass(value) === "Array" ? value[value.length -1] : value;
+      value = qx.Class.getClass(value) === "Array" ? value[value.length -1] : value;
 
       this.__displayedValue = value;
 
@@ -330,13 +330,13 @@ qx.Bootstrap.define("qx.ui.mobile.control.Calendar", {
      * @return {Boolean} <code>true</code> if the value is valid
      */
     _checkDate: function(value) {
-      var clazz = qx.Bootstrap.getClass(value);
+      var clazz = qx.Class.getClass(value);
       if (clazz === "Date") {
         return true;
       }
       if (clazz === "Array") {
         for (var i=0, l=value.length; i<l; i++) {
-          if (qx.Bootstrap.getClass(value[i]) !== "Date") {
+          if (qx.Class.getClass(value[i]) !== "Date") {
             return false;
           }
         }
@@ -350,7 +350,7 @@ qx.Bootstrap.define("qx.ui.mobile.control.Calendar", {
      * Re-build the calendar UI
      */
     _render: function() {
-      if (this.selectionMode === "range" && qx.Bootstrap.getClass(this.value) !== "Array") {
+      if (this.selectionMode === "range" && qx.Class.getClass(this.value) !== "Array") {
         this.__range = [this.value];
       }
       this._showValue(this.value);
@@ -501,7 +501,7 @@ qx.Bootstrap.define("qx.ui.mobile.control.Calendar", {
      */
     _getWeekRows : function(date) {
 
-      date = qx.Bootstrap.getClass(date) === "Array" ? date[date.length -1] : date;
+      date = qx.Class.getClass(date) === "Array" ? date[date.length -1] : date;
 
       var weeks = [];
       var value = null, valueString = null;
@@ -518,7 +518,7 @@ qx.Bootstrap.define("qx.ui.mobile.control.Calendar", {
         this._normalizeDate(maxDate);
       }
 
-      if (qx.Bootstrap.getClass(this.value) === "Array") {
+      if (qx.Class.getClass(this.value) === "Array") {
         valueString = this.value.map(function(currentDate){ return currentDate.toDateString(); });
       }
 
@@ -528,7 +528,7 @@ qx.Bootstrap.define("qx.ui.mobile.control.Calendar", {
 
         for (var i=0; i<7; i++) {
           var cssClasses = helpDate.getMonth() !== date.getMonth() ? this.defaultCssClass + "-othermonth" : "";
-          if((this.selectionMode == "range")  && qx.Bootstrap.getClass(this.value) === "Array"){
+          if((this.selectionMode == "range")  && qx.Class.getClass(this.value) === "Array"){
             if(valueString.indexOf(helpDate.toDateString()) != -1){
               cssClasses += this.defaultCssClass + "-selected";
             }

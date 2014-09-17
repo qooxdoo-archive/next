@@ -19,7 +19,7 @@
 /**
  * @ignore(qx.test.Dummy)
  */
-qx.Bootstrap.define("qx.test.data.controller.Object",
+qx.Class.define("qx.test.data.controller.Object",
 {
   extend : qx.dev.unit.TestCase,
 
@@ -32,7 +32,7 @@ qx.Bootstrap.define("qx.test.data.controller.Object",
 
     setUp : function()
     {
-      qx.Bootstrap.define("qx.test.Dummy", {
+      qx.Class.define("qx.test.Dummy", {
         include : [qx.event.MEmitter],
         properties :
         {

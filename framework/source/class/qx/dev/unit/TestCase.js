@@ -22,7 +22,7 @@
 /**
  * Base class for all unit tests.
  */
-qx.Bootstrap.define("qx.dev.unit.TestCase",
+qx.Class.define("qx.dev.unit.TestCase",
 {
   extend  : Object,
   include : [qx.core.MAssert, qx.event.MEmitter],

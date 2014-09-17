@@ -26,7 +26,7 @@
  *
  * @internal
  */
-qx.Bootstrap.define("qx.bom.NativeHistory",
+qx.Class.define("qx.bom.NativeHistory",
 {
   extend : qx.bom.History,
 

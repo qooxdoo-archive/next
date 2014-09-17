@@ -28,7 +28,7 @@
  * (see {@link #setUpFakeTransport}).
  *
  */
-qx.Bootstrap.define("qx.test.io.request.Jsonp",
+qx.Class.define("qx.test.io.request.Jsonp",
 {
   extend : qx.dev.unit.TestCase,
 

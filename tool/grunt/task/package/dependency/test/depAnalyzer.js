@@ -298,7 +298,7 @@ module.exports = {
 
       var depsRequire = {
         load: [
-          'qx.Bootstrap',
+          'qx.Class',
           'qx.log.Logger',
         ],
         run: [
@@ -315,7 +315,7 @@ module.exports = {
       };
       expected = {
         load: [
-          'qx.Bootstrap',
+          'qx.Class',
           'qx.log.Logger',
           'qx.log.appender.Util',
           'qx.bom.client.Html'
@@ -327,7 +327,7 @@ module.exports = {
 
       var depsIgnore = {
         load: [
-          'qx.Bootstrap'
+          'qx.Class'
         ],
         run: [
           'qx.Class',
@@ -469,7 +469,7 @@ module.exports = {
         " * @require(qx.Interface)\n"+
         " * @cldr\n"+
         " */\n"+
-        "qx.Bootstrap.define('qx.Class',{});\n"+
+        "qx.Class.define('qx.Class',{});\n"+
         "\n"+
         "/**\n"+
         " * @use(qx.Mixin)\n"+

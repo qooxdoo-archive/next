@@ -66,7 +66,7 @@
  * @require(qx.lang.normalize.Error)
  * @require(qx.lang.normalize.String)
  */
-qx.Bootstrap.define("qx.Class",
+qx.Class.define("qx.Class",
 {
   statics :
   {
@@ -157,12 +157,12 @@ qx.Bootstrap.define("qx.Class",
       }
 
       // Normalize include to array
-      if (config.include && !(qx.Bootstrap.getClass(config.include) === "Array")) {
+      if (config.include && !(qx.Class.getClass(config.include) === "Array")) {
         config.include = [config.include];
       }
 
       // Normalize implement to array
-      if (config.implement && !(qx.Bootstrap.getClass(config.implement) === "Array")) {
+      if (config.implement && !(qx.Class.getClass(config.implement) === "Array")) {
         config.implement = [config.implement];
       }
 
@@ -312,7 +312,7 @@ qx.Bootstrap.define("qx.Class",
      * @param name {String} class name to resolve
      * @return {Class} the class
      */
-    getByName : qx.Bootstrap.getByName,
+    getByName : qx.Class.getByName,
 
 
     /**
@@ -689,7 +689,7 @@ qx.Bootstrap.define("qx.Class",
 
 
     /** Stores all defined classes */
-    $$registry : qx.Bootstrap.$$registry,
+    $$registry : qx.Class.$$registry,
 
 
     /** @type {Map} allowed keys in non-static class definition */
@@ -784,7 +784,7 @@ qx.Bootstrap.define("qx.Class",
         // Validate include definition
         if (config.include)
         {
-          if (qx.Bootstrap.getClass(config.include) === "Array")
+          if (qx.Class.getClass(config.include) === "Array")
           {
             for (var i=0, a=config.include, l=a.length; i<l; i++)
             {
@@ -802,7 +802,7 @@ qx.Bootstrap.define("qx.Class",
         // Validate implement definition
         if (config.implement)
         {
-          if (qx.Bootstrap.getClass(config.implement) === "Array")
+          if (qx.Class.getClass(config.implement) === "Array")
           {
             for (var i=0, a=config.implement, l=a.length; i<l; i++)
             {
@@ -919,7 +919,7 @@ qx.Bootstrap.define("qx.Class",
       {
         // Create empty/non-empty class
         clazz = statics || {};
-        qx.Bootstrap.setDisplayNames(clazz, name);
+        qx.Class.setDisplayNames(clazz, name);
       }
       else
       {
@@ -943,13 +943,13 @@ qx.Bootstrap.define("qx.Class",
             clazz.getInstance = this.getInstance;
           }
 
-          qx.Bootstrap.setDisplayName(construct, name, "constructor");
+          qx.Class.setDisplayName(construct, name, "constructor");
         }
 
         // Copy statics
         if (statics)
         {
-          qx.Bootstrap.setDisplayNames(statics, name);
+          qx.Class.setDisplayNames(statics, name);
 
           var key;
 
@@ -976,7 +976,7 @@ qx.Bootstrap.define("qx.Class",
       }
 
       // Create namespace
-      var basename = name ? qx.Bootstrap.createNamespace(name, clazz) : "";
+      var basename = name ? qx.Class.createNamespace(name, clazz) : "";
 
       // Store names in constructor/object
       clazz.name = clazz.classname = name;
@@ -995,7 +995,7 @@ qx.Bootstrap.define("qx.Class",
 
       if (extend)
       {
-        qx.Bootstrap.extendClass(clazz, construct, extend, name, basename);
+        qx.Class.extendClass(clazz, construct, extend, name, basename);
 
         // Store destruct onto class
         if (destruct)
@@ -1005,7 +1005,7 @@ qx.Bootstrap.define("qx.Class",
           }
 
           clazz.$$destructor = destruct;
-          qx.Bootstrap.setDisplayName(destruct, name, "destruct");
+          qx.Class.setDisplayName(destruct, name, "destruct");
         }
       }
 
@@ -1038,7 +1038,7 @@ qx.Bootstrap.define("qx.Class",
     {
       if (qx.core.Environment.get("qx.debug"))
       {
-        if (typeof events !== "object" || qx.Bootstrap.getClass(events) === "Array") {
+        if (typeof events !== "object" || qx.Class.getClass(events) === "Array") {
           throw new Error(clazz.classname + ": the events must be defined as map!");
         }
 
@@ -1257,7 +1257,7 @@ qx.Bootstrap.define("qx.Class",
     {
       var proto = clazz.prototype;
       var key, member;
-      qx.Bootstrap.setDisplayNames(members, clazz.classname + ".prototype");
+      qx.Class.setDisplayNames(members, clazz.classname + ".prototype");
 
       for (var i=0, a=Object.keys(members), l=a.length; i<l; i++)
       {
@@ -1443,7 +1443,7 @@ qx.Bootstrap.define("qx.Class",
           }
         }
       }
-      qx.Bootstrap.createNamespace(name, wrapper);
+      qx.Class.createNamespace(name, wrapper);
       this.$$registry[name] = wrapper;
 
       return wrapper;
@@ -1676,9 +1676,9 @@ qx.Bootstrap.define("qx.Class",
     // Binding of already loaded bootstrap classes
     if (qx.core.Environment.get("qx.aspects"))
     {
-      for (var classname in qx.Bootstrap.$$registry)
+      for (var classname in qx.Class.$$registry)
       {
-        var statics = qx.Bootstrap.$$registry[classname];
+        var statics = qx.Class.$$registry[classname];
 
         for (var key in statics)
         {

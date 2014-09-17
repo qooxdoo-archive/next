@@ -276,7 +276,7 @@ qx.Class.define("qx.core.Object",
       if (qx.core.Environment.get("qx.debug"))
       {
         if (qx.core.Environment.get("qx.debug.dispose.level") > 2) {
-          qx.Bootstrap.debug(this, "Disposing " + this.classname + "[" + this.toHashCode() + "]");
+          qx.Class.debug(this, "Disposing " + this.classname + "[" + this.toHashCode() + "]");
         }
       }
 
@@ -329,7 +329,7 @@ qx.Class.define("qx.core.Object",
               }
 
               if (qx.core.Environment.get("qx.debug.dispose.level") > 1) {
-                qx.Bootstrap.warn(this, "Missing destruct definition for '" + key + "' in " + this.classname + "[" + this.toHashCode() + "]: " + value);
+                qx.Class.warn(this, "Missing destruct definition for '" + key + "' in " + this.classname + "[" + this.toHashCode() + "]: " + value);
                 delete this[key];
               }
             }

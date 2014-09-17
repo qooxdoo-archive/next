@@ -96,7 +96,7 @@
  *
  * @asset(qx/static/blank.html)
  */
-qx.Bootstrap.define("qx.bom.History",
+qx.Class.define("qx.bom.History",
 {
   extend : Object,
   include : [qx.event.MEmitter],

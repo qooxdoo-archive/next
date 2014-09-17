@@ -20,7 +20,7 @@
 /**
  * @asset(qx/test/colorstrip.gif)
  */
-qx.Bootstrap.define("qx.test.util.ResourceManager",
+qx.Class.define("qx.test.util.ResourceManager",
 {
   extend : qx.dev.unit.TestCase,
 

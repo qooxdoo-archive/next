@@ -18,7 +18,7 @@
 /**
  * AnimationFrame fallback module
  */
-qx.Bootstrap.define("qx.module.AnimationFrame", {
+qx.Class.define("qx.module.AnimationFrame", {
   statics :
   {
     /**

@@ -22,7 +22,7 @@
  *
  * @group (Utilities)
  */
-qx.Bootstrap.define("qx.module.util.Array", {
+qx.Class.define("qx.module.util.Array", {
   statics : {
      /**
       * Converts an array like object to any other array like

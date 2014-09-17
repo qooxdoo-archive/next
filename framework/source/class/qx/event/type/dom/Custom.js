@@ -22,7 +22,7 @@
 /**
  * Cross-browser custom UI event
  */
-qx.Bootstrap.define("qx.event.type.dom.Custom", {
+qx.Class.define("qx.event.type.dom.Custom", {
 
   extend : Object,
 

@@ -17,7 +17,7 @@
 
 ************************************************************************ */
 
-qx.Bootstrap.define("apiviewer.ui.tabview.AbstractPage",
+qx.Class.define("apiviewer.ui.tabview.AbstractPage",
 {
   extend : qx.ui.mobile.core.Widget,
 

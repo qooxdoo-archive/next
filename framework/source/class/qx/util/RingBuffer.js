@@ -31,7 +31,7 @@
  * and processed. Whenever this happens, a mark() call can be used so that the
  * next extraction will only get new data.
  */
-qx.Bootstrap.define("qx.util.RingBuffer",
+qx.Class.define("qx.util.RingBuffer",
 {
   extend : Object,
 

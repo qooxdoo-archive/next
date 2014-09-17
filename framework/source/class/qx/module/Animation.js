@@ -27,7 +27,7 @@
  * @require(qx.module.Event)
  * @require(qx.module.Environment)
  */
-qx.Bootstrap.define("qx.module.Animation", {
+qx.Class.define("qx.module.Animation", {
   events : {
     /** Fired when an animation starts. */
     "animationStart" : undefined,

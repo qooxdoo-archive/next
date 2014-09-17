@@ -23,7 +23,7 @@
 /**
  * Methods to convert colors between different color spaces.
  */
-qx.Bootstrap.define("qx.util.ColorUtil",
+qx.Class.define("qx.util.ColorUtil",
 {
   statics :
   {

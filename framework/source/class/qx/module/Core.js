@@ -36,4 +36,4 @@
  * @require(qx.module.Manipulating)
  * @require(qx.module.Traversing)
  */
-qx.Bootstrap.define("qx.module.Core", {});
+qx.Class.define("qx.module.Core", {});

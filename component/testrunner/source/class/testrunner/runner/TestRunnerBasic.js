@@ -23,7 +23,7 @@
  * of the test suite's state.
  *
  */
-qx.Bootstrap.define("testrunner.runner.TestRunnerBasic", {
+qx.Class.define("testrunner.runner.TestRunnerBasic", {
 
   extend : Object,
   include : [qx.event.MEmitter, qx.data.MBinding],
@@ -49,7 +49,7 @@ qx.Bootstrap.define("testrunner.runner.TestRunnerBasic", {
     // Create view
     this.__testsInView = [];
     var viewSetting = qx.core.Environment.get("testrunner.view");
-    var viewClass = qx.Bootstrap.getByName(viewSetting);
+    var viewClass = qx.Class.getByName(viewSetting);
 
     if (qx.core.Environment.get("testrunner.performance")) {
       // qx.Class.include(viewClass, testrunner.view.MPerformance); TODO
@@ -243,7 +243,7 @@ qx.Bootstrap.define("testrunner.runner.TestRunnerBasic", {
      */
     _defineTestClass : function(testClassName, membersMap)
     {
-      var qxClass = qx.Bootstrap;
+      var qxClass = qx.Class;
       return qxClass.define(testClassName,
       {
         extend : qx.dev.unit.TestCase,

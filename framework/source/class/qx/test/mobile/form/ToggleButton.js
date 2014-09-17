@@ -17,7 +17,7 @@
 
 ************************************************************************ */
 
-qx.Bootstrap.define("qx.test.mobile.form.ToggleButton",
+qx.Class.define("qx.test.mobile.form.ToggleButton",
 {
   extend : qx.test.mobile.MobileTestCase,
 

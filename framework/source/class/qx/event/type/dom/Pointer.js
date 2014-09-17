@@ -22,7 +22,7 @@
 /**
  * Synthetic pointer event
  */
-qx.Bootstrap.define("qx.event.type.dom.Pointer", {
+qx.Class.define("qx.event.type.dom.Pointer", {
   extend: qx.event.type.dom.Custom,
 
   statics : {

@@ -24,7 +24,7 @@
  * of the axis' range the object's start is adjusted so that the overlap between
  * the object and the axis is maximized.
  */
-qx.Bootstrap.define("qx.util.placement.BestFitAxis",
+qx.Class.define("qx.util.placement.BestFitAxis",
 {
   statics :
   {

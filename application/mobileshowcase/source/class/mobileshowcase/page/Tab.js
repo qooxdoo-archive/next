@@ -21,7 +21,7 @@
 /**
  * Mobile page responsible for showing the "tab" showcase.
  */
-qx.Bootstrap.define("mobileshowcase.page.Tab",
+qx.Class.define("mobileshowcase.page.Tab",
 {
   extend : mobileshowcase.page.Abstract,
 

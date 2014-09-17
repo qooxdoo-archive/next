@@ -24,7 +24,7 @@
  * @require(qx.module.Attribute)
  * @require(qx.module.event.Native)
  */
-qx.Bootstrap.define("apiviewer.ui.panels.InfoPanel", {
+qx.Class.define("apiviewer.ui.panels.InfoPanel", {
   extend: Object,
 
   /**

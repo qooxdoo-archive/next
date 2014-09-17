@@ -28,7 +28,7 @@
  *
  * @require(qx.lang.Type)
  */
-qx.Bootstrap.define("qx.core.Assert",
+qx.Class.define("qx.core.Assert",
 {
   statics :
   {
@@ -67,18 +67,18 @@ qx.Bootstrap.define("qx.core.Assert",
       }
       var errorMsg = "Assertion error! " + fullComment;
 
-      if (qx.Bootstrap.getByName("qx.core.AssertionError"))
+      if (qx.Class.getByName("qx.core.AssertionError"))
       {
         var err = new qx.core.AssertionError(comment, msg);
         if (this.__logError) {
-          qx.Bootstrap.error(errorMsg + "\n Stack trace: \n" + err.getStackTrace());
+          qx.Class.error(errorMsg + "\n Stack trace: \n" + err.getStackTrace());
         }
         throw err;
       }
       else
       {
         if (this.__logError) {
-          qx.Bootstrap.error(errorMsg);
+          qx.Class.error(errorMsg);
         }
         throw new Error(errorMsg);
       }
@@ -773,7 +773,7 @@ qx.Bootstrap.define("qx.core.Assert",
      */
     assertCssColor : function(expected, value, msg)
     {
-      var ColorUtil = qx.Bootstrap.getByName("qx.util.ColorUtil");
+      var ColorUtil = qx.Class.getByName("qx.util.ColorUtil");
       if (!ColorUtil) {
         throw new Error("qx.util.ColorUtil not available! Your code must have a dependency on 'qx.util.ColorUtil'");
       }

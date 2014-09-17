@@ -26,7 +26,7 @@
  *
  * @group (Event_Normalization)
  */
-qx.Bootstrap.define("qx.module.event.TouchHandler", {
+qx.Class.define("qx.module.event.TouchHandler", {
 
   statics :
   {

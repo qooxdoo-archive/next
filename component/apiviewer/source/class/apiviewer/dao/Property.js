@@ -17,7 +17,7 @@
 
 ************************************************************************ */
 
-qx.Bootstrap.define("apiviewer.dao.Property",
+qx.Class.define("apiviewer.dao.Property",
 {
   extend : apiviewer.dao.ClassItem,
 

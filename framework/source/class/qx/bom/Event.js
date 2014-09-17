@@ -64,7 +64,7 @@
  * Wrapper around native event management capabilities of the browser.
  * This class should not normally be used directly.
  */
-qx.Bootstrap.define("qx.bom.Event",
+qx.Class.define("qx.bom.Event",
 {
   statics :
   {

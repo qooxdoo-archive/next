@@ -21,7 +21,7 @@
 /**
  * Compatibility class for {@link qxWeb}.
  */
-qx.Bootstrap.define("q", {
+qx.Class.define("q", {
   extend : qxWeb
 });
 // make sure it's the same

@@ -30,7 +30,7 @@
  *
  * @group (Widget)
  */
-qx.Bootstrap.define("qx.ui.website.Widget", {
+qx.Class.define("qx.ui.website.Widget", {
   extend : qxWeb,
 
   statics : {

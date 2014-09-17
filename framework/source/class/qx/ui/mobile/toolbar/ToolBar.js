@@ -22,7 +22,7 @@
  * A toolbar widget.
  *
  */
-qx.Bootstrap.define("qx.ui.mobile.toolbar.ToolBar",
+qx.Class.define("qx.ui.mobile.toolbar.ToolBar",
 {
   extend : qx.ui.mobile.Widget,
 

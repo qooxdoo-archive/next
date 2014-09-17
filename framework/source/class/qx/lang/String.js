@@ -51,7 +51,7 @@
 /**
  * String helper functions
  */
-qx.Bootstrap.define("qx.lang.String",
+qx.Class.define("qx.lang.String",
 {
   statics :
   {
@@ -249,7 +249,7 @@ qx.Bootstrap.define("qx.lang.String",
      * @param str {String} the string
      * @return {String} the string with an upper case first character
      */
-    firstUp : qx.Bootstrap.firstUp,
+    firstUp : qx.Class.firstUp,
 
 
     /**

@@ -26,7 +26,7 @@
  *
  * @internal
  */
-qx.Bootstrap.define("qx.bom.client.OperatingSystem",
+qx.Class.define("qx.bom.client.OperatingSystem",
 {
   statics :
   {

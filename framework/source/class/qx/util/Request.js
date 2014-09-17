@@ -22,7 +22,7 @@
 /**
  * Static helpers for handling HTTP requests.
  */
-qx.Bootstrap.define("qx.util.Request",
+qx.Class.define("qx.util.Request",
 {
   statics:
   {

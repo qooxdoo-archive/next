@@ -25,7 +25,7 @@
  *
  * @ignore(qx.dev, qx.dev.Debug.*)
  */
-qx.Bootstrap.define("qx.core.ObjectRegistry",
+qx.Class.define("qx.core.ObjectRegistry",
 {
 
 
@@ -257,7 +257,7 @@ qx.Bootstrap.define("qx.core.ObjectRegistry",
         }
         catch(ex)
         {
-          qx.Bootstrap.error(this, "Could not dispose object " + obj.toString() + ": " + ex, ex);
+          qx.Class.error(this, "Could not dispose object " + obj.toString() + ": " + ex, ex);
 
           if (i !== l)
           {
@@ -269,7 +269,7 @@ qx.Bootstrap.define("qx.core.ObjectRegistry",
         break;
       }
 
-      qx.Bootstrap.debug(this, "Disposed " + l + " objects");
+      qx.Class.debug(this, "Disposed " + l + " objects");
 
       delete this.__registry;
     },

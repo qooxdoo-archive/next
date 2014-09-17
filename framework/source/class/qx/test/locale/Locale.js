@@ -17,7 +17,7 @@
 
 ************************************************************************ */
 
-qx.Bootstrap.define("qx.test.locale.Locale",
+qx.Class.define("qx.test.locale.Locale",
 {
   extend : qx.dev.unit.TestCase,
   include : qx.locale.MTranslation,

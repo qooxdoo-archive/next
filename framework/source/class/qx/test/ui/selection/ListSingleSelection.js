@@ -17,7 +17,7 @@
 
 ************************************************************************ */
 
-qx.Bootstrap.define("qx.test.ui.selection.ListSingleSelection",
+qx.Class.define("qx.test.ui.selection.ListSingleSelection",
 {
   extend : qx.test.ui.selection.AbstractSingleSelectonTest,
 
@@ -35,7 +35,7 @@ qx.Bootstrap.define("qx.test.ui.selection.ListSingleSelection",
         width : 200,
         height : 400
       });
-      this.getRoot().add(this._widget);
+      this.getRoot().append(this._widget);
 
       for (var i = 0; i < length; i++) {
         var item = new qx.ui.form.ListItem("ListItem" + i);

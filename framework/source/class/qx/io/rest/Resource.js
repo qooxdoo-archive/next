@@ -118,7 +118,7 @@
  * Action specific events follow the pattern "&lt;action&gt;Success" and
  * "&lt;action&gt;Error", e.g. "indexSuccess".
  */
-qx.Bootstrap.define("qx.io.rest.Resource",
+qx.Class.define("qx.io.rest.Resource",
 {
   extend: Object,
   include: [qx.event.MEmitter],

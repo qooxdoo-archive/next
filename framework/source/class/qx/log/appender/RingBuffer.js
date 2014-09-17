@@ -31,7 +31,7 @@
  * and f. i. sent to a logging system. Whenever this happens, a mark() call
  * can be used so that the next extraction will only get new data.
  */
-qx.Bootstrap.define("qx.log.appender.RingBuffer",
+qx.Class.define("qx.log.appender.RingBuffer",
 {
   extend : qx.util.RingBuffer,
 

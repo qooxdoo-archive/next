@@ -26,7 +26,7 @@
  *
  * @internal
  */
-qx.Bootstrap.define("qx.bom.client.Html",
+qx.Class.define("qx.bom.client.Html",
 {
   statics:
   {
@@ -206,7 +206,7 @@ qx.Bootstrap.define("qx.bom.client.Html",
      */
     getClassList : function() {
       return !!(document.documentElement.classList &&
-        qx.Bootstrap.getClass(document.documentElement.classList) === "DOMTokenList"
+        qx.Class.getClass(document.documentElement.classList) === "DOMTokenList"
       );
     },
 

@@ -71,7 +71,7 @@
  *
  * Internally uses {@link qx.bom.request.Jsonp}.
  */
-qx.Bootstrap.define("qx.io.request.Jsonp",
+qx.Class.define("qx.io.request.Jsonp",
 {
   extend: qx.io.request.AbstractRequest,
 

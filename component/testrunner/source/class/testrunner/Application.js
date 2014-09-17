@@ -21,7 +21,7 @@
 /**
  * TestRunner main application class.
  */
-qx.Bootstrap.define("testrunner.Application",
+qx.Class.define("testrunner.Application",
 {
   extend : qx.application.Native,
 

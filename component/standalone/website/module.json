@@ -126,7 +126,7 @@
           "qx.lang.String",
           "qx.lang.Object",
           "qx.lang.Function",
-          "qx.Bootstrap"
+          "qx.Class"
         ]
       },
       "compile-options" :
@@ -142,7 +142,7 @@
     {
       "extend" : ["build-core", "min-options"],
       "lint-check" : {
-        "allowed-globals" : [ "qx.Bootstrap" ]
+        "allowed-globals" : [ "qx.Class" ]
       },
       "compile-options" :
       {
@@ -161,7 +161,7 @@
       "extend" : ["build"],
       "desc": "abstract job (requires ${MODULE_FILENAME})",
       "lint-check" : {
-        "allowed-globals" : [ "qx.Bootstrap", "qxWeb" ]
+        "allowed-globals" : [ "qx.Class", "qxWeb" ]
       },
       "config-warnings" : {
         "exclude" : ["=qx.module.Core"]
@@ -185,7 +185,7 @@
       "extend" : ["build-min"],
       "desc": "abstract job (requires ${MODULE_FILENAME})",
       "lint-check" : {
-        "allowed-globals" : [ "qx.Bootstrap", "qxWeb" ]
+        "allowed-globals" : [ "qx.Class", "qxWeb" ]
       },
       "config-warnings" : {
         "exclude" : ["=qx.module.Core"]

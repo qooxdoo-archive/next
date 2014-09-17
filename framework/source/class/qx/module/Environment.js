@@ -41,7 +41,7 @@
  * * <code>event.mspointer</code> : Checks if MSPointer events are available
  * @group (Core)
  */
-qx.Bootstrap.define("qx.module.Environment", {
+qx.Class.define("qx.module.Environment", {
   statics :
   {
     /**

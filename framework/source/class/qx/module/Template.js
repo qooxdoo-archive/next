@@ -33,7 +33,7 @@
  * For further details, please visit the mustache.js documentation here:
  *   https://github.com/janl/mustache.js/blob/master/README.md
  */
-qx.Bootstrap.define("qx.module.Template", {
+qx.Class.define("qx.module.Template", {
   statics :
   {
     /**

@@ -21,7 +21,7 @@
  * @asset(play/*)
  * @ignore(ace.edit)
  */
-qx.Bootstrap.define("play.Application",
+qx.Class.define("play.Application",
 {
   extend : qx.application.Mobile,
 

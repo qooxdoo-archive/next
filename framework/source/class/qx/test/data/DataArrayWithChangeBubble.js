@@ -16,7 +16,7 @@
      * Christian Hagendorn (chris_schmidt)
 
 ************************************************************************ */
-qx.Bootstrap.define("qx.test.data.DataArrayWithChangeBubble",
+qx.Class.define("qx.test.data.DataArrayWithChangeBubble",
 {
   extend : qx.dev.unit.TestCase,
   include : qx.dev.unit.MMock,

@@ -39,7 +39,7 @@
  *
  * @group (Core)
  */
-qx.Bootstrap.define("qxWeb", {
+qx.Class.define("qxWeb", {
   extend : qx.type.BaseArray,
   statics : {
     // internal storage for all initializers
@@ -81,12 +81,12 @@ qx.Bootstrap.define("qxWeb", {
 
       var col;
       if (arg.length === 1 && arg[0] && arg[0].getAttribute && arg[0].getAttribute("data-qx-widget")) {
-        clazz = qx.Bootstrap.getByName(arg[0].getAttribute("data-qx-widget")) || clazz;
+        clazz = qx.Class.getByName(arg[0].getAttribute("data-qx-widget")) || clazz;
         // add DOM element as last widget constructor argument
-        var index = qx.Bootstrap.getConstructorArgumentsCount(clazz);
+        var index = qx.Class.getConstructorArgumentsCount(clazz);
         var args = [];
         args[index] = clean[0];
-        var Temp = qx.Bootstrap.curryConstructor(clazz, args);
+        var Temp = qx.Class.curryConstructor(clazz, args);
         col = new Temp();
       } else {
         col = qx.lang.Array.cast(clean, clazz);
@@ -172,7 +172,7 @@ qx.Bootstrap.define("qxWeb", {
         config = name;
         name = null;
       }
-      return qx.Bootstrap.define.call(qx.Bootstrap, name, config);
+      return qx.Class.define.call(qx.Class, name, config);
     }
   },
 

@@ -30,7 +30,7 @@
  *
  * @group (IO)
  */
-qx.Bootstrap.define("qx.module.Io", {
+qx.Class.define("qx.module.Io", {
   statics :
   {
     /**

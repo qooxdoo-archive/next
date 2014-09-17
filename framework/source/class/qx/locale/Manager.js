@@ -28,7 +28,7 @@
  *
  * @cldr()
  */
-qx.Bootstrap.define("qx.locale.Manager",
+qx.Class.define("qx.locale.Manager",
 {
   extend : Object,
   include : [qx.event.MEmitter, qx.core.MSingleton],

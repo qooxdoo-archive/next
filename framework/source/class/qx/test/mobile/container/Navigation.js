@@ -17,7 +17,7 @@
 
 ************************************************************************ */
 
-qx.Bootstrap.define("qx.test.mobile.container.Navigation",
+qx.Class.define("qx.test.mobile.container.Navigation",
 {
   extend : qx.test.mobile.MobileTestCase,
 

@@ -16,7 +16,7 @@
      * Martin Wittemann (martinwittemann)
 
 ************************************************************************ */
-qx.Bootstrap.define("qx.test.bom.Template",
+qx.Class.define("qx.test.bom.Template",
 {
   extend : qx.dev.unit.TestCase,
 

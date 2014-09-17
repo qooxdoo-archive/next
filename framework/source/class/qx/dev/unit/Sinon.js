@@ -54,7 +54,7 @@
  * @ignore(module.exports.*)
  *
  */
-qx.Bootstrap.define("qx.dev.unit.Sinon",
+qx.Class.define("qx.dev.unit.Sinon",
 {
   statics :
   {

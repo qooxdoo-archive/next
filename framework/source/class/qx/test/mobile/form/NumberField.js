@@ -17,7 +17,7 @@
 
 ************************************************************************ */
 
-qx.Bootstrap.define("qx.test.mobile.form.NumberField",
+qx.Class.define("qx.test.mobile.form.NumberField",
 {
   extend : qx.test.mobile.MobileTestCase,
 

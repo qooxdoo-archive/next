@@ -28,7 +28,7 @@
  *
  * @internal
  */
-qx.Bootstrap.define("qx.bom.client.Locale",
+qx.Class.define("qx.bom.client.Locale",
 {
 
 

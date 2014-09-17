@@ -54,7 +54,7 @@
  * This class is to test css media queries. It implements a polyfill for
  * window.matchMedia if not supported natively.
  */
-qx.Bootstrap.define("qx.bom.MediaQuery", {
+qx.Class.define("qx.bom.MediaQuery", {
 
   extend: Object,
   include : [qx.event.MEmitter],

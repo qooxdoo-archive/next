@@ -54,7 +54,7 @@
  *
  * @require(qx.bom.client.Engine)
  */
-qx.Bootstrap.define("qx.type.BaseArray",
+qx.Class.define("qx.type.BaseArray",
 {
   extend : Array,
 

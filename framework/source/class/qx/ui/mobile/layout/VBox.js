@@ -53,7 +53,7 @@
  * container.append(new qx.ui.mobile.basic.Label("3"));
  * </pre>
  */
-qx.Bootstrap.define("qx.ui.mobile.layout.VBox",
+qx.Class.define("qx.ui.mobile.layout.VBox",
 {
   extend : qx.ui.mobile.layout.AbstractBox,
 

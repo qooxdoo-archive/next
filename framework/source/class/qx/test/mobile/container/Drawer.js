@@ -17,7 +17,7 @@
 
 ************************************************************************ */
 
-qx.Bootstrap.define("qx.test.mobile.container.Drawer",
+qx.Class.define("qx.test.mobile.container.Drawer",
 {
   extend : qx.test.mobile.MobileTestCase,
 

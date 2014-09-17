@@ -40,7 +40,7 @@
  * CSS class name support for HTML elements. Supports multiple class names
  * for each element. Can query and apply class names to HTML elements.
  */
-qx.Bootstrap.define("qx.bom.element.Class",
+qx.Class.define("qx.bom.element.Class",
 {
 
 
@@ -137,7 +137,7 @@ qx.Bootstrap.define("qx.bom.element.Class",
       {
         if(typeof className === 'object')
         {
-          if(qx.Bootstrap.getClass(className) == 'SVGAnimatedString')
+          if(qx.Class.getClass(className) == 'SVGAnimatedString')
           {
             className = className.baseVal;
           }

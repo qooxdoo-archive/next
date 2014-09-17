@@ -420,7 +420,7 @@ function notQxInternal(ref) {
   }
 
 
-  // e.g. qx.Bootstrap.$$logs
+  // e.g. qx.Class.$$logs
   if (propertyPath = util.get(ident, "parent.property.parent.parent.property")) {
     if (startsWithTwoDollars(propertyPath, "name")) {
       return false;

@@ -22,7 +22,7 @@
  * The data binding package is still under development so there will be changes
  * to the API. This Features is for testing purpose only.
  */
-qx.Bootstrap.define("qx.data.SingleValueBinding",
+qx.Class.define("qx.data.SingleValueBinding",
 {
 
   statics :
@@ -630,10 +630,10 @@ qx.Bootstrap.define("qx.data.SingleValueBinding",
       // if no event name could be found
       if (eventName == null) {
         // check if the propertyname is the event name
-        if (qx.Bootstrap.getEventType(source.constructor, propertyname)) {
+        if (qx.Class.getEventType(source.constructor, propertyname)) {
           eventName = propertyname;
         // check if the change + propertyname is the event name
-        } else if (qx.Bootstrap.getEventType(
+        } else if (qx.Class.getEventType(
           source.constructor, "change" + qx.lang.String.firstUp(propertyname))
         ) {
           eventName = "change" + qx.lang.String.firstUp(propertyname);
@@ -1076,7 +1076,7 @@ qx.Bootstrap.define("qx.data.SingleValueBinding",
       if (propertieDefinition == null) {
         return null;
       }
-      return "change" + qx.Bootstrap.firstUp(sourceProperty);
+      return "change" + qx.Class.firstUp(sourceProperty);
     },
 
 

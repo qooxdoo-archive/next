@@ -52,7 +52,7 @@
  * This example creates a NavigationPage with a title and a back button. In the
  * <code>initialize</code> lifecycle method a button is added.
  */
-qx.Bootstrap.define("qx.ui.mobile.page.NavigationPage",
+qx.Class.define("qx.ui.mobile.page.NavigationPage",
 {
   extend : qx.ui.mobile.page.Page,
   implement : qx.ui.mobile.container.INavigation,

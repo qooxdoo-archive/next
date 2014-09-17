@@ -22,7 +22,7 @@
 /**
  * Root widget for the mobile application.
  */
-qx.Bootstrap.define("qx.ui.mobile.core.Root",
+qx.Class.define("qx.ui.mobile.core.Root",
 {
   extend : qx.ui.mobile.Widget,
 

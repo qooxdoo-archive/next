@@ -42,7 +42,7 @@
  *
  * @internal
  */
-qx.Bootstrap.define("qx.bom.client.Engine",
+qx.Class.define("qx.bom.client.Engine",
 {
   // General: http://en.wikipedia.org/wiki/Browser_timeline
   // Webkit: https://developer.apple.com/internet/safari/uamatrix.html
@@ -128,7 +128,7 @@ qx.Bootstrap.define("qx.bom.client.Engine",
           version = failFunction().FULLVERSION;
         } else {
           version = "1.9.0.0";
-          qx.Bootstrap.warn("Unsupported client: " + agent
+          qx.Class.warn("Unsupported client: " + agent
             + "! Assumed gecko version 1.9.0.0 (Firefox 3.0).");
         }
       }
@@ -160,7 +160,7 @@ qx.Bootstrap.define("qx.bom.client.Engine",
           name = failFunction().NAME;
         } else {
           name = "gecko";
-          qx.Bootstrap.warn("Unsupported client: " + window.navigator.userAgent
+          qx.Class.warn("Unsupported client: " + window.navigator.userAgent
             + "! Assumed gecko version 1.9.0.0 (Firefox 3.0).");
         }
       }

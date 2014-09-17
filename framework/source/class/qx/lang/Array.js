@@ -51,7 +51,7 @@
  * @ignore(qx.data)
  * @ignore(qx.data.IListData)
  */
-qx.Bootstrap.define("qx.lang.Array",
+qx.Class.define("qx.lang.Array",
 {
   statics :
   {

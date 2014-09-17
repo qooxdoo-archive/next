@@ -21,7 +21,7 @@
 /**
  * A formatter and parser for numbers.
  */
-qx.Bootstrap.define("qx.util.format.NumberFormat",
+qx.Class.define("qx.util.format.NumberFormat",
 {
   extend : Object,
   implement : qx.util.format.IFormat,

@@ -17,7 +17,7 @@
 
 ************************************************************************ */
 
-qx.Bootstrap.define("qx.test.mobile.control.Calendar",
+qx.Class.define("qx.test.mobile.control.Calendar",
 {
   extend : qx.test.mobile.MobileTestCase,
 

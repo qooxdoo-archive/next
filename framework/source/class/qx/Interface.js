@@ -25,7 +25,7 @@
  * See the description of the {@link #define} method how an interface is
  * defined.
  */
-qx.Bootstrap.define("qx.Interface",
+qx.Class.define("qx.Interface",
 {
   statics :
   {
@@ -97,7 +97,7 @@ qx.Bootstrap.define("qx.Interface",
       if (config)
       {
         // Normalize include
-        if (config.extend && !(qx.Bootstrap.getClass(config.extend) === "Array")) {
+        if (config.extend && !(qx.Class.getClass(config.extend) === "Array")) {
           config.extend = [config.extend];
         }
 
@@ -140,7 +140,7 @@ qx.Bootstrap.define("qx.Interface",
       iface.toString = this.genericToString;
 
       // Assign to namespace
-      iface.basename = name ? qx.Bootstrap.createNamespace(name, iface) : "";
+      iface.basename = name ? qx.Class.createNamespace(name, iface) : "";
 
       // Return final interface
       return iface;
@@ -398,7 +398,7 @@ qx.Bootstrap.define("qx.Interface",
                    "Array",
                    "RegExp",
                    "Date"
-                 ].indexOf(qx.Bootstrap.getClass(config[key])) != -1 ||
+                 ].indexOf(qx.Class.getClass(config[key])) != -1 ||
                  config[key].classname !== undefined)) {
               throw new Error('Invalid key "' + key + '" in interface "' + name + '"! The value needs to be a map!');
             }

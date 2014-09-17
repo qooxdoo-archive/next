@@ -48,7 +48,7 @@
  *
  * @group (Widget)
  */
-qx.Bootstrap.define("qx.ui.website.Button", {
+qx.Class.define("qx.ui.website.Button", {
   extend : qx.ui.website.Widget,
 
   statics : {

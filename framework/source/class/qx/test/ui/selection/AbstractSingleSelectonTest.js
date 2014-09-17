@@ -17,7 +17,7 @@
 
 ************************************************************************ */
 
-qx.Bootstrap.define("qx.test.ui.selection.AbstractSingleSelectonTest",
+qx.Class.define("qx.test.ui.selection.AbstractSingleSelectonTest",
 {
   extend : qx.test.dev.unit.TestCase,
 

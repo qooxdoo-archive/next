@@ -81,7 +81,7 @@
  * @require(qx.bom.element.Cursor#compile)
  * @require(qx.bom.element.Opacity#compile)
  */
-qx.Bootstrap.define("qx.bom.element.Style",
+qx.Class.define("qx.bom.element.Style",
 {
 
 

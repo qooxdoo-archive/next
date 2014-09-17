@@ -14,7 +14,7 @@
 
 ************************************************************************ */
 
-qx.Bootstrap.define("qx.test.bom.webfonts.Validator", {
+qx.Class.define("qx.test.bom.webfonts.Validator", {
 
   extend : qx.test.bom.webfonts.Abstract,
 

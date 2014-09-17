@@ -36,7 +36,7 @@
  *
  * This example creates a form and adds a row with a text field in it.
  */
-qx.Bootstrap.define("qx.ui.mobile.form.Form",
+qx.Class.define("qx.ui.mobile.form.Form",
 {
   extend : Object,
   include : [qx.event.MEmitter],

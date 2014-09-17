@@ -52,7 +52,7 @@
  *
  * @group (Widget)
  */
-qx.Bootstrap.define("qx.ui.website.DatePicker", {
+qx.Class.define("qx.ui.website.DatePicker", {
   extend : qx.ui.website.Widget,
 
   statics : {

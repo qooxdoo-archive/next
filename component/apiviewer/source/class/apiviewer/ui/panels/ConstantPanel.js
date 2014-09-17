@@ -1,5 +1,5 @@
 
-qx.Bootstrap.define("apiviewer.ui.panels.ConstantPanel", {
+qx.Class.define("apiviewer.ui.panels.ConstantPanel", {
 
   extend: apiviewer.ui.panels.InfoPanel,
 

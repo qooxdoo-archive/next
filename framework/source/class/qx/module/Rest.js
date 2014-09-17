@@ -25,7 +25,7 @@
  *
  * @group (IO)
  */
-qx.Bootstrap.define("qx.module.Rest", {
+qx.Class.define("qx.module.Rest", {
   statics :
   {
     /**

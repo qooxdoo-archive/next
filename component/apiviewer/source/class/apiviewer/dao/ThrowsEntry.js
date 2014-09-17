@@ -17,7 +17,7 @@
 
 ************************************************************************ */
 
-qx.Bootstrap.define("apiviewer.dao.ThrowsEntry",
+qx.Class.define("apiviewer.dao.ThrowsEntry",
 {
   extend : apiviewer.dao.ClassItem,
 

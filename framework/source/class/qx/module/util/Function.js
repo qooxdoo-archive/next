@@ -35,7 +35,7 @@
  *
  * @group (Utilities)
  */
-qx.Bootstrap.define("qx.module.util.Function", {
+qx.Class.define("qx.module.util.Function", {
 
   statics :
   {

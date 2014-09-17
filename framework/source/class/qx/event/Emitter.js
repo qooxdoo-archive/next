@@ -22,7 +22,7 @@
  * Basic implementation for an event emitter. This supplies a basic and
  * minimalistic event mechanism.
  */
-qx.Bootstrap.define("qx.event.Emitter", {
+qx.Class.define("qx.event.Emitter", {
   extend : Object,
   include : [qx.event.MEmitter]
 });

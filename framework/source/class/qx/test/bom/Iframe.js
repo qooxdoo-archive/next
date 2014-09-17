@@ -17,7 +17,7 @@
 
 ************************************************************************ */
 
-qx.Bootstrap.define("qx.test.bom.Iframe",
+qx.Class.define("qx.test.bom.Iframe",
 {
   extend : qx.dev.unit.TestCase,
 

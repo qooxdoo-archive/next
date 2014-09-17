@@ -27,7 +27,7 @@
  * @internal
  * @ignore(WebKitCSSMatrix)
  */
-qx.Bootstrap.define("qx.bom.client.Css",
+qx.Class.define("qx.bom.client.Css",
 {
   statics :
   {

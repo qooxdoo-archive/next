@@ -21,7 +21,7 @@
 /**
  * Shows the info pane.
  */
-qx.Bootstrap.define("apiviewer.ui.LegendView",
+qx.Class.define("apiviewer.ui.LegendView",
 {
   extend : qx.ui.mobile.container.Scroll,
 

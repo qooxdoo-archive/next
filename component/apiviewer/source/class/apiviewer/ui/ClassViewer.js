@@ -25,7 +25,7 @@
  * Shows the class details.
  * @require(qx.module.event.GestureHandler)
  */
-qx.Bootstrap.define("apiviewer.ui.ClassViewer",
+qx.Class.define("apiviewer.ui.ClassViewer",
 {
   extend : apiviewer.ui.AbstractViewer,
 

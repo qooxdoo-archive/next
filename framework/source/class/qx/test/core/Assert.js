@@ -20,7 +20,7 @@
 /**
  * @require(qx.util.ColorUtil)
  */
-qx.Bootstrap.define("qx.test.core.Assert",
+qx.Class.define("qx.test.core.Assert",
 {
   extend : qx.dev.unit.TestCase,
 

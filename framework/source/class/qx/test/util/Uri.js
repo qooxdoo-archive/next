@@ -17,7 +17,7 @@
 
 ************************************************************************ */
 
-qx.Bootstrap.define("qx.test.util.Uri",
+qx.Class.define("qx.test.util.Uri",
 {
   extend : qx.dev.unit.TestCase,
 

@@ -22,7 +22,7 @@
  * CSS/Style property manipulation module
  * @group (Core)
  */
-qx.Bootstrap.define("qx.module.Css", {
+qx.Class.define("qx.module.Css", {
   statics: {
 
 

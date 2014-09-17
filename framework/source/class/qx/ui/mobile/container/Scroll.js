@@ -41,7 +41,7 @@
  *
  * This example creates a scroll container and adds a label to it.
  */
-qx.Bootstrap.define("qx.ui.mobile.container.Scroll",
+qx.Class.define("qx.ui.mobile.container.Scroll",
 {
   extend : qx.ui.mobile.Widget,
   include : [qx.ui.mobile.container.MNativeScroll],

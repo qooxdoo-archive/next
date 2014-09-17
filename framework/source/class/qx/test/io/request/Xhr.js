@@ -37,7 +37,7 @@
  * (see {@link #setUpFakeTransport}).
  *
  */
-qx.Bootstrap.define("qx.test.io.request.Xhr",
+qx.Class.define("qx.test.io.request.Xhr",
 {
   extend : qx.dev.unit.TestCase,
 

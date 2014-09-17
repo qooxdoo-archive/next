@@ -28,7 +28,7 @@
  *
  * @group (Utilities)
  */
-qx.Bootstrap.define("qx.module.util.Type", {
+qx.Class.define("qx.module.util.Type", {
   statics : {
     /**
      * Get the internal class of the value. The following classes are possible:
@@ -48,7 +48,7 @@ qx.Bootstrap.define("qx.module.util.Type", {
      * @param value {var} Value to get the class for.
      * @return {String} The internal class of the value.
      */
-    get : qx.Bootstrap.getClass
+    get : qx.Class.getClass
   },
 
 

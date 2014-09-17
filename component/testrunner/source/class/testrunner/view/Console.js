@@ -21,7 +21,7 @@
  * Simple, console-only TestRunner view. Use
  * qx.core.Init.getApplication().runner.view.run() to run the test suite.
  */
-qx.Bootstrap.define("testrunner.view.Console", {
+qx.Class.define("testrunner.view.Console", {
 
   extend : testrunner.view.Abstract,
 

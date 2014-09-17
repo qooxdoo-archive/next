@@ -36,7 +36,7 @@
  *
  * This example creates an atom with the label "Icon Right" and an icon.
  */
-qx.Bootstrap.define("qx.ui.mobile.basic.Atom",
+qx.Class.define("qx.ui.mobile.basic.Atom",
 {
   extend : qx.ui.mobile.Widget,
 

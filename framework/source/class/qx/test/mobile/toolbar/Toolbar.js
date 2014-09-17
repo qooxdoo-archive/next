@@ -17,7 +17,7 @@
 
 ************************************************************************ */
 
-qx.Bootstrap.define("qx.test.mobile.toolbar.Toolbar",
+qx.Class.define("qx.test.mobile.toolbar.Toolbar",
 {
   extend : qx.test.mobile.MobileTestCase,
 

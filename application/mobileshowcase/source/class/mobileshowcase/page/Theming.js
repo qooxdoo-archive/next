@@ -33,7 +33,7 @@
  * @require(qx.module.Blocker)
  * @require(qx.module.Io)
  */
-qx.Bootstrap.define("mobileshowcase.page.Theming",
+qx.Class.define("mobileshowcase.page.Theming",
 {
   extend : mobileshowcase.page.Abstract,
 

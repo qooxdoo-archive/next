@@ -16,7 +16,7 @@
      * Martin Wittemann (martinwittemann)
 
 ************************************************************************ */
-qx.Bootstrap.define("qx.test.type.Array",
+qx.Class.define("qx.test.type.Array",
 {
   extend : qx.dev.unit.TestCase,
 

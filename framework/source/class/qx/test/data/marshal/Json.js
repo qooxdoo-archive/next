@@ -23,7 +23,7 @@
  * @ignore(qx.Test)
  * @ignore(qx.test.Array)
  */
-qx.Bootstrap.define("qx.test.data.marshal.Json",
+qx.Class.define("qx.test.data.marshal.Json",
 {
   extend : qx.dev.unit.TestCase,
   include : qx.dev.unit.MMock,
@@ -61,9 +61,9 @@ qx.Bootstrap.define("qx.test.data.marshal.Json",
       this.__marshaler.toClass(data);
 
       // check if the class is defined
-      this.assertNotNull(qx.Bootstrap.getByName('qx.data.model.$$a'), "Class not created.");
+      this.assertNotNull(qx.Class.getByName('qx.data.model.$$a'), "Class not created.");
 
-      var clazz = qx.Bootstrap.getByName('qx.data.model.$$a');
+      var clazz = qx.Class.getByName('qx.data.model.$$a');
       // check for the property
       for (var name in clazz.prototype.$$properties) {
         this.assertEquals("$$a", name, "Property $$a does have the wrong name.");
@@ -87,9 +87,9 @@ qx.Bootstrap.define("qx.test.data.marshal.Json",
       this.__marshaler.toClass(this.__data);
 
       // check if the class is defined
-      this.assertNotNull(qx.Bootstrap.getByName('qx.data.model.b"n"s'), "Class not created.");
+      this.assertNotNull(qx.Class.getByName('qx.data.model.b"n"s'), "Class not created.");
 
-      var clazz = qx.Bootstrap.getByName('qx.data.model.b"n"s');
+      var clazz = qx.Class.getByName('qx.data.model.b"n"s');
       // check for the properties
       var i = 0;
       for (var name in clazz.prototype.$$properties) {
@@ -106,9 +106,9 @@ qx.Bootstrap.define("qx.test.data.marshal.Json",
       this.__marshaler.toClass(this.__data);
 
       // check if the class is defined
-      this.assertNotNull(qx.Bootstrap.getByName("qx.data.model.a"), "Class not created.");
+      this.assertNotNull(qx.Class.getByName("qx.data.model.a"), "Class not created.");
 
-      var clazz = qx.Bootstrap.getByName("qx.data.model.a");
+      var clazz = qx.Class.getByName("qx.data.model.a");
       // check for the property
       this.assertNotNull(clazz.prototype.$$properties.a, "Property does not exist.");
     },
@@ -141,11 +141,11 @@ qx.Bootstrap.define("qx.test.data.marshal.Json",
       this.__marshaler.toClass(this.__data);
 
       // check if the classes are defined
-      this.assertNotNull(qx.Bootstrap.getByName("qx.data.model.a"), "Class not created.");
-      this.assertNotNull(qx.Bootstrap.getByName("qx.data.model.b"), "Class not created.");
+      this.assertNotNull(qx.Class.getByName("qx.data.model.a"), "Class not created.");
+      this.assertNotNull(qx.Class.getByName("qx.data.model.b"), "Class not created.");
 
-      var clazz = qx.Bootstrap.getByName("qx.data.model.a");
-      var clazz2 = qx.Bootstrap.getByName("qx.data.model.b");
+      var clazz = qx.Class.getByName("qx.data.model.a");
+      var clazz2 = qx.Class.getByName("qx.data.model.b");
       // check for the property
       this.assertNotNull(clazz.prototype.$$properties.a, "Property does not exist.");
       this.assertNotNull(clazz2.prototype.$$properties.b, "Property does not exist.");
@@ -556,7 +556,7 @@ qx.Bootstrap.define("qx.test.data.marshal.Json",
 
 
     testBubbleEventsWithRemove: function() {
-      qx.Bootstrap.define("qx.Test", {
+      qx.Class.define("qx.Test", {
         extend : Object,
         include : [qx.event.MEmitter, qx.data.marshal.MEventBubbling],
         properties : {
@@ -640,7 +640,7 @@ qx.Bootstrap.define("qx.test.data.marshal.Json",
      * @ignore(qx.test.model.C)
      */
     testGetModelClass: function() {
-      qx.Bootstrap.define("qx.test.model.C", {
+      qx.Class.define("qx.test.model.C", {
         extend : Object,
         include : [qx.event.MEmitter],
         properties : {
@@ -706,7 +706,7 @@ qx.Bootstrap.define("qx.test.data.marshal.Json",
      * @ignore(qx.test.model.C)
      */
     testGetModelClassIgnore: function() {
-      qx.Bootstrap.define("qx.test.model.C", {
+      qx.Class.define("qx.test.model.C", {
         extend : Object,
         include : [qx.event.MEmitter],
         properties : {
@@ -884,7 +884,7 @@ qx.Bootstrap.define("qx.test.data.marshal.Json",
 
 
     testGetArrayClassSimple : function() {
-      qx.Bootstrap.define("qx.test.Array", {
+      qx.Class.define("qx.test.Array", {
         extend : qx.data.Array
       });
 
@@ -909,7 +909,7 @@ qx.Bootstrap.define("qx.test.data.marshal.Json",
 
 
     testGetArrayClassAdvanced : function() {
-      qx.Bootstrap.define("qx.test.Array", {
+      qx.Class.define("qx.test.Array", {
         extend : qx.data.Array
       });
       var called = 0;

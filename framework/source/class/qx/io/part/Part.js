@@ -25,7 +25,7 @@
  *
  * @internal
  */
-qx.Bootstrap.define("qx.io.part.Part",
+qx.Class.define("qx.io.part.Part",
 {
   /**
    * @param name {String} Name of the part as defined in the config file at

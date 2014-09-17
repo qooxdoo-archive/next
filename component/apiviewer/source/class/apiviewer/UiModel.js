@@ -1,4 +1,4 @@
-qx.Bootstrap.define("apiviewer.UiModel",
+qx.Class.define("apiviewer.UiModel",
 {
   extend : Object,
   include : [qx.core.MSingleton],

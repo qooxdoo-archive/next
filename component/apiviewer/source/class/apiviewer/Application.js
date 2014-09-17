@@ -28,7 +28,7 @@
  * @require(qx.module.Template)
  * @require(qx.ui.mobile.Button)
  */
-qx.Bootstrap.define("apiviewer.Application",
+qx.Class.define("apiviewer.Application",
 {
   extend : qx.application.Mobile,
 

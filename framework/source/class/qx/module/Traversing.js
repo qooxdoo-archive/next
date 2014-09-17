@@ -29,7 +29,7 @@
  *
  * @group (Core)
  */
-qx.Bootstrap.define("qx.module.Traversing", {
+qx.Class.define("qx.module.Traversing", {
   statics :
   {
 

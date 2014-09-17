@@ -23,7 +23,7 @@
  *
  * @group (Utilities)
  */
-qx.Bootstrap.define("qx.module.util.Object", {
+qx.Class.define("qx.module.util.Object", {
   statics : {
     /**
      * Return a copy of an Object

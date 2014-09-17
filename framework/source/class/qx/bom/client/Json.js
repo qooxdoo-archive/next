@@ -26,7 +26,7 @@
  *
  * @internal
  */
-qx.Bootstrap.define("qx.bom.client.Json",
+qx.Class.define("qx.bom.client.Json",
 {
   statics:
   {
@@ -39,7 +39,7 @@ qx.Bootstrap.define("qx.bom.client.Json",
       return (
 
       // Exists
-      qx.Bootstrap.getClass(window.JSON) == "JSON" &&
+      qx.Class.getClass(window.JSON) == "JSON" &&
 
       // Can parse
       JSON.parse('{"x":1}').x === 1 &&

@@ -37,7 +37,7 @@
  *
  * @ignore(qx.core.Assert)
  */
-qx.Bootstrap.define("qx.lang.Object",
+qx.Class.define("qx.lang.Object",
 {
   statics :
   {

@@ -26,7 +26,7 @@
  *
  * @internal
  */
-qx.Bootstrap.define("qx.bom.client.PhoneGap",
+qx.Class.define("qx.bom.client.PhoneGap",
 {
   statics :
   {

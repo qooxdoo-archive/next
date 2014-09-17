@@ -26,7 +26,7 @@
  *
  * Also serves as a collection of examples.
  */
-qx.Bootstrap.define("qx.test.dev.unit.Sinon",
+qx.Class.define("qx.test.dev.unit.Sinon",
 {
   extend : qx.dev.unit.TestCase,
 
@@ -51,21 +51,21 @@ qx.Bootstrap.define("qx.test.dev.unit.Sinon",
     {
       this.sinon = qx.dev.unit.Sinon.getSinon();
 
-      qx.Bootstrap.define("qx.test.Animal", {
+      qx.Class.define("qx.test.Animal", {
         extend: Object,
         members: {
           getKind: function() { return "Animal"; }
         }
       });
 
-      qx.Bootstrap.define("qx.test.Affe", {
+      qx.Class.define("qx.test.Affe", {
         extend: qx.test.Animal,
         members: {
           scratch: function() { return true; }
         }
       });
 
-      qx.Bootstrap.define("qx.test.Gibbon", {
+      qx.Class.define("qx.test.Gibbon", {
         extend: qx.test.Affe,
         members: {
           climb: function() { return true; }

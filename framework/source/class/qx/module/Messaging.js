@@ -30,7 +30,7 @@
  * @require(qx.event.Messaging#remove)
  * @require(qx.event.Messaging#emit)
  */
-qx.Bootstrap.define("qx.module.Messaging", {
+qx.Class.define("qx.module.Messaging", {
   statics: {
     /**
      * Adds a route handler for the given channel. The route is called

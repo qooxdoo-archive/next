@@ -26,7 +26,7 @@
  *
  * http://www.w3.org/TR/css3-3d-transforms/
  */
-qx.Bootstrap.define("qx.module.Transform",
+qx.Class.define("qx.module.Transform",
 {
   statics :
   {

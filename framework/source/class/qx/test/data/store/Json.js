@@ -28,7 +28,7 @@
  * @require(qx.io.request.Xhr)
  */
 
-qx.Bootstrap.define("qx.test.data.store.Json",
+qx.Class.define("qx.test.data.store.Json",
 {
   extend : qx.dev.unit.TestCase,
   include : qx.dev.unit.MMock,
@@ -230,7 +230,7 @@ qx.Bootstrap.define("qx.test.data.store.Json",
 
     testOwnClassWith: function() {
       // define a test class
-      qx.Bootstrap.define("qx.test.AB",
+      qx.Class.define("qx.test.AB",
       {
         extend : Object,
         include : [qx.event.MEmitter],
@@ -252,7 +252,7 @@ qx.Bootstrap.define("qx.test.data.store.Json",
       var delegate = {
         getModelClass : function(properties) {
           if (properties == 'a"b') {
-            return qx.Bootstrap.getByName("qx.test.AB");
+            return qx.Class.getByName("qx.test.AB");
           }
           return null;
         }
@@ -306,7 +306,7 @@ qx.Bootstrap.define("qx.test.data.store.Json",
 
     testOwnSuperclassWith: function() {
       // define a test class
-      qx.Bootstrap.define("qx.test.O",
+      qx.Class.define("qx.test.O",
       {
         extend : Object,
         include : [qx.event.MEmitter]
@@ -322,9 +322,9 @@ qx.Bootstrap.define("qx.test.data.store.Json",
       this.__store.on("loaded", function() {
         this.resume(function() {
           var model = this.__store.model;
-          this.assertTrue(qx.Bootstrap.isSubClassOf(model.constructor, qx.test.O));
+          this.assertTrue(qx.Class.isSubClassOf(model.constructor, qx.test.O));
           this.assertNotNull(model.o, "The model is not created how it should!");
-          this.assertTrue(qx.Bootstrap.isSubClassOf(model.o.constructor, qx.test.O));
+          this.assertTrue(qx.Class.isSubClassOf(model.o.constructor, qx.test.O));
           this.assertEquals("a", model.o.a, "Wrong content of the object.");
           this.assertEquals("b", model.o.b, "Wrong content of the object.");
         }, this);
@@ -339,7 +339,7 @@ qx.Bootstrap.define("qx.test.data.store.Json",
 
     testOwnSuperclassWithout: function() {
       // define a test class
-      qx.Bootstrap.define("qx.test.O",
+      qx.Class.define("qx.test.O",
       {
         extend : Object
       });

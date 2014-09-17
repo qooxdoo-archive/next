@@ -1,7 +1,7 @@
 /**
  * @require(qx.module.Blocker)
  */
-qx.Bootstrap.define("apiviewer.LoadingIndicator",
+qx.Class.define("apiviewer.LoadingIndicator",
 {
   extend : Object,
   include : [qx.core.MSingleton],

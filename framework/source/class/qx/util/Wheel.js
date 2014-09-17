@@ -21,7 +21,7 @@
 /**
  * Util for mouse wheel normalization.
  */
-qx.Bootstrap.define("qx.util.Wheel", {
+qx.Class.define("qx.util.Wheel", {
   statics: {
     /**
      * The maximal measured scroll wheel delta.

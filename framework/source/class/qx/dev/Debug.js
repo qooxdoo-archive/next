@@ -23,7 +23,7 @@
 /**
  * Useful debug capabilities
  */
-qx.Bootstrap.define("qx.dev.Debug",
+qx.Class.define("qx.dev.Debug",
 {
   statics :
   {

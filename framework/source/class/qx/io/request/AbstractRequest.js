@@ -31,7 +31,7 @@
  * To adjust the behavior of {@link #send} override
  * {@link #_getConfiguredUrl} and {@link #_getConfiguredRequestHeaders}.
  */
-qx.Bootstrap.define("qx.io.request.AbstractRequest",
+qx.Class.define("qx.io.request.AbstractRequest",
 {
   extend : Object,
   include: [qx.event.MEmitter],

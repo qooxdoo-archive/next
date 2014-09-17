@@ -23,7 +23,7 @@
  * Contains information about images (size, format, clipping, ...) and
  * other resources like CSS files, local data, ...
  */
-qx.Bootstrap.define("qx.util.ResourceManager",
+qx.Class.define("qx.util.ResourceManager",
 {
   extend  : Object,
   include : [qx.core.MSingleton],

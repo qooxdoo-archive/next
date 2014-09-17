@@ -17,7 +17,7 @@
 
 ************************************************************************ */
 
-qx.Bootstrap.define("qx.test.util.LibraryManager",
+qx.Class.define("qx.test.util.LibraryManager",
 {
   extend : qx.dev.unit.TestCase,
 

@@ -21,7 +21,7 @@
  * @asset(qx/test/webfonts/*)
  */
 
-qx.Bootstrap.define("qx.test.bom.webfonts.Manager", {
+qx.Class.define("qx.test.bom.webfonts.Manager", {
 
   extend : qx.test.bom.webfonts.Abstract,
 

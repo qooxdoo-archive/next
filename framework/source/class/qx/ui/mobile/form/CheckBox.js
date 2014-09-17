@@ -43,7 +43,7 @@
  * When the user taps on the checkbox, its model changes and it is reflected in the Title's value.
  *
  */
-qx.Bootstrap.define("qx.ui.mobile.form.CheckBox",
+qx.Class.define("qx.ui.mobile.form.CheckBox",
 {
   extend : qx.ui.mobile.form.Input,
   include : [qx.ui.mobile.form.MValue],

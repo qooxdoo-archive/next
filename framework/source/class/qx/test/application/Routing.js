@@ -17,7 +17,7 @@
 
 ************************************************************************ */
 
-qx.Bootstrap.define("qx.test.application.Routing",
+qx.Class.define("qx.test.application.Routing",
 {
   extend : qx.dev.unit.TestCase,
   include : qx.dev.unit.MMock,

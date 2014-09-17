@@ -21,7 +21,7 @@
  * @ignore(qx.test.propA, qx.test.propB)
  */
 
-qx.Bootstrap.define("qx.test.util.PropertyUtil",
+qx.Class.define("qx.test.util.PropertyUtil",
 {
   extend : qx.test.mobile.MobileTestCase,
 
@@ -31,7 +31,7 @@ qx.Bootstrap.define("qx.test.util.PropertyUtil",
     setUp : function()
     {
       this.button = new qx.ui.mobile.Button();
-      this.getRoot().add(this.button);
+      this.getRoot().append(this.button);
     },
 
 
@@ -43,14 +43,14 @@ qx.Bootstrap.define("qx.test.util.PropertyUtil",
 
     testGetProperties : function()
     {
-      qx.Bootstrap.define("qx.test.propA", {
+      qx.Class.define("qx.test.propA", {
         extend : Object,
         properties : {
           a : {}
         }
       });
 
-      qx.Bootstrap.define("qx.test.propB", {
+      qx.Class.define("qx.test.propB", {
         extend : qx.test.propA,
         properties : {
           b : {}

@@ -23,7 +23,7 @@
 /**
  * Shortcuts can be used to globally define keyboard shortcuts.
  */
-qx.Bootstrap.define("qx.bom.Shortcut",
+qx.Class.define("qx.bom.Shortcut",
 {
   extend : Object,
   include : [qx.event.MEmitter],

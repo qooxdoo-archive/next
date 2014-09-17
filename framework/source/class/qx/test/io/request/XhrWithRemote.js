@@ -17,7 +17,7 @@
 
 ************************************************************************ */
 
-qx.Bootstrap.define("qx.test.io.request.XhrWithRemote",
+qx.Class.define("qx.test.io.request.XhrWithRemote",
 {
   extend: qx.dev.unit.TestCase,
 

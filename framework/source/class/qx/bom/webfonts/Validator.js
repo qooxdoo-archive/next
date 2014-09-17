@@ -19,7 +19,7 @@
  * Checks whether a given font is available on the document and fires events
  * accordingly.
  */
-qx.Bootstrap.define("qx.bom.webfonts.Validator", {
+qx.Class.define("qx.bom.webfonts.Validator", {
 
   extend : Object,
   include : [qx.event.MEmitter],

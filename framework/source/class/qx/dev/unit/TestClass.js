@@ -43,7 +43,7 @@
  * </pre>
  */
 
-qx.Bootstrap.define("qx.dev.unit.TestClass",
+qx.Class.define("qx.dev.unit.TestClass",
 {
   extend : qx.dev.unit.AbstractTestSuite,
 
@@ -61,7 +61,7 @@ qx.Bootstrap.define("qx.dev.unit.TestClass",
       return;
     }
 
-    if (!qx.Bootstrap.isSubClassOf(clazz, qx.dev.unit.TestCase))
+    if (!qx.Class.isSubClassOf(clazz, qx.dev.unit.TestCase))
     {
       this.addFail("Sub class check.", "The test class '" + clazz.classname + "'is not a sub class of 'qx.dev.unit.TestCase'");
       return;

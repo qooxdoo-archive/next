@@ -80,7 +80,7 @@
  *
  * @ignore(module)
  */
-qx.Bootstrap.define("qx.bom.Template", {
+qx.Class.define("qx.bom.Template", {
   statics : {
     /** Contains the mustache.js version. */
     version: null,

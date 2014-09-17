@@ -22,7 +22,7 @@
  * Provides read/write access to library-specific information such as
  * source/resource URIs.
  */
-qx.Bootstrap.define("qx.util.LibraryManager", {
+qx.Class.define("qx.util.LibraryManager", {
 
   extend : Object,
   include : [qx.core.MSingleton],

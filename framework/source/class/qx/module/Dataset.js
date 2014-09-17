@@ -21,7 +21,7 @@
 /**
  * Module for handling of HTML5 data-* attributes
  */
-qx.Bootstrap.define("qx.module.Dataset", {
+qx.Class.define("qx.module.Dataset", {
 
   statics: {
 

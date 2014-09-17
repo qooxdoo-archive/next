@@ -32,7 +32,7 @@ Here is a code template which you may copy to your application namespace and ada
      */
 
     /** Adapt the name of the class */
-    qx.Bootstrap.define("your.namespace.YourAspectClass", {
+    qx.Class.define("your.namespace.YourAspectClass", {
 
       /** The class definition may only contain a 'statics' and a 'defer' member */
       statics :
@@ -48,7 +48,7 @@ Here is a code template which you may copy to your application namespace and ada
          * @param type {String} The type of the wrapped function (static, member, ...)
          * @param args {Arguments} The arguments passed to the wrapped function.
          */
-        atEnter: function(fullName, fcn, type, args) 
+        atEnter: function(fullName, fcn, type, args)
         {
           console.log("Entering "+fullName);  // Adapt this to your needs
         },
@@ -62,7 +62,7 @@ Here is a code template which you may copy to your application namespace and ada
          * @param args {Arguments} The arguments passed to the wrapped function.
          * @param returnValue {var} return value of the wrapped function.
          */
-        atExit: function(fullName, fcn, type, args, returnValue) 
+        atExit: function(fullName, fcn, type, args, returnValue)
         {
           console.log("Leaving "+fullName);  // Adapt this to your needs
         }
@@ -77,7 +77,7 @@ Here is a code template which you may copy to your application namespace and ada
          *
          * @param fcn {Function} Function from this class to be called.
          * @param position {String} Where to inject the aspect ("before" or "after").
-         * @param type {String} Which types to wrap (“member”, “static”, “constructor”, 
+         * @param type {String} Which types to wrap (“member”, “static”, “constructor”,
          *                       “destructor”, “property” or ”*”).
          * @param name {RegExp} Name(pattern) of the functions to wrap.
          */
@@ -91,7 +91,7 @@ A job in your configuration could look something like this:
 
 ::
 
-    "source" : 
+    "source" :
           {
             "require" :
             {

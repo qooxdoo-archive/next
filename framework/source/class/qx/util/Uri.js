@@ -21,7 +21,7 @@
 /**
  * Static helpers for parsing and modifying URIs.
  */
-qx.Bootstrap.define("qx.util.Uri",
+qx.Class.define("qx.util.Uri",
 {
 
   statics:

@@ -32,13 +32,13 @@
  *
  * <pre class='javascript'>
  *   var container = new qx.ui.mobile.container.Navigation();
- *   this.getRoot().add(container);
+ *   this.getRoot().append(container);
  *   var page = new qx.ui.mobile.page.NavigationPage();
  *   container.append(page);
  *   page.show();
  * </pre>
  */
-qx.Bootstrap.define("qx.ui.mobile.container.Navigation",
+qx.Class.define("qx.ui.mobile.container.Navigation",
 {
   extend : qx.ui.mobile.Widget,
 

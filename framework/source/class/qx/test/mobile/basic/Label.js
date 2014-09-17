@@ -17,7 +17,7 @@
 
 ************************************************************************ */
 
-qx.Bootstrap.define("qx.test.mobile.basic.Label",
+qx.Class.define("qx.test.mobile.basic.Label",
 {
   extend : qx.test.mobile.MobileTestCase,
 

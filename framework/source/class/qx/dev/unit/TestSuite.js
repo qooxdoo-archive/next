@@ -22,7 +22,7 @@
  * A TestSuite is a collection of test functions, classes and other test suites,
  * which should be run together.
  */
-qx.Bootstrap.define("qx.dev.unit.TestSuite",
+qx.Class.define("qx.dev.unit.TestSuite",
 {
   extend : qx.dev.unit.AbstractTestSuite,
 
@@ -98,7 +98,7 @@ qx.Bootstrap.define("qx.dev.unit.TestSuite",
     {
       if (qx.lang.Type.isFunction(namespace) && namespace.classname)
       {
-        if (qx.Bootstrap.isSubClassOf(namespace, qx.dev.unit.TestCase))
+        if (qx.Class.isSubClassOf(namespace, qx.dev.unit.TestCase))
         {
           // TODO: replacement for $$classtype in new Class system
           if (namespace.$$classtype !== "abstract") {

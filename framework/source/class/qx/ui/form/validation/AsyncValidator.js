@@ -42,7 +42,7 @@
  * {@link qx.ui.form.validation.Manager#add}. If you have both cases, you have
  * to wrap the synchronous call in a timeout to make it asychronous.
  */
-qx.Bootstrap.define("qx.ui.form.validation.AsyncValidator",
+qx.Class.define("qx.ui.form.validation.AsyncValidator",
 {
   extend : Object,
 

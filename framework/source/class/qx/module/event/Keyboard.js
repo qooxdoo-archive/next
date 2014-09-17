@@ -30,7 +30,7 @@
  *
  * @group (Event_Normalization)
  */
-qx.Bootstrap.define("qx.module.event.Keyboard", {
+qx.Class.define("qx.module.event.Keyboard", {
   statics :
   {
     /**

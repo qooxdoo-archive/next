@@ -24,7 +24,7 @@
  * @asset(qx/icon/Tango/22/actions/media-playback-stop.png)
  * @asset(testrunner/view/mobile/*)
  */
-qx.Bootstrap.define("testrunner.view.mobile.Mobile", {
+qx.Class.define("testrunner.view.mobile.Mobile", {
 
   extend : testrunner.view.Abstract,
 

@@ -51,7 +51,7 @@
  *
  * @group (IO)
  */
-qx.Bootstrap.define("qx.bom.request.Jsonp",
+qx.Class.define("qx.bom.request.Jsonp",
 {
   extend : qx.bom.request.Script,
 
@@ -155,7 +155,7 @@ qx.Bootstrap.define("qx.bom.request.Jsonp",
           };
         } else {
           if (qx.core.Environment.get("qx.debug.io")) {
-            qx.Bootstrap.debug(qx.bom.request.Jsonp, "Callback " +
+            qx.Class.debug(qx.bom.request.Jsonp, "Callback " +
               this.__callbackName + " already exists");
           }
         }
@@ -163,7 +163,7 @@ qx.Bootstrap.define("qx.bom.request.Jsonp",
       }
 
       if (qx.core.Environment.get("qx.debug.io")) {
-        qx.Bootstrap.debug(qx.bom.request.Jsonp,
+        qx.Class.debug(qx.bom.request.Jsonp,
           "Expecting JavaScript response to call: " + callbackName);
       }
 

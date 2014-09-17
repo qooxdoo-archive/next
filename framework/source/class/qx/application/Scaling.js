@@ -15,7 +15,7 @@
 
 ************************************************************************ */
 
-qx.Bootstrap.define("qx.application.Scaling", {
+qx.Class.define("qx.application.Scaling", {
   extend : Object,
 
   include : [qx.event.MEmitter, qx.core.MSingleton],

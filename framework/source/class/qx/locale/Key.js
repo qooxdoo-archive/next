@@ -24,7 +24,7 @@
  * Static class, which contains functionality to localize the names of keyboard keys.
  */
 
-qx.Bootstrap.define("qx.locale.Key",
+qx.Class.define("qx.locale.Key",
 {
   statics :
   {

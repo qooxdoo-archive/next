@@ -27,7 +27,7 @@
  * - Collapsible
  * - Enabled / Disabled state
  */
-qx.Bootstrap.define("mobileshowcase.page.Basic",
+qx.Class.define("mobileshowcase.page.Basic",
 {
   extend : mobileshowcase.page.Abstract,
 

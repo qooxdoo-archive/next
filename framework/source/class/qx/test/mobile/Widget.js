@@ -17,7 +17,7 @@
 
 ************************************************************************ */
 
-qx.Bootstrap.define("qx.test.mobile.Widget",
+qx.Class.define("qx.test.mobile.Widget",
 {
   extend : qx.test.mobile.MobileTestCase,
 

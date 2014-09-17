@@ -17,7 +17,7 @@
 
 ************************************************************************ */
 
-qx.Bootstrap.define("qx.test.mobile.dialog.Popup",
+qx.Class.define("qx.test.mobile.dialog.Popup",
 {
   extend : qx.test.mobile.MobileTestCase,
 

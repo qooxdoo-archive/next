@@ -54,7 +54,7 @@
  *   page1.show();
  *  </pre>
  */
-qx.Bootstrap.define("qx.ui.mobile.form.SelectBox",
+qx.Class.define("qx.ui.mobile.form.SelectBox",
 {
   extend : qx.ui.mobile.Widget,
   include : [

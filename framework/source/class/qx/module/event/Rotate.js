@@ -25,7 +25,7 @@
  *
  * @group (Event_Normalization)
  */
-qx.Bootstrap.define("qx.module.event.Rotate", {
+qx.Class.define("qx.module.event.Rotate", {
   statics :
   {
     /**

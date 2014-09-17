@@ -17,7 +17,7 @@
 
 ************************************************************************ */
 
-qx.Bootstrap.define("apiviewer.dao.State", {
+qx.Class.define("apiviewer.dao.State", {
   extend : apiviewer.dao.ClassItem,
 
   construct : function(classDocNode, parent)

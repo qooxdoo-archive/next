@@ -21,7 +21,7 @@
 /**
  * Shows a title text for {@link Form} or {@link Group}.
  */
-qx.Bootstrap.define("qx.ui.mobile.form.Title",
+qx.Class.define("qx.ui.mobile.form.Title",
 {
   extend : qx.ui.mobile.basic.Label,
 

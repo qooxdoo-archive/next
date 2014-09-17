@@ -23,7 +23,7 @@
  * Abstract class for all input fields.
  * @require(qx.module.AnimationFrame)
  */
-qx.Bootstrap.define("qx.ui.mobile.form.Input",
+qx.Class.define("qx.ui.mobile.form.Input",
 {
   extend : qx.ui.mobile.Widget,
   include : [

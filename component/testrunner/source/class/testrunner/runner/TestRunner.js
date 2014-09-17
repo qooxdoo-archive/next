@@ -24,7 +24,7 @@
  *
  * @require(qx.module.Io)
  */
-qx.Bootstrap.define("testrunner.runner.TestRunner", {
+qx.Class.define("testrunner.runner.TestRunner", {
 
   extend : testrunner.runner.TestRunnerBasic,
 
@@ -154,7 +154,7 @@ qx.Bootstrap.define("testrunner.runner.TestRunner", {
     // overridden
     _defineTestClass : function(testClassName, membersMap)
     {
-      var qxClass = qx.Bootstrap;
+      var qxClass = qx.Class;
       var classDef = {
         extend : qx.dev.unit.TestCase,
         members : membersMap

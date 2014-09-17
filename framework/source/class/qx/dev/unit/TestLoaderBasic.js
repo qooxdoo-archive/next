@@ -22,7 +22,7 @@
  * Test loader for server-side/"headless" environments
  */
 
-qx.Bootstrap.define("qx.dev.unit.TestLoaderBasic", {
+qx.Class.define("qx.dev.unit.TestLoaderBasic", {
 
   extend : Object,
 

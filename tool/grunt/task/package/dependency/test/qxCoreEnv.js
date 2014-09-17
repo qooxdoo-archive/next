@@ -45,7 +45,7 @@ module.exports = {
     },
 
     getFeatureTable: function(test) {
-      var classCode = "qx.Bootstrap.define('qx.bom.client.Engine', {\n"+
+      var classCode = "qx.Class.define('qx.bom.client.Engine', {\n"+
                       "  classDefined : function(statics) {\n"+
                       "    qx.core.Environment.add('engine.version', statics.getVersion);\n"+
                       "    qx.core.Environment.add('engine.name', statics.getName);\n"+
@@ -935,7 +935,7 @@ module.exports = {
     },
 
     extract: function(test) {
-      var qxFooMyClass = 'qx.Bootstrap.define("qx.foo.MyClass",\n'+    // 1
+      var qxFooMyClass = 'qx.Class.define("qx.foo.MyClass",\n'+    // 1
         '{\n'+                                                         // 2
         '  statics:\n'+                                                // 3
         '  {\n'+                                                       // 4

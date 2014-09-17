@@ -20,7 +20,7 @@
 /**
  * TestRunner Mobile main application class.
  */
-qx.Bootstrap.define("testrunner.MobileApplication",
+qx.Class.define("testrunner.MobileApplication",
 {
   extend : qx.application.Mobile,
 

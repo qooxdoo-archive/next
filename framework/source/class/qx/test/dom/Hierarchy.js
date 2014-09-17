@@ -17,7 +17,7 @@
 
 ************************************************************************ */
 
-qx.Bootstrap.define("qx.test.dom.Hierarchy",
+qx.Class.define("qx.test.dom.Hierarchy",
 {
   extend : qx.dev.unit.TestCase,
 

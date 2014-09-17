@@ -35,7 +35,7 @@
  * @require(qx.log.appender.Util)
  * @require(qx.bom.client.Html)
  */
-qx.Bootstrap.define("qx.log.appender.Native",
+qx.Class.define("qx.log.appender.Native",
 {
   statics :
   {

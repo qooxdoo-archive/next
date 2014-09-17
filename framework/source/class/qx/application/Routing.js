@@ -82,7 +82,7 @@
  *
  * This example defines different routes to handle navigation events.
  */
-qx.Bootstrap.define("qx.application.Routing", {
+qx.Class.define("qx.application.Routing", {
 
   extend : Object,
 

@@ -46,7 +46,7 @@
  *
  * @require(qx.module.AnimationFrame)
  */
-qx.Bootstrap.define("qx.ui.mobile.form.Slider",
+qx.Class.define("qx.ui.mobile.form.Slider",
 {
   extend : qx.ui.mobile.Widget,
   include : [

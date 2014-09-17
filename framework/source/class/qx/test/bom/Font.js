@@ -18,7 +18,7 @@
 
 ************************************************************************ */
 
-qx.Bootstrap.define("qx.test.bom.Font",
+qx.Class.define("qx.test.bom.Font",
 {
   extend : qx.dev.unit.TestCase,
 

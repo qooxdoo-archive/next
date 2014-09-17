@@ -26,7 +26,7 @@
  * @use(qx.module.event.PointerHandler)
  * @group (Core)
  */
-qx.Bootstrap.define("qx.module.Event", {
+qx.Class.define("qx.module.Event", {
   statics :
   {
     /**

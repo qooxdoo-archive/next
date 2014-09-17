@@ -17,7 +17,7 @@
 
 ************************************************************************ */
 
-qx.Bootstrap.define("qx.test.lang.Json",
+qx.Class.define("qx.test.lang.Json",
 {
   extend : qx.dev.unit.TestCase,
 

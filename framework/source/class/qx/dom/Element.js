@@ -22,7 +22,7 @@
  * Manages children structures of an element. Easy and convenient APIs
  * to insert, remove and replace children.
  */
-qx.Bootstrap.define("qx.dom.Element",
+qx.Class.define("qx.dom.Element",
 {
   statics :
   {

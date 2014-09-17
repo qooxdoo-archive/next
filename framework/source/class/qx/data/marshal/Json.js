@@ -22,7 +22,7 @@
  * This class is responsible for converting json data to class instances
  * including the creation of the classes.
  */
-qx.Bootstrap.define("qx.data.marshal.Json",
+qx.Class.define("qx.data.marshal.Json",
 {
   extend : Object,
   implement : [qx.data.marshal.IMarshaler],
@@ -123,7 +123,7 @@ qx.Bootstrap.define("qx.data.marshal.Json",
         || data instanceof qxWeb
       ) {
         // check for arrays
-        if (data instanceof Array || qx.Bootstrap.getClass(data) == "Array") {
+        if (data instanceof Array || qx.Class.getClass(data) == "Array") {
           for (var i = 0; i < data.length; i++) {
             this.__toClass(data[i], includeBubbleEvents, parentProperty + "[" + i + "]", depth+1);
           }
@@ -146,7 +146,7 @@ qx.Bootstrap.define("qx.data.marshal.Json",
       }
 
       // class already exists
-      if (qx.Bootstrap.getByName("qx.data.model." + hash)) {
+      if (qx.Class.getByName("qx.data.model." + hash)) {
         return;
       }
 
@@ -221,7 +221,7 @@ qx.Bootstrap.define("qx.data.marshal.Json",
         members : members
       };
 
-      qx.Bootstrap.define("qx.data.model." + hash, newClass);
+      qx.Class.define("qx.data.model." + hash, newClass);
     },
 
 
@@ -246,7 +246,7 @@ qx.Bootstrap.define("qx.data.marshal.Json",
         return (new delegateClass());
       } else {
         var className = "qx.data.model." + hash;
-        var clazz = qx.Bootstrap.getByName(className);
+        var clazz = qx.Class.getByName(className);
         if (!clazz) {
           throw new Error("Class '" + className + "' could not be found.");
         }
@@ -296,7 +296,7 @@ qx.Bootstrap.define("qx.data.marshal.Json",
      */
     __toModel: function(data, parentProperty, depth) {
       var isObject = qx.lang.Type.isObject(data);
-      var isArray = data instanceof Array || qx.Bootstrap.getClass(data) == "Array";
+      var isArray = data instanceof Array || qx.Class.getClass(data) == "Array";
 
       if (
         (!isObject && !isArray)

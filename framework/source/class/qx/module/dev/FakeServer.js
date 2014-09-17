@@ -58,7 +58,7 @@
  *
  * @group (IO)
  */
-qx.Bootstrap.define("qx.module.dev.FakeServer", {
+qx.Class.define("qx.module.dev.FakeServer", {
   statics :
   {
     /**

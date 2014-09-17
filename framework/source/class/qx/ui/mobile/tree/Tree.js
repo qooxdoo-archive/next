@@ -18,7 +18,7 @@
 /**
  * @require(qx.module.Template)
  */
-qx.Bootstrap.define("qx.ui.mobile.tree.Tree",
+qx.Class.define("qx.ui.mobile.tree.Tree",
 {
   extend : qx.ui.mobile.Widget,
 

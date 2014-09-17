@@ -22,7 +22,7 @@
 /**
  * Abstract base class for all managers of themed values.
  */
-qx.Bootstrap.define("qx.util.ValueManager",
+qx.Class.define("qx.util.ValueManager",
 {
   extend : Object,
 

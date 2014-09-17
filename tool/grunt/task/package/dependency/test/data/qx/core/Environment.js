@@ -739,7 +739,7 @@
  * </table>
  *
  */
-qx.Bootstrap.define("qx.core.Environment",
+qx.Class.define("qx.core.Environment",
 {
   statics : {
 
@@ -895,9 +895,9 @@ qx.Bootstrap.define("qx.core.Environment",
      */
     get : function(key) {
       // @deprecated {3.5}
-      if (qx.Bootstrap.DEBUG) {
+      if (qx.Class.DEBUG) {
         if (key === "json") {
-          qx.Bootstrap.warn("The environment key 'json' is deprecated " +
+          qx.Class.warn("The environment key 'json' is deprecated " +
             "and will eventually be removed.");
         }
       }
@@ -926,12 +926,12 @@ qx.Bootstrap.define("qx.core.Environment",
       }
 
       // debug flag
-      if (qx.Bootstrap.DEBUG) {
-        qx.Bootstrap.warn(
+      if (qx.Class.DEBUG) {
+        qx.Class.warn(
           key + " is not a valid key. Please see the API-doc of " +
           "qx.core.Environment for a list of predefined keys."
         );
-        qx.Bootstrap.trace(this);
+        qx.Class.trace(this);
       }
     },
 
@@ -953,7 +953,7 @@ qx.Bootstrap.define("qx.core.Environment",
         if (lastdot > -1) {
           var classname = implementation.slice(0,lastdot);
           var methodname= implementation.slice(lastdot+1);
-          var clazz = qx.Bootstrap.getByName(classname);
+          var clazz = qx.Class.getByName(classname);
           if (clazz != undefined) {
             return [clazz, methodname];
           }
@@ -1006,12 +1006,12 @@ qx.Bootstrap.define("qx.core.Environment",
       }
 
       // debug flag
-      if (qx.Bootstrap.DEBUG) {
-        qx.Bootstrap.warn(
+      if (qx.Class.DEBUG) {
+        qx.Class.warn(
           key + " is not a valid key. Please see the API-doc of " +
           "qx.core.Environment for a list of predefined keys."
         );
-        qx.Bootstrap.trace(this);
+        qx.Class.trace(this);
       }
     },
 
@@ -1081,7 +1081,7 @@ qx.Bootstrap.define("qx.core.Environment",
         return values["default"];
       }
 
-      if (qx.Bootstrap.DEBUG)
+      if (qx.Class.DEBUG)
       {
         throw new Error('No match for variant "' + key +
           '" (' + (typeof key) + ' type)' +

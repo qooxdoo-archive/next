@@ -26,7 +26,7 @@
  * @ignore(process.*)
  */
 
-qx.Bootstrap.define("qx.log.appender.NodeConsole", {
+qx.Class.define("qx.log.appender.NodeConsole", {
 
   statics:
   {

@@ -23,7 +23,7 @@
  *
  * @require(qx.module.Core)
  */
-qx.Bootstrap.define("qx.core.Init", {
+qx.Class.define("qx.core.Init", {
   statics : {
     __application : null,
 
@@ -51,10 +51,10 @@ qx.Bootstrap.define("qx.core.Init", {
         return;
       }
 
-      qx.log.Logger.debug(qx.core.Init, "Load runtime: " + (new Date() - qx.Bootstrap.LOADSTART) + "ms");
+      qx.log.Logger.debug(qx.core.Init, "Load runtime: " + (new Date() - qx.Class.LOADSTART) + "ms");
 
       var app = qx.core.Environment.get("qx.application");
-      var Clazz = qx.Bootstrap.getByName(app);
+      var Clazz = qx.Class.getByName(app);
 
       qx.core.Init.__application = new Clazz();
 

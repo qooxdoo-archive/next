@@ -16,7 +16,7 @@
      * Martin Wittemann (martinwittemann)
 
 ************************************************************************ */
-qx.Bootstrap.define("qx.test.ui.form.ModelSelection",
+qx.Class.define("qx.test.ui.form.ModelSelection",
 {
   extend : qx.test.dev.unit.TestCase,
 

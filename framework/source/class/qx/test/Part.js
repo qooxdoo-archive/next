@@ -26,7 +26,7 @@ Authors:
  * @ignore(qx.test.PART_FILES.*)
  */
 
-qx.Bootstrap.define("qx.test.Part",
+qx.Class.define("qx.test.Part",
 {
   extend : qx.dev.unit.TestCase,
   include : qx.test.io.MRemoteTest,

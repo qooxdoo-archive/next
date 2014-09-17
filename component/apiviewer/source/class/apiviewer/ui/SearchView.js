@@ -21,7 +21,7 @@
 /**
  * Shows the search pane.
  */
-qx.Bootstrap.define("apiviewer.ui.SearchView",
+qx.Class.define("apiviewer.ui.SearchView",
 {
   extend : qx.ui.mobile.core.Widget,
 

@@ -33,7 +33,7 @@ module.exports = {
       var tree = {
       };
 
-      var qxFooMyClass = 'qx.Bootstrap.define("qx.foo.MyClass",\n'+    // 1
+      var qxFooMyClass = 'qx.Class.define("qx.foo.MyClass",\n'+    // 1
         '{\n'+                                                         // 2
         '  statics:\n'+                                                // 3
         '  {\n'+                                                       // 4

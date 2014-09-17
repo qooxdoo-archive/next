@@ -17,7 +17,7 @@
 
 ************************************************************************ */
 
-qx.Bootstrap.define("qx.test.mobile.form.SingleRenderer",
+qx.Class.define("qx.test.mobile.form.SingleRenderer",
 {
   extend : qx.test.mobile.MobileTestCase,
 

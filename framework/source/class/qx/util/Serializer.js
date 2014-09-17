@@ -25,7 +25,7 @@
  * @ignore(qx.locale, qx.locale.LocalizedString)
  * @ignore(qxWeb)
  */
-qx.Bootstrap.define("qx.util.Serializer",
+qx.Class.define("qx.util.Serializer",
 {
   statics :
   {

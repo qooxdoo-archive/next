@@ -20,7 +20,7 @@
 /**
  * @asset(qx/test/xmlhttp/*)
  */
-qx.Bootstrap.define("qx.test.bom.rest.Resource",
+qx.Class.define("qx.test.bom.rest.Resource",
 {
   extend: qx.dev.unit.TestCase,
 

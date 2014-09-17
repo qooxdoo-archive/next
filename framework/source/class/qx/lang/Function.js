@@ -37,7 +37,7 @@
  *
  * @require(qx.lang.Array)
  */
-qx.Bootstrap.define("qx.lang.Function",
+qx.Class.define("qx.lang.Function",
 {
   statics :
   {

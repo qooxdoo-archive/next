@@ -21,7 +21,7 @@
 /**
  * Cookie handling module
  */
-qx.Bootstrap.define("qx.module.Cookie", {
+qx.Class.define("qx.module.Cookie", {
   statics :
   {
     /**

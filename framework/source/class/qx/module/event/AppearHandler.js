@@ -20,7 +20,7 @@
  * removed from the DOM or are displayed/hidden using the CSS display
  * property
  */
-qx.Bootstrap.define("qx.module.event.AppearHandler", {
+qx.Class.define("qx.module.event.AppearHandler", {
 
   statics : {
 

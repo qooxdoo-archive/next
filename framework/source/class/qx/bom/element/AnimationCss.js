@@ -35,7 +35,7 @@
  * (CSS or JavaScript) should be used. Most likely, this implementation should
  * be the one to use.
  */
-qx.Bootstrap.define("qx.bom.element.AnimationCss",
+qx.Class.define("qx.bom.element.AnimationCss",
 {
   statics : {
     // initialization
@@ -305,17 +305,17 @@ qx.Bootstrap.define("qx.bom.element.AnimationCss",
         // check for unknown keys
         for (var name in desc) {
           if (!(possibleKeys.indexOf(name) != -1)) {
-            qx.Bootstrap.warn("Unknown key '" + name + "' in the animation description.");
+            qx.Class.warn("Unknown key '" + name + "' in the animation description.");
           }
         };
 
         if (desc.keyFrames == null) {
-          qx.Bootstrap.warn("No 'keyFrames' given > 0");
+          qx.Class.warn("No 'keyFrames' given > 0");
         } else {
           // check the key frames
           for (var pos in desc.keyFrames) {
             if (pos < 0 || pos > 100) {
-              qx.Bootstrap.warn("Keyframe position needs to be between 0 and 100");
+              qx.Class.warn("Keyframe position needs to be between 0 and 100");
             }
           }
         }

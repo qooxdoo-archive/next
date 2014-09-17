@@ -24,7 +24,7 @@
 /**
  * Cross browser abstractions to work with iframes.
  */
-qx.Bootstrap.define("qx.bom.Iframe",
+qx.Class.define("qx.bom.Iframe",
 {
 
 

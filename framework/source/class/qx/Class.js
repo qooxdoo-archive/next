@@ -33,10 +33,10 @@ if (!window.qx) {
 }
 
 /**
- * Bootstrap qx.Bootstrap to create myself later
+ * Bootstrap qx.Class to create myself later
  * This is needed for the API browser etc. to let them detect me
  */
-qx.Bootstrap = {
+qx.Class = {
 
   /** @type {Map} allowed keys in non-static class definition */
   __allowedKeys : {
@@ -95,7 +95,7 @@ qx.Bootstrap = {
   getClass: function(value) {
     var classString = Object.prototype.toString.call(value);
     return (
-      qx.Bootstrap.__classToTypeMap[classString] ||
+      qx.Class.__classToTypeMap[classString] ||
       classString.slice(8, -1)
     );
   },
@@ -154,18 +154,18 @@ qx.Bootstrap = {
       config = { statics : {} };
     }
 
-    qx.Bootstrap.__validateConfig(name, config);
+    qx.Class.__validateConfig(name, config);
 
     var clazz;
     var proto = null;
 
-    qx.Bootstrap.setDisplayNames(config.statics, name);
+    qx.Class.setDisplayNames(config.statics, name);
 
     if (config.members || config.extend || config.properties) {
-      qx.Bootstrap.setDisplayNames(config.members, name + ".prototype");
+      qx.Class.setDisplayNames(config.members, name + ".prototype");
 
       clazz = config.construct ||
-        (config.extend ? qx.Bootstrap.__createDefaultConstructor() : function() {});
+        (config.extend ? qx.Class.__createDefaultConstructor() : function() {});
       clazz.$$name = clazz.classname = name;
 
       if (config.extend) {
@@ -181,23 +181,23 @@ qx.Bootstrap = {
 
       proto = clazz.prototype;
       // Enable basecalls within constructor
-      proto.base = qx.Bootstrap.base;
+      proto.base = qx.Class.base;
       proto.$$name = proto.classname = name;
       clazz.$$events = config.events || {};
 
       if (config.members) {
-        qx.Bootstrap.addMembers(proto, config.members);
+        qx.Class.addMembers(proto, config.members);
       }
 
       // property handling
-      qx.Bootstrap.addProperties(proto, config.properties);
+      qx.Class.addProperties(proto, config.properties);
 
       // Include mixins
       // Must be the last here to detect conflicts
       if (config.include) {
         if (qx.Mixin) {
           var imclList = config.include;
-          if (qx.Bootstrap.getClass(imclList) !== "Array") {
+          if (qx.Class.getClass(imclList) !== "Array") {
             imclList = [imclList];
           }
           for (var i=0, l=imclList.length; i<l; i++) {
@@ -214,7 +214,7 @@ qx.Bootstrap = {
       clazz.$$name = clazz.classname = name;
 
       // Merge class into former class (needed for 'optimize: ["statics"]')
-      var formerClass = qx.Bootstrap.getByName(name);
+      var formerClass = qx.Class.getByName(name);
       if (formerClass) {
         // Add/overwrite properties and return early if necessary
         if (Object.keys(clazz).length !== 0) {
@@ -255,7 +255,7 @@ qx.Bootstrap = {
           if (!clazz.$$events) {
             clazz.$$events = {};
           }
-          clazz.$$events["change" + qx.Bootstrap.firstUp(propName)] = "Map";
+          clazz.$$events["change" + qx.Class.firstUp(propName)] = "Map";
         }
       }
     }
@@ -264,7 +264,7 @@ qx.Bootstrap = {
     if (config.implement) {
       if (qx.Interface) {
         var implList = config.implement;
-        if (qx.Bootstrap.getClass(implList) !== "Array") {
+        if (qx.Class.getClass(implList) !== "Array") {
           implList = [implList];
         }
         for (var i=0, l=implList.length; i<l; i++) {
@@ -297,14 +297,14 @@ qx.Bootstrap = {
 
   __validateConfig : function(name, config) {
     for (var key in config) {
-      if (!qx.Bootstrap.__allowedKeys[key]) {
+      if (!qx.Class.__allowedKeys[key]) {
         throw new Error("The key '" + key +
           "' is not allowed in the class definition for '" + name + "'.");
       }
-      if (qx.Bootstrap.__allowedKeys[key].indexOf(qx.Bootstrap.getClass(config[key])) == -1) {
+      if (qx.Class.__allowedKeys[key].indexOf(qx.Class.getClass(config[key])) == -1) {
         throw new Error("Illegal type of key '" + key +
           "' in the class definition for '" + name + "'. Must be '" +
-          qx.Bootstrap.__allowedKeys[key] + "'.");
+          qx.Class.__allowedKeys[key] + "'.");
       }
     }
   }
@@ -315,7 +315,7 @@ qx.Bootstrap = {
  * Internal class that is responsible for bootstrapping the qooxdoo
  * framework at load time.
  */
-qx.Bootstrap.define("qx.Bootstrap",
+qx.Class.define("qx.Class",
 {
   statics :
   {
@@ -440,12 +440,12 @@ qx.Bootstrap.define("qx.Bootstrap",
                     // check is a member method
                     ok = this[def.check].call(this, value);
                   } else {
-                    var type = qx.Bootstrap.getClass(value);
+                    var type = qx.Class.getClass(value);
                     if (!(def.nullable && type == "Null")) { // allow null for nullable properties
                       if (!(def.init !== undefined && type == "Undefined")) { // allow undefined as reset value
                         // check against built-in types
                         if (type !== def.check) {
-                          var checkClass = qx.Bootstrap.getByName(def.check);
+                          var checkClass = qx.Class.getByName(def.check);
                           // check against class
                           if (!checkClass) {
                             throw new Error("Error in property '" + name + "' of class '" + this.classname + "': Type '" + def.check + "' is not defined!'");
@@ -493,7 +493,7 @@ qx.Bootstrap.define("qx.Bootstrap",
 
               // event
               if (def.event) {
-                var eventName = "change" + qx.Bootstrap.firstUp(name);
+                var eventName = "change" + qx.Class.firstUp(name);
                 if (this.emit) {
                   this.emit(eventName, {value: value, old: old, target: this});
                 } else {
@@ -528,7 +528,7 @@ qx.Bootstrap.define("qx.Bootstrap",
      * @return {String} last part of the namespace (which object is assigned to)
      * @throws {Error} when the given object already exists.
      */
-    createNamespace : qx.Bootstrap.createNamespace,
+    createNamespace : qx.Class.createNamespace,
 
 
     /**
@@ -551,7 +551,7 @@ qx.Bootstrap.define("qx.Bootstrap",
      * @return {var} the return value of the method of the base class.
      * @internal
      */
-    base : qx.Bootstrap.base,
+    base : qx.Class.base,
 
     /**
      * Define a new class using the qooxdoo class system.
@@ -571,7 +571,7 @@ qx.Bootstrap.define("qx.Bootstrap",
      *     </table>
      * @return {Class} The defined class.
      */
-    define : qx.Bootstrap.define,
+    define : qx.Class.define,
 
 
     /**
@@ -580,7 +580,7 @@ qx.Bootstrap.define("qx.Bootstrap",
      *
      * @return {Function} The default constructor.
     */
-    __createDefaultConstructor : qx.Bootstrap.__createDefaultConstructor,
+    __createDefaultConstructor : qx.Class.__createDefaultConstructor,
 
 
     /**
@@ -590,7 +590,7 @@ qx.Bootstrap.define("qx.Bootstrap",
      * @param name {String} The name of the class
      * @param config {Map} Configuration map
      */
-    __validateConfig : qx.Bootstrap.__validateConfig,
+    __validateConfig : qx.Class.__validateConfig,
 
 
     /**
@@ -602,7 +602,7 @@ qx.Bootstrap.define("qx.Bootstrap",
      * @param name {String} the function name
      * @internal
      */
-    setDisplayName : qx.Bootstrap.setDisplayName,
+    setDisplayName : qx.Class.setDisplayName,
 
 
     /**
@@ -614,7 +614,7 @@ qx.Bootstrap.define("qx.Bootstrap",
      *   defined in
      * @internal
      */
-    setDisplayNames : qx.Bootstrap.setDisplayNames,
+    setDisplayNames : qx.Class.setDisplayNames,
 
     /**
      * This method will be attached to all classes to return
@@ -624,7 +624,7 @@ qx.Bootstrap.define("qx.Bootstrap",
      * @signature function()
      * @return {String} The class identifier
      */
-    genericToString : qx.Bootstrap.genericToString,
+    genericToString : qx.Class.genericToString,
 
 
     /**
@@ -677,7 +677,7 @@ qx.Bootstrap.define("qx.Bootstrap",
      * @param type {String?} Optional type filter. One of "Class", "Interface", "Mixin"
      * @return {Class} the class
      */
-    getByName : qx.Bootstrap.getByName,
+    getByName : qx.Class.getByName,
 
 
     /**
@@ -788,7 +788,7 @@ qx.Bootstrap.define("qx.Bootstrap",
      * @internal
      * @type {Map}
      */
-    __classToTypeMap : qx.Bootstrap.__classToTypeMap,
+    __classToTypeMap : qx.Class.__classToTypeMap,
 
 
     /**
@@ -800,7 +800,7 @@ qx.Bootstrap.define("qx.Bootstrap",
      * @return {String} the internal class of the value
      * @internal
      */
-    getClass : qx.Bootstrap.getClass,
+    getClass : qx.Class.getClass,
 
 
     /*
@@ -821,7 +821,7 @@ qx.Bootstrap.define("qx.Bootstrap",
      *   does not keep references to other objects.
      */
     debug : function(object, message) {
-      qx.Bootstrap.$$logs.push(["debug", arguments]);
+      qx.Class.$$logs.push(["debug", arguments]);
     },
 
 
@@ -834,7 +834,7 @@ qx.Bootstrap.define("qx.Bootstrap",
      *   does not keep references to other objects.
      */
     info : function(object, message) {
-      qx.Bootstrap.$$logs.push(["info", arguments]);
+      qx.Class.$$logs.push(["info", arguments]);
     },
 
 
@@ -847,7 +847,7 @@ qx.Bootstrap.define("qx.Bootstrap",
      *   does not keep references to other objects.
      */
     warn : function(object, message) {
-      qx.Bootstrap.$$logs.push(["warn", arguments]);
+      qx.Class.$$logs.push(["warn", arguments]);
     },
 
 
@@ -860,7 +860,7 @@ qx.Bootstrap.define("qx.Bootstrap",
      *   does not keep references to other objects.
      */
     error : function(object, message) {
-      qx.Bootstrap.$$logs.push(["error", arguments]);
+      qx.Class.$$logs.push(["error", arguments]);
     },
 
 

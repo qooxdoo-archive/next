@@ -17,7 +17,7 @@
 
 ************************************************************************ */
 
-qx.Bootstrap.define("qx.test.core.Environment",
+qx.Class.define("qx.test.core.Environment",
 {
   extend : qx.dev.unit.TestCase,
 

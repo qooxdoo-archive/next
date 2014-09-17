@@ -21,7 +21,7 @@
 /**
  * Common base class for TestRunner views.
  */
-qx.Bootstrap.define("testrunner.view.Abstract", {
+qx.Class.define("testrunner.view.Abstract", {
 
   extend : Object,
   include : [qx.event.MEmitter],

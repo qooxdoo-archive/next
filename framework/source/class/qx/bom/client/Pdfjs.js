@@ -54,7 +54,7 @@
  * @internal
  * @asset(qx/static/empty.pdf)
  */
-qx.Bootstrap.define("qx.bom.client.Pdfjs",
+qx.Class.define("qx.bom.client.Pdfjs",
 {
   statics:
   {

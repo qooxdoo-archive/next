@@ -27,7 +27,7 @@
  *
  * @group (Event_Normalization)
  */
-qx.Bootstrap.define("qx.module.event.GestureHandler", {
+qx.Class.define("qx.module.event.GestureHandler", {
 
   statics : {
 

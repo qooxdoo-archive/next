@@ -25,7 +25,7 @@
  * @ignore(SCRIPT_LOADED)
  */
 
-qx.Bootstrap.define("qx.test.bom.request.Script",
+qx.Class.define("qx.test.bom.request.Script",
 {
   extend : qx.dev.unit.TestCase,
 

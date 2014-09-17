@@ -17,7 +17,7 @@
 
 ************************************************************************ */
 
-qx.Bootstrap.define("qx.test.bom.Selector",
+qx.Class.define("qx.test.bom.Selector",
 {
   extend : qx.dev.unit.TestCase,
 

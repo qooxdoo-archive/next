@@ -26,7 +26,7 @@
  *
  * @internal
  */
-qx.Bootstrap.define("qx.ui.core.SingleSelectionManager",
+qx.Class.define("qx.ui.core.SingleSelectionManager",
 {
   extend : Object,
   include : [qx.event.MEmitter],

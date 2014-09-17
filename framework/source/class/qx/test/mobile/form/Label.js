@@ -17,7 +17,7 @@
 
 ************************************************************************ */
 
-qx.Bootstrap.define("qx.test.mobile.form.Label",
+qx.Class.define("qx.test.mobile.form.Label",
 {
   extend : qx.test.mobile.MobileTestCase,
 

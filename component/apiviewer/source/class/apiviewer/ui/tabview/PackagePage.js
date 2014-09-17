@@ -21,7 +21,7 @@
  * Implements the dynamic behavior of the API viewer.
  * The GUI is defined in {@link Viewer}.
  */
-qx.Bootstrap.define("apiviewer.ui.tabview.PackagePage",
+qx.Class.define("apiviewer.ui.tabview.PackagePage",
 {
   extend : apiviewer.ui.tabview.AbstractPage,
 

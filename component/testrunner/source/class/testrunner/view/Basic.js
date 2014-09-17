@@ -20,7 +20,7 @@
 /**
  * Testrunner view intended for browserless environments, e.g. node.js, Rhino
  */
-qx.Bootstrap.define("testrunner.view.Basic", {
+qx.Class.define("testrunner.view.Basic", {
 
   extend : testrunner.view.Abstract,
 

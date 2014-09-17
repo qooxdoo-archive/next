@@ -38,7 +38,7 @@
  * This example creates a button with the label "Hello World" and attaches an
  * event listener to the {@link qx.ui.mobile.Widget#tap} event.
  */
-qx.Bootstrap.define("qx.ui.mobile.Button",
+qx.Class.define("qx.ui.mobile.Button",
 {
   extend : qx.ui.mobile.basic.Atom,
 

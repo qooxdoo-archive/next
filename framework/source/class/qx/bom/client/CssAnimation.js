@@ -26,7 +26,7 @@
  * @require(qx.bom.Stylesheet)
  * @internal
  */
-qx.Bootstrap.define("qx.bom.client.CssAnimation",
+qx.Class.define("qx.bom.client.CssAnimation",
 {
   statics : {
     /**

@@ -25,7 +25,7 @@
  * also fires events if the content or the length of the array changes in
  * any way. Also the <code>.length</code> property is available on the array.
  */
-qx.Bootstrap.define("qx.data.Array",
+qx.Class.define("qx.data.Array",
 {
   extend : Object,
   include : [qx.data.marshal.MEventBubbling, qx.event.MEmitter],

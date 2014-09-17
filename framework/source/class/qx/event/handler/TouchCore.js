@@ -27,7 +27,7 @@
  *
  * @ignore(qx.event.*)
  */
-qx.Bootstrap.define("qx.event.handler.TouchCore", {
+qx.Class.define("qx.event.handler.TouchCore", {
 
   extend : Object,
 

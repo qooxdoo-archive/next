@@ -61,7 +61,7 @@
  * Exposes (potentially polyfilled or patched) window.JSON to qooxdoo
  * (enabled by <a href="https://github.com/bestiejs/json3">JSON 3</a>).
  */
-qx.Bootstrap.define("qx.lang.Json",
+qx.Class.define("qx.lang.Json",
 {
   statics :
   {

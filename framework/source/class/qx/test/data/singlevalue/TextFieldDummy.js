@@ -17,7 +17,7 @@
 
 ************************************************************************ */
 
-qx.Bootstrap.define("qx.test.data.singlevalue.TextFieldDummy",
+qx.Class.define("qx.test.data.singlevalue.TextFieldDummy",
 {
   extend : Object,
   include : [qx.event.MEmitter],

@@ -33,7 +33,7 @@
  *
  * Instances of this class can be used in any place a JavaScript string can.
  */
-qx.Bootstrap.define("qx.type.BaseString",
+qx.Class.define("qx.type.BaseString",
 {
   extend : Object,
 

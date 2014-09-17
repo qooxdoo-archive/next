@@ -18,7 +18,7 @@
  * @ignore(environment)
  * @ignore(process)
  */
-qx.Bootstrap.define("${Namespace}.Application",
+qx.Class.define("${Namespace}.Application",
 {
   extend : qx.application.Basic,
 

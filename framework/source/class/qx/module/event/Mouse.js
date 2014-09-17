@@ -28,7 +28,7 @@
  *
  * @group (Event_Normalization)
  */
-qx.Bootstrap.define("qx.module.event.Mouse", {
+qx.Class.define("qx.module.event.Mouse", {
   statics :
   {
     /**

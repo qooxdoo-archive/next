@@ -36,7 +36,7 @@
  * @require(qx.module.Template)
  * @require(qx.module.util.Function)
  */
-qx.Bootstrap.define("testrunner.view.Html", {
+qx.Class.define("testrunner.view.Html", {
 
   extend : testrunner.view.Abstract,
 

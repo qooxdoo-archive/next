@@ -17,7 +17,7 @@
 
 ************************************************************************ */
 
-qx.Bootstrap.define("qx.test.bom.request.Xhr",
+qx.Class.define("qx.test.bom.request.Xhr",
 {
   extend : qx.dev.unit.TestCase,
 

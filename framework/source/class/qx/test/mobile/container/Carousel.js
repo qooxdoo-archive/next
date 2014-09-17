@@ -17,7 +17,7 @@
 
 ************************************************************************ */
 
-qx.Bootstrap.define("qx.test.mobile.container.Carousel",
+qx.Class.define("qx.test.mobile.container.Carousel",
 {
   extend : qx.test.mobile.MobileTestCase,
 

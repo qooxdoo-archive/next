@@ -27,7 +27,7 @@
  *
  * @group (Event_Normalization)
  */
-qx.Bootstrap.define("qx.module.event.Track", {
+qx.Class.define("qx.module.event.Track", {
   statics :
   {
     /**

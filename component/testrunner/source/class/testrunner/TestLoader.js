@@ -18,7 +18,7 @@
 
 ************************************************************************ */
 
-qx.Bootstrap.define("testrunner.TestLoader",
+qx.Class.define("testrunner.TestLoader",
 {
   extend : qx.dev.unit.TestLoader,
 

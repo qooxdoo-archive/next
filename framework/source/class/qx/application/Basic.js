@@ -22,7 +22,7 @@
  * For a basic, out-of-browser application (running e.g. on Node.js, Rhino).
  * @require(qx.core.Init)
  */
-qx.Bootstrap.define("qx.application.Basic",
+qx.Class.define("qx.application.Basic",
 {
   extend : Object,
   implement : [qx.application.IApplication],

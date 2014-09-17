@@ -20,7 +20,7 @@
  * i.e. using deeper namespaces and a corresponding file structure within the
  * <tt>test</tt> folder.
  */
-qx.Bootstrap.define("${Namespace}.test.DemoTest",
+qx.Class.define("${Namespace}.test.DemoTest",
 {
   extend : qx.dev.unit.TestCase,
 

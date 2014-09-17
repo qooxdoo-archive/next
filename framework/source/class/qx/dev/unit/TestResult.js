@@ -23,7 +23,7 @@
  * The test result class runs the test functions and fires events depending on
  * the result of the test run.
  */
-qx.Bootstrap.define("qx.dev.unit.TestResult",
+qx.Class.define("qx.dev.unit.TestResult",
 {
   extend : Object,
   include : [qx.event.MEmitter],

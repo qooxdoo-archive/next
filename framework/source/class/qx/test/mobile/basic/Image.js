@@ -21,7 +21,7 @@
  * @asset(qx/icon/Tango/48/places/folder.png)
  */
 
-qx.Bootstrap.define("qx.test.mobile.basic.Image",
+qx.Class.define("qx.test.mobile.basic.Image",
 {
   extend : qx.test.mobile.MobileTestCase,
 

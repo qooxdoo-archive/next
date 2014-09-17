@@ -25,7 +25,7 @@
  * @ignore(qx.bom.element, qx.bom.element.AnimationJs)
  * @group (Core)
  */
-qx.Bootstrap.define("qx.module.Manipulating", {
+qx.Class.define("qx.module.Manipulating", {
   statics :
   {
     /**

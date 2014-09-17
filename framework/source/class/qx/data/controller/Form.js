@@ -44,7 +44,7 @@
  * * If you want to bind a list like widget, use {@link qx.data.controller.List}
  * * If you want to bind a tree widget, use {@link qx.data.controller.Tree}
  */
-qx.Bootstrap.define("qx.data.controller.Form",
+qx.Class.define("qx.data.controller.Form",
 {
   extend : Object,
   include : [qx.event.MEmitter],

@@ -20,7 +20,7 @@
 /**
  * This Class wraps the access to the documentation data of classes.
  */
-qx.Bootstrap.define("apiviewer.dao.Class",
+qx.Class.define("apiviewer.dao.Class",
 {
   extend : apiviewer.dao.Node,
 

@@ -24,7 +24,7 @@
  * @require(qx.core.Init)
  * @asset(qx/mobile/css/*)
  */
-qx.Bootstrap.define("qx.application.Mobile",
+qx.Class.define("qx.application.Mobile",
 {
   extend : Object,
   include : [qx.event.MEmitter],

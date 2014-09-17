@@ -34,7 +34,7 @@
  * @ignore(myExistingCallback)
  */
 
-qx.Bootstrap.define("qx.test.bom.request.Jsonp",
+qx.Class.define("qx.test.bom.request.Jsonp",
 {
   extend : qx.dev.unit.TestCase,
 

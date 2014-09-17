@@ -30,7 +30,7 @@
  * @require(qx.bom.Storage#getKey)
  * @require(qx.bom.Storage#forEach)
  */
-qx.Bootstrap.define("qx.bom.Storage", {
+qx.Class.define("qx.bom.Storage", {
   statics : {
     __local : null,
     __session : null,

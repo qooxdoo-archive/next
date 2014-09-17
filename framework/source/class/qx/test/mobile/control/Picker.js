@@ -17,7 +17,7 @@
 
 ************************************************************************ */
 
-qx.Bootstrap.define("qx.test.mobile.control.Picker",
+qx.Class.define("qx.test.mobile.control.Picker",
 {
   extend : qx.test.mobile.MobileTestCase,
 

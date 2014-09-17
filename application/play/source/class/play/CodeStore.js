@@ -20,7 +20,7 @@
 /**
  * @ignore(ace.edit)
  */
-qx.Bootstrap.define("play.CodeStore", {
+qx.Class.define("play.CodeStore", {
   statics : {
     init : function()
     {

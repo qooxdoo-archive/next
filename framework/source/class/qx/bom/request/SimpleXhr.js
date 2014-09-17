@@ -54,7 +54,7 @@
  *
  * @internal
  */
-qx.Bootstrap.define("qx.bom.request.SimpleXhr",
+qx.Class.define("qx.bom.request.SimpleXhr",
 {
 
   extend: Object,
@@ -561,7 +561,7 @@ qx.Bootstrap.define("qx.bom.request.SimpleXhr",
      */
     _onReadyStateChange: function() {
       if (qx.core.Environment.get("qx.debug.io")) {
-        qx.Bootstrap.debug("Fire readyState: " + this._transport.readyState);
+        qx.Class.debug("Fire readyState: " + this._transport.readyState);
       }
 
       if (this.isDone()) {
@@ -574,7 +574,7 @@ qx.Bootstrap.define("qx.bom.request.SimpleXhr",
      */
     __onReadyStateDone: function() {
       if (qx.core.Environment.get("qx.debug.io")) {
-        qx.Bootstrap.debug("Request completed with HTTP status: " + this._transport.status);
+        qx.Class.debug("Request completed with HTTP status: " + this._transport.status);
       }
 
       var response = this._transport.responseText;
@@ -585,7 +585,7 @@ qx.Bootstrap.define("qx.bom.request.SimpleXhr",
 
         // Parse response
         if (qx.core.Environment.get("qx.debug.io")) {
-          qx.Bootstrap.debug("Response is of type: '" + contentType + "'");
+          qx.Class.debug("Response is of type: '" + contentType + "'");
         }
 
         this._setResponse(this.__parser.parse(response, contentType));

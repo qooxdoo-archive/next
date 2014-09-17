@@ -294,9 +294,9 @@ function abc() {
           if (config.check != null)
           {
             if (
-              !qx.Bootstrap.isString(config.check) &&
-              !qx.Bootstrap.isArray(config.check) &&
-              !qx.Bootstrap.isFunction(config.check)
+              !qx.Class.isString(config.check) &&
+              !qx.Class.isArray(config.check) &&
+              !qx.Class.isFunction(config.check)
             ) {
               throw new Error('Invalid check definition of property "' + name + '" in class "' + clazz.classname + '"! Needs to be a String, Array or Function.');
             }
@@ -323,7 +323,7 @@ function testDisposeItemProp() {
           || data instanceof qx.core.Object
         ) {
           // check for arrays
-          if (data instanceof Array || qx.Bootstrap.getClass(data) == "Array") {
+          if (data instanceof Array || qx.Class.getClass(data) == "Array") {
             for (var i = 0; i < data.length; i++) {
               this.__toClass(data[i], includeBubbleEvents, parentProperty + "[" + i + "]", depth+1);
             }

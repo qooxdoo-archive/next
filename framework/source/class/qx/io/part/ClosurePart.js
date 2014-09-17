@@ -25,7 +25,7 @@
  *
  * @internal
  */
-qx.Bootstrap.define("qx.io.part.ClosurePart",
+qx.Class.define("qx.io.part.ClosurePart",
 {
   extend : qx.io.part.Part,
 

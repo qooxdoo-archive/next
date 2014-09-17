@@ -25,7 +25,7 @@
  *
  * @internal
  */
-qx.Bootstrap.define("qx.bom.client.Scroll",
+qx.Class.define("qx.bom.client.Scroll",
 {
   statics :
   {

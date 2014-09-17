@@ -17,7 +17,7 @@
 
 ************************************************************************ */
 
-qx.Bootstrap.define("qx.test.mobile.container.Composite",
+qx.Class.define("qx.test.mobile.container.Composite",
 {
   extend : qx.test.mobile.MobileTestCase,
 

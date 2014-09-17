@@ -17,7 +17,7 @@
 
 ************************************************************************ */
 
-qx.Bootstrap.define("testrunner.test.basic.BasicTest", {
+qx.Class.define("testrunner.test.basic.BasicTest", {
 
   extend : qx.dev.unit.TestCase,
 

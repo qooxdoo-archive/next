@@ -93,7 +93,7 @@ function getFeatureTable(classCodeMap) {
 }
 
 /**
- * Extracts values from <code>qx.Bootstrap.define().statics._defaults</code>.
+ * Extracts values from <code>qx.Class.define().statics._defaults</code>.
  *
  * @param {string} classCode - js code of Environment class.
  * @returns {Object} envKeys and envValues.

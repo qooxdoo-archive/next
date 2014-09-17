@@ -27,7 +27,7 @@
  *
  * @group (Widget)
  */
-qx.Bootstrap.define("qx.ui.mobile.tabbar.TabBar", {
+qx.Class.define("qx.ui.mobile.tabbar.TabBar", {
 
   extend : qx.ui.mobile.Widget,
 

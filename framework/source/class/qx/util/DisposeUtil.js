@@ -26,7 +26,7 @@
  * @ignore(qx.ui.mobile)
  * @ignore(qx.ui.mobile.Widget)
  */
-qx.Bootstrap.define("qx.util.DisposeUtil",
+qx.Class.define("qx.util.DisposeUtil",
 {
   statics :
   {
@@ -235,7 +235,7 @@ qx.Bootstrap.define("qx.util.DisposeUtil",
 
       for (var i=0,l=classes.length; i<l; i++) {
         if (typeof classes[i] !== "undefined" &&
-          qx.Bootstrap.isSubClassOf(obj.constructor, classes[i]))
+          qx.Class.isSubClassOf(obj.constructor, classes[i]))
         {
           return true;
         }

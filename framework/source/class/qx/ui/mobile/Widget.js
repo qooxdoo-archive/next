@@ -26,7 +26,7 @@
  * @require(qx.module.event.AppearHandler)
  * @require(qx.module.Dataset)
  */
-qx.Bootstrap.define("qx.ui.mobile.Widget", {
+qx.Class.define("qx.ui.mobile.Widget", {
   extend : qxWeb,
 
 
@@ -42,12 +42,12 @@ qx.Bootstrap.define("qx.ui.mobile.Widget", {
       var name = clazz.classname.split(".");
       name = qx.lang.String.firstLow(name[name.length - 1]);
       var data = {};
-      var index = qx.Bootstrap.getConstructorArgumentsCount(clazz);
+      var index = qx.Class.getConstructorArgumentsCount(clazz);
       data[name] = function() {
         var args = qx.lang.Array.fromArguments(arguments);
         // Add the DOM element as last argument
         args[index] = this[0];
-        var Temp = qx.Bootstrap.curryConstructor(clazz, args);
+        var Temp = qx.Class.curryConstructor(clazz, args);
         return new Temp();
       };
       qxWeb.$attach(data);
@@ -85,7 +85,7 @@ qx.Bootstrap.define("qx.ui.mobile.Widget", {
       var elements = document.querySelectorAll("*[data-qx-widget]");
       if (selector) {
         var filterFunc = selector;
-        if (qx.Bootstrap.getClass(selector) == "String") {
+        if (qx.Class.getClass(selector) == "String") {
           filterFunc = function(el) {
             var matches = el.webkitMatchesSelector || el.mozMatchesSelector || el.msMatchesSelector;
             return matches.call(el, selector);
@@ -249,7 +249,7 @@ qx.Bootstrap.define("qx.ui.mobile.Widget", {
       for (var prop in data) {
         if (prop.indexOf("qxConfig") === 0) {
           var propName = qx.lang.String.firstLow(prop.substr(8));
-          if (qx.Bootstrap.hasProperty(this.constructor, propName)) {
+          if (qx.Class.hasProperty(this.constructor, propName)) {
             var value = data[prop];
             try {
               value = JSON.parse(value);

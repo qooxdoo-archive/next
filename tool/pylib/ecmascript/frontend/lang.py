@@ -400,7 +400,6 @@ QXGLOBALS = [
 ##
 # qx.*.define methods
 QX_CLASS_FACTORIES = [
-    "qx.Bootstrap.define",
     "qx.Class.define",
     "qx.Mixin.define",
     "qx.Interface.define",

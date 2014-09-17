@@ -27,7 +27,7 @@
  *
  * See the description of the {@link #define} method how a mixin is defined.
  */
-qx.Bootstrap.define("qx.Mixin",
+qx.Class.define("qx.Mixin",
 {
   statics :
   {
@@ -85,7 +85,7 @@ qx.Bootstrap.define("qx.Mixin",
       var mixin;
       if (config) {
         // Normalize include
-        if (config.include && !(qx.Bootstrap.getClass(config.include) === "Array")) {
+        if (config.include && !(qx.Class.getClass(config.include) === "Array")) {
           config.include = [config.include];
         }
 
@@ -96,12 +96,12 @@ qx.Bootstrap.define("qx.Mixin",
 
         // Create Interface from statics
         mixin = config.statics ? config.statics : {};
-        qx.Bootstrap.setDisplayNames(mixin, name);
+        qx.Class.setDisplayNames(mixin, name);
 
         // Attach configuration
         if (config.construct) {
           mixin.$$constructor = config.construct;
-          qx.Bootstrap.setDisplayName(config.construct, name, "constructor");
+          qx.Class.setDisplayName(config.construct, name, "constructor");
         }
 
         if (config.include) {
@@ -114,7 +114,7 @@ qx.Bootstrap.define("qx.Mixin",
 
         if (config.members) {
           mixin.$$members = config.members;
-          qx.Bootstrap.setDisplayNames(config.members, name + ".prototype");
+          qx.Class.setDisplayNames(config.members, name + ".prototype");
         }
 
         if (config.events) {
@@ -132,7 +132,7 @@ qx.Bootstrap.define("qx.Mixin",
       mixin.toString = this.genericToString;
 
       // Assign to namespace
-      mixin.basename = name ? qx.Bootstrap.createNamespace(name, mixin) : "";
+      mixin.basename = name ? qx.Class.createNamespace(name, mixin) : "";
 
       // Return final mixin
       return mixin;
@@ -175,13 +175,13 @@ qx.Bootstrap.define("qx.Mixin",
 
         // Attach members
         if (entry.$$members) {
-          qx.Bootstrap.addMembers(clazz.prototype, entry.$$members);
+          qx.Class.addMembers(clazz.prototype, entry.$$members);
         }
 
         // Attach properties last since they might use member methods
         // (apply, custom getter/setter)
         if (entry.$$properties) {
-          qx.Bootstrap.addProperties(clazz.prototype, entry.$$properties);
+          qx.Class.addProperties(clazz.prototype, entry.$$properties);
         }
       }
 
@@ -396,7 +396,7 @@ qx.Bootstrap.define("qx.Mixin",
                  "Array",
                  "RegExp",
                  "Date"
-               ].indexOf(qx.Bootstrap.getClass(config[key])) != -1 ||
+               ].indexOf(qx.Class.getClass(config[key])) != -1 ||
                config[key].classname !== undefined)) {
 
             throw new Error('Invalid key "' + key + '" in mixin "' + name + '"! The value needs to be a map!');

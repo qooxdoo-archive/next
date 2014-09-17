@@ -22,7 +22,7 @@
 /**
  * Contains methods to control and query the element's scroll properties
  */
-qx.Bootstrap.define("qx.bom.element.Scroll",
+qx.Class.define("qx.bom.element.Scroll",
 {
 
 

@@ -17,7 +17,7 @@
 
 ************************************************************************ */
 
-qx.Bootstrap.define("qx.test.mobile.form.CheckBox",
+qx.Class.define("qx.test.mobile.form.CheckBox",
 {
   extend : qx.test.mobile.MobileTestCase,
 

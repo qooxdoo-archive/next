@@ -24,7 +24,7 @@
  * @ignore(qx.bom.client)
  * @ignore(qx.bom)
  */
-qx.Bootstrap.define("qx.dev.StackTrace",
+qx.Class.define("qx.dev.StackTrace",
 {
   statics:
   {
@@ -101,7 +101,7 @@ qx.Bootstrap.define("qx.dev.StackTrace",
           }
 
           var className = null;
-          if (qx.Bootstrap.getByName(errorClassName)) {
+          if (qx.Class.getByName(errorClassName)) {
             className = errorClassName;
           } else {
             className = callerClassName;

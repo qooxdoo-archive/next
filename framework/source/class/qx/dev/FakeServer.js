@@ -57,7 +57,7 @@
  *   qx.dev.FakeServer.getInstance().configure(responseData);
  * </pre>
  */
-qx.Bootstrap.define("qx.dev.FakeServer", {
+qx.Class.define("qx.dev.FakeServer", {
 
   extend : Object,
   include : [qx.core.MSingleton],

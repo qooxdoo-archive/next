@@ -19,7 +19,7 @@
  * Manages font-face definitions, making sure that each rule is only applied
  * once.
  */
-qx.Bootstrap.define("qx.bom.webfonts.Manager", {
+qx.Class.define("qx.bom.webfonts.Manager", {
 
   extend : Object,
   include : [qx.core.MSingleton],

@@ -21,7 +21,7 @@
  * @ignore(qx.test.DummyFormRenderer)
  */
 
-qx.Bootstrap.define("qx.test.ui.form.FormManager",
+qx.Class.define("qx.test.ui.form.FormManager",
 {
   extend : qx.test.mobile.MobileTestCase,
   include : qx.dev.unit.MMock,
@@ -33,7 +33,7 @@ qx.Bootstrap.define("qx.test.ui.form.FormManager",
     this.base(qx.test.mobile.MobileTestCase, "constructor");
 
     // create the test renderer
-    qx.Bootstrap.define("qx.test.DummyFormRenderer", {
+    qx.Class.define("qx.test.DummyFormRenderer", {
       extend : qx.ui.mobile.form.renderer.AbstractRenderer,
       implement : qx.ui.form.renderer.IFormRenderer,
 

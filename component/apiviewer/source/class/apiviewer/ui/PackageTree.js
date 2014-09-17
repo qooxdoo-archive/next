@@ -24,7 +24,7 @@
 /**
  * The package tree.
  */
-qx.Bootstrap.define("apiviewer.ui.PackageTree",
+qx.Class.define("apiviewer.ui.PackageTree",
 {
   extend : qx.ui.mobile.core.Widget, // TODO
 

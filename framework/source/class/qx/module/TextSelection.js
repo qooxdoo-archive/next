@@ -21,7 +21,7 @@
 /**
  * Text selection manipulation module
  */
-qx.Bootstrap.define("qx.module.TextSelection", {
+qx.Class.define("qx.module.TextSelection", {
   statics: {
 
     /**

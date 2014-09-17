@@ -21,7 +21,7 @@
 /**
  * Escaping and unescaping of XML strings.
  */
-qx.Bootstrap.define("qx.xml.String",
+qx.Class.define("qx.xml.String",
 {
   statics :
   {

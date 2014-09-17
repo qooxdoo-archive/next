@@ -17,7 +17,7 @@
 
 ************************************************************************ */
 
-qx.Bootstrap.define("qx.test.lang.Webkit",
+qx.Class.define("qx.test.lang.Webkit",
 {
   extend : qx.dev.unit.TestCase,
 

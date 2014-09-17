@@ -60,7 +60,7 @@
  *
  * @group (IO)
  */
-qx.Bootstrap.define("qx.bom.request.Xhr",
+qx.Class.define("qx.bom.request.Xhr",
 {
 
   extend: Object,
@@ -199,7 +199,7 @@ qx.Bootstrap.define("qx.bom.request.Xhr",
 
       try {
         if (qx.core.Environment.get("qx.debug.io")) {
-          qx.Bootstrap.debug(qx.bom.request.Xhr, "Open native request with method: " +
+          qx.Class.debug(qx.bom.request.Xhr, "Open native request with method: " +
             method + ", url: " + url + ", async: " + async);
         }
 
@@ -239,7 +239,7 @@ qx.Bootstrap.define("qx.bom.request.Xhr",
             }.bind(this);
 
             if (qx.core.Environment.get("qx.debug.io")) {
-              qx.Bootstrap.debug(qx.bom.request.Xhr, "Retry open native request with method: " +
+              qx.Class.debug(qx.bom.request.Xhr, "Retry open native request with method: " +
                 method + ", url: " + url + ", async: " + async);
             }
             this.__nativeXhr.open(method, url, async, user, password);
@@ -297,7 +297,7 @@ qx.Bootstrap.define("qx.bom.request.Xhr",
       // This violates the spec which states only sync requests should.
       try {
         if (qx.core.Environment.get("qx.debug.io")) {
-          qx.Bootstrap.debug(qx.bom.request.Xhr, "Send native request");
+          qx.Class.debug(qx.bom.request.Xhr, "Send native request");
         }
         this.__nativeXhr.send(data);
       } catch(SendError) {
@@ -700,7 +700,7 @@ qx.Bootstrap.define("qx.bom.request.Xhr",
           propertiesReadable = true;
 
       if (qx.core.Environment.get("qx.debug.io")) {
-        qx.Bootstrap.debug(qx.bom.request.Xhr, "Received native readyState: " + nxhr.readyState);
+        qx.Class.debug(qx.bom.request.Xhr, "Received native readyState: " + nxhr.readyState);
       }
 
       // BUGFIX: IE, Firefox

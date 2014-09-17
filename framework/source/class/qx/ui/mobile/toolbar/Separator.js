@@ -22,7 +22,7 @@
  * A separator widget used to separate widgets in a toolbar.
  *
  */
-qx.Bootstrap.define("qx.ui.mobile.toolbar.Separator",
+qx.Class.define("qx.ui.mobile.toolbar.Separator",
 {
   extend : qx.ui.mobile.Widget,
 

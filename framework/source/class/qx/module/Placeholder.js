@@ -36,7 +36,7 @@
  * @require(qx.module.Environment)
  * @require(qx.module.Traversing)
  */
-qx.Bootstrap.define("qx.module.Placeholder", {
+qx.Class.define("qx.module.Placeholder", {
   statics :
   {
     /**

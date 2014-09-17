@@ -1,4 +1,4 @@
-qx.Bootstrap.define("qx.test.core.EventEmitterDummy",
+qx.Class.define("qx.test.core.EventEmitterDummy",
 {
   extend    : Object,
   events : {

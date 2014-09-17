@@ -22,7 +22,7 @@
 /**
  * Contains methods to control and query the element's cursor property
  */
-qx.Bootstrap.define("qx.bom.element.Cursor",
+qx.Class.define("qx.bom.element.Cursor",
 {
 
 

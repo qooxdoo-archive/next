@@ -17,7 +17,7 @@
 
 ************************************************************************ */
 
-qx.Bootstrap.define("apiviewer.dao.Package", {
+qx.Class.define("apiviewer.dao.Package", {
   extend : apiviewer.dao.Node,
 
   construct : function(classDocNode, pkg)

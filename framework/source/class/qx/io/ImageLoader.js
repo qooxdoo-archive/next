@@ -28,7 +28,7 @@
  *
  * Use {@link #load} to preload your own images.
  */
-qx.Bootstrap.define("qx.io.ImageLoader",
+qx.Class.define("qx.io.ImageLoader",
 {
   statics :
   {

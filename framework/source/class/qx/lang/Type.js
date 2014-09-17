@@ -23,7 +23,7 @@
  * @ignore(qx.data.*)
  * @ignore(qx.Interface.*)
  */
-qx.Bootstrap.define("qx.lang.Type",
+qx.Class.define("qx.lang.Type",
 {
   statics :
   {
@@ -36,7 +36,7 @@ qx.Bootstrap.define("qx.lang.Type",
      * @param value {var} value to get the class for
      * @return {String} the internal class of the value
      */
-    getClass : qx.Bootstrap.getClass,
+    getClass : qx.Class.getClass,
 
 
     /**
@@ -55,7 +55,7 @@ qx.Bootstrap.define("qx.lang.Type",
       return (
         value !== null && (
         typeof value === "string" ||
-        qx.Bootstrap.getClass(value) == "String" ||
+        qx.Class.getClass(value) == "String" ||
         value instanceof String ||
         (!!value && !!value.$$isString))
       );
@@ -79,7 +79,7 @@ qx.Bootstrap.define("qx.lang.Type",
         value !== null && (
         value instanceof Array ||
         (value && qx.data && qx.data.IListData && qx.Interface.classImplements(value.constructor, qx.data.IListData) ) ||
-        qx.Bootstrap.getClass(value) == "Array" ||
+        qx.Class.getClass(value) == "Array" ||
         (!!value && !!value.$$isArray))
       );
     },
@@ -96,7 +96,7 @@ qx.Bootstrap.define("qx.lang.Type",
       return (
         value !== undefined &&
         value !== null &&
-        qx.Bootstrap.getClass(value) == "Object"
+        qx.Class.getClass(value) == "Object"
       );
     },
 
@@ -108,7 +108,7 @@ qx.Bootstrap.define("qx.lang.Type",
      * @return {Boolean} Whether the value is a function.
      */
     isFunction : function(value) {
-      return qx.Bootstrap.getClass(value) == "Function";
+      return qx.Class.getClass(value) == "Function";
     },
 
 

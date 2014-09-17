@@ -119,7 +119,7 @@
  *
  * @group (IO)
  */
-qx.Bootstrap.define("qx.bom.rest.Resource",
+qx.Class.define("qx.bom.rest.Resource",
 {
   extend: Object,
   include : [qx.event.MEmitter],
@@ -829,7 +829,7 @@ qx.Bootstrap.define("qx.bom.rest.Resource",
           immediateResponseCount += 1;
           if (immediateResponseCount > res._getThrottleCount()) {
             if (qx.core.Environment.get("qx.debug")) {
-              qx.Bootstrap.debug("Received successful response more than " +
+              qx.Class.debug("Received successful response more than " +
                 res._getThrottleCount() + " times subsequently, each within " +
                 res._getThrottleLimit() + " ms. Throttling.");
             }

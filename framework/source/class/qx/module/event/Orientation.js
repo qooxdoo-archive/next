@@ -32,7 +32,7 @@
  *
  * @group (Event_Normalization)
  */
-qx.Bootstrap.define("qx.module.event.Orientation", {
+qx.Class.define("qx.module.event.Orientation", {
   statics :
   {
     /**

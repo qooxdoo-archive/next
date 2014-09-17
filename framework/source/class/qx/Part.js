@@ -24,7 +24,7 @@
  *
  * It contains functionality to load parts.
  */
-qx.Bootstrap.define("qx.Part",
+qx.Class.define("qx.Part",
 {
   // !! Careful when editing this file. Do not extend the dependencies !!
 

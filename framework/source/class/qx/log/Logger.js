@@ -31,7 +31,7 @@
  *
  * @require(qx.dev.StackTrace)
  */
-qx.Bootstrap.define("qx.log.Logger",
+qx.Class.define("qx.log.Logger",
 {
   statics :
   {
@@ -432,7 +432,7 @@ qx.Bootstrap.define("qx.log.Logger",
       var entry =
       {
         time : time,
-        offset : time-qx.Bootstrap.LOADSTART,
+        offset : time-qx.Class.LOADSTART,
         level: level,
         items: items,
         // store window to allow cross frame logging
@@ -658,15 +658,15 @@ qx.Bootstrap.define("qx.log.Logger",
 
   classDefined : function(statics)
   {
-    var logs = qx.Bootstrap.$$logs;
+    var logs = qx.Class.$$logs;
     for (var i=0; i<logs.length; i++) {
       statics.__log(logs[i][0], logs[i][1]);
     }
 
-    qx.Bootstrap.debug = statics.debug;
-    qx.Bootstrap.info = statics.info;
-    qx.Bootstrap.warn = statics.warn;
-    qx.Bootstrap.error = statics.error;
-    qx.Bootstrap.trace = statics.trace;
+    qx.Class.debug = statics.debug;
+    qx.Class.info = statics.info;
+    qx.Class.warn = statics.warn;
+    qx.Class.error = statics.error;
+    qx.Class.trace = statics.trace;
   }
 });

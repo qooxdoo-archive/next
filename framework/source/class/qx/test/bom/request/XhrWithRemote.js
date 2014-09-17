@@ -26,7 +26,7 @@
  * @asset(qx/test/xmlhttp/*)
  */
 
-qx.Bootstrap.define("qx.test.bom.request.XhrWithRemote",
+qx.Class.define("qx.test.bom.request.XhrWithRemote",
 {
   extend : qx.dev.unit.TestCase,
 

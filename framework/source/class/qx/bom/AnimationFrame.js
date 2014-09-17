@@ -54,7 +54,7 @@
  * </pre>
  *
  */
-qx.Bootstrap.define("qx.bom.AnimationFrame",
+qx.Class.define("qx.bom.AnimationFrame",
 {
   extend : Object,
   include : [qx.event.MEmitter],

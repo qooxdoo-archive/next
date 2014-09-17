@@ -41,7 +41,7 @@
  * the {@link qx.io.request.Xhr} request.
  *
  */
-qx.Bootstrap.define("qx.data.store.Json",
+qx.Class.define("qx.data.store.Json",
 {
   extend : Object,
   include : [qx.event.MEmitter],

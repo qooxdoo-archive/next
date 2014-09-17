@@ -23,7 +23,7 @@
 /**
  * Utilities for working with character codes and key identifiers
  */
-qx.Bootstrap.define("qx.event.util.Keyboard", {
+qx.Class.define("qx.event.util.Keyboard", {
 
   statics :
   {

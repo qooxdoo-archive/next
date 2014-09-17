@@ -47,7 +47,7 @@
  * @require(qx.bom.client.OperatingSystem)
  * @internal
  */
-qx.Bootstrap.define("qx.bom.client.Flash",
+qx.Class.define("qx.bom.client.Flash",
 {
 
 

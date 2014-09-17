@@ -69,7 +69,7 @@
 /**
  * Includes library functions to work with the current document.
  */
-qx.Bootstrap.define("qx.bom.Document",
+qx.Class.define("qx.bom.Document",
 {
   statics :
   {

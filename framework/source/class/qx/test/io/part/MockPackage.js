@@ -1,4 +1,4 @@
-qx.Bootstrap.define("qx.test.io.part.MockPackage",
+qx.Class.define("qx.test.io.part.MockPackage",
 {
   construct : function(id, delay, error, readyState, useClosure)
   {

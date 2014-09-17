@@ -34,7 +34,7 @@
  *
  * @require(qx.module.Animation)
  */
-qx.Bootstrap.define("qx.ui.mobile.dialog.BusyIndicator",
+qx.Class.define("qx.ui.mobile.dialog.BusyIndicator",
 {
   extend : qx.ui.mobile.basic.Atom,
 

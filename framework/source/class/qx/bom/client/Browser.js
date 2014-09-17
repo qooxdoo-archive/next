@@ -57,7 +57,7 @@
  * @require(qx.bom.client.OperatingSystem#getVersion)
  * @internal
  */
-qx.Bootstrap.define("qx.bom.client.Browser",
+qx.Class.define("qx.bom.client.Browser",
 {
   statics :
   {

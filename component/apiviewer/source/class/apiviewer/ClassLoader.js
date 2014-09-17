@@ -20,7 +20,7 @@
 /**
  * Module for on demand class data loading.
  */
-qx.Bootstrap.define("apiviewer.ClassLoader",
+qx.Class.define("apiviewer.ClassLoader",
 {
   extend : Object,
 

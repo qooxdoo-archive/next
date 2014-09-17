@@ -23,7 +23,7 @@
  * Listens for (native or synthetic) pointer events and fires events
  * for gestures like "tap" or "swipe"
  */
-qx.Bootstrap.define("qx.event.handler.GestureCore", {
+qx.Class.define("qx.event.handler.GestureCore", {
   extend : Object,
 
   statics : {

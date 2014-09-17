@@ -20,13 +20,13 @@
 /**
  * Test-Class for testing the single value binding
  */
-qx.Bootstrap.define("qx.test.data.singlevalue.WithQxWeb",
+qx.Class.define("qx.test.data.singlevalue.WithQxWeb",
 {
   extend : qx.dev.unit.TestCase,
   include : qx.dev.unit.MRequirements,
 
   construct : function() {
-    this.C = qx.Bootstrap.define(null, {
+    this.C = qx.Class.define(null, {
       extend : qxWeb,
       properties : {
         p1: {

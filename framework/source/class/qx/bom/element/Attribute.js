@@ -69,7 +69,7 @@
  * Supports applying text and HTML content using the attribute names
  * <code>text</code> and <code>html</code>.
  */
-qx.Bootstrap.define("qx.bom.element.Attribute",
+qx.Class.define("qx.bom.element.Attribute",
 {
 
 

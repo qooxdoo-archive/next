@@ -20,7 +20,7 @@
 /**
  * @ignore(qx.test.i.*)
  */
-qx.Bootstrap.define("qx.test.Interface",
+qx.Class.define("qx.test.Interface",
 {
   extend : qx.dev.unit.TestCase,
 
@@ -49,7 +49,7 @@ qx.Bootstrap.define("qx.test.Interface",
     testClassImplements : function()
     {
       // test correct implementations
-      qx.Bootstrap.define("qx.test.i.Audi",
+      qx.Class.define("qx.test.i.Audi",
       {
         extend : Object,
         construct : function() {},
@@ -80,7 +80,7 @@ qx.Bootstrap.define("qx.test.Interface",
 
 
     testEverythingImplemented : function() {
-      qx.Bootstrap.define("qx.test.i.Bmw1",
+      qx.Class.define("qx.test.i.Bmw1",
         {
           extend : Object,
           construct : function() {},
@@ -107,7 +107,7 @@ qx.Bootstrap.define("qx.test.Interface",
 
 
     testMissingMembers : function() {
-      qx.Bootstrap.define("qx.test.i.Bmw2",
+      qx.Class.define("qx.test.i.Bmw2",
         {
           extend : Object,
           construct : function() {},
@@ -127,7 +127,7 @@ qx.Bootstrap.define("qx.test.Interface",
 
     testMissingStatics : function() {
       // (ie it does implement all necessary)
-      qx.Bootstrap.define("qx.test.i.Bmw3",
+      qx.Class.define("qx.test.i.Bmw3",
         {
           extend : Object,
           construct : function() {},
@@ -146,7 +146,7 @@ qx.Bootstrap.define("qx.test.Interface",
 
 
     testMissingProperties : function() {
-      qx.Bootstrap.define("qx.test.i.Bmw4",
+      qx.Class.define("qx.test.i.Bmw4",
         {
           extend : Object,
           construct : function() {},
@@ -181,7 +181,7 @@ qx.Bootstrap.define("qx.test.Interface",
         // nothing defined
         this.assertException(function()
         {
-          qx.Bootstrap.define("qx.test.i.Audi1",
+          qx.Class.define("qx.test.i.Audi1",
           {
             extend    : Object,
             construct : function() {},
@@ -193,7 +193,7 @@ qx.Bootstrap.define("qx.test.Interface",
         // members not defined
         this.assertException(function()
         {
-          qx.Bootstrap.define("qx.test.i.Audi2",
+          qx.Class.define("qx.test.i.Audi2",
           {
             extend : Object,
             construct : function() {},
@@ -214,7 +214,7 @@ qx.Bootstrap.define("qx.test.Interface",
         // property not defined
         this.assertException(function()
         {
-          qx.Bootstrap.define("qx.test.i.Audi4",
+          qx.Class.define("qx.test.i.Audi4",
           {
             extend : Object,
             construct : function() {},
@@ -248,7 +248,7 @@ qx.Bootstrap.define("qx.test.Interface",
         }
       });
 
-      qx.Bootstrap.define("qx.test.i.Properties1",
+      qx.Class.define("qx.test.i.Properties1",
       {
         extend : Object,
         implement : [qx.test.i.IProperties1],
@@ -262,7 +262,7 @@ qx.Bootstrap.define("qx.test.Interface",
       if (this.isDebugOn())
       {
         this.assertException(function() {
-          qx.Bootstrap.define("qx.test.i.Properties2",
+          qx.Class.define("qx.test.i.Properties2",
           {
             extend : Object,
             implement : [qx.test.i.IProperties1],
@@ -286,7 +286,7 @@ qx.Bootstrap.define("qx.test.Interface",
         }
       });
 
-      qx.Bootstrap.define("qx.test.i.Properties3",
+      qx.Class.define("qx.test.i.Properties3",
       {
         extend : Object,
         implement : [qx.test.i.IProperties2],
@@ -309,7 +309,7 @@ qx.Bootstrap.define("qx.test.Interface",
       });
 
       this.assertException(function() {
-        qx.Bootstrap.define(null, {
+        qx.Class.define(null, {
           implement: [IFoo],
           members: {
             bar: function() {}
@@ -317,7 +317,7 @@ qx.Bootstrap.define("qx.test.Interface",
         });
       });
 
-      qx.Bootstrap.define(null, {
+      qx.Class.define(null, {
         implement: [IFoo],
         members: {
           bar: function() {},
@@ -335,13 +335,13 @@ qx.Bootstrap.define("qx.test.Interface",
         }
       });
 
-      var P = qx.Bootstrap.define(null, {
+      var P = qx.Class.define(null, {
         members: {
           foo: function() {}
         }
       });
 
-      qx.Bootstrap.define(null, {
+      qx.Class.define(null, {
         extend: P,
         implement: [IFoo],
         members: {
@@ -361,7 +361,7 @@ qx.Bootstrap.define("qx.test.Interface",
       });
 
       this.assertException(function() {
-        qx.Bootstrap.define(null, {
+        qx.Class.define(null, {
           implement: [IFoo],
           properties: {
             foo: {}
@@ -369,7 +369,7 @@ qx.Bootstrap.define("qx.test.Interface",
         });
       });
 
-      qx.Bootstrap.define(null, {
+      qx.Class.define(null, {
         implement: [IFoo],
         properties: {
           bar: {
@@ -388,13 +388,13 @@ qx.Bootstrap.define("qx.test.Interface",
         }
       });
 
-      var P = qx.Bootstrap.define(null, {
+      var P = qx.Class.define(null, {
         properties: {
           foo: {}
         }
       });
 
-      qx.Bootstrap.define(null, {
+      qx.Class.define(null, {
         extend: P,
         implement: [IFoo],
         properties: {
@@ -425,7 +425,7 @@ qx.Bootstrap.define("qx.test.Interface",
       });
 
       this.assertException(function() {
-        var C = qx.Bootstrap.define(null, {
+        var C = qx.Class.define(null, {
           implement: [IBar],
           members: {
             bar: function() {}
@@ -436,7 +436,7 @@ qx.Bootstrap.define("qx.test.Interface",
         });
       });
 
-      var C = qx.Bootstrap.define(null, {
+      var C = qx.Class.define(null, {
         implement: [IBar],
         members: {
           foo: function() {},
@@ -504,7 +504,7 @@ qx.Bootstrap.define("qx.test.Interface",
 
       // all implemented
       var def = qx.lang.Object.clone(classDef);
-      qx.Bootstrap.define("qx.test.i.Implement1", def);
+      qx.Class.define("qx.test.i.Implement1", def);
 
       this.assertTrue(qx.Interface.classImplements(qx.test.i.Implement1, qx.test.i.IAll), "implements IAll");
       this.assertTrue(qx.Interface.classImplements(qx.test.i.Implement1, qx.test.i.IMember), "implements IMember");
@@ -519,7 +519,7 @@ qx.Bootstrap.define("qx.test.Interface",
       if (this.isDebugOn())
       {
         this.assertException(function() {
-          qx.Bootstrap.define("qx.test.i.Implement2", def);
+          qx.Class.define("qx.test.i.Implement2", def);
         }, Error, "does not implement", "No members defined.");
       }
 
@@ -530,7 +530,7 @@ qx.Bootstrap.define("qx.test.Interface",
       if (this.isDebugOn())
       {
         this.assertException(function() {
-          qx.Bootstrap.define("qx.test.i.Implement4", def);
+          qx.Class.define("qx.test.i.Implement4", def);
         }, Error, new RegExp("does not implement"), "No properties defined.");
       }
     }

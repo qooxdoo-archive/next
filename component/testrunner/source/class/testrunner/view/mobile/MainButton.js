@@ -1,4 +1,4 @@
-qx.Bootstrap.define("testrunner.view.mobile.MainButton", {
+qx.Class.define("testrunner.view.mobile.MainButton", {
 
   extend : qx.ui.mobile.Button,
 

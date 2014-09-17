@@ -30,7 +30,7 @@
  * For more information see:
  * http://www.w3.org/TR/workers/
  */
-qx.Bootstrap.define("qx.bom.WebWorker",
+qx.Class.define("qx.bom.WebWorker",
 {
   extend : Object,
   include : [qx.event.MEmitter],

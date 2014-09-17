@@ -16,7 +16,7 @@
      * Martin Wittemann (martinwittemann)
 
 ************************************************************************ */
-qx.Bootstrap.define("qx.test.ui.form.FormValidator",
+qx.Class.define("qx.test.ui.form.FormValidator",
 {
   extend : qx.test.mobile.MobileTestCase,
 

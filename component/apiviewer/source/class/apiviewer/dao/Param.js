@@ -17,7 +17,7 @@
 
 ************************************************************************ */
 
-qx.Bootstrap.define("apiviewer.dao.Param", {
+qx.Class.define("apiviewer.dao.Param", {
   extend : apiviewer.dao.ClassItem,
 
   construct : function(classDocNode, parentClass, method)

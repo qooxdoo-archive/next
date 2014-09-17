@@ -17,7 +17,7 @@
 
 ************************************************************************ */
 
-qx.Bootstrap.define("apiviewer.ui.tabview.ClassPage",
+qx.Class.define("apiviewer.ui.tabview.ClassPage",
 {
   extend : apiviewer.ui.tabview.AbstractPage,
 

@@ -25,7 +25,7 @@
  *
  * @group (Widget)
  */
-qx.Bootstrap.define("qx.ui.mobile.Rating", {
+qx.Class.define("qx.ui.mobile.Rating", {
   extend : qx.ui.mobile.Widget,
 
 
@@ -100,7 +100,7 @@ qx.Bootstrap.define("qx.ui.mobile.Rating", {
      * @param value {Number} Incoming value
      */
     _setValue: function(value) {
-      if (qx.Bootstrap.getClass(value) !== "Number") {
+      if (qx.Class.getClass(value) !== "Number") {
         value = 0;
       }
       if (value < 0) {

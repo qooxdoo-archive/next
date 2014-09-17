@@ -38,7 +38,7 @@
  *
  * @ignore(qxWeb)
  */
-qx.Bootstrap.define("qx.bom.Html",
+qx.Class.define("qx.bom.Html",
 {
 
 

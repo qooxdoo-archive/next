@@ -17,7 +17,7 @@
 
 ************************************************************************ */
 
-qx.Bootstrap.define("testrunner.TestLoaderNative",
+qx.Class.define("testrunner.TestLoaderNative",
 {
   extend : qx.dev.unit.TestLoaderNative,
 

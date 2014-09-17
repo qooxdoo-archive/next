@@ -23,7 +23,7 @@
  * Module for mediaqueries evaluation. The module is a wrapper for media.match.js,
  * that implements a polyfill for window.matchMedia when it's not supported natively.
  */
-qx.Bootstrap.define("qx.module.MatchMedia", {
+qx.Class.define("qx.module.MatchMedia", {
 
   statics: {
     /**

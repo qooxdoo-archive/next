@@ -17,7 +17,7 @@
 
 ************************************************************************ */
 
-qx.Bootstrap.define("qx.test.mobile.tabbar.TabBar",
+qx.Class.define("qx.test.mobile.tabbar.TabBar",
 {
   extend : qx.test.mobile.MobileTestCase,
 

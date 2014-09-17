@@ -19,7 +19,7 @@
  * Utilities for creating and querying the test (suite) model.
  */
 
-qx.Bootstrap.define("testrunner.runner.ModelUtil", {
+qx.Class.define("testrunner.runner.ModelUtil", {
 
   statics :
   {
@@ -240,7 +240,7 @@ qx.Bootstrap.define("testrunner.runner.ModelUtil", {
       for (var i=0, l=children.length; i<l; i++) {
         var child = children.getItem(i);
         if (child.getType() == "class") {
-          var clazz = autWindow.qx.Bootstrap.getByName(child.getFullName());
+          var clazz = autWindow.qx.Class.getByName(child.getFullName());
           if (autWindow.qx.Mixin.getClassByMixin(clazz, mixin)) {
             return true;
           }

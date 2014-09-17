@@ -62,7 +62,7 @@
  * @require(qx.module.Template)
  * @require(qx.ui.mobile.basic.Image)
  */
-qx.Bootstrap.define("qx.ui.mobile.list.List",
+qx.Class.define("qx.ui.mobile.list.List",
 {
   extend : qx.ui.mobile.Widget,
 
@@ -444,7 +444,7 @@ qx.Bootstrap.define("qx.ui.mobile.list.List",
     __getRowTemplate : function(index) {
       var template = qx.ui.mobile.list.List.itemTemplate;
       var data = this.model.getItem(index);
-      if (qx.Bootstrap.getClass(data) === "String") {
+      if (qx.Class.getClass(data) === "String") {
         data = {title: data};
       }
       data.row = index;

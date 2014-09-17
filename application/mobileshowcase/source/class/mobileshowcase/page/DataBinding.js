@@ -21,7 +21,7 @@
 /**
  * Mobile page responsible for showing the "DataBinding" showcase.
  */
-qx.Bootstrap.define("mobileshowcase.page.DataBinding",
+qx.Class.define("mobileshowcase.page.DataBinding",
 {
   extend : mobileshowcase.page.Abstract,
 

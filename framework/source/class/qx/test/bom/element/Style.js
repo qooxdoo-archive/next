@@ -18,7 +18,7 @@
 
 ************************************************************************ */
 
-qx.Bootstrap.define("qx.test.bom.element.Style",
+qx.Class.define("qx.test.bom.element.Style",
 {
   extend : qx.dev.unit.TestCase,
   include : [ qx.dev.unit.MRequirements ],

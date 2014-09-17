@@ -23,7 +23,7 @@
  *
  * It contains functionality to load parts and to retrieve part instances.
  */
-qx.Bootstrap.define("qx.io.PartLoader",
+qx.Class.define("qx.io.PartLoader",
 {
   extend : Object,
 

@@ -41,7 +41,7 @@
  *   m.emit("get", "/address/1234");
  * </pre>
  */
-qx.Bootstrap.define("qx.event.Messaging",
+qx.Class.define("qx.event.Messaging",
 {
   construct : function()
   {
@@ -190,7 +190,7 @@ qx.Bootstrap.define("qx.event.Messaging",
       listenerMatched = this._emitListeners(channel, path, listener, params, customData);
 
       if (!listenerMatched && !listenerMatchedAny) {
-        qx.Bootstrap.info("No listener found for " + path);
+        qx.Class.info("No listener found for " + path);
       }
     },
 

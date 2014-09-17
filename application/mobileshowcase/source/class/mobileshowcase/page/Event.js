@@ -23,7 +23,7 @@
  * Mobile page responsible for showing the "event" showcase.
  * @require(qx.module.AnimationFrame)
  */
-qx.Bootstrap.define("mobileshowcase.page.Event",
+qx.Class.define("mobileshowcase.page.Event",
 {
   extend : mobileshowcase.page.Abstract,
 

@@ -21,7 +21,7 @@
 /**
  * @ignoreDeprecated(alert)
  */
-qx.Bootstrap.define("play.Samples",
+qx.Class.define("play.Samples",
 {
   extend : qx.data.Array,
 

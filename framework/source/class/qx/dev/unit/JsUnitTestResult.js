@@ -21,7 +21,7 @@
 /**
  * Test result class, which can export the results to JSUnit
  */
-qx.Bootstrap.define("qx.dev.unit.JsUnitTestResult",
+qx.Class.define("qx.dev.unit.JsUnitTestResult",
 {
   extend : qx.dev.unit.TestResult,
 

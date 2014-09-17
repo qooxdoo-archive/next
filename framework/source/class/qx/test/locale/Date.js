@@ -17,7 +17,7 @@
 
 ************************************************************************ */
 
-qx.Bootstrap.define("qx.test.locale.Date",
+qx.Class.define("qx.test.locale.Date",
 {
   extend : qx.dev.unit.TestCase,
 

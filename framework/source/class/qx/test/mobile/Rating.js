@@ -19,7 +19,7 @@
 
 ************************************************************************ */
 
-qx.Bootstrap.define("qx.test.mobile.Rating", {
+qx.Class.define("qx.test.mobile.Rating", {
   extend: qx.test.mobile.MobileTestCase,
 
   members: {

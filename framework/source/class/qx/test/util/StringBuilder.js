@@ -16,7 +16,7 @@
      * Martin Wittemann (wittemann)
 
 ************************************************************************ */
-qx.Bootstrap.define("qx.test.util.StringBuilder",
+qx.Class.define("qx.test.util.StringBuilder",
 {
   extend : qx.dev.unit.TestCase,
 

@@ -45,7 +45,7 @@
  * </pre>
  *
  */
-qx.Bootstrap.define("qx.ui.mobile.container.Carousel",
+qx.Class.define("qx.ui.mobile.container.Carousel",
 {
   extend : qx.ui.mobile.Widget,
   include : qx.ui.mobile.core.MResize,

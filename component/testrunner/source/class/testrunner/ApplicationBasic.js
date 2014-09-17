@@ -20,7 +20,7 @@
 /**
  * Basic TestRunner main application class.
  */
-qx.Bootstrap.define("testrunner.ApplicationBasic", {
+qx.Class.define("testrunner.ApplicationBasic", {
 
   extend : qx.application.Basic,
 

@@ -1,4 +1,4 @@
-qx.Bootstrap.define("qx.test.performance.oo.Definition",
+qx.Class.define("qx.test.performance.oo.Definition",
 {
   extend : qx.dev.unit.TestCase,
   include : qx.dev.unit.MMeasure,
@@ -10,7 +10,7 @@ qx.Bootstrap.define("qx.test.performance.oo.Definition",
     testDefineBootstrap: function() {
       this.measureIterations("Define Bootstrap classes", null,
         function() {
-          qx.Bootstrap.define(null, {
+          qx.Class.define(null, {
             extend: Object,
             properties: {
               a: {
@@ -33,7 +33,7 @@ qx.Bootstrap.define("qx.test.performance.oo.Definition",
     testDefineClass: function() {
       this.measureIterations("Define Classes", null,
         function() {
-          qx.Bootstrap.define(null, {
+          qx.Class.define(null, {
             extend: Object,
             properties: {
               a: {
@@ -54,7 +54,7 @@ qx.Bootstrap.define("qx.test.performance.oo.Definition",
     },
 
     testInstantiateBootstraps: function() {
-      qx.Bootstrap.define("qx.test.performance.oo.A", {
+      qx.Class.define("qx.test.performance.oo.A", {
         extend: Object,
         properties: {
           a: {
@@ -82,7 +82,7 @@ qx.Bootstrap.define("qx.test.performance.oo.Definition",
     },
 
     testInstantiateClasses: function() {
-      qx.Bootstrap.define("qx.test.performance.oo.A", {
+      qx.Class.define("qx.test.performance.oo.A", {
         extend: Object,
         properties: {
           a: {

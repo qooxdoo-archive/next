@@ -24,7 +24,7 @@
 /**
  * Test-Class for testing the single value binding
  */
-qx.Bootstrap.define("qx.test.data.singlevalue.Array",
+qx.Class.define("qx.test.data.singlevalue.Array",
 {
   extend : qx.dev.unit.TestCase,
 
@@ -32,7 +32,7 @@ qx.Bootstrap.define("qx.test.data.singlevalue.Array",
     this.base(qx.dev.unit.TestCase, "constructor");
 
     // define a test class
-    qx.Bootstrap.define("qx.test.data.singlevalue.Array_MultiBinding",
+    qx.Class.define("qx.test.data.singlevalue.Array_MultiBinding",
     {
       extend : Object,
       include : [qx.event.MEmitter, qx.data.MBinding],

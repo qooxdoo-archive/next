@@ -26,7 +26,7 @@
  *
  * @ignore(qx.bom.Element, qx.bom.Element.blur)
  */
-qx.Bootstrap.define("qx.bom.Selection",
+qx.Class.define("qx.bom.Selection",
 {
 
 

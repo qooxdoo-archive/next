@@ -31,7 +31,7 @@
  * @require(qx.log.appender.Console)
  * @asset(mobileshowcase/*)
  */
-qx.Bootstrap.define("mobileshowcase.Application",
+qx.Class.define("mobileshowcase.Application",
 {
   extend : qx.application.Mobile,
 

@@ -22,7 +22,7 @@ Let's assume you've implemented a class like the following:
 
 ::
 
-  qx.Bootstrap.define("my.super.Dog", {
+  qx.Class.define("my.super.Dog", {
     extend : Object,
     members : {
       bark : function() {

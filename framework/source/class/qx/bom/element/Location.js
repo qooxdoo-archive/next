@@ -40,7 +40,7 @@
  * Query the location of an arbitrary DOM element in relation to its top
  * level body element.
  */
-qx.Bootstrap.define("qx.bom.element.Location",
+qx.Class.define("qx.bom.element.Location",
 {
   statics :
   {

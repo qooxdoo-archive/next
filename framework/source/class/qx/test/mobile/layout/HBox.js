@@ -17,7 +17,7 @@
 
 ************************************************************************ */
 
-qx.Bootstrap.define("qx.test.mobile.layout.HBox",
+qx.Class.define("qx.test.mobile.layout.HBox",
 {
   extend : qx.test.mobile.MobileTestCase,
 

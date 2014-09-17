@@ -25,7 +25,7 @@
  * @ignore(qx.Target)
  * @ignore(qx.Test)
  */
-qx.Bootstrap.define("qx.test.data.singlevalue.Simple",
+qx.Class.define("qx.test.data.singlevalue.Simple",
 {
   extend : qx.dev.unit.TestCase,
   include : qx.dev.unit.MRequirements,
@@ -346,7 +346,7 @@ qx.Bootstrap.define("qx.test.data.singlevalue.Simple",
 
     testCallbacksOnInitialSet: function() {
       // create a test class
-      qx.Bootstrap.define("qx.Target", {
+      qx.Class.define("qx.Target", {
         properties :
         {
           value : {
@@ -393,7 +393,7 @@ qx.Bootstrap.define("qx.test.data.singlevalue.Simple",
 
     testConversionClass : function()
     {
-      qx.Bootstrap.define("qx.test.TwoProperties", {
+      qx.Class.define("qx.test.TwoProperties", {
         extend : Object,
         include : [qx.event.MEmitter],
         properties : {
@@ -456,7 +456,7 @@ qx.Bootstrap.define("qx.test.data.singlevalue.Simple",
 
 
     testResetNotNull : function() {
-      qx.Bootstrap.define("qx.test.SVB", {
+      qx.Class.define("qx.test.SVB", {
         extend : Object,
         include : [qx.event.MEmitter],
         properties : {
@@ -486,7 +486,7 @@ qx.Bootstrap.define("qx.test.data.singlevalue.Simple",
 
 
     testResetNotNullInit : function() {
-      qx.Bootstrap.define("qx.test.SVB", {
+      qx.Class.define("qx.test.SVB", {
         extend : Object,
         include : [qx.event.MEmitter],
         properties : {

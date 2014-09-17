@@ -17,7 +17,7 @@
 
 ************************************************************************ */
 
-qx.Bootstrap.define("qx.test.mobile.Button",
+qx.Class.define("qx.test.mobile.Button",
 {
   extend : qx.test.mobile.MobileTestCase,
 

@@ -25,7 +25,7 @@
  *
  * @ignore(apiviewer.dao)
  */
-qx.Bootstrap.define("apiviewer.TreeUtil",
+qx.Class.define("apiviewer.TreeUtil",
 {
   statics :
   {

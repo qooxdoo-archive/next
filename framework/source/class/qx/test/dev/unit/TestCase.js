@@ -17,7 +17,7 @@
 
 ************************************************************************ */
 
-qx.Bootstrap.define("qx.test.dev.unit.TestCase", {
+qx.Class.define("qx.test.dev.unit.TestCase", {
 
   extend : qx.dev.unit.TestCase,
 

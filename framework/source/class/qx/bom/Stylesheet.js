@@ -24,7 +24,7 @@
 /**
  * Cross-browser wrapper to work with CSS stylesheets.
  */
-qx.Bootstrap.define("qx.bom.Stylesheet",
+qx.Class.define("qx.bom.Stylesheet",
 {
 
 

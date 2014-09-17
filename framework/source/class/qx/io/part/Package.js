@@ -26,7 +26,7 @@
  * @internal
  * @ignore(qx.util.ResourceManager)
  */
-qx.Bootstrap.define("qx.io.part.Package",
+qx.Class.define("qx.io.part.Package",
 {
   /**
    * @param urls {String[]} A list of script URLs

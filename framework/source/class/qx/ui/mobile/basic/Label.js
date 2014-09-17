@@ -35,7 +35,7 @@
  * @ignore(qx.type.BaseString.*)
  *
  */
-qx.Bootstrap.define("qx.ui.mobile.basic.Label",
+qx.Class.define("qx.ui.mobile.basic.Label",
 {
   extend : qx.ui.mobile.Widget,
 
@@ -106,7 +106,7 @@ qx.Bootstrap.define("qx.ui.mobile.basic.Label",
      * @return {Boolean} <code>true</code> if the value is valid
      */
     _checkValue: function(value) {
-      return qx.Bootstrap.getClass(value) === "String" ||
+      return qx.Class.getClass(value) === "String" ||
         (qx.type.BaseString && value instanceof qx.type.BaseString);
     },
 

@@ -21,7 +21,7 @@
  *
  * @ignore(qx.test.MultiBinding)
  */
-qx.Bootstrap.define("qx.test.data.singlevalue.Deep",
+qx.Class.define("qx.test.data.singlevalue.Deep",
 {
   extend : qx.dev.unit.TestCase,
   include : [qx.dev.unit.MMock],
@@ -31,7 +31,7 @@ qx.Bootstrap.define("qx.test.data.singlevalue.Deep",
     this.initMMock();
 
     // define a test class
-    qx.Bootstrap.define("qx.test.MultiBinding",
+    qx.Class.define("qx.test.MultiBinding",
     {
       extend : Object,
       include : [qx.event.MEmitter],

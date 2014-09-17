@@ -40,7 +40,7 @@
  * </pre>
  *
  */
-qx.Bootstrap.define("qx.ui.mobile.container.Collapsible",
+qx.Class.define("qx.ui.mobile.container.Collapsible",
 {
   extend : qx.ui.mobile.Widget,
 

@@ -22,7 +22,7 @@
  *  This class stores the information needed to instruct a running test to wait.
  *  It is thrown as an exception to be caught by the method executing the test.
  */
-qx.Bootstrap.define("qx.dev.unit.AsyncWrapper",
+qx.Class.define("qx.dev.unit.AsyncWrapper",
 {
   extend : Object,
 

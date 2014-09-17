@@ -67,7 +67,7 @@
  *
  * The same format patterns will be used for both parsing and output formatting.
  */
-qx.Bootstrap.define("qx.util.format.DateFormat",
+qx.Class.define("qx.util.format.DateFormat",
 {
   extend : Object,
   implement : qx.util.format.IFormat,

@@ -129,7 +129,7 @@
  *
  * * https://github.com/jquery/sizzle/wiki/Sizzle-Home
  */
-qx.Bootstrap.define("qx.bom.Selector", {
+qx.Class.define("qx.bom.Selector", {
   statics: {
     /**
      * Queries the document for the given selector. Supports all CSS3 selectors

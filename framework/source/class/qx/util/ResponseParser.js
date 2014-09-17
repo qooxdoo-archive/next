@@ -25,7 +25,7 @@
  *
  * @require(qx.util.ResponseParser#parse)
  */
-qx.Bootstrap.define("qx.util.ResponseParser",
+qx.Class.define("qx.util.ResponseParser",
 {
 
   /**

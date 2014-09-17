@@ -25,7 +25,7 @@
  *
  * @ignore(qx.bom.element.AnimationJs)
  */
-qx.Bootstrap.define("qx.bom.element.AnimationHandle",
+qx.Class.define("qx.bom.element.AnimationHandle",
 {
   extend : Object,
   include : [qx.event.MEmitter],

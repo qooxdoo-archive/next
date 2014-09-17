@@ -41,7 +41,7 @@
  *
  *
  */
-qx.Bootstrap.define("qx.ui.mobile.page.Manager",
+qx.Class.define("qx.ui.mobile.page.Manager",
 {
   extend : Object,
 
