@@ -19,6 +19,7 @@
  * Fires "appear" and "disappear" events on elements that are added to/
  * removed from the DOM or are displayed/hidden using the CSS display
  * property
+ * @require(qx.module.Event)
  */
 qx.Class.define("qx.module.event.AppearHandler", {
 
