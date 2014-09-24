@@ -47,9 +47,9 @@ qx.Class.define("qx.test.bom.rest.Resource",
       var req = this.req = new qx.bom.request.SimpleXhr();
 
       // Stub request methods, but
-      // - leave event system intact (addListenerOnce)
+      // - leave event system intact (once)
       // - leave disposable intact, cause test methods stub it themselves (dispose)
-      req = this.shallowStub(req, qx.bom.request.SimpleXhr, ["dispose", "addListenerOnce", "getTransport"]);
+      req = this.shallowStub(req, qx.bom.request.SimpleXhr, ["once", "dispose", "getTransport"]);
 
       // Inject double and return
       this.injectStub(qx.bom.request, "SimpleXhr", req);
@@ -297,7 +297,7 @@ qx.Class.define("qx.test.bom.rest.Resource",
           req1, req2,
           getSuccess = this.spy();
 
-      res.addListener("getSuccess", getSuccess);
+      res.on("getSuccess", getSuccess);
 
       req1 = this.req;
       res.get();
@@ -768,7 +768,7 @@ qx.Class.define("qx.test.bom.rest.Resource",
 
       this.stub(req, "dispose");
 
-      res.addListener("getSuccess", function(e) {
+      res.on("getSuccess", function(e) {
         responses.push(e.response);
       }, this);
       res.longPoll("get");

@@ -660,6 +660,7 @@ qx.Class.define("qx.bom.request.Xhr",
      * Init native XHR.
      */
     __initNativeXhr: function() {
+
       // Create native XHR or equivalent and hold reference
       this.__nativeXhr = new XMLHttpRequest();
 

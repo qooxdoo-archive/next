@@ -46,7 +46,7 @@ qx.Class.define("qx.test.bom.rest.ResourceWithRemote",
           res = this.res;
 
       res.map("get", "GET", url);
-      res.addListener("getSuccess", function(e) {
+      res.on("getSuccess", function(e) {
         this.resume(function() {
           this.assertEquals("SAMPLE", e.response);
         }, this);
@@ -61,7 +61,7 @@ qx.Class.define("qx.test.bom.rest.ResourceWithRemote",
           res = this.res;
 
       res.map("get", "GET", url);
-      res.addListener("error", function(e) {
+      res.on("error", function(e) {
         this.resume(function() {
           this.assertEquals("get", e.action);
         }, this);
@@ -82,7 +82,7 @@ qx.Class.define("qx.test.bom.rest.ResourceWithRemote",
 
       // Response headers must contain explicit cache control for this
       // to work in IE
-      res.addListener("getSuccess", function(e) {
+      res.on("getSuccess", function(e) {
         var response = e.response;
         count++;
 
@@ -108,7 +108,7 @@ qx.Class.define("qx.test.bom.rest.ResourceWithRemote",
           responses = [];
 
       res.map("get", "GET", url);
-      res.addListener("getSuccess", function(e) {
+      res.on("getSuccess", function(e) {
         var response = e.response;
         responses.push(response);
 
