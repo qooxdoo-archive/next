@@ -17,7 +17,6 @@
 
 /**
  * @require(qx.module.Io)
- * @require(qx.module.Template)
  */
 qx.Class.define("qx.ui.Template",
 {
@@ -35,8 +34,7 @@ qx.Class.define("qx.ui.Template",
       for (var i = 0; i < nodes.length; i++) {
         var node = nodes[i];
         var id = node.getAttribute("data-qx-template");
-        var uri = "template/" + id;
-        var template = new qx.ui.Template(uri, node);
+        var template = new qx.ui.Template(id, node);
         node.template = template;
       }
     },
@@ -53,22 +51,23 @@ qx.Class.define("qx.ui.Template",
       this._load(path);
     }
     this._path = path;
-    this.root = qxWeb(selector);
+    this.__selector = selector;
     this.render();
   },
+
 
   properties : {
     model : {
       event: true,
       nullable: true,
       apply: "_applyModel"
-    },
-
-    root : {}
+    }
   },
 
 
   members: {
+    __selector: null,
+
     _applyModel: function(value, old) {
       if (value && value.on) {
         value.on("changeBubble", this.render, this);
@@ -90,10 +89,11 @@ qx.Class.define("qx.ui.Template",
         return;
       }
 
+      var root = qxWeb(this.__selector);
       var data = qx.util.Serializer.toNativeObject(this.model);
-      this.root.empty().append(qxWeb.template.renderToNode(template, data));
+      root.empty().append(qx.bom.Template.renderToNode(template, data));
       qxWeb.initWidgets();
-      qx.ui.Template.init(this.root[0]);
+      qx.ui.Template.init(root[0]);
       this.emit("ready");
     },
 
