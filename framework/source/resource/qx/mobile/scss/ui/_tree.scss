@@ -1,0 +1,90 @@
+//
+// TREE
+//
+
+ul.tree {
+
+  list-style: none;
+  background-color: #efefef;
+  padding: 5px 0;
+  margin: 0px;
+  overflow: auto;
+  width: auto;
+
+  ul.subfolder {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    vertical-align: baseline;
+    width: auto;
+  }
+
+  &,
+  li {
+    vertical-align: baseline;
+  }
+
+  li {
+    margin: 0 5px;
+    padding: 0 5px;
+    line-height: 1em;
+  }
+
+  li span {
+    display: inline-block;
+    padding: 7px 0 6px 40px;
+    overflow: hidden; /* needed for css sprites */
+    background-color: transparent;
+
+    background-repeat: no-repeat;
+
+    position : relative;
+    font-family: "Batch";
+    font-size: 1.1em;
+
+    &:before {
+      color : #D2691E;
+      position : absolute;
+      font-size: 1.5em;
+      left : 10px;
+      content: "\F0E5";
+    }
+
+    &.open:before{
+      content: "\F0E6";
+    }
+
+    &.empty:before{
+      content: "\F0E4";
+    }
+  }
+
+  li,
+  li span {
+    cursor: default;
+    color: #444;
+  }
+
+  li span:hover {
+    color: #aaa;
+  }
+
+  a.active {
+    background-color: #dae1ea;
+    border-radius: 1px;
+    display: inline-block;
+    width: 100%;
+  }
+
+  .select-box {
+    vertical-align: top;
+    margin:0px 8px 0px 0px;
+    padding:0px;
+  }
+
+  $nesting_level_margin : 20px;
+  $max_level : 25;
+  @for $level from 0 through $max_level {
+    a > span.level-#{$level} { margin-left: $level * $nesting_level_margin; }
+  }
+}

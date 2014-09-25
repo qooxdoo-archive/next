@@ -34,9 +34,7 @@ qx.Class.define("qx.ui.mobile.tree.Tree",
   statics :
   {
     __itemTemplate : "<li id='{{folderId}}'>" +
-                       "<a href='#{{folderId}}'>" +
-                         "<span class='{{mainCssClass}} {{statusCssClass}}'>{{folderDisplayname}}</span>" +
-                       "</a>" +
+                       "<span class='{{mainCssClass}} {{statusCssClass}}'>{{folderDisplayname}}</span>" +
                      "</li>"
   },
 
@@ -457,7 +455,7 @@ qx.Class.define("qx.ui.mobile.tree.Tree",
       var template = qx.ui.mobile.tree.Tree.__itemTemplate;
       var collection = qxWeb.template.renderToNode(template, this.__getTemplateData(id, meta));
 
-      collection.getChildren('a:first').getChildren('span:first').addClass("level-" + meta.level);
+      collection.getChildren('span:first').addClass("level-" + meta.level);
 
       return collection;
     },
@@ -661,7 +659,7 @@ qx.Class.define("qx.ui.mobile.tree.Tree",
      */
     __toggleState : function (folderId)
     {
-      var label = qxWeb("#" + folderId).getChildren('a:first').getChildren('span:first');
+      var label = qxWeb("#" + folderId).getChildren('span:first');
       label.toggleClass("open");
     }
   },
