@@ -135,7 +135,6 @@ qx.Class.define("qx.io.rest.Resource",
    * { get: {method: "GET", url: "/photos/{id}", check: { id: /\d+/ }} }
    * </pre>
    *
-   * @see qx.bom.rest
    * @see qx.io.rest
    */
   construct: function(description)
@@ -449,7 +448,7 @@ qx.Class.define("qx.io.rest.Resource",
      *   value can be provided (<code>{param=default}</code>).
      * @param check {Map?} Map defining parameter constraints, where the key is
      *   the URL parameter and the value a regular expression (to match string) or
-     *   <code>qx.bom.rest.Resource.REQUIRED</code> (to verify existence).
+     *   <code>qx.io.rest.Resource.REQUIRED</code> (to verify existence).
      */
     map: function(action, method, url, check) {
       this.__routes[action] = [method, url, check];
@@ -584,7 +583,7 @@ qx.Class.define("qx.io.rest.Resource",
           }
 
           // Missing parameter
-          if (check[param] === qx.bom.rest.Resource.REQUIRED && typeof params[param] === "undefined") {
+          if (check[param] === qx.io.rest.Resource.REQUIRED && typeof params[param] === "undefined") {
             throw new Error("Missing parameter '" + param + "'");
           }
 
