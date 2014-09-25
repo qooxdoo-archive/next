@@ -67,7 +67,8 @@ qx.Class.define("mobileshowcase.page.Overview",
           {title : "Events", subtitle : "Touch, Tap, Swipe...", path:"event"},
           {title : "Data Binding", subtitle : "See how data binding works", path:"databinding"},
           {title : "Page Transitions", subtitle : "Slide, Fade, Cube...", path:"animation"},
-          {title : "Theming", subtitle : "Modify the look of an app...", path:"theming"}
+          {title : "Theming", subtitle : "Modify the look of an app...", path:"theming"},
+          {title : "Tree", subtitle : "See how the tree widget works.", path:"tree"}
       ];
 
       list.model = new qx.data.Array(data);
