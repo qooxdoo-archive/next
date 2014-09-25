@@ -312,5 +312,10 @@ qx.Class.define("qx.ui.mobile.basic.Image",
         qx.application.Scaling.getInstance().on("changeAppScale", this._onChangeAppScale, this);
       }
     }
+  },
+
+
+  classDefined : function(statics) {
+    qxWeb.$attachWidget(statics);
   }
 });

@@ -48,9 +48,9 @@ qx.Class.define("qx.ui.mobile.container.Collapsible",
   /**
   * @param title {String?} the text which should be displayed in the Collapsible's header label.
   */
-  construct : function(title)
+  construct : function(title, element)
   {
-    this.base(qx.ui.mobile.Widget, "constructor");
+    this.base(qx.ui.mobile.Widget, "constructor", element);
 
     this._header = this._createHeader();
     this._header.addClass("collapsible-header");
@@ -200,7 +200,13 @@ qx.Class.define("qx.ui.mobile.container.Collapsible",
     dispose : function() {
       this.base(qx.ui.mobile.Widget, "dispose");
       this._header.off("tap", this._toggleCollapsed, this);
-      this._disposeObjects("_header", "_content");
+      this._header.dispose();
+      this._content.dispose();
     }
+  },
+
+
+  classDefined : function(statics) {
+    qxWeb.$attachWidget(statics);
   }
 });
