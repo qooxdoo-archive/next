@@ -412,7 +412,7 @@ qx.Class.define("qx.io.rest.Resource",
      * Create request.
      *
      * @param action {String} The action the created request is associated to.
-     * @return {qx.bom.request.SimpleXhr|qx.io.request.AbstractRequest} Request object
+     * @return {qx.io.request.AbstractRequest} Request object
      */
     __createRequest: function(action) {
       var req = this._getRequest();
@@ -496,7 +496,6 @@ qx.Class.define("qx.io.rest.Resource",
      * @param params {Map} Map of parameters inserted into URL when a matching
      *  positional parameter is found.
      * @param data {Map|String} Data to be send as part of the request.
-     *  See {@link qx.bom.request.SimpleXhr#getRequestData}.
      *  See {@link qx.io.request.AbstractRequest#requestData}.
      * @return {Number} Id of the action's invocation.
      */
@@ -605,7 +604,7 @@ qx.Class.define("qx.io.rest.Resource",
     /**
      * Configure request.
      *
-     * @param req {qx.bom.request.SimpleXhr|qx.io.request.AbstractRequest} Request.
+     * @param req {qx.io.request.AbstractRequest} Request.
      * @param config {Map} Configuration.
      * @param data {Map} Data.
      */
@@ -633,7 +632,7 @@ qx.Class.define("qx.io.rest.Resource",
     /**
      * Serialize data to JSON when content type indicates.
      *
-     * @param req {qx.bom.request.SimpleXhr|qx.io.request.AbstractRequest} Request.
+     * @param req {qx.io.request.AbstractRequest} Request.
      * @param config {Map} Configuration.
      * @param data {Map} Data.
      */
