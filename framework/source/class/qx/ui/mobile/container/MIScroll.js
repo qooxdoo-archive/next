@@ -200,10 +200,12 @@ qx.Mixin.define("qx.ui.mobile.container.MIScroll",
         hScrollbar : false,
         scrollbarClass: "scrollbar",
         useTransform: true,
+        useTransition : true,
         onScrollEnd : function() {
           // Alert interested parties that we scrolled to end of page.
           if (qx.core.Environment.get("qx.mobile.nativescroll") == false)
           {
+            
             container._setCurrentX(-this.x);
             container._setCurrentY(-this.y);
             container.emit("scrollEnd");
@@ -213,6 +215,7 @@ qx.Mixin.define("qx.ui.mobile.container.MIScroll",
           // Alert interested parties that we scrolled to end of page.
           if (qx.core.Environment.get("qx.mobile.nativescroll") == false)
           {
+            
             container._setCurrentX(-this.x);
             container._setCurrentY(-this.y);
           }

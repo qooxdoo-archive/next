@@ -218,7 +218,7 @@ qx.Class.define("qx.bom.client.Engine",
      * @return {Boolean} true, if its gecko.
      */
     __isGecko : function() {
-      return (window.controllers || window.navigator.mozApps) &&
+      return window.navigator.mozApps &&
         window.navigator.product === "Gecko" &&
         window.navigator.userAgent.indexOf("Maple") == -1 &&
         window.navigator.userAgent.indexOf("Trident") == -1;

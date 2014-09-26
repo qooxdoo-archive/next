@@ -69,6 +69,9 @@ var U2 = require('uglify-js');
 // not pretty (require internals of jshint) but works
 var js_builtins = require('jshint/src/vars');
 
+// qx
+var Cache = (Cache || require('qx-cache'));
+
 // local (modules may be injected by test env)
 var parentAnnotator = (parentAnnotator || require('./annotator/parent'));
 var classNameAnnotator = (classNameAnnotator || require('./annotator/className'));
@@ -219,13 +222,8 @@ function analyze_as_map(etree, optObj) {
 // Privates
 //------------------------------------------------------------------------------
 
-// privates may be injected by test env
 
-/**
- * Global ast map (classId:(alreadyManipulated)AST).
- * Does only contain manipulated trees!
- */
-var globalAstMap = {};
+// privates may be injected by test env
 
 /**
  * Whether node is a variable node.
@@ -677,13 +675,15 @@ module.exports = {
    *
    * @param {Object} tree - esprima AST
    * @param {Object} envMap - environment settings
+   * @param {Object} cache - cache object
+   * @param {Object} basePaths - namespace (key) and filePath (value) to library
    * @param {Object} [opts]
    * @param {boolean} [opts.flattened=false] - whether to divide deps into load and run
    * @param {boolean} [opts.variants=false] - whether to replace env calls with their value
    * @returns {string[]}
    * @see {@link http://esprima.org/doc/#ast|esprima AST}
    */
-  findUnresolvedDeps: function(tree, envMap, opts) {
+  findUnresolvedDeps: function(tree, envMap, cache, basePaths, opts) {
     var deps = {
       'load' : [],
       'run' : [],
@@ -710,6 +710,15 @@ module.exports = {
     var globalScopeOptimized = {};
     var scopesRef = {};
     var scopesRefOptimized = {};
+    // Special handling for regular expression literal since we need to
+    // convert it to a string literal, otherwise it will be decoded
+    // as object "{}" and the regular expression would be lost.
+    var adjustRegexLiteral = function(key, value) {
+      if (key === 'value' && value instanceof RegExp) {
+        value = value.toString();
+      }
+      return value;
+    };
     var debugClass = function(classId) {
       if (classId === "qx.REPLACE.THIS") {
         var escg = require("escodegen");
@@ -719,9 +728,26 @@ module.exports = {
 
     // replace env calls with their value
     if (opts && opts.variants) {
-      tree = qxCoreEnv.optimizeEnvCall(tree, envMap);
       // debugClass(tree.qxClassName);
-      globalAstMap[tree.qxClassName] = tree;
+
+      if (cache) {
+        var curCacheId = cache.createCacheId('tree', envMap, tree.qxClassName);
+        if (cache.has(curCacheId)) {
+          var mtimeCacheFile = cache.stat(curCacheId).mtime;
+          var mtimeClassFile = fs.statSync(getAbsFilePath(tree.qxClassName, basePaths)).mtime;
+          if (new Date(mtimeCacheFile) > new Date(mtimeClassFile)) {
+            tree = JSON.parse(cache.read(curCacheId));
+          } else {
+            tree = qxCoreEnv.optimizeEnvCall(tree, envMap);
+            cache.write(curCacheId, JSON.stringify(tree, adjustRegexLiteral));
+          }
+        } else {
+          tree = qxCoreEnv.optimizeEnvCall(tree, envMap);
+          if (cache) {
+            cache.write(curCacheId, JSON.stringify(tree, adjustRegexLiteral));
+          }
+        }
+      }
 
       // reparse tree for if condition removal
       // and as consequence more accurate deps
@@ -729,9 +755,19 @@ module.exports = {
       ast.figure_out_scope();
       var compressor = U2.Compressor({warnings: false});
       ast = ast.transform(compressor);
+      // TODO: once 'to_mozilla_ast()' is available in the next release
+      // (this should be v2.4.16) we should use it instead of reparsing
+      // with esprima.
+      //
+      // see:
+      //   https://github.com/mishoo/UglifyJS2#keeping-comments-in-the-output
+      //   http://rreverser.com/using-mozilla-ast-with-uglifyjs/
+      //
+      // var code = ast.print_to_string({ comments: function(){ return true; } });
+      // treeOptimized = ast.to_mozilla_ast();
       var code = ast.print_to_string();
       treeOptimized = esprima.parse(code, {comment: true, loc: true});
-      depsOptimized = findUnresolvedDeps(treeOptimized, envMap, {
+      depsOptimized = findUnresolvedDeps(treeOptimized, envMap, cache, {
         flattened: false, variants: false
       });
     }
@@ -838,17 +874,6 @@ module.exports = {
   },
 
   /**
-   * Get a map with qxClassName:manipulated AST for later reusing them.
-   * Please notice: This method will only return something useful when findUnresolvedDeps()
-   * (which is also called by collectDepsRecursive()) is called *before*.
-   *
-   * @returns {Object} globalAstMap - the keys are class names (e.g. "qx.core.Environment").
-   */
-  getTrees: function() {
-    return globalAstMap;
-  },
-
-  /**
    * Collects dependencies recursively. Supports globbing of class ids.
    *
    * @param {Object} basePaths - namespace (key) and filePath (value) to library
@@ -857,6 +882,7 @@ module.exports = {
    * @param {Object} envMap - environment settings
    * @param {Object} [options]
    * @param {boolean} [options.variants=false] - whether to optimize environment calls
+   * @param {string} [options.cachePath] - whether (and where) to cache dependencies
    * @returns {Object} classesDeps
    */
   collectDepsRecursive: function(basePaths, initClassIds, excludedClassIds, envMap, options) {
@@ -868,7 +894,9 @@ module.exports = {
 
     // merge options and default values
     var opts = {
-      variants: options.variants === true ? true : false
+      variants: options.variants === true ? true : false,
+      cachePath: options.cachePath === undefined ? null : options.cachePath,
+      buildType: options.buildType === undefined ? "source" : options.buildType
     };
 
     var getClassNamesFromPaths = function(filePaths) {
@@ -911,12 +939,16 @@ module.exports = {
       return _.uniq(globbedClassIds);
     };
 
-    var recurse = function(basePaths, classIds, seenOrSkippedClasses, excludedClassIds) {
-
+    var recurse = function(basePaths, classIds, seenOrSkippedClasses, excludedClassIds, cache) {
       var isMatching = function(strToTest, expressions) {
         var i = 0;
         var l = expressions.length;
 
+        // fast but without globbing may be enough
+        if (expressions.indexOf(strToTest) !== -1) {
+          return true;
+        }
+        // slow but exhaustive if not yet returned
         for (; i<l; i++) {
           if (minimatch(strToTest, expressions[i])) {
             return true;
@@ -926,23 +958,48 @@ module.exports = {
         return false;
       };
 
+      var figureOutDeps = function(classId, basePaths) {
+        var jsCode = readFileContent([classId], basePaths);
+        var tree = esprima.parse(jsCode[0], {comment: true, loc: true});
+        classNameAnnotator.annotate(tree, classId);
+        return findUnresolvedDeps(tree, envMap, cache, basePaths, {flattened: false, variants: opts.variants});
+      };
+
       var i = 0;
       var l = classIds.length;
+      var curCacheId = '';
       for (; i<l; i++) {
         // skip excluded classes
         if (isMatching(classIds[i], excludedClassIds)) {
           continue;
         }
 
-        var jsCode = readFileContent([classIds[i]], basePaths);
-        var tree = esprima.parse(jsCode[0], {comment: true, loc: true});
         var classDeps = {
           'load': [],
           'run': []
         };
 
-        classNameAnnotator.annotate(tree, classIds[i]);
-        classDeps = findUnresolvedDeps(tree, envMap, {flattened: false, variants: opts.variants});
+        if (cache) {
+          curCacheId = cache.createCacheId('deps', envMap, classIds[i], opts.buildType);
+          if (cache.has(curCacheId)) {
+            var mtimeCacheFile = cache.stat(curCacheId).mtime;
+            var mtimeClassFile = fs.statSync(getAbsFilePath(classIds[i], basePaths)).mtime;
+            if (new Date(mtimeCacheFile) > new Date(mtimeClassFile)) {
+              classDeps = JSON.parse(cache.read(curCacheId));
+              classesDeps[classIds[i]] = classDeps;
+            } else {
+              classDeps = figureOutDeps(classIds[i], basePaths);
+              cache.write(curCacheId, JSON.stringify(classDeps));
+            }
+          } else {
+            classDeps = figureOutDeps(classIds[i], basePaths);
+            if (cache) {
+              cache.write(curCacheId, JSON.stringify(classDeps));
+            }
+          }
+        } else {
+          classDeps = figureOutDeps(classIds[i], basePaths);
+        }
 
         // Note: Excluded classes will still be entries in load and run deps!
         // Maybe it's better to remove them here too ...
@@ -957,7 +1014,7 @@ module.exports = {
           // only recurse non-skipped and non-excluded classes
           if (!isMatching(dep, seenOrSkippedClasses.concat(excludedClassIds))) {
             seenOrSkippedClasses.push(dep);
-            recurse(basePaths, [dep], seenOrSkippedClasses, excludedClassIds);
+            recurse(basePaths, [dep], seenOrSkippedClasses, excludedClassIds, cache);
           }
         }
       }
@@ -966,7 +1023,9 @@ module.exports = {
 
     // start with globbed initClassIds
     initClassIds = globClassIds(initClassIds, basePaths);
-    return recurse(basePaths, initClassIds, initClassIds, excludedClassIds);
+    var cacheOrNull = (opts.cachePath) ? new Cache(opts.cachePath) : null;
+    var result = recurse(basePaths, initClassIds, initClassIds, excludedClassIds, cacheOrNull);
+    return result;
   },
 
   /**
@@ -1035,12 +1094,35 @@ module.exports = {
   },
 
   /**
+   * Gets the absolute file path by classId.
+   *
+   * @param {string} classId - class id (e.g. 'qx.foo.Bar')
+   * @param {Object} basePaths - namespace (key) and filePath (value) to library
+   * @return {string} absPath - absolute file path.
+   * @throws {Error} ENOENT
+   */
+  getAbsFilePath: function(classId, basePaths) {
+    var shortFilePath = util.filePathFrom(classId);
+    var namespace = util.namespaceFrom(classId, Object.keys(basePaths));
+
+    if (!namespace) {
+      throw new Error("ENOENT - Unknown global symbol. No matching library/namespace found, which introduces " + classId);
+    }
+    // console.log(namespace, shortFilePath);
+    var absPath = path.join(basePaths[namespace], shortFilePath);
+    if (!fs.existsSync(absPath)) {
+      throw new Error("ENOENT - "+absPath+" doesn't exist.");
+    }
+
+    return absPath;
+  },
+
+  /**
    * Reads file content given for classIds and basePaths.
    *
    * @param {string[]} classIds - class ids (e.g. 'qx.foo.Bar')
    * @param {Object} basePaths - namespace (key) and filePath (value) to library
    * @return {string[]} classCodeContent - file contents
-   * @throws {Error} ENOENT
    */
   readFileContent: function(classIds, basePaths) {
     var classCodeList = [];
@@ -1048,18 +1130,7 @@ module.exports = {
     var l = classIds.length;
 
     for (; i<l; i++) {
-      var shortFilePath = util.filePathFrom(classIds[i]);
-      var namespace = util.namespaceFrom(classIds[i], Object.keys(basePaths));
-      if (!namespace) {
-        throw new Error("ENOENT - Unknown global symbol. No matching library/namespace found, which introduces " + classIds[i]);
-      }
-      // console.log(namespace, shortFilePath);
-      var curFullPath = path.join(basePaths[namespace], shortFilePath);
-      if (!fs.existsSync(curFullPath)) {
-        throw new Error("ENOENT - "+curFullPath+" doesn't exist.");
-      }
-
-      var jsCode = fs.readFileSync(curFullPath, {encoding: 'utf8'});
+      var jsCode = fs.readFileSync(getAbsFilePath(classIds[i], basePaths), {encoding: 'utf8'});
       classCodeList.push(jsCode);
     }
 
@@ -1173,5 +1244,6 @@ var collectDepsRecursive = module.exports.collectDepsRecursive;
 var createAtHintsIndex = module.exports.createAtHintsIndex;
 var sortDepsTopologically = module.exports.sortDepsTopologically;
 var prependNamespace = module.exports.prependNamespace;
+var getAbsFilePath = module.exports.getAbsFilePath;
 var readFileContent = module.exports.readFileContent;
 var translateClassIdsToPaths = module.exports.translateClassIdsToPaths;

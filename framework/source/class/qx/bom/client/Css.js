@@ -161,6 +161,7 @@ qx.Class.define("qx.bom.client.Css",
 
 
     /**
+<<<<<<< HEAD
      * Checks if translate3d can be used.
      * @return {Boolean} <code>true</code>, if it could be used.
      * @internal
@@ -172,6 +173,8 @@ qx.Class.define("qx.bom.client.Css",
 
 
     /**
+=======
+>>>>>>> master
      * Returns the (possibly vendor-prefixed) name this client uses for
      * <code>linear-gradient</code>.
      * http://dev.w3.org/csswg/css3-images/#linear-gradients
@@ -483,7 +486,6 @@ qx.Class.define("qx.bom.client.Css",
     qx.core.Environment.add("css.userselect", statics.getUserSelect);
     qx.core.Environment.add("css.userselect.none", statics.getUserSelectNone);
     qx.core.Environment.add("css.appearance", statics.getAppearance);
-    qx.core.Environment.add("css.float", statics.getFloat);
     qx.core.Environment.add("css.boxsizing", statics.getBoxSizing);
     qx.core.Environment.add("css.inlineblock", statics.getInlineBlock);
     qx.core.Environment.add("css.opacity", statics.getOpacity);

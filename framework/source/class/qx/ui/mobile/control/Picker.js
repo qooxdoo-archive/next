@@ -25,6 +25,8 @@
  *
  * The picker widget is able to display multiple picker slots, for letting the user choose
  * several values at one time, in one single control.
+ * 
+ * You can add an array with objects which contain the keys <code>title</code>, a <code>subtitle</code> or an <code>image</code> (all optional).
  *
  * <pre>
  * var picker = new qx.ui.mobile.control.Picker();
@@ -33,7 +35,7 @@
  *   var data = evt.getData();
  * },this);
  *
- * var slotData1 = [{title:"Windows Phone"}, {title:"iOS"}, {title:"Android"}];
+ * var slotData1 = [{title:"Windows Phone"}, {title:"iOS",subtitle:"Version 7.1"}, {title:"Android"}];
  * var slotData2 = [{title:"Tablet"}, {title:"Smartphone"}, {title:"Phablet"}];
  *
  * picker.addSlot(new qx.data.Array(slotData1));
@@ -146,7 +148,8 @@ qx.Class.define("qx.ui.mobile.control.Picker",
      */
     _createPickerSlot : function(slotModel, slotIndex, delegate) {
       var scrollContainer = new qx.ui.mobile.container.Scroll({
-        "snap": ".list-item"
+        "snap": ".list-item",
+        "vScrollbar" : false
       });
       scrollContainer.setWaypointsY([".list-item"]);
 

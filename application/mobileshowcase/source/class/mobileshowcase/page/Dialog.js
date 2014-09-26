@@ -38,7 +38,6 @@ qx.Class.define("mobileshowcase.page.Dialog",
   {
     __anchorPopup : null,
     __popup : null,
-    __dialogpopup : null,
     __busyPopup : null,
     __menu : null,
     __picker : null,

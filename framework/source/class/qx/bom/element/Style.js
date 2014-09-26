@@ -101,7 +101,8 @@ qx.Class.define("qx.bom.element.Style",
         "userSelect" : qx.core.Environment.get("css.userselect"),
         "borderImage" : qx.core.Environment.get("css.borderimage"),
         "float" : "cssFloat",
-        "userModify" : qx.core.Environment.get("css.usermodify")
+        "userModify" : qx.core.Environment.get("css.usermodify"),
+        "boxSizing" : qx.core.Environment.get("css.boxsizing")
       };
 
       this.__cssNames = {};
@@ -204,7 +205,7 @@ qx.Class.define("qx.bom.element.Style",
           if (!cssNames[name]) {
             cssNames[name] = qx.bom.Style.getCssName(name);
           }
-          html.push(cssNames[name], ":", value, ";");
+          html.push(cssNames[name], ":", value === "" ? "\"\"" : value, ";");
         }
       }
 

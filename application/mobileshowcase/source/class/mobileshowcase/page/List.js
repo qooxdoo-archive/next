@@ -185,12 +185,15 @@ qx.Class.define("mobileshowcase.page.List",
             removable: false
           });
         }
+        
+        this._loadingIndicator.exclude();
+        this._isLoading = false;
 
         this._model.splice.apply(this._model, newData);
         this._scrollContainer.refresh();
         this._loadingIndicator.exclude();
         this._isLoading = false;
-      }.bind(this), 1000);
+      }.bind(this), 2000);
     },
 
 

@@ -157,14 +157,40 @@ q.ready(function() {
       var groupResults = 0;
       groupButton = q(groupButton);
       var groupPage = groupButton.getNext();
-      groupPage.find("> ul > li").forEach(function(item) {
+
+      // use the method names together with the navigation headers as source for filtering
+      // e.g. if the developer filters for "css" all methods for the module are listed
+      var searchItems = groupPage.find('> a').concat(groupPage.find('> ul > li'));
+      searchItems.forEach(function(item) {
+
+        var isHeader = q.getNodeName(item) === 'a';
         item = q(item);
-        var methodName = item.getChildren("a").getHtml();
-        if (regEx.exec(methodName)) {
-          groupResults++;
-          item.show(); // method items
-          item.getParents().show(); // method lists
-          item.getParents().getPrev().show(); // module headers
+
+        var itemName = isHeader ? item.getChildren('h2').getHtml() : item.getChildren("a").getHtml();
+        if (regEx.exec(itemName)) {
+
+          if (isHeader) {
+            // the count of the methods is the group result
+            groupResults += item.getNext().getChildren().length;
+
+            item.show(); // header
+            item.getNext().show(); // method list container
+            item.getNext().getChildren().show(); // methods
+
+          } else {
+
+            // only count the methods if they are not already shown
+            // this might happen if the module header is part of the filter result
+            // otherwise the count of the result is doubled
+            if (item.getStyle('display') === 'none') {
+
+              groupResults++;
+
+              item.show(); // method item
+              item.getParents().show(); // method lists
+              item.getParents().getPrev().show(); // module headers
+            }
+          }
         }
       });
       groupButton.setData("results", groupResults);
@@ -444,7 +470,8 @@ q.ready(function() {
           types[i] = "all";
         }
       }
-      var typesEl = renderTypes(types);
+      var idPrefix = name.toLowerCase() + '-';
+      var typesEl = renderTypes(idPrefix, types);
       module.append(typesEl);
     }
 
@@ -582,8 +609,11 @@ q.ready(function() {
   };
 
 
-  var renderTypes = function(types) {
-    return q.template.get("types", {types: types});
+  var renderTypes = function(idPrefix, types) {
+    return q.template.get("types", {
+        idPrefix: idPrefix,
+        types: types
+    });
   };
 
 
@@ -1087,6 +1117,7 @@ q.ready(function() {
       console && console.warn("Unable to add sample: No doc element found for method", methodName);
       return;
     }
+    method.show();
 
     var sampleMap;
     if (typeof sample == "object" && sample.javascript) {

@@ -80,13 +80,15 @@ qx.Class.define("qx.ui.mobile.container.Scroll",
     scrollEnd : null,
 
 
-    /** Fired when a vertical or horizontal waypoint is triggered. Data:
-    * <code> {
-    *   axis : "x" | "y",
-    *   index : Number,
-    *   element : Element,
-    *   direction : "right" | "left" | "down" | "up"
-    * }</code>
+    /** Fired when the user scrolls to the end of scroll area. */
+    pageEnd : "qx.event.type.Event",
+
+
+    /** Fired when a vertical or horizontal waypoint is triggered. Data: 
+    * <code> {"offset": 0,
+    *        "input": "10%",
+    *        "index": 0,
+    *        "element" : 0}</code>
     */
     waypoint : "Object",
 
@@ -256,7 +258,7 @@ qx.Class.define("qx.ui.mobile.container.Scroll",
 
 
     /**
-     * Fires a waypoints, when scroll position
+     * Fires a waypoints event when scroll position changes.
      * @param value {Number} old scroll position.
      * @param old {Number} old scroll position.
      * @param axis {String} "x" or "y".
@@ -274,13 +276,23 @@ qx.Class.define("qx.ui.mobile.container.Scroll",
       var nextWaypoint = null;
       for (var i = 0; i < waypoints.length; i++) {
         var waypoint = waypoints[i];
-        if (waypoint.offset !== null && value >= waypoint.offset) {
-          nextWaypoint = waypoint;
-        } else {
-          break;
+        if (waypoint.offset !== null) {
+          
+          if ((value > -1 && value >= waypoint.offset) ||
+           (value < 0 && waypoint.offset < 0 && value <= waypoint.offset)) {
+            nextWaypoint = waypoint;
+          } else {
+            break;
+          }
         }
       }
+
       if (nextWaypoint === null) {
+        if (axis === "x") {
+          this._activeWaypointX = null;
+        } else {
+          this._activeWaypointY = null;
+        }
         return;
       }
 
@@ -298,15 +310,14 @@ qx.Class.define("qx.ui.mobile.container.Scroll",
       }
 
       var activeWaypoint = this._activeWaypointY;
-      if(axis === "x") {
+      if (axis === "x") {
         activeWaypoint = this._activeWaypointX;
       }
 
       if (activeWaypoint === null || (activeWaypoint.index !== nextWaypoint.index || activeWaypoint.element !== nextWaypoint.element)) {
         activeWaypoint = nextWaypoint;
-
         this._activeWaypointY = activeWaypoint;
-        if(axis === "x") {
+        if (axis === "x") {
           this._activeWaypointX = activeWaypoint;
         }
 

@@ -75,7 +75,7 @@ qx.Class.define("qx.module.Event", {
           typeHooks[j](el, type, listener, context);
         }
 
-        var bound = function(event) {
+        var bound = function(el, event) {
           // apply normalizations
           var registry = qx.module.Event.__normalizations;
           // generic
@@ -90,7 +90,7 @@ qx.Class.define("qx.module.Event", {
           }
           // call original listener with normalized event
           listener.apply(this, [event]);
-        }.bind(ctx);
+        }.bind(ctx, el);
         bound.original = listener;
 
         // add native listener
@@ -104,7 +104,7 @@ qx.Class.define("qx.module.Event", {
 
         el.$$lastlistenerId = el.$$emitter.on(type, bound, ctx);
         // save the useCapture for removing
-        el.$$emitter.getEntryById(el.$$lastlistenerId).useCapture = useCapture;
+        el.$$emitter.getEntryById(el.$$lastlistenerId).useCapture = !!useCapture;
 
         if (!el.__listener) {
           el.__listener = {};
@@ -729,8 +729,8 @@ qx.Class.define("qx.module.Event", {
     qxWeb.$attach({
       "on" : statics.on,
       "off" : statics.off,
-      "offById" : statics.offById,
       "allOff" : statics.allOff,
+      "offById" : statics.offById,
       "once" : statics.once,
       "getListenerId" : statics.getListenerId,
       "emit" : statics.emit,

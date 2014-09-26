@@ -248,6 +248,7 @@ qx.Class.define("qx.event.util.Keyboard", {
         case "-":
         case "*":
         case "/":
+        case ",":
           return true;
 
         default:
