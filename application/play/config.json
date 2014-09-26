@@ -79,8 +79,11 @@
       "=include" :
       [
         "${APPLICATION}.Application",
-        "qx.module.*",
-        "qx.ui.mobile.*"
+        "qx.*"
+      ],
+
+      "exclude" : [
+        "qx.ui.website.*"
       ],
 
       "environment" : {
