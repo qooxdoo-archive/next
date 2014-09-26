@@ -145,6 +145,16 @@ qx.Class.define("qx.test.mobile.container.Carousel",
         carouselPage1.dispose();
         carouselPage2.dispose();
       }, 600);
+    },
+
+
+    testFactory: function() {
+      var carousel = q.create('<div>')
+        .carousel()
+        .appendTo(this.getRoot());
+
+      this.assertInstance(carousel, qx.ui.mobile.container.Carousel);
+      carousel.remove().dispose();
     }
   }
 

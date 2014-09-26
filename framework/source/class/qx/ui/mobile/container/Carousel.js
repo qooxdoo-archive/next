@@ -44,6 +44,8 @@
  *  carousel.append(carouselPage2);
  * </pre>
  *
+ *
+ * @require(qx.module.Transform)
  */
 qx.Class.define("qx.ui.mobile.container.Carousel",
 {
@@ -54,9 +56,9 @@ qx.Class.define("qx.ui.mobile.container.Carousel",
   /**
   * @param transitionDuration {Integer ? 0.4} transition duration on carouselPage change in seconds.
   */
-  construct : function(transitionDuration)
+  construct : function(transitionDuration, element)
   {
-    this.base(qx.ui.mobile.Widget, "constructor");
+    this.base(qx.ui.mobile.Widget, "constructor", element);
     if (transitionDuration) {
       this.transitionDuration = transitionDuration;
     }
@@ -724,5 +726,10 @@ qx.Class.define("qx.ui.mobile.container.Carousel",
       this.__pages = this.__paginationLabels = this.__snapPointsX = this.__onMoveOffset = this.__lastOffset = this.__boundsX = this.__isPageScrollTarget = null;
       this.base(qx.ui.mobile.Widget, "dispose");
     }
+  },
+
+
+  classDefined : function(statics) {
+    qxWeb.$attachWidget(statics);
   }
 });

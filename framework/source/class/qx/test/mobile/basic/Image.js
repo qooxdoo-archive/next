@@ -67,6 +67,19 @@ qx.Class.define("qx.test.mobile.basic.Image",
       }, this);
 
       this.wait();
+    },
+
+
+    testFactory: function() {
+      var source = 'qx/icon/Tango/48/places/folder.png';
+      var img = q.create('<img data-qx-config-source="qx/icon/Tango/48/places/folder.png">')
+        .image()
+        .appendTo(this.getRoot());
+
+      this.assertInstance(img, qx.ui.mobile.basic.Image);
+      this.assertEquals('qx/icon/Tango/48/places/folder.png', img.source);
+      this.assertTrue(img.getAttribute('src').indexOf(source) !== -1);
+      img.remove().dispose();
     }
   }
 

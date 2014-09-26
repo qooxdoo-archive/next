@@ -98,12 +98,14 @@ qx.Class.define("qx.test.io.rest.Resource",
       var res = this.res,
           req = this.req;
 
+      // overwrite manually to ensure proper setting of GET
       req.method = "POST";
-      res.configureRequest(qx.lang.Function.bind(function(req) {
-        this.assertEquals("GET", req.method);
-        this.assertEquals("/photos", req.url);
+
+      res.configureRequest(function(req) {
+        this.assertEquals(req.method, "GET");
+        this.assertEquals(req.url, "/photos");
         this.assertNotCalled(req.send);
-      }, this));
+      }.bind(this));
 
       res.get();
     },
@@ -115,11 +117,11 @@ qx.Class.define("qx.test.io.rest.Resource",
           data = {},
           callback;
 
-      callback = this.spy(qx.lang.Function.bind(function(req, _action, _params, _data) {
+      callback = this.spy(function(req, _action, _params, _data) {
         this.assertEquals("get", _action, "Unexpected action");
         this.assertEquals(params, _params, "Unexpected params");
         this.assertEquals(data, _data, "Unexpected data");
-      }, this));
+      }.bind(this));
       res.configureRequest(callback);
 
       res.get(params, data);
@@ -607,14 +609,14 @@ qx.Class.define("qx.test.io.rest.Resource",
           sandbox = this.getSandbox();
 
       sandbox.useFakeTimers();
-      this.spy(res._resource, "refresh");
+      this.spy(res, "refresh");
 
       res.poll("get", 10);
       this.respond();
       sandbox.clock.tick(20);
 
-      this.assertCalledWith(res._resource.refresh, "get");
-      this.assertCalledOnce(res._resource.refresh);
+      this.assertCalledWith(res.refresh, "get");
+      this.assertCalledOnce(res.refresh);
     },
 
     "test: not poll action when no response received yet": function() {
@@ -633,19 +635,19 @@ qx.Class.define("qx.test.io.rest.Resource",
     "test: poll action immediately": function() {
       var res = this.res;
 
-      this.spy(res._resource, "invoke");
+      this.spy(res, "invoke");
       res.poll("get", 10, undefined, true);
-      this.assertCalled(res._resource.invoke);
+      this.assertCalled(res.invoke);
     },
 
     "test: poll action sets initial params": function() {
       var res = this.res;
 
       res.map("get", "GET", "/photos/{id}");
-      this.stub(res._resource, "invoke");
+      this.stub(res, "invoke");
 
       res.poll("get", 10, {id: "1"}, true);
-      this.assertCalledWith(res._resource.invoke, "get", {id: "1"});
+      this.assertCalledWith(res.invoke, "get", {id: "1"});
     },
 
     "test: poll action replaying previous params": function() {
@@ -667,7 +669,7 @@ qx.Class.define("qx.test.io.rest.Resource",
           msg;
 
       sandbox.useFakeTimers();
-      this.stub(res._resource, "refresh");
+      this.stub(res, "refresh");
 
       res.poll("get", 10);
       this.respond();
@@ -677,7 +679,7 @@ qx.Class.define("qx.test.io.rest.Resource",
       this.respond();
       sandbox.clock.tick(100);
 
-      this.assertCalledTwice(res._resource.refresh);
+      this.assertCalledTwice(res.refresh);
     },
 
     "test: poll many actions": function() {
@@ -691,7 +693,7 @@ qx.Class.define("qx.test.io.rest.Resource",
       this.stub(this.req, "dispose");
       sandbox.useFakeTimers();
 
-      spy = this.spy(res._resource, "refresh");
+      spy = this.spy(res, "refresh");
       get = spy.withArgs("get");
       post = spy.withArgs("post");
 
@@ -708,23 +710,23 @@ qx.Class.define("qx.test.io.rest.Resource",
     },
 
     "test: end poll action": function() {
-      this.__skip();
       var res = this.res,
           sandbox = this.getSandbox(),
-          timer;
+          timer,
+          numCalled;
 
       sandbox.useFakeTimers();
 
-      this.spy(res._resource, "refresh");
-      timer = res.poll("get", 10);
+      this.spy(res, "refresh");
+      res.poll("get", 10);
       this.respond();
 
       // 10ms invoke, 20ms refresh, 30ms refresh
       sandbox.clock.tick(30);
-      window.clearInterval(timer);
+      res.stopPollByAction("get");
       sandbox.clock.tick(100);
 
-      this.assertCalledTwice(res._resource.refresh);
+      this.assertCalledTwice(res.refresh);
     },
 
     "test: end poll action does not end polling of other action": function() {
@@ -735,7 +737,7 @@ qx.Class.define("qx.test.io.rest.Resource",
           spy;
 
       sandbox.useFakeTimers();
-      spy = this.spy(res._resource, "refresh").withArgs("get");
+      spy = this.spy(res, "refresh").withArgs("get");
       this.respond();
 
       res.poll("get", 10);
@@ -745,6 +747,24 @@ qx.Class.define("qx.test.io.rest.Resource",
       sandbox.clock.tick(10);
 
       this.assertCalledTwice(spy);
+    },
+
+    "test: restart poll action": function() {
+      var res = this.res,
+          sandbox = this.getSandbox(),
+          timer;
+
+      sandbox.useFakeTimers();
+      this.respond();
+
+      res.poll("get", 10);
+      sandbox.clock.tick(10);
+      res.stopPollByAction("get");
+
+      this.spy(res, "refresh");
+      res.restartPollByAction("get");
+      sandbox.clock.tick(10);
+      this.assertCalled(res.refresh);
     },
 
     "test: long poll action": function() {
@@ -849,7 +869,7 @@ qx.Class.define("qx.test.io.rest.Resource",
           msg;
 
       this.stub(req, "dispose");
-      this.spy(res._resource, "refresh");
+      this.spy(res, "refresh");
 
       handlerId = res.longPoll("get");
 
@@ -859,7 +879,7 @@ qx.Class.define("qx.test.io.rest.Resource",
       res.offById(handlerId);
       this.respond();
 
-      this.assertCalledTwice(res._resource.refresh);
+      this.assertCalledTwice(res.refresh);
     },
 
     //

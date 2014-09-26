@@ -77,6 +77,7 @@ qx.Class.define("mobileshowcase.Application",
       var maps = new mobileshowcase.page.Maps();
       var canvas = new mobileshowcase.page.Canvas();
       var theming = new mobileshowcase.page.Theming();
+      var tree = new mobileshowcase.page.Tree();
 
       // Add the pages to the page manager
       var manager = new qx.ui.mobile.page.Manager();
@@ -96,7 +97,8 @@ qx.Class.define("mobileshowcase.Application",
         dataBinding,
         maps,
         canvas,
-        theming
+        theming,
+        tree
       ]);
 
       // Initialize the navigation
@@ -122,6 +124,7 @@ qx.Class.define("mobileshowcase.Application",
       routing.onGet("/maps", this._show, maps);
       routing.onGet("/canvas", this._show, canvas);
       routing.onGet("/theming", this._show, theming);
+      routing.onGet("/tree", this._show, tree);
       routing.onGet("/animation", this._show, animation);
 
       routing.onGet("/animation/{animation}", function(data) {
