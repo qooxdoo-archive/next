@@ -101,7 +101,8 @@ qx.Class.define("qx.module.Template", {
 
         create : statics.create,
         init : qx.ui.Template.init,
-        get: qx.ui.Template.get
+        get: qx.ui.Template.get,
+        add : qx.ui.Template.add
       }
     });
   }

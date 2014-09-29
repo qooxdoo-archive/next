@@ -45,6 +45,11 @@ qx.Class.define("qx.ui.Template",
         return null;
       }
       return node[0].template;
+    },
+
+
+    add : function(path, template) {
+      qx.ui.Template.__registry[path] = template;
     }
   },
 
