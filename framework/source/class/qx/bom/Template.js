@@ -152,7 +152,11 @@ qx.Class.define("qx.bom.Template", {
       var helper = qx.dom.Element.create("div");
       helper.innerHTML = template;
 
-      return helper.children[0];
+      var fragment = document.createDocumentFragment();
+      for (var i = helper.children.length -1; i >= 0; i--) {
+        fragment.appendChild(helper.children[0]);
+      }
+      return fragment;
     }
   }
 });
