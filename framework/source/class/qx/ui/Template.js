@@ -92,7 +92,9 @@ qx.Class.define("qx.ui.Template",
       var root = qxWeb(this.__selector);
       var data = qx.util.Serializer.toNativeObject(this.model);
       root.empty().append(qx.bom.Template.renderToNode(template, data));
-      qxWeb.initWidgets();
+      if (qxWeb.initWidgets) {
+        qxWeb.initWidgets();
+      }
       qx.ui.Template.init(root[0]);
       this.emit("ready");
     },
