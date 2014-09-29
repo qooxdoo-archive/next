@@ -41,6 +41,9 @@ qx.Class.define("qx.ui.Template",
 
     get : function(id) {
       var node = document.querySelectorAll('*[data-qx-template="' + id + '"]');
+      if (node.length === 0) {
+        return null;
+      }
       return node[0].template;
     }
   },
