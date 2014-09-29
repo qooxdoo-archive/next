@@ -72,13 +72,13 @@ qx.Class.define("qx.module.Template", {
     renderToNode : function(template, view, partials) {
       var el = qx.bom.Template.renderToNode(template, view, partials);
       el = qx.module.Template.__wrap(el);
-      return qxWeb.$init([el], qxWeb);
+      return qxWeb.$init(el, qxWeb);
     },
 
 
     /**
      * If the given node is a DOM text node, wrap it in a span element and return
-     * the wrapper.
+     * the wrapper. If its a
      * @param el {Node} a DOM node
      * @return {Element} Original element or wrapper
      */
@@ -87,8 +87,10 @@ qx.Class.define("qx.module.Template", {
         var wrapper = document.createElement("span");
         wrapper.appendChild(el);
         el = wrapper;
+      } else if (qxWeb.isDocumentFragment(el)) {
+        return el.children;
       }
-      return el;
+      return [el];
     }
   },
 
