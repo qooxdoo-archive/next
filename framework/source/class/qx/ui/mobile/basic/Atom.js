@@ -50,17 +50,6 @@ qx.Class.define("qx.ui.mobile.basic.Atom",
   {
     this.base(qx.ui.mobile.Widget, "constructor", element);
 
-    var layout;
-    var verticalLayout = [ "top", "bottom" ].indexOf(this.iconPosition) != -1;
-    // If Atom has no Label, only Icon is shown, and should vertically centered.
-    var hasNoLabel = !this.__label;
-
-    if(verticalLayout || hasNoLabel){
-      layout = new qx.ui.mobile.layout.VBox();
-    } else {
-      layout = new qx.ui.mobile.layout.HBox();
-    }
-
     this.addClass("qx-flex-center");
 
     if (label) {
