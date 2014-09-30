@@ -278,6 +278,9 @@ qx.Class.define("qx.ui.mobile.basic.Atom",
         layout = new qx.ui.mobile.layout.HBox();
       }
 
+      if(this.__childrenContainer) {
+        this.__childrenContainer.dispose();
+      }
       this.__childrenContainer = new qx.ui.mobile.Widget();
       this.__childrenContainer.layout = layout;
       this.__childrenContainer.addClass("qx-flex-center");
