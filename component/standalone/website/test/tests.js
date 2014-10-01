@@ -2335,10 +2335,6 @@ testrunner.define({
 
 
   testCurrentTargetMultiElementsDispatch : function() {
-    if (!qx.core.Environment.get("event.dispatchevent")) {
-      this.skip("Requires dispatchEvent");
-    }
-
     var target;
 
     var callback = function(ev) {
@@ -2361,10 +2357,6 @@ testrunner.define({
 
 
   testCurrentTargetMultiElementsEmit : function() {
-    if (!qx.core.Environment.get("event.dispatchevent")) {
-      this.skip("Requires dispatchEvent");
-    }
-
     var target;
 
     var callback = function(ev) {
