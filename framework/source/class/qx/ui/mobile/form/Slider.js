@@ -62,9 +62,9 @@ qx.Class.define("qx.ui.mobile.form.Slider",
   ],
 
 
-  construct : function()
+  construct : function(element)
   {
-    this.base(qx.ui.mobile.Widget, "constructor");
+    this.base(qx.ui.mobile.Widget, "constructor", element);
     this._registerEventListener();
     this._refresh();
     this.displayValue = undefined;
@@ -462,5 +462,10 @@ qx.Class.define("qx.ui.mobile.form.Slider",
       this._unregisterEventListener();
       this.disposeMForm();
     }
+  },
+
+
+  classDefined : function(statics) {
+    qxWeb.$attachWidget(statics);
   }
 });
