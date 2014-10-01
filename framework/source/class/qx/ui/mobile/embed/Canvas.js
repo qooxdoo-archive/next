@@ -115,6 +115,6 @@ qx.Class.define("qx.ui.mobile.embed.Canvas",
      */
     getHeight : function() {
       return this[0].height;
-    },
+    }
   }
 });
