@@ -63,6 +63,16 @@ qx.Class.define("qx.test.mobile.form.Slider",
       this.assertEquals(true,qx.bom.element.Class.has(slider[0],'disabled'));
 
       slider.dispose();
+    },
+
+    testFactory: function() {
+      var slider = q.create('<div>')
+        .slider()
+        .appendTo(this.getRoot());
+
+      this.assertInstance(slider, qx.ui.mobile.form.Slider);
+      this.assertEquals(1, slider.getChildren("div[data-value]").length);
+      slider.remove().dispose();
     }
 
   }

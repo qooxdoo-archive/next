@@ -65,6 +65,7 @@ qx.Class.define("qx.ui.mobile.form.Slider",
   construct : function(element)
   {
     this.base(qx.ui.mobile.Widget, "constructor", element);
+    this.append(this._createKnobElement());
     this._registerEventListener();
     this._refresh();
     this.displayValue = undefined;
@@ -170,15 +171,6 @@ qx.Class.define("qx.ui.mobile.form.Slider",
      */
     previousValue : function() {
       this.value = this.value - this.step;
-    },
-
-
-    // overridden
-    _createContainerElement : function()
-    {
-      var container = this.base(qx.ui.mobile.Widget, "_createContainerElement");
-      container.appendChild(this._createKnobElement());
-      return container;
     },
 
 
