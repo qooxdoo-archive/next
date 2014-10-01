@@ -69,6 +69,52 @@ qx.Class.define("qx.ui.mobile.embed.Canvas",
      */
     getContext2d : function() {
       return this[0].getContext("2d");
-    }
+    },
+
+
+    /**
+     * Set the width attribute of the canvas element. This property controls the
+     * size of the canvas coordinate space.
+     *
+     * @param width {Integer} canvas width
+     * @return {qx.ui.mobile.embed.Canvas} This widget for chaining
+     */
+    setWidth: function(width) {
+      this[0].width = width;
+      return this;
+    },
+
+
+    /**
+     * Get the width attribute of the canvas element
+     *
+     * @return {Integer} canvas width
+     */
+    getWidth : function() {
+      return this[0].width;
+    },
+
+
+    /**
+     * Set the height attribute of the canvas element. This property controls the
+     * size of the canvas coordinate space.
+     *
+     * @param height {Integer} canvas height
+     * @return {qx.ui.mobile.embed.Canvas} This widget for chaining
+     */
+    setHeight: function(height) {
+      this[0].height = height;
+      return this;
+    },
+
+
+    /**
+     * Get the height attribute of the canvas element
+     *
+     * @return {Integer} canvas height
+     */
+    getHeight : function() {
+      return this[0].height;
+    },
   }
 });
