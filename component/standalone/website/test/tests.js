@@ -2108,7 +2108,7 @@ testrunner.define({
       {
         normalize : normalizer
       },
-      defer : function(statics)
+      classDefined : function(statics)
       {
         q.$registerEventNormalization(type, statics.normalize);
       }
@@ -4361,15 +4361,14 @@ testrunner.define({
   },
 
   testDispose : function() {
-    var w = new qxWeb.$$qx.ui.website.Widget(qxWeb("#sandbox"));
-    w.init();
-    this.assertEquals("qx.ui.website.Widget", qxWeb("#sandbox").classname);
+    var w = qxWeb("#sandbox").widget();
+    this.assertEquals("qx.ui.mobile.Widget", qxWeb("#sandbox").classname);
     this.assertInstance(w.dispose(), qxWeb);
     this.assertEquals("qxWeb", qxWeb("#sandbox").classname);
   },
 
   testDisposeWithConfig : function() {
-    var w = new qxWeb.$$qx.ui.website.Widget(qxWeb("#sandbox"));
+    var w = qxWeb("#sandbox").widget();
     w.setConfig("test", "123");
     w.setTemplate("test", "456");
     w.dispose();
@@ -4550,215 +4549,6 @@ testrunner.define({
   }
 });
 
-testrunner.define({
-  classname: "ui.Rating",
-
-  setUp : testrunner.globalSetup,
-  tearDown : testrunner.globalTeardown,
-
-  testPlainConstructor : function() {
-    var r = q("#sandbox").rating();
-    this.assertEquals(0, r.getValue());
-    this.assertEquals(5, r.getConfig("length"));
-    this.assertEquals("★", r.getConfig("symbol"));
-  },
-
-  testFullConstructor : function() {
-    var r = q("#sandbox").rating(7, "X", 11);
-    this.assertEquals(7, r.getValue());
-    this.assertEquals(11, r.getConfig("length"));
-    this.assertEquals("X", r.getConfig("symbol"));
-  },
-
-  testSetGetValue : function() {
-    var r = q("#sandbox").rating();
-    r.setValue(3);
-    this.assertEquals(3, r.getValue());
-  },
-
-  testChangeEvent : function() {
-    var r = q("#sandbox").rating();
-    var triggered = false;
-    r.on("changeValue", function(value) {
-      triggered = true;
-      this.assertEquals(3, value);
-    }, this);
-    r.setValue(3);
-    this.assertTrue(triggered);
-  },
-
-  testSetSymbol : function() {
-    var r = q("#sandbox").rating();
-    this.assertEquals("★", r.getChildren().getHtml());
-    r.setConfig("symbol", "X").render();
-    this.assertEquals("X", r.getChildren().getHtml());
-  },
-
-  testSetLength : function() {
-    var r = q("#sandbox").rating();
-    this.assertEquals(5, r.getChildren().length);
-    r.setValue(2);
-    r.setConfig("length", 7).render();
-    this.assertEquals(7, r.getChildren().length);
-    this.assertEquals(2, r.getValue());
-  },
-
-  testTwoCollections : function() {
-    var r = q("#sandbox").rating();
-    var rr = q("#sandbox").rating();
-    r.setValue(2);
-    this.assertEquals(2, r.getValue());
-    this.assertEquals(2, rr.getValue());
-  },
-
-  testTwoRatings : function() {
-    q.create("<div/><div/>").rating().appendTo("#sandbox");
-    q("#sandbox").getChildren().setValue(2);
-    this.assertEquals(2, q("#sandbox").getChildren().getValue());
-    this.assertEquals(2, q("#sandbox").getChildren().eq(0).getValue());
-    this.assertEquals(2, q("#sandbox").getChildren().eq(1).getValue());
-  },
-
-  testListenerRemove : function() {
-    var r = q("#sandbox").rating();
-    var calledChange = 0;
-    var calledCustom = 0;
-
-    r.on("changeValue", function() {
-      calledChange++;
-    });
-    r.on("custom", function() {
-      calledCustom++;
-    });
-    r.dispose();
-    q("#sandbox").rating().setValue(3).emit("custom");
-
-    this.assertEquals(0, calledChange);
-    this.assertEquals(1, calledCustom);
-  }
-});
-
-testrunner.define({
-  classname: "ui.Calendar",
-
-  setUp : testrunner.globalSetup,
-  tearDown : testrunner.globalTeardown,
-
-  testSetGetValue : function() {
-    var now = new Date();
-    var cal = q("#sandbox").calendar(now);
-    this.assertEquals(now.toDateString(), cal.getValue().toDateString());
-  },
-
-  testChangeEvent : function() {
-    var cal = q("#sandbox").calendar(now);
-    var now = new Date();
-    cal.on("changeValue", function() {
-      this.resume(function() {
-        this.assertEquals(now.toDateString(), cal.getValue().toDateString());
-      }, this);
-    }.bind(this));
-
-    setTimeout(function() {
-      cal.setValue(now);
-    }, 100);
-
-    this.wait(250);
-  },
-
-  testConfig : function() {
-    var now = new Date();
-    var cal = q("#sandbox").calendar(now);
-    var monthNames = cal.getConfig("monthNames").map(function(month) {
-      return month.substr(0, 3).toUpperCase()
-    });
-    var dayNames = ["Mo", "Di", "Mi", "Do", "Fr", "Sa", "So"];
-    cal.setConfig("monthNames", monthNames).setConfig("dayNames", dayNames).render();
-
-    var displayedMonth = cal.find("thead tr:nth-child(1) td:nth-child(2)").getHtml();
-    this.assertEquals(0, displayedMonth.indexOf(monthNames[now.getMonth()]));
-
-    var displayedDays = cal.find("thead tr:nth-child(2) td").toArray().map(function(cell) {
-      return qxWeb(cell).getHtml();
-    });
-    this.assertArrayEquals(dayNames, displayedDays);
-  },
-
-  testTemplates : function() {
-    var now = new Date();
-    var cal = q("#sandbox").calendar(now);
-
-    var newClass = "my-cool-calendar";
-    cal.setTemplate("table", cal.getTemplate("table")
-      .replace("{{cssPrefix}}-container", "{{cssPrefix}}-container " + newClass));
-
-    var newPrev = "prev";
-    cal.setTemplate("controls", cal.getTemplate("controls")
-      .replace("&lt;", newPrev));
-
-    cal.render();
-
-    this.assertEquals(1, q("." + newClass).length);
-
-    var displayedPrev = cal.find("thead tr:nth-child(1) td:nth-child(1) button").getHtml();
-    this.assertEquals(displayedPrev, newPrev);
-  },
-
-  testTwoCollections : function() {
-    var now = new Date();
-    var c0 = q("#sandbox").calendar();
-    var c1 = q("#sandbox").calendar();
-    c0.setValue(now);
-
-    this.assertEquals(now.toDateString(), c0.getValue().toDateString());
-    this.assertEquals(now.toDateString(), c1.getValue().toDateString());
-  },
-
-  testMinDate : function() {
-    var cal = q("#sandbox").calendar(new Date(2014, 1, 3));
-    cal.setConfig("minDate", new Date(2013, 5, 6));
-    // valid date
-    cal.setValue(new Date(2013, 5, 6));
-    this.assertException(function() {
-      cal.setValue(new Date(2013, 5, 5));
-    });
-  },
-
-  testMaxDate : function() {
-    var cal = q("#sandbox").calendar(new Date(2014, 1, 3));
-    cal.setConfig("maxDate", new Date(2015, 5, 6));
-    // valid date
-    cal.setValue(new Date(2015, 5, 6));
-    this.assertException(function() {
-      cal.setValue(new Date(2015, 5, 7));
-    });
-  },
-
-  testSelectableWeekDays : function() {
-    var cal = q("#sandbox").calendar(new Date(2014, 1, 3));
-    cal.setConfig("selectableWeekDays", [1, 2, 3, 4, 5]);
-    // valid day
-    cal.setValue(new Date(2014, 1, 3));
-    this.assertException(function() {
-      cal.setValue(new Date(2014, 1, 2));
-    });
-  },
-
-  testPersistEnabled : function() {
-    var slider = q("#sandbox").slider()
-    this.assertTrue(slider.getEnabled());
-    this.assertFalse(slider.getAttribute("disabled"));
-    this.assertFalse(slider.find("button").getAttribute("disabled"));
-    slider.setEnabled(false);
-    this.assertFalse(slider.getEnabled());
-    this.assertTrue(slider.getAttribute("disabled"));
-    this.assertTrue(slider.find("button").getAttribute("disabled"));
-    slider.render();
-    this.assertFalse(slider.getEnabled());
-    this.assertTrue(slider.getAttribute("disabled"));
-    this.assertTrue(slider.find("button").getAttribute("disabled"));
-  }
-});
 
 testrunner.define({
   classname: "ui.Slider",
@@ -4898,120 +4688,6 @@ testrunner.define({
     this.assertEquals(1, slider._getNearestValue(0));
     this.assertEquals(4, slider._getNearestValue(slider.getWidth() / 2));
     this.assertEquals(7, slider._getNearestValue(slider.getWidth()));
-  }
-});
-
-testrunner.define({
-  classname: "ui.Tabs",
-
-  setUp : testrunner.globalSetup,
-  tearDown : testrunner.globalTeardown,
-
-  testPlainConstructor : function() {
-    var tabs = q("#sandbox").tabs();
-    this.assertTrue(tabs.hasClass("qx-tabs"));
-    this.assertEquals(1, tabs.getChildren().length);
-    this.assertTrue(tabs.getChildren().eq(0).is("ul"));
-    if (q.env.get("engine.name") != "mshtml" || q.env.get("browser.documentmode") > 9) {
-      this.assertTrue(tabs.hasClass("qx-flex-ready"));
-      this.assertTrue(tabs.getChildren().eq(0).hasClass("qx-hbox"));
-    }
-  },
-
-  testConstructorWithDom : function() {
-    q("#sandbox").append(q.create("<ul><li data-qx-tabs-page='#cont1'><button>Foo</button></li><li data-qx-tabs-page='#cont0'><button>Foo</button></li></ul><div id='cont0'>Content0</div><div id='cont1'>Content1</div>"));
-    var tabs = q("#sandbox").tabs();
-    this.assertTrue(tabs.find("ul li.qx-tabs-button").length == 2);
-    this.assertTrue(tabs.find("ul li").getFirst().hasClass("qx-tabs-button-active"));
-    this.assertEquals("block", tabs.find("#cont1").getStyle("display"));
-    this.assertEquals("none", tabs.find("#cont0").getStyle("display"));
-  },
-
-  testAddButton : function() {
-    var tabs = q("#sandbox").tabs();
-    tabs.addButton("Foo");
-    this.assertEquals(1, tabs.find("ul li button").length);
-    q("#sandbox").append(q.create("<div id='cont'>content</div>"));
-    tabs.addButton("Bar", "#cont");
-    this.assertEquals(2, tabs.find("ul li button").length);
-    this.assertEquals("none", q("#cont").getStyle("display"));
-  },
-
-  testTwoTabs : function() {
-    var tabs = q.create('<div/><div/>').appendTo("#sandbox").tabs();
-    tabs.addButton("Foo");
-    this.assertEquals(2, tabs.find(".qx-tabs-button").length);
-  },
-
-  testSelectPage : function() {
-    var tabs = q("#sandbox").tabs();
-    tabs.addButton("Foo").addButton("Bar");
-    this.assertTrue(tabs.find("ul li").getFirst().hasClass("qx-tabs-button-active"));
-    this.assertFalse(tabs.find("ul li").eq(1).hasClass("qx-tabs-button-active"));
-    tabs.select(1);
-    this.assertFalse(tabs.find("ul li").eq(0).hasClass("qx-tabs-button-active"));
-    this.assertTrue(tabs.find("ul li").eq(1).hasClass("qx-tabs-button-active"));
-  },
-
-  testChangePage : function() {
-    var tabs = q("#sandbox").tabs();
-    var called = 0;
-    tabs.addButton("Foo").addButton("Bar");
-    tabs.on("changeSelected", function(idx) {
-      called++;
-      this.assertEquals(1, idx);
-    }, this);
-    tabs.select(1);
-    this.assertEquals(1, called);
-  },
-
-  testDispose : function() {
-    var tabs = q("#sandbox").tabs().addButton("Foo").dispose();
-    this.assertNull(tabs.getHtml());
-    this.assertFalse(tabs.hasClass("qx-tabs"));
-  },
-
-  testJustify : function() {
-    var tabs = q.create('<div><ul><li class="qx-tabs-button" data-qx-tabs-page="#page1">Page 1</li></ul><div class="qx-tabs-container"><div id="page1" class="qx-tabs-page">Page 1 Content</div></div></div>')
-    .appendTo("#sandbox").tabs();
-    if (q.env.get("engine.name") == "mshtml" && q.env.get("browser.documentmode") < 10) {
-      this.assertFalse(tabs.hasClass("qx-tabs-justify"));
-      tabs.setConfig("align", "justify").render();
-      this.assertTrue(tabs.hasClass("qx-tabs-justify"));
-    } else {
-      this.assertTrue(tabs.find(".qx-flex1").length == 0);
-      tabs.setConfig("align", "justify").render();
-      this.assertTrue(tabs.find(".qx-flex1").length == 1);
-    }
-  },
-
-  testRight : function() {
-    var tabs = q("#sandbox").tabs("right");
-    if (q.env.get("engine.name") == "mshtml" && q.env.get("browser.documentmode") < 10) {
-      this.assertTrue(tabs.hasClass("qx-tabs-right"))
-      tabs.setConfig("align", "left").render();
-      this.assertFalse(tabs.hasClass("qx-tabs-right"));
-    } else {
-      this.assertTrue(tabs.getChildren().eq(0).hasClass("qx-flex-justify-end"));
-      tabs.setConfig("align", "left").render();
-      this.assertFalse(tabs.getChildren().eq(0).hasClass("qx-flex-justify-end"));
-    }
-  },
-
-  testPersistEnabled : function() {
-    var tabs = q.create('<div><ul><li class="qx-tabs-button" data-qx-tabs-page="#page1"><button>Page 1</button></li></ul><div class="qx-tabs-container"><div id="page1" class="qx-tabs-page">Page 1 Content</div></div></div>')
-    .appendTo("#sandbox").tabs();
-    this.assertTrue(tabs.getEnabled());
-    this.assertFalse(tabs.getAttribute("disabled"));
-    this.assertFalse(tabs.find("button").getAttribute("disabled"));
-    tabs.setEnabled(false);
-    this.assertFalse(tabs.getEnabled());
-    this.assertTrue(tabs.getAttribute("disabled"));
-    this.assertTrue(tabs.find("button").getAttribute("disabled"));
-    tabs.render();
-    this.assertFalse(tabs.getEnabled());
-    this.assertTrue(tabs.getAttribute("disabled"));
-    this.assertTrue(tabs.find("button").getAttribute("disabled"));
   }
 });
 
