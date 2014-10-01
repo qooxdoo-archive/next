@@ -2675,10 +2675,10 @@ testrunner.define({
     this.assertEquals("george", result[0].firstChild.firstChild.data);
   },
 
-  testGet : function() {
+  testGetFromDom : function() {
     var template = q.create("<div id='tmp'>{{affe}}</div>");
     template.appendTo(document.body);
-    var result = q.template.get("tmp", {affe: "george"});
+    var result = q.template.getFromDom("tmp", {affe: "george"});
     this.assertEquals(1, result.length);
     this.assertEquals("george", result[0].innerHTML);
     template.remove();

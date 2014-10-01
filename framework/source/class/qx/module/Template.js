@@ -75,6 +75,29 @@ qx.Class.define("qx.module.Template", {
       return qxWeb.$init(el, qxWeb);
     },
 
+    /**
+     * Helper method which provides direct access to templates stored as HTML in
+     * the DOM. The DOM node with the given ID will be treated as a template,
+     * parsed and a new DOM element will be returned containing the parsed data.
+     * Keep in mind that templates can only have one root element.
+     * Additionally, you should not put the template into a regular, hidden
+     * DOM element because the template may not be valid HTML due to the containing
+     * mustache tags. We suggest to put it into a script tag with the type
+     * <code>text/template</code>.
+     *
+     * @attachStatic{qxWeb, template.getFromDom}
+     * @param id {String} The id of the HTML template in the DOM.
+     * @param view {Object} The object holding the data to render.
+     * @param partials {Object} Object holding parts of a template.
+     * @return {qxWeb} Collection containing a single DOM element with the parsed
+     * template data.
+     */
+    getFromDom : function(id, view, partials) {
+      var el = qx.bom.Template.get(id, view, partials);
+      el = qx.module.Template.__wrap(el);
+      return qxWeb.$init([el], qxWeb);
+    },
+
 
     /**
      * If the given node is a DOM text node, wrap it in a span element and return
@@ -104,6 +127,7 @@ qx.Class.define("qx.module.Template", {
         create : statics.create,
         init : qx.ui.Template.init,
         get: qx.ui.Template.get,
+        getFromDom: statics.getFromDom,
         add : qx.ui.Template.add
       }
     });
