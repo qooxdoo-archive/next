@@ -16,6 +16,12 @@ Samples = {
     page.show();
   },
 
+  "sample Button" : function() {
+    q.create("<button>")
+      .button("First Button")
+      .appendTo(this.getRoot());
+  },
+
 
   "sample Pages" : function() {
     // Page 1
