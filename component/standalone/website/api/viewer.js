@@ -67,7 +67,6 @@ q.ready(function() {
   var icons = {
     "Core": "&#xF0C7;",
     "Extras": "&#xF01D;",
-    "Polyfill": "&#xF0DA;",
     "Widget": "&#xF124;",
     "IO": "&#xF0BB;",
     "Event_Normalization": "&#xF076;",
@@ -81,7 +80,6 @@ q.ready(function() {
     "IO",
     "Event_Normalization",
     "Utilities",
-    "Polyfill",
     "Widget",
     "Plugin_API"
   ];
@@ -265,7 +263,7 @@ q.ready(function() {
         }
       }
 
-      q.template.get("list-item", {
+      q.template.getFromDom("list-item", {
         name: methodName + "()",
         classname: convertNameToCssClass(methodName, "nav-"),
         missing: missing,
@@ -292,7 +290,7 @@ q.ready(function() {
         }
       }
 
-      q.template.get("list-item", {
+      q.template.getFromDom("list-item", {
         name: methodName + "()",
         classname: convertNameToCssClass(methodName, "nav-"),
         missing: missing,
@@ -592,7 +590,7 @@ q.ready(function() {
       }
     }
 
-    return q.template.get("method", data);
+    return q.template.getFromDom("method", data);
   };
 
 
@@ -605,12 +603,12 @@ q.ready(function() {
         ev.type = addTypeLink(ev.type);
       }
     });
-    return q.template.get("events", {events: events});
+    return q.template.getFromDom("events", {events: events});
   };
 
 
   var renderTypes = function(idPrefix, types) {
-    return q.template.get("types", {
+    return q.template.getFromDom("types", {
         idPrefix: idPrefix,
         types: types
     });
@@ -720,7 +718,7 @@ q.ready(function() {
     renderList(this);
     sortList();
 
-    acc = q("#list").tabs(null, null, "vertical").render();
+    acc = q("#list").tabBar(null, "vertical").render();
 
     // decouple the creation of the content by using the next possible AnimationFrame
     requestAnimationFrame(delayedRenderContent, this);
@@ -1023,8 +1021,7 @@ q.ready(function() {
       var listSelector = el[0].id ? ".nav-" + el[0].id.replace(".", "").replace("$", "") : null;
       if (listSelector) {
         var page = q(listSelector).getAncestors(".qx-tabs-page");
-        var index = q("#list .qx-tabs-page").indexOf(page);
-        q("#list").select(index);
+        q("#list").selected = page;
       }
     }
 
@@ -1067,13 +1064,13 @@ q.ready(function() {
     var codeEl = q.create('<code>');
     codeEl[0].appendChild(textNode);
 
-    var tabs = q.template.get("widget-dom", {
+    var tabs = q.template.getFromDom("widget-dom", {
       title: "Expand",
       pageId: sampleId
     })
     .insertAfter(markupHeader);
     var pre = tabs.find("pre").append(codeEl);
-    tabs.tabs();
+    tabs.tabBar();
 
     if (useHighlighter) {
       hljs.highlightBlock(pre[0]);
@@ -1168,8 +1165,8 @@ q.ready(function() {
   data.on("ready", onContentReady, data);
   data.on("loadingFailed", function() {
     q("#warning").setStyle("display", "block");
-    if (isFileProtocol()) {
-      q("#warning em").setHtml("File protocol not supported. Please load the application via HTTP.");
+    if (location.protocol === "file:") {
+      q("#warning em").setHtml("The file protocol is not supported. Please load the application via HTTP.");
     }
   });
 });
