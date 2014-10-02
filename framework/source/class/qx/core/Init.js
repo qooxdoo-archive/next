@@ -43,15 +43,13 @@ qx.Class.define("qx.core.Init", {
      * of the class defined by the setting <code>qx.application</code>.
      */
     ready : function() {
-      if (!(qx.$$loader.scriptLoaded && qxWeb.isReady())) {
+      if (!(qxWeb.isReady())) {
         return;
       }
 
       if (qx.core.Init.__application) {
         return;
       }
-
-      qx.log.Logger.debug(qx.core.Init, "Load runtime: " + (new Date() - qx.Class.LOADSTART) + "ms");
 
       var app = qx.core.Environment.get("qx.application");
       var Clazz = qx.Class.getByName(app);
