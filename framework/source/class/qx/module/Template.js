@@ -95,7 +95,7 @@ qx.Class.define("qx.module.Template", {
     getFromDom : function(id, view, partials) {
       var el = qx.bom.Template.get(id, view, partials);
       el = qx.module.Template.__wrap(el);
-      return qxWeb.$init([el], qxWeb);
+      return qxWeb.$init(el, qxWeb);
     },
 
 
