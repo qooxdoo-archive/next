@@ -46,11 +46,11 @@ qx.Class.define("qx.ui.mobile.tabbar.TabBar", {
     }
 
     if (!orientation && !this.mediaQuery && !align) {
-      this._render();
+      this.render();
     }
 
     this.on("keydown", this._onKeyDown, this);
-    this.on("addedChild", this._render, this);
+    this.on("addedChild", this.render, this);
     this.on("removedChild", this._onRemovedChild, this);
   },
 
@@ -95,7 +95,7 @@ qx.Class.define("qx.ui.mobile.tabbar.TabBar", {
       check: function(value) {
         return ["left", "right", "justify"].indexOf(value) !== -1;
       },
-      apply: "_render"
+      apply: "render"
     },
 
     /**
@@ -110,7 +110,7 @@ qx.Class.define("qx.ui.mobile.tabbar.TabBar", {
       check: function(value) {
         return ["horizontal", "vertical"].indexOf(value) !== -1;
       },
-      apply: "_render"
+      apply: "render"
     }
   },
 
@@ -152,7 +152,7 @@ qx.Class.define("qx.ui.mobile.tabbar.TabBar", {
      * (Re-)renders the widget
      * @return {qx.ui.mobile.TabBar} The widget for chaining
      */
-    _render: function() {
+    render: function() {
       // initialize button widgets in predefined markup
       this.find("> *").forEach(function(el) {
         el = qxWeb(el);
@@ -162,9 +162,9 @@ qx.Class.define("qx.ui.mobile.tabbar.TabBar", {
       }.bind(this));
 
       if (this.orientation === "horizontal") {
-        return this._renderHorizontal();
+        return this.renderHorizontal();
       } else if (this.orientation === "vertical") {
-        return this._renderVertical();
+        return this.renderVertical();
       }
     },
 
@@ -173,7 +173,7 @@ qx.Class.define("qx.ui.mobile.tabbar.TabBar", {
      * Render the widget in horizontal mode
      * @return {qx.ui.mobile.TabBar} The collection for chaining
      */
-    _renderHorizontal: function() {
+    renderHorizontal: function() {
       this.layout = new qx.ui.mobile.layout.HBox();
 
       var selectedButton = null;
@@ -215,7 +215,7 @@ qx.Class.define("qx.ui.mobile.tabbar.TabBar", {
      * Render the widget in vertical mode
      * @return {qx.ui.mobile.TabBar} The collection for chaining
      */
-    _renderVertical: function() {
+    renderVertical: function() {
       this.layout = new qx.ui.mobile.layout.VBox();
       this.find("> .button")
       ._forEachElementWrapped(function(button) {
@@ -368,7 +368,7 @@ qx.Class.define("qx.ui.mobile.tabbar.TabBar", {
     dispose: function() {
       this.find("> .button").off("tap", this._onTap, this)
         .off("keydown", this._onKeyDown, this)
-        .off("addedChild", this._render, this)
+        .off("addedChild", this.render, this)
         .off("removedChild", this._onRemovedChild, this)
         .mediaQuery = null;
     }
