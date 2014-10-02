@@ -48,123 +48,17 @@ qx.Class.define("qx.dev.StackTrace",
     /**
      * Get a stack trace of the current position in the code.
      *
-     * Browser compatibility:
-     * <ul>
-     *   <li>In new versions of Gecko, WebKit and Opera, the output of
-     *   {@link #getStackTraceFromError} and {@link #getStackTraceFromCaller} is
-     *   combined to generate the richest trace, including line numbers.</li>
-     *   <li>For Internet Explorer (and other engines that do not provide stack
-     *    traces), {@link #getStackTraceFromCaller} is used</li>
-     * </ul>
-     *
      * @return {String[]} Stack trace of the current position in the code. Each line in the array
      *     represents one call in the stack trace.
      */
     getStackTrace : function()
     {
-      var trace = [];
       try {
         throw new Error();
       }
       catch(ex) {
-        var errorTrace = qx.dev.StackTrace.getStackTraceFromError(ex);
-        var callerTrace = qx.dev.StackTrace.getStackTraceFromCaller(arguments);
-        qx.lang.Array.removeAt(errorTrace, 0);
-
-        trace = callerTrace.length > errorTrace.length ? callerTrace : errorTrace;
-        for (var i=0; i<Math.min(callerTrace.length, errorTrace.length); i++)
-        {
-          var callerCall = callerTrace[i];
-          if (callerCall.indexOf("anonymous") >= 0) {
-            continue;
-          }
-
-          var methodName = null;
-          var callerArr = callerCall.split(".");
-          var mO = /(.*?)\(/.exec(callerArr[callerArr.length - 1]);
-          if (mO && mO.length == 2) {
-            methodName = mO[1];
-            callerArr.pop();
-          }
-          if (callerArr[callerArr.length - 1] == "prototype") {
-            callerArr.pop();
-          }
-          var callerClassName = callerArr.join(".");
-
-          var errorCall = errorTrace[i];
-          var errorArr = errorCall.split(":");
-          var errorClassName = errorArr[0];
-          var lineNumber = errorArr[1];
-          var columnNumber;
-          if (errorArr[2]) {
-            columnNumber = errorArr[2];
-          }
-
-          var className = null;
-          if (qx.Class.getByName(errorClassName)) {
-            className = errorClassName;
-          } else {
-            className = callerClassName;
-          }
-          var line = className;
-          if (methodName) {
-            line += "." + methodName;
-          }
-          line += ":" + lineNumber;
-          if (columnNumber) {
-            line += ":" + columnNumber;
-          }
-          trace[i] = line;
-        }
+        return qx.dev.StackTrace.getStackTraceFromError(ex);
       }
-
-      return trace;
-    },
-
-
-    /**
-     * Get a stack trace from the arguments special variable using the
-     * <code>caller</code> property.
-     *
-     * This methods returns class/mixin and function names of each step
-     * in the call stack.
-     *
-     * Recursion is not supported.
-     *
-     * @param args {arguments} arguments variable.
-     * @return {String[]} Stack trace of caller of the function the arguments variable belongs to.
-     *     Each line in the array represents one call in the stack trace.
-     * @signature function(args)
-     */
-    getStackTraceFromCaller : function(args)
-    {
-      var trace = [];
-      var fcn = qx.lang.Function.getCaller(args);
-      var knownFunction = {};
-      while (fcn)
-      {
-        var fcnName = qx.lang.Function.getName(fcn);
-        trace.push(fcnName);
-
-        try {
-          fcn = fcn.caller;
-        } catch(ex) {
-          break;
-        }
-
-        if (!fcn) {
-          break;
-        }
-
-        // avoid infinite recursion
-        var hash = qx.core.ObjectRegistry.toHashCode(fcn);
-        if (knownFunction[hash]) {
-          trace.push("...");
-          break;
-        }
-        knownFunction[hash] = fcn;
-      }
-      return trace;
     },
 
 
