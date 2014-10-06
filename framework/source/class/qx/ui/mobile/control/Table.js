@@ -1154,7 +1154,7 @@ qx.Class.define("qx.ui.mobile.control.Table", {
      * @return {String} The text content of the cell
      */
     __getCellValue : function(cell) {
-      return cell.getTextContent() || "";
+      return cell.getAttribute("text") || "";
     },
 
 
