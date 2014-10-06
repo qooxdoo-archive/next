@@ -220,7 +220,7 @@ qx.Class.define("qx.ui.mobile.tabbar.TabBar", {
       this.find("> .button")
       ._forEachElementWrapped(function(button) {
         var page = this.getPage(button);
-        if (page.length ==1) {
+        if (page.length == 1) {
           // save the page's parent element for re-rendering in horizontal mode
           var parent = page.getParents()[0];
           if (parent !== this[0]) {
