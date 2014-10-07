@@ -35,9 +35,16 @@ qx.Mixin.define("qx.ui.form.MModelSelection",
   },
 
 
+  properties : {
+    modelSelection : {
+      set: "_setModelSelection",
+      get: "_getModelSelection"
+    }
+  },
+
+
   members :
   {
-
     __modelSelection : null,
     __inSelectionChange : false,
 
@@ -59,7 +66,6 @@ qx.Mixin.define("qx.ui.form.MModelSelection",
     /**
      * Handler for the selection change of the including class e.g. SelectBox,
      * List, ...
-     * It sets the new modelSelection via {@link #setModelSelection}.
      */
     __onModelSelectionChange : function() {
       if (this.__inSelectionChange) {
@@ -81,7 +87,7 @@ qx.Mixin.define("qx.ui.form.MModelSelection",
       // only change the selection if you are sure that its correct [BUG #3748]
       if (modelSelection.length === data.length) {
         try {
-          this.setModelSelection(modelSelection);
+          this.modelSelection = modelSelection;
         } catch (e) {
           throw new Error(
             "Could not set the model selection. Maybe your models are not unique? " + e
@@ -133,8 +139,7 @@ qx.Mixin.define("qx.ui.form.MModelSelection",
      *
      * @return {qx.data.Array} An array of the models of the selected items.
      */
-    getModelSelection : function()
-    {
+    _getModelSelection : function() {
       return this.__modelSelection;
     },
 
@@ -152,7 +157,7 @@ qx.Mixin.define("qx.ui.form.MModelSelection",
      * @param modelSelection {Array} An array of models, which should be
      *   selected.
      */
-    setModelSelection : function(modelSelection)
+    _setModelSelection : function(modelSelection)
     {
       // check for null values
       if (!modelSelection)

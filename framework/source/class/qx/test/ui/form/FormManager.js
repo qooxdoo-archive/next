@@ -153,12 +153,13 @@ qx.Class.define("qx.test.ui.form.FormManager",
       // add the widgets
       this.__tf1.required = true;
       this.__form.add(this.__tf1, "TF1");
-      this.__form.add(this.__tf2, "TF2", qx.util.Validate.email());
+      this.__form.add(this.__tf2, "TF2", qx.util.Validate.email("Falsch!"));
 
       // validation should fail
+      this.__tf2.invalidMessage = "FALSCH!";
       this.assertFalse(this.__form.validate());
-      this.assertFalse(this.__tf1.getValid());
-      this.assertFalse(this.__tf2.getValid());
+      this.assertFalse(this.__tf1.valid);
+      this.assertFalse(this.__tf2.valid);
 
       // correct the values
       this.__tf1.setValue("a");
@@ -166,8 +167,8 @@ qx.Class.define("qx.test.ui.form.FormManager",
 
       // validation should be ok
       this.assertTrue(this.__form.validate());
-      this.assertTrue(this.__tf1.getValid());
-      this.assertTrue(this.__tf2.getValid());
+      this.assertTrue(this.__tf1.valid);
+      this.assertTrue(this.__tf2.valid);
 
       // check the validation manager itself
       this.assertTrue(this.__form.getValidationManager().validate());
@@ -534,10 +535,13 @@ qx.Class.define("qx.test.ui.form.FormManager",
       this.__form.addButton(b1);
 
       // just check if the renderer is created without an error
-      new qx.ui.mobile.form.renderer.Single(this.__form);
+      var r = new qx.ui.mobile.form.renderer.Single(this.__form);
 
+      r.dispose();
       b1.dispose();
     },
+
+
 
     testSinglePlaceholderRenderer : function()
     {
@@ -549,8 +553,9 @@ qx.Class.define("qx.test.ui.form.FormManager",
       this.__form.addButton(b1);
 
       // just check if the renderer is created without an error
-      new qx.ui.mobile.form.renderer.SinglePlaceholder(this.__form);
+      var r = new qx.ui.mobile.form.renderer.SinglePlaceholder(this.__form);
 
+      r.dispose();
       b1.dispose();
     }
 

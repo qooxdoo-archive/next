@@ -173,7 +173,7 @@ qx.Class.define("qx.data.controller.Form",
             if (qx.Interface.classImplements(clazz, qx.ui.core.ISingleSelection)) {
               // use the first element of the selection because passed to the
               // marshaler (and its single selection anyway) [BUG #3541]
-              itemValue = items[name].getModelSelection().getItem(0) || null;
+              itemValue = items[name].modelSelection.getItem(0) || null;
             } else {
               itemValue = items[name].value;
             }
@@ -352,8 +352,7 @@ qx.Class.define("qx.data.controller.Form",
 
     /**
      * Returns whether the given item implements
-     * {@link qx.ui.core.ISingleSelection} and
-     * {@link qx.ui.form.IModelSelection}.
+     * {@link qx.ui.core.ISingleSelection} and has a <code>modelSelection</code> property.
      *
      * @param item {qx.ui.form.IForm} The form item to check.
      *
@@ -361,7 +360,7 @@ qx.Class.define("qx.data.controller.Form",
      */
     __isModelSelectable : function(item) {
       return qx.Interface.classImplements(item.constructor, qx.ui.core.ISingleSelection) &&
-      qx.Interface.classImplements(item.constructor, qx.ui.form.IModelSelection);
+      ("modelSelection" in item);
     },
 
 
