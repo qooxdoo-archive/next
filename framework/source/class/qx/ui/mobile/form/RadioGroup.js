@@ -47,8 +47,7 @@ qx.Class.define("qx.ui.mobile.form.RadioGroup",
   extend : Object,
   implement : [
     qx.ui.core.ISingleSelection,
-    qx.ui.form.IForm,
-    qx.ui.form.IModelSelection
+    qx.ui.form.IForm
   ],
   include : [
     qx.ui.core.MSingleSelectionHandling,

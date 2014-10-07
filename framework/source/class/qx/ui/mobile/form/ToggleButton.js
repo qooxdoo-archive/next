@@ -46,12 +46,10 @@ qx.Class.define("qx.ui.mobile.form.ToggleButton",
   include : [
     qx.ui.mobile.form.MValue,
     qx.ui.form.MForm,
-    qx.ui.form.MModelProperty,
     qx.ui.mobile.form.MState
   ],
   implement : [
-    qx.ui.form.IForm,
-    qx.ui.form.IModel
+    qx.ui.form.IForm
   ],
 
 
@@ -94,6 +92,28 @@ qx.Class.define("qx.ui.mobile.form.ToggleButton",
     defaultCssClass :
     {
       init : "togglebutton"
+    },
+
+
+    /**
+     * Model property for storing additional information for the ToggleButton.
+     *
+     * Be careful using that property as this is used for the
+     * {@link qx.ui.form.MModelSelection} it has some restrictions:
+     *
+     * * Don't use equal models in one widget using the
+     *     {@link qx.ui.form.MModelSelection}.
+     *
+     * * Avoid setting only some model properties if the widgets are added to
+     *     a {@link qx.ui.form.MModelSelection} widget.
+     *
+     * Both restrictions result of the fact, that the set models are deputies
+     * for their widget.
+     */
+    model :
+    {
+      nullable : true,
+      event : true
     }
   },
 

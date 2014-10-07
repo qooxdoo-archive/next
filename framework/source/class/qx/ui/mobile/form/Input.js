@@ -28,13 +28,11 @@ qx.Class.define("qx.ui.mobile.form.Input",
   extend : qx.ui.mobile.Widget,
   include : [
     qx.ui.form.MForm,
-    qx.ui.form.MModelProperty,
     qx.ui.mobile.container.MScrollHandling,
     qx.ui.mobile.form.MState
   ],
   implement : [
-    qx.ui.form.IForm,
-    qx.ui.form.IModel
+    qx.ui.form.IForm
   ],
 
 
@@ -45,6 +43,32 @@ qx.Class.define("qx.ui.mobile.form.Input",
     this.addClass("gap");
 
     this.on("focus", this._onSelected, this);
+  },
+
+
+  properties :
+  {
+    /**
+     * Model property for storing additional information for the input
+     * widget. It can act as value property for example.
+     *
+     * Be careful using that property as this is used for the
+     * {@link qx.ui.form.MModelSelection} it has some restrictions:
+     *
+     * * Don't use equal models in one widget using the
+     *     {@link qx.ui.form.MModelSelection}.
+     *
+     * * Avoid setting only some model properties if the widgets are added to
+     *     a {@link qx.ui.form.MModelSelection} widge.
+     *
+     * Both restrictions result of the fact, that the set models are deputies
+     * for their widget.
+     */
+    model :
+    {
+      nullable : true,
+      event : true
+    }
   },
 
 
