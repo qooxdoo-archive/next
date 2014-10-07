@@ -291,6 +291,8 @@ qx.Class = {
       defaultConstructor.base.apply(this, arguments);
     }
 
+    defaultConstructor.$$isDefaultConstructor = true;
+
     return defaultConstructor;
   },
 
@@ -745,7 +747,7 @@ qx.Class.define("qx.Class",
      */
     getConstructorArgumentsCount : function(constr) {
       // get the first non-default constructor in the inheritance hierarchy
-      while (Function.prototype.toString.call(constr).indexOf("defaultConstructor()") >= 0) {
+      while (constr.$$isDefaultConstructor) {
         constr = constr.superclass;
       }
       // parse the function to get the arguments count
