@@ -57,8 +57,7 @@ qx.Class.define("qx.ui.mobile.form.Slider",
   ],
   implement : [
     qx.ui.form.IForm,
-    qx.ui.form.IModel,
-    qx.ui.form.INumberForm
+    qx.ui.form.IModel
   ],
 
 

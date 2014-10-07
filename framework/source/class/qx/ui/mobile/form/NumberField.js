@@ -27,7 +27,6 @@ qx.Class.define("qx.ui.mobile.form.NumberField",
 {
   extend : qx.ui.mobile.form.Input,
   include : [qx.ui.mobile.form.MValue, qx.ui.mobile.form.MText],
-  implement : [qx.ui.form.IStringForm],
 
 
   /**

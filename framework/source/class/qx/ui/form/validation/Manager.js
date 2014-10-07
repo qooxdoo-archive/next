@@ -120,19 +120,8 @@ qx.Class.define("qx.ui.form.validation.Manager",
     /**
      * Add a form item to the validation manager.
      *
-     * The form item has to implement at least two interfaces:
-     * <ol>
-     *   <li>The {@link qx.ui.form.IForm} Interface</li>
-     *   <li>One of the following interfaces:
-     *     <ul>
-     *       <li>{@link qx.ui.form.IBooleanForm}</li>
-     *       <li>{@link qx.ui.form.IColorForm}</li>
-     *       <li>{@link qx.ui.form.IDateForm}</li>
-     *       <li>{@link qx.ui.form.INumberForm}</li>
-     *       <li>{@link qx.ui.form.IStringForm}</li>
-     *     </ul>
-     *   </li>
-     * </ol>
+     * The form item has to implement the {@link qx.ui.form.IForm} Interface.
+     *
      * The validator can be a synchronous or asynchronous validator. In
      * both cases the validator can either returns a boolean or fire an
      * {@link qx.core.ValidationError}. For synchronous validation, a plain

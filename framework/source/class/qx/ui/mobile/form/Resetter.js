@@ -237,11 +237,6 @@ qx.Class.define("qx.ui.mobile.form.Resetter",
     _supportsValue : function(formItem) {
       var clazz = formItem.constructor;
       return (
-        qx.Interface.classImplements(clazz, qx.ui.form.IBooleanForm) ||
-        qx.Interface.classImplements(clazz, qx.ui.form.IColorForm) ||
-        qx.Interface.classImplements(clazz, qx.ui.form.IDateForm) ||
-        qx.Interface.classImplements(clazz, qx.ui.form.INumberForm) ||
-        qx.Interface.classImplements(clazz, qx.ui.form.IStringForm) ||
         qx.Mixin.getClassByMixin(clazz, qx.ui.mobile.form.MValue)
       );
     }
