@@ -106,7 +106,7 @@
       "extend" : [ "cache" ],
 
       "include": ["qx.*"],
-      "exclude": ["qx.test.*"],
+      "exclude": ["qx.test.*", "qx.Part", "qx.io.part.*", "qx.core.Init"],
 
       "environment" :
       {
@@ -119,11 +119,12 @@
         "paths" :
         {
           "file"     : "build/script/qx.js",
-          "app-root" : "./build"
+          "app-root" : "./build",
+          "loader-template" : "../tool/data/generator/website.loader.tmpl.js"
         },
         "code"  :
         {
-          "format"   : true,
+          "format"   : false,
           "except"   : [],
           "optimize" : ["basecalls", "variables", "privates", "strings", "whitespace"]
         }
@@ -134,6 +135,11 @@
       "copy-resources" :
       {
         "target" : "build"
+      },
+
+      "config-warnings" :
+      {
+        "exclude" : ["qx.test.*", "qx.Part", "qx.io.part.*", "qx.core.Init"]
       }
     },
 
