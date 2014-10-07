@@ -624,7 +624,7 @@
       "extend" : ["build-module"],
       "let" : {
         "Q_INCLUDES" : [
-          "qx.ui.website.*",
+          "qx.module.Ui"
         ],
         "MODULE_FILENAME" : "ui"
       }
@@ -635,11 +635,11 @@
       "extend" : ["build-module-min"],
       "let" : {
         "Q_INCLUDES" : [
-          "qx.ui.website.*",
+          "qx.module.Ui"
         ],
         "MODULE_FILENAME" : "ui"
       }
-    },
+    }
 
   }
 }
