@@ -425,13 +425,8 @@ qx.Class.define("qx.ui.mobile.form.Form",
           {
             this.__invalidItems.push(item);
 
-            if(this.__renderer != null)
-            {
+            if(this.__renderer != null) {
               this.__renderer.showErrorForItem(item);
-            }
-            else
-            {
-              alert('error '+item.invalidMessage);
             }
           }
         }

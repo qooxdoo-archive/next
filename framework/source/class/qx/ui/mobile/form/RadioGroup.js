@@ -255,8 +255,7 @@ qx.Class.define("qx.ui.mobile.form.RadioGroup",
      *
      * @return {qx.ui.form.IRadioItem[]} The item array
      */
-    getChildren : function()
-    {
+    getChildren : function() { // TODO rename to getItems
       return this.__items;
     },
 
