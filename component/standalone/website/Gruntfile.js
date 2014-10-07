@@ -45,7 +45,7 @@ module.exports = function(grunt) {
           style: 'compressed'
         },
         files: {
-          'script/indigo.css': '<%= common.QOOXDOO_PATH %>/framework/source/resource/qx/website/scss/indigo.scss'
+          'script/indigo.css': 'indigo.scss'
         }
       }
     },
