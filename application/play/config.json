@@ -67,7 +67,8 @@
       "build-files",
       "build-script",
       "source-script"
-    ]
+    ],
+    "exclude" : ["qx.module.Ui"],
   },
 
   "jobs" :
@@ -83,7 +84,7 @@
       ],
 
       "exclude" : [
-        "qx.ui.website.*"
+        "qx.module.Ui"
       ],
 
       "environment" : {
