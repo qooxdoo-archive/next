@@ -147,7 +147,7 @@ Using qx.Mobile Flat theme
 
 If you want to use our Flat theme instead of the Indigo theme, you have to copy the content of the following file:
 
-``qooxdoo/framework/source/resource/qx/mobile/scss/theme/flat/_styles.scss``
+``qooxdoo/framework/source/resource/qx/scss/theme/flat/_styles.scss``
 
 Into your project's theme file:
 

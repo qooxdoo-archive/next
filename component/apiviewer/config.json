@@ -97,14 +97,13 @@
       "extend" : ["cache"],
       "let" :
       {
-        "QX_MOBILE_THEME_PATH"      : "${QOOXDOO_PATH}/framework/source/resource/qx/mobile/scss",
         "QX_SHARED_THEME_PATH"      : "${QOOXDOO_PATH}/framework/source/resource/qx/scss",
         "APPLICATION_THEME_PATH"    : "source/theme/${APPLICATION_PATH}",
         "APPLICATION_RESOURCE_PATH" : "source/resource/${APPLICATION_PATH}"
       },
       "shell" :
       {
-        "command" : "sass -C -t compressed -I ${QX_MOBILE_THEME_PATH} -I ${QX_SHARED_THEME_PATH} --update ${APPLICATION_THEME_PATH}/scss:${APPLICATION_RESOURCE_PATH}/css",
+        "command" : "sass -C -t compressed -I ${QX_SHARED_THEME_PATH} --update ${APPLICATION_THEME_PATH}/scss:${APPLICATION_RESOURCE_PATH}/css",
         "command-not-found" : "It seems that Sass (http://sass-lang.com/) is not installed and/or executable, which is needed for the SCSS-compilation."
       }
     },

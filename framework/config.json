@@ -245,13 +245,12 @@
       "extend" : ["cache"],
       "let" :
       {
-        "QX_MOBILE_THEME_PATH" : "${QOOXDOO_PATH}/framework/source/resource/qx/mobile/scss",
         "QX_SHARED_THEME_PATH" : "${QOOXDOO_PATH}/framework/source/resource/qx/scss",
         "MOBILE_RESOURCE_PATH" : "${QOOXDOO_PATH}/component/testrunner/source/resource/testrunner/view/mobile"
       },
       "shell" :
       {
-        "command" : "sass -C -t compressed -I ${QX_MOBILE_THEME_PATH} -I ${QX_SHARED_THEME_PATH} --update ${MOBILE_RESOURCE_PATH}/scss:${MOBILE_RESOURCE_PATH}/css",
+        "command" : "sass -C -t compressed -I ${QX_SHARED_THEME_PATH} --update ${MOBILE_RESOURCE_PATH}/scss:${MOBILE_RESOURCE_PATH}/css",
         "command-not-found" : "It seems that Sass (http://sass-lang.com/) is not installed and/or executable, which is needed for the SCSS-compilation."
       }
     },
@@ -341,11 +340,10 @@
       "desc": "Watch and compile the theme scss",
       "extend": ["cache"],
       "let": {
-        "QX_MOBILE_THEME_PATH": "source/resource/qx/mobile",
         "QX_SHARED_THEME_PATH": "source/resource/qx/scss"
       },
       "shell": {
-        "command": "sass -C -t compressed -I ${QX_MOBILE_THEME_PATH}/scss -I ${QX_SHARED_THEME_PATH} --watch ${QX_MOBILE_THEME_PATH}/scss:${QX_MOBILE_THEME_PATH}/css"
+        "command": "sass -C -t compressed -I ${QX_SHARED_THEME_PATH} --watch ${QX_SHARED_THEME_PATH}/scss:${QX_SHARED_THEME_PATH}/css"
       }
     },
 

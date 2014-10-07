@@ -28,7 +28,7 @@
 /build.log
 
 # CSS compiler
-/framework/source/resource/qx/mobile/scss/.sass-cache/
+/framework/source/resource/qx/scss/.sass-cache/
 
 # Node/NPM
 node_modules/

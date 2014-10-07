@@ -26,7 +26,7 @@
  *
  * @ignore(iScroll)
  * @require(qx.module.Io)
- * @asset(qx/mobile/js/iscroll*.js)
+ * @asset(qx/js/iscroll*.js)
  */
 qx.Mixin.define("qx.ui.mobile.container.MIScroll",
 {
@@ -205,7 +205,7 @@ qx.Mixin.define("qx.ui.mobile.container.MIScroll",
           // Alert interested parties that we scrolled to end of page.
           if (qx.core.Environment.get("qx.mobile.nativescroll") == false)
           {
-            
+
             container._setCurrentX(-this.x);
             container._setCurrentY(-this.y);
             container.emit("scrollEnd");
@@ -215,7 +215,7 @@ qx.Mixin.define("qx.ui.mobile.container.MIScroll",
           // Alert interested parties that we scrolled to end of page.
           if (qx.core.Environment.get("qx.mobile.nativescroll") == false)
           {
-            
+
             container._setCurrentX(-this.x);
             container._setCurrentY(-this.y);
           }
