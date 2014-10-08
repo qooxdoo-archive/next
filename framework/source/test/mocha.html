@@ -1,0 +1,58 @@
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>Mocha Tests</title>
+  <link rel="stylesheet" href="node_modules/mocha/mocha.css" />
+</head>
+<body>
+  <div id="mocha"></div>
+  <div id="messages"></div>
+  <div id="fixtures"></div>
+  <script src="node_modules/chai/chai.js"></script>
+  <script src="node_modules/mocha/mocha.js"></script>
+  <script> mocha.setup('bdd')</script>
+  <script src="../../../component/standalone/website/script/q.js"></script>
+  <script src="tests/setup.js"></script>
+  <script src="tests/Basic.js"></script>
+  <script src="tests/Animation.js"></script>
+  <script src="tests/Attribute.js"></script>
+  <script src="tests/Css.js"></script>
+  <script src="tests/Blocker.js"></script>
+  <script src="tests/Event.js"></script>
+  <script src="tests/Templates.js"></script>
+  <script src="tests/Manipulating.js"></script>
+  <script src="tests/MatchMedia.js"></script>
+  <script src="tests/TextSelection.js"></script>
+  <script src="tests/Traversing.js"></script>
+  <script src="tests/Messaging.js"></script>
+  <script src="tests/Dataset.js"></script>
+  <script src="tests/Placeholder.js"></script>
+  <script src="tests/Placement.js"></script>
+  <script src="tests/q.js"></script>
+  <script src="tests/Io.js"></script>
+  <script src="tests/Storage.js"></script>
+  <script src="tests/Selector.js"></script>
+  <script src="tests/Transform.js"></script>
+  <script src="tests/Environment.js"></script>
+  <script src="tests/Cookie.js"></script>
+  <script src="tests/util/Array.js"></script>
+  <script src="tests/util/Function.js"></script>
+  <script src="tests/util/Object.js"></script>
+  <script src="tests/util/String.js"></script>
+  <script src="tests/util/Type.js"></script>
+  <script src="tests/event/GestureHandler.js"></script>
+  <script src="tests/event/Keyboard.js"></script>
+  <script src="tests/event/Mouse.js"></script>
+  <script src="tests/event/Native.js"></script>
+  <script src="tests/event/PointerHandler.js"></script>
+  <script src="tests/event/Touch.js"></script>
+  <script src="tests/event/TouchHandler.js"></script>
+  <script src="tests/dev/FakeServer.js"></script>
+
+  <script>
+    q.ready( function() {
+        mocha.run();
+    });
+  </script>
+</body>
+</html>

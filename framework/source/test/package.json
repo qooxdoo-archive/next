@@ -1,0 +1,29 @@
+{
+  "name": "mochatest",
+  "version": "0.0.1",
+  "description": "using mocha and chai in browser and node",
+  "main": "/component/standalone/website/script/q.js",
+  "scripts": {
+    "test": "mocha"
+  },
+  "dependencies" : {
+        "chai" : "*"
+        },
+  "devDependencies": {
+    "mocha": "*",
+    "chai": "*",
+    "sinon": "*"
+      },
+
+  "src_files": [
+    "node_modules/chai/chai.js",
+    "node_modules/sinon/pkg/sinon-1.7.3.js",
+    "/component/standalone/website/script/q.js",
+    "framework/source/test/html/media.html",
+    "css/style2.css"
+  ],
+  
+  "launch_in_dev": [
+    "node"
+  ]
+}

@@ -1,0 +1,22 @@
+<!doctype html>
+<html>
+  <head>
+    <title></title>
+    <meta charset="utf-8" />
+    <script>
+      // obtain qxWeb from testrunner
+      var qxWeb = window.parent.qxWeb;
+
+      qxWeb.ready(function () {
+        qxWeb(window).on('message', receiver);
+        function receiver(e) {
+           // inject our window obj cause this is used as iframe within the tests
+           var match = qxWeb.matchMedia(e.data, window).matches ? "true" : "false";
+           window.parent.postMessage(match,'*');
+        }
+      });
+    </script>
+  </head>
+  <body>
+  </body>
+</html>

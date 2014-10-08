@@ -1,0 +1,19 @@
+{
+  "framework": "mocha",
+  "src_files": [
+    "node_modules/chai/chai.js",
+    "node_modules/sinon/pkg/sinon-1.7.3.js",
+    "../../../component/standalone/website/script/q.js",
+    "tests/setup.js",
+    "tests/*"
+  ],
+  "launchers": {
+    "Node": {
+      "command": "mocha -R tap tests/*.js",
+      "protocol": "tap"
+    }
+  },
+  "launch_in_dev": [
+    "node"
+  ]
+}
