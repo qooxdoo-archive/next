@@ -25,6 +25,7 @@
  */
 qx.Class.define("qx.ui.mobile.form.Input",
 {
+  // ABSTRACT
   extend : qx.ui.mobile.Widget,
   include : [
     qx.ui.form.MForm,
