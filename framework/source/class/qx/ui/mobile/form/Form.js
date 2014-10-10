@@ -44,6 +44,7 @@ qx.Class.define("qx.ui.mobile.form.Form",
   construct : function(element)
   {
     this.base(qx.ui.mobile.Widget, "constructor", element);
+    this.defaultCssClass = "form";
     this._resetter = this._createResetter();
     this.on("addedChild", this._onAddedChild, this);
     this.on("removedChild", this._onRemovedChild, this);

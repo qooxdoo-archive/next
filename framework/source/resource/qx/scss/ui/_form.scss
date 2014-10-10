@@ -41,6 +41,10 @@
   margin-top: rem(10);
 }
 
+.form-row-content.qx-hbox > * {
+  margin: auto;
+}
+
 .text-area {
   @include background-clip(padding-box);
   @include background($input-background);
