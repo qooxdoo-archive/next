@@ -45,13 +45,8 @@ qx.Class.define("qx.ui.mobile.form.Resetter",
      */
     add : function(item) {
       // check the init values
-      if (this._supportsValue(item)) {
-        var init = item.getValue();
-      } else if (this.__supportsSingleSelection(item)) {
-        var init = item.getSelection();
-      } else if (this.__supportsDataBindingSelection(item)) {
-        var init = item.getSelection().concat();
-      } else {
+      var init = this.getInitValue(item);
+      if (init === undefined) {
         throw new Error("Item " + item + " not supported for reseting.");
       }
       // store the item and its init value
@@ -107,7 +102,7 @@ qx.Class.define("qx.ui.mobile.form.Resetter",
           init = dataEntry.init;
           break;
         }
-      };
+      }
 
       // check for the available init value
       if (init === undefined) {
@@ -115,6 +110,20 @@ qx.Class.define("qx.ui.mobile.form.Resetter",
       }
 
       this.__setItem(item, init);
+    },
+
+
+    getInitValue: function(item) {
+      if (this._supportsValue(item)) {
+        return item.getValue();
+      }
+      if (this.__supportsSingleSelection(item)) {
+        return item.getSelection();
+      }
+      if (this.__supportsDataBindingSelection(item)) {
+        return item.getSelection().concat();
+      }
+      return undefined;
     },
 
 

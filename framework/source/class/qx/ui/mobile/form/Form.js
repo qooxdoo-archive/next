@@ -103,12 +103,30 @@ qx.Class.define("qx.ui.mobile.form.Form",
 
 
     _onAddedChild: function(child) {
-      this._resetter.add(child);
+      if (this._resetter.getInitValue(child)) {
+        this._resetter.add(child);
+      }
+      var children = child.getChildren();
+      for (var i = 0, l = children.length; i < l; i++) {
+        var grandChild = qxWeb(children[i]);
+        if (this._resetter.getInitValue(grandChild)) {
+          this._resetter.add(grandChild);
+        }
+      }
     },
 
 
     _onRemovedChild: function(child) {
-      this._resetter.remove(child);
+      if (this._resetter.getInitValue(child)) {
+        this._resetter.remove(child);
+      }
+      var children = child.getChildren();
+      for (var i = 0, l = children.length; i < l; i++) {
+        var grandChild = qxWeb(children[i]);
+        if (this._resetter.getInitValue(grandChild)) {
+          this._resetter.remove(grandChild);
+        }
+      }
     },
 
 
