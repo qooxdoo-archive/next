@@ -45,7 +45,6 @@
 qx.Class.define("qx.ui.mobile.form.RadioButton",
 {
   extend : qx.ui.mobile.form.Input,
-  include : [qx.ui.mobile.form.MValue],
 
 
   /**
@@ -54,11 +53,9 @@ qx.Class.define("qx.ui.mobile.form.RadioButton",
   construct : function(value)
   {
     this.base(qx.ui.mobile.form.Input, "constructor");
-    if (value) {
-      this.value = value;
-    }
+
+    this.value = !!value;
     this.on("tap", this._onTap, this);
-    this.initMValue(value);
   },
 
 
@@ -129,7 +126,8 @@ qx.Class.define("qx.ui.mobile.form.RadioButton",
 
     /**
      * Sets the value [true/false] of this radio button.
-     * It is called by setValue method of qx.ui.mobile.form.MValue mixin
+     * It is called by the setValue method of the qx.ui.mobile.form.MForm
+     * mixin
      * @param value {Boolean} the new value of the radio button
      */
     _setValue : function(value) {
@@ -145,7 +143,8 @@ qx.Class.define("qx.ui.mobile.form.RadioButton",
 
     /**
      * Gets the value [true/false] of this radio button.
-     * It is called by getValue method of qx.ui.mobile.form.MValue mixin
+     * It is called by the getValue method of the qx.ui.mobile.form.MForm
+     * mixin
      * @return {Boolean} the value of the radio button
      */
     _getValue : function() {

@@ -19,24 +19,18 @@
 ************************************************************************ */
 
 /**
- * Form interface for all form widgets. It includes the API for enabled,
- * required and valid states.
+ * Form interface for all form widgets. It includes the API for the enabled
+ * and required states as well as validity.
  */
 qx.Interface.define("qx.ui.form.IForm",
 {
   events :
   {
     /** Fired when the enabled state was modified */
-    "changeEnabled" : "qx.event.type.Data",
+    changeEnabled : null,
 
-    /** Fired when the valid state was modified */
-    "changeValid" : "qx.event.type.Data",
-
-    /** Fired when the invalidMessage was modified */
-    "changeInvalidMessage" : "qx.event.type.Data",
-
-    /** Fired when the required was modified */
-    "changeRequired" : "qx.event.type.Data"
+    /** Fired when the item's value fails validation */
+    invalid : null
   },
 
   properties : {
@@ -53,16 +47,11 @@ qx.Interface.define("qx.ui.form.IForm",
     /**
      * The widget's valid state.
      */
-    valid : {},
+    validity : {},
 
     /**
      * The widget's invalid message.
      */
-    invalidMessage : {},
-
-    /**
-     * The invalid message if required of the widget.
-     */
-    requiredInvalidMessage : {}
+    validationMessage : {}
   }
 });

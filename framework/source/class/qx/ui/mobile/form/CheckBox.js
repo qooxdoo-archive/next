@@ -46,7 +46,6 @@
 qx.Class.define("qx.ui.mobile.form.CheckBox",
 {
   extend : qx.ui.mobile.form.Input,
-  include : [qx.ui.mobile.form.MValue],
 
 
   /**
@@ -57,13 +56,10 @@ qx.Class.define("qx.ui.mobile.form.CheckBox",
     this.base(qx.ui.mobile.form.Input, "constructor", element);
     value = !!value;
 
-    if (value) {
-      this.value = value;
-      this._state = value;
-    }
+    this.value = value;
+    this._state = value;
 
     this.on("tap", this._onTap, this);
-    this.initMValue(value);
   },
 
 
@@ -107,7 +103,8 @@ qx.Class.define("qx.ui.mobile.form.CheckBox",
 
     /**
      * Sets the value [true/false] of this checkbox.
-     * It is called by setValue method of qx.ui.mobile.form.MValue mixin
+     * It is called by the setValue method of the qx.ui.mobile.form.MForm
+     * mixin
      * @param value {Boolean} the new value of the checkbox
      */
     _setValue : function(value) {
@@ -125,7 +122,8 @@ qx.Class.define("qx.ui.mobile.form.CheckBox",
 
     /**
      * Gets the value [true/false] of this checkbox.
-     * It is called by getValue method of qx.ui.mobile.form.MValue mixin
+     * It is called by the getValue method of the qx.ui.mobile.form.MForm
+     * mixin
      * @return {Boolean} the value of the checkbox
      */
     _getValue : function() {

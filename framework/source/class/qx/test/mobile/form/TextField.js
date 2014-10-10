@@ -23,41 +23,77 @@ qx.Class.define("qx.test.mobile.form.TextField",
 
   members :
   {
+    setUp: function() {
+      this.base(qx.test.mobile.MobileTestCase, "setUp");
+      this.__tf = new qx.ui.mobile.form.TextField();
+    },
+
     testValue : function()
     {
-      var textField = new qx.ui.mobile.form.TextField();
-      this.getRoot().append(textField);
+      this.getRoot().append(this.__tf);
 
-      this.assertEquals('',textField.value);
-      this.assertEquals(null,qx.bom.element.Attribute.get(textField[0],'value'));
-      this.assertEventFired(textField, "changeValue", function() {
-        textField.value = "mytext";
-      });
-      this.assertEquals('mytext',textField.value);
-      this.assertEquals('mytext',qx.bom.element.Attribute.get(textField[0],'value'));
+      this.assertEquals(null,this.__tf.value);
+      this.assertEquals(null,qx.bom.element.Attribute.get(this.__tf[0],'value'));
+      this.assertEventFired(this.__tf, "changeValue", function() {
+        this.__tf.value = "mytext";
+      }.bind(this));
+      this.assertEquals('mytext',this.__tf.value);
+      this.assertEquals('mytext',qx.bom.element.Attribute.get(this.__tf[0],'value'));
 
-      textField.dispose();
+      this.__tf.dispose();
 
-      textField = new qx.ui.mobile.form.TextField('affe');
-      this.getRoot().append(textField);
-      this.assertEquals('affe',textField.value);
-      this.assertEquals('affe',qx.bom.element.Attribute.get(textField[0],'value'));
-      textField.dispose();
+      this.__tf = new qx.ui.mobile.form.TextField('affe');
+      this.getRoot().append(this.__tf);
+      this.assertEquals('affe',this.__tf.value);
+      this.assertEquals('affe',qx.bom.element.Attribute.get(this.__tf[0],'value'));
+      this.__tf.dispose();
     },
 
 
     testEnabled : function()
     {
-      var textField = new qx.ui.mobile.form.TextField();
-      this.getRoot().append(textField);
-      this.assertEquals(true,textField.enabled);
-      this.assertFalse(qx.bom.element.Class.has(textField[0],'disabled'));
+      this.getRoot().append(this.__tf);
+      this.assertEquals(true,this.__tf.enabled);
+      this.assertFalse(qx.bom.element.Class.has(this.__tf[0],'disabled'));
 
-      textField.enabled = false;
-      this.assertEquals(false,textField.enabled);
-      this.assertEquals(true,qx.bom.element.Class.has(textField[0],'disabled'));
+      this.__tf.enabled = false;
+      this.assertEquals(false,this.__tf.enabled);
+      this.assertEquals(true,qx.bom.element.Class.has(this.__tf[0],'disabled'));
 
-      textField.dispose();
+      this.__tf.dispose();
+    },
+
+
+    testPattern: function() {
+      var pattern = "Foo";
+      this.__tf.pattern = pattern;
+      this.assertEquals(pattern, this.__tf.getAttribute("pattern"));
+      // empty value is valid unless required
+      this.assertTrue(this.__tf.validity.valid);
+      this.__tf.value = "Bar";
+      this.assertFalse(this.__tf.validity.valid);
+      this.assertTrue(this.__tf.validity.patternMismatch);
+      this.__tf.value = "Foo";
+      this.assertTrue(this.__tf.validity.valid);
+      this.assertFalse(this.__tf.validity.patternMismatch);
+      this.__tf.pattern = "Bar";
+      this.assertFalse(this.__tf.validity.valid);
+      this.assertTrue(this.__tf.validity.patternMismatch);
+      this.__tf.value = "";
+      this.assertTrue(this.__tf.validity.valid);
+      this.assertFalse(this.__tf.validity.patternMismatch);
+    },
+
+
+    testMaxLength: function() {
+      this.__tf.maxLength = 1;
+      this.__tf.value = "Foo";
+      this.assertEquals("F", this.__tf.value);
+      this.__tf.maxLength = null;
+      this.__tf.value = "Foo";
+      this.assertEquals("Foo", this.__tf.value);
+      this.__tf.maxLength = 1;
+      this.assertEquals("F", this.__tf.value);
     }
 
   }

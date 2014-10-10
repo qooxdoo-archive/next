@@ -27,10 +27,10 @@ qx.Class.define("qx.ui.mobile.form.Input",
 {
   // ABSTRACT
   extend : qx.ui.mobile.Widget,
+
   include : [
-    qx.ui.form.MForm,
-    qx.ui.mobile.container.MScrollHandling,
-    qx.ui.mobile.form.MState
+    qx.ui.mobile.form.MForm,
+    qx.ui.mobile.container.MScrollHandling
   ],
   implement : [
     qx.ui.form.IForm
@@ -40,10 +40,16 @@ qx.Class.define("qx.ui.mobile.form.Input",
   construct : function(element)
   {
     this.base(qx.ui.mobile.Widget, "constructor", element);
-    this.setAttribute("type", this._getType());
+    this.required = undefined;
     this.addClass("gap");
 
     this.on("focus", this._onSelected, this);
+    this.initMForm();
+  },
+
+  events: {
+    changeModel: null,
+    invalid: null
   },
 
 
@@ -60,7 +66,7 @@ qx.Class.define("qx.ui.mobile.form.Input",
      *     {@link qx.ui.form.MModelSelection}.
      *
      * * Avoid setting only some model properties if the widgets are added to
-     *     a {@link qx.ui.form.MModelSelection} widge.
+     *     a {@link qx.ui.form.MModelSelection} widget.
      *
      * Both restrictions result of the fact, that the set models are deputies
      * for their widget.
@@ -69,28 +75,26 @@ qx.Class.define("qx.ui.mobile.form.Input",
     {
       nullable : true,
       event : true
+    },
+
+    type: {
+      check: "String",
+      apply: "_applyType"
     }
   },
 
 
   members :
   {
+
     // overridden
-    _getTagName : function()
-    {
+    _getTagName : function() {
       return "input";
     },
 
 
-    /**
-     * Returns the type of the input field. Override this method in the
-     * specialized input class.
-     */
-    _getType : function()
-    {
-      if (qx.core.Environment.get("qx.debug")) {
-        throw new Error("Abstract method call");
-      }
+    _applyType: function(value) {
+      this.setAttribute("type", value);
     },
 
 

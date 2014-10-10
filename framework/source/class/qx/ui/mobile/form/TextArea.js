@@ -25,10 +25,8 @@ qx.Class.define("qx.ui.mobile.form.TextArea",
 {
   extend : qx.ui.mobile.Widget,
   include : [
-    qx.ui.mobile.form.MValue,
     qx.ui.mobile.form.MText,
-    qx.ui.form.MForm,
-    qx.ui.mobile.form.MState
+    qx.ui.mobile.form.MForm
   ],
   implement : [
     qx.ui.form.IForm
@@ -51,7 +49,6 @@ qx.Class.define("qx.ui.mobile.form.TextArea",
       this.on("input", this._fixChildElementsHeight, this);
       this.on("changeValue", this._fixChildElementsHeight, this);
     }
-    this.initMValue(value);
     this.initMForm();
     this.initMText();
   },

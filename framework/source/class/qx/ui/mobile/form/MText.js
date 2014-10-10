@@ -26,8 +26,15 @@ qx.Mixin.define("qx.ui.mobile.form.MText",
 {
   properties :
   {
+    pattern: {
+      check: "String",
+      init: null,
+      nullable: true,
+      apply: "_applyPattern"
+    },
+
    /**
-     * Maximal number of characters that can be entered in the input field.
+     * Maximum number of characters that can be entered in the input field.
      */
     maxLength :
     {
@@ -85,7 +92,14 @@ qx.Mixin.define("qx.ui.mobile.form.MText",
     // property apply
     _applyMaxLength : function(value, old)
     {
-      this.setAttribute("maxlength", value);
+      if (value) {
+        this.setAttribute("maxlength", value);
+        if (this.value && this.value.length > value) {
+          this.value = this.value.substr(0, value);
+        }
+      } else {
+        this.removeAttribute("maxlength");
+      }
     },
 
 
@@ -98,6 +112,14 @@ qx.Mixin.define("qx.ui.mobile.form.MText",
         value = " " + value;
       }
       this.setAttribute("placeholder", value);
+    },
+
+    _applyPattern: function(value) {
+      if (value) {
+        this.setAttribute("pattern", value);
+      } else {
+        this.removeAttribute("pattern");
+      }
     },
 
 

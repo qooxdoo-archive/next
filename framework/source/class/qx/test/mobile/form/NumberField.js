@@ -23,102 +23,118 @@ qx.Class.define("qx.test.mobile.form.NumberField",
 
   members :
   {
+    setUp: function() {
+      this.base(qx.test.mobile.MobileTestCase, "setUp");
+      this.__nf = new qx.ui.mobile.form.NumberField()
+        .appendTo(this.getRoot());
+    },
+
+    tearDown: function() {
+      this.base(qx.test.mobile.MobileTestCase, "tearDown");
+      this.__nf.dispose();
+    },
+
     testValue : function()
     {
-      var numberField = new qx.ui.mobile.form.NumberField();
-      this.getRoot().append(numberField);
+      this.assertEquals(null, this.__nf.getValue());
+      this.assertEquals(null, qx.bom.element.Attribute.get(this.__nf[0],'value'));
+      this.assertEventFired(this.__nf, "changeValue", function() {
+        this.__nf.setValue(15);
+      }.bind(this));
 
-      this.assertEquals('',numberField.getValue());
-      this.assertEquals(null, qx.bom.element.Attribute.get(numberField[0],'value'));
-      this.assertEventFired(numberField, "changeValue", function() {
-        numberField.setValue(15);
-      });
-
-      this.assertEquals(15,numberField.getValue());
-      this.assertEquals(15,qx.bom.element.Attribute.get(numberField[0],'value'));
-
-      numberField.dispose();
+      this.assertEquals(15,this.__nf.getValue());
+      this.assertEquals(15,qx.bom.element.Attribute.get(this.__nf[0],'value'));
     },
 
 
     testMinimum : function()
     {
-      var numberField = new qx.ui.mobile.form.NumberField();
-      this.getRoot().append(numberField);
+      this.assertUndefined(this.__nf.minimum);
+      this.assertNull(this.__nf.getAttribute("min"));
 
-      this.assertUndefined(numberField.minimum);
+      this.__nf.minimum = 42;
+      this.assertEquals(42, this.__nf.minimum);
+      this.assertEquals(42, this.__nf.getAttribute("min"));
 
-      numberField.minimum = 42;
+      this.assertEventFired(this.__nf, "invalid", function() {
+        this.__nf.value = 41;
+        this.assertEquals(41, this.__nf.value);
+        this.assertFalse(this.__nf.validity.valid);
+        this.assertTrue(this.__nf.validity.rangeUnderflow);
+        this.assertFalse(this.__nf.checkValidity());
+      }.bind(this));
 
-     this.assertEquals(42, numberField.minimum);
-
-      numberField.dispose();
-
+      this.__nf.minimum = null;
+      this.assertTrue(this.__nf.validity.valid);
     },
 
 
     testMaximum : function()
     {
-      var numberField = new qx.ui.mobile.form.NumberField();
-      this.getRoot().append(numberField);
+      this.assertUndefined(this.__nf.maximum);
+      this.assertNull(this.__nf.getAttribute("max"));
 
-      this.assertUndefined(numberField.maximum);
+      this.__nf.maximum = 42;
+      this.assertEquals(42, this.__nf.maximum);
+      this.assertEquals(42, this.__nf.getAttribute("max"));
 
-      numberField.maximum = 42;
+      this.assertEventFired(this.__nf, "invalid", function() {
+        this.__nf.value = 43;
+        this.assertEquals(43, this.__nf.value);
+        this.assertFalse(this.__nf.validity.valid);
+        this.assertTrue(this.__nf.validity.rangeOverflow);
+        this.assertFalse(this.__nf.checkValidity());
+      }.bind(this));
 
-      this.assertEquals(42, numberField.maximum);
-
-      numberField.dispose();
+      this.__nf.maximum = null;
+      this.assertTrue(this.__nf.validity.valid);
     },
 
 
     testStep : function()
     {
-      var numberField = new qx.ui.mobile.form.NumberField();
-      this.getRoot().append(numberField);
+      this.assertUndefined(this.__nf.step);
 
-      this.assertUndefined(numberField.step);
+      this.__nf.step = 10;
+      this.assertEquals(10, this.__nf.step);
+      this.assertEquals(10, this.__nf.getAttribute("step"));
 
-      numberField.step = 42;
+      this.assertEventFired(this.__nf, "invalid", function() {
+        this.__nf.value = 12;
+        this.assertEquals(12, this.__nf.value);
+        this.assertFalse(this.__nf.validity.valid);
+        this.assertTrue(this.__nf.validity.stepMismatch);
+        this.assertFalse(this.__nf.checkValidity());
+      }.bind(this));
 
-      this.assertEquals(42, numberField.step);
-
-      numberField.dispose();
+      this.__nf.step = null;
+      this.assertTrue(this.__nf.validity.valid);
     },
 
 
     testResetValue : function()
     {
-      var numberField = new qx.ui.mobile.form.NumberField();
-      this.getRoot().append(numberField);
+      this.assertEquals(null, this.__nf.getValue());
+      this.assertNull(qx.bom.element.Attribute.get(this.__nf[0],'value'));
 
-      this.assertEquals('', numberField.getValue());
-      this.assertEquals(null, qx.bom.element.Attribute.get(numberField[0],'value'));
+      this.__nf.setValue(15);
+      this.assertEquals(15,this.__nf.getValue());
 
-      numberField.setValue(15);
-      this.assertEquals(15,numberField.getValue());
+      this.__nf.resetValue();
 
-      numberField.resetValue();
-
-      this.assertEquals(null,qx.bom.element.Attribute.get(numberField[0],'value'));
-      this.assertEquals('',numberField.getValue());
-
-      numberField.dispose();
+      this.assertNull(qx.bom.element.Attribute.get(this.__nf[0],'value'));
+      this.assertEquals(null,this.__nf.getValue());
     },
 
 
     testEnabled : function()
     {
-      var numberField = new qx.ui.mobile.form.NumberField();
-      this.getRoot().append(numberField);
-      this.assertEquals(true, numberField.enabled);
-      this.assertFalse(qx.bom.element.Class.has(numberField[0],'disabled'));
+      this.assertTrue(this.__nf.enabled);
+      this.assertFalse(qx.bom.element.Class.has(this.__nf[0],'disabled'));
 
-      numberField.enabled = false;
-      this.assertEquals(false, numberField.enabled);
-      this.assertEquals(true, qx.bom.element.Class.has(numberField[0],'disabled'));
-
-      numberField.dispose();
+      this.__nf.enabled = false;
+      this.assertFalse(this.__nf.enabled);
+      this.assertTrue(qx.bom.element.Class.has(this.__nf[0],'disabled'));
     }
 
   }

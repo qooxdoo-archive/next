@@ -50,9 +50,7 @@ qx.Class.define("qx.ui.mobile.form.Slider",
 {
   extend : qx.ui.mobile.Widget,
   include : [
-    qx.ui.mobile.form.MValue,
-    qx.ui.form.MForm,
-    qx.ui.mobile.form.MState
+    qx.ui.mobile.form.MForm
   ],
   implement : [
     qx.ui.form.IForm
@@ -68,7 +66,6 @@ qx.Class.define("qx.ui.mobile.form.Slider",
     this.displayValue = undefined;
 
     this.addClass("gap");
-    this.initMValue();
     this.initMForm();
   },
 
@@ -317,7 +314,8 @@ qx.Class.define("qx.ui.mobile.form.Slider",
 
     /**
      * Sets the value of this slider.
-     * It is called by setValue method of qx.ui.mobile.form.MValue mixin
+     * It is called by the setValue method of the qx.ui.mobile.form.MForm
+     * mixin
      * @param value {Integer} the new value of the slider
      */
     _setValue : function(value)
@@ -328,7 +326,7 @@ qx.Class.define("qx.ui.mobile.form.Slider",
 
     /**
      * Gets the value [true/false] of this slider.
-     * It is called by getValue method of qx.ui.mobile.form.MValue mixin
+     * It is called by the getValue method of the qx.ui.mobile.form.MForm mixin
      * @return {Integer} the value of the slider
      */
     _getValue : function() {

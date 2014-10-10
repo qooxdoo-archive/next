@@ -26,7 +26,7 @@
 qx.Class.define("qx.ui.mobile.form.NumberField",
 {
   extend : qx.ui.mobile.form.Input,
-  include : [qx.ui.mobile.form.MValue, qx.ui.mobile.form.MText],
+  include : [qx.ui.mobile.form.MText],
 
 
   /**
@@ -35,10 +35,10 @@ qx.Class.define("qx.ui.mobile.form.NumberField",
   construct : function(value)
   {
     this.base(qx.ui.mobile.form.Input, "constructor");
+    this.type = "number";
     if (value) {
       this.value = value;
     }
-    this.initMValue(value);
     this.initMText();
   },
 
@@ -61,7 +61,7 @@ qx.Class.define("qx.ui.mobile.form.NumberField",
       check : "Number",
       init : undefined,
       nullable: true,
-      apply : "_onChangeMinimum"
+      apply : "_applyMinimum"
     },
 
 
@@ -74,7 +74,7 @@ qx.Class.define("qx.ui.mobile.form.NumberField",
       check : "Number",
       init : undefined,
       nullable: true,
-      apply : "_onChangeMaximum"
+      apply : "_applyMaximum"
     },
 
 
@@ -113,7 +113,7 @@ qx.Class.define("qx.ui.mobile.form.NumberField",
      * Called when changed the property maximum.
      * Delegates value change on DOM element.
      */
-    _onChangeMaximum : function(value,old) {
+    _applyMaximum : function(value,old) {
       this.setAttribute("max",value);
     },
 
@@ -122,7 +122,7 @@ qx.Class.define("qx.ui.mobile.form.NumberField",
      * Called when changed the property minimum.
      * Delegates value change on DOM element.
      */
-    _onChangeMinimum : function(value,old) {
+    _applyMinimum : function(value,old) {
       this.setAttribute("min",value);
     }
   }

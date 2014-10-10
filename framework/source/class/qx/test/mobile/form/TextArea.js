@@ -28,7 +28,7 @@ qx.Class.define("qx.test.mobile.form.TextArea",
       var textArea = new qx.ui.mobile.form.TextArea();
       this.getRoot().append(textArea);
 
-      this.assertEquals('', textArea.value);
+      this.assertEquals(null, textArea.value);
       this.assertEquals(null, qx.bom.element.Attribute.get(textArea[0],'value'));
       this.assertEventFired(textArea, "changeValue", function() {
         textArea.value = "mytext";

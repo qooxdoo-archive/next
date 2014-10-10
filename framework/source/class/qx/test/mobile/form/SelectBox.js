@@ -31,7 +31,7 @@ qx.Class.define("qx.test.mobile.form.SelectBox",
       selectBox.model = dd;
 
       // Initial value '''
-      this.assertEquals('',selectBox.value);
+      this.assertEquals(null,selectBox.value);
 
       // Attempt to set value to "Item 3"
       selectBox.value = "Item 3";

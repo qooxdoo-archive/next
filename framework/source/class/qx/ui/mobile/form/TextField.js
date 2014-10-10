@@ -24,7 +24,9 @@
 qx.Class.define("qx.ui.mobile.form.TextField",
 {
   extend : qx.ui.mobile.form.Input,
-  include : [qx.ui.mobile.form.MValue, qx.ui.mobile.form.MText],
+  include : [
+    qx.ui.mobile.form.MText
+  ],
 
 
   /**
@@ -33,13 +35,13 @@ qx.Class.define("qx.ui.mobile.form.TextField",
   construct : function(value)
   {
     this.base(qx.ui.mobile.form.Input, "constructor");
+    this.type = "text";
 
     if (value) {
       this.value = value;
     }
 
     this.on("keypress", this._onKeyPress, this);
-    this.initMValue(value);
     this.initMText();
   },
 
@@ -56,13 +58,6 @@ qx.Class.define("qx.ui.mobile.form.TextField",
 
   members :
   {
-    // overridden
-    _getType : function()
-    {
-      return "text";
-    },
-
-
     /**
     * Event handler for <code>keypress</code> event.
     * @param evt {qx.event.type.KeySequence} the keypress event.

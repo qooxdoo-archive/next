@@ -58,10 +58,8 @@ qx.Class.define("qx.ui.mobile.form.SelectBox",
 {
   extend : qx.ui.mobile.Widget,
   include : [
-    qx.ui.mobile.form.MValue,
-    qx.ui.form.MForm,
-    qx.ui.mobile.form.MText,
-    qx.ui.mobile.form.MState
+    qx.ui.mobile.form.MForm,
+    qx.ui.mobile.form.MText
   ],
   implement : [
     qx.ui.form.IForm
@@ -87,7 +85,6 @@ qx.Class.define("qx.ui.mobile.form.SelectBox",
 
     // When selectionDialogs changes selection, get chosen selectedIndex from it.
     this.__selectionDialog.on("changeSelection", this._onChangeSelection, this);
-    this.initMValue();
     this.initMForm();
     this.initMText();
   },
@@ -229,7 +226,7 @@ qx.Class.define("qx.ui.mobile.form.SelectBox",
         return;
       }
 
-      if (value == "") {
+      if (!value) {
         if (this.nullable) {
           this.selection = null;
         } else {
@@ -245,7 +242,8 @@ qx.Class.define("qx.ui.mobile.form.SelectBox",
 
     /**
      * Get the text value of this
-     * It is called by setValue method of qx.ui.mobile.form.MValue mixin.
+     * It is called by the setValue method of the qx.ui.mobile.form.MForm
+     * mixin.
      * @return {Number} the new selected index of the SelectBox.
      */
     _getValue : function() {

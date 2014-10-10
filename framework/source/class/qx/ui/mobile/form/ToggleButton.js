@@ -44,9 +44,7 @@ qx.Class.define("qx.ui.mobile.form.ToggleButton",
 {
   extend : qx.ui.mobile.Widget,
   include : [
-    qx.ui.mobile.form.MValue,
-    qx.ui.form.MForm,
-    qx.ui.mobile.form.MState
+    qx.ui.mobile.form.MForm
   ],
   implement : [
     qx.ui.form.IForm
@@ -81,7 +79,6 @@ qx.Class.define("qx.ui.mobile.form.ToggleButton",
     this.on("swipe", this._onSwipe, this);
 
     this.addClass("gap");
-    this.initMValue(value);
     this.initMForm();
   },
 
@@ -150,7 +147,8 @@ qx.Class.define("qx.ui.mobile.form.ToggleButton",
 
     /**
      * Sets the value [true/false] of this toggle button.
-     * It is called by setValue method of qx.ui.mobile.form.MValue mixin
+     * It is called by the setValue method of the qx.ui.mobile.form.MForm
+     * mixin
      * @param value {Boolean} the new value of the toggle button
      */
     _setValue : function(value)
@@ -168,7 +166,7 @@ qx.Class.define("qx.ui.mobile.form.ToggleButton",
 
     /**
      * Gets the value [true/false] of this toggle button.
-     * It is called by getValue method of qx.ui.mobile.form.MValue mixin
+     * It is called by the getValue method of the qx.ui.mobile.form.MForm mixin
      * @return {Boolean} the value of the toggle button
      */
     _getValue : function() {

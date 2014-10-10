@@ -6,7 +6,7 @@
    http://qooxdoo.org
 
    Copyright:
-     2004-2011 1&1 Internet AG, Germany, http://www.1und1.de
+     2004-2014 1&1 Internet AG, Germany, http://www.1und1.de
 
    License:
      LGPL: http://www.gnu.org/licenses/lgpl.html
@@ -14,25 +14,30 @@
      See the LICENSE file in the project's top-level directory for details.
 
    Authors:
-     * Tino Butz (tbtz)
+     * Martin Wittemann (martinwittemann)
 
 ************************************************************************ */
 
 /**
- * The mixin contains all functionality to provide a value property for input
- * widgets.
+ * Mixin handling the common properties of form widgets.
  */
-qx.Mixin.define("qx.ui.mobile.form.MValue",
+qx.Mixin.define("qx.ui.mobile.form.MForm",
 {
-  events :
-  {
+
+  events: {
+
+    /**
+     * Fired when the item's value fails validation
+     */
+    invalid : null,
+
     /**
      * The event is fired on every keystroke modifying the value of the field.
      *
      * The method {@link qx.event.type.Data#getData} returns the
      * current value of the text field. TODOC
      */
-    "keyInput" : null,
+    keyInput : null,
 
 
     /**
@@ -46,12 +51,48 @@ qx.Mixin.define("qx.ui.mobile.form.MValue",
      * The method {@link qx.event.type.Data#getData} returns the
      * current text value of the field.
      */
-    "changeValue" : null
+    changeValue : null
   },
 
 
-  properties :
-  {
+  properties : {
+
+    /**
+     * The item's value
+     */
+    value : {
+      set: "setValue",
+      get: "getValue",
+      event: true
+    },
+
+    /**
+     * Whether the item must have a value
+     */
+    required: {
+      type: "Boolean",
+      apply: "_applyRequired",
+      init: false
+    },
+
+    /**
+     * Returns the item's ValidityState.
+     * See {@link https://developer.mozilla.org/en-US/docs/Web/API/ValidityState}
+     */
+    validity: {
+      get: "_getValidity"
+    },
+
+
+    /**
+     * A message describing why this item's value is invalid, or an empty
+     * string if it's valid.
+     * @type {Object}
+     */
+    validationMessage: {
+      get: "_getValidationMessage"
+    },
+
     /**
      * Whether the {@link #changeValue} event should be fired on every key
      * input. If set to true, the changeValue event is equal to the
@@ -61,23 +102,13 @@ qx.Mixin.define("qx.ui.mobile.form.MValue",
     {
       check : "Boolean",
       init : false
-    },
-
-    /**
-     * The widget's value
-     * @type {Object}
-     */
-    value : {
-      set: "setValue",
-      get: "getValue",
-      event: true
     }
 
   },
 
 
-  members :
-  {
+  members : {
+
     __oldValue : null,
     __inputTimeoutHandle : null,
     __hasFocus : null,
@@ -86,13 +117,10 @@ qx.Mixin.define("qx.ui.mobile.form.MValue",
     /**
      * Initializes this mixin. Should be called from the including class'
      * constructor.
-     *
-     * @param value {var?null} The value of the widget.
      */
-    initMValue : function(value)
-    {
-      if (value) {
-        this.value = value;
+    initMForm : function() {
+      if (qx.core.Environment.get("qx.dynlocale")) {
+        qx.locale.Manager.getInstance().on("changeLocale", this.__onChangeLocale, this);
       }
 
       if (this._getTagName() == "input" || this._getTagName() == "textarea") {
@@ -102,29 +130,10 @@ qx.Mixin.define("qx.ui.mobile.form.MValue",
 
       this.on("focus", this._onFocus,this);
       this.on("blur", this._onBlur,this);
-    },
 
-
-    /**
-     * Converts the incoming value.
-     *
-     * @param value {var} The value to convert
-     * @return {var} The converted value
-     */
-    _convertValue : function(value)
-    {
-      if(typeof value === 'boolean')
-      {
-        return value;
-      }
-      else if (typeof value === 'number')
-      {
-        return value;
-      }
-      else
-      {
-        return value || "";
-      }
+      this.on("invalid", this._setInvalidState, this);
+      this._setInvalidState();
+      this.on("changeValue", this._setInvalidState, this);
     },
 
 
@@ -160,17 +169,11 @@ qx.Mixin.define("qx.ui.mobile.form.MValue",
      */
     setValue: function(value)
     {
-      value = this._convertValue(value);
       if (this.__oldValue != value)
       {
-        // min value check
-        if (this.minimum !== undefined) {
-          value = Math.max(value, this.minimum)
-        }
-
-        // max value check
-        if (this.maximum !== undefined) {
-          value = Math.min(value, this.maximum)
+        if (this.maxLength && typeof value === "string" &&
+            value.length > this.maxLength) {
+          value = value.substr(0, this.maxLength);
         }
 
         if (this._setValue) {
@@ -189,7 +192,7 @@ qx.Mixin.define("qx.ui.mobile.form.MValue",
      * @return {var} The set value
      */
     getValue: function() {
-      return this._convertValue(this._getValue ? this._getValue() : this.getAttribute("value"));
+      return this._getValue ? this._getValue() : this.getAttribute("value");
     },
 
 
@@ -209,7 +212,7 @@ qx.Mixin.define("qx.ui.mobile.form.MValue",
      */
     _onChangeContent : function(evt)
     {
-      this.__fireChangeValue(this._convertValue(evt.target.value));
+      this.__fireChangeValue(evt.target.value);
     },
 
 
@@ -225,8 +228,6 @@ qx.Mixin.define("qx.ui.mobile.form.MValue",
       if (this.liveUpdate) {
         if (this._setValue) {
           this._setValue(data);
-        } else {
-          this.__fireChangeValue(this._convertValue(data));
         }
       }
     },
@@ -251,7 +252,7 @@ qx.Mixin.define("qx.ui.mobile.form.MValue",
      * @param position {Integer} the caret position.
      */
     _setCaretPosition: function(position) {
-      if (position != null && this.hasFocus()) {
+      if (typeof position == "number" && this.hasFocus()) {
         if (this.getAttribute("type") !== "number" && this[0].setSelectionRange) {
           this[0].setSelectionRange(position, position);
         }
@@ -275,8 +276,106 @@ qx.Mixin.define("qx.ui.mobile.form.MValue",
     },
 
 
-    // TODO
-    disposeAAA : function() {
+    /**
+     * Checks this item's value against the applied restrictions, e.g.
+     * pattern, min, max, step
+     * @return {Boolean} <code>true</code> if the item's value is valid
+     */
+    checkValidity: function() {
+      return this[0].checkValidity();
+    },
+
+
+    /**
+     * Mark this item as invalid with a custom error message
+     * @param message {String} Message describing why the value is invalid
+     */
+    setCustomValidity: function(message) {
+      this[0].setCustomValidity(message);
+      this._setInvalidState();
+    },
+
+
+    /**
+     * Adds the CSS class 'invalid' if this item's value failed validation
+     */
+    _setInvalidState: function() {
+      if (this.validity && this.validity.valid === false) {
+        this.addClass("invalid");
+      } else {
+        this.removeClass("invalid");
+      }
+    },
+
+
+    /**
+     * Maps the <code>required</code> property to the DOM attribute
+     * @param value {Boolean} value
+     */
+    _applyRequired: function(value) {
+      if (value) {
+        this.setAttribute("required", true);
+      } else {
+        this.removeAttribute("required");
+      }
+      this._setInvalidState();
+      if (this.validity &&  !this.validity.valid) {
+        this.emit("invalid", this[0]);
+      }
+    },
+
+
+    /**
+     * Getter for the <code>validity</code> property
+     * @return {Object} ValidityState object
+     */
+    _getValidity: function() {
+      return this[0].validity;
+    },
+
+
+    /**
+     * Getter for the <code>validationMessage</code> property
+     * @return {String} validation message
+     */
+    _getValidationMessage: function() {
+      return this[0].validationMessage;
+    },
+
+
+    /**
+     * Locale change event handler
+     *
+     * @signature function(e)
+     * @param e {Event} the change event
+     * TODO
+     */
+    __onChangeLocale : qx.core.Environment.select("qx.dynlocale",
+    {
+      "true" : function(e)
+      {
+        // invalid message
+        var invalidMessage = this.invalidMessage;
+        if (invalidMessage && invalidMessage.translate) {
+          this.invalidMessage = invalidMessage.translate();
+        }
+        // required invalid message
+        var requiredInvalidMessage = this.requiredInvalidMessage;
+        if (requiredInvalidMessage && requiredInvalidMessage.translate) {
+          this.requiredInvalidMessage = requiredInvalidMessage.translate();
+        }
+      },
+
+      "false" : null
+    }),
+
+
+    disposeMForm : function() {
+      if (qx.core.Environment.get("qx.dynlocale")) {
+        qx.locale.Manager.getInstance().off("changeLocale", this.__onChangeLocale, this);
+      }
+      this.off("invalid", this._setInvalidState, this);
+      this.off("changeValue", this._setInvalidState, this);
       this.off("focus", this._onFocus,this);
       this.off("blur", this._onBlur,this);
     }

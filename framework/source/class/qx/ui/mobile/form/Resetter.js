@@ -235,10 +235,7 @@ qx.Class.define("qx.ui.mobile.form.Resetter",
      *   necessary interface.
      */
     _supportsValue : function(formItem) {
-      var clazz = formItem.constructor;
-      return (
-        qx.Mixin.getClassByMixin(clazz, qx.ui.mobile.form.MValue)
-      );
+      return qx.Class.hasProperty(formItem.constructor, "value");
     }
   }
 });
