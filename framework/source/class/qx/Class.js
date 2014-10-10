@@ -512,6 +512,10 @@ qx.Class.define("qx.Class",
       if (properties && Object.keys(properties).length > 0 && !proto.set) {
         proto.set = function(map) {
           for (var key in map) {
+            if (!(key in this) && qx.Class.DEBUG) {
+              console.warn("The class '" + this.classname + "' does not support the property '" + key + "'.");
+              continue;
+            }
             this[key] = map[key];
           }
           return this;
