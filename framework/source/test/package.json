@@ -7,13 +7,13 @@
     "test": "mocha"
   },
   "dependencies" : {
-        "chai" : "*"
-        },
+    "chai" : "*"
+  },
   "devDependencies": {
     "mocha": "*",
     "chai": "*",
     "sinon": "*"
-      },
+  },
 
   "src_files": [
     "node_modules/chai/chai.js",
@@ -22,7 +22,7 @@
     "framework/source/test/html/media.html",
     "css/style2.css"
   ],
-  
+
   "launch_in_dev": [
     "node"
   ]
