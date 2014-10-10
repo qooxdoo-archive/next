@@ -533,19 +533,6 @@ qx.Class.define("qx.test.data.store.Json",
     },
 
 
-    testDisposeRequestDone: function() {
-      this.setUpFakeRequest();
-      var url = this.url;
-      this.__store.on("loaded", function() {
-        this.resume(function() {
-          this.__store.dispose();
-          this.assertCalled(this.request.dispose);
-        }, this);
-      }, this);
-      this.__store.url = url;
-    },
-
-
     testErrorEvent : function() {
       this.__store.on("error", function(ev) {
         this.resume(function() {
