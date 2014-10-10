@@ -34,13 +34,8 @@ qx.Class.define("qx.ui.mobile.form.PasswordField",
     }
   },
 
-
-  members :
-  {
-    // overridden
-    _getType : function()
-    {
-      return "password";
-    }
+  construct: function(value) {
+    this.base(qx.ui.mobile.form.TextField, "constructor", value);
+    this.type = "password";
   }
 });

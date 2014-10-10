@@ -93,12 +93,6 @@ qx.Class.define("qx.ui.mobile.form.NumberField",
 
   members :
   {
-    // overridden
-    _getType : function()
-    {
-      return "number";
-    },
-
 
     /**
      * Called when changed the property step.
