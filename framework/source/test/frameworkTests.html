@@ -1,0 +1,36 @@
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>Framework Tests</title>
+  <link rel="stylesheet" href="node_modules/mocha/mocha.css" />
+</head>
+<body>
+  <div id="mocha"></div>
+  <div id="messages"></div>
+  <div id="fixtures"></div>
+  <script src="node_modules/chai/chai.js"></script>
+  <script src="node_modules/mocha/mocha.js"></script>
+  <script> mocha.setup('bdd')</script>
+  <script src="../../build/script/qx.js"></script>
+  <script src="tests/mochaSetup.js"></script>
+  <script src="tests/framework/data/singlevalue/TextFieldDummy.js"></script>
+  <script src="tests/framework/data/controller/Form.js"></script>
+  <script src="tests/framework/data/controller/Object.js"></script>
+  <script src="tests/framework/data/marshal/Json.js"></script>
+  <script src="tests/framework/data/singlevalue/Array.js"></script>
+  <script src="tests/framework/data/singlevalue/Deep.js"></script>
+  <script src="tests/framework/data/singlevalue/Resolve.js"></script>
+  <script src="tests/framework/data/singlevalue/Simple.js"></script>
+  <script src="tests/framework/data/singlevalue/WithQxWeb.js"></script>
+  <script src="tests/framework/data/store/Jsonp.js"></script>
+  <script src="tests/framework/data/store/Offline.js"></script>
+  <script src="tests/framework/data/store/Rest.js"></script>
+  <script src="tests/framework/data/store/RestWithRemote.js"></script>
+  <script src="tests/framework/data/DataArray.js"></script>
+  <script src="tests/framework/data/DataArrayWithChangeBubble.js"></script>
+
+  <script>
+    mocha.run();
+  </script>
+</body>
+</html>
