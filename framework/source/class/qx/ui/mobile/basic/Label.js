@@ -43,9 +43,9 @@ qx.Class.define("qx.ui.mobile.basic.Label",
   /**
    * @param value {String?null} Text or HTML content to display
    */
-  construct : function(value)
+  construct : function(value, element)
   {
-    this.base(qx.ui.mobile.Widget, "constructor");
+    this.base(qx.ui.mobile.Widget, "constructor", element);
     if (value) {
       this.value = value;
     }
@@ -100,6 +100,7 @@ qx.Class.define("qx.ui.mobile.basic.Label",
 
   members :
   {
+
     /**
      * Property validation
      * @param value {String|qx.type.BaseString} value
