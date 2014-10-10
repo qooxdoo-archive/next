@@ -229,6 +229,7 @@ qx.Mixin.define("qx.ui.mobile.form.MForm",
         if (this._setValue) {
           this._setValue(data);
         }
+        this._setInvalidState();
       }
     },
 
