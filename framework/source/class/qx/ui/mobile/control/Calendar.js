@@ -46,7 +46,7 @@ qx.Class.define("qx.ui.mobile.control.Calendar", {
     },
 
     defaultCssClass: {
-      init: "calendar"
+      init: "qx-calendar"
     },
 
     /**
