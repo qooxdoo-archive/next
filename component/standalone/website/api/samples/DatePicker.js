@@ -30,7 +30,10 @@ var datePicker = q("#datepicker-example").datePicker(new Date());
 
 // configure calendar widget
 // only allow to select week days and only allow to select today and future days
-datePicker.getCalendar().setConfig('selectableWeekdays', [ 1, 2, 3, 4, 5 ]);
+datePicker.getCalendar().set({
+  selectableWeekdays: [1, 2, 3, 4, 5],
+  minDate: new Date()
+});
 
   },
   executable: true,
