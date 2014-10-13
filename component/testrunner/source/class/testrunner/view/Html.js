@@ -763,7 +763,7 @@ qx.Class.define("testrunner.view.Html", {
         q("#testlist")[0].innerHTML += itemHtml;
       }
 
-      q("#testlist input:checkbox")
+      q("#testlist input[type=checkbox]")
       .on("change", this.__onToggleTest, this);
     },
 
