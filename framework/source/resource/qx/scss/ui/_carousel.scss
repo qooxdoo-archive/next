@@ -2,7 +2,7 @@
 // CAROUSEL
 //
 
-.carousel {
+.qx-carousel {
   @include touch-action(pan-y);
 
   overflow:hidden;
@@ -10,7 +10,7 @@
   text-align: center;
 }
 
-.carousel-scroller {
+.qx-carousel-scroller {
   @include transition(all ease-out);
   @include transform(translate3d(0,0,0));
   vertical-align: top;
@@ -18,12 +18,12 @@
   overflow:hidden;
 }
 
-.carousel-page {
+.qx-carousel-page {
   overflow: hidden;
   vertical-align: top;
 }
 
-.carousel-pagination {
+.qx-carousel-pagination {
   -webkit-backface-visibility:hidden;
   -webkit-transition: -webkit-transform 2s;
   -moz-transition: -moz-transform 2s;
@@ -37,11 +37,11 @@
   white-space: nowrap;
 }
 
-.carousel-pagination-label + .carousel-pagination-label {
+.qx-carousel-pagination-label + .qx-carousel-pagination-label {
   margin-left: $carousel-pagination-size/2;
 }
 
-.carousel-pagination-label {
+.qx-carousel-pagination-label {
   @include border-radius($carousel-pagination-border-radius);
   @include background($carousel-pagination-background);
   @include box-sizing(border-box);
@@ -60,7 +60,7 @@
   font-size: $carousel-pagination-font-size;
 }
 
-.carousel-pagination-label.active {
+.qx-carousel-pagination-label.active {
   @include background($carousel-pagination-active-background);
   border: rem(1) solid $carousel-pagination-active-border-color;
 }

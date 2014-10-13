@@ -15,6 +15,7 @@
 
    Authors:
      * Christopher Zuendorf (czuendorf)
+     * Tobias Oberrauch (toberrauch)
 
 ************************************************************************ */
 
@@ -70,31 +71,38 @@ qx.Class.define("qx.ui.mobile.container.Carousel",
     this.__pages = [];
     this.__paginationLabels = [];
 
-    var carouselScroller = this.__carouselScroller = new qx.ui.mobile.Widget();
+    this.on("touchmove", this._onTouchmove, this);
+    this.on("appear", this._onContainerUpdate, this);
+
+    var pagination = this.__pagination = new qx.ui.mobile.Widget();
+    pagination.layout = new qx.ui.mobile.layout.HBox();
+    pagination.transformUnit = "px";
+    pagination.addClass("qx-carousel-pagination");
+
+    this.layout = new qx.ui.mobile.layout.VBox();
+
+    if (q('.qx-carousel-scroller').length > 0)  {
+      var carouselScroller = this.__carouselScroller = new qx.ui.mobile.Widget(q('.qx-carousel-scroller')[0]);
+    } else {
+      var carouselScroller = this.__carouselScroller = new qx.ui.mobile.Widget();
+      carouselScroller.addClass("qx-carousel-scroller");
+    }
     carouselScroller.layout = new qx.ui.mobile.layout.HBox();
     carouselScroller.transformUnit = "px";
-    carouselScroller.addClass("carousel-scroller");
+
+    q('.qx-carousel-scroller .qx-carousel-page').forEach(function (page) {
+      this.append(new qx.ui.mobile.Widget(page));
+    }.bind(this));
 
     carouselScroller.on("pointerdown", this._onPointerDown, this);
     carouselScroller.on("pointerup", this._onPointerUp, this);
     carouselScroller.on("track", this._onTrack, this);
     carouselScroller.on("swipe", this._onSwipe, this);
 
-    this.on("touchmove", this._onTouchmove, this);
-
-    this.on("appear", this._onContainerUpdate, this);
-
     this.__carouselScroller.on("transitionend",this._onScrollerTransitionEnd, this);
     qxWeb(window).on("orientationchange", this._onContainerUpdate, this)
       .on("resize", this._onContainerUpdate, this);
     this.on("scroll", this._onNativeScroll, this);
-
-    var pagination = this.__pagination = new qx.ui.mobile.Widget();
-    pagination.layout = new qx.ui.mobile.layout.HBox();
-    pagination.transformUnit = "px";
-    pagination.addClass("carousel-pagination");
-
-    this.layout = new qx.ui.mobile.layout.VBox();
 
     carouselScroller.layoutPrefs = {flex: 1};
     this._append(carouselScroller);
@@ -106,7 +114,7 @@ qx.Class.define("qx.ui.mobile.container.Carousel",
   properties : {
     // overridden
     defaultCssClass : {
-      init : "carousel"
+      init : "qx-carousel"
     },
 
 
@@ -132,7 +140,7 @@ qx.Class.define("qx.ui.mobile.container.Carousel",
      */
     height : {
       check : "Number",
-      init : 200,
+      init : null,
       nullable : true,
       apply : "_updateCarouselLayout"
     },
@@ -190,7 +198,7 @@ qx.Class.define("qx.ui.mobile.container.Carousel",
         }
       }
 
-      page.addClass("carousel-page");
+      page.addClass("qx-carousel-page");
 
       this.__pages.push(page);
       page.layoutPrefs = {flex: 1};
@@ -361,7 +369,7 @@ qx.Class.define("qx.ui.mobile.container.Carousel",
       var paginationLabelText = new qx.ui.mobile.basic.Label("" + paginationIndex);
       paginationLabel.append(paginationLabelText);
 
-      paginationLabel.addClass("carousel-pagination-label");
+      paginationLabel.addClass("qx-carousel-pagination-label");
       paginationLabel.on("tap", this._onPaginationLabelTap, {
         self: this,
         targetIndex: paginationIndex - 1
