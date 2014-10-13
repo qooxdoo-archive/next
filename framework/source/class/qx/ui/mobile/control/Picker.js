@@ -79,7 +79,7 @@ qx.Class.define("qx.ui.mobile.control.Picker",
   {
     // overridden
     defaultCssClass : {
-      init : "picker"
+      init : "qx-picker"
     },
 
 
