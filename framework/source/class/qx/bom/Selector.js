@@ -135,23 +135,44 @@ qx.Class.define("qx.bom.Selector", {
      * Queries the document for the given selector. Supports all CSS3 selectors
      * plus some extensions as mentioned in the class description.
      *
-     * @signature function(selector, context)
      * @param selector {String} Valid selector (CSS3 + extensions)
      * @param context {Element} Context element (result elements must be children of this element)
      * @return {Array} Matching elements
      */
-    query: null,
+    query: function(selector, context) {
+      if (!context) {
+        context = document;
+      }
+      var elList = context.querySelectorAll(selector);
+      return Array.prototype.slice.call(elList, 0);
+    },
+
 
     /**
      * Returns an reduced array which only contains the elements from the given
      * array which matches the given selector
      *
-     * @signature function(selector, set)
      * @param selector {String} Selector to filter given set
      * @param set {Array} List to filter according to given selector
      * @return {Array} New array containing matching elements
      */
-    matches: null
+    matches: function(selector, set) {
+      var doc = document.documentElement;
+      var matches = doc.webkitMatchesSelector || // TODO env check
+        doc.mozMatchesSelector ||
+        doc.msMatchesSelector ||
+        doc.matches;
+      var found = [];
+      for (var i = 0; i < set.length; i++) {
+        if (set[i].nodeType === 9) { // document // TODO check ok?
+          set[i] = set[i].documentElement;
+        }
+        if (matches.call(set[i], selector)) {
+          found.push(set[i]);
+        }
+      }
+      return found;
+    }
   }
 });
 
