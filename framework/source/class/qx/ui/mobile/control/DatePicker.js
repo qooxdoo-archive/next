@@ -251,6 +251,10 @@ qx.Class.define("qx.ui.mobile.control.DatePicker", {
       }
     },
 
+    _getTagName: function () {
+      return "input";
+    },
+
     /**
      * Helper method to add a listener to the connected input element
      * if the configured mode is set.
