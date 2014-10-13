@@ -59,6 +59,15 @@ qx.Class.define("qx.ui.mobile.Button",
   },
 
 
+  members: {
+
+    _getTagName: function() {
+      return "button";
+    }
+
+  },
+
+
   classDefined : function(statics) {
     qxWeb.$attachWidget(statics);
   }
