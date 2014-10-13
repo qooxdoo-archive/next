@@ -1,5 +1,5 @@
 addSample(".datepicker", {
-  html : ['<input type="text" id="datepicker-example"></input>'],
+  html : ['<input type="text" id="datepicker-example"/>'],
   javascript: function() {
 q("#datepicker-example").datepicker(new Date());
   },
@@ -8,7 +8,7 @@ q("#datepicker-example").datepicker(new Date());
 });
 
 addSample(".datepicker", {
-  html : ['<input type="text" id="datepicker-example"></input>'],
+  html : ['<input type="text" id="datepicker-example"/>'],
   javascript: function() {
 var datepicker = q("#datepicker-example").datepicker(new Date());
 // customize the format function to change the value which is
@@ -25,7 +25,7 @@ datepicker.render();
 });
 
 addSample(".datepicker", {
-  html : ['<input type="text" id="datepicker-example"></input>'],
+  html : ['<input type="text" id="datepicker-example"/>'],
   javascript: function() {
 var datepicker = q("#datepicker-example").datepicker(new Date());
 
@@ -44,7 +44,7 @@ datepicker.render();
 });
 
 addSample(".datepicker", {
-  html : ['<input type="text" id="datepicker-example"></input>'],
+  html : ['<input type="text" id="datepicker-example"/>'],
   javascript: function() {
 var datepicker = q("#datepicker-example").datepicker(new Date());
 
