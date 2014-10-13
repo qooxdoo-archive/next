@@ -256,10 +256,11 @@ qx.Class.define("qx.ui.mobile.form.SelectBox",
      * values of the SelectBox in a different way than the default.
      */
     _render : function() {
-      if(this.model != null && this.model.length > 0) {
+      if (this.model != null && this.model.length > 0) {
         var selectedItem = this.model.getItem(this.selection);
         this.setAttribute("value", selectedItem);
       }
+      this._setInvalidState();
     },
 
 
@@ -279,7 +280,7 @@ qx.Class.define("qx.ui.mobile.form.SelectBox",
 
 
     /**
-     * Refreshs selection dialogs model, and shows it.
+     * Refreshes selection dialogs model, and shows it.
      */
     __showSelectionDialog : function () {
       if(this.enabled === true) {
