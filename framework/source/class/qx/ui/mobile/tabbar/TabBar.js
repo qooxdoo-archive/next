@@ -35,7 +35,7 @@ qx.Class.define("qx.ui.mobile.tabbar.TabBar", {
    * @attach {qxWeb, tabBar}
    * @return {qx.ui.mobile.tabbar.TabBar} The new tab bar widget.
    */
-  construct: function(align, orientation, element) {
+  construct: function(orientation, align, element) {
     this.base(qx.ui.mobile.Widget, "constructor", element);
 
     if (orientation) {
