@@ -329,6 +329,11 @@ var Data = q.define({
               method.attributes.prefixedMethodName = moduleName.toLowerCase() + "." + method.attributes.name;
             }
           });
+          Data.getByType(ast, "properties").children.forEach(function(property) {
+            if (!property.attributes.prefixedPropertyName) {
+              property.attributes.prefixedPropertyName = moduleName.toLowerCase() + "." + property.attributes.name;
+            }
+          });
 
           this._saveClassData(moduleName, ast);
 
@@ -419,7 +424,8 @@ var Data = q.define({
           group : ast.attributes.group || "Extras",
           member : [],
           static : [],
-          deprecated: false
+          deprecated: false,
+          properties: []
         };
       }
 
@@ -468,6 +474,14 @@ var Data = q.define({
         if (deprecatedStatus.type === "desc") {
           this.__data[moduleName].deprecated = deprecatedStatus.attributes;
         }
+      }
+
+      // properties
+      var properties = Data.getByType(ast, "properties");
+      for (var i = 0; i < properties.children.length; i++) {
+        var property = properties.children[i];
+        property.attributes.desc = Data.getByType(property, "desc").attributes.text;
+        this.__data[moduleName].properties.push(property.attributes);
       }
     },
 

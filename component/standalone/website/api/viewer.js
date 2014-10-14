@@ -248,6 +248,7 @@ q.ready(function() {
 
     var factoryName;
     var ul = q.create("<ul></ul>");
+
     data["static"].forEach(function(methodAst) {
       var methodName = Data.getMethodName(methodAst, data.prefix);
       var missing = false;
@@ -273,10 +274,24 @@ q.ready(function() {
       }).appendTo(ul);
     });
 
+    if (data.properties) {
+      for (var i = 0; i < data.properties.length; i++) {
+        var property = data.properties[i];
+
+        q.template.getFromDom("list-item", {
+          name: property.prefixedPropertyName,
+          classname: convertNameToCssClass(property.name, "nav-"),
+          link: property.prefixedPropertyName,
+          plugin: false,
+          deprecated: property.deprecated
+        }).appendTo(ul);
+      }
+    }
+
     data["member"].forEach(function(methodAst) {
       var methodName = Data.getMethodName(methodAst, data.prefix);
       var methodIsFactory = Data.isFactory(methodAst, name);
-      factoryName = methodIsFactory ? methodName + "()": factoryName;
+      factoryName = methodIsFactory ? methodName + "()" : factoryName;
       if (methodIsFactory) {
         return;
       }
@@ -476,19 +491,16 @@ q.ready(function() {
       module.append(typesEl);
     }
 
-    if (data.templates) {
-      renderWidgetSettings(data, module, "templates", "#widget.setTemplate");
-    }
-
-    if (data.config) {
-      renderWidgetSettings(data, module, "config");
-    }
-
     data["static"].forEach(function(method) {
       method.deprecated = data.deprecated;
       method.deprecatedMessage = data.deprecatedMessage;
       module.append(renderMethod(method, data.prefix));
     });
+
+    if (data["properties"] && data["properties"].length > 0) {
+      module.append(q.template.getFromDom("properties", data["properties"]));
+    }
+
     data["member"].forEach(function(method) {
       method.deprecated = data.deprecated;
       method.deprecatedMessage = data.deprecatedMessage;
@@ -596,7 +608,6 @@ q.ready(function() {
     return q.template.getFromDom("method", data);
   };
 
-
   var renderEvents = function(events) {
     if (events.length == 0) {
       return null;
@@ -642,19 +653,6 @@ q.ready(function() {
       }
     }
     return params;
-  };
-
-
-  var renderWidgetSettings = function(data, module, type, linkTarget) {
-    var upperType = q.string.firstUp(type);
-    if (!linkTarget) {
-      linkTarget = "#widget.set" + upperType;
-    }
-    module.append(q.create("<h2>" + upperType + " <a title='More information on " + type + "' class='info' href='" + linkTarget + "'>i</a></h2>"));
-    var parent = data.fileName.split(".");
-    parent = parent.pop().toLowerCase();
-    var desc = parse(data[type], parent);
-    module.append(q.create("<div>").setHtml(desc).addClass("widget-settings"));
   };
 
 

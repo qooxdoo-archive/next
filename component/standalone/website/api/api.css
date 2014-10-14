@@ -489,7 +489,7 @@ p {
   margin-left: 16px;
 }
 
-.events h2, .extends h2 {
+.events h2, .properties h2, .extends h2 {
   margin-top: 15px !important;
 }
 
