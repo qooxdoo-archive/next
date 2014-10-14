@@ -45,6 +45,7 @@
  * event listener to the {@link #changeValue} event.
  *
  * @require(qx.module.AnimationFrame)
+ * @group(Widget)
  */
 qx.Class.define("qx.ui.mobile.form.Slider",
 {
@@ -57,6 +58,9 @@ qx.Class.define("qx.ui.mobile.form.Slider",
   ],
 
 
+  /**
+   * @attach {qxWeb}
+   */
   construct : function(element)
   {
     this.base(qx.ui.mobile.Widget, "constructor", element);
