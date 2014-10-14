@@ -93,7 +93,7 @@ q.ready(function() {
     if (!value) {
       clearInterval(debouncedHideFiltered.intervalId);
       delete debouncedHideFiltered.intervalId;
-      q("#list .qx-tabs-button")._forEachElementWrapped(function(button) {
+      q("#list .button")._forEachElementWrapped(function(button) {
         button.setData("results", "");
         if (q.env.get("engine.name") == "mshtml") {
           // IE won't re-apply the element's styles (which use the data
@@ -104,7 +104,7 @@ q.ready(function() {
       q("#list .qx-tabs-page ul").show();
       q("#list .qx-tabs-page li").show();
       q("#list .qx-tabs-page > a").show();
-      q("#list .qx-tabs-button").removeClass("no-matches").setAttribute("disabled", false); // allow click on every group button
+      q("#list .button").removeClass("no-matches").setAttribute("disabled", false); // allow click on every group button
       q("#list").render();
       return;
     }
@@ -148,10 +148,10 @@ q.ready(function() {
     q("#list .qx-tabs-page > a").hide(); // module headers
     q("#list .qx-tabs-page ul").hide(); // method lists
     q("#list .qx-tabs-page li").hide(); // method items
-    q("#list .qx-tabs-button").removeClass("no-matches").setAttribute("disabled", false); // allow click on every group button
+    q("#list .button").removeClass("no-matches").setAttribute("disabled", false); // allow click on every group button
     var regEx = new RegExp(query, "i");
 
-    q("#list .qx-tabs-button").forEach(function(groupButton) {
+    q("#list .button").forEach(function(groupButton) {
       var groupResults = 0;
       groupButton = q(groupButton);
       var groupPage = groupButton.getNext();
@@ -309,7 +309,7 @@ q.ready(function() {
       if (groupIcon) {
         groupIcon = "data-icon='" + groupIcon + "'";
       }
-      var button = q.create("<li " + groupIcon + " data-qx-tabs-page='#" + groupId + "' class='qx-tabs-button'>" + group.replace("_", " ") + "</li>")
+      var button = q.create("<li " + groupIcon + " data-qx-config-page='#" + groupId + "' class='button'>" + group.replace("_", " ") + "</li>")
         .appendTo("#list > ul");
       groupPage = q.create("<li class='qx-tabs-page' id='" + groupId + "'></li>").appendTo("#list > ul");
     }
@@ -328,9 +328,9 @@ q.ready(function() {
 
   var sortList = function() {
     var groups = {};
-    q("#list").find(">ul > .qx-tabs-button").forEach(function(li) {
+    q("#list").find(">ul > .button").forEach(function(li) {
       li = q(li);
-      var groupName = li.getData("qxTabsPage").replace("#list-group-", "");
+      var groupName = li.getData("qxConfigPage").replace("#list-group-", "");
       var next = li.getNext()[0];
       li.remove();
       next.parentNode.removeChild(next);
@@ -717,8 +717,8 @@ q.ready(function() {
   var onContentReady = function() {
     renderList(this);
     sortList();
-
-    acc = q("#list").tabBar(null, "vertical").render();
+    acc = q("#list > ul").tabBar(null, "vertical").render();
+    acc.selected = null;
 
     // decouple the creation of the content by using the next possible AnimationFrame
     requestAnimationFrame(delayedRenderContent, this);
@@ -755,9 +755,15 @@ q.ready(function() {
 
   var highlightNavItem = function() {
     var hash = window.location.hash,
-        navItems = q("."+convertNameToCssClass(hash, "nav-"));
-    q("#list .qx-tabs-page ul > li").removeClass("selected");
+        navItems = q("." + convertNameToCssClass(hash, "nav-"));
+    q("#list .qx-config-page ul > li").removeClass("selected");
     navItems.addClass("selected");
+
+    // open the fitting list page
+    var page = navItems.getAncestors(".qx-tabs-page");
+    var pageId = page.getAttribute("id");
+    var button = page.getParents().find("*[data-qx-config-page=#" + pageId + "]");
+    acc.selected = button;
   };
 
   var delayedRenderContent = function() {
@@ -767,9 +773,9 @@ q.ready(function() {
   };
 
   var delayedAccordionFadeIn = function() {
-    acc.fadeIn(200);
+    acc.getParents().fadeIn(200);
     buttonTops = [];
-    acc.find(".qx-tabs-button").forEach(function(button, index) {
+    acc.find(".button").forEach(function(button, index) {
       buttonTops[index] = (q(button).getPosition().top);
     });
 

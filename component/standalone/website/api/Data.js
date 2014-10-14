@@ -106,6 +106,10 @@ var Data = q.define({
         }
         return prefix + item.attributes.name;
       } else if (item.attributes.name == "ctor") {
+        if (item.attributes.group === "Widget") {
+          var name = item.attributes.sourceClass.split(".");
+          return name[name.length - 1].toLocaleLowerCase();
+        }
         return "q";
       } else if (item.attributes.isStatic) {
         return "q." + (attachData.attributes.targetMethod || item.attributes.name);

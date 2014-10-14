@@ -174,7 +174,7 @@ html[xmlns] .clearfix {
   border-radius: 5px;
 }
 
-#list .qx-tabs-button {
+#list .button {
   cursor: pointer;
   list-style: none;
   padding: 5px 10px;
@@ -188,7 +188,7 @@ html[xmlns] .clearfix {
   transition:color 1s, background-color 1s;
 }
 
-#list .qx-tabs-button:before,
+#list .button:before,
 .module h1:before,
 #content .plugin h2:before,
 #content .icon:before {
@@ -197,7 +197,7 @@ html[xmlns] .clearfix {
   content: attr(data-icon);
 }
 
-#list .qx-tabs-button:after {
+#list .button:after {
   content: attr(data-results);
   float: right;
   color: white;
@@ -215,15 +215,15 @@ html[xmlns] .clearfix {
   transition:color 1s, background-color 1s;
 }
 
-#list .qx-tabs-button.no-matches {
+#list .button.no-matches {
   pointer-events: none;
 }
 
-#list .qx-tabs-button.no-matches:after {
+#list .button.no-matches:after {
   background-color: #ddd;
 }
 
-#list .qx-tabs-button-active:after {
+#list .button-active:after {
   color: #3d72c9;
   background-color: white;
 }
@@ -239,17 +239,17 @@ html[xmlns] .clearfix {
   font-weight: 600;
 }
 
-#list .qx-tabs-button-active {
+#list .button-active {
   border-bottom: 1px solid #DDD;
   background-color: #3d72c9;
   color: #fff;
 }
 
-#list .qx-tabs-button:first-child {
+#list .button:first-child {
   border-top: none;
 }
 
-#list .qx-tabs-button-active:first-child {
+#list .button-active:first-child {
   border-radius: 5px 5px 0 0;
 }
 
@@ -635,7 +635,7 @@ p {
   margin-right: 5px;
 }
 
-.widget-dom .qx-tabs-button-active button:before {
+.widget-dom .button-active button:before {
   content: "\F01E";
 }
 
@@ -645,7 +645,7 @@ p {
   text-decoration: underline;
 }
 
-.widget-dom .qx-tabs-button-active button:after {
+.widget-dom .button-active button:after {
   content: "Hide";
   cursor: pointer;
 }
