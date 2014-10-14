@@ -69,9 +69,8 @@ describe('bom.Attribute', function() {
       Attribute.set(_el, "selected", true);
       assert.equal("selected", _el.getAttribute("selected"));
 
-      var imgSrc = qx.util.ResourceManager.getInstance().toUri("/framework/source/resource/qx/icon/Tango/48/places/folder.png");
-      Attribute.set(_img, "src", imgSrc);
-      assert.equal(imgSrc, _img.getAttribute("src", 2));
+      Attribute.set(_img, "src", "../resource/qx/icon/Tango/48/places/folder.png");
+      assert.equal("../resource/qx/icon/Tango/48/places/folder.png", _img.getAttribute("src", 2));
 
   });
  
@@ -120,9 +119,8 @@ describe('bom.Attribute', function() {
       _checkBox["value"] = "vanillebaer";
       assert.equal("vanillebaer", Attribute.get(_checkBox, "value"));
 
-      var imgSrc = qx.util.ResourceManager.getInstance().toUri("/framework/source/resource/qx/icon/Tango/48/places/folder.png");
-      Attribute.set(_img, "src", imgSrc);
-      assert.equal(imgSrc, Attribute.get(_img, "src"));
+      Attribute.set(_img, "src", "../resource/qx/icon/Tango/48/places/folder.png");
+      assert.equal("../resource/qx/icon/Tango/48/places/folder.png", Attribute.get(_img, "src"));
   });
  
   it("RemoveAttribute", function() {

@@ -61,7 +61,7 @@ describe('data.dataArrayWithChangeBubble', function () {
         assert.deepEqual([], data.old);
         assert.equal(array, data.item);
       }
-     // debugger;
+     
       var spy = sinon.spy(handler);
       testObject.on("changeBubble", spy, this);
 

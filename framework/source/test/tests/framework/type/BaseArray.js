@@ -23,15 +23,13 @@
 
 describe("type.BaseArray", function ()
 {
-  //  construct : function()
-  // {
-  //   this.base(qx.dev.unit.TestCase, "constructor");
+
   qx.Class.define("type.TestArray", {
     extend : qx.type.BaseArray
   });
   
 
- it("ListConstruct", function() {
+  it("ListConstruct", function() {
 
       var list = new type.TestArray(10);
       assert.equal(10, list.length);
