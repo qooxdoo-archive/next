@@ -21,6 +21,15 @@
 /**
  * Basic implementation for an event emitter. This supplies a basic and
  * minimalistic event mechanism.
+ * @require(qx.event.MEmitter#on)
+ * @require(qx.event.MEmitter#once)
+ * @require(qx.event.MEmitter#off)
+ * @require(qx.event.MEmitter#offById)
+ * @require(qx.event.MEmitter#getListenerId)
+ * @require(qx.event.MEmitter#emit)
+ * @require(qx.event.MEmitter#hasListener)
+ * @require(qx.event.MEmitter#getListeners)
+ * @require(qx.event.MEmitter#getEntryById)
  */
 qx.Class.define("qx.event.Emitter", {
   extend : Object,

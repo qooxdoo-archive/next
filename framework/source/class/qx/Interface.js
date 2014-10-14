@@ -24,6 +24,7 @@
  *
  * See the description of the {@link #define} method how an interface is
  * defined.
+ * @require(qx.Interface#define)
  */
 qx.Class.define("qx.Interface",
 {

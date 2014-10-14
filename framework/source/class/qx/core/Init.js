@@ -54,11 +54,15 @@ qx.Class.define("qx.core.Init", {
       var app = qx.core.Environment.get("qx.application");
       var Clazz = qx.Class.getByName(app);
 
-      qx.core.Init.__application = new Clazz();
+      if (Clazz) {
+        qx.core.Init.__application = new Clazz();
 
-      var start = new Date();
-      qx.core.Init.__application.main();
-      qx.log.Logger.debug(qx.core.Init, "Main runtime: " + (new Date() - start) + "ms");
+        var start = new Date();
+        qx.core.Init.__application.main();
+        qx.log.Logger.debug(qx.core.Init, "Main runtime: " + (new Date() - start) + "ms");
+      } else {
+        qx.log.Logger.debug(qx.core.Init, "Main application class could not be found");
+      }
     },
 
 
