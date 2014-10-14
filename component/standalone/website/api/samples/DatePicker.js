@@ -1,4 +1,4 @@
-addSample(".datepicker", {
+addSample(".datePicker", {
   html : ['<input type="text" id="datepicker-example"/>'],
   javascript: function() {
 q("#datepicker-example").datePicker();
@@ -7,7 +7,7 @@ q("#datepicker-example").datePicker();
   showMarkup: true
 });
 
-addSample(".datepicker", {
+addSample(".datePicker", {
   javascript: function() {
 var datePicker = new qx.ui.mobile.control.DatePicker(new Date());
 // enable to manipulate input field
