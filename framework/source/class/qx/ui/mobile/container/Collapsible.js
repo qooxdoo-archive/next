@@ -38,7 +38,7 @@
  *  collapsible.append(label);
  *
  * </pre>
- *
+ * @group(Widget)
  */
 qx.Class.define("qx.ui.mobile.container.Collapsible",
 {
@@ -46,8 +46,10 @@ qx.Class.define("qx.ui.mobile.container.Collapsible",
 
 
   /**
-  * @param title {String?} the text which should be displayed in the Collapsible's header label.
-  */
+   * @param title {String?} the text which should be displayed in the Collapsible's header label.
+   * @attach {qxWeb, collapsible}
+   * @return {qx.ui.mobile.container.Collapsible} The new collapsible widget.
+   */
   construct : function(title, element)
   {
     this.base(qx.ui.mobile.Widget, "constructor", element);

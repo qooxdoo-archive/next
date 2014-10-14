@@ -35,6 +35,7 @@
  * <code>path/to/icon.png</code>.
  *
  * @ignore(qx.application.Scaling.*)
+ * @group(Widget)
  */
 qx.Class.define("qx.ui.mobile.basic.Image",
 {
@@ -43,6 +44,8 @@ qx.Class.define("qx.ui.mobile.basic.Image",
 
   /**
    * @param source {String?null} The URL of the image to display.
+   * @attach {qxWeb, image}
+   * @return {qx.ui.mobile.basic.Image} The new image widget.
    */
   construct : function(source, element)
   {

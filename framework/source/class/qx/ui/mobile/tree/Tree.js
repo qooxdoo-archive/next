@@ -17,12 +17,16 @@
 
 /**
  * @require(qx.module.Template)
+ * @group(Widget)
  */
 qx.Class.define("qx.ui.mobile.tree.Tree",
 {
   extend : qx.ui.mobile.Widget,
 
-
+  /**
+   * @attach {qxWeb, tree}
+   * @return {qx.ui.mobile.tree.Tree} The new tree widget.
+   */
   construct : function(element)
   {
     this.base(qx.ui.mobile.Widget, "constructor", element);

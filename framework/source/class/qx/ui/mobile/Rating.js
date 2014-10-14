@@ -63,7 +63,10 @@ qx.Class.define("qx.ui.mobile.Rating", {
   },
 
 
-
+  /**
+   * @attach {qxWeb, rating}
+   * @return {qx.ui.mobile.Rating} The new rating widget.
+   */
   construct : function(size, symbol, element) {
     this.base(qx.ui.mobile.Widget, "constructor", element);
 

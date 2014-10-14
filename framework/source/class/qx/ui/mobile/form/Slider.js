@@ -59,7 +59,8 @@ qx.Class.define("qx.ui.mobile.form.Slider",
 
 
   /**
-   * @attach {qxWeb}
+   * @attach {qxWeb, slider}
+   * @return {qx.ui.mobile.form.Slider} The new Slider widget.
    */
   construct : function(element)
   {

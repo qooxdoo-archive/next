@@ -542,7 +542,11 @@ var Data = q.define({
                     prefix += "." + attachStatic.attributes.targetMethod;
                   } else {
                     prefix = attach.attributes.targetClass == "qxWeb" ? "" : attach.attributes.targetClass;
-                    prefix += "." + method.attributes.name;
+                    var methodName = method.attributes.name;
+                    if (methodName == "ctor" && method.attributes.group == "Widget") {
+                      methodName = attach.attributes.targetMethod
+                    }
+                    prefix += "." + methodName;
                   }
                   method.attributes.prefixedMethodName = prefix;
 

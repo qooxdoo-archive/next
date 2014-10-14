@@ -85,12 +85,15 @@
  * @group (Widget)
  * @require(qx.module.Template)
  * @require(qx.module.util.String)
- *
  */
 qx.Class.define("qx.ui.mobile.control.Table", {
 
   extend : qx.ui.mobile.Widget,
 
+  /**
+   * @attach {qxWeb, table}
+   * @return {qx.ui.mobile.control.Table} The new table widget.
+   */
   construct : function(model, element) {
     this.base(qx.ui.mobile.Widget, "constructor", element);
     this.model =  model;

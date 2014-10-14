@@ -316,6 +316,9 @@ q.ready(function() {
 
     if (name !== "Core") {
       var headerText = factoryName || name;
+      if (headerText === ".ctor()") {
+        headerText = name;
+      }
       var deprecatedClass = data.deprecated ? ' class-deprecated' : '';
       var header = q.create('<h2 class="nav-' + id + deprecatedClass + '">' + headerText + '</h2>');
       groupPage.append(q.create('<a href="#' + id + '"></a>').append(header));

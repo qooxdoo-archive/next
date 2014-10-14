@@ -37,6 +37,7 @@
  *
  * This example creates a button with the label "Hello World" and attaches an
  * event listener to the {@link qx.ui.mobile.Widget#tap} event.
+ * @group(Widget)
  */
 qx.Class.define("qx.ui.mobile.Button",
 {
@@ -58,6 +59,14 @@ qx.Class.define("qx.ui.mobile.Button",
     }
   },
 
+
+  /**
+   * @attach {qxWeb, button}
+   * @return {qx.ui.mobile.Button} The new Slider widget.
+   */
+  construct : function(element) {
+    this.base(qx.ui.mobile.Widget, "constructor", element);
+  },
 
   members: {
 

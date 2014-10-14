@@ -47,6 +47,7 @@
  *
  *
  * @require(qx.module.Transform)
+ * @group(Widget)
  */
 qx.Class.define("qx.ui.mobile.container.Carousel",
 {
@@ -55,8 +56,10 @@ qx.Class.define("qx.ui.mobile.container.Carousel",
 
 
   /**
-  * @param transitionDuration {Integer ? 0.4} transition duration on carouselPage change in seconds.
-  */
+   * @param transitionDuration {Integer ? 0.4} transition duration on carouselPage change in seconds.
+   * @attach {qxWeb, carousel}
+   * @return {qx.ui.mobile.container.Carousel} The new carousel widget.
+   */
   construct : function(transitionDuration, element)
   {
     this.base(qx.ui.mobile.Widget, "constructor", element);

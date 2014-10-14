@@ -41,7 +41,7 @@
  *
  * This example adds 2 widgets , a checkBox and a Title and binds them together by their model and value properties.
  * When the user taps on the checkbox, its model changes and it is reflected in the Title's value.
- *
+ * @group(Widget)
  */
 qx.Class.define("qx.ui.mobile.form.CheckBox",
 {
@@ -50,6 +50,8 @@ qx.Class.define("qx.ui.mobile.form.CheckBox",
 
   /**
    * @param value {Boolean?false} The value of the checkbox.
+   * @attach {qxWeb, checkBox}
+   * @return {qx.ui.mobile.form.CheckBox} The new check box widget.
    */
   construct : function(value, element)
   {

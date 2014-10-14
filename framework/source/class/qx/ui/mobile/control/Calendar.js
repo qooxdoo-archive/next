@@ -174,6 +174,10 @@ qx.Class.define("qx.ui.mobile.control.Calendar", {
   },
 
 
+  /**
+   * @attach {qxWeb, calendar}
+   * @return {qx.ui.mobile.control.Calendar} The new calendar widget.
+   */
   construct : function(date, element) {
     this.base(qx.ui.mobile.Widget, "constructor", element);
 

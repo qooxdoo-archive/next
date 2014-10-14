@@ -25,6 +25,7 @@
  * @require(qx.module.event.GestureHandler)
  * @require(qx.module.event.AppearHandler)
  * @require(qx.module.Dataset)
+ * @group(Widget)
  */
 qx.Class.define("qx.ui.mobile.Widget", {
   extend : qxWeb,
@@ -99,7 +100,10 @@ qx.Class.define("qx.ui.mobile.Widget", {
     }
   },
 
-
+  /**
+   * @attach {qxWeb, widget}
+   * @return {qx.ui.mobile.Widget} The new widget.
+   */
   construct : function(element) {
     this.base(qxWeb, "constructor");
 

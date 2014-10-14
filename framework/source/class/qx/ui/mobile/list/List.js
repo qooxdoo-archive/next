@@ -61,6 +61,7 @@
  * @require(qx.module.AnimationFrame)
  * @require(qx.module.Template)
  * @require(qx.ui.mobile.basic.Image)
+ * @group(Widget)
  */
 qx.Class.define("qx.ui.mobile.list.List",
 {
@@ -87,6 +88,8 @@ qx.Class.define("qx.ui.mobile.list.List",
 
   /**
    * @param delegate {qx.ui.mobile.list.IListDelegate?null} The {@link #delegate} to use
+   * @attach {qxWeb, list}
+   * @return {qx.ui.mobile.list.List} The new list widget.
    */
   construct : function(delegate, element)
   {
