@@ -13,7 +13,8 @@ addSample(".slider", {
 
 addSample(".slider", {
   javascript: function () {
-    var slider = new qx.ui.mobile.form.Slider().set({
+    var slider = new qx.ui.mobile.form.Slider();
+    slider.set({
       minimum: 0,
       maximum: 10,
       step: 2
