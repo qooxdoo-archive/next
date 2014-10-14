@@ -607,10 +607,10 @@ def handleProperties(item, classNode):
         else:
             node = handlePropertyDefinitionNew(propName, propDefinition, classNode)
             node.set("propertyType", "new")
-            if node.get("refine", False) != "true":
-                generatePropertyMethods(propName, classNode, ["set", "get", "init", "reset"])
-                if node.get("check", False) == "Boolean":
-                    generatePropertyMethods(propName, classNode, ["toggle", "is"])
+            # if node.get("refine", False) != "true":
+            #     generatePropertyMethods(propName, classNode, ["set", "get", "init", "reset"])
+            #     if node.get("check", False) == "Boolean":
+            #         generatePropertyMethods(propName, classNode, ["toggle", "is"])
 
 
         if classNode.get("type", False) == "mixin":
