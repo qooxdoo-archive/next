@@ -3,6 +3,8 @@
   padding-left: $tabbar-button-distance;
   padding-right: $tabbar-button-distance;
 
+  list-style-type: none;
+
   .button + .button {
     margin-left: $tabbar-button-distance;
   }
