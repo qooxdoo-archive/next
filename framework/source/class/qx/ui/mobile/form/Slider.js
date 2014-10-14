@@ -79,7 +79,7 @@ qx.Class.define("qx.ui.mobile.form.Slider",
     // overridden
     defaultCssClass :
     {
-      init : "qx-slider"
+      init : "slider"
     },
 
 
