@@ -15,8 +15,6 @@ var tearDownRoot = function() {
 }
 
 
-    function assertQxMobileWidget(obj)
-    {
-      assert.instanceOf(obj, qx.ui.mobile.Widget);
-    }
-  
+function assertQxMobileWidget(obj) {
+  assert.instanceOf(obj, qx.ui.mobile.Widget);
+}

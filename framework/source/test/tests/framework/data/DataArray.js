@@ -18,7 +18,7 @@
 
 ************************************************************************ */
 
-describe('data.DataArray', function() { 
+describe('data.DataArray', function() {
 
     var __a =  null;
     beforeEach (function () {
@@ -28,7 +28,7 @@ describe('data.DataArray', function() {
     afterEach (function () {
       __a.dispose();
     });
- 
+
   it("Constructor", function() {
       // create empty array
       var a = new qx.data.Array();
@@ -65,7 +65,7 @@ describe('data.DataArray', function() {
         new qx.data.Array(function() {});
       }, Error, null, "Functions not supported!");
   });
- 
+
   it("GetItem", function() {
       // check the getvalue function
       assert.equal("one", __a.getItem(0), "IndexAt does not work at position 0");
@@ -76,18 +76,18 @@ describe('data.DataArray', function() {
       assert.isUndefined(__a.getItem(-1), "There should be no element at -1");
       assert.isUndefined(__a.getItem(3), "There should be no element at 3");
   });
- 
+
   it("SetItem", function() {
       __a.setItem(0, "eins");
       assert.equal("eins", __a.getItem(0), "IndexAt does not work at position 0");
       __a.setItem(3, "drei");
       assert.equal("drei", __a.getItem(3), "IndexAt does not work at position 0");
   });
- 
+
   it("Join", function() {
       assert.equal("one, two, three", __a.join(", "), "Join does not work");
   });
- 
+
   it("Reverse", function() {
       __a.reverse();
       assert.equal("one", __a.getItem(2), "Reverse does not work");
@@ -103,7 +103,7 @@ describe('data.DataArray', function() {
       }, "Change event not fired!");
       a.dispose();
   });
- 
+
   it("Sort", function() {
       __a.sort();
       assert.equal("one three two", __a.join(" "), "Simple sort does not work");
@@ -114,7 +114,7 @@ describe('data.DataArray', function() {
 
       // test for the event
       var a = new qx.data.Array(2, 7, 5);
-      
+
       qx.core.Assert.assertEventFired(a, "change", function () {
         a.sort();
       }, function(data) {
@@ -124,13 +124,13 @@ describe('data.DataArray', function() {
       }, "Change event not fired!");
       a.dispose();
   });
- 
+
   it("Concat", function() {
        var b = __a.concat(["four", "five"]);
        assert.equal("one two three four five", b.join(" "), "Concat does not work");
        b.dispose();
   });
- 
+
   it("Slice", function() {
       var slice = __a.slice(0, 1);
       assert.equal("one", slice.getItem(0), "Slice does not work");
@@ -145,7 +145,7 @@ describe('data.DataArray', function() {
       assert.equal("two", slice.getItem(1), "Slice does not work");
       slice.dispose();
   });
- 
+
   it("Pop", function() {
       assert.equal("three", __a.pop(), "Pop does not work.");
       assert.equal(2, __a.length, "Wrong length after pop");
@@ -153,7 +153,7 @@ describe('data.DataArray', function() {
       assert.equal("one", __a.pop(), "Pop does not work.");
       assert.equal(0, __a.length, "Wrong length after pop");
   });
- 
+
   it("Push", function() {
       assert.equal(4, __a.push("four"), "Push does not give the right length back.");
       assert.equal("one two three four", __a.join(" "), "Single push does not work.");
@@ -163,14 +163,14 @@ describe('data.DataArray', function() {
       __a.push(1, 2, 3);
       assert.equal("1 2 3", __a.join(" "), "Multiple push does not work.");
   });
- 
+
   it("Shift", function() {
       assert.equal("one", __a.shift(), "Shift does not work.");
       assert.equal("two three", __a.join(" "), "Shift does not work.");
       assert.equal("two", __a.shift(), "Shift does not work.");
       assert.equal(1, __a.length, "Shift does not work.");
   });
- 
+
   it("ShiftWithEventPropagation", function() {
       var data = {
         "bar" : [1,2,3,4,5]
@@ -178,14 +178,14 @@ describe('data.DataArray', function() {
       var model = qx.data.marshal.Json.createModel( data, true );
       assert.equal(1, model.bar.shift());
   });
- 
+
   it("Unshift", function() {
       assert.equal(4, __a.unshift("zero"), "Unshift does not return the proper length.");
       assert.equal("zero one two three", __a.join(" "), "Unshift does not work!");
       assert.equal(6, __a.unshift("-2", "-1"), "Unshift does not return the proper length.");
       assert.equal("-2 -1 zero one two three", __a.join(" "), "Unshift does not work!");
   });
- 
+
   it("Splice", function() {
       var a = new qx.data.Array(1, 2, 3, 4, 5, 6, 7, 8);
 
@@ -214,14 +214,14 @@ describe('data.DataArray', function() {
       splice.dispose();
       a.dispose();
   });
- 
+
   it("ToArray", function() {
       assert.equal("one two three", __a.toArray().join(" "), "toArray does not work!");
       assert.instanceOf( __a.toArray(), Array, "toArray does not work!");
   });
- 
+
   it("LengthEvent", function() {
-      
+
       // test for the event
       var a = new qx.data.Array(1, 2, 3);
       qx.core.Assert.assertEventFired(a, "changeLength", function () {
@@ -231,23 +231,23 @@ describe('data.DataArray', function() {
       }, "ChangeLength event not fired!");
       a.dispose();
   });
- 
+
   it("ToString", function() {
       assert.equal(__a.toArray().toString(), __a.toString(), "toString does not work!");
   });
- 
+
   it("Contains", function() {
       assert.isTrue(__a.contains("one"), "contains does not work!");
       assert.isTrue(__a.contains("two"), "contains does not work!");
       assert.isTrue(__a.contains("three"), "contains does not work!");
   });
- 
+
   it("IndexOf", function() {
       assert.equal(0, __a.indexOf("one"), "indexOf does not work!");
       assert.equal(1, __a.indexOf("two"), "indexOf does not work!");
       assert.equal(2, __a.indexOf("three"), "indexOf does not work!");
   });
- 
+
   it("LastIndexOf", function() {
       __a.push("one");
       __a.push("two");
@@ -272,7 +272,7 @@ describe('data.DataArray', function() {
 
       a.dispose();
   });
- 
+
   it("InsertAt", function() {
       __a.insertAt(1, "eins");
       __a.insertAt(3, "drei");
@@ -284,7 +284,7 @@ describe('data.DataArray', function() {
       assert.equal("drei", __a.getItem(3), "insertAt does not work");
       assert.equal("three", __a.getItem(4), "insertAt does not work");
   });
- 
+
   it("InsertBefore", function() {
       __a.insertBefore("two", "eins");
       __a.insertBefore("three", "drei");
@@ -296,7 +296,7 @@ describe('data.DataArray', function() {
       assert.equal("drei", __a.getItem(3), "insertBefore does not work");
       assert.equal("three", __a.getItem(4), "insertBefore does not work");
   });
- 
+
   it("InsertAfter", function() {
       __a.insertAfter("one", "eins");
       __a.insertAfter("two", "drei");
@@ -308,7 +308,7 @@ describe('data.DataArray', function() {
       assert.equal("drei", __a.getItem(3), "insertAfter does not work");
       assert.equal("three", __a.getItem(4), "insertAfter does not work");
   });
- 
+
   it("RemoveAt", function() {
       var removed = __a.removeAt(1);
 
@@ -317,10 +317,10 @@ describe('data.DataArray', function() {
       assert.equal("one", __a.getItem(0), "removeAt does not work");
       assert.equal("three", __a.getItem(1), "removeAt does not work");
   });
- 
+
   it("RemoveAll", function() {
 
-      
+
       qx.core.Assert.assertEventFired(__a, "changeLength", function () {
         __a.removeAll();
       }, function(e) {
@@ -346,7 +346,7 @@ describe('data.DataArray', function() {
 
       assert.equal(0, __a.length, "RemoveAll does not work.");
   });
- 
+
   it("Append", function() {
       var dArray = new qx.data.Array("4", "5");
       __a.append(dArray.toArray());
@@ -365,7 +365,7 @@ describe('data.DataArray', function() {
       assert.equal("sechs", __a.getItem(5), "append does not work");
       dArray.dispose();
   });
- 
+
   it("Remove", function() {
       __a.remove("two");
 
@@ -373,7 +373,7 @@ describe('data.DataArray', function() {
       assert.equal("one", __a.getItem(0), "removeAt does not work");
       assert.equal("three", __a.getItem(1), "removeAt does not work");
   });
- 
+
   it("Equals", function() {
       var a = new qx.data.Array("one", "two", "three");
 
@@ -381,7 +381,7 @@ describe('data.DataArray', function() {
 
       a.dispose();
   });
- 
+
   it("Sum", function() {
       var a = new qx.data.Array(1, 2, 3);
 
@@ -389,7 +389,7 @@ describe('data.DataArray', function() {
 
       a.dispose();
   });
- 
+
   it("Max", function() {
       var a = new qx.data.Array(1, 2, 3);
 
@@ -397,7 +397,7 @@ describe('data.DataArray', function() {
 
       a.dispose();
   });
- 
+
   it("Min", function() {
       var a = new qx.data.Array(1, 2, -3);
 
@@ -405,11 +405,11 @@ describe('data.DataArray', function() {
 
       a.dispose();
   });
- 
+
   it("PopEvent", function() {
       // test for the event
       var a = new qx.data.Array(1, 2, 3);
-      
+
       qx.core.Assert.assertEventFired(a, "change", function () {
         a.pop();
       }, function(data) {
@@ -420,11 +420,11 @@ describe('data.DataArray', function() {
       }, "Change event not fired!");
       a.dispose();
   });
- 
+
   it("PushEvent", function() {
       // test for the event
       var a = new qx.data.Array(1, 2, 3);
-      
+
       qx.core.Assert.assertEventFired(a, "change", function () {
         a.push(4);
       }, function(data) {
@@ -435,11 +435,11 @@ describe('data.DataArray', function() {
       }, "Change event not fired!");
       a.dispose();
   });
- 
+
   it("AppendEvent", function() {
       // test for the event
       var a = new qx.data.Array(1, 2, 3);
-      
+
       qx.core.Assert.assertEventFired(a, "change", function () {
         a.append([4, 5]);
       }, function(data) {
@@ -451,11 +451,11 @@ describe('data.DataArray', function() {
       }, "Change event not fired!");
       a.dispose();
   });
- 
+
   it("ShiftEvent", function() {
       // test for the event
       var a = new qx.data.Array(1, 2, 3);
-      
+
       qx.core.Assert.assertEventFired(a, "change", function () {
         a.shift();
       }, function(data) {
@@ -466,11 +466,11 @@ describe('data.DataArray', function() {
       }, "Change event not fired!");
       a.dispose();
   });
- 
+
   it("UnshiftEvent", function() {
       // test for the event
       var a = new qx.data.Array(1, 2, 3);
-      
+
       qx.core.Assert.assertEventFired(a, "change", function () {
         a.unshift(0);
       }, function(data) {
@@ -481,11 +481,11 @@ describe('data.DataArray', function() {
       }, "Change event not fired!");
       a.dispose();
   });
- 
+
   it("SpliceEvent", function() {
       // test for the event (remove)
       var a = new qx.data.Array("a", "b", "c", "d", "e");
-      
+
       qx.core.Assert.assertEventFired(a, "change", function () {
         a.splice(1, 2).dispose();
       }, function(data) {
@@ -528,11 +528,11 @@ describe('data.DataArray', function() {
       }, "Change event not fired!");
       a.dispose();
   });
- 
+
   it("SpliceBubbleEvent", function() {
       // test for the event (remove)
       var a = new qx.data.Array("a", "b", "c", "d", "e");
-      
+
       qx.core.Assert.assertEventFired(a, "changeBubble", function () {
         a.splice(1, 2).dispose();
       }, function(data) {
@@ -564,7 +564,7 @@ describe('data.DataArray', function() {
       }, "changeBubble event not fired!");
       a.dispose();
   });
- 
+
   it("SpliceEventNoChange", function() {
       var a = new qx.data.Array(1, 2, 3);
       qx.core.Assert.assertEventNotFired(a, "change", function () {
@@ -573,7 +573,7 @@ describe('data.DataArray', function() {
 
       a.dispose();
   });
- 
+
   it("SpliceEventEqualContent", function() {
       var a = new qx.data.Array(1, 2, 3);
 
@@ -583,7 +583,7 @@ describe('data.DataArray', function() {
 
       a.dispose();
   });
- 
+
   it("SpliceBubbleEventNoChange", function() {
       var a = new qx.data.Array(1, 2, 3);
       qx.core.Assert.assertEventNotFired(a, "changeBubble", function () {
@@ -592,7 +592,7 @@ describe('data.DataArray', function() {
 
       a.dispose();
   });
- 
+
   it("SpliceBubbleEventEqualContent", function() {
       var a = new qx.data.Array(1, 2, 3);
       qx.core.Assert.assertEventNotFired(a, "changeBubble", function () {
@@ -601,11 +601,11 @@ describe('data.DataArray', function() {
 
       a.dispose();
   });
- 
+
   it("SetItemEvent", function() {
       // test for the event
       var a = new qx.data.Array(1, 2, 3);
-      
+
 
       qx.core.Assert.assertEventFired(a, "change", function () {
         a.setItem(0, 4);
@@ -625,9 +625,9 @@ describe('data.DataArray', function() {
       }, "Change event fired!");
       a.dispose();
   });
- 
+
   it("ForEach", function() {
-      
+
       var i = 0;
       var thisContext = {};
       var handlerCalled = false;
@@ -663,9 +663,9 @@ describe('data.DataArray', function() {
       // check if the handlers has been called
       assert.isTrue(handlerCalled);
   });
- 
+
   it("Filter", function() {
-      
+
       var b = __a.filter(function(item, index, array) {
         assert.isString(item);
         assert.isNumber(index);
@@ -679,11 +679,11 @@ describe('data.DataArray', function() {
 
       b.dispose();
   });
- 
+
   it("Map", function() {
-      
+
       var b = __a.map(function(item, index, array) {
-    
+
         assert.isString(item);
         assert.isNumber(index);
         assert.equal(__a.toArray(), array);
@@ -697,11 +697,11 @@ describe('data.DataArray', function() {
 
       b.dispose();
   });
- 
+
   it("Some", function() {
-      
+
       assert.isTrue(__a.some(function(item, index, array) {
-    
+
         assert.isString(item);
         assert.isNumber(index);
         assert.equal(__a.toArray(), array);
@@ -712,11 +712,11 @@ describe('data.DataArray', function() {
         return item == "xxx";
       }, this));
   });
- 
+
   it("Every", function() {
-      
+
       assert.isTrue(__a.every(function(item, index, array) {
-    
+
         assert.isString(item);
         assert.isNumber(index);
         assert.equal(__a.toArray(), array);
@@ -727,9 +727,9 @@ describe('data.DataArray', function() {
         return item == "one";
       }, this));
   });
- 
+
   it("Reduce", function() {
-      
+
       var reduced = __a.reduce(function(previousValue, currentValue, index, array) {
         assert.isString(previousValue);
         assert.isString(currentValue);
@@ -740,9 +740,9 @@ describe('data.DataArray', function() {
 
       assert.equal("---onetwothree", reduced);
   });
- 
+
   it("ReduceRight", function() {
-      
+
       var reduced = __a.reduceRight(function(previousValue, currentValue, index, array) {
         assert.isString(previousValue);
         assert.isString(currentValue);
@@ -752,6 +752,6 @@ describe('data.DataArray', function() {
       }, "---");
 
       assert.equal("---threetwoone", reduced);
-    
+
   });
 });

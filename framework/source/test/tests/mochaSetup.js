@@ -7,5 +7,4 @@
     // We are in the browser. Set up variables like above using served js files.
     assert = chai.assert;
     isBrowser = true;
-    
 }

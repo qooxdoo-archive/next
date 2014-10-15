@@ -7,7 +7,7 @@ describe('Animation', function() {
     globalTeardown();
     q('link[href="css/style2.css"]').remove();
   });
- 
+
   it("FadeOut", function(done) {
     var test = q.create("<div id='testdiv'/>");
     test.appendTo(sandbox[0]);
@@ -20,7 +20,7 @@ describe('Animation', function() {
       },0);
     }, test);
   })
- 
+
   it("FadeIn", function(done) {
     var testValue = (qxWeb.env.get("browser.name") === "ie" &&
                      qxWeb.env.get("browser.version") <= 9) ? 0.99 : 1;
@@ -36,7 +36,7 @@ describe('Animation', function() {
       }, 0);
     }, test);
   });
- 
+
   it("FadeInWithInvisibleElement", function(done) {
     var testValue = (qxWeb.env.get("browser.name") === "ie" &&
                      qxWeb.env.get("browser.version") <= 9) ? 0.99 : 1;
@@ -68,9 +68,9 @@ describe('Animation', function() {
     test.fadeIn();
     assert.isTrue(q("#testdiv").isPlaying());
   });
- 
+
   it("NonElement", function() {
     // non-element node objects should be ignored (no error)
     q(window, document).fadeOut();
   });
-}); 
+});
