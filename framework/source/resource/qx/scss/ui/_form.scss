@@ -29,10 +29,6 @@
   margin-bottom: 0px;
 }
 
-.form-row.error + .form-row.error {
-  border-top: 0;
-}
-
 .form-row.qx-vbox input {
   width: 100%;
 }
@@ -41,7 +37,8 @@
   margin-top: rem(10);
 }
 
-.form-row-content.qx-hbox > * {
+.form-row.qx-hbox > label,
+.form-row.qx-hbox > input {
   margin: auto;
 }
 
@@ -94,42 +91,37 @@
   margin-bottom: rem(10);
 }
 
-.form-separation-row {
-  padding: 0px;
-  background-color: $form-border-color;
-  height: rem(1);
-}
-
 .form-element-error {
-  color: red;
-  text-align: right;
-  border-top: 0;
-  padding: 0px rem(10) rem(10) rem(10);
+  position: absolute;
+  margin-top: rem(7.5);
+  padding: rem(8);
+  border: rem(1) solid $form-border-color;
+  background-color: $navigationpage-background;
+  color: $form-label-text-color;
+  text-align: left;
+  font-size: rem(12);
+  font-weight: 100;
 }
 
-.form-row-group-title {
+.form-element-error:before {
+  position: absolute;
+  display: block;
+  content: '';
+  top: rem(-6.5);
+  width: rem(10);
+  height: rem(10);
+  border-top: rem(1) solid $form-border-color;
+  border-left: rem(1) solid $form-border-color;
+  background-color: $navigationpage-background;
+  transform: rotate(45deg);
+  line-height: 0;
+}
+
+.form-group > h3 {
+  font-size: rem(16);
   color: $form-title-text-color;
   font-weight:normal;
   border:none;
-}
-
-.form.single-placeholder {
-  @include background($form-background);
-  @include border-radius($form-border-radius);
-  border:rem(1) solid $form-border-color;
-  padding: rem(10);
-
-  .form-row-group-title {
-    font-weight: $form-font-weight;
-    padding: rem(0) rem(0) rem(10) rem(0);
-  }
-
-  .form-row {
-    .slider  {
-      width: 50%;
-      margin-left: rem(20);
-    }
-  }
 }
 
 .form.single {
@@ -140,60 +132,66 @@
     width: 50%;
   }
 
-  .form-row-group-title {
+  .form-group {
+    margin: 0 0 rem(10) 0;
+  }
+
+  .form-group > h3 {
+    margin: 0;
     padding: rem(10) rem(10) rem(10) rem(10);
   }
 
-  .form-row-content, .form-element-error {
+  .form-row {
     @include background($form-background);
     border-left:rem(1) solid $form-border-color;
     border-right:rem(1) solid $form-border-color;
   }
 
-  .form-row-content .label {
+  .form-row .label {
     color: $form-label-text-color;
   }
 
-  .form-row-content {
-    border-top: 0;
+  .form-row {
     padding: rem(10) rem(10) rem(10) rem(10);
   }
 
-  .form-row-content + .form-row-content {
-    padding-top: 0px;
-  }
-
   // If one row is excluded: hide its separationRow
-  .form-row-content.exclude + .form-separation-row {
+  .form-row.exclude + .form-separation-row {
     border-top: 0;
   }
 }
 
-.form-row-group-title:nth-child(n+2) {
-  margin-top: rem(20);
+// .form-row-group-title:nth-child(n+2) {
+//   margin-top: rem(20);
+// }
+
+.form-row {
+  border-bottom: rem(1) solid $form-border-color;
 }
 
-.form-row-group-first,
-.form-row-group-last {
+.form-row:first-of-type,
+.form-row:last-of-type,
+.form-row:only-of-type {
   @include background($form-background);
-  height: 0px;
   padding: rem(2);
-  position: relative;
 }
 
-.form-row-group-first {
+.form-row:first-of-type {
   @include border-radius-top($form-border-radius);
   border-top: rem(1) solid $form-border-color;
   border-left: rem(1) solid $form-border-color;
   border-right: rem(1) solid $form-border-color;
-  top: rem(2);
 }
 
-.form-row-group-last {
+.form-row:last-of-type {
   @include border-radius-bottom($form-border-radius);
   border-top: 0px transparent;
   border-bottom: rem(1) solid $form-border-color;
   border-left: rem(1) solid $form-border-color;
   border-right: rem(1) solid $form-border-color;
-  top: rem(-2);
+}
+
+.form-row:only-of-type {
+  @include border-radius($form-border-radius);
+  border: rem(1) solid $form-border-color;
 }
