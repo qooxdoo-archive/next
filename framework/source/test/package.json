@@ -6,15 +6,16 @@
   "scripts": {
     "test": "mocha"
   },
-  "dependencies" : {
-    "chai" : "*"
+  "dependencies": {
+    "chai": "*"
   },
   "devDependencies": {
-    "mocha": "*",
     "chai": "*",
+    "glob": "^4.0.6",
+    "grunt": "^0.4.5",
+    "mocha": "*",
     "sinon": "*"
   },
-
   "src_files": [
     "node_modules/chai/chai.js",
     "node_modules/sinon/pkg/sinon-1.7.3.js",
@@ -22,7 +23,6 @@
     "framework/source/test/html/media.html",
     "css/style2.css"
   ],
-
   "launch_in_dev": [
     "node"
   ]

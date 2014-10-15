@@ -1,0 +1,55 @@
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>Mocha Tests</title>
+  <link rel="stylesheet" href="node_modules/mocha/mocha.css" />
+</head>
+<body>
+  <div id="mocha"></div>
+  <div id="messages"></div>
+  <div id="fixtures"></div>
+  <script src="node_modules/chai/chai.js"></script>
+  <script src="node_modules/mocha/mocha.js"></script>
+  <script> mocha.setup('bdd')</script>
+  <script src="../../../component/standalone/website/script/q.js"></script>
+  <script src="tests/mochaSetup.js"></script>
+  <script src="tests/website/setup.js"></script>
+  <!-- TESTS START -->
+  <script src="tests/website/Animation.js"></script>
+  <script src="tests/website/Attribute.js"></script>
+  <script src="tests/website/Basic.js"></script>
+  <script src="tests/website/Blocker.js"></script>
+  <script src="tests/website/Cookie.js"></script>
+  <script src="tests/website/Css.js"></script>
+  <script src="tests/website/Dataset.js"></script>
+  <script src="tests/website/Environment.js"></script>
+  <script src="tests/website/Event.js"></script>
+  <script src="tests/website/Io.js"></script>
+  <script src="tests/website/Manipulating.js"></script>
+  <script src="tests/website/MatchMedia.js"></script>
+  <script src="tests/website/Messaging.js"></script>
+  <script src="tests/website/Placeholder.js"></script>
+  <script src="tests/website/Placement.js"></script>
+  <script src="tests/website/QxWeb.js"></script>
+  <script src="tests/website/Selector.js"></script>
+  <script src="tests/website/Storage.js"></script>
+  <script src="tests/website/Templates.js"></script>
+  <script src="tests/website/event/Mouse.js"></script>
+  <script src="tests/website/event/Native.js"></script>
+  <script src="tests/website/event/PointerHandler.js"></script>
+  <script src="tests/website/event/Touch.js"></script>
+  <script src="tests/website/event/TouchHandler.js"></script>
+  <script src="tests/website/setup.js"></script>
+  <script src="tests/website/util/Array.js"></script>
+  <script src="tests/website/util/Function.js"></script>
+  <script src="tests/website/util/Object.js"></script>
+  <script src="tests/website/util/String.js"></script>
+  <script src="tests/website/util/Type.js"></script>
+  <!-- TESTS END -->
+  <script>
+    q.ready( function() {
+        mocha.run();
+    });
+  </script>
+</body>
+</html>
