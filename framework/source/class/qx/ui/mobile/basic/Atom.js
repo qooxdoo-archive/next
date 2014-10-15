@@ -142,11 +142,11 @@ qx.Class.define("qx.ui.mobile.basic.Atom",
       } else {
         targetLayout = new qx.ui.mobile.layout.HBox();
       }
+      this.layout = targetLayout;
 
       var isReverse = ["right", "bottom"].indexOf(value) != -1;
       targetLayout.reversed = isReverse;
 
-      this.layout = targetLayout;
     },
 
 
