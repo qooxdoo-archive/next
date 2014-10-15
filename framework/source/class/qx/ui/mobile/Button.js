@@ -62,10 +62,10 @@ qx.Class.define("qx.ui.mobile.Button",
 
   /**
    * @attach {qxWeb, button}
-   * @return {qx.ui.mobile.Button} The new Slider widget.
+   * @return {qx.ui.mobile.Button} The new Button widget.
    */
-  construct : function(element) {
-    this.base(qx.ui.mobile.Widget, "constructor", element);
+  construct : function(label, icon, element) {
+    this.base(qx.ui.mobile.basic.Atom, "constructor", label, icon, element);
   },
 
   members: {
