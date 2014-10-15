@@ -38,37 +38,19 @@ qx.Class.define("qx.test.mobile.form.Form",
       this.__form.dispose();
     },
 
-    testCheckValidity: function() {
-      this.assertFalse(this.__form.checkValidity());
-
-      this.__username.setValue('myusername');
-      this.assertTrue(this.__form.checkValidity());
-    },
-
-    testChangeRequired: function() {
-      this.assertFalse(this.__form.checkValidity());
-
-      this.__username.required = false;
-      this.assertTrue(this.__form.checkValidity());
-    },
-
     testReset: function() {
       this.__username.value = "Foo";
       this.assertEquals("Foo", this.__username.value);
-      this.assertTrue(this.__form.checkValidity());
       this.__form.reset();
       this.assertEquals(null, this.__username.value);
-      this.assertFalse(this.__form.checkValidity());
     },
 
     testResetRemoved: function() {
       this.__username.value = "Foo";
       this.assertEquals("Foo", this.__username.value);
-      this.assertTrue(this.__form.checkValidity());
       this.__username.remove();
       this.__form.reset();
       this.assertEquals("Foo", this.__username.value);
-      this.assertTrue(this.__form.checkValidity());
     },
 
     __createForm: function()
@@ -79,7 +61,7 @@ qx.Class.define("qx.test.mobile.form.Form",
       var username = this.__username = new qx.ui.mobile.form.TextField();
       username.placeholder = "Username";
       username.required = true;
-      username.appendTo(form);
+      new qx.ui.mobile.form.Row(username, "User Name").appendTo(form);
 
       return form;
     }

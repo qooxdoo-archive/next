@@ -41,28 +41,11 @@ qx.Class.define("qx.ui.mobile.form.Group",
 {
   extend : qx.ui.mobile.Widget,
 
-
-  /**
-   * @param widgets {qx.ui.mobile.Widget[]?}
-   * @param showBorder {Boolean?} initial value of the property showBorder.
-   */
-  construct : function(widgets, showBorder)
-  {
+  construct : function(title) {
     this.base(qx.ui.mobile.Widget, "constructor");
-
-    this.addClass("bordered");
-
-    if(showBorder != null) {
-      this.showBorder = showBorder;
+    if (title) {
+      qxWeb.create('<h3>' + title + '</h3>').appendTo(this);
     }
-
-    // Convenience: Add all widgets of array to group.
-    if(widgets) {
-      for(var i = 0; i < widgets.length; i++) {
-        this.append(widgets[i]);
-      }
-    }
-
   },
 
 
@@ -71,34 +54,7 @@ qx.Class.define("qx.ui.mobile.form.Group",
     // overridden
     defaultCssClass :
     {
-      init : "group"
-    },
-
-
-    /**
-     * Defines whether a border should drawn around the group.
-     */
-    showBorder :
-    {
-      check : "Boolean",
-      init : true,
-      apply : "_onChangeShowBorder"
-    }
-  },
-
-
-  members :
-  {
-    /**
-     * Reacts on change of showBorder property.
-     */
-    _onChangeShowBorder : function() {
-
-      if(this.showBorder) {
-        this.addClass("bordered");
-      } else {
-        this.removeClass("bordered");
-      }
+      init : "form-group"
     }
   }
 });

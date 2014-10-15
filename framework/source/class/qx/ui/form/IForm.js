@@ -26,32 +26,24 @@ qx.Interface.define("qx.ui.form.IForm",
 {
   events :
   {
-    /** Fired when the enabled state was modified */
-    changeEnabled : null,
-
-    /** Fired when the item's value fails validation */
-    invalid : null
+    /** Fired when the item's validity changes */
+    changeValid : null
   },
 
   properties : {
     /**
-     * The widget's enabled state.
+     * Is a value required for this item to be valid?
      */
-    enabled : {},
+    required: {},
 
     /**
-     * The widget's required state.
+     * The item's validity
      */
-    required : {},
-
-    /**
-     * The widget's valid state.
-     */
-    validity : {},
+    valid: {},
 
     /**
      * The widget's invalid message.
      */
-    validationMessage : {}
+    validationMessage: {}
   }
 });

@@ -60,6 +60,7 @@ qx.Class.define("qx.ui.mobile.form.Form",
       return "form";
     },
 
+
     /**
      * Resets the form. This means reseting all form items and the validation.
      */
@@ -88,11 +89,6 @@ qx.Class.define("qx.ui.mobile.form.Form",
     },
 
 
-    checkValidity: function() {
-      return this[0].checkValidity();
-    },
-
-
     /**
      * Creates and returns the used resetter.
      *
@@ -103,29 +99,53 @@ qx.Class.define("qx.ui.mobile.form.Form",
     },
 
 
-    _onAddedChild: function(child) {
-      if (this._resetter.getInitValue(child) !== undefined) {
-        this._resetter.add(child);
-      }
-      var children = child.getChildren();
+    /**
+     * Recursively searches a widget added to the form and its children
+     * for form items and adds them to the resetter and the list of items
+     *
+     * @param widget {qx.ui.mobile.Widget} added widget
+     */
+    _onAddedChild: function(widget) {
+      var children = [widget];
+      var descendants = widget.find("*[data-qx-widget]");
+      descendants.forEach(function(kid) {
+        children.push(qxWeb(kid));
+      });
+
       for (var i = 0, l = children.length; i < l; i++) {
-        var grandChild = qxWeb(children[i]);
-        if (this._resetter.getInitValue(grandChild) !== undefined) {
-          this._resetter.add(grandChild);
+        var child = qxWeb(children[i]);
+
+        child.on("addedChild", this._onAddedChild, this);
+        child.on("removedChild", this._onRemovedChild, this);
+
+        if (this._resetter.getInitValue(child) !== undefined) {
+          this._resetter.add(child);
         }
       }
     },
 
 
-    _onRemovedChild: function(child) {
-      if (this._resetter.getInitValue(child) !== undefined) {
-        this._resetter.remove(child);
-      }
-      var children = child.getChildren();
+    /**
+     * Recursively searches a widget removed from the form and its children
+     * for form items and removes them from the resetter and the list of items
+     *
+     * @param widget {qx.ui.mobile.Widget} added widget
+     */
+    _onRemovedChild: function(widget) {
+      var children = [widget];
+      var descendants = widget.find("*[data-qx-widget]");
+      descendants.forEach(function(kid) {
+        children.push(qxWeb(kid));
+      });
+
       for (var i = 0, l = children.length; i < l; i++) {
-        var grandChild = qxWeb(children[i]);
-        if (this._resetter.getInitValue(grandChild) !== undefined) {
-          this._resetter.remove(grandChild);
+        var child = qxWeb(children[i]);
+
+        child.off("addedChild", this._onAddedChild, this);
+        child.off("removedChild", this._onRemovedChild, this);
+
+        if (this._resetter.getInitValue(child) !== undefined) {
+          this._resetter.remove(child);
         }
       }
     },

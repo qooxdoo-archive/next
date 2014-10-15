@@ -25,18 +25,30 @@ qx.Class.define("qx.ui.mobile.form.Row",
 {
   extend : qx.ui.mobile.Widget,
 
-
-  /**
-   * @param layout {qx.ui.mobile.layout.Abstract?null} The layout that should be used for this
-   *     container
-   */
-  construct : function(layout)
-  {
+  construct: function(item, label) {
     this.base(qx.ui.mobile.Widget, "constructor");
-    this.layout = layout;
-    this.selectable = false;
-  },
 
+    this.layout = new qx.ui.mobile.layout.HBox();
+
+    if (label) {
+      var labelWidget = new qx.ui.mobile.basic.Label(label, document.createElement("label"))
+        .set({
+          anonymous: false,
+          layoutPrefs: {flex:1}
+        })
+        .appendTo(this);
+
+      if (item) {
+        labelWidget.setAttribute("for", item.getAttribute("id"));
+        item.on("changeValid", this._onChangeValid, this);
+      }
+    }
+
+    if (item) {
+      this.__item = item;
+      this.append(item);
+    }
+  },
 
   properties :
   {
@@ -44,33 +56,46 @@ qx.Class.define("qx.ui.mobile.form.Row",
     defaultCssClass :
     {
       init : "form-row"
-    },
-
-
-    /**
-     * Whether the widget is selectable or not.
-     */
-    selectable :
-    {
-      check : "Boolean",
-      init : false,
-      apply : "_applySelectable"
     }
   },
 
+  members: {
 
-  members :
-  {
+    __item: null,
+    __errorEl: null,
 
-    _applySelectable : function(value, old) {
-      this.setData("selectable", value ? null : "false");
+
+    /**
+     * Adds/removes an element containing the item's validation message
+     */
+    _onChangeValid: function() {
+      if (this.__item.valid) {
+        this.__errorEl && this.__errorEl.remove();
+      } else {
+        if (!this.__errorEl && this.__item.validationMessage) {
+          this.__errorEl = qxWeb.create('<div class="form-element-error">' + this.__item.validationMessage + '</div>');
+        }
+        var itemPos = this.__item.getPosition();
+        var el = this.__item[0];
+        do {
+          itemPos.top += el.scrollTop;
+          itemPos.left += el.scrollLeft;
+        } while (el = el.offsetParent);
+        this.__errorEl
+        .setStyles({
+          left: itemPos.left + "px",
+          top: (itemPos.top + this.__item.getHeight()) + "px"
+        })
+        .appendTo(this);
+
+      }
     },
 
-
-    // overridden
-    _getTagName : function()
-    {
-      return "li";
+    dispose: function() {
+      if (this.__item) {
+        this.__item.off("changeValid", this._onChangeValid, this);
+      }
     }
+
   }
 });
