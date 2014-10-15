@@ -84,8 +84,8 @@ qx.Class.define("qx.ui.mobile.container.Carousel",
 
     this.layout = new qx.ui.mobile.layout.VBox();
 
-    if (q('.qx-carousel-scroller', this[0]).length > 0)  {
-      var carouselScroller = this.__carouselScroller = new qx.ui.mobile.Widget(q('.qx-carousel-scroller')[0]);
+    if (qxWeb('.qx-carousel-scroller', this[0]).length > 0)  {
+      var carouselScroller = this.__carouselScroller = new qx.ui.mobile.Widget(qxWeb('.qx-carousel-scroller')[0]);
     } else {
       var carouselScroller = this.__carouselScroller = new qx.ui.mobile.Widget();
       carouselScroller.addClass("qx-carousel-scroller");
@@ -93,7 +93,7 @@ qx.Class.define("qx.ui.mobile.container.Carousel",
     carouselScroller.layout = new qx.ui.mobile.layout.HBox();
     carouselScroller.transformUnit = "px";
 
-    q('.qx-carousel-scroller .qx-carousel-page', this[0]).forEach(function (page) {
+    qxWeb('.qx-carousel-scroller .qx-carousel-page', this[0]).forEach(function (page) {
       this.append(new qx.ui.mobile.Widget(page));
     }.bind(this));
 
