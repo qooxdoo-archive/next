@@ -20,7 +20,7 @@
 ************************************************************************ */
 
 /**
- * Mobile page responsible for showing the "form" showcase.
+ * Mobile page responsible for showing the "form" showcase.\
  */
 qx.Class.define("mobileshowcase.page.Form",
 {
@@ -30,27 +30,18 @@ qx.Class.define("mobileshowcase.page.Form",
   {
     this.base(mobileshowcase.page.Abstract, "constructor");
     this.title = "Form";
+    this.__items = [];
   },
 
 
   members :
   {
-    __password : null,
-    __name : null,
-    __info : null,
-    __save : null,
+    __items: null,
     __result : null,
     __resultPopup : null,
     __closeResultPopup : null,
-    __slide : null,
-    __sel : null,
-    __rememberPass : null,
-    __radio1 : null,
-    __radio2 : null,
     __form : null,
     __submitButton : null,
-    __resetButton : null,
-    __numberField : null,
 
 
     // overridden
@@ -59,13 +50,7 @@ qx.Class.define("mobileshowcase.page.Form",
       this.base(mobileshowcase.page.Abstract, "_initialize");
       this.__form = this.__createForm();
 
-      this.getContent().append(new qx.ui.mobile.form.renderer.Single(this.__form));
-
-      this.__submitButton = this._createSubmitButton();
-      this.getContent().append(this.__submitButton);
-
-      this.__resetButton = this._createResetButton();
-      this.getContent().append(this.__resetButton);
+      this.getContent().append(this.__form);
 
       this.__result = new qx.ui.mobile.form.Label();
       this.__result.addClass("registration-result");
@@ -89,10 +74,9 @@ qx.Class.define("mobileshowcase.page.Form",
     * @return {qx.ui.mobile.Button} reset button
     */
     _createSubmitButton : function() {
-      var submitButton = new qx.ui.mobile.Button("Submit");
-      submitButton.on("tap", this._onSubmitButtonTap, this);
-      submitButton.enabled = false;
-      return submitButton;
+      return new qx.ui.mobile.Button("Submit")
+        .setAttribute("formnovalidate", "formnovalidate")
+        .set({enabled : false});
     },
 
 
@@ -101,9 +85,9 @@ qx.Class.define("mobileshowcase.page.Form",
     * @return {qx.ui.mobile.Button} reset button
     */
     _createResetButton : function() {
-      var resetButton = new qx.ui.mobile.Button("Reset");
-      resetButton.on("tap", this._onResetButtonTap, this);
-      return resetButton;
+      return new qx.ui.mobile.Button("Reset")
+        .setAttribute("formnovalidate", "formnovalidate")
+        .on("tap", this._onResetButtonTap, this);
     },
 
 
@@ -112,124 +96,145 @@ qx.Class.define("mobileshowcase.page.Form",
      *
      * @return {qx.ui.mobile.form.Form} the created form.
      */
-    __createForm : function()
-    {
-      var form = new qx.ui.mobile.form.Form();
+    __createForm : function() {
+      var form = new qx.ui.mobile.form.Form()
+        .addClass("single");
 
-      // NAME FIELD
-      this.__name = new qx.ui.mobile.form.TextField();
-      this.__name.placeholder = "Username";
-      this.__name.required = true;
-      this.__name.liveUpdate = true;
+      form.on("submit", this._onSubmit, this);
 
-      form.addGroupHeader("Contact");
-      form.add(this.__name, "Username");
+      var contactGroup = new qx.ui.mobile.form.Group("Contact")
+        .appendTo(form);
 
-      // PASSWORD FIELD
-      this.__password = new qx.ui.mobile.form.PasswordField();
-      this.__password.placeholder = "Password";
-      this.__password.liveUpdate = true;
-      form.add(this.__password, "Password");
+      var name = new qx.ui.mobile.form.TextField()
+        .set({
+          placeholder : "Username",
+          required : true,
+          pattern : ".{3,}",
+          validationMessage: "Username should have more than 3 characters!",
+          liveUpdate : true
+        });
+      this.__items.push(name);
 
-      // REMEMBER PASSWORD CHECKBOX
-      this.__rememberPass = new qx.ui.mobile.form.CheckBox();
-      form.add(this.__rememberPass, "Remember password? ");
-      this.__rememberPass.model = "password_reminder";
-      qx.data.SingleValueBinding.bind(this.__rememberPass, "model",this.__password,"value");
-      qx.data.SingleValueBinding.bind(this.__password, "value",this.__rememberPass,"model");
+      new qx.ui.mobile.form.Row(name, "Username")
+        .appendTo(contactGroup);
 
-      // NUMBER FIELD
-      this.__numberField = new qx.ui.mobile.form.NumberField();
-      this.__numberField.maximum = 150;
-      this.__numberField.minimum = 0;
-      this.__numberField.liveUpdate = true;
-      form.add(this.__numberField,"Age");
+      var password = new qx.ui.mobile.form.PasswordField()
+        .set({
+          placeholder : "Password",
+          required : true,
+          pattern : ".{3,}",
+          validationMessage: "Password should have more than 3 characters!",
+          liveUpdate : true
+        });
+      this.__items.push(password);
 
-      form.addGroupHeader("Gender");
-      this.__radio1 = new qx.ui.mobile.form.RadioButton();
-      this.__radio2 = new qx.ui.mobile.form.RadioButton();
+      new qx.ui.mobile.form.Row(password, "Password")
+        .appendTo(contactGroup);
+
+      var rememberPass = new qx.ui.mobile.form.CheckBox()
+        .set({
+          model: "password_reminder",
+          required: true
+        });
+      this.__items.push(rememberPass);
+
+      qx.data.SingleValueBinding.bind(rememberPass, "model", password, "value");
+      qx.data.SingleValueBinding.bind(password, "value", rememberPass, "model");
+
+      new qx.ui.mobile.form.Row(rememberPass, "Remember password?")
+        .appendTo(contactGroup);
+
+      var age = new qx.ui.mobile.form.NumberField()
+        .set({
+          maximum: 150,
+          minimum: 1,
+          required: true,
+          validationMessage: "Please enter a number between 1 and 150!",
+          liveUpdate: true
+        });
+      this.__items.push(age);
+
+      new qx.ui.mobile.form.Row(age, "Age")
+        .appendTo(contactGroup);
+
+      var genderGroup = new qx.ui.mobile.form.Group("Gender")
+        .appendTo(form);
+
+      var male = new qx.ui.mobile.form.RadioButton();
+      this.__items.push(male);
+      var female = new qx.ui.mobile.form.RadioButton();
+      this.__items.push(female);
 
       var radioGroup = new qx.ui.mobile.form.RadioGroup();
       radioGroup.allowEmptySelection = true;
-      radioGroup.add(this.__radio1, this.__radio2);
-      form.add(this.__radio1, "Male");
-      form.add(this.__radio2, "Female");
+      radioGroup.add(male, female);
 
-      form.addGroupHeader("Feedback");
+      new qx.ui.mobile.form.Row(male, "Male")
+        .appendTo(genderGroup);
+
+      new qx.ui.mobile.form.Row(female, "Female")
+        .appendTo(genderGroup);
+
+      var feedbackGroup = new qx.ui.mobile.form.Group("Feedback")
+        .appendTo(form);
+
       var dd = new qx.data.Array(["Web search", "From a friend", "Offline ad", "Magazine", "Twitter", "Other"]);
-      var selQuestion = "How did you hear about us ?";
+      var selQuestion = "How did you hear about us?";
+      var select = new qx.ui.mobile.form.SelectBox()
+        .set({
+          required : true,
+          validationMessage: "Please select a value!",
+          placeholder : "Unknown",
+          model : dd
+        });
+      this.__items.push(select);
+      select.setClearButtonLabel("Clear");
+      select.setDialogTitle(selQuestion);
 
-      this.__sel = new qx.ui.mobile.form.SelectBox();
-      this.__sel.required = true;
-      this.__sel.placeholder = "Unknown";
-      this.__sel.setClearButtonLabel("Clear");
-      this.__sel.setDialogTitle(selQuestion);
-      this.__sel.model = dd;
+      new qx.ui.mobile.form.Row(select, selQuestion)
+        .appendTo(feedbackGroup);
 
-      form.add(this.__sel, selQuestion);
+      var licenseGroup = new qx.ui.mobile.form.Group("License")
+        .appendTo(form);
 
-      form.addGroupHeader("License");
-      this.__info = new qx.ui.mobile.form.TextArea();
-      this.__info.placeholder = "Terms of Service";
-      this.__info.readOnly = true;
-      form.add(this.__info,"Terms of Service");
-      this.__info.setValue("qooxdoo Licensing Information\n=============================\n\nqooxdoo is dual-licensed under the GNU Lesser General Public License (LGPL) and the Eclipse Public License (EPL). \n The above holds for any newer qooxdoo release. Only legacy versions 0.6.4 and below were licensed solely under the GNU Lesser General Public License (LGPL). For a full understanding of your rights and obligations under these licenses, please see the full text of the LGPL and/or EPL. \n \n One important aspect of both licenses (so called \"weak copyleft\" licenses) is that if you make any modification or addition to the qooxdoo code itself, you MUST put your modification under the same license, the LGPL or EPL. \n  \n \n  \n Note that it is explicitly NOT NEEDED to put any application under the LGPL or EPL, if that application is just using qooxdoo as intended by the framework (this is where the \"weak\" part comes into play - contrast this with the GPL, which would only allow using qooxdoo to create an application that is itself governed by the GPL).");
+      var info = new qx.ui.mobile.form.TextArea()
+        .set({
+          placeholder : "Terms of Service",
+          readOnly : true
+        });
 
-      this.__slide = new qx.ui.mobile.form.Slider();
-      this.__slide.displayValue = "percent";
-      form.add(this.__slide,"Are you human? Drag the slider to prove it.");
+      info.setValue("qooxdoo Licensing Information\n=============================\n\nqooxdoo is dual-licensed under the GNU Lesser General Public License (LGPL) and the Eclipse Public License (EPL).\nThe above holds for any newer qooxdoo release. Only legacy versions 0.6.4 and below were licensed solely under the GNU Lesser General Public License (LGPL). For a full understanding of your rights and obligations under these licenses, please see the full text of the LGPL and/or EPL.\n\nOne important aspect of both licenses (so called \"weak copyleft\" licenses) is that if you make any modification or addition to the qooxdoo code itself, you MUST put your modification under the same license, the LGPL or EPL.\n\n\n\nNote that it is explicitly NOT NEEDED to put any application under the LGPL or EPL, if that application is just using qooxdoo as intended by the framework (this is where the \"weak\" part comes into play - contrast this with the GPL, which would only allow using qooxdoo to create an application that is itself governed by the GPL).");
 
-      this.__save = new qx.ui.mobile.form.ToggleButton(false,"Agree","Reject",13);
-      this.__save.on("changeValue", this._enableFormSubmitting, this);
-      form.add(this.__save, "Agree? ");
+      new qx.ui.mobile.form.Row(info, "Terms of Service")
+        .set({layout: new qx.ui.mobile.layout.VBox()})
+        .appendTo(licenseGroup);
 
-      this._createValidationRules(form.getValidationManager());
+      var slider = new qx.ui.mobile.form.Slider()
+        .set({
+          displayValue : "percent"
+        });
+
+      new qx.ui.mobile.form.Row(slider, "Are you human? Drag the slider to prove it.")
+        .set({layout: new qx.ui.mobile.layout.VBox()})
+        .appendTo(licenseGroup);
+      this.__items.push(slider);
+
+      var agree = new qx.ui.mobile.form.ToggleButton(false,"Agree","Reject",13);
+      this.__items.push(agree);
+      agree.on("changeValue", this._enableFormSubmitting, this);
+      new qx.ui.mobile.form.Row(agree, "Agree?")
+        .appendTo(licenseGroup);
+
+      var buttonContainer = new qx.ui.mobile.Widget()
+        .set({layout : (new qx.ui.mobile.layout.VBox())})
+        .appendTo(form);
+      this.__submitButton = this._createSubmitButton()
+        .appendTo(buttonContainer);
+
+      var resetButton = this._createResetButton()
+        .appendTo(buttonContainer);
 
       return form;
-    },
-
-
-    /**
-     * Adds all validation rules of the form.
-     * @param validationManager {qx.ui.form.validation.Manager} the created form.
-     */
-    _createValidationRules : function(validationManager) {
-      // USERNAME validation
-      validationManager.add(this.__name, function(value, item){
-        var valid = value != null && value.length>3;
-        if(!valid) {
-          item.invalidMessage = "Username should have more than 3 characters!";
-        }
-        return valid;
-      }, this);
-
-      // PASSWORD validation
-      validationManager.add(this.__password, function(value, item){
-        var valid = value != null && value.length>3;
-        if(!valid) {
-          item.invalidMessage = "Password should have more than 3 characters!";
-        }
-        return valid;
-      }, this);
-
-      // AGE validation
-      validationManager.add(this.__numberField, function(value, item) {
-        if(value == null || value == "0") {
-          item.invalidMessage = "Please enter your age.";
-          return false;
-        }
-
-        if (value.length == 0 || value.match(/[\D]+/)) {
-          item.invalidMessage = "Please enter a valid age.";
-          return false;
-        }
-
-        if(value < item.minimum || value > item.maximum) {
-          item.invalidMessage = "Value out of range: "+ item.minimum+"-"+item.maximum;
-          return false;
-        }
-        return true;
-      }, this);
     },
 
 
@@ -245,26 +250,27 @@ qx.Class.define("mobileshowcase.page.Form",
 
 
     /** Event handler. */
-    _onSubmitButtonTap : function()
-    {
-      if(this.__form.validate())
-      {
-        var result = [];
-        result.push("Username: " +  this.__name.value);
-        result.push("Password: " +  this.__password.value);
-        result.push("Age: " +  this.__numberField.value);
-        result.push("Male: " +  this.__radio1.value);
-        result.push("Female: " +  this.__radio2.value);
-        result.push("Agree on our terms: " +  this.__save.value);
-        result.push("How did you hear about us : " +  this.__sel.value);
-        result.push("Are you human? : " +  this.__slide.value +"%");
+    _onSubmit : function(e) {
+      // don't trigger page reload
+      e.preventDefault();
+
+      var result = [];
+      var invalid = false;
+      this.__items.forEach(function(item) {
+        item = qxWeb(item);
+        item.validate();
+        if (!item.valid && !invalid) {
+          this.getChildren(".scroll").scrollToWidget(item, 300);
+          invalid = true;
+        }
+        if (!(item instanceof qx.ui.mobile.form.TextArea)) {
+          result.push(item.getPrev()[0].textContent + " : " + item.value);
+        }
+      }.bind(this));
+
+      if (!invalid) {
         this.__result.value = result.join("<br>");
         this.__resultPopup.show();
-      } else {
-        // Scroll to invalid field.
-        var invalidItems = this.__form.getInvalidItems();
-
-        this._getScrollContainer().scrollToWidget(invalidItems[0]._getParentWidget(), 500);
       }
     },
 
