@@ -67,21 +67,37 @@ qx.Class.define("qx.test.mobile.form.TextField",
     testPattern: function() {
       var pattern = "Foo";
       this.__tf.pattern = pattern;
-      this.assertEquals(pattern, this.__tf.getAttribute("pattern"));
-      // empty value is valid unless required
-      this.assertTrue(this.__tf.validity.valid);
-      this.__tf.value = "Bar";
-      this.assertFalse(this.__tf.validity.valid);
-      this.assertTrue(this.__tf.validity.patternMismatch);
-      this.__tf.value = "Foo";
-      this.assertTrue(this.__tf.validity.valid);
-      this.assertFalse(this.__tf.validity.patternMismatch);
-      this.__tf.pattern = "Bar";
-      this.assertFalse(this.__tf.validity.valid);
-      this.assertTrue(this.__tf.validity.patternMismatch);
-      this.__tf.value = "";
-      this.assertTrue(this.__tf.validity.valid);
-      this.assertFalse(this.__tf.validity.patternMismatch);
+      this.assertTrue(this.__tf.valid);
+
+      this.assertEventFired(this.__tf, "changeValid", function() {
+        this.__tf.value = "Bar";
+      }.bind(this), function(e) {
+        this.assertFalse(e.value);
+        this.assertTrue(e.old);
+        this.assertFalse(e.target.valid);
+      }.bind(this));
+
+      this.assertEventFired(this.__tf, "changeValid", function() {
+        this.__tf.value = "Foo";
+      }.bind(this), function(e) {
+        this.assertTrue(e.value);
+        this.assertFalse(e.old);
+        this.assertTrue(e.target.valid);
+      }.bind(this));
+
+      this.assertEventFired(this.__tf, "changeValid", function() {
+        this.__tf.pattern = "Bar";
+      }.bind(this), function(e) {
+        this.assertFalse(e.value);
+        this.assertTrue(e.old);
+        this.assertFalse(e.target.valid);
+      }.bind(this));
+
+      this.assertEventFired(this.__tf, "changeValid", function() {
+        this.__tf.value = "";
+      }.bind(this), function(e) {
+        this.assertTrue(e.target.valid);
+      }.bind(this));
     },
 
 
@@ -94,6 +110,19 @@ qx.Class.define("qx.test.mobile.form.TextField",
       this.assertEquals("Foo", this.__tf.value);
       this.__tf.maxLength = 1;
       this.assertEquals("F", this.__tf.value);
+    },
+
+
+    testMaxLengthIllegal: function() {
+      this.__tf.maxLength = 1;
+      this.__tf[0].value = "Foo";
+      this.assertEventFired(this.__tf, "changeValid", function() {
+        this.__tf.validate();
+      }.bind(this), function(e) {
+        this.assertFalse(e.value);
+        this.assertTrue(e.old);
+        this.assertFalse(e.target.valid);
+      }.bind(this));
     }
 
   }

@@ -56,16 +56,14 @@ qx.Class.define("qx.test.mobile.form.NumberField",
       this.assertEquals(42, this.__nf.minimum);
       this.assertEquals(42, this.__nf.getAttribute("min"));
 
-      this.assertEventFired(this.__nf, "invalid", function() {
+      this.assertEventFired(this.__nf, "changeValid", function() {
         this.__nf.value = 41;
         this.assertEquals(41, this.__nf.value);
-        this.assertFalse(this.__nf.validity.valid);
-        this.assertTrue(this.__nf.validity.rangeUnderflow);
-        this.assertFalse(this.__nf.checkValidity());
+        this.assertFalse(this.__nf.valid);
       }.bind(this));
 
       this.__nf.minimum = null;
-      this.assertTrue(this.__nf.validity.valid);
+      this.assertTrue(this.__nf.valid);
     },
 
 
@@ -78,16 +76,14 @@ qx.Class.define("qx.test.mobile.form.NumberField",
       this.assertEquals(42, this.__nf.maximum);
       this.assertEquals(42, this.__nf.getAttribute("max"));
 
-      this.assertEventFired(this.__nf, "invalid", function() {
+      this.assertEventFired(this.__nf, "changeValid", function() {
         this.__nf.value = 43;
         this.assertEquals(43, this.__nf.value);
-        this.assertFalse(this.__nf.validity.valid);
-        this.assertTrue(this.__nf.validity.rangeOverflow);
-        this.assertFalse(this.__nf.checkValidity());
+        this.assertFalse(this.__nf.valid);
       }.bind(this));
 
       this.__nf.maximum = null;
-      this.assertTrue(this.__nf.validity.valid);
+      this.assertTrue(this.__nf.valid);
     },
 
 
@@ -99,16 +95,14 @@ qx.Class.define("qx.test.mobile.form.NumberField",
       this.assertEquals(10, this.__nf.step);
       this.assertEquals(10, this.__nf.getAttribute("step"));
 
-      this.assertEventFired(this.__nf, "invalid", function() {
+      this.assertEventFired(this.__nf, "changeValid", function() {
         this.__nf.value = 12;
         this.assertEquals(12, this.__nf.value);
-        this.assertFalse(this.__nf.validity.valid);
-        this.assertTrue(this.__nf.validity.stepMismatch);
-        this.assertFalse(this.__nf.checkValidity());
+        this.assertFalse(this.__nf.valid);
       }.bind(this));
 
       this.__nf.step = null;
-      this.assertTrue(this.__nf.validity.valid);
+      this.assertTrue(this.__nf.valid);
     },
 
 

@@ -86,7 +86,7 @@ qx.Class.define("qx.ui.mobile.form.NumberField",
       check : "Number",
       init : undefined,
       nullable: true,
-      apply : "_onChangeStep"
+      apply : "_applyStep"
     }
   },
 
@@ -98,8 +98,19 @@ qx.Class.define("qx.ui.mobile.form.NumberField",
      * Called when changed the property step.
      * Delegates value change on DOM element.
      */
-    _onChangeStep : function(value,old) {
+    _applyStep : function(value,old) {
       this.setAttribute("step",value);
+      this.valid = this._validateStep();
+    },
+
+
+    /**
+     * Check for the <code>step</code> property
+     *
+     * @return {Boolean} <code>true</code> if the value passed the check
+     */
+    _validateStep: function() {
+      return !this[0].validity.stepMismatch;
     },
 
 
@@ -109,6 +120,17 @@ qx.Class.define("qx.ui.mobile.form.NumberField",
      */
     _applyMaximum : function(value,old) {
       this.setAttribute("max",value);
+      this.valid = this._validateMaximum();
+    },
+
+
+    /**
+     * Check for the <code>maximum</code> property
+     *
+     * @return {Boolean} <code>true</code> if the value passed the check
+     */
+    _validateMaximum: function() {
+      return !this[0].validity.rangeOverflow;
     },
 
 
@@ -118,6 +140,17 @@ qx.Class.define("qx.ui.mobile.form.NumberField",
      */
     _applyMinimum : function(value,old) {
       this.setAttribute("min",value);
+      this.valid = this._validateMinimum();
+    },
+
+
+    /**
+     * Check for the <code>minimum</code> property
+     *
+     * @return {Boolean} <code>true</code> if the value passed the check
+     */
+    _validateMinimum: function() {
+      return !this[0].validity.rangeUnderflow;
     }
   }
 });

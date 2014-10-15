@@ -151,7 +151,7 @@ qx.Class.define("qx.ui.mobile.form.SelectBox",
     selection :
     {
       init : null,
-      check : "_validateSelection",
+      check : "_checkSelection",
       apply : "_applySelection",
       nullable : true
     }
@@ -237,6 +237,8 @@ qx.Class.define("qx.ui.mobile.form.SelectBox",
       } else {
         this.selection = null;
       }
+
+      this.validate();
     },
 
 
@@ -260,7 +262,6 @@ qx.Class.define("qx.ui.mobile.form.SelectBox",
         var selectedItem = this.model.getItem(this.selection);
         this.setAttribute("value", selectedItem);
       }
-      this._setInvalidState();
     },
 
 
@@ -299,6 +300,7 @@ qx.Class.define("qx.ui.mobile.form.SelectBox",
     _onChangeSelection : function (evt) {
       this.selection = evt.index;
       this._render();
+      this.validate();
     },
 
 
@@ -319,7 +321,7 @@ qx.Class.define("qx.ui.mobile.form.SelectBox",
      * Validates the selection value.
      * @param value {Integer} the selection value to validate.
      */
-    _validateSelection : function(value) {
+    _checkSelection : function(value) {
       if(value != null && qx.lang.Type.isNumber(value) == false)
       {
         throw new qx.core.ValidationError(

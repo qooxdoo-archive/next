@@ -26,11 +26,16 @@ qx.Mixin.define("qx.ui.mobile.form.MText",
 {
   properties :
   {
+    /**
+     * Regular expression used to check the field's value
+     * @type {Object}
+     */
     pattern: {
       check: "String",
       init: null,
       nullable: true,
-      apply: "_applyPattern"
+      apply: "_applyPattern",
+      event: true
     },
 
    /**
@@ -90,8 +95,7 @@ qx.Mixin.define("qx.ui.mobile.form.MText",
 
 
     // property apply
-    _applyMaxLength : function(value, old)
-    {
+    _applyMaxLength : function(value, old) {
       if (value) {
         this.setAttribute("maxlength", value);
         if (this.value && this.value.length > value) {
@@ -100,6 +104,7 @@ qx.Mixin.define("qx.ui.mobile.form.MText",
       } else {
         this.removeAttribute("maxlength");
       }
+      this.valid = this._validateMaxLength();
     },
 
 
@@ -114,12 +119,34 @@ qx.Mixin.define("qx.ui.mobile.form.MText",
       this.setAttribute("placeholder", value);
     },
 
+
     _applyPattern: function(value) {
-      if (value) {
-        this.setAttribute("pattern", value);
-      } else {
-        this.removeAttribute("pattern");
+      this.setAttribute("pattern", value);
+      this.valid = this._validatePattern();
+    },
+
+
+    /**
+     * Checks if the value matches the pattern
+     *
+     * @return {Boolean} <code>true</code> if the pattern matches
+     */
+    _validatePattern: function() {
+      return !this[0].validity.patternMismatch;
+    },
+
+
+    /**
+     * Checks if the value's length exceeds the maxLength
+     * @return {Boolean} <code>true</code> if the value passed the check
+     */
+    _validateMaxLength: function() {
+      if (typeof this.value == "string" &&
+          typeof this.maxLength == "number" &&
+          this.value.length > this.maxLength) {
+        return false;
       }
+      return true;
     },
 
 

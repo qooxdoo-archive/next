@@ -27,9 +27,9 @@ qx.Mixin.define("qx.ui.mobile.form.MForm",
   events: {
 
     /**
-     * Fired when the item's value fails validation
+     * Fired if the item's validity changes
      */
-    invalid : null,
+    changeValid: null,
 
     /**
      * The event is fired on every keystroke modifying the value of the field.
@@ -76,21 +76,13 @@ qx.Mixin.define("qx.ui.mobile.form.MForm",
     },
 
     /**
-     * Returns the item's ValidityState.
-     * See {@link https://developer.mozilla.org/en-US/docs/Web/API/ValidityState}
+     * Whether the item's value is valid
      */
-    validity: {
-      get: "_getValidity"
-    },
-
-
-    /**
-     * A message describing why this item's value is invalid, or an empty
-     * string if it's valid.
-     * @type {Object}
-     */
-    validationMessage: {
-      get: "_getValidationMessage"
+    valid: {
+      type: "Boolean",
+      init: true,
+      event: true,
+      apply: "_applyValid"
     },
 
     /**
@@ -98,10 +90,19 @@ qx.Mixin.define("qx.ui.mobile.form.MForm",
      * input. If set to true, the changeValue event is equal to the
      * {@link #input} event.
      */
-    liveUpdate :
-    {
+    liveUpdate: {
       check : "Boolean",
       init : false
+    },
+
+
+    /**
+     * Message to display if the item's value is invalid
+     */
+    validationMessage: {
+      check: "String",
+      init: "Value is invalid",
+      nullable: true
     }
 
   },
@@ -109,7 +110,7 @@ qx.Mixin.define("qx.ui.mobile.form.MForm",
 
   members : {
 
-    __oldValue : null,
+    __oldValue : undefined,
     __inputTimeoutHandle : null,
     __hasFocus : null,
 
@@ -130,10 +131,6 @@ qx.Mixin.define("qx.ui.mobile.form.MForm",
 
       this.on("focus", this._onFocus,this);
       this.on("blur", this._onBlur,this);
-
-      this.on("invalid", this._setInvalidState, this);
-      this._setInvalidState();
-      this.on("changeValue", this._setInvalidState, this);
     },
 
 
@@ -167,10 +164,8 @@ qx.Mixin.define("qx.ui.mobile.form.MForm",
      *
      * @param value {var} The value to set
      */
-    setValue: function(value)
-    {
-      if (this.__oldValue != value)
-      {
+    setValue: function(value) {
+      if (this.__oldValue != value) {
         if (this.maxLength && typeof value === "string" &&
             value.length > this.maxLength) {
           value = value.substr(0, this.maxLength);
@@ -182,6 +177,7 @@ qx.Mixin.define("qx.ui.mobile.form.MForm",
           this.setAttribute("value", value);
         }
         this.__fireChangeValue(value);
+        this.validate();
       }
     },
 
@@ -199,8 +195,7 @@ qx.Mixin.define("qx.ui.mobile.form.MForm",
     /**
      * Resets the value.
      */
-    resetValue : function()
-    {
+    resetValue : function() {
       this.value = null;
     },
 
@@ -210,8 +205,7 @@ qx.Mixin.define("qx.ui.mobile.form.MForm",
      *
      * @param evt {Event} The native change event
      */
-    _onChangeContent : function(evt)
-    {
+    _onChangeContent : function(evt) {
       this.__fireChangeValue(evt.target.value);
     },
 
@@ -221,42 +215,14 @@ qx.Mixin.define("qx.ui.mobile.form.MForm",
      *
      * @param evt {Event} The native input event
      */
-    _onInput : function(evt)
-    {
+    _onInput : function(evt) {
       var data = evt.target.value;
       this.emit("keyInput", {value: data, target: this});
       if (this.liveUpdate) {
         if (this._setValue) {
           this._setValue(data);
         }
-        this._setInvalidState();
-      }
-    },
-
-
-    /**
-    * Returns the caret position of this widget.
-    * @return {Integer} the caret position.
-    */
-    _getCaretPosition : function() {
-      var val = this[0].value;
-      if(val && this.getAttribute("type") !== "number") {
-        return val.slice(0, this[0].selectionStart).length;
-      } else {
-        return val.length;
-      }
-    },
-
-
-    /**
-     * Sets the caret position on this widget.
-     * @param position {Integer} the caret position.
-     */
-    _setCaretPosition: function(position) {
-      if (typeof position == "number" && this.hasFocus()) {
-        if (this.getAttribute("type") !== "number" && this[0].setSelectionRange) {
-          this[0].setSelectionRange(position, position);
-        }
+        this.validate();
       }
     },
 
@@ -266,8 +232,7 @@ qx.Mixin.define("qx.ui.mobile.form.MForm",
      *
      * @param value {var} The current value to fire.
      */
-    __fireChangeValue : function(value)
-    {
+    __fireChangeValue : function(value) {
       if (this.__oldValue != value)
       {
         var old = this.__oldValue;
@@ -282,65 +247,59 @@ qx.Mixin.define("qx.ui.mobile.form.MForm",
      * pattern, min, max, step
      * @return {Boolean} <code>true</code> if the item's value is valid
      */
-    checkValidity: function() {
-      return this[0].checkValidity();
+    validate: function() {
+      for (var prop in this) {
+        if (this[prop] instanceof Function && prop.indexOf('_validate') === 0 ) {
+          if (!this[prop]()) {
+            this.valid = false;
+            return;
+          }
+        }
+      }
+      this.valid = true;
     },
 
 
     /**
-     * Mark this item as invalid with a custom error message
-     * @param message {String} Message describing why the value is invalid
+     * Check for the <code>required</code> property
+     * @return {Boolean} <code>true</code> if the value passed the check
      */
-    setCustomValidity: function(message) {
-      this[0].setCustomValidity(message);
-      this._setInvalidState();
+    _validateRequired: function() {
+      if (this.required && !this.value) {
+        return false;
+      }
+      return true;
     },
 
 
     /**
-     * Adds the CSS class 'invalid' if this item's value failed validation
+     * Updates the <code>valid</code> property if the
+     * <code>required</code> property changes
+     *
+     * @param value {Boolean} new value
+     * @param old {Boolean} previous value
      */
-    _setInvalidState: function() {
-      if (this.validity && this.validity.valid === false) {
-        this.addClass("invalid");
-      } else {
+    _applyRequired: function(value, old) {
+      // Required fields shouldn't initially be marked as invalid
+      if (this.__oldValue !== undefined) {
+        this.valid = this._validateRequired();
+      }
+    },
+
+
+    /**
+     * Adds/removes the <code>invalid</code> CSS class
+     *
+     * @param value {Boolean} new value
+     * @param old {Boolean} previous value
+     */
+    _applyValid: function(value, old) {
+      if (value) {
         this.removeClass("invalid");
       }
-    },
-
-
-    /**
-     * Maps the <code>required</code> property to the DOM attribute
-     * @param value {Boolean} value
-     */
-    _applyRequired: function(value) {
-      if (value) {
-        this.setAttribute("required", true);
-      } else {
-        this.removeAttribute("required");
+      else {
+        this.addClass("invalid");
       }
-      this._setInvalidState();
-      if (this.validity &&  !this.validity.valid) {
-        this.emit("invalid", this[0]);
-      }
-    },
-
-
-    /**
-     * Getter for the <code>validity</code> property
-     * @return {Object} ValidityState object
-     */
-    _getValidity: function() {
-      return this[0].validity;
-    },
-
-
-    /**
-     * Getter for the <code>validationMessage</code> property
-     * @return {String} validation message
-     */
-    _getValidationMessage: function() {
-      return this[0].validationMessage;
     },
 
 
@@ -351,19 +310,11 @@ qx.Mixin.define("qx.ui.mobile.form.MForm",
      * @param e {Event} the change event
      * TODO
      */
-    __onChangeLocale : qx.core.Environment.select("qx.dynlocale",
-    {
-      "true" : function(e)
-      {
-        // invalid message
-        var invalidMessage = this.invalidMessage;
-        if (invalidMessage && invalidMessage.translate) {
-          this.invalidMessage = invalidMessage.translate();
-        }
-        // required invalid message
-        var requiredInvalidMessage = this.requiredInvalidMessage;
-        if (requiredInvalidMessage && requiredInvalidMessage.translate) {
-          this.requiredInvalidMessage = requiredInvalidMessage.translate();
+    __onChangeLocale : qx.core.Environment.select("qx.dynlocale", {
+      "true" : function(e) {
+        var validationMessage = this.validationMessage;
+        if (validationMessage && validationMessage.translate) {
+          this.validationMessage = validationMessage.translate();
         }
       },
 
@@ -375,7 +326,6 @@ qx.Mixin.define("qx.ui.mobile.form.MForm",
       if (qx.core.Environment.get("qx.dynlocale")) {
         qx.locale.Manager.getInstance().off("changeLocale", this.__onChangeLocale, this);
       }
-      this.off("invalid", this._setInvalidState, this);
       this.off("changeValue", this._setInvalidState, this);
       this.off("focus", this._onFocus,this);
       this.off("blur", this._onBlur,this);

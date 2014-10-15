@@ -48,8 +48,7 @@ qx.Class.define("qx.ui.mobile.form.Input",
   },
 
   events: {
-    changeModel: null,
-    invalid: null
+    changeModel: null
   },
 
 

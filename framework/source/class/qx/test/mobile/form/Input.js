@@ -33,60 +33,33 @@ qx.Class.define("qx.test.mobile.form.Input", {
     },
 
     testRequired: function() {
-      this.assertFalse(this.__item.getAttribute("required"));
-      this.assertFalse(this.__item.hasClass("invalid"));
       this.__item.required = true;
-      this.assertTrue(this.__item.getAttribute("required"));
-      this.assertTrue(this.__item.hasClass("invalid"));
-      this.__item.required = false;
-      this.assertFalse(this.__item.getAttribute("required"));
+      this.assertTrue(this.__item.valid);
       this.assertFalse(this.__item.hasClass("invalid"));
-    },
 
-    testValidity: function() {
-      this.__item.type = "text";
-      this.assertTrue(this.__item.validity.valid);
-      this.assertFalse(this.__item.hasClass("invalid"));
-      this.__item.required = true;
-      this.assertFalse(this.__item.validity.valid);
-      this.assertTrue(this.__item.hasClass("invalid"));
-      this.__item.setValue("Foo");
-      this.assertTrue(this.__item.validity.valid);
-      this.assertFalse(this.__item.hasClass("invalid"));
-      this.__item.setValue("");
-      this.assertFalse(this.__item.validity.valid);
-      this.assertTrue(this.__item.hasClass("invalid"));
-    },
-
-    testValueMissing: function() {
-      this.__item.type = "text";
-      this.assertFalse(this.__item.validity.valueMissing);
-      this.__item.required = true;
-      this.assertTrue(this.__item.validity.valueMissing);
-      this.__item.setValue("Foo");
-      this.assertFalse(this.__item.validity.valueMissing);
-      this.__item.setValue("");
-      this.assertTrue(this.__item.validity.valueMissing);
-    },
-
-    testSetCustomValidity: function() {
-      var msg = "Invalid value";
-      this.__item.setCustomValidity(msg);
-      this.assertFalse(this.__item.validity.valid);
-      this.assertTrue(this.__item.hasClass("invalid"));
-      this.assertEquals(msg, this.__item.validationMessage);
-      this.__item.setCustomValidity("");
-      this.assertTrue(this.__item.validity.valid);
-      this.assertFalse(this.__item.hasClass("invalid"));
-      this.assertEquals("", this.__item.validationMessage);
-    },
-
-    testInvalidEvent: function() {
-      this.__item.required = true;
-      this.assertEventFired(this.__item, "invalid", function() {
-        this.assertFalse(this.__item.checkValidity());
-        this.assertFalse(this.__item.validity.valid);
+      this.assertEventFired(this.__item, "changeValid", function() {
+        this.__item.validate();
+      }.bind(this), function(e) {
+        this.assertFalse(e.target.valid);
         this.assertTrue(this.__item.hasClass("invalid"));
+      }.bind(this));
+
+      this.assertEventFired(this.__item, "changeValid", function() {
+        this.__item.value = "Foo";
+      }.bind(this), function(e) {
+        this.assertTrue(e.target.valid);
+        this.assertFalse(this.__item.hasClass("invalid"));
+      }.bind(this));
+
+      this.__item.value = null;
+      this.assertFalse(this.__item.valid);
+      this.assertTrue(this.__item.hasClass("invalid"));
+
+      this.assertEventFired(this.__item, "changeValid", function() {
+        this.__item.required = false;
+      }.bind(this), function(e) {
+        this.assertTrue(e.target.valid);
+        this.assertFalse(this.__item.hasClass("invalid"));
       }.bind(this));
     }
   }
