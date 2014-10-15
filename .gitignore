@@ -6,6 +6,9 @@
 # Emacs backup files
 *~
 
+# SASS chaces
+.sass-cache
+
 # SDK build dir
 /release/
 
