@@ -47,14 +47,13 @@ qx.Class.define("qx.ui.mobile.container.Drawer",
 
 
   /**
-   * @param parent {qx.ui.mobile.Widget?null} The widget to which
-   * the drawer should be added, if null it is added to app root.
    * @param layout {qx.ui.mobile.layout.Abstract?null} The layout that should be
    * used for this container.
+   * @param
    */
-  construct : function(parent, layout)
+  construct : function(layout, element)
   {
-    this.base(qx.ui.mobile.Widget, "constructor");
+    this.base(qx.ui.mobile.Widget, "constructor", element);
 
     if (layout) {
       this.layout = layout;
@@ -62,28 +61,25 @@ qx.Class.define("qx.ui.mobile.container.Drawer",
     this.orientation = undefined;
     this.positionZ = undefined;
 
-    if (parent) {
-      if (qx.core.Environment.get("qx.debug")) {
-        qx.core.Assert.assertInstance(parent, qx.ui.mobile.Widget);
-      }
-
-      parent.append(this);
-
-      qx.core.Init.getApplication().on("back", this.forceHide, this);
+    var parents = this.getParents();
+    if (parents.length > 0) {
+      this._initializeParent(parents[0]);
     } else {
-      qx.core.Init.getApplication().getRoot().append(this);
+      this.on("appear", function () {
+        var parents = this.getParents();
+        if (parents.length > 0) {
+          this._initializeParent(parents[0]);
+        }
+      }, this);
     }
 
-    this.__parent = this._getParentWidget();
-    if (this.__parent) {
-      this.__parent.addClass("drawer-parent")
-        .on("swipe", this._onParentSwipe,this)
-        .on("pointerdown", this._onParentPointerDown,this);
-    }
+    this.on("disappear", function () {
+      this.__parent.removeClass("drawer-parent")
+        .off("swipe", this._onParentSwipe, this)
+        .off("pointerdown", this._onParentPointerDown, this);
+    });
 
-    this.__pointerStartPosition = [0,0];
-
-    this.forceHide();
+    this.__pointerStartPosition = [0, 0];
   },
 
 
@@ -160,6 +156,21 @@ qx.Class.define("qx.ui.mobile.container.Drawer",
     __parent : null,
     __transitionEnabled : null,
     __inTransition : null,
+
+
+    /**
+     * Initializes the given parent as widget
+     *
+     * @param parent
+     */
+    _initializeParent: function (parent) {
+      this.__parent = new qx.ui.mobile.Widget(parent);
+      this.__parent.addClass("drawer-parent")
+        .on("swipe", this._onParentSwipe, this)
+        .on("pointerdown", this._onParentPointerDown, this);
+
+      this.forceHide();
+    },
 
 
     // property apply
@@ -438,5 +449,10 @@ qx.Class.define("qx.ui.mobile.container.Drawer",
 
       this.__pointerStartPosition = this.__parent = this.__transitionEnabled = null;
     }
+  },
+
+
+  classDefined : function(statics) {
+    qxWeb.$attachWidget(statics);
   }
 });
