@@ -54,6 +54,10 @@ qx.Class.define("qx.ui.mobile.container.Collapsible",
   {
     this.base(qx.ui.mobile.Widget, "constructor", element);
 
+    // Get exiting content and clear it afterwards
+    var content = this.getHtml();
+    this.setHtml('');
+
     this._header = this._createHeader();
     this._header.addClass("collapsible-header");
     this._header.on("tap", this._toggleCollapsed, this);
@@ -61,6 +65,7 @@ qx.Class.define("qx.ui.mobile.container.Collapsible",
 
     this._content = this._createContent();
     this._content.addClass("collapsible-content");
+    this.setContent(content);
 
     // use the append of the superclass to prevent recursive append calls
     this._append(this._header);
@@ -125,6 +130,16 @@ qx.Class.define("qx.ui.mobile.container.Collapsible",
     setTitle : function(title) {
       if(title && this._header instanceof qx.ui.mobile.basic.Label) {
         this._header.value = title;
+      }
+    },
+
+    /**
+     * Setter for the Collapsible's content element
+     * @param content {String} the content string
+     */
+    setContent: function (content) {
+      if (content && this._content instanceof qx.ui.mobile.Widget) {
+        this._content.setHtml(content);
       }
     },
 
