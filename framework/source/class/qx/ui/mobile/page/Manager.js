@@ -87,6 +87,7 @@ qx.Class.define("qx.ui.mobile.page.Manager",
       this.__masterNavigation.on("update", this._onMasterContainerUpdate, this);
       this.__detailNavigation.on("update", this._onDetailContainerUpdate, this);
 
+      root.append(this.__masterContainer);
       root.append(this.__detailContainer);
       this.__masterContainer.append(this.__masterNavigation);
       this.__detailContainer.append(this.__detailNavigation);
@@ -172,7 +173,7 @@ qx.Class.define("qx.ui.mobile.page.Manager",
      * @return {qx.ui.mobile.Widget} The created container
      */
     _createMasterContainer : function() {
-      var masterContainer = new qx.ui.mobile.container.Drawer(null, new qx.ui.mobile.layout.HBox());
+      var masterContainer = new qx.ui.mobile.container.Drawer(new qx.ui.mobile.layout.HBox());
       masterContainer.visibility = "hidden";
       masterContainer.addClass("master-detail-master");
       masterContainer.hideOnParentTap = false;

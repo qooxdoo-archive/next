@@ -63,21 +63,11 @@ qx.Class.define("qx.ui.mobile.container.Drawer",
 
     var parents = this.getParents();
     if (parents.length > 0) {
-      this._initializeParent(parents[0]);
-    } else {
-      this.on("appear", function () {
-        var parents = this.getParents();
-        if (parents.length > 0) {
-          this._initializeParent(parents[0]);
-        }
-      }, this);
+      this._onAttachToParent(parents);
     }
 
-    this.on("disappear", function () {
-      this.__parent.removeClass("drawer-parent")
-        .off("swipe", this._onParentSwipe, this)
-        .off("pointerdown", this._onParentPointerDown, this);
-    });
+    this.on("addedToParent", this._onAttachToParent, this);
+    this.on("removedFromParent", this._onRemovedFromParent, this);
 
     this.__pointerStartPosition = [0, 0];
   },
@@ -153,7 +143,6 @@ qx.Class.define("qx.ui.mobile.container.Drawer",
   members :
   {
     __pointerStartPosition : null,
-    __parent : null,
     __transitionEnabled : null,
     __inTransition : null,
 
@@ -163,13 +152,18 @@ qx.Class.define("qx.ui.mobile.container.Drawer",
      *
      * @param parent {Element} The parent widget that contains this drawer widget.
      */
-    _initializeParent: function (parent) {
-      this.__parent = new qx.ui.mobile.Widget(parent);
-      this.__parent.addClass("drawer-parent")
+    _onAttachToParent: function (parent) {
+      parent.addClass("drawer-parent")
         .on("swipe", this._onParentSwipe, this)
         .on("pointerdown", this._onParentPointerDown, this);
 
       this.forceHide();
+    },
+
+    _onRemovedFromParent: function (parent) {
+      parent.removeClass("drawer-parent")
+        .off("swipe", this._onParentSwipe, this)
+        .off("pointerdown", this._onParentPointerDown, this);
     },
 
 
@@ -188,8 +182,9 @@ qx.Class.define("qx.ui.mobile.container.Drawer",
       this.removeClass(old);
       this.addClass(value);
 
-      if (this.__parent) {
-        this.__parent.translate([0, 0]);
+      var parent = this._getParentWidget();
+      if (parent) {
+        parent.translate([0, 0]);
       }
     },
 
@@ -223,8 +218,13 @@ qx.Class.define("qx.ui.mobile.container.Drawer",
      */
     show : function()
     {
+      var parent = this._getParentWidget()
+      if (!parent) {
+        return this;
+      }
+
       if (!this.isHidden() || this.__inTransition === true) {
-        return;
+        return this;
       }
 
       this.__inTransition = true;
@@ -232,17 +232,17 @@ qx.Class.define("qx.ui.mobile.container.Drawer",
       // Make drawer visibile before "changeVisibility" event is fired, after transition.
       this.setStyle("visibility", "visible");
 
-      this.__parent.addClass("blocked");
+      parent.addClass("blocked");
 
       if (this.positionZ == "below") {
         if (this.orientation == "left") {
-          this.__parent.translate([this.size + "px", 0]);
+          parent.translate([this.size + "px", 0]);
         } else if (this.orientation == "right") {
-          this.__parent.translate([(-this.size) + "px", 0]);
+          parent.translate([(-this.size) + "px", 0]);
         } else if (this.orientation == "top") {
-          this.__parent.translate([0, this.size + "px"]);
+          parent.translate([0, this.size + "px"]);
         } else if (this.orientation == "bottom") {
-          this.__parent.translate([0, (-this.size) + "px"]);
+          parent.translate([0, (-this.size) + "px"]);
         }
       }
 
@@ -266,6 +266,8 @@ qx.Class.define("qx.ui.mobile.container.Drawer",
         this.__inTransition = false;
         this.removeClass("hidden");
       }
+
+      return this;
     },
 
 
@@ -273,14 +275,19 @@ qx.Class.define("qx.ui.mobile.container.Drawer",
      * Hides the drawer.
      */
     hide : function() {
+      var parent = this._getParentWidget();
+      if (!parent) {
+        return this;
+      }
+
       if (this.isHidden() || this.__inTransition === true) {
-        return;
+        return this;
       }
 
       this.__inTransition = true;
 
       if (this.positionZ == "below") {
-        this.__parent.translate([0, 0]);
+        parent.translate([0, 0]);
       }
 
       if (this.transitionDuration > 0) {
@@ -290,7 +297,7 @@ qx.Class.define("qx.ui.mobile.container.Drawer",
         var listenerId = transitionTarget.on("transitionend", function(evt) {
           this.base(qx.ui.mobile.Widget, "hide");
           this._disableTransition();
-          this.__parent.removeClass("blocked");
+          parent.removeClass("blocked");
           this.__inTransition = false;
           transitionTarget.offById(listenerId);
         }, this).getListenerId();
@@ -302,8 +309,10 @@ qx.Class.define("qx.ui.mobile.container.Drawer",
         this.base(qx.ui.mobile.Widget, "hide");
         this.addClass("hidden");
         this.__inTransition = false;
-        this.__parent.removeClass("blocked");
+        parent.removeClass("blocked");
       }
+
+      return this;
     },
 
 
@@ -313,15 +322,20 @@ qx.Class.define("qx.ui.mobile.container.Drawer",
      * parent is animated and drawer should hide immediately.
      */
     forceHide : function() {
+      var parent = this._getParentWidget();
+      if (!parent) {
+        return this;
+      }
+
       this._disableTransition();
 
       if (this.positionZ == "below") {
-        this.__parent.translate(0, 0);
+        parent.translate(0, 0);
       }
 
-      this.__parent.removeClass("blocked");
+      parent.removeClass("blocked");
 
-      this.addClass("hidden");
+      return this.addClass("hidden");
     },
 
 
@@ -353,7 +367,7 @@ qx.Class.define("qx.ui.mobile.container.Drawer",
     */
     _getTransitionTarget : function() {
       if (this.positionZ == "below") {
-        return this.__parent;
+        return this._getParentWidget();
       } else {
         return this;
       }
@@ -442,12 +456,12 @@ qx.Class.define("qx.ui.mobile.container.Drawer",
       this.base(qx.ui.mobile.Widget, "dispose");
       qx.core.Init.getApplication().off("back", this.forceHide, this);
 
-      this.__parent.off("swipe", this._onParentSwipe, this);
-      this.__parent.off("pointerdown", this._onParentPointerDown, this);
+      var parent = this._getParentWidget();
+      this._onRemovedFromParent(parent);
 
       qx.util.DisposeUtil.disposeContainer(this);
 
-      this.__pointerStartPosition = this.__parent = this.__transitionEnabled = null;
+      this.__pointerStartPosition = this.__transitionEnabled = null;
     }
   },
 

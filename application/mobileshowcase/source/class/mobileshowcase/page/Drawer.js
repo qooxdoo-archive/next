@@ -36,7 +36,8 @@ qx.Class.define("mobileshowcase.page.Drawer",
   {
     /** Factory method for creation of drawers. */
     _createDrawer : function(orientation) {
-      var drawer = new qx.ui.mobile.container.Drawer(this, new qx.ui.mobile.layout.VBox());
+      var drawer = new qx.ui.mobile.container.Drawer(new qx.ui.mobile.layout.VBox());
+      drawer.appendTo(this);
       drawer.orientation = orientation;
       drawer.tapOffset = 0;
       drawer.positionZ = "below";
