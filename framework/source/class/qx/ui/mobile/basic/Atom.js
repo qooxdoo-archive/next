@@ -293,5 +293,10 @@ qx.Class.define("qx.ui.mobile.basic.Atom",
       this.__label && this.__label.dispose();
       this.__icon && this.__icon.dispose();
     }
+  },
+
+
+  classDefined : function(statics) {
+    qxWeb.$attachWidget(statics);
   }
 });
