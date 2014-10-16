@@ -49,7 +49,7 @@ qx.Class.define("qx.ui.mobile.container.Drawer",
   /**
    * @param layout {qx.ui.mobile.layout.Abstract?null} The layout that should be
    * used for this container.
-   * @param element The new drawer widget.
+   * @param element {Element?null} The new drawer widget.
    */
   construct : function(layout, element)
   {
@@ -161,7 +161,7 @@ qx.Class.define("qx.ui.mobile.container.Drawer",
     /**
      * Initializes the given parent as widget
      *
-     * @param parent The parent widget that contains this drawer widget.
+     * @param parent {Element} The parent widget that contains this drawer widget.
      */
     _initializeParent: function (parent) {
       this.__parent = new qx.ui.mobile.Widget(parent);
