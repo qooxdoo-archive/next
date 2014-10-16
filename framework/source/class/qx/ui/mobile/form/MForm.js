@@ -86,6 +86,17 @@ qx.Mixin.define("qx.ui.mobile.form.MForm",
     },
 
     /**
+     * Optional custom validation method. Will be called with the value
+     * and must return a boolean.
+     */
+    validator: {
+      type: "Function",
+      init: null,
+      nullable: true,
+      apply: "_applyValidator"
+    },
+
+    /**
      * Whether the {@link #changeValue} event should be fired on every key
      * input. If set to true, the changeValue event is equal to the
      * {@link #input} event.
@@ -206,6 +217,7 @@ qx.Mixin.define("qx.ui.mobile.form.MForm",
      * @param evt {Event} The native change event
      */
     _onChangeContent : function(evt) {
+      this.validate();
       this.__fireChangeValue(evt.target.value);
     },
 
@@ -300,6 +312,12 @@ qx.Mixin.define("qx.ui.mobile.form.MForm",
       else {
         this.addClass("invalid");
       }
+    },
+
+
+    _applyValidator: function(value, old) {
+      this["_validateCustom"] = value;
+      this.validate();
     },
 
 

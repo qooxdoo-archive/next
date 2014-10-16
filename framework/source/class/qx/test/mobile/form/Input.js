@@ -61,6 +61,29 @@ qx.Class.define("qx.test.mobile.form.Input", {
         this.assertTrue(e.target.valid);
         this.assertFalse(this.__item.hasClass("invalid"));
       }.bind(this));
+    },
+
+    testCustomValidator: function() {
+      this.assertTrue(this.__item.valid);
+      var validator = function(value) {
+        return false;
+      };
+
+      this.assertEventFired(this.__item, "changeValid", function() {
+        this.__item.validator = validator;
+      }.bind(this), function(e) {
+        this.assertFalse(e.value);
+        this.assertTrue(e.old);
+        this.assertFalse(e.target.valid);
+      }.bind(this));
+
+      this.assertEventFired(this.__item, "changeValid", function() {
+        this.__item.validator = null;
+      }.bind(this), function(e) {
+        this.assertTrue(e.value);
+        this.assertFalse(e.old);
+        this.assertTrue(e.target.valid);
+      }.bind(this));
     }
   }
 });
