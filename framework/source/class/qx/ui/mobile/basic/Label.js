@@ -154,5 +154,10 @@ qx.Class.define("qx.ui.mobile.basic.Label",
         qx.locale.Manager.getInstance().off("changeLocale", this._onChangeLocale, this);
       }
     }
+  },
+
+
+  classDefined : function(statics) {
+    qxWeb.$attachWidget(statics);
   }
 });
