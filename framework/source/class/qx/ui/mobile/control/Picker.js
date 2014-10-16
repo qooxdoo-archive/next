@@ -79,7 +79,7 @@ qx.Class.define("qx.ui.mobile.control.Picker",
   {
     // overridden
     defaultCssClass : {
-      init : "qx-picker"
+      init : "picker"
     },
 
 
@@ -349,5 +349,9 @@ qx.Class.define("qx.ui.mobile.control.Picker",
       }
       this.super(qx.ui.mobile.Widget, "dispose");
     }
+  },
+
+  classDefined : function(statics) {
+    qxWeb.$attachWidget(statics);
   }
 });
