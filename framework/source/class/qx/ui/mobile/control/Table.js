@@ -695,7 +695,7 @@ qx.Class.define("qx.ui.mobile.control.Table", {
       for (var i = 0, l = cells.length; i < l; i++) {
 
         cell = qxWeb(cells.item(i));
-        colName = this.__getColumName(cell[0]) || qx.ui.mobile.control.Table.__getUID();
+        colName = this.__getColumnName(cell[0]) || qx.ui.mobile.control.Table.__getUID();
         if(!cell[0].getAttribute(qx.ui.mobile.control.Table.__dataColName)){
           cell.setAttribute(qx.ui.mobile.control.Table.__dataColName, colName);
         }
@@ -862,7 +862,7 @@ qx.Class.define("qx.ui.mobile.control.Table", {
           var colNumber = qx.ui.mobile.control.Table.__getIndex(cells, cell[0]);
           var tHead = this.__getHeaderRow();
           var headCell = tHead.cells.item(colNumber);
-          var colName = this.__getColumName(headCell);
+          var colName = this.__getColumnName(headCell);
           var columnIndex = this.rowSelection != "none" ? this.__getColumnIndex(colName) -1 : this.__getColumnIndex(colName);
 
           this.emit("cellClicked", {
@@ -914,7 +914,7 @@ qx.Class.define("qx.ui.mobile.control.Table", {
         for (var j = 0, colCount = row.length; j < colCount; j++) {
 
           renderedColIndex = this.__selectionRendered() ? j + 1 : j;
-          colName = this.__getColumName(tHead.cells.item(renderedColIndex));
+          colName = this.__getColumnName(tHead.cells.item(renderedColIndex));
           colMeta = this.__getDataForColumn(colName);
           coltemplate = this.getTemplate(colName) || coltemplate;
           renderedRow = this.__getRoot().rows.item(i);
@@ -1094,7 +1094,7 @@ qx.Class.define("qx.ui.mobile.control.Table", {
     * @param headerCell {HTMLTableCellElement} The cell to get the column name for
     * @return {String} The column name
     */
-    __getColumName : function(headerCell) {
+    __getColumnName : function(headerCell) {
       return headerCell.getAttribute(qx.ui.mobile.control.Table.__dataColName) || headerCell.getAttribute("id");
     },
 
@@ -1236,7 +1236,7 @@ qx.Class.define("qx.ui.mobile.control.Table", {
       var tHead = this.__getHeaderRow();
       var cells = tHead.cells;
       for (var i = 0; i < cells.length; i++) {
-        if (columnName == this.__getColumName(cells.item(i))) {
+        if (columnName == this.__getColumnName(cells.item(i))) {
           return i;
         }
       }
