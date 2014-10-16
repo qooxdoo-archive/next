@@ -53,7 +53,10 @@ qx.Class.define("mobileshowcase.page.Dialog",
       this.base(mobileshowcase.page.Abstract, "_initialize");
 
       this.__resultsLabel = new qx.ui.mobile.basic.Label("No events received so far.");
-      var resultsGroup = new qx.ui.mobile.form.Group([this.__resultsLabel]);
+      var resultsGroup = new qx.ui.mobile.form.Group();
+      new qx.ui.mobile.form.Row()
+        .append(this.__resultsLabel)
+        .appendTo(resultsGroup);
 
       // EXAMPLE WIDGETS
       var busyIndicator = new qx.ui.mobile.dialog.BusyIndicator("Please wait...");

@@ -143,10 +143,9 @@ qx.Class.define("mobileshowcase.page.Event",
       descriptionText += "<b>Testing Pinch/Zoom Gesture:</b> Touch HTML5 logo with two fingers<br />";
       descriptionText += "<b>Testing OrientationChange Event</b>: Rotate your device / change browser size";
 
-      var descriptionLabel = new qx.ui.mobile.basic.Label(descriptionText);
-
-      var descriptionGroup = new qx.ui.mobile.form.Group([descriptionLabel]);
-      var containerGroup = new qx.ui.mobile.form.Group([container]);
+      var descriptionGroup = new qx.ui.mobile.form.Group(descriptionText);
+      var containerGroup = new qx.ui.mobile.form.Group()
+        .append(container);
       descriptionGroup.layoutPrefs = {flex: 1};
       this.getContent().append(descriptionGroup);
       containerGroup.layoutPrefs = {flex: 1};

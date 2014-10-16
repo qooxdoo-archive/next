@@ -52,7 +52,8 @@ qx.Class.define("mobileshowcase.page.Drawer",
         target.hide();
       }, this);
 
-      var drawerContent = new qx.ui.mobile.form.Group([new qx.ui.mobile.form.Label("This is the "+target.orientation+" drawer."), closeDrawerButton]);
+      var drawerContent = new qx.ui.mobile.form.Group("This is the "+target.orientation+" drawer.")
+        .append(closeDrawerButton);
       return drawerContent;
     },
 
@@ -108,9 +109,9 @@ qx.Class.define("mobileshowcase.page.Drawer",
 
       // PAGE CONTENT
 
-      var toggleModeGroup = new qx.ui.mobile.form.Group([frontBackToggleButton]);
+      var toggleModeGroup = new qx.ui.mobile.form.Group("Position")
+        .append(frontBackToggleButton);
 
-      this.getContent().append(new qx.ui.mobile.form.Title("Position"));
       this.getContent().append(toggleModeGroup);
 
       this.getContent().append(new qx.ui.mobile.form.Title("Action"));

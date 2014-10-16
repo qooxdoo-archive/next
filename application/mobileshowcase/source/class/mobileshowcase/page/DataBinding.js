@@ -95,7 +95,7 @@ qx.Class.define("mobileshowcase.page.DataBinding",
 
       // Slider Data Binding
       this.getContent().append(new qx.ui.mobile.form.Title("Slider"));
-      this.getContent().append(new qx.ui.mobile.form.renderer.Single(this.__form));
+      this.getContent().append(this.__form);
       this.getContent().append(this.__increaseButton);
       this.getContent().append(this.__decreaseButton);
 
@@ -162,12 +162,16 @@ qx.Class.define("mobileshowcase.page.DataBinding",
       this.__slider = new qx.ui.mobile.form.Slider();
       this.__slider.displayValue = "value";
       this.__slider.maximum = 500;
-      form.add(this.__slider,"Move slider:");
+
+      new qx.ui.mobile.form.Row(this.__slider, "Move slider:")
+        .set({layout: new qx.ui.mobile.layout.VBox()})
+        .appendTo(form);
 
       this.__dataLabel = new qx.ui.mobile.form.TextField();
       this.__dataLabel.value = "0";
       this.__dataLabel.readOnly = true;
-      form.add(this.__dataLabel, " Slider value: ");
+      new qx.ui.mobile.form.Row(this.__dataLabel, "Slider value: ")
+        .appendTo(form);
 
       qx.data.SingleValueBinding.bind(this.__dataLabel, "value", this.__slider, "value");
       qx.data.SingleValueBinding.bind(this.__slider, "value", this.__dataLabel, "value");
