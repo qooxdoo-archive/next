@@ -73,21 +73,9 @@ qx.Class.define("qx.ui.mobile.form.Row",
         this.__errorEl && this.__errorEl.remove();
       } else {
         if (!this.__errorEl && this.__item.validationMessage) {
-          this.__errorEl = qxWeb.create('<div class="form-element-error">' + this.__item.validationMessage + '</div>');
+          this.__errorEl = qxWeb.create('<div class="qx-flex1 form-element-error">' + this.__item.validationMessage + '</div>')
+            .insertAfter(this.__item);
         }
-        var itemPos = this.__item.getPosition();
-        var el = this.__item[0];
-        do {
-          itemPos.top += el.scrollTop;
-          itemPos.left += el.scrollLeft;
-        } while (el = el.offsetParent);
-        this.__errorEl
-        .setStyles({
-          left: itemPos.left + "px",
-          top: (itemPos.top + this.__item.getHeight()) + "px"
-        })
-        .appendTo(this);
-
       }
     },
 

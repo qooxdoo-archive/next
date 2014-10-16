@@ -39,34 +39,18 @@
 }
 
 .form-element-error {
-  position: absolute;
-  margin-top: rem(7.5);
-  padding: rem(8);
-  border: rem(1) solid $form-border-color;
-  background-color: $navigationpage-background;
-  color: $form-label-text-color;
-  text-align: left;
+  width: 100%;
+  text-align: right;
   font-size: rem(12);
   font-weight: 100;
-}
-
-.form-element-error:before {
-  position: absolute;
-  display: block;
-  content: '';
-  top: rem(-6.5);
-  width: rem(10);
-  height: rem(10);
-  border-top: rem(1) solid $form-border-color;
-  border-left: rem(1) solid $form-border-color;
-  background-color: $navigationpage-background;
-  transform: rotate(45deg);
-  line-height: 0;
+  font-style: italic;
+  color: red;
+  padding-top: rem(5);
 }
 
 .form-group > h3 {
   margin: 0;
-  padding: rem(10) rem(10) rem(10) rem(10);
+  padding: rem(10);
   font-size: rem(16);
   border:none;
   color: $form-title-text-color;
@@ -82,7 +66,9 @@
   border-left:rem(1) solid $form-border-color;
   border-right:rem(1) solid $form-border-color;
   border-bottom: rem(1) solid $form-border-color;
-  padding: rem(10) rem(10) rem(10) rem(10);
+  padding: rem(10);
+
+  @include flex-wrap(wrap);
 
   .label {
     padding-right: rem(10);

@@ -209,6 +209,12 @@
   flex-shrink: $args;               /* NEW, Spec - Opera 12.1, Firefox 20+ */
 }
 
+@mixin flex-wrap($args) {
+  -webkit-flex-wrap: $args;   /* Chrome */
+  -ms-flex-wrap: $args;       /* IE 10 */
+  flex-wrap: $args;           /* NEW, Spec - Opera 12.1, Firefox 20+ */
+}
+
 
 @mixin tap-highlight-color($args) {
   -webkit-tap-highlight-color: $args;
