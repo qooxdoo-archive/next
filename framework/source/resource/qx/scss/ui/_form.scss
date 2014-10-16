@@ -9,57 +9,10 @@
   border: none;
   padding: 0;
   cursor:pointer;
+  font-weight: $form-font-weight;
 }
 
-.form-row {
-  list-style-type: none;
-  padding: rem(5) rem(0) rem(5) rem(0);
-
-  label {
-    padding-right: rem(10);
-  }
-
-  * {
-    text-overflow: ellipsis;
-  }
-}
-
-.form-row.form-separation-row:last-child {
-  background-color:transparent;
-  margin-bottom: 0px;
-}
-
-.form-row.qx-vbox input {
-  width: 100%;
-}
-
-.form-row.qx-vbox * + * {
-  margin-top: rem(10);
-}
-
-.form-row.qx-hbox > label,
-.form-row.qx-hbox > input {
-  margin: auto;
-}
-
-.text-area {
-  @include background-clip(padding-box);
-  @include background($input-background);
-  @include border-radius($input-border-radius);
-  border: rem(1) solid $input-border-color;
-  resize: none;
-  outline: none;
-
-  width:100%;
-  height: rem(150);
-  min-height: rem(150);
-
-  padding:rem(10);
-  box-sizing:border-box;
-
-  color:  $input-text-color;
-}
-
+// form item in scroll container TODO: Still needed?
 .form-row-scroll {
   @include border-radius($input-border-radius);
   border: rem(1) solid $input-border-color;
@@ -73,12 +26,6 @@
     border:0px solid transparent;
     background: none;
   }
-}
-
-// [BUG #7871] Bugfix for IE 10 for enabling word-wrap within a flexbox layout.
-.form-row label > p {
-  -ms-flex: 1;
-  box-flex: 1;
 }
 
 .form-title {
@@ -118,62 +65,46 @@
 }
 
 .form-group > h3 {
+  margin: 0;
+  padding: rem(10) rem(10) rem(10) rem(10);
   font-size: rem(16);
+  border:none;
   color: $form-title-text-color;
   font-weight:normal;
-  border:none;
 }
 
-.form.single {
-  font-weight: $form-font-weight;
+.form-group {
+  margin: 0 0 rem(10) 0;
+}
 
-  .text-field, .number-field, .password-field {
-    display:block;
-    width: 50%;
-  }
+.form-row {
+  @include background($form-background);
+  border-left:rem(1) solid $form-border-color;
+  border-right:rem(1) solid $form-border-color;
+  border-bottom: rem(1) solid $form-border-color;
+  padding: rem(10) rem(10) rem(10) rem(10);
 
-  .form-group {
-    margin: 0 0 rem(10) 0;
-  }
-
-  .form-group > h3 {
-    margin: 0;
-    padding: rem(10) rem(10) rem(10) rem(10);
-  }
-
-  .form-row {
-    @include background($form-background);
-    border-left:rem(1) solid $form-border-color;
-    border-right:rem(1) solid $form-border-color;
-  }
-
-  .form-row .label {
+  .label {
+    padding-right: rem(10);
     color: $form-label-text-color;
   }
 
-  .form-row {
-    padding: rem(10) rem(10) rem(10) rem(10);
+  * {
+    text-overflow: ellipsis;
   }
 
-  // If one row is excluded: hide its separationRow
-  .form-row.exclude + .form-separation-row {
-    border-top: 0;
+  // [BUG #7871] Bugfix for IE 10 for enabling word-wrap within a flexbox layout.
+  .label > p {
+    -ms-flex: 1;
+    box-flex: 1;
   }
-}
 
-// .form-row-group-title:nth-child(n+2) {
-//   margin-top: rem(20);
-// }
-
-.form-row {
-  border-bottom: rem(1) solid $form-border-color;
 }
 
 .form-row:first-of-type,
 .form-row:last-of-type,
 .form-row:only-of-type {
   @include background($form-background);
-  padding: rem(2);
 }
 
 .form-row:first-of-type {
@@ -194,4 +125,40 @@
 .form-row:only-of-type {
   @include border-radius($form-border-radius);
   border: rem(1) solid $form-border-color;
+}
+
+.form-row.qx-vbox input {
+  width: 100%;
+}
+
+.form-row.qx-vbox * + * {
+  margin-top: rem(10);
+}
+
+.form-row.qx-hbox > label,
+.form-row.qx-hbox > input {
+  margin: auto;
+}
+
+.text-field, .number-field, .password-field {
+  display:block;
+  width: 50%;
+}
+
+.text-area {
+  @include background-clip(padding-box);
+  @include background($input-background);
+  @include border-radius($input-border-radius);
+  border: rem(1) solid $input-border-color;
+  resize: none;
+  outline: none;
+
+  width:100%;
+  height: rem(150);
+  min-height: rem(150);
+
+  padding:rem(10);
+  box-sizing:border-box;
+
+  color:  $input-text-color;
 }
