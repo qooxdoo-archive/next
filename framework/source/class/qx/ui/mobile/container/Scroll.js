@@ -84,7 +84,7 @@ qx.Class.define("qx.ui.mobile.container.Scroll",
     pageEnd : "qx.event.type.Event",
 
 
-    /** Fired when a vertical or horizontal waypoint is triggered. Data: 
+    /** Fired when a vertical or horizontal waypoint is triggered. Data:
     * <code> {"offset": 0,
     *        "input": "10%",
     *        "index": 0,
@@ -277,7 +277,7 @@ qx.Class.define("qx.ui.mobile.container.Scroll",
       for (var i = 0; i < waypoints.length; i++) {
         var waypoint = waypoints[i];
         if (waypoint.offset !== null) {
-          
+
           if ((value > -1 && value >= waypoint.offset) ||
            (value < 0 && waypoint.offset < 0 && value <= waypoint.offset)) {
             nextWaypoint = waypoint;
@@ -402,13 +402,14 @@ qx.Class.define("qx.ui.mobile.container.Scroll",
         return false;
       }
 
-      var parentWidth = this[0].clientWidth; // TODO: container vs content?
-      var contentWidth = this[0].scrollWidth;
-
+      var contentEl = this[0];
       var scrollContentElement = this._getScrollContentElement();
       if (scrollContentElement) {
-        contentWidth = scrollContentElement.getWidth();
+        contentEl = scrollContentElement;
       }
+
+      var parentWidth = this[0].clientWidth; // TODO: container vs content?
+      var contentWidth = contentEl[0].scrollWidth;
 
       return parentWidth < contentWidth;
     },
@@ -423,13 +424,14 @@ qx.Class.define("qx.ui.mobile.container.Scroll",
         return false;
       }
 
-      var parentHeight = this[0].clientHeight; // TODO: container vs content?
-      var contentHeight = this[0].scrollHeight;
-
+      var contentEl = this[0];
       var scrollContentElement = this._getScrollContentElement();
-      if(scrollContentElement) {
-        contentHeight = scrollContentElement.getHeight();
+      if (scrollContentElement) {
+        contentEl = scrollContentElement;
       }
+
+      var parentHeight = this[0].clientHeight; // TODO: container vs content?
+      var contentHeight = contentEl[0].scrollHeight;
 
       return parentHeight < contentHeight;
     },
