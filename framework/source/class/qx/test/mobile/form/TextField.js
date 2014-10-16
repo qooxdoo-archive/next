@@ -123,6 +123,52 @@ qx.Class.define("qx.test.mobile.form.TextField",
         this.assertTrue(e.old);
         this.assertFalse(e.target.valid);
       }.bind(this));
+    },
+
+
+    testTypeEmail: function() {
+      this.__tf.type = "email";
+      this.assertEquals("email", this.__tf[0].getAttribute("type"));
+      this.assertTrue(this.__tf.valid);
+
+      this.assertEventFired(this.__tf, "changeValid", function() {
+        this.__tf.value = "Foo";
+      }.bind(this), function(e) {
+        this.assertFalse(e.value);
+        this.assertTrue(e.old);
+        this.assertFalse(e.target.valid);
+      }.bind(this));
+
+      this.assertEventFired(this.__tf, "changeValid", function() {
+        this.__tf.value = "foo@example.com";
+      }.bind(this), function(e) {
+        this.assertTrue(e.value);
+        this.assertFalse(e.old);
+        this.assertTrue(e.target.valid);
+      }.bind(this));
+    },
+
+
+    testTypeUrl: function() {
+      this.__tf.type = "url";
+      this.assertEquals("url", this.__tf[0].getAttribute("type"));
+      this.assertTrue(this.__tf.valid);
+
+      this.assertEventFired(this.__tf, "changeValid", function() {
+        this.__tf.value = "Foo";
+      }.bind(this), function(e) {
+        this.assertFalse(e.value);
+        this.assertTrue(e.old);
+        this.assertFalse(e.target.valid);
+      }.bind(this));
+
+      this.assertEventFired(this.__tf, "changeValid", function() {
+        this.__tf.value = "http://www.example.com";
+      }.bind(this), function(e) {
+        this.assertTrue(e.value);
+        this.assertFalse(e.old);
+        this.assertTrue(e.target.valid);
+      }.bind(this));
     }
 
   }

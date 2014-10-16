@@ -94,6 +94,7 @@ qx.Class.define("qx.ui.mobile.form.Input",
 
     _applyType: function(value) {
       this.setAttribute("type", value);
+      this.validate();
     },
 
 

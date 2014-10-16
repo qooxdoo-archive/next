@@ -150,6 +150,11 @@ qx.Mixin.define("qx.ui.mobile.form.MText",
     },
 
 
+    _validateType: function() {
+      return !this[0].validity.typeMismatch;
+    },
+
+
     /**
      * Points the focus of the form to this widget.
      */
