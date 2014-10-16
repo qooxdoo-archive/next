@@ -7,7 +7,7 @@ describe('FunctionUtil', function() {
   afterEach (function () {
     globalTeardown();
   });
- 
+
   it("FunctionDebounce", function(done) {
     var called = 0;
     var checkCalled;
@@ -30,7 +30,7 @@ describe('FunctionUtil', function() {
     }, 1000);
 
   });
- 
+
   it("FunctionDebounceWithEvents", function(done) {
     var callCounter = 0;
     var context;
@@ -61,7 +61,7 @@ describe('FunctionUtil', function() {
       done();
     }, 1500);
   });
- 
+
   it("FunctionDebounceWithImmediateEvents", function(done) {
     var callCounter = 0;
     var context;
@@ -96,7 +96,7 @@ describe('FunctionUtil', function() {
       done();
     },1950);
   });
- 
+
   it("FunctionThrottle", function(done) {
     var intervalCounter = 0;
     var callInfo = [];
@@ -106,19 +106,19 @@ describe('FunctionUtil', function() {
     var throttled = q.func.throttle(spy, 250);
 
     var intervalId = window.setInterval((function() {
-      throttled(intervalCounter);
-      if (intervalCounter == 20) {
+      throttled();
+      if (intervalCounter == 10) {
         window.clearInterval(intervalId);
       }
       intervalCounter++;
     }), 10);
 
     setTimeout( function () {
-        assert.equal(7, callInfo.length);
-        done();
-    },2000);
+      assert.equal(2, callInfo.length);
+      done();
+    }, 1000);
   });
- 
+
   it("FunctionThrottleNoTrailing", function(done) {
     var intervalCounter = 0;
     var callInfo = [];
@@ -141,7 +141,7 @@ describe('FunctionUtil', function() {
     }), 2000);
 
   });
- 
+
   it("FunctionThrottleNoLeadingNoTrailing", function(done) {
     var intervalCounter = 0;
     var callInfo = [];
@@ -164,7 +164,7 @@ describe('FunctionUtil', function() {
     }, 2000);
 
   });
- 
+
   it("FunctionThrottleWithEvents", function(done) {
 
     var context;
@@ -192,7 +192,7 @@ describe('FunctionUtil', function() {
       done();
     }, 2000);
   });
- 
+
   it("FunctionThrottleWithLeadingEvents", function(done) {
     var context;
     var callInfo = [];
@@ -223,4 +223,4 @@ describe('FunctionUtil', function() {
       done();
     }, 2500);
   });
-}); 
+});
