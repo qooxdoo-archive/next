@@ -133,8 +133,7 @@ qx.Class.define("mobileshowcase.page.Form",
 
       var rememberPass = new qx.ui.mobile.form.CheckBox()
         .set({
-          model: "password_reminder",
-          required: true
+          model: "password_reminder"
         });
       this.__items.push(rememberPass);
 
@@ -203,7 +202,7 @@ qx.Class.define("mobileshowcase.page.Form",
           readOnly : true
         });
 
-      info.setValue("qooxdoo Licensing Information\n=============================\n\nqooxdoo is dual-licensed under the GNU Lesser General Public License (LGPL) and the Eclipse Public License (EPL).\nThe above holds for any newer qooxdoo release. Only legacy versions 0.6.4 and below were licensed solely under the GNU Lesser General Public License (LGPL). For a full understanding of your rights and obligations under these licenses, please see the full text of the LGPL and/or EPL.\n\nOne important aspect of both licenses (so called \"weak copyleft\" licenses) is that if you make any modification or addition to the qooxdoo code itself, you MUST put your modification under the same license, the LGPL or EPL.\n\n\n\nNote that it is explicitly NOT NEEDED to put any application under the LGPL or EPL, if that application is just using qooxdoo as intended by the framework (this is where the \"weak\" part comes into play - contrast this with the GPL, which would only allow using qooxdoo to create an application that is itself governed by the GPL).");
+      info.setValue("qooxdoo Licensing Information\n=============================\n\nqooxdoo is dual-licensed under the GNU Lesser General Public License (LGPL) and the Eclipse Public License (EPL).\nThe above holds for any newer qooxdoo release. Only legacy versions 0.6.4 and below were licensed solely under the GNU Lesser General Public License (LGPL). For a full understanding of your rights and obligations under these licenses, please see the full text of the LGPL and/or EPL.\n\nOne important aspect of both licenses (so called \"weak copyleft\" licenses) is that if you make any modification or addition to the qooxdoo code itself, you MUST put your modification under the same license, the LGPL or EPL.\n\nNote that it is explicitly NOT NEEDED to put any application under the LGPL or EPL, if that application is just using qooxdoo as intended by the framework (this is where the \"weak\" part comes into play - contrast this with the GPL, which would only allow using qooxdoo to create an application that is itself governed by the GPL).");
 
       new qx.ui.mobile.form.Row(info, "Terms of Service")
         .set({layout: new qx.ui.mobile.layout.VBox()})
