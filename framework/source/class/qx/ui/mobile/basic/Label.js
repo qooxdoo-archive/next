@@ -46,6 +46,14 @@ qx.Class.define("qx.ui.mobile.basic.Label",
   construct : function(value, element)
   {
     this.base(qx.ui.mobile.Widget, "constructor", element);
+
+    var html = this.getHtml();
+    this.setHtml('');
+
+    if (html) {
+      this.value = html;
+    }
+
     if (value) {
       this.value = value;
     }
