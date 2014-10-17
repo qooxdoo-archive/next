@@ -11,8 +11,12 @@ module.exports = function(grunt) {
 
     var scriptTags = '  <!-- TESTS START -->\n';
     var tests = glob.sync(websiteTests);
-    tests.forEach(function(fileName) {
-      scriptTags += '  <script src="' + fileName + '"></script>\n';
+    tests.forEach(function(path) {
+      // ignore all files starting with lower letter like setup.js
+      if (path.indexOf("setup.js") != -1) {
+        return;
+      }
+      scriptTags += '  <script src="' + path + '"></script>\n';
     });
     scriptTags += '  <!-- TESTS END -->';
 
