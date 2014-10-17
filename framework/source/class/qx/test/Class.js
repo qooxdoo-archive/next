@@ -23,7 +23,7 @@
  * @ignore(qx.test.ExtendQxObject, qx.test.ExtendSuper.*, qx.test.Super.*)
  * @ignore(qx.test.ROOT, qx.test.MyClass.*, qx.test.Car, qx.test.Bmw.*)
  */
-qx.Class.define("qx.test.Bootstrap",
+qx.Class.define("qx.test.Class",
 {
   extend : qx.dev.unit.TestCase,
   include : qx.dev.unit.MMock,
