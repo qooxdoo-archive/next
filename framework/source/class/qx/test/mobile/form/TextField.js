@@ -25,7 +25,8 @@ qx.Class.define("qx.test.mobile.form.TextField",
   {
     setUp: function() {
       this.base(qx.test.mobile.MobileTestCase, "setUp");
-      this.__tf = new qx.ui.mobile.form.TextField();
+      this.__tf = new qx.ui.mobile.form.TextField()
+        .appendTo(this.getRoot());
     },
 
     testValue : function()
@@ -65,12 +66,12 @@ qx.Class.define("qx.test.mobile.form.TextField",
 
 
     testPattern: function() {
-      var pattern = "Foo";
+      var pattern = ".{3,}";
       this.__tf.pattern = pattern;
       this.assertTrue(this.__tf.valid);
 
       this.assertEventFired(this.__tf, "changeValid", function() {
-        this.__tf.value = "Bar";
+        this.__tf.value = "aa";
       }.bind(this), function(e) {
         this.assertFalse(e.value);
         this.assertTrue(e.old);
@@ -86,7 +87,7 @@ qx.Class.define("qx.test.mobile.form.TextField",
       }.bind(this));
 
       this.assertEventFired(this.__tf, "changeValid", function() {
-        this.__tf.pattern = "Bar";
+        this.__tf.pattern = "aa";
       }.bind(this), function(e) {
         this.assertFalse(e.value);
         this.assertTrue(e.old);
