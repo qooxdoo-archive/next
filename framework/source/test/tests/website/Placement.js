@@ -35,7 +35,8 @@ describe('Placement', function() {
     globalTeardown();
     q("#sandbox #bar").setStyle("position", "relative");
   });
- 
+
+
   it("PlaceToSimple", function() {
     q("#sandbox #bar").placeTo("#sandbox #foo", "right-top");
     var expectedLocation = {
@@ -60,7 +61,7 @@ describe('Placement', function() {
     assert.equal(expectedLocation.left, q("#bar").getOffset().left);
     assert.equal(expectedLocation.top, q("#bar").getOffset().top);
   });
- 
+
   it("PlaceToDirect", function() {
     q("#sandbox #bar").placeTo("#sandbox #foo", "right-bottom", {top: 10, right: 10, bottom: 10, left: 10}, "direct", "direct");
 
@@ -71,7 +72,7 @@ describe('Placement', function() {
     assert.equal(expectedLocation.left, q("#bar").getOffset().left);
     assert.equal(expectedLocation.top, q("#bar").getOffset().top);
   });
- 
+
   it("PlaceToKeepAlign", function() {
     q("#sandbox #bar").placeTo("#sandbox #foo", "left-top", {top: 10, right: 10, bottom: 10, left: 10}, "keep-align", "keep-align");
     var expectedLocation = {
@@ -81,7 +82,7 @@ describe('Placement', function() {
     assert.equal(expectedLocation.left, q("#bar").getOffset().left);
     assert.equal(expectedLocation.top, q("#bar").getOffset().top);
   });
- 
+
   it("PlaceToUsingHiddenElement", function() {
     q("#sandbox #bar").hide();
     var displayValue = q("#sandbox #bar").getStyle("display");
@@ -97,7 +98,7 @@ describe('Placement', function() {
     assert.equal(displayValue, q("#sandbox #bar").getStyle("display"));
     assert.equal(visibilityValue, q("#sandbox #bar").getStyle("visibility"));
   });
- 
+
   it("PlaceToUsingHiddenElementByCssClass", function() {
     q("#sandbox #bar").addClass("hidden");
 
@@ -110,7 +111,7 @@ describe('Placement', function() {
     assert.equal(expectedLocation.top, parseInt(q("#bar").getStyle("top"), 10));
     assert.equal("", q("#bar")[0].style.display);
   });
- 
+
   it("PlaceToPreservingStyleValues", function() {
     q("#sandbox #bar").setStyle("visibility", "collapse");
     q("#sandbox #bar").hide();
@@ -127,4 +128,4 @@ describe('Placement', function() {
     assert.equal(displayValue, q("#sandbox #bar").getStyle("display"));
     assert.equal(visibilityValue, q("#sandbox #bar").getStyle("visibility"));
   });
-}); 
+});

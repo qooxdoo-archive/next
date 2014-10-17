@@ -25,7 +25,7 @@ describe('Events', function() {
     test.emit("changeName", sendData);
     assert.equal(1, called);
   });
- 
+
   it("OnOffEmitWithoutContext", function() {
     var test = q.create("<div/>");
     var self = this;
@@ -43,7 +43,7 @@ describe('Events', function() {
     test.emit("changeName", sendData);
     assert.equal(1, called);
   });
- 
+
   it("OnOffEmitChange", function() {
     var test = q.create("<div/>");
     var self = this;
@@ -62,7 +62,7 @@ describe('Events', function() {
     test2.emit("changeName", sendData);
     assert.equal(2, called);
   });
- 
+
   it("OnOffEmitMany", function() {
     var test = q.create("<div/>");
     test.add(q.create("<div/>")[0]);
@@ -82,7 +82,7 @@ describe('Events', function() {
     test.emit("changeName", sendData);
     assert.equal(2, called);
   });
- 
+
   it("Once", function() {
     var test = q.create("<div/>");
     var self = this;
@@ -123,7 +123,7 @@ describe('Events', function() {
 
     test.remove();
   });
- 
+
   it("HasListener", function() {
     var test = q.create('<div></div>').appendTo("#sandbox");
     assert.isFalse(test.hasListener("mousedown"));
@@ -133,7 +133,7 @@ describe('Events', function() {
     test.off("mousedown", cb);
     assert.isFalse(test.hasListener("mousedown"));
   });
- 
+
   it("HasListenerWithHandler", function() {
     var test = q.create('<div></div>').appendTo("#sandbox");
     var cb = function() {};
@@ -150,7 +150,7 @@ describe('Events', function() {
     test.off("mousedown", cb, ctx);
     assert.isFalse(test.hasListener("mousedown", cb));
   });
- 
+
   it("HasListenerWithContext", function() {
     var test = q.create('<div></div>').appendTo("#sandbox");
     var cb = function() {};
@@ -162,7 +162,7 @@ describe('Events', function() {
     test.off("mousedown", cb, ctx);
     assert.isFalse(test.hasListener("mousedown", cb, ctx));
   });
- 
+
   it("Context", function(done) {
 
     window.temp = null;
@@ -181,7 +181,7 @@ describe('Events', function() {
       done();
     }, 200);
   });
- 
+
   it("Ready", function(done) {
     var ctx = {
       ready : 0
@@ -199,7 +199,7 @@ describe('Events', function() {
       done();
     }, 200);
   });
- 
+
   it("AllOffWithType", function() {
     var test = q.create('<h1>Foo</h1><div></div>').appendTo("#sandbox");
     test.eq(0).on("mouseup", function() {});
@@ -208,7 +208,7 @@ describe('Events', function() {
     assert.isTrue(test.eq(0).hasListener("mouseup"));
     assert.isFalse(test.eq(1).hasListener("mousedown"));
   });
- 
+
   it("AllOff", function() {
     var test = q.create('<h1>Foo</h1><div></div>').appendTo("#sandbox");
     test.eq(0).on("mouseup", function() {});
@@ -217,7 +217,7 @@ describe('Events', function() {
     assert.isFalse(test.eq(0).hasListener("mouseup"));
     assert.isFalse(test.eq(1).hasListener("mousedown"));
   });
-}); 
+});
 
 describe('event.Normalization', function() {
 
@@ -236,12 +236,12 @@ describe('event.Normalization', function() {
         normalize : normalizer
       },
       classDefined : function(statics)
-      {       
+      {
        q.$registerEventNormalization(type, statics.normalize);
       }
-     }); 
+     });
   }
- 
+
   it("Normalization", function(done) {
 
     var normalizer0 = function(event) {
@@ -286,11 +286,11 @@ describe('event.Normalization', function() {
     setTimeout(function(){
       q.$unregisterEventNormalization("mousedown", normalizer0);
       assert(obj.normalized, "Event was not manipulated!");
-      q.$unregisterEventNormalization("mousedown", normalizer2);  
+      q.$unregisterEventNormalization("mousedown", normalizer2);
       done();
     }, 200);
   });
- 
+
    it("NormalizationWildcard", function(done) {
 
     var normalizer = function(event) {
@@ -369,7 +369,7 @@ describe('event.Normalization', function() {
       assert(obj2.normalized, "Mouseup event was not manipulated!");
       tearDownTestNormalizationForMultipleTypes();
       done();
-    }, 500);      
+    }, 500);
   });
 
   var tearDownTestNormalizationForMultipleTypes = function() {
@@ -388,7 +388,7 @@ describe('event.RegistrationHooks', function() {
   afterEach (function () {
    globalTeardown();
   });
- 
+
   it("RegisterHook", function() {
     var test = q.create('<div></div>').appendTo(sandbox[0]);
     var registerHook = function(element, type, callback, context) {
@@ -414,4 +414,4 @@ describe('event.RegistrationHooks', function() {
     q.$unregisterEventHook(["foo"], registerHook, unregisterHook);
     assert.equal(onHookCount, hooks["on"]["foo"].length);
   });
-}); 
+});

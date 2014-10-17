@@ -6,16 +6,16 @@
   afterEach (function () {
     globalTeardown();
   });
-  
+
   it("InstanceOf", function() {
     var c = q.create("<div>");
     assert.isTrue(c instanceof q);
     c = q();
     assert.isTrue(c instanceof q);
   });
- 
-  it("Init", function() {
 
+  it("Init", function() {
+    sandbox.remove();
     sandbox = q.create("<div id='sandbox'></div>");
     // add a second element
     sandbox.push(q.create("<div>")[0]);
@@ -43,7 +43,7 @@
     assert.isTrue(sandbox.map(function(i) {return i;}).testInit);
     assert.equal(2, sandbox.map(function(i) {return i;}).length);
   });
- 
+
   it("Dependencies", function() {
     if (q.$$qx.core.Environment.get("qx.debug")) {
       //this.skip("Only reasonable in non-debug version.");
@@ -57,8 +57,8 @@
       assert.isUndefined(q.$$qx.event.Registration, "event.Registration");
     }
   });
- 
+
   it("NoConflict", function() {
     assert.equal(q, qxWeb);
   });
- }); 
+ });

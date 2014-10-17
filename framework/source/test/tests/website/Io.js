@@ -1,5 +1,5 @@
 describe('IO', function() {
- 
+
   it("BasicXhr", function(done) {
     q.io.xhr("tests.js").on("loadend", function(xhr) {
       setTimeout(function (){
@@ -9,7 +9,7 @@ describe('IO', function() {
       }, 0);
     }, this).send();
   });
- 
+
   it("XhrWithHeader", function(done) {
     q.io.xhr("tests.js", {header: {"Content-Type": "application/json"}}).on("loadend", function(xhr) {
      setTimeout(function (){
@@ -19,7 +19,7 @@ describe('IO', function() {
       }, 0);
     }, this).send();
   });
- 
+
   it("BasicScript", function(done) {
     q.io.script("scriptload.js").on("loadend", function(script) {
      setTimeout(function (){
@@ -31,7 +31,7 @@ describe('IO', function() {
       }, 0);
     }, this).send();
   });
- 
+
   it("BasicJsonp", function(done) {
     q.io.jsonp("jsonpload.js", {callbackName: "callback"}).on("loadend", function(req) {
       setTimeout(function (){
@@ -42,7 +42,7 @@ describe('IO', function() {
       }, 0);
     }, this).send();
   });
- 
+
   it("AutomatedJsonPCallback", function() {
     var jsonp = q.io.jsonp("jsonpload.js");
 
@@ -52,4 +52,4 @@ describe('IO', function() {
 
     assert.isFalse(checkForReserverdURLChars.test(callbackPart), "Generated URL is not valid");
   });
-}); 
+});

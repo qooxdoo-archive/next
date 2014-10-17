@@ -6,10 +6,9 @@ describe('Blocker', function() {
   afterEach (function() {
     globalTeardown();
     q(document).unblock();
-    console.log("remove")
     q('link[href="css/style2.css"]').remove();
   });
- 
+
   it("Blocker", function() {
     //this.require(["qx.debug"]);
     var styles = {
@@ -32,7 +31,6 @@ describe('Blocker', function() {
     assert.equal(styles.left, blockerLocation.left + "px");
     assert.equal(styles.width, blockerDiv.getWidth() + "px");
     assert.equal(styles.height, blockerDiv.getHeight() + "px");
-    console.log("opacity", blockerDiv.getStyle("opacity"))
     assert.equal(1, blockerDiv.getStyle("opacity"));
     assert.match(blockerDiv.getStyle("backgroundColor"), /(rgb.*?0,.*?255.*?0|#00ff00)/i);
 
@@ -59,7 +57,7 @@ describe('Blocker', function() {
 
     test.unblock();
   });
- 
+
   it("BlockDocument", function() {
    // this.require(["qx.debug"]);
 
@@ -88,7 +86,7 @@ describe('Blocker', function() {
 
     assert.isFalse(q.$$qx.dom.Hierarchy.isRendered(blockerDiv[0]));
   });
- 
+
   it("GetBlockerElements", function() {
     var styles = {
       position: "absolute",
@@ -113,7 +111,7 @@ describe('Blocker', function() {
 
     test.unblock();
   });
- 
+
   it("GetBlockerWithoutBlockingBefore", function() {
     var styles = {
       position: "absolute",
@@ -129,7 +127,7 @@ describe('Blocker', function() {
     assert.instanceOf(blockerCollection, q);
     assert.equal(0, blockerCollection.length);
   });
- 
+
   it("BlockerWithCSSClassStyling", function(done) {
     //this.require(["qx.debug"]);
     var styleSheet = "css/style2.css";
@@ -152,7 +150,7 @@ describe('Blocker', function() {
         done();
       }, 500);
   });
- 
+
   it("BlockerWithJSStyling", function() {
     q(document).block('#00FF00', 0.6, 7000);
     var blockerDiv = document.__blocker.div;
@@ -163,4 +161,4 @@ describe('Blocker', function() {
 
     q(document).unblock();
   });
-}); 
+});
