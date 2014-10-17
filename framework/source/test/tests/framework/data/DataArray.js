@@ -20,14 +20,14 @@
 
 describe('data.DataArray', function() {
 
-    var __a =  null;
-    beforeEach (function () {
-      __a = new qx.data.Array("one", "two", "three");
-    });
+  var __a =  null;
+  beforeEach (function () {
+    __a = new qx.data.Array("one", "two", "three");
+  });
 
-    afterEach (function () {
-      __a.dispose();
-    });
+  afterEach (function () {
+    __a.dispose();
+  });
 
   it("Constructor", function() {
       // create empty array
