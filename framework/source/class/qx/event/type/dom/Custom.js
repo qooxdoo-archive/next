@@ -107,19 +107,24 @@ qx.Class.define("qx.event.type.dom.Custom", {
      * @param customProps {Map} Map of event properties (will override the domEvent's values)
      */
     _initEvent : function(domEvent, customProps) {
-      var properties = qx.lang.Object.clone(qx.event.type.dom.Custom.PROPERTIES);
-      for (var prop in customProps) {
-        properties[prop] = customProps[prop];
-      }
+      customProps = customProps || {};
+      var defaultProps = qx.event.type.dom.Custom.PROPERTIES;
+      var bubbles = customProps.bubbles !== undefined ? customProps.bubbles : defaultProps.bubbles;
+      var cancelable = customProps.cancelable !== undefined ? customProps.cancelable : defaultProps.cancelable;
 
       if (this._event.initEvent) {
-        this._event.initEvent(this._type, properties.bubbles, properties.cancelable);
+        this._event.initEvent(this._type, bubbles, cancelable);
+      } else {
+        this._event.bubbles = bubbles;
+        this._event.cancelable = cancelable;
       }
 
-      for (var prop in properties) {
-        this._event[prop] = properties[prop];
+      for (var prop in customProps) {
+        // bubbles and cancelable are read-only in Gecko
+        if (!(prop in defaultProps)) {
+          this._event[prop] = customProps[prop];
+        }
       }
-
     }
   }
 });
