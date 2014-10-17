@@ -2,15 +2,17 @@ module.exports = function(grunt) {
 
   var fs = require('fs');
   var glob = require("glob");
-  var websiteTests = 'tests/website/**/*.js';
+  var testPath = 'tests/website/**/*.js'; // website tests only
+  // var testPath = 'tests/framework/**/*.js'; // framework tests only
+  // var testPath = 'tests/**/*.js'; // all tests
 
-  // process website test HTML
-  grunt.registerTask('website', 'A task to preprocess the website.html', function() {
+  // process test HTML
+  grunt.registerTask('html', 'A task to preprocess the website.html', function() {
     // read index file
-    var index = fs.readFileSync('website.html', {encoding: 'utf8'});
+    var index = fs.readFileSync('index.html', {encoding: 'utf8'});
 
+    var tests = glob.sync(testPath);
     var scriptTags = '  <!-- TESTS START -->\n';
-    var tests = glob.sync(websiteTests);
     tests.forEach(function(path) {
       // ignore all files starting with lower letter like setup.js
       if (path.indexOf("setup.js") != -1) {
@@ -23,7 +25,6 @@ module.exports = function(grunt) {
     index = index.replace(/\s\s<!--\sTESTS\sSTART\s-->((.|\n)*)<!--\sTESTS\sEND\s-->/g, scriptTags);
 
     // write index file
-    fs.writeFileSync('website.html', index, {'encoding': 'utf8'});
+    fs.writeFileSync('index.html', index, {'encoding': 'utf8'});
   });
-
 };
