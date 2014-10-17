@@ -2,7 +2,6 @@
   "name": "mochatest",
   "version": "0.0.1",
   "description": "using mocha and chai in browser and node",
-  "main": "/component/standalone/website/script/q.js",
   "scripts": {
     "test": "mocha"
   },

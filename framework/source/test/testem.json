@@ -1,11 +1,13 @@
 {
   "framework": "mocha",
   "src_files": [
-    "node_modules/chai/chai.js",
-    "node_modules/sinon/pkg/sinon-1.7.3.js",
-    "../../../component/standalone/website/script/q.js",
-    "tests/setup.js",
-    "tests/*"
+    "framework/source/test/node_modules/chai/chai.js",
+    "framework/source/test/node_modules/sinon/pkg/sinon-1.7.3.js",
+
+    "framework/build/script/qx.js",
+    "framework/source/test/tests/MochaSetup.js",
+    "framework/source/test/tests/TestCase.js",
+    "framework/source/test/tests/framework/**/*.js"
   ],
   "launchers": {
     "Node": {

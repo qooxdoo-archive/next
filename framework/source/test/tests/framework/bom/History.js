@@ -30,7 +30,7 @@ describe("bom.History", function (){
   }
 
 
-  beforeEach (function () 
+  beforeEach (function ()
   {
     __history = qx.bom.History.getInstance();
 });
@@ -52,9 +52,8 @@ describe("bom.History", function (){
         }
       }
   });
- 
+
   it("AddState", function(done) {
-    debugger;
       __history.addToHistory("foo", "Title Foo");
 
       setTimeout(function() {
@@ -62,14 +61,14 @@ describe("bom.History", function (){
           done();
       }, 200);
   });
- 
+
   it("NavigateBack", function(done) {
       __history.addToHistory("foo", "Title Foo");
       setTimeout(function() {
           __checkFooAndSetBar();
           done();
       }, 200);
-      
+
     });
 
 
@@ -87,7 +86,7 @@ describe("bom.History", function (){
 
     function __checkBarAndGoBack (done)
     {
-     
+
       assert.equal("bar", __history._readState(), "check2");
       history.back();
       setTimeout(function() {
@@ -103,7 +102,7 @@ describe("bom.History", function (){
       assert.equal("foo", __history._readState(), "check3");
       assert.equal("Title Foo", __history.title);
     }
- 
+
   it("NavigateBackAfterSetState", function(done) {
       __history.state = "affe";
       window.setTimeout(function() {
@@ -115,7 +114,7 @@ describe("bom.History", function (){
 
   function __setState_checkAffeAndSetFoo (done)
   {
-   
+
     assert.equal("affe", __history._readState(), "check0");
     __history.state = "foo";
     setTimeout(function() {
@@ -127,7 +126,7 @@ describe("bom.History", function (){
 
   function __setState_checkFooAndSetBar (done)
   {
-   
+
     assert.equal("foo", __history._readState(), "check1");
     __history.state = "bar";
     setTimeout(function() {
@@ -139,7 +138,7 @@ describe("bom.History", function (){
 
   function __setState_checkBarAndGoBack (done)
   {
-   
+
     assert.equal("bar", __history._readState(), "check2");
     history.back();
     setTimeout(function() {
@@ -147,7 +146,7 @@ describe("bom.History", function (){
         done();
     }, 200);
   }
- 
+
   it("RequestEvent", function(done) {
       // "request" event just will be fired, if a user goes back or farward in
       // the history
@@ -163,7 +162,7 @@ describe("bom.History", function (){
       history.back();
 
   });
- 
+
   it("RequestEventAddHistory", function(done) {
       __history.once("request", function(state) {
        setTimeout(function() {
@@ -176,6 +175,6 @@ describe("bom.History", function (){
         __history.addToHistory("baz");
       }, 250);
 
-    
+
   });
 });
