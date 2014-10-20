@@ -21,7 +21,7 @@ qx.Class.define("qx.test.mobile.form.Input", {
   members: {
 
     setUp: function() {
-      this.base(qx.test.mobile.MobileTestCase, "setUp");
+      this.super(qx.test.mobile.MobileTestCase, "setUp");
       this.__item = new qx.ui.mobile.form.Input();
       this.getRoot().append(this.__item);
     },

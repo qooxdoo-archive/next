@@ -21,7 +21,7 @@ qx.Class.define("qx.test.ui.form.FormValidator",
   extend : qx.test.mobile.MobileTestCase,
 
   construct : function() {
-    this.base(qx.test.mobile.MobileTestCase, "constructor");
+    this.super(qx.test.mobile.MobileTestCase, "constructor");
   },
 
   members :
@@ -32,7 +32,7 @@ qx.Class.define("qx.test.ui.form.FormValidator",
     __manager : null,
 
     setUp: function() {
-      this.base(qx.test.mobile.MobileTestCase, "setUp");
+      this.super(qx.test.mobile.MobileTestCase, "setUp");
       this.__username = new qx.ui.mobile.form.TextField();
       this.__password1 = new qx.ui.mobile.form.TextField();
       this.__password2 = new qx.ui.mobile.form.TextField();
@@ -40,7 +40,7 @@ qx.Class.define("qx.test.ui.form.FormValidator",
     },
 
     tearDown: function() {
-      this.base(qx.test.mobile.MobileTestCase, "tearDown");
+      this.super(qx.test.mobile.MobileTestCase, "tearDown");
       this.__username.dispose();
       this.__password1.dispose();
       this.__password2.dispose();

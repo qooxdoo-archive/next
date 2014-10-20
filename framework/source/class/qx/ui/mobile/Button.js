@@ -65,7 +65,7 @@ qx.Class.define("qx.ui.mobile.Button",
    * @return {qx.ui.mobile.Button} The new Button widget.
    */
   construct : function(label, icon, element) {
-    this.base(qx.ui.mobile.basic.Atom, "constructor", label, icon, element);
+    this.super(qx.ui.mobile.basic.Atom, "constructor", label, icon, element);
   },
 
   members: {

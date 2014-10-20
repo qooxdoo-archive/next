@@ -68,7 +68,7 @@ qx.Class.define("qx.ui.mobile.Rating", {
    * @return {qx.ui.mobile.Rating} The new rating widget.
    */
   construct : function(size, symbol, element) {
-    this.base(qx.ui.mobile.Widget, "constructor", element);
+    this.super(qx.ui.mobile.Widget, "constructor", element);
 
     if (size) {
       this.size = size;
@@ -215,7 +215,7 @@ qx.Class.define("qx.ui.mobile.Rating", {
         .getChildren("span")
           .off("tap", this._onTap, this);
 
-      this.base(qx.ui.mobile.Widget, "dispose");
+      this.super(qx.ui.mobile.Widget, "dispose");
     }
   },
 

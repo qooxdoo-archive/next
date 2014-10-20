@@ -53,7 +53,7 @@ qx.Class.define("qx.ui.mobile.layout.Card",
 
   construct : function()
   {
-    this.base(qx.ui.mobile.layout.Abstract, "constructor");
+    this.super(qx.ui.mobile.layout.Abstract, "constructor");
 
     this.__cardAnimation = new qx.ui.mobile.layout.CardAnimation();
   },
@@ -112,7 +112,7 @@ qx.Class.define("qx.ui.mobile.layout.Card",
 
     // overridden
     connectToChildWidget : function(widget) {
-      this.base(qx.ui.mobile.layout.Abstract, "connectToChildWidget", widget);
+      this.super(qx.ui.mobile.layout.Abstract, "connectToChildWidget", widget);
       if (widget) {
         widget.addClass("layout-card-item");
         widget.addClass("qx-flex1");
@@ -124,7 +124,7 @@ qx.Class.define("qx.ui.mobile.layout.Card",
 
     // overridden
     disconnectFromChildWidget : function(widget) {
-      this.base(qx.ui.mobile.layout.Abstract, "disconnectFromChildWidget", widget);
+      this.super(qx.ui.mobile.layout.Abstract, "disconnectFromChildWidget", widget);
       widget.removeClass("layout-card-item");
       widget.off("changeVisibility", this.updateLayout, this);
     },

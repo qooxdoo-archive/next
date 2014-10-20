@@ -32,7 +32,7 @@ qx.Class.define("qx.bom.NativeHistory",
 
   construct : function()
   {
-    this.base(qx.bom.History, "constructor");
+    this.super(qx.bom.History, "constructor");
     this.__attachListeners();
   },
 

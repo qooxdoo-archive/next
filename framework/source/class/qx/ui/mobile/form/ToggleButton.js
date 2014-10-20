@@ -58,7 +58,7 @@ qx.Class.define("qx.ui.mobile.form.ToggleButton",
    */
   construct : function(value, labelChecked, labelUnchecked)
   {
-    this.base(qx.ui.mobile.Widget, "constructor");
+    this.super(qx.ui.mobile.Widget, "constructor");
 
     if(labelChecked && labelUnchecked) {
        this.__labelUnchecked = labelUnchecked;
@@ -231,7 +231,7 @@ qx.Class.define("qx.ui.mobile.form.ToggleButton",
     },
 
     dispose : function() {
-      this.base(qx.ui.mobile.Widget, "dispose");
+      this.super(qx.ui.mobile.Widget, "dispose");
       this.off("tap", this._onTap, this);
       this.off("swipe", this._onSwipe, this);
 

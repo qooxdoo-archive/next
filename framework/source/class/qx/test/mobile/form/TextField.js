@@ -24,7 +24,7 @@ qx.Class.define("qx.test.mobile.form.TextField",
   members :
   {
     setUp: function() {
-      this.base(qx.test.mobile.MobileTestCase, "setUp");
+      this.super(qx.test.mobile.MobileTestCase, "setUp");
       this.__tf = new qx.ui.mobile.form.TextField()
         .appendTo(this.getRoot());
     },

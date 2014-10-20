@@ -51,7 +51,7 @@ qx.Class.define("qx.ui.mobile.container.Scroll",
   */
   construct : function(scrollProperties)
   {
-    this.base(qx.ui.mobile.Widget, "constructor");
+    this.super(qx.ui.mobile.Widget, "constructor");
 
     if(scrollProperties) {
       this._scrollProperties = scrollProperties;
@@ -333,7 +333,7 @@ qx.Class.define("qx.ui.mobile.container.Scroll",
 
     // overridden
     _createContainerElement: function() {
-      var element = this.base(qx.ui.mobile.Widget, "_createContainerElement");
+      var element = this.super(qx.ui.mobile.Widget, "_createContainerElement");
       var scrollElement = this._createScrollElement();
       if (scrollElement) {
         return scrollElement;
@@ -513,7 +513,7 @@ qx.Class.define("qx.ui.mobile.container.Scroll",
 
 
     dispose : function() {
-      this.base(qx.ui.mobile.Widget, "dispose");
+      this.super(qx.ui.mobile.Widget, "dispose");
       this.off("appear", this._updateWaypoints, this);
 
       this._waypointsX = this._waypointsY = null;

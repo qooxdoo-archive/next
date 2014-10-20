@@ -34,7 +34,7 @@ qx.Class.define("qx.bom.HashHistory",
 
   construct : function()
   {
-    this.base(qx.bom.History, "constructor");
+    this.super(qx.bom.History, "constructor");
     this._baseUrl = null;
     this.__initIframe();
   },

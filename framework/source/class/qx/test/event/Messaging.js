@@ -23,7 +23,7 @@ qx.Class.define("qx.test.event.Messaging",
   include : qx.dev.unit.MMock,
 
   construct : function() {
-    this.base(qx.dev.unit.TestCase, "constructor");
+    this.super(qx.dev.unit.TestCase, "constructor");
     this.initMMock();
   },
 

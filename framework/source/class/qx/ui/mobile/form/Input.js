@@ -39,7 +39,7 @@ qx.Class.define("qx.ui.mobile.form.Input",
 
   construct : function(element)
   {
-    this.base(qx.ui.mobile.Widget, "constructor", element);
+    this.super(qx.ui.mobile.Widget, "constructor", element);
     this.required = undefined;
     this.addClass("gap");
 
@@ -127,7 +127,7 @@ qx.Class.define("qx.ui.mobile.form.Input",
 
 
     dispose : function() {
-      this.base(qx.ui.mobile.Widget, "dispose");
+      this.super(qx.ui.mobile.Widget, "dispose");
       this.off("focus", this._onSelected, this);
       this.disposeMForm();
     }

@@ -49,7 +49,7 @@ qx.Class.define("qx.ui.mobile.basic.Image",
    */
   construct : function(source, element)
   {
-    this.base(qx.ui.mobile.Widget, "constructor", element);
+    this.super(qx.ui.mobile.Widget, "constructor", element);
 
     if (source) {
       this.source = source;
@@ -309,7 +309,7 @@ qx.Class.define("qx.ui.mobile.basic.Image",
 
 
     dispose : function() {
-      this.base(qx.ui.mobile.Widget, "dispose");
+      this.super(qx.ui.mobile.Widget, "dispose");
 
       if (qx.application.Scaling) {
         qx.application.Scaling.getInstance().on("changeAppScale", this._onChangeAppScale, this);

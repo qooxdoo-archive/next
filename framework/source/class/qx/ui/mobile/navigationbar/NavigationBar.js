@@ -44,7 +44,7 @@ qx.Class.define("qx.ui.mobile.navigationbar.NavigationBar",
 
 
   construct : function(layout) {
-    this.base(qx.ui.mobile.Widget, "constructor");
+    this.super(qx.ui.mobile.Widget, "constructor");
     this.layout = layout;
     if (!layout) {
       layout = new qx.ui.mobile.layout.HBox();

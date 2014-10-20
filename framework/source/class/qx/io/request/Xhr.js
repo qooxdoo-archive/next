@@ -76,7 +76,7 @@ qx.Class.define("qx.io.request.Xhr",
       this.method = method;
     }
 
-    this.base(qx.io.request.AbstractRequest, "constructor", url);
+    this.super(qx.io.request.AbstractRequest, "constructor", url);
     this._parser = this._createResponseParser();
   },
 

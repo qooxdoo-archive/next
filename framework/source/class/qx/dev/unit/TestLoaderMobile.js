@@ -40,7 +40,7 @@ qx.Class.define("qx.dev.unit.TestLoaderMobile",
     // overridden
     main : function()
     {
-      this.base(qx.application.Mobile, "main");
+      this.super(qx.application.Mobile, "main");
 
       // Dependencies to loggers
       qx.log.appender.Console;

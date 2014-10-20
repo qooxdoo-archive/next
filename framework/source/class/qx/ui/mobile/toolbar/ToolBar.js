@@ -28,7 +28,7 @@ qx.Class.define("qx.ui.mobile.toolbar.ToolBar",
 
   construct : function(layout)
   {
-    this.base(qx.ui.mobile.Widget, "constructor");
+    this.super(qx.ui.mobile.Widget, "constructor");
     this.layout = layout;
     if (!layout) {
       layout = new qx.ui.mobile.layout.HBox();
@@ -70,7 +70,7 @@ qx.Class.define("qx.ui.mobile.toolbar.ToolBar",
         qx.lang.Object.mergeWith(layoutProperties, {flex: 1}, false);
       }
       child.layoutPrefs = layoutProperties;
-      this.base(qx.ui.mobile.Widget, "append", child);
+      this.super(qx.ui.mobile.Widget, "append", child);
     }
   }
 });

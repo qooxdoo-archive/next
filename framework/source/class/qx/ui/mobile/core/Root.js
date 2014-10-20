@@ -34,7 +34,7 @@ qx.Class.define("qx.ui.mobile.core.Root",
   construct : function(root, layout)
   {
     this.__root = root || document.body;
-    this.base(qx.ui.mobile.Widget, "constructor", this.__root);
+    this.super(qx.ui.mobile.Widget, "constructor", this.__root);
     this.layout = layout || new qx.ui.mobile.layout.VBox();
   },
 
@@ -82,7 +82,7 @@ qx.Class.define("qx.ui.mobile.core.Root",
 
 
     dispose : function() {
-      this.base(qx.ui.mobile.Widget, "dispose");
+      this.super(qx.ui.mobile.Widget, "dispose");
       this.off("touchmove", this._preventDefault);
       qxWeb(window).off("orientationchange", this._onOrientationChange, this);
     }

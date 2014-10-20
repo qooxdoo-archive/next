@@ -34,7 +34,7 @@ qx.Class.define("qx.dev.unit.TestSuite",
    */
   construct : function(testClassOrNamespace)
   {
-    this.base(qx.dev.unit.AbstractTestSuite, "constructor");
+    this.super(qx.dev.unit.AbstractTestSuite, "constructor");
 
     this._tests = [];
 

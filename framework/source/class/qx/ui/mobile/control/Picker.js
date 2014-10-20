@@ -25,7 +25,7 @@
  *
  * The picker widget is able to display multiple picker slots, for letting the user choose
  * several values at one time, in one single control.
- * 
+ *
  * You can add an array with objects which contain the keys <code>title</code>, a <code>subtitle</code> or an <code>image</code> (all optional).
  *
  * <pre>
@@ -50,7 +50,7 @@ qx.Class.define("qx.ui.mobile.control.Picker",
 
   construct : function()
   {
-    this.base(qx.ui.mobile.Widget, "constructor");
+    this.super(qx.ui.mobile.Widget, "constructor");
 
     this._pickerModel = new qx.data.Array();
     this._slots = new qx.data.Array();
@@ -347,7 +347,7 @@ qx.Class.define("qx.ui.mobile.control.Picker",
       for (var i = this._slots.length - 1; i >= 0; i--) {
         this.removeSlot(i);
       }
-      this.base(qx.ui.mobile.Widget, "dispose");
+      this.super(qx.ui.mobile.Widget, "dispose");
     }
   }
 });

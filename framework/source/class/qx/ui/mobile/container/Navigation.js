@@ -45,7 +45,7 @@ qx.Class.define("qx.ui.mobile.container.Navigation",
 
   construct : function()
   {
-    this.base(qx.ui.mobile.Widget, "constructor");
+    this.super(qx.ui.mobile.Widget, "constructor");
     this.layout = new qx.ui.mobile.layout.VBox();
 
     this.__navigationBar = this._createNavigationBar();
@@ -238,7 +238,7 @@ qx.Class.define("qx.ui.mobile.container.Navigation",
 
     dispose : function()
     {
-      this.base(qx.ui.mobile.Widget, "dispose");
+      this.super(qx.ui.mobile.Widget, "dispose");
       this.getContent().off("addedChild", this._onAddedChild, this)
         .off("removedChild", this._onRemovedChild, this);
       this.getContent().layout.off("animationStart",this._onAnimationStart, this);

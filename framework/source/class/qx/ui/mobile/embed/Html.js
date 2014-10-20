@@ -42,7 +42,7 @@ qx.Class.define("qx.ui.mobile.embed.Html",
    */
   construct : function(html)
   {
-    this.base(qx.ui.mobile.Widget, "constructor");
+    this.super(qx.ui.mobile.Widget, "constructor");
     if (html) {
       this.html = html;
     }

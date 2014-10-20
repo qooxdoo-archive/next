@@ -34,7 +34,7 @@ qx.Class.define("qx.test.dev.unit.Sinon",
              qx.dev.unit.MRequirements],
 
   construct : function() {
-    this.base(qx.dev.unit.TestCase, "constructor");
+    this.super(qx.dev.unit.TestCase, "constructor");
     this.initMMock();
   },
 

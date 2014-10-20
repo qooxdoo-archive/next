@@ -105,7 +105,7 @@ qx.Class.define("qx.ui.mobile.Widget", {
    * @return {qx.ui.mobile.Widget} The new widget.
    */
   construct : function(element) {
-    this.base(qxWeb, "constructor");
+    this.super(qxWeb, "constructor");
 
     if (element) {
       this.push(element);
@@ -331,7 +331,7 @@ qx.Class.define("qx.ui.mobile.Widget", {
 
     // TODO: remove
     _append : function(child) {
-      this.base(qx.ui.mobile.Widget, "append", child);
+      this.super(qx.ui.mobile.Widget, "append", child);
     },
 
 
@@ -356,7 +356,7 @@ qx.Class.define("qx.ui.mobile.Widget", {
 
     // overridden
     append : function(child) {
-      this.base(qxWeb, "append", child);
+      this.super(qxWeb, "append", child);
       this.emit("addedChild", child);
       qxWeb(child).emit("addedToParent", this);
       return this;
@@ -365,7 +365,7 @@ qx.Class.define("qx.ui.mobile.Widget", {
 
     // overridden
     appendTo : function(parent) {
-      this.base(qxWeb, "appendTo", parent);
+      this.super(qxWeb, "appendTo", parent);
       this.emit("addedToParent", parent);
       return this._emitOnParent("addedChild", this);
     },
@@ -373,7 +373,7 @@ qx.Class.define("qx.ui.mobile.Widget", {
 
     // overridden
     insertAfter : function(target) {
-      this.base(qxWeb, "insertAfter", target);
+      this.super(qxWeb, "insertAfter", target);
       this.emit("addedToParent", this._getParentWidget());
       return this._emitOnParent("addedChild", this);
     },
@@ -381,7 +381,7 @@ qx.Class.define("qx.ui.mobile.Widget", {
 
     // overridden
     insertBefore : function(target) {
-      this.base(qxWeb, "insertBefore", target);
+      this.super(qxWeb, "insertBefore", target);
       this.emit("addedToParent", this._getParentWidget());
       return this._emitOnParent("addedChild", this);
     },
@@ -389,7 +389,7 @@ qx.Class.define("qx.ui.mobile.Widget", {
 
     // overridden
     after : function(content) {
-      this.base(qxWeb, "after", content);
+      this.super(qxWeb, "after", content);
       qxWeb(content).emit("addedToParent", this._getParentWidget());
       return this._emitOnParent("addedChild", content);
     },
@@ -397,7 +397,7 @@ qx.Class.define("qx.ui.mobile.Widget", {
 
     // overridden
     before : function(content) {
-      this.base(qxWeb, "before", content);
+      this.super(qxWeb, "before", content);
       qxWeb(content).emit("addedToParent", this._getParentWidget());
       return this._emitOnParent("addedChild", content);
     },
@@ -406,7 +406,7 @@ qx.Class.define("qx.ui.mobile.Widget", {
     // overridden
     remove : function() {
       var parent = this._getParentWidget();
-      this.base(qxWeb, "remove");
+      this.super(qxWeb, "remove");
       this.emit("removedFromParent", parent);
       if (parent && parent.length === 1) {
         parent.emit("removedChild", this);
@@ -418,7 +418,7 @@ qx.Class.define("qx.ui.mobile.Widget", {
     // overridden
     empty : function() {
       var removed = this.getChildren();
-      this.base(qxWeb, "empty");
+      this.super(qxWeb, "empty");
       removed.emit("removedFromParent", this);
       this.emit("removedChild", removed);
       return this;

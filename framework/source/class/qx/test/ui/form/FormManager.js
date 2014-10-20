@@ -30,7 +30,7 @@ qx.Class.define("qx.test.ui.form.FormManager",
   {
     this.initMMock();
 
-    this.base(qx.test.mobile.MobileTestCase, "constructor");
+    this.super(qx.test.mobile.MobileTestCase, "constructor");
 
     // create the test renderer
     qx.Class.define("qx.test.DummyFormRenderer", {
@@ -41,7 +41,7 @@ qx.Class.define("qx.test.ui.form.FormManager",
         this.groups = [];
         this.buttons = [];
 
-        this.base(qx.ui.mobile.form.renderer.AbstractRenderer, "constructor", form);
+        this.super(qx.ui.mobile.form.renderer.AbstractRenderer, "constructor", form);
       },
 
       properties : {
@@ -77,7 +77,7 @@ qx.Class.define("qx.test.ui.form.FormManager",
 
 
     setUp : function() {
-      this.base(qx.test.mobile.MobileTestCase, "setUp");
+      this.super(qx.test.mobile.MobileTestCase, "setUp");
       this.__form = new qx.ui.mobile.form.Form();
       this.__tf1 = new qx.ui.mobile.form.TextField();
       this.__tf2 = new qx.ui.mobile.form.TextField();
@@ -85,7 +85,7 @@ qx.Class.define("qx.test.ui.form.FormManager",
 
 
     tearDown : function() {
-      this.base(qx.test.mobile.MobileTestCase, "tearDown");
+      this.super(qx.test.mobile.MobileTestCase, "tearDown");
       this.__tf2.dispose();
       this.__tf1.dispose();
     },

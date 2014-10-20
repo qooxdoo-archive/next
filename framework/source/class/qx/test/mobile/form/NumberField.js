@@ -24,13 +24,13 @@ qx.Class.define("qx.test.mobile.form.NumberField",
   members :
   {
     setUp: function() {
-      this.base(qx.test.mobile.MobileTestCase, "setUp");
+      this.super(qx.test.mobile.MobileTestCase, "setUp");
       this.__nf = new qx.ui.mobile.form.NumberField()
         .appendTo(this.getRoot());
     },
 
     tearDown: function() {
-      this.base(qx.test.mobile.MobileTestCase, "tearDown");
+      this.super(qx.test.mobile.MobileTestCase, "tearDown");
       this.__nf.dispose();
     },
 

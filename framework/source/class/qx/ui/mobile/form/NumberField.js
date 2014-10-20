@@ -34,7 +34,7 @@ qx.Class.define("qx.ui.mobile.form.NumberField",
    */
   construct : function(value)
   {
-    this.base(qx.ui.mobile.form.Input, "constructor");
+    this.super(qx.ui.mobile.form.Input, "constructor");
     this.type = "number";
     if (value) {
       this.value = value;

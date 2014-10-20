@@ -27,7 +27,7 @@ qx.Class.define("qx.test.type.BaseArray",
 
   construct : function()
   {
-    this.base(qx.dev.unit.TestCase, "constructor");
+    this.super(qx.dev.unit.TestCase, "constructor");
     qx.Class.define("qx.test.type.TestArray", {
       extend : qx.type.BaseArray
     });

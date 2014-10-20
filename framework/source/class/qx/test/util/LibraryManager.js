@@ -23,7 +23,7 @@ qx.Class.define("qx.test.util.LibraryManager",
 
   construct : function()
   {
-    this.base(qx.dev.unit.TestCase, "constructor");
+    this.super(qx.dev.unit.TestCase, "constructor");
 
     this.__mgr = qx.util.LibraryManager.getInstance();
     this.libKeys = ["sourceUri", "resourceUri"];

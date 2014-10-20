@@ -48,7 +48,7 @@ qx.Class.define("qx.ui.mobile.basic.Atom",
    */
   construct : function(label, icon, element)
   {
-    this.base(qx.ui.mobile.Widget, "constructor", element);
+    this.super(qx.ui.mobile.Widget, "constructor", element);
 
     this.addClass("qx-flex-center");
 
@@ -289,7 +289,7 @@ qx.Class.define("qx.ui.mobile.basic.Atom",
 
 
     dispose : function() {
-      this.base(qx.ui.mobile.Widget, "dispose");
+      this.super(qx.ui.mobile.Widget, "dispose");
       this.__label && this.__label.dispose();
       this.__icon && this.__icon.dispose();
     }

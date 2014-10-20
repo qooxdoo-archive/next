@@ -52,7 +52,7 @@ qx.Class.define("qx.ui.mobile.container.Collapsible",
    */
   construct : function(title, element)
   {
-    this.base(qx.ui.mobile.Widget, "constructor", element);
+    this.super(qx.ui.mobile.Widget, "constructor", element);
 
     // Get exiting content and clear it afterwards
     var content = this.getHtml();
@@ -215,7 +215,7 @@ qx.Class.define("qx.ui.mobile.container.Collapsible",
 
 
     dispose : function() {
-      this.base(qx.ui.mobile.Widget, "dispose");
+      this.super(qx.ui.mobile.Widget, "dispose");
       this._header.off("tap", this._toggleCollapsed, this);
       this._header.dispose();
       this._content.dispose();

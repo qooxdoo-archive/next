@@ -26,7 +26,7 @@ qx.Class.define("qx.ui.mobile.form.Row",
   extend : qx.ui.mobile.Widget,
 
   construct: function(item, label) {
-    this.base(qx.ui.mobile.Widget, "constructor");
+    this.super(qx.ui.mobile.Widget, "constructor");
 
     this.layout = new qx.ui.mobile.layout.HBox();
 

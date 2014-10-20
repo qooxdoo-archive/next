@@ -64,7 +64,7 @@ qx.Class.define("qx.ui.mobile.page.NavigationPage",
    */
   construct : function(wrapContentByGroup, layout)
   {
-    this.base(qx.ui.mobile.page.Page, "constructor", layout);
+    this.super(qx.ui.mobile.page.Page, "constructor", layout);
 
     if(wrapContentByGroup) {
       this._wrapContentByGroup = wrapContentByGroup;
@@ -508,7 +508,7 @@ qx.Class.define("qx.ui.mobile.page.NavigationPage",
     // overridden
     _initialize : function()
     {
-      this.base(qx.ui.mobile.page.Page, "_initialize");
+      this.super(qx.ui.mobile.page.Page, "_initialize");
 
       this.__scrollContainer = this._createScrollContainer();
       this.__content = this._createContent();
@@ -577,7 +577,7 @@ qx.Class.define("qx.ui.mobile.page.NavigationPage",
 
     dispose : function()
     {
-      this.base(qx.ui.mobile.page.Page, "dispose");
+      this.super(qx.ui.mobile.page.Page, "dispose");
       this.__leftContainer && this.__leftContainer.dispose();
       this.__rightContainer && this.__rightContainer.dispose();
       this.__backButton && this.__backButton.dispose();

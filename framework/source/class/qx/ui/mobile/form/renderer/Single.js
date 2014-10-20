@@ -35,7 +35,7 @@ qx.Class.define("qx.ui.mobile.form.renderer.Single",
     this.__errorMessageContainers = [];
     this._rows = [];
     this._labels = [];
-    this.base(qx.ui.mobile.form.renderer.AbstractRenderer, "constructor",form);
+    this.super(qx.ui.mobile.form.renderer.AbstractRenderer, "constructor",form);
     this.addClass("single");
   },
 
@@ -66,7 +66,7 @@ qx.Class.define("qx.ui.mobile.form.renderer.Single",
       this._disposeArray("_rows");
       this._rows = [];
       this._labels = [];
-      this.base(qx.ui.mobile.form.renderer.AbstractRenderer, "_onFormChange");
+      this.super(qx.ui.mobile.form.renderer.AbstractRenderer, "_onFormChange");
     },
 
     /**
@@ -311,7 +311,7 @@ qx.Class.define("qx.ui.mobile.form.renderer.Single",
 
 
     dispose : function() {
-      this.base(qx.ui.mobile.form.renderer.AbstractRenderer, "dispose");
+      this.super(qx.ui.mobile.form.renderer.AbstractRenderer, "dispose");
       this.resetForm();
       qx.util.DisposeUtil.disposeArray(this, "_labels");
       qx.util.DisposeUtil.disposeArray(this, "_rows");

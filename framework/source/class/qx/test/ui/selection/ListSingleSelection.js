@@ -57,7 +57,7 @@ qx.Class.define("qx.test.ui.selection.ListSingleSelection",
 
     tearDown : function()
     {
-      this.base(AbstractSingleSelectonTest, "tearDown");
+      this.super(AbstractSingleSelectonTest, "tearDown");
       this._widget.destroy();
       this._widget = null;
       this._selection = null;

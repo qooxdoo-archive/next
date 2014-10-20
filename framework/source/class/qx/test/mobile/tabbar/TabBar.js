@@ -26,13 +26,13 @@ qx.Class.define("qx.test.mobile.tabbar.TabBar",
     __tabBar : null,
 
     setUp : function() {
-      this.base(qx.test.mobile.MobileTestCase, "setUp");
+      this.super(qx.test.mobile.MobileTestCase, "setUp");
       this.__tabBar = new qx.ui.mobile.tabbar.TabBar();
       this.getRoot().append(this.__tabBar);
     },
 
     tearDown : function() {
-      this.base(qx.test.mobile.MobileTestCase, "tearDown");
+      this.super(qx.test.mobile.MobileTestCase, "tearDown");
       this.__tabBar.dispose();
     },
 

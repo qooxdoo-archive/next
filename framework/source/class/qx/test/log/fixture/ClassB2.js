@@ -5,7 +5,7 @@ qx.Class.define("qx.test.log.fixture.ClassB2",
   members :
   {
     _applyNewProperty: function () {
-      this.base(qx.test.log.fixture.ClassA, "_applyNewProperty")
+      this.super(qx.test.log.fixture.ClassA, "_applyNewProperty")
 
       this._callCountApplyNewProperty++;
     }

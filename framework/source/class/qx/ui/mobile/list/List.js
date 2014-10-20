@@ -93,7 +93,7 @@ qx.Class.define("qx.ui.mobile.list.List",
    */
   construct : function(delegate, element)
   {
-    this.base(qx.ui.mobile.Widget, "constructor", element);
+    this.super(qx.ui.mobile.Widget, "constructor", element);
 
     this.on("tap", this._onTap, this);
 
@@ -577,7 +577,7 @@ qx.Class.define("qx.ui.mobile.list.List",
 
 
     dispose : function() {
-      this.base(qx.ui.mobile.Widget, "dispose");
+      this.super(qx.ui.mobile.Widget, "dispose");
       this.__trackElement = null;
       if (qx.core.Environment.get("qx.dynlocale")) {
         qx.locale.Manager.getInstance().off("changeLocale", this.render, this);

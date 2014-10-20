@@ -33,7 +33,7 @@ qx.Class.define("qx.dev.unit.TestLoader",
     // overridden
     main : function()
     {
-      this.base(qx.application.Basic, "main");
+      this.super(qx.application.Basic, "main");
 
       // Dependencies to loggers
       qx.log.appender.Console;

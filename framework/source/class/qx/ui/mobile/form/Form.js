@@ -43,7 +43,7 @@ qx.Class.define("qx.ui.mobile.form.Form",
 
   construct : function(element)
   {
-    this.base(qx.ui.mobile.Widget, "constructor", element);
+    this.super(qx.ui.mobile.Widget, "constructor", element);
     this.defaultCssClass = "form";
     this._resetter = this._createResetter();
     this.on("addedChild", this._onAddedChild, this);
@@ -152,7 +152,7 @@ qx.Class.define("qx.ui.mobile.form.Form",
 
 
     dispose: function() {
-      this.base(qx.ui.mobile.Widget, "dispose");
+      this.super(qx.ui.mobile.Widget, "dispose");
       this.off("addedChild", this._onAddedChild, this);
       this.off("removedChild", this._onRemovedChild, this);
     }

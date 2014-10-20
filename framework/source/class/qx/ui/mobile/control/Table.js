@@ -95,7 +95,7 @@ qx.Class.define("qx.ui.mobile.control.Table", {
    * @return {qx.ui.mobile.control.Table} The new table widget.
    */
   construct : function(model, element) {
-    this.base(qx.ui.mobile.Widget, "constructor", element);
+    this.super(qx.ui.mobile.Widget, "constructor", element);
     this.model =  model;
 
     if (qxWeb.getNodeName(this).toUpperCase() !== "TABLE") {

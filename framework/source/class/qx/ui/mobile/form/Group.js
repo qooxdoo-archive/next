@@ -42,7 +42,7 @@ qx.Class.define("qx.ui.mobile.form.Group",
   extend : qx.ui.mobile.Widget,
 
   construct : function(title) {
-    this.base(qx.ui.mobile.Widget, "constructor");
+    this.super(qx.ui.mobile.Widget, "constructor");
     if (title) {
       qxWeb.create('<h2 class="form-title">' + title + '</h2>').appendTo(this);
     }

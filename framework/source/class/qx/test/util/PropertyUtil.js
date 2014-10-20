@@ -36,7 +36,7 @@ qx.Class.define("qx.test.util.PropertyUtil",
 
 
     tearDown : function() {
-      this.base(qx.test.mobile.MobileTestCase, "tearDown");
+      this.super(qx.test.mobile.MobileTestCase, "tearDown");
       this.button.remove().dispose();
     },
 

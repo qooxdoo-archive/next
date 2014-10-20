@@ -26,7 +26,7 @@ qx.Class.define("qx.test.mobile.form.Row",
     __nameInvalidMsg: "Please enter a value",
 
     setUp: function() {
-      this.base(qx.test.mobile.MobileTestCase, "setUp");
+      this.super(qx.test.mobile.MobileTestCase, "setUp");
       this.__tf = new qx.ui.mobile.form.TextField().set({
         required: true,
         validationMessage: this.__nameInvalidMsg
@@ -36,7 +36,7 @@ qx.Class.define("qx.test.mobile.form.Row",
     },
 
     tearDown: function() {
-      this.base(qx.test.mobile.MobileTestCase, "tearDown");
+      this.super(qx.test.mobile.MobileTestCase, "tearDown");
       this.__tf.dispose();
       this.__row.dispose();
     },

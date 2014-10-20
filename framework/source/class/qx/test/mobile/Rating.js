@@ -27,7 +27,7 @@ qx.Class.define("qx.test.mobile.Rating", {
     __rating: null,
 
     setUp: function() {
-      this.base(qx.test.mobile.MobileTestCase, "setUp");
+      this.super(qx.test.mobile.MobileTestCase, "setUp");
       this.__rating = new qx.ui.mobile.Rating();
       this.getRoot().append(this.__rating);
     },

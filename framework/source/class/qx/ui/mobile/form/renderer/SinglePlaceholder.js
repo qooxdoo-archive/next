@@ -33,7 +33,7 @@ qx.Class.define("qx.ui.mobile.form.renderer.SinglePlaceholder",
    */
   construct : function(form)
   {
-    this.base(qx.ui.mobile.form.renderer.Single, "constructor",form);
+    this.super(qx.ui.mobile.form.renderer.Single, "constructor",form);
     this.removeClass("single");
     this.addClass("single-placeholder");
   },

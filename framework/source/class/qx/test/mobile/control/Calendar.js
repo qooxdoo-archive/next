@@ -27,14 +27,14 @@ qx.Class.define("qx.test.mobile.control.Calendar",
     __cal: null,
 
     setUp: function() {
-      this.base(qx.test.mobile.MobileTestCase, "setUp");
+      this.super(qx.test.mobile.MobileTestCase, "setUp");
       this.__now = new Date();
       this.__cal = new qx.ui.mobile.control.Calendar(this.__now)
         .appendTo(this.getRoot());
     },
 
     tearDown: function() {
-      this.base(qx.test.mobile.MobileTestCase, "tearDown");
+      this.super(qx.test.mobile.MobileTestCase, "tearDown");
     },
 
     testSetGetValue : function() {

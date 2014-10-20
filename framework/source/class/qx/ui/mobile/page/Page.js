@@ -63,7 +63,7 @@ qx.Class.define("qx.ui.mobile.page.Page",
 
   construct : function(layout)
   {
-    this.base(qx.ui.mobile.Widget, "constructor");
+    this.super(qx.ui.mobile.Widget, "constructor");
     this.layout = layout || new qx.ui.mobile.layout.VBox();
   },
 
@@ -186,7 +186,7 @@ qx.Class.define("qx.ui.mobile.page.Page",
       this.initialize();
       this.start();
       this.$$animationProperties = properties;
-      this.base(qx.ui.mobile.Widget, "show");
+      this.super(qx.ui.mobile.Widget, "show");
       delete this.$$animationProperties;
     },
 
@@ -196,7 +196,7 @@ qx.Class.define("qx.ui.mobile.page.Page",
     {
       this.stop();
       this.$$animationProperties = properties;
-      this.base(qx.ui.mobile.Widget, "exclude");
+      this.super(qx.ui.mobile.Widget, "exclude");
       delete this.$$animationProperties;
     },
 

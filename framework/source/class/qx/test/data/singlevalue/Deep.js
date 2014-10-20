@@ -27,7 +27,7 @@ qx.Class.define("qx.test.data.singlevalue.Deep",
   include : [qx.dev.unit.MMock],
 
   construct : function() {
-    this.base(qx.dev.unit.TestCase, "constructor");
+    this.super(qx.dev.unit.TestCase, "constructor");
     this.initMMock();
 
     // define a test class

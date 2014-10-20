@@ -179,7 +179,7 @@ qx.Class.define("qx.ui.mobile.control.Calendar", {
    * @return {qx.ui.mobile.control.Calendar} The new calendar widget.
    */
   construct : function(date, element) {
-    this.base(qx.ui.mobile.Widget, "constructor", element);
+    this.super(qx.ui.mobile.Widget, "constructor", element);
 
     if (!date) {
       date = new Date();
@@ -203,7 +203,7 @@ qx.Class.define("qx.ui.mobile.control.Calendar", {
 
     // overridden
     _applyEnabled : function(value) {
-      this.base(qx.ui.mobile.Widget, "_applyEnabled", value);
+      this.super(qx.ui.mobile.Widget, "_applyEnabled", value);
 
       if (value) {
         var tempDate = new Date().setFullYear(5000);
@@ -778,7 +778,7 @@ qx.Class.define("qx.ui.mobile.control.Calendar", {
 
       this.setHtml("");
 
-      return this.base(qx.ui.mobile.Widget, "dispose");
+      return this.super(qx.ui.mobile.Widget, "dispose");
     }
 
   },

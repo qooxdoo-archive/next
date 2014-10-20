@@ -33,7 +33,7 @@ qx.Class.define("qx.ui.mobile.layout.AbstractBox",
    */
   construct : function(alignX, alignY, reversed)
   {
-    this.base(qx.ui.mobile.layout.Abstract, "constructor");
+    this.super(qx.ui.mobile.layout.Abstract, "constructor");
 
     if (alignX) {
       this.alignX = alignX;
@@ -178,14 +178,14 @@ qx.Class.define("qx.ui.mobile.layout.AbstractBox",
         this.alignY = undefined;
         this.reversed = undefined;
       }
-      this.base(qx.ui.mobile.layout.Abstract, "connectToWidget", widget);
+      this.super(qx.ui.mobile.layout.Abstract, "connectToWidget", widget);
     },
 
 
     // overridden
     disconnectFromChildWidget : function(widget)
     {
-      this.base(qx.ui.mobile.layout.Abstract, "disconnectFromChildWidget");
+      this.super(qx.ui.mobile.layout.Abstract, "disconnectFromChildWidget");
       for (var i = 0; i <= 6; i++) {
         widget.removeClass("qx-flex" +i);
       }

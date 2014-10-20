@@ -64,7 +64,7 @@ qx.Class.define("qx.ui.mobile.form.Slider",
    */
   construct : function(element)
   {
-    this.base(qx.ui.mobile.Widget, "constructor", element);
+    this.super(qx.ui.mobile.Widget, "constructor", element);
     this.append(this._createKnobElement());
     this._registerEventListener();
     this._refresh();
@@ -472,7 +472,7 @@ qx.Class.define("qx.ui.mobile.form.Slider",
 
 
     dispose : function() {
-      this.base(qx.ui.mobile.Widget, "dispose");
+      this.super(qx.ui.mobile.Widget, "dispose");
       this._knobElement = null;
       this._unregisterEventListener();
       this.disposeMForm();

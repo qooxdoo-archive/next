@@ -45,7 +45,7 @@ qx.Class.define("qx.ui.mobile.basic.Label",
    */
   construct : function(value, element)
   {
-    this.base(qx.ui.mobile.Widget, "constructor", element);
+    this.super(qx.ui.mobile.Widget, "constructor", element);
 
     var html = this.getHtml();
     this.setHtml('');
@@ -157,7 +157,7 @@ qx.Class.define("qx.ui.mobile.basic.Label",
 
 
     dispose : function() {
-      this.base(qx.ui.mobile.Widget, "dispose");
+      this.super(qx.ui.mobile.Widget, "dispose");
       if (qx.core.Environment.get("qx.dynlocale")) {
         qx.locale.Manager.getInstance().off("changeLocale", this._onChangeLocale, this);
       }

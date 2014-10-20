@@ -29,7 +29,7 @@ qx.Class.define("qx.ui.mobile.tree.Tree",
    */
   construct : function(element)
   {
-    this.base(qx.ui.mobile.Widget, "constructor", element);
+    this.super(qx.ui.mobile.Widget, "constructor", element);
 
     this._init();
   },

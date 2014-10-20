@@ -28,7 +28,7 @@ qx.Class.define("qx.dev.unit.JsUnitTestResult",
 
   construct : function()
   {
-    this.base(arguments);
+    this.super(arguments);
     this.__testFunctionNames = [];
   },
 

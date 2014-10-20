@@ -29,7 +29,7 @@ qx.Class.define("qx.test.data.singlevalue.Array",
   extend : qx.dev.unit.TestCase,
 
   construct : function() {
-    this.base(qx.dev.unit.TestCase, "constructor");
+    this.super(qx.dev.unit.TestCase, "constructor");
 
     // define a test class
     qx.Class.define("qx.test.data.singlevalue.Array_MultiBinding",

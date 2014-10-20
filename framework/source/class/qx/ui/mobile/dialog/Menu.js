@@ -65,7 +65,7 @@ qx.Class.define("qx.ui.mobile.dialog.Menu",
     this.__menuContainer.append(this.__listScroller);
     this.__menuContainer.append(this.__clearButton);
 
-    this.base(qx.ui.mobile.dialog.Popup, "constructor", this.__menuContainer, anchor);
+    this.super(qx.ui.mobile.dialog.Popup, "constructor", this.__menuContainer, anchor);
 
     this.modal = !!anchor;
   },
@@ -171,7 +171,7 @@ qx.Class.define("qx.ui.mobile.dialog.Menu",
 
     // overidden
     show : function() {
-      this.base(qx.ui.mobile.dialog.Popup, "show");
+      this.super(qx.ui.mobile.dialog.Popup, "show");
 
       this.scrollToItem(this.selectedIndex);
     },
@@ -226,7 +226,7 @@ qx.Class.define("qx.ui.mobile.dialog.Menu",
 
       this.__listScroller.setStyle("maxHeight", listScrollerHeight + "px");
 
-      this.base(qx.ui.mobile.dialog.Popup, "_updatePosition");
+      this.super(qx.ui.mobile.dialog.Popup, "_updatePosition");
     },
 
 
@@ -344,7 +344,7 @@ qx.Class.define("qx.ui.mobile.dialog.Menu",
 
 
     dispose : function() {
-      this.base(qx.ui.mobile.dialog.Popup, "dispose");
+      this.super(qx.ui.mobile.dialog.Popup, "dispose");
       this.__selectionList.off("tap", this._onSelectionListTap, this);
       this.__selectionList && this.__selectionList.dispose();
       this.__clearButton && this.__clearButton.dispose();

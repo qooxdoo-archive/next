@@ -62,7 +62,7 @@ qx.Class.define("qx.ui.mobile.container.Carousel",
    */
   construct : function(transitionDuration, element)
   {
-    this.base(qx.ui.mobile.Widget, "constructor", element);
+    this.super(qx.ui.mobile.Widget, "constructor", element);
     if (transitionDuration) {
       this.transitionDuration = transitionDuration;
     }
@@ -194,7 +194,7 @@ qx.Class.define("qx.ui.mobile.container.Carousel",
      * @param page {qx.ui.mobile.Widget} The composite which should be added as a page to the end of carousel.
      */
     append : function(page) {
-      this.base(qx.ui.mobile.Widget, "append", page);
+      this.super(qx.ui.mobile.Widget, "append", page);
       if (qx.core.Environment.get("qx.debug")) {
         if (!page instanceof qx.ui.mobile.Widget) {
           throw new Error("Page is expected to be an instance of qx.ui.mobile.Widget.");
@@ -735,7 +735,7 @@ qx.Class.define("qx.ui.mobile.container.Carousel",
       qx.util.DisposeUtil.disposeArray(this,"__paginationLabels");
 
       this.__pages = this.__paginationLabels = this.__snapPointsX = this.__onMoveOffset = this.__lastOffset = this.__boundsX = this.__isPageScrollTarget = null;
-      this.base(qx.ui.mobile.Widget, "dispose");
+      this.super(qx.ui.mobile.Widget, "dispose");
     }
   },
 

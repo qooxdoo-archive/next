@@ -28,12 +28,12 @@ qx.Class.define("qx.test.mobile.form.Form",
     __username: null,
 
     setUp: function() {
-      this.base(qx.test.mobile.MobileTestCase, "setUp");
+      this.super(qx.test.mobile.MobileTestCase, "setUp");
       this.__form = this.__createForm();
     },
 
     tearDown: function() {
-      this.base(qx.test.mobile.MobileTestCase, "tearDown");
+      this.super(qx.test.mobile.MobileTestCase, "tearDown");
       this.__username.dispose();
       this.__form.dispose();
     },

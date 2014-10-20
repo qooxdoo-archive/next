@@ -17,7 +17,7 @@ qx.Class.define("qx.test.performance.BaseCall",
       var obj = new qx.test.performance.Extend();
       var self = this;
       this.measure(
-        "this.base()",
+        "this.super()",
         function() {
           for (var i=0; i<self.ITERATIONS; i++) {
             obj.foo_base();
@@ -78,7 +78,7 @@ qx.Class.define("qx.test.performance.Extend", {
 
   members : {
     foo_base : function(a,b,c) {
-      this.base(qx.test.performance.Base, "foo_base", a, b, c);
+      this.super(qx.test.performance.Base, "foo_base", a, b, c);
     },
 
     foo_call : function(a, b, c) {

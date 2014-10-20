@@ -37,7 +37,7 @@ qx.Class.define("qx.ui.mobile.form.renderer.AbstractRenderer",
    */
   construct : function(form)
   {
-    this.base(qx.ui.mobile.Widget, "constructor");
+    this.super(qx.ui.mobile.Widget, "constructor");
 
     this._form = form;
     this._render();
@@ -128,7 +128,7 @@ qx.Class.define("qx.ui.mobile.form.renderer.AbstractRenderer",
 
 
     dispose: function() {
-      this.base(qx.ui.mobile.Widget, "dispose");
+      this.super(qx.ui.mobile.Widget, "dispose");
       this._form.off("change", this._onFormChange, this);
     }
   }

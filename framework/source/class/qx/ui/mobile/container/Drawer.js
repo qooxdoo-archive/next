@@ -53,7 +53,7 @@ qx.Class.define("qx.ui.mobile.container.Drawer",
    */
   construct : function(layout, element)
   {
-    this.base(qx.ui.mobile.Widget, "constructor", element);
+    this.super(qx.ui.mobile.Widget, "constructor", element);
 
     if (layout) {
       this.layout = layout;
@@ -251,7 +251,7 @@ qx.Class.define("qx.ui.mobile.container.Drawer",
 
         var transitionTarget = this._getTransitionTarget();
         var onTransitionEnd = function(evt) {
-          this.base(qx.ui.mobile.Widget, "show");
+          this.super(qx.ui.mobile.Widget, "show");
           this._disableTransition();
           this.__inTransition = false;
           transitionTarget.off("transitionend", onTransitionEnd, this);
@@ -262,7 +262,7 @@ qx.Class.define("qx.ui.mobile.container.Drawer",
           this.removeClass("hidden");
         }.bind(this), 0);
       } else {
-        this.base(qx.ui.mobile.Widget, "show");
+        this.super(qx.ui.mobile.Widget, "show");
         this.__inTransition = false;
         this.removeClass("hidden");
       }
@@ -295,7 +295,7 @@ qx.Class.define("qx.ui.mobile.container.Drawer",
 
         var transitionTarget = this._getTransitionTarget();
         var listenerId = transitionTarget.on("transitionend", function(evt) {
-          this.base(qx.ui.mobile.Widget, "hide");
+          this.super(qx.ui.mobile.Widget, "hide");
           this._disableTransition();
           parent.removeClass("blocked");
           this.__inTransition = false;
@@ -306,7 +306,7 @@ qx.Class.define("qx.ui.mobile.container.Drawer",
           this.addClass("hidden");
         }.bind(this), 0);
       } else {
-        this.base(qx.ui.mobile.Widget, "hide");
+        this.super(qx.ui.mobile.Widget, "hide");
         this.addClass("hidden");
         this.__inTransition = false;
         parent.removeClass("blocked");
@@ -453,7 +453,7 @@ qx.Class.define("qx.ui.mobile.container.Drawer",
 
     dispose : function()
     {
-      this.base(qx.ui.mobile.Widget, "dispose");
+      this.super(qx.ui.mobile.Widget, "dispose");
       qx.core.Init.getApplication().off("back", this.forceHide, this);
 
       var parent = this._getParentWidget();

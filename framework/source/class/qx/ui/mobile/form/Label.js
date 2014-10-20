@@ -54,7 +54,7 @@ qx.Class.define("qx.ui.mobile.form.Label",
    */
   construct : function(value)
   {
-    this.base(qx.ui.mobile.Widget, "constructor");
+    this.super(qx.ui.mobile.Widget, "constructor");
     if (value) {
       this.value = value;
     }
@@ -216,7 +216,7 @@ qx.Class.define("qx.ui.mobile.form.Label",
 
 
     dispose : function() {
-      this.base(qx.ui.mobile.Widget, "dispose");
+      this.super(qx.ui.mobile.Widget, "dispose");
       this.off("tap", this._onTap, this);
 
       if (this.__forWidget) {

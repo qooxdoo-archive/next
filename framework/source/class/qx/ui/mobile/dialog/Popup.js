@@ -78,7 +78,7 @@ qx.Class.define("qx.ui.mobile.dialog.Popup",
    */
   construct : function(widget, anchor)
   {
-    this.base(qx.ui.mobile.Widget, "constructor");
+    this.super(qx.ui.mobile.Widget, "constructor");
     this.exclude();
 
     if(qx.ui.mobile.dialog.Popup.ROOT == null) {
@@ -249,7 +249,7 @@ qx.Class.define("qx.ui.mobile.dialog.Popup",
 
         // Needs to be added to screen, before rendering position, for calculating
         // objects height.
-        this.base(qx.ui.mobile.Widget, "show");
+        this.super(qx.ui.mobile.Widget, "show");
 
         // Now render position.
         this._updatePosition();
@@ -571,7 +571,7 @@ qx.Class.define("qx.ui.mobile.dialog.Popup",
 
 
     dispose : function() {
-      this.base(qx.ui.mobile.Widget, "dispose");
+      this.super(qx.ui.mobile.Widget, "dispose");
       this.__unregisterEventListener();
       if (this.__childrenContainer) {
         this.__childrenContainer.dispose();

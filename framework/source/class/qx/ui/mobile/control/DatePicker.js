@@ -80,7 +80,7 @@ qx.Class.define("qx.ui.mobile.control.DatePicker", {
    * @return {qx.ui.mobile.control.DatePicker} The new date picker widget.
    */
   construct : function(date, element) {
-    this.base(qx.ui.mobile.Widget, "constructor", element);
+    this.super(qx.ui.mobile.Widget, "constructor", element);
 
     this.format = function(date) {
       return date.toLocaleDateString();

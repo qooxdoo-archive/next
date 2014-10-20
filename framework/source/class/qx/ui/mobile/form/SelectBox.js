@@ -68,7 +68,7 @@ qx.Class.define("qx.ui.mobile.form.SelectBox",
 
   construct : function()
   {
-    this.base(qx.ui.mobile.Widget, "constructor");
+    this.super(qx.ui.mobile.Widget, "constructor");
 
     // This text node is for compatibility reasons, because Firefox can not
     // change appearance of SelectBoxes.
@@ -368,7 +368,7 @@ qx.Class.define("qx.ui.mobile.form.SelectBox",
 
 
     dispose : function() {
-      this.base(qx.ui.mobile.Widget, "dispose");
+      this.super(qx.ui.mobile.Widget, "dispose");
       this.__selectionDialog.off("changeSelection", this._onChangeSelection, this);
 
       this.__selectionDialog && this.__selectionDialog.dispose();
