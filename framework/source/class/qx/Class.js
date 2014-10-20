@@ -139,7 +139,7 @@ qx.Class = {
   },
 
 
-  base : function(clazz, name, varargs) {
+  "super" : function(clazz, name, varargs) {
     if (arguments.length === 1) {
       return clazz.prototype[name].call(this);
     } else {
@@ -181,7 +181,7 @@ qx.Class = {
 
       proto = clazz.prototype;
       // Enable basecalls within constructor
-      proto.base = qx.Class.base;
+      proto.super = qx.Class.super;
       proto.$$name = proto.classname = name;
       clazz.$$events = config.events || {};
 
@@ -288,7 +288,7 @@ qx.Class = {
   __createDefaultConstructor : function()
   {
     function defaultConstructor() {
-      defaultConstructor.base.apply(this, arguments);
+      defaultConstructor.super.apply(this, arguments);
     }
 
     defaultConstructor.$$isDefaultConstructor = true;
@@ -357,7 +357,7 @@ qx.Class.define("qx.Class",
         // Enable basecalls for methods
         // Hint: proto[key] is not yet overwritten here
         if (member instanceof Function && proto[key]) {
-          member.base = proto[key];
+          member.super = proto[key];
         }
 
         proto[key] = member;
@@ -664,7 +664,7 @@ qx.Class.define("qx.Class",
         - Store base constructor to constructor-
         - Store reference to extend class
       */
-      construct.base = superClass;
+      construct.super = superClass;
       clazz.superclass = superClass;
 
       /*
