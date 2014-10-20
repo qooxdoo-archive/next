@@ -54,6 +54,52 @@ qx.Class.define("qx.test.util.ColorUtil",
     {
       this.assertEquals("#FFFFFF", qx.util.ColorUtil.rgbToHexString([255, 255, 255]));
       this.assertEquals("#000000", qx.util.ColorUtil.rgbToHexString([0, 0, 0]));
+    },
+
+    testValidColors : function()
+    {
+      var validColors = {
+        "red" : [255,0,0], //named
+        "black" : [0,0,0], //named
+        "#FFF" : [255,255,255], //hex3
+        "#Ff1" : [255,255,17], //hex3
+        "#0101FF" : [1,1,255], //hex6
+        "rgb(123,11,1)" : [123, 11, 1] //rgb
+      }
+
+      for (var color in validColors) {
+        this.assertJsonEquals(validColors[color], qx.util.ColorUtil.stringToRgb(color));
+      }
+    },
+
+    testInvalidColors : function()
+    {
+      var invalidColors = [
+        "blau",
+        "1234",
+        "#ff",
+        "#ffff",
+        "rgb(12,13)"
+      ];
+
+      for (var i=0; i<invalidColors.length; i++)
+      {
+        this.assertException(
+          function() {
+            qx.util.ColorUtil.stringToRgb(invalidColors[i])
+          },
+          Error,
+          "Could not parse color"
+        );
+      }
+
+      this.assertException(
+        function() {
+          qx.util.ColorUtil.stringToRgb("inactivecaptiontext")
+        },
+        Error,
+        "Could not convert system colors to RGB"
+      );
     }
   }
 });
