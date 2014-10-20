@@ -17,11 +17,8 @@
 
 ************************************************************************ */
 
-describe("dom.Node", function() 
+describe("dom.Node", function()
 {
-  
-  beforeEach (function ()  {});
-  afterEach (function ()  {});
 
   it("BlockNodes", function() {
       var blockNodeList = [ "body", "h1", "h2", "h3", "h4", "h5", "div", "blockquote",
@@ -46,9 +43,9 @@ describe("dom.Node", function()
       for (var i=0, j=blockElements.length; i<j; i++) {
         document.body.removeChild(blockElements[i]);
       }
-  });
- 
-  it("InlineNodes", function() {
+   });
+
+   it("InlineNodes", function() {
       var inlineNodeList = [ "a", "span", "abbr", "acronym", "dfn", "object", "param",
                              "em", "strong", "code", "b", "i", "tt", "samp",
                              "kbd", "var", "big", "small", "br", "bdo", "cite",
@@ -71,7 +68,7 @@ describe("dom.Node", function()
         document.body.removeChild(inlineElements[i]);
       }
   });
- 
+
   it("TextNodes", function() {
       var blockElement = document.createElement("div");
       var blockElementText = document.createTextNode("schokobaer");
@@ -95,7 +92,7 @@ describe("dom.Node", function()
       assert.equal("schokobaervanillebaer", qx.dom.Node.getText(blockElement), "Failed to get the right value for text of an element.");
       assert.equal("karamelbaer", qx.dom.Node.getText(xml.getElementsByTagName("foo")[0].firstChild), "Failed to get the text of a CData text node.");
   });
- 
+
   it("GetWindow", function() {
       var rendered = document.createElement("div");
       document.body.appendChild(rendered);
@@ -105,6 +102,6 @@ describe("dom.Node", function()
       assert.equal(window, qx.dom.Node.getWindow(rendered));
       assert.equal(window, qx.dom.Node.getWindow(unrendered));
       assert.equal(window, qx.dom.Node.getWindow(text));
-    
+
   });
 });

@@ -21,7 +21,7 @@
  * @ignore(qx.Mix, qx.MLogger, qx.MMix1, qx.MMix1.foo)
  * @ignore(qx.MMix2)
  */
-describe("qx.test.Mixin", function()
+describe("Mixin", function()
 {
 
   it("MixinBasic", function() {

@@ -17,13 +17,12 @@
 
 ************************************************************************ */
 
-describe("dom.Hierarchy", function() 
+describe("dom.Hierarchy", function()
 {
-  this.timeout(10000);
   var __childElement = null;
   var __siblingElement = null;
   var __iframe = null;
-  beforeEach (function () 
+  beforeEach (function ()
   {
     __renderedElement = qx.dom.Element.create("div");
     document.body.appendChild(__renderedElement);
@@ -39,7 +38,7 @@ describe("dom.Hierarchy", function()
   });
 
 
-  afterEach (function () 
+  afterEach (function ()
   {
     if (__childElement) {
       __renderedElement.removeChild(__childElement);
@@ -64,14 +63,14 @@ describe("dom.Hierarchy", function()
       __iframe = null;
     }
   });
- 
- it("IsRendered", function() {
+
+  it("IsRendered", function() {
       assert.isTrue(qx.dom.Hierarchy.isRendered(__renderedElement));
       assert.isFalse(qx.dom.Hierarchy.isRendered(__unRenderedElement));
       assert.isTrue(qx.dom.Hierarchy.isRendered(__notDisplayedElement));
       assert.isTrue(qx.dom.Hierarchy.isRendered(__childOfNotDisplayedElement));
-    });
- 
+  });
+
   it("IsRenderedIframe", function(done) {
       __iframe = qx.bom.Iframe.create();
       var src = qx.util.ResourceManager.getInstance().toUri("/framework/source/resource/qx/static/blank.html");
@@ -83,11 +82,11 @@ describe("dom.Hierarchy", function()
         setTimeout( function()  {
           assert.isTrue(qx.dom.Hierarchy.isRendered(__iframe));
           done();
-        }, 10000);
+        }, 10);
       }, this);
 
-    });
- 
+  });
+
   it("Contains", function() {
       assert.isTrue(qx.dom.Hierarchy.contains(document.body, __renderedElement));
 
@@ -99,8 +98,8 @@ describe("dom.Hierarchy", function()
       __siblingElement = qx.dom.Element.create("div");
       document.body.appendChild(__siblingElement);
       assert.isFalse(qx.dom.Hierarchy.contains(__renderedElement, __siblingElement));
-    });
- 
+  });
+
   it("GetCommonParent", function() {
       __siblingElement = qx.dom.Element.create("div");
       document.body.appendChild(__siblingElement);
@@ -112,6 +111,6 @@ describe("dom.Hierarchy", function()
       __renderedElement.appendChild(__childElement);
       assert.equal(__renderedElement,
       qx.dom.Hierarchy.getCommonParent(__renderedElement, __childElement));
-    
+
   });
 });

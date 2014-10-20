@@ -20,7 +20,7 @@
 /**
  * @ignore(qx.test.i.*)
  */
-describe("qx.test.Interface", function()
+describe("Interface", function()
 {
 
   beforeEach (function ()  {
