@@ -20,18 +20,16 @@
 
 describe("bom.element.Style", function ()
 {
- 
+
   var __element = null;
 
-  beforeEach (function () 
-  {
+  beforeEach (function () {
     __element = document.createElement("div");
     document.body.appendChild(__element);
   });
 
 
-  afterEach (function () 
-  {
+  afterEach (function () {
     document.body.removeChild(__element);
     __element = null;
   });
@@ -55,13 +53,13 @@ describe("bom.element.Style", function ()
 
       assert.equal(expected, __element.style["boxShadow"]);
   });
- 
+
   it("SetAndGetCss", function() {
       var css = "font-weight: bold;";
       qx.bom.element.Style.setCss(__element, css);
       assert.match(qx.bom.element.Style.getCss(__element), /font-weight.*?bold/i);
   });
- 
+
   it("Set", function() {
       var name = "border";
       var style = ["1px", "solid", "red"];
@@ -81,7 +79,7 @@ describe("bom.element.Style", function ()
       assert.equal(style[1], __element.style.borderStyle);
       assert.equal(style[2], __element.style.borderColor);
   });
- 
+
   it("Get", function() {
       var name = "border";
       var style = "1px solid red";
@@ -107,20 +105,20 @@ describe("bom.element.Style", function ()
       assert.equal(expected[1], qx.bom.element.Style.get(__element, "borderStyle"));
       assert.equal(expected[2], qx.bom.element.Style.get(__element, "borderColor"));
   });
- 
+
   it("SetFloat", function() {
       qx.bom.element.Style.set(__element, "float", "left");
       assert.equal("left", __element.style.float);
   });
- //test fails
+
+  //test fails
   it("CompileFloat", function() {
-      var css = qx.bom.element.Style.compile({"float" : "left"});
-      assert.equal("float:left;", css);
+    var css = qx.bom.element.Style.compile({"float" : "left"});
+    assert.equal("float:left;", css);
   });
- 
+
   it("CompileContent", function() {
-      var css = qx.bom.element.Style.compile({"content" : ""});
-      assert.equal("content:\"\";", css);
-    
+    var css = qx.bom.element.Style.compile({"content" : ""});
+    assert.equal("content:\"\";", css);
   });
 });

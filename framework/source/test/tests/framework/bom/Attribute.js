@@ -23,111 +23,100 @@
  *
  * @asset(framework/source/resource/qx/icon/Tango/48/places/folder.png)
  */
- 
+
 describe('bom.Attribute', function() {
 
   beforeEach (function () {
-    var div = document.createElement("div");
-    div.id = "el";
-
-    _el = div;
-    document.body.appendChild(div);
+    this.sandbox = q.create("<div id='sandbox'></div>");
+    this.sandbox.appendTo(document.body);
 
     var input = document.createElement("input");
-    _input = input;
-    document.body.appendChild(input);
+    this.sandbox.append(input);
 
     var checkBox = document.createElement("input");
     checkBox.type = "checkbox";
-
-    _checkBox = checkBox;
-    document.body.appendChild(checkBox);
+    this.sandbox.append(checkBox);
 
     var img = document.createElement("img");
-    _img = img;
-    document.body.appendChild(img);
+    this.sandbox.append(img);
   });
 
   afterEach (function () {
-    document.body.removeChild(_el);
-    document.body.removeChild(_checkBox);
-    document.body.removeChild(_img);
+    this.sandbox.remove();
   });
 
-  it("SetAttribute", function() {
+
+  it("setAttribute", function() {
       var Attribute = qx.bom.element.Attribute;
 
-      Attribute.set(_el, "maxLength", 10);
-      assert.equal(10, _el.getAttribute("maxLength"));
+      Attribute.set(this.sandbox[0], "maxLength", 10);
+      assert.equal(10, this.sandbox[0].getAttribute("maxLength"));
 
-      Attribute.set(_checkBox, "checked", true);
-      assert.isTrue(_checkBox["checked"]);
+      Attribute.set(this.sandbox.find("input[type=checkbox]")[0], "checked", true);
+      assert.isTrue(this.sandbox.find("input[type=checkbox]")[0]["checked"]);
 
-      Attribute.set(_el, "className", "vanillebaer");
-      assert.equal("vanillebaer",_el["className"]);
+      Attribute.set(this.sandbox[0], "className", "vanillebaer");
+      assert.equal("vanillebaer", this.sandbox[0]["className"]);
 
-      Attribute.set(_el, "selected", true);
-      assert.equal("selected", _el.getAttribute("selected"));
+      Attribute.set(this.sandbox[0], "selected", true);
+      assert.equal("selected", this.sandbox[0].getAttribute("selected"));
 
-      Attribute.set(_img, "src", "../resource/qx/icon/Tango/48/places/folder.png");
-      assert.equal("../resource/qx/icon/Tango/48/places/folder.png", _img.getAttribute("src", 2));
+      Attribute.set(this.sandbox.find("img")[0], "src", "../resource/qx/icon/Tango/48/places/folder.png");
+      assert.equal("../resource/qx/icon/Tango/48/places/folder.png", this.sandbox.find("img")[0].getAttribute("src", 2));
 
   });
- 
+
   it("SetAttributeWithUndefinedValue", function() {
       var Attribute = qx.bom.element.Attribute;
 
-      Attribute.set(_el, "src", undefined);
-      assert.notEqual("undefined", _el.getAttribute("src"));
+      Attribute.set(this.sandbox[0], "src", undefined);
+      assert.notEqual("undefined", this.sandbox[0].getAttribute("src"));
   });
- 
+
   it("GetAttribute", function() {
       var Attribute = qx.bom.element.Attribute;
 
-      assert.isNull(Attribute.get(_input, "maxLength"));
-      assert.isFalse(Attribute.get(_checkBox, "checked"));
-      assert.isNull(Attribute.get(_el, "className"));
-      assert.isNull(Attribute.get(_el, "innerHTML"));
-      assert.isNull(Attribute.get(_checkBox, "tabIndex"));
-      assert.isFalse(Attribute.get(_checkBox, "readOnly"));
-      assert.isNull(Attribute.get(_input, "value"));
+      assert.isNull(Attribute.get(this.sandbox.find("input[type!=checkbox]")[0], "maxLength"));
+      assert.isFalse(Attribute.get(this.sandbox.find("input[type=checkbox]")[0], "checked"));
+      assert.isNull(Attribute.get(this.sandbox[0], "className"));
+      assert.isNull(Attribute.get(this.sandbox[0], "data-x"));
+      assert.isNull(Attribute.get(this.sandbox.find("input[type=checkbox]")[0], "tabIndex"));
+      assert.isFalse(Attribute.get(this.sandbox.find("input[type=checkbox]")[0], "readOnly"));
+      assert.isNull(Attribute.get(this.sandbox.find("input[type!=checkbox]")[0], "value"));
 
-      _checkBox.setAttribute("checked", true);
-      assert.equal(true, Attribute.get(_checkBox, "checked"));
+      this.sandbox.find("input[type=checkbox]")[0].setAttribute("checked", true);
+      assert.equal(true, Attribute.get(this.sandbox.find("input[type=checkbox]")[0], "checked"));
 
-      _checkBox.removeAttribute("checked");
-      assert.isFalse(Attribute.get(_checkBox, "checked"));
+      this.sandbox.find("input[type=checkbox]")[0].removeAttribute("checked");
+      assert.isFalse(Attribute.get(this.sandbox.find("input[type=checkbox]")[0], "checked"));
 
-      _el["className"] = "vanillebaer";
-      assert.equal("vanillebaer", Attribute.get(_el, "className"));
+      this.sandbox[0]["className"] = "vanillebaer";
+      assert.equal("vanillebaer", Attribute.get(this.sandbox[0], "className"));
 
-      _el.innerHTML = "vanillebaer";
-      assert.equal("vanillebaer", Attribute.get(_el, "innerHTML"));
+      this.sandbox.find("input[type=checkbox]")[0]["tabIndex"] = 1000;
+      assert.equal(1000, Attribute.get(this.sandbox.find("input[type=checkbox]")[0], "tabIndex"));
 
-      _checkBox["tabIndex"] = 1000;
-      assert.equal(1000, Attribute.get(_checkBox, "tabIndex"));
+      this.sandbox.find("input[type=checkbox]")[0]["tabIndex"] = 0;
+      assert.isNull(Attribute.get(this.sandbox.find("input[type=checkbox]")[0], "tabIndex"));
 
-      _checkBox["tabIndex"] = 0;
-      assert.isNull(Attribute.get(_checkBox, "tabIndex"));
+      this.sandbox.find("input[type=checkbox]")[0]["tabIndex"] = -1;
+      assert.equal(-1, Attribute.get(this.sandbox.find("input[type=checkbox]")[0], "tabIndex"));
 
-      _checkBox["tabIndex"] = -1;
-      assert.equal(-1, Attribute.get(_checkBox, "tabIndex"));
+      this.sandbox.find("input[type=checkbox]")[0]["readOnly"] = true;
+      assert.isTrue(Attribute.get(this.sandbox.find("input[type=checkbox]")[0], "readonly"));
 
-      _checkBox["readOnly"] = true;
-      assert.isTrue(Attribute.get(_checkBox, "readonly"));
+      this.sandbox.find("input[type=checkbox]")[0]["value"] = "vanillebaer";
+      assert.equal("vanillebaer", Attribute.get(this.sandbox.find("input[type=checkbox]")[0], "value"));
 
-      _checkBox["value"] = "vanillebaer";
-      assert.equal("vanillebaer", Attribute.get(_checkBox, "value"));
-
-      Attribute.set(_img, "src", "../resource/qx/icon/Tango/48/places/folder.png");
-      assert.equal("../resource/qx/icon/Tango/48/places/folder.png", Attribute.get(_img, "src"));
+      Attribute.set(this.sandbox.find("img")[0], "src", "../resource/qx/icon/Tango/48/places/folder.png");
+      assert.equal("../resource/qx/icon/Tango/48/places/folder.png", Attribute.get(this.sandbox.find("img")[0], "src"));
   });
- 
+
   it("RemoveAttribute", function() {
       var Attribute = qx.bom.element.Attribute;
 
-      Attribute.set(_input, "maxLength", 10);
-      Attribute.set(_input, "maxLength", null);
+      Attribute.set(this.sandbox.find("input[type!=checkbox]")[0], "maxLength", 10);
+      Attribute.set(this.sandbox.find("input[type!=checkbox]")[0], "maxLength", null);
 
       var maxLengthValue = qx.core.Environment.select("engine.name", {
                             "mshtml": 2147483647,
@@ -135,55 +124,54 @@ describe('bom.Attribute', function() {
                             "default": -1
                            });
 
-      assert.equal(maxLengthValue, _input["maxLength"]);
-      assert.isNull(Attribute.get(_input, "maxLength"));
+      assert.equal(maxLengthValue, this.sandbox.find("input[type!=checkbox]")[0]["maxLength"]);
+      assert.isNull(Attribute.get(this.sandbox.find("input[type!=checkbox]")[0], "maxLength"));
 
-      Attribute.set(_checkBox, "checked", true);
-      Attribute.set(_checkBox, "checked", null);
-      assert.isFalse(_checkBox["checked"]);
+      Attribute.set(this.sandbox.find("input[type=checkbox]")[0], "checked", true);
+      Attribute.set(this.sandbox.find("input[type=checkbox]")[0], "checked", null);
+      assert.isFalse(this.sandbox.find("input[type=checkbox]")[0]["checked"]);
 
-      Attribute.set(_el, "html", "vanillebaer");
-      Attribute.set(_el, "html", null);
-      assert.isNull(_el.getAttribute("html"));
+      Attribute.set(this.sandbox[0], "html", "vanillebaer");
+      Attribute.set(this.sandbox[0], "html", null);
+      assert.isNull(this.sandbox[0].getAttribute("html"));
   });
- 
+
   it("ResetAttribute", function() {
-      var Attribute = qx.bom.element.Attribute;
+    var Attribute = qx.bom.element.Attribute;
 
-      Attribute.set(_input, "maxLength", 10);
-      Attribute.reset(_input, "maxLength");
-      assert.isNull(Attribute.get(_input, "maxLength"));
+    Attribute.set(this.sandbox.find("input[type!=checkbox]")[0], "maxLength", 10);
+    Attribute.reset(this.sandbox.find("input[type!=checkbox]")[0], "maxLength");
+    assert.isNull(Attribute.get(this.sandbox.find("input[type!=checkbox]")[0], "maxLength"));
 
-      Attribute.set(_checkBox, "disabled", true);
-      Attribute.reset(_checkBox, "disabled");
-      assert.isFalse(Attribute.get(_checkBox, "disabled"));
+    Attribute.set(this.sandbox.find("input[type=checkbox]")[0], "disabled", true);
+    Attribute.reset(this.sandbox.find("input[type=checkbox]")[0], "disabled");
+    assert.isFalse(Attribute.get(this.sandbox.find("input[type=checkbox]")[0], "disabled"));
 
-      Attribute.set(_checkBox, "multiple", true);
-      Attribute.reset(_checkBox, "multiple");
-      assert.isFalse(Attribute.get(_checkBox, "multiple"));
+    Attribute.set(this.sandbox.find("input[type=checkbox]")[0], "multiple", true);
+    Attribute.reset(this.sandbox.find("input[type=checkbox]")[0], "multiple");
+    assert.isFalse(Attribute.get(this.sandbox.find("input[type=checkbox]")[0], "multiple"));
 
-      Attribute.set(_el, "innerHTML", "<b>foo</b>");
-      Attribute.reset(_el, "innerHTML");
-      assert.isNull(Attribute.get(_el, "innerHTML"));
-      Attribute.set(_el, "tabIndex", 10);
-      Attribute.reset(_el, "tabIndex");
-      assert.isNull(Attribute.get(_el, "tabIndex"));
+    Attribute.set(this.sandbox[0], "data-x", "foo");
+    Attribute.reset(this.sandbox[0], "data-x");
+    assert.isNull(Attribute.get(this.sandbox[0], "data-x"));
+    Attribute.set(this.sandbox[0], "tabIndex", 10);
+    Attribute.reset(this.sandbox[0], "tabIndex");
+    assert.isNull(Attribute.get(this.sandbox[0], "tabIndex"));
 
-      Attribute.set(_input, "tabIndex", 20);
-      Attribute.reset(_input, "tabIndex");
-      assert.isNull(Attribute.get(_input, "tabIndex"));
+    Attribute.set(this.sandbox.find("input[type!=checkbox]")[0], "tabIndex", 20);
+    Attribute.reset(this.sandbox.find("input[type!=checkbox]")[0], "tabIndex");
+    assert.isNull(Attribute.get(this.sandbox.find("input[type!=checkbox]")[0], "tabIndex"));
 
-      Attribute.set(_checkBox, "checked", true);
-      Attribute.reset(_checkBox, "checked");
-      assert.isFalse(Attribute.get(_checkBox, "checked"));
+    Attribute.set(this.sandbox.find("input[type=checkbox]")[0], "checked", true);
+    Attribute.reset(this.sandbox.find("input[type=checkbox]")[0], "checked");
+    assert.isFalse(Attribute.get(this.sandbox.find("input[type=checkbox]")[0], "checked"));
 
-      Attribute.set(_checkBox, "readOnly", true);
-      Attribute.reset(_checkBox, "readonly");
-      assert.isFalse(Attribute.get(_checkBox, "readonly"));
+    Attribute.set(this.sandbox.find("input[type=checkbox]")[0], "readOnly", true);
+    Attribute.reset(this.sandbox.find("input[type=checkbox]")[0], "readonly");
+    assert.isFalse(Attribute.get(this.sandbox.find("input[type=checkbox]")[0], "readonly"));
 
-      Attribute.set(_input, "value", "foo");
-      Attribute.reset(_input, "value");
-      assert.isNull(Attribute.get(_input, "value"));
-
+    Attribute.set(this.sandbox.find("input[type!=checkbox]")[0], "value", "foo");
+    Attribute.reset(this.sandbox.find("input[type!=checkbox]")[0], "value");
+    assert.isNull(Attribute.get(this.sandbox.find("input[type!=checkbox]")[0], "value"));
   });
 });

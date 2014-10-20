@@ -21,31 +21,29 @@
 describe("bom.AnimationFrame", function ()
 {
 
-  beforeEach (function () 
-  {
-     var __frame = new qx.bom.AnimationFrame();
+  beforeEach (function () {
+     this.__frame = new qx.bom.AnimationFrame();
   });
- 
+
   it("Start", function(done) {
-      var clb = sinon.spy();
-      __frame.once("frame", clb);
-      __frame.startSequence(300);
-      setTimeout(function() {
-        sinon.assert.calledOnce(clb);
-        assert.isTrue(clb.args[0][0] >= 0);
-        done();
-      }, 300);
+    var clb = sinon.spy();
+    this.__frame.once("frame", clb);
+    this.__frame.startSequence(300);
+    setTimeout(function() {
+      sinon.assert.calledOnce(clb);
+      assert.isTrue(clb.args[0][0] >= 0);
+      done();
+    }, 300);
   });
- 
+
   it("Cancel", function(done) {
-      var clb = sinon.spy();
-      __frame.once("frame", clb);
-      __frame.startSequence(300);
-      __frame.cancelSequence();
-      setTimeout(function() {
-        sinon.assert.notCalled(clb);
-        done();
-      }, 500);
-    
+    var clb = sinon.spy();
+    this.__frame.once("frame", clb);
+    this.__frame.startSequence(300);
+    this.__frame.cancelSequence();
+    setTimeout(function() {
+      sinon.assert.notCalled(clb);
+      done();
+    }, 500);
   });
 });

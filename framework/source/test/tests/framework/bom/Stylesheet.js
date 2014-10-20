@@ -27,7 +27,7 @@
 describe("bom.Stylesheet", function ()
 {
 
-  afterEach (function () 
+  afterEach (function ()
   {
     if (__sheet) {
       var ownerNode = __sheet.ownerNode || __sheet.owningNode;
@@ -54,97 +54,96 @@ describe("bom.Stylesheet", function ()
       }
       qx.bom.Stylesheet.removeImport(sheet, uri);
   });
- 
+
   it("AddRule", function() {
-      var sheet = __sheet = qx.bom.Stylesheet.createElement();
-      qx.bom.Stylesheet.addRule(sheet, "#foo", "color: red;");
-      var rules = sheet.cssRules || sheet.rules;
-      assert.equal(1, rules.length);
-      assert.equal("#foo", rules[0].selectorText);
-      if (qx.core.Environment.get("qx.debug")) {
-        assert.throw(function() {
-          qx.bom.Stylesheet.addRule(sheet, "#foo", "{color: red;}");
-        }, qx.core.AssertionError);
-      }
+    var sheet = __sheet = qx.bom.Stylesheet.createElement();
+    qx.bom.Stylesheet.addRule(sheet, "#foo", "color: red;");
+    var rules = sheet.cssRules || sheet.rules;
+    assert.equal(1, rules.length);
+    assert.equal("#foo", rules[0].selectorText);
+    if (qx.core.Environment.get("qx.debug")) {
+      assert.throws(function() {
+        qx.bom.Stylesheet.addRule(sheet, "#foo", "{color: red;}");
+      }, qx.core.AssertionError);
+    }
   });
- 
+
   it("CreateElement", function() {
-      var sheet = __sheet = qx.bom.Stylesheet.createElement();
-      var rules = sheet.cssRules || sheet.rules;
-      assert.isDefined(rules, "Created element is not a stylesheet!");
-      assert.equal(0, rules.length);
+    var sheet = __sheet = qx.bom.Stylesheet.createElement();
+    var rules = sheet.cssRules || sheet.rules;
+    assert.isDefined(rules, "Created element is not a stylesheet!");
+    assert.equal(0, rules.length);
   });
- 
+
   it("CreateElementWithText", function() {
-      var cssText = "#foo { color: red; }";
-      var sheet = __sheet = qx.bom.Stylesheet.createElement(cssText);
-      var rules = sheet.cssRules || sheet.rules;
-      assert.isDefined(rules, "Created element is not a stylesheet!");
-      assert.equal(1, rules.length);
-      assert.equal("#foo", rules[0].selectorText);
+    var cssText = "#foo { color: red; }";
+    var sheet = __sheet = qx.bom.Stylesheet.createElement(cssText);
+    var rules = sheet.cssRules || sheet.rules;
+    assert.isDefined(rules, "Created element is not a stylesheet!");
+    assert.equal(1, rules.length);
+    assert.equal("#foo", rules[0].selectorText);
   });
- 
+
   it("IncludeFile", function() {
-      var uri = qx.util.ResourceManager.getInstance().toUri("../resource/qx/test/style.css");
-      qx.bom.Stylesheet.includeFile(uri);
-      var linkElems = document.getElementsByTagName("link");
-      var found = false;
-      for (var i=0, l=linkElems.length; i<l; i++) {
-        if (linkElems[i].href.match(/test\/style\.css/)) {
-          found = true;
-          break;
-        }
+    var uri = qx.util.ResourceManager.getInstance().toUri("../resource/qx/test/style.css");
+    qx.bom.Stylesheet.includeFile(uri);
+    var linkElems = document.getElementsByTagName("link");
+    var found = false;
+    for (var i=0, l=linkElems.length; i<l; i++) {
+      if (linkElems[i].href.match(/test\/style\.css/)) {
+        found = true;
+        break;
       }
-      assert(found, "Link element was not added to the document!");
+    }
+    assert(found, "Link element was not added to the document!");
   });
- 
+
   it("RemoveAllImports", function() {
-      var sheet = __sheet = qx.bom.Stylesheet.createElement();
-      var uri = qx.util.ResourceManager.getInstance().toUri("../resource/qx/test/style.css");
-      qx.bom.Stylesheet.addImport(sheet, uri);
-      qx.bom.Stylesheet.addImport(sheet, uri);
-      qx.bom.Stylesheet.removeAllImports(sheet);
-      if (sheet.cssRules) {
-        var rules = sheet.cssRules || sheet.rules;
-        assert.equal(0, sheet.cssRules.length);
-      }
-      else if (typeof sheet.cssText == "string") {
-        assert.equal("", sheet.cssText);
-      }
+    var sheet = __sheet = qx.bom.Stylesheet.createElement();
+    var uri = qx.util.ResourceManager.getInstance().toUri("../resource/qx/test/style.css");
+    qx.bom.Stylesheet.addImport(sheet, uri);
+    qx.bom.Stylesheet.addImport(sheet, uri);
+    qx.bom.Stylesheet.removeAllImports(sheet);
+    if (sheet.cssRules) {
+      var rules = sheet.cssRules || sheet.rules;
+      assert.equal(0, sheet.cssRules.length);
+    }
+    else if (typeof sheet.cssText == "string") {
+      assert.equal("", sheet.cssText);
+    }
   });
- 
+
   it("RemoveAllRules", function() {
-      var sheet = __sheet = qx.bom.Stylesheet.createElement();
-      qx.bom.Stylesheet.addRule(sheet, "#foo", "color: red;");
-      qx.bom.Stylesheet.addRule(sheet, "#bar", "color: blue;");
-      var rules = sheet.cssRules || sheet.rules;
-      assert.equal(2, rules.length);
+    var sheet = __sheet = qx.bom.Stylesheet.createElement();
+    qx.bom.Stylesheet.addRule(sheet, "#foo", "color: red;");
+    qx.bom.Stylesheet.addRule(sheet, "#bar", "color: blue;");
+    var rules = sheet.cssRules || sheet.rules;
+    assert.equal(2, rules.length);
 
-      qx.bom.Stylesheet.removeAllRules(sheet);
-      rules = sheet.cssRules || sheet.rules;
-      assert.equal(0, rules.length);
+    qx.bom.Stylesheet.removeAllRules(sheet);
+    rules = sheet.cssRules || sheet.rules;
+    assert.equal(0, rules.length);
   });
- 
+
   it("RemoveImport", function() {
-      var sheet = __sheet = qx.bom.Stylesheet.createElement();
-      var uri = qx.util.ResourceManager.getInstance().toUri("../resource/qx/test/style.css");
-      qx.bom.Stylesheet.addImport(sheet, uri);
+    var sheet = __sheet = qx.bom.Stylesheet.createElement();
+    var uri = qx.util.ResourceManager.getInstance().toUri("../resource/qx/test/style.css");
+    qx.bom.Stylesheet.addImport(sheet, uri);
 
-      qx.bom.Stylesheet.removeImport(sheet, uri);
-      if (sheet.cssRules) {
-        var rules = sheet.cssRules || sheet.rules;
-        assert.equal(0, sheet.cssRules.length);
-      }
-      else if (typeof sheet.cssText == "string") {
-        assert.equal("", sheet.cssText);
-      }
-  });
- 
-  it("RemoveRule", function() {
-      var sheet = __sheet = qx.bom.Stylesheet.createElement("#foo { color: red; }");
-      qx.bom.Stylesheet.removeRule(sheet, "#foo");
+    qx.bom.Stylesheet.removeImport(sheet, uri);
+    if (sheet.cssRules) {
       var rules = sheet.cssRules || sheet.rules;
-      assert.equal(0, rules.length);
+      assert.equal(0, sheet.cssRules.length);
+    }
+    else if (typeof sheet.cssText == "string") {
+      assert.equal("", sheet.cssText);
+    }
   });
-  
+
+  it("RemoveRule", function() {
+    var sheet = __sheet = qx.bom.Stylesheet.createElement("#foo { color: red; }");
+    qx.bom.Stylesheet.removeRule(sheet, "#foo");
+    var rules = sheet.cssRules || sheet.rules;
+    assert.equal(0, rules.length);
+  });
 });

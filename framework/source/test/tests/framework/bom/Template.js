@@ -30,7 +30,7 @@ describe("bom.Template", function ()
     /**
      * render()
      */
- 
+
  it("Replace", function() {
       var template = "{{name}} xyz";
       var view = {name: "abc"};
@@ -39,16 +39,16 @@ describe("bom.Template", function ()
 
       assert.equal(expected, result);
   });
- 
+
   it("Function", function() {
       var template = "{{name}} xyz";
-      var view = {name: function() {return "abc"}};
+      var view = {name: function() {return "abc";}};
       var result = qx.bom.Template.render(template, view);
       var expected = "abc xyz";
 
       assert.equal(expected, result);
   });
- 
+
   it("List", function() {
       var template = "{{#l}}{{.}}{{/l}}";
       var view = {l : ["a", "b", "c"]};
@@ -74,7 +74,7 @@ describe("bom.Template", function ()
 
     assert.equal(expected, result);
   }
- 
+
   it("Object", function() {
       var template = "{{#o}}{{b}}{{a}}{{/o}}";
       var view = {o: {a: 1, b: 2}};
@@ -83,7 +83,7 @@ describe("bom.Template", function ()
 
       assert.equal(expected, result);
   });
- 
+
   it("Wrapper", function() {
       var template = "{{#b}}yo{{/b}}";
       var view = {
@@ -98,7 +98,7 @@ describe("bom.Template", function ()
 
       assert.equal(expected, result);
   });
- 
+
   it("InvertedSelection", function() {
       var template = "{{^a}}yo{{/a}}";
       var view = {a: []};
@@ -107,7 +107,7 @@ describe("bom.Template", function ()
 
       assert.equal(expected, result);
   });
- 
+
   it("Escaping", function() {
       var template = "{{a}}";
       var view = {a: "<a>"};
@@ -116,10 +116,10 @@ describe("bom.Template", function ()
 
       assert.equal(expected, result);
 
-      var template = "{{{a}}}";
-      var view = {a: "<a>"};
-      var result = qx.bom.Template.render(template, view);
-      var expected = "<a>";
+      template = "{{{a}}}";
+      view = {a: "<a>"};
+      result = qx.bom.Template.render(template, view);
+      expected = "<a>";
 
       assert.equal(expected, result);
   });
@@ -128,32 +128,33 @@ describe("bom.Template", function ()
     /**
      * renderToNode()
      */
- 
-  it("RenderToNode", function() {
-      var el = qx.bom.Template.renderToNode("<div>{{a}}</div>", {a: 123});
 
-      assert.equal("DIV", el.tagName);
-      assert.equal("123", el.innerHTML);
+  it("RenderToNode", function() {
+    var el = qx.bom.Template.renderToNode("<div>{{a}}</div>", {a: 123});
+
+    assert.equal(el.DOCUMENT_FRAGMENT_NODE, el.nodeType);
+    assert.equal("DIV", el.childNodes[0].tagName);
+    assert.equal("123", el.childNodes[0].innerHTML);
   });
- 
+
   it("RenderToNodePlainText", function() {
       var tmpl = "{{a}}.{{b}}";
       var el = qx.bom.Template.renderToNode(tmpl, {a: 123, b: 234});
 
       assert.equal("123.234", el.data);
   });
- 
+
   it("RenderToNodeMixed", function() {
       var tmpl = "<div>{{a}}<span>{{b}}</span></div>";
       var el = qx.bom.Template.renderToNode(tmpl, {a: 123, b: 234});
 
-      assert.equal("123<span>234</span>", el.innerHTML.toLowerCase());
+      assert.equal("123<span>234</span>", el.childNodes[0].innerHTML.toLowerCase());
   });
 
     /**
      * _createNodeFromTemplate()
      */
- 
+
   it("CreateNodeFromTemplateTextNode", function() {
       var tmpl = "{{a}}.{{b}}";
       var el = qx.bom.Template._createNodeFromTemplate(tmpl);
@@ -161,19 +162,19 @@ describe("bom.Template", function ()
       // Node.TEXT_NODE === 3 (IE <= 8 doesn't know 'Node')
       assert.equal(3, el.nodeType);
   });
- 
+
   it("CreateNodeFromTemplateElementNode", function() {
       var tmpl = "<div>{{a}}</div>";
       var el = qx.bom.Template._createNodeFromTemplate(tmpl);
 
       // Node.ELEMENT_NODE === 1 (IE <= 8 doesn't know 'Node')
-      assert.equal(1, el.nodeType);
+      assert.equal(1, el.childNodes[0].nodeType);
   });
 
     /**
      * get()
      */
- 
+
  it("Get", function() {
       // add template
       __tmpl = qx.dom.Element.create("div");
@@ -185,10 +186,10 @@ describe("bom.Template", function ()
       // test the get method
       var el = qx.bom.Template.get("qx-test-template", {a: 123});
 
-      assert.equal("DIV", el.tagName);
-      assert.equal("123", el.innerHTML);
+      assert.equal("DIV", el.childNodes[0].tagName);
+      assert.equal("123", el.childNodes[0].innerHTML);
   });
- 
+
   it("PlainText", function() {
       // add template
       __tmpl = qx.dom.Element.create("div");
@@ -201,7 +202,8 @@ describe("bom.Template", function ()
       var el = qx.bom.Template.get("qx-test-template", {a: 123, b: 234});
       assert.equal("123.234", el.data);
   });
- 
+
+
   it("GetMixed", function() {
       // add template
       __tmpl = qx.dom.Element.create("div");
@@ -214,7 +216,7 @@ describe("bom.Template", function ()
       var el = qx.bom.Template.get("qx-test-template", {a: 123, b: 234});
 
       // IE uses uppercase tag names
-      assert.equal("123<span>234</span>", el.innerHTML.toLowerCase());
-    
+      assert.equal("123<span>234</span>", el.childNodes[0].innerHTML.toLowerCase());
+
   });
 });

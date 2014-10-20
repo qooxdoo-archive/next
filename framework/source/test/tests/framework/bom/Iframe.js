@@ -22,14 +22,15 @@ describe("bom.Iframe", function ()
   var __iframe = null;
 
   afterEach (function ()  {
-    __iframe = null;
+    __iframe.remove();
   });
 
   it("Create", function() {
      __iframe = qx.bom.Iframe.create();
      __testAttributes(qx.bom.Iframe.DEFAULT_ATTRIBUTES);
   });
- 
+
+
   it("CreateWithAttributes", function() {
       var attributes = qx.lang.Object.clone(qx.bom.Iframe.DEFAULT_ATTRIBUTES);
       attributes.allowTransparency = false;
@@ -53,12 +54,12 @@ describe("bom.Iframe", function ()
         "Wrong value on attribute '" + key + "'");
     }
   }
- 
+
   it("GetWindow", function() {
      __iframe = qx.bom.Iframe.create();
       qx.dom.Element.insertBegin(__iframe, document.body);
 
       assert.isNotNull(qx.bom.Iframe.getWindow(__iframe));
-    
+
   });
 });

@@ -18,163 +18,67 @@
 
 ************************************************************************ */
 
-describe("bom.History", function (){
-
+describe("bom.History", function () {
 
   var __history = null;
 
-
-  function hasNoIe ()
-  {
-    return qx.core.Environment.get("engine.name") !== "mshtml";
-  }
-
-
-  beforeEach (function ()
-  {
+  beforeEach (function () {
     __history = qx.bom.History.getInstance();
-});
+    if (__history._writeState.restore) {
+      __history._writeState.restore();
+    }
+    sinon.spy(__history, "_writeState");
+  });
+
 
   it("Instance", function() {
-      var runsInIframe = !(window == window.top);
-      if (!$$instance)
-      {
-        // in iframe + IE9
-        if (runsInIframe
-          && qx.core.Environment.get("browser.documentmode") == 9
-        ) {
-          assert.instanceOf(__history, qx.bom.HashHistory);
-        }
-
-        // browser with hashChange event
-        else {
-          assert.instanceOf(__history, qx.bom.NativeHistory);
-        }
-      }
-  });
-
-  it("AddState", function(done) {
-      __history.addToHistory("foo", "Title Foo");
-
-      setTimeout(function() {
-          __checkState();
-          done();
-      }, 200);
-  });
-
-  it("NavigateBack", function(done) {
-      __history.addToHistory("foo", "Title Foo");
-      setTimeout(function() {
-          __checkFooAndSetBar();
-          done();
-      }, 200);
-
-    });
-
-
-    function __checkFooAndSetBar (done)
-    {
-
-      assert.equal("foo", __history._readState(), "check1");
-      __history.addToHistory("bar", "Title Bar");
-     setTimeout(function() {
-          __checkBarAndGoBack();
-          done();
-      }, 200);
+    var runsInIframe = !(window == window.top);
+    // in iframe + IE9
+    if (runsInIframe
+      && qx.core.Environment.get("browser.documentmode") == 9
+    ) {
+      assert.instanceOf(__history, qx.bom.HashHistory);
     }
 
-
-    function __checkBarAndGoBack (done)
-    {
-
-      assert.equal("bar", __history._readState(), "check2");
-      history.back();
-      setTimeout(function() {
-
-          __checkState();
-          done();
-      }, 200);
+    // browser with hashChange event
+    else {
+      assert.instanceOf(__history, qx.bom.NativeHistory);
     }
-
-
-    function __checkState ()
-    {
-      assert.equal("foo", __history._readState(), "check3");
-      assert.equal("Title Foo", __history.title);
-    }
-
-  it("NavigateBackAfterSetState", function(done) {
-      __history.state = "affe";
-      window.setTimeout(function() {
-          __setState_checkAffeAndSetFoo();
-          done();
-      }, 200);
   });
 
 
-  function __setState_checkAffeAndSetFoo (done)
-  {
+  it("AddState", function() {
+    __history.addToHistory("foo");
+    sinon.assert.calledOnce(__history._writeState);
+  });
 
-    assert.equal("affe", __history._readState(), "check0");
-    __history.state = "foo";
-    setTimeout(function() {
-        __setState_checkFooAndSetBar();
-        done();
-    }, 200);
-  }
-
-
-  function __setState_checkFooAndSetBar (done)
-  {
-
-    assert.equal("foo", __history._readState(), "check1");
-    __history.state = "bar";
-    setTimeout(function() {
-        __setState_checkBarAndGoBack();
-        done();
-    }, 300);
-  }
-
-
-  function __setState_checkBarAndGoBack (done)
-  {
-
-    assert.equal("bar", __history._readState(), "check2");
-    history.back();
-    setTimeout(function() {
-        assert.equal("foo", __history._readState(), "check3");
-        done();
-    }, 200);
-  }
 
   it("RequestEvent", function(done) {
-      // "request" event just will be fired, if a user goes back or farward in
-      // the history
-      __history.once("request", function() {
-        setTimeout(function() {
-          // "request" event has been fired
-          assert.isTrue(true);
-          done();
-        }, 0);
-      }, this);
+    // "request" event just will be fired, if a user goes back or farward in
+    // the history
+    __history.once("request", function() {
+      setTimeout(function() {
+        // "request" event has been fired
+        assert.isTrue(true);
+        done();
+      }, 0);
+    }, this);
 
-      __history.state = "bar";
-      history.back();
-
+    __history.state = "bar";
+    history.back();
   });
 
+
   it("RequestEventAddHistory", function(done) {
-      __history.once("request", function(state) {
-       setTimeout(function() {
-          assert.equal("baz", state);
-          done();
-        }, 500);
-      }, this);
+    __history.once("request", function(state) {
+     setTimeout(function() {
+        assert.equal("baz", state);
+        done();
+      }, 500);
+    }, this);
 
-      window.setTimeout(function() {
-        __history.addToHistory("baz");
-      }, 250);
-
-
+    window.setTimeout(function() {
+      __history.addToHistory("baz");
+    }, 250);
   });
 });
