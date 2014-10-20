@@ -13,6 +13,7 @@
     "glob": "^4.0.6",
     "grunt": "^0.4.5",
     "mocha": "*",
+    "shelljs": "^0.3.0",
     "sinon": "*"
   },
   "src_files": [

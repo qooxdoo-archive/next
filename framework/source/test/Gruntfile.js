@@ -27,4 +27,16 @@ module.exports = function(grunt) {
     // write index file
     fs.writeFileSync('index.html', index, {'encoding': 'utf8'});
   });
+
+
+  var shell = require('shelljs');
+  grunt.registerTask('build', 'Build the test artefact', function() {
+    shell.cd('../../');
+    console.log('Opening the framework folder');
+    shell.exec('grunt build-all');
+    shell.cd('source/test');
+  });
+
+
+  grunt.registerTask('default', ['build', 'html']);
 };
