@@ -4,7 +4,7 @@ qx.Class.define("testrunner.view.mobile.MainButton", {
 
   construct : function(label, icon)
   {
-    this.base(qx.ui.mobile.Button, "constructor", label, icon);
+    this.super(qx.ui.mobile.Button, "constructor", label, icon);
     qx.bom.element.Class.replace(this[0], "button", "navigationbar-backbutton");
   },
 

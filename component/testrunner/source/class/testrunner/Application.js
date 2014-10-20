@@ -38,7 +38,7 @@ qx.Class.define("testrunner.Application",
     main : function()
     {
       // Call super class
-      this.base(qx.application.Native, "main");
+      this.super(qx.application.Native, "main");
 
       // Enable logging in debug variant
       if (qx.core.Environment.get("qx.debug"))

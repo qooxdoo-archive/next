@@ -32,7 +32,7 @@ describe("mobile.LocaleSwitch", function()
   afterEach( function (){
      tearDownRoot();
   });
-    //this.base(qx.test.mobile.MobileTestCase, "constructor");
+    //this.super(qx.test.mobile.MobileTestCase, "constructor");
     var manager = qx.locale.Manager.getInstance();
 
     // add dummy translations
@@ -68,7 +68,7 @@ describe("mobile.LocaleSwitch", function()
       setUpRoot();
       manager.locale = "en_QX";
     });
- 
+
  it("Label", function() {
       var manager = qx.locale.Manager;
       var label = new qx.ui.mobile.basic.Label(manager.tr("test one"));
@@ -94,7 +94,7 @@ describe("mobile.LocaleSwitch", function()
     });
   //test failed
  it("List", function() {
-  
+
       var manager = qx.locale.Manager;
       var list = new qx.ui.mobile.list.List({
         configureItem : function(item, data, row) {
@@ -163,6 +163,6 @@ describe("mobile.LocaleSwitch", function()
       manager.locale = "en_QX";
 
       title.dispose();
-    
+
   });
 });

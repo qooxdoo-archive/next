@@ -24,24 +24,24 @@ describe("mobile.form.Form", function()
 
   beforeEach (function ()  {
     setUpRoot();
-    //this.base(qx.test.mobile.MobileTestCase, "setUp");
+    //this.super(qx.test.mobile.MobileTestCase, "setUp");
     __form = __createForm();
   });
 
   afterEach (function() {
     tearDownRoot();
-    //qx.Class.base(qx.test.mobile.MobileTestCase, "tearDown");
+    //qx.Class.super(qx.test.mobile.MobileTestCase, "tearDown");
     __username.dispose();
     __form.dispose();
   });
- 
+
   it("CheckValidity", function() {
       assert.isFalse(__form.checkValidity());
 
       __username.setValue('myusername');
       assert.isTrue(__form.checkValidity());
   });
- 
+
   it("ChangeRequired", function() {
       assert.isFalse(__form.checkValidity());
 
@@ -50,7 +50,7 @@ describe("mobile.form.Form", function()
   });
   //test failed
   it("Reset", function() {
-    
+
       __username.value = "Foo";
       assert.equal("Foo", __username.value);
       assert.isTrue(__form.checkValidity());
@@ -58,7 +58,7 @@ describe("mobile.form.Form", function()
       assert.equal(null, __username.value);
       assert.isFalse(__form.checkValidity());
   });
- 
+
   it("ResetRemoved", function() {
       __username.value = "Foo";
       assert.equal("Foo", __username.value);
@@ -82,5 +82,5 @@ describe("mobile.form.Form", function()
       return form;
     }
 
-  
+
 });

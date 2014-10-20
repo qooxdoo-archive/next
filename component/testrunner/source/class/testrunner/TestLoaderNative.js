@@ -55,7 +55,7 @@ qx.Class.define("testrunner.TestLoaderNative",
     main : function()
     {
       testrunner.TestLoader.instance = this;
-      this.base(qx.dev.unit.TestLoaderNative, "main");
+      this.super(qx.dev.unit.TestLoaderNative, "main");
     }
   }
 });

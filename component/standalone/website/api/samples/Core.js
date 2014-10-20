@@ -68,7 +68,7 @@ addSample("q.define", {javascript :function() {
     extend : Dog,
     members : {
       bark : function() {
-        this.base(arguments); // call 'bark' of Dog
+        this.super(arguments); // call 'bark' of Dog
         console.log("wuuuuuuff");
       }
     }

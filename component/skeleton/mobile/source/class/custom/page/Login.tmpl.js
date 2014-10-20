@@ -16,7 +16,7 @@ qx.Class.define("${Namespace}.page.Login",
 
   construct : function()
   {
-    this.base(qx.ui.mobile.page.NavigationPage, "constructor");
+    this.super(qx.ui.mobile.page.NavigationPage, "constructor");
     this.title = "Login";
   },
 
@@ -28,7 +28,7 @@ qx.Class.define("${Namespace}.page.Login",
 
     // overridden
     _initialize: function() {
-      this.base(qx.ui.mobile.page.NavigationPage, "_initialize");
+      this.super(qx.ui.mobile.page.NavigationPage, "_initialize");
 
       // Username
       var user = new qx.ui.mobile.form.TextField();

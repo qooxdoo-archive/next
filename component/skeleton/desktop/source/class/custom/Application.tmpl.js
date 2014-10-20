@@ -28,15 +28,15 @@ qx.Class.define("${Namespace}.Application",
   members :
   {
     /**
-     * This method contains the initial application code and gets called 
+     * This method contains the initial application code and gets called
      * during startup of the application
-     * 
+     *
      * @lint ignoreDeprecated(alert)
      */
     main : function()
     {
       // Call super class
-      this.base(arguments);
+      this.super(arguments);
 
       // Enable logging in debug variant
       if (qx.core.Environment.get("qx.debug"))

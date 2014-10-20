@@ -255,20 +255,20 @@ describe("Class", function ()
         extend : qx.test.Car,
 
         construct : function affe(name, prize) {
-          this.base(qx.test.Car, "constructor", name);
+          this.super(qx.test.Car, "constructor", name);
         },
 
         members :
         {
           startEngine : function()
           {
-            var ret = this.base(qx.test.Car, "startEngine");
+            var ret = this.super(qx.test.Car, "startEngine");
             return "brrr " + ret;
           },
 
           stopEngine : function()
           {
-            var ret = this.base(qx.test.Car, "stopEngine");
+            var ret = this.super(qx.test.Car, "stopEngine");
             return "brrr " + ret;
           },
 
@@ -278,8 +278,8 @@ describe("Class", function ()
 
           getMaxSpeed : function()
           {
-            // call base in non overridden method
-            this.base(qx.test.Car, "getMaxSpeed");
+            // call super in non overridden method
+            this.super(qx.test.Car, "getMaxSpeed");
           }
         },
 

@@ -41,7 +41,7 @@ qx.Class.define("testrunner.runner.TestRunner", {
       this.TEST_MIXINS.push(qx.dev.unit.MMeasure);
     }
 
-    this.base(testrunner.runner.TestRunnerBasic, "constructor");
+    this.super(testrunner.runner.TestRunnerBasic, "constructor");
 
     // Get log appender element from view
     if (this.view.getLogAppenderElement) {
@@ -170,7 +170,7 @@ qx.Class.define("testrunner.runner.TestRunner", {
       if (this.__logAppender) {
         this.__logAppender.clear();
       }
-      this.base(testrunner.runner.TestRunnerBasic, "_runTests");
+      this.super(testrunner.runner.TestRunnerBasic, "_runTests");
     },
 
 
@@ -194,7 +194,7 @@ qx.Class.define("testrunner.runner.TestRunner", {
         }
       }
 
-      this.base(testrunner.runner.TestRunnerBasic, "_onTestEnd");
+      this.super(testrunner.runner.TestRunnerBasic, "_onTestEnd");
     },
 
 
@@ -314,7 +314,7 @@ qx.Class.define("testrunner.runner.TestRunner", {
       delete this.__iframe;
       this.frameWindow = null;
       delete this.frameWindow;
-      this.base(testrunner.runner.TestRunnerBasic, "dispose");
+      this.super(testrunner.runner.TestRunnerBasic, "dispose");
     }
   }
 

@@ -33,15 +33,15 @@ qx.Class.define("${Namespace}.Application",
   members :
   {
     /**
-     * This method contains the initial application code and gets called 
+     * This method contains the initial application code and gets called
      * during startup of the application
-     * 
+     *
      * @lint ignoreDeprecated(alert)
      */
     main : function()
     {
       // Call super class
-      this.base(arguments);
+      this.super(arguments);
 
       // Enable logging in debug variant
       if (qx.core.Environment.get("qx.debug"))
@@ -57,22 +57,22 @@ qx.Class.define("${Namespace}.Application",
         Below is your actual application code...
       -------------------------------------------------------------------------
       */
-      
-      
+
+
       /*
       -------------------------------------------------------------------------
         USE AN EXISTING NODE TO ADD WIDGETS INTO THE PAGE LAYOUT FLOW
       -------------------------------------------------------------------------
       */
-      
+
       // Hint: the second and the third parameter control if the dimensions
       // of the element should be respected or not.
       var htmlElement = document.getElementById("isle");
       var inlineIsle = new qx.ui.root.Inline(htmlElement, true, true);
-      
+
       // use VBox layout instead of basic
       inlineIsle.setLayout(new qx.ui.layout.VBox);
-      
+
       // new container
       var container = new qx.ui.container.Composite(new qx.ui.layout.HBox);
 
@@ -95,7 +95,7 @@ qx.Class.define("${Namespace}.Application",
 
       // Add an event listener
       button1.addListener("execute", function(e) {
-        alert("I'm a button inside an inline root widget!\n" + 
+        alert("I'm a button inside an inline root widget!\n" +
               "I nicely fit into the page layout flow.");
       });
 
@@ -114,7 +114,7 @@ qx.Class.define("${Namespace}.Application",
 
       // Add an event listener
       button2.addListener("execute", function(e) {
-        alert("I'm an absolutely positioned button!\n" + 
+        alert("I'm an absolutely positioned button!\n" +
               "I overlay existing content.");
       });
     }

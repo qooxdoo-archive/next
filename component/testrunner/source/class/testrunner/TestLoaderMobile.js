@@ -50,7 +50,7 @@ qx.Class.define("testrunner.TestLoaderMobile",
     main : function()
     {
       testrunner.TestLoader.instance = this;
-      this.base(qx.dev.unit.TestLoaderMobile, "main");
+      this.super(qx.dev.unit.TestLoaderMobile, "main");
     }
   }
 });
