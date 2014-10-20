@@ -111,7 +111,7 @@ qx.Class.define("qx.module.Template", {
         wrapper.appendChild(el);
         el = wrapper;
       } else if (qxWeb.isDocumentFragment(el)) {
-        return el.children;
+        return el.childNodes;
       }
       return [el];
     }
