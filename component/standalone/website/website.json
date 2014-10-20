@@ -17,10 +17,6 @@
       ]
     },
     {
-      "path" : "${QOOXDOO_PATH}/component/testrunner/portable.json",
-      "as" : "testrunner-portable"
-    },
-    {
       "path" : "module.json",
       "block" : [
         "build-module-min"
@@ -36,10 +32,8 @@
     "LOCALES"      : [ "en" ],
     "CACHE"        : "${TMPDIR}/qx${QOOXDOO_VERSION}/cache",
     "ROOT"         : ".",
-    "TESTRUNNER_ROOT"  : "${QOOXDOO_PATH}/component/testrunner",
-    "TESTRUNNER_VIEW" : "testrunner.view.Html",
     "SCRIPT_PATH"      : "script",
-    "TEST_SCRIPT_PATH" : "./test/script",
+
     "API_SCRIPT_PATH"  : "api/script",
     "QXWEB_ALL" : [
       "qx.module.*",
@@ -52,8 +46,7 @@
 
   "config-warnings" :
   {
-    "job-shadowing" : [ "common", "testrunner-portable::build-script", "distclean", "clean", "build" ],
-
+    "job-shadowing" : [ "common", "distclean", "clean", "build" ],
     "environment" : [ "non-literal-keys" ]
   },
 
@@ -112,105 +105,6 @@
           "loader-template" : "${QOOXDOO_PATH}/tool/data/generator/website.loader.source.tmpl.js"
 
         }
-      }
-    },
-
-    "test-source" :
-    {
-      "run" : [
-        "test-source-script"
-      ]
-    },
-
-    "test-source-script" :
-    {
-      "extend" : ["testrunner-portable::source-script"],
-
-      "desc" : "generates a combined source version of q and the portable test runner",
-
-      "let" :
-      {
-        "TESTRUNNER_ORIGIN" : "external"
-      },
-
-      "environment" :
-      {
-        "qx.debug" : true
-      },
-
-      "include" : "${QXWEB_ALL}",
-
-      "compile-options" :
-      {
-        "paths" :
-        {
-          "file" : "${TEST_SCRIPT_PATH}/q-test-source.js"
-        },
-        "code" :
-        {
-          "except" : ["*"]
-        }
-      }
-    },
-
-    "build-min-test" :
-    {
-      "extend" : ["build-min"],
-
-      "let" : {
-        "Q_INCLUDES" : "${QXWEB_ALL}"
-      },
-
-      "compile-options" :
-      {
-        "paths"  :
-        {
-          "=file" : "${TEST_SCRIPT_PATH}/q${QFILES_VERSION_PART}.min.js"
-        }
-      }
-    },
-
-    "test" :
-    {
-      "let" :
-      {
-        "BUILD_SCRIPT_FILE" : "${TEST_SCRIPT_PATH}/testrunner-portable.js"
-      },
-
-      "run" : [
-        "build-min-test",
-        "testrunner-portable::build-script",
-        "testrunner-portable::gen-css"
-      ]
-    },
-
-    "test-module" :
-    {
-      "let" :
-      {
-        "BUILD_SCRIPT_FILE" : "${TEST_SCRIPT_PATH}/testrunner-portable.js",
-        "BUILD_PATH" : "${TEST_SCRIPT_PATH}"
-      },
-
-      "run" : [
-        "build-module-all-min",
-        "testrunner-portable::build-script",
-        "testrunner-portable::gen-css"
-      ]
-    },
-
-
-    "testrunner-portable::build-script" :
-    {
-      "let" : {
-        "TESTRUNNER_VIEW" : "${TESTRUNNER_VIEW}"
-      },
-
-      "exclude" : "${QXWEB_ALL}",
-
-      "config-warnings" :
-      {
-        "exclude" : "${QXWEB_ALL}"
       }
     },
 
@@ -274,10 +168,6 @@
         "Cleaning up api" :
         [
           "${API_SCRIPT_PATH}/*"
-        ],
-        "Cleaning up test" :
-        [
-          "${TEST_SCRIPT_PATH}/*"
         ]
       }
     }
