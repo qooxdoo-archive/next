@@ -1,4 +1,4 @@
- describe('Attribute', function() {
+describe('Attribute', function() {
 
   beforeEach (function () {
    globalSetup();
@@ -6,7 +6,7 @@
   afterEach (function () {
    globalTeardown();
  });
- 
+
   it("Html", function() {
     var test = q.create("<div/>");
     test.setHtml("affe");
@@ -23,7 +23,7 @@
     assert.equal(0, q("#sandbox > #one > #two").length);
     assert.equal(1, q("#sandbox > #two").length);
   })
- 
+
   it("Attribute", function() {
     var test = q.create("<div/>");
     test.setAttribute("id", "affe");
@@ -39,7 +39,7 @@
     assert.isNull(q(document).getAttribute("id"));
     q([window, document]).removeAttribute("id");
   })
- 
+
   it("Attributes", function() {
     var test = q.create("<div/>");
     test.setAttributes({"id": "affe", "x": "y"});
@@ -50,7 +50,7 @@
     assert.isNull(test.getAttributes(["id", "x"]).id);
     assert.isNull(test.getAttributes(["id", "x"]).x);
   })
- 
+
   it("Property", function() {
     var test = q.create("<div/>");
     test.setProperty("affe", "AFFE");
@@ -59,7 +59,7 @@
     test.removeProperty("affe");
     assert.isUndefined(test.getProperty("affe"));
   })
- 
+
   it("Properties", function() {
     var test = q.create("<div/>");
     test.setProperties({"affe": "AFFE", "x": "y"});
@@ -70,7 +70,7 @@
     assert.isUndefined(test.getProperty("affe"));
     assert.isUndefined(test.getProperty("x"));
   })
- 
+
   it("GetSetValue", function() {
     q.create('<input type="text" value="affe"/>' +
       '<input type="checkbox" value="affe"/>' +
@@ -107,4 +107,4 @@
     assert.isNull(q(document).getValue());
     assert.isNull(q(window).getValue());
   });
-}); 
+});

@@ -42,7 +42,6 @@ qx.Class.define("qx.bom.HashHistory",
 
   members :
   {
-    __checkOnHashChange : null,
     __iframe : null,
     __iframeReady : false,
     __intervalId : null,
