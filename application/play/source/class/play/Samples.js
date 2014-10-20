@@ -26,7 +26,7 @@ qx.Class.define("play.Samples",
   extend : qx.data.Array,
 
   construct : function() {
-    this.base(qx.data.Array, "constructor");
+    this.super(qx.data.Array, "constructor");
 
     for (var name in window.Samples) {
       name = name.replace("sample ", "");

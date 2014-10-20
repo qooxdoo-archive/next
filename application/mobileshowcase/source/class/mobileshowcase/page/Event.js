@@ -29,7 +29,7 @@ qx.Class.define("mobileshowcase.page.Event",
 
   construct : function()
   {
-    this.base(mobileshowcase.page.Abstract, "constructor", false);
+    this.super(mobileshowcase.page.Abstract, "constructor", false);
     this.title = "Events";
 
     this.__circles = [];
@@ -71,7 +71,7 @@ qx.Class.define("mobileshowcase.page.Event",
     // overridden
     _initialize : function()
     {
-      this.base(mobileshowcase.page.Abstract, "_initialize");
+      this.super(mobileshowcase.page.Abstract, "_initialize");
 
       var sclayout = new qx.ui.mobile.layout.VBox();
       sclayout.alignX = "center";

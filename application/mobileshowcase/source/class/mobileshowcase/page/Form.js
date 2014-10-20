@@ -28,7 +28,7 @@ qx.Class.define("mobileshowcase.page.Form",
 
   construct : function()
   {
-    this.base(mobileshowcase.page.Abstract, "constructor");
+    this.super(mobileshowcase.page.Abstract, "constructor");
     this.title = "Form";
     this.__items = [];
   },
@@ -47,7 +47,7 @@ qx.Class.define("mobileshowcase.page.Form",
     // overridden
     _initialize : function()
     {
-      this.base(mobileshowcase.page.Abstract, "_initialize");
+      this.super(mobileshowcase.page.Abstract, "_initialize");
       this.__form = this.__createForm();
 
       this.getContent().append(this.__form);
@@ -279,7 +279,7 @@ qx.Class.define("mobileshowcase.page.Form",
       if(this.__resultPopup) {
         this.__resultPopup.hide();
       }
-      this.base(mobileshowcase.page.Abstract, "_stop");
+      this.super(mobileshowcase.page.Abstract, "_stop");
     }
   }
 });

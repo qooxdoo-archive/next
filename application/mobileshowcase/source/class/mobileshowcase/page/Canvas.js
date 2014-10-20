@@ -29,7 +29,7 @@ qx.Class.define("mobileshowcase.page.Canvas",
 
   construct : function()
   {
-    this.base(mobileshowcase.page.Abstract, "constructor", false);
+    this.super(mobileshowcase.page.Abstract, "constructor", false);
     this.title = "Canvas";
     this.__ratio = qxWeb.env.get("device.pixelRatio");
   },
@@ -48,7 +48,7 @@ qx.Class.define("mobileshowcase.page.Canvas",
     // overridden
     _initialize : function()
     {
-      this.base(mobileshowcase.page.Abstract, "_initialize");
+      this.super(mobileshowcase.page.Abstract, "_initialize");
 
       this.__lastPoint = {};
 

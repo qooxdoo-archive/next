@@ -29,7 +29,7 @@ qx.Class.define("mobileshowcase.page.List",
 
   construct : function()
   {
-    this.base(mobileshowcase.page.Abstract, "constructor");
+    this.super(mobileshowcase.page.Abstract, "constructor");
     this.title = "List";
   },
 
@@ -48,7 +48,7 @@ qx.Class.define("mobileshowcase.page.List",
      * @lint ignoreDeprecated(alert)
      */
     _initialize: function() {
-      this.base(mobileshowcase.page.Abstract, "_initialize");
+      this.super(mobileshowcase.page.Abstract, "_initialize");
 
       this._waypointsY = ["0%", "25%", "50%", "75%", "100%", 200];
 
@@ -185,7 +185,7 @@ qx.Class.define("mobileshowcase.page.List",
             removable: false
           });
         }
-        
+
         this._loadingIndicator.exclude();
         this._isLoading = false;
 
