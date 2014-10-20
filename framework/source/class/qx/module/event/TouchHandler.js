@@ -43,11 +43,11 @@ qx.Class.define("qx.module.event.TouchHandler", {
      */
     register : function(element)
     {
-      if (!element.__touchHandler) {
+      if (!element.$$touchHandler) {
         if (!element.$$emitter) {
           element.$$emitter = new qx.event.Emitter();
         }
-        element.__touchHandler = new qx.event.handler.TouchCore(element, element.$$emitter);
+        element.$$touchHandler = new qx.event.handler.TouchCore(element, element.$$emitter);
       }
     },
 
@@ -59,9 +59,9 @@ qx.Class.define("qx.module.event.TouchHandler", {
      */
     unregister : function(element)
     {
-      if (element.__touchHandler) {
+      if (element.$$touchHandler) {
         if (!element.$$emitter) {
-          element.__touchHandler = null;
+          element.$$touchHandler = null;
         }
         else {
           var hasTouchListener = false;
@@ -72,7 +72,7 @@ qx.Class.define("qx.module.event.TouchHandler", {
             }
           });
           if (!hasTouchListener) {
-            element.__touchHandler = null;
+            element.$$touchHandler = null;
           }
         }
       }

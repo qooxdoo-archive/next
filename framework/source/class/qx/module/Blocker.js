@@ -54,16 +54,16 @@ qxWeb.define("qx.module.Blocker", {
         return;
       }
 
-      if (!item.__blocker) {
-        item.__blocker = {
+      if (!item.$$blocker) {
+        item.$$blocker = {
           div : qxWeb.create("<div class='qx-blocker' />")
         };
       }
 
       if (isDocument) {
-        item.__blocker.div.insertBefore(qxWeb(win.document.body).getChildren(':first'));
+        item.$$blocker.div.insertBefore(qxWeb(win.document.body).getChildren(':first'));
       } else {
-        item.__blocker.div.appendTo(win.document.body);
+        item.$$blocker.div.appendTo(win.document.body);
       }
 
       qx.module.Blocker.__styleBlocker(item, color, opacity, zIndex, isDocument);
@@ -111,7 +111,7 @@ qxWeb.define("qx.module.Blocker", {
         styles.width = qItem.getWidth() + "px";
         styles.height = qItem.getHeight() + "px";
       }
-      item.__blocker.div.setStyles(styles);
+      item.$$blocker.div.setStyles(styles);
     },
 
 
@@ -123,10 +123,10 @@ qxWeb.define("qx.module.Blocker", {
      */
     __detachBlocker : function(item, index)
     {
-      if (!item.__blocker) {
+      if (!item.$$blocker) {
         return;
       }
-      item.__blocker.div.remove();
+      item.$$blocker.div.remove();
     },
 
 
@@ -141,8 +141,8 @@ qxWeb.define("qx.module.Blocker", {
       var blockerElements = qxWeb();
 
       collection.forEach(function(item, index) {
-        if (typeof item.__blocker !== "undefined") {
-          blockerElements = blockerElements.concat(item.__blocker.div);
+        if (typeof item.$$blocker !== "undefined") {
+          blockerElements = blockerElements.concat(item.$$blocker.div);
         }
       });
 

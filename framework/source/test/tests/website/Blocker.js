@@ -23,7 +23,7 @@ describe('Blocker', function() {
 
     test.block("#00FF00", 1);
 
-    var blockerDiv = test[0].__blocker.div;
+    var blockerDiv = test[0].$$blocker.div;
     // this.assertElement(blockerDiv[0]);
     assert.isTrue(q.$$qx.dom.Hierarchy.isRendered(blockerDiv[0]));
     var blockerLocation = blockerDiv.getOffset();
@@ -63,7 +63,7 @@ describe('Blocker', function() {
 
     q(document).block();
 
-    var blockerDiv = document.__blocker.div;
+    var blockerDiv = document.$$blocker.div;
     assert.isTrue(q.$$qx.dom.Hierarchy.isRendered(blockerDiv[0]));
 
     var os = q.env.get("os.name");
@@ -134,26 +134,24 @@ describe('Blocker', function() {
     q.includeStylesheet(styleSheet);
 
     q(document).block();
-    var blockerDiv = document.__blocker.div;
+    var blockerDiv = document.$$blocker.div;
 
-    window.setTimeout(function()
-    {
+    window.setTimeout(function() {
+      var opacity = (qxWeb.env.get("browser.name") === "ie" && qxWeb.env.get("browser.version") <= 8) ? 0 : 0.7;
 
-        var opacity = (qxWeb.env.get("browser.name") === "ie" && qxWeb.env.get("browser.version") <= 8) ? 0 : 0.7;
+      assert.match(blockerDiv.getStyle("backgroundColor"), /(rgb.*?255,.*?0.*?0|#ff0000)/i);
+      assert.equal('8000', blockerDiv.getStyle('zIndex'));
+      assert.equal(opacity, (Math.round(blockerDiv.getStyle('opacity') * 10) / 10));
 
-        assert.match(blockerDiv.getStyle("backgroundColor"), /(rgb.*?255,.*?0.*?0|#ff0000)/i);
-        assert.equal('8000', blockerDiv.getStyle('zIndex'));
-        assert.equal(opacity, (Math.round(blockerDiv.getStyle('opacity') * 10) / 10));
-
-        q(document).unblock();
-        q('link[href="css/style2.css"]').remove();
-        done();
-      }, 500);
+      q(document).unblock();
+      q('link[href="css/style2.css"]').remove();
+      done();
+    }, 500);
   });
 
   it("BlockerWithJSStyling", function() {
     q(document).block('#00FF00', 0.6, 7000);
-    var blockerDiv = document.__blocker.div;
+    var blockerDiv = document.$$blocker.div;
 
     assert.match(blockerDiv.getStyle("backgroundColor"), /(rgb.*?0,.*?255.*?0|#00ff00)/i);
     assert.equal('7000', blockerDiv.getStyle('zIndex'));
