@@ -56,7 +56,7 @@ def optimize(classDefine, classDefNodes):
 
     if not "extend" in classMap:
         return 0
-      
+
     if classMap["extend"].isVar():
         superClass = treeutil.assembleVariable(classMap["extend"])[0]
     else:
@@ -64,10 +64,10 @@ def optimize(classDefine, classDefNodes):
 
     if "construct" in classMap:
         patchCount = optimizeConstruct(classMap["construct"], superClass, "construct", classDefNodes)
-      
+
     if not ("members" in classMap and isinstance(classMap["members"], types.DictType)):
         return patchCount
-    
+
     members = classMap["members"]
     for methodName, methodNode in members.items():
         patchCount += optimizeConstruct(methodNode, superClass, methodName, classDefNodes)
@@ -94,7 +94,7 @@ def optimizeConstruct(node, superClass, methodName, classDefNodes):
     elif node.isVar() and node.hasParentContext("call/operand"):
 
         varName, complete = treeutil.assembleVariable(node)
-        if not (complete and varName == "this.base"):
+        if not (complete and varName == "this.super"):
             return 0
 
         call = node.parent.parent
@@ -130,18 +130,18 @@ if __name__ == "__main__":
     cls = """qx.Class.define("qx.Car", {
       extend: qx.core.Object,
       construct : function() {
-        this.base(arguments, "2")
+        this.super(arguments, "2")
       },
       members : {
         foo : function() {
-          return this.base(arguments)
+          return this.super(arguments)
         }
       }
     })"""
-    
+
     node = treeutil.compileString(cls)
     patch(node)
-    
+
     print node.toJS(pp)
-    
-    
+
+

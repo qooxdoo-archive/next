@@ -231,6 +231,13 @@ class TokenStream(IterObject):
                 s.set('constantType', 'boolean')
             elif tok.detail == "NULL":
                 s.set('constantType', 'null')
+        elif tok.name in ('reserved',) and tok.value == "super" and self.lookbehind().get('value') == "this":
+            # treat as identifier to enable basecalls via 'super' so overwrite
+            # 'name=reserved' and
+            # 'detail=FUTURE_RESERVED_WORD'
+            tok.name = 'name'
+            tok.detail = 'public'
+            s = symbol_table["identifier"]()
         elif tok.name in ('name', 'builtin'):
             s = symbol_table["identifier"]()
             # debug hook
