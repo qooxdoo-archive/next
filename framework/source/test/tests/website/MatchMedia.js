@@ -1,4 +1,4 @@
- describe('MatchMedia', function() {
+describe('MatchMedia', function() {
 
   beforeEach( function(){
     globalSetup();
@@ -10,11 +10,7 @@
    globalTeardown();
   });
 
-  var hasNoLegacyIe = function() {
-    return (qxWeb.env.get("engine.name") != "mshtml" ||
-      qxWeb.env.get("browser.documentmode") > 8);
-  };
- 
+
   it("Landscape", function(done) {
 
     var iframe = this.__iframe[0];
@@ -25,14 +21,14 @@
       setTimeout(function (){
         assert.equal(e.data, "true");
         done();
-      }, 0);
+      }, 100);
     },this);
 
     window.setTimeout(function(){
       iframe.contentWindow.postMessage("all and (orientation:landscape)",'*');
-    },100);
+    }, 300);
   });
- 
+
   it("MinWidth", function(done) {
     var iframe = this.__iframe[0];
 
@@ -41,7 +37,7 @@
 
     qxWeb
     (window).once('message',function(e){
-      setTimeout(function (){ 
+      setTimeout(function (){
         assert.equal(e.data, "true");
         done();
       }, 1000);
@@ -52,7 +48,7 @@
     },100);
 
   });
- 
+
   it("MaxWidth", function(done) {
 
     var iframe = this.__iframe[0];
@@ -69,12 +65,10 @@
 
     window.setTimeout(function(){
       iframe.contentWindow.postMessage("all and (max-width:500px)",'*');
-    },100);
-
+    }, 100);
   });
- 
-  it("And", function(done) {
 
+  it("And", function(done) {
     var iframe = this.__iframe[0];
 
     iframe.width = "300px";
@@ -90,9 +84,8 @@
     window.setTimeout(function(){
       iframe.contentWindow.postMessage("screen and (min-width: 400px) and (max-width: 700px)",'*');
     },100);
-
   });
- 
+
   it("MinHeight", function(done) {
     var iframe = this.__iframe[0];
 
@@ -111,7 +104,7 @@
     },100);
 
   });
- 
+
   it("Color", function(done) {
     var iframe = this.__iframe[0];
 
@@ -130,7 +123,7 @@
     },100);
 
   });
- 
+
   it("Combined", function(done) {
 
     var iframe = this.__iframe[0];
@@ -150,7 +143,7 @@
     },100);
 
   });
- 
+
   it("DeviceWidth", function(done) {
     var iframe = this.__iframe[0];
 
@@ -160,7 +153,7 @@
         var match = dw <= 799 ? "true" : "false";
         assert.equal(e.data, match);
         done();
-       },1000); 
+       },1000);
     },this);
 
     window.setTimeout(function(){
@@ -168,7 +161,7 @@
     },100);
 
   });
- 
+
   it("Width", function(done) {
     var iframe = this.__iframe[0];
     iframe.width = "800px";
@@ -185,7 +178,7 @@
     },100);
 
   });
- 
+
   it("Pixelratio", function(done) {
     var iframe = this.__iframe[0];
     iframe.width = "800px";
@@ -194,7 +187,7 @@
       setTimeout(function (){
         assert.equal(e.data, "true");
         done();
-      }, 1000);  
+      }, 1000);
     },this);
 
     window.setTimeout(function(){
@@ -202,7 +195,7 @@
     },100);
 
   });
- 
+
   it("Not", function(done) {
     var iframe = this.__iframe[0];
     iframe.width = "500px";
@@ -211,8 +204,8 @@
       setTimeout(function (){
         assert.equal(e.data, "true");
         done();
-      }, 1000);  
-    },this);
+      }, 1000);
+    }, this);
 
     window.setTimeout(function(){
       iframe.contentWindow.postMessage("not screen and (min-width: 800px)",'*');

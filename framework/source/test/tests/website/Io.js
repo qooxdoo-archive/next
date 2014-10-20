@@ -1,7 +1,7 @@
 describe('IO', function() {
 
   it("BasicXhr", function(done) {
-    q.io.xhr("tests.js").on("loadend", function(xhr) {
+    q.io.xhr("scriptload.js").on("loadend", function(xhr) {
       setTimeout(function (){
         assert.equal(4, xhr.readyState);
         xhr.dispose();
@@ -11,7 +11,7 @@ describe('IO', function() {
   });
 
   it("XhrWithHeader", function(done) {
-    q.io.xhr("tests.js", {header: {"Content-Type": "application/json"}}).on("loadend", function(xhr) {
+    q.io.xhr("scriptload.js", {header: {"Content-Type": "application/json"}}).on("loadend", function(xhr) {
      setTimeout(function (){
         assert.equal(4, xhr.readyState);
         xhr.dispose();
