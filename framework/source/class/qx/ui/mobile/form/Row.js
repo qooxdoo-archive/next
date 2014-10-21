@@ -38,6 +38,11 @@ qx.Class.define("qx.ui.mobile.form.Row",
         })
         .appendTo(this);
 
+      if (qx.core.Environment.get("engine.name") === "mshtml" &&
+          qx.core.Environment.get("browser.documentmode") === 10) {
+        labelWidget.addClasses(["qx-hbox", "qx-flex-align-center"]);
+      }
+
       if (item) {
         labelWidget.setAttribute("for", item.getAttribute("id"));
         item.on("changeValid", this._onChangeValid, this);
