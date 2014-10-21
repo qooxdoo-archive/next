@@ -17,47 +17,49 @@
 
 ************************************************************************ */
 
-describe("mobile.form.ToggleButton", function ()
-{
-  beforeEach( function () {
-     setUpRoot();
+describe("mobile.form.ToggleButton", function() {
+
+  beforeEach(function() {
+    setUpRoot();
   });
 
-  afterEach( function (){
-     tearDownRoot();
+
+  afterEach(function() {
+    tearDownRoot();
   });
- it("Value", function() {
-      var button = new qx.ui.mobile.form.ToggleButton(true);
-      getRoot().append(button);
 
-      assert.isBoolean(button.getValue());
-      assert.isTrue(button.getValue());
-      assert.isTrue(button.hasClass("checked"));
 
-      qx.core.Assert.assertEventFired(button, "changeValue", function() {
-        button.setValue(false);
-      });
+  it("Value", function() {
+    var button = new qx.ui.mobile.form.ToggleButton(true);
+    getRoot().append(button);
 
-      assert.isFalse(button.getValue());
+    assert.isBoolean(button.getValue());
+    assert.isTrue(button.getValue());
+    assert.isTrue(button.hasClass("checked"));
 
-      button.dispose();
+    qx.core.Assert.assertEventFired(button, "changeValue", function() {
+      button.setValue(false);
+    });
+
+    assert.isFalse(button.getValue());
+
+    button.dispose();
   });
- 
+
+
   it("Toggle", function() {
-      var button = new qx.ui.mobile.form.ToggleButton(true);
-      getRoot().append(button);
+    var button = new qx.ui.mobile.form.ToggleButton(true);
+    getRoot().append(button);
 
-      assert.isBoolean(button.getValue());
-      assert.isTrue(button.getValue());
+    assert.isBoolean(button.getValue());
+    assert.isTrue(button.getValue());
 
-      button.toggle();
-      assert.isFalse(button.getValue());
+    button.toggle();
+    assert.isFalse(button.getValue());
 
-      button.toggle();
-      assert.isTrue(button.getValue());
+    button.toggle();
+    assert.isTrue(button.getValue());
 
-      button.dispose();
-    
+    button.dispose();
   });
-
 });

@@ -17,35 +17,34 @@
 
 ************************************************************************ */
 
-describe("mobile.basic.Label", function()
-{
-  
-  beforeEach( function () {
-     setUpRoot();
+describe("mobile.basic.Label", function() {
+
+  beforeEach(function() {
+    setUpRoot();
   });
 
-  afterEach( function (){
-     tearDownRoot();
+  afterEach(function() {
+    tearDownRoot();
   });
- 
- it("Value", function() {
 
-      var label = new qx.ui.mobile.basic.Label("affe");
-      getRoot().append(label);
 
-      assert.isString(label.value);
-      assert.equal(label.value, "affe");
-      assert.equal(label.value, label.getHtml());
+  it("Value", function() {
 
-      qx.core.Assert.assertEventFired(label, "changeValue", function() {
-        label.value = "";
-      });
+    var label = new qx.ui.mobile.basic.Label("affe");
+    getRoot().append(label);
 
-      assert.equal(label.value, "");
-      assert.isNull(label.getHtml());
+    assert.isString(label.value);
+    assert.equal(label.value, "affe");
+    assert.equal(label.value, label.getHtml());
 
-      label.dispose();
-    
+    qx.core.Assert.assertEventFired(label, "changeValue", function() {
+      label.value = "";
+    });
+
+    assert.equal(label.value, "");
+    assert.isNull(label.getHtml());
+
+    label.dispose();
   });
 
 });

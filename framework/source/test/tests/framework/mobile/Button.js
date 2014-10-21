@@ -17,17 +17,19 @@
 
 ************************************************************************ */
 
-describe("mobile.Button", function() 
+describe("mobile.Button", function()
 {
 
   beforeEach( function () {
      setUpRoot();
   });
 
+
   afterEach( function (){
      tearDownRoot();
   });
-   
+
+
   it("Label", function() {
       var button = new qx.ui.mobile.Button("affe");
       getRoot().append(button);
@@ -45,7 +47,8 @@ describe("mobile.Button", function()
 
       button.dispose();
   });
- 
+
+
   it("Factory", function(done) {
       var button = qxWeb.create("<div>").button().appendTo(getRoot());
       assert.instanceOf(button, qx.ui.mobile.Button);
@@ -54,7 +57,6 @@ describe("mobile.Button", function()
         assert.equal("qx.ui.mobile.Button", button.getData("qxWidget"));
         done();
       }, 100);
-    
   });
 
 });

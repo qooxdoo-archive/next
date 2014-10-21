@@ -16,28 +16,23 @@
      * Fabian Jakobs (fjakobs)
 
 ************************************************************************ */
-
-describe("log.Util", function ()
-{
+describe("log.Util", function() {
 
   it("ToTextWithClass", function() {
-      var time = new Date(1000);
-      var entry =
-      {
-        time : time,
-        offset : 900,
-        level: "warn",
-        items: [],
-        win: window,
-        clazz: qx.event.Emitter
-      };
+    var time = new Date(1000);
+    var entry = {
+      time: time,
+      offset: 900,
+      level: "warn",
+      items: [],
+      win: window,
+      clazz: qx.event.Emitter
+    };
 
-      var text = qx.log.appender.Util.toText(entry);
-      assert.equal(
-        "000900 qx.event.Emitter:",
-        text
-      )
+    var text = qx.log.appender.Util.toText(entry);
+    assert.equal(
+      "000900 qx.event.Emitter:",
+      text
+    )
   });
-
-
 })

@@ -1,5 +1,3 @@
-
-
 /* ************************************************************************
 
    qooxdoo - the new era of web development
@@ -28,21 +26,14 @@
  * @asset(qx/test/webworker.js)
  */
 
-qx.Class.define("bom.FileReader",
-{
-  extend : qx.dev.unit.TestCase,
+qx.Class.define("bom.FileReader", {
+
+  extend: qx.dev.unit.TestCase,
   include: [qx.dev.unit.MRequirements],
 
-  members :
-  {
+  members: {
     hasReader: function() {
       return qx.core.Environment.get("html.filereader");
     },
-
-    // beforeEach (function ()  {
-    // });
-
-    // afterEach (function() {
-    // });
   }
 });

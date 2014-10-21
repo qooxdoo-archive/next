@@ -17,31 +17,39 @@
 
 ************************************************************************ */
 
-describe("bom.storage.WebStorageTestCase", function () {
+describe("bom.storage.WebStorageTestCase", function() {
 
   it("LocalItem", function() {
     testItem(qx.bom.Storage.getLocal());
   });
 
+
   it("SessionItem", function() {
     testItem(qx.bom.Storage.getSession());
   });
+
 
   var testItem = function(storage) {
     storage.clear();
     assert.isNull(storage.getItem("key1"));
 
-    storage.setItem("key1","value1");
+    storage.setItem("key1", "value1");
     assert.equal("value1", storage.getItem("key1"));
 
     storage.removeItem("key1");
     assert.isNull(storage.getItem("key1"));
 
-    storage.setItem("key2", [1,"a"]);
-    assert.deepEqual([1,"a"], storage.getItem("key2"));
+    storage.setItem("key2", [1, "a"]);
+    assert.deepEqual([1, "a"], storage.getItem("key2"));
 
-    storage.setItem("key2", {"a": 1, "b": "c"});
-    assert.deepEqual({"a": 1, "b": "c"}, storage.getItem("key2"));
+    storage.setItem("key2", {
+      "a": 1,
+      "b": "c"
+    });
+    assert.deepEqual({
+      "a": 1,
+      "b": "c"
+    }, storage.getItem("key2"));
 
     //overriding
     storage.setItem("key2", 12);
@@ -49,10 +57,10 @@ describe("bom.storage.WebStorageTestCase", function () {
   };
 
 
-
   it("LocalGetKey", function() {
     testGetKey(qx.bom.Storage.getLocal());
   });
+
 
   it("SessionGetKey", function() {
     testGetKey(qx.bom.Storage.getSession());
@@ -60,44 +68,46 @@ describe("bom.storage.WebStorageTestCase", function () {
 
   var testGetKey = function(storage) {
     //the order is unreliable, so just test that the getKey works
-    storage.setItem("key1","value");
+    storage.setItem("key1", "value");
     assert.equal("key1", storage.getKey(0));
-  }
-
+  };
 
 
   it("LocalLength", function() {
     testLength(qx.bom.Storage.getLocal());
   });
 
+
   it("SessionLength", function() {
     testLength(qx.bom.Storage.getSession());
   });
+
 
   var testLength = function(storage) {
     storage.clear();
     assert.equal(0, storage.getLength());
 
-    for (var i=0; i<10; i++) {
-      storage.setItem("key"+i,"value");
+    for (var i = 0; i < 10; i++) {
+      storage.setItem("key" + i, "value");
     }
 
     assert.equal(10, storage.getLength());
   };
-
 
 
   it("LocalClear", function() {
     testClear(qx.bom.Storage.getLocal());
   });
 
+
   it("SessionClear", function() {
     testClear(qx.bom.Storage.getSession());
   });
 
+
   var testClear = function(storage) {
-    for (var i=0; i<10; i++) {
-      storage.setItem("key"+i,"value");
+    for (var i = 0; i < 10; i++) {
+      storage.setItem("key" + i, "value");
     }
     assert.equal(10, storage.getLength());
     storage.clear();
@@ -105,10 +115,10 @@ describe("bom.storage.WebStorageTestCase", function () {
   };
 
 
-
   it("LocalForEach", function() {
     testForEach(qx.bom.Storage.getLocal());
   });
+
 
   it("SessionForEach", function() {
     testForEach(qx.bom.Storage.getSession());
@@ -117,8 +127,8 @@ describe("bom.storage.WebStorageTestCase", function () {
 
   var testForEach = function(storage) {
     var i;
-    for (i=0; i<10; i++) {
-      storage.setItem("key"+i,"value");
+    for (i = 0; i < 10; i++) {
+      storage.setItem("key" + i, "value");
     }
     //don't rely on the order
     i = 0;

@@ -1,8 +1,7 @@
 describe('Placement', function() {
 
 
-  beforeEach (function()
-  {
+  beforeEach(function() {
     globalSetup();
 
     q("#sandbox").setStyles({
@@ -20,18 +19,19 @@ describe('Placement', function() {
       left: "0px",
       width: "200px",
       height: "100px",
-      backgroundColor : "red"
+      backgroundColor: "red"
     }).appendTo(sandbox[0]);
 
     q.create('<div id="bar"></div>').setStyles({
       position: "relative",
       width: "100px",
       height: "25px",
-      backgroundColor : "green"
+      backgroundColor: "green"
     }).appendTo(sandbox[0]);
   });
 
-  afterEach (function() {
+
+  afterEach(function() {
     globalTeardown();
     q("#sandbox #bar").setStyle("position", "relative");
   });
@@ -62,8 +62,14 @@ describe('Placement', function() {
     assert.equal(expectedLocation.top, q("#bar").getOffset().top);
   });
 
+
   it("PlaceToDirect", function() {
-    q("#sandbox #bar").placeTo("#sandbox #foo", "right-bottom", {top: 10, right: 10, bottom: 10, left: 10}, "direct", "direct");
+    q("#sandbox #bar").placeTo("#sandbox #foo", "right-bottom", {
+      top: 10,
+      right: 10,
+      bottom: 10,
+      left: 10
+    }, "direct", "direct");
 
     var expectedLocation = {
       left: 210,
@@ -73,8 +79,14 @@ describe('Placement', function() {
     assert.equal(expectedLocation.top, q("#bar").getOffset().top);
   });
 
+
   it("PlaceToKeepAlign", function() {
-    q("#sandbox #bar").placeTo("#sandbox #foo", "left-top", {top: 10, right: 10, bottom: 10, left: 10}, "keep-align", "keep-align");
+    q("#sandbox #bar").placeTo("#sandbox #foo", "left-top", {
+      top: 10,
+      right: 10,
+      bottom: 10,
+      left: 10
+    }, "keep-align", "keep-align");
     var expectedLocation = {
       left: 210,
       top: 210
@@ -82,6 +94,7 @@ describe('Placement', function() {
     assert.equal(expectedLocation.left, q("#bar").getOffset().left);
     assert.equal(expectedLocation.top, q("#bar").getOffset().top);
   });
+
 
   it("PlaceToUsingHiddenElement", function() {
     q("#sandbox #bar").hide();
@@ -99,6 +112,7 @@ describe('Placement', function() {
     assert.equal(visibilityValue, q("#sandbox #bar").getStyle("visibility"));
   });
 
+
   it("PlaceToUsingHiddenElementByCssClass", function() {
     q("#sandbox #bar").addClass("hidden");
 
@@ -111,6 +125,7 @@ describe('Placement', function() {
     assert.equal(expectedLocation.top, parseInt(q("#bar").getStyle("top"), 10));
     assert.equal("", q("#bar")[0].style.display);
   });
+
 
   it("PlaceToPreservingStyleValues", function() {
     q("#sandbox #bar").setStyle("visibility", "collapse");

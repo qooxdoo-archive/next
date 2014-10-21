@@ -19,13 +19,13 @@
 
 describe("bom.Viewport", function ()
 {
- 
+
   it("GetScrollLeft", function() {
       qx.core.Assert.assertPositiveInteger(qx.bom.Viewport.getScrollLeft());
   });
- 
+
+
   it("GetScrollTop", function() {
       qx.core.Assert.assertPositiveInteger(qx.bom.Viewport.getScrollTop());
-    
   });
 });

@@ -1,11 +1,14 @@
 describe('TextSelection', function() {
 
-  beforeEach (function () {
-   globalSetup();
+  beforeEach(function() {
+    globalSetup();
   });
-  afterEach (function () {
-   globalTeardown();
+
+
+  afterEach(function() {
+    globalTeardown();
   });
+
 
   var __testSelection = function(coll, selected) {
     var isIe8 = q.env.get("engine.name") == "mshtml" && q.env.get("browser.documentmode") < 9;
@@ -25,25 +28,29 @@ describe('TextSelection', function() {
     }
     assert.equal("", coll.getTextSelection(), "cleared text");
   };
- 
+
+
   it("Input", function() {
     var coll = q.create('<input type="text" value="Just some text" />')
-    .appendTo("#sandbox");
+      .appendTo("#sandbox");
     __testSelection(coll, "some");
   });
- 
+
+
   it("Textarea", function() {
     var coll = q.create('<textarea>Just some text</textarea>')
-    .appendTo("#sandbox");
+      .appendTo("#sandbox");
     __testSelection(coll, "some");
   });
- 
+
+
   it("Span", function() {
     var coll = q.create('<span>Just some text</span>')
-    .appendTo("#sandbox");
+      .appendTo("#sandbox");
     __testSelection(coll, "some");
   });
- 
+
+
   it("NoText", function() {
     var coll = q.create("<h1></h1>");
     coll.push(window);
@@ -55,4 +62,4 @@ describe('TextSelection', function() {
     coll.getTextSelectionEnd();
     coll.getTextSelection();
   });
-}); 
+});

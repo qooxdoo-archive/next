@@ -35,6 +35,7 @@ describe("core.Environment", function ()
       qx.core.Environment.invalidateCacheKey("affe");
   });
 
+
   it("GetAsync", function(done) {
       // fake the check
       qx.core.Environment.getAsyncChecks()["affe"] = function(clb, self) {
@@ -55,6 +56,7 @@ describe("core.Environment", function ()
 
   });
 
+
   it("Select", function() {
       // fake the check
       qx.core.Environment.getChecks()["affe"] = function() {
@@ -71,6 +73,7 @@ describe("core.Environment", function ()
       qx.core.Environment.invalidateCacheKey("affe");
   });
 
+
   it("SelectDefault", function() {
       // fake the check
       qx.core.Environment.getChecks()["affe"] = function() {
@@ -86,6 +89,7 @@ describe("core.Environment", function ()
       delete qx.core.Environment.getChecks()["affe"];
       qx.core.Environment.invalidateCacheKey("affe");
   });
+
 
   it("SelectAsync", function(done) {
       // fake the check
@@ -110,6 +114,7 @@ describe("core.Environment", function ()
 
   });
 
+
   it("Cache", function() {
       // fake the check
       qx.core.Environment.getChecks()["affe"] = function() {
@@ -123,6 +128,7 @@ describe("core.Environment", function ()
 
       qx.core.Environment.invalidateCacheKey("affe");
   });
+
 
   it("CacheInvalidation", function() {
       // fake the check
@@ -144,6 +150,7 @@ describe("core.Environment", function ()
       qx.core.Environment.invalidateCacheKey("affe");
   });
 
+
   it("AddFunction", function() {
       qx.core.Environment.add("affe", function() {
         return "AFFE";
@@ -156,6 +163,7 @@ describe("core.Environment", function ()
       qx.core.Environment.invalidateCacheKey("affe");
   });
 
+
   it("AddValue", function() {
       qx.core.Environment.add("affe", "AFFE");
 
@@ -165,6 +173,7 @@ describe("core.Environment", function ()
       delete qx.core.Environment.getChecks()["affe"];
       qx.core.Environment.invalidateCacheKey("affe");
   });
+
 
   it("AddAsyncFunction", function(done) {
       qx.core.Environment.addAsync("affe", function(clb, self) {
@@ -184,6 +193,7 @@ describe("core.Environment", function ()
       }, this);
 
   });
+
 
   it("Filter", function() {
       // fake the checks
@@ -224,9 +234,11 @@ describe("core.Environment", function ()
       assert.notEqual("", qx.core.Environment.get("engine.name"));
   });
 
+
   it("EngineVersion", function() {
       assert.notEqual("", qx.core.Environment.get("engine.version"));
   });
+
 
   it("Browser", function() {
       assert.notEqual("", qx.core.Environment.get("browser.name"));
@@ -235,14 +247,17 @@ describe("core.Environment", function ()
       qx.core.Environment.get("browser.documentmode");
   });
 
+
   it("Locale", function() {
       assert.notEqual("", qx.core.Environment.get("locale"));
   });
+
 
   it("Variant", function() {
       // just make sure the call is working
       qx.core.Environment.get("locale.variant");
   });
+
 
   it("OS", function() {
       // just make sure the call is working
@@ -250,16 +265,19 @@ describe("core.Environment", function ()
       assert.isString(qx.core.Environment.get("os.version"));
   });
 
+
   it("Quicktime", function() {
       // just make sure the call is working
       assert.isBoolean(qx.core.Environment.get("plugin.quicktime"));
       qx.core.Environment.get("plugin.quicktime.version");
   });
 
+
   it("Skype", function() {
       // just make sure the call is working
       assert.isBoolean(qx.core.Environment.get("plugin.skype"));
   });
+
 
   it("Wmv", function() {
       // just make sure the call is working
@@ -267,17 +285,20 @@ describe("core.Environment", function ()
       qx.core.Environment.get("plugin.windowsmedia.version");
   });
 
+
   it("Divx", function() {
       // just make sure the call is working
       assert.isBoolean(qx.core.Environment.get("plugin.divx"));
       qx.core.Environment.get("plugin.divx.version");
   });
 
+
   it("Silverlight", function() {
       // just make sure the call is working
       assert.isBoolean(qx.core.Environment.get("plugin.silverlight"));
       qx.core.Environment.get("plugin.silverlight.version");
   });
+
 
   it("Flash", function() {
       // just make sure the call is working
@@ -287,17 +308,20 @@ describe("core.Environment", function ()
       assert.isBoolean(qx.core.Environment.get("plugin.flash.strictsecurity"));
   });
 
+
   it("Pdf", function() {
       // just make sure the call is working
       assert.isBoolean(qx.core.Environment.get("plugin.pdf"));
       qx.core.Environment.get("plugin.pdf.version");
   });
 
+
   it("IO", function() {
       // just make sure the call is working
       qx.core.Environment.get("io.maxrequests");
       assert.isBoolean(qx.core.Environment.get("io.ssl"));
   });
+
 
   it("Html", function() {
       // just make sure the call is working
@@ -326,15 +350,18 @@ describe("core.Environment", function ()
       assert.isBoolean(qx.core.Environment.get("html.history.state"));
   });
 
+
   it("Xml", function() {
       assert.isBoolean(qx.core.Environment.get("xml.getelementsbytagnamens"));
       assert.isBoolean(qx.core.Environment.get("xml.attributens"));
       assert.isBoolean(qx.core.Environment.get("xml.createelementns"));
   });
 
+
   it("ActiveX", function() {
       assert.isBoolean(qx.core.Environment.get("plugin.activex"));
   });
+
 
   it("Css", function() {
       assert.isBoolean(qx.core.Environment.get("css.placeholder"));
@@ -359,10 +386,12 @@ describe("core.Environment", function ()
       assert.isBoolean(qx.core.Environment.get("css.pointerevents"));
   });
 
+
   it("PhoneGap", function() {
       assert.isBoolean(qx.core.Environment.get("phonegap"));
       assert.isBoolean(qx.core.Environment.get("phonegap.notification"));
   });
+
 
   it("Event", function() {
       assert.isBoolean(qx.core.Environment.get("event.touch"));
@@ -371,26 +400,32 @@ describe("core.Environment", function ()
       assert.isBoolean(qx.core.Environment.get("event.mouseevent"));
   });
 
+
   it("EcmaScript", function() {
       var stackTrace = qx.core.Environment.get("ecmascript.error.stacktrace");
       assert(typeof stackTrace == "string" || stackTrace === null);
   });
 
+
   it("Device", function() {
       assert.isString(qx.core.Environment.get("device.name"));
   });
+
 
   it("DeviceType", function() {
       assert.isString(qx.core.Environment.get("device.type"));
   });
 
+
   it("DevicePixelRatio", function() {
       assert.isNumber(qx.core.Environment.get("device.pixelRatio"));
   });
 
+
   it("Json", function() {
       assert.isBoolean(qx.core.Environment.get("json"));
   });
+
 
   it("Qx", function() {
 
@@ -405,6 +440,7 @@ describe("core.Environment", function ()
       assert.isBoolean(qx.core.Environment.get("qx.dynlocale"), "17");
   });
 
+
   it("AnimationTransformTransition", function() {
       // smoke test... make sure the method is doing something
       qx.core.Environment.get("css.animation");
@@ -413,6 +449,5 @@ describe("core.Environment", function ()
 
       // 3d transform support
       assert.isBoolean(qx.core.Environment.get("css.transform.3d"));
-
   });
 });

@@ -1,8 +1,8 @@
 describe('Type', function() {
- 
+
   it("Get", function() {
     assert.equal("Array", q.type.get([]));
-    assert.equal("Array", q.type.get([1,2,3]));
+    assert.equal("Array", q.type.get([1, 2, 3]));
     assert.equal("Boolean", q.type.get(true));
     assert.equal("Boolean", q.type.get(false));
     assert.equal("Date", q.type.get(new Date()));
@@ -20,4 +20,4 @@ describe('Type', function() {
     assert.equal("String", q.type.get("123"));
     assert.equal("String", q.type.get("abc"));
   });
-}); 
+});

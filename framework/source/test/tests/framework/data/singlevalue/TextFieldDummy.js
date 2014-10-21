@@ -17,44 +17,45 @@
 
 ************************************************************************ */
 
-qx.Class.define("data.singlevalue.TextFieldDummy",
-{
-  extend : Object,
-  include : [qx.event.MEmitter],
-  construct : function(value) {
-    if (value != null) {
+qx.Class.define("data.singlevalue.TextFieldDummy", {
+
+  extend: Object,
+  include: [qx.event.MEmitter],
+
+  construct: function(value) {
+    if (value !== null) {
       this.value = value;
     }
   },
 
-  properties : {
-    appearance : {
-      check : "String",
-      event : true,
-      init : "asd"
+  properties: {
+    appearance: {
+      check: "String",
+      event: true,
+      init: "asd"
     },
-    enabled : {
-      check : "Boolean",
-      event : true,
-      init : true
+    enabled: {
+      check: "Boolean",
+      event: true,
+      init: true
     },
-    zIndex : {
-      check : "Number",
-      event : true,
-      nullable : true
-    },
-    floatt : {
-      event : true
-    },
-    value : {
-      check : "String",
-      event : true,
+    zIndex: {
+      check: "Number",
+      event: true,
       nullable: true
     },
-    backgroundColor : {
-      check : "String",
-      event : true,
-      init : ""
+    floatt: {
+      event: true
+    },
+    value: {
+      check: "String",
+      event: true,
+      nullable: true
+    },
+    backgroundColor: {
+      check: "String",
+      event: true,
+      init: ""
     }
   }
 });

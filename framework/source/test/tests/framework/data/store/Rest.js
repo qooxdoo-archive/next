@@ -18,34 +18,34 @@
 ************************************************************************ */
 
 // TODO
-describe("data.store.Rest", function ()
-{
+describe("data.store.Rest", function() {
+
   var reg;
   var res;
   var marshal;
   setup();
 
-  function setup(){
+  function setup() {
     req = setUpDoubleRequest();
     res = setUpResource();
     marshal = new qx.data.marshal.Json();
-    marshal = shallowStub(marshal, qx.data.marshal.Json,
-      ["dispose", "emit", "on", "once", "off", "offById", "getListenerId",
-       "hasListener", "getListeners", "getEntryById", "_getStorage"]);
+    marshal = shallowStub(marshal, qx.data.marshal.Json, ["dispose", "emit", "on", "once", "off", "offById", "getListenerId",
+      "hasListener", "getListeners", "getEntryById", "_getStorage"
+    ]);
     marshal.toModel.returns({});
 
     store = new qx.data.store.Rest(res, "index");
   }
 
 
-  function __getOwnProperties (object, targetClazz) {
+  function __getOwnProperties(object, targetClazz) {
     var clazz = object.constructor,
-        clazzes = [],
-        properties = [];
+      clazzes = [],
+      properties = [];
 
     // Find classes in inheritance chain up to targetClazz
     if (targetClazz) {
-      while(clazz.superclass) {
+      while (clazz.superclass) {
         clazzes.push(clazz);
         clazz = clazz.superclass;
         if (clazz == targetClazz.superclass) {
@@ -72,9 +72,10 @@ describe("data.store.Rest", function ()
     return properties;
   }
 
+
   function __stubProperty(object, prop) {
     // Leave constructor and properties intact
-    if(prop === "constructor" || typeof object[prop] !== "function") {
+    if (prop === "constructor" || typeof object[prop] !== "function") {
       return;
     }
 
@@ -82,7 +83,7 @@ describe("data.store.Rest", function ()
   }
 
 
-  function injectStub (object, property, customStub) {
+  function injectStub(object, property, customStub) {
     var stub = customStub || this.deepStub(new object[property]);
 
     sinon.stub(object, property).returns(stub);
@@ -90,8 +91,7 @@ describe("data.store.Rest", function ()
   }
 
 
-
-  function  shallowStub(object, targetClazz, propsToExclude) {
+  function shallowStub(object, targetClazz, propsToExclude) {
     __getOwnProperties(object, targetClazz).forEach(function(prop) {
       if (propsToExclude && propsToExclude.indexOf(prop) >= 0) {
         // don't stub excluded prop
@@ -104,7 +104,7 @@ describe("data.store.Rest", function ()
   };
 
 
-  beforeEach (function ()  {
+  beforeEach(function() {
     // marshal = new qx.data.marshal.Json();
     // marshal = shallowStub(marshal, qx.data.marshal.Json,
     //   ["dispose", "emit", "on", "once", "off", "offById", "getListenerId",
@@ -113,33 +113,39 @@ describe("data.store.Rest", function ()
   });
 
 
-  function setUpResource () {
-    var description = {"index": {method: "GET", url: "/photos"}};
+  function setUpResource() {
+    var description = {
+      "index": {
+        method: "GET",
+        url: "/photos"
+      }
+    };
     return res = new qx.io.rest.Resource(description);
   }
 
 
-  function setUpDoubleRequest () {
+  function setUpDoubleRequest() {
     var req = new qx.io.request.Xhr();
 
     // Stub request methods, leave event system intact
-    req = shallowStub(req, qx.io.request.AbstractRequest,
-      ["dispose", "emit", "on", "once", "off", "offById", "getListenerId",
-       "hasListener", "getListeners", "getEntryById", "_getStorage"]);
+    req = shallowStub(req, qx.io.request.AbstractRequest, ["dispose", "emit", "on", "once", "off", "offById", "getListenerId",
+      "hasListener", "getListeners", "getEntryById", "_getStorage"
+    ]);
 
     // Inject double and return
-   injectStub(qx.io.request, "Xhr", req);
+    injectStub(qx.io.request, "Xhr", req);
 
     return req;
   }
 
 
-  afterEach (function() {
-      sinon.sandbox.restore();
-      //req.dispose();
-      //res.dispose();
-      store.dispose();
+  afterEach(function() {
+    sinon.sandbox.restore();
+    //req.dispose();
+    //res.dispose();
+    store.dispose();
   });
+
 
   it("construct with res and action name", function() {
     assert.strictEqual(store.resource, res);
@@ -156,6 +162,7 @@ describe("data.store.Rest", function ()
     //store.dispose();
   });
 
+
   it("construct throws with erroneous res", function() {
     // require(["debug"]);
 
@@ -165,6 +172,7 @@ describe("data.store.Rest", function ()
     });
     //store && store.dispose();
   });
+
 
   it("construct throws with missing action", function() {
     // require(["debug"]);
@@ -177,6 +185,7 @@ describe("data.store.Rest", function ()
     store && store.dispose();
   });
 
+
   it("add listener for actionSuccess to res", function() {
     var store;
 
@@ -186,12 +195,16 @@ describe("data.store.Rest", function ()
     store.dispose();
   });
 
+
   it("marshal response", function() {
-    var data = {"key": "value"};
+    var data = {
+      "key": "value"
+    };
     res.index();
     respond(data);
     assert.isTrue(marshal.toModel.calledWith(data))
   });
+
 
   it("populates model property with marshaled response", function() {
     // Do not stub marshal.Json
@@ -201,21 +214,26 @@ describe("data.store.Rest", function ()
     var store = new qx.data.store.Rest(res, "index");
 
     res.index();
-    respond({"name": "Affe"});
+    respond({
+      "name": "Affe"
+    });
     // assert.equal("Affe", store.getModel().getName());
     store.dispose();
   });
+
 
   it("fires changeModel", function() {
     // Do not stub marshal.Json
     //qx.data.marshal.Json.restore();
 
     var res = setUpResource(),
-        store = new qx.data.store.Rest(res, "index");
+      store = new qx.data.store.Rest(res, "index");
 
     res.index();
     qx.core.Assert.assertEventFired(store, "changeModel", function() {
-      respond({"name": "Affe"});
+      respond({
+        "name": "Affe"
+      });
     });
 
     store.dispose();
@@ -247,7 +265,9 @@ describe("data.store.Rest", function ()
 
 
   it("manipulate data with delegate before marshaling", function() {
-    var data = {"name": "Tiger"};
+    var data = {
+      "name": "Tiger"
+    };
 
     var manipulateData = sinon.spy(function(data) {
       data.name = "Maus";
@@ -261,8 +281,10 @@ describe("data.store.Rest", function ()
     var store = new qx.data.store.Rest(res, "index", delegate);
     res.index();
     respond(data);
-     assert.isTrue(manipulateData.calledWith(data));
-      assert.isTrue(marshal.toModel.calledWith({"name": "Maus"}));
+    assert.isTrue(manipulateData.calledWith(data));
+    assert.isTrue(marshal.toModel.calledWith({
+      "name": "Maus"
+    }));
 
     store.dispose();
   });

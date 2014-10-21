@@ -17,40 +17,42 @@
 
 ************************************************************************ */
 
-describe("bom.element.AnimationHandle", function ()
-{
-    
-    beforeEach (function ()  {
-      __keys = qx.core.Environment.get("css.animation");
-      if (__keys == null) {
-        // skip the test
-        throw new qx.dev.unit.RequirementError("css.animation");
-      }
-    });
+describe("bom.element.AnimationHandle", function() {
 
-    afterEach (function ()  {
-      sinon.sandbox.restore();
-    });
+  beforeEach(function() {
+    __keys = qx.core.Environment.get("css.animation");
+    if (__keys === null) {
+      // skip the test
+      throw new qx.dev.unit.RequirementError("css.animation");
+    }
+  });
 
-    
- 
- it(" stop of CSS animation", function(done) {
-      var el = qx.dom.Element.create("div");
-      var handle = qx.bom.element.Animation.animate(el, {
-        "duration": 100,
-        "keyFrames": {
-          0 : {"opacity": 1},
-          100 : {"opacity": 0}
+
+  afterEach(function() {
+    sinon.sandbox.restore();
+  });
+
+
+  it(" stop of CSS animation", function(done) {
+    var el = qx.dom.Element.create("div");
+    var handle = qx.bom.element.Animation.animate(el, {
+      "duration": 100,
+      "keyFrames": {
+        0: {
+          "opacity": 1
         },
-        "delay" : 200
-      });
-      var spy = sinon.spy(qx.bom.element.AnimationJs, "stop");
-      handle.on("start", spy);
-      handle.stop();
-      setTimeout( function() {
-        sinon.assert.notCalled(spy);
-        done();
-      }, 500);
-    
+        100: {
+          "opacity": 0
+        }
+      },
+      "delay": 200
+    });
+    var spy = sinon.spy(qx.bom.element.AnimationJs, "stop");
+    handle.on("start", spy);
+    handle.stop();
+    setTimeout(function() {
+      sinon.assert.notCalled(spy);
+      done();
+    }, 500);
   });
 });

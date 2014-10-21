@@ -23,10 +23,14 @@ describe("bom.element.AnimationJs", function ()
     var handle = qx.bom.element.AnimationJs.animate(el, {
       "duration": 100,
       "keyFrames": {
-        0 : {"opacity": 1},
-        100 : {"opacity": 0}
+        0: {
+          "opacity": 1
+        },
+        100: {
+          "opacity": 0
+        }
       },
-      "delay" : 200
+      "delay": 200
     });
     var spy = sinon.spy();
     handle.on("start", spy);
@@ -37,6 +41,7 @@ describe("bom.element.AnimationJs", function ()
     }, 500);
   });
 
+
   it("animate properties which are CSS properties and element attributes", function(done) {
     var el = qx.dom.Element.create("div");
     qx.bom.element.Style.setStyles(el, { width: "200px", height: "200px" });
@@ -46,18 +51,24 @@ describe("bom.element.AnimationJs", function ()
     var handle = qx.bom.element.Animation.animate(el, {
       "duration": 100,
       "keyFrames": {
-        0 : { "width": "200px", "height": "200px" },
-        100 : { "width": "400px", "height": "400px" }
+        0: {
+          "width": "200px",
+          "height": "200px"
+        },
+        100: {
+          "width": "400px",
+          "height": "400px"
+        }
       },
-      "keep" : 100
+      "keep": 100
     });
 
     setTimeout( function() {
       assert.equal("400px", qx.bom.element.Style.get(el, "width"));
       assert.equal("400px", qx.bom.element.Style.get(el, "height"));
       document.body.removeChild(el);
-
       done();
     }, 500);
   });
+
 });

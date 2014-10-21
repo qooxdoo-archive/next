@@ -18,12 +18,12 @@
 ************************************************************************ */
 
 
-describe("bom.AnimationFrame", function ()
-{
+describe("bom.AnimationFrame", function() {
 
-  beforeEach (function () {
-     this.__frame = new qx.bom.AnimationFrame();
+  beforeEach(function() {
+    this.__frame = new qx.bom.AnimationFrame();
   });
+
 
   it("Start", function(done) {
     var clb = sinon.spy();
@@ -35,6 +35,7 @@ describe("bom.AnimationFrame", function ()
       done();
     }, 300);
   });
+
 
   it("Cancel", function(done) {
     var clb = sinon.spy();

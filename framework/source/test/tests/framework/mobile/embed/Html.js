@@ -16,35 +16,34 @@
      * Tino Butz (tbtz)
 
 ************************************************************************ */
+describe("mobile.embed.Html", function() {
 
-describe("mobile.embed.Html", function ()
-{
-
-  beforeEach( function () {
-     setUpRoot();
+  beforeEach(function() {
+    setUpRoot();
   });
 
-  afterEach( function (){
-     tearDownRoot();
+
+  afterEach(function() {
+    tearDownRoot();
   });
-   
+
+
   it("Html", function() {
-      var html = new qx.ui.mobile.embed.Html("<strong>affe</strong>");
-      getRoot().append(html);
+    var html = new qx.ui.mobile.embed.Html("<strong>affe</strong>");
+    getRoot().append(html);
 
-      assert.isString(html.html);
-      assert.equal(html.html, "<strong>affe</strong>");
-      assert.equal(html.html, html.getHtml());
+    assert.isString(html.html);
+    assert.equal(html.html, "<strong>affe</strong>");
+    assert.equal(html.html, html.getHtml());
 
-      qx.core.Assert.assertEventFired(html, "changeHtml", function() {
-        html.html = "";
-      });
+    qx.core.Assert.assertEventFired(html, "changeHtml", function() {
+      html.html = "";
+    });
 
-      assert.equal(html.html, "");
-      assert.isNull(html.getHtml());
+    assert.equal(html.html, "");
+    assert.isNull(html.getHtml());
 
-      html.dispose();
-    
+    html.dispose();
   });
 
 });

@@ -17,87 +17,101 @@
 
 ************************************************************************ */
 
-describe("mobile.layout.VBox", function ()
-{
-  beforeEach( function () {
-     setUpRoot();
+describe("mobile.layout.VBox", function() {
+
+  beforeEach(function() {
+    setUpRoot();
   });
 
-  afterEach( function (){
-     tearDownRoot();
+
+  afterEach(function() {
+    tearDownRoot();
   });
- it("Add", function() {
-      var composite = new qx.ui.mobile.Widget();
-      composite.layout = new qx.ui.mobile.layout.VBox();
-      getRoot().append(composite);
 
 
-      assert.isTrue(composite.hasClass("qx-vbox"));
+  it("Add", function() {
+    var composite = new qx.ui.mobile.Widget();
+    composite.layout = new qx.ui.mobile.layout.VBox();
+    getRoot().append(composite);
 
-      var widget1 = new qx.ui.mobile.Widget();
-      composite.append(widget1);
 
-      var widget2 = new qx.ui.mobile.Widget();
-      composite.append(widget2);
+    assert.isTrue(composite.hasClass("qx-vbox"));
 
-      widget1.dispose();
-      widget2.dispose();
-      composite.dispose();
+    var widget1 = new qx.ui.mobile.Widget();
+    composite.append(widget1);
+
+    var widget2 = new qx.ui.mobile.Widget();
+    composite.append(widget2);
+
+    widget1.dispose();
+    widget2.dispose();
+    composite.dispose();
   });
- 
+
+
   it("Flex", function() {
-      var composite = new qx.ui.mobile.Widget();
-      composite.layout = new qx.ui.mobile.layout.VBox();
-      getRoot().append(composite);
+    var composite = new qx.ui.mobile.Widget();
+    composite.layout = new qx.ui.mobile.layout.VBox();
+    getRoot().append(composite);
 
-      var widget1 = new qx.ui.mobile.Widget();
-      widget1.layoutPrefs = {flex:1};
-      composite.append(widget1);
-      assert.isTrue(widget1.hasClass("qx-flex1"));
+    var widget1 = new qx.ui.mobile.Widget();
+    widget1.layoutPrefs = {
+      flex: 1
+    };
+    composite.append(widget1);
+    assert.isTrue(widget1.hasClass("qx-flex1"));
 
-      var widget2 = new qx.ui.mobile.Widget();
-      widget2.layoutPrefs = {flex:2};
-      composite.append(widget2);
-      assert.isTrue(widget2.hasClass("qx-flex2"));
+    var widget2 = new qx.ui.mobile.Widget();
+    widget2.layoutPrefs = {
+      flex: 2
+    };
+    composite.append(widget2);
+    assert.isTrue(widget2.hasClass("qx-flex2"));
 
-      widget1.dispose();
-      widget2.dispose();
-      composite.dispose();
+    widget1.dispose();
+    widget2.dispose();
+    composite.dispose();
   });
- 
+
+
   it("Remove", function() {
-      var composite = new qx.ui.mobile.Widget();
-      composite.layout = new qx.ui.mobile.layout.VBox();
-      getRoot().append(composite);
+    var composite = new qx.ui.mobile.Widget();
+    composite.layout = new qx.ui.mobile.layout.VBox();
+    getRoot().append(composite);
 
-      var widget1 = new qx.ui.mobile.Widget();
-      widget1.layoutPrefs = {flex:1};
-      composite.append(widget1);
-      widget1.remove();
-      assert.isFalse(widget1.hasClass("qx-flex1"));
+    var widget1 = new qx.ui.mobile.Widget();
+    widget1.layoutPrefs = {
+      flex: 1
+    };
+    composite.append(widget1);
+    widget1.remove();
+    assert.isFalse(widget1.hasClass("qx-flex1"));
 
-      var widget2 = new qx.ui.mobile.Widget();
-      widget2.layoutPrefs = {flex:2};
-      composite.append(widget2);
-      widget2.remove();
-      assert.isFalse(widget2.hasClass("qx-flex2"));
+    var widget2 = new qx.ui.mobile.Widget();
+    widget2.layoutPrefs = {
+      flex: 2
+    };
+    composite.append(widget2);
+    widget2.remove();
+    assert.isFalse(widget2.hasClass("qx-flex2"));
 
-      composite.remove();
-      assert.isTrue(composite.hasClass("qx-vbox"));
+    composite.remove();
+    assert.isTrue(composite.hasClass("qx-vbox"));
 
-      widget1.dispose();
-      widget2.dispose();
-      composite.dispose();
+    widget1.dispose();
+    widget2.dispose();
+    composite.dispose();
   });
- 
+
+
   it("Reset", function() {
-      var composite = new qx.ui.mobile.Widget();
-      composite.layout = new qx.ui.mobile.layout.VBox();
-      getRoot().append(composite);
+    var composite = new qx.ui.mobile.Widget();
+    composite.layout = new qx.ui.mobile.layout.VBox();
+    getRoot().append(composite);
 
-      composite.layout = null;
-      assert.isFalse(composite.hasClass("qx-vbox"));
+    composite.layout = null;
+    assert.isFalse(composite.hasClass("qx-vbox"));
 
-      composite.dispose();
+    composite.dispose();
   });
 });

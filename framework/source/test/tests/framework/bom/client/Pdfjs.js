@@ -23,7 +23,8 @@
  * You can enable/disable it via "about:config"
  * and "pdfjs.disabled" (true/false).
  */
-describe("bom.client.Pdfjs", function () {
+describe("bom.client.Pdfjs", function() {
+
   it("is PDF.js available", function(done) {
     //this.require(["firefox"]);
     qx.core.Environment.getAsync("plugin.pdfjs", function(result) {

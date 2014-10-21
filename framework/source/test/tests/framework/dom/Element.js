@@ -19,20 +19,21 @@
 
 describe("dom.Element", function() {
 
-  beforeEach (function ()  {
+  beforeEach(function() {
     var div = document.createElement("div");
     div.id = "sandbox";
     document.body.appendChild(div);
   });
 
-  afterEach (function ()  {
+
+  afterEach(function() {
     document.getElementById("sandbox").remove();
   });
 
 
   it("Create", function() {
     var el = qx.dom.Element.create("div", {
-      name : "juhu"
+      name: "juhu"
     }, window);
     qx.core.Assert.assertElement(el);
     assert.equal("juhu", qx.bom.element.Attribute.get(el, "name"));

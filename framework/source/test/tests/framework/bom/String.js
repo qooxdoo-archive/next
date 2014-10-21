@@ -17,21 +17,21 @@
 
 ************************************************************************ */
 
-describe("bom.String", function ()
-{
+describe("bom.String", function() {
 
   it("ToText_Break", function() {
-      assert.equal(qx.bom.String.toText("<br>"), "\n");
-      assert.equal(qx.bom.String.toText("<br />"), "\n");
+    assert.equal(qx.bom.String.toText("<br>"), "\n");
+    assert.equal(qx.bom.String.toText("<br />"), "\n");
   });
- 
+
+
   it("ToText_Advanced", function() {
-      assert.equal(qx.bom.String.toText("<div style='padding:5px;'>"), "");
-      assert.equal(qx.bom.String.toText("<div style='padding:5px;'>foo</div></div>"), "foo");
+    assert.equal(qx.bom.String.toText("<div style='padding:5px;'>"), "");
+    assert.equal(qx.bom.String.toText("<div style='padding:5px;'>foo</div></div>"), "foo");
 
-      assert.equal(qx.bom.String.toText("<div style='padding:5px;'> "), " ");
-      assert.equal(qx.bom.String.toText("<div style='padding:5px;'> foo </div></div>"), " foo ");
+    assert.equal(qx.bom.String.toText("<div style='padding:5px;'> "), " ");
+    assert.equal(qx.bom.String.toText("<div style='padding:5px;'> foo </div></div>"), " foo ");
   });
 
-  
+
 });

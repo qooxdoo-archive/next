@@ -17,19 +17,18 @@
 
 ************************************************************************ */
 
-describe("toolchain.PrivateOptimization", function ()
-{
+describe("toolchain.PrivateOptimization", function() {
   /*
    * The next test tests whether privates are renamed at all.
    */
- 
+
   it("PrivatesRenaming", function() {
-      // Can only fail in build version with all optimizations
-      assert.equal("__te" + "st a", __test(), "Variable in a string renamed!");
-      assert.equal("__te" + "st a test", __test() + " test", "Variable in a string renamed!");
+    // Can only fail in build version with all optimizations
+    assert.equal("__te" + "st a", __test(), "Variable in a string renamed!");
+    assert.equal("__te" + "st a test", __test() + " test", "Variable in a string renamed!");
   });
-    // needed for testPrivatesRenaming
-      function __test () {
-         return "__test a";
-      }
+  // needed for testPrivatesRenaming
+  function __test() {
+    return "__test a";
+  }
 });

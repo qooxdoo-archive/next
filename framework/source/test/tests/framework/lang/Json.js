@@ -20,30 +20,34 @@
 describe("lang.Json", function()
 {
 
-  beforeEach (function () 
+  beforeEach (function ()
   {
       // Test either native (when available) or emulated JSON,
       // see [BUG #5037]
       JSON = qx.lang.Json;
   });
- 
+
+
   it("StringifyArray", function() {
       var text = JSON.stringify(['e', {pluribus: 'unum'}]);
       assert.equal('["e",{"pluribus":"unum"}]', text);
   });
- 
+
+
   it("FormattingString", function() {
       var str = JSON.stringify(['e', {pluribus: 'unum'}], null, '\t');
       var expected = /[\n\t"e",\n\t{\n\t\t"pluribus":\s?"unum"\n\t}\n]/;
       assert.match(str, expected);
   });
- 
+
+
   it("FormattingNumber", function() {
       var str = JSON.stringify(['e', {pluribus: 'unum'}], null, 2);
       var expected = /[\n  "e",\n  {\n    "pluribus":\s"unum"\n  }\n]/;
       assert.match(str, expected);
   });
- 
+
+
   it("Replacer", function() {
       var obj = [new Date(0), "foo"];
 
@@ -58,7 +62,7 @@ describe("lang.Json", function()
 
     // Uncovers browser bug found in Firefox >=3.5 && < 4, see
     // https://bugzilla.mozilla.org/show_bug.cgi?id=509184
- 
+
   it("ReplacerNestedObject", function() {
       var obj = {"prop": "value"};
 
@@ -72,28 +76,31 @@ describe("lang.Json", function()
       var json = JSON.stringify(obj, replacer);
       assert.match(json, /replaced/);
   });
- 
+
+
   it("ReplacerWhiteList", function() {
       var list = ["name"];
       var text = JSON.stringify({name: "Peter", last: "Pan"}, list);
 
       assert.equal('{"name":"Peter"}', text);
   });
- 
+
+
   it("StringifyObject", function() {
       assert.equal('{"test":123}', JSON.stringify({ test : 123 }));
   });
- 
+
+
   it("StringifyDate", function() {
       var data = {
         start: new Date(0)
       };
       assert.match(
-        JSON.stringify(data),
-        new RegExp('\{"start":"1970\-01\-01T00:00:00\(\.0*)?Z"\}')
+        JSON.stringify(data),new RegExp('\{"start":"1970\-01\-01T00:00:00\(\.0*)?Z"\}');
       );
   });
- 
+
+
   it("CustomDateSerializer", function() {
       var date = new Date(0);
       date.toJSON = function(key) {
@@ -107,7 +114,8 @@ describe("lang.Json", function()
 
       assert("0".charCodeAt() == result.charCodeAt());
   });
- 
+
+
   it("ToJson", function() {
       var obj = {
         toJSON : function(key) {
@@ -117,7 +125,8 @@ describe("lang.Json", function()
 
       assert.equal('"##"', JSON.stringify(obj));
   });
- 
+
+
   it("ToJsonKey", function() {
       // Known to fail in some browsers:
       //
@@ -141,7 +150,8 @@ describe("lang.Json", function()
       var str = JSON.stringify({ juhu : obj });
       assert.match(str, /#juhu#/);
   });
- 
+
+
   it("StringifyRecursiveObject", function() {
       var obj = {};
       obj.foo = obj;
@@ -157,14 +167,16 @@ describe("lang.Json", function()
         var text = JSON.stringify(obj);
       });
   });
- 
+
+
   it("IgnoreNamedPropertiesInArrays", function() {
       var data = [1, "foo"];
       data.juhu = "kinners"; // must be ignored
 
       assert.equal('[1,"foo"]', JSON.stringify(data));
   });
- 
+
+
   it("IgnoreFunction", function() {
       var data = {
         juhu: "kinners",
@@ -172,7 +184,8 @@ describe("lang.Json", function()
       };
       assert.equal('{"juhu":"kinners"}', JSON.stringify(data));
   });
- 
+
+
   it("SimpleParse", function() {
       var data = JSON.parse('{"juhu":"kinners","age":23,"foo":[1,2,3]}');
 
@@ -187,12 +200,14 @@ describe("lang.Json", function()
       assert.equal(23, data.age);
       assert.deepEqual([1, 2, 3], data.foo);
   });
- 
+
+
   it("ParseNumber", function() {
       assert.equal(1234, JSON.parse("1234"));
       assert.equal(1234, JSON.parse(" 1234"));
   });
- 
+
+
   it("ParseRevive", function() {
       var json = '{"prop": "value"}';
 
@@ -206,6 +221,7 @@ describe("lang.Json", function()
       assert.equal("revived", obj.prop);
   });
 
+
   function isIe8()
   {
     return qx.core.Environment.get("engine.name") === "mshtml" &&
@@ -213,9 +229,10 @@ describe("lang.Json", function()
             qx.core.Environment.get("browser.documentmode") == 8);
   }
 
+
   function isFirefox ()
   {
     return qx.core.Environment.get("engine.name") === "gecko";
   }
-  
+
 });

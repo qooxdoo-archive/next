@@ -17,11 +17,9 @@
 
 ************************************************************************ */
 
-describe("bom.Dataset", function ()
-{
-  
-  beforeEach (function () 
-  {
+describe("bom.Dataset", function() {
+
+  beforeEach(function() {
     var div = document.createElement("div");
     div.id = "el";
 
@@ -30,47 +28,49 @@ describe("bom.Dataset", function ()
   });
 
 
-  afterEach (function ()  {
+  afterEach(function() {
     document.body.removeChild(_el);
   });
 
- it("SetAttribute", function() {
-      var Dataset = qx.bom.element.Dataset;
 
-      Dataset.set(_el, "maxAge", "100");
-      assert.equal("100", Dataset.get(_el,"maxAge"));
-      assert.equal("100", _el.getAttribute("data-max-age"));
+  it("SetAttribute", function() {
+    var Dataset = qx.bom.element.Dataset;
 
+    Dataset.set(_el, "maxAge", "100");
+    assert.equal("100", Dataset.get(_el, "maxAge"));
+    assert.equal("100", _el.getAttribute("data-max-age"));
   });
- 
+
+
   it("SetAttributeWithUndefinedValue", function() {
-      var Dataset = qx.bom.element.Dataset;
+    var Dataset = qx.bom.element.Dataset;
 
-      Dataset.set(_el, "age", undefined);
-      assert.isNull(_el.getAttribute("data-age"));
-      assert.isUndefined(Dataset.get(_el, "age", undefined));
+    Dataset.set(_el, "age", undefined);
+    assert.isNull(_el.getAttribute("data-age"));
+    assert.isUndefined(Dataset.get(_el, "age", undefined));
 
-      Dataset.set(_el, "age2", null);
-      assert.isNull(_el.getAttribute("data-age2"));
-      assert.isUndefined(Dataset.get(_el, "age2", null));
+    Dataset.set(_el, "age2", null);
+    assert.isNull(_el.getAttribute("data-age2"));
+    assert.isUndefined(Dataset.get(_el, "age2", null));
   });
- 
+
+
   it("GetAttribute", function() {
-      var Dataset = qx.bom.element.Dataset;
+    var Dataset = qx.bom.element.Dataset;
 
-      assert.isUndefined(Dataset.get(_el, "salary"));
+    assert.isUndefined(Dataset.get(_el, "salary"));
 
-      _el.setAttribute("data-salary", "20");
-      assert.equal("20", Dataset.get(_el, "salary"));
+    _el.setAttribute("data-salary", "20");
+    assert.equal("20", Dataset.get(_el, "salary"));
   });
- 
-  it("RemoveAttribute", function() {
-      var Dataset = qx.bom.element.Dataset;
 
-      Dataset.set(_el, "age", "44");
-      Dataset.remove(_el, "age");
-      assert.isNull(_el.getAttribute("age"));
-      assert.isUndefined(Dataset.get(_el, "age"));
-    
+
+  it("RemoveAttribute", function() {
+    var Dataset = qx.bom.element.Dataset;
+
+    Dataset.set(_el, "age", "44");
+    Dataset.remove(_el, "age");
+    assert.isNull(_el.getAttribute("age"));
+    assert.isUndefined(Dataset.get(_el, "age"));
   });
 });

@@ -18,11 +18,11 @@
 
 ************************************************************************ */
 
-describe("bom.History", function () {
+describe("bom.History", function() {
 
   var __history = null;
 
-  beforeEach (function () {
+  beforeEach(function() {
     __history = qx.bom.History.getInstance();
     if (__history._writeState.restore) {
       __history._writeState.restore();
@@ -34,9 +34,7 @@ describe("bom.History", function () {
   it("Instance", function() {
     var runsInIframe = !(window == window.top);
     // in iframe + IE9
-    if (runsInIframe
-      && qx.core.Environment.get("browser.documentmode") == 9
-    ) {
+    if (runsInIframe && qx.core.Environment.get("browser.documentmode") == 9) {
       assert.instanceOf(__history, qx.bom.HashHistory);
     }
 
@@ -71,7 +69,7 @@ describe("bom.History", function () {
 
   it("RequestEventAddHistory", function(done) {
     __history.once("request", function(state) {
-     setTimeout(function() {
+      setTimeout(function() {
         assert.equal("baz", state);
         done();
       }, 500);

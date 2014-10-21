@@ -1,24 +1,30 @@
 describe('event.Mouse', function() {
 
-  beforeEach (function () {
-   globalSetup();
+  beforeEach(function() {
+    globalSetup();
   });
-  afterEach (function () {
-   globalTeardown();
+
+
+  afterEach(function() {
+    globalTeardown();
   });
- 
+
+
   it("EventNormalization", function() {
     var eventTypes = ["click", "dblclick", "mousedown", "mouseup", "mouseover", "mousemove",
-      "mouseout"];
+      "mouseout"
+    ];
     var registry = q.$getEventNormalizationRegistry();
-    for (var i=0,l=eventTypes.length; i<l; i++) {
-      assert.isDefined( registry[eventTypes[i]]);
+    for (var i = 0, l = eventTypes.length; i < l; i++) {
+      assert.isDefined(registry[eventTypes[i]]);
     }
   });
- 
+
+
   it("EventMethods", function() {
     var eventMethods = ["getButton", "getViewportLeft", "getViewportTop",
-      "getDocumentLeft", "getDocumentTop", "getScreenLeft", "getScreenTop"];
+      "getDocumentLeft", "getDocumentTop", "getScreenLeft", "getScreenTop"
+    ];
 
     var test = q.create("<div id='foo'></div>");
     test.appendTo(sandbox[0]);
@@ -26,9 +32,8 @@ describe('event.Mouse', function() {
     var obj = {};
 
     q("#sandbox #foo").on("mousedown", function(ev) {
-      for (var i=0; i<eventMethods.length; i++) {
-        if (typeof ev[eventMethods[i]] !== "function"
-          || ev[eventMethods[i]]() !== "none") {
+      for (var i = 0; i < eventMethods.length; i++) {
+        if (typeof ev[eventMethods[i]] !== "function" || ev[eventMethods[i]]() !== "none") {
           this.normalized = false;
           return;
         }
@@ -37,15 +42,15 @@ describe('event.Mouse', function() {
     }, obj);
 
     q("#sandbox #foo").emit("mousedown", {
-      button : "none",
-      clientX : "none",
-      clientY : "none",
-      pageX : "none",
-      pageY : "none",
-      screenX : "none",
-      screenY : "none"
+      button: "none",
+      clientX: "none",
+      clientY: "none",
+      pageX: "none",
+      pageY: "none",
+      screenX: "none",
+      screenY: "none"
     });
 
     assert.isTrue(obj.normalized);
   });
-}); 
+});

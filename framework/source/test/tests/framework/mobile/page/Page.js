@@ -18,71 +18,73 @@
 ************************************************************************ */
 
 
-describe("mobile.page.Page", function ()
-{
-  
-  beforeEach( function () {
-     setUpRoot();
+describe("mobile.page.Page", function() {
+
+  beforeEach(function() {
+    setUpRoot();
   });
 
-  afterEach( function (){
-     tearDownRoot();
+
+  afterEach(function() {
+    tearDownRoot();
   });
-   
- it("Lifecycle", function() {
-      var initializedEvent = false;
-      var startEvent = false;
 
-      var page = new qx.ui.mobile.page.Page();
-      getRoot().append(page);
 
-      page.on("initialize", function() {
-        assert.isFalse(startEvent);
-        initializedEvent = true;
-      }, this);
+  it("Lifecycle", function() {
+    var initializedEvent = false;
+    var startEvent = false;
 
-      page.on("start", function() {
-        assert.isTrue(initializedEvent);
-        startEvent = true;
-      }, this);
+    var page = new qx.ui.mobile.page.Page();
+    getRoot().append(page);
 
-      page.show();
+    page.on("initialize", function() {
+      assert.isFalse(startEvent);
+      initializedEvent = true;
+    }, this);
 
+    page.on("start", function() {
       assert.isTrue(initializedEvent);
-      assert.isTrue(startEvent);
-      page.dispose();  
+      startEvent = true;
+    }, this);
+
+    page.show();
+
+    assert.isTrue(initializedEvent);
+    assert.isTrue(startEvent);
+    page.dispose();
   });
- 
+
+
   it("Back", function() {
-      var page = new qx.ui.mobile.page.Page();
-      getRoot().append(page);
+    var page = new qx.ui.mobile.page.Page();
+    getRoot().append(page);
 
-      var eventFired = false;
+    var eventFired = false;
 
-      page.on("back", function() {
-        eventFired = true;
-      }, this);
-      page.back();
+    page.on("back", function() {
+      eventFired = true;
+    }, this);
+    page.back();
 
-      assert.isTrue(eventFired);
+    assert.isTrue(eventFired);
 
-      page.dispose();  
+    page.dispose();
   });
- 
+
+
   it("Menu", function() {
-      var page = new qx.ui.mobile.page.Page();
-      getRoot().append(page);
+    var page = new qx.ui.mobile.page.Page();
+    getRoot().append(page);
 
-      var eventFired = false;
+    var eventFired = false;
 
-      page.on("menu", function() {
-        eventFired = true;
-      }, this);
-      page.menu();
+    page.on("menu", function() {
+      eventFired = true;
+    }, this);
+    page.menu();
 
-      assert.isTrue(eventFired);
+    assert.isTrue(eventFired);
 
-      page.dispose();
-    
+    page.dispose();
   });
 });

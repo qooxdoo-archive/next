@@ -17,53 +17,53 @@
 
 ************************************************************************ */
 
-describe("mobile.form.Label", function ()
-{
+describe("mobile.form.Label", function() {
 
-  beforeEach( function () {
-     setUpRoot();
+  beforeEach(function() {
+    setUpRoot();
   });
 
-  afterEach( function (){
-     tearDownRoot();
+
+  afterEach(function() {
+    tearDownRoot();
   });
-  
+
+
   it("LabelForTarget", function() {
-      var label = new qx.ui.mobile.form.Label("foo-label");
-      var target = new qx.ui.mobile.form.TextField("foo");
-      label.setLabelFor(target.getAttribute("id"));
+    var label = new qx.ui.mobile.form.Label("foo-label");
+    var target = new qx.ui.mobile.form.TextField("foo");
+    label.setLabelFor(target.getAttribute("id"));
 
-      var foundValue = label.getAttribute("for");
+    var foundValue = label.getAttribute("for");
 
-      assert.equal(target.getAttribute("id"),foundValue,"'For' attribute has an unexpected value.");
+    assert.equal(target.getAttribute("id"), foundValue, "'For' attribute has an unexpected value.");
 
-      label.dispose();
-      target.dispose();
+    label.dispose();
+    target.dispose();
   });
- 
+
+
   it("DisableTarget", function() {
-      var label = new qx.ui.mobile.form.Label("foo-label");
-      var target = new qx.ui.mobile.form.TextField("foo");
-      getRoot().append(target);
+    var label = new qx.ui.mobile.form.Label("foo-label");
+    var target = new qx.ui.mobile.form.TextField("foo");
+    getRoot().append(target);
 
-      target.enabled = false;
+    target.enabled = false;
 
-      label.setLabelFor(target.getAttribute("id"));
+    label.setLabelFor(target.getAttribute("id"));
 
-      // check if state is considered before label.for is set.
-      assert.equal(target.enabled, label.enabled);
+    // check if state is considered before label.for is set.
+    assert.equal(target.enabled, label.enabled);
 
-      target.enabled = true;
+    target.enabled = true;
 
-      assert.isTrue(label.enabled);
+    assert.isTrue(label.enabled);
 
-      target.enabled = false;
+    target.enabled = false;
 
-      assert.isFalse(label.enabled);
+    assert.isFalse(label.enabled);
 
-      label.dispose();
-      target.dispose();
+    label.dispose();
+    target.dispose();
   });
-
-
 });

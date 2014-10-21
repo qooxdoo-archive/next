@@ -18,47 +18,54 @@
 
 ************************************************************************ */
 
-describe("bom.Event", function()
-{
- 
-  it("SupportsEvent", function() {
-      var eventsToCheck = [ "click",
-                            "mousedown",
-                            "mousemove",
-                            "mouseup",
-                            "mouseout" ];
+describe("bom.Event", function() {
 
-      var el;
-      for (var i=0, j=eventsToCheck.length; i<j; i++) {
-        el = qx.dom.Element.create("div", {name: "vanillebaer"}, window);
-        qx.bom.Event.addNativeListener(el, eventsToCheck[i], function(e) {
+  it("SupportsEvent", function() {
+    var eventsToCheck = ["click",
+                         "mousedown",
+                         "mousemove",
+                         "mouseup",
+                         "mouseout"];
+
+    var el;
+    for (var i = 0, j = eventsToCheck.length; i < j; i++) {
+      el = qx.dom.Element.create("div", {
+        name: "vanillebaer"
+      }, window);
+      qx.bom.Event.addNativeListener(el, eventsToCheck[i], function(e) {
+        qx.log.Logger.info("done");
+      });
+      assert.isTrue(qx.bom.Event.supportsEvent(el, eventsToCheck[i]), "Failed to check support for '" + eventsToCheck[i] + "'");
+    }
+
+    var el2 = qx.dom.Element.create("div", {
+      name: "schokobaer"
+    }, window);
+    assert.isFalse(qx.bom.Event.supportsEvent(el2, "click2"));
+
+    if (qx.core.Environment.get("event.mspointer")) {
+      var pointerEventsToCheck = ["MSPointerDown",
+        "MSPointerUp",
+        "MSPointerOut",
+        "MSPointerOver",
+        "MSPointerCancel",
+        "MSPointerMove"
+      ];
+
+      for (i = 0, j = pointerEventsToCheck.length; i < j; i++) {
+        el = qx.dom.Element.create("div", {
+          name: "vanillebaer"
+        }, window);
+        qx.bom.Event.addNativeListener(el, pointerEventsToCheck[i], function(e) {
           qx.log.Logger.info("done");
         });
-        assert.isTrue(qx.bom.Event.supportsEvent(el, eventsToCheck[i]), "Failed to check support for '" + eventsToCheck[i] + "'");
+        assert.isTrue(qx.bom.Event.supportsEvent(el, pointerEventsToCheck[i]), "Failed to check support for '" + pointerEventsToCheck[i] + "'");
       }
-
-      var el2 = qx.dom.Element.create("div", {name: "schokobaer"}, window);
-      assert.isFalse(qx.bom.Event.supportsEvent(el2, "click2"));
-
-      if (qx.core.Environment.get("event.mspointer")) {
-        var pointerEventsToCheck = [ "MSPointerDown",
-                                     "MSPointerUp",
-                                     "MSPointerOut",
-                                     "MSPointerOver",
-                                     "MSPointerCancel",
-                                     "MSPointerMove" ];
-
-        for (var i=0, j=pointerEventsToCheck.length; i<j; i++) {
-          el = qx.dom.Element.create("div", {name: "vanillebaer"}, window);
-          qx.bom.Event.addNativeListener(el, pointerEventsToCheck[i], function(e) {
-            qx.log.Logger.info("done");
-          });
-          assert.isTrue(qx.bom.Event.supportsEvent(el, pointerEventsToCheck[i]), "Failed to check support for '" + pointerEventsToCheck[i] + "'");
-        }
-      }
+    }
   });
 
-  it("SafariMobile", function () {
+
+  it("SafariMobile", function() {
     var el = qx.dom.Element.create("audio");
 
     var supportedEvents = [
@@ -69,6 +76,5 @@ describe("bom.Event", function()
     for (var i = 0, l = supportedEvents.length; i < l; i++) {
       assert.isTrue(qx.bom.Event.supportsEvent(el, supportedEvents[i]), "Failed to check support for '" + supportedEvents[i] + "'");
     }
-  
   });
 });

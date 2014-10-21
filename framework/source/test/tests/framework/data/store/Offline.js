@@ -17,13 +17,13 @@
 
 ************************************************************************ */
 
-describe("data.store.Offline", function(){
+describe("data.store.Offline", function() {
 
   var __store = null;
   var __testKey = "qx-unit-test";
   var model = null;
 
-  afterEach (function () {
+  afterEach(function() {
     sinon.sandbox.restore();
     // erase the data from the storages
     qx.bom.Storage.getLocal().removeItem(__testKey);
@@ -34,13 +34,14 @@ describe("data.store.Offline", function(){
 
   function __initDefaultStore() {
     __store = new qx.data.store.Offline(__testKey, "local");
-  };
+  }
 
 
-  function __createDefaultModel () {
-    return qx.data.marshal.Json.createModel({a: "a"}, true);
-  };
-
+  function __createDefaultModel() {
+    return qx.data.marshal.Json.createModel({
+      a: "a"
+    }, true);
+  }
 
 
   it("Create", function() {
@@ -113,7 +114,9 @@ describe("data.store.Offline", function(){
 
 
   it("ModelRead", function() {
-    sinon.stub(qx.bom.Storage.getLocal(), "getItem").returns({b : "b"});
+    sinon.stub(qx.bom.Storage.getLocal(), "getItem").returns({
+      b: "b"
+    });
     __initDefaultStore();
 
     assert.isDefined(__store.model);
@@ -148,7 +151,9 @@ describe("data.store.Offline", function(){
     var model1 = __createDefaultModel();
     __store.model = model1;
 
-    var model2 = qx.data.marshal.Json.createModel({x: "x"}, true);
+    var model2 = qx.data.marshal.Json.createModel({
+      x: "x"
+    }, true);
     __store.model = model2;
 
     __initDefaultStore();
@@ -158,7 +163,12 @@ describe("data.store.Offline", function(){
 
 
   it("BigModel", function() {
-    var data = {a: [{b: 1, c: true}, 12.567, "a"]};
+    var data = {
+      a: [{
+        b: 1,
+        c: true
+      }, 12.567, "a"]
+    };
     var model = qx.data.marshal.Json.createModel(data, true);
 
     __initDefaultStore();

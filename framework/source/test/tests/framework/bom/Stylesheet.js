@@ -18,42 +18,40 @@
 ************************************************************************ */
 
 /* ************************************************************************
-************************************************************************ */
+ ************************************************************************ */
 /**
  *
  * @asset(../resource/qx/test/style.css)
  */
 
-describe("bom.Stylesheet", function ()
-{
+describe("bom.Stylesheet", function() {
 
-  afterEach (function ()
-  {
+  afterEach(function() {
     if (__sheet) {
       var ownerNode = __sheet.ownerNode || __sheet.owningNode;
       if (ownerNode && ownerNode.parentNode) {
         ownerNode.parentNode.removeChild(ownerNode);
-      }
-      else {
+      } else {
         qx.bom.Stylesheet.removeAllRules(__sheet);
       }
     }
   });
 
+
   it("AddImport", function() {
-      var sheet = __sheet = qx.bom.Stylesheet.createElement();
-      var uri = qx.util.ResourceManager.getInstance().toUri("../resource/qx/test/style.css");
-      qx.bom.Stylesheet.addImport(sheet, uri);
-      if (sheet.cssRules) {
-        var rules = sheet.cssRules || sheet.rules;
-        assert.equal(1, sheet.cssRules.length);
-        assert.isDefined(sheet.cssRules[0].href);
-      }
-      else if (sheet.cssText) {
-        assert.match(sheet.cssText, /@import/);
-      }
-      qx.bom.Stylesheet.removeImport(sheet, uri);
+    var sheet = __sheet = qx.bom.Stylesheet.createElement();
+    var uri = qx.util.ResourceManager.getInstance().toUri("../resource/qx/test/style.css");
+    qx.bom.Stylesheet.addImport(sheet, uri);
+    if (sheet.cssRules) {
+      var rules = sheet.cssRules || sheet.rules;
+      assert.equal(1, sheet.cssRules.length);
+      assert.isDefined(sheet.cssRules[0].href);
+    } else if (sheet.cssText) {
+      assert.match(sheet.cssText, /@import/);
+    }
+    qx.bom.Stylesheet.removeImport(sheet, uri);
   });
+
 
   it("AddRule", function() {
     var sheet = __sheet = qx.bom.Stylesheet.createElement();
@@ -68,12 +66,14 @@ describe("bom.Stylesheet", function ()
     }
   });
 
+
   it("CreateElement", function() {
     var sheet = __sheet = qx.bom.Stylesheet.createElement();
     var rules = sheet.cssRules || sheet.rules;
     assert.isDefined(rules, "Created element is not a stylesheet!");
     assert.equal(0, rules.length);
   });
+
 
   it("CreateElementWithText", function() {
     var cssText = "#foo { color: red; }";
@@ -84,12 +84,13 @@ describe("bom.Stylesheet", function ()
     assert.equal("#foo", rules[0].selectorText);
   });
 
+
   it("IncludeFile", function() {
     var uri = qx.util.ResourceManager.getInstance().toUri("../resource/qx/test/style.css");
     qx.bom.Stylesheet.includeFile(uri);
     var linkElems = document.getElementsByTagName("link");
     var found = false;
-    for (var i=0, l=linkElems.length; i<l; i++) {
+    for (var i = 0, l = linkElems.length; i < l; i++) {
       if (linkElems[i].href.match(/test\/style\.css/)) {
         found = true;
         break;
@@ -97,6 +98,7 @@ describe("bom.Stylesheet", function ()
     }
     assert(found, "Link element was not added to the document!");
   });
+
 
   it("RemoveAllImports", function() {
     var sheet = __sheet = qx.bom.Stylesheet.createElement();
@@ -107,11 +109,11 @@ describe("bom.Stylesheet", function ()
     if (sheet.cssRules) {
       var rules = sheet.cssRules || sheet.rules;
       assert.equal(0, sheet.cssRules.length);
-    }
-    else if (typeof sheet.cssText == "string") {
+    } else if (typeof sheet.cssText == "string") {
       assert.equal("", sheet.cssText);
     }
   });
+
 
   it("RemoveAllRules", function() {
     var sheet = __sheet = qx.bom.Stylesheet.createElement();
@@ -125,6 +127,7 @@ describe("bom.Stylesheet", function ()
     assert.equal(0, rules.length);
   });
 
+
   it("RemoveImport", function() {
     var sheet = __sheet = qx.bom.Stylesheet.createElement();
     var uri = qx.util.ResourceManager.getInstance().toUri("../resource/qx/test/style.css");
@@ -134,11 +137,11 @@ describe("bom.Stylesheet", function ()
     if (sheet.cssRules) {
       var rules = sheet.cssRules || sheet.rules;
       assert.equal(0, sheet.cssRules.length);
-    }
-    else if (typeof sheet.cssText == "string") {
+    } else if (typeof sheet.cssText == "string") {
       assert.equal("", sheet.cssText);
     }
   });
+
 
   it("RemoveRule", function() {
     var sheet = __sheet = qx.bom.Stylesheet.createElement("#foo { color: red; }");

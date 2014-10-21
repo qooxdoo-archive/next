@@ -18,7 +18,7 @@
 
 ************************************************************************ */
 
-describe("data.store.Json", function(){
+describe("data.store.Json", function() {
 
   var __store = null;
   var __data = null;
@@ -27,7 +27,7 @@ describe("data.store.Json", function(){
   var url = "tests/framework/data/store/primitive.json";
 
 
-  beforeEach (function () {
+  beforeEach(function() {
     var sandbox = sinon.sandbox.create();
     __store = new qx.data.store.Json();
 
@@ -36,7 +36,7 @@ describe("data.store.Json", function(){
   });
 
 
-  afterEach (function () {
+  afterEach(function() {
     sinon.sandbox.restore();
     __store.dispose();
 
@@ -64,43 +64,43 @@ describe("data.store.Json", function(){
 
 
   it("ProgressStates", function(done) {
-    console.log("ProgressStates", url)
-      var states = [];
+    var states = [];
 
-      __store.on("changeState", function(evt) {
-        var state = evt.value;
-        states.push(state);
+    __store.on("changeState", function(evt) {
+      var state = evt.value;
+      states.push(state);
 
-        if (state == "completed") {
-          setTimeout(function () {
-            var expected = ["sending", "receiving", "completed"];
-            assert.deepEqual(expected, states);
-            console.log("done")
-            done();
+      if (state == "completed") {
+        setTimeout(function() {
+          var expected = ["sending", "receiving", "completed"];
+          assert.deepEqual(expected, states);
+          done();
 
-          },0);
-        }
-      }, this);
+        }, 0);
+      }
+    }, this);
 
-      __store.url = url;
+    __store.url = url;
 
   });
 
+
   it("LoadResource", function(done) {
     __store.on("loaded", function() {
-      setTimeout (function () {
+      setTimeout(function() {
         var model = __store.model;
         assert.equal("String", model.string, "The model is not created how it should!");
         done();
-      },0 );
+      }, 0);
     }, this);
 
     __store.url = "tests/framework/data/store/primitive.json";
   });
 
+
   it("LoadAlias", function(done) {
     __store.on("loaded", function() {
-      setTimeout (function () {
+      setTimeout(function() {
         var model = __store.model;
         assert.equal("String", model.string, "The model is not created how it should!");
         qx.util.AliasManager.getInstance().remove("testLoadResource");
@@ -115,31 +115,34 @@ describe("data.store.Json", function(){
     __store.url = "tests/framework/data/store/primitive.json";
   });
 
+
   it("Dispose", function() {
-      __store.url = url;
-      __store.dispose();
+    __store.url = url;
+    __store.dispose();
   });
+
 
   it("WholePrimitive", function(done) {
-      __store.on("loaded", function() {
-        setTimeout (function () {
-          var model = __store.model;
-          assert.equal("String", model.string, "The model is not created how it should!");
-          assert.equal(12, model.number, "The model is not created how it should!");
-          assert.equal(true, model.boolean, "The model is not created how it should!");
-          assert.isNull(model["null"], "The model is not created how it should!");
-          done();
-        }, 0);
-      }, this);
+    __store.on("loaded", function() {
+      setTimeout(function() {
+        var model = __store.model;
+        assert.equal("String", model.string, "The model is not created how it should!");
+        assert.equal(12, model.number, "The model is not created how it should!");
+        assert.equal(true, model.boolean, "The model is not created how it should!");
+        assert.isNull(model["null"], "The model is not created how it should!");
+        done();
+      }, 0);
+    }, this);
 
 
-      __store.url = url;
+    __store.url = url;
 
   });
+
 
   it("WholeArray", function(done) {
     __store.on("loaded", function() {
-      setTimeout (function () {
+      setTimeout(function() {
         var model = __store.model;
         assert.isNotNull(model.array, "The model is not created how it should!");
         assert.equal("qx.data.Array", model.array.classname, "Wrong array class.");
@@ -153,9 +156,10 @@ describe("data.store.Json", function(){
     __store.url = "tests/framework/data/store/array.json";
   });
 
+
   it("WholeObject", function(done) {
     __store.on("loaded", function() {
-      setTimeout (function () {
+      setTimeout(function() {
         var model = __store.model;
         assert.isNotNull(model.o, "The model is not created how it should!");
         assert.equal("a", model.o.a, "Wrong content of the object.");
@@ -167,29 +171,28 @@ describe("data.store.Json", function(){
     __store.url = "tests/framework/data/store/object.json";
   });
 
+
   it("OwnClassWith", function(done) {
     // define a test class
-    qx.Class.define("qx.test.AB",
-    {
-      extend : Object,
-      include : [qx.event.MEmitter],
+    qx.Class.define("qx.test.AB", {
+      extend: Object,
+      include: [qx.event.MEmitter],
 
-      properties :
-      {
-        a : {
-          check : "String",
-          event : true
+      properties: {
+        a: {
+          check: "String",
+          event: true
         },
 
-        b : {
-          check : "String",
-          event : true
+        b: {
+          check: "String",
+          event: true
         }
       }
     });
 
     var delegate = {
-      getModelClass : function(properties) {
+      getModelClass: function(properties) {
         if (properties == 'a"b') {
           return qx.Class.getByName("qx.test.AB");
         }
@@ -199,7 +202,7 @@ describe("data.store.Json", function(){
     __store = new qx.data.store.Json(null, delegate);
 
     __store.on("loaded", function() {
-      setTimeout (function () {
+      setTimeout(function() {
         var model = __store.model;
         assert.isNotNull(model.o, "The model is not created how it should!");
 
@@ -214,16 +217,17 @@ describe("data.store.Json", function(){
     __store.url = "tests/framework/data/store/object.json";
   });
 
+
   it("OwnClassWithout", function(done) {
     var delegate = {
-      getModelClass : function(properties) {
+      getModelClass: function(properties) {
         return null;
       }
     };
     __store = new qx.data.store.Json(null, delegate);
 
     __store.on("loaded", function() {
-      setTimeout (function () {
+      setTimeout(function() {
         var model = __store.model;
         assert.isNotNull(model.o, "The model is not created how it should!");
         assert.equal("a", model.o.a, "Wrong content of the object.");
@@ -235,23 +239,23 @@ describe("data.store.Json", function(){
     __store.url = "tests/framework/data/store/object.json";
   });
 
+
   it("OwnSuperclassWith", function(done) {
     // define a test class
-    qx.Class.define("qx.test.O",
-    {
-      extend : Object,
-      include : [qx.event.MEmitter]
+    qx.Class.define("qx.test.O", {
+      extend: Object,
+      include: [qx.event.MEmitter]
     });
 
     var delegate = {
-      getModelSuperClass : function(properties) {
+      getModelSuperClass: function(properties) {
         return qx.test.O;
       }
     };
     __store = new qx.data.store.Json(null, delegate);
 
     __store.on("loaded", function() {
-      setTimeout (function () {
+      setTimeout(function() {
         var model = __store.model;
         assert.isTrue(qx.Class.isSubClassOf(model.constructor, qx.test.O));
         assert.isNotNull(model.o, "The model is not created how it should!");
@@ -265,22 +269,22 @@ describe("data.store.Json", function(){
     __store.url = "tests/framework/data/store/object.json";
   });
 
+
   it("OwnSuperclassWithout", function(done) {
     // define a test class
-    qx.Class.define("qx.test.O",
-    {
-      extend : Object
+    qx.Class.define("qx.test.O", {
+      extend: Object
     });
 
     var delegate = {
-      getModelSuperClass : function(properties) {
+      getModelSuperClass: function(properties) {
         return null;
       }
     };
     __store = new qx.data.store.Json(null, delegate);
 
     __store.on("loaded", function() {
-      setTimeout (function () {
+      setTimeout(function() {
         var model = __store.model;
         assert.isNotNull(model.o, "The model is not created how it should!");
         assert.equal("a", model.o.a, "Wrong content of the object.");
@@ -291,17 +295,18 @@ describe("data.store.Json", function(){
 
     __store.url = "tests/framework/data/store/object.json";
   });
+
 
   it("OwnMixinWithout", function(done) {
     var delegate = {
-      getModelMixins : function(properties) {
+      getModelMixins: function(properties) {
         return null;
       }
     };
     __store = new qx.data.store.Json(null, delegate);
 
     __store.on("loaded", function() {
-      setTimeout (function () {
+      setTimeout(function() {
         var model = __store.model;
         assert.isNotNull(model.o, "The model is not created how it should!");
         assert.equal("a", model.o.a, "Wrong content of the object.");
@@ -313,12 +318,11 @@ describe("data.store.Json", function(){
     __store.url = "tests/framework/data/store/object.json";
   });
 
+
   it("OwnMixinWith", function(done) {
     // define a test class
-    qx.Mixin.define("qx.test.M",
-    {
-      members :
-      {
+    qx.Mixin.define("qx.test.M", {
+      members: {
         foo: function() {
           return true;
         }
@@ -326,14 +330,14 @@ describe("data.store.Json", function(){
     });
 
     var delegate = {
-      getModelMixins : function(properties) {
+      getModelMixins: function(properties) {
         return qx.test.M;
       }
     };
     __store = new qx.data.store.Json(null, delegate);
 
     __store.on("loaded", function() {
-      setTimeout (function () {
+      setTimeout(function() {
         var model = __store.model;
         assert.isTrue(model.foo(), "Mixin not included.");
         assert.isNotNull(model.o, "The model is not created how it should!");
@@ -347,37 +351,32 @@ describe("data.store.Json", function(){
     __store.url = "tests/framework/data/store/object.json";
   });
 
+
   it("OwnMixinWithMultiple", function(done) {
     // define a test class
-    qx.Mixin.define("qx.test.M1",
-    {
-      members :
-      {
+    qx.Mixin.define("qx.test.M1", {
+      members: {
         foo: function() {
           return true;
         }
       }
     });
-    qx.Mixin.define("qx.test.M2",
-    {
-      members :
-      {
+    qx.Mixin.define("qx.test.M2", {
+      members: {
         bar: function() {
           return true;
         }
       }
     });
-
-
     var delegate = {
-      getModelMixins : function(properties) {
+      getModelMixins: function(properties) {
         return [qx.test.M1, qx.test.M2];
       }
     };
     __store = new qx.data.store.Json(null, delegate);
 
     __store.on("loaded", function() {
-      setTimeout (function () {
+      setTimeout(function() {
         var model = __store.model;
         assert.isTrue(model.foo(), "Mixin not included.");
         assert.isTrue(model.bar(), "Mixin not included.");
@@ -394,9 +393,11 @@ describe("data.store.Json", function(){
 
 
   it("ManipulatePrimitive", function(done) {
-    var delegate = {manipulateData : function(data) {
-      return data;
-    }};
+    var delegate = {
+      manipulateData: function(data) {
+        return data;
+      }
+    };
 
     sinon.spy(delegate, "manipulateData");
 
@@ -404,7 +405,7 @@ describe("data.store.Json", function(){
     __store = new qx.data.store.Json(null, delegate);
 
     __store.on("loaded", function() {
-      setTimeout (function () {
+      setTimeout(function() {
         sinon.assert.called(delegate.manipulateData);
         done();
       }, 0);
@@ -416,12 +417,12 @@ describe("data.store.Json", function(){
 
 
   it("ConfigureRequestPrimitive", function(done) {
-    var delegate,
 
-
-    delegate = {configureRequest : function(request) {
-      assert.instanceOf(request, qx.io.request.Xhr);
-    }};
+    var delegate = {
+      configureRequest: function(request) {
+        assert.instanceOf(request, qx.io.request.Xhr);
+      }
+    };
 
     sinon.spy(delegate, "configureRequest");
 
@@ -429,7 +430,7 @@ describe("data.store.Json", function(){
     __store = new qx.data.store.Json(null, delegate);
 
     __store.on("loaded", function() {
-      setTimeout (function () {
+      setTimeout(function() {
         sinon.assert.called(delegate.configureRequest);
         done();
       }, 0);
@@ -459,7 +460,7 @@ describe("data.store.Json", function(){
 
   it("ErrorEvent", function(done) {
     __store.on("error", function(ev) {
-      setTimeout (function () {
+      setTimeout(function() {
         assert.isNotNull(ev);
         done();
       }, 0);

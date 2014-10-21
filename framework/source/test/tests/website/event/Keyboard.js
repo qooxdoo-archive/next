@@ -1,22 +1,26 @@
 describe('event.Keyboard', function() {
 
-  beforeEach (function () {
-   globalSetup();
+  beforeEach(function() {
+    globalSetup();
   });
-  afterEach (function () {
-   globalTeardown();
+
+
+  afterEach(function() {
+    globalTeardown();
   });
- 
+
+
   it("EventNormalization", function() {
     var eventTypes = ["keydown", "keypress", "keyup"];
     assert.isArray(eventTypes);
     assert(eventTypes.length > 0);
     var registry = q.$getEventNormalizationRegistry();
-    for (var i=0,l=eventTypes.length; i<l; i++) {
-      assert.isDefined( registry[eventTypes[i]]);
+    for (var i = 0, l = eventTypes.length; i < l; i++) {
+      assert.isDefined(registry[eventTypes[i]]);
     }
   });
- 
+
+
   it("EventMethods", function() {
     var test = q.create("<div id='foo'></div>");
     test.appendTo(sandbox[0]);
@@ -33,4 +37,4 @@ describe('event.Keyboard', function() {
 
     assert.equal("Escape", obj.keyIdentifier);
   });
-}); 
+});

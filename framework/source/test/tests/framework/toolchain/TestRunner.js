@@ -17,17 +17,16 @@
 
 ************************************************************************ */
 
-describe("toolchain.TestRunner", function() 
-{
-  
- it("Asynchronous", function(done) {
+describe("toolchain.TestRunner", function() {
 
-     setTimeout( function(){
-      
+
+  it("Asynchronous", function(done) {
+
+    setTimeout(function() {
       //do nothing
       done();
-      }, 1000);
+    }, 1000);
 
-   
   });
+
 });

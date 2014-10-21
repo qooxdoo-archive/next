@@ -1,8 +1,8 @@
 describe('Cookie', function() {
- 
+
   it("GetSetDel", function() {
     // this.require(["http"]);
-    if(document.location.protocol.indexOf("http") !== 0){
+    if (document.location.protocol.indexOf("http") !== 0) {
       return;
     }
     var key1 = "q.test.cookie.Gorilla";
@@ -26,4 +26,4 @@ describe('Cookie', function() {
     assert.isNull(q.cookie.get(key1));
     assert.isNull(q.cookie.get(key2));
   });
-}); 
+});

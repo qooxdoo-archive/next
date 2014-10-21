@@ -17,19 +17,18 @@
 
 ************************************************************************ */
 
-describe("bom.Selector", function()
-{
+describe("bom.Selector", function() {
 
   it("ElementClass", function() {
     var sandbox = q.create("<div id='sandbox'></div>").appendTo(document.body);
     var Element = qx.dom.Element;
     var Attribute = qx.bom.element.Attribute;
 
-    for (var i=0; i<250; i++) {
+    for (var i = 0; i < 250; i++) {
       var el = Element.create("ul", {
         "class": "fromcode",
         "html": "<li>one</li><li>two</li><li>three</li>",
-        "id": "setid"+ i
+        "id": "setid" + i
       });
 
       sandbox.append(el);

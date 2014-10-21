@@ -22,107 +22,119 @@
  * @ignore(qx.String)
  */
 
-describe("qx.test.type.BaseString", function() 
-{
- 
- it("ToString", function() {
-      var s = new qx.type.BaseString("Juhu");
-      assert.equal("Juhu", s);
+describe("qx.test.type.BaseString", function() {
+
+  it("ToString", function() {
+    var s = new qx.type.BaseString("Juhu");
+    assert.equal("Juhu", s);
   });
- 
+
+
   it("ValueOf", function() {
-      var s = new qx.type.BaseString("Juhu");
-      assert.equal("Juhu".valueOf(), s.valueOf());
+    var s = new qx.type.BaseString("Juhu");
+    assert.equal("Juhu".valueOf(), s.valueOf());
   });
- 
+
+
   it("UpperCase", function() {
-      var s = new qx.type.BaseString("Juhu");
-      assert.equal("JUHU", s.toUpperCase());
+    var s = new qx.type.BaseString("Juhu");
+    assert.equal("JUHU", s.toUpperCase());
   });
- 
+
+
   it("IndexOf", function() {
-      var s = new qx.type.BaseString("Juhu");
-      assert.equal(1, s.indexOf("u"));
+    var s = new qx.type.BaseString("Juhu");
+    assert.equal(1, s.indexOf("u"));
   });
- 
+
+
   it("PlusOperator", function() {
-      var s = new qx.type.BaseString("Juhu");
-      assert.equal("__Juhu__", ["__", s + "__"].join(""));
+    var s = new qx.type.BaseString("Juhu");
+    assert.equal("__Juhu__", ["__", s + "__"].join(""));
   });
- 
+
+
   it("CharAt", function() {
-      var s = new qx.type.BaseString("Juhu");
-      assert.equal("h", s.charAt(2));
+    var s = new qx.type.BaseString("Juhu");
+    assert.equal("h", s.charAt(2));
   });
- 
+
+
   it("charCodeAt", function() {
-      var s = new qx.type.BaseString("Juhu");
-      assert.equal(104, s.charCodeAt(2));
+    var s = new qx.type.BaseString("Juhu");
+    assert.equal(104, s.charCodeAt(2));
   });
- 
+
+
   it("lastIndexOf", function() {
-      var s = new qx.type.BaseString("Juhu");
-      assert.equal(3, s.lastIndexOf("u"));
+    var s = new qx.type.BaseString("Juhu");
+    assert.equal(3, s.lastIndexOf("u"));
   });
- 
+
+
   it("Length", function() {
-      var s = new qx.type.BaseString("Juhu");
-      assert.equal(4, s.length);
+    var s = new qx.type.BaseString("Juhu");
+    assert.equal(4, s.length);
   });
- 
+
+
   it("LowerCase", function() {
-      var s = new qx.type.BaseString("Juhu");
-      assert.equal("juhu", s.toLowerCase());
+    var s = new qx.type.BaseString("Juhu");
+    assert.equal("juhu", s.toLowerCase());
   });
- 
+
+
   it("SubstringOneArgument", function() {
-      var s = new qx.type.BaseString("Juhu");
-      assert.equal("hu", s.substring(2));
+    var s = new qx.type.BaseString("Juhu");
+    assert.equal("hu", s.substring(2));
   });
- 
+
+
   it("SubstringTwoArguments", function() {
-      var s = new qx.type.BaseString("Juhu");
-      assert.equal("u", s.substring(2, 1));
+    var s = new qx.type.BaseString("Juhu");
+    assert.equal("u", s.substring(2, 1));
   });
- 
+
+
   it("SearchString", function() {
-      var s = new qx.type.BaseString("Juhu");
-      assert.equal(2, s.search("h"));
+    var s = new qx.type.BaseString("Juhu");
+    assert.equal(2, s.search("h"));
   });
- 
+
+
   it("SearchRegExp", function() {
-      var s = new qx.type.BaseString("Juhu");
-      assert.equal(0, s.search(/J/));
+    var s = new qx.type.BaseString("Juhu");
+    assert.equal(0, s.search(/J/));
   });
- 
+
+
   it("Replace", function() {
-      var s = new qx.type.BaseString("Juhu");
-      assert.equal("Johu", s.replace("u", "o"));
+    var s = new qx.type.BaseString("Juhu");
+    assert.equal("Johu", s.replace("u", "o"));
   });
- 
+
+
   it("EmptyString", function() {
-      var s = new qx.type.BaseString();
-      assert.equal("", s.toString());
+    var s = new qx.type.BaseString();
+    assert.equal("", s.toString());
 
-      var s = new qx.type.BaseString("");
-      assert.equal("", s.toString());
+    s = new qx.type.BaseString("");
+    assert.equal("", s.toString());
   });
- 
+
+
   it("Extend", function() {
-      qx.Class.define("qx.String",
-      {
-        extend : qx.type.BaseString,
+    qx.Class.define("qx.String", {
+      extend: qx.type.BaseString,
 
-        members :
-        {
-          bold : function() {
-            return "<b>" + this.toString() + "</b>";
-          }
+      members: {
+        bold: function() {
+          return "<b>" + this.toString() + "</b>";
         }
-      });
+      }
+    });
 
-      var s = new qx.String("Juhu");
-      assert.equal("<b>Juhu</b>", s.bold());
-    
+    var s = new qx.String("Juhu");
+    assert.equal("<b>Juhu</b>", s.bold());
   });
 });

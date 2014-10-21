@@ -20,34 +20,40 @@
 // TODO
 describe("data.store.RestWithRemote", function() {
 
-  beforeEach (function () {
+  beforeEach(function() {
     var url = "tests/framework/data/store/primitive.json";
-        res = res = new qx.io.rest.Resource({index: {method: "GET", url: url} });
-        store = store = new qx.data.store.Rest(res, "index");
+    res = res = new qx.io.rest.Resource({
+      index: {
+        method: "GET",
+        url: url
+      }
+    });
+    store = store = new qx.data.store.Rest(res, "index");
 
     res.configureRequest(function(req) {
       req.setParser(qx.util.ResponseParser.PARSER.json);
     });
   });
 
-  afterEach (function() {
+
+  afterEach(function() {
     res.dispose();
     store.dispose();
   });
 
 
- it("populate store with response of resource action", function(done) {
-   res.on("success", function() {
-     assert.equal("String", store.model.string);
-     done();
-   }, this);
+  it("populate store with response of resource action", function(done) {
+    res.on("success", function() {
+      assert.equal("String", store.model.string);
+      done();
+    }, this);
 
-   res.index();
- });
+    res.index();
+  });
 
 
- it("bind model property", function(done) {
-   label = new qx.ui.mobile.basic.Label();
+  it("bind model property", function(done) {
+    label = new qx.ui.mobile.basic.Label();
 
     res.on("success", function() {
       assert.equal("String", label.value);

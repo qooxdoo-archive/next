@@ -17,8 +17,8 @@
 
 ************************************************************************ */
 
-describe("dom.Hierarchy", function()
-{
+describe("dom.Hierarchy", function() {
+
   var __childElement;
   var __siblingElement;
   var __unRenderedElement;
@@ -26,7 +26,7 @@ describe("dom.Hierarchy", function()
   var __childOfNotDisplayedElement;
   var sandbox;
 
-  beforeEach (function () {
+  beforeEach(function() {
     sandbox = q.create("<div id='sandbox'></div>").appendTo(document.body);
     __renderedElement = qx.dom.Element.create("div");
     sandbox.append(__renderedElement);
@@ -42,10 +42,9 @@ describe("dom.Hierarchy", function()
   });
 
 
-  afterEach (function () {
+  afterEach(function() {
     sandbox.remove();
   });
-
 
 
   it("IsRendered", function() {
@@ -62,7 +61,7 @@ describe("dom.Hierarchy", function()
     sandbox.append(iframe);
 
     qxWeb(iframe).once("load", function(e) {
-      setTimeout( function()  {
+      setTimeout(function() {
         assert.isTrue(qx.dom.Hierarchy.isRendered(iframe));
         done();
       }, 10);
@@ -89,11 +88,11 @@ describe("dom.Hierarchy", function()
     sandbox.append(__siblingElement);
 
     assert.equal(sandbox[0],
-    qx.dom.Hierarchy.getCommonParent(__renderedElement, __siblingElement));
+      qx.dom.Hierarchy.getCommonParent(__renderedElement, __siblingElement));
 
     __childElement = qx.dom.Element.create("div");
     __renderedElement.appendChild(__childElement);
     assert.equal(__renderedElement,
-    qx.dom.Hierarchy.getCommonParent(__renderedElement, __childElement));
+      qx.dom.Hierarchy.getCommonParent(__renderedElement, __childElement));
   });
 });

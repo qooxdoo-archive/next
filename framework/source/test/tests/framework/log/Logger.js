@@ -16,83 +16,82 @@
      * Fabian Jakobs (fjakobs)
 
 ************************************************************************ */
-
-describe("log.Logger", function ()
-{
+describe("log.Logger", function() {
 
   var TEST_CONSTANT = "abc";
 
-
-  beforeEach (function ()
-  {
+  beforeEach(function() {
     __initialLogLevel = qx.log.Logger.getLevel();
   });
 
-  afterEach (function ()
-  {
+
+  afterEach(function() {
     qx.log.Logger.setLevel(__initialLogLevel);
   });
 
-  function __testLogException(exception)
-  {
-      var appender = new qx.log.appender.RingBuffer();
 
-      qx.log.Logger.setLevel("debug");
-      qx.log.Logger.clear();
-      qx.log.Logger.register(appender);
+  function __testLogException(exception) {
+    var appender = new qx.log.appender.RingBuffer();
 
-      qx.log.Logger.debug(exception);
+    qx.log.Logger.setLevel("debug");
+    qx.log.Logger.clear();
+    qx.log.Logger.register(appender);
 
-      var events = appender.getAllLogEvents();
-      assert.equal(1, events.length);
+    qx.log.Logger.debug(exception);
 
-      if (qx.core.Environment.get("ecmascript.error.stacktrace")) {
-        if (exception instanceof Error || qx.core.Environment.get("engine.name") !== "gecko") {
-          assert(events[0].items[0].trace.length > 0);
-        }
+    var events = appender.getAllLogEvents();
+    assert.equal(1, events.length);
+
+    if (qx.core.Environment.get("ecmascript.error.stacktrace")) {
+      if (exception instanceof Error || qx.core.Environment.get("engine.name") !== "gecko") {
+        assert(events[0].items[0].trace.length > 0);
       }
+    }
 
-      qx.log.Logger.unregister(appender);
+    qx.log.Logger.unregister(appender);
   }
 
- it("LogException", function() {
-      var exception = newException();
-      __testLogException(exception);
+
+  it("LogException", function() {
+    var exception = newException();
+    __testLogException(exception);
   });
+
 
   it("LogDOMException", function() {
-      var exception = newDOMException();
-      __testLogException(exception);
+    var exception = newDOMException();
+    __testLogException(exception);
   });
+
 
   it("KonstantDeprecation", function() {
-      // call the method to see if its not throwing an error
-      qx.log.Logger.deprecatedConstantWarning(
-        this, "abc"
-      );
+    // call the method to see if its not throwing an error
+    qx.log.Logger.deprecatedConstantWarning(
+      this, "abc"
+    );
 
-      assert.equal("abc", TEST_CONSTANT);
+    assert.equal("abc", TEST_CONSTANT);
   });
+
 
   it("ContextObject", function() {
-      var appender = new qx.log.appender.RingBuffer();
+    var appender = new qx.log.appender.RingBuffer();
 
-      qx.log.Logger.setLevel("debug");
-      qx.log.Logger.clear();
-      qx.log.Logger.register(appender);
+    qx.log.Logger.setLevel("debug");
+    qx.log.Logger.clear();
+    qx.log.Logger.register(appender);
 
-      qx.log.Logger.debug(Object, "m1");
-      qx.log.Logger.debug(qxWeb(), "m2");
+    qx.log.Logger.debug(Object, "m1");
+    qx.log.Logger.debug(qxWeb(), "m2");
 
-      var events = appender.getAllLogEvents();
-      assert.equal(qxWeb, events[1].clazz);
+    var events = appender.getAllLogEvents();
+    assert.equal(qxWeb, events[1].clazz);
 
-      qx.log.Logger.unregister(appender);
+    qx.log.Logger.unregister(appender);
   });
 
 
-  function newException ()
-  {
+  function newException() {
     var exc;
     try {
       throw new Error();
@@ -102,8 +101,8 @@ describe("log.Logger", function ()
     return exc;
   }
 
-  function newDOMException ()
-  {
+
+  function newDOMException() {
     var exc;
     try {
       document.body.appendChild(null);

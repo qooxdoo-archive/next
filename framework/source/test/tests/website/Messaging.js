@@ -1,5 +1,5 @@
 describe('Messaging', function() {
- 
+
   it("On", function() {
     var called = 0;
     var id = q.messaging.on("X", "test", function() {
@@ -14,7 +14,8 @@ describe('Messaging', function() {
     q.messaging.emit("X", "test");
     assert.equal(2, called);
   });
- 
+
+
   it("OnAny", function() {
     // counter for every handler
     var called = 0;
@@ -55,4 +56,4 @@ describe('Messaging', function() {
     assert.equal(1, called2);
     assert.equal(2, calledAny);
   });
-}); 
+});

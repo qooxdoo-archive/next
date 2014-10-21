@@ -30,6 +30,7 @@ describe("log.RingBuffer", function ()
     qx.log.Logger.setLevel(__initialLogLevel);
   });
 
+
  it("Log", function() {
       var appender = new qx.log.appender.RingBuffer();
 
@@ -45,6 +46,7 @@ describe("log.RingBuffer", function ()
       qx.log.Logger.unregister(appender);
   });
 
+
   it("ExceedMaxMessages", function() {
       var appender = new qx.log.appender.RingBuffer(2);
 
@@ -57,6 +59,7 @@ describe("log.RingBuffer", function ()
       assert.equal(8, events[0].index);
       assert.equal(9, events[1].index);
   });
+
 
   it("RetrieveLogEvents", function() {
       var appender = new qx.log.appender.RingBuffer(6);
@@ -74,6 +77,7 @@ describe("log.RingBuffer", function ()
       assert.equal(5, events[0].index);
       assert.equal(9, events[4].index);
   });
+
 
   it("ClearHistory", function() {
       var appender = new qx.log.appender.RingBuffer();

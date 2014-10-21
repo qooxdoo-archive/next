@@ -1,5 +1,3 @@
-
-
 /* ************************************************************************
 
    qooxdoo - the new era of web development
@@ -28,9 +26,8 @@
  * @asset(qx/test/webworker.js)
  */
 
-describe("bom.WebWorker", function ()
-{
-  
+describe("bom.WebWorker", function() {
+
   var _url = null;
   var _worker = null;
   var _send = null;
@@ -43,14 +40,14 @@ describe("bom.WebWorker", function ()
    * http://bugzilla.qooxdoo.org/show_bug.cgi?id=5565
    * https://bugzilla.mozilla.org/show_bug.cgi?id=683280
    */
-  function _isBuggyGecko ()
-  {
+  function _isBuggyGecko() {
     return qx.core.Environment.get("engine.name") === "gecko" &&
       parseInt(qx.core.Environment.get("engine.version"), 10) >= 8 &&
       parseInt(qx.core.Environment.get("engine.version"), 10) < 9;
   }
 
-  beforeEach (function ()  {
+
+  beforeEach(function() {
     _url = qx.util.ResourceManager.getInstance().toUri("../resource/qx/test/webworker.js");
 
     if (_isBuggyGecko()) {
@@ -68,66 +65,78 @@ describe("bom.WebWorker", function ()
     };
   });
 
-  afterEach (function() {
+
+  afterEach(function() {
     _worker.dispose();
     _worker = null;
     _send = null;
     _url = null;
   });
- 
- it("Constructor", function() {
-      assert.instanceOf(_worker, qx.bom.WebWorker);
-  });
- 
-  it("MessageEvent", function() {
-      _send("message", function(mess, message) {
-        assert.strictEqual(mess, message);
-      });
-  });
- 
-  it("ErrorEvent", function() {
-      var message = "error";
 
-      _worker.on("error", function(message) {
-        assert.isTrue(/error/.test(message));
-      }, this);
-      _worker.postMessage(message);
+
+  it("Constructor", function() {
+    assert.instanceOf(_worker, qx.bom.WebWorker);
   });
- 
+
+
+  it("MessageEvent", function() {
+    _send("message", function(mess, message) {
+      assert.strictEqual(mess, message);
+    });
+  });
+
+
+  it("ErrorEvent", function() {
+    var message = "error";
+
+    _worker.on("error", function(message) {
+      assert.isTrue(/error/.test(message));
+    }, this);
+    _worker.postMessage(message);
+  });
+
+
   it("PostMessageWithNumber", function() {
-      _send(1, function(mess, message) {
-        assert.strictEqual(mess, message);
-      });
+    _send(1, function(mess, message) {
+      assert.strictEqual(mess, message);
+    });
   });
- 
+
+
   it("PostMessageWithBoolean", function() {
-      _send(true, function(mess, message) {
-        assert.strictEqual(mess, message);
-      });
+    _send(true, function(mess, message) {
+      assert.strictEqual(mess, message);
+    });
   });
- 
+
+
   it("PostMessageWithNull", function() {
-      _send(null, function(mess, message) {
-        assert.strictEqual(mess, message);
-      });
+    _send(null, function(mess, message) {
+      assert.strictEqual(mess, message);
+    });
   });
- 
+
+
   it("PostMessageWithObject", function() {
-      //_send({a:"1", b:2, c:3});
-      _send({a:"1", b:2, c:true}, function(mess, message) {
-        assert.strictEqual(mess.a, message.a);
-        assert.strictEqual(mess.b, message.b);
-        assert.strictEqual(mess.c, message.c);
-      });
+    //_send({a:"1", b:2, c:3});
+    _send({
+      a: "1",
+      b: 2,
+      c: true
+    }, function(mess, message) {
+      assert.strictEqual(mess.a, message.a);
+      assert.strictEqual(mess.b, message.b);
+      assert.strictEqual(mess.c, message.c);
+    });
   });
- 
+
+
   it("PostMessageWithArray", function() {
-      //_send(["1", 2, true]);
-      _send(["1", 2, true], function(mess, message) {
-        assert.strictEqual(mess[0], message[0]);
-        assert.strictEqual(mess[1], message[1]);
-        assert.strictEqual(mess[2], message[2]);
-      });
-    
+    //_send(["1", 2, true]);
+    _send(["1", 2, true], function(mess, message) {
+      assert.strictEqual(mess[0], message[0]);
+      assert.strictEqual(mess[1], message[1]);
+      assert.strictEqual(mess[2], message[2]);
+    });
   });
 });

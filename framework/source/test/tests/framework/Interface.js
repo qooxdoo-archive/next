@@ -20,500 +20,481 @@
 /**
  * @ignore(qx.test.i.*)
  */
-describe("Interface", function()
-{
+describe("Interface", function() {
 
-  beforeEach (function ()  {
-    qx.Interface.define("qx.test.i.ICar",
-    {
-      members :
-      {
-        startEngine : function() {
+  beforeEach(function() {
+    qx.Interface.define("qx.test.i.ICar", {
+      members: {
+        startEngine: function() {
           return true;
         }
       },
 
-      properties : { color : {} }
+      properties: {
+        color: {}
+      }
     });
   });
 
 
-  afterEach (function ()  {
+  afterEach(function() {
     delete qx.test.i.ICar;
   });
 
+
   it("ClassImplements", function() {
-      // test correct implementations
-      qx.Class.define("qx.test.i.Audi",
-      {
-        extend : Object,
-        construct : function() {},
-        implement : [ qx.test.i.ICar ],
+    // test correct implementations
+    qx.Class.define("qx.test.i.Audi", {
+      extend: Object,
+      construct: function() {},
+      implement: [qx.test.i.ICar],
 
-        members :
-        {
-          startEngine : function() {
-            return "start";
-          }
-        },
+      members: {
+        startEngine: function() {
+          return "start";
+        }
+      },
 
-        statics :
-        {
-          honk : function() {
-            return "honk";
-          }
-        },
+      statics: {
+        honk: function() {
+          return "honk";
+        }
+      },
 
-        properties : { color : { } }
-      });
+      properties: {
+        color: {}
+      }
+    });
 
-      var audi = new qx.test.i.Audi("audi");
+    var audi = new qx.test.i.Audi("audi");
 
-      assert.isTrue(qx.Interface.classImplements(qx.test.i.Audi, qx.test.i.ICar));
-      delete qx.test.i.Audi;
+    assert.isTrue(qx.Interface.classImplements(qx.test.i.Audi, qx.test.i.ICar));
+    delete qx.test.i.Audi;
   });
+
 
   it("EverythingImplemented", function() {
-      qx.Class.define("qx.test.i.Bmw1",
-        {
-          extend : Object,
-          construct : function() {},
+    qx.Class.define("qx.test.i.Bmw1", {
+      extend: Object,
+      construct: function() {},
 
-          members :
-          {
-            startEngine : function() {
-              return "start";
-            }
-          },
+      members: {
+        startEngine: function() {
+          return "start";
+        }
+      },
 
-          statics :
-          {
-            honk : function() {
-              return "honk";
-            }
-          },
+      statics: {
+        honk: function() {
+          return "honk";
+        }
+      },
 
-          properties : { color : { } }
-        });
-      assert.isTrue(qx.Interface.classImplements(qx.test.i.Bmw1, qx.test.i.ICar));
-      delete qx.test.i.Bmw1;
+      properties: {
+        color: {}
+      }
+    });
+    assert.isTrue(qx.Interface.classImplements(qx.test.i.Bmw1, qx.test.i.ICar));
+    delete qx.test.i.Bmw1;
   });
+
 
   it("MissingMembers", function() {
-      qx.Class.define("qx.test.i.Bmw2",
-        {
-          extend : Object,
-          construct : function() {},
-          statics :
-          {
-            honk : function() {
-              return "honk";
-            }
-          },
+    qx.Class.define("qx.test.i.Bmw2", {
+      extend: Object,
+      construct: function() {},
+      statics: {
+        honk: function() {
+          return "honk";
+        }
+      },
 
-          properties : { color : { } }
-        });
-      assert.isFalse(qx.Interface.classImplements(qx.test.i.Bmw2, qx.test.i.ICar));
-      delete qx.test.i.Bmw2;
+      properties: {
+        color: {}
+      }
+    });
+    assert.isFalse(qx.Interface.classImplements(qx.test.i.Bmw2, qx.test.i.ICar));
+    delete qx.test.i.Bmw2;
   });
+
 
   it("MissingStatics", function() {
-      // (ie it does implement all necessary)
-      qx.Class.define("qx.test.i.Bmw3",
-        {
-          extend : Object,
-          construct : function() {},
-          members :
-          {
-            startEngine : function() {
-              return "start";
-            }
-          },
+    // (ie it does implement all necessary)
+    qx.Class.define("qx.test.i.Bmw3", {
+      extend: Object,
+      construct: function() {},
+      members: {
+        startEngine: function() {
+          return "start";
+        }
+      },
 
-          properties : { color : { } }
-        });
-      assert.isTrue(qx.Interface.classImplements(qx.test.i.Bmw3, qx.test.i.ICar));
-      delete qx.test.i.Bmw;
+      properties: {
+        color: {}
+      }
+    });
+    assert.isTrue(qx.Interface.classImplements(qx.test.i.Bmw3, qx.test.i.ICar));
+    delete qx.test.i.Bmw;
   });
+
 
   it("MissingProperties", function() {
-      qx.Class.define("qx.test.i.Bmw4",
-        {
-          extend : Object,
-          construct : function() {},
-          members :
-          {
-            startEngine : function() {
-              return "start";
-            }
-          },
+    qx.Class.define("qx.test.i.Bmw4", {
+      extend: Object,
+      construct: function() {},
+      members: {
+        startEngine: function() {
+          return "start";
+        }
+      },
 
-          statics :
-          {
-            honk : function() {
-              return "honk";
-            }
-          }
-        });
-      assert.isFalse(qx.Interface.classImplements(qx.test.i.Bmw4, qx.test.i.ICar));
-      delete qx.test.i.Bmw4;
+      statics: {
+        honk: function() {
+          return "honk";
+        }
+      }
+    });
+    assert.isFalse(qx.Interface.classImplements(qx.test.i.Bmw4, qx.test.i.ICar));
+    delete qx.test.i.Bmw4;
   });
+
 
   it("WithDebug", function() {
 
-      if (qx.core.Environment.get("qx.debug"))
-      {
-        assert.throw(function() {
-          var i = new qx.test.i.ICar();
-        }, Error);
+    if (qx.core.Environment.get("qx.debug")) {
+      assert.throw(function() {
+        var i = new qx.test.i.ICar();
+      }, Error);
 
 
-        // nothing defined
-        assert.throw(function()
-        {
-          qx.Class.define("qx.test.i.Audi1",
-          {
-            extend    : Object,
-            construct : function() {},
-            implement : [ qx.test.i.ICar ]
+      // nothing defined
+      assert.throw(function() {
+          qx.Class.define("qx.test.i.Audi1", {
+            extend: Object,
+            construct: function() {},
+            implement: [qx.test.i.ICar]
           });
         },
         Error, "does not implement the interface");
 
-        // members not defined
-        assert.throw(function()
-        {
-          qx.Class.define("qx.test.i.Audi2",
-          {
-            extend : Object,
-            construct : function() {},
-            implement : [ qx.test.i.ICar ],
+      // members not defined
+      assert.throw(function() {
+          qx.Class.define("qx.test.i.Audi2", {
+            extend: Object,
+            construct: function() {},
+            implement: [qx.test.i.ICar],
 
-            statics :
-            {
-              honk : function() {
+            statics: {
+              honk: function() {
                 return "honk";
               }
             },
 
-            properties : { color : { } }
+            properties: {
+              color: {}
+            }
           });
         },
         Error, "does not implement the interface");
 
-        // property not defined
-        assert.throw(function()
-        {
-          qx.Class.define("qx.test.i.Audi4",
-          {
-            extend : Object,
-            construct : function() {},
-            implement : [ qx.test.i.ICar ],
+      // property not defined
+      assert.throw(function() {
+          qx.Class.define("qx.test.i.Audi4", {
+            extend: Object,
+            construct: function() {},
+            implement: [qx.test.i.ICar],
 
-            members :
-            {
-              startEngine : function() {
+            members: {
+              startEngine: function() {
                 return "start";
               }
             },
 
-            statics :
-            {
-              honk : function() {
+            statics: {
+              honk: function() {
                 return "honk";
               }
             }
           });
         },
         Error, "does not implement the interface");
-      }
+    }
   });
+
 
   it("Properties", function() {
-      qx.Interface.define("qx.test.i.IProperties1", {
-        properties : {
-          value : {}
-        }
-      });
-
-      qx.Class.define("qx.test.i.Properties1",
-      {
-        extend : Object,
-        implement : [qx.test.i.IProperties1],
-
-        properties :
-        {
-          value : { check : "Integer"}
-        }
-      });
-
-      if (qx.core.Environment.get("qx.debug"))
-      {
-        assert.throw(function() {
-          qx.Class.define("qx.test.i.Properties2",
-          {
-            extend : Object,
-            implement : [qx.test.i.IProperties1],
-
-            members :
-            {
-              getValue : function() {},
-              setValue : function(value) {}
-            }
-          });
-        });
+    qx.Interface.define("qx.test.i.IProperties1", {
+      properties: {
+        value: {}
       }
+    });
 
+    qx.Class.define("qx.test.i.Properties1", {
+      extend: Object,
+      implement: [qx.test.i.IProperties1],
 
-      qx.Interface.define("qx.test.i.IProperties2",
-      {
-        members :
-        {
-          getValue : function() {},
-          setValue : function(value) {}
+      properties: {
+        value: {
+          check: "Integer"
         }
-      });
+      }
+    });
 
-      qx.Class.define("qx.test.i.Properties3",
-      {
-        extend : Object,
-        implement : [qx.test.i.IProperties2],
+    if (qx.core.Environment.get("qx.debug")) {
+      assert.throw(function() {
+        qx.Class.define("qx.test.i.Properties2", {
+          extend: Object,
+          implement: [qx.test.i.IProperties1],
 
-        members :
-        {
-          getValue : function() {},
-          setValue : function(value) {}
-        }
+          members: {
+            getValue: function() {},
+            setValue: function(value) {}
+          }
+        });
       });
+    }
+
+    qx.Interface.define("qx.test.i.IProperties2", {
+      members: {
+        getValue: function() {},
+        setValue: function(value) {}
+      }
+    });
+
+    qx.Class.define("qx.test.i.Properties3", {
+      extend: Object,
+      implement: [qx.test.i.IProperties2],
+
+      members: {
+        getValue: function() {},
+        setValue: function(value) {}
+      }
+    });
   });
+
 
   it("ImplementMembers", function() {
-      qx.Interface.define("IFoo", {
-        members: {
-          foo: function() {},
-          bar: function() {}
-        }
-      });
+    qx.Interface.define("IFoo", {
+      members: {
+        foo: function() {},
+        bar: function() {}
+      }
+    });
 
-      assert.throw(function() {
-        qx.Class.define(null, {
-          implement: [IFoo],
-          members: {
-            bar: function() {}
-          }
-        });
-      });
-
+    assert.throw(function() {
       qx.Class.define(null, {
         implement: [IFoo],
         members: {
-          bar: function() {},
-          foo: function() {}
+          bar: function() {}
         }
       });
+    });
+
+    qx.Class.define(null, {
+      implement: [IFoo],
+      members: {
+        bar: function() {},
+        foo: function() {}
+      }
+    });
   });
+
 
   it("ImplementInheritedMembers", function() {
-      qx.Interface.define("IFoo", {
-        members: {
-          foo: function() {},
-          bar: function() {}
-        }
-      });
+    qx.Interface.define("IFoo", {
+      members: {
+        foo: function() {},
+        bar: function() {}
+      }
+    });
 
-      var P = qx.Class.define(null, {
-        members: {
-          foo: function() {}
-        }
-      });
+    var P = qx.Class.define(null, {
+      members: {
+        foo: function() {}
+      }
+    });
 
-      qx.Class.define(null, {
-        extend: P,
-        implement: [IFoo],
-        members: {
-          bar: function() {}
-        }
-      });
+    qx.Class.define(null, {
+      extend: P,
+      implement: [IFoo],
+      members: {
+        bar: function() {}
+      }
+    });
   });
+
 
   it("ImplementProperties", function() {
-      qx.Interface.define("IFoo", {
-        properties: {
-          bar: {
-            init: 23
-          }
+    qx.Interface.define("IFoo", {
+      properties: {
+        bar: {
+          init: 23
         }
-      });
+      }
+    });
 
-      assert.throw(function() {
-        qx.Class.define(null, {
-          implement: [IFoo],
-          properties: {
-            foo: {}
-          }
-        });
-      });
-
+    assert.throw(function() {
       qx.Class.define(null, {
         implement: [IFoo],
-        properties: {
-          bar: {
-            init: 23
-          }
-        }
-      });
-  });
-
-  it("ImplementInheritedProperties", function() {
-      qx.Interface.define("IFoo", {
-        properties: {
-          foo: {},
-          bar: {}
-        }
-      });
-
-      var P = qx.Class.define(null, {
         properties: {
           foo: {}
         }
       });
+    });
 
-      qx.Class.define(null, {
-        extend: P,
-        implement: [IFoo],
-        properties: {
-          bar: {}
+    qx.Class.define(null, {
+      implement: [IFoo],
+      properties: {
+        bar: {
+          init: 23
         }
-      });
+      }
+    });
   });
 
+
+  it("ImplementInheritedProperties", function() {
+    qx.Interface.define("IFoo", {
+      properties: {
+        foo: {},
+        bar: {}
+      }
+    });
+
+    var P = qx.Class.define(null, {
+      properties: {
+        foo: {}
+      }
+    });
+
+    qx.Class.define(null, {
+      extend: P,
+      implement: [IFoo],
+      properties: {
+        bar: {}
+      }
+    });
+  });
+
+
   it("InterfaceInheritance", function() {
-      qx.Interface.define("IFoo", {
-        members: {
-          foo: function() {}
-        },
-        properties: {
-          baz: {}
-        }
-      });
+    qx.Interface.define("IFoo", {
+      members: {
+        foo: function() {}
+      },
+      properties: {
+        baz: {}
+      }
+    });
 
-      qx.Interface.define("IBar", {
-        extend: IFoo,
-        members: {
-          bar: function() {}
-        },
-        properties: {
-          qux: {}
-        }
-      });
+    qx.Interface.define("IBar", {
+      extend: IFoo,
+      members: {
+        bar: function() {}
+      },
+      properties: {
+        qux: {}
+      }
+    });
 
-      assert.throw(function() {
-        var C = qx.Class.define(null, {
-          implement: [IBar],
-          members: {
-            bar: function() {}
-          },
-          properties: {
-            qux: {}
-          }
-        });
-      });
-
+    assert.throw(function() {
       var C = qx.Class.define(null, {
         implement: [IBar],
         members: {
-          foo: function() {},
           bar: function() {}
         },
         properties: {
-          baz: {},
           qux: {}
         }
       });
+    });
 
+    var C = qx.Class.define(null, {
+      implement: [IBar],
+      members: {
+        foo: function() {},
+        bar: function() {}
+      },
+      properties: {
+        baz: {},
+        qux: {}
+      }
+    });
   });
 
+
   it("Includes", function() {
-      qx.Interface.define("qx.test.i.IMember",
-      {
-        members : {
-          sayJuhu : function() {}
-        }
-      });
-
-      qx.Interface.define("qx.test.i.IProperties",
-      {
-        properties : {
-          "color" : {},
-          "name"  : {}
-        }
-      });
-
-      qx.Interface.define("qx.test.i.IAll", {
-        extend : [ qx.test.i.IMember, qx.test.i.IProperties ]
-      });
-
-      qx.Interface.define("qx.test.i.IOther",
-      {
-        members :
-        {
-          bar : function() {
-            return true;
-          }
-        }
-      });
-
-      var classDef =
-      {
-        extend : Object,
-        implement : qx.test.i.IAll,
-
-        members : {
-          sayJuhu : function() {}
-        },
-
-        statics : {
-          sayHello : function() {}
-        },
-
-        properties :
-        {
-          "color" : { },
-          "name"  : { }
-        }
-      };
-
-      // all implemented
-      var def = qx.lang.Object.clone(classDef);
-      qx.Class.define("qx.test.i.Implement1", def);
-
-      assert.isTrue(qx.Interface.classImplements(qx.test.i.Implement1, qx.test.i.IAll), "implements IAll");
-      assert.isTrue(qx.Interface.classImplements(qx.test.i.Implement1, qx.test.i.IMember), "implements IMember");
-      assert.isTrue(qx.Interface.classImplements(qx.test.i.Implement1, qx.test.i.IProperties), "implements IProperties");
-
-      assert.isFalse(qx.Interface.classImplements(qx.test.i.Implement1, qx.test.i.IOther), "not implements IOther");
-
-      // no members
-      def = qx.lang.Object.clone(classDef);
-      delete (def.members);
-
-      if (qx.core.Environment.get("qx.debug"))
-      {
-        assert.throw(function() {
-          qx.Class.define("qx.test.i.Implement2", def);
-        }, Error, "does not implement", "No members defined.");
+    qx.Interface.define("qx.test.i.IMember", {
+      members: {
+        sayJuhu: function() {}
       }
+    });
 
-      // no properties
-      def = qx.lang.Object.clone(classDef);
-      delete (def.properties);
-
-      if (qx.core.Environment.get("qx.debug"))
-      {
-        assert.throw(function() {
-          qx.Class.define("qx.test.i.Implement4", def);
-        }, Error, new RegExp("does not implement"), "No properties defined.");
+    qx.Interface.define("qx.test.i.IProperties", {
+      properties: {
+        "color": {},
+        "name": {}
       }
+    });
 
+    qx.Interface.define("qx.test.i.IAll", {
+      extend: [qx.test.i.IMember, qx.test.i.IProperties]
+    });
+
+    qx.Interface.define("qx.test.i.IOther", {
+      members: {
+        bar: function() {
+          return true;
+        }
+      }
+    });
+
+    var classDef = {
+      extend: Object,
+      implement: qx.test.i.IAll,
+
+      members: {
+        sayJuhu: function() {}
+      },
+
+      statics: {
+        sayHello: function() {}
+      },
+
+      properties: {
+        "color": {},
+        "name": {}
+      }
+    };
+
+    // all implemented
+    var def = qx.lang.Object.clone(classDef);
+    qx.Class.define("qx.test.i.Implement1", def);
+
+    assert.isTrue(qx.Interface.classImplements(qx.test.i.Implement1, qx.test.i.IAll), "implements IAll");
+    assert.isTrue(qx.Interface.classImplements(qx.test.i.Implement1, qx.test.i.IMember), "implements IMember");
+    assert.isTrue(qx.Interface.classImplements(qx.test.i.Implement1, qx.test.i.IProperties), "implements IProperties");
+
+    assert.isFalse(qx.Interface.classImplements(qx.test.i.Implement1, qx.test.i.IOther), "not implements IOther");
+
+    // no members
+    def = qx.lang.Object.clone(classDef);
+    delete(def.members);
+
+    if (qx.core.Environment.get("qx.debug")) {
+      assert.throw(function() {
+        qx.Class.define("qx.test.i.Implement2", def);
+      }, Error, "does not implement", "No members defined.");
+    }
+
+    // no properties
+    def = qx.lang.Object.clone(classDef);
+    delete(def.properties);
+
+    if (qx.core.Environment.get("qx.debug")) {
+      assert.throw(function() {
+        qx.Class.define("qx.test.i.Implement4", def);
+      }, Error, new RegExp("does not implement"), "No properties defined.");
+    }
   });
 });

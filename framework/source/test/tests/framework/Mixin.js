@@ -21,163 +21,151 @@
  * @ignore(qx.Mix, qx.MLogger, qx.MMix1, qx.MMix1.foo)
  * @ignore(qx.MMix2)
  */
-describe("Mixin", function()
-{
+describe("Mixin", function() {
 
   it("MixinBasic", function() {
-      qx.Mixin.define("qx.MMix1",
-      {
-        statics :
-        {
-          data : null,
+    qx.Mixin.define("qx.MMix1", {
+      statics: {
+        data: null,
 
-          foo : function() {
-            return "foo";
-          }
-        },
-
-        members :
-        {
-          bar : function() {
-            return "bar";
-          }
-        },
-
-        properties : { color : {
-          init: "red"
-        } }
-      });
-
-      qx.Mixin.define("qx.MMix2",
-      {
-        members :
-        {
-          bar : function() {
-            return "bar";
-          }
+        foo: function() {
+          return "foo";
         }
-      });
+      },
 
-      qx.Class.define("qx.Mix",
-      {
-        extend    : Object,
-        include   : qx.MMix1,
-        construct : function() {}
-      });
+      members: {
+        bar: function() {
+          return "bar";
+        }
+      },
 
-      assert.equal("foo", qx.MMix1.foo());
-      assert.equal("bar", new qx.Mix().bar());
-      var mix = new qx.Mix();
-      assert.equal("red", mix.color);
+      properties: {
+        color: {
+          init: "red"
+        }
+      }
+    });
 
-      if (qx.core.Environment.get("qx.debug"))
-      {
-        assert.throw(function()
-        {
-          qx.Class.define("qx.Mix1",
-          {
-            extend    : Object,
-            include   : [ qx.MMix1, qx.MMix2 ],
-            construct : function() {}
+    qx.Mixin.define("qx.MMix2", {
+      members: {
+        bar: function() {
+          return "bar";
+        }
+      }
+    });
+
+    qx.Class.define("qx.Mix", {
+      extend: Object,
+      include: qx.MMix1,
+      construct: function() {}
+    });
+
+    assert.equal("foo", qx.MMix1.foo());
+    assert.equal("bar", new qx.Mix().bar());
+    var mix = new qx.Mix();
+    assert.equal("red", mix.color);
+
+    if (qx.core.Environment.get("qx.debug")) {
+      assert.throw(function() {
+          qx.Class.define("qx.Mix1", {
+            extend: Object,
+            include: [qx.MMix1, qx.MMix2],
+            construct: function() {}
           });
         },
         Error, "Overwriting member", "t1");
 
-        assert.throw(function()
-        {
-          qx.Class.define("qx.Mix2",
-          {
-            extend : Object,
-            include : qx.MMix1,
-            construct : function() {},
+      assert.throw(function() {
+          qx.Class.define("qx.Mix2", {
+            extend: Object,
+            include: qx.MMix1,
+            construct: function() {},
 
-            members :
-            {
-              bar : function() {
+            members: {
+              bar: function() {
                 return "bar";
               }
             }
           });
         },
         Error, "Overwriting member", "t2");
-      }
+    }
 
-      // this is allowed
-      qx.Class.define("qx.Mix3",
-      {
-        extend : Object,
-        include : qx.MMix1,
-        construct : function() {},
+    // this is allowed
+    qx.Class.define("qx.Mix3", {
+      extend: Object,
+      include: qx.MMix1,
+      construct: function() {},
 
-        statics :
-        {
-          foo : function() {
-            return "foo";
-          }
+      statics: {
+        foo: function() {
+          return "foo";
         }
-      });
+      }
+    });
 
-      if (qx.core.Environment.get("qx.debug"))
-      {
-        assert.throw(function()
-        {
-          qx.Class.define("qx.Mix4",
-          {
-            extend     : Object,
-            include    : qx.MMix1,
-            construct  : function() {},
-            properties : { color : { } }
+    if (qx.core.Environment.get("qx.debug")) {
+      assert.throw(function() {
+          qx.Class.define("qx.Mix4", {
+            extend: Object,
+            include: qx.MMix1,
+            construct: function() {},
+            properties: {
+              color: {}
+            }
           });
         },
         Error, "Cannot redefine property", "t3");
-      }
+    }
   });
+
 
   it("Mixin", function() {
-      qx.Mixin.define("MFoo", {
-        members: {
-          foo: function() {}
-        }
-      });
+    qx.Mixin.define("MFoo", {
+      members: {
+        foo: function() {}
+      }
+    });
 
-      var C = qx.Class.define(null, {
-        extend: Object,
-        include: [MFoo]
-      });
+    var C = qx.Class.define(null, {
+      extend: Object,
+      include: [MFoo]
+    });
 
-      var c = new C();
-      c.foo();
+    var c = new C();
+    c.foo();
   });
 
+
   it("MixinInterface", function() {
-      qx.Interface.define("IFoo", {
-        members: {
-          foo: function() {},
-          bar: function() {}
-        },
-        properties: {
-          baz: {},
-          qux: {}
-        }
-      });
+    qx.Interface.define("IFoo", {
+      members: {
+        foo: function() {},
+        bar: function() {}
+      },
+      properties: {
+        baz: {},
+        qux: {}
+      }
+    });
 
-      qx.Mixin.define("MFoo", {
-        members: {
-          foo: function() {}
-        },
-        properties: {
-          baz: {}
-        }
-      });
+    qx.Mixin.define("MFoo", {
+      members: {
+        foo: function() {}
+      },
+      properties: {
+        baz: {}
+      }
+    });
 
-      var C = qx.Class.define(null, {
-        members: {
-          bar: function() {}
-        },
-        properties: {
-          qux: {}
-        }
-      });
+    var C = qx.Class.define(null, {
+      members: {
+        bar: function() {}
+      },
+      properties: {
+        qux: {}
+      }
+    });
 
   });
 });

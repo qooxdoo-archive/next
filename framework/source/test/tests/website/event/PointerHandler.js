@@ -1,12 +1,15 @@
 describe('event.PointerHandler', function() {
 
-  beforeEach (function () {
+  beforeEach(function() {
     globalSetup();
   });
-  afterEach (function () {
+
+
+  afterEach(function() {
     globalTeardown();
   });
- 
+
+
   it("Register", function() {
     //this.require(["qx.debug"]);
     if (q.$$qx.core.Environment.get("event.mspointer")) {
@@ -14,8 +17,8 @@ describe('event.PointerHandler', function() {
     }
     var cb = function() {};
     var test = q.create('<div></div>').appendTo(sandbox[0])
-    .on("pointerdown", cb)
-    .on("pointerup", cb);
+      .on("pointerdown", cb)
+      .on("pointerup", cb);
     assert.equal("qx.event.handler.PointerCore", test[0].$$pointerHandler.classname);
     test.off("pointerdown", cb);
     assert.isDefined(test[0].$$pointerHandler);
@@ -29,7 +32,7 @@ describe('event.PointerHandler', function() {
       assert.equal("mousedown", e.getType());
     }, 0);
   };
- 
+
   it("NativeBubbling", function(done) {
     sandbox.on("pointerdown", function() {});
     q(document).on("mousedown", __onMouseDown);
@@ -38,11 +41,11 @@ describe('event.PointerHandler', function() {
       sandbox[0].dispatchEvent ?
         sandbox[0].dispatchEvent(domEvent) :
         sandbox[0].fireEvent("onmousedown", domEvent);
-        done();
+      done();
     }, 250);
-    
- });
- 
+  });
+
+
   it("DisposeHandler", function() {
     var cb = function() {};
     sandbox
@@ -53,7 +56,8 @@ describe('event.PointerHandler', function() {
     sandbox.off("pointerup", cb);
     assert.isUndefined(sandbox[0].$$pointerHandler);
   });
- 
+
+
   it("RemoveMultiple", function() {
     var cb = function() {};
     sandbox
@@ -65,4 +69,4 @@ describe('event.PointerHandler', function() {
     sandbox.off("pointerdown", cb);
     assert.isUndefined(sandbox[0].$$pointerHandler);
   });
-}); 
+});

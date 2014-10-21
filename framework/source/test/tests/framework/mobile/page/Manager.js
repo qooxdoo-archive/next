@@ -17,38 +17,40 @@
 
 ************************************************************************ */
 
-describe("mobile.page.Manager", function ()
-{
-  
-  beforeEach( function () {
-     setUpRoot();
+describe("mobile.page.Manager", function() {
+
+  beforeEach(function() {
+    setUpRoot();
   });
 
-  afterEach( function (){
-     tearDownRoot();
+
+  afterEach(function() {
+    tearDownRoot();
   });
-   
- it("Create", function() {
-      var manager = new qx.ui.mobile.page.Manager();
-      manager.dispose();
- });
- 
+
+
+  it("Create", function() {
+    var manager = new qx.ui.mobile.page.Manager();
+    manager.dispose();
+  });
+
+
   it("AddTablet", function() {
-      var manager = new qx.ui.mobile.page.Manager(true);
-      var page = new qx.ui.mobile.page.NavigationPage();
-      manager.addMaster([page]);
-      manager.addDetail([page]);
-      manager.dispose();
- });
- 
+    var manager = new qx.ui.mobile.page.Manager(true);
+    var page = new qx.ui.mobile.page.NavigationPage();
+    manager.addMaster([page]);
+    manager.addDetail([page]);
+    manager.dispose();
+  });
+
+
   it("AddMobile", function() {
-      var manager = new qx.ui.mobile.page.Manager(false);
-      var page1 = new qx.ui.mobile.page.NavigationPage();
-      var page2 = new qx.ui.mobile.page.NavigationPage();
-      manager.addMaster([page1]);
-      manager.addMaster([page2]);
-      manager.dispose();
-    
+    var manager = new qx.ui.mobile.page.Manager(false);
+    var page1 = new qx.ui.mobile.page.NavigationPage();
+    var page2 = new qx.ui.mobile.page.NavigationPage();
+    manager.addMaster([page1]);
+    manager.addMaster([page2]);
+    manager.dispose();
   });
 
 });

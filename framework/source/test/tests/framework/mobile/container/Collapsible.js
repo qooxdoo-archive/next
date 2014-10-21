@@ -14,27 +14,27 @@
 
 ************************************************************************ */
 
-describe("mobile.container.Collapsible", function ()
-{
+describe("mobile.container.Collapsible", function() {
 
-  beforeEach( function () {
-     setUpRoot();
+  beforeEach(function() {
+    setUpRoot();
   });
 
-  afterEach( function (){
-     tearDownRoot();
+
+  afterEach(function() {
+    tearDownRoot();
   });
-  
+
+
   it("Factory", function() {
-      var collapsible = q.create('<div>')
-        .collapsible("Header")
-        .appendTo(getRoot());
+    var collapsible = q.create('<div>')
+      .collapsible("Header")
+      .appendTo(getRoot());
 
-      assert.instanceOf(collapsible, qx.ui.mobile.container.Collapsible);
-      assert.instanceOf(qxWeb(collapsible.getChildren()[0]), qx.ui.mobile.basic.Label);
-      assert.instanceOf(collapsible.find(".collapsible-content"), qx.ui.mobile.Widget);
-      collapsible.remove().dispose();
-    
+    assert.instanceOf(collapsible, qx.ui.mobile.container.Collapsible);
+    assert.instanceOf(qxWeb(collapsible.getChildren()[0]), qx.ui.mobile.basic.Label);
+    assert.instanceOf(collapsible.find(".collapsible-content"), qx.ui.mobile.Widget);
+    collapsible.remove().dispose();
   });
 
 });

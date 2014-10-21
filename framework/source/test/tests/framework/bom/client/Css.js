@@ -17,27 +17,24 @@
 
 ************************************************************************ */
 
-describe("bom.client.Css", function ()
-{
- 
+describe("bom.client.Css", function() {
+
   it("BorderImageSyntax", function() {
-      var styleName = qx.core.Environment.get("css.borderimage");
-      if (typeof styleName!== "string") {
-        throw new qx.dev.unit.RequirementError("css.borderimage");
-      }
+    var styleName = qx.core.Environment.get("css.borderimage");
+    if (typeof styleName !== "string") {
+      throw new qx.dev.unit.RequirementError("css.borderimage");
+    }
 
-      var standardSyntax = qx.core.Environment.get("css.borderimage.standardsyntax");
-      assert.isBoolean(standardSyntax, "Browser supports borderImage but " +
-        "syntax type was not detected!");
+    var standardSyntax = qx.core.Environment.get("css.borderimage.standardsyntax");
+    assert.isBoolean(standardSyntax, "Browser supports borderImage but " +
+      "syntax type was not detected!");
 
-      if (styleName == "borderImage") {
-        assert.isTrue(standardSyntax, "Browser supports unprefixed borderImage " +
-          "but syntax type detected as non-standard!");
-      }
-      else {
-        assert.isFalse(standardSyntax, "Browser supports prefixed borderImage " +
-          "but syntax type detected as standard!");
-      }
-   
+    if (styleName == "borderImage") {
+      assert.isTrue(standardSyntax, "Browser supports unprefixed borderImage " +
+        "but syntax type detected as non-standard!");
+    } else {
+      assert.isFalse(standardSyntax, "Browser supports prefixed borderImage " +
+        "but syntax type detected as standard!");
+    }
   });
 });

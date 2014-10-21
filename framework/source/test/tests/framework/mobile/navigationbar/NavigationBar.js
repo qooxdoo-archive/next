@@ -19,14 +19,17 @@
 
 describe("mobile.navigationbar.NavigationBar", function()
 {
+
   beforeEach( function () {
      setUpRoot();
   });
 
+
   afterEach( function (){
      tearDownRoot();
   });
-   
+
+
   it("Create", function() {
       var bar = new qx.ui.mobile.navigationbar.NavigationBar();
       getRoot().append(bar);
@@ -45,8 +48,6 @@ describe("mobile.navigationbar.NavigationBar", function()
       back.dispose();
       title.dispose();
       button.dispose();
-      bar.dispose();
-    
+      bar.dispose()
   });
-
 });

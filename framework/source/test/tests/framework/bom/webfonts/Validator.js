@@ -14,18 +14,18 @@
 
 ************************************************************************ */
 
-describe("bom.webfonts.Validator", function () {
-   
-  var __val = null; 
-  beforeEach (function () 
-  {
+describe("bom.webfonts.Validator", function() {
+
+  var __val = null;
+
+  beforeEach(function() {
     __nodesBefore = document.body.childNodes.length;
     //require(["webFontSupport"]);
-    __val = new qx.bom.webfonts.Validator;
+    __val = new qx.bom.webfonts.Validator();
   });
 
-  afterEach (function () 
-  {
+
+  afterEach(function() {
     if (__val) {
       __val.dispose();
       delete __val;
@@ -33,34 +33,35 @@ describe("bom.webfonts.Validator", function () {
     qx.bom.webfonts.Validator.removeDefaultHelperElements();
     assert.equal(__nodesBefore, document.body.childNodes.length, "Validator did not clean up correctly!");
   });
- 
- it("ValidFont", function(done) {
-      __val.fontFamily = "monospace, courier";
-      __val.on("changeStatus", function(result) {
-        setTimeout( function (){
-          assert.isTrue(result.valid);
-          done();
-        }, 1000);
-      }, this);
-      window.setTimeout(function() {
-        __val.validate();
-      }, 0);
-      
-  });
- 
- it("InvalidFont", function(done) {
-      __val.fontFamily = "zzzzzzzzzzzzzzz";
-      __val.timeout = 250;
-      __val.on("changeStatus", function(result) {
-        setTimeout (function (){
-          assert.isFalse(result.valid);
-          done();
-        }, 500);
-      }, this);
 
-      window.setTimeout(function() {
-        __val.validate();
-      }, 0);
+
+  it("ValidFont", function(done) {
+    __val.fontFamily = "monospace, courier";
+    __val.on("changeStatus", function(result) {
+      setTimeout(function() {
+        assert.isTrue(result.valid);
+        done();
+      }, 1000);
+    }, this);
+    window.setTimeout(function() {
+      __val.validate();
+    }, 0);
   });
-  
+
+
+  it("InvalidFont", function(done) {
+    __val.fontFamily = "zzzzzzzzzzzzzzz";
+    __val.timeout = 250;
+    __val.on("changeStatus", function(result) {
+      setTimeout(function() {
+        assert.isFalse(result.valid);
+        done();
+      }, 500);
+    }, this);
+
+    window.setTimeout(function() {
+      __val.validate();
+    }, 0);
+  });
+
 });

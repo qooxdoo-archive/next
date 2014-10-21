@@ -31,13 +31,15 @@ describe("mobile.basic.Atom", function()
      setUpRoot();
   });
 
+
   afterEach( function (){
      tearDownRoot();
   });
 
+
  it("Label", function() {
       var atom = new qx.ui.mobile.basic.Atom("myText");
-      
+
       getRoot().append(atom);
 
       assert.isString(atom.label);
@@ -50,11 +52,12 @@ describe("mobile.basic.Atom", function()
 
       atom.dispose();
   });
- 
+
+
   it("Icon", function() {
       var imageURL = qx.util.ResourceManager.getInstance().toUri("/framework/source/resource/qx/icon/Tango/48/places/user-home.png");
       var atom = new qx.ui.mobile.basic.Atom("myText", imageURL);
-      
+
       getRoot().append(atom);
 
       assert.isString(atom.icon);
@@ -72,11 +75,12 @@ describe("mobile.basic.Atom", function()
 
       atom.dispose();
   });
- 
+
+
   it("Show", function() {
       var imageURL = qx.util.ResourceManager.getInstance().toUri("/framework/source/resource/qx/icon/Tango/48/places/user-home.png");
       var atom = new qx.ui.mobile.basic.Atom("myText", imageURL);
-      
+
       getRoot().append(atom);
 
       assert.equal("visible", atom.getIconWidget().visibility);
@@ -94,11 +98,12 @@ describe("mobile.basic.Atom", function()
       assert.equal("visible", atom.getIconWidget().visibility);
       assert.equal("visible", atom.getLabelWidget().visibility);
   });
- 
+
+
   it("IconPosition", function() {
       var imageURL = qx.util.ResourceManager.getInstance().toUri("/framework/source/resource/qx/icon/Tango/48/places/user-home.png");
       var atom = new qx.ui.mobile.basic.Atom("myTextmyTextmyTextmyTextmyText", imageURL);
-      
+
       getRoot().append(atom);
 
       var iconElement = atom.getIconWidget()[0];
@@ -128,11 +133,11 @@ describe("mobile.basic.Atom", function()
       iconLeft = qx.bom.element.Location.getLeft(iconElement);
       assert.isTrue(iconLeft >= labelLeft, "setIconPosition(right): iconElement.left is lower than labelElement.left");
   });
- 
+
+
   it("SetLabelAndIcon", function() {
 
       var testText = "test234";
-
       var imageURL = qx.util.ResourceManager.getInstance().toUri("/framework/source/resource/qx/icon/Tango/48/places/user-home.png");
 
       var atom = new qx.ui.mobile.basic.Atom();
@@ -150,7 +155,6 @@ describe("mobile.basic.Atom", function()
       assert.equal(2, atomChildrenLength, 'Unexpected count of atom element children');
       assert.equal('',atomIconInnerHtml, 'Child element of icon has wrong content');
       assert.equal(testText,atomLabelInnerHtml, 'Child element of icon has wrong content');
-    
   });
 
 });

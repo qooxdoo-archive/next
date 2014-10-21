@@ -30,86 +30,97 @@ describe("bom.Font", function ()
   beforeEach (function ()  {
       __font = new qx.bom.Font;
   });
- 
+
+
   it("Bold", function() {
       __font.bold = true;
 
       var styles = __font.getStyles();
       assert.equal("bold", styles.fontWeight, "Wrong style value for 'bold' property!");
   });
- 
+
+
   it("Italic", function() {
       __font.italic = true;
 
       var styles = __font.getStyles();
       assert.equal("italic", styles.fontStyle, "Wrong style value for 'italic' property!");
   });
- 
+
+
   it("DecorationUnderline", function() {
       __font.decoration = "underline";
 
       var styles = __font.getStyles();
       assert.equal("underline", styles.textDecoration, "Wrong style value for 'decoration' property!");
   });
- 
+
+
   it("DecorationLineThrough", function() {
       __font.decoration = "line-through";
 
       var styles = __font.getStyles();
       assert.equal("line-through", styles.textDecoration, "Wrong style value for 'decoration' property!");
   });
- 
+
+
   it("DecorationOverline", function() {
       __font.decoration = "overline";
 
       var styles = __font.getStyles();
       assert.equal("overline", styles.textDecoration, "Wrong style value for 'decoration' property!");
   });
- 
+
+
   it("FontFamily", function() {
       __font.family = ["Arial"];
 
       var styles = __font.getStyles();
       assert.equal("Arial", styles.fontFamily, "Wrong style value for 'family' property!");
   });
- 
+
+
   it("FontFamilyMultipleWords", function() {
       __font.family = ['Times New Roman'];
 
       var styles = __font.getStyles();
       assert.equal('"Times New Roman"', styles.fontFamily, "Wrong style value for 'family' property!");
   });
- 
+
+
   it("LineHeight", function() {
       __font.lineHeight = 1.5;
 
       var styles = __font.getStyles();
       assert.equal(1.5, styles.lineHeight, "Wrong style value for 'lineHeight' property!");
   });
- 
+
+
   it("Size", function() {
       __font.size = 20;
 
       var styles = __font.getStyles();
       assert.equal("20px", styles.fontSize, "Wrong style value for 'size' property!");
   });
- 
+
+
   it("Color", function() {
       __font.color = "red";
 
       var styles = __font.getStyles();
       assert.equal("red", styles.color, "Wrong style value for 'color' property!");
   });
- 
+
+
   it("TextShadow", function() {
       //require(["noIe"]);
-
       __font.textShadow = "red 1px 1px 3px, green -1px -1px 3px, white -1px 1px 3px, white 1px -1px 3px";
 
       var styles = __font.getStyles();
       assert.equal("red 1px 1px 3px, green -1px -1px 3px, white -1px 1px 3px, white 1px -1px 3px", styles.textShadow, "Wrong style value for 'textShadow' property!");
   });
- 
+
+
   it("GetStyles", function() {
       var styles = __font.getStyles();
 
@@ -128,7 +139,8 @@ describe("bom.Font", function ()
       assert.isDefined(styles.color, "Key 'color' has to be present!");
       assert.isDefined(styles.textShadow, "Key 'textShadow' has to be present!");
   });
- 
+
+
   it("GetSomeStyles", function() {
       __font.bold = true;
       __font.italic = true;
@@ -146,7 +158,8 @@ describe("bom.Font", function ()
       assert.equal("#3f3f3f", styles.color, "Wrong value for 'color'!");
       assert.equal("underline", styles.textDecoration, "Wrong value for 'textDecoration'!");
   });
- 
+
+
   it("FromConfig", function() {
       var config =
       {
@@ -180,7 +193,8 @@ describe("bom.Font", function ()
       assert.equal(expected.fontFamily, found.fontFamily, "Wrong value for 'fontFamily'");
       assert.equal(expected.textColor, found.textColor, "Wrong value for 'textColor'");
   });
- 
+
+
   it("FromString", function() {
       var config = "bold italic underline 20px Arial";
       var font = qx.bom.Font.fromString(config);
@@ -200,6 +214,5 @@ describe("bom.Font", function ()
       assert.equal(expected.fontSize, found.fontSize, "Wrong value for 'fontSize'");
       assert.equal(expected.textDecoration, found.textDecoration, "Wrong value for 'textDecoration'");
       assert.equal(expected.fontFamily, found.fontFamily, "Wrong value for 'fontFamily'");
-    
   });
 });

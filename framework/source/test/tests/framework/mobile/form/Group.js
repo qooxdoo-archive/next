@@ -17,25 +17,26 @@
 
 ************************************************************************ */
 
-describe("mobile.form.Group", function ()
-{
+describe("mobile.form.Group", function() {
 
-  beforeEach( function () {
-     setUpRoot();
+  beforeEach(function() {
+    setUpRoot();
   });
 
-  afterEach( function (){
-     tearDownRoot();
+
+  afterEach(function() {
+    tearDownRoot();
   });
+
 
   it("Group", function() {
-      var button = new qx.ui.mobile.Button("affe");
-      var group = new qx.ui.mobile.form.Group();
-      group.append(button);
-      getRoot().append(button);
+    var button = new qx.ui.mobile.Button("affe");
+    var group = new qx.ui.mobile.form.Group();
+    group.append(button);
+    getRoot().append(button);
 
-      group.dispose();
-      button.dispose();
+    group.dispose();
+    button.dispose();
   });
 
 });

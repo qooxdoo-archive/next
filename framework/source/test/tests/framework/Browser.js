@@ -16,51 +16,51 @@
      * Martin Wittemann (martinwittemann)
 
 ************************************************************************ */
-describe("Browser", function ()
-{
+describe("Browser", function() {
+
 
   it("ForIn", function() {
-      var map = {};
+    var map = {};
 
-      map["234"] = 234;
-      map["123"] = 123;
-      map["345"] = 345;
+    map["234"] = 234;
+    map["123"] = 123;
+    map["345"] = 345;
 
-      var order = ["234", "123", "345"];
+    var order = ["234", "123", "345"];
 
-      // google chrome, opera 10.5 and ie 9
-      if (
-        qx.core.Environment.get("browser.name") == "chrome" ||
-        (qx.core.Environment.get("browser.name") == "opera" &&
-         qx.core.Environment.get("browser.version") >= 10.5) ||
-        (qx.core.Environment.get("browser.name") == "ie" &&
-         qx.core.Environment.get("browser.documentmode") >= 9) ||
-        (qx.core.Environment.get("browser.name") == "firefox" &&
-         qx.core.Environment.get("browser.version") >= 21)
-      ) {
-        var i = 0;
-        // is in a sorted order
-        for (var key in map) {
-          if (i == 0) {
-            assert.equal("123", key, "1");
-          } else if (i == 1) {
-            assert.equal("234", key, "2");
-          } else {
-            assert.equal("345", key, "3");
-          }
-          i++;
+    // google chrome, opera 10.5 and ie 9
+    if (
+      qx.core.Environment.get("browser.name") == "chrome" ||
+      (qx.core.Environment.get("browser.name") == "opera" &&
+        qx.core.Environment.get("browser.version") >= 10.5) ||
+      (qx.core.Environment.get("browser.name") == "ie" &&
+        qx.core.Environment.get("browser.documentmode") >= 9) ||
+      (qx.core.Environment.get("browser.name") == "firefox" &&
+        qx.core.Environment.get("browser.version") >= 21)
+    ) {
+      var i = 0;
+      // is in a sorted order
+      for (var key in map) {
+        if (i == 0) {
+          assert.equal("123", key, "1");
+        } else if (i == 1) {
+          assert.equal("234", key, "2");
+        } else {
+          assert.equal("345", key, "3");
         }
+        i++;
       }
+    }
 
-      // default browsers
-      else {
-        var i = 0;
-        // should be the same order the elements were added
-        for (var key in map) {
-          assert.equal(order[i], key);
-          i++;
-        }
+    // default browsers
+    else {
+      var i = 0;
+      // should be the same order the elements were added
+      for (var key in map) {
+        assert.equal(order[i], key);
+        i++;
       }
+    }
 
   });
 });

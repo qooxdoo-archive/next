@@ -1,12 +1,16 @@
 describe('FunctionUtil', function() {
 
   this.timeout(5000);
-  beforeEach (function () {
+
+  beforeEach(function() {
     globalSetup();
   });
-  afterEach (function () {
+
+
+  afterEach(function() {
     globalTeardown();
   });
+
 
   it("FunctionDebounce", function(done) {
     var called = 0;
@@ -24,12 +28,12 @@ describe('FunctionUtil', function() {
     }), 200);
 
     window.setTimeout(function() {
-        assert.isTrue(checkCalled);
-        assert.equal(1, called);
-        done();
+      assert.isTrue(checkCalled);
+      assert.equal(1, called);
+      done();
     }, 1000);
-
   });
+
 
   it("FunctionDebounceWithEvents", function(done) {
     var callCounter = 0;
@@ -54,13 +58,14 @@ describe('FunctionUtil', function() {
     }).bind(sandbox), 50);
 
     var checkContext = sandbox;
-    setTimeout( function (){
+    setTimeout(function() {
       assert.equal(1, callCounter);
       assert.equal(checkContext, context);
       assert.equal("interval_19", data);
       done();
     }, 1500);
   });
+
 
   it("FunctionDebounceWithImmediateEvents", function(done) {
     var callCounter = 0;
@@ -83,19 +88,20 @@ describe('FunctionUtil', function() {
         window.clearInterval(intervalId);
 
         setTimeout(function() {
-        that.emit("myEvent", "interval_" + counter);
+          that.emit("myEvent", "interval_" + counter);
         }, 500);
       }
     }).bind(sandbox), 50);
 
     var checkContext = sandbox;
-    setTimeout( function (){
+    setTimeout(function() {
       assert.equal(2, callCounter);
       assert.equal(checkContext, context);
       assert.equal("interval_20", data);
       done();
-    },1950);
+    }, 1950);
   });
+
 
   it("FunctionThrottle", function(done) {
     var intervalCounter = 0;
@@ -113,11 +119,12 @@ describe('FunctionUtil', function() {
       intervalCounter++;
     }), 10);
 
-    setTimeout( function () {
+    setTimeout(function() {
       assert.equal(2, callInfo.length);
       done();
     }, 1000);
   });
+
 
   it("FunctionThrottleNoTrailing", function(done) {
     var intervalCounter = 0;
@@ -125,7 +132,9 @@ describe('FunctionUtil', function() {
     var spy = function() {
       callInfo.push(Date.now());
     };
-    var throttled = q.func.throttle(spy, 500, { trailing: false });
+    var throttled = q.func.throttle(spy, 500, {
+      trailing: false
+    });
 
     var intervalId = window.setInterval((function() {
       throttled();
@@ -136,11 +145,11 @@ describe('FunctionUtil', function() {
     }).bind(this), 80);
 
     window.setTimeout((function() {
-        assert.equal(3, callInfo.length);
-        done();
+      assert.equal(3, callInfo.length);
+      done();
     }), 2000);
-
   });
+
 
   it("FunctionThrottleNoLeadingNoTrailing", function(done) {
     var intervalCounter = 0;
@@ -148,7 +157,10 @@ describe('FunctionUtil', function() {
     var spy = function() {
       callInfo.push(Date.now());
     };
-    var throttled = q.func.throttle(spy, 500, { leading: false, trailing: false });
+    var throttled = q.func.throttle(spy, 500, {
+      leading: false,
+      trailing: false
+    });
 
     var intervalId = window.setInterval((function() {
       throttled();
@@ -159,11 +171,11 @@ describe('FunctionUtil', function() {
     }).bind(this), 80);
 
     window.setTimeout(function() {
-        assert.equal(2, callInfo.length);
-        done();
+      assert.equal(2, callInfo.length);
+      done();
     }, 2000);
-
   });
+
 
   it("FunctionThrottleWithEvents", function(done) {
 
@@ -186,12 +198,13 @@ describe('FunctionUtil', function() {
     }).bind(sandbox), 150);
 
     var checkContext = sandbox;
-    setTimeout (function (){
+    setTimeout(function() {
       assert.equal(checkContext, context);
       assert.equal(3, callInfo.length);
       done();
     }, 2000);
   });
+
 
   it("FunctionThrottleWithLeadingEvents", function(done) {
     var context;
@@ -200,11 +213,13 @@ describe('FunctionUtil', function() {
       context = this;
       callInfo.push(Date.now());
     };
-    sandbox.on("myEvent", q.func.throttle(spy, 250, { trailing: false }), sandbox);
+    sandbox.on("myEvent", q.func.throttle(spy, 250, {
+      trailing: false
+    }), sandbox);
 
     var counter = 0;
     var intervalId = window.setInterval((function() {
-    var that = this.emit("myEvent");
+      var that = this.emit("myEvent");
 
       if (counter === 14) {
         window.clearInterval(intervalId);
@@ -217,7 +232,7 @@ describe('FunctionUtil', function() {
     }).bind(sandbox), 100);
 
     var checkContext = sandbox;
-    setTimeout (function (){
+    setTimeout(function() {
       assert.equal(checkContext, context);
       assert.equal(6, callInfo.length);
       done();

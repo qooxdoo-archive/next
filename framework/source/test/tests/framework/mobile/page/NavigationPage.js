@@ -25,10 +25,12 @@ describe("mobile.page.NavigationPage", function ()
      setUpRoot();
   });
 
+
   afterEach( function (){
      tearDownRoot();
   });
-  
+
+
  it("NavigationInterface", function() {
       var page = new qx.ui.mobile.page.NavigationPage();
 
@@ -38,7 +40,8 @@ describe("mobile.page.NavigationPage", function ()
 
       page.dispose();
   });
- 
+
+
   it("Title", function() {
       var page = new qx.ui.mobile.page.NavigationPage();
 
@@ -47,7 +50,8 @@ describe("mobile.page.NavigationPage", function ()
 
       page.dispose();
   });
- 
+
+
   it("BackButton", function() {
       var page = new qx.ui.mobile.page.NavigationPage();
 
@@ -62,7 +66,8 @@ describe("mobile.page.NavigationPage", function ()
 
       page.dispose();
   });
- 
+
+
   it("Button", function() {
       var page = new qx.ui.mobile.page.NavigationPage();
 
@@ -76,6 +81,6 @@ describe("mobile.page.NavigationPage", function ()
       assert.notEqual("visible", page._getButton().visibility);
 
       page.dispose();
-    
+
   });
 });

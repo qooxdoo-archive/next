@@ -1,4 +1,4 @@
-"use strict";
+//"use strict";
 /* ************************************************************************
 
    qooxdoo - the new era of web development
@@ -125,13 +125,12 @@ describe("mobile.Rating", function() {
 
 
   it("Factory", function(done) {
-    var rating = __rating = qxWeb.create("<div>").rating().appendTo(getRoot());
+    var rating = _rating = qxWeb.create("<div>").rating().appendTo(getRoot());
     assert.instanceOf(rating, qx.ui.mobile.Rating);
     assert.equal(rating, rating[0].$$widget);
     setTimeout(function() {
       assert.equal("qx.ui.mobile.Rating", rating.getData("qxWidget"));
       done();
     }, 100);
-
   });
 });

@@ -17,58 +17,60 @@
 
 ************************************************************************ */
 
-describe("mobile.dialog.Menu", function ()
-{
+describe("mobile.dialog.Menu", function() {
 
-  beforeEach( function () {
-     setUpRoot();
+  beforeEach(function() {
+    setUpRoot();
   });
 
-  afterEach( function (){
-     tearDownRoot();
+
+  afterEach(function() {
+    tearDownRoot();
   });
-  
- it("Init", function() {
-      // SMOKE TEST for menu.
-      var model = new qx.data.Array(["item1","item2","item3"]);
-      var model2 = new qx.data.Array(["item4","item5","item6"]);
 
-      var menu = new qx.ui.mobile.dialog.Menu(model);
-      menu.selectedIndex = 2;
 
-      menu.setItems(model2);
-      menu.selectedIndex = 1;
+  it("Init", function() {
+    // SMOKE TEST for menu.
+    var model = new qx.data.Array(["item1", "item2", "item3"]);
+    var model2 = new qx.data.Array(["item4", "item5", "item6"]);
 
-      menu.dispose();
-    });
-          //test failed
+    var menu = new qx.ui.mobile.dialog.Menu(model);
+    menu.selectedIndex = 2;
+
+    menu.setItems(model2);
+    menu.selectedIndex = 1;
+
+    menu.dispose();
+  });
+
+  //test failed
   it("MaxListHeight", function() {
-      var stub = sinon.stub(qx.bom.element.Dimension, "getHeight", function() {
-        return 500;
-      });
+    var stub = sinon.stub(qx.bom.element.Dimension, "getHeight", function() {
+      return 500;
+    });
 
-      var model = new qx.data.Array(["item1", "item2", "item3", "item1", "item2", "item3",
-        "item1", "item2", "item3", "item1", "item2", "item3", "item2", "item3", "item2", "item3",  "item1", "item2", "item3",  "item1", "item2", "item3"
-      ]);
+    var model = new qx.data.Array(["item1", "item2", "item3", "item1", "item2", "item3",
+      "item1", "item2", "item3", "item1", "item2", "item3", "item2", "item3", "item2", "item3", "item1", "item2", "item3", "item1", "item2", "item3"
+    ]);
 
-      var menu = new qx.ui.mobile.dialog.Menu(model);
+    var menu = new qx.ui.mobile.dialog.Menu(model);
 
-      menu.visibleListItems = 1000;
-      menu.show();
+    menu.visibleListItems = 1000;
+    menu.show();
 
-      var parentHeight =  qx.ui.mobile.dialog.Popup.ROOT.getHeight();
-      parentHeight = parseInt(parentHeight, 10);
-      parentHeight = parentHeight * 0.75;
+    var parentHeight = qx.ui.mobile.dialog.Popup.ROOT.getHeight();
+    parentHeight = parseInt(parentHeight, 10);
+    parentHeight = parentHeight * 0.75;
 
-      var expectedListHeight = parseInt(parentHeight, 10);
+    var expectedListHeight = parseInt(parentHeight, 10);
 
-      var listHeight = menu._getListScroller().getStyle("height");
-      listHeight = parseInt(listHeight, 10);
+    var listHeight = menu._getListScroller().getStyle("height");
+    listHeight = parseInt(listHeight, 10);
 
-      assert.equal(expectedListHeight,listHeight);
+    assert.equal(expectedListHeight, listHeight);
 
-      menu.dispose();
-      stub.restore();
+    menu.dispose();
+    stub.restore();
   });
 
 });

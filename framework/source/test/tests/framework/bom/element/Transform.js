@@ -16,14 +16,16 @@
      * Martin Wittemann (wittemann)
 
 ************************************************************************ */
-describe("bom.element.Transform", function ()
-{
+describe("bom.element.Transform", function() {
+
   var __el = null;
   var __keys = null;
 
   beforeEach(function() {
     __keys = qx.core.Environment.get("css.transform");
-    __el = { style: {} };
+    __el = {
+      style: {}
+    };
   });
 
   afterEach(function() {
@@ -32,9 +34,9 @@ describe("bom.element.Transform", function ()
   });
 
 
-    /**
-     * TRANSFORM FUNCTIONS
-     */
+  /**
+   * TRANSFORM FUNCTIONS
+   */
 
   it("Translate", function() {
     qx.bom.element.Transform.translate(__el, "123px");
@@ -42,57 +44,71 @@ describe("bom.element.Transform", function ()
     assert.isTrue(__el.style[__keys.name].indexOf("translate(123px)") != -1);
   });
 
-  it("Rotate", function() {
-      qx.bom.element.Transform.rotate(__el, "123deg");
 
-      assert.isTrue(__el.style[__keys.name].indexOf("rotate(123deg)") != -1);
+  it("Rotate", function() {
+    qx.bom.element.Transform.rotate(__el, "123deg");
+
+    assert.isTrue(__el.style[__keys.name].indexOf("rotate(123deg)") != -1);
   });
+
 
   it("Skew", function() {
-      qx.bom.element.Transform.skew(__el, "123deg");
+    qx.bom.element.Transform.skew(__el, "123deg");
 
-      assert.isTrue(__el.style[__keys.name].indexOf("skew(123deg)") != -1);
+    assert.isTrue(__el.style[__keys.name].indexOf("skew(123deg)") != -1);
   });
+
 
   it("Scale", function() {
-      qx.bom.element.Transform.scale(__el, 1.5);
+    qx.bom.element.Transform.scale(__el, 1.5);
 
-      assert.isTrue(__el.style[__keys.name].indexOf("scale(1.5)") != -1);
+    assert.isTrue(__el.style[__keys.name].indexOf("scale(1.5)") != -1);
   });
+
 
   it("Transform", function() {
-      qx.bom.element.Transform.transform(__el, {scale: 1.2, translate: "123px"});
+    qx.bom.element.Transform.transform(__el, {
+      scale: 1.2,
+      translate: "123px"
+    });
 
-      assert.isTrue(__el.style[__keys.name].indexOf("translate(123px)") != -1);
-      assert.isTrue(__el.style[__keys.name].indexOf("scale(1.2)") != -1);
+    assert.isTrue(__el.style[__keys.name].indexOf("translate(123px)") != -1);
+    assert.isTrue(__el.style[__keys.name].indexOf("scale(1.2)") != -1);
   });
+
 
   it("AddStyleSheetRuleWith-X-Axis", function() {
-      var css = qx.bom.element.Transform.getCss({scale: 1.2, translate: "123px"});
-      var sheet = qx.bom.Stylesheet.createElement();
-      qx.bom.Stylesheet.addRule(sheet, ".test", css);
-      var computedRule = sheet.cssRules[0].cssText;
+    var css = qx.bom.element.Transform.getCss({
+      scale: 1.2,
+      translate: "123px"
+    });
+    var sheet = qx.bom.Stylesheet.createElement();
+    qx.bom.Stylesheet.addRule(sheet, ".test", css);
+    var computedRule = sheet.cssRules[0].cssText;
 
-      assert.isTrue(computedRule.indexOf("translate(123px)") != -1, "Found: " + computedRule);
-      assert.isTrue(computedRule.indexOf("scale(1.2)") != -1, "Found: " + computedRule);
+    assert.isTrue(computedRule.indexOf("translate(123px)") != -1, "Found: " + computedRule);
+    assert.isTrue(computedRule.indexOf("scale(1.2)") != -1, "Found: " + computedRule);
   });
+
 
   it("AddStyleSheetRuleWith-XY-Axis", function() {
-      var css = qx.bom.element.Transform.getCss({scale: "1.2, 1", translate: "123px,234px"});
-      var sheet = qx.bom.Stylesheet.createElement();
+    var css = qx.bom.element.Transform.getCss({
+      scale: "1.2, 1",
+      translate: "123px,234px"
+    });
+    var sheet = qx.bom.Stylesheet.createElement();
 
-      qx.bom.Stylesheet.addRule(sheet, "#abcdefghijklm", css);
+    qx.bom.Stylesheet.addRule(sheet, "#abcdefghijklm", css);
 
-      var computedRule = sheet.cssRules[0].cssText;
+    var computedRule = sheet.cssRules[0].cssText;
 
-      assert.isTrue(computedRule.indexOf("translate(123px, 234px)") != -1, "Found: " + computedRule);
-      assert.isTrue(computedRule.indexOf("scale(1.2, 1)") != -1, "Found: " + computedRule);
-
+    assert.isTrue(computedRule.indexOf("translate(123px, 234px)") != -1, "Found: " + computedRule);
+    assert.isTrue(computedRule.indexOf("scale(1.2, 1)") != -1, "Found: " + computedRule);
   });
 
-    /**
-     * ARRAY VALUES
-     */
+  /**
+   * ARRAY VALUES
+   */
 
   it("3D", function() {
     qx.bom.element.Transform.translate(__el, ["1px", "2px", "3px"]);
@@ -108,8 +124,12 @@ describe("bom.element.Transform", function ()
     }
   });
 
+
   it("AddStyleSheetRuleWith-XYZ-Axis", function() {
-    var css = qx.bom.element.Transform.getCss({scale: [1.2, 1, 0], translate: ["123px", "234px", "345em"]});
+    var css = qx.bom.element.Transform.getCss({
+      scale: [1.2, 1, 0],
+      translate: ["123px", "234px", "345em"]
+    });
     var sheet = qx.bom.Stylesheet.createElement();
     qx.bom.Stylesheet.addRule(sheet, ".abcdefghijkl", css);
 
@@ -133,25 +153,28 @@ describe("bom.element.Transform", function ()
     }
   });
 
-    /**
-     * CSS HELPER
-     */
+  /**
+   * CSS HELPER
+   */
 
   it("GetCss", function() {
-    var value = qx.bom.element.Transform.getCss({scale: 1.2});
+    var value = qx.bom.element.Transform.getCss({
+      scale: 1.2
+    });
     assert.equal(qx.bom.Style.getCssName(__keys.name) + ":scale(1.2);", value);
   });
 
 
-    /**
-     * ADDITIONAL CSS TRANSFORM PROPERTIES
-     */
+  /**
+   * ADDITIONAL CSS TRANSFORM PROPERTIES
+   */
 
- it("Origin", function() {
+  it("Origin", function() {
     qx.bom.element.Transform.setOrigin(__el, "30% 20%");
     assert.equal("30% 20%", __el.style[__keys["origin"]]);
     assert.equal("30% 20%", qx.bom.element.Transform.getOrigin(__el));
   });
+
 
   it("Style", function() {
     qx.bom.element.Transform.setStyle(__el, "affe");
@@ -159,11 +182,13 @@ describe("bom.element.Transform", function ()
     assert.equal("affe", qx.bom.element.Transform.getStyle(__el));
   });
 
+
   it("Perspective", function() {
     qx.bom.element.Transform.setPerspective(__el, 123);
     assert.equal("123px", __el.style[__keys["perspective"]]);
     assert.equal("123px", qx.bom.element.Transform.getPerspective(__el));
   });
+
 
   it("PerspectiveOrigin", function() {
     qx.bom.element.Transform.setPerspectiveOrigin(__el, "30% 10%");
@@ -171,18 +196,20 @@ describe("bom.element.Transform", function ()
     assert.equal("30% 10%", qx.bom.element.Transform.getPerspectiveOrigin(__el));
   });
 
+
   it("BackfaceVisibility", function() {
     qx.bom.element.Transform.setBackfaceVisibility(__el, true);
     assert.equal("visible", __el.style[__keys["backface-visibility"]]);
     assert.isTrue(qx.bom.element.Transform.getBackfaceVisibility(__el));
   });
 
+
   it("GetTransformValue", function() {
     var cssValue;
 
     // one axis
     cssValue = qx.bom.element.Transform.getTransformValue({
-      scale : [1]
+      scale: [1]
     });
 
     assert.equal(cssValue, "scaleX(1)");
@@ -190,14 +217,14 @@ describe("bom.element.Transform", function ()
 
     // two axis
     cssValue = qx.bom.element.Transform.getTransformValue({
-      scale : [1, 2]
+      scale: [1, 2]
     });
 
     assert.equal(cssValue, "scaleX(1) scaleY(2)");
 
     // three axis
     cssValue = qx.bom.element.Transform.getTransformValue({
-      scale : [1, 2, 3]
+      scale: [1, 2, 3]
     });
 
     // 3d property
@@ -211,12 +238,13 @@ describe("bom.element.Transform", function ()
     }
   });
 
+
   it("TransformArray", function() {
     qx.bom.element.Transform.transform(__el, {
-      translate : ["1px", "2px", "3px"],
-      scale : [1, 2, 3],
-      rotate : ["1deg", "2deg", "3deg"],
-      skew : ["1deg", "2deg"]
+      translate: ["1px", "2px", "3px"],
+      scale: [1, 2, 3],
+      rotate: ["1deg", "2deg", "3deg"],
+      skew: ["1deg", "2deg"]
     });
 
     // 3d property

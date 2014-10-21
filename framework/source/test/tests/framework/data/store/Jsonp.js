@@ -18,19 +18,19 @@
 ************************************************************************ */
 
 describe("data.store.Jsonp", function() {
+
   var __store = null;
   var url = "tests/framework/data/store/jsonp_primitive.php";
 
-  beforeEach (function () {
+  beforeEach(function() {
     __store = new qx.data.store.Jsonp();
   });
 
 
-  afterEach (function () {
+  afterEach(function() {
     if (qx.io.request.Jsonp.restore) {
       qx.io.request.Jsonp.restore();
     }
-
     __store.dispose();
 
     if (request) {
@@ -40,16 +40,14 @@ describe("data.store.Jsonp", function() {
   });
 
 
-
-  function setUpFakeRequest (){
+  function setUpFakeRequest() {
     var req = request = new qx.io.request.Jsonp();
     req.send = req.dispose = function() {};
     sinon.stub(qx.io.request, "Jsonp").returns(sinon.stub(req));
-  };
+  }
 
 
-
- it("SetCallbackParam", function() {
+  it("SetCallbackParam", function() {
     setUpFakeRequest();
 
     var store = new qx.data.store.Jsonp();
@@ -88,10 +86,12 @@ describe("data.store.Jsonp", function() {
 
   it("ManipulatePrimitive", function(done) {
     var manipulated = false;
-    var delegate = {manipulateData : function(data) {
-      manipulated = true;
-      return data;
-    }};
+    var delegate = {
+      manipulateData: function(data) {
+        manipulated = true;
+        return data;
+      }
+    };
 
     var store = new qx.data.store.Jsonp(null, delegate, "callback");
 
@@ -106,11 +106,11 @@ describe("data.store.Jsonp", function() {
 
 
   it("ConfigureRequestPrimitive", function(done) {
-    var delegate,
-
-    delegate = {configureRequest : function(request) {
-      assert.instanceOf(request, qx.io.request.Jsonp);
-    }};
+    var delegate = {
+      configureRequest: function(request) {
+        assert.instanceOf(request, qx.io.request.Jsonp);
+      }
+    };
 
     sinon.spy(delegate, "configureRequest");
 
@@ -146,10 +146,8 @@ describe("data.store.Jsonp", function() {
   it("ErrorEvent", function(done) {
     // do not test that for IE and Opera because of the missing
     // error handler for script tags
-    if (
-      !(qx.core.Environment.get("browser.name") == "ie") &&
-      !(qx.core.Environment.get("browser.name") == "opera"))
-      {
+    if (!(qx.core.Environment.get("browser.name") == "ie") &&
+      !(qx.core.Environment.get("browser.name") == "opera")) {
       __store.on("error", function() {
         setTimeout(function() {
           done();

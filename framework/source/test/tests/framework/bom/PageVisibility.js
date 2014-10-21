@@ -18,25 +18,27 @@
 ************************************************************************ */
 
 
-describe("bom.PageVisibility", function ()
-{
+describe("bom.PageVisibility", function() {
 
-    beforeEach (function ()  {
-      __visibility = new qx.bom.PageVisibility();
-    });
- 
+  beforeEach(function() {
+    __visibility = new qx.bom.PageVisibility();
+  });
+
+
   it("VisibilityState", function() {
-      var possible = ["hidden", "visible", "prerender", "unloaded"];
-      var value = __visibility.getVisibilityState();
-      qx.core.Assert.assertInArray(value, possible);
+    var possible = ["hidden", "visible", "prerender", "unloaded"];
+    var value = __visibility.getVisibilityState();
+    qx.core.Assert.assertInArray(value, possible);
   });
- 
+
+
   it("Hidden", function() {
-      assert.isBoolean(__visibility.isHidden());
+    assert.isBoolean(__visibility.isHidden());
   });
- 
+
+
   it("GetInstance", function() {
-      assert.equal(qx.bom.PageVisibility.getInstance(), qx.bom.PageVisibility.getInstance());
+    assert.equal(qx.bom.PageVisibility.getInstance(), qx.bom.PageVisibility.getInstance());
   });
-  
+
 });

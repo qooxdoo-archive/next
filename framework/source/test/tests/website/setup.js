@@ -19,9 +19,11 @@ var globalSetup = function() {
   }
 };
 
+
 var globalTeardown = function() {
   sandbox.remove();
 };
+
 
 var createMouseEvent = function(type) {
   var domEvent;
@@ -32,9 +34,9 @@ var createMouseEvent = function(type) {
       view: window,
     });
     domEvent.initMouseEvent(type, true, true, window,
-                           1, 0, 0, 0, 0,
-                           false, false, false, false,
-                           0, null);
+      1, 0, 0, 0, 0,
+      false, false, false, false,
+      0, null);
   } else if (document.createEvent) {
     domEvent = document.createEvent("UIEvents");
     domEvent.initEvent(type, true, true);
@@ -43,4 +45,4 @@ var createMouseEvent = function(type) {
     domEvent.type = type;
   }
   return domEvent;
-}
+};

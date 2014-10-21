@@ -22,15 +22,16 @@ describe("mobile.form.NumberField", function ()
 
   beforeEach (function ()  {
       setUpRoot();
-      __nf = new qx.ui.mobile.form.NumberField()
-        .appendTo(getRoot());
+      __nf = new qx.ui.mobile.form.NumberField().appendTo(getRoot());
   });
+
 
   afterEach (function() {
       tearDownRoot();
       __nf.dispose();
   });
- 
+
+
   it("Value", function() {
       assert.equal(null, __nf.getValue());
       assert.equal(null, qx.bom.element.Attribute.get(__nf[0],'value'));
@@ -41,7 +42,8 @@ describe("mobile.form.NumberField", function ()
       assert.equal(15,__nf.getValue());
       assert.equal(15,qx.bom.element.Attribute.get(__nf[0],'value'));
   });
- 
+
+
   it("Minimum", function() {
       assert.isUndefined(__nf.minimum);
       assert.isNull(__nf.getAttribute("min"));
@@ -61,7 +63,8 @@ describe("mobile.form.NumberField", function ()
       __nf.minimum = null;
       assert.isTrue(__nf.validity.valid);
   });
- 
+
+
   it("Maximum", function() {
       assert.isUndefined(__nf.maximum);
       assert.isNull(__nf.getAttribute("max"));
@@ -81,7 +84,8 @@ describe("mobile.form.NumberField", function ()
       __nf.maximum = null;
       assert.isTrue(__nf.validity.valid);
   });
- 
+
+
   it("Step", function() {
       assert.isUndefined(__nf.step);
 
@@ -100,7 +104,8 @@ describe("mobile.form.NumberField", function ()
       __nf.step = null;
       assert.isTrue(__nf.validity.valid);
   });
- 
+
+
   it("ResetValue", function() {
       assert.equal(null, __nf.getValue());
       assert.isNull(qx.bom.element.Attribute.get(__nf[0],'value'));
@@ -113,7 +118,8 @@ describe("mobile.form.NumberField", function ()
       assert.isNull(qx.bom.element.Attribute.get(__nf[0],'value'));
       assert.equal(null,__nf.getValue());
   });
- 
+
+
   it("Enabled", function() {
       assert.isTrue(__nf.enabled);
       assert.isFalse(qx.bom.element.Class.has(__nf[0],'disabled'));

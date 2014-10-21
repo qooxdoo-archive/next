@@ -17,49 +17,50 @@
 
 ************************************************************************ */
 
-describe("bom.Iframe", function ()
-{
+describe("bom.Iframe", function() {
+
   var __iframe = null;
 
-  afterEach (function ()  {
+  afterEach(function() {
     __iframe.remove();
   });
 
+
   it("Create", function() {
-     __iframe = qx.bom.Iframe.create();
-     __testAttributes(qx.bom.Iframe.DEFAULT_ATTRIBUTES);
+    __iframe = qx.bom.Iframe.create();
+    __testAttributes(qx.bom.Iframe.DEFAULT_ATTRIBUTES);
   });
 
 
   it("CreateWithAttributes", function() {
-      var attributes = qx.lang.Object.clone(qx.bom.Iframe.DEFAULT_ATTRIBUTES);
-      attributes.allowTransparency = false;
+    var attributes = qx.lang.Object.clone(qx.bom.Iframe.DEFAULT_ATTRIBUTES);
+    attributes.allowTransparency = false;
 
-     __iframe = qx.bom.Iframe.create(attributes);
+    __iframe = qx.bom.Iframe.create(attributes);
 
-     __testAttributes(attributes);
+    __testAttributes(attributes);
   });
 
-  function __testAttributes (attributes)
-  {
+
+  function __testAttributes(attributes) {
     // do not test 'onload' on IE, this returns always 'undefined'
     // http://tobielangel.com/2007/1/11/attribute-nightmare-in-ie/
-    if(qx.core.Environment.get("engine.name") == "mshtml") {
+    if (qx.core.Environment.get("engine.name") == "mshtml") {
       delete attributes["onload"];
     }
 
-    for(var key in attributes) {
-     assert.equal(attributes[key],
+    for (var key in attributes) {
+      assert.equal(attributes[key],
         qx.bom.element.Attribute.get(__iframe, key),
         "Wrong value on attribute '" + key + "'");
     }
   }
 
+
   it("GetWindow", function() {
-     __iframe = qx.bom.Iframe.create();
-      qx.dom.Element.insertBegin(__iframe, document.body);
+    __iframe = qx.bom.Iframe.create();
+    qx.dom.Element.insertBegin(__iframe, document.body);
 
-      assert.isNotNull(qx.bom.Iframe.getWindow(__iframe));
-
+    assert.isNotNull(qx.bom.Iframe.getWindow(__iframe));
   });
 });

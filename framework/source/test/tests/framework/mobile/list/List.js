@@ -44,7 +44,7 @@ describe("mobile.list.List", function ()
    * Returns the subtitle text on the given list, of the element item identified by elementIndex.
    */
   function getSubtitleElement(list, elementIndex) {
-    return list.getChildren()[elementIndex].childNodes[1].childNodes[1]
+    return list.getChildren()[elementIndex].childNodes[1].childNodes[1];
   }
 
 
@@ -91,20 +91,24 @@ describe("mobile.list.List", function ()
     }
   }
 
+
   beforeEach( function () {
      setUpRoot();
   });
 
+
   afterEach( function (){
      tearDownRoot();
   });
+
 
   it("Create", function() {
       var list = __createList();
       __assertItemsAndModelLength(list, 5);
       __cleanUp(list);
   });
- 
+
+
   it("SetModelNull", function() {
       var list = __createList();
       __assertItemsAndModelLength(list, 5);
@@ -113,7 +117,8 @@ describe("mobile.list.List", function ()
       __assertItemsAndModelLength(list, 0);
       __cleanUp(list);
   });
- 
+
+
   it("ModelChangeRemove", function() {
       var list = __createList();
       __assertItemsAndModelLength(list,5);
@@ -121,7 +126,8 @@ describe("mobile.list.List", function ()
       __assertItemsAndModelLength(list,4);
       __cleanUp(list);
   });
- 
+
+
   it("ModelChangeEdit", function() {
       var list = __createList();
       __assertItemsAndModelLength(list,5);
@@ -137,7 +143,7 @@ describe("mobile.list.List", function ()
 
 
     /** Test Case for [BUG #7267] for different length of edited string value. */
- 
+
   it("ModelChangeStringLength", function() {
       var list = __createList();
 
@@ -161,7 +167,8 @@ describe("mobile.list.List", function ()
 
       __cleanUp(list);
   });
- 
+
+
   it("ModelChangeAdd", function() {
       var list = __createList();
       __assertItemsAndModelLength(list,5);
@@ -169,7 +176,8 @@ describe("mobile.list.List", function ()
       __assertItemsAndModelLength(list,6);
       __cleanUp(list);
   });
- 
+
+
   it("ExtractRowsToRender", function() {
       var list = new qx.ui.mobile.list.List();
 
@@ -180,7 +188,8 @@ describe("mobile.list.List", function ()
 
       list.dispose();
   });
- 
+
+
   it("Factory", function(done) {
       var list = qxWeb.create("<ul></ul>").list().appendTo(getRoot());
       assert.instanceOf(list, qx.ui.mobile.list.List);

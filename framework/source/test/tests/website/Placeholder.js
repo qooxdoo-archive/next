@@ -1,6 +1,6 @@
 describe('Placeholder', function() {
 
-  beforeEach (function() {
+  beforeEach(function() {
     if (q.env.get("css.placeholder")) {
       //this.skip("Native placeholder supported.");
       return;
@@ -8,7 +8,8 @@ describe('Placeholder', function() {
     globalSetup();
   });
 
-  afterEach (function() {
+
+  afterEach(function() {
     if (!q.env.get("css.placeholder")) {
       globalTeardown();
     }
@@ -30,25 +31,29 @@ describe('Placeholder', function() {
     input.setValue("123");
     input.updatePlaceholder();
 
-    assert.isTrue(placeholderEl.getProperty("offsetWidth") == 0);
+    assert.isTrue(placeholderEl.getProperty("offsetWidth") === 0);
 
     input.remove().updatePlaceholder();
   };
- 
+
+
   it("TextField", function() {
     __test(q.create("<input type='text' placeholder='Hmm' />"));
   });
- 
+
+
   it("PasswordField", function() {
     __test(q.create("<input type='password' placeholder='Hmm' />"));
   });
- 
+
+
   it("TextArea", function() {
     __test(q.create("<textarea placeholder='Hmm'></textarea>"));
   });
- 
+
+
   it("UpdateStatic", function() {
- 
+
     if (q.env.get("css.placeholder")) {
       //this.skip("Native placeholder supported.");
       return;
@@ -72,9 +77,10 @@ describe('Placeholder', function() {
 
     all.remove();
   });
- 
+
+
   it("Absolute", function() {
- 
+
     if (q.env.get("css.placeholder")) {
       //this.skip("Native placeholder supported.");
       return;
@@ -88,4 +94,4 @@ describe('Placeholder', function() {
     q.placeholder.update();
     assert.equal(input.getPosition().top, q("#sandbox label").getPosition().top);
   });
-}); 
+});

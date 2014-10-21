@@ -17,22 +17,21 @@
 
 ************************************************************************ */
 
-describe("mobile.container.Scroll", function()
-{
- 
-  beforeEach( function () {
-     setUpRoot();
+describe("mobile.container.Scroll", function() {
+
+  beforeEach(function() {
+    setUpRoot();
   });
 
-  afterEach( function (){
-     tearDownRoot();
+  afterEach(function() {
+    tearDownRoot();
   });
-   
+
+
   it("Create", function() {
-      var container = new qx.ui.mobile.container.Scroll();
-      getRoot().append(container);
-      container.dispose();
-  
+    var container = new qx.ui.mobile.container.Scroll();
+    getRoot().append(container);
+    container.dispose();
   });
 
 });

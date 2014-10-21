@@ -15,6 +15,7 @@ describe("log.DeprecationMethodOverriding", function ()
       qx.log.Logger.trace = function() {};
   });
 
+
   afterEach (function ()  {
       qx.log.Logger.warn = __orgWarnMesthod;
       qx.log.Logger.trace = __orgTraceMesthod;
@@ -23,30 +24,36 @@ describe("log.DeprecationMethodOverriding", function ()
       __lastWarnMsg = null;
   });
 
+
   it("ClassA: baseclass", function() {
       var instance = new log.fixture.ClassA();
       __test(instance, 1, 1, null);
   });
+
 
   it("ClassB1: overrides method", function() {
       var instance = new log.fixture.ClassB1();
       __test(instance, 2, 2, /log.fixture.ClassB1.prototype._applyOldProperty()/);
   });
 
+
   it("ClassC1: doesn't override method", function() {
       var instance = new log.fixture.ClassC1();
       __test(instance, 2, 3, /log.fixture.ClassB1.prototype._applyOldProperty()/);
   });
+
 
   it("ClassB2: doesn't override method", function() {
       var instance = new log.fixture.ClassB2();
       __test(instance, 1, 2, null);
   });
 
+
   it("ClassC2: overrides method", function() {
       var instance = new log.fixture.ClassC2();
       __test(instance, 2, 3, /log.fixture.ClassC2.prototype._applyOldProperty()/);
   });
+
 
   function __test (instance, callCountOldProperty, callCountNewProperty, reqExpWarnMsg)
   {
@@ -66,6 +73,7 @@ describe("log.DeprecationMethodOverriding", function ()
       }
   }
 });
+
 
 qx.Class.define("log.fixture.ClassA",
 {
@@ -114,6 +122,8 @@ qx.Class.define("log.fixture.ClassA",
     }
   }
 });
+
+
 qx.Class.define("log.fixture.ClassB1",
 {
   extend : log.fixture.ClassA,
@@ -134,6 +144,7 @@ qx.Class.define("log.fixture.ClassB1",
   }
 });
 
+
 qx.Class.define("log.fixture.ClassB2",
 {
   extend : log.fixture.ClassA,
@@ -141,12 +152,14 @@ qx.Class.define("log.fixture.ClassB2",
   members :
   {
     _applyNewProperty: function () {
-      this.base(log.fixture.ClassA, "_applyNewProperty")
+      this.base(log.fixture.ClassA, "_applyNewProperty");
 
       this._callCountApplyNewProperty++;
     }
   }
 });
+
+
 qx.Class.define("log.fixture.ClassC1",
 {
   extend : log.fixture.ClassB1,
@@ -160,6 +173,8 @@ qx.Class.define("log.fixture.ClassC1",
     }
   }
 });
+
+
 qx.Class.define("log.fixture.ClassC2",
 {
   extend : log.fixture.ClassB2,

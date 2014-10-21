@@ -1,24 +1,28 @@
 describe('event.GestureHandler', function() {
 
-  beforeEach (function () {
+  beforeEach(function() {
     globalSetup();
   });
-  afterEach (function () {
+
+
+  afterEach(function() {
     globalTeardown();
   });
- 
+
+
   it("Register", function() {
     var cb = function() {};
     var test = q.create('<div></div>').appendTo(sandbox[0])
-    .on("tap", cb)
-    .on("swipe", cb);
+      .on("tap", cb)
+      .on("swipe", cb);
     assert.equal("qx.event.handler.GestureCore", test[0].$$gestureHandler.classname);
     test.off("tap", cb);
     assert.isNotNull(test[0].$$gestureHandler);
     test.off("swipe", cb);
     assert.isUndefined(test[0].$$gestureHandler);
   });
- 
+
+
   it("DisposeHandler", function() {
     var cb = function() {};
     sandbox
@@ -29,7 +33,8 @@ describe('event.GestureHandler', function() {
     sandbox.off("swipe", cb);
     assert.isUndefined(sandbox[0].$$gestureHandler);
   });
- 
+
+
   it("RemoveMultiple", function() {
     var cb = function() {};
     sandbox
@@ -41,4 +46,4 @@ describe('event.GestureHandler', function() {
     sandbox.off("tap", cb);
     assert.isUndefined(sandbox[0].$$gestureHandler);
   });
-}); 
+});

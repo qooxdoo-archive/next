@@ -1,13 +1,16 @@
 describe('Blocker', function() {
 
-  beforeEach (function () {
+  beforeEach(function() {
     globalSetup();
   });
-  afterEach (function() {
+
+
+  afterEach(function() {
     globalTeardown();
     q(document).unblock();
     q('link[href="css/style2.css"]').remove();
   });
+
 
   it("Blocker", function() {
     //this.require(["qx.debug"]);
@@ -19,7 +22,7 @@ describe('Blocker', function() {
       height: "150px"
     };
     var test = q.create('<div id="foo"></div>').setStyles(styles)
-    .appendTo(sandbox[0]);
+      .appendTo(sandbox[0]);
 
     test.block("#00FF00", 1);
 
@@ -49,7 +52,7 @@ describe('Blocker', function() {
     test.block();
 
     assert.isTrue(q.$$qx.dom.Hierarchy.isRendered(blockerDiv[0]));
-    var blockerLocation = blockerDiv.getOffset();
+    blockerLocation = blockerDiv.getOffset();
     assert.equal(newStyles.top, blockerLocation.top + "px");
     assert.equal(newStyles.left, blockerLocation.left + "px");
     assert.equal(newStyles.width, blockerDiv.getWidth() + "px");
@@ -58,8 +61,9 @@ describe('Blocker', function() {
     test.unblock();
   });
 
+
   it("BlockDocument", function() {
-   // this.require(["qx.debug"]);
+    // this.require(["qx.debug"]);
 
     q(document).block();
 
@@ -87,6 +91,7 @@ describe('Blocker', function() {
     assert.isFalse(q.$$qx.dom.Hierarchy.isRendered(blockerDiv[0]));
   });
 
+
   it("GetBlockerElements", function() {
     var styles = {
       position: "absolute",
@@ -112,6 +117,7 @@ describe('Blocker', function() {
     test.unblock();
   });
 
+
   it("GetBlockerWithoutBlockingBefore", function() {
     var styles = {
       position: "absolute",
@@ -121,12 +127,13 @@ describe('Blocker', function() {
       height: "150px"
     };
     var test = q.create('<div id="foo"></div>').setStyles(styles)
-    .appendTo(sandbox[0]);
+      .appendTo(sandbox[0]);
 
     var blockerCollection = test.getBlocker();
     assert.instanceOf(blockerCollection, q);
     assert.equal(0, blockerCollection.length);
   });
+
 
   it("BlockerWithCSSClassStyling", function(done) {
     //this.require(["qx.debug"]);
@@ -148,6 +155,7 @@ describe('Blocker', function() {
       done();
     }, 500);
   });
+
 
   it("BlockerWithJSStyling", function() {
     q(document).block('#00FF00', 0.6, 7000);

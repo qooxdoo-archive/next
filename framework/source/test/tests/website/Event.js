@@ -1,23 +1,28 @@
 describe('Events', function() {
 
-  beforeEach (function () {
-   globalSetup();
+  beforeEach(function() {
+    globalSetup();
   });
-  afterEach (function () {
-   globalTeardown();
+
+
+  afterEach(function() {
+    globalTeardown();
   });
- 
-   it("OnOffEmit", function() {
+
+
+  it("OnOffEmit", function() {
     var test = q.create("<div/>");
     var self = this;
     var called = 0;
     var listener = function(data) {
-      assert.equal(self,this);
-      assert.equal(sendData,data);
+      assert.equal(self, this);
+      assert.equal(sendData, data);
       called++;
     };
     test.on("changeName", listener, this);
-    var sendData = {a: 12};
+    var sendData = {
+      a: 12
+    };
     test.emit("changeName", sendData);
     assert.equal(1, called);
 
@@ -25,6 +30,7 @@ describe('Events', function() {
     test.emit("changeName", sendData);
     assert.equal(1, called);
   });
+
 
   it("OnOffEmitWithoutContext", function() {
     var test = q.create("<div/>");
@@ -35,7 +41,9 @@ describe('Events', function() {
       called++;
     };
     test.on("changeName", listener);
-    var sendData = {a: 12};
+    var sendData = {
+      a: 12
+    };
     test.emit("changeName", sendData);
     assert.equal(1, called);
 
@@ -44,17 +52,20 @@ describe('Events', function() {
     assert.equal(1, called);
   });
 
+
   it("OnOffEmitChange", function() {
     var test = q.create("<div/>");
     var self = this;
     var called = 0;
     var listener = function(data) {
-      assert.equal(self,this);
-      assert.equal(sendData,data);
+      assert.equal(self, this);
+      assert.equal(sendData, data);
       called++;
     };
     test.on("changeName", listener, this);
-    var sendData = {a: 12};
+    var sendData = {
+      a: 12
+    };
     test.emit("changeName", sendData);
     assert.equal(1, called);
 
@@ -63,18 +74,21 @@ describe('Events', function() {
     assert.equal(2, called);
   });
 
+
   it("OnOffEmitMany", function() {
     var test = q.create("<div/>");
     test.add(q.create("<div/>")[0]);
     var self = this;
     var called = 0;
     var listener = function(data) {
-      assert.equal(self,this);
-      assert.equal(sendData,data);
+      assert.equal(self, this);
+      assert.equal(sendData, data);
       called++;
     };
     test.on("changeName", listener, this);
-    var sendData = {a: 12};
+    var sendData = {
+      a: 12
+    };
     test.emit("changeName", sendData);
     assert.equal(2, called);
 
@@ -83,35 +97,40 @@ describe('Events', function() {
     assert.equal(2, called);
   });
 
+
   it("Once", function() {
     var test = q.create("<div/>");
     var self = this;
     var called = 0;
     var listener = function(data) {
-      assert.equal(self,this);
-      assert.equal(sendData,data);
+      assert.equal(self, this);
+      assert.equal(sendData, data);
       called++;
     };
     test.once("changeName", listener, this);
-    var sendData = {a: 12};
+    var sendData = {
+      a: 12
+    };
     test.emit("changeName", sendData);
     assert.equal(1, called);
 
     test.emit("changeName", sendData);
     assert.equal(1, called);
- });
+  });
+
+
   it("OnOffEmitNative", function() {
     var test = q.create("<div id='foo'/>");
     test.appendTo(sandbox[0]);
     var obj = {
-      count : 0
-    }
-    var callback = function (ev) {
+      count: 0
+    };
+    var callback = function(ev) {
       this.count++;
-    }
-    var callback2 = function (ev) {
+    };
+    var callback2 = function(ev) {
       this.count += 2;
-    }
+    };
     // two listeners on the same element/event; make sure off() removes the
     // right one
     q("#foo").on("mousedown", callback2, obj);
@@ -124,6 +143,7 @@ describe('Events', function() {
     test.remove();
   });
 
+
   it("HasListener", function() {
     var test = q.create('<div></div>').appendTo("#sandbox");
     assert.isFalse(test.hasListener("mousedown"));
@@ -133,6 +153,7 @@ describe('Events', function() {
     test.off("mousedown", cb);
     assert.isFalse(test.hasListener("mousedown"));
   });
+
 
   it("HasListenerWithHandler", function() {
     var test = q.create('<div></div>').appendTo("#sandbox");
@@ -151,6 +172,7 @@ describe('Events', function() {
     assert.isFalse(test.hasListener("mousedown", cb));
   });
 
+
   it("HasListenerWithContext", function() {
     var test = q.create('<div></div>').appendTo("#sandbox");
     var cb = function() {};
@@ -163,28 +185,30 @@ describe('Events', function() {
     assert.isFalse(test.hasListener("mousedown", cb, ctx));
   });
 
+
   it("Context", function(done) {
 
     window.temp = null;
     q.create('<input type="text" id="one"></input><input type="text" id="two"></input>')
-    .on("mousedown", function(ev) {
-      window.temp = this.getAttribute("id");
-    }).appendTo("#sandbox");
+      .on("mousedown", function(ev) {
+        window.temp = this.getAttribute("id");
+      }).appendTo("#sandbox");
 
     window.setTimeout(function() {
       var event = new q.$$qx.event.type.dom.Custom("mousedown");
       q("#sandbox #one")[0].dispatchEvent(event);
     }, 100);
 
-    setTimeout(function(){
+    setTimeout(function() {
       assert.equal("one", window.temp);
       done();
     }, 200);
   });
 
+
   it("Ready", function(done) {
     var ctx = {
-      ready : 0
+      ready: 0
     };
     var callback = function() {
       this.ready++;
@@ -194,11 +218,12 @@ describe('Events', function() {
       q.ready(callback.bind(ctx));
     }, 100);
 
-    setTimeout( function() {
+    setTimeout(function() {
       assert.equal(1, ctx.ready);
       done();
     }, 200);
   });
+
 
   it("AllOffWithType", function() {
     var test = q.create('<h1>Foo</h1><div></div>').appendTo("#sandbox");
@@ -219,28 +244,30 @@ describe('Events', function() {
   });
 });
 
+
 describe('event.Normalization', function() {
 
-  beforeEach (function () {
-   globalSetup();
+  beforeEach(function() {
+    globalSetup();
   });
 
-  afterEach (function () {
-   globalTeardown();
+
+  afterEach(function() {
+    globalTeardown();
   });
+
 
   var __registerNormalization = function(type, normalizer) {
     q.define("EventNormalize" + Date.now(), {
-      statics :
-      {
-        normalize : normalizer
+      statics: {
+        normalize: normalizer
       },
-      classDefined : function(statics)
-      {
-       q.$registerEventNormalization(type, statics.normalize);
+      classDefined: function(statics) {
+        q.$registerEventNormalization(type, statics.normalize);
       }
-     });
-  }
+    });
+  };
+
 
   it("Normalization", function(done) {
 
@@ -264,7 +291,7 @@ describe('event.Normalization', function() {
     __registerNormalization("mousedown", normalizer2);
 
     var obj = {
-      normalized : false
+      normalized: false
     };
     var callback = function(ev) {
       if (ev.affe && ev.affe === "juhu affe") {
@@ -283,7 +310,7 @@ describe('event.Normalization', function() {
       test[0].dispatchEvent(event);
     }, 100);
 
-    setTimeout(function(){
+    setTimeout(function() {
       q.$unregisterEventNormalization("mousedown", normalizer0);
       assert(obj.normalized, "Event was not manipulated!");
       q.$unregisterEventNormalization("mousedown", normalizer2);
@@ -291,7 +318,8 @@ describe('event.Normalization', function() {
     }, 200);
   });
 
-   it("NormalizationWildcard", function(done) {
+
+  it("NormalizationWildcard", function(done) {
 
     var normalizer = function(event) {
       event.affe = "juhu";
@@ -301,7 +329,7 @@ describe('event.Normalization', function() {
 
     var obj1, obj2;
     obj1 = obj2 = {
-      normalized : false
+      normalized: false
     };
     var callback = function(ev) {
       if (ev.affe && ev.affe === "juhu") {
@@ -321,17 +349,17 @@ describe('event.Normalization', function() {
       test[0].dispatchEvent(up);
     }, 100);
 
-    setTimeout(function(){
+    setTimeout(function() {
       assert(obj1.normalized, "Event was not manipulated!");
       assert(obj2.normalized, "Event was not manipulated!");
       q.$unregisterEventNormalization("*", normalizer);
       done();
     }, 200);
-
   });
 
+
   var __normalizeMouse = null;
-   it("NormalizationForMultipleTypes", function(done) {
+  it("NormalizationForMultipleTypes", function(done) {
 
     __normalizeMouse = function(event) {
       event.affe = "juhu";
@@ -341,7 +369,7 @@ describe('event.Normalization', function() {
 
     var obj1, obj2;
     obj1 = obj2 = {
-      normalized : false
+      normalized: false
     };
     var callback = function(ev) {
       if (ev.affe && ev.affe === "juhu") {
@@ -364,13 +392,14 @@ describe('event.Normalization', function() {
       test[0].dispatchEvent(event);
     }, 250);
 
-    setTimeout(function(){
+    setTimeout(function() {
       assert(obj1.normalized, "Mousedown event was not manipulated!");
       assert(obj2.normalized, "Mouseup event was not manipulated!");
       tearDownTestNormalizationForMultipleTypes();
       done();
     }, 500);
   });
+
 
   var tearDownTestNormalizationForMultipleTypes = function() {
     var registry = q.$getEventNormalizationRegistry();
@@ -380,14 +409,19 @@ describe('event.Normalization', function() {
     assert.equal((before - 2), after);
   };
 });
+
+
 describe('event.RegistrationHooks', function() {
 
-  beforeEach (function () {
-   globalSetup();
+  beforeEach(function() {
+    globalSetup();
   });
-  afterEach (function () {
-   globalTeardown();
+
+
+  afterEach(function() {
+    globalTeardown();
   });
+
 
   it("RegisterHook", function() {
     var test = q.create('<div></div>').appendTo(sandbox[0]);
@@ -402,7 +436,7 @@ describe('event.RegistrationHooks', function() {
 
     q.$registerEventHook(["foo"], registerHook, unregisterHook);
     assert.isArray(hooks["on"]["foo"]);
-    assert.equal(onHookCount+1, hooks["on"]["foo"].length);
+    assert.equal(onHookCount + 1, hooks["on"]["foo"].length);
 
     var cb = function() {};
     test.on("foo", cb);
