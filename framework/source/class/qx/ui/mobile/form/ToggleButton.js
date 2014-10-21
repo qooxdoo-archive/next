@@ -123,6 +123,17 @@ qx.Class.define("qx.ui.mobile.form.ToggleButton",
     __labelChecked : "ON",
     __lastToggleTimestamp : 0,
 
+    // overridden
+    setValue: function(value) {
+      this.value = value;
+    },
+
+
+    // overridden
+    getValue: function() {
+      return this.value;
+    },
+
 
     /**
      * Returns the child control of the toggle button.
@@ -153,7 +164,7 @@ qx.Class.define("qx.ui.mobile.form.ToggleButton",
      */
     _setValue : function(value)
     {
-      if(typeof value !== 'boolean') {
+      if (typeof value !== 'boolean') {
         throw new Error("value for "+this+" should be boolean");
       }
       if (value) {
