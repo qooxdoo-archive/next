@@ -284,6 +284,19 @@ qx.Mixin.define("qx.ui.mobile.form.MForm",
 
 
     /**
+     * Check for the badInput state, e.g. if a non-numerical value is
+     * entered in a number field.
+     * @return {Boolean} <code>true</code> if the value passed the check
+     */
+    _validateBadInput: function() {
+      if (this[0].validity !== undefined) {
+        return !this[0].validity.badInput;
+      }
+      return true;
+    },
+
+
+    /**
      * Updates the <code>valid</code> property if the
      * <code>required</code> property changes
      *
