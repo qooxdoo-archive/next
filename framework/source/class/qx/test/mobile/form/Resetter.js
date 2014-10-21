@@ -16,7 +16,7 @@
      * Martin Wittemann (martinwittemann)
 
 ************************************************************************ */
-qx.Class.define("qx.test.ui.form.Resetter",
+qx.Class.define("qx.test.mobile.form.Resetter",
 {
   extend : qx.test.mobile.MobileTestCase,
 

@@ -47,7 +47,7 @@ qx.Class.define("qx.ui.mobile.form.ToggleButton",
     qx.ui.mobile.form.MForm
   ],
   implement : [
-    qx.ui.form.IForm
+    qx.ui.mobile.form.IForm
   ],
 
 

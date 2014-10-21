@@ -33,7 +33,7 @@ qx.Class.define("qx.ui.mobile.form.Input",
     qx.ui.mobile.container.MScrollHandling
   ],
   implement : [
-    qx.ui.form.IForm
+    qx.ui.mobile.form.IForm
   ],
 
 

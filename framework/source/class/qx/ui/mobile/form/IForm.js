@@ -22,7 +22,7 @@
  * Form interface for all form widgets. It includes the API for the enabled
  * and required states as well as validity.
  */
-qx.Interface.define("qx.ui.form.IForm",
+qx.Interface.define("qx.ui.mobile.form.IForm",
 {
   events :
   {
