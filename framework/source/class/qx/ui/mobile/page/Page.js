@@ -425,7 +425,10 @@ qx.Class.define("qx.ui.mobile.page.Page",
         }
       };
       if(value == "start" || value == "stop") {
-        qx.core.Init.getApplication().emit(value, data);
+        var app = qx.core.Init.getApplication();
+        if (app) {
+          app.emit(value, data);
+        }
       }
 
       this.emit(value, data);
