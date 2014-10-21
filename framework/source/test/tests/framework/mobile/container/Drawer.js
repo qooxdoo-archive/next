@@ -17,82 +17,85 @@
 
 ************************************************************************ */
 
-describe("mobile.container.Drawer", function ()
-{
- 
-  beforeEach( function () {
-     setUpRoot();
+describe("mobile.container.Drawer", function() {
+
+  beforeEach(function() {
+    setUpRoot();
   });
 
-  afterEach( function (){
-     tearDownRoot();
+
+  afterEach(function() {
+    tearDownRoot();
   });
 
- it("InitComposite", function() {
-      var parentContainer = new qx.ui.mobile.Widget();
 
-      var drawer = new qx.ui.mobile.container.Drawer(parentContainer);
+  it("InitComposite", function() {
+    var parentContainer = new qx.ui.mobile.Widget();
 
-      var drawerCandidate = parentContainer.getChildren()[0];
+    var drawer = new qx.ui.mobile.container.Drawer(parentContainer);
 
-      assert.equal(drawer[0], drawerCandidate, "Unexpected children of composite.");
+    var drawerCandidate = parentContainer.getChildren()[0];
 
-      drawer.dispose();
+    assert.equal(drawer[0], drawerCandidate, "Unexpected children of composite.");
+
+    drawer.dispose();
   });
- 
+
+
   it("InitRoot", function() {
-      var drawer = new qx.ui.mobile.container.Drawer();
+    var drawer = new qx.ui.mobile.container.Drawer();
 
-      var drawerCandidate = getRoot().getChildren()[0];
+    var drawerCandidate = getRoot().getChildren()[0];
 
-      assert.equal(drawer[0], drawerCandidate, "Unexpected children of root.");
+    assert.equal(drawer[0], drawerCandidate, "Unexpected children of root.");
 
-      drawer.dispose();
+    drawer.dispose();
   });
- 
+
+
   it("ShowHide", function() {
-      var drawer = new qx.ui.mobile.container.Drawer();
+    var drawer = new qx.ui.mobile.container.Drawer();
 
-      drawer.transitionDuration = 0;
+    drawer.transitionDuration = 0;
 
-      // Initial hidden.
-      assert.isTrue(drawer.isHidden(),"Drawer is asserted to be initially hidden.");
+    // Initial hidden.
+    assert.isTrue(drawer.isHidden(), "Drawer is asserted to be initially hidden.");
 
-      // Show.
-      drawer.show();
+    // Show.
+    drawer.show();
 
-      assert.isFalse(drawer.isHidden(),"Drawer is asserted to be shown.");
+    assert.isFalse(drawer.isHidden(), "Drawer is asserted to be shown.");
 
-      // Hide again.
-      drawer.hide();
+    // Hide again.
+    drawer.hide();
 
-      assert.isTrue(drawer.isHidden(),"Drawer is asserted to be hidden.");
+    assert.isTrue(drawer.isHidden(), "Drawer is asserted to be hidden.");
 
-      drawer.dispose();
+    drawer.dispose();
   });
- 
+
+
   it("ToggleVisibility", function() {
-      var drawer = new qx.ui.mobile.container.Drawer();
+    var drawer = new qx.ui.mobile.container.Drawer();
 
-      drawer.transitionDuration = 0;
+    drawer.transitionDuration = 0;
 
-      // Initial hidden.
-      assert.isTrue(drawer.isHidden(),"Drawer is asserted to be initially hidden.");
+    // Initial hidden.
+    assert.isTrue(drawer.isHidden(), "Drawer is asserted to be initially hidden.");
 
-      // Toggle visibility.
-      var targetVisibility = drawer.toggleVisibility();
+    // Toggle visibility.
+    var targetVisibility = drawer.toggleVisibility();
 
-      assert.isTrue(targetVisibility,"Drawer's targetVisibility is asserted to be true.");
-      assert.isFalse(drawer.isHidden(),"Drawer is asserted to be shown.");
+    assert.isTrue(targetVisibility, "Drawer's targetVisibility is asserted to be true.");
+    assert.isFalse(drawer.isHidden(), "Drawer is asserted to be shown.");
 
-      // Toggle visibility again.
-      targetVisibility = drawer.toggleVisibility();
+    // Toggle visibility again.
+    targetVisibility = drawer.toggleVisibility();
 
-      assert.isFalse(targetVisibility,"Drawer's targetVisibility is asserted to be false.");
-      assert.isTrue(drawer.isHidden(),"Drawer is asserted to be hidden.");
+    assert.isFalse(targetVisibility, "Drawer's targetVisibility is asserted to be false.");
+    assert.isTrue(drawer.isHidden(), "Drawer is asserted to be hidden.");
 
-      drawer.dispose();
-    
+    drawer.dispose();
   });
 
 });

@@ -17,12 +17,7 @@
 
 ************************************************************************ */
 
-/**
- * @require(qxWeb)
- * @require(qx.module.Attribute)
- * @require(qx.module.Traversing)
- */
-
+// TODO
 describe("mobile.LocaleSwitch", function()
 {
   beforeEach( function () {
