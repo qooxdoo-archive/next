@@ -45,11 +45,11 @@ qx.Class.define("qx.ui.mobile.form.Row",
 
       if (item) {
         labelWidget.setAttribute("for", item.getAttribute("id"));
-        item.on("changeValid", this._onChangeValid, this);
       }
     }
 
     if (item) {
+      item.on("changeValid", this._onChangeValid, this);
       this.__item = item;
       this.append(item);
     }
