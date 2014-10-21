@@ -48,17 +48,18 @@
   padding-top: rem(5);
 }
 
-.form-group > h3 {
+.form .group {
+  margin: 0 0 rem(16) 0;
+  padding: 0;
+}
+
+.group > h3 {
   margin: 0;
   padding: rem(10);
   font-size: rem(16);
   border:none;
   color: $form-title-text-color;
   font-weight:normal;
-}
-
-.form-group {
-  margin: 0 0 rem(10) 0;
 }
 
 .form-row {

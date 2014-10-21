@@ -32,7 +32,7 @@ qx.Class.define("qx.ui.mobile.Rating", {
   properties : {
 
     defaultCssClass: {
-      init : "qx-rating"
+      init : "rating"
     },
 
     value: {

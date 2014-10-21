@@ -66,7 +66,7 @@ qx.Class.define("qx.ui.mobile.page.NavigationPage",
   {
     this.super(qx.ui.mobile.page.Page, "constructor", layout);
 
-    if(wrapContentByGroup) {
+    if (typeof wrapContentByGroup == "boolean") {
       this._wrapContentByGroup = wrapContentByGroup;
     }
   },

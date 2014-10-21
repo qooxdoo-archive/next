@@ -54,7 +54,7 @@ qx.Class.define("qx.ui.mobile.form.Group",
     // overridden
     defaultCssClass :
     {
-      init : "form-group"
+      init : "group"
     }
   }
 });
