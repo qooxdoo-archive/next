@@ -42,8 +42,8 @@ qx.Class.define("qx.test.mobile.form.NumberField",
         this.__nf.setValue(15);
       }.bind(this));
 
-      this.assertEquals(15,this.__nf.getValue());
-      this.assertEquals(15,qx.bom.element.Attribute.get(this.__nf[0],'value'));
+      this.assertEquals(15, this.__nf.getValue());
+      this.assertEquals(15, qx.bom.element.Attribute.get(this.__nf[0],'value'));
     },
 
 
@@ -55,6 +55,7 @@ qx.Class.define("qx.test.mobile.form.NumberField",
       this.__nf.minimum = 42;
       this.assertEquals(42, this.__nf.minimum);
       this.assertEquals(42, this.__nf.getAttribute("min"));
+      this.assertTrue(this.__nf.valid);
 
       this.assertEventFired(this.__nf, "changeValid", function() {
         this.__nf.value = 41;
@@ -75,6 +76,7 @@ qx.Class.define("qx.test.mobile.form.NumberField",
       this.__nf.maximum = 42;
       this.assertEquals(42, this.__nf.maximum);
       this.assertEquals(42, this.__nf.getAttribute("max"));
+      this.assertTrue(this.__nf.valid);
 
       this.assertEventFired(this.__nf, "changeValid", function() {
         this.__nf.value = 43;
@@ -94,6 +96,7 @@ qx.Class.define("qx.test.mobile.form.NumberField",
       this.__nf.step = 10;
       this.assertEquals(10, this.__nf.step);
       this.assertEquals(10, this.__nf.getAttribute("step"));
+      this.assertTrue(this.__nf.valid);
 
       this.assertEventFired(this.__nf, "changeValid", function() {
         this.__nf.value = 12;

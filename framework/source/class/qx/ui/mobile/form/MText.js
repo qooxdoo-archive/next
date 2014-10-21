@@ -132,7 +132,16 @@ qx.Mixin.define("qx.ui.mobile.form.MText",
      * @return {Boolean} <code>true</code> if the pattern matches
      */
     _validatePattern: function() {
-      return !this[0].validity.patternMismatch;
+      if (this[0].validity !== undefined && this[0].validity.patternMismatch !== undefined) {
+        return !this[0].validity.patternMismatch;
+      }
+
+      // empty string is considered valid
+      if (typeof this.pattern !== "string" || !this.value) {
+        return true;
+      }
+
+      return typeof this.value == "string" && !!this.value.match(this.pattern);
     },
 
 
@@ -151,33 +160,40 @@ qx.Mixin.define("qx.ui.mobile.form.MText",
 
 
     _validateType: function() {
-      return !this[0].validity.typeMismatch;
-    },
-
-
-    /**
-     * Points the focus of the form to this widget.
-     */
-    focus : function() {
-      if(this.readOnly || this.enabled === false) {
-        return;
+      if (this[0].validity !== undefined && this[0].validity.typeMismatch !== undefined) {
+        return !this[0].validity.typeMismatch;
       }
 
-      var targetElement = this[0];
-      if(targetElement) {
-        targetElement.focus();
+      if (!this.value) {
+        // empty string/null are considered valid
+        return true;
       }
-    },
 
-
-    /**
-     * Removes the focus from this widget.
-     */
-    blur : function() {
-      var targetElement = this[0];
-      if(targetElement) {
-        targetElement.blur();
+      if (this.type === "email") {
+        try {
+          qx.util.Validate.checkEmail(this.value);
+          return true;
+        } catch(ex) {
+          if (ex instanceof qx.core.ValidationError) {
+            return false;
+          }
+          throw ex;
+        }
       }
+
+      if (this.type === "url") {
+        try {
+          qx.util.Validate.checkUrl(this.value);
+          return true;
+        } catch(ex) {
+          if (ex instanceof qx.core.ValidationError) {
+            return false;
+          }
+          throw ex;
+        }
+      }
+
+      return true;
     }
   }
 });

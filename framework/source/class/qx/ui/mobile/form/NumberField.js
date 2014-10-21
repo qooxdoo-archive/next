@@ -39,6 +39,11 @@ qx.Class.define("qx.ui.mobile.form.NumberField",
     if (value) {
       this.value = value;
     }
+
+    // Workaround: In browsers that support input type="number", no
+    // change event is fired until the user enters a numerical value
+    this.on("blur", this.validate, this);
+
     this.initMText();
   },
 
@@ -110,7 +115,17 @@ qx.Class.define("qx.ui.mobile.form.NumberField",
      * @return {Boolean} <code>true</code> if the value passed the check
      */
     _validateStep: function() {
-      return !this[0].validity.stepMismatch;
+      if (this[0].validity !== undefined) {
+        return !this[0].validity.stepMismatch;
+      }
+
+      if (this.value === null || typeof this.step !== "number") {
+        return true;
+      }
+
+      var val = parseFloat(this.value);
+      var min = this.minimum || 0;
+      return ((val - min) % this.step) === 0;
     },
 
 
@@ -130,7 +145,15 @@ qx.Class.define("qx.ui.mobile.form.NumberField",
      * @return {Boolean} <code>true</code> if the value passed the check
      */
     _validateMaximum: function() {
-      return !this[0].validity.rangeOverflow;
+      if (this[0].validity !== undefined) {
+        return !this[0].validity.rangeOverflow;
+      }
+
+      if (this.value === null || typeof this.maximum !== "number") {
+        return true;
+      }
+
+      return this.value <= this.maximum;
     },
 
 
@@ -139,7 +162,7 @@ qx.Class.define("qx.ui.mobile.form.NumberField",
      * Delegates value change on DOM element.
      */
     _applyMinimum : function(value,old) {
-      this.setAttribute("min",value);
+      this.setAttribute("min", value);
       this.valid = this._validateMinimum();
     },
 
@@ -150,7 +173,20 @@ qx.Class.define("qx.ui.mobile.form.NumberField",
      * @return {Boolean} <code>true</code> if the value passed the check
      */
     _validateMinimum: function() {
-      return !this[0].validity.rangeUnderflow;
+      if (this[0].validity !== undefined) {
+        return !this[0].validity.rangeUnderflow;
+      }
+
+      if (this.value === null || typeof this.minimum !== "number") {
+        return true;
+      }
+
+      return this.value >= this.minimum;
+    },
+
+
+    dispose: function() {
+      this.off("blur", this.validate, this);
     }
   }
 });
