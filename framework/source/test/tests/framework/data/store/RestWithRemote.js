@@ -17,70 +17,44 @@
 
 ************************************************************************ */
 
-/* ************************************************************************
-
-
-************************************************************************ */
-/**
- *
- * @asset(framwork/source/resource/qx/test/primitive.json)
- */
-
+// TODO
 describe("data.store.RestWithRemote", function() {
 
+  beforeEach (function () {
+    var url = "tests/framework/data/store/primitive.json";
+        res = res = new qx.io.rest.Resource({index: {method: "GET", url: url} });
+        store = store = new qx.data.store.Rest(res, "index");
 
-             //qx.test.io.MRemoteTest],
-
-    beforeEach (function () {
-      var url = qx.util.ResourceManager.getInstance().toUri("/framework/source/resource/qx/test/primitive.json");
-          res = res = new qx.io.rest.Resource({index: {method: "GET", url: url} });
-          store = store = new qx.data.store.Rest(res, "index");
-
-      res.configureRequest(function(req) {
-        req.setParser(qx.util.ResponseParser.PARSER.json);
-      });
-
-     // require(["http"]);
+    res.configureRequest(function(req) {
+      req.setParser(qx.util.ResponseParser.PARSER.json);
     });
+  });
 
-    afterEach (function() {
-      res.dispose();
-      store.dispose();
-    });
+  afterEach (function() {
+    res.dispose();
+    store.dispose();
+  });
 
-    
- 
+
  it("populate store with response of resource action", function(done) {
+   res.on("success", function() {
+     assert.equal("String", store.model.string);
+     done();
+   }, this);
 
-      res.on("success", function() {
-        setTimeout(function() {
-          assert.equal("String", store.model.string);
-          done();
-        }, 0);
-      }, this);
+   res.index();
+ });
 
-      res.index();
-    });
 
-    
- 
  it("bind model property", function(done) {
+   label = new qx.ui.mobile.basic.Label();
 
-          label = new qx.ui.mobile.basic.Label();
+    res.on("success", function() {
+      assert.equal("String", label.value);
+      done();
+    }, this);
 
-      res.on("success", function() {
-        setTimeout(function () {
-          assert.equal("String", label.value);
-          done();
-        },0);
-      }, this);
-
-      qx.data.SingleValueBinding.bind(store, "model.string", label, "value");
-      res.index();
-
-    });
-
-    // skip: function(msg) {
-    //   throw new qx.dev.unit.RequirementError(null, msg);
-    // }  
+    qx.data.SingleValueBinding.bind(store, "model.string", label, "value");
+    res.index();
+  });
 });

@@ -29,45 +29,44 @@
  // var __b2 = null;
  //var __label = null;
 
- 
+
 describe("data.singlevalue.Array", function ()
 {
-    // define a test class
-    qx.Class.define("data.singlevalue.Array_MultiBinding",
-    {
-      extend : Object,
-      include : [qx.event.MEmitter, qx.data.MBinding],
+  // define a test class
+  qx.Class.define("data.singlevalue.Array_MultiBinding", {
+    extend : Object,
+    include : [qx.event.MEmitter, qx.data.MBinding],
 
-      construct : function() {
-        array = new qx.data.Array(["one", "two", "three"]);
+    construct : function() {
+      this.array = new qx.data.Array(["one", "two", "three"]);
+    },
+
+    properties :
+    {
+      child : {
+        event : true,
+        nullable : true
       },
 
-      properties :
-      {
-        child : {
-          event : true,
-          nullable : true
-        },
+      children : {
+        event : true,
+        nullable: true,
+        init : null
+      },
 
-        children : {
-          event : true,
-          nullable: true,
-          init : null
-        },
+      name : {
+        check : "String",
+        event : true,
+        nullable: true
+      },
 
-        name : {
-          check : "String",
-          event : true,
-          nullable: true
-        },
-
-        array : {
-          init : null,
-          event: true
-        }
+      array : {
+        init : null,
+        event: true
       }
-    });
-   
+    }
+  });
+
   beforeEach (function () {
      __a = new data.singlevalue.Array_MultiBinding();
      __a.name = "a";
@@ -84,27 +83,26 @@ describe("data.singlevalue.Array", function ()
     });
 
   it("ChangeItem", function() {
-  
-      // bind the first element of the array
-      qx.data.SingleValueBinding.bind(__a, "array[0]", __label, "value");
-      // check the binding
-      assert.equal("one", __label.value, "Array[0] binding does not work!");
-      // change the value
-      __a.array.setItem(0, "ONE");
-      assert.equal("ONE", __label.value, "Array[0] binding does not work!");
-    });
- 
-  it("ChangeArray", function() {
-      // bind the first element of the array
-      qx.data.SingleValueBinding.bind(__a, "array[0]", __label, "value");
+    // bind the first element of the array
+    qx.data.SingleValueBinding.bind(__a, "array[0]", __label, "value");
+    // check the binding
+    assert.equal("one", __label.value, "Array[0] binding does not work!");
+    // change the value
+    __a.array.setItem(0, "ONE");
+    assert.equal("ONE", __label.value, "Array[0] binding does not work!");
+  });
 
-      // change the array itself
-      __a.array = (new qx.data.Array(1, 2, 3));
-      qx.log.Logger.debug(__a.array.getItem(0));
-      // check the binding
-      assert.equal("1", __label.value, "Changing the array does not work!");
-    });
- 
+  it("ChangeArray", function() {
+    // bind the first element of the array
+    qx.data.SingleValueBinding.bind(__a, "array[0]", __label, "value");
+
+    // change the array itself
+    __a.array = (new qx.data.Array(1, 2, 3));
+    qx.log.Logger.debug(__a.array.getItem(0));
+    // check the binding
+    assert.equal("1", __label.value, "Changing the array does not work!");
+  });
+
   it("Last", function() {
       // bind the last element
       qx.data.SingleValueBinding.bind(__a, "array[last]", __label, "value");
@@ -115,7 +113,7 @@ describe("data.singlevalue.Array", function ()
       __a.array.setItem(2,"THREE");
       assert.equal("THREE", __label.value, "Array[last] binding does not work!");
     });
- 
+
   it("PushPop", function() {
       // bind the last element
       qx.data.SingleValueBinding.bind(__a, "array[last]", __label, "value");
@@ -132,7 +130,7 @@ describe("data.singlevalue.Array", function ()
       // check the binding
       assert.equal("new", __label.value, "Array[last] binding does not work!");
     });
- 
+
   it("ShiftUnshift", function() {
       // bind the last element
       qx.data.SingleValueBinding.bind(__a, "array[0]", __label, "value");
@@ -149,7 +147,7 @@ describe("data.singlevalue.Array", function ()
       // check the binding
       assert.equal("new", __label.value, "Array[last] binding does not work!");
     });
- 
+
   it("ChildArray", function() {
       // create the objects
       __a.child = (__b1);
@@ -166,7 +164,7 @@ describe("data.singlevalue.Array", function ()
       // check the binding
       assert.equal("1", __label.value, "child.array[0] binding does not work!");
     });
- 
+
   it("Children", function() {
       // create the objects
       __a.children.push(__b1);
@@ -187,7 +185,7 @@ describe("data.singlevalue.Array", function ()
       // check the binding
       assert.equal("AFFE", __label.value, "children[0].name binding does not work!");
     });
- 
+
   it("2Arrays", function() {
       // create the objects
       __a.children.push(__b1);
@@ -203,7 +201,7 @@ describe("data.singlevalue.Array", function ()
       // check the binding
       assert.equal("OHJE", __label.value, "children[0].name binding does not work!");
     });
- 
+
   it("Splice", function() {
       // bind the first element
       qx.data.SingleValueBinding.bind(__a, "array[0]", __label, "value");
@@ -214,7 +212,7 @@ describe("data.singlevalue.Array", function ()
       // check the binding
       assert.equal("eins", __label.value, "Array[last] binding does not work!");
     });
- 
+
   it("WrongInput", function() {
       var a = __a;
       var label = __label;
@@ -254,7 +252,7 @@ describe("data.singlevalue.Array", function ()
         qx.data.SingleValueBinding.bind(a, "array[null]", label, "value");
       }, Error, null, "'null' not an array value.");
     });
- 
+
   it("LateBinding", function() {
       // create the precondition
       __a.array = (new qx.data.Array());
@@ -272,7 +270,7 @@ describe("data.singlevalue.Array", function ()
       __a.array.push("2");
       assert.equal("2", __label.value, "Late binding does not work!");
     });
- 
+
   it("RemoveArrayItem", function() {
       // bind the last element
       qx.data.SingleValueBinding.bind(__a, "array[last]", __label, "value");
@@ -287,7 +285,7 @@ describe("data.singlevalue.Array", function ()
       // check the binding
       assert.isNull(__label.value, "Array[last] binding does not work!");
     });
- 
+
   it("Bidirectional", function() {
       // two way binding
       // model.name <-- bind --> model.child.array[0]
@@ -316,7 +314,7 @@ describe("data.singlevalue.Array", function ()
       model.child.array.setItem(0, null);
       assert.equal(null, model.name, "model not reseted.");
     });
- 
+
   it("Direct", function() {
       // bind the first element of the array
       qx.data.SingleValueBinding.bind(__a.array, "[0]", __label, "value");
@@ -327,7 +325,7 @@ describe("data.singlevalue.Array", function ()
       __a.array.setItem(0, "ONE");
       assert.equal("ONE", __label.value, "[0] binding does not work!");
     });
- 
+
   it("DirectTarget", function() {
       __label.value = ("affe");
       // bind the first element of the array
@@ -339,7 +337,7 @@ describe("data.singlevalue.Array", function ()
       __label.value = ("AFFE");
       assert.equal("AFFE", __a.array.getItem(0), "[0] binding does not work!");
     });
- 
+
   it("ChildrenDirect", function() {
       // create the objects
       __a.children.push(__b1);
@@ -360,7 +358,7 @@ describe("data.singlevalue.Array", function ()
       // check the binding
       assert.equal("AFFE", __label.value, "[0].name binding does not work!");
     });
- 
+
   it("TargetChildren", function() {
       // create the objects
       __a.children.push(__b1);
@@ -376,6 +374,6 @@ describe("data.singlevalue.Array", function ()
       __a.children.shift();
       // check the binding
       assert.equal("l", __a.children.getItem(0).name, "[0].name binding does not work!");
-    
+
   });
 });

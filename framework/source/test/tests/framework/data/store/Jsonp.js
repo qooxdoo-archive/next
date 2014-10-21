@@ -17,175 +17,146 @@
 
 ************************************************************************ */
 
-/* ************************************************************************
+describe("data.store.Jsonp", function() {
+  var __store = null;
+  var url = "tests/framework/data/store/jsonp_primitive.php";
+
+  beforeEach (function () {
+    __store = new qx.data.store.Jsonp();
+  });
 
 
-************************************************************************ */
-/**
- * @ignore(qx.data.model)
- *
- * @asset(qx/test/*)
- */
+  afterEach (function () {
+    if (qx.io.request.Jsonp.restore) {
+      qx.io.request.Jsonp.restore();
+    }
 
-describe("data.store.Jsonp", function(){
-  // include : [qx.dev.unit.MRequirements,
-  //            qx.dev.unit.MMock],
+    __store.dispose();
 
-    var __store = null;
-
-    beforeEach (function () {
-  
-      //require(["php"]);
-      __store = new qx.data.store.Jsonp();
-
-      url = qx.util.ResourceManager.getInstance().
-        toUri("qx/test/jsonp_primitive.php");
-    });
+    if (request) {
+      delete request.dispose;
+      request.dispose();
+    }
+  });
 
 
-    afterEach (function () {
-     
-       sinon.sandbox.restore();
-      __store.dispose();
 
-      if (request) {
-
-        // From prototype
-        delete request.dispose;
-
-        // Dispose
-        request.dispose();
-      }
-    });
+  function setUpFakeRequest (){
+    var req = request = new qx.io.request.Jsonp();
+    req.send = req.dispose = function() {};
+    sinon.stub(qx.io.request, "Jsonp").returns(sinon.stub(req));
+  };
 
 
-    var isLocal = function() {
-      return window.location.protocol == "file:";
-    };
 
-
-    function setUpFakeRequest (){
-    
-      var req = request = new qx.io.request.Jsonp();
-      req.send = req.dispose = function() {};
-      sinon.stub(qx.io.request, "Jsonp").returns(sinon.stub(req));
-    };
- 
  it("SetCallbackParam", function() {
-      setUpFakeRequest();
+    setUpFakeRequest();
 
-      var store = new qx.data.store.Jsonp();
-      store.callbackParam = "myCallback";
-      store.url = ("/url");
+    var store = new qx.data.store.Jsonp();
+    store.callbackParam = "myCallback";
+    store.url = ("/url");
 
-      assert.equal("myCallback", request.callbackParam);
-      store.dispose();
+    assert.equal("myCallback", request.callbackParam);
+    store.dispose();
   });
- 
+
+
   it("SetCallbackName", function() {
-      setUpFakeRequest();
+    setUpFakeRequest();
 
-      var store = new qx.data.store.Jsonp();
-      store.callbackName = "myCallback";
-      store.url = ("/url");
+    var store = new qx.data.store.Jsonp();
+    store.callbackName = "myCallback";
+    store.url = "/url";
 
-      assert.equal("myCallback", request.callbackName);
-      store.dispose();
+    assert.equal("myCallback", request.callbackName);
+    store.dispose();
   });
- 
+
+
   it("WholePrimitive", function(done) {
-      __store.on("loaded", function() {
-        setTimeout(function() {
-          var model = __store.model;
-          assert.equal("String", model.string, "The model is not created how it should!");
-          assert.equal(12, model.number, "The model is not created how it should!");
-          assert.equal(true, model.boolean, "The model is not created how it should!");
-          assert.isNull(model["null"], "The model is not created how it should!");
-        }, 0);
-      }, this);
-      __store.url = (url);
-
+    __store.on("loaded", function() {
+      var model = __store.model;
+      assert.equal("String", model.string, "The model is not created how it should!");
+      assert.equal(12, model.number, "The model is not created how it should!");
+      assert.equal(true, model.boolean, "The model is not created how it should!");
+      assert.isNull(model["null"], "The model is not created how it should!");
+      done();
+    }, this);
+    __store.url = url;
   });
- 
+
+
   it("ManipulatePrimitive", function(done) {
-      var manipulated = false;
-      var delegate = {manipulateData : function(data) {
-        manipulated = true;
-        return data;
-      }};
+    var manipulated = false;
+    var delegate = {manipulateData : function(data) {
+      manipulated = true;
+      return data;
+    }};
 
-      var store = new qx.data.store.Jsonp(null, delegate, "callback");
+    var store = new qx.data.store.Jsonp(null, delegate, "callback");
 
-      store.on("loaded", function() {
-        setTimeout(function() {
-          assert.isTrue(manipulated);
-          done();
-        }, 0);
-      }, this);
-
-      store.url = (url);
-
+    store.on("loaded", function() {
+      assert.isTrue(manipulated);
       store.dispose();
+      done();
+    }, this);
+
+    store.url = (url);
   });
- 
+
+
   it("ConfigureRequestPrimitive", function(done) {
-      var delegate,
+    var delegate,
 
-      delegate = {configureRequest : function(request) {
-        assert.instanceOf(request, qx.io.request.Jsonp);
-      }};
+    delegate = {configureRequest : function(request) {
+      assert.instanceOf(request, qx.io.request.Jsonp);
+    }};
 
-      sinon.spy(delegate, "configureRequest");
+    sinon.spy(delegate, "configureRequest");
 
-      var store = new qx.data.store.Jsonp(null, delegate, "callback");
+    var store = new qx.data.store.Jsonp(null, delegate, "callback");
 
-      store.on("loaded", function() {
-        setTimeout(function() {
-          assertCalled(delegate.configureRequest);
-          done();
-        }, 0);
-      }, this);
-      
-      store.url = (url);
+    store.on("loaded", function() {
+      sinon.assert.called(delegate.configureRequest);
+      done();
+    }, this);
 
+    store.url = (url);
   });
- 
+
+
   it("DisposeRequest", function() {
-      setUpFakeRequest();
+    var store = new qx.data.store.Jsonp(url);
+    store.dispose();
 
-      var store = new qx.data.store.Jsonp(url);
-      store.dispose();
-
-      assertCalled(request.dispose);
+    assert.isTrue(store._getRequest().$$disposed);
   });
- 
+
+
   it("DisposeRequestDone", function(done) {
-      setUpFakeRequest();
-      
-      __store.on("loaded", function() {
+    __store.on("loaded", function() {
+      __store.dispose();
+      assert.isTrue(__store._getRequest().$$disposed);
+      done();
+    }, this);
+    __store.url = url;
+  });
+
+
+  it("ErrorEvent", function(done) {
+    // do not test that for IE and Opera because of the missing
+    // error handler for script tags
+    if (
+      !(qx.core.Environment.get("browser.name") == "ie") &&
+      !(qx.core.Environment.get("browser.name") == "opera"))
+      {
+      __store.on("error", function() {
         setTimeout(function() {
-          __store.dispose();
-          assertCalled(request.dispose);
           done();
         }, 0);
       }, this);
-      __store.url = (url);
-  });
- 
-  it("ErrorEvent", function(done) {
-      // do not test that for IE and Opera because of the missing
-      // error handler for script tags
-      if (
-        !(qx.core.Environment.get("browser.name") == "ie") &&
-        !(qx.core.Environment.get("browser.name") == "opera"))
-        {
-        __store.on("error", function() {
-          setTimeout(function() {
-            done();
-          }, 0);
-        }, this);
 
-        __store.url = ("affe");
-      }
+      __store.url = ("affe");
+    }
   });
 });
