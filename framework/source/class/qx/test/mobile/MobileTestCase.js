@@ -32,12 +32,7 @@ qx.Class.define("qx.test.mobile.MobileTestCase",
 
   members :
   {
-    setUp : function()
-    {
-      if (qx.core.Environment.get("browser.name") == "ie" && qx.core.Environment.get("browser.documentmode") < 10) {
-        throw new qx.dev.unit.RequirementError("Mobile tests require Webkit, Gecko or IE10+");
-      }
-
+    setUp : function() {
       qx.test.mobile.MobileTestCase._oldApplicationFunction = qx.core.Init.getApplication;
 
       var self = this;
@@ -63,8 +58,7 @@ qx.Class.define("qx.test.mobile.MobileTestCase",
     },
 
 
-    tearDown : function()
-    {
+    tearDown : function() {
       this.getRoot().empty();
       qx.core.Init.getApplication = qx.test.mobile.MobileTestCase._oldApplicationFunction;
       if (qx.core.Environment.get("qx.debug.dispose"))
@@ -78,8 +72,7 @@ qx.Class.define("qx.test.mobile.MobileTestCase",
     },
 
 
-    getRoot : function()
-    {
+    getRoot : function() {
       var clazz = qx.test.mobile.MobileTestCase;
 
       if (!clazz._root)
@@ -91,8 +84,7 @@ qx.Class.define("qx.test.mobile.MobileTestCase",
     },
 
 
-    assertQxMobileWidget : function(obj)
-    {
+    assertQxMobileWidget : function(obj) {
       this.assertInstance(obj, qx.ui.mobile.Widget);
     }
   }
