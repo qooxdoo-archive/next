@@ -111,16 +111,36 @@ qx.Class.define("qx.ui.mobile.form.Input",
 
 
     /**
-     * Handles the <code>click</code> and <code>focus</code> event on this input widget.
-     * @param evt {qx.event.type.Event} <code>click</code> or <code>focus</code> event
+     * Points the focus of the form to this widget.
      */
-    _onSelected : function(evt) {
-      var widget = qx.ui.mobile.Widget.getWidgetById(evt.target.getAttribute("id"));
-      if (!widget ||
-        (!(widget instanceof qx.ui.mobile.form.TextField) && !(widget instanceof qx.ui.mobile.form.NumberField))) {
+    focus : function() {
+      if(this.readOnly || this.enabled === false) {
         return;
       }
 
+      var targetElement = this[0];
+      if(targetElement) {
+        targetElement.focus();
+      }
+    },
+
+
+    /**
+     * Removes the focus from this widget.
+     */
+    blur : function() {
+      var targetElement = this[0];
+      if(targetElement) {
+        targetElement.blur();
+      }
+    },
+
+
+    /**
+     * Handles the <code>focus</code> event on this input widget.
+     * @param evt {Event} <code>click</code> or <code>focus</code> event
+     */
+    _onSelected : function(evt) {
       var scrollContainer = this._getParentScrollContainer();
       if(scrollContainer === null) {
         return;
@@ -130,9 +150,9 @@ qx.Class.define("qx.ui.mobile.form.Input",
         scrollContainer.scrollToWidget(this._getParentWidget(), 0);
 
         // Refresh caret position after scrolling.
-        this.setStyle("position","relative");
+        this.setStyle("position", "relative");
         qxWeb.requestAnimationFrame(function() {
-          this.setStyle("position",null);
+          this.setStyle("position", null);
         }, this);
       }.bind(this), 300);
     },
