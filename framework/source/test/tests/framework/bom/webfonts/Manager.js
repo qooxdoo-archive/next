@@ -18,7 +18,7 @@
  ************************************************************************ */
 /**
  *
- * @asset(../resource/qx/test/webfonts/*)
+ * @asset(framework/source/resource/qx/test/webfonts/*)
  */
 
 describe("bom.webfonts.Manager", function() {
@@ -28,9 +28,9 @@ describe("bom.webfonts.Manager", function() {
   {
     finelinerScript: {
       family: "FinelinerScriptRegular",
-      source: [qx.util.ResourceManager.getInstance().toUri("../resource/qx/test/webfonts/fineliner_script-webfont.woff"),
-        qx.util.ResourceManager.getInstance().toUri("../resource/qx/test/webfonts/fineliner_script-webfont.ttf"),
-        qx.util.ResourceManager.getInstance().toUri("../resource/qx/test/webfonts/fineliner_script-webfont.eot")
+      source: [qx.util.ResourceManager.getInstance().toUri("framework/source/resource/qx/test/webfonts/fineliner_script-webfont.woff"),
+        qx.util.ResourceManager.getInstance().toUri("framework/source/resource/qx/test/webfonts/fineliner_script-webfont.ttf"),
+        qx.util.ResourceManager.getInstance().toUri("framework/source/resource/qx/test/webfonts/fineliner_script-webfont.eot")
       ]
     },
     invalid: {

@@ -43,7 +43,7 @@ describe("bom.request.Jsonp", function() {
     //require(["php"]);
     sinon.sandbox.create();
     req = new qx.bom.request.Jsonp();
-    url = "../resource/qx/test/jsonp_primitive.php";
+    url = "framework/source/resource/qx/test/jsonp_primitive.php";
   });
 
 
@@ -171,7 +171,7 @@ describe("bom.request.Jsonp", function() {
     };
 
     setTimeout(function() {
-      request("../resource/qx/test/script.js");
+      request("framework/source/resource/qx/test/script.js");
     }, 100);
   });
 
@@ -184,7 +184,7 @@ describe("bom.request.Jsonp", function() {
 
     req.setCallbackName("myCallback");
     setTimeout(function() {
-      request("../resource/qx/test/script.js");
+      request("framework/source/resource/qx/test/script.js");
     }, 100);
 
   });
@@ -202,7 +202,7 @@ describe("bom.request.Jsonp", function() {
       }
     };
     setTimeout(function() {
-      request("../resource/qx/test/script.js");
+      request("framework/source//resource/qx/test/script.js");
     }, 100);
     setTimeout(function() {
       request();

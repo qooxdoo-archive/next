@@ -21,7 +21,7 @@
  ************************************************************************ */
 /**
  *
- * @asset(../resource/qx/test/style.css)
+ * @asset(framework/source/resource/qx/test/style.css)
  */
 
 describe("bom.Stylesheet", function() {
@@ -40,7 +40,7 @@ describe("bom.Stylesheet", function() {
 
   it("AddImport", function() {
     var sheet = __sheet = qx.bom.Stylesheet.createElement();
-    var uri = qx.util.ResourceManager.getInstance().toUri("../resource/qx/test/style.css");
+    var uri = qx.util.ResourceManager.getInstance().toUri("framework/source/resource/qx/test/style.css");
     qx.bom.Stylesheet.addImport(sheet, uri);
     if (sheet.cssRules) {
       var rules = sheet.cssRules || sheet.rules;
@@ -86,7 +86,7 @@ describe("bom.Stylesheet", function() {
 
 
   it("IncludeFile", function() {
-    var uri = qx.util.ResourceManager.getInstance().toUri("../resource/qx/test/style.css");
+    var uri = qx.util.ResourceManager.getInstance().toUri("framework/source/resource/qx/test/style.css");
     qx.bom.Stylesheet.includeFile(uri);
     var linkElems = document.getElementsByTagName("link");
     var found = false;
@@ -102,7 +102,7 @@ describe("bom.Stylesheet", function() {
 
   it("RemoveAllImports", function() {
     var sheet = __sheet = qx.bom.Stylesheet.createElement();
-    var uri = qx.util.ResourceManager.getInstance().toUri("../resource/qx/test/style.css");
+    var uri = qx.util.ResourceManager.getInstance().toUri("framework/source/resource/qx/test/style.css");
     qx.bom.Stylesheet.addImport(sheet, uri);
     qx.bom.Stylesheet.addImport(sheet, uri);
     qx.bom.Stylesheet.removeAllImports(sheet);
@@ -130,7 +130,7 @@ describe("bom.Stylesheet", function() {
 
   it("RemoveImport", function() {
     var sheet = __sheet = qx.bom.Stylesheet.createElement();
-    var uri = qx.util.ResourceManager.getInstance().toUri("../resource/qx/test/style.css");
+    var uri = qx.util.ResourceManager.getInstance().toUri("framework/source/resource/qx/test/style.css");
     qx.bom.Stylesheet.addImport(sheet, uri);
 
     qx.bom.Stylesheet.removeImport(sheet, uri);

@@ -58,7 +58,7 @@ describe("mobile.control.DatePicker", function() {
     getRoot().append("<input type='text' class='datepicker' data-qx-class='qx.ui.mobile.control.DatePicker' value=''></input>");
 
     var datepicker = q("input.datepicker").datePicker();
-    datepicker.icon = '../../../../application/websitewidgetbrowser/demo/datepicker/office-calendar.png';
+    datepicker.icon = 'framework/source/resource/qx/icon/Tango/22/apps/office-calendar.png';
 
     var icon = datepicker.getNext();
     assert.equal(1, icon.length);
@@ -75,7 +75,7 @@ describe("mobile.control.DatePicker", function() {
     getRoot().append("<input type='text' class='datepicker' data-qx-class='qx.ui.mobile.control.DatePicker' value='' />");
 
     var datepicker = q("input.datepicker").datePicker();
-    datepicker.icon = '../../../../application/websitewidgetbrowser/demo/datepicker/office-calendar.png';
+    datepicker.icon = 'framework/source/resource/qx/icon/Tango/22/apps/office-calendar.png';
     var icon = datepicker.getNext(".qx-datepicker-icon");
     assert.equal(1, icon.length);
 

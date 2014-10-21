@@ -52,7 +52,7 @@ describe("bom.request.XhrWithRemote", function() {
 
   it("GET with event attribute handler", function(done) {
 
-    var url = ("../resource/qx/test/xmlhttp/sample.txt");
+    var url = ("framework/source/resource/qx/test/xmlhttp/sample.txt");
     req.open("GET", noCache(url));
 
     req.onreadystatechange = function() {
@@ -69,7 +69,7 @@ describe("bom.request.XhrWithRemote", function() {
 
   it("GET with event", function(done) {
 
-    var url = ("../resource/qx/test/xmlhttp/sample.txt");
+    var url = ("framework/source/resource/qx/test/xmlhttp/sample.txt");
     req.open("GET", noCache(url));
 
     var onreadystatechange = function() {
@@ -87,7 +87,7 @@ describe("bom.request.XhrWithRemote", function() {
 
   it("GET XML", function(done) {
 
-    var url = ("../resource/qx/test/xmlhttp/sample.xml");
+    var url = ("framework/source/resource/qx/test/xmlhttp/sample.xml");
 
     req.open("GET", noCache(url));
 
@@ -107,7 +107,7 @@ describe("bom.request.XhrWithRemote", function() {
     //require(["php"]);
 
     // Content-Type: foo/bar+xml
-    var url = ("../resource/qx/test/xmlhttp/xml.php");
+    var url = ("framework/source/resource/qx/test/xmlhttp/xml.php");
 
     req.open("GET", noCache(url));
 
@@ -124,7 +124,7 @@ describe("bom.request.XhrWithRemote", function() {
 
 
   it("handle invalid XML", function(done) {
-    var url = ("../resource/qx/test/xmlhttp/invalid.xml");
+    var url = ("framework/source/resource/qx/test/xmlhttp/invalid.xml");
 
     req.onreadystatechange = function() {
       if (req.readyState == 4) {
@@ -144,7 +144,7 @@ describe("bom.request.XhrWithRemote", function() {
     //require(["php"]);
 
 
-    var url = ("../resource/qx/test/xmlhttp/echo_post_request.php");
+    var url = ("framework/source/resource/qx/test/xmlhttp/echo_post_request.php");
     req.open("POST", noCache(url));
     req.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
 
@@ -170,7 +170,7 @@ describe("bom.request.XhrWithRemote", function() {
     //require(["php"]);
 
 
-    var url = ("../resource/qx/test/xmlhttp/echo_post_request.php");
+    var url = ("framework/source/resource/qx/test/xmlhttp/echo_post_request.php");
     req.open("GET", noCache(url));
 
     assert.strictEqual(1, req.readyState);
@@ -181,7 +181,7 @@ describe("bom.request.XhrWithRemote", function() {
     //require(["php"]);
 
 
-    var url = ("../resource/qx/test/xmlhttp/echo_get_request.php");
+    var url = ("framework/source/resource/qx/test/xmlhttp/echo_get_request.php");
 
     req.open("GET", noCache(url));
     req.abort();
@@ -192,7 +192,7 @@ describe("bom.request.XhrWithRemote", function() {
 
   it("have status 200 when modified", function(done) {
     //require(["php"]);
-    var url = ("../resource/qx/test/xmlhttp/echo_get_request.php");
+    var url = ("framework/source/resource/qx/test/xmlhttp/echo_get_request.php");
 
     // Make sure resource is not served from cache
     req.open("GET", noCache(url));
@@ -211,7 +211,7 @@ describe("bom.request.XhrWithRemote", function() {
 
   it("validate freshness", function(done) {
     //require(["php", "noIe"]);
-    var url = ("../resource/qx/test/xmlhttp/time.php");
+    var url = ("framework/source/resource/qx/test/xmlhttp/time.php");
 
     var send = function() {
       req.open("GET", url);
@@ -282,7 +282,7 @@ describe("bom.request.XhrWithRemote", function() {
   // },
 
   it("open throws error with insecure method", function() {
-    var url = ("../resource/qx/test/xmlhttp/sample.txt");
+    var url = ("framework/source/resource/qx/test/xmlhttp/sample.txt");
 
     assert.throw(function() {
       // Type of error is of no interest
@@ -307,7 +307,7 @@ describe("bom.request.XhrWithRemote", function() {
     };
 
     var query = "?type=" + encodeURIComponent("text/html;charset=iso-8859-1") + "&content=%83%65%83%58%83%67";
-    var url = ("../resource/qx/test/xmlhttp/get_content.php") + query;
+    var url = ("framework/source/resource/qx/test/xmlhttp/get_content.php") + query;
 
     req.onload = onloadAssertContentTypeUnchanged;
     req.open("GET", url);
@@ -329,7 +329,7 @@ describe("bom.request.XhrWithRemote", function() {
     };
 
     var query = "?type=" + encodeURIComponent("text/html;charset=iso-8859-1") + "&content=%83%65%83%58%83%67";
-    var url = ("../resource/qx/test/xmlhttp/get_content.php") + query;
+    var url = ("framework/source/resource/qx/test/xmlhttp/get_content.php") + query;
 
     req.onload = onloadAssertContentTypeOverride;
     req.open("GET", url);
@@ -355,7 +355,7 @@ describe("bom.request.XhrWithRemote", function() {
       }
     };
 
-    var url = ("../resource/qx/test/xmlhttp/sample.txt");
+    var url = ("framework/source/resource/qx/test/xmlhttp/sample.txt");
     req.open("GET", noCache(url));
     req.send();
   });
@@ -368,7 +368,7 @@ describe("bom.request.XhrWithRemote", function() {
       states.push(req.readyState);
     };
 
-    var url = ("../resource/qx/test/xmlhttp/sample.txt");
+    var url = ("framework/source/resource/qx/test/xmlhttp/sample.txt");
     req.open("GET", noCache(url), false);
     req.send();
 
@@ -380,7 +380,7 @@ describe("bom.request.XhrWithRemote", function() {
 
   it("progress to readyState DONE when from cache", function(done) {
     var primeReq = req,
-      url = noCache(("../resource/qx/test/xmlhttp/sample.txt")),
+      url = noCache(("framework/source/resource/qx/test/xmlhttp/sample.txt")),
       states = [],
       count = 0;
 
@@ -420,7 +420,7 @@ describe("bom.request.XhrWithRemote", function() {
     //require(["php"]);
 
 
-    var url = ("../resource/qx/test/xmlhttp/not_modified.php");
+    var url = ("framework/source/resource/qx/test/xmlhttp/not_modified.php");
 
     req.onreadystatechange = function() {
       if (req.readyState == 4) {
@@ -463,7 +463,7 @@ describe("bom.request.XhrWithRemote", function() {
 
   it("allow many requests with same object", function(done) {
 
-    var url = ("../resource/qx/test/xmlhttp/sample.txt");
+    var url = ("framework/source/resource/qx/test/xmlhttp/sample.txt");
     var count = 0;
 
     function request() {
@@ -493,7 +493,7 @@ describe("bom.request.XhrWithRemote", function() {
 
   it("call onreadystatechange for OPEN", function(done) {
 
-    var url = ("../resource/qx/test/xmlhttp/sample.txt");
+    var url = ("framework/source/resource/qx/test/xmlhttp/sample.txt");
 
     var count = 0;
     req.onreadystatechange = function() {
@@ -521,7 +521,7 @@ describe("bom.request.XhrWithRemote", function() {
 
 
     // OPENED, without send flag
-    var url = ("../resource/qx/test/xmlhttp/sample.txt");
+    var url = ("framework/source/resource/qx/test/xmlhttp/sample.txt");
     req.open("GET", noCache(url));
 
     sinon.spy(req, "onreadystatechange");
@@ -547,7 +547,7 @@ describe("bom.request.XhrWithRemote", function() {
 
     // Will "never" complete
     // OPENED, finally LOADING
-    var url = ("../resource/qx/test/xmlhttp/loading.php");
+    var url = ("framework/source/resource/qx/test/xmlhttp/loading.php");
     req.open("GET", url + "?duration=100");
     req.send();
 
@@ -567,7 +567,7 @@ describe("bom.request.XhrWithRemote", function() {
 
     // Will "never" complete
     // OPENED, finally LOADING
-    var url = ("../resource/qx/test/xmlhttp/loading.php");
+    var url = ("framework/source/resource/qx/test/xmlhttp/loading.php");
     req.open("GET", url + "?duration=100");
     req.send();
 
@@ -637,7 +637,7 @@ describe("bom.request.XhrWithRemote", function() {
 
   it("not call ontimeout when DONE and sync", function(done) {
 
-    var url = ("../resource/qx/test/xmlhttp/sample.txt");
+    var url = ("framework/source/resource/qx/test/xmlhttp/sample.txt");
     sinon.spy(req, "ontimeout");
 
     // Assume that request completes in given interval
@@ -659,7 +659,7 @@ describe("bom.request.XhrWithRemote", function() {
 
     //require(["php"]);
 
-    var url = ("../resource/qx/test/xmlhttp/loading.php");
+    var url = ("framework/source/resource/qx/test/xmlhttp/loading.php");
 
 
     req.onloadend = function() {
@@ -685,7 +685,7 @@ describe("bom.request.XhrWithRemote", function() {
 
   it("timeout not call onabort", function(done) {
     //require(["php"]);
-    var url = ("../resource/qx/test/xmlhttp/loading.php");
+    var url = ("framework/source/resource/qx/test/xmlhttp/loading.php");
 
     req.ontimeout = function() {
       setTimeout(function() {
@@ -726,7 +726,7 @@ describe("bom.request.XhrWithRemote", function() {
 
   it("call handlers in order when request successful", function(done) {
 
-    var url = ("../resource/qx/test/xmlhttp/sample.txt");
+    var url = ("framework/source/resource/qx/test/xmlhttp/sample.txt");
 
     req.onloadend = function() {
       setTimeout(function() {
@@ -773,7 +773,7 @@ describe("bom.request.XhrWithRemote", function() {
 
   it("dispose hard-working", function(done) {
 
-    var url = ("../resource/qx/test/xmlhttp/sample.txt");
+    var url = ("framework/source/resource/qx/test/xmlhttp/sample.txt");
     req.open("GET", noCache(url));
 
     req.onreadystatechange = function() {

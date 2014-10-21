@@ -33,12 +33,12 @@ describe("mobile.basic.Image", function() {
 
 
   it("Src", function(done) {
-    var source = qx.util.ResourceManager.getInstance().toUri("../resource/qx/icon/Tango/48/places/folder.png");
+    var source = qx.util.ResourceManager.getInstance().toUri("framework/source/resource/qx/icon/Tango/48/places/folder.png");
     if (qx.io.ImageLoader.isLoaded(source)) {
       qx.log.Logger.debug("testLoadedEvent skipped! Image already loaded.");
       return;
     }
-    var image = new qx.ui.mobile.basic.Image("../resource/qx/icon/Tango/48/places/folder.png");
+    var image = new qx.ui.mobile.basic.Image("framework/source/resource/qx/icon/Tango/48/places/folder.png");
     image.on("loaded", function() {
       setTimeout(function() {
         // use a timeout to dispose the image because it needs to
@@ -69,13 +69,13 @@ describe("mobile.basic.Image", function() {
 
 
   it("Factory", function() {
-    var source = '../resource/qx/icon/Tango/48/places/folder.png';
-    var img = q.create('<img data-qx-config-source="../resource/qx/icon/Tango/48/places/folder.png">')
+    var source = 'framework/source/resource/qx/icon/Tango/48/places/folder.png';
+    var img = q.create('<img data-qx-config-source="framework/source/resource/qx/icon/Tango/48/places/folder.png">')
       .image()
       .appendTo(getRoot());
 
     assert.instanceOf(img, qx.ui.mobile.basic.Image);
-    assert.equal("../resource/qx/icon/Tango/48/places/folder.png", img.source);
+    assert.equal("framework/source/resource/qx/icon/Tango/48/places/folder.png", img.source);
     assert.isTrue(img.getAttribute('src').indexOf(source) !== -1);
     img.remove().dispose();
   });

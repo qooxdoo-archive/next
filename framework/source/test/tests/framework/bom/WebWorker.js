@@ -48,7 +48,7 @@ describe("bom.WebWorker", function() {
 
 
   beforeEach(function() {
-    _url = qx.util.ResourceManager.getInstance().toUri("../resource/qx/test/webworker.js");
+    _url = qx.util.ResourceManager.getInstance().toUri("framework/source/resource/qx/test/webworker.js");
 
     if (_isBuggyGecko()) {
       throw new qx.dev.unit.RequirementError("foo", "Test skipped due to Firefox bug #683280");

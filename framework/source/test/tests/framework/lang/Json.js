@@ -96,7 +96,7 @@ describe("lang.Json", function()
         start: new Date(0)
       };
       assert.match(
-        JSON.stringify(data),new RegExp('\{"start":"1970\-01\-01T00:00:00\(\.0*)?Z"\}');
+        JSON.stringify(data),new RegExp('\{"start":"1970\-01\-01T00:00:00\(\.0*)?Z"\}')
       );
   });
 

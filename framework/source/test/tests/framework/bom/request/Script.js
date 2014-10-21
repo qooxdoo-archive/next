@@ -19,9 +19,9 @@
 
 /**
  *
- * @asset(../resource/qx/test/jsonp_primitive.php)
- * @asset(../resource/qx/test/script.js)
- * @asset(../resource/qx/test/xmlhttp/sample.txt)
+ * @asset(framework/source/resource/qx/test/jsonp_primitive.php)
+ * @asset(framework/source/resource/qx/test/script.js)
+ * @asset(framework/source/resource/qx/test/xmlhttp/sample.txt)
  * @ignore(SCRIPT_LOADED)
  */
 
@@ -32,7 +32,7 @@ describe("bom.request.Script", function() {
 
   beforeEach(function() {
     req = new qx.bom.request.Script();
-    url = "../resource/qx/test/script.js";
+    url = "framework/source/resource/qx/test/script.js";
   });
 
   afterEach(function() {
@@ -139,7 +139,7 @@ describe("bom.request.Script", function() {
       return SCRIPT_LOADED === true;
     });
 
-    request("../resource/qx/test/script.js");
+    request("framework/source/resource/qx/test/script.js");
   });
 
   // Error handling
@@ -505,7 +505,7 @@ describe("bom.request.Script", function() {
 
   function requestPending(sleep) {
     //require(["php"]);
-    var url = noCache("../resource/qx/test/jsonp_primitive.php");
+    var url = noCache("framework/source/resource/qx/test/jsonp_primitive.php");
 
     // In legacy browser, a long running script request blocks subsequent requests
     // even if the script element is removed. Keep duration very low to work around.
