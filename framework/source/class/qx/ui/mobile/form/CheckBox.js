@@ -59,7 +59,7 @@ qx.Class.define("qx.ui.mobile.form.CheckBox",
     this.type = "checkbox";
     value = !!value;
 
-    this._setValue(value);
+    this.value = value;
     this._state = value;
 
     this.on("tap", this._onTap, this);

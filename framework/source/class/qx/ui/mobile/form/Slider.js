@@ -179,6 +179,17 @@ qx.Class.define("qx.ui.mobile.form.Slider",
     __value: 0,
 
 
+    // overridden
+    setValue: function(value) {
+      this.value = value;
+    },
+
+
+    // overridden
+    getValue: function() {
+      return this.value;
+    },
+
 
     /**
      * Increments the current value.

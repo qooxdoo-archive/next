@@ -61,8 +61,8 @@ qx.Mixin.define("qx.ui.mobile.form.MForm",
      * The item's value
      */
     value : {
-      set: "setValue",
-      get: "getValue",
+      set: "_setWidgetValue",
+      get: "_getWidgetValue",
       event: true
     },
 
@@ -175,18 +175,19 @@ qx.Mixin.define("qx.ui.mobile.form.MForm",
      *
      * @param value {var} The value to set
      */
-    setValue: function(value) {
+    _setWidgetValue: function(value) {
       if (this.__oldValue != value) {
         if (this.maxLength && typeof value === "string" &&
             value.length > this.maxLength) {
           value = value.substr(0, this.maxLength);
         }
 
-        if (this._setValue) {
+        if (typeof this._setValue == "function") {
           this._setValue(value);
         } else {
           this.setAttribute("value", value);
         }
+
         this.__fireChangeValue(value);
         this.validate();
       }
@@ -198,8 +199,11 @@ qx.Mixin.define("qx.ui.mobile.form.MForm",
      *
      * @return {var} The set value
      */
-    getValue: function() {
-      return this._getValue ? this._getValue() : this.getAttribute("value");
+    _getWidgetValue: function() {
+      if (typeof this._getValue == "function") {
+        return this._getValue();
+      }
+      return this.getAttribute("value");
     },
 
 
@@ -212,13 +216,12 @@ qx.Mixin.define("qx.ui.mobile.form.MForm",
 
 
     /**
-     * Event handler. Called when the {@link #changeValue} event occurs.
+     * Event handler. Called when the {@link #change} event occurs.
      *
      * @param evt {Event} The native change event
      */
     _onChangeContent : function(evt) {
-      this.validate();
-      this.__fireChangeValue(evt.target.value);
+      this.value = evt.target.value;
     },
 
 
@@ -231,10 +234,7 @@ qx.Mixin.define("qx.ui.mobile.form.MForm",
       var data = evt.target.value;
       this.emit("keyInput", {value: data, target: this});
       if (this.liveUpdate) {
-        if (this._setValue) {
-          this._setValue(data);
-        }
-        this.validate();
+        this.value = data;
       }
     },
 
@@ -245,8 +245,7 @@ qx.Mixin.define("qx.ui.mobile.form.MForm",
      * @param value {var} The current value to fire.
      */
     __fireChangeValue : function(value) {
-      if (this.__oldValue != value)
-      {
+      if (this.__oldValue != value) {
         var old = this.__oldValue;
         this.__oldValue = value;
         this.emit("changeValue", {value: value, old: old, target: this});
@@ -261,7 +260,7 @@ qx.Mixin.define("qx.ui.mobile.form.MForm",
      */
     validate: function() {
       for (var prop in this) {
-        if (this[prop] instanceof Function && prop.indexOf('_validate') === 0 ) {
+        if ((typeof this[prop] == "function") && prop.indexOf('_validate') === 0 ) {
           if (!this[prop]()) {
             this.valid = false;
             return;
@@ -344,9 +343,14 @@ qx.Mixin.define("qx.ui.mobile.form.MForm",
       if (qx.core.Environment.get("qx.dynlocale")) {
         qx.locale.Manager.getInstance().off("changeLocale", this.__onChangeLocale, this);
       }
-      this.off("changeValue", this._setInvalidState, this);
+
       this.off("focus", this._onFocus,this);
       this.off("blur", this._onBlur,this);
+
+      if (this._getTagName() == "input" || this._getTagName() == "textarea") {
+        this.off("change", this._onChangeContent, this);
+        this.off("input", this._onInput, this);
+      }
     }
   }
 });

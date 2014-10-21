@@ -98,6 +98,18 @@ qx.Class.define("qx.ui.mobile.form.Input",
     },
 
 
+    // overridden
+    setValue: function(value) {
+      this.value = value;
+    },
+
+
+    // overridden
+    getValue: function() {
+      return this.value;
+    },
+
+
     /**
      * Handles the <code>click</code> and <code>focus</code> event on this input widget.
      * @param evt {qx.event.type.Event} <code>click</code> or <code>focus</code> event
