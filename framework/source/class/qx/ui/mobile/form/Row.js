@@ -78,8 +78,10 @@ qx.Class.define("qx.ui.mobile.form.Row",
         this.__errorEl && this.__errorEl.remove();
       } else {
         if (!this.__errorEl && this.__item.validationMessage) {
-          this.__errorEl = qxWeb.create('<div class="qx-flex1 form-element-error">' + this.__item.validationMessage + '</div>')
-            .insertAfter(this.__item);
+          this.__errorEl = qxWeb.create('<div class="qx-flex1 form-element-error">' + this.__item.validationMessage + '</div>');
+        }
+        if (this.__errorEl) {
+          this.__errorEl.insertAfter(this.__item);
         }
       }
     },
