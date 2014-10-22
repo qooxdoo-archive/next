@@ -95,28 +95,25 @@ Samples = {
 
 
   "sample Form" : function() {
-    var form = new qx.ui.mobile.form.Form();
+    var form = new qx.ui.mobile.form.Form().appendTo(this.getRoot());
 
-    // User name
     var user = new qx.ui.mobile.form.TextField();
     user.required = true;
-    form.add(user, "Username");
+    new qx.ui.mobile.form.Row(user, "Username")
+      .appendTo(form);
 
-    // Password
     var pwd = new qx.ui.mobile.form.PasswordField();
     pwd.required = true;
-    form.add(pwd, "Password");
-
-    // Use form renderer
-    this.getRoot().append(new qx.ui.mobile.form.renderer.Single(form));
+    new qx.ui.mobile.form.Row(pwd, "Password")
+      .appendTo(form);
 
     // login button
     var button = new qx.ui.mobile.Button("Login");
     this.getRoot().append(button);
 
     button.on("tap", function() {
-      if (form.validate()) {  // use form validation
-        alert("Loggin in " + user.getValue());
+      if (form.validate()) {
+        alert("Loggin in " + user.value);
       }
     }, this);
   }
