@@ -71,4 +71,13 @@ describe("mobile.form.Form", function() {
     assert.isTrue(form.validate());
   });
 
+  it("Validate multiple items", function() {
+    var password = new qx.ui.mobile.form.PasswordField().set({
+      required: true
+    }).appendTo(form);
+    assert.isFalse(form.validate());
+    assert.isFalse(username.valid);
+    assert.isFalse(password.valid);
+  });
+
 });

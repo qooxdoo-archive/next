@@ -67,16 +67,17 @@ qx.Class.define("qx.ui.mobile.form.Form",
      * invalid
      */
     validate: function() {
+      var valid = true;
       var children = this.find("*[data-qx-widget]");
       for (var i=0, l=children.length; i<l; i++) {
         var child = qxWeb(children[i]);
         if (typeof child.validate == "function" &&
             child.validate() === false) {
-          return false;
+          valid = false;
         }
       }
 
-      return true;
+      return valid;
     },
 
 
