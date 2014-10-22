@@ -263,11 +263,12 @@ qx.Mixin.define("qx.ui.mobile.form.MForm",
         if ((typeof this[prop] == "function") && prop.indexOf('_validate') === 0 ) {
           if (!this[prop]()) {
             this.valid = false;
-            return;
+            return false;
           }
         }
       }
       this.valid = true;
+      return true;
     },
 
 
