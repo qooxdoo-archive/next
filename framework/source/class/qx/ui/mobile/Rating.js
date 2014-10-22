@@ -131,6 +131,15 @@ qx.Class.define("qx.ui.mobile.Rating", {
      */
     _applyValue : function(value, old) {
       var children = this.getChildren("span");
+
+      // When the value is greater than zero and no children are found
+      // render the widget first. This will happen when the value is set through
+      // HTML markup. [BUG #8645]
+      if (value > 0 && children.length === 0) {
+        this._render();
+        children = this.getChildren("span");
+      }
+
       children.removeClass(this.defaultCssClass + "-item-off")
         .slice(value, children.length)
           .addClass(this.defaultCssClass + "-item-off");

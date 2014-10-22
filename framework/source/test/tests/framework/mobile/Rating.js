@@ -124,6 +124,13 @@ describe("mobile.Rating", function() {
   });
 
 
+  it("DomConfig bug #8645", function() {
+    __rating = qxWeb.create("<div data-qx-widget='qx.ui.mobile.Rating' data-qx-config-value='2'>")
+      .appendTo(getRoot());
+    assert.equal(3, __rating.find("." + __rating.defaultCssClass + "-item-off").length);
+  });
+
+
   it("Factory", function(done) {
     var rating = _rating = qxWeb.create("<div>").rating().appendTo(getRoot());
     assert.instanceOf(rating, qx.ui.mobile.Rating);
