@@ -53,6 +53,16 @@ qx.Class.define("qx.test.mobile.form.Form",
       this.assertEquals("Foo", this.__username.value);
     },
 
+    testValidate: function() {
+      this.assertFalse(this.__form.validate());
+      this.__username.value = "Foo";
+      this.assertTrue(this.__form.validate());
+      this.__username.pattern = ".{4,}";
+      this.assertFalse(this.__form.validate());
+      this.__username.remove();
+      this.assertTrue(this.__form.validate());
+    },
+
     __createForm: function()
     {
       var form = new qx.ui.mobile.form.Form()

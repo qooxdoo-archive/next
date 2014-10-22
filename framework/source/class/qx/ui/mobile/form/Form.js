@@ -62,6 +62,25 @@ qx.Class.define("qx.ui.mobile.form.Form",
 
 
     /**
+     * Validates all items in the form
+     * @return {Boolean} <code>false</code> if one or more items are
+     * invalid
+     */
+    validate: function() {
+      var children = this.find("*[data-qx-widget]");
+      for (var i=0, l=children.length; i<l; i++) {
+        var child = qxWeb(children[i]);
+        if (typeof child.validate == "function" &&
+            child.validate() === false) {
+          return false;
+        }
+      }
+
+      return true;
+    },
+
+
+    /**
      * Resets the form. This means reseting all form items and the validation.
      */
     reset : function() {
