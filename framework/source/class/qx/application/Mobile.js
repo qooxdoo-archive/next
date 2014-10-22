@@ -93,13 +93,7 @@ qx.Class.define("qx.application.Mobile",
      * @param evt {qx.event.type.Orientation} The handled orientation change event
      */
     _onOrientationChange : function(evt) {
-      var isPortrait = null;
-
-      if (evt) {
-        isPortrait = evt.isPortrait();
-      } else {
-        isPortrait = !qxWeb.env.isLandscape();
-      }
+      var isPortrait = !qxWeb.env.isLandscape();
 
       if (isPortrait) {
         qxWeb(document.body).replaceClass("landscape", "portrait");
