@@ -5,7 +5,7 @@
    http://qooxdoo.org
 
    Copyright:
-     2011 1&1 Internet AG, Germany, http://www.1und1.de
+     2011 - 2014 1&1 Internet AG, Germany, http://www.1und1.de
 
    License:
      LGPL: http://www.gnu.org/licenses/lgpl.html
@@ -19,71 +19,56 @@
 
 describe("mobile.form.Form", function() {
 
-  var __form = null;
-  var __username = null;
-
+  var username;
+  var form;
 
   beforeEach(function() {
     setUpRoot();
-    //this.super(qx.test.mobile.MobileTestCase, "setUp");
-    __form = __createForm();
+
+    form = new qx.ui.mobile.form.Form()
+      .appendTo(getRoot());
+
+    username = new qx.ui.mobile.form.TextField()
+      .set({
+        placeholder : "Username",
+        required : true
+      })
+      .appendTo(form);
   });
 
 
   afterEach(function() {
     tearDownRoot();
-    //qx.Class.super(qx.test.mobile.MobileTestCase, "tearDown");
-    __username.dispose();
-    __form.dispose();
+    username.dispose();
+    form.dispose();
   });
 
 
-  it("CheckValidity", function() {
-    assert.isFalse(__form.checkValidity());
-
-    __username.setValue('myusername');
-    assert.isTrue(__form.checkValidity());
-  });
-
-
-  it("ChangeRequired", function() {
-    assert.isFalse(__form.checkValidity());
-
-    __username.required = false;
-    assert.isTrue(__form.checkValidity());
-  });
-  //test failed
   it("Reset", function() {
-
-    __username.value = "Foo";
-    assert.equal("Foo", __username.value);
-    assert.isTrue(__form.checkValidity());
-    __form.reset();
-    assert.equal(null, __username.value);
-    assert.isFalse(__form.checkValidity());
+    username.value = "Foo";
+    assert.equal("Foo", username.value);
+    form.reset();
+    assert.equal(null, username.value);
   });
 
 
   it("ResetRemoved", function() {
-    __username.value = "Foo";
-    assert.equal("Foo", __username.value);
-    assert.isTrue(__form.checkValidity());
-    __username.remove();
-    __form.reset();
-    assert.equal("Foo", __username.value);
-    assert.isTrue(__form.checkValidity());
+    username.value = "Foo";
+    assert.equal("Foo", username.value);
+    username.remove();
+    form.reset();
+    assert.equal("Foo", username.value);
   });
 
 
-  function __createForm() {
-    var form = new qx.ui.mobile.form.Form()
-      .appendTo(getRoot());
+  it("Validate", function() {
+    assert.isFalse(form.validate());
+    username.value = "Foo";
+    assert.isTrue(form.validate());
+    username.pattern = ".{4,}";
+    assert.isFalse(form.validate());
+    username.remove();
+    assert.isTrue(form.validate());
+  });
 
-    var username = __username = new qx.ui.mobile.form.TextField();
-    username.placeholder = "Username";
-    username.required = true;
-    username.appendTo(form);
-
-    return form;
-  }
 });
