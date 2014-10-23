@@ -157,4 +157,21 @@ describe("mobile.basic.Atom", function()
       assert.equal(testText,atomLabelInnerHtml, 'Child element of icon has wrong content');
   });
 
+
+  it("Factory", function() {
+    var imagePath = "../resource/qx/icon/Tango/48/places/user-home.png";
+    var imageUri = qx.util.ResourceManager.getInstance().toUri(imagePath);
+    var label = "myText";
+    var atom = q.create('<div></div>')
+      .atom(label, imageUri)
+      .appendTo(getRoot());
+
+    assert.instanceOf(atom, qx.ui.mobile.basic.Atom);
+    assert.equal(atom, atom[0].$$widget);
+    assert.equal(label, atom.label);
+    assert.equal(imageUri, atom.icon);
+    assert.equal("qx.ui.mobile.basic.Atom", atom.getData("qxWidget"));
+    atom.remove().dispose();
+  });
+
 });
