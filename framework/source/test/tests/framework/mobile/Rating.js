@@ -88,14 +88,6 @@ describe("mobile.Rating", function() {
   });
 
 
-  it("TwoCollections", function() {
-    __rating.value = 2;
-    var rating2 = qxWeb(getRoot().find(".qx-rating"));
-    assert.equal(__rating, rating2);
-    assert.equal(2, rating2.value);
-  });
-
-
   it("ListenerRemove", function() {
     var calledChange = 0;
     var calledCustom = 0;
