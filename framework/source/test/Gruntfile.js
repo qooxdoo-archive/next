@@ -1,13 +1,18 @@
 module.exports = function(grunt) {
 
   var fs = require('fs');
-  var glob = require("glob");
-  var testPath = 'tests/website/**/*.js'; // website tests only
-  // var testPath = 'tests/framework/**/*.js'; // framework tests only
-  // var testPath = 'tests/**/*.js'; // all tests
+  var glob = require('glob');
+
+  var getTestPath = function (scope) {
+    if (typeof scope === 'undefined' || scope === 'all') {
+      return 'tests/**/*.js';
+    }
+    return 'tests/' + scope + '/**/*.js';
+  };
 
   // process test HTML
-  grunt.registerTask('html', 'A task to preprocess the website.html', function() {
+  grunt.registerTask('html', 'A task to preprocess the website.html', function(scope) {
+    var testPath = getTestPath(scope);
     // read index file
     var index = fs.readFileSync('index.html', {encoding: 'utf8'});
 
