@@ -34,8 +34,8 @@ qx.Class.define("qx.ui.mobile.form.PasswordField",
     }
   },
 
-  construct: function(value) {
-    this.super(qx.ui.mobile.form.TextField, "constructor", value);
+  construct: function(value, element) {
+    this.super(qx.ui.mobile.form.TextField, "constructor", value, element);
     this.type = "password";
   }
 });

@@ -88,9 +88,9 @@ qx.Mixin.define("qx.ui.mobile.form.MText",
      * constructor.
      */
     initMText : function() {
-      this.maxLength = undefined;
-      this.placeholder = undefined;
-      this.readOnly = undefined;
+      this._applyMaxLength(this.maxLength);
+      this._applyPlaceholder(this.placeholder);
+      this._applyReadOnly(this.readOnly);
     },
 
 

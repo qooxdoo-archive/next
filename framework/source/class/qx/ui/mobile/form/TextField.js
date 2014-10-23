@@ -32,9 +32,9 @@ qx.Class.define("qx.ui.mobile.form.TextField",
   /**
    * @param value {var?null} The value of the widget.
    */
-  construct : function(value)
+  construct : function(value, element)
   {
-    this.super(qx.ui.mobile.form.Input, "constructor");
+    this.super(qx.ui.mobile.form.Input, "constructor", element);
     this.type = "text";
 
     if (value) {

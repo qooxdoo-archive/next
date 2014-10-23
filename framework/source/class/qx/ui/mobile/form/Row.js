@@ -25,33 +25,42 @@ qx.Class.define("qx.ui.mobile.form.Row",
 {
   extend : qx.ui.mobile.Widget,
 
-  construct: function(item, label) {
-    this.super(qx.ui.mobile.Widget, "constructor");
+  construct: function(item, label, element) {
+    this.super(qx.ui.mobile.Widget, "constructor", element);
 
     this.layout = new qx.ui.mobile.layout.HBox();
 
+    // label handling
+    var labelWidget;
     if (label) {
-      var labelWidget = new qx.ui.mobile.basic.Label(label, document.createElement("label"))
-        .set({
-          anonymous: false,
-          layoutPrefs: {flex:1}
-        })
+      labelWidget = new qx.ui.mobile.basic.Label(label, document.createElement("label"))
         .appendTo(this);
-
-      if (qx.core.Environment.get("engine.name") === "mshtml" &&
-          qx.core.Environment.get("browser.documentmode") === 10) {
-        labelWidget.addClasses(["qx-hbox", "qx-flex-align-center"]);
-      }
-
-      if (item) {
-        labelWidget.setAttribute("for", item.getAttribute("id"));
-      }
     }
 
+    labelWidget = this.find("label").setData("qxWidget", "qx.ui.mobile.basic.Label");
+    qxWeb(labelWidget[0]).set({
+      anonymous: false,
+      layoutPrefs: {flex:1}
+    });
+
+    if (qx.core.Environment.get("engine.name") === "mshtml" &&
+        qx.core.Environment.get("browser.documentmode") === 10) {
+      labelWidget.addClasses(["qx-hbox", "qx-flex-align-center"]);
+    }
+
+    // item handling
     if (item) {
-      item.on("changeValid", this._onChangeValid, this);
-      this.__item = item;
       this.append(item);
+    }
+
+    item = this.find("*").filter(function(element) {
+      return qx.Interface.classImplements(qxWeb(element).constructor, qx.ui.mobile.form.IForm);
+    });
+    item.on("changeValid", this._onChangeValid, this);
+    this.__item = item;
+
+    if (item && labelWidget) {
+      labelWidget.setAttribute("for", item.getAttribute("id"));
     }
   },
 

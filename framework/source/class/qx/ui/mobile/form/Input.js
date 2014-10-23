@@ -40,7 +40,7 @@ qx.Class.define("qx.ui.mobile.form.Input",
   construct : function(element)
   {
     this.super(qx.ui.mobile.Widget, "constructor", element);
-    this.required = undefined;
+    this._applyRequired(this.required);
     this.addClass("gap");
 
     this.on("focus", this._onSelected, this);
@@ -94,7 +94,9 @@ qx.Class.define("qx.ui.mobile.form.Input",
 
     _applyType: function(value) {
       this.setAttribute("type", value);
-      this.validate();
+      if (this.value) {
+        this.validate();
+      }
     },
 
 
