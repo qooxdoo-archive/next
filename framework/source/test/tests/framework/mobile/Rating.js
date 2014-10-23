@@ -131,13 +131,10 @@ describe("mobile.Rating", function() {
   });
 
 
-  it("Factory", function(done) {
+  it("Factory", function() {
     var rating = _rating = qxWeb.create("<div>").rating().appendTo(getRoot());
     assert.instanceOf(rating, qx.ui.mobile.Rating);
     assert.equal(rating, rating[0].$$widget);
-    setTimeout(function() {
-      assert.equal("qx.ui.mobile.Rating", rating.getData("qxWidget"));
-      done();
-    }, 100);
+    assert.equal("qx.ui.mobile.Rating", rating.getData("qxWidget"));
   });
 });
