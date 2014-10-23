@@ -268,7 +268,8 @@ qx.Class.define("qx.bom.Viewport",
      *     is currently in landscape mode.
      */
     isLandscape : function(win) {
-      return this.getWidth(win) >= this.getHeight(win);
+      var orientation = this.getOrientation();
+      return orientation === -90 || orientation === 90;
     },
 
 
@@ -281,7 +282,8 @@ qx.Class.define("qx.bom.Viewport",
      */
     isPortrait : function(win)
     {
-      return this.getWidth(win) < this.getHeight(win);
+      var orientation = this.getOrientation();
+      return orientation === 0 || orientation === 180;
     }
   }
 });
