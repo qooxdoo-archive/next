@@ -114,8 +114,10 @@ qx.Class.define("mobileshowcase.page.Drawer",
 
       this.getContent().append(toggleModeGroup);
 
-      this.getContent().append(new qx.ui.mobile.form.Title("Action"));
-      this.getContent().append(this._createDrawerMenu([drawerTop, drawerRight, drawerBottom, drawerLeft]));
+      var actionButtonGroup = new qx.ui.mobile.form.Group("Action")
+       .append(this._createDrawerMenu([drawerTop, drawerRight, drawerBottom, drawerLeft]));
+
+      this.getContent().append(actionButtonGroup);
     },
 
 
