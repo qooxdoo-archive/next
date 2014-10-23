@@ -16,7 +16,6 @@
 
 describe("mobile.form.Input", function() {
 
-
   beforeEach(function() {
     setUpRoot();
     __item = new qx.ui.mobile.form.Input();
@@ -28,6 +27,17 @@ describe("mobile.form.Input", function() {
     tearDownRoot();
   });
 
+  var onValid = function(e) {
+    assert.isTrue(e.value);
+    assert.isFalse(e.old);
+    assert.isTrue(e.target.valid);
+  };
+
+  var onInvalid = function(e) {
+    assert.isFalse(e.value);
+    assert.isTrue(e.old);
+    assert.isFalse(e.target.valid);
+  };
 
   it("Creation", function() {
     assert.equal("input", __item[0].nodeName.toLowerCase());
@@ -37,65 +47,53 @@ describe("mobile.form.Input", function() {
 
 
   it("Required", function() {
-    assert.isFalse(__item.getAttribute("required"));
-    assert.isFalse(__item.hasClass("invalid"));
     __item.required = true;
-    assert.isTrue(__item.getAttribute("required"));
+    assert.isTrue(__item.valid);
+    assert.isFalse(__item.hasClass("invalid"));
+
+    var cb = sinon.spy(onInvalid);
+    __item.once("changeValid", cb);
+    __item.validate();
+    sinon.assert.calledOnce(cb);
     assert.isTrue(__item.hasClass("invalid"));
+
+    cb = sinon.spy(onValid);
+    __item.once("changeValid", cb);
+    __item.value = "Foo";
+    sinon.assert.calledOnce(cb);
+    assert.isFalse(__item.hasClass("invalid"));
+
+    cb = sinon.spy(onInvalid);
+    __item.once("changeValid", cb);
+    __item.value = null;
+    sinon.assert.calledOnce(cb);
+    assert.isTrue(__item.hasClass("invalid"));
+
+    cb = sinon.spy(onValid);
+    __item.once("changeValid", cb);
     __item.required = false;
-    assert.isFalse(__item.getAttribute("required"));
+    sinon.assert.calledOnce(cb);
     assert.isFalse(__item.hasClass("invalid"));
   });
 
 
-  it("Validity", function() {
-    __item.type = "text";
-    assert.isTrue(__item.validity.valid);
-    assert.isFalse(__item.hasClass("invalid"));
-    __item.required = true;
-    assert.isFalse(__item.validity.valid);
-    assert.isTrue(__item.hasClass("invalid"));
-    __item.setValue("Foo");
-    assert.isTrue(__item.validity.valid);
-    assert.isFalse(__item.hasClass("invalid"));
-    __item.setValue("");
-    assert.isFalse(__item.validity.valid);
-    assert.isTrue(__item.hasClass("invalid"));
-  });
+  it("CustomValidator", function() {
+    assert.isTrue(__item.valid);
 
+    var validator = sinon.spy(function(value) {
+      return false;
+    });
 
-  it("ValueMissing", function() {
-    __item.type = "text";
-    assert.isFalse(__item.validity.valueMissing);
-    __item.required = true;
-    assert.isTrue(__item.validity.valueMissing);
-    __item.setValue("Foo");
-    assert.isFalse(__item.validity.valueMissing);
-    __item.setValue("");
-    assert.isTrue(__item.validity.valueMissing);
-  });
+    var cb = sinon.spy(onInvalid);
+    __item.once("changeValid", cb);
+    __item.validator = validator;
+    sinon.assert.calledOnce(validator);
+    sinon.assert.calledOnce(cb);
 
-
-  it("SetCustomValidity", function() {
-    var msg = "Invalid value";
-    __item.setCustomValidity(msg);
-    assert.isFalse(__item.validity.valid);
-    assert.isTrue(__item.hasClass("invalid"));
-    assert.equal(msg, __item.validationMessage);
-    __item.setCustomValidity("");
-    assert.isTrue(__item.validity.valid);
-    assert.isFalse(__item.hasClass("invalid"));
-    assert.equal("", __item.validationMessage);
-  });
-
-
-  it("InvalidEvent", function() {
-    __item.required = true;
-    qx.core.Assert.assertEventFired(__item, "invalid", function() {
-      assert.isFalse(__item.checkValidity());
-      assert.isFalse(__item.validity.valid);
-      assert.isTrue(__item.hasClass("invalid"));
-    }.bind(this));
+    cb = sinon.spy(onValid);
+    __item.once("changeValid", cb);
+    __item.validator = null;
+    sinon.assert.calledOnce(cb);
   });
 
 });

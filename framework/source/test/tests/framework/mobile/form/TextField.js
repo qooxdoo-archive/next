@@ -30,14 +30,29 @@ describe("mobile.form.TextField", function() {
   });
 
 
+  var onInvalid = function(e) {
+    assert.isFalse(e.value);
+    assert.isTrue(e.old);
+    assert.isFalse(e.target.valid);
+  };
+
+  var onValid = function(e) {
+    assert.isTrue(e.value);
+    assert.isFalse(e.old);
+    assert.isTrue(e.target.valid);
+  };
+
+
   it("Value", function() {
     getRoot().append(__tf);
 
     assert.equal(null, __tf.value);
     assert.equal(null, qx.bom.element.Attribute.get(__tf[0], 'value'));
-    qx.core.Assert.assertEventFired(__tf, "changeValue", function() {
-      __tf.value = "mytext";
-    }.bind(this));
+
+    var cb = sinon.spy();
+    __tf.once("changeValue", cb);
+    __tf.value = "mytext";
+    sinon.assert.calledOnce(cb);
     assert.equal('mytext', __tf.value);
     assert.equal('mytext', qx.bom.element.Attribute.get(__tf[0], 'value'));
 
@@ -65,23 +80,29 @@ describe("mobile.form.TextField", function() {
 
 
   it("Pattern", function() {
-    var pattern = "Foo";
+    var pattern = ".{3,}";
     __tf.pattern = pattern;
-    assert.equal(pattern, __tf.getAttribute("pattern"));
-    // empty value is valid unless required
-    assert.isTrue(__tf.validity.valid);
-    __tf.value = "Bar";
-    assert.isFalse(__tf.validity.valid);
-    assert.isTrue(__tf.validity.patternMismatch);
+    assert.isTrue(__tf.valid);
+
+    var cb = sinon.spy(onInvalid);
+    __tf.once("changeValid", cb);
+    __tf.value = "aa";
+    sinon.assert.calledOnce(cb);
+
+    cb = sinon.spy(onValid);
+    __tf.once("changeValid", cb);
     __tf.value = "Foo";
-    assert.isTrue(__tf.validity.valid);
-    assert.isFalse(__tf.validity.patternMismatch);
-    __tf.pattern = "Bar";
-    assert.isFalse(__tf.validity.valid);
-    assert.isTrue(__tf.validity.patternMismatch);
+    sinon.assert.calledOnce(cb);
+
+    cb = sinon.spy(onInvalid);
+    __tf.once("changeValid", cb);
+    __tf.pattern = "aa";
+    sinon.assert.calledOnce(cb);
+
+    cb = sinon.spy(onValid);
+    __tf.once("changeValid", cb);
     __tf.value = "";
-    assert.isTrue(__tf.validity.valid);
-    assert.isFalse(__tf.validity.patternMismatch);
+    sinon.assert.calledOnce(cb);
   });
 
 
@@ -95,4 +116,49 @@ describe("mobile.form.TextField", function() {
     __tf.maxLength = 1;
     assert.equal("F", __tf.value);
   });
+
+
+  it("MaxLengthIllegal", function() {
+    var cb = sinon.spy(onInvalid);
+    __tf.once("changeValid", cb);
+    __tf.maxLength = 1;
+    __tf[0].value = "Foo";
+    __tf.validate();
+    sinon.assert.calledOnce(cb);
+  });
+
+
+  it("TypeEmail", function() {
+    __tf.type = "email";
+    assert.equal("email", __tf[0].getAttribute("type"));
+    assert.isTrue(__tf.valid);
+
+    var cb = sinon.spy(onInvalid);
+    __tf.once("changeValid", cb);
+    __tf.value = "Foo";
+    sinon.assert.calledOnce(cb);
+
+    cb = sinon.spy(onValid);
+    __tf.once("changeValid", cb);
+    __tf.value = "foo@example.com";
+    sinon.assert.calledOnce(cb);
+  });
+
+
+  it("TypeUrl", function() {
+    __tf.type = "url";
+    assert.equal("url", __tf[0].getAttribute("type"));
+    assert.isTrue(__tf.valid);
+
+    var cb = sinon.spy(onInvalid);
+    __tf.once("changeValid", cb);
+    __tf.value = "Foo";
+    sinon.assert.calledOnce(cb);
+
+    cb = sinon.spy(onValid);
+    __tf.once("changeValid", cb);
+    __tf.value = "http://www.example.com";
+    sinon.assert.calledOnce(cb);
+  });
+
 });
