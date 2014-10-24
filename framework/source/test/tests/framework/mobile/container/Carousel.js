@@ -154,6 +154,9 @@ describe("mobile.container.Carousel", function() {
       .appendTo(getRoot());
 
     assert.instanceOf(carousel, qx.ui.mobile.container.Carousel);
+    assert.equal(carousel, carousel[0].$$widget);
+    assert.equal("qx.ui.mobile.container.Carousel", carousel.getData("qxWidget"));
+
     carousel.remove().dispose();
   });
 
