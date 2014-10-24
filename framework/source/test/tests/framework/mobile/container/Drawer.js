@@ -30,9 +30,9 @@ describe("mobile.container.Drawer", function() {
 
 
   it("InitComposite", function() {
-    var parentContainer = new qx.ui.mobile.Widget();
+    var drawer = new qx.ui.mobile.container.Drawer();
 
-    var drawer = new qx.ui.mobile.container.Drawer(parentContainer);
+    var parentContainer = getRoot().append(drawer);
 
     var drawerCandidate = parentContainer.getChildren()[0];
 
@@ -44,6 +44,7 @@ describe("mobile.container.Drawer", function() {
 
   it("InitRoot", function() {
     var drawer = new qx.ui.mobile.container.Drawer();
+    getRoot().append(drawer);
 
     var drawerCandidate = getRoot().getChildren()[0];
 
@@ -55,6 +56,7 @@ describe("mobile.container.Drawer", function() {
 
   it("ShowHide", function() {
     var drawer = new qx.ui.mobile.container.Drawer();
+    getRoot().append(drawer);
 
     drawer.transitionDuration = 0;
 
@@ -77,6 +79,7 @@ describe("mobile.container.Drawer", function() {
 
   it("ToggleVisibility", function() {
     var drawer = new qx.ui.mobile.container.Drawer();
+    getRoot().append(drawer);
 
     drawer.transitionDuration = 0;
 
