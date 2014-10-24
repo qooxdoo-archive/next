@@ -162,5 +162,10 @@ qx.Class.define("qx.ui.mobile.form.Form",
       this.off("removedChild", this._onRemovedChild, this);
     }
 
+  },
+
+
+  classDefined : function(statics) {
+    qxWeb.$attachWidget(statics);
   }
 });
