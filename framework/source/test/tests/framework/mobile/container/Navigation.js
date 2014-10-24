@@ -90,6 +90,9 @@ describe("mobile.container.Navigation", function() {
       .appendTo(getRoot());
 
     assert.instanceOf(navigation, qx.ui.mobile.container.Navigation);
+    assert.equal(navigation, navigation[0].$$widget);
+    assert.equal("qx.ui.mobile.container.Navigation", navigation.getData("qxWidget"));
+
     navigation.dispose();
   });
 
