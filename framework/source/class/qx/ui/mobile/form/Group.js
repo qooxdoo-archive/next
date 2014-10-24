@@ -41,5 +41,10 @@ qx.Class.define("qx.ui.mobile.form.Group",
     {
       init : "group"
     }
+  },
+
+
+  classDefined : function(statics) {
+    qxWeb.$attachWidget(statics);
   }
 });
