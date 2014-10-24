@@ -453,8 +453,6 @@ qx.Class.define("qx.ui.mobile.container.Drawer",
 
     dispose : function()
     {
-      this.super(qx.ui.mobile.Widget, "dispose");
-      qx.core.Init.getApplication().off("back", this.forceHide, this);
 
       var parent = this._getParentWidget();
       this._onRemovedFromParent(parent);
@@ -462,6 +460,8 @@ qx.Class.define("qx.ui.mobile.container.Drawer",
       qx.util.DisposeUtil.disposeContainer(this);
 
       this.__pointerStartPosition = this.__transitionEnabled = null;
+
+      this.super(qx.ui.mobile.Widget, "dispose");
     }
   },
 
