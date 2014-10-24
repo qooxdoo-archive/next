@@ -38,10 +38,8 @@ qx.Class.define("qx.ui.mobile.form.Row",
     }
 
     labelWidget = this.find("label").setData("qxWidget", "qx.ui.mobile.basic.Label");
-    qxWeb(labelWidget[0]).set({
-      anonymous: false,
-      layoutPrefs: {flex:1}
-    });
+    labelWidget.anonymous = false;
+    labelWidget.layoutPrefs = {flex:1};
 
     if (qx.core.Environment.get("engine.name") === "mshtml" &&
         qx.core.Environment.get("browser.documentmode") === 10) {
