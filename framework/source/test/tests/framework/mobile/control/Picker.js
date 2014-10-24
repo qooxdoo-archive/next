@@ -49,4 +49,14 @@ describe("mobile.control.Picker", function() {
     assert.isTrue(picker.getSlotCount() === 1, 'Unexpected picker slot count.');
   });
 
+
+  it("Factory", function() {
+    var picker = qxWeb.create("<div>").picker().appendTo(getRoot());
+    assert.instanceOf(picker, qx.ui.mobile.control.Picker);
+    qx.core.Assert.assertEquals(picker, picker[0].$$widget);
+    assert.equal("qx.ui.mobile.control.Picker", picker.getData("qxWidget"));
+
+    picker.dispose();
+  });
+
 });
