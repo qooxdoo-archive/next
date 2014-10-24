@@ -83,4 +83,14 @@ describe("mobile.container.Navigation", function() {
     container.dispose();
   });
 
+
+  it("Factory", function() {
+    var navigation = q.create('<div>')
+      .navigation()
+      .appendTo(getRoot());
+
+    assert.instanceOf(navigation, qx.ui.mobile.container.Navigation);
+    navigation.dispose();
+  });
+
 });
