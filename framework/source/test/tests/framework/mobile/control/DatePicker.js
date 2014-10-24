@@ -32,58 +32,61 @@ describe("mobile.control.DatePicker", function() {
 
 
   it("ReadOnlyInputElement", function() {
-    getRoot().append("<input type='text' id='datepicker' data-qx-class='qx.ui.mobile.control.DatePicker' data-qx-config-readonly='false' value=''></input");
+    var datePickerHtml = q.create("<input type='text' id='datepicker' data-qx-class='qx.ui.mobile.control.DatePicker' data-qx-config-readonly='false' value='' />");
+    getRoot().append(datePickerHtml);
 
-    var datepicker = q("input#datepicker").datePicker();
+    var datePicker = q("input#datepicker").datePicker();
 
     // config is set via data attribute 'data-qx-config-input-read-only'
-    assert.isFalse(datepicker.getAttribute('readonly'));
-    datepicker.dispose();
+    assert.isFalse(datePicker.getAttribute('readonly'));
+    datePicker.dispose();
   });
 
 
   it("ReadOnlyInputElementWithConfig", function() {
-    getRoot().append("<input type='text' class='datepicker' data-qx-class='qx.ui.mobile.control.DatePicker' data-qx-config-readonly='true' value=''></input");
-    var datepicker = q("input.datepicker").datePicker();
-    assert.isTrue(datepicker.readonly);
-    assert.isTrue(datepicker.getAttribute('readonly'));
-    datepicker.readonly = false;
-    assert.isFalse(datepicker.getAttribute('readonly'));
+    var datePickerHtml = q.create("<input type='text' class='datepicker' data-qx-class='qx.ui.mobile.control.DatePicker' data-qx-config-readonly='true' value='' />");
+    getRoot().append(datePickerHtml);
 
-    datepicker.dispose();
+    var datePicker = q("input.datepicker").datePicker();
+    assert.isTrue(datePicker.readonly);
+    assert.isTrue(datePicker.getAttribute('readonly'));
+    datePicker.readonly = false;
+    assert.isFalse(datePicker.getAttribute('readonly'));
+
+    datePicker.dispose();
   });
 
 
   it("IconOpener", function() {
-    getRoot().append("<input type='text' class='datepicker' data-qx-class='qx.ui.mobile.control.DatePicker' value=''></input>");
+    var datePickerHtml = q.create("<input type='text' class='datepicker' data-qx-class='qx.ui.mobile.control.DatePicker' value='' />");
+    getRoot().append(datePickerHtml);
 
-    var datepicker = q("input.datepicker").datePicker();
-    datepicker.icon = 'framework/source/resource/qx/icon/Tango/22/apps/office-calendar.png';
+    var datePicker = q("input.datepicker").datePicker();
+    datePicker.icon = 'framework/source/resource/qx/icon/Tango/22/apps/office-calendar.png';
 
-    var icon = datepicker.getNext();
+    var icon = datePicker.getNext();
     assert.equal(1, icon.length);
     assert.equal('img', q.getNodeName(icon));
     assert.equal('qx-datepicker-icon', icon.getClass());
 
-    datepicker.dispose();
+    datePicker.dispose();
   });
 
 
   it("IconOpenerToggle", function() {
-    var sandbox = q("#sandbox");
+    var datePickerHtml = q.create("<input type='text' class='datepicker' data-qx-class='qx.ui.mobile.control.DatePicker' value='' />");
+    getRoot().append(datePickerHtml);
 
-    getRoot().append("<input type='text' class='datepicker' data-qx-class='qx.ui.mobile.control.DatePicker' value='' />");
-
-    var datepicker = q("input.datepicker").datePicker();
-    datepicker.icon = 'framework/source/resource/qx/icon/Tango/22/apps/office-calendar.png';
-    var icon = datepicker.getNext(".qx-datepicker-icon");
+    var datePicker = q("input.datepicker").datePicker();
+    datePicker.icon = 'framework/source/resource/qx/icon/Tango/22/apps/office-calendar.png';
+    var icon = datePicker.getNext(".qx-datepicker-icon");
     assert.equal(1, icon.length);
 
-    datepicker.icon = null;
+    datePicker.icon = null;
 
-    icon = datepicker.getNext(".qx-datepicker-icon");
+    icon = datePicker.getNext(".qx-datepicker-icon");
     assert.equal(0, icon.length);
 
-    datepicker.dispose();
+    datePicker.dispose();
   });
 });
