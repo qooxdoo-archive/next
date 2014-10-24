@@ -26,6 +26,8 @@
  * @require(qx.ui.mobile.container.Carousel)
  * @require(qx.ui.mobile.container.Collapsible)
  * @require(qx.ui.mobile.container.Drawer)
+ * @require(qx.ui.mobile.container.Navigation)
+ * @require(qx.ui.mobile.container.Drawer)
  * @require(qx.ui.mobile.control.Calendar)
  * @require(qx.ui.mobile.control.DatePicker)
  * @require(qx.ui.mobile.control.Picker)

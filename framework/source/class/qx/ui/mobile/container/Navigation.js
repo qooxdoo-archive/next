@@ -247,5 +247,10 @@ qx.Class.define("qx.ui.mobile.container.Navigation",
       this.__navigationBar.dispose();
       this.__content.dispose();
     }
+  },
+
+
+  classDefined : function(statics) {
+    qxWeb.$attachWidget(statics);
   }
 });
