@@ -96,4 +96,14 @@ describe("mobile.form.Input", function() {
     sinon.assert.calledOnce(cb);
   });
 
+
+  it("Factory", function() {
+    var input = qxWeb.create("<div>").input().appendTo(getRoot());
+    assert.instanceOf(input, qx.ui.mobile.form.Input);
+    assert.equal(input, input[0].$$widget);
+    assert.equal("qx.ui.mobile.form.Input", input.getData("qxWidget"));
+
+    input.dispose();
+  });
+
 });
