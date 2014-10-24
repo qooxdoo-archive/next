@@ -54,6 +54,8 @@ describe("mobile.Button", function()
       assert.instanceOf(button, qx.ui.mobile.Button);
       assert.equal(button, button[0].$$widget);
       assert.equal("qx.ui.mobile.Button", button.getData("qxWidget"));
+
+      button.dispose();
   });
 
 });
