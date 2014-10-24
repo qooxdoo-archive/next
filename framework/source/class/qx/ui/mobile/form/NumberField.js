@@ -187,5 +187,10 @@ qx.Class.define("qx.ui.mobile.form.NumberField",
     dispose: function() {
       this.off("blur", this.validate, this);
     }
+  },
+
+
+  classDefined : function(statics) {
+    qxWeb.$attachWidget(statics);
   }
 });
