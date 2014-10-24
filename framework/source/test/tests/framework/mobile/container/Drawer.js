@@ -108,6 +108,9 @@ describe("mobile.container.Drawer", function() {
       .appendTo(getRoot());
 
     assert.instanceOf(drawer, qx.ui.mobile.container.Drawer);
+    assert.equal(drawer, drawer[0].$$widget);
+    assert.equal("qx.ui.mobile.container.Drawer", drawer.getData("qxWidget"));
+
     drawer.dispose();
   });
 
