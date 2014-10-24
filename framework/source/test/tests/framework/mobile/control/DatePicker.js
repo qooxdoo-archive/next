@@ -89,4 +89,14 @@ describe("mobile.control.DatePicker", function() {
 
     datePicker.dispose();
   });
+
+
+  it("Factory", function() {
+    var datePicker = qxWeb.create("<div>").datePicker().appendTo(getRoot());
+    assert.instanceOf(datePicker, qx.ui.mobile.control.DatePicker);
+    qx.core.Assert.assertEquals(datePicker, datePicker[0].$$widget);
+    assert.equal("qx.ui.mobile.control.DatePicker", datePicker.getData("qxWidget"));
+
+    datePicker.dispose();
+  });
 });
