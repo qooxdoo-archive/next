@@ -134,4 +134,14 @@ describe("mobile.form.NumberField", function ()
     assert.isFalse(__nf.enabled);
     assert.isTrue(qx.bom.element.Class.has(__nf[0], 'disabled'));
   });
+
+
+  it("Factory", function() {
+    var numberField = qxWeb.create("<div>").numberField().appendTo(getRoot());
+    assert.instanceOf(numberField, qx.ui.mobile.form.NumberField);
+    assert.equal(numberField, numberField[0].$$widget);
+    assert.equal("qx.ui.mobile.form.NumberField", numberField.getData("qxWidget"));
+
+    numberField.dispose();
+  });
 });
