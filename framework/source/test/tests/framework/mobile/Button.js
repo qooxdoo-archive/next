@@ -49,14 +49,11 @@ describe("mobile.Button", function()
   });
 
 
-  it("Factory", function(done) {
+  it("Factory", function() {
       var button = qxWeb.create("<div>").button().appendTo(getRoot());
       assert.instanceOf(button, qx.ui.mobile.Button);
       assert.equal(button, button[0].$$widget);
-      setTimeout(function() {
-        assert.equal("qx.ui.mobile.Button", button.getData("qxWidget"));
-        done();
-      }, 100);
+      assert.equal("qx.ui.mobile.Button", button.getData("qxWidget"));
   });
 
 });
