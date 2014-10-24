@@ -39,4 +39,14 @@ describe("mobile.form.Group", function() {
     button.dispose();
   });
 
+
+  it("Factory", function() {
+    var group = qxWeb.create("<div>").group().appendTo(getRoot());
+    assert.instanceOf(group, qx.ui.mobile.form.Group);
+    assert.equal(group, group[0].$$widget);
+    assert.equal("qx.ui.mobile.form.Group", group.getData("qxWidget"));
+
+    group.dispose();
+  });
+
 });
