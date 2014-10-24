@@ -55,13 +55,12 @@ describe("mobile.form.CheckBox", function() {
   });
 
 
-  it("Factory", function(done) {
+  it("Factory", function() {
     var checkBox = qxWeb.create("<div>").checkBox().appendTo(getRoot());
     assert.instanceOf(checkBox, qx.ui.mobile.form.CheckBox);
     assert.equal(checkBox, checkBox[0].$$widget);
-    setTimeout(function() {
-      assert.equal("qx.ui.mobile.form.CheckBox", checkBox.getData("qxWidget"));
-      done();
-    }, 100);
+    assert.equal("qx.ui.mobile.form.CheckBox", checkBox.getData("qxWidget"));
+
+    checkBox.dispose();
   });
 });
