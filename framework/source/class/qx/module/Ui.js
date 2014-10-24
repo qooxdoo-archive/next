@@ -34,7 +34,6 @@
  * @require(qx.ui.mobile.control.Table)
  * @require(qx.ui.mobile.form.CheckBox)
  * @require(qx.ui.mobile.form.Form)
- * @require(qx.ui.mobile.form.Group)
  * @require(qx.ui.mobile.form.Slider)
  * @require(qx.ui.mobile.list.List)
  * @require(qx.ui.mobile.tabbar.TabBar)
