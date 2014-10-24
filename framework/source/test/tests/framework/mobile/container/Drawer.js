@@ -101,4 +101,14 @@ describe("mobile.container.Drawer", function() {
     drawer.dispose();
   });
 
+
+  it("Factory", function() {
+    var drawer = q.create('<div>')
+      .drawer()
+      .appendTo(getRoot());
+
+    assert.instanceOf(drawer, qx.ui.mobile.container.Drawer);
+    drawer.dispose();
+  });
+
 });
