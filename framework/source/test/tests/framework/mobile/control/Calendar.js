@@ -76,8 +76,7 @@ describe("mobile.control.Calendar", function() {
 
 
   it("NewCollection", function() {
-
-    var c1 = getRoot().find(".calendar");
+    var c1 = getRoot().find(".qx-calendar");
     assert.equal(__now.toDateString(), c1.value.toDateString());
   });
 
