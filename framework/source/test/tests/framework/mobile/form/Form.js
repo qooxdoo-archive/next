@@ -80,4 +80,13 @@ describe("mobile.form.Form", function() {
     assert.isFalse(password.valid);
   });
 
+
+  it("Factory", function() {
+    var form = qxWeb.create("<div>").form().appendTo(getRoot());
+    assert.instanceOf(form, qx.ui.mobile.form.Form);
+    assert.equal(form, form[0].$$widget);
+    assert.equal("qx.ui.mobile.form.Form", form.getData("qxWidget"));
+
+    form.dispose();
+  });
 });
