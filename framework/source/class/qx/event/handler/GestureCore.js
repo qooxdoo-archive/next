@@ -96,15 +96,10 @@ qx.Class.define("qx.event.handler.GestureCore", {
         }
       }.bind(this));
 
+      var defaultTarget = qxWeb(this.__defaultTarget);
       qx.event.handler.GestureCore.GESTURE_EVENTS.forEach(function(gestureType) {
-        qxWeb(this.__defaultTarget).on(gestureType, this.checkAndFireGesture, this);
+        defaultTarget.on(gestureType, this.checkAndFireGesture, this);
       }.bind(this));
-
-      if (qx.core.Environment.get("engine.name") == "mshtml" &&
-        qx.core.Environment.get("browser.documentmode") < 9)
-      {
-        qxWeb(this.__defaultTarget).on("dblclick", this._onDblClick, this);
-      }
 
       // list to wheel events
       var data = qx.core.Environment.get("event.mousewheel");
@@ -116,15 +111,10 @@ qx.Class.define("qx.event.handler.GestureCore", {
      * Remove native pointer event listeners.
      */
     _stopObserver : function() {
+      var defaultTarget = qxWeb(this.__defaultTarget);
       qx.event.handler.GestureCore.GESTURE_EVENTS.forEach(function(pointerType) {
-        qxWeb(this.__defaultTarget).off(pointerType, this.checkAndFireGesture, this);
+        defaultTarget.off(pointerType, this.checkAndFireGesture, this);
       }.bind(this));
-
-      if (qx.core.Environment.get("engine.name") == "mshtml" &&
-        qx.core.Environment.get("browser.documentmode") < 9)
-      {
-        qxWeb(this.__defaultTarget).off("dblclick", this._onDblClick, this);
-      }
 
       var data = qx.core.Environment.get("event.mousewheel");
       qxWeb(data.target).off(data.type, this._fireRoll, this);
