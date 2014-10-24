@@ -165,5 +165,10 @@ qx.Class.define("qx.ui.mobile.form.Input",
       this.off("focus", this._onSelected, this);
       this.disposeMForm();
     }
+  },
+
+
+  classDefined : function(statics) {
+    qxWeb.$attachWidget(statics);
   }
 });
