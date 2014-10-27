@@ -57,7 +57,10 @@
   <!-- TESTS END -->
   <script>
     q.ready( function() {
-        mocha.run();
+        var runner = mocha.run();
+        runner.on("end", function() {
+          window.testsDone = true;
+        })
     });
   </script>
 </body>

@@ -70,7 +70,12 @@
     <script src="tests/framework/mobile/embed/Html.js"></script>
 
   <script>
-    mocha.run();
+        q.ready( function() {
+        var runner = mocha.run();
+        runner.on("end", function() {
+          window.testsDone = true;
+        })
+    });
   </script>
 </body>
 </html>
