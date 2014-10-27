@@ -26,7 +26,6 @@
  *
  * <pre class='javascript'>
  *   var checkBox = new qx.ui.mobile.form.CheckBox();
- *   var title = new qx.ui.mobile.form.Title("Title");
  *
  *   checkBox.model = "Title Activated";
  *   checkBox.bind("model", title, "value");
@@ -36,7 +35,6 @@
  *   });
  *
  *   this.getRoot.append(checkBox);
- *   this.getRoot.append(title);
  * </pre>
  *
  * This example adds 2 widgets , a checkBox and a Title and binds them together by their model and value properties.

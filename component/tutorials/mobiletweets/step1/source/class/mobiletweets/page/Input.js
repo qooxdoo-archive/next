@@ -45,8 +45,7 @@ qx.Class.define("mobiletweets.page.Input",
     {
       this.base(arguments);
 
-      var title = new qx.ui.mobile.form.Title("Please enter an identi.ca username");
-      this.getContent().add(title);
+      this.getContent().add(qxWeb.create('<h2 class="form-title">Please enter an identi.ca username</h2>'));
 
       var form = this.__form = new qx.ui.mobile.form.Form();
 

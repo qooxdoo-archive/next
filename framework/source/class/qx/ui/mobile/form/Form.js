@@ -19,22 +19,7 @@
 ************************************************************************ */
 
 /**
- * Representation of a form. A form widget can contain one or more {@link Row} widgets.
- *
- * *Example*
- *
- * Here is an example of how to use the widget.
- *
- * <pre class='javascript'>
- *   var title = new qx.ui.mobile.form.Title("Group");
- *   var form = new qx.ui.mobile.form.Form();
- *   form.app(new qx.ui.mobile.form.TextField(), "Username: ");
- *
- *   this.getRoot().append(title);
- *   this.getRoot().append(new qx.ui.mobile.form.renderer.Single(form));
- * </pre>
- *
- * This example creates a form and adds a row with a text field in it.
+ * TODOC
  */
 qx.Class.define("qx.ui.mobile.form.Form",
 {

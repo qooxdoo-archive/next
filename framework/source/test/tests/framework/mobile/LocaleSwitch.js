@@ -143,7 +143,7 @@ describe("mobile.LocaleSwitch", function() {
   it("FormRendererSingle", function() {
     var manager = qx.locale.Manager;
 
-    var title = new qx.ui.mobile.form.Title(manager.tr("test one"));
+    var title = new qx.ui.mobile.basic.Label(manager.tr("test one"));
     var form = new qx.ui.mobile.form.Form();
     form.add(new qx.ui.mobile.form.TextField(), manager.tr("test two"));
 

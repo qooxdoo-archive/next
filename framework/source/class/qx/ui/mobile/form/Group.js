@@ -20,22 +20,7 @@
 ************************************************************************ */
 
 /**
- * A group widget visually arranges several widgets.
- *
- * *Example*
- *
- * Here is a little example of how to use the widget.
- *
- * <pre class='javascript'>
- *   var title = new qx.ui.mobile.form.Title("Group");
- *   var list = new qx.ui.mobile.list.List();
- *   var group = new qx.ui.mobile.form.Group([list]);
- *
- *   this.getRoot.append(title);
- *   this.getRoot.append(group);
- * </pre>
- *
- * This example creates a group and adds a list to it.
+ * TODOC
  */
 qx.Class.define("qx.ui.mobile.form.Group",
 {

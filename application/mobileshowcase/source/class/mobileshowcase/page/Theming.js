@@ -83,7 +83,7 @@ qx.Class.define("mobileshowcase.page.Theming",
     {
       this.super(mobileshowcase.page.Abstract, "_initialize");
 
-      this.getContent().append(new qx.ui.mobile.form.Title("Select a theme"));
+      this.getContent().append(qxWeb.create('<h2 class="form-title">Select a Theme</h2>'));
 
       this.__createThemeChooser();
       this.__createThemeScaleControl();
@@ -135,7 +135,7 @@ qx.Class.define("mobileshowcase.page.Theming",
 
     /** Creates and adds the image resolution demonstration. */
     __createImageResolutionHandlingDemo : function() {
-      this.getContent().append(new qx.ui.mobile.form.Title("Resolution-specific Images"));
+      this.getContent().append(qxWeb.create('<h2 class="form-title">Resolution-specific Images</h2>'));
       var demoImage = new qx.ui.mobile.basic.Image("mobileshowcase/icon/image.png");
       demoImage.addClass("resolution-demo-image");
 
@@ -188,7 +188,7 @@ qx.Class.define("mobileshowcase.page.Theming",
      */
     __createThemeScaleControl : function()
     {
-      this.getContent().append(new qx.ui.mobile.form.Title("Adjust font scale"));
+      this.getContent().append(qxWeb.create('<h2 class="form-title">Adjust font scale</h2>'));
 
       var form = new qx.ui.mobile.form.Form();
       var slider = this.__slider = new qx.ui.mobile.form.Slider();

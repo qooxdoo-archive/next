@@ -82,27 +82,30 @@ qx.Class.define("mobileshowcase.page.DataBinding",
       this.__list = this.__createListDataBindings();
       this.__list.visibility = "hidden";
 
-      this.__increaseButton = new qx.ui.mobile.Button("+");
+      this.__increaseButton = new qx.ui.mobile.Button("+")
+        .setStyle("width", "100%");
       this.__increaseButton.on("pointerdown", this.__onIncrease, this);
       this.__increaseButton.on("pointerup", this.__onPointerUp, this);
 
-      this.__decreaseButton = new qx.ui.mobile.Button("-");
+      this.__decreaseButton = new qx.ui.mobile.Button("-")
+        .setStyle("width", "100%");
       this.__decreaseButton.on("pointerdown", this.__onDecrease, this);
       this.__decreaseButton.on("pointerup", this.__onPointerUp, this);
 
-      this.__stopTimeButton = new qx.ui.mobile.Button("Take Time Snapshot");
+      this.__stopTimeButton = new qx.ui.mobile.Button("Take Time Snapshot")
+        .setStyle("width", "100%");
       this.__stopTimeButton.on("tap", this.__onStopTimeButtonTap, this);
 
       // Slider Data Binding
-      this.getContent().append(new qx.ui.mobile.form.Title("Slider"));
+      this.getContent().append(qxWeb.create('<h2 class="form-title">Slider</h2>'));
       this.getContent().append(this.__form);
       this.getContent().append(this.__increaseButton);
       this.getContent().append(this.__decreaseButton);
 
       // List Data Binding
-      this.getContent().append(new qx.ui.mobile.form.Title("Dynamic List"));
+      this.getContent().append(qxWeb.create('<h2 class="form-title">Dynamic List</h2>'));
       this.getContent().append(this.__stopTimeButton);
-      this.getContent().append(new qx.ui.mobile.form.Title(" "));
+      this.getContent().append(qxWeb.create('<h2 class="form-title"> </h2>'));
       this.getContent().append(this.__list);
 
     },
