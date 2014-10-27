@@ -51,14 +51,21 @@ qx.Class.define("qx.ui.mobile.form.Row",
       this.append(item);
     }
 
-    item = this.find("*").filter(function(element) {
-      return qx.Interface.classImplements(qxWeb(element).constructor, qx.ui.mobile.form.IForm);
-    });
-    item.on("changeValid", this._onChangeValid, this);
-    this.__item = item;
+    var children = this.find("*");
+    for (var i=0, l=children.length; i<l; i++) {
+      var el = qxWeb(children[i]);
+      if (qx.Interface.classImplements(el.constructor, qx.ui.mobile.form.IForm)) {
+        this.__item = el;
+        break;
+      }
+    }
 
-    if (item && labelWidget) {
-      labelWidget.setAttribute("for", item.getAttribute("id"));
+    if (this.__item) {
+      this.__item.on("changeValid", this._onChangeValid, this);
+
+      if (this.__item && labelWidget) {
+        labelWidget.setAttribute("for", this.__item.getAttribute("id"));
+      }
     }
   },
 
