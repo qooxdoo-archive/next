@@ -89,4 +89,12 @@ describe('Dataset', function() {
     q(document).removeData("fooBar");
   });
 
+
+  it("HasData", function() {
+   assert.isFalse(this.__element.hasData());
+   this.__element.setData("type", "test");
+   assert.isTrue(this.__element.hasData());
+   this.__element.removeData("type");
+   assert.isFalse(this.__element.hasData());
+  });
 });
