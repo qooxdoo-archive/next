@@ -33,60 +33,8 @@ qx.Class.define("qx.ui.mobile.control.Calendar", {
 
   properties: {
 
-    /**
-     * The currently selected date (or date range).
-     */
-    value: {
-      init: null,
-      check: "_checkDate",
-      set: "_setValue",
-      get: "_getValue",
-      apply: "_showValue",
-      event: true
-    },
-
     defaultCssClass: {
-      init: "qx-calendar"
-    },
-
-    /**
-     * The earliest user-selectable date.
-     */
-    minDate: {
-      init: null,
-      nullable: true,
-      check: "Date",
-      apply: "_render"
-    },
-
-    /**
-     * The latest user-selectable date.
-     */
-    maxDate: {
-      init: null,
-      nullable: true,
-      check: "Date",
-      apply: "_render"
-    },
-
-    /**
-     * The calendar's selection mode. Possible values are 'single' and 'range'.
-     */
-    selectionMode: {
-      init: "single",
-      check: function(value) {
-        return ["single", "range"].indexOf(value) !== -1;
-      },
-      apply: "_render"
-    },
-
-    /**
-     * Array of user-selectable week days (Sunday is 0).
-     */
-    selectableWeekDays: {
-      init: [0, 1, 2, 3, 4, 5, 6],
-      check: "Array",
-      apply: "_render"
+      init: "calendar"
     },
 
     /**
@@ -176,177 +124,77 @@ qx.Class.define("qx.ui.mobile.control.Calendar", {
 
   /**
    * @attach {qxWeb, calendar}
-   * @return {qx.ui.mobile.control.Calendar} The new calendar widget.
+   * @param date {Date?} Date to display. Default: The current month
+   * @param element {Element?} Container element (DIV) for this widget
    */
   construct : function(date, element) {
     this.super(qx.ui.mobile.Widget, "constructor", element);
-
-    if (!date) {
-      date = new Date();
-    }
-    this._normalizeDate(date);
-    this.value = date;
+    this.__monthElements = {};
+    this.showDate(date);
+    this.on("keydown", this._onKeyDown, this);
   },
 
 
   events : {
-    /** Fired at each value change */
-    "changeValue" : "Date"
+    "selected" : null
   },
 
 
   members : {
 
-    __displayedValue: null,
-    __range: null,
-
-
-    // overridden
-    _applyEnabled : function(value) {
-      this.super(qx.ui.mobile.Widget, "_applyEnabled", value);
-
-      if (value) {
-        var tempDate = new Date().setFullYear(5000);
-        var minDate = this.minDate || new Date(0);
-        var maxDate = this.maxDate || new Date(tempDate);
-        var currentDate = null;
-
-        this.find("button.qx-calendar-day").map(function(button) {
-          currentDate = new Date(button.getAttribute("value"));
-          button = qxWeb(button);
-          if (minDate < currentDate && maxDate > currentDate) {
-            button.removeAttribute("disabled");
-          }
-        });
-      }
-    },
-
-
-    /**
-     * Sets the given date as the current value and displays it
-     *
-     * @param value {Date|Array} Date or array of dates to be displayed.
-     */
-    _setValue : function(value) {
-      var minDate = this.minDate;
-      var maxDate = this.maxDate;
-
-      if (this.selectionMode == "single") {
-        this._normalizeDate(value);
-
-        if (this.selectableWeekDays.indexOf(value.getDay()) == -1) {
-          throw new Error("The given date's week day is not selectable.");
-        }
-
-        if (minDate) {
-          this._normalizeDate(minDate);
-          if (value < minDate) {
-            throw new Error("Given date " + value.toDateString() + " is earlier than configured minDate " + minDate.toDateString());
-          }
-        }
-
-        if (maxDate) {
-          this._normalizeDate(maxDate);
-          if (value > maxDate) {
-            throw new Error("Given date " + value.toDateString() + " is later than configured maxDate " + maxDate.toDateString());
-          }
-        }
-      } else if (this.selectionMode == "range") {
-        if (!this.__range) {
-          this.__range = value.map(function(val) {
-            return val.toDateString();
-          });
-        }
-        if (value.length == 2) {
-          value.sort(function(a, b) {
-            return a - b;
-          });
-          value = this._generateRange(value);
-        } else {
-          this._normalizeDate(value[0]);
-        }
-      }
-
-      var oldValue = this.$$value;
-      this.$$value = value;
-
-      this._showValue(value);
-
-      if ((this.selectionMode == "single") || ((this.selectionMode == "range") && (value.length >= 1))) {
-        this.emit("changeValue", {
-          value: value,
-          old: oldValue,
-          target: this
-        });
-      }
-    },
-
-
-    /**
-     * Returns the currently selected date of the first
-     * calendar widget in the collection.
-     *
-     * @return {qx.ui.mobile.control.Calendar} The collection for chaining.
-     */
-    _getValue : function() {
-      var value = this.$$value;
-      return value ? (qx.Class.getClass(value) === "Array" ? value : new Date(value)) : null;
-    },
+    __displayedDate: null,
+    __monthElements: null,
 
 
     /**
      * Displays the given date
      *
-     * @param value {Date} Date to display. Default: The currently displayed value (re-rendering)
+     * @param date {Date?} Date to display. Default: The current month
      * @return {qx.ui.mobile.control.Calendar} The collection for chaining.
      */
-    _showValue : function(value) {
-      // If value is an array, show the last selected date
-      value = qx.Class.getClass(value) === "Array" ? value[value.length -1] : value;
+    showDate : function(date) {
+      if (!date) {
+        date = new Date();
+      }
+      this._normalizeDate(date);
 
-      this.__displayedValue = value;
+      this.__displayedDate = date;
 
       if (this.getAttribute("tabindex") < 0) {
         this.setAttribute("tabindex", 0);
       }
-      this.find("." + this.defaultCssClass + "-prev").off("tap", this._prevMonth, this);
-      this.find("." + this.defaultCssClass + "-next").off("tap", this._nextMonth, this);
-      this.find("." + this.defaultCssClass + "-day").off("tap", this._selectDay, this);
-      this.off("focus", this._onFocus, this, true)
-      .off("blur", this._onBlur, this, true);
 
-      this.setHtml(this._getTable(value));
+      if (this.__monthElements[date.getTime()]) {
+        this.find(".calendar-container").remove();
+        this.append(this.__monthElements[date.getTime()]);
+        return this;
+      }
 
-      this.find("." + this.defaultCssClass + "-prev").on("tap", this._prevMonth, this);
-      this.find("." + this.defaultCssClass + "-next").on("tap", this._nextMonth, this);
-      this.find("td").not(".qx-calendar-invalid")
-        .find("." + this.defaultCssClass + "-day").on("tap", this._selectDay, this);
-      this.on("focus", this._onFocus, this, true)
-      .on("blur", this._onBlur, this, true);
+      this.setHtml(this._getTable(date));
+
+      this.find("." + this.defaultCssClass + "-prev").on("tap", this.showPreviousMonth, this);
+      this.find("." + this.defaultCssClass + "-next").on("tap", this.showNextMonth, this);
+      this.find("." + this.defaultCssClass + "-day").on("tap", this._selectDay, this);
+
+      this.__monthElements[date.getTime()] = this.find(".calendar-container");
 
       return this;
     },
 
 
     /**
-     * value property check
-     * @param value {var} new value
-     * @return {Boolean} <code>true</code> if the value is valid
+     * Displays the previous month
      */
-    _checkDate: function(value) {
-      var clazz = qx.Class.getClass(value);
-      if (clazz === "Date") {
-        return true;
-      }
-      if (clazz === "Array") {
-        for (var i=0, l=value.length; i<l; i++) {
-          if (qx.Class.getClass(value[i]) !== "Date") {
-            return false;
-          }
-        }
-        return true;
-      }
-      return false;
+    showPreviousMonth : function() {
+      this.showDate(new Date(this.__displayedDate.getFullYear(), this.__displayedDate.getMonth() - 1));
+    },
+
+
+    /**
+     * Displays the next month
+     */
+    showNextMonth : function() {
+      this.showDate(new Date(this.__displayedDate.getFullYear(), this.__displayedDate.getMonth() + 1));
     },
 
 
@@ -354,78 +202,26 @@ qx.Class.define("qx.ui.mobile.control.Calendar", {
      * Re-build the calendar UI
      */
     _render: function() {
-      if (this.selectionMode === "range" && qx.Class.getClass(this.value) !== "Array") {
-        this.__range = [this.value];
-      }
-      this._showValue(this.value);
+      this.showDate(this.__displayedDate);
     },
 
 
     /**
-     * Displays the previous month
-     */
-    _prevMonth : function() {
-      this._showValue(new Date(this.__displayedValue.getFullYear(), this.__displayedValue.getMonth() - 1));
-    },
-
-
-    /**
-     * Displays the next month
-     */
-    _nextMonth : function() {
-      this._showValue(new Date(this.__displayedValue.getFullYear(), this.__displayedValue.getMonth() + 1));
-    },
-
-
-    /**
-     * Sets the current value to the day selected by the user
+     * Emits the <code>selected</code> event if a day was selected
      * @param e {Event} The tap event.
      */
     _selectDay : function(e) {
-      var day = qxWeb(e.target);
-      var newStr = day.getAttribute("value");
-      var newValue = new Date(newStr);
-
-      if (this.selectionMode == "range") {
-        if (!this.__range) {
-          this.__range = [];
-        }
-
-        var range = this.__range.slice(0);
-        if (range.length == 2) {
-          range = [];
-        }
-        range.push(newStr);
-
-        this.__range = range;
-        range = range.map(function(item){
-          return new Date(item);
-        });
-
-        this.value = range;
-        newStr = range;
-      } else {
-        this.value = newValue;
-        newStr = [newStr];
-      }
-
-      newStr.forEach(function(str){
-        this.find("." + this.defaultCssClass + "-day[value='" + str + "']").focus();
-      }.bind(this));
-
-    },
-
-
-    getTemplate: function(name) {
-      return qx.ui.mobile.control.Calendar._templates[name];
+      this.emit("selected", e.target);
     },
 
 
     /**
-     * TODO
+     * Returns a template string
+     * @param name {String} Template name
+     * @return {String} Template
      */
-    setTemplate: function(name) {
-
+    getTemplate: function(name) {
+      return qx.ui.mobile.control.Calendar._templates[name];
     },
 
 
@@ -456,30 +252,10 @@ qx.Class.define("qx.ui.mobile.control.Calendar", {
      * @return {Map} A map containing the month and year.
      */
     _getControlsData : function(date) {
-      var prevDisabled = "";
-      var minDate = this.minDate;
-      if (minDate) {
-        this._normalizeDate(minDate);
-        if (date.getMonth() <= minDate.getMonth()) {
-          prevDisabled = "disabled";
-        }
-      }
-
-      var nextDisabled = "";
-      var maxDate = this.maxDate;
-      if (maxDate) {
-        this._normalizeDate(maxDate);
-        if (date.getMonth() >= maxDate.getMonth()) {
-          nextDisabled = "disabled";
-        }
-      }
-
       return {
         month: this.monthNames[date.getMonth()],
         year: date.getFullYear(),
-        cssPrefix : this.defaultCssClass,
-        prevDisabled : prevDisabled,
-        nextDisabled : nextDisabled
+        cssPrefix : this.defaultCssClass
       };
     },
 
@@ -504,53 +280,20 @@ qx.Class.define("qx.ui.mobile.control.Calendar", {
      * @return {String} The table rows as an HTML string.
      */
     _getWeekRows : function(date) {
-
-      date = qx.Class.getClass(date) === "Array" ? date[date.length -1] : date;
-
       var weeks = [];
       var value = null, valueString = null;
       var today = new Date();
       var helpDate = this._getHelpDate(date);
 
-      var minDate = this.minDate;
-      if (minDate) {
-        this._normalizeDate(minDate);
-      }
-
-      var maxDate = this.maxDate;
-      if (maxDate) {
-        this._normalizeDate(maxDate);
-      }
-
-      if (qx.Class.getClass(this.value) === "Array") {
-        valueString = this.value.map(function(currentDate){ return currentDate.toDateString(); });
-      }
-
       for (var week=0; week<6; week++) {
-
         var data = {row: []};
 
         for (var i=0; i<7; i++) {
           var cssClasses = helpDate.getMonth() !== date.getMonth() ? this.defaultCssClass + "-othermonth" : "";
-          if((this.selectionMode == "range")  && qx.Class.getClass(this.value) === "Array"){
-            if(valueString.indexOf(helpDate.toDateString()) != -1){
-              cssClasses += this.defaultCssClass + "-selected";
-            }
-          } else {
-            var range = this.__range;
-            if (this.value) {
-              value = this.selectionMode == "range" ? new Date(range[range.length - 1]) : this.value;
-              cssClasses += helpDate.toDateString() === value.toDateString() ? " " + this.defaultCssClass + "-selected" : "";
-            }
-          }
 
           cssClasses += today.toDateString() === helpDate.toDateString() ? " " + this.defaultCssClass + "-today" : "";
 
           var disabled = this.enabled ? "" : "disabled";
-          if ((minDate && helpDate < minDate) || (maxDate && helpDate > maxDate) ||
-            this.selectableWeekDays.indexOf(helpDate.getDay()) == -1) {
-            disabled = "disabled";
-          }
 
           cssClasses += (helpDate.getDay() === 0 || helpDate.getDay() === 6) ? " " + this.defaultCssClass + "-weekend" : " " + this.defaultCssClass + "-weekday";
 
@@ -592,38 +335,17 @@ qx.Class.define("qx.ui.mobile.control.Calendar", {
 
 
     /**
-     * Sets the hours, minutes and seconds of a date object to 0
-     * to facilitate date comparisons.
+     * Sets given date object's date of the month to 1 and the time
+     * to 00:00:000
      *
      * @param date {Date} Date to normalize
      */
     _normalizeDate : function(date) {
+      date.setDate(1);
       date.setHours(0);
       date.setMinutes(0);
       date.setSeconds(0);
       date.setMilliseconds(0);
-    },
-
-
-    /**
-     * Attaches the keydown listener.
-     *
-     * @param e {Event} focus event
-     */
-    _onFocus : function(e) {
-      this.on("keydown", this._onKeyDown, this);
-    },
-
-
-    /**
-     * Removes the keydown listener if the focus moves outside of the calendar.
-     *
-     * @param e {Event} blur event
-     */
-    _onBlur : function(e) {
-      if (this[0].contains(e.relatedTarget)) {
-        this.off("keydown", this._onKeyDown, this);
-      }
     },
 
 
@@ -653,20 +375,20 @@ qx.Class.define("qx.ui.mobile.control.Calendar", {
         if (key == "Space") {
           if (target.hasClass(this.defaultCssClass + "-prev")) {
             e.preventDefault();
-            this._prevMonth();
+            this.showPreviousMonth();
             this.find("." + this.defaultCssClass + "-prev").focus();
           } else if (target.hasClass(this.defaultCssClass + "-next")) {
             e.preventDefault();
-            this._nextMonth();
+            this.showNextMonth();
             this.find("." + this.defaultCssClass + "-next").focus();
           }
         } else if (key == "Right") {
           e.preventDefault();
-          this._nextMonth();
+          this.showNextMonth();
           this.find("." + this.defaultCssClass + "-next").focus();
         } else if (key == "Left") {
           e.preventDefault();
-          this._prevMonth();
+          this.showPreviousMonth();
           this.find("." + this.defaultCssClass + "-prev").focus();
         }
       }
@@ -689,7 +411,7 @@ qx.Class.define("qx.ui.mobile.control.Calendar", {
         if (nextWeekRow.length > 0) {
           nextWeekRow.find("> td > ." + this.defaultCssClass + "-day").getFirst().focus();
         } else {
-          this._nextMonth();
+          this.showNextMonth();
           var oldDate = new Date(currentDay.getAttribute("value"));
           var newDate = new Date(oldDate.valueOf());
           newDate.setDate(oldDate.getDate() + 1);
@@ -714,7 +436,7 @@ qx.Class.define("qx.ui.mobile.control.Calendar", {
         if (prevWeekRow.length > 0) {
           prevWeekRow.find("> td > ." + this.defaultCssClass + "-day").getLast().focus();
         } else {
-          this._prevMonth();
+          this.showPreviousMonth();
           var oldDate = new Date(currentDay.getAttribute("value"));
           var newDate = new Date(oldDate.valueOf());
           newDate.setDate(oldDate.getDate() - 1);
@@ -724,57 +446,27 @@ qx.Class.define("qx.ui.mobile.control.Calendar", {
       }
     },
 
+
     /**
-    * Generates a date list depending on the given range
-    *
-    * @param range {Array} Array containing the start and end values on the range
-    * @return {Array} Array with all the date objects contained in the given range
-    */
-    _generateRange : function(range) {
-
-      var list = [], current = range[0];
-
-      var minDate = this.minDate ? this.minDate : new Date(range[0].toDateString());
-      var maxDate = this.maxDate ? this.maxDate : new Date(range[1].toDateString());
-
-      this._normalizeDate(minDate);
-      this._normalizeDate(maxDate);
-
-      while(current <= range[1]){
-        this._normalizeDate(current)
-        list.push(new Date(current.toDateString()));
-        current.setDate(current.getDate() + 1);
-      }
-
-      // Removing non selectable days
-      list = list.filter(function(date){
-        return this.selectableWeekDays.indexOf(date.getDay()) != -1;
-      }, this);
-
-      if(list.length == 0){
-        throw new Error("Given date range is not valid. Please verify the 'selectableWeekDays' config");
-      }
-
-      // Removing days out of defined min/max range
-      list = list.filter(function(date){
-       return (date >= minDate) && (date <= maxDate);
-      }, this);
-
-      if(list.length == 0){
-        throw new Error("Given date range is not valid. Please verify the 'minDate' and 'maxDate' configs");
-      }
-
-      return list;
+     * Removes tap listeners from the calendar's buttons
+     *
+     * @param el {qxWeb} Collection containing the table element
+     */
+    _removeListeners: function(el) {
+      el.find("." + this.defaultCssClass + "-prev").off("tap", this.showPreviousMonth, this);
+      el.find("." + this.defaultCssClass + "-next").off("tap", this.showNextMonth, this);
+      el.find("." + this.defaultCssClass + "-day").off("tap", this._selectDay, this);
     },
 
 
     dispose : function() {
-      this.find("." + this.defaultCssClass + "-prev").off("tap", this._prevMonth, this);
-      this.find("." + this.defaultCssClass + "-next").off("tap", this._nextMonth, this);
-      this.find("." + this.defaultCssClass + "-day").off("tap", this._selectDay, this);
-      this.off("focus", this._onFocus, this, true)
-      .off("blur", this._onBlur, this, true)
-      .off("keydown", this._onKeyDown, this);
+      for (var key in this.__monthElements) {
+        this._removeListeners(this.__monthElements[key]);
+         this.__monthElements[key].setHtml("");
+        this.__monthElements[key] = undefined;
+      }
+      this._removeListeners(this);
+      this.off("keydown", this._onKeyDown, this);
 
       this.setHtml("");
 
