@@ -39,6 +39,7 @@
  * @require(qx.ui.mobile.form.Slider)
  * @require(qx.ui.mobile.list.List)
  * @require(qx.ui.mobile.tabbar.TabBar)
+ * @require(qx.ui.mobile.toolbar.ToolBar)
  * @require(qx.ui.mobile.tree.Tree)
  * @require(qx.ui.mobile.layout.Abstract)
  * @require(qx.ui.mobile.layout.AbstractBox)

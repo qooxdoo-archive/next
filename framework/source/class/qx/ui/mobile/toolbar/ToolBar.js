@@ -72,5 +72,9 @@ qx.Class.define("qx.ui.mobile.toolbar.ToolBar",
       child.layoutPrefs = layoutProperties;
       this.super(qx.ui.mobile.Widget, "append", child);
     }
+  },
+
+  classDefined : function(statics) {
+    qxWeb.$attachWidget(statics);
   }
 });
