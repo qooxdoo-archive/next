@@ -26,9 +26,9 @@ qx.Class.define("qx.ui.mobile.toolbar.ToolBar",
 {
   extend : qx.ui.mobile.Widget,
 
-  construct : function(layout)
+  construct : function(layout, element)
   {
-    this.super(qx.ui.mobile.Widget, "constructor");
+    this.super(qx.ui.mobile.Widget, "constructor", element);
     this.layout = layout;
     if (!layout) {
       layout = new qx.ui.mobile.layout.HBox();
