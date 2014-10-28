@@ -63,9 +63,22 @@ qx.Class.define("qx.test.io.request.Xhr",
     },
 
     setUpFakeTransport: function() {
-      if (this.transport && this.transport.send.restore) { return; }
-      this.transport = this.injectStub(qx.io.request.Xhr.prototype, "_createTransport");
-      this.setUpRequest();
+      // if already stubbed just return
+      if (this.req && this.req._send && this.req._send.restore) { return; }
+
+      // Stub transport methods which in this case are methods of qx.io.request.Xhr itself
+      // req = this.shalowStub(this.req, qx.io.request.Xhr, ["open", "setRequestHeader", "send", "abort"]);
+      this.stub(this.req, "open");
+      this.stub(this.req, "_setRequestHeader");
+      this.stub(this.req, "setRequestHeader");
+      this.stub(this.req, "_send");
+      this.stub(this.req, "_abort");
+      this.stub(this.req, "getResponseHeader");
+      this.stub(this.req, "getAllResponseHeaders");
+      this.stub(this.req, "overrideMimeType");
+      this.stub(this.req, "getRequest");
+      // this.stub(this.req, "_createTransport").returns(this.req);
+      // this.transport = this.injectStub(qx.io.request.Xhr.prototype, "_createTransport", this.req);
     },
 
     setUpFakeServer: function() {
@@ -128,7 +141,7 @@ qx.Class.define("qx.test.io.request.Xhr",
       this.req.method = "POST";
       this.req.send();
 
-      this.assertCalledWith(this.transport.open, "POST");
+      this.assertCalledWith(this.req.open, "POST");
     },
 
     "test: send sync request": function() {
@@ -138,8 +151,8 @@ qx.Class.define("qx.test.io.request.Xhr",
       this.req.async = false;
       this.req.send();
 
-      this.assertCalledWith(this.transport.open, "GET", "url", false);
-      this.assertCalled(this.transport.send);
+      this.assertCalledWith(this.req.open, "GET", "url", false);
+      this.assertCalled(this.req._send);
     },
 
     //
@@ -152,7 +165,7 @@ qx.Class.define("qx.test.io.request.Xhr",
       this.req.requestData = "Affe";
       this.req.send();
 
-      this.assertCalledWith(this.transport.setRequestHeader,
+      this.assertCalledWith(this.req._setRequestHeader,
            "Content-Type", "application/x-www-form-urlencoded");
     },
 
@@ -166,7 +179,7 @@ qx.Class.define("qx.test.io.request.Xhr",
       this.req.send();
 
       msg = "Must not set content type urlencoded when other type given";
-      this.assert(!this.transport.setRequestHeader.calledWith("Content-Type",
+      this.assert(!this.req.setRequestHeader.calledWith("Content-Type",
         "application/x-www-form-urlencoded"), msg);
     },
 
@@ -176,7 +189,7 @@ qx.Class.define("qx.test.io.request.Xhr",
       this.req.requestData = "str";
       this.req.send();
 
-      this.assertCalledWith(this.transport.send, "str");
+      this.assertCalledWith(this.req._send, "str");
     },
 
     "test: send obj data with POST request": function() {
@@ -185,7 +198,7 @@ qx.Class.define("qx.test.io.request.Xhr",
       this.req.requestData = {"af fe": true};
       this.req.send();
 
-      this.assertCalledWith(this.transport.send, "af+fe=true");
+      this.assertCalledWith(this.req._send, "af+fe=true");
     },
 
     "test: send qooxdoo obj data with POST request": function() {
@@ -196,13 +209,15 @@ qx.Class.define("qx.test.io.request.Xhr",
       this.req.requestData = obj;
       this.req.send();
 
-      this.assertCalledWith(this.transport.send, "affe=true");
+      this.assertCalledWith(this.req._send, "affe=true");
     },
 
     "test: serialize data": function() {
       var req = this.req,
           data = {"abc": "def", "uvw": "xyz"},
           contentType = "application/json";
+
+      req.setRequestHeader.restore();
 
       this.assertNull(req._serializeData(null));
       this.assertEquals("leaveMeIntact", req._serializeData("leaveMeIntact"));
@@ -226,12 +241,12 @@ qx.Class.define("qx.test.io.request.Xhr",
       this.setUpFakeTransport();
       this.req.send();
 
-      this.assertCalledWith(this.transport.setRequestHeader, "X-Requested-With", "XMLHttpRequest");
+      this.assertCalledWith(this.req._setRequestHeader, "X-Requested-With", "XMLHttpRequest");
     },
 
     "test: not set requested-with header when cross-origin": function() {
       this.setUpFakeTransport();
-      var spy = this.transport.setRequestHeader.withArgs("X-Requested-With", "XMLHttpRequest");
+      var spy = this.req.setRequestHeader.withArgs("X-Requested-With", "XMLHttpRequest");
 
       this.req.url = "http://example.com";
       this.req.send();
@@ -244,7 +259,7 @@ qx.Class.define("qx.test.io.request.Xhr",
       this.req.cache = "no-cache";
       this.req.send();
 
-      this.assertCalledWith(this.transport.setRequestHeader, "Cache-Control", "no-cache");
+      this.assertCalledWith(this.req._setRequestHeader, "Cache-Control", "no-cache");
     },
 
     "test: set accept header": function() {
@@ -252,18 +267,18 @@ qx.Class.define("qx.test.io.request.Xhr",
       this.req.accept = "application/json";
       this.req.send();
 
-      this.assertCalledWith(this.transport.setRequestHeader, "Accept", "application/json");
+      this.assertCalledWith(this.req._setRequestHeader, "Accept", "application/json");
     },
 
     "test: override response content type": function() {
       this.setUpFakeTransport();
       this.req.overrideResponseContentType("text/plain;charset=Shift-JIS");
 
-      this.assertCalledWith(this.transport.overrideMimeType, "text/plain;charset=Shift-JIS");
+      this.assertCalledWith(this.req.overrideMimeType, "text/plain;charset=Shift-JIS");
     },
 
     "test: get response content type": function() {
-      this.stub(this.req, "getResponseHeader");
+      // this.stub(this.req, "getResponseHeader");
       this.req.getResponseContentType();
 
       this.assertCalledWith(this.req.getResponseHeader, "Content-Type");
@@ -277,19 +292,18 @@ qx.Class.define("qx.test.io.request.Xhr",
     "test: event handler receives request": function() {
       this.setUpFakeTransport();
       var req = this.req,
-          transport = this.transport,
           that = this;
 
-      transport.readyState = 4;
-      transport.status = 200;
-      transport.responseText = "Affe";
+      req.readyState = 4;
+      req.status = 200;
+      req.responseText = "Affe";
 
       req.on("success", function(e) {
         that.assertEquals(e.target, req);
-        that.assertEquals("Affe", e.target.getResponseText());
+        that.assertEquals("Affe", e.target.responseText);
       });
 
-      transport.onreadystatechange();
+      req.onreadystatechange();
     },
 
     //
@@ -330,26 +344,24 @@ qx.Class.define("qx.test.io.request.Xhr",
 
     "test: get response": function() {
       this.setUpFakeTransport();
-      var req = this.req,
-          transport = this.transport;
+      var req = this.req;
 
-      transport.readyState = 4;
-      transport.status = 200;
-      transport.responseText = "Affe";
-      transport.onreadystatechange();
+      req.readyState = 4;
+      req.status = 200;
+      req.responseText = "Affe";
+      req.onreadystatechange();
 
       this.assertEquals("Affe", req.getResponse());
     },
 
     "test: get response on 400 status": function() {
       this.setUpFakeTransport();
-      var req = this.req,
-          transport = this.transport;
+      var req = this.req;
 
-      transport.readyState = 4;
-      transport.status = 400;
-      transport.responseText = "Affe";
-      transport.onreadystatechange();
+      req.readyState = 4;
+      req.status = 400;
+      req.responseText = "Affe";
+      req.onreadystatechange();
 
       this.assertEquals("Affe", req.getResponse());
     },
@@ -357,15 +369,14 @@ qx.Class.define("qx.test.io.request.Xhr",
     "test: get response by change event": function() {
       this.setUpFakeTransport();
       var req = this.req,
-          transport = this.transport,
           that = this;
 
-      transport.readyState = 4;
-      transport.status = 200;
-      transport.responseText = "Affe";
+      req.readyState = 4;
+      req.status = 200;
+      req.responseText = "Affe";
 
       this.assertEventFired(req, "changeResponse", function() {
-        transport.onreadystatechange();
+        req.onreadystatechange();
       }, function(e) {
         that.assertEquals("Affe", e.value);
       });
@@ -382,7 +393,7 @@ qx.Class.define("qx.test.io.request.Xhr",
           contentType = "application/json",
           stubbedParser = req._createResponseParser();
 
-      req._transport.responseText = json;
+      req.responseText = json;
       this.stub(req, "getResponseContentType").returns(contentType);
 
       // replace real parser with stub
@@ -413,14 +424,13 @@ qx.Class.define("qx.test.io.request.Xhr",
     "test: basic auth": function() {
       this.setUpFakeTransport();
 
-      var transport = this.transport,
-          auth, call, key, credentials;
+      var auth, call, key, credentials;
 
       auth = new qx.io.request.authentication.Basic("affe", "geheim");
       this.req.authentication = auth;
       this.req.send();
 
-      call = transport.setRequestHeader.getCall(1);
+      call = this.req._setRequestHeader.getCall(1);
       key = "Authorization";
       credentials = /Basic\s(.*)/.exec(call.args[1])[1];
       this.assertEquals(key, call.args[0]);

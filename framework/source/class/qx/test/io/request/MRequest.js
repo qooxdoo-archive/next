@@ -52,38 +52,21 @@ qx.Mixin.define("qx.test.io.request.MRequest",
     },
 
     //
-    // General
-    //
-
-    "test: dispose transport": function()
-    {
-      this.req.dispose();
-
-      this.wait(100, function() {
-        this.assertCalled(this.transport.dispose);
-      }, this);
-    },
-
-    "test: getTransport()": function() {
-      this.assertEquals(this.transport, this.req.getTransport());
-    },
-
-    //
     // Send
     //
 
     "test: send() GET": function() {
       this.req.send();
 
-      this.assertCalledWith(this.transport.open, "GET", "url");
-      this.assertCalled(this.transport.send);
+      this.assertCalledWith(this.req.open, "GET", "url");
+      this.assertCalled(this.req._send);
     },
 
     "test: drop fragment from URL": function() {
       this.req.url = "example.com#fragment";
       this.req.send();
 
-      this.assertCalledWith(this.transport.open, "GET", "example.com");
+      this.assertCalledWith(this.req.open, "GET", "example.com");
     },
 
     //
@@ -93,7 +76,7 @@ qx.Mixin.define("qx.test.io.request.MRequest",
     "test: abort request": function() {
       this.req.abort();
 
-      this.assertCalled(this.transport.abort);
+      this.assertCalled(this.req._abort);
     },
 
     //
@@ -104,21 +87,21 @@ qx.Mixin.define("qx.test.io.request.MRequest",
       this.req.requestData = "str";
       this.req.send();
 
-      this.assertCalledWith(this.transport.send, undefined);
+      this.assertCalledWith(this.req._send, undefined);
     },
 
     "test: append string data to URL with GET request": function() {
       this.req.requestData = "str";
       this.req.send();
 
-      this.assertCalledWith(this.transport.open, "GET", "url?str");
+      this.assertCalledWith(this.req.open, "GET", "url?str");
     },
 
     "test: append obj data to URL with GET request": function() {
       this.req.requestData = {affe: true};
       this.req.send();
 
-      this.assertCalledWith(this.transport.open, "GET", "url?affe=true");
+      this.assertCalledWith(this.req.open, "GET", "url?affe=true");
     },
 
     "test: append qooxdoo obj data to URL with GET request": function() {
@@ -127,7 +110,7 @@ qx.Mixin.define("qx.test.io.request.MRequest",
       this.req.requestData = obj;
       this.req.send();
 
-      this.assertCalledWith(this.transport.open, "GET", "url?affe=true");
+      this.assertCalledWith(this.req.open, "GET", "url?affe=true");
     },
 
     //
@@ -138,11 +121,13 @@ qx.Mixin.define("qx.test.io.request.MRequest",
       this.req.setRequestHeader("key", "value");
       this.req.send();
 
-      this.assertCalledWith(this.transport.setRequestHeader, "key", "value");
+      this.assertCalledWith(this.req.setRequestHeader, "key", "value");
     },
 
     "test: set request header does not append": function() {
-      var stub = this.transport.setRequestHeader.withArgs("key", "value");
+      var stub = this.req._setRequestHeader.withArgs("key", "value");
+
+      this.req.setRequestHeader.restore();
 
       this.req.setRequestHeader("key", "value");
       this.req.setRequestHeader("key", "value");
@@ -152,6 +137,8 @@ qx.Mixin.define("qx.test.io.request.MRequest",
     },
 
     "test: get request header": function() {
+      this.req.setRequestHeader.restore();
+
       this.req.setRequestHeader("key", "value");
 
       this.assertEquals("value", this.req.getRequestHeader("key"));
@@ -163,13 +150,15 @@ qx.Mixin.define("qx.test.io.request.MRequest",
       this.req.setRequestHeader("key", "value");
       this.req.removeRequestHeader("key");
 
-      stub = this.transport.setRequestHeader.withArgs("key", "value");
+      stub = this.req._setRequestHeader.withArgs("key", "value");
       this.req.send();
 
       this.assertNotCalled(stub);
     },
 
     "test: get all request headers": function() {
+      this.req.setRequestHeader.restore();
+
       this.req.setRequestHeader("key", "value");
       this.req.setRequestHeader("otherkey", "value");
 
@@ -178,6 +167,8 @@ qx.Mixin.define("qx.test.io.request.MRequest",
     },
 
     "test: get all request headers includes configuration dependent headers": function() {
+      this.req.setRequestHeader.restore();
+
       this.req.setRequestHeader("key", "value");
       this.req._getConfiguredRequestHeaders = function() { return {"otherkey": "value"}; };
 
@@ -189,7 +180,7 @@ qx.Mixin.define("qx.test.io.request.MRequest",
       this.req.send();
 
       var msg = "nocache parameter must not be set";
-      this.assertFalse(/\?nocache/.test(this.transport.open.args[0][1]), msg);
+      this.assertFalse(/\?nocache/.test(this.req.open.args[0][1]), msg);
     },
 
     "test: append nocache parameter to URL": function() {
@@ -197,7 +188,7 @@ qx.Mixin.define("qx.test.io.request.MRequest",
       this.req.send();
 
       var msg = "nocache parameter must be set to number";
-      this.assertTrue(/\?nocache=\d{13,}/.test(this.transport.open.args[0][1]), msg);
+      this.assertTrue(/\?nocache=\d{13,}/.test(this.req.open.args[0][1]), msg);
     },
 
     //
@@ -259,23 +250,22 @@ qx.Mixin.define("qx.test.io.request.MRequest",
           abort = this.spy();
 
       req.on("abort", abort);
-      this.transport.onabort();
+      this.req.onabort();
 
       this.assertCalledOnce(abort);
     },
 
     "test: fire timeout": function() {
       var req = this.req,
-          transport = this.transport,
           timeout = this.spy();
 
       req.timeout = 100;
       req.send();
 
       req.on("timeout", timeout);
-      transport.ontimeout();
+      req.ontimeout();
 
-      this.assertEquals(100, transport.timeout);
+      this.assertEquals(100, req.timeout);
       this.assertCalledOnce(timeout);
     },
 
@@ -372,26 +362,24 @@ qx.Mixin.define("qx.test.io.request.MRequest",
     },
 
     "test: phase is loading": function() {
-      var req = this.req,
-          transport = this.transport;
+      var req = this.req;
 
-      transport.readyState = 3;
-      transport.onreadystatechange();
+      req.readyState = 3;
+      req.onreadystatechange();
 
       this.assertEquals("loading", req.getPhase());
     },
 
     "test: phase is load intermediately": function() {
       var req = this.req,
-          transport = this.transport,
           phases = [];
 
       req.on("changePhase", function() {
         phases.push(req.getPhase());
       });
 
-      transport.readyState = 4;
-      transport.onreadystatechange();
+      req.readyState = 4;
+      req.onreadystatechange();
 
       // phases = ["load", "statusError"]
       this.assertEquals("load", phases[0]);
@@ -414,39 +402,36 @@ qx.Mixin.define("qx.test.io.request.MRequest",
     },
 
     "test: phase is abort": function() {
-      var req = this.req,
-          transport = this.transport;
+      var req = this.req;
 
       req.abort();
-      transport.onabort();
+      req.onabort();
 
-      // Transport switches to readyState DONE on abort
-      transport.readyState = 4;
-      transport.onreadystatechange();
+      // switch to readyState DONE on abort
+      req.readyState = 4;
+      req.onreadystatechange();
 
       this.assertEquals("abort", req.getPhase());
     },
 
     "test: phase is abort when from cache": function() {
-      var req = this.req,
-          transport = this.transport;
+      var req = this.req;
 
       req.abort();
-      transport.onabort();
+      req.onabort();
 
       // Synchronously served from cached
-      transport.status = 304;
+      req.status = 304;
 
-      // Transport switches to readyState DONE on abort
-      transport.readyState = 4;
-      transport.onreadystatechange();
+      // switch to readyState DONE on abort
+      req.readyState = 4;
+      req.onreadystatechange();
 
       this.assertEquals("abort", req.getPhase());
     },
 
     "test: phase is abort on readyState DONE when aborted before": function() {
-      var req = this.req,
-          transport = this.transport;
+      var req = this.req;
 
       req.on("readyStateChange", function() {
         if (req.getReadyState() == 4) {
@@ -457,16 +442,15 @@ qx.Mixin.define("qx.test.io.request.MRequest",
       req.send();
       req.abort();
 
-      // Transport switches to readyState DONE on abort
-      transport.readyState = 4;
-      transport.onreadystatechange();
+      // switch to readyState DONE on abort
+      req.readyState = 4;
+      req.onreadystatechange();
 
-      transport.onabort();
+      req.onabort();
     },
 
     "test: phase is abort on readyState DONE when aborting loading": function() {
-      var req = this.req,
-          transport = this.transport;
+      var req = this.req;
 
       req.on("readyStateChange", function() {
         if (req.getReadyState() == 4) {
@@ -477,21 +461,20 @@ qx.Mixin.define("qx.test.io.request.MRequest",
       req.send();
 
       // Loading
-      transport.readyState = 3;
-      transport.onreadystatechange();
+      req.readyState = 3;
+      req.onreadystatechange();
 
       // Abort loading
       req.abort();
 
-      // Transport switches to readyState DONE on abort
-      transport.readyState = 4;
-      transport.onreadystatechange();
-      transport.onabort();
+      // switch to readyState DONE on abort
+      req.readyState = 4;
+      req.onreadystatechange();
+      req.onabort();
     },
 
     "test: phase is abort on loadEnd when aborted before": function() {
-      var req = this.req,
-          transport = this.transport;
+      var req = this.req;
 
       req.on("loadEnd", function() {
         this.assertEquals("abort", req.getPhase());
@@ -500,11 +483,11 @@ qx.Mixin.define("qx.test.io.request.MRequest",
       req.send();
       req.abort();
 
-      // Transport fires "onloadend" on abort
-      transport.readyState = 4;
-      transport.onloadend();
+      // fire "onloadend" on abort
+      req.readyState = 4;
+      req.onloadend();
 
-      transport.onabort();
+      req.onabort();
     },
 
     "test: phase is timeout": function() {
@@ -523,27 +506,25 @@ qx.Mixin.define("qx.test.io.request.MRequest",
     },
 
     respond: function(status, error) {
-      var transport = this.transport;
+      this.req.status = typeof status === "undefined" ? 200 : status;
+      this.req.readyState = 4;
+      this.req.onreadystatechange();
 
-      transport.status = typeof status === "undefined" ? 200 : status;
-      transport.readyState = 4;
-      transport.onreadystatechange();
-
-      (function() {
+      (function(req) {
         if (error === "timeout") {
-          transport.ontimeout();
+          req.ontimeout();
           return;
         }
 
         if (error === "network") {
-          transport.onerror();
+          req.onerror();
           return;
         }
 
-        transport.onload();
-      })();
+        req.onload();
+      })(this.req);
 
-      transport.onloadend();
+      this.req.onloadend();
     },
 
     respondError: function() {

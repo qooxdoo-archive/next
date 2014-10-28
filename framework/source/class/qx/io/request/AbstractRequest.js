@@ -46,8 +46,6 @@ qx.Class.define("qx.io.request.AbstractRequest",
     }
 
     this.__requestHeaders = {};
-
-    var transport = this._transport = this._createTransport();
     this._setPhase("unsent");
 
     this.__onReadyStateChangeBound = qx.lang.Function.bind(this._onReadyStateChange, this);
@@ -57,12 +55,12 @@ qx.Class.define("qx.io.request.AbstractRequest",
     this.__onTimeoutBound = qx.lang.Function.bind(this._onTimeout, this);
     this.__onErrorBound = qx.lang.Function.bind(this._onError, this);
 
-    transport.onreadystatechange = this.__onReadyStateChangeBound;
-    transport.onload = this.__onLoadBound;
-    transport.onloadend = this.__onLoadEndBound;
-    transport.onabort = this.__onAbortBound;
-    transport.ontimeout = this.__onTimeoutBound;
-    transport.onerror = this.__onErrorBound;
+    this.onreadystatechange = this.__onReadyStateChangeBound;
+    this.onload = this.__onLoadBound;
+    this.onloadend = this.__onLoadEndBound;
+    this.onabort = this.__onAbortBound;
+    this.ontimeout = this.__onTimeoutBound;
+    this.onerror = this.__onErrorBound;
   },
 
   events :
@@ -70,43 +68,43 @@ qx.Class.define("qx.io.request.AbstractRequest",
     /**
      * Fired on every change of the transport’s readyState.
      */
-    "readyStateChange": "qx.event.type.Event",
+    "readyStateChange": "null",
 
     /**
      * Fired when request completes without error and transport’s status
      * indicates success.
      */
-    "success": "qx.event.type.Event",
+    "success": "Object",
 
     /**
      * Fired when request completes without error.
      */
-    "load": "qx.event.type.Event",
+    "load": "null",
 
     /**
      * Fired when request completes with or without error.
      */
-    "loadEnd": "qx.event.type.Event",
+    "loadEnd": "null",
 
     /**
      * Fired when request is aborted.
      */
-    "abort": "qx.event.type.Event",
+    "abort": "Object",
 
     /**
      * Fired when request reaches timeout limit.
      */
-    "timeout": "qx.event.type.Event",
+    "timeout": "Object",
 
     /**
      * Fired when request completes with error.
      */
-    "error": "qx.event.type.Event",
+    "error": "Object",
 
     /**
      * Fired when request completes without error but erroneous HTTP status.
      */
-    "statusError": "qx.event.type.Event",
+    "statusError": "Object",
 
     /**
      * Fired on timeout, error or remote error.
@@ -114,7 +112,7 @@ qx.Class.define("qx.io.request.AbstractRequest",
      * This event is fired for convenience. Usually, it is recommended
      * to handle error related events in a more fine-grained approach.
      */
-    "fail": "qx.event.type.Event",
+    "fail": "Object|null",
 
     /**
     * Fired on change of the parsed response.
@@ -136,12 +134,12 @@ qx.Class.define("qx.io.request.AbstractRequest",
     * is ignored, instead only the final value is bound.
     *
     */
-    "changeResponse": "qx.event.type.Data",
+    "changeResponse": "Object",
 
     /**
      * Fired on change of the phase.
      */
-    "changePhase": "qx.event.type.Data"
+    "changePhase": "Object"
   },
 
   properties :
@@ -156,7 +154,6 @@ qx.Class.define("qx.io.request.AbstractRequest",
     url: {
       check: "String"
     },
-
 
     /**
      * Timeout limit in milliseconds. Default (0) means no limit.
@@ -211,6 +208,38 @@ qx.Class.define("qx.io.request.AbstractRequest",
   {
 
     /**
+     * @type {Number} Ready state.
+     *
+     * States can be:
+     * UNSENT:           0,
+     * OPENED:           1,
+     * HEADERS_RECEIVED: 2,
+     * LOADING:          3,
+     * DONE:             4
+     */
+    readyState: 0,
+
+    /**
+     * @type {String} The response of the request as text.
+     */
+    responseText: "",
+
+    /**
+     * @type {Object} The response of the request as a Document object.
+     */
+    responseXML: null,
+
+    /**
+     * @type {Number} The HTTP status code.
+     */
+    status: 0,
+
+    /**
+     * @type {String} The HTTP status text.
+     */
+    statusText: "",
+
+    /**
      * Bound handlers.
      */
     __onReadyStateChangeBound: null,
@@ -244,30 +273,6 @@ qx.Class.define("qx.io.request.AbstractRequest",
      * Request headers (deprecated).
      */
     __requestHeadersDeprecated: null,
-
-    /**
-     * Holds transport.
-     */
-    _transport: null,
-
-    /*
-    ---------------------------------------------------------------------------
-      CONFIGURE TRANSPORT
-    ---------------------------------------------------------------------------
-    */
-
-    /**
-     * Create and return transport.
-     *
-     * This method MUST be overridden, unless the constructor is overridden as
-     * well. It is called by the constructor and should return the transport that
-     * is to be interfaced.
-     *
-     * @return {qx.bom.request} Transport.
-     */
-    _createTransport: function() {
-      throw new Error("Abstract method call");
-    },
 
     /**
      * Get configured URL.
@@ -331,18 +336,11 @@ qx.Class.define("qx.io.request.AbstractRequest",
       return true;
     },
 
-    /*
-    ---------------------------------------------------------------------------
-      INTERACT WITH TRANSPORT
-    ---------------------------------------------------------------------------
-    */
-
     /**
      * Send request.
      */
     send: function() {
-      var transport = this._transport,
-          url, method, async, serializedData;
+      var url, method, async, serializedData;
 
       //
       // Open request
@@ -356,8 +354,6 @@ qx.Class.define("qx.io.request.AbstractRequest",
         url = url.replace(/\#.*/, "");
       }
 
-      transport.timeout = this.timeout;
-
       // Support transports with enhanced feature set
       method = this._getMethod();
       async = this._isAsync();
@@ -368,7 +364,7 @@ qx.Class.define("qx.io.request.AbstractRequest",
           method + ", url: " + url + ", async: " + async);
       }
 
-      transport.open(method, url, async);
+      this.open(method, url, async);
       this._setPhase("opened");
 
       //
@@ -383,7 +379,7 @@ qx.Class.define("qx.io.request.AbstractRequest",
       if (qx.core.Environment.get("qx.debug.io")) {
         this.debug("Send low-level request");
       }
-      method == "GET" ? transport.send() : transport.send(serializedData);
+      method == "GET" ? this._send() : this._send(serializedData);
       this._setPhase("sent");
     },
 
@@ -399,7 +395,19 @@ qx.Class.define("qx.io.request.AbstractRequest",
        // Update phase to "abort" before user handler are invoked [BUG #5485]
        this.__phase = "abort";
 
-       this._transport.abort();
+       this._abort();
+    },
+
+    _abort: function() {
+      throw new Error("Abstract method call");
+    },
+
+    _send: function() {
+      throw new Error("Abstract method call");
+    },
+
+    open: function() {
+      throw new Error("Abstract method call");
     },
 
     /*
@@ -415,13 +423,28 @@ qx.Class.define("qx.io.request.AbstractRequest",
      * to transport.
      */
     _setRequestHeaders: function() {
-      var transport = this._transport,
-          requestHeaders = this._getAllRequestHeaders();
+      var requestHeaders = this._getAllRequestHeaders();
 
       for (var key in requestHeaders) {
-        transport.setRequestHeader(key, requestHeaders[key]);
+        this._setRequestHeader(key, requestHeaders[key]);
       }
 
+    },
+
+    _setRequestHeader: function() {
+      throw new Error("Abstract method call");
+    },
+
+    /**
+     * Set a request header.
+     *
+     * Note: Setting request headers has no effect after the request was send.
+     *
+     * @param key {String} Key of the header.
+     * @param value {String} Value of the header.
+     */
+    setRequestHeader: function(key, value) {
+      this.__requestHeaders[key] = value;
     },
 
     /**
@@ -461,18 +484,6 @@ qx.Class.define("qx.io.request.AbstractRequest",
     },
 
     /**
-     * Set a request header.
-     *
-     * Note: Setting request headers has no effect after the request was send.
-     *
-     * @param key {String} Key of the header.
-     * @param value {String} Value of the header.
-     */
-    setRequestHeader: function(key, value) {
-      this.__requestHeaders[key] = value;
-    },
-
-    /**
      * Get a request header.
      *
      * @param key {String} Key of the header.
@@ -496,52 +507,20 @@ qx.Class.define("qx.io.request.AbstractRequest",
     },
 
 
-    /*
-    ---------------------------------------------------------------------------
-     QUERY TRANSPORT
-    ---------------------------------------------------------------------------
-    */
-
-    /**
-     * Get low-level transport.
-     *
-     * Note: To be used with caution!
-     *
-     * This method can be used to query the transport directly,
-     * but should be used with caution. Especially, it
-     * is not advisable to call any destructive methods
-     * such as <code>open</code> or <code>send</code>.
-     *
-     * @return {Object} An instance of a class found in
-     *  <code>qx.bom.request.*</code>
-     */
-
-     // This method mainly exists so that some methods found in the
-     // low-level transport can be deliberately omitted here,
-     // but still be accessed should it be absolutely necessary.
-     //
-     // Valid use cases include to query the transport’s responseXML
-     // property if performance is critical and any extra parsing
-     // should be avoided at all costs.
-     //
-    getTransport: function() {
-      return this._transport;
-    },
-
     /**
      * Get current ready state.
      *
      * States can be:
-     * UNSENT:           0,
-     * OPENED:           1,
+     * UNSENT: 0,
+     * OPENED: 1,
      * HEADERS_RECEIVED: 2,
-     * LOADING:          3,
-     * DONE:             4
+     * LOADING: 3,
+     * DONE: 4
      *
      * @return {Number} Ready state.
      */
     getReadyState: function() {
-      return this._transport.readyState;
+      return this.readyState;
     },
 
     /**
@@ -573,7 +552,7 @@ qx.Class.define("qx.io.request.AbstractRequest",
      * @return {Number} The transport’s status code.
      */
     getStatus: function() {
-      return this._transport.status;
+      return this.status;
     },
 
     /**
@@ -582,7 +561,7 @@ qx.Class.define("qx.io.request.AbstractRequest",
      * @return {String} The transport’s status text.
      */
     getStatusText: function() {
-      return this._transport.statusText;
+      return this.statusText;
     },
 
     /**
@@ -591,28 +570,7 @@ qx.Class.define("qx.io.request.AbstractRequest",
      * @return {String} The raw response of the request.
      */
     getResponseText: function() {
-      return this._transport.responseText;
-    },
-
-    /**
-     * Get all response headers from response.
-     *
-     * @return {String} All response headers.
-     */
-    getAllResponseHeaders: function() {
-      return this._transport.getAllResponseHeaders();
-    },
-
-    /**
-     * Get a single response header from response.
-     *
-     * @param key {String}
-     *   Key of the header to get the value from.
-     * @return {String}
-     *   Response header.
-     */
-    getResponseHeader: function(key) {
-      return this._transport.getResponseHeader(key);
+      return this.responseText;
     },
 
     /**
@@ -623,7 +581,7 @@ qx.Class.define("qx.io.request.AbstractRequest",
      * @see qx.bom.request.Xhr#overrideMimeType
      */
     overrideResponseContentType: function(contentType) {
-      return this._transport.overrideMimeType(contentType);
+      return this.overrideMimeType(contentType);
     },
 
     /**
@@ -640,7 +598,7 @@ qx.Class.define("qx.io.request.AbstractRequest",
      * Whether request completed (is done).
      */
     isDone: function() {
-      return this.getReadyState() === 4;
+      return this.readyState === 4;
     },
 
 
@@ -687,7 +645,7 @@ qx.Class.define("qx.io.request.AbstractRequest",
      * Handle "readyStateChange" event.
      */
     _onReadyStateChange: function() {
-      var readyState = this.getReadyState();
+      var readyState = this.readyState;
 
       if (qx.core.Environment.get("qx.debug.io")) {
         this.debug("Fire readyState: " + readyState);
@@ -717,14 +675,14 @@ qx.Class.define("qx.io.request.AbstractRequest",
      */
     __onReadyStateDone: function() {
       if (qx.core.Environment.get("qx.debug.io")) {
-        this.debug("Request completed with HTTP status: " + this.getStatus());
+        this.debug("Request completed with HTTP status: " + this.status);
       }
 
       // Event "load" fired in onLoad
       this._setPhase("load");
 
       // Successful HTTP status
-      if (qx.util.Request.isSuccessful(this.getStatus())) {
+      if (qx.util.Request.isSuccessful(this.status)) {
 
         // Parse response
         if (qx.core.Environment.get("qx.debug.io")) {
@@ -745,7 +703,7 @@ qx.Class.define("qx.io.request.AbstractRequest",
         }
 
         // A remote error failure
-        if (this.getStatus() !== 0) {
+        if (this.status !== 0) {
           this._fireStatefulEvent("statusError");
           this.emit("fail", {target: this});
         }
@@ -864,21 +822,21 @@ qx.Class.define("qx.io.request.AbstractRequest",
       }
     },
 
-    dispose: function()
-    {
+    dispose: function() {
       this.$$disposed = true;
-      var transport = this._transport,
-          noop = function() {};
+      var noop = function() {};
 
-      if (this._transport) {
-        transport.onreadystatechange = transport.onload = transport.onloadend =
-        transport.onabort = transport.ontimeout = transport.onerror = noop;
+      this.onreadystatechange = this.onload = this.onloadend =
+      this.onabort = this.ontimeout = this.onerror = noop;
 
-        // [BUG #8315] dispose asynchronously to work with Sinon.js fake server
-        window.setTimeout(function() {
-          transport.dispose();
-        }, 0);
-      }
+      // [BUG #8315] dispose asynchronously to work with Sinon.js fake server
+      window.setTimeout(function() {
+        this._dispose();
+      }, 0);
+    },
+
+    _dispose: function() {
+      throw new Error("Abstract method call");
     }
   },
 
