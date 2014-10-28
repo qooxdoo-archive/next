@@ -72,9 +72,9 @@ qx.Class.define("qx.ui.mobile.basic.Atom",
     },
 
     /** The label/caption/text of the qx.ui.mobile.basic.Atom instance */
-    label :
+    text :
     {
-      apply : "_applyLabel",
+      apply : "_applyText",
       nullable : true,
       check : "String",
       event : true
@@ -117,7 +117,7 @@ qx.Class.define("qx.ui.mobile.basic.Atom",
 
   members :
   {
-    __label : null,
+    __text : null,
     __icon : null,
     __childrenContainer : null,
 
@@ -162,11 +162,11 @@ qx.Class.define("qx.ui.mobile.basic.Atom",
     // property apply
     _applyShowChildren : function(value, old)
     {
-      if (this.__label) {
+      if (this.__text) {
         if (value === 'both' || value === 'label') {
-          this.__label.show();
+          this.__text.show();
         } else if(value === 'icon') {
-          this.__label.exclude();
+          this.__text.exclude();
         }
       }
       if (this.__icon) {
@@ -180,13 +180,13 @@ qx.Class.define("qx.ui.mobile.basic.Atom",
 
 
     // property apply
-    _applyLabel : function(value, old)
+    _applyText : function(value, old)
     {
-      if (this.__label) {
-        this.__label.value = value;
+      if (this.__text) {
+        this.__text.value = value;
       } else {
-        this.__label = this._createLabelWidget(value);
-        this.append(this.__label);
+        this.__text = this._createLabelWidget(value);
+        this.append(this.__text);
       }
     },
 
@@ -198,8 +198,8 @@ qx.Class.define("qx.ui.mobile.basic.Atom",
         this.__icon.source = value;
       } else {
         this.__icon = this._createIconWidget(value);
-        if (this.__label) {
-          this.__icon.insertBefore(this.__label);
+        if (this.__text) {
+          this.__icon.insertBefore(this.__text);
         } else {
           this.append(this.__icon);
         }
@@ -223,7 +223,7 @@ qx.Class.define("qx.ui.mobile.basic.Atom",
      * @return {qx.ui.mobile.basic.Label} The label widget.
      */
     getLabelWidget : function() {
-      return this.__label;
+      return this.__text;
     },
 
 
@@ -270,7 +270,7 @@ qx.Class.define("qx.ui.mobile.basic.Atom",
       var layout;
       var verticalLayout = [ "top", "bottom" ].indexOf(this.iconPosition) != -1;
       // If Atom has no Label, only Icon is shown, and should vertically centered.
-      var hasNoLabel = !this.__label;
+      var hasNoLabel = !this.__text;
 
       if (verticalLayout || hasNoLabel) {
         layout = new qx.ui.mobile.layout.VBox();
@@ -290,7 +290,7 @@ qx.Class.define("qx.ui.mobile.basic.Atom",
 
     dispose : function() {
       this.super(qx.ui.mobile.Widget, "dispose");
-      this.__label && this.__label.dispose();
+      this.__text && this.__text.dispose();
       this.__icon && this.__icon.dispose();
     }
   },
