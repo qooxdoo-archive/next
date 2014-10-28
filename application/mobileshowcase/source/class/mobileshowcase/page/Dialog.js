@@ -84,7 +84,9 @@ qx.Class.define("mobileshowcase.page.Dialog",
       // MENU DIALOG
       var menuModel = new qx.data.Array();
       for (var i = 0; i < 50; i++) {
-        menuModel.push("Action "+i);
+        menuModel.push({
+          title: "Action " + i
+        });
       }
 
       this.__menu = new qx.ui.mobile.dialog.Menu(menuModel);
@@ -106,7 +108,13 @@ qx.Class.define("mobileshowcase.page.Dialog",
         this.__anchorMenu.show();
       }, this);
 
-      var anchorMenuModel = new qx.data.Array(["Red", "Green", "Blue"]);
+      var anchorMenuModel = new qx.data.Array([{
+        title: "Red"
+      }, {
+        title: "Green"
+      }, {
+        title: "Blue"
+      }]);
       this.__anchorMenu = new qx.ui.mobile.dialog.Menu(anchorMenuModel, showAnchorMenuButton);
       this.__anchorMenu.title = "Colors";
 
