@@ -42,18 +42,18 @@ qx.Class.define("qx.ui.mobile.basic.Atom",
 
 
   /**
-   * @param label {String?} Label to use
+   * @param text {String?} Label to use
    * @param icon {String?null} Icon to use
    * @signature function(label, icon)
    */
-  construct : function(label, icon, element)
+  construct : function(text, icon, element)
   {
     this.super(qx.ui.mobile.Widget, "constructor", element);
 
     this.addClass("qx-flex-center");
 
-    if (label) {
-      this.label = label;
+    if (text) {
+      this.text = text;
     }
     if (icon) {
       this.icon = icon;
