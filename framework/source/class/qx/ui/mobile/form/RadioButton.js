@@ -69,11 +69,11 @@ qx.Class.define("qx.ui.mobile.form.RadioButton",
 
 
     /** The assigned qx.ui.form.RadioGroup which handles the switching between registered buttons */
-    group :
+    radioGroup :
     {
       check  : "qx.ui.mobile.form.RadioGroup",
       nullable : true,
-      apply : "_applyGroup"
+      apply : "_applyRadioGroup"
     }
   },
 
@@ -112,7 +112,7 @@ qx.Class.define("qx.ui.mobile.form.RadioButton",
      * @param value {qx.ui.form.RadioGroup} the new radio group to which this radio button belongs.
      * @param old {qx.ui.form.RadioGroup} the old radio group of this radio button.
      */
-    _applyGroup : function(value, old)
+    _applyRadioGroup : function(value, old)
     {
       if (old) {
         old.remove(this);
