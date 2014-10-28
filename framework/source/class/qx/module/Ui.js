@@ -23,6 +23,7 @@
  * @require(qx.ui.mobile.Widget)
  * @require(qx.ui.mobile.basic.Atom)
  * @require(qx.ui.mobile.basic.Image)
+ * @require(qx.ui.mobile.basic.Label)
  * @require(qx.ui.mobile.container.Carousel)
  * @require(qx.ui.mobile.container.Collapsible)
  * @require(qx.ui.mobile.container.Drawer)
