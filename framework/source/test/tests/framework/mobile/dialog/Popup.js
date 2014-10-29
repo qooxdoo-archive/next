@@ -76,6 +76,17 @@ describe("mobile.dialog.Popup", function() {
     assert.equal(0, qxWeb(document.body).getChildren(".blocker").length, 'Modal mode is true, called dialog.hide(), Blocker should not be shown.');
     popup.dispose();
   });
+
+
+  it("Factory", function() {
+    var content = qxWeb.create("<div>").widget();
+    var popup = qxWeb.create("<div>").popup(content).appendTo(getRoot());
+    assert.instanceOf(popup, qx.ui.mobile.dialog.Popup);
+    qx.core.Assert.assertEquals(popup, popup[0].$$widget);
+    assert.equal("qx.ui.mobile.dialog.Popup", popup.getData("qxWidget"));
+
+    popup.dispose();
+  });
   // function hasDebug () {
   //   return qx.core.Environment.get("qx.debug");
   // }
