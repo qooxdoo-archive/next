@@ -50,6 +50,8 @@ qx.Class.define("mobileshowcase.page.Dialog",
     // overridden
     _initialize : function()
     {
+      var body = qxWeb(document.body);
+
       this.super(mobileshowcase.page.Abstract, "_initialize");
 
       this.__resultsLabel = new qx.ui.mobile.basic.Label("No events received so far.");
@@ -60,13 +62,13 @@ qx.Class.define("mobileshowcase.page.Dialog",
 
       // EXAMPLE WIDGETS
       var busyIndicator = new qx.ui.mobile.dialog.BusyIndicator("Please wait...");
-      this.__busyPopup = new qx.ui.mobile.dialog.Popup(busyIndicator);
+      this.__busyPopup = new qx.ui.mobile.dialog.Popup(busyIndicator).appendTo(body);
 
       // DEFAULT POPUP
       this.__popup = null;
 
       var closeDialogButton1 = new qx.ui.mobile.Button("Close Popup");
-      this.__popup = new qx.ui.mobile.dialog.Popup(closeDialogButton1);
+      this.__popup = new qx.ui.mobile.dialog.Popup(closeDialogButton1).appendTo(body);
       this.__popup.title = "A Popup";
 
       closeDialogButton1.on("tap", function() {
@@ -89,7 +91,7 @@ qx.Class.define("mobileshowcase.page.Dialog",
         });
       }
 
-      this.__menu = new qx.ui.mobile.dialog.Menu(menuModel);
+      this.__menu = new qx.ui.mobile.dialog.Menu(menuModel).appendTo(body);
       this.__menu.title = "Menu";
       this.__menu.on("changeSelection", this.__onMenuChangeSelection, this);
       this.__menu.visibleListItems = 10;
@@ -115,7 +117,7 @@ qx.Class.define("mobileshowcase.page.Dialog",
       }, {
         title: "Blue"
       }]);
-      this.__anchorMenu = new qx.ui.mobile.dialog.Menu(anchorMenuModel, showAnchorMenuButton);
+      this.__anchorMenu = new qx.ui.mobile.dialog.Menu(anchorMenuModel, showAnchorMenuButton).appendTo(body);
       this.__anchorMenu.title = "Colors";
 
       // BUTTONS
@@ -199,7 +201,7 @@ qx.Class.define("mobileshowcase.page.Dialog",
       pickerDialogContent.append(picker);
       pickerDialogContent.append(hidePickerButton);
       //pickerDialog.append(pickerDialogContent);
-      var pickerDialog = this.__pickerDialog = new qx.ui.mobile.dialog.Popup(pickerDialogContent);
+      var pickerDialog = this.__pickerDialog = new qx.ui.mobile.dialog.Popup(pickerDialogContent).appendTo(qxWeb(document.body));
       pickerDialog.title = "Picker";
     },
 
@@ -259,8 +261,9 @@ qx.Class.define("mobileshowcase.page.Dialog",
       if (this.__anchorPopup) {
         return this.__anchorPopup;
       }
+      var body = qxWeb(document.body);
 
-      var buttonsWidget = new qx.ui.mobile.Widget()
+      var buttonsWidget = new qx.ui.mobile.Widget();
       buttonsWidget.layout = new qx.ui.mobile.layout.HBox();
       var okButton = new qx.ui.mobile.Button("Yes");
       var cancelButton = new qx.ui.mobile.Button("No");
@@ -275,7 +278,7 @@ qx.Class.define("mobileshowcase.page.Dialog",
         this.__anchorPopup.hide();
       }, this);
 
-      var popup = new qx.ui.mobile.dialog.Popup(buttonsWidget, anchor);
+      var popup = new qx.ui.mobile.dialog.Popup(buttonsWidget, anchor).appendTo(body);
       popup.title = "Are you sure?";
       return popup;
     },
