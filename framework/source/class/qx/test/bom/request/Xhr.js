@@ -57,7 +57,7 @@ qx.Class.define("qx.test.bom.request.Xhr",
     setUp : function()
     {
       this.fakeNativeXhr();
-      this.req = new qx.bom.request.Xhr();
+      this.req = new qx.io.request.Xhr();
     },
 
     tearDown : function()
@@ -139,7 +139,7 @@ qx.Class.define("qx.test.bom.request.Xhr",
       // Request must be opened before request headers can be set
       this.req.open("GET", "/");
 
-      this.req.setRequestHeader("header", "value");
+      this.req._setRequestHeader("header", "value");
       this.assertCalledWith(fakeReq.setRequestHeader, "header", "value");
     },
 
@@ -153,7 +153,7 @@ qx.Class.define("qx.test.bom.request.Xhr",
 
       var data = "AFFE";
       this.req.open("GET", "/affe");
-      this.req.send(data);
+      this.req._send(data);
 
       this.assertCalledWith(fakeReq.send, data);
     },
@@ -164,8 +164,7 @@ qx.Class.define("qx.test.bom.request.Xhr",
       var fakeReq = this.getFakeReq();
       this.spy(fakeReq, "send");
 
-      this.req.open("GET", "/affe");
-      this.req.send();
+      this.openAndSend("GET", "/affe");
 
       this.assertCalledWith(fakeReq.send, null);
     },
@@ -179,7 +178,7 @@ qx.Class.define("qx.test.bom.request.Xhr",
       var fakeReq = this.getFakeReq();
       this.spy(fakeReq, "abort");
 
-      req.abort();
+      req._abort();
       this.assertCalled(fakeReq.abort);
     },
 
@@ -236,8 +235,7 @@ qx.Class.define("qx.test.bom.request.Xhr",
       this.stub(req, "_emit");
 
       // Send and respond
-      req.open("GET", "/");
-      req.send();
+      this.openAndSend("GET", "/");
       fakeReq.respond();
 
       // Reopen
@@ -265,8 +263,7 @@ qx.Class.define("qx.test.bom.request.Xhr",
       var fakeReq = this.getFakeReq();
 
       req.onreadystatechange = function() { return "OP"; };
-      req.open("GET", "/");
-      req.send();
+      this.openAndSend("GET", "/");
 
       fakeReq.respond();
       this.assertUndefined(req.getRequest().onreadystatechange());
@@ -280,15 +277,14 @@ qx.Class.define("qx.test.bom.request.Xhr",
       var req = this.req;
       var fakeReq = this.getFakeReq();
 
-      this.stub(req._emitter, "emit");
-      req.open("GET", "/");
-      req.send();
+      this.stub(req, "_emit");
+      this.openAndSend("GET", "/");
 
       // Status does not matter. Set a non-empty response for file:// workaround.
       fakeReq.respond(200, {}, "RESPONSE");
 
-      this.assertCalledWith(req._emitter.emit, "load");
-      this.assertEquals(6, req._emitter.emit.callCount);
+      this.assertCalledWith(req._emit, "load");
+      this.assertEquals(6, req._emit.callCount);
     },
 
     //
@@ -306,9 +302,8 @@ qx.Class.define("qx.test.bom.request.Xhr",
 
       this.spy(req, "_emit");
 
-      req.open("GET", "/");
-      req.send();
-      req.abort();
+      this.openAndSend("GET", "/");
+      req._abort();
 
       this.assertCalledWith(req._emit, "abort");
     },
@@ -320,9 +315,8 @@ qx.Class.define("qx.test.bom.request.Xhr",
       var abort = emit.withArgs("abort");
       var loadend = emit.withArgs("loadend");
 
-      req.open("GET", "/");
-      req.send();
-      req.abort();
+      this.openAndSend("GET", "/");
+      req._abort();
 
       this.assertCallOrder(abort, loadend);
     },
@@ -335,11 +329,10 @@ qx.Class.define("qx.test.bom.request.Xhr",
       var req = this.req,
           that = this;
 
-      var timeout = this.stub(req, "_emit").withArgs("timeout");
+      var timeout = this.stub(req, "emit").withArgs("timeout");
 
       req.timeout = 10;
-      req.open("GET", "/");
-      req.send();
+      this.openAndSend("GET", "/");
 
       this.wait(20, function() {
         this.assertCalledOnce(timeout);
@@ -352,8 +345,7 @@ qx.Class.define("qx.test.bom.request.Xhr",
       var error = this.stub(req, "_emit").withArgs("error");
 
       req.timeout = 10;
-      req.open("GET", "/");
-      req.send();
+      this.openAndSend("GET", "/");
 
       this.wait(20, function() {
         this.assertNotCalled(error);
@@ -365,9 +357,8 @@ qx.Class.define("qx.test.bom.request.Xhr",
 
       var error = this.stub(req, "_emit").withArgs("error");
 
-      req.open("GET", "/");
-      req.send();
-      req.abort();
+      this.openAndSend("GET", "/");
+      req._abort();
 
       this.assertNotCalled(error);
     },
@@ -379,8 +370,7 @@ qx.Class.define("qx.test.bom.request.Xhr",
       this.spy(req, "ontimeout");
 
       req.timeout = 10;
-      req.open("GET", "/");
-      req.send();
+      this.openAndSend("GET", "/");
       fakeReq.respond();
 
       this.wait(20, function() {
@@ -395,8 +385,7 @@ qx.Class.define("qx.test.bom.request.Xhr",
       this.spy(req, "ontimeout");
 
       req.timeout = 10;
-      req.open("GET", "/");
-      req.send();
+      this.openAndSend("GET", "/");
 
       // Simulate error in handler for readyState DONE
       req.onreadystatechange = function() {
@@ -427,8 +416,7 @@ qx.Class.define("qx.test.bom.request.Xhr",
       var fakeReq = this.getFakeReq();
 
       var loadend = this.stub(req, "_emit").withArgs("loadend");
-      req.open("GET", "/");
-      req.send();
+      this.openAndSend("GET", "/");
 
       // Status does not matter
       fakeReq.respond();
@@ -457,7 +445,7 @@ qx.Class.define("qx.test.bom.request.Xhr",
       this.assertEquals(this.constructor.OPENED, req.readyState);
 
       // Send (and receive)
-      req.send();
+      req._send();
       fakeReq.respond(this.constructor.DONE);
       this.assertEquals(this.constructor.DONE, req.readyState);
     },
@@ -476,8 +464,7 @@ qx.Class.define("qx.test.bom.request.Xhr",
 
       // Send and respond
       var req = this.req;
-      req.open("GET", "/");
-      req.send();
+      this.openAndSend("GET", "/");
       fakeReq.respond(200, {"Content-Type": "text/html"}, "Affe");
 
       // Reopen
@@ -489,8 +476,7 @@ qx.Class.define("qx.test.bom.request.Xhr",
       var req = this.req;
       var fakeReq = this.getFakeReq();
 
-      req.open("GET", "/");
-      req.send();
+      this.openAndSend("GET", "/");
       fakeReq.respond(200, {"Content-Type": "text/html"}, "Affe");
 
       this.assertEquals("Affe", req.responseText);
@@ -568,8 +554,7 @@ qx.Class.define("qx.test.bom.request.Xhr",
 
       // Send and respond
       var req = this.req;
-      req.open("GET", "/");
-      req.send();
+      this.openAndSend("GET", "/");
       fakeReq.respond(200, { "Content-Type": "application/xml" }, "<affe></affe>");
 
       // Reopen
@@ -581,8 +566,7 @@ qx.Class.define("qx.test.bom.request.Xhr",
       var req = this.req;
       var fakeReq = this.getFakeReq();
 
-      req.open("GET", "/");
-      req.send();
+      this.openAndSend("GET", "/");
 
       var headers = { "Content-Type": "application/xml" };
       var body = "<animals><monkey/><mouse/></animals>";
@@ -610,9 +594,8 @@ qx.Class.define("qx.test.bom.request.Xhr",
       this.require(["http"]);
 
       var req = this.req;
-      req.open("GET", "/");
-      req.send();
-      req.abort();
+      this.openAndSend("GET", "/");
+      req._abort();
 
       this.assertIdentical(0, req.status);
     },
@@ -667,8 +650,7 @@ qx.Class.define("qx.test.bom.request.Xhr",
     "test: normalize status 1223 to 204": function() {
       var fakeReq = this.getFakeReq();
       var req = this.req;
-      req.open("GET", "/");
-      req.send();
+      this.openAndSend("GET", "/");
       fakeReq.respond(1223);
 
       this.assertIdentical(204, req.status);
@@ -677,8 +659,7 @@ qx.Class.define("qx.test.bom.request.Xhr",
     "test: normalize status 0 to 200 when DONE and file protocol": function() {
       var fakeReq = this.getFakeReq();
       var req = this.req;
-      req.open("GET", "/");
-      req.send();
+      this.openAndSend("GET", "/");
 
       this.stub(req, "_getProtocol").returns("file:");
       fakeReq.respond(0, {}, "Response");
@@ -701,8 +682,7 @@ qx.Class.define("qx.test.bom.request.Xhr",
     "test: keep status 0 when DONE with network error and file protocol": function() {
       var fakeReq = this.getFakeReq();
       var req = this.req;
-      req.open("GET", "/");
-      req.send();
+      this.openAndSend("GET", "/");
 
       this.stub(req, "_getProtocol").returns("file:");
 
@@ -802,12 +782,25 @@ qx.Class.define("qx.test.bom.request.Xhr",
 
       this.req.dispose();
       assertDisposedException(function() { req.open("GET", "/"); });
-      assertDisposedException(function() { req.setRequestHeader(); });
-      assertDisposedException(function() { req.send(); });
-      assertDisposedException(function() { req.abort(); });
+      assertDisposedException(function() { req._setRequestHeader(); });
+      assertDisposedException(function() { req._send(); });
+      assertDisposedException(function() { req._abort(); });
       assertDisposedException(function() { req.getResponseHeader(); });
       assertDisposedException(function() { req.getAllResponseHeaders(); });
 
+    },
+
+    openAndSend: function(method, url) {
+      // use API of io.XHR only
+      this.req.open(method, url);
+      this.req._send();
+
+      // use API of io.AbstractRequest
+      /*
+      this.req.setMethod(method);
+      this.req.setUrl(url);
+      this.req.send()
+      */
     },
 
     fakeNativeXhr: function() {
@@ -815,7 +808,7 @@ qx.Class.define("qx.test.bom.request.Xhr",
 
       // Reset pre-existing request so that it uses the faked XHR
       if (this.req) {
-        this.req = new qx.bom.request.Xhr();
+        this.req = new qx.io.request.Xhr();
       }
     },
 
