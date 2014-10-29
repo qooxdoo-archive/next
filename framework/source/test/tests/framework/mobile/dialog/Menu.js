@@ -73,4 +73,14 @@ describe("mobile.dialog.Menu", function() {
     stub.restore();
   });
 
+
+  it("Factory", function() {
+    var menu = qxWeb.create("<div>").menu().appendTo(getRoot());
+    assert.instanceOf(menu, qx.ui.mobile.dialog.Menu);
+    qx.core.Assert.assertEquals(menu, menu[0].$$widget);
+    assert.equal("qx.ui.mobile.dialog.Menu", menu.getData("qxWidget"));
+
+    menu.dispose();
+  });
+
 });
