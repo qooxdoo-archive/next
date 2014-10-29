@@ -34,4 +34,17 @@ describe("mobile.container.Scroll", function() {
     container.dispose();
   });
 
+
+  it("Factory", function() {
+    var scroll = q.create('<div>')
+      .scroll()
+      .appendTo(getRoot());
+
+    assert.instanceOf(scroll, qx.ui.mobile.container.Scroll);
+    assert.equal(scroll, scroll[0].$$widget);
+    assert.equal("qx.ui.mobile.container.Scroll", scroll.getData("qxWidget"));
+
+    scroll.dispose();
+  });
+
 });
