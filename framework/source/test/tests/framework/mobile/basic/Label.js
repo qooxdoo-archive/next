@@ -47,4 +47,19 @@ describe("mobile.basic.Label", function() {
     label.dispose();
   });
 
+
+  it("Factory", function() {
+    var text = "myText";
+    var label = q.create('<div></div>')
+      .label(text)
+      .appendTo(getRoot());
+
+    assert.instanceOf(label, qx.ui.mobile.basic.Label);
+    assert.equal(label, label[0].$$widget);
+    assert.equal(text, label.value);
+    assert.equal("qx.ui.mobile.basic.Label", label.getData("qxWidget"));
+
+    label.dispose();
+  });
+
 });
