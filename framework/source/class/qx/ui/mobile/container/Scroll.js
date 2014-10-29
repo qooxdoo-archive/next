@@ -526,5 +526,10 @@ qx.Class.define("qx.ui.mobile.container.Scroll",
         this.disposeMIScroll();
       }
     }
+  },
+
+
+  classDefined : function(statics) {
+    qxWeb.$attachWidget(statics);
   }
 });
