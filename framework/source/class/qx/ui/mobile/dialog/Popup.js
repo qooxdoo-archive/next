@@ -77,7 +77,9 @@ qx.Class.define("qx.ui.mobile.dialog.Popup",
     this.__child = widget;
     this.__anchor = anchor;
 
-    this.on("addedToParent", this._onAttachToParent, this);
+    qxWeb(document.body).append(this);
+
+    this._initializeChild(widget);
   },
 
 
@@ -146,15 +148,6 @@ qx.Class.define("qx.ui.mobile.dialog.Popup",
     __widget: null,
     __titleWidget: null,
     __lastPopupDimension : null,
-
-    /**
-     * Initializes the given parent as widget
-     *
-     * @param parent {Element} The parent widget that contains this drawer widget.
-     */
-    _onAttachToParent: function () {
-      this._initializeChild(this.__child);
-    },
 
     /**
      * Event handler. Called whenever the position of the popup should be updated.
@@ -416,16 +409,10 @@ qx.Class.define("qx.ui.mobile.dialog.Popup",
       if (parentWidget) {
         parentWidget.off("stop", this.hide, this);
         parentWidget.off("popup", this.hide, this);
+        parentWidget.off("pointerdown", this._trackUserTap, this);
       }
 
       qxWeb(window).off("resize", this._updatePosition, this);
-
-      if (this.__anchor) {
-        this.__anchor.removeClass("anchor-target");
-        if (parentWidget) {
-          parentWidget.off("pointerdown", this._trackUserTap, this);
-        }
-      }
     },
 
 
