@@ -91,7 +91,7 @@ qx.Class.define("qx.test.bom.request.Xhr",
 
       var url = "/foo";
       var method = "GET";
-      this.req.open(method, url);
+      this.req._open(method, url);
 
       this.assertCalledWith(fakeReq.open, method, url);
     },
@@ -99,15 +99,15 @@ qx.Class.define("qx.test.bom.request.Xhr",
     "test: open request throws when missing arguments": function() {
       var req = this.req;
       var msg = /Not enough arguments/;
-      this.assertException(function() { req.open(); }, Error, msg);
-      this.assertException(function() { req.open("GET"); }, Error, msg);
+      this.assertException(function() { req._open(); }, Error, msg);
+      this.assertException(function() { req._open("GET"); }, Error, msg);
     },
 
     "test: open async request on default": function() {
       var fakeReq = this.getFakeReq();
       this.spy(fakeReq, "open");
 
-      this.req.open(null, null);
+      this.req._open(null, null);
       this.assertTrue(fakeReq.open.args[0][2], "async must be true");
     },
 
@@ -115,7 +115,7 @@ qx.Class.define("qx.test.bom.request.Xhr",
       var fakeReq = this.getFakeReq();
       this.spy(fakeReq, "open");
 
-      this.req.open(null, null, false);
+      this.req._open(null, null, false);
       this.assertFalse(fakeReq.open.args[0][2], "async must be false");
     },
 
@@ -123,7 +123,7 @@ qx.Class.define("qx.test.bom.request.Xhr",
       var fakeReq = this.getFakeReq();
       this.spy(fakeReq, "open");
 
-      this.req.open(null, null, null, "affe", "geheim");
+      this.req._open(null, null, null, "affe", "geheim");
       this.assertEquals("affe", fakeReq.open.args[0][3], "Unexpected user");
       this.assertEquals("geheim", fakeReq.open.args[0][4], "Unexpected password");
     },
@@ -137,7 +137,7 @@ qx.Class.define("qx.test.bom.request.Xhr",
       this.spy(fakeReq, "setRequestHeader");
 
       // Request must be opened before request headers can be set
-      this.req.open("GET", "/");
+      this.req._open("GET", "/");
 
       this.req._setRequestHeader("header", "value");
       this.assertCalledWith(fakeReq.setRequestHeader, "header", "value");
@@ -152,7 +152,7 @@ qx.Class.define("qx.test.bom.request.Xhr",
       this.spy(fakeReq, "send");
 
       var data = "AFFE";
-      this.req.open("GET", "/affe");
+      this.req._open("GET", "/affe");
       this.req._send(data);
 
       this.assertCalledWith(fakeReq.send, data);
@@ -184,7 +184,7 @@ qx.Class.define("qx.test.bom.request.Xhr",
 
     "test: abort() resets readyState": function() {
       var req = this.req;
-      req.open("GET", "/");
+      req._open("GET", "/");
       req.abort();
 
       this.assertEquals(this.constructor.UNSENT, req.readyState, "Must be UNSENT");
@@ -239,7 +239,7 @@ qx.Class.define("qx.test.bom.request.Xhr",
       fakeReq.respond();
 
       // Reopen
-      req.open("GET", "/");
+      req._open("GET", "/");
 
       this.assertCalledWith(req._emit, "readystatechange");
     },
@@ -441,7 +441,7 @@ qx.Class.define("qx.test.bom.request.Xhr",
       this.assertEquals(this.constructor.UNSENT, req.readyState);
 
       // Open
-      req.open("GET", "/affe");
+      req._open("GET", "/affe");
       this.assertEquals(this.constructor.OPENED, req.readyState);
 
       // Send (and receive)
@@ -455,7 +455,7 @@ qx.Class.define("qx.test.bom.request.Xhr",
     //
 
     "test: responseText is empty string when OPEN": function() {
-      this.req.open("GET", "/affe");
+      this.req._open("GET", "/affe");
       this.assertIdentical("", this.req.responseText);
     },
 
@@ -468,7 +468,7 @@ qx.Class.define("qx.test.bom.request.Xhr",
       fakeReq.respond(200, {"Content-Type": "text/html"}, "Affe");
 
       // Reopen
-      req.open("GET", "/elefant");
+      req._open("GET", "/elefant");
       this.assertIdentical("", req.responseText);
     },
 
@@ -558,7 +558,7 @@ qx.Class.define("qx.test.bom.request.Xhr",
       fakeReq.respond(200, { "Content-Type": "application/xml" }, "<affe></affe>");
 
       // Reopen
-      req.open("GET", "/");
+      req._open("GET", "/");
       this.assertNull(req.responseXML);
     },
 
@@ -585,7 +585,7 @@ qx.Class.define("qx.test.bom.request.Xhr",
 
     "test: http status is 0 when OPENED": function() {
       var req = this.req;
-      req.open("GET", "/");
+      req._open("GET", "/");
 
       this.assertIdentical(0, req.status);
     },
@@ -603,7 +603,7 @@ qx.Class.define("qx.test.bom.request.Xhr",
     "test: http status when DONE": function() {
       var req = this.req;
       var fakeReq = this.getFakeReq();
-      req.open("GET", "/");
+      req._open("GET", "/");
       fakeReq.respond(200);
 
       this.assertIdentical(200, req.status);
@@ -616,7 +616,7 @@ qx.Class.define("qx.test.bom.request.Xhr",
     "test: statusText is set when DONE": function() {
       var fakeReq = this.getFakeReq();
       var req = this.req;
-      req.open("GET", "/");
+      req._open("GET", "/");
       fakeReq.respond(200);
 
       this.assertIdentical("OK", req.statusText);
@@ -625,7 +625,7 @@ qx.Class.define("qx.test.bom.request.Xhr",
     "test: status is set when LOADING": function() {
       var fakeReq = this.getFakeReq();
       var req = this.req;
-      req.open("GET", "/");
+      req._open("GET", "/");
       fakeReq.readyState = this.constructor.LOADING;
       fakeReq.status = 200;
       fakeReq.responseHeaders = {};
@@ -637,9 +637,9 @@ qx.Class.define("qx.test.bom.request.Xhr",
     "test: reset status when reopened": function() {
       var fakeReq = this.getFakeReq();
       var req = this.req;
-      req.open("GET", "/");
+      req._open("GET", "/");
       fakeReq.respond(200);
-      req.open("GET", "/");
+      req._open("GET", "/");
 
       this.assertIdentical(0, req.status);
       this.assertIdentical("", req.statusText);
@@ -671,7 +671,7 @@ qx.Class.define("qx.test.bom.request.Xhr",
       var fakeReq = this.getFakeReq();
       var req = this.req;
       this.stub(req, "_getProtocol").returns("file:");
-      req.open("GET", "/");
+      req._open("GET", "/");
 
       fakeReq.readyState = 3;
       fakeReq.onreadystatechange();
@@ -700,7 +700,7 @@ qx.Class.define("qx.test.bom.request.Xhr",
 
     "test: read protocol from requested URL when it contains protocol": function() {
       var req = this.req;
-      req.open("GET", "http://example.org/index.html");
+      req._open("GET", "http://example.org/index.html");
 
       this.assertEquals("http:", req._getProtocol());
     },
@@ -709,7 +709,7 @@ qx.Class.define("qx.test.bom.request.Xhr",
       this.require(["http"]);
 
       var req = this.req;
-      req.open("GET", "index.html");
+      req._open("GET", "index.html");
 
       this.assertMatch(req._getProtocol(), (/https?:/));
     },
@@ -751,7 +751,7 @@ qx.Class.define("qx.test.bom.request.Xhr",
     //
 
     "test: dispose() deletes native Xhr": function() {
-      this.req.dispose();
+      this.req._dispose();
 
       this.assertNull(this.req.getRequest());
     },
@@ -760,7 +760,7 @@ qx.Class.define("qx.test.bom.request.Xhr",
       var req = this.req;
 
       this.spy(req, "abort");
-      this.req.dispose();
+      this.req._dispose();
 
       this.assertCalled(req.abort);
     },
@@ -768,7 +768,7 @@ qx.Class.define("qx.test.bom.request.Xhr",
 
     "test: isDisposed()": function() {
       this.assertFalse(this.req.isDisposed());
-      this.req.dispose();
+      this.req._dispose();
       this.assertTrue(this.req.isDisposed());
     },
 
@@ -780,8 +780,8 @@ qx.Class.define("qx.test.bom.request.Xhr",
           Error, /Already disposed/);
       }, this);
 
-      this.req.dispose();
-      assertDisposedException(function() { req.open("GET", "/"); });
+      this.req._dispose();
+      assertDisposedException(function() { req._open("GET", "/"); });
       assertDisposedException(function() { req._setRequestHeader(); });
       assertDisposedException(function() { req._send(); });
       assertDisposedException(function() { req._abort(); });
@@ -792,7 +792,7 @@ qx.Class.define("qx.test.bom.request.Xhr",
 
     openAndSend: function(method, url) {
       // use API of io.XHR only
-      this.req.open(method, url);
+      this.req._open(method, url);
       this.req._send();
 
       // use API of io.AbstractRequest

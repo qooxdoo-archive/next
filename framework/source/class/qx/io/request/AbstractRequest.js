@@ -281,8 +281,9 @@ qx.Class.define("qx.io.request.AbstractRequest",
      * encapsulates transport specific settings such as request
      * data or no-cache settings.
      *
-     * This method MAY be overridden. It is called in {@link #send}
-     * before the request is initialized.
+     * This method MUST be overridden. It is called in {@link #send}
+     * before the request is initialized. Without an URL no
+     * request is possible.
      *
      * @return {String} The configured URL.
      */
@@ -364,7 +365,7 @@ qx.Class.define("qx.io.request.AbstractRequest",
           method + ", url: " + url + ", async: " + async);
       }
 
-      this.open(method, url, async);
+      this._open(method, url, async);
       this._setPhase("opened");
 
       //
@@ -398,15 +399,31 @@ qx.Class.define("qx.io.request.AbstractRequest",
        this._abort();
     },
 
-    _abort: function() {
-      throw new Error("Abstract method call");
-    },
+    /**
+     * Abort request.
+     *
+     * This method MAY be overridden. It is called in {@link #abort}.
+     */
+    _abort: function() {},
 
+    /**
+     * Get parsed response.
+     *
+     * Is called in the {@link #_onReadyStateChange} event handler
+     * to parse and store the transport’s response.
+     *
+     * This method MUST be overridden.
+     */
     _send: function() {
       throw new Error("Abstract method call");
     },
 
-    open: function() {
+    /**
+     * Opens a request.
+     *
+     * This method MUST be overridden. It is called in {@link #send}.
+     */
+    _open: function() {
       throw new Error("Abstract method call");
     },
 

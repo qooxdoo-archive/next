@@ -245,7 +245,7 @@ qx.Class.define("qx.io.request.Xhr",
      * @param password {String?null}
      *  Optional password to use for authentication purposes.
      */
-    open: function(method, url, async, user, password) {
+    _open: function(method, url, async, user, password) {
       this.__checkDisposed();
 
       // Mimick native behavior
@@ -945,7 +945,7 @@ qx.Class.define("qx.io.request.Xhr",
       try {
         // Abort and dispose
         if (this) {
-          this.dispose();
+          this._dispose();
         }
       } catch(e) {}
     },
@@ -960,7 +960,7 @@ qx.Class.define("qx.io.request.Xhr",
      * Dispose object and wrapped native XHR.
      * @return {Boolean} <code>true</code> if the object was successfully disposed
      */
-    dispose: function() {
+    _dispose: function() {
       if (this.__disposed) {
         return false;
       }

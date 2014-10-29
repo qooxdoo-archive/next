@@ -67,8 +67,7 @@ qx.Class.define("qx.test.io.request.Xhr",
       if (this.req && this.req._send && this.req._send.restore) { return; }
 
       // Stub transport methods which in this case are methods of qx.io.request.Xhr itself
-      // req = this.shalowStub(this.req, qx.io.request.Xhr, ["open", "setRequestHeader", "send", "abort"]);
-      this.stub(this.req, "open");
+      this.stub(this.req, "_open");
       this.stub(this.req, "_setRequestHeader");
       this.stub(this.req, "setRequestHeader");
       this.stub(this.req, "_send");
@@ -141,7 +140,7 @@ qx.Class.define("qx.test.io.request.Xhr",
       this.req.method = "POST";
       this.req.send();
 
-      this.assertCalledWith(this.req.open, "POST");
+      this.assertCalledWith(this.req._open, "POST");
     },
 
     "test: send sync request": function() {
@@ -151,7 +150,7 @@ qx.Class.define("qx.test.io.request.Xhr",
       this.req.async = false;
       this.req.send();
 
-      this.assertCalledWith(this.req.open, "GET", "url", false);
+      this.assertCalledWith(this.req._open, "GET", "url", false);
       this.assertCalled(this.req._send);
     },
 

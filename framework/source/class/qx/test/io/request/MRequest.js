@@ -58,7 +58,7 @@ qx.Mixin.define("qx.test.io.request.MRequest",
     "test: send() GET": function() {
       this.req.send();
 
-      this.assertCalledWith(this.req.open, "GET", "url");
+      this.assertCalledWith(this.req._open, "GET", "url");
       this.assertCalled(this.req._send);
     },
 
@@ -66,7 +66,7 @@ qx.Mixin.define("qx.test.io.request.MRequest",
       this.req.url = "example.com#fragment";
       this.req.send();
 
-      this.assertCalledWith(this.req.open, "GET", "example.com");
+      this.assertCalledWith(this.req._open, "GET", "example.com");
     },
 
     //
@@ -94,14 +94,14 @@ qx.Mixin.define("qx.test.io.request.MRequest",
       this.req.requestData = "str";
       this.req.send();
 
-      this.assertCalledWith(this.req.open, "GET", "url?str");
+      this.assertCalledWith(this.req._open, "GET", "url?str");
     },
 
     "test: append obj data to URL with GET request": function() {
       this.req.requestData = {affe: true};
       this.req.send();
 
-      this.assertCalledWith(this.req.open, "GET", "url?affe=true");
+      this.assertCalledWith(this.req._open, "GET", "url?affe=true");
     },
 
     "test: append qooxdoo obj data to URL with GET request": function() {
@@ -110,7 +110,7 @@ qx.Mixin.define("qx.test.io.request.MRequest",
       this.req.requestData = obj;
       this.req.send();
 
-      this.assertCalledWith(this.req.open, "GET", "url?affe=true");
+      this.assertCalledWith(this.req._open, "GET", "url?affe=true");
     },
 
     //
@@ -180,7 +180,7 @@ qx.Mixin.define("qx.test.io.request.MRequest",
       this.req.send();
 
       var msg = "nocache parameter must not be set";
-      this.assertFalse(/\?nocache/.test(this.req.open.args[0][1]), msg);
+      this.assertFalse(/\?nocache/.test(this.req._open.args[0][1]), msg);
     },
 
     "test: append nocache parameter to URL": function() {
@@ -188,7 +188,7 @@ qx.Mixin.define("qx.test.io.request.MRequest",
       this.req.send();
 
       var msg = "nocache parameter must be set to number";
-      this.assertTrue(/\?nocache=\d{13,}/.test(this.req.open.args[0][1]), msg);
+      this.assertTrue(/\?nocache=\d{13,}/.test(this.req._open.args[0][1]), msg);
     },
 
     //
