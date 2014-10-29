@@ -17,7 +17,7 @@
 
 ************************************************************************ */
 
-describe("qx.test.mobile.tabbar.TabBar", function() {
+describe("mobile.tabbar.TabBar", function() {
 
   var __tabBar = null;
 
