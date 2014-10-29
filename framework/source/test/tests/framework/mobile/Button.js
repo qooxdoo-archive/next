@@ -34,15 +34,15 @@ describe("mobile.Button", function()
       var button = new qx.ui.mobile.Button("affe");
       getRoot().append(button);
 
-      assert.isString(button.label);
-      assert.equal("affe", button.label );
-      assert.equal(button.label, button.getLabelWidget().getHtml());
+      assert.isString(button.text);
+      assert.equal("affe", button.text);
+      assert.equal(button.text, button.getLabelWidget().getHtml());
 
-      qx.core.Assert.assertEventFired(button, "changeLabel", function() {
-        button.label = "";
+      qx.core.Assert.assertEventFired(button, "changeText", function() {
+        button.text = "";
       });
 
-      assert.equal("", button.label);
+      assert.equal("", button.text);
       assert.isNull(button.getLabelWidget().getHtml());
 
       button.dispose();
