@@ -32,6 +32,7 @@ describe("mobile.dialog.Popup", function() {
   it("Show", function() {
     var label = new qx.ui.mobile.basic.Label("test");
     var popup = new qx.ui.mobile.dialog.Popup(label);
+    getRoot().append(popup);
 
     assert.notEqual("visible", popup.visibility);
 
@@ -45,8 +46,8 @@ describe("mobile.dialog.Popup", function() {
 
 
   it("ShowHide", function() {
-    //this.require(["debug"]);
     var popup = new qx.ui.mobile.dialog.Popup(new qx.ui.mobile.Widget());
+    getRoot().append(popup);
 
     // Modal mode false test cases, no changes expected.
     popup.modal = false;
