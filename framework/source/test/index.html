@@ -60,7 +60,15 @@
         var runner = mocha.run();
         runner.on("end", function() {
           window.testsDone = true;
-        })
+        });
+
+        // to disable scroll-to-end you have to add scrolltoend=false to uri
+        if (!(/scrolltoend=false/i.test(window.location.search))) {
+            var container = document.getElementById('mocha');
+            container.addEventListener('DOMSubtreeModified', function () {
+                window.scrollTo(0, document.body.scrollHeight);
+            }, false);
+        }
     });
   </script>
 </body>
