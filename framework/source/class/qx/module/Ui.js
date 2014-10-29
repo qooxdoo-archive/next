@@ -34,6 +34,7 @@
  * @require(qx.ui.mobile.control.Picker)
  * @require(qx.ui.mobile.control.Table)
  * @require(qx.ui.mobile.dialog.Popup)
+ * @require(qx.ui.mobile.dialog.Menu)
  * @require(qx.ui.mobile.form.CheckBox)
  * @require(qx.ui.mobile.form.Form)
  * @require(qx.ui.mobile.form.Input)

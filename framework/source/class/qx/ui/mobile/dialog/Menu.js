@@ -215,7 +215,7 @@ qx.Class.define("qx.ui.mobile.dialog.Menu",
 
     // overridden
     _updatePosition : function() {
-      var parentHeight = qx.ui.mobile.dialog.Popup.ROOT.getHeight();
+      var parentHeight = this._getParentWidget().getHeight();
       var listScrollerHeight = parseInt(parentHeight, 10) * 0.75;
       listScrollerHeight = parseInt(listScrollerHeight,10);
 
@@ -351,6 +351,11 @@ qx.Class.define("qx.ui.mobile.dialog.Menu",
       this.__listScroller && this.__listScroller.dispose();
       this.__menuContainer && this.__menuContainer.dispose();
     }
+  },
+
+
+  classDefined : function(statics) {
+    qxWeb.$attachWidget(statics);
   }
 
 });
