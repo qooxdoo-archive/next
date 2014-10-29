@@ -349,5 +349,10 @@ qx.Class.define("qx.ui.mobile.form.SelectBox",
 
       this.disposeMForm();
     }
+  },
+
+
+  classDefined : function(statics) {
+    qxWeb.$attachWidget(statics);
   }
 });
