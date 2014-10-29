@@ -51,7 +51,8 @@ qx.Class.define("play.Application",
       q(".play-content").setStyle("visibility", "visible");
 
       var samples = new play.Samples();
-      var samplesMenu = new qx.ui.mobile.dialog.Menu(samples);
+      var samplesMenu = new qx.ui.mobile.dialog.Menu(samples)
+        .appendTo(new qx.ui.mobile.core.Root(document.body));
       samplesMenu.on("changeSelection", function(data) {
         var code = samples.getCode(data.item.title);
         editor.setValue(code);
