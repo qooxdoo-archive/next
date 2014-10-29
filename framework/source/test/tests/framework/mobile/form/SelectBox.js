@@ -178,4 +178,14 @@ describe("mobile.form.SelectBox", function() {
     model.dispose();
     model = null;
   });
+
+
+  it("Factory", function() {
+    var selectBox = qxWeb.create("<div>").selectBox().appendTo(getRoot());
+    assert.instanceOf(selectBox, qx.ui.mobile.form.SelectBox);
+    assert.equal(selectBox, selectBox[0].$$widget);
+    assert.equal("qx.ui.mobile.form.SelectBox", selectBox.getData("qxWidget"));
+
+    selectBox.dispose();
+  });
 });
