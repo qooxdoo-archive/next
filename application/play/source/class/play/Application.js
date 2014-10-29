@@ -53,7 +53,7 @@ qx.Class.define("play.Application",
       var samples = new play.Samples();
       var samplesMenu = new qx.ui.mobile.dialog.Menu(samples);
       samplesMenu.on("changeSelection", function(data) {
-        var code = samples.getCode(data.item);
+        var code = samples.getCode(data.item.title);
         editor.setValue(code);
         editor.clearSelection();
         q("#runButton").emit("tap");

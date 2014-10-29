@@ -30,7 +30,7 @@ qx.Class.define("play.Samples",
 
     for (var name in window.Samples) {
       name = name.replace("sample ", "");
-      this.push(name);
+      this.push({title: name});
     }
   },
 
