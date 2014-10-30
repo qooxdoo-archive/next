@@ -161,4 +161,14 @@ describe("mobile.form.TextField", function() {
     sinon.assert.calledOnce(cb);
   });
 
+
+  it("Factory", function() {
+    var textField = qxWeb.create("<div>").textField().appendTo(getRoot());
+    assert.instanceOf(textField, qx.ui.mobile.form.TextField);
+    assert.equal(textField, textField[0].$$widget);
+    assert.equal("qx.ui.mobile.form.TextField", textField.getData("qxWidget"));
+
+    textField.dispose();
+  });
+
 });

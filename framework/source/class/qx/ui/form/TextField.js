@@ -74,5 +74,10 @@ qx.Class.define("qx.ui.form.TextField",
       this.super(qx.ui.form.Input, "dispose");
       this.off("keypress", this._onKeyPress, this);
     }
+  },
+
+
+  classDefined : function(statics) {
+    qxWeb.$attachWidget(statics);
   }
 });
