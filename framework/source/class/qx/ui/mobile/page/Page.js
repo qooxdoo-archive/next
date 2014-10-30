@@ -437,6 +437,7 @@ qx.Class.define("qx.ui.mobile.page.Page",
 
 
   classDefined : function(statics) {
+    qxWeb.$attachWidget(statics);
     if (qx.core.Environment.get("phonegap") && qx.core.Environment.get("os.name") == "android")
     {
       qxWeb(document).on("deviceready", statics._onDeviceReady);
