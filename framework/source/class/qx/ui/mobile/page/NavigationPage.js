@@ -62,9 +62,9 @@ qx.Class.define("qx.ui.mobile.page.NavigationPage",
    * @param wrapContentByGroup {Boolean?} Defines whether a group box should wrap the content. This can be used for defining a page margin.
    * @param layout {qx.ui.mobile.layout.Abstract?} The layout of this page.
    */
-  construct : function(wrapContentByGroup, layout)
+  construct : function(wrapContentByGroup, layout, element)
   {
-    this.super(qx.ui.mobile.page.Page, "constructor", layout);
+    this.super(qx.ui.mobile.page.Page, "constructor", layout, element);
 
     if (typeof wrapContentByGroup == "boolean") {
       this._wrapContentByGroup = wrapContentByGroup;

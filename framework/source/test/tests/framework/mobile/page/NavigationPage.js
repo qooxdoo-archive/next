@@ -83,4 +83,12 @@ describe("mobile.page.NavigationPage", function ()
       page.dispose();
 
   });
+
+
+  it("Factory", function() {
+    var navigationPage = qxWeb.create("<div>").navigationPage().appendTo(getRoot());
+    assert.instanceOf(navigationPage, qx.ui.mobile.page.NavigationPage);
+    assert.equal(navigationPage, navigationPage[0].$$widget);
+    assert.equal("qx.ui.mobile.page.NavigationPage", navigationPage.getData("qxWidget"));
+  });
 });
