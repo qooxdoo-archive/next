@@ -352,7 +352,7 @@ qx.Class.define("mobileshowcase.page.Dialog",
      * Reacts on "changeSelection" event on Menu, and displays the values on resultsLabel.
      */
     __onMenuChangeSelection : function(data) {
-       this.__resultsLabel.value = ("Received <b>changeSelection</b> from Menu Dialog. [index: "+ data.index+ "] [item: "+ data.item+"]");
+       this.__resultsLabel.value = ("Received <b>changeSelection</b> from Menu Dialog. [index: "+ data.index + "] [item: " + data.item.title + "]");
     }
   }
 });
