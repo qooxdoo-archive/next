@@ -251,5 +251,10 @@ qx.Class.define("qx.ui.form.ToggleButton",
       this.__switch && this.__switch.dispose();
       this.disposeMForm();
     }
+  },
+
+
+  classDefined : function(statics) {
+    qxWeb.$attachWidget(statics);
   }
 });

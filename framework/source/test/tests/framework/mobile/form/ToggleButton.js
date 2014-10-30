@@ -62,4 +62,14 @@ describe("mobile.form.ToggleButton", function() {
 
     button.dispose();
   });
+
+
+  it("Factory", function() {
+    var toggleButton = qxWeb.create("<div>").toggleButton().appendTo(getRoot());
+    assert.instanceOf(toggleButton, qx.ui.mobile.form.ToggleButton);
+    assert.equal(toggleButton, toggleButton[0].$$widget);
+    assert.equal("qx.ui.mobile.form.ToggleButton", toggleButton.getData("qxWidget"));
+
+    toggleButton.dispose();
+  });
 });
