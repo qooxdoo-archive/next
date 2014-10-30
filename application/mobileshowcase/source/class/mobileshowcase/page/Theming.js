@@ -39,7 +39,7 @@ qx.Class.define("mobileshowcase.page.Theming",
 
   construct : function()
   {
-    this.super(mobileshowcase.page.Abstract, "constructor", false);
+    this.super(mobileshowcase.page.Abstract, "constructor");
     this.title = "Theming";
 
     this.__preloadThemes();
@@ -116,37 +116,39 @@ qx.Class.define("mobileshowcase.page.Theming",
 
     /** Creates the form which controls the chosen qx.Mobile theme. */
     __createThemeChooser: function() {
-      var themeGroup = new qx.ui.mobile.form.Group([], false);
       var themeForm = new qx.ui.mobile.form.Form();
+      var themeGroup = new qx.ui.mobile.form.Group()
+        .appendTo(themeForm);
 
       var themeRadioGroup = new qx.ui.mobile.form.RadioGroup();
       for (var i = 0; i < mobileshowcase.page.Theming.THEMES.length; i++) {
         var radioButton = new qx.ui.mobile.form.RadioButton();
         themeRadioGroup.add(radioButton);
-        themeForm.add(radioButton, mobileshowcase.page.Theming.THEMES[i].name);
-
+        new qx.ui.mobile.form.Row(radioButton, mobileshowcase.page.Theming.THEMES[i].name)
+          .appendTo(themeGroup);
         radioButton.on("tap", this.__switchTheme.bind(this, i));
       }
 
-      themeGroup.append(new qx.ui.mobile.form.renderer.Single(themeForm));
-      this.getContent().append(themeGroup);
+      this.getContent().append(themeForm);
     },
 
 
     /** Creates and adds the image resolution demonstration. */
     __createImageResolutionHandlingDemo : function() {
       this.getContent().append(qxWeb.create('<h2 class="form-title">Resolution-specific Images</h2>'));
-      var demoImage = new qx.ui.mobile.basic.Image("mobileshowcase/icon/image.png");
-      demoImage.addClass("resolution-demo-image");
 
-      this.__demoImageLabel = new qx.ui.mobile.basic.Label();
-      this.__demoImageLabel.addClass("resolution-demo-label");
+      var demoImage = new qx.ui.mobile.basic.Image("mobileshowcase/icon/image.png")
+        .addClass("resolution-demo-image");
+
+      this.__demoImageLabel = new qx.ui.mobile.basic.Label()
+        .addClass("resolution-demo-label");
       this._updateDemoImageLabel();
 
-      var demoImageGroup = new qx.ui.mobile.form.Group();
-      demoImageGroup.append(demoImage);
-      demoImageGroup.append(this.__demoImageLabel);
-      this.getContent().append(demoImageGroup);
+      new qx.ui.mobile.form.Row()
+        .set({layout: new qx.ui.mobile.layout.VBox("left")})
+        .append(demoImage)
+        .append(this.__demoImageLabel)
+        .appendTo(this.getContent());
     },
 
 
@@ -190,21 +192,25 @@ qx.Class.define("mobileshowcase.page.Theming",
     {
       this.getContent().append(qxWeb.create('<h2 class="form-title">Adjust font scale</h2>'));
 
-      var form = new qx.ui.mobile.form.Form();
+      var form = new qx.ui.mobile.form.Form()
+        .appendTo(this.getContent());
+      var scaleGroup = new qx.ui.mobile.form.Group()
+        .appendTo(form);
+
       var slider = this.__slider = new qx.ui.mobile.form.Slider();
       slider.displayValue = "value";
       slider.minimum = 50;
       slider.maximum = 200;
       slider.value = 100;
       slider.step = 10;
-      form.add(slider, "Custom Font Scale in %");
+      new qx.ui.mobile.form.Row(slider, "Custom Font Scale in %")
+        .set({layout: new qx.ui.mobile.layout.VBox()})
+        .appendTo(scaleGroup);
 
-      var useScaleButton = new qx.ui.mobile.Button("Apply");
+      var useScaleButton = new qx.ui.mobile.Button("Apply")
+        .setStyle("width", "100%");
       useScaleButton.on("tap", this._onApplyScaleButtonTap, this);
-      form.addButton(useScaleButton);
-
-      var scaleGroup = new qx.ui.mobile.form.Group([new qx.ui.mobile.form.renderer.Single(form)],false);
-      this.getContent().append(scaleGroup);
+      form.append(useScaleButton);
     },
 
 
