@@ -54,8 +54,6 @@ describe("mobile.page.Page", function() {
     page.dispose();
   });
 
-  /*
-  temporary disabled
   it("Back", function() {
     var page = new qx.ui.mobile.page.Page();
     getRoot().append(page);
@@ -71,8 +69,6 @@ describe("mobile.page.Page", function() {
 
     page.dispose();
   });
-  */
-
 
   it("Menu", function() {
     var page = new qx.ui.mobile.page.Page();

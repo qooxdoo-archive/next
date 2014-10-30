@@ -213,7 +213,7 @@ qx.Class.define("qx.ui.mobile.page.Page",
      */
     back : function(triggeredByKeyEvent)
     {
-      qx.core.Init.getApplication().emit("back", triggeredByKeyEvent);
+      qxWeb(document.documentElement).emit("back", triggeredByKeyEvent);
       this.emit("back", triggeredByKeyEvent);
       var value = this._back(triggeredByKeyEvent);
       return value || false;
@@ -425,10 +425,7 @@ qx.Class.define("qx.ui.mobile.page.Page",
         }
       };
       if(value == "start" || value == "stop") {
-        var app = qx.core.Init.getApplication();
-        if (app) {
-          app.emit(value, data);
-        }
+        qxWeb(document.documentElement).emit(value, data);
       }
 
       this.emit(value, data);
