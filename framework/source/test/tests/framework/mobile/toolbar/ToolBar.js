@@ -17,13 +17,20 @@
 
 ************************************************************************ */
 
-describe("mobile.toolbar.Toolbar", function() {
+describe("mobile.toolbar.ToolBar", function() {
 
-  function __createToolbar() {
-    var toolBar = new qx.ui.mobile.toolbar.ToolBar();
-    getRoot().append(toolBar);
-    return toolBar;
-  }
+  var __toolBar = null;
+
+  beforeEach(function () {
+    setUpRoot();
+    __toolBar = new qx.ui.mobile.toolbar.ToolBar();
+    getRoot().append(__toolBar);
+  });
+
+  afterEach(function() {
+    tearDownRoot();
+    __toolBar.dispose();
+  });
 
 
   function __assertChildNodesLength(toolBar, toolbarKidsNumber) {
@@ -33,54 +40,55 @@ describe("mobile.toolbar.Toolbar", function() {
 
 
   it("Add", function() {
-    var toolBar = __createToolbar();
-
     var button1 = new qx.ui.mobile.Button("Button 1");
-    toolBar.append(button1);
-    __assertChildNodesLength(toolBar, 1);
+    __toolBar.append(button1);
+    __assertChildNodesLength(__toolBar, 1);
 
     var button2 = new qx.ui.mobile.Button("Button with long name 2");
-    toolBar.append(button2);
-    __assertChildNodesLength(toolBar, 2);
+    __toolBar.append(button2);
+    __assertChildNodesLength(__toolBar, 2);
 
     var button3 = new qx.ui.mobile.Button("Button 3");
-    toolBar.append(button3);
-    __assertChildNodesLength(toolBar, 3);
-
-    assert.equal(qx.bom.element.Dimension.getWidth(button1[0]), qx.bom.element.Dimension.getWidth(button2[0]));
-    assert.equal(qx.bom.element.Dimension.getWidth(button3[0]), qx.bom.element.Dimension.getWidth(button2[0]));
+    __toolBar.append(button3);
+    __assertChildNodesLength(__toolBar, 3);
 
     button1.dispose();
     button2.dispose();
     button3.dispose();
-    toolBar.dispose();
+    __toolBar.dispose();
   });
 
 
   it("Remove", function() {
-    var toolBar = __createToolbar();
-
     var button1 = new qx.ui.mobile.Button("Button 1");
-    toolBar.append(button1);
+    __toolBar.append(button1);
 
     var button2 = new qx.ui.mobile.Button("Button 2");
-    toolBar.append(button2);
+    __toolBar.append(button2);
 
     var button3 = new qx.ui.mobile.Button("Button 3");
-    toolBar.append(button3);
+    __toolBar.append(button3);
 
-    __assertChildNodesLength(toolBar, 3);
+    __assertChildNodesLength(__toolBar, 3);
 
     button2.remove();
-    __assertChildNodesLength(toolBar, 2);
+    __assertChildNodesLength(__toolBar, 2);
     button1.remove();
-    __assertChildNodesLength(toolBar, 1);
+    __assertChildNodesLength(__toolBar, 1);
     button3.remove();
-    __assertChildNodesLength(toolBar, 0);
+    __assertChildNodesLength(__toolBar, 0);
 
     button1.dispose();
     button2.dispose();
     button3.dispose();
-    toolBar.dispose();
+    __toolBar.dispose();
+  });
+
+
+  it("Factory", function() {
+    __toolBar = qxWeb.create("<div>").toolBar().appendTo(getRoot());
+    assert.instanceOf(__toolBar, qx.ui.mobile.toolbar.ToolBar);
+    assert.equal(__toolBar, __toolBar[0].$$widget);
+    assert.equal("qx.ui.mobile.toolbar.ToolBar", __toolBar.getData("qxWidget"));
   });
 });
