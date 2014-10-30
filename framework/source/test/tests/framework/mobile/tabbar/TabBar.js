@@ -139,14 +139,10 @@ describe("mobile.tabbar.TabBar", function() {
   });
 
 
-  it("Factory", function(done) {
+  it("Factory", function() {
     __tabBar = qxWeb.create("<div>").tabBar().appendTo(getRoot());
     assert.instanceOf(__tabBar, qx.ui.mobile.tabbar.TabBar);
     assert.equal(__tabBar, __tabBar[0].$$widget);
-
-    setTimeout(function() {
-      assert.equal("qx.ui.mobile.tabbar.TabBar", __tabBar.getData("qxWidget"));
-      done();
-    }, 100);
+    assert.equal("qx.ui.mobile.tabbar.TabBar", __tabBar.getData("qxWidget"));
   });
 });
