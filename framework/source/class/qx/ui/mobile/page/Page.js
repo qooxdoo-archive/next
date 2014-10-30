@@ -61,9 +61,9 @@ qx.Class.define("qx.ui.mobile.page.Page",
   include : qx.ui.mobile.core.MResize,
 
 
-  construct : function(layout)
+  construct : function(layout, element)
   {
-    this.super(qx.ui.mobile.Widget, "constructor");
+    this.super(qx.ui.mobile.Widget, "constructor", element);
     this.layout = layout || new qx.ui.mobile.layout.VBox();
   },
 

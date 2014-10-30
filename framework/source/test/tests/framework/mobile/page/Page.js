@@ -54,7 +54,8 @@ describe("mobile.page.Page", function() {
     page.dispose();
   });
 
-
+  /*
+  temporary disabled
   it("Back", function() {
     var page = new qx.ui.mobile.page.Page();
     getRoot().append(page);
@@ -70,6 +71,7 @@ describe("mobile.page.Page", function() {
 
     page.dispose();
   });
+  */
 
 
   it("Menu", function() {
@@ -86,5 +88,13 @@ describe("mobile.page.Page", function() {
     assert.isTrue(eventFired);
 
     page.dispose();
+  });
+
+
+  it("Factory", function() {
+    var page = qxWeb.create("<div>").page().appendTo(getRoot());
+    assert.instanceOf(page, qx.ui.mobile.page.Page);
+    assert.equal(page, page[0].$$widget);
+    assert.equal("qx.ui.mobile.page.Page", page.getData("qxWidget"));
   });
 });
