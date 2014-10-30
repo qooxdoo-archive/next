@@ -357,4 +357,14 @@ describe("mobile.Widget", function() {
       }.bind(this)
     );
   });
+
+
+  it("Factory", function() {
+    var widget = qxWeb.create("<div>").widget().appendTo(getRoot());
+    assert.instanceOf(widget, qx.ui.mobile.Widget);
+    assert.equal(widget, widget[0].$$widget);
+    assert.equal("qx.ui.mobile.Widget", widget.getData("qxWidget"));
+
+    widget.dispose();
+  });
 });
