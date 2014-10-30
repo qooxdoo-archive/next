@@ -44,6 +44,7 @@
  * @require(qx.ui.mobile.list.List)
  * @require(qx.ui.mobile.page.NavigationPage)
  * @require(qx.ui.mobile.page.Page)
+ * @require(qx.ui.mobile.navigationbar.NavigationBar)
  * @require(qx.ui.mobile.tabbar.TabBar)
  * @require(qx.ui.mobile.toolbar.ToolBar)
  * @require(qx.ui.mobile.tree.Tree)

@@ -43,8 +43,8 @@ qx.Class.define("qx.ui.mobile.navigationbar.NavigationBar",
   extend : qx.ui.mobile.Widget,
 
 
-  construct : function(layout) {
-    this.super(qx.ui.mobile.Widget, "constructor");
+  construct : function(layout, element) {
+    this.super(qx.ui.mobile.Widget, "constructor", element);
     this.layout = layout;
     if (!layout) {
       layout = new qx.ui.mobile.layout.HBox();
@@ -60,5 +60,10 @@ qx.Class.define("qx.ui.mobile.navigationbar.NavigationBar",
     defaultCssClass : {
       init : "navigationbar"
     }
+  },
+
+
+  classDefined : function(statics) {
+    qxWeb.$attachWidget(statics);
   }
 });

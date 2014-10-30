@@ -50,4 +50,12 @@ describe("mobile.navigationbar.NavigationBar", function()
       button.dispose();
       bar.dispose()
   });
+
+
+  it("Factory", function() {
+    var navigationBar = qxWeb.create("<div>").navigationBar().appendTo(getRoot());
+    assert.instanceOf(navigationBar, qx.ui.mobile.navigationbar.NavigationBar);
+    assert.equal(navigationBar, navigationBar[0].$$widget);
+    assert.equal("qx.ui.mobile.navigationbar.NavigationBar", navigationBar.getData("qxWidget"));
+  });
 });
