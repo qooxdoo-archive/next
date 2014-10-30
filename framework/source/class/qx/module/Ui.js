@@ -42,6 +42,7 @@
  * @require(qx.ui.mobile.form.SelectBox)
  * @require(qx.ui.mobile.form.Slider)
  * @require(qx.ui.mobile.list.List)
+ * @require(qx.ui.mobile.page.NavigationPage)
  * @require(qx.ui.mobile.tabbar.TabBar)
  * @require(qx.ui.mobile.toolbar.ToolBar)
  * @require(qx.ui.mobile.tree.Tree)

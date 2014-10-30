@@ -587,5 +587,10 @@ qx.Class.define("qx.ui.mobile.page.NavigationPage",
       this.__title = this.__content = this.__scrollContainer = null;
       this._isTablet = null;
     }
+  },
+
+
+  classDefined : function(statics) {
+    qxWeb.$attachWidget(statics);
   }
 });
