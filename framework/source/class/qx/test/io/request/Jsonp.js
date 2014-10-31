@@ -55,14 +55,19 @@ qx.Class.define("qx.test.io.request.Jsonp",
     // Also called in shared tests, i.e. shared tests
     // use appropriate transport
     setUpFakeTransport: function() {
-      this.transport = this.injectStub(qx.io.request.Jsonp.prototype,
-        "_createTransport", this.deepStub(new qx.bom.request.Jsonp()));
-      this.setUpRequest();
+      // if already stubbed just return
+      if (this.req && this.req._send && this.req._send.restore) { return; }
+
+      this.stub(this.req, "_open");
+      this.stub(this.req, "_setRequestHeader");
+      this.stub(this.req, "setRequestHeader");
+      this.stub(this.req, "_send");
+      this.stub(this.req, "_abort");
     },
 
     tearDown: function() {
       this.getSandbox().restore();
-      this.req.dispose();
+      this.req._dispose();
 
       // May fail in IE
       try { delete Klass; } catch(e) {}
@@ -75,27 +80,7 @@ qx.Class.define("qx.test.io.request.Jsonp",
     "test: set url property on construct": function() {
       var req = new qx.io.request.Jsonp("url");
       this.assertEquals("url", req.url);
-      req.dispose();
-    },
-
-    //
-    // Callback management
-    //
-
-    "test: setCallbackParam()": function() {
-      var req = this.req,
-          transport = this.transport;
-
-      req.setCallbackParam("method");
-      this.assertCalledWith(transport.setCallbackParam, "method");
-    },
-
-    "test: setCallbackName()": function() {
-      var req = this.req,
-          transport = this.transport;
-
-      req.setCallbackName("myCallback");
-      this.assertCalledWith(transport.setCallbackName, "myCallback");
+      req._dispose();
     }
   }
 });

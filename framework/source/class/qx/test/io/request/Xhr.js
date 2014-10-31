@@ -76,8 +76,6 @@ qx.Class.define("qx.test.io.request.Xhr",
       this.stub(this.req, "getAllResponseHeaders");
       this.stub(this.req, "overrideMimeType");
       this.stub(this.req, "getRequest");
-      // this.stub(this.req, "_createTransport").returns(this.req);
-      // this.transport = this.injectStub(qx.io.request.Xhr.prototype, "_createTransport", this.req);
     },
 
     setUpFakeServer: function() {

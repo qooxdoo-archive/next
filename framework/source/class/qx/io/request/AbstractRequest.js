@@ -287,7 +287,9 @@ qx.Class.define("qx.io.request.AbstractRequest",
      *
      * @return {String} The configured URL.
      */
-    _getConfiguredUrl: function() {},
+    _getConfiguredUrl: function() {
+      throw new Error("Abstract method call");
+    },
 
     /**
      * Get configuration related request headers.
@@ -847,9 +849,14 @@ qx.Class.define("qx.io.request.AbstractRequest",
       this.onabort = this.ontimeout = this.onerror = noop;
 
       // [BUG #8315] dispose asynchronously to work with Sinon.js fake server
-      window.setTimeout(function() {
-        this._dispose();
-      }, 0);
+      window.setTimeout(
+        function(ctx) {
+          return function() {
+            ctx._dispose();
+          };
+        }(this),
+        0
+      );
     },
 
     _dispose: function() {
