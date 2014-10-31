@@ -51,7 +51,7 @@ qx.Class.define("mobileshowcase.page.Tab",
       var group = new qx.ui.form.Group();
 
       var tabBar = this.__tabBar = new qx.ui.tabbar.TabBar()
-        .set({mediaQuery: "(min-width: 600px) and (orientation: landscape)"});
+        .set({mediaQuery: "(min-width: 750px) and (orientation: landscape)"});
 
       new qx.ui.Button("Desktop")
         .setData("qxConfigPage", "#page_v1")
