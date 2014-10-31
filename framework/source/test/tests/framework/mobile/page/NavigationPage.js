@@ -32,7 +32,7 @@ describe("mobile.page.NavigationPage", function ()
 
 
  it("NavigationInterface", function() {
-      var page = new qx.ui.mobile.page.NavigationPage();
+      var page = new qx.ui.page.NavigationPage();
 
       assert.isNotNull(page.getTitleWidget());
       assert.isNotNull(page.getLeftContainer());
@@ -43,7 +43,7 @@ describe("mobile.page.NavigationPage", function ()
 
 
   it("Title", function() {
-      var page = new qx.ui.mobile.page.NavigationPage();
+      var page = new qx.ui.page.NavigationPage();
 
       page.title = "Affe";
       assert.equal("Affe", page.getTitleWidget().value);
@@ -53,7 +53,7 @@ describe("mobile.page.NavigationPage", function ()
 
 
   it("BackButton", function() {
-      var page = new qx.ui.mobile.page.NavigationPage();
+      var page = new qx.ui.page.NavigationPage();
 
       page.getLeftContainer();
 
@@ -69,7 +69,7 @@ describe("mobile.page.NavigationPage", function ()
 
 
   it("Button", function() {
-      var page = new qx.ui.mobile.page.NavigationPage();
+      var page = new qx.ui.page.NavigationPage();
 
       page.getRightContainer();
 
@@ -87,8 +87,8 @@ describe("mobile.page.NavigationPage", function ()
 
   it("Factory", function() {
     var navigationPage = qxWeb.create("<div>").navigationPage().appendTo(getRoot());
-    assert.instanceOf(navigationPage, qx.ui.mobile.page.NavigationPage);
+    assert.instanceOf(navigationPage, qx.ui.page.NavigationPage);
     assert.equal(navigationPage, navigationPage[0].$$widget);
-    assert.equal("qx.ui.mobile.page.NavigationPage", navigationPage.getData("qxWidget"));
+    assert.equal("qx.ui.page.NavigationPage", navigationPage.getData("qxWidget"));
   });
 });

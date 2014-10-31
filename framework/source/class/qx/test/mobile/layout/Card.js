@@ -25,17 +25,17 @@ qx.Class.define("qx.test.mobile.layout.Card",
   {
     testAdd : function()
     {
-      var composite = new qx.ui.mobile.Widget();
-      composite.layout = new qx.ui.mobile.layout.Card();
+      var composite = new qx.ui.Widget();
+      composite.layout = new qx.ui.layout.Card();
       this.getRoot().append(composite);
 
       this.assertTrue(composite.hasClass("layout-card"));
 
-      var widget1 = new qx.ui.mobile.Widget();
+      var widget1 = new qx.ui.Widget();
       composite.append(widget1);
       this.assertTrue(widget1.hasClass("layout-card-item"));
 
-      var widget2 = new qx.ui.mobile.Widget();
+      var widget2 = new qx.ui.Widget();
       composite.append(widget2);
       this.assertTrue(widget2.hasClass("layout-card-item"));
 
@@ -46,16 +46,16 @@ qx.Class.define("qx.test.mobile.layout.Card",
 
 
     testRemove : function() {
-      var composite = new qx.ui.mobile.Widget();
-      composite.layout = new qx.ui.mobile.layout.Card();
+      var composite = new qx.ui.Widget();
+      composite.layout = new qx.ui.layout.Card();
       this.getRoot().append(composite);
 
-      var widget1 = new qx.ui.mobile.Widget();
+      var widget1 = new qx.ui.Widget();
       composite.append(widget1);
       widget1.remove();
       this.assertFalse(widget1.hasClass("layout-card-item"));
 
-      var widget2 = new qx.ui.mobile.Widget();
+      var widget2 = new qx.ui.Widget();
       composite.append(widget2);
       widget2.remove();
       this.assertFalse(widget2.hasClass("layout-card-item"));
@@ -71,8 +71,8 @@ qx.Class.define("qx.test.mobile.layout.Card",
 
 
     testReset : function() {
-      var composite = new qx.ui.mobile.Widget();
-      composite.layout = new qx.ui.mobile.layout.Card();
+      var composite = new qx.ui.Widget();
+      composite.layout = new qx.ui.layout.Card();
       this.getRoot().append(composite);
 
       composite.layout = null;
@@ -83,14 +83,14 @@ qx.Class.define("qx.test.mobile.layout.Card",
 
 
     testShow : function() {
-      var composite = new qx.ui.mobile.Widget();
-      composite.layout = new qx.ui.mobile.layout.Card();
+      var composite = new qx.ui.Widget();
+      composite.layout = new qx.ui.layout.Card();
       this.getRoot().append(composite);
 
-      var widget1 = new qx.ui.mobile.Widget();
+      var widget1 = new qx.ui.Widget();
       composite.append(widget1);
 
-      var widget2 = new qx.ui.mobile.Widget();
+      var widget2 = new qx.ui.Widget();
       composite.append(widget2);
 
       widget1.show();

@@ -25,7 +25,7 @@ qx.Class.define("qx.test.mobile.container.Carousel",
   {
     testInit : function()
     {
-      var carousel = new qx.ui.mobile.container.Carousel(0.4);
+      var carousel = new qx.ui.container.Carousel(0.4);
       this.getRoot().append(carousel);
       carousel.dispose();
     },
@@ -33,8 +33,8 @@ qx.Class.define("qx.test.mobile.container.Carousel",
 
     testAddCarouselPage : function()
     {
-      var carousel = new qx.ui.mobile.container.Carousel();
-      var carouselPage = new qx.ui.mobile.Widget();
+      var carousel = new qx.ui.container.Carousel();
+      var carouselPage = new qx.ui.Widget();
       carousel.append(carouselPage);
 
       this.getRoot().append(carousel);
@@ -46,8 +46,8 @@ qx.Class.define("qx.test.mobile.container.Carousel",
 
     testRemoveCarouselPage : function()
     {
-      var carousel = new qx.ui.mobile.container.Carousel();
-      var carouselPage = new qx.ui.mobile.Widget();
+      var carousel = new qx.ui.container.Carousel();
+      var carouselPage = new qx.ui.Widget();
 
       carousel.append(carouselPage);
 
@@ -62,11 +62,11 @@ qx.Class.define("qx.test.mobile.container.Carousel",
 
     testPageSwitch : function()
     {
-      var carousel = new qx.ui.mobile.container.Carousel();
-      var carouselPage1 = new qx.ui.mobile.Widget();
+      var carousel = new qx.ui.container.Carousel();
+      var carouselPage1 = new qx.ui.Widget();
       carousel.append(carouselPage1);
 
-      var carouselPage2 = new qx.ui.mobile.Widget();
+      var carouselPage2 = new qx.ui.Widget();
       carousel.append(carouselPage2);
 
       this.getRoot().append(carousel);
@@ -95,11 +95,11 @@ qx.Class.define("qx.test.mobile.container.Carousel",
 
     testPageSwitchEvent : function()
     {
-      var carousel = new qx.ui.mobile.container.Carousel();
-      var carouselPage1 = new qx.ui.mobile.Widget();
+      var carousel = new qx.ui.container.Carousel();
+      var carouselPage1 = new qx.ui.Widget();
       carousel.append(carouselPage1);
 
-      var carouselPage2 = new qx.ui.mobile.Widget();
+      var carouselPage2 = new qx.ui.Widget();
       carousel.append(carouselPage2);
 
       this.getRoot().append(carousel);
@@ -126,11 +126,11 @@ qx.Class.define("qx.test.mobile.container.Carousel",
 
     testScrollToPage : function()
     {
-      var carousel = new qx.ui.mobile.container.Carousel();
-      var carouselPage1 = new qx.ui.mobile.Widget();
+      var carousel = new qx.ui.container.Carousel();
+      var carouselPage1 = new qx.ui.Widget();
       carousel.append(carouselPage1);
 
-      var carouselPage2 = new qx.ui.mobile.Widget();
+      var carouselPage2 = new qx.ui.Widget();
       carousel.append(carouselPage2);
 
       this.getRoot().append(carousel);
@@ -153,7 +153,7 @@ qx.Class.define("qx.test.mobile.container.Carousel",
         .carousel()
         .appendTo(this.getRoot());
 
-      this.assertInstance(carousel, qx.ui.mobile.container.Carousel);
+      this.assertInstance(carousel, qx.ui.container.Carousel);
       carousel.remove().dispose();
     }
   }

@@ -30,7 +30,7 @@ qx.Class.define("qx.test.util.PropertyUtil",
   {
     setUp : function()
     {
-      this.button = new qx.ui.mobile.Button();
+      this.button = new qx.ui.Button();
       this.getRoot().append(this.button);
     },
 

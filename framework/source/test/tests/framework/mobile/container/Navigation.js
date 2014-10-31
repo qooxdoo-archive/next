@@ -29,15 +29,15 @@ describe("mobile.container.Navigation", function() {
 
 
   it("Create", function() {
-    var container = new qx.ui.mobile.container.Navigation();
+    var container = new qx.ui.container.Navigation();
     getRoot().append(container);
     container.dispose();
   });
 
 
   it("Add", function() {
-    var container = new qx.ui.mobile.container.Navigation();
-    var page = new qx.ui.mobile.page.NavigationPage();
+    var container = new qx.ui.container.Navigation();
+    var page = new qx.ui.page.NavigationPage();
     getRoot().append(container);
     assert.isFalse(container.getContent().getChildren().length > 0);
     container.append(page);
@@ -48,8 +48,8 @@ describe("mobile.container.Navigation", function() {
 
 
   it("Remove", function() {
-    var container = new qx.ui.mobile.container.Navigation();
-    var page = new qx.ui.mobile.page.NavigationPage();
+    var container = new qx.ui.container.Navigation();
+    var page = new qx.ui.page.NavigationPage();
     getRoot().append(container);
     assert.isFalse(container.getContent().getChildren().length > 0);
     container.append(page);
@@ -62,15 +62,15 @@ describe("mobile.container.Navigation", function() {
 
 
   it("UpdateEvent", function() {
-    var container = new qx.ui.mobile.container.Navigation();
+    var container = new qx.ui.container.Navigation();
     var updateEventFired = false;
 
     container.on("update", function() {
       updateEventFired = true;
     }, this);
 
-    var page1 = new qx.ui.mobile.page.NavigationPage();
-    var page2 = new qx.ui.mobile.page.NavigationPage();
+    var page1 = new qx.ui.page.NavigationPage();
+    var page2 = new qx.ui.page.NavigationPage();
     getRoot().append(container);
     container.append(page1);
     container.append(page2);
@@ -89,9 +89,9 @@ describe("mobile.container.Navigation", function() {
       .navigation()
       .appendTo(getRoot());
 
-    assert.instanceOf(navigation, qx.ui.mobile.container.Navigation);
+    assert.instanceOf(navigation, qx.ui.container.Navigation);
     assert.equal(navigation, navigation[0].$$widget);
-    assert.equal("qx.ui.mobile.container.Navigation", navigation.getData("qxWidget"));
+    assert.equal("qx.ui.container.Navigation", navigation.getData("qxWidget"));
 
     navigation.dispose();
   });

@@ -31,7 +31,7 @@ describe("mobile.form.SelectBox", function() {
 
 
   it("Value", function() {
-    var selectBox = new qx.ui.mobile.form.SelectBox();
+    var selectBox = new qx.ui.form.SelectBox();
     var dd = new qx.data.Array(["Item 1", "Item 2", "Item 3"]);
     selectBox.model = dd;
 
@@ -58,7 +58,7 @@ describe("mobile.form.SelectBox", function() {
 
   it("Nullable", function() {
     var model = new qx.data.Array(["Item 1", "Item 2", "Item 3"]);
-    var selectBox = new qx.ui.mobile.form.SelectBox();
+    var selectBox = new qx.ui.form.SelectBox();
     selectBox.model = model;
 
     // Default case: nullable is true, selection is null.
@@ -86,7 +86,7 @@ describe("mobile.form.SelectBox", function() {
 
 
   it("SelectionNoModel", function() {
-    var selectBox = new qx.ui.mobile.form.SelectBox();
+    var selectBox = new qx.ui.form.SelectBox();
     assert.throw(function() {
       selectBox.selection = 4;
     });
@@ -97,7 +97,7 @@ describe("mobile.form.SelectBox", function() {
 
   it("ResetValue", function() {
     var model = new qx.data.Array(["Item 1", "Item 2", "Item 3"]);
-    var selectBox = new qx.ui.mobile.form.SelectBox();
+    var selectBox = new qx.ui.form.SelectBox();
     selectBox.model = model;
     selectBox.nullable = true;
     selectBox.value = "Item 3";
@@ -117,7 +117,7 @@ describe("mobile.form.SelectBox", function() {
 
   it("ResetValueNotNullable", function() {
     var model = new qx.data.Array(["Item 1", "Item 2", "Item 3"]);
-    var selectBox = new qx.ui.mobile.form.SelectBox();
+    var selectBox = new qx.ui.form.SelectBox();
     selectBox.model = model;
     selectBox.nullable = false;
     selectBox.value = "Item 3";
@@ -137,7 +137,7 @@ describe("mobile.form.SelectBox", function() {
 
   it("Selection", function() {
     var model = new qx.data.Array(["Item 1", "Item 2", "Item 3"]);
-    var selectBox = new qx.ui.mobile.form.SelectBox();
+    var selectBox = new qx.ui.form.SelectBox();
     selectBox.model = model;
 
     // Default value of selectedIndex after setting model is 0.
@@ -182,9 +182,9 @@ describe("mobile.form.SelectBox", function() {
 
   it("Factory", function() {
     var selectBox = qxWeb.create("<div>").selectBox().appendTo(getRoot());
-    assert.instanceOf(selectBox, qx.ui.mobile.form.SelectBox);
+    assert.instanceOf(selectBox, qx.ui.form.SelectBox);
     assert.equal(selectBox, selectBox[0].$$widget);
-    assert.equal("qx.ui.mobile.form.SelectBox", selectBox.getData("qxWidget"));
+    assert.equal("qx.ui.form.SelectBox", selectBox.getData("qxWidget"));
 
     selectBox.dispose();
   });

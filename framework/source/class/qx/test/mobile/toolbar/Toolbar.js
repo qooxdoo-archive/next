@@ -24,7 +24,7 @@ qx.Class.define("qx.test.mobile.toolbar.Toolbar",
   members :
   {
     __createToolbar : function() {
-      var toolBar = new qx.ui.mobile.toolbar.ToolBar();
+      var toolBar = new qx.ui.toolbar.ToolBar();
       this.getRoot().append(toolBar);
       return toolBar;
     },
@@ -38,15 +38,15 @@ qx.Class.define("qx.test.mobile.toolbar.Toolbar",
     {
       var toolBar = this.__createToolbar();
 
-      var button1 = new qx.ui.mobile.Button("Button 1");
+      var button1 = new qx.ui.Button("Button 1");
       toolBar.append(button1);
       this.__assertChildNodesLength(toolBar, 1);
 
-      var button2 = new qx.ui.mobile.Button("Button with long name 2");
+      var button2 = new qx.ui.Button("Button with long name 2");
       toolBar.append(button2);
       this.__assertChildNodesLength(toolBar, 2);
 
-      var button3 = new qx.ui.mobile.Button("Button 3");
+      var button3 = new qx.ui.Button("Button 3");
       toolBar.append(button3);
       this.__assertChildNodesLength(toolBar, 3);
 
@@ -64,13 +64,13 @@ qx.Class.define("qx.test.mobile.toolbar.Toolbar",
     {
       var toolBar = this.__createToolbar();
 
-      var button1 = new qx.ui.mobile.Button("Button 1");
+      var button1 = new qx.ui.Button("Button 1");
       toolBar.append(button1);
 
-      var button2 = new qx.ui.mobile.Button("Button 2");
+      var button2 = new qx.ui.Button("Button 2");
       toolBar.append(button2);
 
-      var button3 = new qx.ui.mobile.Button("Button 3");
+      var button3 = new qx.ui.Button("Button 3");
       toolBar.append(button3);
 
       this.__assertChildNodesLength(toolBar, 3);

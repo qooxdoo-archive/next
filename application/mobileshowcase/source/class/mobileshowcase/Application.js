@@ -80,7 +80,7 @@ qx.Class.define("mobileshowcase.Application",
       var tree = new mobileshowcase.page.Tree();
 
       // Add the pages to the page manager
-      var manager = new qx.ui.mobile.page.Manager();
+      var manager = new qx.ui.page.Manager();
       manager.addMaster(overview);
       manager.addDetail([
         basic,

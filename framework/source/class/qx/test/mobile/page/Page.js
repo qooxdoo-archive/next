@@ -29,7 +29,7 @@ qx.Class.define("qx.test.mobile.page.Page",
       var initializedEvent = false;
       var startEvent = false;
 
-      var page = new qx.ui.mobile.page.Page();
+      var page = new qx.ui.page.Page();
       this.getRoot().append(page);
 
       page.on("initialize", function() {
@@ -51,7 +51,7 @@ qx.Class.define("qx.test.mobile.page.Page",
 
 
     testBack : function() {
-      var page = new qx.ui.mobile.page.Page();
+      var page = new qx.ui.page.Page();
       this.getRoot().append(page);
 
       var eventFired = false;
@@ -68,7 +68,7 @@ qx.Class.define("qx.test.mobile.page.Page",
 
 
     testMenu: function() {
-      var page = new qx.ui.mobile.page.Page();
+      var page = new qx.ui.page.Page();
       this.getRoot().append(page);
 
       var eventFired = false;

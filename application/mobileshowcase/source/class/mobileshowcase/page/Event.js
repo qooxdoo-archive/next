@@ -73,10 +73,10 @@ qx.Class.define("mobileshowcase.page.Event",
     {
       this.super(mobileshowcase.page.Abstract, "_initialize");
 
-      var sclayout = new qx.ui.mobile.layout.VBox();
+      var sclayout = new qx.ui.layout.VBox();
       sclayout.alignX = "center";
       sclayout.alignY = "middle";
-      var container =  this.__showcaseContainer = new qx.ui.mobile.Widget();
+      var container =  this.__showcaseContainer = new qx.ui.Widget();
       container.layout = sclayout;
       container.addClass("eventcontainer");
 
@@ -85,10 +85,10 @@ qx.Class.define("mobileshowcase.page.Event",
       }, this);
 
       // CONTAINER TOUCH AREA
-      var clayout = new qx.ui.mobile.layout.VBox();
+      var clayout = new qx.ui.layout.VBox();
       clayout.alignX = "center";
       clayout.alignY = "middle";
-      var containerTouchArea = this.__container = new qx.ui.mobile.Widget();
+      var containerTouchArea = this.__container = new qx.ui.Widget();
       containerTouchArea.layout = clayout;
       containerTouchArea.addClass("container-touch-area");
 
@@ -106,7 +106,7 @@ qx.Class.define("mobileshowcase.page.Event",
       container.append(containerTouchArea);
 
       // GESTURE TARGET OBJECT
-      this.__gestureTarget = new qx.ui.mobile.basic.Image("mobileshowcase/icon/HTML5_Badge_512.png");
+      this.__gestureTarget = new qx.ui.basic.Image("mobileshowcase/icon/HTML5_Badge_512.png");
 
       this.__gestureTarget.addClass("gesture-target");
       this.__gestureTarget.on("trackstart", this.__onTrackStart, this);
@@ -124,7 +124,7 @@ qx.Class.define("mobileshowcase.page.Event",
 
       // POINTER VISUALIZATION CIRCLES
       for (var i = 0; i < 15; i++) {
-        var circle = new qx.ui.mobile.Widget();
+        var circle = new qx.ui.Widget();
         circle.addClass("touch");
 
         this.__circles.push(circle);
@@ -134,7 +134,7 @@ qx.Class.define("mobileshowcase.page.Event",
         containerTouchArea.append(circle);
       }
 
-      var label = this.__label = new qx.ui.mobile.basic.Label("Touch / Tap / Swipe this area");
+      var label = this.__label = new qx.ui.basic.Label("Touch / Tap / Swipe this area");
       containerTouchArea.append(label);
 
       var descriptionText = "<b>Testing Pointer Events:</b> Touch / Tap / Swipe the area<br />\n\
@@ -143,8 +143,8 @@ qx.Class.define("mobileshowcase.page.Event",
       descriptionText += "<b>Testing Pinch/Zoom Gesture:</b> Touch HTML5 logo with two fingers<br />";
       descriptionText += "<b>Testing OrientationChange Event</b>: Rotate your device / change browser size";
 
-      var descriptionGroup = new qx.ui.mobile.form.Group(descriptionText);
-      var containerGroup = new qx.ui.mobile.form.Group()
+      var descriptionGroup = new qx.ui.form.Group(descriptionText);
+      var containerGroup = new qx.ui.form.Group()
         .append(container);
       descriptionGroup.layoutPrefs = {flex: 1};
       this.getContent().append(descriptionGroup);

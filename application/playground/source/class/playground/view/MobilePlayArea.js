@@ -108,11 +108,11 @@ qx.Class.define("playground.view.MobilePlayArea",
         playRootEl.style["background"] = "none";
       }
 
-      this._playRoot = new qx.ui.mobile.core.Root(playRootEl);
+      this._playRoot = new qx.ui.core.Root(playRootEl);
 
-      qx.ui.mobile.dialog.Popup.ROOT = this._playRoot;
-      qx.ui.mobile.core.Blocker.ROOT = this._playRoot;
-      qx.ui.mobile.basic.Image.ROOT = this._playRoot;
+      qx.ui.dialog.Popup.ROOT = this._playRoot;
+      qx.ui.core.Blocker.ROOT = this._playRoot;
+      qx.ui.basic.Image.ROOT = this._playRoot;
 
       var self = this;
 
@@ -134,7 +134,7 @@ qx.Class.define("playground.view.MobilePlayArea",
         this.__manager = null;
       }
 
-      this.__manager = new qx.ui.mobile.page.Manager(false, this._playRoot);
+      this.__manager = new qx.ui.page.Manager(false, this._playRoot);
     }
   }
 });

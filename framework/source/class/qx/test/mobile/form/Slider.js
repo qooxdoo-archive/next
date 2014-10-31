@@ -25,7 +25,7 @@ qx.Class.define("qx.test.mobile.form.Slider",
   {
     testValue : function()
     {
-      var slider = new qx.ui.mobile.form.Slider();
+      var slider = new qx.ui.form.Slider();
       slider.step = 4;
       this.getRoot().append(slider);
 
@@ -56,7 +56,7 @@ qx.Class.define("qx.test.mobile.form.Slider",
 
     testEnabled : function()
     {
-      var slider = new qx.ui.mobile.form.Slider();
+      var slider = new qx.ui.form.Slider();
       this.getRoot().append(slider);
       slider.enabled = false;
       this.assertEquals(false,slider.enabled);
@@ -70,7 +70,7 @@ qx.Class.define("qx.test.mobile.form.Slider",
         .slider()
         .appendTo(this.getRoot());
 
-      this.assertInstance(slider, qx.ui.mobile.form.Slider);
+      this.assertInstance(slider, qx.ui.form.Slider);
       this.assertEquals(1, slider.getChildren("div[data-value]").length);
       slider.remove().dispose();
     }

@@ -162,7 +162,7 @@ qx.Class.define("qx.test.locale.Locale",
       });
       manager.locale = "en_QX";
 
-      var textField = new qx.ui.mobile.form.TextField();
+      var textField = new qx.ui.form.TextField();
       textField.invalidMessage = this.tr("test one");
       textField.requiredInvalidMessage = this.tr("test two");
 

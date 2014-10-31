@@ -30,7 +30,7 @@ describe("mobile.container.Drawer", function() {
 
 
   it("InitComposite", function() {
-    var drawer = new qx.ui.mobile.container.Drawer();
+    var drawer = new qx.ui.container.Drawer();
 
     var parentContainer = getRoot().append(drawer);
 
@@ -43,7 +43,7 @@ describe("mobile.container.Drawer", function() {
 
 
   it("InitRoot", function() {
-    var drawer = new qx.ui.mobile.container.Drawer();
+    var drawer = new qx.ui.container.Drawer();
     getRoot().append(drawer);
 
     var drawerCandidate = getRoot().getChildren()[0];
@@ -55,7 +55,7 @@ describe("mobile.container.Drawer", function() {
 
 
   it("ShowHide", function() {
-    var drawer = new qx.ui.mobile.container.Drawer();
+    var drawer = new qx.ui.container.Drawer();
     getRoot().append(drawer);
 
     drawer.transitionDuration = 0;
@@ -78,7 +78,7 @@ describe("mobile.container.Drawer", function() {
 
 
   it("ToggleVisibility", function() {
-    var drawer = new qx.ui.mobile.container.Drawer();
+    var drawer = new qx.ui.container.Drawer();
     getRoot().append(drawer);
 
     drawer.transitionDuration = 0;
@@ -107,9 +107,9 @@ describe("mobile.container.Drawer", function() {
       .drawer()
       .appendTo(getRoot());
 
-    assert.instanceOf(drawer, qx.ui.mobile.container.Drawer);
+    assert.instanceOf(drawer, qx.ui.container.Drawer);
     assert.equal(drawer, drawer[0].$$widget);
-    assert.equal("qx.ui.mobile.container.Drawer", drawer.getData("qxWidget"));
+    assert.equal("qx.ui.container.Drawer", drawer.getData("qxWidget"));
 
     drawer.dispose();
   });

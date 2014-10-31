@@ -94,7 +94,7 @@ qx.Class.define("qx.test.ui.form.ModelSelection",
 
 
     __createRadioGroup : function() {
-      var group = new qx.ui.mobile.form.RadioGroup();
+      var group = new qx.ui.form.RadioGroup();
       this.__addRadioButton(group);
       return group;
     },
@@ -102,7 +102,7 @@ qx.Class.define("qx.test.ui.form.ModelSelection",
 
     __addRadioButton : function(group) {
       for (var i = 0; i < 3; i++) {
-        var r = new qx.ui.mobile.form.RadioButton();
+        var r = new qx.ui.form.RadioButton();
         r.model = i + 1;
         group.add(r);
       }

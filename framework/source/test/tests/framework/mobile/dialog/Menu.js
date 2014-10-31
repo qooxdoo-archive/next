@@ -34,7 +34,7 @@ describe("mobile.dialog.Menu", function() {
     var model = new qx.data.Array(["item1", "item2", "item3"]);
     var model2 = new qx.data.Array(["item4", "item5", "item6"]);
 
-    var menu = new qx.ui.mobile.dialog.Menu(model).appendTo(getRoot());
+    var menu = new qx.ui.dialog.Menu(model).appendTo(getRoot());
     menu.selectedIndex = 2;
 
     menu.setItems(model2);
@@ -53,7 +53,7 @@ describe("mobile.dialog.Menu", function() {
       "item1", "item2", "item3", "item1", "item2", "item3", "item2", "item3", "item2", "item3", "item1", "item2", "item3", "item1", "item2", "item3"
     ]);
 
-    var menu = new qx.ui.mobile.dialog.Menu(model).appendTo(getRoot());
+    var menu = new qx.ui.dialog.Menu(model).appendTo(getRoot());
 
     menu.visibleListItems = 1000;
     menu.show();
@@ -76,9 +76,9 @@ describe("mobile.dialog.Menu", function() {
 
   it("Factory", function() {
     var menu = qxWeb.create("<div>").menu().appendTo(getRoot());
-    assert.instanceOf(menu, qx.ui.mobile.dialog.Menu);
+    assert.instanceOf(menu, qx.ui.dialog.Menu);
     qx.core.Assert.assertEquals(menu, menu[0].$$widget);
-    assert.equal("qx.ui.mobile.dialog.Menu", menu.getData("qxWidget"));
+    assert.equal("qx.ui.dialog.Menu", menu.getData("qxWidget"));
 
     menu.dispose();
   });

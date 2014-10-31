@@ -25,16 +25,16 @@ qx.Class.define("qx.test.mobile.navigationbar.NavigationBar",
   {
     testCreate : function()
     {
-      var bar = new qx.ui.mobile.navigationbar.NavigationBar();
+      var bar = new qx.ui.navigationbar.NavigationBar();
       this.getRoot().append(bar);
 
-      var back = new qx.ui.mobile.Button("Back");
+      var back = new qx.ui.Button("Back");
       bar.append(back);
 
-      var title = new qx.ui.mobile.navigationbar.Title("Title");
+      var title = new qx.ui.navigationbar.Title("Title");
       bar.append(title);
 
-      var button = new qx.ui.mobile.Button("Action");
+      var button = new qx.ui.Button("Action");
       bar.append(button);
 
       this.assertEquals(3, bar.getChildren().length);

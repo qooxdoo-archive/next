@@ -1,0 +1,80 @@
+"use strict";
+/* ************************************************************************
+
+   qooxdoo - the new era of web development
+
+   http://qooxdoo.org
+
+   Copyright:
+     2004-2011 1&1 Internet AG, Germany, http://www.1und1.de
+
+   License:
+     LGPL: http://www.gnu.org/licenses/lgpl.html
+     EPL: http://www.eclipse.org/org/documents/epl-v10.php
+     See the LICENSE file in the project's top-level directory for details.
+
+   Authors:
+     * Gabriel Munteanu (gabios)
+
+************************************************************************ */
+
+/**
+ * A toolbar widget.
+ *
+ */
+qx.Class.define("qx.ui.toolbar.ToolBar",
+{
+  extend : qx.ui.Widget,
+
+  construct : function(layout, element)
+  {
+    this.super(qx.ui.Widget, "constructor", element);
+    this.layout = layout;
+    if (!layout) {
+      layout = new qx.ui.layout.HBox();
+      layout.alignY = "middle";
+      this.layout = layout;
+    }
+  },
+
+
+  properties :
+  {
+    // overridden
+    defaultCssClass :
+    {
+      init : "toolbar"
+    }
+  },
+
+  members :
+  {
+
+    /**
+      * Flag to keep the show/hidden state of the toolbar
+      */
+    __hidden: false,
+
+
+    /**
+      * Adds a new child widget.
+      *
+      * @param child {qx.ui.Widget} the widget to add.
+      * @param layoutProperties {Map?null} Optional layout data for widget.
+      */
+    append : function(child, layoutProperties)
+    {
+      if(!(child instanceof qx.ui.toolbar.Separator))
+      {
+        layoutProperties = layoutProperties ? layoutProperties : {};
+        qx.lang.Object.mergeWith(layoutProperties, {flex: 1}, false);
+      }
+      child.layoutPrefs = layoutProperties;
+      this.super(qx.ui.Widget, "append", child);
+    }
+  },
+
+  classDefined : function(statics) {
+    qxWeb.$attachWidget(statics);
+  }
+});

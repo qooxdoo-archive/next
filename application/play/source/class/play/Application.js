@@ -51,8 +51,8 @@ qx.Class.define("play.Application",
       q(".play-content").setStyle("visibility", "visible");
 
       var samples = new play.Samples();
-      var samplesMenu = new qx.ui.mobile.dialog.Menu(samples)
-        .appendTo(new qx.ui.mobile.core.Root(document.body));
+      var samplesMenu = new qx.ui.dialog.Menu(samples)
+        .appendTo(new qx.ui.core.Root(document.body));
       samplesMenu.on("changeSelection", function(data) {
         var code = samples.getCode(data.item.title);
         editor.setValue(code);
@@ -64,7 +64,7 @@ qx.Class.define("play.Application",
       q("#samplesButton").on("tap", samplesMenu.show, samplesMenu);
       q("#shorteButton").on("tap", this.shortenUrl, this);
 
-      (new qx.ui.mobile.Button("Close"))
+      (new qx.ui.Button("Close"))
         .setStyle("marginTop", "10px")
         .on("tap", function() {
           samplesMenu.hide();
@@ -72,7 +72,7 @@ qx.Class.define("play.Application",
         .appendTo(samplesMenu.getContents());
 
       // new app root
-      this.__root = new qx.ui.mobile.core.Root(document.getElementById("playroot"));
+      this.__root = new qx.ui.core.Root(document.getElementById("playroot"));
       this.setRoot(this.__root);
 
       // run initial app

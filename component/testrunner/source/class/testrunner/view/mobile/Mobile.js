@@ -73,7 +73,7 @@ qx.Class.define("testrunner.view.mobile.Mobile", {
     _initPage : function()
     {
       this.__testRows = {};
-      var mainPage = this.__mainPage = new qx.ui.mobile.page.NavigationPage();
+      var mainPage = this.__mainPage = new qx.ui.page.NavigationPage();
       mainPage.title = "qx Test Runner";
 
       var mainButton = this.__mainButton = new testrunner.view.mobile.MainButton();
@@ -83,7 +83,7 @@ qx.Class.define("testrunner.view.mobile.Mobile", {
       mainPage.on("initialize", function()
       {
         this.__testRows = {};
-        var list = this.__testListWidget = new qx.ui.mobile.list.List({
+        var list = this.__testListWidget = new qx.ui.list.List({
           configureItem : this._configureListItem.bind(this)
         });
         list.on("changeSelection", this._onListChangeSelection, this);
@@ -93,7 +93,7 @@ qx.Class.define("testrunner.view.mobile.Mobile", {
         mainPage.append(statusBar);
       }, this);
 
-      var detailPage = this.__detailPage = new qx.ui.mobile.page.NavigationPage();
+      var detailPage = this.__detailPage = new qx.ui.page.NavigationPage();
       detailPage.showBackButton = true;
       detailPage.backButtonText = "Back";
       detailPage.title = "Result Details";
@@ -102,7 +102,7 @@ qx.Class.define("testrunner.view.mobile.Mobile", {
       },this);
 
       // Add the pages to the page manager.
-      var manager = new qx.ui.mobile.page.Manager(false);
+      var manager = new qx.ui.page.Manager(false);
       manager.addDetail([mainPage, detailPage]);
 
       // mainPage will be shown at start
@@ -112,7 +112,7 @@ qx.Class.define("testrunner.view.mobile.Mobile", {
     /**
      * Configures a list item representing a single test function
      *
-     * @param item {qx.ui.mobile.list.renderer.Default} Created list item
+     * @param item {qx.ui.list.renderer.Default} Created list item
      * @param data {qx.core.Object} Model item
      * @param row {Integer} Index of the item's list row
      */
@@ -191,14 +191,14 @@ qx.Class.define("testrunner.view.mobile.Mobile", {
     /**
      * Returns the status bar widget
      *
-     * @return  {qx.ui.mobile.form.Group} Group widget
+     * @return  {qx.ui.form.Group} Group widget
      */
     _getStatusBar : function()
     {
-      var statusBar = new qx.ui.mobile.Widget(new qx.ui.mobile.layout.HBox());
-      var statusGroup = new qx.ui.mobile.form.Group([statusBar]);
+      var statusBar = new qx.ui.Widget(new qx.ui.layout.HBox());
+      var statusGroup = new qx.ui.form.Group([statusBar]);
       statusGroup.setAttribute("id", "statusgroup");
-      this.__statusLabel = new qx.ui.mobile.basic.Label("Loading...");
+      this.__statusLabel = new qx.ui.basic.Label("Loading...");
       statusBar.append(this.__statusLabel);
       return statusGroup;
     },
@@ -215,7 +215,7 @@ qx.Class.define("testrunner.view.mobile.Mobile", {
           id: "autframe"
         });
 
-        var iframeWidget = new qx.ui.mobile.Widget();
+        var iframeWidget = new qx.ui.Widget();
         iframeWidget.append(this.__iframe);
         iframeWidget.insertAfter(this.__testListWidget);
       }
@@ -420,14 +420,14 @@ qx.Class.define("testrunner.view.mobile.Mobile", {
             var ex = exceptions[x].exception;
             var msg = ex.toString ? ex.toString() : ex.message;
             var stack = ex.getStackTrace ? ex.getStackTrace() : qx.dev.StackTrace.getStackTraceFromError(ex);
-            var msgLabel = new qx.ui.mobile.basic.Label(msg);
+            var msgLabel = new qx.ui.basic.Label(msg);
             msgLabel.wrap = true;
-            var stackLabel = new qx.ui.mobile.basic.Label(stack.join("<br/>"));
+            var stackLabel = new qx.ui.basic.Label(stack.join("<br/>"));
             stackLabel.wrap = true;
-            var detailContainer = new qx.ui.mobile.Widget(new qx.ui.mobile.layout.VBox());
+            var detailContainer = new qx.ui.Widget(new qx.ui.layout.VBox());
             detailContainer.append(msgLabel);
             detailContainer.append(stackLabel);
-            var detailGroup = new qx.ui.mobile.form.Group([detailContainer]);
+            var detailGroup = new qx.ui.form.Group([detailContainer]);
             this.__detailPage.append(detailGroup);
           }
           if (exceptions.length > 0) {

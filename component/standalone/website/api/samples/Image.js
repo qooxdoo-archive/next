@@ -9,7 +9,7 @@ addSample('.image', {
 
 addSample('.image', {
   javascript: function () {
-    var image = new qx.ui.mobile.basic.Image("http://qooxdoo.org/_media/desktop.png");
+    var image = new qx.ui.basic.Image("http://qooxdoo.org/_media/desktop.png");
     q(document.body).append(image);
   },
   executable: true,

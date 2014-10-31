@@ -26,7 +26,7 @@
  *
  * @asset(apiviewer/*)
  * @require(qx.module.Template)
- * @require(qx.ui.mobile.Button)
+ * @require(qx.ui.Button)
  */
 qx.Class.define("apiviewer.Application",
 {
@@ -65,10 +65,10 @@ qx.Class.define("apiviewer.Application",
       q("#privateButton");
 
       // new app root
-      this.__root = new qx.ui.mobile.core.Root(document.getElementById("root"));
+      this.__root = new qx.ui.core.Root(document.getElementById("root"));
       this.setRoot(this.__root);
 
-      qx.Mixin.add(qx.ui.mobile.core.Widget, apiviewer.MWidgetRegistry);
+      qx.Mixin.add(qx.ui.core.Widget, apiviewer.MWidgetRegistry);
 
       // this.viewer = new apiviewer.Viewer();
       this.controller = new apiviewer.Controller();

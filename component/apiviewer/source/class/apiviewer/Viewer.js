@@ -40,15 +40,15 @@
  */
 qx.Class.define("apiviewer.Viewer",
 {
-  extend : qx.ui.mobile.core.Widget,
+  extend : qx.ui.core.Widget,
 
   construct : function()
   {
-    this.base(qx.ui.mobile.core.Widget, "constructor");
+    this.base(qx.ui.core.Widget, "constructor");
 
     this.__menuItemStore = {};
 
-    var layout = new qx.ui.mobile.layout.VBox();
+    var layout = new qx.ui.layout.VBox();
     this.setLayout(layout);
 
     var tree = new apiviewer.ui.PackageTree();

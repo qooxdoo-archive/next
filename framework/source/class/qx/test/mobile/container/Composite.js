@@ -25,13 +25,13 @@ qx.Class.define("qx.test.mobile.container.Composite",
   {
     testAdd : function()
     {
-      var composite = new qx.ui.mobile.Widget();
+      var composite = new qx.ui.Widget();
       this.getRoot().append(composite);
 
-      var widget1 = new qx.ui.mobile.Widget();
+      var widget1 = new qx.ui.Widget();
       composite.append(widget1);
 
-      var widget2 = new qx.ui.mobile.Widget();
+      var widget2 = new qx.ui.Widget();
       composite.append(widget2);
 
       this._assertChildren(composite, 2);
@@ -44,10 +44,10 @@ qx.Class.define("qx.test.mobile.container.Composite",
 
     testAddSame : function()
     {
-      var composite = new qx.ui.mobile.Widget();
+      var composite = new qx.ui.Widget();
       this.getRoot().append(composite);
 
-      var widget1 = new qx.ui.mobile.Widget();
+      var widget1 = new qx.ui.Widget();
       composite.append(widget1);
       composite.append(widget1);
 
@@ -60,12 +60,12 @@ qx.Class.define("qx.test.mobile.container.Composite",
 
     testAddOther : function()
     {
-      var composite1 = new qx.ui.mobile.Widget();
+      var composite1 = new qx.ui.Widget();
       this.getRoot().append(composite1);
-      var composite2 = new qx.ui.mobile.Widget();
+      var composite2 = new qx.ui.Widget();
       this.getRoot().append(composite2);
 
-      var widget = new qx.ui.mobile.Widget();
+      var widget = new qx.ui.Widget();
       composite1.append(widget);
 
       this._assertChildren(composite1, 1);
@@ -86,13 +86,13 @@ qx.Class.define("qx.test.mobile.container.Composite",
 
     testAddBefore : function()
     {
-      var composite = new qx.ui.mobile.Widget();
+      var composite = new qx.ui.Widget();
       this.getRoot().append(composite);
 
-      var widget1 = new qx.ui.mobile.Widget();
+      var widget1 = new qx.ui.Widget();
       composite.append(widget1);
 
-      var widget2 = new qx.ui.mobile.Widget();
+      var widget2 = new qx.ui.Widget();
       composite.append(widget2);
 
       if (qx.core.Environment.get("qx.debug"))
@@ -102,7 +102,7 @@ qx.Class.define("qx.test.mobile.container.Composite",
         });
       }
 
-      var widget3 = new qx.ui.mobile.Widget();
+      var widget3 = new qx.ui.Widget();
       widget3.insertBefore(widget2);
 
       this.assertEquals(1, composite.getChildren().indexOf(widget3));
@@ -118,13 +118,13 @@ qx.Class.define("qx.test.mobile.container.Composite",
 
     testAddAfter : function()
     {
-      var composite = new qx.ui.mobile.Widget();
+      var composite = new qx.ui.Widget();
       this.getRoot().append(composite);
 
-      var widget1 = new qx.ui.mobile.Widget();
+      var widget1 = new qx.ui.Widget();
       composite.append(widget1);
 
-      var widget2 = new qx.ui.mobile.Widget();
+      var widget2 = new qx.ui.Widget();
       composite.append(widget2);
 
       if (qx.core.Environment.get("qx.debug"))
@@ -134,7 +134,7 @@ qx.Class.define("qx.test.mobile.container.Composite",
         });
       }
 
-      var widget3 = new qx.ui.mobile.Widget();
+      var widget3 = new qx.ui.Widget();
 
       widget3.insertAfter(widget2);
 
@@ -157,13 +157,13 @@ qx.Class.define("qx.test.mobile.container.Composite",
 
     testDestroy : function()
     {
-      var composite = new qx.ui.mobile.Widget();
+      var composite = new qx.ui.Widget();
       this.getRoot().append(composite);
 
-      var widget1 = new qx.ui.mobile.Widget();
+      var widget1 = new qx.ui.Widget();
       composite.append(widget1);
 
-      var widget2 = new qx.ui.mobile.Widget();
+      var widget2 = new qx.ui.Widget();
       composite.append(widget2);
 
       this._assertChildren(composite, 2);
@@ -179,13 +179,13 @@ qx.Class.define("qx.test.mobile.container.Composite",
 
     testRemove : function()
     {
-      var composite = new qx.ui.mobile.Widget();
+      var composite = new qx.ui.Widget();
       this.getRoot().append(composite);
 
-      var widget1 = new qx.ui.mobile.Widget();
+      var widget1 = new qx.ui.Widget();
       composite.append(widget1);
 
-      var widget2 = new qx.ui.mobile.Widget();
+      var widget2 = new qx.ui.Widget();
       composite.append(widget2);
 
       this._assertChildren(composite, 2);
@@ -204,13 +204,13 @@ qx.Class.define("qx.test.mobile.container.Composite",
 
     testEmpty : function()
     {
-      var composite = new qx.ui.mobile.Widget();
+      var composite = new qx.ui.Widget();
       this.getRoot().append(composite);
 
-      var widget1 = new qx.ui.mobile.Widget();
+      var widget1 = new qx.ui.Widget();
       composite.append(widget1);
 
-      var widget2 = new qx.ui.mobile.Widget();
+      var widget2 = new qx.ui.Widget();
       composite.append(widget2);
 
       this._assertChildren(composite, 2);
@@ -226,12 +226,12 @@ qx.Class.define("qx.test.mobile.container.Composite",
 
     testHasChildren : function()
     {
-      var composite = new qx.ui.mobile.Widget();
+      var composite = new qx.ui.Widget();
       this.getRoot().append(composite);
 
       this.assertEquals(0, composite.getChildren().length);
 
-      var widget = new qx.ui.mobile.Widget();
+      var widget = new qx.ui.Widget();
       composite.append(widget);
 
       this.assertTrue(composite.getChildren().length > 0);
@@ -246,13 +246,13 @@ qx.Class.define("qx.test.mobile.container.Composite",
 
     testIndexOf : function()
     {
-      var composite = new qx.ui.mobile.Widget();
+      var composite = new qx.ui.Widget();
       this.getRoot().append(composite);
 
-      var widget1 = new qx.ui.mobile.Widget();
+      var widget1 = new qx.ui.Widget();
       composite.append(widget1);
 
-      var widget2 = new qx.ui.mobile.Widget();
+      var widget2 = new qx.ui.Widget();
       composite.append(widget2);
 
       this.assertEquals(0, composite.getChildren().indexOf(widget1));

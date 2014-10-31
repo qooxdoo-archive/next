@@ -30,7 +30,7 @@ describe("mobile.form.ToggleButton", function() {
 
 
   it("Value", function() {
-    var button = new qx.ui.mobile.form.ToggleButton(true);
+    var button = new qx.ui.form.ToggleButton(true);
     getRoot().append(button);
 
     assert.isBoolean(button.getValue());
@@ -48,7 +48,7 @@ describe("mobile.form.ToggleButton", function() {
 
 
   it("Toggle", function() {
-    var button = new qx.ui.mobile.form.ToggleButton(true);
+    var button = new qx.ui.form.ToggleButton(true);
     getRoot().append(button);
 
     assert.isBoolean(button.getValue());

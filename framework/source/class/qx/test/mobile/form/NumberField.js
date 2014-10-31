@@ -25,7 +25,7 @@ qx.Class.define("qx.test.mobile.form.NumberField",
   {
     setUp: function() {
       this.super(qx.test.mobile.MobileTestCase, "setUp");
-      this.__nf = new qx.ui.mobile.form.NumberField()
+      this.__nf = new qx.ui.form.NumberField()
         .appendTo(this.getRoot());
     },
 

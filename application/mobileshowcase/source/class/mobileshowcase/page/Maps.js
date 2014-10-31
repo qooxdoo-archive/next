@@ -73,11 +73,11 @@ qx.Class.define("mobileshowcase.page.Maps",
     _createScrollContainer : function()
     {
       // MapContainer
-      var layout = new qx.ui.mobile.layout.VBox();
+      var layout = new qx.ui.layout.VBox();
       layout.alignX = "center";
       layout.alignY = "middle";
 
-      var mapContainer = new qx.ui.mobile.Widget();
+      var mapContainer = new qx.ui.Widget();
       mapContainer.layout = layout;
       mapContainer.setAttribute("id", "osmMap");
 
@@ -92,18 +92,18 @@ qx.Class.define("mobileshowcase.page.Maps",
         return null;
       }
 
-      var menuContainer = new qx.ui.mobile.Widget();
+      var menuContainer = new qx.ui.Widget();
       menuContainer.setAttribute("id", "mapMenu");
 
       // LABEL
-      var descriptionLabel = new qx.ui.mobile.basic.Label("Page Title");
+      var descriptionLabel = new qx.ui.basic.Label("Page Title");
       descriptionLabel.addClass("osmMapLabel");
 
       // TOGGLE BUTTON
-      var toggleNavigationButton = new qx.ui.mobile.form.ToggleButton(true,"Show","Hide",12);
+      var toggleNavigationButton = new qx.ui.form.ToggleButton(true,"Show","Hide",12);
 
       // SHOW MY POSITION BUTTON
-      this._showMyPositionButton = new qx.ui.mobile.Button("Find me!");
+      this._showMyPositionButton = new qx.ui.Button("Find me!");
       this._showMyPositionButton.on("tap", this._getGeoPosition, this);
 
       toggleNavigationButton.on("changeValue", function() {
@@ -112,8 +112,8 @@ qx.Class.define("mobileshowcase.page.Maps",
         this.show();
       },this);
 
-      var groupPosition = new qx.ui.mobile.form.Group([this._showMyPositionButton],false);
-      var groupFullScreen = new qx.ui.mobile.form.Group([descriptionLabel,toggleNavigationButton],true);
+      var groupPosition = new qx.ui.form.Group([this._showMyPositionButton],false);
+      var groupFullScreen = new qx.ui.form.Group([descriptionLabel,toggleNavigationButton],true);
 
       this._showMyPositionButton.addClass("map-shadow");
       groupFullScreen.addClass("map-shadow");
@@ -219,7 +219,7 @@ qx.Class.define("mobileshowcase.page.Maps",
       buttons.push(qx.locale.Manager.tr("OK"));
       var title = "Problem with Geolocation";
       var text = "Please activate location services on your browser and device.";
-      qx.ui.mobile.dialog.Manager.getInstance().confirm(title, text, function() {
+      qx.ui.dialog.Manager.getInstance().confirm(title, text, function() {
       }, this, buttons);
     },
 

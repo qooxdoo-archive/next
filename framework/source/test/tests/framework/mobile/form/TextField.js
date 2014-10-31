@@ -21,7 +21,7 @@ describe("mobile.form.TextField", function() {
 
   beforeEach(function() {
     setUpRoot();
-    __tf = new qx.ui.mobile.form.TextField();
+    __tf = new qx.ui.form.TextField();
   });
 
 
@@ -58,7 +58,7 @@ describe("mobile.form.TextField", function() {
 
     __tf.dispose();
 
-    __tf = new qx.ui.mobile.form.TextField('affe');
+    __tf = new qx.ui.form.TextField('affe');
     getRoot().append(__tf);
     assert.equal('affe', __tf.value);
     assert.equal('affe', qx.bom.element.Attribute.get(__tf[0], 'value'));

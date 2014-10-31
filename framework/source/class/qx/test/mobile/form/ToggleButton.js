@@ -25,7 +25,7 @@ qx.Class.define("qx.test.mobile.form.ToggleButton",
   {
     testValue : function()
     {
-      var button = new qx.ui.mobile.form.ToggleButton(true);
+      var button = new qx.ui.form.ToggleButton(true);
       this.getRoot().append(button);
 
       this.assertBoolean(button.getValue());
@@ -44,7 +44,7 @@ qx.Class.define("qx.test.mobile.form.ToggleButton",
 
     testToggle : function()
     {
-      var button = new qx.ui.mobile.form.ToggleButton(true);
+      var button = new qx.ui.form.ToggleButton(true);
       this.getRoot().append(button);
 
       this.assertBoolean(button.getValue());

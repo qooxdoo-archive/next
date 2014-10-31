@@ -22,7 +22,7 @@
  */
 qx.Class.define("mobiletweets.page.Input",
 {
-  extend : qx.ui.mobile.page.NavigationPage,
+  extend : qx.ui.page.NavigationPage,
 
   construct : function() {
     this.base(arguments);
@@ -47,19 +47,19 @@ qx.Class.define("mobiletweets.page.Input",
 
       this.getContent().add(qxWeb.create('<h2 class="form-title">Please enter an identi.ca username</h2>'));
 
-      var form = this.__form = new qx.ui.mobile.form.Form();
+      var form = this.__form = new qx.ui.form.Form();
 
-      var input = this.__input = new qx.ui.mobile.form.TextField();
+      var input = this.__input = new qx.ui.form.TextField();
       input.setPlaceholder("Username");
       input.setRequired(true);
       form.add(input, "Username");
 
       // Add the form to the content of the page, using the SinglePlaceholder to render
       // the form.
-      this.getContent().add(new qx.ui.mobile.form.renderer.Single(form));
+      this.getContent().add(new qx.ui.form.renderer.Single(form));
 
       // Create a new button instance and set the title of the button to "Show"
-      var button = new qx.ui.mobile.Button("Show");
+      var button = new qx.ui.Button("Show");
       // Add the "tap" listener to the button
       button.addListener("tap", this._onTap, this);
       // Add the button the content of the page

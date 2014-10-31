@@ -24,8 +24,8 @@ qx.Class.define("qx.test.mobile.dialog.Popup",
   members :
   {
     testShow: function() {
-      var label = new qx.ui.mobile.basic.Label("test");
-      var popup = new qx.ui.mobile.dialog.Popup(label);
+      var label = new qx.ui.basic.Label("test");
+      var popup = new qx.ui.dialog.Popup(label);
 
       this.assertNotEquals("visible", popup.visibility);
 
@@ -41,7 +41,7 @@ qx.Class.define("qx.test.mobile.dialog.Popup",
     testShowHide : function() {
       this.require(["debug"]);
 
-      var popup = new qx.ui.mobile.dialog.Popup(new qx.ui.mobile.Widget());
+      var popup = new qx.ui.dialog.Popup(new qx.ui.Widget());
 
       // Modal mode false test cases, no changes expected.
       popup.modal = false;

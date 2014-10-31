@@ -61,7 +61,7 @@ describe("mobile.list.List", function ()
 
 
   function __createList() {
-    var list = new qx.ui.mobile.list.List();
+    var list = new qx.ui.list.List();
     getRoot().append(list);
     list.model = __createModel();
     return list;
@@ -179,7 +179,7 @@ describe("mobile.list.List", function ()
 
 
   it("ExtractRowsToRender", function() {
-      var list = new qx.ui.mobile.list.List();
+      var list = new qx.ui.list.List();
 
       assert.deepEqual([0], list._extractRowsToRender("0"));
       assert.deepEqual([0], list._extractRowsToRender("[0].propertyName"));
@@ -192,10 +192,10 @@ describe("mobile.list.List", function ()
 
   it("Factory", function(done) {
       var list = qxWeb.create("<ul></ul>").list().appendTo(getRoot());
-      assert.instanceOf(list, qx.ui.mobile.list.List);
+      assert.instanceOf(list, qx.ui.list.List);
       assert.equal(list, list[0].$$widget);
       setTimeout( function (){
-        assert.equal("qx.ui.mobile.list.List", list.getData("qxWidget"));
+        assert.equal("qx.ui.list.List", list.getData("qxWidget"));
         done();
       }, 100);
   });

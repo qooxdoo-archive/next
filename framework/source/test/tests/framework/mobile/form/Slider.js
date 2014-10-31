@@ -28,7 +28,7 @@ describe("mobile.form.Slider", function() {
     tearDownRoot();
   });
 
-  var slider = new qx.ui.mobile.form.Slider();
+  var slider = new qx.ui.form.Slider();
 
 
   it("Value", function() {
@@ -76,7 +76,7 @@ describe("mobile.form.Slider", function() {
       .slider()
       .appendTo(getRoot());
 
-    assert.instanceOf(slider, qx.ui.mobile.form.Slider);
+    assert.instanceOf(slider, qx.ui.form.Slider);
     assert.equal(1, slider.getChildren("div[data-value]").length);
     slider.remove().dispose();
   });

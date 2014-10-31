@@ -31,16 +31,16 @@ describe("mobile.navigationbar.NavigationBar", function()
 
 
   it("Create", function() {
-      var bar = new qx.ui.mobile.navigationbar.NavigationBar();
+      var bar = new qx.ui.navigationbar.NavigationBar();
       getRoot().append(bar);
 
-      var back = new qx.ui.mobile.Button("Back");
+      var back = new qx.ui.Button("Back");
       bar.append(back);
 
-      var title = new qx.ui.mobile.navigationbar.Title("Title");
+      var title = new qx.ui.navigationbar.Title("Title");
       bar.append(title);
 
-      var button = new qx.ui.mobile.Button("Action");
+      var button = new qx.ui.Button("Action");
       bar.append(button);
 
       assert.equal(3, bar.getChildren().length);
@@ -54,8 +54,8 @@ describe("mobile.navigationbar.NavigationBar", function()
 
   it("Factory", function() {
     var navigationBar = qxWeb.create("<div>").navigationBar().appendTo(getRoot());
-    assert.instanceOf(navigationBar, qx.ui.mobile.navigationbar.NavigationBar);
+    assert.instanceOf(navigationBar, qx.ui.navigationbar.NavigationBar);
     assert.equal(navigationBar, navigationBar[0].$$widget);
-    assert.equal("qx.ui.mobile.navigationbar.NavigationBar", navigationBar.getData("qxWidget"));
+    assert.equal("qx.ui.navigationbar.NavigationBar", navigationBar.getData("qxWidget"));
   });
 });

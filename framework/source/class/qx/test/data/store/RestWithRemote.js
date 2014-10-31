@@ -69,7 +69,7 @@ qx.Class.define("qx.test.data.store.RestWithRemote",
     "test: bind model property": function() {
       var res = this.res,
           store = this.store,
-          label = new qx.ui.mobile.basic.Label();
+          label = new qx.ui.basic.Label();
 
       res.on("success", function() {
         this.resume(function() {

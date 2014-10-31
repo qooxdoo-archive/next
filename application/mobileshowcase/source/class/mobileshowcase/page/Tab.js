@@ -48,40 +48,40 @@ qx.Class.define("mobileshowcase.page.Tab",
 
 
     __createTabBar: function() {
-      var group = new qx.ui.mobile.form.Group();
+      var group = new qx.ui.form.Group();
 
-      var tabBar = this.__tabBar = new qx.ui.mobile.tabbar.TabBar()
+      var tabBar = this.__tabBar = new qx.ui.tabbar.TabBar()
         .set({mediaQuery: "(min-width: 600px) and (orientation: landscape)"});
 
-      new qx.ui.mobile.Button("Desktop")
+      new qx.ui.Button("Desktop")
         .setData("qxConfigPage", "#page_v1")
         .addClass("selected")
         .appendTo(tabBar);
-      new qx.ui.mobile.basic.Label("<b>qx.Desktop</b><br/><br/>Create desktop oriented applications. Features a rich and extendable set of widgets. No HTML/CSS knowledge required.")
+      new qx.ui.basic.Label("<b>qx.Desktop</b><br/><br/>Create desktop oriented applications. Features a rich and extendable set of widgets. No HTML/CSS knowledge required.")
         .setAttribute("id", "page_v1")
         .addClass("view1")
         .appendTo(tabBar);
 
-      new qx.ui.mobile.Button("Mobile")
+      new qx.ui.Button("Mobile")
         .setData("qxConfigPage", "#page_v2")
         .appendTo(tabBar);
-      new qx.ui.mobile.basic.Label("<b>qx.Mobile</b><br/><br/>Create mobile apps that run on all major mobile operating systems, without writing any HTML.")
+      new qx.ui.basic.Label("<b>qx.Mobile</b><br/><br/>Create mobile apps that run on all major mobile operating systems, without writing any HTML.")
         .setAttribute("id", "page_v2")
         .addClass("view2")
         .appendTo(tabBar);
 
-      new qx.ui.mobile.Button("Server")
+      new qx.ui.Button("Server")
         .setData("qxConfigPage", "#page_v3")
         .appendTo(tabBar);
-      new qx.ui.mobile.basic.Label("<b>qx.Server</b><br/><br/>Use the same OOP pattern known from the client side, reuse code and generate files you can deploy in your server environment.")
+      new qx.ui.basic.Label("<b>qx.Server</b><br/><br/>Use the same OOP pattern known from the client side, reuse code and generate files you can deploy in your server environment.")
         .setAttribute("id", "page_v3")
         .addClass("view3")
         .appendTo(tabBar);
 
-      new qx.ui.mobile.Button("Website")
+      new qx.ui.Button("Website")
         .setData("qxConfigPage", "#page_v4")
         .appendTo(tabBar);
-      new qx.ui.mobile.basic.Label("<b>qx.Website</b><br/><br/>A cross-browser DOM manipulation library to enhance websites with a rich user experience.")
+      new qx.ui.basic.Label("<b>qx.Website</b><br/><br/>A cross-browser DOM manipulation library to enhance websites with a rich user experience.")
         .setAttribute("id", "page_v4")
         .addClass("view4")
         .appendTo(tabBar);
@@ -90,20 +90,20 @@ qx.Class.define("mobileshowcase.page.Tab",
     },
 
     __createAlignmentSwitch: function() {
-      var group = new qx.ui.mobile.form.Group("Tab Button alignment (Horizontal mode only)");
+      var group = new qx.ui.form.Group("Tab Button alignment (Horizontal mode only)");
 
-      var rbGroup = new qx.ui.mobile.form.RadioGroup()
+      var rbGroup = new qx.ui.form.RadioGroup()
         .set({allowEmptySelection: true});
 
       ["Left", "Justify", "Right"].forEach(function(alignment) {
-        var rb = new qx.ui.mobile.form.RadioButton()
+        var rb = new qx.ui.form.RadioButton()
           .setAttribute("name", alignment.toLowerCase());
         if (alignment.toLowerCase() === this.__tabBar.align) {
           rb.value = true;
         }
         rbGroup.add(rb);
 
-        new qx.ui.mobile.form.Row(rb, alignment)
+        new qx.ui.form.Row(rb, alignment)
           .appendTo(group);
       }.bind(this));
 
@@ -115,14 +115,14 @@ qx.Class.define("mobileshowcase.page.Tab",
     },
 
     __createResponsiveToggle: function() {
-      var group = new qx.ui.mobile.form.Group("Responsive Mode");
+      var group = new qx.ui.form.Group("Responsive Mode");
 
-      var infoText = new qx.ui.mobile.Widget()
+      var infoText = new qx.ui.Widget()
         .setHtml("In responsive mode, the TabBar dynamically switches between horizontal and vertical orientation based on the change events from a configurable CSS media query listener.<br>Resize your browser or change your device's orientation to test this feature.");
-      var infoRow = new qx.ui.mobile.form.Row(infoText)
+      var infoRow = new qx.ui.form.Row(infoText)
         .appendTo(group);
 
-      var toggle = new qx.ui.mobile.form.ToggleButton(true, "ON", "OFF")
+      var toggle = new qx.ui.form.ToggleButton(true, "ON", "OFF")
         .on("changeValue", function(e) {
           if (e.value) {
             this.__tabBar.mediaQuery = this.__query.value;
@@ -130,14 +130,14 @@ qx.Class.define("mobileshowcase.page.Tab",
             this.__tabBar.mediaQuery = null;
           }
         }, this);
-      var toggleRow = new qx.ui.mobile.form.Row(toggle, "Active")
+      var toggleRow = new qx.ui.form.Row(toggle, "Active")
         .appendTo(group);
 
-      var query = this.__query = new qx.ui.mobile.form.TextField()
+      var query = this.__query = new qx.ui.form.TextField()
         .set({value: this.__tabBar.mediaQuery});
       qx.data.SingleValueBinding.bind(query, "value", this.__tabBar, "mediaQuery");
 
-      var queryRow = new qx.ui.mobile.form.Row(query, "Media Query")
+      var queryRow = new qx.ui.form.Row(query, "Media Query")
         .appendTo(group);
 
       return group;

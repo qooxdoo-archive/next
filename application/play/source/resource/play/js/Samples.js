@@ -1,9 +1,9 @@
 Samples = {
   "sample Hello World" : function() {
-    var page = new qx.ui.mobile.page.NavigationPage();
+    var page = new qx.ui.page.NavigationPage();
     page.title = ("Hello World");
     page.on("initialize", function() {
-      var button = new qx.ui.mobile.Button("First Button");
+      var button = new qx.ui.Button("First Button");
       page.getContent().append(button);
 
       button.on("tap", function() {
@@ -11,7 +11,7 @@ Samples = {
       }, this);
     },this);
 
-    (new qx.ui.mobile.page.Manager(false)).addDetail(page);
+    (new qx.ui.page.Manager(false)).addDetail(page);
 
     page.show();
   },
@@ -25,10 +25,10 @@ Samples = {
 
   "sample Pages" : function() {
     // Page 1
-    var page1 = new qx.ui.mobile.page.NavigationPage();
+    var page1 = new qx.ui.page.NavigationPage();
     page1.title = ("Page 1");
     page1.on("initialize", function() {
-      var button = new qx.ui.mobile.Button("Next Page");
+      var button = new qx.ui.Button("Next Page");
       page1.getContent().append(button);
 
       button.on("tap", function() {
@@ -37,13 +37,13 @@ Samples = {
     },this);
 
     // Page 2
-    var page2 = new qx.ui.mobile.page.NavigationPage();
+    var page2 = new qx.ui.page.NavigationPage();
     page2.title = "Page 2";
     page2.showBackButton = true;
     page2.backButtonText = "Back";
 
     page2.on("initialize", function() {
-      var label = new qx.ui.mobile.basic.Label("Content of Page 2");
+      var label = new qx.ui.basic.Label("Content of Page 2");
       page2.getContent().append(label);
     },this);
 
@@ -51,7 +51,7 @@ Samples = {
       page1.show({reverse:true});
     }, this);
 
-    (new qx.ui.mobile.page.Manager(false)).addDetail([page1,page2]);
+    (new qx.ui.page.Manager(false)).addDetail([page1,page2]);
 
     page1.show();
   },
@@ -61,11 +61,11 @@ Samples = {
    * @lint ignoreDeprecated(alert)
    */
   "sample List" : function() {
-    var page = new qx.ui.mobile.page.NavigationPage();
+    var page = new qx.ui.page.NavigationPage();
     page.title = "List";
     page.on("initialize", function() {
       // List creation
-      var list = new qx.ui.mobile.list.List({
+      var list = new qx.ui.list.List({
         configureItem : function(item, data, row) {
           item.setTitle(row<4 ? ("Selectable " + data.title) : data.title);
           item.setSubtitle(data.subTitle);
@@ -88,27 +88,27 @@ Samples = {
       page.getContent().append(list);
     },this);
 
-    (new qx.ui.mobile.page.Manager(false)).addDetail(page);
+    (new qx.ui.page.Manager(false)).addDetail(page);
 
     page.show();
   },
 
 
   "sample Form" : function() {
-    var form = new qx.ui.mobile.form.Form().appendTo(this.getRoot());
+    var form = new qx.ui.form.Form().appendTo(this.getRoot());
 
-    var user = new qx.ui.mobile.form.TextField();
+    var user = new qx.ui.form.TextField();
     user.required = true;
-    new qx.ui.mobile.form.Row(user, "Username")
+    new qx.ui.form.Row(user, "Username")
       .appendTo(form);
 
-    var pwd = new qx.ui.mobile.form.PasswordField();
+    var pwd = new qx.ui.form.PasswordField();
     pwd.required = true;
-    new qx.ui.mobile.form.Row(pwd, "Password")
+    new qx.ui.form.Row(pwd, "Password")
       .appendTo(form);
 
     // login button
-    var button = new qx.ui.mobile.Button("Login");
+    var button = new qx.ui.Button("Login");
     this.getRoot().append(button);
 
     button.on("tap", function() {

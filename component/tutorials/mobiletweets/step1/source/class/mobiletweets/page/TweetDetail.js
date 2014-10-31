@@ -22,7 +22,7 @@
  */
 qx.Class.define("mobiletweets.page.TweetDetail",
 {
-  extend : qx.ui.mobile.page.NavigationPage,
+  extend : qx.ui.page.NavigationPage,
 
   construct : function() {
     this.base(arguments);
@@ -53,7 +53,7 @@ qx.Class.define("mobiletweets.page.TweetDetail",
     {
       this.base(arguments);
       // Create a new label instance
-      var label = new qx.ui.mobile.basic.Label();
+      var label = new qx.ui.basic.Label();
       this.getContent().add(label);
       // bind the "tweet.getText" property to the "value" of the label
       this.bind("tweet.text", label, "value");

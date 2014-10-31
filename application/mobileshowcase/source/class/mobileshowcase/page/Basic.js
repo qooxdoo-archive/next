@@ -50,7 +50,7 @@ qx.Class.define("mobileshowcase.page.Basic",
       this.super(mobileshowcase.page.Abstract, "_initialize");
 
       // TOGGLE BUTTON
-      var toggleEnableButton = new qx.ui.mobile.form.ToggleButton(true,"Enable","Disable");
+      var toggleEnableButton = new qx.ui.form.ToggleButton(true,"Enable","Disable");
 
       toggleEnableButton.on("changeValue", function(e) {
         for (var i = 0; i < this._widgets.length; i++) {
@@ -59,31 +59,31 @@ qx.Class.define("mobileshowcase.page.Basic",
       }, this);
 
       // TOGGLE LABEL WRAP BUTTON
-      var toggleLabelWrapButton = new qx.ui.mobile.form.ToggleButton(true,"Wrap","Ellipsis");
+      var toggleLabelWrapButton = new qx.ui.form.ToggleButton(true,"Wrap","Ellipsis");
       toggleLabelWrapButton.on("changeValue", function(e) {
         exLabel.textWrap = !exLabel.textWrap;
       }, this);
 
       // EXAMPLE WIDGETS
-      var exButton = new qx.ui.mobile.Button("Button");
+      var exButton = new qx.ui.Button("Button");
 
-      var exToggleButton = new qx.ui.mobile.form.ToggleButton(false);
+      var exToggleButton = new qx.ui.form.ToggleButton(false);
 
       var labelText = "qx.Mobile is a sophisticated HTML5 framework. It provides specific UI widgets for touch devices, handling of mobile events like swiping, custom theming and much more. It is suitable for mobile web browsers on platforms such as Android, iOS, WP8 or BlackBerry 10.";
 
-      var exLabel = new qx.ui.mobile.basic.Label(labelText);
+      var exLabel = new qx.ui.basic.Label(labelText);
       exLabel.addClass("space-top");
 
-      var exImage = new qx.ui.mobile.basic.Image("mobileshowcase/icon/mobile.png");
+      var exImage = new qx.ui.basic.Image("mobileshowcase/icon/mobile.png");
 
       // ATOMS
       var positions = [ "top", "left", "right", "bottom" ];
       var iconSrc = "mobileshowcase/icon/mobile.png";
-      var atomRow = new qx.ui.mobile.form.Row().set({
-        layout: new qx.ui.mobile.layout.VBox()
+      var atomRow = new qx.ui.form.Row().set({
+        layout: new qx.ui.layout.VBox()
       });
       for (var i = 0; i < positions.length; i++) {
-        var atomExample = new qx.ui.mobile.basic.Atom("Icon Position: "+positions[i], iconSrc);
+        var atomExample = new qx.ui.basic.Atom("Icon Position: "+positions[i], iconSrc);
         atomExample.iconPosition = positions[i];
         atomRow.append(atomExample);
         this._widgets.push(atomExample);
@@ -91,7 +91,7 @@ qx.Class.define("mobileshowcase.page.Basic",
 
       var exCollapsible = this._createCollapsible();
 
-      var rating = new qx.ui.mobile.Rating();
+      var rating = new qx.ui.Rating();
 
       this._widgets.push(exButton);
       this._widgets.push(exToggleButton);
@@ -102,49 +102,49 @@ qx.Class.define("mobileshowcase.page.Basic",
 
       // BUILD VIEW
 
-      var menuGroup = new qx.ui.mobile.form.Group("Widget Modes")
+      var menuGroup = new qx.ui.form.Group("Widget Modes")
         .appendTo(this.getContent());
-      new qx.ui.mobile.form.Row()
+      new qx.ui.form.Row()
         .set({
-          layout: new qx.ui.mobile.layout.VBox()
+          layout: new qx.ui.layout.VBox()
         })
         .appendTo(menuGroup)
         .append(toggleEnableButton)
         .append(toggleLabelWrapButton);
 
-      new qx.ui.mobile.form.Group("Button")
+      new qx.ui.form.Group("Button")
         .appendTo(this.getContent())
         .append(exButton);
 
-      new qx.ui.mobile.form.Group("ToggleButton")
+      new qx.ui.form.Group("ToggleButton")
         .appendTo(this.getContent())
-        .append(new qx.ui.mobile.form.Row(exToggleButton));
+        .append(new qx.ui.form.Row(exToggleButton));
 
-      new qx.ui.mobile.form.Group("Label")
+      new qx.ui.form.Group("Label")
         .appendTo(this.getContent())
-        .append(new qx.ui.mobile.form.Row(exLabel));
+        .append(new qx.ui.form.Row(exLabel));
 
-      new qx.ui.mobile.form.Group("Image")
+      new qx.ui.form.Group("Image")
         .appendTo(this.getContent())
         .append(exImage);
 
-      new qx.ui.mobile.form.Group("Collapsible")
+      new qx.ui.form.Group("Collapsible")
         .appendTo(this.getContent())
         .append(exCollapsible);
 
-      new qx.ui.mobile.form.Group("Atoms")
+      new qx.ui.form.Group("Atoms")
         .appendTo(this.getContent())
         .append(atomRow);
 
-      new qx.ui.mobile.form.Group("Rating")
+      new qx.ui.form.Group("Rating")
         .appendTo(this.getContent())
-        .append(new qx.ui.mobile.form.Row(rating));
+        .append(new qx.ui.form.Row(rating));
     },
 
 
     _createCollapsible : function() {
-      var collapsible = new qx.ui.mobile.container.Collapsible("Collapsible Header");
-      var label = new qx.ui.mobile.basic.Label("This is the content of the Collapsible.");
+      var collapsible = new qx.ui.container.Collapsible("Collapsible Header");
+      var label = new qx.ui.basic.Label("This is the content of the Collapsible.");
       collapsible.append(label);
       return collapsible;
     }

@@ -26,7 +26,7 @@ qx.Class.define("qx.test.mobile.page.NavigationPage",
   {
     testNavigationInterface : function()
     {
-      var page = new qx.ui.mobile.page.NavigationPage();
+      var page = new qx.ui.page.NavigationPage();
 
       this.assertNotNull(page.getTitleWidget());
       this.assertNotNull(page.getLeftContainer());
@@ -38,7 +38,7 @@ qx.Class.define("qx.test.mobile.page.NavigationPage",
 
     testTitle : function()
     {
-      var page = new qx.ui.mobile.page.NavigationPage();
+      var page = new qx.ui.page.NavigationPage();
 
       page.title = "Affe";
       this.assertEquals("Affe", page.getTitleWidget().value);
@@ -49,7 +49,7 @@ qx.Class.define("qx.test.mobile.page.NavigationPage",
 
     testBackButton : function()
     {
-      var page = new qx.ui.mobile.page.NavigationPage();
+      var page = new qx.ui.page.NavigationPage();
 
       page.getLeftContainer();
 
@@ -66,7 +66,7 @@ qx.Class.define("qx.test.mobile.page.NavigationPage",
 
     testButton : function()
     {
-      var page = new qx.ui.mobile.page.NavigationPage();
+      var page = new qx.ui.page.NavigationPage();
 
       page.getRightContainer();
 

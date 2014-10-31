@@ -52,7 +52,7 @@ qx.Class.define("mobileshowcase.page.Canvas",
 
       this.__lastPoint = {};
 
-      var clearButton = new qx.ui.mobile.Button("Clear");
+      var clearButton = new qx.ui.Button("Clear");
       clearButton.on("tap", this.__clearCanvas, this);
 
       this.getRightContainer().append(clearButton);
@@ -64,7 +64,7 @@ qx.Class.define("mobileshowcase.page.Canvas",
 
       this.__canvasSize = canvasSize;
 
-      var canvas = this.__canvas = new qx.ui.mobile.embed.Canvas();
+      var canvas = this.__canvas = new qx.ui.embed.Canvas();
 
       canvas.on("trackstart", this._onTrackStart, this)
         .on("trackend", this._onTrackEnd, this)
@@ -85,7 +85,7 @@ qx.Class.define("mobileshowcase.page.Canvas",
 
 
     _createScrollContainer : function() {
-      return new qx.ui.mobile.Widget();
+      return new qx.ui.Widget();
     },
 
 

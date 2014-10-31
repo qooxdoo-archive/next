@@ -26,7 +26,7 @@ qx.Class.define("qx.test.mobile.basic.Label",
     testValue : function()
     {
 
-      var label = new qx.ui.mobile.basic.Label("affe");
+      var label = new qx.ui.basic.Label("affe");
       this.getRoot().append(label);
 
       this.assertString(label.value);

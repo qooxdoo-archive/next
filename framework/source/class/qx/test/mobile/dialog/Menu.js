@@ -34,7 +34,7 @@ qx.Class.define("qx.test.mobile.dialog.Menu",
       var model = new qx.data.Array(["item1","item2","item3"]);
       var model2 = new qx.data.Array(["item4","item5","item6"]);
 
-      var menu = new qx.ui.mobile.dialog.Menu(model);
+      var menu = new qx.ui.dialog.Menu(model);
       menu.selectedIndex = 2;
 
       menu.setItems(model2);
@@ -53,12 +53,12 @@ qx.Class.define("qx.test.mobile.dialog.Menu",
         "item1", "item2", "item3", "item1", "item2", "item3", "item2", "item3", "item2", "item3",  "item1", "item2", "item3",  "item1", "item2", "item3"
       ]);
 
-      var menu = new qx.ui.mobile.dialog.Menu(model);
+      var menu = new qx.ui.dialog.Menu(model);
 
       menu.visibleListItems = 1000;
       menu.show();
 
-      var parentHeight =  qx.ui.mobile.dialog.Popup.ROOT.getHeight();
+      var parentHeight =  qx.ui.dialog.Popup.ROOT.getHeight();
       parentHeight = parseInt(parentHeight, 10);
       parentHeight = parentHeight * 0.75;
 

@@ -29,7 +29,7 @@ describe("mobile.container.Scroll", function() {
 
 
   it("Create", function() {
-    var container = new qx.ui.mobile.container.Scroll();
+    var container = new qx.ui.container.Scroll();
     getRoot().append(container);
     container.dispose();
   });
@@ -40,9 +40,9 @@ describe("mobile.container.Scroll", function() {
       .scroll()
       .appendTo(getRoot());
 
-    assert.instanceOf(scroll, qx.ui.mobile.container.Scroll);
+    assert.instanceOf(scroll, qx.ui.container.Scroll);
     assert.equal(scroll, scroll[0].$$widget);
-    assert.equal("qx.ui.mobile.container.Scroll", scroll.getData("qxWidget"));
+    assert.equal("qx.ui.container.Scroll", scroll.getData("qxWidget"));
 
     scroll.dispose();
   });

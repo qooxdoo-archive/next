@@ -34,7 +34,7 @@ describe("mobile.page.Page", function() {
     var initializedEvent = false;
     var startEvent = false;
 
-    var page = new qx.ui.mobile.page.Page();
+    var page = new qx.ui.page.Page();
     getRoot().append(page);
 
     page.on("initialize", function() {
@@ -55,7 +55,7 @@ describe("mobile.page.Page", function() {
   });
 
   it("Back", function() {
-    var page = new qx.ui.mobile.page.Page();
+    var page = new qx.ui.page.Page();
     getRoot().append(page);
 
     var eventFired = false;
@@ -71,7 +71,7 @@ describe("mobile.page.Page", function() {
   });
 
   it("Menu", function() {
-    var page = new qx.ui.mobile.page.Page();
+    var page = new qx.ui.page.Page();
     getRoot().append(page);
 
     var eventFired = false;
@@ -89,8 +89,8 @@ describe("mobile.page.Page", function() {
 
   it("Factory", function() {
     var page = qxWeb.create("<div>").page().appendTo(getRoot());
-    assert.instanceOf(page, qx.ui.mobile.page.Page);
+    assert.instanceOf(page, qx.ui.page.Page);
     assert.equal(page, page[0].$$widget);
-    assert.equal("qx.ui.mobile.page.Page", page.getData("qxWidget"));
+    assert.equal("qx.ui.page.Page", page.getData("qxWidget"));
   });
 });

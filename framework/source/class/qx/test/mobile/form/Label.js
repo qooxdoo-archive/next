@@ -25,8 +25,8 @@ qx.Class.define("qx.test.mobile.form.Label",
   {
     testLabelForTarget : function()
     {
-      var label = new qx.ui.mobile.form.Label("foo-label");
-      var target = new qx.ui.mobile.form.TextField("foo");
+      var label = new qx.ui.form.Label("foo-label");
+      var target = new qx.ui.form.TextField("foo");
       label.setLabelFor(target.getAttribute("id"));
 
       var foundValue = label.getAttribute("for");
@@ -40,8 +40,8 @@ qx.Class.define("qx.test.mobile.form.Label",
 
     testDisableTarget : function()
     {
-      var label = new qx.ui.mobile.form.Label("foo-label");
-      var target = new qx.ui.mobile.form.TextField("foo");
+      var label = new qx.ui.form.Label("foo-label");
+      var target = new qx.ui.form.TextField("foo");
       this.getRoot().append(target);
 
       target.enabled = false;

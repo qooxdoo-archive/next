@@ -25,9 +25,9 @@ qx.Class.define("qx.test.mobile.container.Collapsible",
         .collapsible("Header")
         .appendTo(this.getRoot());
 
-      this.assertInstance(collapsible, qx.ui.mobile.container.Collapsible);
-      this.assertInstance(qxWeb(collapsible.getChildren()[0]), qx.ui.mobile.basic.Label);
-      this.assertInstance(collapsible.find(".collapsible-content"), qx.ui.mobile.Widget);
+      this.assertInstance(collapsible, qx.ui.container.Collapsible);
+      this.assertInstance(qxWeb(collapsible.getChildren()[0]), qx.ui.basic.Label);
+      this.assertInstance(collapsible.find(".collapsible-content"), qx.ui.Widget);
       collapsible.remove().dispose();
     }
   }

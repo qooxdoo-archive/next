@@ -1,7 +1,7 @@
 var $$root;
 
 var setUpRoot = function() {
-  $$root = new qx.ui.mobile.core.Root(document.createElement("div"));
+  $$root = new qx.ui.core.Root(document.createElement("div"));
   $$root.appendTo(document.body);
 }
 
@@ -16,5 +16,5 @@ var tearDownRoot = function() {
 
 
 function assertQxMobileWidget(obj) {
-  assert.instanceOf(obj, qx.ui.mobile.Widget);
+  assert.instanceOf(obj, qx.ui.Widget);
 }

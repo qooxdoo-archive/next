@@ -30,7 +30,7 @@ describe("mobile.form.TextArea", function() {
 
 
   it("Value", function() {
-    var textArea = new qx.ui.mobile.form.TextArea();
+    var textArea = new qx.ui.form.TextArea();
     getRoot().append(textArea);
 
     assert.equal(null, textArea.value);
@@ -43,7 +43,7 @@ describe("mobile.form.TextArea", function() {
 
     textArea.dispose();
 
-    textArea = new qx.ui.mobile.form.TextArea('affe');
+    textArea = new qx.ui.form.TextArea('affe');
     getRoot().append(textArea);
     assert.equal('affe', textArea.value);
     assert.equal('affe', qx.bom.element.Attribute.get(textArea[0], 'value'));
@@ -52,7 +52,7 @@ describe("mobile.form.TextArea", function() {
 
 
   it("Enabled", function() {
-    var textArea = new qx.ui.mobile.form.TextArea();
+    var textArea = new qx.ui.form.TextArea();
     getRoot().append(textArea);
     assert.equal(true, textArea.enabled);
     assert.isFalse(qx.bom.element.Class.has(textArea[0], 'disabled'));

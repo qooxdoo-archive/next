@@ -74,7 +74,7 @@ qx.Class.define("mobileshowcase.page.Tree",
         }
       };
 
-      var tree = new qx.ui.mobile.tree.Tree();
+      var tree = new qx.ui.tree.Tree();
       tree.appendTo(this.getContent());
 
       tree.setModel(data.result);

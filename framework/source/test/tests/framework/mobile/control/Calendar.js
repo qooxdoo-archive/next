@@ -27,7 +27,7 @@ describe("mobile.control.Calendar", function() {
   beforeEach(function() {
     setUpRoot();
     __now = new Date();
-    __cal = new qx.ui.mobile.control.Calendar(__now).appendTo(getRoot());
+    __cal = new qx.ui.control.Calendar(__now).appendTo(getRoot());
   });
 
 
@@ -116,8 +116,8 @@ describe("mobile.control.Calendar", function() {
 
   it("Factory", function() {
     __cal = qxWeb.create("<div>").calendar().appendTo(getRoot());
-    assert.instanceOf(__cal, qx.ui.mobile.control.Calendar);
+    assert.instanceOf(__cal, qx.ui.control.Calendar);
     qx.core.Assert.assertEquals(__cal, __cal[0].$$widget);
-    assert.equal("qx.ui.mobile.control.Calendar", __cal.getData("qxWidget"));
+    assert.equal("qx.ui.control.Calendar", __cal.getData("qxWidget"));
   });
 });

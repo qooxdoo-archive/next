@@ -9,8 +9,8 @@ addSample(".collapsible", {
 
 addSample(".collapsible", {
   javascript: function() {
-    var collapsible = new qx.ui.mobile.container.Collapsible("Collapsible Header");
-    var label = new qx.ui.mobile.basic.Label("This is the content of the Collapsible.");
+    var collapsible = new qx.ui.container.Collapsible("Collapsible Header");
+    var label = new qx.ui.basic.Label("This is the content of the Collapsible.");
     collapsible.append(label);
 
     q(document.body).append(collapsible);

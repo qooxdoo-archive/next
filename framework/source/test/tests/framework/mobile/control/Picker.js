@@ -34,7 +34,7 @@ describe("mobile.control.Picker", function() {
     var pickerSlot1 = new qx.data.Array(["qx.Desktop", "qx.Mobile", "qx.Website", "qx.Server"]);
     var pickerSlot2 = new qx.data.Array(["1.5.1", "1.6.1", "2.0.4", "2.1.2", "3.0"]);
 
-    var picker = new qx.ui.mobile.control.Picker();
+    var picker = new qx.ui.control.Picker();
     picker.title = "Picker";
 
     assert.isTrue(picker.getSlotCount() === 0, 'Unexpected picker slot count.');
@@ -52,9 +52,9 @@ describe("mobile.control.Picker", function() {
 
   it("Factory", function() {
     var picker = qxWeb.create("<div>").picker().appendTo(getRoot());
-    assert.instanceOf(picker, qx.ui.mobile.control.Picker);
+    assert.instanceOf(picker, qx.ui.control.Picker);
     qx.core.Assert.assertEquals(picker, picker[0].$$widget);
-    assert.equal("qx.ui.mobile.control.Picker", picker.getData("qxWidget"));
+    assert.equal("qx.ui.control.Picker", picker.getData("qxWidget"));
 
     picker.dispose();
   });

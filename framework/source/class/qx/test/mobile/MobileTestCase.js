@@ -77,7 +77,7 @@ qx.Class.define("qx.test.mobile.MobileTestCase",
 
       if (!clazz._root)
       {
-        clazz._root = new qx.ui.mobile.core.Root();
+        clazz._root = new qx.ui.core.Root();
       }
 
       return clazz._root;
@@ -85,7 +85,7 @@ qx.Class.define("qx.test.mobile.MobileTestCase",
 
 
     assertQxMobileWidget : function(obj) {
-      this.assertInstance(obj, qx.ui.mobile.Widget);
+      this.assertInstance(obj, qx.ui.Widget);
     }
   }
 

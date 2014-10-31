@@ -22,7 +22,7 @@
  */
 qx.Class.define("mobiletweets.page.Tweets",
 {
-  extend : qx.ui.mobile.page.NavigationPage,
+  extend : qx.ui.page.NavigationPage,
 
   construct : function() {
     this.base(arguments);
@@ -63,7 +63,7 @@ qx.Class.define("mobiletweets.page.Tweets",
       this.base(arguments);
 
       // Create a new list instance
-      var list = this.__list = new qx.ui.mobile.list.List();
+      var list = this.__list = new qx.ui.list.List();
       var dateFormat = new qx.util.format.DateFormat();
       // Use a delegate to configure each single list item
       list.setDelegate({

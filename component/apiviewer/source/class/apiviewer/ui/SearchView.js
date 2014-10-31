@@ -23,14 +23,14 @@
  */
 qx.Class.define("apiviewer.ui.SearchView",
 {
-  extend : qx.ui.mobile.core.Widget,
+  extend : qx.ui.core.Widget,
 
 
   construct : function()
   {
-    this.base(qx.ui.mobile.core.Widget, "constructor");
+    this.base(qx.ui.core.Widget, "constructor");
 
-    var layout = new qx.ui.mobile.layout.VBox();
+    var layout = new qx.ui.layout.VBox();
     this.setLayout(layout);
     this.setStyle("backgroundColor", "white");
 

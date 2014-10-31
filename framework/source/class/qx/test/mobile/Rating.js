@@ -28,7 +28,7 @@ qx.Class.define("qx.test.mobile.Rating", {
 
     setUp: function() {
       this.super(qx.test.mobile.MobileTestCase, "setUp");
-      this.__rating = new qx.ui.mobile.Rating();
+      this.__rating = new qx.ui.Rating();
       this.getRoot().append(this.__rating);
     },
 
@@ -39,7 +39,7 @@ qx.Class.define("qx.test.mobile.Rating", {
     },
 
     testFullConstructor : function() {
-      this.__rating = new qx.ui.mobile.Rating(11, "X");
+      this.__rating = new qx.ui.Rating(11, "X");
       this.getRoot().append(this.__rating);
       this.assertEquals(11, this.__rating.size);
       this.assertEquals("X", this.__rating.symbol);
@@ -105,7 +105,7 @@ qx.Class.define("qx.test.mobile.Rating", {
     },
 
     testDomConfig : function() {
-      this.__rating = qxWeb.create("<div data-qx-widget='qx.ui.mobile.Rating' data-qx-config-symbol='+' data-qx-config-size='3' data-qx-config-value='2'>")
+      this.__rating = qxWeb.create("<div data-qx-widget='qx.ui.Rating' data-qx-config-symbol='+' data-qx-config-size='3' data-qx-config-value='2'>")
       .appendTo(this.getRoot());
       this.assertEquals("+", this.__rating.getChildren().getHtml());
       this.assertEquals(3, this.__rating.getChildren().length);
@@ -114,10 +114,10 @@ qx.Class.define("qx.test.mobile.Rating", {
 
     testFactory: function() {
       var rating = this.__rating = qxWeb.create("<div>").rating().appendTo(this.getRoot());
-      this.assertInstance(rating, qx.ui.mobile.Rating);
+      this.assertInstance(rating, qx.ui.Rating);
       this.assertEquals(rating, rating[0].$$widget);
       this.wait(100, function() {
-        this.assertEquals("qx.ui.mobile.Rating", rating.getData("qxWidget"));
+        this.assertEquals("qx.ui.Rating", rating.getData("qxWidget"));
       }, this);
     }
   }

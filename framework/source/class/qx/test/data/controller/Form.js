@@ -30,10 +30,10 @@ qx.Class.define("qx.test.data.controller.Form",
 
     setUp : function() {
       // create the objects
-      this.__form = new qx.ui.mobile.form.Form();
-      this.__tf1 = new qx.ui.mobile.form.TextField();
-      this.__tf2 = new qx.ui.mobile.form.TextField("init");
-      this.__cb = new qx.ui.mobile.form.CheckBox();
+      this.__form = new qx.ui.form.Form();
+      this.__tf1 = new qx.ui.form.TextField();
+      this.__tf2 = new qx.ui.form.TextField("init");
+      this.__cb = new qx.ui.form.CheckBox();
       this.__model = qx.data.marshal.Json.createModel({tf1: null, tf2: null, cb: null});
 
       // build the form
@@ -83,7 +83,7 @@ qx.Class.define("qx.test.data.controller.Form",
 
 
     testUnidirectionalDeep: function() {
-      this.__form = new qx.ui.mobile.form.Form();
+      this.__form = new qx.ui.form.Form();
 
       this.__form.add(this.__tf1, "label1", null, "a.tf1");
       this.__form.add(this.__tf2, "label2", null, "a.tf2");
@@ -277,10 +277,10 @@ qx.Class.define("qx.test.data.controller.Form",
       this.assertEquals(this.__cb.value, this.__model.cb);
 
       // create a new form
-      var form = new qx.ui.mobile.form.Form();
-      var tf1 = new qx.ui.mobile.form.TextField();
-      var tf2 = new qx.ui.mobile.form.TextField("init");
-      var cb = new qx.ui.mobile.form.CheckBox();
+      var form = new qx.ui.form.Form();
+      var tf1 = new qx.ui.form.TextField();
+      var tf2 = new qx.ui.form.TextField("init");
+      var cb = new qx.ui.form.CheckBox();
       form.add(tf1, "tf1");
       form.add(tf2, "tf2");
       form.add(cb, "cb");
@@ -319,10 +319,10 @@ qx.Class.define("qx.test.data.controller.Form",
       var model = qx.data.marshal.Json.createModel(data);
 
       // create the form
-      var form = new qx.ui.mobile.form.Form();
-      var tf1 = new qx.ui.mobile.form.TextField();
-      var tf2 = new qx.ui.mobile.form.TextField();
-      var cb = new qx.ui.mobile.form.CheckBox();
+      var form = new qx.ui.form.Form();
+      var tf1 = new qx.ui.form.TextField();
+      var tf2 = new qx.ui.form.TextField();
+      var cb = new qx.ui.form.CheckBox();
 
       // add the form incl. deep binding instructions
       form.add(tf1, "label1", null, "a.tf1");
@@ -420,9 +420,9 @@ qx.Class.define("qx.test.data.controller.Form",
 
 
     testModelCreationDeep : function() {
-      var form = new qx.ui.mobile.form.Form();
-      var tf1 = new qx.ui.mobile.form.TextField("A");
-      var tf2 = new qx.ui.mobile.form.TextField("B");
+      var form = new qx.ui.form.Form();
+      var tf1 = new qx.ui.form.TextField("A");
+      var tf2 = new qx.ui.form.TextField("B");
 
       form.add(tf1, null, null, "a.b1");
       form.add(tf2, null, null, "a.b2.c");
@@ -441,8 +441,8 @@ qx.Class.define("qx.test.data.controller.Form",
 
 
     testModelCreationSpecialCaracter : function() {
-      var form = new qx.ui.mobile.form.Form();
-      var tf1 = new qx.ui.mobile.form.TextField("A");
+      var form = new qx.ui.form.Form();
+      var tf1 = new qx.ui.form.TextField("A");
 
       form.add(tf1, "a&b-c+d*e/f|g!h i.,:?;!~+-*/%{}()[]<>=^&|@/\\");
 
@@ -551,7 +551,7 @@ qx.Class.define("qx.test.data.controller.Form",
 
     testBindingCreateMissingOne : function() {
       // add an unknown item
-      var tf = new qx.ui.mobile.form.TextField();
+      var tf = new qx.ui.form.TextField();
       this.__form.add(tf, "Unknown");
 
       // create the controller

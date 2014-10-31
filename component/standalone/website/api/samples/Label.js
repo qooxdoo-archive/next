@@ -9,7 +9,7 @@ addSample(".label", {
 
 addSample(".label", {
   javascript: function() {
-    var label = new qx.ui.mobile.basic.Label("Hello qooxdoo");
+    var label = new qx.ui.basic.Label("Hello qooxdoo");
     q(document.body).append(label);
   },
   executable: true,

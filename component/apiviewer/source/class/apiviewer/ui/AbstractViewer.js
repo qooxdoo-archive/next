@@ -23,11 +23,11 @@
 
 qx.Class.define("apiviewer.ui.AbstractViewer",
 {
-  extend : qx.ui.mobile.core.Widget,
+  extend : qx.ui.core.Widget,
 
   construct : function()
   {
-    this.base(qx.ui.mobile.core.Widget, "constructor");
+    this.base(qx.ui.core.Widget, "constructor");
 
     this._infoPanels = [];
 

@@ -52,11 +52,11 @@ qx.Class.define("mobileshowcase.page.Form",
 
       this.getContent().append(this.__form);
 
-      this.__result = new qx.ui.mobile.form.Label();
+      this.__result = new qx.ui.form.Label();
       this.__result.addClass("registration-result");
 
-      var popupContent = new qx.ui.mobile.Widget();
-      this.__closeResultPopup = new qx.ui.mobile.Button("OK");
+      var popupContent = new qx.ui.Widget();
+      this.__closeResultPopup = new qx.ui.Button("OK");
       this.__closeResultPopup.on("tap", function() {
         this.__resultPopup.hide();
       },this);
@@ -64,17 +64,17 @@ qx.Class.define("mobileshowcase.page.Form",
       popupContent.append(this.__result);
       popupContent.append(this.__closeResultPopup);
 
-      this.__resultPopup = new qx.ui.mobile.dialog.Popup(popupContent);
+      this.__resultPopup = new qx.ui.dialog.Popup(popupContent);
       this.__resultPopup.title = "Registration Result";
     },
 
 
     /**
     * Factory for the Submit Button.
-    * @return {qx.ui.mobile.Button} reset button
+    * @return {qx.ui.Button} reset button
     */
     _createSubmitButton : function() {
-      return new qx.ui.mobile.Button("Submit")
+      return new qx.ui.Button("Submit")
         .setAttribute("formnovalidate", "formnovalidate")
         .set({enabled : false});
     },
@@ -82,10 +82,10 @@ qx.Class.define("mobileshowcase.page.Form",
 
     /**
     * Factory for the Reset Button.
-    * @return {qx.ui.mobile.Button} reset button
+    * @return {qx.ui.Button} reset button
     */
     _createResetButton : function() {
-      return new qx.ui.mobile.Button("Reset")
+      return new qx.ui.Button("Reset")
         .setAttribute("formnovalidate", "formnovalidate")
         .on("tap", this._onResetButtonTap, this);
     },
@@ -94,18 +94,18 @@ qx.Class.define("mobileshowcase.page.Form",
     /**
      * Creates the form for this showcase.
      *
-     * @return {qx.ui.mobile.form.Form} the created form.
+     * @return {qx.ui.form.Form} the created form.
      */
     __createForm : function() {
-      var form = new qx.ui.mobile.form.Form()
+      var form = new qx.ui.form.Form()
         .addClass("single");
 
       form.on("submit", this._onSubmit, this);
 
-      var contactGroup = new qx.ui.mobile.form.Group("Contact")
+      var contactGroup = new qx.ui.form.Group("Contact")
         .appendTo(form);
 
-      var name = new qx.ui.mobile.form.TextField()
+      var name = new qx.ui.form.TextField()
         .set({
           placeholder : "Username",
           required : true,
@@ -115,10 +115,10 @@ qx.Class.define("mobileshowcase.page.Form",
         });
       this.__items.push(name);
 
-      new qx.ui.mobile.form.Row(name, "Username")
+      new qx.ui.form.Row(name, "Username")
         .appendTo(contactGroup);
 
-      var password = new qx.ui.mobile.form.PasswordField()
+      var password = new qx.ui.form.PasswordField()
         .set({
           placeholder : "Password",
           required : true,
@@ -128,10 +128,10 @@ qx.Class.define("mobileshowcase.page.Form",
         });
       this.__items.push(password);
 
-      new qx.ui.mobile.form.Row(password, "Password")
+      new qx.ui.form.Row(password, "Password")
         .appendTo(contactGroup);
 
-      var rememberPass = new qx.ui.mobile.form.CheckBox()
+      var rememberPass = new qx.ui.form.CheckBox()
         .set({
           model: "password_reminder"
         });
@@ -140,10 +140,10 @@ qx.Class.define("mobileshowcase.page.Form",
       qx.data.SingleValueBinding.bind(rememberPass, "model", password, "value");
       qx.data.SingleValueBinding.bind(password, "value", rememberPass, "model");
 
-      new qx.ui.mobile.form.Row(rememberPass, "Remember password?")
+      new qx.ui.form.Row(rememberPass, "Remember password?")
         .appendTo(contactGroup);
 
-      var age = new qx.ui.mobile.form.NumberField()
+      var age = new qx.ui.form.NumberField()
         .set({
           maximum: 150,
           minimum: 1,
@@ -153,33 +153,33 @@ qx.Class.define("mobileshowcase.page.Form",
         });
       this.__items.push(age);
 
-      new qx.ui.mobile.form.Row(age, "Age")
+      new qx.ui.form.Row(age, "Age")
         .appendTo(contactGroup);
 
-      var genderGroup = new qx.ui.mobile.form.Group("Gender")
+      var genderGroup = new qx.ui.form.Group("Gender")
         .appendTo(form);
 
-      var male = new qx.ui.mobile.form.RadioButton();
+      var male = new qx.ui.form.RadioButton();
       this.__items.push(male);
-      var female = new qx.ui.mobile.form.RadioButton();
+      var female = new qx.ui.form.RadioButton();
       this.__items.push(female);
 
-      var radioGroup = new qx.ui.mobile.form.RadioGroup();
+      var radioGroup = new qx.ui.form.RadioGroup();
       radioGroup.allowEmptySelection = true;
       radioGroup.add(male, female);
 
-      new qx.ui.mobile.form.Row(male, "Male")
+      new qx.ui.form.Row(male, "Male")
         .appendTo(genderGroup);
 
-      new qx.ui.mobile.form.Row(female, "Female")
+      new qx.ui.form.Row(female, "Female")
         .appendTo(genderGroup);
 
-      var feedbackGroup = new qx.ui.mobile.form.Group("Feedback")
+      var feedbackGroup = new qx.ui.form.Group("Feedback")
         .appendTo(form);
 
       var dd = new qx.data.Array(["Web search", "From a friend", "Offline ad", "Magazine", "Twitter", "Other"]);
       var selQuestion = "How did you hear about us?";
-      var select = new qx.ui.mobile.form.SelectBox()
+      var select = new qx.ui.form.SelectBox()
         .set({
           required : true,
           validationMessage: "Please select a value!",
@@ -190,13 +190,13 @@ qx.Class.define("mobileshowcase.page.Form",
       select.setClearButtonLabel("Clear");
       select.setDialogTitle(selQuestion);
 
-      new qx.ui.mobile.form.Row(select, selQuestion)
+      new qx.ui.form.Row(select, selQuestion)
         .appendTo(feedbackGroup);
 
-      var licenseGroup = new qx.ui.mobile.form.Group("License")
+      var licenseGroup = new qx.ui.form.Group("License")
         .appendTo(form);
 
-      var info = new qx.ui.mobile.form.TextArea()
+      var info = new qx.ui.form.TextArea()
         .set({
           placeholder : "Terms of Service",
           readOnly : true
@@ -204,28 +204,28 @@ qx.Class.define("mobileshowcase.page.Form",
 
       info.setValue("qooxdoo Licensing Information\n=============================\n\nqooxdoo is dual-licensed under the GNU Lesser General Public License (LGPL) and the Eclipse Public License (EPL).\nThe above holds for any newer qooxdoo release. Only legacy versions 0.6.4 and below were licensed solely under the GNU Lesser General Public License (LGPL). For a full understanding of your rights and obligations under these licenses, please see the full text of the LGPL and/or EPL.\n\nOne important aspect of both licenses (so called \"weak copyleft\" licenses) is that if you make any modification or addition to the qooxdoo code itself, you MUST put your modification under the same license, the LGPL or EPL.\n\nNote that it is explicitly NOT NEEDED to put any application under the LGPL or EPL, if that application is just using qooxdoo as intended by the framework (this is where the \"weak\" part comes into play - contrast this with the GPL, which would only allow using qooxdoo to create an application that is itself governed by the GPL).");
 
-      new qx.ui.mobile.form.Row(info, "Terms of Service")
-        .set({layout: new qx.ui.mobile.layout.VBox()})
+      new qx.ui.form.Row(info, "Terms of Service")
+        .set({layout: new qx.ui.layout.VBox()})
         .appendTo(licenseGroup);
 
-      var slider = new qx.ui.mobile.form.Slider()
+      var slider = new qx.ui.form.Slider()
         .set({
           displayValue : "percent"
         });
 
-      new qx.ui.mobile.form.Row(slider, "Are you human? Drag the slider to prove it.")
-        .set({layout: new qx.ui.mobile.layout.VBox()})
+      new qx.ui.form.Row(slider, "Are you human? Drag the slider to prove it.")
+        .set({layout: new qx.ui.layout.VBox()})
         .appendTo(licenseGroup);
       this.__items.push(slider);
 
-      var agree = new qx.ui.mobile.form.ToggleButton(false,"Agree","Reject",13);
+      var agree = new qx.ui.form.ToggleButton(false,"Agree","Reject",13);
       this.__items.push(agree);
       agree.on("changeValue", this._enableFormSubmitting, this);
-      new qx.ui.mobile.form.Row(agree, "Agree?")
+      new qx.ui.form.Row(agree, "Agree?")
         .appendTo(licenseGroup);
 
-      var buttonContainer = new qx.ui.mobile.Widget()
-        .set({layout : (new qx.ui.mobile.layout.VBox())})
+      var buttonContainer = new qx.ui.Widget()
+        .set({layout : (new qx.ui.layout.VBox())})
         .appendTo(form);
       this.__submitButton = this._createSubmitButton()
         .appendTo(buttonContainer);
@@ -262,7 +262,7 @@ qx.Class.define("mobileshowcase.page.Form",
           this.getChildren(".scroll").scrollToWidget(item, 300);
           invalid = true;
         }
-        if (!(item instanceof qx.ui.mobile.form.TextArea)) {
+        if (!(item instanceof qx.ui.form.TextArea)) {
           result.push(item.getPrev()[0].textContent + " : " + item.value);
         }
       }.bind(this));

@@ -25,10 +25,10 @@ qx.Class.define("qx.test.mobile.form.RadioButton",
   {
 
     testConstruct : function() {
-      var radio1 = new qx.ui.mobile.form.RadioButton();
-      var radio2 = new qx.ui.mobile.form.RadioButton();
-      var radio3 = new qx.ui.mobile.form.RadioButton();
-      var group = new qx.ui.mobile.form.RadioGroup(radio1,radio2,radio3);
+      var radio1 = new qx.ui.form.RadioButton();
+      var radio2 = new qx.ui.form.RadioButton();
+      var radio3 = new qx.ui.form.RadioButton();
+      var group = new qx.ui.form.RadioGroup(radio1,radio2,radio3);
 
       this.getRoot().append(radio1);
       this.getRoot().append(radio2);
@@ -51,11 +51,11 @@ qx.Class.define("qx.test.mobile.form.RadioButton",
 
     testValue : function()
     {
-      var radio1 = new qx.ui.mobile.form.RadioButton();
-      var radio2 = new qx.ui.mobile.form.RadioButton();
-      var radio3 = new qx.ui.mobile.form.RadioButton();
+      var radio1 = new qx.ui.form.RadioButton();
+      var radio2 = new qx.ui.form.RadioButton();
+      var radio3 = new qx.ui.form.RadioButton();
 
-      var group = new qx.ui.mobile.form.RadioGroup();
+      var group = new qx.ui.form.RadioGroup();
       group.allowEmptySelection = true;
       group.add(radio1,radio2,radio3);
 
@@ -98,7 +98,7 @@ qx.Class.define("qx.test.mobile.form.RadioButton",
 
     testEnabled : function()
     {
-      var radio1 = new qx.ui.mobile.form.RadioButton();
+      var radio1 = new qx.ui.form.RadioButton();
       this.getRoot().append(radio1);
 
       radio1.enabled = false;

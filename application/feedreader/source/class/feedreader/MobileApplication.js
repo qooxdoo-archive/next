@@ -103,7 +103,7 @@ qx.Class.define("feedreader.MobileApplication",
 
       this.__overview = overview;
 
-      var manager = new qx.ui.mobile.page.Manager(false,this.getRoot());
+      var manager = new qx.ui.page.Manager(false,this.getRoot());
       manager.addDetail([overview,feedpage,articlePage]);
 
       // show the first page and set the feeds

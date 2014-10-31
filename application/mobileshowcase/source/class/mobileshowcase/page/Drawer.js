@@ -36,7 +36,7 @@ qx.Class.define("mobileshowcase.page.Drawer",
   {
     /** Factory method for creation of drawers. */
     _createDrawer : function(orientation) {
-      var drawer = new qx.ui.mobile.container.Drawer(new qx.ui.mobile.layout.VBox());
+      var drawer = new qx.ui.container.Drawer(new qx.ui.layout.VBox());
       drawer.appendTo(this);
       drawer.orientation = orientation;
       drawer.tapOffset = 0;
@@ -47,12 +47,12 @@ qx.Class.define("mobileshowcase.page.Drawer",
 
     /** Factory method for the a demo drawer's content. */
     _createDrawerContent : function(target) {
-      var closeDrawerButton = new qx.ui.mobile.Button("Close");
+      var closeDrawerButton = new qx.ui.Button("Close");
       closeDrawerButton.on("tap", function() {
         target.hide();
       }, this);
 
-      var drawerContent = new qx.ui.mobile.form.Group("This is the "+target.orientation+" drawer.")
+      var drawerContent = new qx.ui.form.Group("This is the "+target.orientation+" drawer.")
         .append(closeDrawerButton);
       return drawerContent;
     },
@@ -60,9 +60,9 @@ qx.Class.define("mobileshowcase.page.Drawer",
 
     /** Factory method for the a drawer menu. */
     _createDrawerMenu : function(drawers) {
-      var drawerGroup = new qx.ui.mobile.form.Group();
+      var drawerGroup = new qx.ui.form.Group();
       for(var i = 0; i < drawers.length; i++) {
-        var openDrawerButton = new qx.ui.mobile.Button("Open "+drawers[i].orientation +" drawer");
+        var openDrawerButton = new qx.ui.Button("Open "+drawers[i].orientation +" drawer");
         openDrawerButton.on("tap", drawers[i].show, drawers[i]);
         drawerGroup.append(openDrawerButton);
       }
@@ -98,7 +98,7 @@ qx.Class.define("mobileshowcase.page.Drawer",
 
       // Z POSITION TOGGLE BUTTON
 
-      var frontBackToggleButton = new qx.ui.mobile.form.ToggleButton(false, "Above","Below");
+      var frontBackToggleButton = new qx.ui.form.ToggleButton(false, "Above","Below");
 
       frontBackToggleButton.on("changeValue",function() {
         this._togglePositionZ(drawerLeft);
@@ -109,12 +109,12 @@ qx.Class.define("mobileshowcase.page.Drawer",
 
       // PAGE CONTENT
 
-      var toggleModeGroup = new qx.ui.mobile.form.Group("Position")
+      var toggleModeGroup = new qx.ui.form.Group("Position")
         .append(frontBackToggleButton);
 
       this.getContent().append(toggleModeGroup);
 
-      var actionButtonGroup = new qx.ui.mobile.form.Group("Action")
+      var actionButtonGroup = new qx.ui.form.Group("Action")
        .append(this._createDrawerMenu([drawerTop, drawerRight, drawerBottom, drawerLeft]));
 
       this.getContent().append(actionButtonGroup);

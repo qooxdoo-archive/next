@@ -53,7 +53,7 @@ describe("data.store.RestWithRemote", function() {
 
 
   it("bind model property", function(done) {
-    label = new qx.ui.mobile.basic.Label();
+    label = new qx.ui.basic.Label();
 
     res.on("success", function() {
       assert.equal("String", label.value);

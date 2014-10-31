@@ -25,7 +25,7 @@ qx.Class.define("qx.test.mobile.form.TextField",
   {
     setUp: function() {
       this.super(qx.test.mobile.MobileTestCase, "setUp");
-      this.__tf = new qx.ui.mobile.form.TextField()
+      this.__tf = new qx.ui.form.TextField()
         .appendTo(this.getRoot());
     },
 
@@ -43,7 +43,7 @@ qx.Class.define("qx.test.mobile.form.TextField",
 
       this.__tf.dispose();
 
-      this.__tf = new qx.ui.mobile.form.TextField('affe');
+      this.__tf = new qx.ui.form.TextField('affe');
       this.getRoot().append(this.__tf);
       this.assertEquals('affe',this.__tf.value);
       this.assertEquals('affe',qx.bom.element.Attribute.get(this.__tf[0],'value'));

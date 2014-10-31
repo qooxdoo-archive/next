@@ -25,9 +25,9 @@ qx.Class.define("qx.test.mobile.container.Drawer",
   {
     testInitComposite : function()
     {
-      var parentContainer = new qx.ui.mobile.Widget();
+      var parentContainer = new qx.ui.Widget();
 
-      var drawer = new qx.ui.mobile.container.Drawer(parentContainer);
+      var drawer = new qx.ui.container.Drawer(parentContainer);
 
       var drawerCandidate = parentContainer.getChildren()[0];
 
@@ -39,7 +39,7 @@ qx.Class.define("qx.test.mobile.container.Drawer",
 
     testInitRoot : function()
     {
-      var drawer = new qx.ui.mobile.container.Drawer();
+      var drawer = new qx.ui.container.Drawer();
 
       var drawerCandidate = this.getRoot().getChildren()[0];
 
@@ -51,7 +51,7 @@ qx.Class.define("qx.test.mobile.container.Drawer",
 
     testShowHide : function()
     {
-      var drawer = new qx.ui.mobile.container.Drawer();
+      var drawer = new qx.ui.container.Drawer();
 
       drawer.transitionDuration = 0;
 
@@ -74,7 +74,7 @@ qx.Class.define("qx.test.mobile.container.Drawer",
 
     testToggleVisibility : function()
     {
-      var drawer = new qx.ui.mobile.container.Drawer();
+      var drawer = new qx.ui.container.Drawer();
 
       drawer.transitionDuration = 0;
 

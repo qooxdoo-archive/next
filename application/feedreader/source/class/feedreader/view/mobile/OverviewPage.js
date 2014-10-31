@@ -22,7 +22,7 @@
  */
 qx.Class.define("feedreader.view.mobile.OverviewPage",
 {
-  extend : qx.ui.mobile.page.NavigationPage,
+  extend : qx.ui.page.NavigationPage,
 
 
   construct : function()
@@ -66,7 +66,7 @@ qx.Class.define("feedreader.view.mobile.OverviewPage",
       this.base(arguments);
 
       // add a list
-      this.__list = new qx.ui.mobile.list.List();
+      this.__list = new qx.ui.list.List();
       this.__list.setDelegate({
         configureItem : function(item, data)
         {

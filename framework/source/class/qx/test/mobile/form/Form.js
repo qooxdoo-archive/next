@@ -65,13 +65,13 @@ qx.Class.define("qx.test.mobile.form.Form",
 
     __createForm: function()
     {
-      var form = new qx.ui.mobile.form.Form()
+      var form = new qx.ui.form.Form()
         .appendTo(this.getRoot());
 
-      var username = this.__username = new qx.ui.mobile.form.TextField();
+      var username = this.__username = new qx.ui.form.TextField();
       username.placeholder = "Username";
       username.required = true;
-      new qx.ui.mobile.form.Row(username, "User Name").appendTo(form);
+      new qx.ui.form.Row(username, "User Name").appendTo(form);
 
       return form;
     }

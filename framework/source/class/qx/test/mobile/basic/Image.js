@@ -34,7 +34,7 @@ qx.Class.define("qx.test.mobile.basic.Image",
         qx.log.Logger.debug("testLoadedEvent skipped! Image already loaded.");
         return;
       }
-      var image = new qx.ui.mobile.basic.Image("qx/icon/Tango/48/places/folder.png");
+      var image = new qx.ui.basic.Image("qx/icon/Tango/48/places/folder.png");
       image.on("loaded", function() {
         this.resume(function() {
           // use a timeout to dispose the image because it needs to
@@ -53,7 +53,7 @@ qx.Class.define("qx.test.mobile.basic.Image",
 
     testLoadingFailed : function()
     {
-      var image = new qx.ui.mobile.basic.Image("does not exist.png" + Math.random());
+      var image = new qx.ui.basic.Image("does not exist.png" + Math.random());
       this.getRoot().append(image);
 
       image.on("loadingFailed", function() {
@@ -76,7 +76,7 @@ qx.Class.define("qx.test.mobile.basic.Image",
         .image()
         .appendTo(this.getRoot());
 
-      this.assertInstance(img, qx.ui.mobile.basic.Image);
+      this.assertInstance(img, qx.ui.basic.Image);
       this.assertEquals('qx/icon/Tango/48/places/folder.png', img.source);
       this.assertTrue(img.getAttribute('src').indexOf(source) !== -1);
       img.remove().dispose();

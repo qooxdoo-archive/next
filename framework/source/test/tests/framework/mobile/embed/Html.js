@@ -29,7 +29,7 @@ describe("mobile.embed.Html", function() {
 
 
   it("Html", function() {
-    var html = new qx.ui.mobile.embed.Html("<strong>affe</strong>");
+    var html = new qx.ui.embed.Html("<strong>affe</strong>");
     getRoot().append(html);
 
     assert.isString(html.html);

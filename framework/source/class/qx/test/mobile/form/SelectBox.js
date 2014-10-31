@@ -27,7 +27,7 @@ qx.Class.define("qx.test.mobile.form.SelectBox",
     testValue : function()
     {
       var dd = new qx.data.Array(["Item 1", "Item 2", "Item 3"]);
-      var selectBox = new qx.ui.mobile.form.SelectBox();
+      var selectBox = new qx.ui.form.SelectBox();
       selectBox.model = dd;
 
       // Initial value '''
@@ -52,7 +52,7 @@ qx.Class.define("qx.test.mobile.form.SelectBox",
 
     testNullable : function() {
       var model = new qx.data.Array(["Item 1", "Item 2", "Item 3"]);
-      var selectBox = new qx.ui.mobile.form.SelectBox();
+      var selectBox = new qx.ui.form.SelectBox();
       selectBox.model = model;
 
       // Default case: nullable is true, selection is null.
@@ -79,7 +79,7 @@ qx.Class.define("qx.test.mobile.form.SelectBox",
     },
 
     testSelectionNoModel : function() {
-      var selectBox = new qx.ui.mobile.form.SelectBox();
+      var selectBox = new qx.ui.form.SelectBox();
       this.assertException(function() {
         selectBox.selection = 4;
       });
@@ -89,7 +89,7 @@ qx.Class.define("qx.test.mobile.form.SelectBox",
 
     testResetValue : function() {
       var model = new qx.data.Array(["Item 1", "Item 2", "Item 3"]);
-      var selectBox = new qx.ui.mobile.form.SelectBox();
+      var selectBox = new qx.ui.form.SelectBox();
       selectBox.model = model;
       selectBox.nullable = true;
       selectBox.value = "Item 3";
@@ -108,7 +108,7 @@ qx.Class.define("qx.test.mobile.form.SelectBox",
 
     testResetValueNotNullable : function() {
       var model = new qx.data.Array(["Item 1", "Item 2", "Item 3"]);
-      var selectBox = new qx.ui.mobile.form.SelectBox();
+      var selectBox = new qx.ui.form.SelectBox();
       selectBox.model = model;
       selectBox.nullable = false;
       selectBox.value = "Item 3";
@@ -128,7 +128,7 @@ qx.Class.define("qx.test.mobile.form.SelectBox",
     testSelection : function()
     {
       var model = new qx.data.Array(["Item 1", "Item 2", "Item 3"]);
-      var selectBox = new qx.ui.mobile.form.SelectBox();
+      var selectBox = new qx.ui.form.SelectBox();
       selectBox.model = model;
 
       // Default value of selectedIndex after setting model is 0.

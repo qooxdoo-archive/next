@@ -23,7 +23,7 @@
  */
 qx.Class.define("feedreader.view.mobile.ArticlePage",
 {
-  extend : qx.ui.mobile.page.NavigationPage,
+  extend : qx.ui.page.NavigationPage,
 
 
   construct : function()
@@ -58,9 +58,9 @@ qx.Class.define("feedreader.view.mobile.ArticlePage",
       this.base(arguments);
 
       // add the article embed
-      this.__article = new qx.ui.mobile.embed.Html();
+      this.__article = new qx.ui.embed.Html();
       this.__article.addCssClass("whitearea");
-      var articleGroup = new qx.ui.mobile.form.Group([this.__article]);
+      var articleGroup = new qx.ui.form.Group([this.__article]);
       this.getContent().add(articleGroup);
     },
 

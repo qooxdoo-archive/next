@@ -29,10 +29,10 @@ qx.Class.define("qx.test.mobile.form.Resetter",
 
     setUp: function() {
       this.super(qx.test.mobile.MobileTestCase, "setUp");
-      this.__username = new qx.ui.mobile.form.TextField();
-      this.__password1 = new qx.ui.mobile.form.TextField();
-      this.__password2 = new qx.ui.mobile.form.TextField();
-      this.__resetter = new qx.ui.mobile.form.Resetter();
+      this.__username = new qx.ui.form.TextField();
+      this.__password1 = new qx.ui.form.TextField();
+      this.__password2 = new qx.ui.form.TextField();
+      this.__resetter = new qx.ui.form.Resetter();
     },
 
     tearDown: function() {
@@ -90,7 +90,7 @@ qx.Class.define("qx.test.mobile.form.Resetter",
 
 
     testResetWithSelectBox : function() {
-      var box = new qx.ui.mobile.form.SelectBox();
+      var box = new qx.ui.form.SelectBox();
       box.model = new qx.data.Array(["1", "2"]);
       box.selection = 1;
 
@@ -115,16 +115,16 @@ qx.Class.define("qx.test.mobile.form.Resetter",
 
     testDifferentWidgets : function() {
       // set up
-      var slider = new qx.ui.mobile.form.Slider();
-      var textarea = new qx.ui.mobile.form.TextArea();
-      var radiobutton = new qx.ui.mobile.form.RadioButton();
-      var list = new qx.ui.mobile.list.List();
+      var slider = new qx.ui.form.Slider();
+      var textarea = new qx.ui.form.TextArea();
+      var radiobutton = new qx.ui.form.RadioButton();
+      var list = new qx.ui.list.List();
       // var l1 = new qx.ui.form.ListItem("1");
       // list.add(l1);
       // var l2 = new qx.ui.form.ListItem("2");
       // list.add(l2);
       var model = new qx.data.Array("a", "b", "c");
-      var vsb = new qx.ui.mobile.form.SelectBox();
+      var vsb = new qx.ui.form.SelectBox();
       vsb.model = model;
 
       // set the init values
@@ -201,7 +201,7 @@ qx.Class.define("qx.test.mobile.form.Resetter",
 
     testRefineSelection : function()
     {
-      var box = new qx.ui.mobile.form.SelectBox();
+      var box = new qx.ui.form.SelectBox();
       box.model = new qx.data.Array(["1", "2"]);
       box.selection = 1;
 

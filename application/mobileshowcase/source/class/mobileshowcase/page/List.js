@@ -54,12 +54,12 @@ qx.Class.define("mobileshowcase.page.List",
 
       this.getContent().setStyle("position", "relative");
 
-      this._loadingIndicator = new qx.ui.mobile.dialog.BusyIndicator("Loading more items ...");
+      this._loadingIndicator = new qx.ui.dialog.BusyIndicator("Loading more items ...");
       this._loadingIndicator.exclude();
       this._loadingIndicator.addClass("waypoint-loading-indicator");
       this.append(this._loadingIndicator);
 
-      this._waypointsLabel = new qx.ui.mobile.Widget();
+      this._waypointsLabel = new qx.ui.Widget();
       this._waypointsLabel.addClass("waypoint-info");
       this.append(this._waypointsLabel);
 
@@ -69,7 +69,7 @@ qx.Class.define("mobileshowcase.page.List",
 
       this._model = this._createModel();
 
-      var list = new qx.ui.mobile.list.List({
+      var list = new qx.ui.list.List({
         group: function(data, row) {
           var title = "Items";
           if (data.selectable) {
@@ -202,7 +202,7 @@ qx.Class.define("mobileshowcase.page.List",
      * @param text {String} text to display.
      */
     _showDialog: function(text) {
-      qx.ui.mobile.dialog.Manager.getInstance().confirm("Selection", text, null, this, ["OK"]);
+      qx.ui.dialog.Manager.getInstance().confirm("Selection", text, null, this, ["OK"]);
     }
   }
 });

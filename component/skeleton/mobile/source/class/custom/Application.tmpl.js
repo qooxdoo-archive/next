@@ -51,7 +51,7 @@ qx.Class.define("${Namespace}.Application",
       var overview = new ${Namespace}.page.Overview();
 
       // Add the pages to the page manager.
-      var manager = new qx.ui.mobile.page.Manager(false);
+      var manager = new qx.ui.page.Manager(false);
       manager.addDetail([
         login,
         overview

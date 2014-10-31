@@ -54,21 +54,21 @@ qx.Class.define("mobileshowcase.page.Dialog",
 
       this.super(mobileshowcase.page.Abstract, "_initialize");
 
-      this.__resultsLabel = new qx.ui.mobile.basic.Label("No events received so far.");
-      var resultsGroup = new qx.ui.mobile.form.Group();
-      new qx.ui.mobile.form.Row()
+      this.__resultsLabel = new qx.ui.basic.Label("No events received so far.");
+      var resultsGroup = new qx.ui.form.Group();
+      new qx.ui.form.Row()
         .append(this.__resultsLabel)
         .appendTo(resultsGroup);
 
       // EXAMPLE WIDGETS
-      var busyIndicator = new qx.ui.mobile.dialog.BusyIndicator("Please wait...");
-      this.__busyPopup = new qx.ui.mobile.dialog.Popup(busyIndicator).appendTo(body);
+      var busyIndicator = new qx.ui.dialog.BusyIndicator("Please wait...");
+      this.__busyPopup = new qx.ui.dialog.Popup(busyIndicator).appendTo(body);
 
       // DEFAULT POPUP
       this.__popup = null;
 
-      var closeDialogButton1 = new qx.ui.mobile.Button("Close Popup");
-      this.__popup = new qx.ui.mobile.dialog.Popup(closeDialogButton1).appendTo(body);
+      var closeDialogButton1 = new qx.ui.Button("Close Popup");
+      this.__popup = new qx.ui.dialog.Popup(closeDialogButton1).appendTo(body);
       this.__popup.title = "A Popup";
 
       closeDialogButton1.on("tap", function() {
@@ -76,7 +76,7 @@ qx.Class.define("mobileshowcase.page.Dialog",
       }, this);
 
       // ANCHOR POPUP
-      var showAnchorButton = new qx.ui.mobile.Button("Anchor Popup");
+      var showAnchorButton = new qx.ui.Button("Anchor Popup");
       showAnchorButton.on("tap", function(e) {
           this.__anchorPopup.show();
       }, this);
@@ -91,13 +91,13 @@ qx.Class.define("mobileshowcase.page.Dialog",
         });
       }
 
-      this.__menu = new qx.ui.mobile.dialog.Menu(menuModel).appendTo(body);
+      this.__menu = new qx.ui.dialog.Menu(menuModel).appendTo(body);
       this.__menu.title = "Menu";
       this.__menu.on("changeSelection", this.__onMenuChangeSelection, this);
       this.__menu.visibleListItems = 10;
 
        // PICKER DIALOG
-      var showPickerButton = new qx.ui.mobile.Button("Picker");
+      var showPickerButton = new qx.ui.Button("Picker");
       showPickerButton.on("tap", function(e) {
         this.__pickerDialog.show();
       }, this);
@@ -105,7 +105,7 @@ qx.Class.define("mobileshowcase.page.Dialog",
       this._createPicker(showPickerButton);
 
       // ANCHORED MENU POPUP
-      var showAnchorMenuButton = new qx.ui.mobile.Button("Anchor Menu");
+      var showAnchorMenuButton = new qx.ui.Button("Anchor Menu");
       showAnchorMenuButton.on("tap", function(e) {
         this.__anchorMenu.show();
       }, this);
@@ -117,53 +117,53 @@ qx.Class.define("mobileshowcase.page.Dialog",
       }, {
         title: "Blue"
       }]);
-      this.__anchorMenu = new qx.ui.mobile.dialog.Menu(anchorMenuModel, showAnchorMenuButton).appendTo(body);
+      this.__anchorMenu = new qx.ui.dialog.Menu(anchorMenuModel, showAnchorMenuButton).appendTo(body);
       this.__anchorMenu.title = "Colors";
 
       // BUTTONS
-      var showPopupButton = new qx.ui.mobile.Button("Popup");
+      var showPopupButton = new qx.ui.Button("Popup");
       showPopupButton.on("tap", function(e) {
         this.__popup.show();
       }, this);
 
-      var busyIndicatorButton = new qx.ui.mobile.Button("Busy Indicator");
+      var busyIndicatorButton = new qx.ui.Button("Busy Indicator");
       busyIndicatorButton.on("tap", function(e) {
         this.__busyPopup.toggleVisibility();
         window.setTimeout(this.__busyPopup.hide.bind(this.__busyPopup), 3000);
       }, this);
 
-      var showMenuButton = new qx.ui.mobile.Button("Menu");
+      var showMenuButton = new qx.ui.Button("Menu");
       showMenuButton.on("tap", function(e) {
         this.__menu.show();
       }, this);
 
-      var popupGroup = new qx.ui.mobile.form.Group([],false);
+      var popupGroup = new qx.ui.form.Group([],false);
       popupGroup.append(this._createGroupTitle("Popup"));
-      popupGroup.layout = new qx.ui.mobile.layout.VBox();
+      popupGroup.layout = new qx.ui.layout.VBox();
       showPopupButton.layoutPrefs = {flex:1};
       popupGroup.append(showPopupButton);
       showAnchorButton.layoutPrefs = {flex:1};
       popupGroup.append(showAnchorButton);
 
-      var menuGroup = new qx.ui.mobile.form.Group([],false);
+      var menuGroup = new qx.ui.form.Group([],false);
       menuGroup.append(this._createGroupTitle("Menu"));
-      menuGroup.layout = new qx.ui.mobile.layout.VBox();
+      menuGroup.layout = new qx.ui.layout.VBox();
       showMenuButton.layoutPrefs = {flex:1};
       menuGroup.append(showMenuButton);
       showAnchorMenuButton.layoutPrefs = {flex:1};
       menuGroup.append(showAnchorMenuButton);
 
-      var otherGroup = new qx.ui.mobile.form.Group([],false);
+      var otherGroup = new qx.ui.form.Group([],false);
       otherGroup.append(this._createGroupTitle("Other"));
-      otherGroup.layout = new qx.ui.mobile.layout.VBox();
+      otherGroup.layout = new qx.ui.layout.VBox();
       busyIndicatorButton.layoutPrefs = {flex:1};
       otherGroup.append(busyIndicatorButton);
       showPickerButton.layoutPrefs = {flex:1};
       otherGroup.append(showPickerButton);
 
-      var groupContainer = new qx.ui.mobile.Widget();
+      var groupContainer = new qx.ui.Widget();
       groupContainer.addClass("dialog-group");
-      groupContainer.layout = new qx.ui.mobile.layout.HBox();
+      groupContainer.layout = new qx.ui.layout.HBox();
       popupGroup.layoutPrefs =  {flex:1};
       groupContainer.append(popupGroup);
       menuGroup.layoutPrefs =  {flex:1};
@@ -180,11 +180,11 @@ qx.Class.define("mobileshowcase.page.Dialog",
 
     /**
     * Creates the date picker dialog.
-    * @param anchor {qx.ui.mobile.Widget} the anchor of the popup.
-    * @return {qx.ui.mobile.dialog.Picker} the date picker.
+    * @param anchor {qx.ui.Widget} the anchor of the popup.
+    * @return {qx.ui.dialog.Picker} the date picker.
     */
     _createPicker : function(anchor) {
-      var picker = this.__picker = new qx.ui.mobile.control.Picker();
+      var picker = this.__picker = new qx.ui.control.Picker();
       picker.on("changeSelection", this.__onPickerChangeSelection,this);
 
       this.__pickerDaySlotData = this._createDayPickerSlot(0, new Date().getFullYear());
@@ -192,16 +192,16 @@ qx.Class.define("mobileshowcase.page.Dialog",
       picker.addSlot(this._createMonthPickerSlot());
       picker.addSlot(this._createYearPickerSlot());
 
-      var hidePickerButton = new qx.ui.mobile.Button("OK");
+      var hidePickerButton = new qx.ui.Button("OK");
       hidePickerButton.on("tap", function(e) {
         pickerDialog.hide();
       }, this);
 
-      var pickerDialogContent = new qx.ui.mobile.Widget();
+      var pickerDialogContent = new qx.ui.Widget();
       pickerDialogContent.append(picker);
       pickerDialogContent.append(hidePickerButton);
       //pickerDialog.append(pickerDialogContent);
-      var pickerDialog = this.__pickerDialog = new qx.ui.mobile.dialog.Popup(pickerDialogContent).appendTo(qxWeb(document.body));
+      var pickerDialog = this.__pickerDialog = new qx.ui.dialog.Popup(pickerDialogContent).appendTo(qxWeb(document.body));
       pickerDialog.title = "Picker";
     },
 
@@ -263,10 +263,10 @@ qx.Class.define("mobileshowcase.page.Dialog",
       }
       var body = qxWeb(document.body);
 
-      var buttonsWidget = new qx.ui.mobile.Widget();
-      buttonsWidget.layout = new qx.ui.mobile.layout.HBox();
-      var okButton = new qx.ui.mobile.Button("Yes");
-      var cancelButton = new qx.ui.mobile.Button("No");
+      var buttonsWidget = new qx.ui.Widget();
+      buttonsWidget.layout = new qx.ui.layout.HBox();
+      var okButton = new qx.ui.Button("Yes");
+      var cancelButton = new qx.ui.Button("No");
 
       buttonsWidget.append(okButton);
       buttonsWidget.append(cancelButton);
@@ -278,7 +278,7 @@ qx.Class.define("mobileshowcase.page.Dialog",
         this.__anchorPopup.hide();
       }, this);
 
-      var popup = new qx.ui.mobile.dialog.Popup(buttonsWidget, anchor).appendTo(body);
+      var popup = new qx.ui.dialog.Popup(buttonsWidget, anchor).appendTo(body);
       popup.title = "Are you sure?";
       return popup;
     },
@@ -325,10 +325,10 @@ qx.Class.define("mobileshowcase.page.Dialog",
 
     /**
     * Creates a group title for the dialow showcase.
-    * @return {qx.ui.mobile.form.Label} the group title label.
+    * @return {qx.ui.form.Label} the group title label.
     */
     _createGroupTitle : function(value) {
-      var titleLabel = new qx.ui.mobile.basic.Label(value);
+      var titleLabel = new qx.ui.basic.Label(value);
       titleLabel.addClass("dialog-group-title");
       titleLabel.addClass("gap");
       return titleLabel;

@@ -30,7 +30,7 @@ describe("mobile.form.CheckBox", function() {
 
 
   it("Value", function() {
-    var checkBox = new qx.ui.mobile.form.CheckBox(false);
+    var checkBox = new qx.ui.form.CheckBox(false);
     getRoot().append(checkBox);
 
     assert.equal(false, checkBox.getValue());
@@ -45,7 +45,7 @@ describe("mobile.form.CheckBox", function() {
 
 
   it("Enabled", function() {
-    var checkBox = new qx.ui.mobile.form.CheckBox();
+    var checkBox = new qx.ui.form.CheckBox();
     getRoot().append(checkBox);
     checkBox.enabled = false;
     assert.equal(false, checkBox.enabled);
@@ -57,9 +57,9 @@ describe("mobile.form.CheckBox", function() {
 
   it("Factory", function() {
     var checkBox = qxWeb.create("<div>").checkBox().appendTo(getRoot());
-    assert.instanceOf(checkBox, qx.ui.mobile.form.CheckBox);
+    assert.instanceOf(checkBox, qx.ui.form.CheckBox);
     assert.equal(checkBox, checkBox[0].$$widget);
-    assert.equal("qx.ui.mobile.form.CheckBox", checkBox.getData("qxWidget"));
+    assert.equal("qx.ui.form.CheckBox", checkBox.getData("qxWidget"));
 
     checkBox.dispose();
   });

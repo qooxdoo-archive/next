@@ -123,7 +123,7 @@ qx.Class.define("qx.test.util.Serializer",
         return object.label;
       };
 
-      var item = new qx.ui.mobile.basic.Atom("a");
+      var item = new qx.ui.basic.Atom("a");
       this.__model.data1 = item;
       this.__model.data2 = "b";
       this.__model.data3 = "c";
@@ -164,7 +164,7 @@ qx.Class.define("qx.test.util.Serializer",
     },
 
     testUrlInherited : function() {
-      var model = new qx.ui.mobile.basic.Atom();
+      var model = new qx.ui.basic.Atom();
       var data = this.__s.toUriParameter(model);
       // property included in widget
       this.assertTrue(data.indexOf("label") != -1);
@@ -229,12 +229,12 @@ qx.Class.define("qx.test.util.Serializer",
     },
 
     testJsonBig : function() {
-      var model = new qx.ui.mobile.Widget();
+      var model = new qx.ui.Widget();
       this.__s.toJson(model);
     },
 
     testJsonInherited : function() {
-      var model = new qx.ui.mobile.basic.Atom();
+      var model = new qx.ui.basic.Atom();
       var data = this.__s.toJson(model);
       // property included in widget
       this.assertTrue(data.indexOf("enabled") != -1);
@@ -260,12 +260,12 @@ qx.Class.define("qx.test.util.Serializer",
     testJsonQxSerializer : function()
     {
       var qxSerializer = function(object) {
-        if (object instanceof qx.ui.mobile.basic.Atom) {
+        if (object instanceof qx.ui.basic.Atom) {
           return object.label;
         }
       };
 
-      var item = new qx.ui.mobile.basic.Atom("a");
+      var item = new qx.ui.basic.Atom("a");
       this.__model.data1 = (item);
       this.__model.data2 = (10.456);
       this.__model.data3 = (true);
@@ -400,7 +400,7 @@ qx.Class.define("qx.test.util.Serializer",
     },
 
     testNativeObjectBig : function() {
-      var model = new qx.ui.mobile.Widget();
+      var model = new qx.ui.Widget();
       this.__s.toNativeObject(model);
       model.dispose();
     },
@@ -438,12 +438,12 @@ qx.Class.define("qx.test.util.Serializer",
     testNativeObjectQxSerializer : function()
     {
       var qxSerializer = function(object) {
-        if (object instanceof qx.ui.mobile.basic.Atom) {
+        if (object instanceof qx.ui.basic.Atom) {
           return object.label;
         }
       };
 
-      var item = new qx.ui.mobile.basic.Atom("a");
+      var item = new qx.ui.basic.Atom("a");
       this.__model.data1 = (item);
       this.__model.data2 = (10.456);
       this.__model.data3 = (true);

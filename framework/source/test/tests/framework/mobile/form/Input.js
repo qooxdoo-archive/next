@@ -18,7 +18,7 @@ describe("mobile.form.Input", function() {
 
   beforeEach(function() {
     setUpRoot();
-    __item = new qx.ui.mobile.form.Input();
+    __item = new qx.ui.form.Input();
     getRoot().append(__item);
   });
 
@@ -99,9 +99,9 @@ describe("mobile.form.Input", function() {
 
   it("Factory", function() {
     var input = qxWeb.create("<div>").input().appendTo(getRoot());
-    assert.instanceOf(input, qx.ui.mobile.form.Input);
+    assert.instanceOf(input, qx.ui.form.Input);
     assert.equal(input, input[0].$$widget);
-    assert.equal("qx.ui.mobile.form.Input", input.getData("qxWidget"));
+    assert.equal("qx.ui.form.Input", input.getData("qxWidget"));
 
     input.dispose();
   });

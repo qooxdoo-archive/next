@@ -23,11 +23,11 @@
  */
 qx.Class.define("mobileshowcase.page.Overview",
 {
-  extend : qx.ui.mobile.page.NavigationPage,
+  extend : qx.ui.page.NavigationPage,
 
   construct : function()
   {
-    this.super(qx.ui.mobile.page.NavigationPage, "constructor");
+    this.super(qx.ui.page.NavigationPage, "constructor");
     this.title = "Overview";
   },
 
@@ -44,9 +44,9 @@ qx.Class.define("mobileshowcase.page.Overview",
     // overridden
     _initialize : function()
     {
-      this.super(qx.ui.mobile.page.NavigationPage, "_initialize");
+      this.super(qx.ui.page.NavigationPage, "_initialize");
 
-      var list = new qx.ui.mobile.list.List({
+      var list = new qx.ui.list.List({
         configureData : function(data) {
           data.showArrow = true;
           return data;

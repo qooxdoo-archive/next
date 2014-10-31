@@ -58,7 +58,7 @@ qx.Class.define("mobileshowcase.page.AnimationLanding",
         this.on("disappear", this.__deactiveAnimation, this);
       }
 
-      var list = new qx.ui.mobile.list.List({
+      var list = new qx.ui.list.List({
         configureItem: function(item, data, row) {
           item.setTitle(data.title);
           item.showArrow = true;

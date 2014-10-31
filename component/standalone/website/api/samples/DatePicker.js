@@ -9,7 +9,7 @@ q("#datepicker-example").datePicker();
 
 addSample(".datePicker", {
   javascript: function() {
-var datePicker = new qx.ui.mobile.control.DatePicker(new Date());
+var datePicker = new qx.ui.control.DatePicker(new Date());
 // enable to manipulate input field
 datePicker.set({
   readonly: false

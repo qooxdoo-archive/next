@@ -25,7 +25,7 @@ qx.Class.define("qx.test.mobile.container.Scroll",
   {
     testCreate : function()
     {
-      var container = new qx.ui.mobile.container.Scroll();
+      var container = new qx.ui.container.Scroll();
       this.getRoot().append(container);
       container.dispose();
     }

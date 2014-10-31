@@ -65,7 +65,7 @@ qx.Class.define("qx.test.mobile.list.List",
 
 
     __createList : function() {
-      var list = new qx.ui.mobile.list.List();
+      var list = new qx.ui.list.List();
       this.getRoot().append(list);
       list.model = this.__createModel();
       return list;
@@ -177,7 +177,7 @@ qx.Class.define("qx.test.mobile.list.List",
     },
 
     testExtractRowsToRender : function() {
-      var list = new qx.ui.mobile.list.List();
+      var list = new qx.ui.list.List();
 
       this.assertArrayEquals([0], list._extractRowsToRender("0"));
       this.assertArrayEquals([0], list._extractRowsToRender("[0].propertyName"));
@@ -189,10 +189,10 @@ qx.Class.define("qx.test.mobile.list.List",
 
     testFactory: function() {
       var list = qxWeb.create("<ul></ul>").list().appendTo(this.getRoot());
-      this.assertInstance(list, qx.ui.mobile.list.List);
+      this.assertInstance(list, qx.ui.list.List);
       this.assertEquals(list, list[0].$$widget);
       this.wait(100, function() {
-        this.assertEquals("qx.ui.mobile.list.List", list.getData("qxWidget"));
+        this.assertEquals("qx.ui.list.List", list.getData("qxWidget"));
       }, this);
 
     }

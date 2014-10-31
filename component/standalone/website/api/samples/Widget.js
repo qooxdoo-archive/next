@@ -8,7 +8,7 @@ addSample(".widget", {
 
 addSample(".widget", {
   javascript: function() {
-    var widget = new qx.ui.mobile.Widget();
+    var widget = new qx.ui.Widget();
     widget.on("click", function () {
       console.log('click on widget');
     });

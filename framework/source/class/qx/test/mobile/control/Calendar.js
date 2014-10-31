@@ -29,7 +29,7 @@ qx.Class.define("qx.test.mobile.control.Calendar",
     setUp: function() {
       this.super(qx.test.mobile.MobileTestCase, "setUp");
       this.__now = new Date();
-      this.__cal = new qx.ui.mobile.control.Calendar(this.__now)
+      this.__cal = new qx.ui.control.Calendar(this.__now)
         .appendTo(this.getRoot());
     },
 
@@ -110,10 +110,10 @@ qx.Class.define("qx.test.mobile.control.Calendar",
 
     testFactory: function() {
       this.__cal = qxWeb.create("<div>").calendar().appendTo(this.getRoot());
-      this.assertInstance(this.__cal, qx.ui.mobile.control.Calendar);
+      this.assertInstance(this.__cal, qx.ui.control.Calendar);
       this.assertEquals(this.__cal, this.__cal[0].$$widget);
       this.wait(100, function() {
-        this.assertEquals("qx.ui.mobile.control.Calendar", this.__cal.getData("qxWidget"));
+        this.assertEquals("qx.ui.control.Calendar", this.__cal.getData("qxWidget"));
       }, this);
     }
   }

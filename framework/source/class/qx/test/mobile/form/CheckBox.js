@@ -25,7 +25,7 @@ qx.Class.define("qx.test.mobile.form.CheckBox",
   {
     testValue : function()
     {
-      var checkBox = new qx.ui.mobile.form.CheckBox(false);
+      var checkBox = new qx.ui.form.CheckBox(false);
       this.getRoot().append(checkBox);
 
       this.assertEquals(false,checkBox.getValue());
@@ -40,7 +40,7 @@ qx.Class.define("qx.test.mobile.form.CheckBox",
 
     testEnabled : function()
     {
-      var checkBox = new qx.ui.mobile.form.CheckBox();
+      var checkBox = new qx.ui.form.CheckBox();
       this.getRoot().append(checkBox);
       checkBox.enabled = false;
       this.assertEquals(false,checkBox.enabled);
@@ -51,10 +51,10 @@ qx.Class.define("qx.test.mobile.form.CheckBox",
 
     testFactory: function() {
       var checkBox = qxWeb.create("<div>").checkBox().appendTo(this.getRoot());
-      this.assertInstance(checkBox, qx.ui.mobile.form.CheckBox);
+      this.assertInstance(checkBox, qx.ui.form.CheckBox);
       this.assertEquals(checkBox, checkBox[0].$$widget);
       this.wait(100, function() {
-        this.assertEquals("qx.ui.mobile.form.CheckBox", checkBox.getData("qxWidget"));
+        this.assertEquals("qx.ui.form.CheckBox", checkBox.getData("qxWidget"));
       }, this);
     }
 

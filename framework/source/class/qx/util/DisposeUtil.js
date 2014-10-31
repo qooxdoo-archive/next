@@ -23,8 +23,8 @@
  *
  * @ignore(qx.log.Logger)
  * @ignore(qx.log)
- * @ignore(qx.ui.mobile)
- * @ignore(qx.ui.mobile.Widget)
+ * @ignore(qx.ui)
+ * @ignore(qx.ui.Widget)
  */
 qx.Class.define("qx.util.DisposeUtil",
 {
@@ -174,9 +174,9 @@ qx.Class.define("qx.util.DisposeUtil",
     disposeContainer : function(container) {
       if(qx.core.Environment.get("qx.debug"))
       {
-        if(qx.ui.mobile && container instanceof qx.ui.mobile.Widget) {
+        if(qx.ui && container instanceof qx.ui.Widget) {
           qx.core.Assert.assertTrue(this.__isChildrenContainer(container),
-          "Container must be an instance of qx.ui.mobile.Widget.");
+          "Container must be an instance of qx.ui.Widget.");
         } else {
           qx.core.Assert.assertQxWidget(container, "First argument must be a container widget!");
           qx.core.Assert.assertTrue(this.__isChildrenContainer(container),
@@ -207,7 +207,7 @@ qx.Class.define("qx.util.DisposeUtil",
 
       for(var i=0; i<children.length; i++)
       {
-        var item = qx.ui.mobile.Widget.getWidgetById(children[i].getAttribute("id"));
+        var item = qx.ui.Widget.getWidgetById(children[i].getAttribute("id"));
         if (item) {
           arr.push(item);
 
@@ -229,8 +229,8 @@ qx.Class.define("qx.util.DisposeUtil",
     __isChildrenContainer : function(obj) {
       // TODO check if still necessary
       var classes = [];
-      if(qx.ui.mobile && obj instanceof qx.ui.mobile.Widget) {
-        classes = [qx.ui.mobile.Widget];
+      if(qx.ui && obj instanceof qx.ui.Widget) {
+        classes = [qx.ui.Widget];
       }
 
       for (var i=0,l=classes.length; i<l; i++) {

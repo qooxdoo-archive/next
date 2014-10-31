@@ -22,7 +22,7 @@ describe("mobile.form.NumberField", function ()
 
   beforeEach (function ()  {
     setUpRoot();
-    __nf = new qx.ui.mobile.form.NumberField().appendTo(getRoot());
+    __nf = new qx.ui.form.NumberField().appendTo(getRoot());
   });
 
 
@@ -138,9 +138,9 @@ describe("mobile.form.NumberField", function ()
 
   it("Factory", function() {
     var numberField = qxWeb.create("<div>").numberField().appendTo(getRoot());
-    assert.instanceOf(numberField, qx.ui.mobile.form.NumberField);
+    assert.instanceOf(numberField, qx.ui.form.NumberField);
     assert.equal(numberField, numberField[0].$$widget);
-    assert.equal("qx.ui.mobile.form.NumberField", numberField.getData("qxWidget"));
+    assert.equal("qx.ui.form.NumberField", numberField.getData("qxWidget"));
 
     numberField.dispose();
   });

@@ -25,7 +25,7 @@ qx.Class.define("qx.test.mobile.Widget",
   {
     testCreate : function()
     {
-      var widget = new qx.ui.mobile.Widget();
+      var widget = new qx.ui.Widget();
       widget.setAttribute("id", "affe");
       this.getRoot().append(widget);
 
@@ -38,7 +38,7 @@ qx.Class.define("qx.test.mobile.Widget",
 
     testSetCssClass : function()
     {
-      var widget = new qx.ui.mobile.Widget();
+      var widget = new qx.ui.Widget();
 
       this.getRoot().append(widget);
 
@@ -61,7 +61,7 @@ qx.Class.define("qx.test.mobile.Widget",
 
     testAddRemoveCssClass : function()
     {
-      var widget = new qx.ui.mobile.Widget();
+      var widget = new qx.ui.Widget();
       this.getRoot().append(widget);
 
       var element = widget[0];
@@ -81,10 +81,10 @@ qx.Class.define("qx.test.mobile.Widget",
 
     testAutoId : function()
     {
-      var widget1 = new qx.ui.mobile.Widget();
-      var widget2 = new qx.ui.mobile.Widget();
+      var widget1 = new qx.ui.Widget();
+      var widget2 = new qx.ui.Widget();
 
-      var idPrefix = qx.ui.mobile.Widget.ID_PREFIX;
+      var idPrefix = qx.ui.Widget.ID_PREFIX;
       var id1 = widget1.getAttribute("id").replace(idPrefix, "");
       var id2 = widget2.getAttribute("id").replace(idPrefix, "");
 
@@ -98,10 +98,10 @@ qx.Class.define("qx.test.mobile.Widget",
 
     testWidgetRegistration : function()
     {
-      var widget = new qx.ui.mobile.Widget();
+      var widget = new qx.ui.Widget();
       this.getRoot().append(widget);
 
-      widget = qx.ui.mobile.Widget.getWidgetById(widget.getAttribute("id"));
+      widget = qx.ui.Widget.getWidgetById(widget.getAttribute("id"));
       this.assertQxMobileWidget(widget);
 
       widget.dispose();
@@ -110,11 +110,11 @@ qx.Class.define("qx.test.mobile.Widget",
 
     testDispose : function()
     {
-      var widget = new qx.ui.mobile.Widget();
+      var widget = new qx.ui.Widget();
 
       var id = widget.getAttribute("id");
       widget.dispose();
-      widget = qx.ui.mobile.Widget.getWidgetById(id);
+      widget = qx.ui.Widget.getWidgetById(id);
       this.assertUndefined(widget);
       var element = document.getElementById(id);
       this.assertNull(element);
@@ -123,7 +123,7 @@ qx.Class.define("qx.test.mobile.Widget",
 
     testVisibility : function()
     {
-      var widget = new qx.ui.mobile.Widget();
+      var widget = new qx.ui.Widget();
       this.getRoot().append(widget);
 
       this.__assertShow(widget);
@@ -165,7 +165,7 @@ qx.Class.define("qx.test.mobile.Widget",
 
     testEnabled : function()
     {
-      var widget = new qx.ui.mobile.Widget();
+      var widget = new qx.ui.Widget();
       this.getRoot().append(widget);
 
       this.assertEquals(true,widget.enabled);
@@ -179,7 +179,7 @@ qx.Class.define("qx.test.mobile.Widget",
 
       widget.dispose();
 
-      widget = new qx.ui.mobile.Widget();
+      widget = new qx.ui.Widget();
       this.getRoot().append(widget);
 
       widget.enabled = true;
@@ -199,33 +199,33 @@ qx.Class.define("qx.test.mobile.Widget",
 
     testInitWidget : function() {
       var el1 = document.createElement("div");
-      el1.setAttribute("data-qx-widget", "qx.ui.mobile.Widget");
+      el1.setAttribute("data-qx-widget", "qx.ui.Widget");
       this.getRoot()[0].appendChild(el1);
 
       var el2 = document.createElement("div");
-      el2.setAttribute("data-qx-widget", "qx.ui.mobile.Widget");
+      el2.setAttribute("data-qx-widget", "qx.ui.Widget");
       this.getRoot()[0].appendChild(el2);
 
-      qx.ui.mobile.Widget.initWidgets();
+      qx.ui.Widget.initWidgets();
 
-      this.assertInstance(el1.$$widget, qx.ui.mobile.Widget);
-      this.assertInstance(el2.$$widget, qx.ui.mobile.Widget);
+      this.assertInstance(el1.$$widget, qx.ui.Widget);
+      this.assertInstance(el2.$$widget, qx.ui.Widget);
     },
 
     testInitWidgetSelector : function() {
       var el1 = document.createElement("div");
-      el1.setAttribute("data-qx-widget", "qx.ui.mobile.Widget");
+      el1.setAttribute("data-qx-widget", "qx.ui.Widget");
       this.getRoot()[0].appendChild(el1);
 
       var el2 = document.createElement("div");
       el2.setAttribute("class", "foo");
-      el2.setAttribute("data-qx-widget", "qx.ui.mobile.Widget");
+      el2.setAttribute("data-qx-widget", "qx.ui.Widget");
       this.getRoot()[0].appendChild(el2);
 
-      qx.ui.mobile.Widget.initWidgets(".foo");
+      qx.ui.Widget.initWidgets(".foo");
 
       this.assertUndefined(el1.$$widget);
-      this.assertInstance(el2.$$widget, qx.ui.mobile.Widget);
+      this.assertInstance(el2.$$widget, qx.ui.Widget);
     },
 
     testInitWidgetFunction : function() {
@@ -234,19 +234,19 @@ qx.Class.define("qx.test.mobile.Widget",
 
       var el2 = document.createElement("div");
       el2.affe = true;
-      el2.setAttribute("data-qx-widget", "qx.ui.mobile.Widget");
+      el2.setAttribute("data-qx-widget", "qx.ui.Widget");
       this.getRoot()[0].appendChild(el2);
 
-      qx.ui.mobile.Widget.initWidgets(function(el) {
+      qx.ui.Widget.initWidgets(function(el) {
         return !!el2.affe;
       });
 
       this.assertUndefined(el1.$$widget);
-      this.assertInstance(el2.$$widget, qx.ui.mobile.Widget);
+      this.assertInstance(el2.$$widget, qx.ui.Widget);
     },
 
     testRestoreInstance : function() {
-      var widget = new qx.ui.mobile.Widget();
+      var widget = new qx.ui.Widget();
       widget.setAttribute("id", "affe");
       this.getRoot().append(widget);
 
@@ -257,7 +257,7 @@ qx.Class.define("qx.test.mobile.Widget",
     },
 
     _testAddedChild : function(invokeFunc) {
-      var child = new qx.ui.mobile.Widget();
+      var child = new qx.ui.Widget();
       this.assertEventFired(this.getRoot(),
         "addedChild",
         invokeFunc.bind(this,child),
@@ -280,7 +280,7 @@ qx.Class.define("qx.test.mobile.Widget",
     },
 
     testAddedChildInsertAfter : function() {
-      var sibling = new qx.ui.mobile.Widget();
+      var sibling = new qx.ui.Widget();
       this.getRoot().append(sibling);
       this._testAddedChild(function(child) {
         child.insertAfter(sibling);
@@ -288,7 +288,7 @@ qx.Class.define("qx.test.mobile.Widget",
     },
 
     testAddedChildInsertBefore : function() {
-      var sibling = new qx.ui.mobile.Widget();
+      var sibling = new qx.ui.Widget();
       this.getRoot().append(sibling);
       this._testAddedChild(function(child) {
         child.insertBefore(sibling);
@@ -296,7 +296,7 @@ qx.Class.define("qx.test.mobile.Widget",
     },
 
     testAddedChildAfter : function() {
-      var sibling = new qx.ui.mobile.Widget();
+      var sibling = new qx.ui.Widget();
       this.getRoot().append(sibling);
       this._testAddedChild(function(child) {
         sibling.after(child);
@@ -304,7 +304,7 @@ qx.Class.define("qx.test.mobile.Widget",
     },
 
     testAddedChildBefore : function() {
-      var sibling = new qx.ui.mobile.Widget();
+      var sibling = new qx.ui.Widget();
       this.getRoot().append(sibling);
       this._testAddedChild(function(child) {
         sibling.before(child);
@@ -318,7 +318,7 @@ qx.Class.define("qx.test.mobile.Widget",
     },
 
     testRemovedChildRemove : function() {
-      var child = new qx.ui.mobile.Widget();
+      var child = new qx.ui.Widget();
       this.getRoot().append(child);
       this.assertEventFired(this.getRoot(),
         "removedChild",
@@ -332,7 +332,7 @@ qx.Class.define("qx.test.mobile.Widget",
     },
 
     testRemovedChildEmpty : function() {
-      var child = new qx.ui.mobile.Widget();
+      var child = new qx.ui.Widget();
       this.getRoot().append(child);
       this.assertEventFired(this.getRoot(),
         "removedChild",

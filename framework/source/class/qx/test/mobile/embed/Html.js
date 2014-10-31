@@ -24,7 +24,7 @@ qx.Class.define("qx.test.mobile.embed.Html",
   members :
   {
     testHtml : function() {
-      var html = new qx.ui.mobile.embed.Html("<strong>affe</strong>");
+      var html = new qx.ui.embed.Html("<strong>affe</strong>");
       this.getRoot().append(html);
 
       this.assertString(html.html);

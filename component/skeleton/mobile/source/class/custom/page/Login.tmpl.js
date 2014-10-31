@@ -12,11 +12,11 @@
  */
 qx.Class.define("${Namespace}.page.Login",
 {
-  extend : qx.ui.mobile.page.NavigationPage,
+  extend : qx.ui.page.NavigationPage,
 
   construct : function()
   {
-    this.super(qx.ui.mobile.page.NavigationPage, "constructor");
+    this.super(qx.ui.page.NavigationPage, "constructor");
     this.title = "Login";
   },
 
@@ -28,26 +28,26 @@ qx.Class.define("${Namespace}.page.Login",
 
     // overridden
     _initialize: function() {
-      this.super(qx.ui.mobile.page.NavigationPage, "_initialize");
+      this.super(qx.ui.page.NavigationPage, "_initialize");
 
       // Username
-      var user = new qx.ui.mobile.form.TextField();
+      var user = new qx.ui.form.TextField();
       user.required = true;
 
       // Password
-      var pwd = new qx.ui.mobile.form.PasswordField();
+      var pwd = new qx.ui.form.PasswordField();
       pwd.required = true;
 
       // Login Button
-      var loginButton = new qx.ui.mobile.Button("Login");
+      var loginButton = new qx.ui.Button("Login");
       loginButton.on("tap", this._onButtonTap, this);
 
-      var loginForm = this.__form = new qx.ui.mobile.form.Form();
+      var loginForm = this.__form = new qx.ui.form.Form();
       loginForm.add(user, "Username");
       loginForm.add(pwd, "Password");
 
       // Use form renderer
-      this.getContent().append(new qx.ui.mobile.form.renderer.Single(loginForm));
+      this.getContent().append(new qx.ui.form.renderer.Single(loginForm));
       this.getContent().append(loginButton);
     },
 

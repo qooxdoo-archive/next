@@ -67,7 +67,7 @@ describe("mobile.LocaleSwitch", function() {
 
   it("Label", function() {
     var manager = qx.locale.Manager;
-    var label = new qx.ui.mobile.basic.Label(manager.tr("test one"));
+    var label = new qx.ui.basic.Label(manager.tr("test one"));
     getRoot().append(label);
 
     assert.equal("test one", label.value);
@@ -93,7 +93,7 @@ describe("mobile.LocaleSwitch", function() {
   it("List", function() {
 
     var manager = qx.locale.Manager;
-    var list = new qx.ui.mobile.list.List({
+    var list = new qx.ui.list.List({
       configureItem: function(item, data, row) {
         item.setTitle(data.title);
         item.setSubtitle(data.subTitle);
@@ -143,12 +143,12 @@ describe("mobile.LocaleSwitch", function() {
   it("FormRendererSingle", function() {
     var manager = qx.locale.Manager;
 
-    var title = new qx.ui.mobile.basic.Label(manager.tr("test one"));
-    var form = new qx.ui.mobile.form.Form();
-    form.add(new qx.ui.mobile.form.TextField(), manager.tr("test two"));
+    var title = new qx.ui.basic.Label(manager.tr("test one"));
+    var form = new qx.ui.form.Form();
+    form.add(new qx.ui.form.TextField(), manager.tr("test two"));
 
     getRoot().append(title);
-    var renderer = new qx.ui.mobile.form.renderer.Single(form);
+    var renderer = new qx.ui.form.renderer.Single(form);
     getRoot().append(renderer);
 
     assert.equal("test one", title.value);

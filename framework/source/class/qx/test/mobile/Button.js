@@ -25,7 +25,7 @@ qx.Class.define("qx.test.mobile.Button",
   {
     testLabel : function()
     {
-      var button = new qx.ui.mobile.Button("affe");
+      var button = new qx.ui.Button("affe");
       this.getRoot().append(button);
 
       this.assertString(button.label);
@@ -44,10 +44,10 @@ qx.Class.define("qx.test.mobile.Button",
 
     testFactory: function() {
       var button = qxWeb.create("<div>").button().appendTo(this.getRoot());
-      this.assertInstance(button, qx.ui.mobile.Button);
+      this.assertInstance(button, qx.ui.Button);
       this.assertEquals(button, button[0].$$widget);
       this.wait(100, function() {
-        this.assertEquals("qx.ui.mobile.Button", button.getData("qxWidget"));
+        this.assertEquals("qx.ui.Button", button.getData("qxWidget"));
       }, this);
     }
   }

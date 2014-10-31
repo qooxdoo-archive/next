@@ -40,10 +40,10 @@
 <!-- ********************************************************************** -->
 
 <textarea class="qx_samples" title="Hello World-mobile">
-var page = new qx.ui.mobile.page.NavigationPage();
+var page = new qx.ui.page.NavigationPage();
 page.setTitle("Hello World");
 page.addListener("initialize", function() {
-  var button = new qx.ui.mobile.form.Button("First Button");
+  var button = new qx.ui.form.Button("First Button");
   page.getContent().add(button);
 
   button.addListener("tap", function() {
@@ -60,11 +60,11 @@ page.show();</textarea>
 
 
 <textarea class="qx_samples" title="List-mobile">
-var page = new qx.ui.mobile.page.NavigationPage();
+var page = new qx.ui.page.NavigationPage();
 page.setTitle("List");
 page.addListener("initialize", function() {
   // List creation
-  var list = new qx.ui.mobile.list.List({
+  var list = new qx.ui.list.List({
     configureItem : function(item, data, row) {
       item.setImage("qx/icon/Tango/22/apps/internet-mail.png");
       item.setTitle(row<4 ? ("Selectable " + data.title) : data.title);
@@ -97,10 +97,10 @@ page.show();</textarea>
 
 
 <textarea class="qx_samples" title="Pages-mobile">// Page 1
-var page1 = new qx.ui.mobile.page.NavigationPage();
+var page1 = new qx.ui.page.NavigationPage();
 page1.setTitle("Page 1");
 page1.addListener("initialize", function() {
-  var button = new qx.ui.mobile.form.Button("Next Page");
+  var button = new qx.ui.form.Button("Next Page");
   page1.getContent().add(button);
 
   button.addListener("tap", function() {
@@ -109,14 +109,14 @@ page1.addListener("initialize", function() {
 },this);
 
 // Page 2
-var page2 = new qx.ui.mobile.page.NavigationPage();
+var page2 = new qx.ui.page.NavigationPage();
 page2.set({
   title : "Page 2",
   showBackButton : true,
   backButtonText : "Back"
 });
 page2.addListener("initialize", function() {
-  var label = new qx.ui.mobile.basic.Label("Content of Page 2");
+  var label = new qx.ui.basic.Label("Content of Page 2");
   page2.getContent().add(label);
 },this);
 
@@ -134,26 +134,26 @@ page1.show();</textarea>
 
 
 <textarea class="qx_samples" title="Form-mobile">
-var page = new qx.ui.mobile.page.NavigationPage();
+var page = new qx.ui.page.NavigationPage();
 page.setTitle("Login");
 page.addListener("initialize", function() {
-  var form = new qx.ui.mobile.form.Form();
+  var form = new qx.ui.form.Form();
 
   // User name
-  var user = new qx.ui.mobile.form.TextField();
+  var user = new qx.ui.form.TextField();
   user.setRequired(true);
   form.add(user, "Username");
 
   // Password
-  var pwd = new qx.ui.mobile.form.PasswordField();
+  var pwd = new qx.ui.form.PasswordField();
   pwd.setRequired(true);
   form.add(pwd, "Password");
 
   // Use form renderer
-  page.getContent().add(new qx.ui.mobile.form.renderer.Single(form));
+  page.getContent().add(new qx.ui.form.renderer.Single(form));
 
   // login button
-  var button = new qx.ui.mobile.form.Button("Login");
+  var button = new qx.ui.form.Button("Login");
   page.getContent().add(button);
 
   button.addListener("tap", function() {
@@ -181,11 +181,11 @@ var delegate = {manipulateData : function(data) {
 var store = new qx.data.store.Yql(query, delegate);
 
 // View
-var page = new qx.ui.mobile.page.NavigationPage();
+var page = new qx.ui.page.NavigationPage();
 page.setTitle("qooxdoo news");
 page.addListener("initialize", function()
 {
-  var list = new qx.ui.mobile.list.List({
+  var list = new qx.ui.list.List({
     configureItem : function(item, data, row)
     {
       item.setTitle(data.getTitle());

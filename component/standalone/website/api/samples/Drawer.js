@@ -14,7 +14,7 @@ addSample(".drawer", {
 
 addSample(".drawer", {
   javascript: function() {
-    var drawer = new qx.ui.mobile.container.Drawer();
+    var drawer = new qx.ui.container.Drawer();
     drawer.positionZ = "below";
 
     // click on body to show the drawer

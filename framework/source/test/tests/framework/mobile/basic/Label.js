@@ -30,7 +30,7 @@ describe("mobile.basic.Label", function() {
 
   it("Value", function() {
 
-    var label = new qx.ui.mobile.basic.Label("affe");
+    var label = new qx.ui.basic.Label("affe");
     getRoot().append(label);
 
     assert.isString(label.value);
@@ -54,10 +54,10 @@ describe("mobile.basic.Label", function() {
       .label(text)
       .appendTo(getRoot());
 
-    assert.instanceOf(label, qx.ui.mobile.basic.Label);
+    assert.instanceOf(label, qx.ui.basic.Label);
     assert.equal(label, label[0].$$widget);
     assert.equal(text, label.value);
-    assert.equal("qx.ui.mobile.basic.Label", label.getData("qxWidget"));
+    assert.equal("qx.ui.basic.Label", label.getData("qxWidget"));
 
     label.dispose();
   });

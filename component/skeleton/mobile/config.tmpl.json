@@ -152,7 +152,7 @@
       "extend" : ["mobile-common"],
       "include" :
       [
-        "qx.ui.mobile.*"
+        "qx.ui.*"
       ],
       "=exclude" :
       [

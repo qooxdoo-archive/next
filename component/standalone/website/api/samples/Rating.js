@@ -9,7 +9,7 @@ addSample(".rating", {
 
 addSample(".rating", {
   javascript: function() {
-var rating = new qx.ui.mobile.Rating();
+var rating = new qx.ui.Rating();
 rating.set({
   symbol: "•",
   value: 3

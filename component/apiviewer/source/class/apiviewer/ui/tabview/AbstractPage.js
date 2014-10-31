@@ -19,11 +19,11 @@
 
 qx.Class.define("apiviewer.ui.tabview.AbstractPage",
 {
-  extend : qx.ui.mobile.core.Widget,
+  extend : qx.ui.core.Widget,
 
   construct : function(classNode)
   {
-    this.base(qx.ui.mobile.core.Widget, "constructor");
+    this.base(qx.ui.core.Widget, "constructor");
 
     this.setLayout(new qx.ui.layout.Canvas());
     this.setShowCloseButton(true);

@@ -26,13 +26,13 @@
  */
 qx.Class.define("apiviewer.ui.PackageTree",
 {
-  extend : qx.ui.mobile.core.Widget, // TODO
+  extend : qx.ui.core.Widget, // TODO
 
 
   construct : function()
   {
 
-    this.base(qx.ui.mobile.core.Widget, "constructor");
+    this.base(qx.ui.core.Widget, "constructor");
     return;
 
     this.setDecorator(null);

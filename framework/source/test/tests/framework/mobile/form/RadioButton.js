@@ -30,10 +30,10 @@ describe("mobile.form.RadioButton", function() {
 
 
   it("Construct", function() {
-    var radio1 = new qx.ui.mobile.form.RadioButton();
-    var radio2 = new qx.ui.mobile.form.RadioButton();
-    var radio3 = new qx.ui.mobile.form.RadioButton();
-    var group = new qx.ui.mobile.form.RadioGroup(radio1, radio2, radio3);
+    var radio1 = new qx.ui.form.RadioButton();
+    var radio2 = new qx.ui.form.RadioButton();
+    var radio3 = new qx.ui.form.RadioButton();
+    var group = new qx.ui.form.RadioGroup(radio1, radio2, radio3);
 
     getRoot().append(radio1);
     getRoot().append(radio2);
@@ -56,10 +56,10 @@ describe("mobile.form.RadioButton", function() {
 
 
   it("Value", function() {
-    var radio1 = new qx.ui.mobile.form.RadioButton();
-    var radio2 = new qx.ui.mobile.form.RadioButton();
-    var radio3 = new qx.ui.mobile.form.RadioButton();
-    var group = new qx.ui.mobile.form.RadioGroup();
+    var radio1 = new qx.ui.form.RadioButton();
+    var radio2 = new qx.ui.form.RadioButton();
+    var radio3 = new qx.ui.form.RadioButton();
+    var group = new qx.ui.form.RadioGroup();
 
     group.allowEmptySelection = true;
     group.add(radio1, radio2, radio3);
@@ -102,7 +102,7 @@ describe("mobile.form.RadioButton", function() {
 
 
   it("Enabled", function() {
-    var radio1 = new qx.ui.mobile.form.RadioButton();
+    var radio1 = new qx.ui.form.RadioButton();
     getRoot().append(radio1);
 
     radio1.enabled = false;

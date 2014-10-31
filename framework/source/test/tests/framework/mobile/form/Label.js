@@ -30,8 +30,8 @@ describe("mobile.form.Label", function() {
 
 
   it("LabelForTarget", function() {
-    var label = new qx.ui.mobile.form.Label("foo-label");
-    var target = new qx.ui.mobile.form.TextField("foo");
+    var label = new qx.ui.form.Label("foo-label");
+    var target = new qx.ui.form.TextField("foo");
     label.setLabelFor(target.getAttribute("id"));
 
     var foundValue = label.getAttribute("for");
@@ -44,8 +44,8 @@ describe("mobile.form.Label", function() {
 
 
   it("DisableTarget", function() {
-    var label = new qx.ui.mobile.form.Label("foo-label");
-    var target = new qx.ui.mobile.form.TextField("foo");
+    var label = new qx.ui.form.Label("foo-label");
+    var target = new qx.ui.form.TextField("foo");
     getRoot().append(target);
 
     target.enabled = false;

@@ -18,7 +18,7 @@
 ************************************************************************ */
 
 /**
- * @require(qx.ui.mobile.control.DatePicker)
+ * @require(qx.ui.control.DatePicker)
  */
 qx.Class.define("qx.test.mobile.control.DatePicker",
 {
@@ -26,7 +26,7 @@ qx.Class.define("qx.test.mobile.control.DatePicker",
 
   members :  {
     testReadOnlyInputElement : function() {
-      this.getRoot().append("<input type='text' id='datepicker' data-qx-class='qx.ui.mobile.control.DatePicker' data-qx-config-readonly='false' value=''></input");
+      this.getRoot().append("<input type='text' id='datepicker' data-qx-class='qx.ui.control.DatePicker' data-qx-config-readonly='false' value=''></input");
 
       var datepicker = q("input#datepicker").datePicker();
 
@@ -37,7 +37,7 @@ qx.Class.define("qx.test.mobile.control.DatePicker",
     },
 
     testReadOnlyInputElementWithConfig : function() {
-      this.getRoot().append("<input type='text' class='datepicker' data-qx-class='qx.ui.mobile.control.DatePicker' data-qx-config-readonly='true' value=''></input");
+      this.getRoot().append("<input type='text' class='datepicker' data-qx-class='qx.ui.control.DatePicker' data-qx-config-readonly='true' value=''></input");
 
       var datepicker = q("input.datepicker").datePicker();
       this.assertTrue(datepicker.readonly);
@@ -49,7 +49,7 @@ qx.Class.define("qx.test.mobile.control.DatePicker",
     },
 
     testIconOpener : function() {
-      this.getRoot().append("<input type='text' class='datepicker' data-qx-class='qx.ui.mobile.control.DatePicker' value=''></input>");
+      this.getRoot().append("<input type='text' class='datepicker' data-qx-class='qx.ui.control.DatePicker' value=''></input>");
 
       var datepicker = q("input.datepicker").datePicker();
       datepicker.icon = '../../../../application/websitewidgetbrowser/demo/datepicker/office-calendar.png';
@@ -64,7 +64,7 @@ qx.Class.define("qx.test.mobile.control.DatePicker",
 
     testIconOpenerToggle : function() {
       var sandbox = q("#sandbox");
-      this.getRoot().append("<input type='text' class='datepicker' data-qx-class='qx.ui.mobile.control.DatePicker' value='' />");
+      this.getRoot().append("<input type='text' class='datepicker' data-qx-class='qx.ui.control.DatePicker' value='' />");
 
       var datepicker = q("input.datepicker").datePicker();
       datepicker.icon = '../../../../application/websitewidgetbrowser/demo/datepicker/office-calendar.png';

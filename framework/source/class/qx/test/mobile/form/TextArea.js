@@ -25,7 +25,7 @@ qx.Class.define("qx.test.mobile.form.TextArea",
   {
     testValue : function()
     {
-      var textArea = new qx.ui.mobile.form.TextArea();
+      var textArea = new qx.ui.form.TextArea();
       this.getRoot().append(textArea);
 
       this.assertEquals(null, textArea.value);
@@ -38,7 +38,7 @@ qx.Class.define("qx.test.mobile.form.TextArea",
 
       textArea.dispose();
 
-      textArea = new qx.ui.mobile.form.TextArea('affe');
+      textArea = new qx.ui.form.TextArea('affe');
       this.getRoot().append(textArea);
       this.assertEquals('affe', textArea.value);
       this.assertEquals('affe', qx.bom.element.Attribute.get(textArea[0],'value'));
@@ -48,7 +48,7 @@ qx.Class.define("qx.test.mobile.form.TextArea",
 
     testEnabled : function()
     {
-      var textArea = new qx.ui.mobile.form.TextArea();
+      var textArea = new qx.ui.form.TextArea();
       this.getRoot().append(textArea);
       this.assertEquals(true, textArea.enabled);
       this.assertFalse(qx.bom.element.Class.has(textArea[0],'disabled'));

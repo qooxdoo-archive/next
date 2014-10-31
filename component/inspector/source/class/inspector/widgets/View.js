@@ -102,7 +102,7 @@ qx.Class.define("inspector.widgets.View",
 
       // create a new root folder
       if (remoteAppRoot.classname == "qx.ui.root.Application" ||
-        remoteAppRoot.classname == "qx.ui.mobile.core.Root")
+        remoteAppRoot.classname == "qx.ui.core.Root")
       {
         var rootFolder = new qx.ui.tree.TreeFolder(
           remoteAppRoot.classname + " [" + remoteAppRoot.toHashCode() + "]"
@@ -302,7 +302,7 @@ qx.Class.define("inspector.widgets.View",
       // check for null references
       if (widget == null ||
         ((this._iFrameWindow.qx.ui.core && this._iFrameWindow.qx.ui.core.Widget) && !(widget instanceof this._iFrameWindow.qx.ui.core.Widget)) ||
-        (this._iFrameWindow.qx.ui.mobile && !(widget instanceof this._iFrameWindow.qx.ui.mobile.Widget)))
+        (this._iFrameWindow.qx.ui && !(widget instanceof this._iFrameWindow.qx.ui.Widget)))
       {
         this._tree.resetSelection();
         return;

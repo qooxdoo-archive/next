@@ -27,11 +27,11 @@ qx.Class.define("qx.test.mobile.form.Row",
 
     setUp: function() {
       this.super(qx.test.mobile.MobileTestCase, "setUp");
-      this.__tf = new qx.ui.mobile.form.TextField().set({
+      this.__tf = new qx.ui.form.TextField().set({
         required: true,
         validationMessage: this.__nameInvalidMsg
       });
-      this.__row = new qx.ui.mobile.form.Row(this.__tf, "Name")
+      this.__row = new qx.ui.form.Row(this.__tf, "Name")
         .appendTo(this.getRoot());
     },
 

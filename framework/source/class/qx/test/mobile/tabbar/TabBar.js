@@ -27,7 +27,7 @@ qx.Class.define("qx.test.mobile.tabbar.TabBar",
 
     setUp : function() {
       this.super(qx.test.mobile.MobileTestCase, "setUp");
-      this.__tabBar = new qx.ui.mobile.tabbar.TabBar();
+      this.__tabBar = new qx.ui.tabbar.TabBar();
       this.getRoot().append(this.__tabBar);
     },
 
@@ -45,15 +45,15 @@ qx.Class.define("qx.test.mobile.tabbar.TabBar",
     {
       var tabBar = this.__tabBar;
 
-      var button1 = new qx.ui.mobile.Button("Button 1");
+      var button1 = new qx.ui.Button("Button 1");
       tabBar.append(button1);
       this.__assertChildNodesLength(1);
 
-      var button2 = new qx.ui.mobile.Button("Button 2");
+      var button2 = new qx.ui.Button("Button 2");
       tabBar.append(button2);
       this.__assertChildNodesLength(2);
 
-      var button3 = new qx.ui.mobile.Button("Button 3");
+      var button3 = new qx.ui.Button("Button 3");
       tabBar.append(button3);
       this.__assertChildNodesLength(3);
       tabBar.dispose();
@@ -64,11 +64,11 @@ qx.Class.define("qx.test.mobile.tabbar.TabBar",
     {
       var tabBar = this.__tabBar;
 
-      var button1 = new qx.ui.mobile.Button("Button 1");
+      var button1 = new qx.ui.Button("Button 1");
       tabBar.append(button1);
-      var button2 = new qx.ui.mobile.Button("Button 2");
+      var button2 = new qx.ui.Button("Button 2");
       tabBar.append(button2);
-      var button3 = new qx.ui.mobile.Button("Button 3");
+      var button3 = new qx.ui.Button("Button 3");
       tabBar.append(button3);
 
       this.__assertChildNodesLength(3);
@@ -86,12 +86,12 @@ qx.Class.define("qx.test.mobile.tabbar.TabBar",
     {
       var tabBar = this.__tabBar;
 
-      var button1 = new qx.ui.mobile.Button()
+      var button1 = new qx.ui.Button()
         .setData("qxConfigPage", "#foo")
         .appendTo(tabBar);
       this.assertEquals(button1, tabBar.selected);
 
-      var button2 = new qx.ui.mobile.Button()
+      var button2 = new qx.ui.Button()
         .setData("qxConfigPage", "#bar")
         .appendTo(tabBar);
       this.assertEquals(button1, tabBar.selected);
@@ -112,24 +112,24 @@ qx.Class.define("qx.test.mobile.tabbar.TabBar",
     {
       var tabBar = this.__tabBar;
 
-      var view1 = new qx.ui.mobile.basic.Label("1").
+      var view1 = new qx.ui.basic.Label("1").
         appendTo(this.getRoot()).hide();
       this.assertTrue(view1.getStyle("visibility") == "hidden");
-      var button1 = new qx.ui.mobile.Button("Button 1")
+      var button1 = new qx.ui.Button("Button 1")
         .setData("qxConfigPage", "#" + view1.getAttribute("id"))
         .appendTo(tabBar);
       this.assertTrue(view1.getStyle("visibility") == "visible");
 
-      var view2 = new qx.ui.mobile.basic.Label("2").
+      var view2 = new qx.ui.basic.Label("2").
         appendTo(this.getRoot());
-      var button2 = new qx.ui.mobile.Button("Button 2")
+      var button2 = new qx.ui.Button("Button 2")
         .setData("qxConfigPage", "#" + view2.getAttribute("id"))
         .appendTo(tabBar);
       this.assertFalse(view2.getStyle("visibility") == "visible");
 
-      var view3 = new qx.ui.mobile.basic.Label("3").
+      var view3 = new qx.ui.basic.Label("3").
         appendTo(this.getRoot());
-      var button3 = new qx.ui.mobile.Button("Button 3")
+      var button3 = new qx.ui.Button("Button 3")
         .setData("qxConfigPage", "#" + view3.getAttribute("id"))
         .appendTo(tabBar);
       tabBar.selected = button3;
@@ -145,10 +145,10 @@ qx.Class.define("qx.test.mobile.tabbar.TabBar",
 
     testFactory: function() {
       this.__tabBar = qxWeb.create("<div>").tabBar().appendTo(this.getRoot());
-      this.assertInstance(this.__tabBar, qx.ui.mobile.tabbar.TabBar);
+      this.assertInstance(this.__tabBar, qx.ui.tabbar.TabBar);
       this.assertEquals(this.__tabBar, this.__tabBar[0].$$widget);
       this.wait(100, function() {
-        this.assertEquals("qx.ui.mobile.tabbar.TabBar", this.__tabBar.getData("qxWidget"));
+        this.assertEquals("qx.ui.tabbar.TabBar", this.__tabBar.getData("qxWidget"));
       }, this);
     }
   }

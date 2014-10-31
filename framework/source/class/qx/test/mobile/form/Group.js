@@ -25,8 +25,8 @@ qx.Class.define("qx.test.mobile.form.Group",
   {
     testGroup : function()
     {
-      var button = new qx.ui.mobile.Button("affe");
-      var group = new qx.ui.mobile.form.Group();
+      var button = new qx.ui.Button("affe");
+      var group = new qx.ui.form.Group();
       group.append(button);
       this.getRoot().append(button);
 

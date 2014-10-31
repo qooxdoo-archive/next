@@ -93,7 +93,7 @@ qx.Class.define("mobiletweets.Application",
       */
 
       // Create a manager in mobile device context >> "false"
-      var manager = new qx.ui.mobile.page.Manager(false);
+      var manager = new qx.ui.page.Manager(false);
 
       // Create an instance of the Input class and initial show it
       var inputPage = this.__inputPage = new mobiletweets.page.Input();

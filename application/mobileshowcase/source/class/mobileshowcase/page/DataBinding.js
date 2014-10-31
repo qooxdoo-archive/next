@@ -82,17 +82,17 @@ qx.Class.define("mobileshowcase.page.DataBinding",
       this.__list = this.__createListDataBindings();
       this.__list.visibility = "hidden";
 
-      this.__increaseButton = new qx.ui.mobile.Button("+")
+      this.__increaseButton = new qx.ui.Button("+")
         .setStyle("width", "100%");
       this.__increaseButton.on("pointerdown", this.__onIncrease, this);
       this.__increaseButton.on("pointerup", this.__onPointerUp, this);
 
-      this.__decreaseButton = new qx.ui.mobile.Button("-")
+      this.__decreaseButton = new qx.ui.Button("-")
         .setStyle("width", "100%");
       this.__decreaseButton.on("pointerdown", this.__onDecrease, this);
       this.__decreaseButton.on("pointerup", this.__onPointerUp, this);
 
-      this.__stopTimeButton = new qx.ui.mobile.Button("Take Time Snapshot")
+      this.__stopTimeButton = new qx.ui.Button("Take Time Snapshot")
         .setStyle("width", "100%");
       this.__stopTimeButton.on("tap", this.__onStopTimeButtonTap, this);
 
@@ -161,19 +161,19 @@ qx.Class.define("mobileshowcase.page.DataBinding",
      */
     __createSliderDataBindings : function()
     {
-      var form = new qx.ui.mobile.form.Form();
-      this.__slider = new qx.ui.mobile.form.Slider();
+      var form = new qx.ui.form.Form();
+      this.__slider = new qx.ui.form.Slider();
       this.__slider.displayValue = "value";
       this.__slider.maximum = 500;
 
-      new qx.ui.mobile.form.Row(this.__slider, "Move slider:")
-        .set({layout: new qx.ui.mobile.layout.VBox()})
+      new qx.ui.form.Row(this.__slider, "Move slider:")
+        .set({layout: new qx.ui.layout.VBox()})
         .appendTo(form);
 
-      this.__dataLabel = new qx.ui.mobile.form.TextField();
+      this.__dataLabel = new qx.ui.form.TextField();
       this.__dataLabel.value = "0";
       this.__dataLabel.readOnly = true;
-      new qx.ui.mobile.form.Row(this.__dataLabel, "Slider value: ")
+      new qx.ui.form.Row(this.__dataLabel, "Slider value: ")
         .appendTo(form);
 
       qx.data.SingleValueBinding.bind(this.__dataLabel, "value", this.__slider, "value");
@@ -190,7 +190,7 @@ qx.Class.define("mobileshowcase.page.DataBinding",
     __createListDataBindings : function() {
       var self = this;
 
-      var list = new qx.ui.mobile.list.List({
+      var list = new qx.ui.list.List({
       configureItem : function(item, data, row)
         {
           var stopCount = self.listData.getLength()-row;

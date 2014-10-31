@@ -33,7 +33,7 @@ qx.Class.define("qx.test.mobile.basic.Atom",
   {
     testLabel : function()
     {
-      var atom = new qx.ui.mobile.basic.Atom("myText");
+      var atom = new qx.ui.basic.Atom("myText");
       this.getRoot().append(atom);
 
       this.assertString(atom.label);
@@ -50,7 +50,7 @@ qx.Class.define("qx.test.mobile.basic.Atom",
     testIcon : function()
     {
       var imageURL = qx.util.ResourceManager.getInstance().toUri("qx/icon/Tango/48/places/user-home.png");
-      var atom = new qx.ui.mobile.basic.Atom("myText", imageURL);
+      var atom = new qx.ui.basic.Atom("myText", imageURL);
       this.getRoot().append(atom);
 
       this.assertString(atom.icon);
@@ -72,7 +72,7 @@ qx.Class.define("qx.test.mobile.basic.Atom",
     testShow : function()
     {
       var imageURL = qx.util.ResourceManager.getInstance().toUri("qx/icon/Tango/48/places/user-home.png");
-      var atom = new qx.ui.mobile.basic.Atom("myText", imageURL);
+      var atom = new qx.ui.basic.Atom("myText", imageURL);
       this.getRoot().append(atom);
 
       this.assertEquals("visible", atom.getIconWidget().visibility);
@@ -95,7 +95,7 @@ qx.Class.define("qx.test.mobile.basic.Atom",
     testIconPosition : function()
     {
       var imageURL = qx.util.ResourceManager.getInstance().toUri("qx/icon/Tango/48/places/user-home.png");
-      var atom = new qx.ui.mobile.basic.Atom("myTextmyTextmyTextmyTextmyText", imageURL);
+      var atom = new qx.ui.basic.Atom("myTextmyTextmyTextmyTextmyText", imageURL);
       this.getRoot().append(atom);
 
       var iconElement = atom.getIconWidget()[0];
@@ -133,7 +133,7 @@ qx.Class.define("qx.test.mobile.basic.Atom",
 
       var imageURL = qx.util.ResourceManager.getInstance().toUri("qx/icon/Tango/48/places/user-home.png");
 
-      var atom = new qx.ui.mobile.basic.Atom();
+      var atom = new qx.ui.basic.Atom();
       atom.label = testText;
       atom.icon = imageURL;
 

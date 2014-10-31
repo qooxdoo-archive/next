@@ -23,7 +23,7 @@
  */
 qx.Class.define("apiviewer.ui.LegendView",
 {
-  extend : qx.ui.mobile.container.Scroll,
+  extend : qx.ui.container.Scroll,
 
 
 
@@ -36,7 +36,7 @@ qx.Class.define("apiviewer.ui.LegendView",
 
   construct : function()
   {
-    this.base(qx.ui.mobile.container.Scroll, "constructor");
+    this.base(qx.ui.container.Scroll, "constructor");
     return; // TODO
 
     var layout = new qx.ui.layout.Grid(10, 10);

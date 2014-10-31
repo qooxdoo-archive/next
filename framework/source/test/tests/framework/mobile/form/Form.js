@@ -25,10 +25,10 @@ describe("mobile.form.Form", function() {
   beforeEach(function() {
     setUpRoot();
 
-    form = new qx.ui.mobile.form.Form()
+    form = new qx.ui.form.Form()
       .appendTo(getRoot());
 
-    username = new qx.ui.mobile.form.TextField()
+    username = new qx.ui.form.TextField()
       .set({
         placeholder : "Username",
         required : true
@@ -72,7 +72,7 @@ describe("mobile.form.Form", function() {
   });
 
   it("Validate multiple items", function() {
-    var password = new qx.ui.mobile.form.PasswordField().set({
+    var password = new qx.ui.form.PasswordField().set({
       required: true
     }).appendTo(form);
     assert.isFalse(form.validate());
@@ -83,9 +83,9 @@ describe("mobile.form.Form", function() {
 
   it("Factory", function() {
     var form = qxWeb.create("<form>").form().appendTo(getRoot());
-    assert.instanceOf(form, qx.ui.mobile.form.Form);
+    assert.instanceOf(form, qx.ui.form.Form);
     assert.equal(form, form[0].$$widget);
-    assert.equal("qx.ui.mobile.form.Form", form.getData("qxWidget"));
+    assert.equal("qx.ui.form.Form", form.getData("qxWidget"));
 
     form.dispose();
   });
