@@ -190,7 +190,7 @@ qx.Class.define("qx.ui.mobile.tabbar.TabBar", {
           else if(page.getParents() === this) {
             page.insertAfter(this);
           }
-          page.hide();
+          page.exclude();
         }
 
         if (button.hasClass("selected")) {
@@ -235,6 +235,9 @@ qx.Class.define("qx.ui.mobile.tabbar.TabBar", {
 
         if (button.hasClass("selected")) {
           this.selected = button;
+        } else {
+          this.getPage(button).exclude();
+        }
         }
 
       }.bind(this));
@@ -256,7 +259,11 @@ qx.Class.define("qx.ui.mobile.tabbar.TabBar", {
           this.getPage(button).show();
         } else {
           button.removeClass("selected");
-          this.getPage(button).hide();
+          var page = this.getPage(button);
+          // empty collections do not have an exclude method
+          if (page && page.exclude) {
+            page.exclude();
+          }
         }
       }.bind(this));
     },
