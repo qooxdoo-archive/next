@@ -44,7 +44,7 @@ qx.Class.define("qx.core.Init", {
      */
     ready : function() {
       if (!(qxWeb.isReady())) {
-        return;
+        qxWeb.ready(qx.core.Init.ready);
       }
 
       if (qx.core.Init.__application) {
@@ -98,7 +98,6 @@ qx.Class.define("qx.core.Init", {
 
 
   classDefined : function(statics) {
-    qxWeb.ready(statics.ready, statics);
     qxWeb(window).on("beforeunload", statics.__close, statics)
       .on("unload", statics.__shutdown, statics);
   }
