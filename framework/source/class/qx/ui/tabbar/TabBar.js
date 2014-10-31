@@ -169,7 +169,8 @@ qx.Class.define("qx.ui.tabbar.TabBar", {
         return this._render();
       }
       else {
-        return this.once("appear", this._render, this);
+        this.once("appear", this._render, this);
+        return this;
       }
     },
 
@@ -259,7 +260,10 @@ qx.Class.define("qx.ui.tabbar.TabBar", {
         if (button.hasClass("selected")) {
           this.selected = button;
         } else {
-          this.getPage(button).exclude();
+          var page = this.getPage(button);
+          if (page.length > 0 && page.exclude) {
+            page.exclude();
+          }
         }
 
         // first button will sometimes be rendered incorrectly in Chrome
