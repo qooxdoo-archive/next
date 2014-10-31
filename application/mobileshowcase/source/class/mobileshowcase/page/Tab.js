@@ -40,63 +40,107 @@ qx.Class.define("mobileshowcase.page.Tab",
     {
       this.super(mobileshowcase.page.Abstract, "_initialize");
 
-      var tabBar = this.__createTabBar();
-
-      // Default add TabBar after NavigationBar.
-      this.addAfterNavigationBar(tabBar);
+      this.getContent()
+        .append(this.__createTabBar())
+        .append(this.__createAlignmentSwitch())
+        .append(this.__createResponsiveToggle());
     },
 
 
-    /**
-     * Creates the tab bar.
-     *
-     * @return {qx.ui.mobile.tabbar.TabBar} created tab bar.
-     */
-    __createTabBar : function()
-    {
-      var tabBar = new qx.ui.mobile.tabbar.TabBar();
+    __createTabBar: function() {
+      var group = new qx.ui.mobile.form.Group();
 
-      var view1 = this.__createView("<b>qx.Desktop</b><br/><br/>Create desktop oriented applications. Features a rich and extendable set of widgets. No HTML/CSS knowledge required.");
-      var view2 = this.__createView("<b>qx.Mobile</b><br/><br/>Create mobile apps that run on all major mobile operating systems, without writing any HTML.");
-      var view3 = this.__createView("<b>qx.Server</b><br/><br/>Use the same OOP pattern known from the client side, reuse code and generate files you can deploy in your server environment.");
-      var view4 = this.__createView("<b>qx.Website</b><br/><br/>A cross-browser DOM manipulation library to enhance websites with a rich user experience.");
+      var tabBar = this.__tabBar = new qx.ui.mobile.tabbar.TabBar()
+        .set({mediaQuery: "(min-width: 600px) and (orientation: landscape)"});
 
-      view1.addClass("view1");
-      view2.addClass("view2");
-      view3.addClass("view3");
-      view4.addClass("view4");
+      new qx.ui.mobile.Button("Desktop")
+        .setData("qxConfigPage", "#page_v1")
+        .addClass("selected")
+        .appendTo(tabBar);
+      new qx.ui.mobile.basic.Label("<b>qx.Desktop</b><br/><br/>Create desktop oriented applications. Features a rich and extendable set of widgets. No HTML/CSS knowledge required.")
+        .setAttribute("id", "page_v1")
+        .addClass("view1")
+        .appendTo(tabBar);
 
-      var tabButton1 = new qx.ui.mobile.Button("Desktop");
-      tabButton1.setData("qxConfigPage", ".view1");
-      tabBar.append(tabButton1);
+      new qx.ui.mobile.Button("Mobile")
+        .setData("qxConfigPage", "#page_v2")
+        .appendTo(tabBar);
+      new qx.ui.mobile.basic.Label("<b>qx.Mobile</b><br/><br/>Create mobile apps that run on all major mobile operating systems, without writing any HTML.")
+        .setAttribute("id", "page_v2")
+        .addClass("view2")
+        .appendTo(tabBar);
 
-      var tabButton2 = new qx.ui.mobile.Button("Mobile");
-      tabButton2.setData("qxConfigPage", ".view2");
-      tabBar.append(tabButton2);
+      new qx.ui.mobile.Button("Server")
+        .setData("qxConfigPage", "#page_v3")
+        .appendTo(tabBar);
+      new qx.ui.mobile.basic.Label("<b>qx.Server</b><br/><br/>Use the same OOP pattern known from the client side, reuse code and generate files you can deploy in your server environment.")
+        .setAttribute("id", "page_v3")
+        .addClass("view3")
+        .appendTo(tabBar);
 
-      var tabButton3 = new qx.ui.mobile.Button("Server");
-      tabButton3.setData("qxConfigPage", ".view3");
-      tabBar.append(tabButton3);
+      new qx.ui.mobile.Button("Website")
+        .setData("qxConfigPage", "#page_v4")
+        .appendTo(tabBar);
+      new qx.ui.mobile.basic.Label("<b>qx.Website</b><br/><br/>A cross-browser DOM manipulation library to enhance websites with a rich user experience.")
+        .setAttribute("id", "page_v4")
+        .addClass("view4")
+        .appendTo(tabBar);
 
-      var tabButton4 = new qx.ui.mobile.Button("Website");
-      tabButton4.setData("qxConfigPage", ".view4");
-      tabBar.append(tabButton4);
-
-      return tabBar;
+      return group.append(tabBar);
     },
 
+    __createAlignmentSwitch: function() {
+      var group = new qx.ui.mobile.form.Group("Tab Button alignment (Horizontal mode only)");
 
-    /**
-     * Creates the view for the tab.
-     *
-     * @param text {String} The text of the label used in this view.
-     * @return {qx.ui.mobile.basic.Label} the created view.
-     */
-    __createView : function(text)
-    {
-      var label = new qx.ui.mobile.basic.Label(text);
-      this.getContent().append(label);
-      return label;
+      var rbGroup = new qx.ui.mobile.form.RadioGroup()
+        .set({allowEmptySelection: true});
+
+      ["Left", "Justify", "Right"].forEach(function(alignment) {
+        var rb = new qx.ui.mobile.form.RadioButton()
+          .setAttribute("name", alignment.toLowerCase());
+        if (alignment.toLowerCase() === this.__tabBar.align) {
+          rb.value = true;
+        }
+        rbGroup.add(rb);
+
+        new qx.ui.mobile.form.Row(rb, alignment)
+          .appendTo(group);
+      }.bind(this));
+
+      rbGroup.on("changeSelection", function(e) {
+        this.__tabBar.align = e.value[0].getAttribute("name");
+      }.bind(this));
+
+      return group;
+    },
+
+    __createResponsiveToggle: function() {
+      var group = new qx.ui.mobile.form.Group("Responsive Mode");
+
+      var infoText = new qx.ui.mobile.Widget()
+        .setHtml("In responsive mode, the TabBar dynamically switches between horizontal and vertical orientation based on the change events from a configurable CSS media query listener.<br>Resize your browser or change your device's orientation to test this feature.");
+      var infoRow = new qx.ui.mobile.form.Row(infoText)
+        .appendTo(group);
+
+      var toggle = new qx.ui.mobile.form.ToggleButton(true, "ON", "OFF")
+        .on("changeValue", function(e) {
+          if (e.value) {
+            this.__tabBar.mediaQuery = this.__query.value;
+          } else {
+            this.__tabBar.mediaQuery = null;
+          }
+        }, this);
+      var toggleRow = new qx.ui.mobile.form.Row(toggle, "Active")
+        .appendTo(group);
+
+      var query = this.__query = new qx.ui.mobile.form.TextField()
+        .set({value: this.__tabBar.mediaQuery});
+      qx.data.SingleValueBinding.bind(query, "value", this.__tabBar, "mediaQuery");
+
+      var queryRow = new qx.ui.mobile.form.Row(query, "Media Query")
+        .appendTo(group);
+
+      return group;
     }
   }
 });
