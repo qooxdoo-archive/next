@@ -5,11 +5,10 @@
 .form {
   @include background-clip(padding-box);
   margin-bottom: rem(10);
-  background-color:transparent;
+  background-color: transparent;
   border: none;
   padding: 0;
-  cursor:pointer;
-  font-weight: $form-font-weight;
+  cursor: pointer;
 }
 
 // form item in scroll container TODO: Still needed?
@@ -74,6 +73,7 @@
   .label {
     padding-right: rem(10);
     color: $form-label-text-color;
+    font-weight: $form-font-weight;
   }
 
   * {
