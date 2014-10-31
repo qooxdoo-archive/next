@@ -24,6 +24,7 @@
  *
  * @require(qx.module.MatchMedia)
  * @require(qx.module.event.Keyboard)
+ * @require(qx.module.util.Function)
  *
  * @group (Widget)
  */
@@ -37,6 +38,9 @@ qx.Class.define("qx.ui.mobile.tabbar.TabBar", {
    */
   construct: function(orientation, align, element) {
     this.super(qx.ui.mobile.Widget, "constructor", element);
+
+    // prevent unnecessary _render calls when adding multiple children
+    this._render = qxWeb.func.debounce(this._render.bind(this), 300, true);
 
     if (orientation) {
       this.orientation = orientation;
@@ -131,7 +135,12 @@ qx.Class.define("qx.ui.mobile.tabbar.TabBar", {
      */
     getPage: function(button) {
       if (button) {
-        return qxWeb(button.getData("qxConfigPage"));
+        var selector = button.getData("qxConfigPage");
+        var page = this.find(selector);
+        if (page.length === 0) {
+          page = qxWeb(selector);
+        }
+        return page;
       }
       return null;
     },
@@ -152,10 +161,24 @@ qx.Class.define("qx.ui.mobile.tabbar.TabBar", {
 
 
     /**
-     * (Re-)renders the widget
+     * Triggers (re-)rendering of the widget
      * @return {qx.ui.mobile.TabBar} The widget for chaining
      */
     render: function() {
+      if (this.isRendered()) {
+        return this._render();
+      }
+      else {
+        return this.once("appear", this._render, this);
+      }
+    },
+
+
+    /**
+     * Renders thr widget
+     * @return {qx.ui.mobile.TabBar} The widget for chaining
+     */
+    _render: function() {
       // initialize button widgets in predefined markup
       this.find("> *").forEach(function(el) {
         el = qxWeb(el);
@@ -220,7 +243,7 @@ qx.Class.define("qx.ui.mobile.tabbar.TabBar", {
      */
     renderVertical: function() {
       this.layout = new qx.ui.mobile.layout.VBox();
-      this.find("> .button")
+      var buttons = this.find("> .button")
       ._forEachElementWrapped(function(button) {
         var page = this.getPage(button);
         if (page.length == 1) {
@@ -238,6 +261,13 @@ qx.Class.define("qx.ui.mobile.tabbar.TabBar", {
         } else {
           this.getPage(button).exclude();
         }
+
+        // first button will sometimes be rendered incorrectly in Chrome
+        if (button[0].clientHeight === 0) {
+          this.removeClass("qx-vbox");
+          setTimeout(function() {
+            this.addClass("qx-vbox");
+          }.bind(this), 0);
         }
 
       }.bind(this));
