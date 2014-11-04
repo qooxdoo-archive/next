@@ -41,6 +41,8 @@
  * @require(qx.ui.form.NumberField)
  * @require(qx.ui.form.SelectBox)
  * @require(qx.ui.form.Slider)
+ * @require(qx.ui.form.TextField)
+ * @require(qx.ui.form.ToggleButton)
  * @require(qx.ui.list.List)
  * @require(qx.ui.page.NavigationPage)
  * @require(qx.ui.page.Page)
