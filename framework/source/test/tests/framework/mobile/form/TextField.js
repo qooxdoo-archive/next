@@ -164,9 +164,9 @@ describe("mobile.form.TextField", function() {
 
   it("Factory", function() {
     var textField = qxWeb.create("<div>").textField().appendTo(getRoot());
-    assert.instanceOf(textField, qx.ui.mobile.form.TextField);
+    assert.instanceOf(textField, qx.ui.form.TextField);
     assert.equal(textField, textField[0].$$widget);
-    assert.equal("qx.ui.mobile.form.TextField", textField.getData("qxWidget"));
+    assert.equal("qx.ui.form.TextField", textField.getData("qxWidget"));
 
     textField.dispose();
   });
