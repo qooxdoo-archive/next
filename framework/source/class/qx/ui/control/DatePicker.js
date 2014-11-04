@@ -93,7 +93,7 @@ qx.Class.define("qx.ui.control.DatePicker", {
     this.__addInputListener(this);
 
     var calendarId = 'datepicker-calendar-' + this.__uniqueId;
-    var calendar = qxWeb.create('<div id="' + calendarId + '"></div>').calendar();
+    var calendar = qxWeb.create('<div id="' + calendarId + '"></div>').toCalendar();
     calendar.on('tap', this._onCalendarTap);
     calendar.appendTo(document.body).setStyle("display", "none");
 
