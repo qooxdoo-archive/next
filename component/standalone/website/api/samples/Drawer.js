@@ -1,7 +1,7 @@
 addSample(".drawer", {
   html : ['<div id="drawer-example"></div>'],
   javascript: function() {
-    var drawer = q('#drawer-example').drawer();
+    var drawer = q('#drawer-example').toDrawer();
 
     // only to show the drawer by clicking on document body
     q(document.body).on("tap", function () {

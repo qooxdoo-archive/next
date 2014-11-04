@@ -1,7 +1,7 @@
 addSample(".slider", {
   html: ['<div id="slider-example"></div>'],
   javascript: function () {
-    var slider = q('#slider-example').slider();
+    var slider = q('#slider-example').toSlider();
     slider.set({
       maximum: 20,
       step: 10

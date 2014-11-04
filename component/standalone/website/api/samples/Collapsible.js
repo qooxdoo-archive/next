@@ -1,7 +1,7 @@
 addSample(".collapsible", {
   html : ['<div id="collapsible-example">This is the content of the Collapsible.</div>'],
   javascript: function() {
-    q("#collapsible-example").collapsible("Collapsible Header");
+    q("#collapsible-example").toCollapsible("Collapsible Header");
   },
   executable: true,
   showMarkup: true

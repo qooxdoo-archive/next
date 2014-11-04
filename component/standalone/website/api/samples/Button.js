@@ -1,7 +1,7 @@
 addSample(".button", {
   html: ['<button id="button-example"></button>'],
   javascript: function() {
-    q("#button-example").button("Label");
+    q("#button-example").toButton("Label");
   },
   executable: true,
   showMarkup: true
@@ -10,7 +10,7 @@ addSample(".button", {
 addSample("button.setLabel", {
   html: ['<button id="button-example"></button>'],
   javascript: function() {
-    q("#button-example").button().setLabel("Label");
+    q("#button-example").toButton().setLabel("Label");
   },
   executable: true
 });
@@ -18,7 +18,7 @@ addSample("button.setLabel", {
 addSample("button.setIcon", {
   html: ['<button id="button-example">Label</button>'],
   javascript: function() {
-    q("#button-example").button().setIcon("samples/edit-clear.png");
+    q("#button-example").toButton().setIcon("samples/edit-clear.png");
   },
   executable: true
 });
@@ -32,7 +32,7 @@ addSample("button.setMenu", {
     '<button id="button-example"></button>'
   ],
   javascript: function() {
-    q("#button-example").button().setMenu(q("#button-menu"));
+    q("#button-example").toButton().setMenu(q("#button-menu"));
   },
   executable: true
 });

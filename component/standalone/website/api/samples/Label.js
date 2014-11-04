@@ -1,7 +1,7 @@
 addSample(".label", {
   html : ['<div id="label-example">Hello qooxdoo</div>'],
   javascript: function() {
-    q('#label-example').label();
+    q('#label-example').toLabel();
   },
   executable: true,
   showMarkup: true

@@ -1,7 +1,7 @@
 addSample('.image', {
   html: '<img id="image-example" src="http://qooxdoo.org/_media/desktop.png" />',
   javascript: function () {
-    q('#image-example').image();
+    q('#image-example').toImage();
   },
   executable: true,
   showMarkup: true

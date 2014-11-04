@@ -3,7 +3,7 @@ addSample(".calendar", {
   javascript: function() {
     // the date parameter is optional (default is new Date())
     var date = new Date();
-    q("#calendar-example").calendar(date);
+    q("#calendar-example").toCalendar(date);
   },
   executable: true,
   showMarkup: true

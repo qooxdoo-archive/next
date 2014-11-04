@@ -1,7 +1,7 @@
 addSample('.atom', {
   html: '<div id="atom-example"></div>',
   javascript: function () {
-    q('#atom-example').atom("qooxdoo desktop", "http://qooxdoo.org/_media/desktop.png");
+    q('#atom-example').toAtom("qooxdoo desktop", "http://qooxdoo.org/_media/desktop.png");
   },
   executable: true,
   showMarkup: true

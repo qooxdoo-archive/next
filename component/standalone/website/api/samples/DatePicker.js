@@ -1,7 +1,7 @@
 addSample(".datePicker", {
   html : ['<input type="text" id="datepicker-example"/>'],
   javascript: function() {
-q("#datepicker-example").datePicker();
+q("#datepicker-example").toDatePicker();
   },
   executable: true,
   showMarkup: true

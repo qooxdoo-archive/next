@@ -10,7 +10,7 @@ addSample(".tabBar", {
     '<div class="view-website">DOM, Events, Templating</div>'
   ],
   javascript: function () {
-    q("#tab-bar-example").tabBar();
+    q("#tab-bar-example").toTabBar();
   },
   executable: true,
   showMarkup: true

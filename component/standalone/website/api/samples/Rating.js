@@ -1,7 +1,7 @@
 addSample(".rating", {
   html: '<div id="rating-example"></div>',
   javascript: function() {
-    q("#rating-example").rating();
+    q("#rating-example").toRating();
   },
   executable: true,
   showMarkup: true
