@@ -19,12 +19,7 @@
 
 ************************************************************************ */
 
-/**
- * The SelectBox
- *
- * an example, how to use the SelectBox:
- * *Example* TODO
- */
+
 qx.Class.define("qx.ui.form.SelectBox",
 {
   extend : qx.ui.Widget,

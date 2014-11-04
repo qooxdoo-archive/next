@@ -1249,5 +1249,4 @@ qx.Class.define("qx.ui.control.Table", {
   classDefined : function(statics) {
     qxWeb.$attachWidget(statics);
   }
-
 });
