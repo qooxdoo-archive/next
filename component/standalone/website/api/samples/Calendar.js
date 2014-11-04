@@ -1,9 +1,7 @@
 addSample(".calendar", {
   html : ['<div id="calendar-example"></div>'],
   javascript: function() {
-    // the date parameter is optional (default is new Date())
-    var date = new Date();
-    q("#calendar-example").toCalendar(date);
+    q("#calendar-example").toCalendar();
   },
   executable: true,
   showMarkup: true
@@ -11,8 +9,7 @@ addSample(".calendar", {
 
 addSample(".calendar", {
   javascript: function() {
-    // the date parameter is optional (default is new Date())
-    var calendar = new qx.ui.control.Calendar(date);
+    var calendar = new qx.ui.control.Calendar();
     q('body').append(calendar);
   },
   executable: true,
