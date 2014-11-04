@@ -106,5 +106,10 @@ qx.Class.define("qx.ui.form.Row",
       }
     }
 
+  },
+
+
+  classDefined : function(statics) {
+    qxWeb.$attachWidget(statics);
   }
 });

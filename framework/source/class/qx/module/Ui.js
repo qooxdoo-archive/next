@@ -40,6 +40,7 @@
  * @require(qx.ui.form.Input)
  * @require(qx.ui.form.NumberField)
  * @require(qx.ui.form.PasswordField)
+ * @require(qx.ui.form.Row)
  * @require(qx.ui.form.SelectBox)
  * @require(qx.ui.form.Slider)
  * @require(qx.ui.form.TextField)
