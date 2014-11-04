@@ -166,7 +166,6 @@ qx.Class.define("qx.test.io.request.XhrWithRemoteLowLevel",
 
       var that = this;
       req.onreadystatechange = function() {
-        // debugger;
         if (req.readyState == 4) {
           that.resume(function() {
             that.assertEquals('{"affe":"true"}', req.responseText);
@@ -649,10 +648,7 @@ qx.Class.define("qx.test.io.request.XhrWithRemoteLowLevel",
           url = this.getUrl("qx/test/xmlhttp/loading.php"),
           that = this;
 
-      // debugger;
-
       req.onloadend = function() {
-        // debugger;
         that.resume(function() {
           that.assertEquals(4, req.readyState);
           that.assertIdentical("", req.responseText);

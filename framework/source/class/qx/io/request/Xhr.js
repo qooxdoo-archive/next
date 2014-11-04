@@ -859,7 +859,7 @@ qx.Class.define("qx.io.request.Xhr",
     __readyStateChangeDone: function() {
       // Fire "timeout" if timeout flag is set
       if (this.__timeout) {
-        this._emit("timeout");
+        this.ontimeout();
         this.__timeout = false;
 
       // Fire either "abort", "load" or "error"
