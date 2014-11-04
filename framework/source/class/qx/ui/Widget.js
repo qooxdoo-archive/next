@@ -41,7 +41,7 @@ qx.Class.define("qx.ui.Widget", {
      */
     attachWidget : function(clazz) {
       var name = clazz.classname.split(".");
-      name = qx.lang.String.firstLow(name[name.length - 1]);
+      name = "to" + name[name.length - 1];
       var data = {};
       var index = qx.Class.getConstructorArgumentsCount(clazz);
       data[name] = function() {
