@@ -79,6 +79,9 @@ qx.Class.define("qx.io.request.Xhr",
     this.__onNativeReadyStateChangeBound = this.__onNativeReadyStateChange.bind(this);
     this.__onNativeAbortBound = this.__onNativeAbort.bind(this);
 
+    // don't use 'onTimeoutBound' cause it would collide with AbstractRequest
+    this.__onXhrTimeoutBound = this.__onTimeout.bind(this);
+
     this.__initNativeXhr();
 
     this._parser = this._createResponseParser();
@@ -227,7 +230,6 @@ qx.Class.define("qx.io.request.Xhr",
       PUBLIC
     ---------------------------------------------------------------------------
     */
-
 
     /**
      * Initializes (prepares) request.
@@ -422,7 +424,7 @@ qx.Class.define("qx.io.request.Xhr",
 
       // Timeout
       if (this.timeout > 0) {
-        this.__timerId = window.setTimeout(this.__onTimeoutBound, this.timeout);
+        this.__timerId = window.setTimeout(this.__onXhrTimeoutBound, this.timeout);
       }
 
       // BUGFIX: Firefox 2
@@ -686,6 +688,11 @@ qx.Class.define("qx.io.request.Xhr",
      * @type {Function} Bound __onNativeAbort handler.
      */
     __onNativeAbortBound: null,
+
+    /**
+     * @type {Function} Bound __onXhrTimeout handler.
+     */
+    __onXhrTimeoutBound: null,
 
     /**
      * @type {Function} Bound __onUnload handler.

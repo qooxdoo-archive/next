@@ -69,7 +69,7 @@
  * In order to debug requests, set the environment flag
  * <code>qx.debug.io</code>.
  *
- * Internally uses {@link qx.bom.request.Jsonp}.
+ * Internally uses {@link qx.io.request.Jsonp}.
  */
 qx.Class.define("qx.io.request.Jsonp",
 {
@@ -79,7 +79,7 @@ qx.Class.define("qx.io.request.Jsonp",
     this.super(qx.io.request.AbstractRequest, "constructor", url);
 
     this.__id = this.__generateId();
-    this.transport = new qx.bom.request.Script();
+    this.transport = new qx.io.request.Script();
 
     this.transport.onreadystatechange = function() { this.emit("readystatechane"); }.bind(this);
     this.transport.onload = function() { this.emit("load"); }.bind(this);
@@ -211,6 +211,12 @@ qx.Class.define("qx.io.request.Jsonp",
           callbackName,
           that = this;
 
+      var delegate = {
+        onNativeLoad: this._onNativeLoad.bind(this),
+        onNativeError: this._onNativeError.bind(this)
+      };
+      this.transport.setDelegate(delegate);
+
       // Reset properties that may have been set by previous request
       this.responseJson = null;
       this.__callbackCalled = false;
@@ -238,7 +244,7 @@ qx.Class.define("qx.io.request.Jsonp",
           };
         } else {
           if (qx.core.Environment.get("qx.debug.io")) {
-            qx.Class.debug(qx.bom.request.Jsonp, "Callback " +
+            qx.Class.debug(qx.io.request.Jsonp, "Callback " +
               this.__callbackName + " already exists");
           }
         }
@@ -246,7 +252,7 @@ qx.Class.define("qx.io.request.Jsonp",
       }
 
       if (qx.core.Environment.get("qx.debug.io")) {
-        qx.Class.debug(qx.bom.request.Jsonp,
+        qx.Class.debug(qx.io.request.Jsonp,
           "Expecting JavaScript response to call: " + callbackName);
       }
 
@@ -300,7 +306,7 @@ qx.Class.define("qx.io.request.Jsonp",
      * default is "callback".
      *
      * @param param {String} Name of the callback parameter.
-     * @return {qx.bom.request.Jsonp} Self reference for chaining.
+     * @return {qx.io.request.Jsonp} Self reference for chaining.
      */
     setCallbackParam: function(param) {
       this.__callbackParam = param;
@@ -325,7 +331,7 @@ qx.Class.define("qx.io.request.Jsonp",
      * if it does not exist before.
      *
      * @param name {String} Name of the callback function.
-     * @return {qx.bom.request.Jsonp} Self reference for chaining.
+     * @return {qx.io.request.Jsonp} Self reference for chaining.
      */
     setCallbackName: function(name) {
       this.__callbackName = name;
@@ -354,6 +360,23 @@ qx.Class.define("qx.io.request.Jsonp",
       return this.__generatedUrl;
     },
 
+    /**
+     * Get parsed response.
+     *
+     * @return {String} The parsed response of the request.
+     */
+    getStatus: function() {
+      return this.transport.status;
+    },
+
+    /**
+     * Get parsed response.
+     *
+     * @return {String} The parsed response of the request.
+     */
+    getStatusText: function() {
+      return this.transport.statusText;
+    },
 
     dispose: function() {
       // In case callback was not called
@@ -366,16 +389,30 @@ qx.Class.define("qx.io.request.Jsonp",
      * Handle native load.
      */
     _onNativeLoad: function() {
-
       // Indicate erroneous status (500) if callback was not called.
       //
       // Why 500? 5xx belongs to the range of server errors. If the callback was
       // not called, it is assumed the server failed to provide an appropriate
       // response. Since the exact reason of the error is unknown, the most
       // generic message ("500 Internal Server Error") is chosen.
-      this.status = this.__callbackCalled ? 200 : 500;
+      this.transport.status = this.__callbackCalled ? 200 : 500;
 
       this.__callTransport("_onNativeLoad");
+    },
+
+    /**
+     * Handle native error.
+     */
+    _onNativeError: function() {
+      // Indicate erroneous status (500) if callback was not called.
+      //
+      // Why 500? 5xx belongs to the range of server errors. If the callback was
+      // not called, it is assumed the server failed to provide an appropriate
+      // response. Since the exact reason of the error is unknown, the most
+      // generic message ("500 Internal Server Error") is chosen.
+      this.transport.status = this.__callbackCalled ? 200 : 500;
+
+      this.__callTransport("_onNativeError");
     },
 
     /**
@@ -435,7 +472,7 @@ qx.Class.define("qx.io.request.Jsonp",
     /**
      * Return the transport’s responseJson property.
      *
-     * See {@link qx.bom.request.Jsonp}.
+     * See {@link qx.io.request.Jsonp}.
      *
      * @return {Object} The parsed response of the request.
      */

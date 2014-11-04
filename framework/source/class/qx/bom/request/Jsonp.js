@@ -39,26 +39,26 @@
  *  req.send();
  * </pre>
  *
- * @require(qx.bom.request.Script#open)
- * @require(qx.bom.request.Script#on)
- * @require(qx.bom.request.Script#onreadystatechange)
- * @require(qx.bom.request.Script#onload)
- * @require(qx.bom.request.Script#onloadend)
- * @require(qx.bom.request.Script#onerror)
- * @require(qx.bom.request.Script#onabort)
- * @require(qx.bom.request.Script#ontimeout)
- * @require(qx.bom.request.Script#send)
+ * @require(qx.io.request.Script#open)
+ * @require(qx.io.request.Script#on)
+ * @require(qx.io.request.Script#onreadystatechange)
+ * @require(qx.io.request.Script#onload)
+ * @require(qx.io.request.Script#onloadend)
+ * @require(qx.io.request.Script#onerror)
+ * @require(qx.io.request.Script#onabort)
+ * @require(qx.io.request.Script#ontimeout)
+ * @require(qx.io.request.Script#send)
  *
  * @group (IO)
  */
 qx.Class.define("qx.bom.request.Jsonp",
 {
-  extend : qx.bom.request.Script,
+  extend : qx.io.request.Script,
 
   construct : function()
   {
     // Borrow super-class constructor
-    qx.bom.request.Script.apply(this);
+    qx.io.request.Script.apply(this);
 
     this.__generateId();
   },
@@ -312,7 +312,7 @@ qx.Class.define("qx.bom.request.Jsonp",
      * @param args {Array} Arguments.
      */
     __callBase: function(method, args) {
-      qx.bom.request.Script.prototype[method].apply(this, args || []);
+      qx.io.request.Script.prototype[method].apply(this, args || []);
     },
 
     /**

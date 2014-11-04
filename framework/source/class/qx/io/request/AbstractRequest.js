@@ -115,25 +115,25 @@ qx.Class.define("qx.io.request.AbstractRequest",
     "fail": "Object|null",
 
     /**
-    * Fired on change of the parsed response.
-    *
-    * This event allows to use data binding with the
-    * parsed response as source.
-    *
-    * For example, to bind the response to the value of a label:
-    *
-    * <pre class="javascript">
-    * // req is an instance of qx.io.request.*,
-    * // label an instance of qx.ui.basic.Label
-    * req.bind("response", label, "value");
-    * </pre>
-    *
-    * The response is parsed (and therefore changed) only
-    * after the request completes successfully. This means
-    * that when a new request is made the initial empty value
-    * is ignored, instead only the final value is bound.
-    *
-    */
+     * Fired on change of the parsed response.
+     *
+     * This event allows to use data binding with the
+     * parsed response as source.
+     *
+     * For example, to bind the response to the value of a label:
+     *
+     * <pre class="javascript">
+     * // req is an instance of qx.io.request.*,
+     * // label an instance of qx.ui.basic.Label
+     * req.bind("response", label, "value");
+     * </pre>
+     *
+     * The response is parsed (and therefore changed) only
+     * after the request completes successfully. This means
+     * that when a new request is made the initial empty value
+     * is ignored, instead only the final value is bound.
+     *
+     */
     "changeResponse": "Object",
 
     /**
