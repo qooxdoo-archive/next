@@ -1,0 +1,41 @@
+/* ************************************************************************
+
+   qooxdoo - the new era of web development
+
+   http://qooxdoo.org
+
+   Copyright:
+     2011 1&1 Internet AG, Germany, http://www.1und1.de
+
+   License:
+     LGPL: http://www.gnu.org/licenses/lgpl.html
+     EPL: http://www.eclipse.org/org/documents/epl-v10.php
+     See the LICENSE file in the project's top-level directory for details.
+
+   Authors:
+     * Tino Butz (tbtz)
+
+************************************************************************ */
+
+describe("mobile.form.PasswordField", function() {
+
+  beforeEach(function() {
+    setUpRoot();
+  });
+
+
+  afterEach(function() {
+    tearDownRoot();
+  });
+
+
+  it("Factory", function() {
+    var passwordField = qxWeb.create("<div>").passwordField().appendTo(getRoot());
+    assert.instanceOf(passwordField, qx.ui.form.PasswordField);
+    assert.equal(passwordField, passwordField[0].$$widget);
+    assert.equal("qx.ui.form.PasswordField", passwordField.getData("qxWidget"));
+
+    passwordField.dispose();
+  });
+
+});

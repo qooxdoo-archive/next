@@ -37,5 +37,10 @@ qx.Class.define("qx.ui.form.PasswordField",
   construct: function(value, element) {
     this.super(qx.ui.form.TextField, "constructor", value, element);
     this.type = "password";
+  },
+
+
+  classDefined : function(statics) {
+    qxWeb.$attachWidget(statics);
   }
 });
