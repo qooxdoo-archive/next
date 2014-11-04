@@ -76,7 +76,7 @@ qx.Class.define("qx.ui.control.DatePicker", {
 
 
   /**
-   * @attach {qxWeb, datePicker}
+   * @attach {qxWeb, toDatePicker}
    * @return {qx.ui.control.DatePicker} The new date picker widget.
    */
   construct : function(date, element) {

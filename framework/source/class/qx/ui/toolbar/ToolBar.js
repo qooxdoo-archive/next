@@ -26,6 +26,9 @@ qx.Class.define("qx.ui.toolbar.ToolBar",
 {
   extend : qx.ui.Widget,
 
+  /**
+   * @attach {qxWeb, toToolBar}
+   */
   construct : function(layout, element)
   {
     this.super(qx.ui.Widget, "constructor", element);

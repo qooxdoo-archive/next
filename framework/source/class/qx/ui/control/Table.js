@@ -91,7 +91,7 @@ qx.Class.define("qx.ui.control.Table", {
   extend : qx.ui.Widget,
 
   /**
-   * @attach {qxWeb, table}
+   * @attach {qxWeb, toTable}
    * @return {qx.ui.control.Table} The new table widget.
    */
   construct : function(model, element) {

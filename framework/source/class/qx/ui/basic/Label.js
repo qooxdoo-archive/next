@@ -42,6 +42,7 @@ qx.Class.define("qx.ui.basic.Label",
 
   /**
    * @param value {String?null} Text or HTML content to display
+   * @attach {qxWeb, toLabel}
    */
   construct : function(value, element)
   {

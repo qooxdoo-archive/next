@@ -47,6 +47,7 @@ qx.Class.define("qx.ui.dialog.Menu",
   /**
    * @param itemsModel {qx.data.Array ?}, the model which contains the choosable items of the menu.
    * @param anchor {qx.ui.Widget ?} The anchor widget for this item. If no anchor is available, the menu will be displayed modal and centered on screen.
+   * @attach {qxWeb, toMenu}
    */
   construct : function(itemsModel, anchor)
   {

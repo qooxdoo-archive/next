@@ -101,7 +101,7 @@ qx.Class.define("qx.ui.Widget", {
   },
 
   /**
-   * @attach {qxWeb, widget}
+   * @attach {qxWeb, toWidget}
    * @return {qx.ui.Widget} The new widget.
    */
   construct : function(element) {

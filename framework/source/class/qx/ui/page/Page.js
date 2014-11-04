@@ -60,7 +60,9 @@ qx.Class.define("qx.ui.page.Page",
   extend : qx.ui.Widget,
   include : qx.ui.core.MResize,
 
-
+  /**
+   * @attach {qxWeb, toPage}
+   */
   construct : function(layout, element)
   {
     this.super(qx.ui.Widget, "constructor", element);

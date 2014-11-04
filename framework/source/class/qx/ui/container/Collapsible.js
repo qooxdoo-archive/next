@@ -47,7 +47,7 @@ qx.Class.define("qx.ui.container.Collapsible",
 
   /**
    * @param title {String?} the text which should be displayed in the Collapsible's header label.
-   * @attach {qxWeb, collapsible}
+   * @attach {qxWeb, toCollapsible}
    * @return {qx.ui.container.Collapsible} The new collapsible widget.
    */
   construct : function(title, element)

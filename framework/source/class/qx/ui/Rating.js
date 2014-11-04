@@ -64,7 +64,7 @@ qx.Class.define("qx.ui.Rating", {
 
 
   /**
-   * @attach {qxWeb, rating}
+   * @attach {qxWeb, toRating}
    * @return {qx.ui.Rating} The new rating widget.
    */
   construct : function(size, symbol, element) {

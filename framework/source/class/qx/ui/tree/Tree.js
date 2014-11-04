@@ -24,7 +24,7 @@ qx.Class.define("qx.ui.tree.Tree",
   extend : qx.ui.Widget,
 
   /**
-   * @attach {qxWeb, tree}
+   * @attach {qxWeb, toTree}
    * @return {qx.ui.tree.Tree} The new tree widget.
    */
   construct : function(element)

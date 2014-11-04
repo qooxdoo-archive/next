@@ -25,6 +25,9 @@ qx.Class.define("qx.ui.form.Row",
 {
   extend : qx.ui.Widget,
 
+  /**
+   * @attach {qxWeb, toRow}
+   */
   construct: function(item, label, element) {
     this.super(qx.ui.Widget, "constructor", element);
 

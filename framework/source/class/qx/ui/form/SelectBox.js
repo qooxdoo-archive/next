@@ -31,7 +31,9 @@ qx.Class.define("qx.ui.form.SelectBox",
     qx.ui.form.IForm
   ],
 
-
+  /**
+   * @attach {qxWeb, toSelectBox}
+   */
   construct : function()
   {
     this.super(qx.ui.Widget, "constructor");

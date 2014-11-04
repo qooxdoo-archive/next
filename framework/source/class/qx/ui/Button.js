@@ -62,6 +62,7 @@ qx.Class.define("qx.ui.Button",
 
   /**
    * @attach {qxWeb, button}
+   * @attach {qxWeb, toButton}
    * @return {qx.ui.Button} The new Button widget.
    */
   construct : function(label, icon, element) {

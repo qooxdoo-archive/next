@@ -42,7 +42,9 @@ qx.Class.define("qx.ui.navigationbar.NavigationBar",
 {
   extend : qx.ui.Widget,
 
-
+  /**
+   * @attach {qxWeb, toNavigationBar}
+   */
   construct : function(layout, element) {
     this.super(qx.ui.Widget, "constructor", element);
     this.layout = layout;

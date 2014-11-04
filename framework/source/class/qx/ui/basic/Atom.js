@@ -44,6 +44,7 @@ qx.Class.define("qx.ui.basic.Atom",
   /**
    * @param text {String?} Label to use
    * @param icon {String?null} Icon to use
+   * @attach {qxWeb, toAtom}
    * @signature function(label, icon)
    */
   construct : function(text, icon, element)

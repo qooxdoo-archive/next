@@ -36,7 +36,9 @@ qx.Class.define("qx.ui.form.Input",
     qx.ui.form.IForm
   ],
 
-
+  /**
+   * @attach {qxWeb, toInput}
+   */
   construct : function(element)
   {
     this.super(qx.ui.Widget, "constructor", element);

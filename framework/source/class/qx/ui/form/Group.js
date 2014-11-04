@@ -26,6 +26,9 @@ qx.Class.define("qx.ui.form.Group",
 {
   extend : qx.ui.Widget,
 
+  /**
+   * @attach {qxWeb, toGroup}
+   */
   construct : function(title) {
     this.super(qx.ui.Widget, "constructor");
     if (title) {

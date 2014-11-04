@@ -88,7 +88,7 @@ qx.Class.define("qx.ui.list.List",
 
   /**
    * @param delegate {qx.ui.list.IListDelegate?null} The {@link #delegate} to use
-   * @attach {qxWeb, list}
+   * @attach {qxWeb, toList}
    * @return {qx.ui.list.List} The new list widget.
    */
   construct : function(delegate, element)

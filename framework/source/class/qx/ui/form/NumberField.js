@@ -30,6 +30,7 @@ qx.Class.define("qx.ui.form.NumberField",
 
   /**
    * @param value {var?null} The value of the widget.
+   * @attach {qxWeb, toNumberField}
    */
   construct : function(value)
   {
