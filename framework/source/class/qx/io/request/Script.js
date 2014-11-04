@@ -24,7 +24,7 @@
  *
  * The script loader can be used to load scripts from arbitrary sources.
  * <span class="desktop">
- * For JSONP requests, consider the {@link qx.bom.request.Jsonp} transport
+ * For JSONP requests, consider the {@link qx.io.request.Jsonp} transport
  * that derives from the script loader.
  * </span>
  *
@@ -32,7 +32,7 @@
  * Example:
  *
  * <pre class="javascript">
- *  var req = new qx.bom.request.Script();
+ *  var req = new qx.io.request.Script();
  *  req.onload = function() {
  *    // Script is loaded and parsed and
  *    // globals set are available
@@ -44,19 +44,19 @@
  * </div>
  *
  * @ignore(qx.core, qx.core.Environment.*)
- * @require(qx.bom.request.Script#_success)
- * @require(qx.bom.request.Script#abort)
- * @require(qx.bom.request.Script#dispose)
- * @require(qx.bom.request.Script#isDisposed)
- * @require(qx.bom.request.Script#getAllResponseHeaders)
- * @require(qx.bom.request.Script#getResponseHeader)
- * @require(qx.bom.request.Script#setDetermineSuccess)
- * @require(qx.bom.request.Script#setRequestHeader)
+ * @require(qx.io.request.Script#_success)
+ * @require(qx.io.request.Script#abort)
+ * @require(qx.io.request.Script#dispose)
+ * @require(qx.io.request.Script#isDisposed)
+ * @require(qx.io.request.Script#getAllResponseHeaders)
+ * @require(qx.io.request.Script#getResponseHeader)
+ * @require(qx.io.request.Script#setDetermineSuccess)
+ * @require(qx.io.request.Script#setRequestHeader)
  *
  * @group (IO)
  */
 
-qx.Class.define("qx.bom.request.Script",
+qx.Class.define("qx.io.request.Script",
 {
 
   construct : function()
@@ -76,24 +76,23 @@ qx.Class.define("qx.bom.request.Script",
 
   events : {
     /** Fired at ready state changes. */
-    "readystatechange" : "qx.bom.request.Script",
+    "readystatechange" : "qx.io.request.Script",
 
     /** Fired on error. */
-    "error" : "qx.bom.request.Script",
+    "error" : "qx.io.request.Script",
 
     /** Fired at loadend. */
-    "loadend" : "qx.bom.request.Script",
+    "loadend" : "qx.io.request.Script",
 
     /** Fired on timeouts. */
-    "timeout" : "qx.bom.request.Script",
+    "timeout" : "qx.io.request.Script",
 
     /** Fired when the request is aborted. */
-    "abort" : "qx.bom.request.Script",
+    "abort" : "qx.io.request.Script",
 
     /** Fired on successful retrieval. */
-    "load" : "qx.bom.request.Script"
+    "load" : "qx.io.request.Script"
   },
-
 
   members :
   {
@@ -108,7 +107,7 @@ qx.Class.define("qx.bom.request.Script",
      * LOADING:          3,
      * DONE:             4
      *
-     * Contrary to {@link qx.bom.request.Xhr#readyState}, the script transport
+     * Contrary to {@link qx.io.request.Xhr#readyState}, the script transport
      * does not receive response headers. For compatibility, another LOADING
      * state is implemented that replaces the HEADERS_RECEIVED state.
      */
@@ -148,7 +147,7 @@ qx.Class.define("qx.bom.request.Script",
      * @param name {String} The name of the event to listen to.
      * @param listener {Function} The function to execute when the event is fired
      * @param ctx {var?} The context of the listener.
-     * @return {qx.bom.request.Script} Self for chaining.
+     * @return {qx.io.request.Script} Self for chaining.
      */
     on: function(name, listener, ctx) {
       this._emitter.on(name, listener, ctx);
@@ -165,7 +164,7 @@ qx.Class.define("qx.bom.request.Script",
      *   does not support methods other than GET.
      * @param url {String}
      *   The URL to which to send the request.
-     * @return {qx.bom.request.Script} Self for chaining.
+     * @return {qx.io.request.Script} Self for chaining.
      */
     open: function(method, url) {
       if (this._disposed) {
@@ -179,7 +178,7 @@ qx.Class.define("qx.bom.request.Script",
       this.__url = url;
 
       if (this.__environmentGet("qx.debug.io")) {
-        qx.Class.debug(qx.bom.request.Script, "Open native request with " +
+        qx.Class.debug(qx.io.request.Script, "Open native request with " +
           "url: " + url);
       }
 
@@ -200,7 +199,7 @@ qx.Class.define("qx.bom.request.Script",
      *  The name of the header whose value is to be set.
      * @param value {String}
      *  The value to set as the body of the header.
-     * @return {qx.bom.request.Script} Self for chaining.
+     * @return {qx.io.request.Script} Self for chaining.
      */
     setRequestHeader: function(key, value) {
       if (this._disposed) {
@@ -220,7 +219,7 @@ qx.Class.define("qx.bom.request.Script",
 
     /**
      * Sends request.
-     * @return {qx.bom.request.Script} Self for chaining.
+     * @return {qx.io.request.Script} Self for chaining.
      */
     send: function() {
       if (this._disposed) {
@@ -236,7 +235,7 @@ qx.Class.define("qx.bom.request.Script",
       }
 
       if (this.__environmentGet("qx.debug.io")) {
-        qx.Class.debug(qx.bom.request.Script, "Send native request");
+        qx.Class.debug(qx.io.request.Script, "Send native request");
       }
 
       // Attach script to DOM
@@ -253,7 +252,7 @@ qx.Class.define("qx.bom.request.Script",
 
     /**
      * Aborts request.
-     * @return {qx.bom.request.Script} Self for chaining.
+     * @return {qx.io.request.Script} Self for chaining.
      */
     abort: function() {
       if (this._disposed) {
@@ -473,7 +472,7 @@ qx.Class.define("qx.bom.request.Script",
       }
 
       if (this.__environmentGet("qx.debug.io")) {
-        qx.Class.debug(qx.bom.request.Script, "Received native load");
+        qx.Class.debug(qx.io.request.Script, "Received native load");
       }
 
       // Determine status by calling user-provided check function
@@ -488,7 +487,7 @@ qx.Class.define("qx.bom.request.Script",
 
       if (this.status === 500) {
         if (this.__environmentGet("qx.debug.io")) {
-          qx.Class.debug(qx.bom.request.Script, "Detected error");
+          qx.Class.debug(qx.io.request.Script, "Detected error");
         }
       }
 
@@ -564,6 +563,11 @@ qx.Class.define("qx.bom.request.Script",
      */
     _disposed: null,
 
+    /**
+     * @type {Object} Delegator for events.
+     */
+    _delegate: null,
+
     /*
     ---------------------------------------------------------------------------
       HELPER
@@ -595,12 +599,8 @@ qx.Class.define("qx.bom.request.Script",
     _success: function() {
       this.__disposeScriptElement();
       this.readyState = 4;
-
       // By default, load is considered successful
-      if (!this.status) {
-        this.status = 200;
-      }
-
+      this.status = (!this.status) ? 200 : this.status;
       this.statusText = "" + this.status;
     },
 
@@ -610,10 +610,24 @@ qx.Class.define("qx.bom.request.Script",
     __failure: function() {
       this.__disposeScriptElement();
       this.readyState = 4;
-      this.status = 0;
+      this.status = (!this.status) ? 0 : this.status;
       this.statusText = null;
     },
 
+
+    /**
+     * Set delegate functions. This is a possibility to run
+     * logic after/before handlers (e.g. __onNativeLoadBound).
+     *
+     * Note:
+     *  The handler functions (e.g. __onNativeLoadBound) have
+     *  then to be called manually!
+     *
+     * @param obj {Object} Contains overriden handler.
+     */
+    setDelegate: function(obj) {
+      this._delegate = obj;
+    },
 
     /**
      * Create and configure script element.
@@ -624,8 +638,14 @@ qx.Class.define("qx.bom.request.Script",
       var script = this.__scriptElement = document.createElement("script");
 
       script.src = this.__url;
-      script.onerror = this.__onNativeErrorBound;
-      script.onload = this.__onNativeLoadBound;
+
+      if (this._delegate && this._delegate.onNativeLoad && this._delegate.onNativeError) {
+        script.onload = this._delegate.onNativeLoad;
+        script.onerror = this._delegate.onNativeError;
+      } else {
+        script.onload = this.__onNativeLoadBound;
+        script.onerror = this.__onNativeErrorBound;
+      }
 
       return script;
     },

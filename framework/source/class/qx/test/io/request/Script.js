@@ -25,7 +25,7 @@
  * @ignore(SCRIPT_LOADED)
  */
 
-qx.Class.define("qx.test.bom.request.Script",
+qx.Class.define("qx.test.io.request.Script",
 {
   extend : qx.dev.unit.TestCase,
 
@@ -40,7 +40,7 @@ qx.Class.define("qx.test.bom.request.Script",
   members :
   {
     setUp: function() {
-      var req = this.req = new qx.bom.request.Script();
+      var req = this.req = new qx.io.request.Script();
       this.url = this.getUrl("qx/test/script.js");
     },
 

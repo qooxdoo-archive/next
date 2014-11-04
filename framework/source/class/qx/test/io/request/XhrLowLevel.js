@@ -17,7 +17,7 @@
 
 ************************************************************************ */
 
-qx.Class.define("qx.test.bom.request.Xhr",
+qx.Class.define("qx.test.io.request.XhrLowLevel",
 {
   extend : qx.dev.unit.TestCase,
 

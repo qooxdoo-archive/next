@@ -26,7 +26,7 @@
  * @asset(qx/test/xmlhttp/*)
  */
 
-qx.Class.define("qx.test.bom.request.XhrWithRemote",
+qx.Class.define("qx.test.io.request.XhrWithRemoteLowLevel",
 {
   extend : qx.dev.unit.TestCase,
 
@@ -45,7 +45,7 @@ qx.Class.define("qx.test.bom.request.XhrWithRemote",
     req : null,
 
     setUp: function() {
-      this.req = new qx.bom.request.Xhr();
+      this.req = new qx.io.request.Xhr();
     },
 
     tearDown: function() {
@@ -68,7 +68,6 @@ qx.Class.define("qx.test.bom.request.XhrWithRemote",
     "test: GET with event attribute handler": function() {
       var req = this.req;
       var url = this.getUrl("qx/test/xmlhttp/sample.txt");
-      req.open("GET", this.noCache(url));
 
       var that = this;
       req.onreadystatechange = function() {
@@ -78,7 +77,7 @@ qx.Class.define("qx.test.bom.request.XhrWithRemote",
           });
         }
       };
-      req.send();
+      this.openAndSend("GET", this.noCache(url));
 
       this.wait();
     },
@@ -86,7 +85,6 @@ qx.Class.define("qx.test.bom.request.XhrWithRemote",
     "test: GET with event": function() {
       var req = this.req;
       var url = this.getUrl("qx/test/xmlhttp/sample.txt");
-      req.open("GET", this.noCache(url));
 
       var that = this;
       var onreadystatechange = function() {
@@ -97,7 +95,7 @@ qx.Class.define("qx.test.bom.request.XhrWithRemote",
         }
       };
       req.on("readystatechange", onreadystatechange);
-      req.send();
+      this.openAndSend("GET", this.noCache(url));
 
       this.wait();
     },
@@ -105,8 +103,6 @@ qx.Class.define("qx.test.bom.request.XhrWithRemote",
     "test: GET XML": function() {
       var req = this.req;
       var url = this.getUrl("qx/test/xmlhttp/sample.xml");
-
-      req.open("GET", this.noCache(url));
 
       var that = this;
       req.onreadystatechange = function() {
@@ -116,7 +112,7 @@ qx.Class.define("qx.test.bom.request.XhrWithRemote",
           });
         }
       };
-      req.send();
+      this.openAndSend("GET", this.noCache(url));
 
       this.wait();
     },
@@ -128,7 +124,6 @@ qx.Class.define("qx.test.bom.request.XhrWithRemote",
       var url = this.getUrl("qx/test/xmlhttp/xml.php");
 
       var req = this.req;
-      req.open("GET", this.noCache(url));
 
       var that = this;
       req.onreadystatechange = function() {
@@ -138,7 +133,7 @@ qx.Class.define("qx.test.bom.request.XhrWithRemote",
           });
         }
       };
-      req.send();
+      this.openAndSend("GET", this.noCache(url));
 
       this.wait();
     },
@@ -156,8 +151,7 @@ qx.Class.define("qx.test.bom.request.XhrWithRemote",
         }
       };
 
-      req.open("GET", url);
-      req.send();
+      this.openAndSend("GET", url);
 
       this.wait();
     },
@@ -167,18 +161,19 @@ qx.Class.define("qx.test.bom.request.XhrWithRemote",
 
       var req = this.req;
       var url = this.getUrl("qx/test/xmlhttp/echo_post_request.php");
-      req.open("POST", this.noCache(url));
-      req.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+      req._open("POST", this.noCache(url));
+      req._setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
 
       var that = this;
       req.onreadystatechange = function() {
+        // debugger;
         if (req.readyState == 4) {
           that.resume(function() {
             that.assertEquals('{"affe":"true"}', req.responseText);
           });
         }
       };
-      req.send("affe=true");
+      req._send("affe=true");
 
       this.wait();
     },
@@ -193,7 +188,7 @@ qx.Class.define("qx.test.bom.request.XhrWithRemote",
 
       var req = this.req;
       var url = this.getUrl("qx/test/xmlhttp/echo_post_request.php");
-      req.open("GET", this.noCache(url));
+      req._open("GET", this.noCache(url));
 
       this.assertIdentical(1, req.readyState);
     },
@@ -204,7 +199,7 @@ qx.Class.define("qx.test.bom.request.XhrWithRemote",
       var req = this.req;
       var url = this.getUrl("qx/test/xmlhttp/echo_get_request.php");
 
-      req.open("GET", this.noCache(url));
+      req._open("GET", this.noCache(url));
       req.abort();
 
       this.assertNotEquals(4, req.readyState, "Request must not complete");
@@ -216,9 +211,6 @@ qx.Class.define("qx.test.bom.request.XhrWithRemote",
       var req = this.req;
       var url = this.getUrl("qx/test/xmlhttp/echo_get_request.php");
 
-      // Make sure resource is not served from cache
-      req.open("GET", this.noCache(url));
-
       var that = this;
       req.onreadystatechange = function() {
         if (req.readyState == 4) {
@@ -227,7 +219,8 @@ qx.Class.define("qx.test.bom.request.XhrWithRemote",
           });
         }
       };
-      req.send();
+      // Make sure resource is not served from cache
+      this.openAndSend("GET", this.noCache(url));
 
       this.wait();
     },
@@ -239,8 +232,8 @@ qx.Class.define("qx.test.bom.request.XhrWithRemote",
       var url = this.getUrl("qx/test/xmlhttp/time.php");
 
       var send = function() {
-        req.open("GET", url);
-        req.send();
+        req._open("GET", url);
+        req._send();
       };
 
       var that = this;
@@ -262,48 +255,6 @@ qx.Class.define("qx.test.bom.request.XhrWithRemote",
       this.wait();
     },
 
-    // "test: GET simultaneously": function() {
-    //   var count = 1,
-    //       upTo = 20,
-    //       startedAt = new Date(),
-    //       duration = 0,
-    //       that = this;
-    //
-    //   for (var i=0; i<upTo; i++) {
-    //     (function() {
-    //       var req = new qx.bom.request.Xhr(),
-    //           url = that.noCache(that.getUrl("qx/test/xmlhttp/loading.php")) + "&duration=2";
-    //
-    //       req.onreadystatechange = function() {
-    //         if (req.readyState != 4) {
-    //           return;
-    //         }
-    //
-    //         that.resume(function() {
-    //
-    //           // In seconds
-    //           duration = (new Date() - startedAt) / 1000;
-    //           that.debug("Request #" + count + " completed (" +  duration + ")");
-    //
-    //           if (count == upTo) {
-    //             return;
-    //           }
-    //
-    //           ++count;
-    //           that.wait();
-    //         });
-    //       }
-    //
-    //       req.open("GET", url);
-    //       req.send();
-    //     })();
-    //   }
-    //
-    //   // Provided two concurrent requests are made (each 6s), 20 requests
-    //   // (i.e. 10 packs of requests) should complete after 60s
-    //   this.wait(15000 + 1000);
-    // },
-
     "test: open throws error with insecure method": function() {
       var req = this.req,
           url = this.getUrl("qx/test/xmlhttp/sample.txt");
@@ -311,7 +262,7 @@ qx.Class.define("qx.test.bom.request.XhrWithRemote",
       this.assertException(function() {
         // Type of error is of no interest
         try {
-          req.open("TRACE", url);
+          req._open("TRACE", url);
         } catch(e) {
           throw Error();
         }
@@ -335,8 +286,7 @@ qx.Class.define("qx.test.bom.request.XhrWithRemote",
       var url = this.getUrl("qx/test/xmlhttp/get_content.php") + query;
 
       req.onload = onloadAssertContentTypeUnchanged;
-      req.open("GET", url);
-      req.send();
+      this.openAndSend("GET", url);
       this.wait();
     },
 
@@ -359,9 +309,8 @@ qx.Class.define("qx.test.bom.request.XhrWithRemote",
       var url = this.getUrl("qx/test/xmlhttp/get_content.php") + query;
 
       req.onload = onloadAssertContentTypeOverride;
-      req.open("GET", url);
+      this.openAndSend("GET", url);
       req.overrideMimeType("text/plain;charset=Shift-JIS");
-      req.send();
       this.wait();
     },
 
@@ -385,8 +334,7 @@ qx.Class.define("qx.test.bom.request.XhrWithRemote",
       };
 
       var url = this.getUrl("qx/test/xmlhttp/sample.txt");
-      req.open("GET", this.noCache(url));
-      req.send();
+      this.openAndSend("GET", this.noCache(url));
 
       this.wait();
     },
@@ -400,8 +348,8 @@ qx.Class.define("qx.test.bom.request.XhrWithRemote",
       };
 
       var url = this.getUrl("qx/test/xmlhttp/sample.txt");
-      req.open("GET", this.noCache(url), false);
-      req.send();
+      req._open("GET", this.noCache(url), false);
+      req._send();
 
       // There is no HEADERS_RECEIVED and LOADING when sync.
       // See http://www.w3.org/TR/XMLHttpRequest/#the-send-method
@@ -420,7 +368,7 @@ qx.Class.define("qx.test.bom.request.XhrWithRemote",
 
           that.resume(function() {
             // From cache with new request
-            var req = new qx.bom.request.Xhr();
+            var req = new qx.io.request.Xhr();
 
             req.onreadystatechange = function() {
               states.push(req.readyState);
@@ -431,8 +379,8 @@ qx.Class.define("qx.test.bom.request.XhrWithRemote",
               }
             };
 
-            req.open("GET", url);
-            req.send();
+            req._open("GET", url);
+            req._send();
 
             that.wait();
           });
@@ -440,8 +388,8 @@ qx.Class.define("qx.test.bom.request.XhrWithRemote",
       };
 
       // Prime cache
-      primeReq.open("GET", url);
-      primeReq.send();
+      primeReq._open("GET", url);
+      primeReq._send();
 
       this.wait();
     },
@@ -460,7 +408,7 @@ qx.Class.define("qx.test.bom.request.XhrWithRemote",
           });
         }
       };
-      req.open("GET", url);
+      req._open("GET", url);
 
       // Pretend that client has a fresh representation of
       // this resource in its cache. Please note the ETag given
@@ -487,7 +435,7 @@ qx.Class.define("qx.test.bom.request.XhrWithRemote",
       // is returning 304 anyway. We're just triggering the behavior
       // specified above.
       req.setRequestHeader("If-None-Match", "\"4893a3a-b0-49ea970349b00\"");
-      req.send();
+      req._send();
 
       this.wait();
     },
@@ -499,8 +447,8 @@ qx.Class.define("qx.test.bom.request.XhrWithRemote",
 
       var that = this;
       function request() {
-        req.open("GET", that.noCache(url));
-        req.send();
+        req._open("GET", that.noCache(url));
+        req._send();
       }
 
       req.onreadystatechange = function() {
@@ -546,8 +494,7 @@ qx.Class.define("qx.test.bom.request.XhrWithRemote",
         }
       };
 
-      req.open("GET", this.noCache(url));
-      req.send();
+      this.openAndSend("GET", this.noCache(url));
 
       this.wait();
     },
@@ -557,7 +504,7 @@ qx.Class.define("qx.test.bom.request.XhrWithRemote",
 
       // OPENED, without send flag
       var url = this.getUrl("qx/test/xmlhttp/sample.txt");
-      req.open("GET", this.noCache(url));
+      req._open("GET", this.noCache(url));
 
       this.spy(req, "onreadystatechange");
       req.abort();
@@ -582,8 +529,8 @@ qx.Class.define("qx.test.bom.request.XhrWithRemote",
       // Will "never" complete
       // OPENED, finally LOADING
       var url = this.getUrl("qx/test/xmlhttp/loading.php");
-      req.open("GET", url + "?duration=100");
-      req.send();
+      req._open("GET", url + "?duration=100");
+      req._send();
 
       window.setTimeout(function() {
         req.abort();
@@ -605,8 +552,7 @@ qx.Class.define("qx.test.bom.request.XhrWithRemote",
       // Will "never" complete
       // OPENED, finally LOADING
       var url = this.getUrl("qx/test/xmlhttp/loading.php");
-      req.open("GET", url + "?duration=100");
-      req.send();
+      this.openAndSend("GET", url + "?duration=100");
 
       window.setTimeout(function() {
         req.abort();
@@ -633,8 +579,7 @@ qx.Class.define("qx.test.bom.request.XhrWithRemote",
       // Network error (async)
       // Is sync in Opera >= 11.5
       window.setTimeout(function() {
-        req.open("GET", "http://fail.tld");
-        req.send();
+        this.openAndSend("GET", "http://fail.tld");
       }.bind(this), 0);
 
       // May take a while to detect network error
@@ -653,8 +598,7 @@ qx.Class.define("qx.test.bom.request.XhrWithRemote",
         });
       };
 
-      req.open("GET", "not-found");
-      req.send();
+      this.openAndSend("GET", "not-found");
 
       this.wait();
     },
@@ -664,7 +608,7 @@ qx.Class.define("qx.test.bom.request.XhrWithRemote",
       var req = this.req;
 
       // Network error (sync)
-      req.open("GET", "http://fail.tld", false);
+      this.openAndSend("GET", "http://fail.tld", false);
 
       this.assertException(function() {
         try {
@@ -687,8 +631,8 @@ qx.Class.define("qx.test.bom.request.XhrWithRemote",
       // Assume that request completes in given interval
       req.timeout = 400;
 
-      req.open("GET", url, false);
-      req.send();
+      req._open("GET", url, false);
+      req._send();
 
       this.wait(function() {
         this.assertNotCalled(req.ontimeout);
@@ -705,7 +649,10 @@ qx.Class.define("qx.test.bom.request.XhrWithRemote",
           url = this.getUrl("qx/test/xmlhttp/loading.php"),
           that = this;
 
+      // debugger;
+
       req.onloadend = function() {
+        // debugger;
         that.resume(function() {
           that.assertEquals(4, req.readyState);
           that.assertIdentical("", req.responseText);
@@ -714,9 +661,9 @@ qx.Class.define("qx.test.bom.request.XhrWithRemote",
         });
       };
 
-      req.timeout = 100;
-      req.open("GET", url + "?duration=100");
-      req.send();
+      req.timeout = 10;
+      req._open("GET", url + "?duration=10");
+      req._send();
 
       this.spy(req, "onreadystatechange");
       this.spy(req, "onerror");
@@ -740,8 +687,8 @@ qx.Class.define("qx.test.bom.request.XhrWithRemote",
       };
 
       req.timeout = 100;
-      req.open("GET", url + "?duration=100");
-      req.send();
+      req._open("GET", url + "?duration=100");
+      req._send();
 
       this.spy(req, "onabort");
 
@@ -763,8 +710,7 @@ qx.Class.define("qx.test.bom.request.XhrWithRemote",
       // Network error
       // Is sync in Opera >= 11.5
       window.setTimeout(function() {
-        req.open("GET", "http://fail.tld");
-        req.send();
+        this.openAndSend("GET", "http://fail.tld");
       }.bind(this), 0);
 
       // May take a while to detect network error
@@ -791,8 +737,7 @@ qx.Class.define("qx.test.bom.request.XhrWithRemote",
       this.spy(req, "onreadystatechange");
       this.spy(req, "onload");
       this.spy(req, "onloadend");
-      req.open("GET", url);
-      req.send();
+      this.openAndSend("GET", url);
 
       this.wait();
     },
@@ -816,8 +761,8 @@ qx.Class.define("qx.test.bom.request.XhrWithRemote",
 
       // Is sync in Opera >= 11.5
       window.setTimeout(function() {
-        req.open("GET", "http://fail.tld");
-        req.send();
+        req._open("GET", "http://fail.tld");
+        req._send();
       }.bind(this), 0);
 
       // May take a while to detect network error
@@ -831,7 +776,7 @@ qx.Class.define("qx.test.bom.request.XhrWithRemote",
     "test: dispose hard-working": function() {
       var req = this.req;
       var url = this.getUrl("qx/test/xmlhttp/sample.txt");
-      req.open("GET", this.noCache(url));
+      req._open("GET", this.noCache(url));
 
       var that = this;
       req.onreadystatechange = function() {
@@ -842,9 +787,29 @@ qx.Class.define("qx.test.bom.request.XhrWithRemote",
           });
         }
       };
-      req.send();
+      req._send();
 
       this.wait();
+    },
+
+    openAndSend: function(method, url, data) {
+      // use API of io.XHR only
+      this.req._open(method, url);
+      if (data) {
+        this.req._send(data);
+      } else {
+        this.req._send();
+      }
+
+      // use API of io.AbstractRequest
+      /*
+      this.req.setMethod(method);
+      this.req.setUrl(url);
+      if (data) {
+        this.req.setRequestData(data);
+      }
+      this.req.send()
+      */
     },
 
     noCache: function(url) {
