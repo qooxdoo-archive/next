@@ -42,7 +42,7 @@ qx.Class.define("qx.bom.element.Dataset",
      * @param value {var} New value of the attribute
      */
     set : function(element, name, value) {
-     if (element.dataset) {
+      if (element.dataset) {
         name = qx.lang.String.camelCase(name);
         if (value === null || value === undefined) {
           if (typeof element.dataset[name] !== "undefined") { // Otherwise Safari throws
