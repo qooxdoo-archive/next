@@ -92,7 +92,7 @@ describe("mobile.control.DatePicker", function() {
 
 
   it("Factory", function() {
-    var datePicker = qxWeb.create("<div>").datePicker().appendTo(getRoot());
+    var datePicker = qxWeb.create("<div>").toDatePicker().appendTo(getRoot());
     assert.instanceOf(datePicker, qx.ui.control.DatePicker);
     qx.core.Assert.assertEquals(datePicker, datePicker[0].$$widget);
     assert.equal("qx.ui.control.DatePicker", datePicker.getData("qxWidget"));

@@ -30,7 +30,7 @@ describe("mobile.form.Row", function() {
 
 
   it("Factory", function() {
-    var row = qxWeb.create("<div>").row().appendTo(getRoot());
+    var row = qxWeb.create("<div>").toRow().appendTo(getRoot());
     assert.instanceOf(row, qx.ui.form.Row);
     assert.equal(row, row[0].$$widget);
     assert.equal("qx.ui.form.Row", row.getData("qxWidget"));

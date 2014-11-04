@@ -86,7 +86,7 @@ describe("mobile.container.Navigation", function() {
 
   it("Factory", function() {
     var navigation = q.create('<div>')
-      .navigation()
+      .toNavigation()
       .appendTo(getRoot());
 
     assert.instanceOf(navigation, qx.ui.container.Navigation);

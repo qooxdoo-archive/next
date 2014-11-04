@@ -51,7 +51,7 @@ describe("mobile.basic.Label", function() {
   it("Factory", function() {
     var text = "myText";
     var label = q.create('<div></div>')
-      .label(text)
+      .toLabel(text)
       .appendTo(getRoot());
 
     assert.instanceOf(label, qx.ui.basic.Label);

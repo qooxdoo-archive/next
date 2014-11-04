@@ -88,7 +88,7 @@ describe("mobile.page.Page", function() {
 
 
   it("Factory", function() {
-    var page = qxWeb.create("<div>").page().appendTo(getRoot());
+    var page = qxWeb.create("<div>").toPage().appendTo(getRoot());
     assert.instanceOf(page, qx.ui.page.Page);
     assert.equal(page, page[0].$$widget);
     assert.equal("qx.ui.page.Page", page.getData("qxWidget"));

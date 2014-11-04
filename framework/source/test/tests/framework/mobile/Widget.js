@@ -360,7 +360,7 @@ describe("mobile.Widget", function() {
 
 
   it("Factory", function() {
-    var widget = qxWeb.create("<div>").widget().appendTo(getRoot());
+    var widget = qxWeb.create("<div>").toWidget().appendTo(getRoot());
     assert.instanceOf(widget, qx.ui.Widget);
     assert.equal(widget, widget[0].$$widget);
     assert.equal("qx.ui.Widget", widget.getData("qxWidget"));

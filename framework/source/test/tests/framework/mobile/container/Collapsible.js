@@ -28,7 +28,7 @@ describe("mobile.container.Collapsible", function() {
 
   it("Factory", function() {
     var collapsible = q.create('<div>')
-      .collapsible("Header")
+      .toCollapsible("Header")
       .appendTo(getRoot());
 
     assert.instanceOf(collapsible, qx.ui.container.Collapsible);

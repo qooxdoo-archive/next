@@ -115,7 +115,7 @@ describe("mobile.control.Calendar", function() {
 
 
   it("Factory", function() {
-    __cal = qxWeb.create("<div>").calendar().appendTo(getRoot());
+    __cal = qxWeb.create("<div>").toCalendar().appendTo(getRoot());
     assert.instanceOf(__cal, qx.ui.control.Calendar);
     qx.core.Assert.assertEquals(__cal, __cal[0].$$widget);
     assert.equal("qx.ui.control.Calendar", __cal.getData("qxWidget"));

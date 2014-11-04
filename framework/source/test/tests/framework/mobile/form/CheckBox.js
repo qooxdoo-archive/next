@@ -56,7 +56,7 @@ describe("mobile.form.CheckBox", function() {
 
 
   it("Factory", function() {
-    var checkBox = qxWeb.create("<div>").checkBox().appendTo(getRoot());
+    var checkBox = qxWeb.create("<div>").toCheckBox().appendTo(getRoot());
     assert.instanceOf(checkBox, qx.ui.form.CheckBox);
     assert.equal(checkBox, checkBox[0].$$widget);
     assert.equal("qx.ui.form.CheckBox", checkBox.getData("qxWidget"));

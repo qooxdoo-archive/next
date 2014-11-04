@@ -41,7 +41,7 @@ describe("mobile.form.Group", function() {
 
 
   it("Factory", function() {
-    var group = qxWeb.create("<div>").group().appendTo(getRoot());
+    var group = qxWeb.create("<div>").toGroup().appendTo(getRoot());
     assert.instanceOf(group, qx.ui.form.Group);
     assert.equal(group, group[0].$$widget);
     assert.equal("qx.ui.form.Group", group.getData("qxWidget"));

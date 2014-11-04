@@ -75,7 +75,7 @@ describe("mobile.dialog.Menu", function() {
 
 
   it("Factory", function() {
-    var menu = qxWeb.create("<div>").menu().appendTo(getRoot());
+    var menu = qxWeb.create("<div>").toMenu().appendTo(getRoot());
     assert.instanceOf(menu, qx.ui.dialog.Menu);
     qx.core.Assert.assertEquals(menu, menu[0].$$widget);
     assert.equal("qx.ui.dialog.Menu", menu.getData("qxWidget"));

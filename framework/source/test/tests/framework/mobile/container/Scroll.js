@@ -37,7 +37,7 @@ describe("mobile.container.Scroll", function() {
 
   it("Factory", function() {
     var scroll = q.create('<div>')
-      .scroll()
+      .toScroll()
       .appendTo(getRoot());
 
     assert.instanceOf(scroll, qx.ui.container.Scroll);

@@ -53,7 +53,7 @@ describe("mobile.navigationbar.NavigationBar", function()
 
 
   it("Factory", function() {
-    var navigationBar = qxWeb.create("<div>").navigationBar().appendTo(getRoot());
+    var navigationBar = qxWeb.create("<div>").toNavigationBar().appendTo(getRoot());
     assert.instanceOf(navigationBar, qx.ui.navigationbar.NavigationBar);
     assert.equal(navigationBar, navigationBar[0].$$widget);
     assert.equal("qx.ui.navigationbar.NavigationBar", navigationBar.getData("qxWidget"));

@@ -86,7 +86,7 @@ describe("mobile.page.NavigationPage", function ()
 
 
   it("Factory", function() {
-    var navigationPage = qxWeb.create("<div>").navigationPage().appendTo(getRoot());
+    var navigationPage = qxWeb.create("<div>").toNavigationPage().appendTo(getRoot());
     assert.instanceOf(navigationPage, qx.ui.page.NavigationPage);
     assert.equal(navigationPage, navigationPage[0].$$widget);
     assert.equal("qx.ui.page.NavigationPage", navigationPage.getData("qxWidget"));

@@ -98,7 +98,7 @@ describe("mobile.form.Input", function() {
 
 
   it("Factory", function() {
-    var input = qxWeb.create("<div>").input().appendTo(getRoot());
+    var input = qxWeb.create("<div>").toInput().appendTo(getRoot());
     assert.instanceOf(input, qx.ui.form.Input);
     assert.equal(input, input[0].$$widget);
     assert.equal("qx.ui.form.Input", input.getData("qxWidget"));

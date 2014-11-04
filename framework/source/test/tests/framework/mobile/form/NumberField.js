@@ -137,7 +137,7 @@ describe("mobile.form.NumberField", function ()
 
 
   it("Factory", function() {
-    var numberField = qxWeb.create("<div>").numberField().appendTo(getRoot());
+    var numberField = qxWeb.create("<div>").toNumberField().appendTo(getRoot());
     assert.instanceOf(numberField, qx.ui.form.NumberField);
     assert.equal(numberField, numberField[0].$$widget);
     assert.equal("qx.ui.form.NumberField", numberField.getData("qxWidget"));

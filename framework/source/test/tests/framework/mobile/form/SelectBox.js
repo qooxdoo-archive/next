@@ -181,7 +181,7 @@ describe("mobile.form.SelectBox", function() {
 
 
   it("Factory", function() {
-    var selectBox = qxWeb.create("<div>").selectBox().appendTo(getRoot());
+    var selectBox = qxWeb.create("<div>").toSelectBox().appendTo(getRoot());
     assert.instanceOf(selectBox, qx.ui.form.SelectBox);
     assert.equal(selectBox, selectBox[0].$$widget);
     assert.equal("qx.ui.form.SelectBox", selectBox.getData("qxWidget"));

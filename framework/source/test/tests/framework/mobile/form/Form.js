@@ -82,7 +82,7 @@ describe("mobile.form.Form", function() {
 
 
   it("Factory", function() {
-    var form = qxWeb.create("<form>").form().appendTo(getRoot());
+    var form = qxWeb.create("<form>").toForm().appendTo(getRoot());
     assert.instanceOf(form, qx.ui.form.Form);
     assert.equal(form, form[0].$$widget);
     assert.equal("qx.ui.form.Form", form.getData("qxWidget"));

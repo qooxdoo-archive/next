@@ -86,7 +86,7 @@ describe("mobile.toolbar.ToolBar", function() {
 
 
   it("Factory", function() {
-    __toolBar = qxWeb.create("<div>").toolBar().appendTo(getRoot());
+    __toolBar = qxWeb.create("<div>").toToolBar().appendTo(getRoot());
     assert.instanceOf(__toolBar, qx.ui.toolbar.ToolBar);
     assert.equal(__toolBar, __toolBar[0].$$widget);
     assert.equal("qx.ui.toolbar.ToolBar", __toolBar.getData("qxWidget"));

@@ -150,7 +150,7 @@ describe("mobile.container.Carousel", function() {
 
   it("Factory", function() {
     var carousel = q.create('<div>')
-      .carousel()
+      .toCarousel()
       .appendTo(getRoot());
 
     assert.instanceOf(carousel, qx.ui.container.Carousel);

@@ -65,7 +65,7 @@ describe("mobile.form.ToggleButton", function() {
 
 
   it("Factory", function() {
-    var toggleButton = qxWeb.create("<div>").toggleButton().appendTo(getRoot());
+    var toggleButton = qxWeb.create("<div>").toToggleButton().appendTo(getRoot());
     assert.instanceOf(toggleButton, qx.ui.form.ToggleButton);
     assert.equal(toggleButton, toggleButton[0].$$widget);
     assert.equal("qx.ui.form.ToggleButton", toggleButton.getData("qxWidget"));

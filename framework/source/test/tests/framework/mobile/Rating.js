@@ -124,7 +124,7 @@ describe("mobile.Rating", function() {
 
 
   it("Factory", function() {
-    var rating = _rating = qxWeb.create("<div>").rating().appendTo(getRoot());
+    var rating = _rating = qxWeb.create("<div>").toRating().appendTo(getRoot());
     assert.instanceOf(rating, qx.ui.Rating);
     assert.equal(rating, rating[0].$$widget);
     assert.equal("qx.ui.Rating", rating.getData("qxWidget"));

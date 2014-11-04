@@ -163,7 +163,7 @@ describe("mobile.basic.Atom", function()
     var imageUri = qx.util.ResourceManager.getInstance().toUri(imagePath);
     var text = "myText";
     var atom = q.create('<div></div>')
-      .atom(text, imageUri)
+      .toAtom(text, imageUri)
       .appendTo(getRoot());
 
     assert.instanceOf(atom, qx.ui.basic.Atom);

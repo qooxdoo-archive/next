@@ -79,8 +79,8 @@ describe("mobile.dialog.Popup", function() {
 
 
   it("Factory", function() {
-    var content = qxWeb.create("<div>").widget();
-    var popup = qxWeb.create("<div>").popup(content).appendTo(getRoot());
+    var content = qxWeb.create("<div>").toWidget();
+    var popup = qxWeb.create("<div>").toPopup(content).appendTo(getRoot());
     assert.instanceOf(popup, qx.ui.dialog.Popup);
     qx.core.Assert.assertEquals(popup, popup[0].$$widget);
     assert.equal("qx.ui.dialog.Popup", popup.getData("qxWidget"));

@@ -71,7 +71,7 @@ describe("mobile.basic.Image", function() {
   it("Factory", function() {
     var source = '../resource/qx/icon/Tango/48/places/folder.png';
     var img = q.create('<img data-qx-config-source="../resource/qx/icon/Tango/48/places/folder.png">')
-      .image()
+      .toImage()
       .appendTo(getRoot());
 
     assert.instanceOf(img, qx.ui.basic.Image);

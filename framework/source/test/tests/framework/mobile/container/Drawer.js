@@ -104,7 +104,7 @@ describe("mobile.container.Drawer", function() {
 
   it("Factory", function() {
     var drawer = q.create('<div>')
-      .drawer()
+      .toDrawer()
       .appendTo(getRoot());
 
     assert.instanceOf(drawer, qx.ui.container.Drawer);

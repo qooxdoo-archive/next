@@ -51,7 +51,7 @@ describe("mobile.control.Picker", function() {
 
 
   it("Factory", function() {
-    var picker = qxWeb.create("<div>").picker().appendTo(getRoot());
+    var picker = qxWeb.create("<div>").toPicker().appendTo(getRoot());
     assert.instanceOf(picker, qx.ui.control.Picker);
     qx.core.Assert.assertEquals(picker, picker[0].$$widget);
     assert.equal("qx.ui.control.Picker", picker.getData("qxWidget"));

@@ -73,7 +73,7 @@ describe("mobile.form.Slider", function() {
 
   it("Factory", function() {
     var slider = q.create('<div>')
-      .slider()
+      .toSlider()
       .appendTo(getRoot());
 
     assert.instanceOf(slider, qx.ui.form.Slider);

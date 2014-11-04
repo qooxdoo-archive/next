@@ -191,7 +191,7 @@ describe("mobile.list.List", function ()
 
 
   it("Factory", function(done) {
-      var list = qxWeb.create("<ul></ul>").list().appendTo(getRoot());
+      var list = qxWeb.create("<ul></ul>").toList().appendTo(getRoot());
       assert.instanceOf(list, qx.ui.list.List);
       assert.equal(list, list[0].$$widget);
       setTimeout( function (){
