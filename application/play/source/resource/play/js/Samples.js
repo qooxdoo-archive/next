@@ -18,7 +18,7 @@ Samples = {
 
   "sample Button" : function() {
     q.create("<button>")
-      .button("First Button")
+      .toButton("First Button")
       .appendTo(this.getRoot());
   },
 
