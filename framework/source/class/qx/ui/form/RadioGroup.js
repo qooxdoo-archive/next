@@ -34,12 +34,15 @@
  *    var radio3 = new qx.ui.form.RadioButton();
  *
  *    var radiogroup = new qx.ui.form.RadioGroup(radio1, radio2, radio3);
-
- *    form.add(radio1, "Germany");
- *    form.add(radio2, "UK");
- *    form.add(radio3, "USA");
  *
- *    this.getRoot.append(new qx.ui.form.renderer.Single(form));
+ *    new qx.ui.form.Row(radio1, "Germany")
+ *      .appendTo(form);
+ *    new qx.ui.form.Row(radio2, "UK")
+ *      .appendTo(form);
+ *    new qx.ui.form.Row(radio3, "USA")
+ *      .appendTo(form);
+ *
+ *    this.getRoot().append(form);
  * </pre>
  */
 qx.Class.define("qx.ui.form.RadioGroup",
