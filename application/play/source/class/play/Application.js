@@ -53,11 +53,13 @@ qx.Class.define("play.Application",
       var samples = new play.Samples();
       var samplesMenu = new qx.ui.dialog.Menu(samples)
         .appendTo(new qx.ui.core.Root(document.body));
-      samplesMenu.on("changeSelection", function(data) {
-        var code = samples.getCode(data.item.title);
+      samplesMenu.on("selected", function(el) {
+        var title = samplesMenu.model.getItem(el.getData("row")).title;
+        var code = samples.getCode(title);
         editor.setValue(code);
         editor.clearSelection();
         q("#runButton").emit("tap");
+        samplesMenu.hideWithDelay(500);
       }).title = "Samples";
 
       q("#runButton").on("tap", this.run, this);
@@ -77,7 +79,10 @@ qx.Class.define("play.Application",
 
       // run initial app
       if (!play.CodeStore.init()) {
-        samplesMenu.selectedIndex = 0;
+        var title = samplesMenu.model.getItem(0).title;
+        var code = samples.getCode(title);
+        editor.setValue(code);
+        this.run();
       }
     },
 
