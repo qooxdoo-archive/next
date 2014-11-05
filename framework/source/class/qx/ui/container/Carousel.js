@@ -201,10 +201,10 @@ qx.Class.define("qx.ui.container.Carousel",
     __locked : false,
     __centerChanged : false,
     __steps : null,
-    __renderedBuffer : null,
     __moved : false,
     __touchStarted : false,
     __paginationLabelCliked : false,
+    __prevIndex : 0,
 
 
 
@@ -245,8 +245,6 @@ qx.Class.define("qx.ui.container.Carousel",
 
       }
 
-      this.__renderedBuffer = this.__getRenderedBuffer();
-
       var paginationLabel = this._createPaginationLabel();
       this.__paginationLabels.push(paginationLabel);
       this.__pagination.append(paginationLabel);
@@ -278,8 +276,6 @@ qx.Class.define("qx.ui.container.Carousel",
         this.__pagination.append(paginationLabel);
       }.bind(this));
 
-      this.__renderedBuffer = this.__getRenderedBuffer();
-
       this._setTransitionDuration(0);
 
       this._onContainerUpdate();
@@ -296,24 +292,17 @@ qx.Class.define("qx.ui.container.Carousel",
 
       if (this.__pages && this.__pages.length > pageIndex) {
 
-        var buffer = this.__getRenderedBuffer();
-
-        var center = buffer.center;
+        var center = this.__pages[this.currentIndex];
         var pageToRemove = this.__pages[pageIndex];
 
-        var bufferConcat = buffer.left.concat(buffer.center).concat(buffer.right);
+        var bufferConcat = this.__carouselScroller.getChildren();
 
         var centeredIndex = bufferConcat.indexOf(center);
         var indexToRemove = bufferConcat.indexOf(pageToRemove);
 
-        this.__steps = Math.abs(centeredIndex - indexToRemove);
-
-        if(this.__steps !== 0) {
-          this.__direction = indexToRemove > centeredIndex ? "left" : "right";
-        }
-
         var targetPage = this.__pages[pageIndex];
         var paginationLabel = this.__paginationLabels[pageIndex];
+
 
         targetPage.remove();
         paginationLabel.remove();
@@ -331,25 +320,23 @@ qx.Class.define("qx.ui.container.Carousel",
         this.__pages.splice(pageIndex, 1);
         this.__paginationLabels.splice(pageIndex, 1);
 
-        if((buffer.left.indexOf(targetPage) != -1)) {
+        if(indexToRemove < centeredIndex) {
           last.insertBefore(first);
         }
 
-        if(buffer.right.indexOf(targetPage) != -1) {
-          if(this.__pages.length%2 == 0) {
+        if(indexToRemove > centeredIndex) {
+          if(this.__pages.length%2 === 0) {
             first.insertAfter(last);
           }
         }
 
-        if(buffer.center.indexOf(targetPage) != -1) {
-          if(this.__pages.length%2 == 0) {
+        if(indexToRemove == centeredIndex) {
+          if(this.__pages.length%2 === 0) {
           }
         }
 
-        this.__renderedBuffer = this.__getRenderedBuffer();
-
-        this.__direction = null;
-        this.__steps = 0;
+        this.__direction = indexToRemove < centeredIndex ? "left" : "right";
+        this.__steps = Math.abs(indexToRemove - centeredIndex);
 
         this.__carouselScroller.setStyle("width", this.__pages.length * this.__carouselWidth + "px");
 
@@ -368,7 +355,7 @@ qx.Class.define("qx.ui.container.Carousel",
           }
 
         } else {
-          this.currentIndex = this.__pages.indexOf(buffer.center);
+          this.currentIndex = this.__pages.indexOf(center);
         }
 
         this._onContainerUpdate();
@@ -442,16 +429,39 @@ qx.Class.define("qx.ui.container.Carousel",
         return;
       }
 
+      var prevIndex = this.__prevIndex;
+
       this._updatePagination(pageIndex);
 
       this._centerPage(this.__pages[pageIndex]);
 
-      if(this.__paginationLabelCliked) {
+      this.__centerChanged = this.__prevIndex != this.currentIndex;
+
+      var duration = parseFloat(this.__carouselScroller.getStyle("transitionDuration"));
+
+      if(this.__paginationLabelCliked || (this.__centerChanged && (this.__direction === null))) {
+
+        /* If the currentIndex has been changed externaly
+        * detect detect the direction and calculate the steps
+        */
+        if(this.__direction === null) {
+          var buffer = this.__carouselScroller.getChildren();
+          var prevPos = buffer.indexOf(this.__pages[prevIndex]);
+          var nextPos = buffer.indexOf(this.__pages[pageIndex]);
+          this.__steps = Math.abs(prevPos - nextPos);
+          this.__direction = nextPos > prevPos ? "left" : "right";
+        }
+
         this._orderPages(this.__direction, this.__steps);
         this.__paginationLabelCliked = false;
       }
 
-      this.__renderedBuffer = this.__getRenderedBuffer();
+      this.__prevIndex = pageIndex;
+
+      if(duration === 0) {
+        this.__direction = null;
+        this.__steps = null;
+      }
 
     },
 
@@ -494,7 +504,7 @@ qx.Class.define("qx.ui.container.Carousel",
         var last = null;
         for(var i = 0; i < steps; i++) {
           last = this.__carouselScroller.getChildren().getLast();
-          if(i == 0) {
+          if(i === 0) {
             last.appendTo(fragment);
           }else{
             last.insertBefore(this.__carouselScroller.getChildren().getFirst());
@@ -522,7 +532,8 @@ qx.Class.define("qx.ui.container.Carousel",
       this.__moved = false;
       this.__centerChanged = false;
       this.__locked = false;
-      this.__direction == null;
+      this.__direction = null;
+      this.__steps = null;
     },
 
 
@@ -551,46 +562,6 @@ qx.Class.define("qx.ui.container.Carousel",
       });
 
       return paginationLabel;
-    },
-
-
-
-    /*
-    * Returns a map containg the carourel pages in the current rendered order
-    * @return {Map} A map containg the carourel pages in the current rendered order
-    */
-    __getRenderedBuffer : function() {
-
-      var left = [];
-      var right = [];
-      var l = this.__pages.length;
-      var rightCount = Math.ceil((l - 1) / 2);
-      var leftCount = l - rightCount - 1;
-      var rightIndex = this.currentIndex + 1;
-      var leftIndex = this.currentIndex - 1;
-
-      var count = 0;
-      while (count < rightCount) {
-        rightIndex = rightIndex % l;
-        right[right.length] = this.__pages[rightIndex];
-        count++;
-        rightIndex++;
-      }
-
-      count = 0;
-      while (count < leftCount) {
-        leftIndex = (leftIndex + l) % l;
-        left[left.length] = this.__pages[leftIndex];
-        count++;
-        leftIndex--;
-      }
-      left.reverse();
-
-      return {
-        left : left,
-        center : this.__pages[this.currentIndex],
-        right : right
-      }
 
     },
 
@@ -616,13 +587,16 @@ qx.Class.define("qx.ui.container.Carousel",
     * @return {Intenger} The number of pages to move
     */
     _getSteps : function(pageIndexToShow) {
+/*
+       var pages = [];
+      this.__pages.forEach(function(page){
+        pages.push(page[0]);
+      });*/
 
-      var buffer = this.__renderedBuffer;
+      var buffer = this.__carouselScroller.getChildren();
 
-      var center = buffer.center;
+      var center = this.__pages[this.currentIndex];
       var pageToShow = this.__pages[pageIndexToShow];
-
-      buffer = buffer.left.concat(buffer.center).concat(buffer.right);
 
       var centeredIndex = buffer.indexOf(center);
       var indexToShow = buffer.indexOf(pageToShow);
@@ -646,7 +620,6 @@ qx.Class.define("qx.ui.container.Carousel",
         this.self.__paginationLabelCliked = true;
         this.self.currentIndex = this.targetIndex;
       }
-
     },
 
 
@@ -744,7 +717,7 @@ qx.Class.define("qx.ui.container.Carousel",
 
       this.__moved = false;
       this.__touchStarted = true;
-      this.__direction == null;
+      this.__direction = null;
 
       if(!evt.isPrimary || this.__locked) {
         return;
@@ -761,7 +734,7 @@ qx.Class.define("qx.ui.container.Carousel",
 
     __isDirectionLocked : function(direction) {
       if(!this.scrollLoop) {
-        if( (this.currentIndex == 0) && (direction == "right")) {
+        if( (this.currentIndex === 0) && (direction == "right")) {
           return true;
         } else if((this.currentIndex == this.__pages.length - 1) && (direction == "left")) {
           return true;
@@ -797,15 +770,6 @@ qx.Class.define("qx.ui.container.Carousel",
           return;
         }
 
-        if(!this.scrollLoop) {
-          if( (this.currentIndex == 0) && (this.__deltaX > 0)) {
-            return;
-          } else if((this.currentIndex == this.__pages.length - 1) && (this.__deltaX < 0)) {
-            return;
-          }
-        }
-
-
         this.__onMoveOffset[0] = Math.floor(this.__deltaX + this.__lastOffset[0]);
 
         if (this.__onMoveOffset[0] >= this.__boundsX[1]) {
@@ -832,18 +796,17 @@ qx.Class.define("qx.ui.container.Carousel",
     */
     _getItemToshow : function() {
 
-      this.__direction == null;
+      this.__direction = null;
 
-      var items = qxWeb(".qx-carousel-page", this[0]);
+      var items = this.__carouselScroller.getChildren();
 
       var left = 0, right = 0, half = this.__carouselWidth/2, next = null;
-      var buffer = this.__getRenderedBuffer();
-      var center = buffer.center;
+      var center = this.__pages[this.currentIndex];
       var direction = this.__onMoveOffset[0] > this.__lastOffset[0] ? "right" : "left";
       var width = null;
       var minFactor = 0.1;
-      buffer = buffer.left.concat(buffer.center).concat(buffer.right);
-      var centeredIndex = buffer.indexOf(center);
+
+      var centeredIndex = items.indexOf(center);
 
       for(var i = 0; i < items.length; i++) {
 
@@ -864,12 +827,20 @@ qx.Class.define("qx.ui.container.Carousel",
           }
           break;
         }
+
       }
+
+      var pages = [];
+      this.__pages.forEach(function(page){
+        pages.push(page[0]);
+      });
 
       this.__direction = direction;
       this.__steps = 1;
 
-      return this.__pages.indexOf(buffer[next]);
+
+
+      return pages.indexOf(items[next]);
     },
 
 
