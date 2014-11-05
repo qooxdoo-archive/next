@@ -78,24 +78,27 @@ qx.Mixin.define("qx.dev.unit.MRequirements", {
       }
 
       var url = qx.util.ResourceManager.getInstance().toUri("qx/test/xmlhttp/php_version.php");
-      var req = new qx.bom.request.Xhr();
+      var req = new qx.io.request.Xhr();
 
-      req.onload = qx.lang.Function.bind(function() {
+      req.on("load", function() {
         try {
           qx.lang.Json.parse(req.responseText);
           qx.dev.unit.MRequirements.__hasPhp = true;
         } catch(ex) {
           qx.dev.unit.MRequirements.__hasPhp = false;
         }
-      }, this);
+      }.bind(this));
 
-      req.onerror = req.abort = qx.lang.Function.bind(function() {
+      var hasPphBound = function() {
         qx.dev.unit.MRequirements.__hasPhp = false;
-      }, this);
+      }.bind(this);
 
-      req.open("POST", url, false);
+      req.on("error", hasPphBound);
+      req.on("abort", hasPphBound);
+
+      req._open("POST", url, false);
       try {
-        req.send();
+        req._send();
       } catch(ex) {
         qx.dev.unit.MRequirements.__hasPhp = false;
       }
