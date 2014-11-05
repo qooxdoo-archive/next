@@ -29,44 +29,15 @@ describe("mobile.form.RadioButton", function() {
   });
 
 
-  it("Construct", function() {
-    var radio1 = new qx.ui.form.RadioButton();
-    var radio2 = new qx.ui.form.RadioButton();
-    var radio3 = new qx.ui.form.RadioButton();
-    var group = new qx.ui.form.RadioGroup(radio1, radio2, radio3);
-
-    getRoot().append(radio1);
-    getRoot().append(radio2);
-    getRoot().append(radio3);
-
-    // Verify: allow empty selection can only be false in this case,
-    // so radio1 has to be true.
-    assert.equal(true, radio1.getValue(), "Radio1 is expected to be true.");
-    assert.equal(false, radio2.getValue(), "Radio2 is expected to be false.");
-    assert.equal(false, radio3.getValue(), "Radio3 is expected to be false.");
-
-    assert.equal(3, group.getItems().length);
-
-    // Clean up tests
-    radio1.dispose();
-    radio2.dispose();
-    radio3.dispose();
-    group.dispose();
-  });
-
-
   it("Value", function() {
-    var radio1 = new qx.ui.form.RadioButton();
-    var radio2 = new qx.ui.form.RadioButton();
-    var radio3 = new qx.ui.form.RadioButton();
-    var group = new qx.ui.form.RadioGroup();
-
-    group.allowEmptySelection = true;
-    group.add(radio1, radio2, radio3);
+    var radio1 = new qx.ui.form.RadioButton().set({name: "abc"});
+    var radio2 = new qx.ui.form.RadioButton().set({name: "abc"});
+    var radio3 = new qx.ui.form.RadioButton().set({name: "abc"});
 
     getRoot().append(radio1);
     getRoot().append(radio2);
     getRoot().append(radio3);
+
     // Verify: inital all radios buttons should be disabled.
     assert.equal(false, radio1.getValue());
     assert.equal(false, radio2.getValue());
@@ -97,7 +68,6 @@ describe("mobile.form.RadioButton", function() {
     radio1.dispose();
     radio2.dispose();
     radio3.dispose();
-    group.dispose();
   });
 
 
@@ -111,5 +81,85 @@ describe("mobile.form.RadioButton", function() {
     assert.equal(true, qx.bom.element.Class.has(radio1[0], 'disabled'));
 
     radio1.dispose();
+  });
+
+
+  it("withForm", function() {
+    var form = new qx.ui.form.Form().appendTo(getRoot());
+
+    var radio1 = new qx.ui.form.RadioButton().set({name: "abc"}).appendTo(form);
+    var radio2 = new qx.ui.form.RadioButton().set({name: "abc"}).appendTo(form);
+
+    radio1.value = true;
+    assert.equal(true, radio1.getValue());
+    assert.equal(false, radio2.getValue());
+
+    radio2.value = true;
+    assert.equal(true, radio2.getValue());
+    assert.equal(false, radio1.getValue());
+
+    form.dispose();
+    radio1.dispose();
+    radio2.dispose();
+  });
+
+
+  it("twoForms", function() {
+    var form1 = new qx.ui.form.Form().appendTo(getRoot());
+    var radio1 = new qx.ui.form.RadioButton().set({name: "abc"}).appendTo(form1);
+    var radio2 = new qx.ui.form.RadioButton().set({name: "abc"}).appendTo(form1);
+
+    var form2 = new qx.ui.form.Form().appendTo(getRoot());
+    var radio3 = new qx.ui.form.RadioButton().set({name: "abc"}).appendTo(form2);
+    var radio4 = new qx.ui.form.RadioButton().set({name: "abc"}).appendTo(form2);
+
+    radio1.value = true;
+    assert.equal(true, radio1.getValue());
+    assert.equal(false, radio2.getValue());
+    assert.equal(false, radio3.getValue());
+    assert.equal(false, radio4.getValue());
+
+    radio2.value = true;
+    radio3.value = true;
+    assert.equal(false, radio1.getValue());
+    assert.equal(true, radio2.getValue());
+    assert.equal(true, radio3.getValue());
+    assert.equal(false, radio4.getValue());
+
+    form1.dispose();
+    form2.dispose();
+    radio1.dispose();
+    radio2.dispose();
+    radio3.dispose();
+    radio4.dispose();
+  });
+
+
+  it("globalAndForm", function() {
+    var form1 = new qx.ui.form.Form().appendTo(getRoot());
+    var radio1 = new qx.ui.form.RadioButton().set({name: "abc"}).appendTo(form1);
+    var radio2 = new qx.ui.form.RadioButton().set({name: "abc"}).appendTo(form1);
+
+    var radio3 = new qx.ui.form.RadioButton().set({name: "abc"}).appendTo(getRoot());
+    var radio4 = new qx.ui.form.RadioButton().set({name: "abc"}).appendTo(getRoot());
+
+    radio1.value = true;
+    assert.equal(true, radio1.getValue());
+    assert.equal(false, radio2.getValue());
+    assert.equal(false, radio3.getValue());
+    assert.equal(false, radio4.getValue());
+
+    radio2.value = true;
+    radio3.value = true;
+    assert.equal(false, radio1.getValue());
+    assert.equal(true, radio2.getValue());
+    assert.equal(true, radio3.getValue());
+    assert.equal(false, radio4.getValue());
+
+    form1.dispose();
+    radio1.dispose();
+    radio2.dispose();
+    radio3.dispose();
+    radio4.dispose();
   });
 });

@@ -84,17 +84,34 @@ qx.Class.define("qx.ui.form.RadioButton",
      * Reacts on tap on radio button.
      */
     _onTap : function() {
-      qxWeb("." + this.defaultCssClass).forEach(function(el) {
-        el = qxWeb(el);
-        if (el.name == this.name) {
-          el.value = false;
-        }
-      }.bind(this));
-
       this.emit("changeValue", {value: true, old: this.value, target: this});
 
       // Toggle State.
       this.value = true;
+    },
+
+
+    _uncheckOther : function() {
+      var form = this.getAncestors("form");
+      if (form.length > 0) {
+        form.find("." + this.defaultCssClass).forEach(function(el) {
+          el = qxWeb(el);
+          if (el != this && el.name == this.name) {
+            el.value = false;
+          }
+        }.bind(this));
+      } else {
+        qxWeb("." + this.defaultCssClass).forEach(function(el) {
+          el = qxWeb(el);
+          form = el.getAncestors("form");
+          if (form.length > 0) {
+            return;
+          }
+          if (el != this && el.name == this.name) {
+            el.value = false;
+          }
+        }.bind(this));
+      }
     },
 
 
@@ -122,6 +139,8 @@ qx.Class.define("qx.ui.form.RadioButton",
      * @param value {Boolean} the new value of the radio button
      */
     _setValue : function(value) {
+      this._uncheckOther();
+
       if(value == true) {
         this.addClass("checked");
       } else {
