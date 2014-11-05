@@ -222,13 +222,39 @@ describe("mobile.list.List", function() {
   });
 
 
-  it("Factory", function(done) {
+  it("Factory", function() {
     var list = qxWeb.create("<ul></ul>").toList().appendTo(getRoot());
     assert.instanceOf(list, qx.ui.list.List);
     assert.equal(list, list[0].$$widget);
-    setTimeout(function() {
-      assert.equal("qx.ui.list.List", list.getData("qxWidget"));
-      done();
-    }, 100);
+    assert.equal("qx.ui.list.List", list.getData("qxWidget"));
+  });
+
+
+  it("SelectedRow", function() {
+    var list = __createList();
+    var el = list.find("*[data-row=3]")[0]; // item 3
+    var spy = sinon.spy();
+    list.on("selected", spy);
+    list.emit("tap", {_original : {target: el}});
+    sinon.assert.calledOnce(spy);
+    sinon.assert.calledWith(spy, el);
+
+    __cleanUp(list);
+  });
+
+
+  it("SelectedGroup", function() {
+    var list = __createList();
+    list.delegate = {group: function(data, row) {
+      return {title: "Affe" + row, selectable: true};
+    }};
+    var el = list.find("*[data-group=3]")[0]; // item 3
+    var spy = sinon.spy();
+    list.on("selected", spy);
+    list.emit("tap", {_original : {target: el}});
+    sinon.assert.calledOnce(spy);
+    sinon.assert.calledWith(spy, el.parentNode);
+
+    __cleanUp(list);
   });
 });

@@ -22,42 +22,6 @@
 /**
  * The list widget displays the data of a model in a list.
  *
- * *Example*
- *
- * Here is a little example of how to use the widget.
- *
- * <pre class='javascript'>
- *
- *    // Data for the list
- *    var data = [
- *       {title : "Row1", subtitle : "Sub1"},
- *       {title : "Row2", subtitle : "Sub2"},
- *       {title : "Row3", subtitle : "Sub3"}
- *   ];
- *
- *   // Create the list with a delegate that
- *   var list = new qx.ui.list.List({
- *     group: function(data, row) {
- *      return {
- *       title: row < 2 ? "Selectable" : "Unselectable"
- *     };
- *    }
- *   });
- *
- *   // Set the model of the list
- *   list.model = new qx.data.Array(data);
- *
- *   // Add an changeSelection event
- *   list.on("changeSelection", function(evt) {
- *     alert("Index: " + evt)
- *   }, this);
- *
- *   this.getRoot().append(list);
- * </pre>
- *
- * This example creates a list with a delegate that configures the list item with
- * the given data. A listener for the event {@link #changeSelection} is added.
- *
  * @require(qx.module.AnimationFrame)
  * @require(qx.module.Template)
  * @require(qx.ui.basic.Image)
@@ -120,13 +84,7 @@ qx.Class.define("qx.ui.list.List",
     /**
      * Fired when the selection is changed.
      */
-    changeSelection : "Number",
-
-
-    /**
-     * Fired when the group selection is changed.
-     */
-    changeGroupSelection : "Number",
+    selected : "Element",
 
 
     /**
@@ -200,29 +158,14 @@ qx.Class.define("qx.ui.list.List",
      *
      * @param evt {qx.event.type.Tap} The tap event
      */
-    _onTap : function(evt)
-    {
+    _onTap : function(evt) {
       var element = this._getElement(evt);
       if(!element) {
         return;
       }
 
-      element = qxWeb(element);
-
-      var row = -1;
-      if (element.hasClass("list-item")) {
-        if (element.getData("selectable") &&
-            this.getChildren().indexOf(element) !== -1) {
-          row = parseInt(element.getData("row"), 10);
-        }
-        if (row != -1) {
-          this.emit("changeSelection", row);
-        }
-      } else {
-        var group = parseInt(element.getData("group"), 10);
-        if (element.getData("selectable")) {
-          this.emit("changeGroupSelection", group);
-        }
+      if (qxWeb(element).getData("selectable")) {
+        this.emit("selected", element);
       }
     },
 
