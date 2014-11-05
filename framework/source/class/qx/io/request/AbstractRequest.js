@@ -392,15 +392,15 @@ qx.Class.define("qx.io.request.AbstractRequest",
      * Abort request.
      */
     abort: function() {
-       if (qx.core.Environment.get("qx.debug.io")) {
-         this.debug("Abort request");
-       }
-       this.__abort = true;
+      if (qx.core.Environment.get("qx.debug.io")) {
+        this.debug("Abort request");
+      }
+      this.__abort = true;
 
-       // Update phase to "abort" before user handler are invoked [BUG #5485]
-       this.__phase = "abort";
+      // Update phase to "abort" before user handler are invoked [BUG #5485]
+      this.__phase = "abort";
 
-       this._abort();
+      this._abort();
     },
 
     /**
