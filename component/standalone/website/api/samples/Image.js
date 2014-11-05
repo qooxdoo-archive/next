@@ -1,5 +1,5 @@
 addSample('.image', {
-  html: '<img id="image-example" src="http://qooxdoo.org/_media/desktop.png" />',
+  html: '<img id="image-example" data-qx-config-source="http://qooxdoo.org/_media/desktop.png" />',
   javascript: function () {
     q('#image-example').toImage();
   },
