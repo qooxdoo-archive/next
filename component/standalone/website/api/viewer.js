@@ -731,7 +731,7 @@ q.ready(function() {
   var onContentReady = function() {
     renderList(this);
     sortList();
-    acc = q("#list > ul").tabBar("vertical").render();
+    acc = q("#list > ul").toTabBar("vertical").render();
     acc.selected = null;
 
     // decouple the creation of the content by using the next possible AnimationFrame
