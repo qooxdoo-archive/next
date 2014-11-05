@@ -259,6 +259,14 @@ qx.Class.define("qx.io.request.AbstractRequest",
     },
 
     /**
+     * @type {Object} The response of the request as a Document object.
+     */
+    responseXML: {
+      init: null,
+      nullable: true
+    },
+
+    /**
      * Authentication delegate.
      *
      * The delegate must implement {@link qx.io.request.authentication.IAuthentication}.
@@ -271,11 +279,6 @@ qx.Class.define("qx.io.request.AbstractRequest",
 
   members :
   {
-    /**
-     * @type {Object} The response of the request as a Document object.
-     */
-    responseXML: null,
-
     /**
      * @type {Number} The HTTP status code.
      */
