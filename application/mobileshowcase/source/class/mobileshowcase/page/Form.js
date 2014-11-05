@@ -52,7 +52,7 @@ qx.Class.define("mobileshowcase.page.Form",
 
       this.getContent().append(this.__form);
 
-      this.__result = new qx.ui.form.Label();
+      this.__result = new qx.ui.basic.Label();
       this.__result.addClass("registration-result");
 
       var popupContent = new qx.ui.Widget();
