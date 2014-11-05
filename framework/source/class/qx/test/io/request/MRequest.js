@@ -434,7 +434,7 @@ qx.Mixin.define("qx.test.io.request.MRequest",
       var req = this.req;
 
       req.on("readyStateChange", function() {
-        if (req.getReadyState() == 4) {
+        if (req.readyState == 4) {
           this.assertEquals("abort", req.phase);
         }
       }, this);
@@ -453,7 +453,7 @@ qx.Mixin.define("qx.test.io.request.MRequest",
       var req = this.req;
 
       req.on("readyStateChange", function() {
-        if (req.getReadyState() == 4) {
+        if (req.readyState == 4) {
           this.assertEquals("abort", req.phase);
         }
       }, this);

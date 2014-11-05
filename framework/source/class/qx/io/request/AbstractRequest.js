@@ -182,7 +182,7 @@ qx.Class.define("qx.io.request.AbstractRequest",
     /**
      * Get current phase.
      *
-     * A more elaborate version of {@link #getReadyState}, this method indicates
+     * A more elaborate version of {@link #readState}, this property indicates
      * the current phase of the request. Maps to stateful (i.e. deterministic)
      * events (success, abort, timeout, statusError) and intermediate
      * readyStates (unsent, configured, loading, load).
@@ -236,6 +236,21 @@ qx.Class.define("qx.io.request.AbstractRequest",
     },
 
     /**
+     * @type {Number} Ready state.
+     *
+     * States can be:
+     * UNSENT:           0,
+     * OPENED:           1,
+     * HEADERS_RECEIVED: 2,
+     * LOADING:          3,
+     * DONE:             4
+     */
+    readyState: {
+      type: "Number",
+      init: 0
+    },
+
+    /**
      * Authentication delegate.
      *
      * The delegate must implement {@link qx.io.request.authentication.IAuthentication}.
@@ -248,19 +263,6 @@ qx.Class.define("qx.io.request.AbstractRequest",
 
   members :
   {
-
-    /**
-     * @type {Number} Ready state.
-     *
-     * States can be:
-     * UNSENT:           0,
-     * OPENED:           1,
-     * HEADERS_RECEIVED: 2,
-     * LOADING:          3,
-     * DONE:             4
-     */
-    readyState: 0,
-
     /**
      * @type {String} The response of the request as text.
      */
@@ -538,23 +540,6 @@ qx.Class.define("qx.io.request.AbstractRequest",
       if (this.__requestHeaders[key]) {
        delete this.__requestHeaders[key];
       }
-    },
-
-
-    /**
-     * Get current ready state.
-     *
-     * States can be:
-     * UNSENT: 0,
-     * OPENED: 1,
-     * HEADERS_RECEIVED: 2,
-     * LOADING: 3,
-     * DONE: 4
-     *
-     * @return {Number} Ready state.
-     */
-    getReadyState: function() {
-      return this.readyState;
     },
 
     /**

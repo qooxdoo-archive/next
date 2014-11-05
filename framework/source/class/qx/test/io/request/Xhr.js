@@ -319,9 +319,9 @@ qx.Class.define("qx.test.io.request.Xhr",
       req.url = "/found";
       req.method = "GET";
 
-      readyStates.push(req.getReadyState());
+      readyStates.push(req.readyState);
       req.on("readyStateChange", function() {
-        readyStates.push(req.getReadyState());
+        readyStates.push(req.readyState);
         statuses.push(req.getStatus());
       }, this);
 
