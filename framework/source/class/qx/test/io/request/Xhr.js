@@ -322,7 +322,7 @@ qx.Class.define("qx.test.io.request.Xhr",
       readyStates.push(req.readyState);
       req.on("readyStateChange", function() {
         readyStates.push(req.readyState);
-        statuses.push(req.getStatus());
+        statuses.push(req.status);
       }, this);
 
       req.send();
@@ -331,7 +331,7 @@ qx.Class.define("qx.test.io.request.Xhr",
       this.assertArrayEquals([0, 1, 2, 3, 4], readyStates);
       this.assertArrayEquals([0, 200, 200, 200], statuses);
       this.assertEquals("text/html", req.getResponseHeader("Content-Type"));
-      this.assertEquals("OK", req.getStatusText());
+      this.assertEquals("OK", req.statusText);
       this.assertEquals("FOUND", req.responseText);
     },
 

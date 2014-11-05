@@ -267,6 +267,24 @@ qx.Class.define("qx.io.request.AbstractRequest",
     },
 
     /**
+     * @type {Number} The HTTP status code.
+     */
+    status: {
+      get: "getStatus",
+      type: "Number",
+      init: 0
+    },
+
+    /**
+     * @type {String} The HTTP status text.
+     */
+    statusText: {
+      get: "getStatusText",
+      type: "String",
+      init: ""
+    },
+
+    /**
      * Authentication delegate.
      *
      * The delegate must implement {@link qx.io.request.authentication.IAuthentication}.
@@ -279,16 +297,6 @@ qx.Class.define("qx.io.request.AbstractRequest",
 
   members :
   {
-    /**
-     * @type {Number} The HTTP status code.
-     */
-    status: 0,
-
-    /**
-     * @type {String} The HTTP status text.
-     */
-    statusText: "",
-
     /**
      * Bound handlers.
      */
@@ -554,7 +562,7 @@ qx.Class.define("qx.io.request.AbstractRequest",
      * @return {Number} The transport’s status code.
      */
     getStatus: function() {
-      return this.status;
+      return this.$$status;
     },
 
     /**
@@ -563,7 +571,7 @@ qx.Class.define("qx.io.request.AbstractRequest",
      * @return {String} The transport’s status text.
      */
     getStatusText: function() {
-      return this.statusText;
+      return this.$$statusText;
     },
 
     /**
