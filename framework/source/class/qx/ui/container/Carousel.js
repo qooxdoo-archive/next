@@ -203,9 +203,6 @@ qx.Class.define("qx.ui.container.Carousel",
     __steps : null,
     __moved : false,
     __touchStarted : false,
-    __paginationLabelCliked : false,
-    __prevIndex : 0,
-
 
 
     // overridden
@@ -303,7 +300,6 @@ qx.Class.define("qx.ui.container.Carousel",
         var targetPage = this.__pages[pageIndex];
         var paginationLabel = this.__paginationLabels[pageIndex];
 
-
         targetPage.remove();
         paginationLabel.remove();
 
@@ -321,7 +317,9 @@ qx.Class.define("qx.ui.container.Carousel",
         this.__paginationLabels.splice(pageIndex, 1);
 
         if(indexToRemove < centeredIndex) {
-          last.insertBefore(first);
+          if(this.__pages.length%2 !== 0) {
+            last.insertBefore(first);
+          }
         }
 
         if(indexToRemove > centeredIndex) {
@@ -353,7 +351,6 @@ qx.Class.define("qx.ui.container.Carousel",
               first.insertAfter(last);
             }
           }
-
         } else {
           this.currentIndex = this.__pages.indexOf(center);
         }
@@ -421,42 +418,33 @@ qx.Class.define("qx.ui.container.Carousel",
     /**
      * Scrolls the carousel to the page with the given pageIndex.
      * @param pageIndex {Integer} the target page index, which should be visible
-     * @param showTransition {Boolean ? true} flag if a transition should be shown or not
+     * @param oldIndex {Boolean} The index of the old centered page
      */
-    _scrollToPage : function(pageIndex, showTransition) {
+    _scrollToPage : function(pageIndex, oldIndex) {
 
       if (pageIndex >= this.__pages.length || pageIndex < 0) {
         return;
       }
 
-      var prevIndex = this.__prevIndex;
-
       this._updatePagination(pageIndex);
 
       this._centerPage(this.__pages[pageIndex]);
 
-      this.__centerChanged = this.__prevIndex != this.currentIndex;
+      this.__centerChanged = (oldIndex !== undefined) && (oldIndex != this.currentIndex);
 
       var duration = parseFloat(this.__carouselScroller.getStyle("transitionDuration"));
 
-      if(this.__paginationLabelCliked || (this.__centerChanged && (this.__direction === null))) {
-
-        /* If the currentIndex has been changed externaly
-        * detect detect the direction and calculate the steps
-        */
-        if(this.__direction === null) {
-          var buffer = this.__carouselScroller.getChildren();
-          var prevPos = buffer.indexOf(this.__pages[prevIndex]);
-          var nextPos = buffer.indexOf(this.__pages[pageIndex]);
-          this.__steps = Math.abs(prevPos - nextPos);
-          this.__direction = nextPos > prevPos ? "left" : "right";
-        }
-
+      /* If the currentIndex has been changed externaly
+      * detect detect the direction and calculate the steps
+      */
+      if(oldIndex && (this.__direction === null)) {
+        var buffer = this.__carouselScroller.getChildren();
+        var prevPos = buffer.indexOf(this.__pages[oldIndex]);
+        var nextPos = buffer.indexOf(this.__pages[pageIndex]);
+        this.__steps = Math.abs(prevPos - nextPos);
+        this.__direction = nextPos > prevPos ? "left" : "right";
         this._orderPages(this.__direction, this.__steps);
-        this.__paginationLabelCliked = false;
       }
-
-      this.__prevIndex = pageIndex;
 
       if(duration === 0) {
         this.__direction = null;
@@ -582,42 +570,10 @@ qx.Class.define("qx.ui.container.Carousel",
 
 
     /**
-    * Calculate the number of pages to move as well as the moving direction
-    * @param pageIndexToShow {Integer} The index of the page to be centered
-    * @return {Intenger} The number of pages to move
-    */
-    _getSteps : function(pageIndexToShow) {
-/*
-       var pages = [];
-      this.__pages.forEach(function(page){
-        pages.push(page[0]);
-      });*/
-
-      var buffer = this.__carouselScroller.getChildren();
-
-      var center = this.__pages[this.currentIndex];
-      var pageToShow = this.__pages[pageIndexToShow];
-
-      var centeredIndex = buffer.indexOf(center);
-      var indexToShow = buffer.indexOf(pageToShow);
-
-      this.__steps = Math.abs(centeredIndex - indexToShow);
-
-      if(this.__steps !== 0) {
-        this.__direction = indexToShow < centeredIndex ? "right" : "left";
-      }
-
-      return this.__steps;
-
-    },
-
-
-    /**
      * Handles a tap on paginationLabel.
      */
     _onPaginationLabelTap : function(e) {
-      if(this.self._getSteps(this.targetIndex) !== 0) {
-        this.self.__paginationLabelCliked = true;
+      if(this.targetIndex != this.currentIndex) {
         this.self.currentIndex = this.targetIndex;
       }
     },
@@ -715,13 +671,13 @@ qx.Class.define("qx.ui.container.Carousel",
      */
     _onPointerDown : function(evt) {
 
-      this.__moved = false;
-      this.__touchStarted = true;
-      this.__direction = null;
-
       if(!evt.isPrimary || this.__locked) {
         return;
       }
+
+      this.__moved = false;
+      this.__touchStarted = true;
+      this.__direction = null;
 
       this.__lastOffset[0] = this._getScrollerOffset();
       this.__isPageScrollTarget = null;
@@ -765,8 +721,8 @@ qx.Class.define("qx.ui.container.Carousel",
 
       if (!this.__isPageScrollTarget) {
 
-        var direction = this.__deltaX > 0 ? "right" : "left";
-        if(this.__isDirectionLocked(direction)) {
+        this.__direction = this.__deltaX > 0 ? "right" : "left";
+        if(this.__isDirectionLocked(this.__direction)) {
           return;
         }
 
