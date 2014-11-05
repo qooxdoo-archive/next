@@ -76,11 +76,11 @@ qx.Class.define("mobileshowcase.page.Animation",
       list.addClass("animation-list-1");
 
       list.model = new qx.data.Array(mobileshowcase.page.Animation.ANIMATION_DATA);
-      list.on("changeSelection", function(index) {
+      list.on("selected", function(el) {
         // In Tablet Mode, animation should be shown for this showcase part.
         // On animation landing >> showAnimation is set to false.
         this._getParentWidget().layout.showAnimation = true;
-
+        var index = el.getData("row");
         var animation = mobileshowcase.page.Animation.ANIMATION_DATA[index].animation;
         qx.core.Init.getApplication().getRouting().executeGet("/animation/" + animation);
       }, this);

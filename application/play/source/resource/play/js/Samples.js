@@ -61,36 +61,69 @@ Samples = {
    * @lint ignoreDeprecated(alert)
    */
   "sample List" : function() {
-    var page = new qx.ui.page.NavigationPage();
-    page.title = "List";
-    page.on("initialize", function() {
-      // List creation
-      var list = new qx.ui.list.List({
-        configureItem : function(item, data, row) {
-          item.setTitle(row<4 ? ("Selectable " + data.title) : data.title);
-          item.setSubtitle(data.subTitle);
-          item.selectable = row < 4;
-          item.showArrow = row < 4;
-        }
+    var group = new qx.ui.form.Group("List").appendTo(this.getRoot());
+    var list = new qx.ui.list.List();
+    list.delegate = {group: function(data, row) {
+      return {
+        title: (row < 5) ? "A" : "B",
+        selectable: true
+      };
+    }};
+
+    var data = [];
+    for (var i=0; i < 10; i++) {
+      data.push({
+        title:"Item" + i,
+        subtitle:"Subtitle for Item #" + i,
+        selectable : !!(i % 2),
+        showArrow : !!(i % 2)
       });
+    }
 
-      // Create the data
-      var data = [];
-      for (var i=0; i < 50; i++) {
-        data.push({title:"Item" + i, subTitle:"Subtitle for Item #" + i});
+    list.model = new qx.data.Array(data);
+    list.on("selected", function(el) {
+      var row = el.getData("row");
+      var group = el.getData("group");
+      alert("Item Selected #" + (row || group));
+    }, this);
+
+    list.appendTo(group);
+  },
+
+
+  "sample List (folding)" : function() {
+    var group = new qx.ui.form.Group("Tap group header to collapse")
+      .appendTo(this.getRoot());
+
+    var list = new qx.ui.list.List();
+    list.delegate = {group: function(data, row) {
+      return {
+        title: (row < 5) ? "A" : "B",
+        selectable: true
+      };
+    }};
+
+    var data = [];
+    for (var i=0; i < 10; i++) {
+      data.push({
+        title:"Item " + i,
+        selectable: false
+      });
+    }
+
+    list.model = new qx.data.Array(data);
+    list.on("selected", function(el) {
+      var items = el.getNextUntil(".group-item");
+      if (el.getProperty("items")) {
+        el.getProperty("items").insertAfter(el);
+        el.setProperty("items", null);
+      } else {
+        el.setProperty("items", items);
+        items.remove();
       }
+    }, this);
 
-      list.model = new qx.data.Array(data);
-      list.on("changeSelection", function(index) {
-        alert("Item Selected #" + index);
-      }, this);
-
-      page.getContent().append(list);
-    },this);
-
-    (new qx.ui.page.Manager(false)).addDetail(page);
-
-    page.show();
+    list.appendTo(group);
   },
 
 

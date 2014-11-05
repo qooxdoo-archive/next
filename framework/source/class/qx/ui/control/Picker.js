@@ -171,7 +171,7 @@ qx.Class.define("qx.ui.control.Picker",
 
       var list = new qx.ui.list.List(delegate);
       list.itemHeight = this._calcItemHeight();
-      list.on("changeSelection", this._onChangeSelection.bind(this, slotIndex));
+      list.on("selected", this._onChangeSelection.bind(this, slotIndex));
       list.model = slotModel;
 
       var slotWrapper = new qx.ui.Widget();
@@ -222,7 +222,8 @@ qx.Class.define("qx.ui.control.Picker",
     * Handler for <code>changeSelection</code> event on picker list.
     * @param evt {qx.event.type.Data} the events data.
     */
-    _onChangeSelection: function(slotIndex, index) {
+    _onChangeSelection: function(slotIndex, el) {
+      var index = parseInt(el.getData("row"), 10);
       this.setSelectedIndex(slotIndex, index);
     },
 

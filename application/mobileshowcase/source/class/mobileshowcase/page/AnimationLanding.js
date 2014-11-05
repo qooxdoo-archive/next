@@ -69,7 +69,8 @@ qx.Class.define("mobileshowcase.page.AnimationLanding",
       var animationData = mobileshowcase.page.Animation.ANIMATION_DATA;
 
       list.model = new qx.data.Array(animationData);
-      list.on("changeSelection", function(index) {
+      list.on("selected", function(el) {
+        var index = e.getData("row");
         // In Tablet Mode, animation should be shown for this showcase part.
         // On animation landing >> showAnimation is set to false.
         this._getParentWidget().layout.showAnimation = true;

@@ -163,8 +163,8 @@ qx.Class.define("qx.ui.list.List",
       if(!element) {
         return;
       }
-
-      if (qxWeb(element).getData("selectable")) {
+      element = qxWeb(element);
+      if (element.getData("selectable")) {
         this.emit("selected", element);
       }
     },
@@ -409,7 +409,7 @@ qx.Class.define("qx.ui.list.List",
     __getGroupHeaderTemplate : function(group, groupIndex) {
       var template = qx.ui.list.List.groupHeaderTemplate;
       var fragment = qxWeb.template.renderToNode(template, group);
-      qxWeb(fragment[0].childNodes[0]).setData("group", groupIndex);
+      qxWeb(fragment[0]).setData("group", groupIndex);
       return fragment;
     },
 

@@ -80,20 +80,21 @@ qx.Class.define("mobileshowcase.page.List",
 
           return {
             title: title,
-            selectable : title != "Selectable Items"
+            selectable : true
           };
         }
       });
 
       list.model = this._model;
 
-      list.on("changeSelection", function(data) {
-        this._showDialog("You selected Item #" + data);
+      list.on("selected", function(el) {
+        if (el.hasClass("list-item")) {
+          this._showDialog("You selected Item #" + el.getData("row"));
+        } else {
+          this._showDialog("You selected Group #" + el.getData("group"));
+        }
       }, this);
 
-      list.on("changeGroupSelection", function(data) {
-        this._showDialog("You selected Group #" + data);
-      }, this);
 
       list.on("removeItem", function(data) {
        this._model.removeAt(data);

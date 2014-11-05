@@ -72,8 +72,9 @@ qx.Class.define("mobileshowcase.page.Overview",
       ];
 
       list.model = new qx.data.Array(data);
-      list.on("changeSelection", function(evt) {
-        var path = data[evt].path;
+      list.on("selected", function(el) {
+        var row = el.getData("row");
+        var path = data[row].path;
         qx.core.Init.getApplication().getRouting().executeGet("/"+path);
       }, this);
 

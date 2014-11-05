@@ -237,7 +237,7 @@ describe("mobile.list.List", function() {
     list.on("selected", spy);
     list.emit("tap", {_original : {target: el}});
     sinon.assert.calledOnce(spy);
-    sinon.assert.calledWith(spy, el);
+    assert.equal(spy.args[0][0][0], el);
 
     __cleanUp(list);
   });
@@ -248,12 +248,13 @@ describe("mobile.list.List", function() {
     list.delegate = {group: function(data, row) {
       return {title: "Affe" + row, selectable: true};
     }};
+
     var el = list.find("*[data-group=3]")[0]; // item 3
     var spy = sinon.spy();
     list.on("selected", spy);
     list.emit("tap", {_original : {target: el}});
     sinon.assert.calledOnce(spy);
-    sinon.assert.calledWith(spy, el.parentNode);
+    assert.equal(spy.args[0][0][0], el);
 
     __cleanUp(list);
   });

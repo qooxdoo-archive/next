@@ -241,7 +241,7 @@ qx.Class.define("qx.ui.dialog.Menu",
       var selectionList = new qx.ui.list.List();
 
       // Add an changeSelection event
-      selectionList.on("changeSelection", this.__onListChangeSelection, this);
+      selectionList.on("selected", this.__onListChangeSelection, this);
       selectionList.on("tap", this._onSelectionListTap, this);
       return selectionList;
     },
@@ -276,10 +276,10 @@ qx.Class.define("qx.ui.dialog.Menu",
 
     /**
      * Fires an event which contains index and data.
-     * @param index {Number} the selected index.
+     * @param el {qxWeb} the selected element.
      */
-    __onListChangeSelection : function (index) {
-      this.selectedIndex = index;
+    __onListChangeSelection : function (el) {
+      this.selectedIndex = parseInt(el.getData("row"), 10);
     },
 
 
