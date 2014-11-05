@@ -22,19 +22,20 @@
  * @asset(framework/source/resource/qx/icon/Tango/48/places/folder.png)
  */
 
-describe("mobile.list.List", function ()
-{
+describe("mobile.list.List", function() {
   /**
-  * Returns the img element on the given list, of the element item identified by elementIndex.
-  */
+   * Returns the img element on the given list, of the element item identified by elementIndex.
+   */
+
   function getImageWidget(list, elementIndex) {
     return list.getChildren().eq(elementIndex).getChildren(".list-item-image");
   }
 
 
   /**
-  * Returns the title text on the given list, of the element item identified by elementIndex.
-  */
+   * Returns the title text on the given list, of the element item identified by elementIndex.
+   */
+
   function getTitleElement(list, elementIndex) {
     return list.getChildren()[elementIndex].childNodes[1].childNodes[0];
   }
@@ -43,19 +44,39 @@ describe("mobile.list.List", function ()
   /**
    * Returns the subtitle text on the given list, of the element item identified by elementIndex.
    */
+
   function getSubtitleElement(list, elementIndex) {
     return list.getChildren()[elementIndex].childNodes[1].childNodes[1];
   }
 
 
-  function __createModel()
-  {
+  function __createModel() {
     var data = [];
-    data.push({title:"1", subtitle : "s1", image: "framework/source/resource/qx/icon/Tango/48/places/folder.png"});
-    data.push({title:"2", subtitle : "s2", image: "framework/source/resource/qx/icon/Tango/48/places/folder.png"});
-    data.push({title:"3", subtitle : "s3", image: "framework/source/resource/qx/icon/Tango/48/places/folder.png"});
-    data.push({title:"4", subtitle : "s4", image: "framework/source/resource/qx/icon/Tango/48/places/folder.png"});
-    data.push({title:"5", subtitle : "s5", image: "framework/source/resource/qx/icon/Tango/48/places/folder.png"});
+    data.push({
+      title: "1",
+      subtitle: "s1",
+      image: "framework/source/resource/qx/icon/Tango/48/places/folder.png"
+    });
+    data.push({
+      title: "2",
+      subtitle: "s2",
+      image: "framework/source/resource/qx/icon/Tango/48/places/folder.png"
+    });
+    data.push({
+      title: "3",
+      subtitle: "s3",
+      image: "framework/source/resource/qx/icon/Tango/48/places/folder.png"
+    });
+    data.push({
+      title: "4",
+      subtitle: "s4",
+      image: "framework/source/resource/qx/icon/Tango/48/places/folder.png"
+    });
+    data.push({
+      title: "5",
+      subtitle: "s5",
+      image: "framework/source/resource/qx/icon/Tango/48/places/folder.png"
+    });
     return new qx.data.Array(data);
   }
 
@@ -68,8 +89,7 @@ describe("mobile.list.List", function ()
   }
 
 
-  function __configureItemFunction(item,data,row)
-  {
+  function __configureItemFunction(item, data, row) {
     item.setImage(data.image);
     item.setTitle(data.title);
     item.setSubtitle(data.subtitle);
@@ -85,118 +105,130 @@ describe("mobile.list.List", function ()
   function __cleanUp(list) {
     list.dispose();
     var modelData = list.model;
-    if(modelData) {
+    if (modelData) {
       modelData.dispose();
       modelData = null;
     }
   }
 
 
-  beforeEach( function () {
-     setUpRoot();
+  beforeEach(function() {
+    setUpRoot();
   });
 
 
-  afterEach( function (){
-     tearDownRoot();
+  afterEach(function() {
+    tearDownRoot();
   });
 
 
   it("Create", function() {
-      var list = __createList();
-      __assertItemsAndModelLength(list, 5);
-      __cleanUp(list);
+    var list = __createList();
+    __assertItemsAndModelLength(list, 5);
+    __cleanUp(list);
   });
 
 
   it("SetModelNull", function() {
-      var list = __createList();
-      __assertItemsAndModelLength(list, 5);
-      list.model.dispose();
-      list.model = null;
-      __assertItemsAndModelLength(list, 0);
-      __cleanUp(list);
+    var list = __createList();
+    __assertItemsAndModelLength(list, 5);
+    list.model.dispose();
+    list.model = null;
+    __assertItemsAndModelLength(list, 0);
+    __cleanUp(list);
   });
 
 
   it("ModelChangeRemove", function() {
-      var list = __createList();
-      __assertItemsAndModelLength(list,5);
-      list.model.removeAt(0);
-      __assertItemsAndModelLength(list,4);
-      __cleanUp(list);
+    var list = __createList();
+    __assertItemsAndModelLength(list, 5);
+    list.model.removeAt(0);
+    __assertItemsAndModelLength(list, 4);
+    __cleanUp(list);
   });
 
 
   it("ModelChangeEdit", function() {
-      var list = __createList();
-      __assertItemsAndModelLength(list,5);
+    var list = __createList();
+    __assertItemsAndModelLength(list, 5);
 
-      list.model.setItem(0, {title:"affe", subtitle:"1", image:"framework/source/resource/qx/icon/Tango/48/places/folder.png"});
-      __assertItemsAndModelLength(list,5);
+    list.model.setItem(0, {
+      title: "affe",
+      subtitle: "1",
+      image: "framework/source/resource/qx/icon/Tango/48/places/folder.png"
+    });
+    __assertItemsAndModelLength(list, 5);
 
-      var titleText = getTitleElement(list,0).innerHTML;
-      assert.equal("affe", titleText);
+    var titleText = getTitleElement(list, 0).innerHTML;
+    assert.equal("affe", titleText);
 
-      __cleanUp(list);
+    __cleanUp(list);
   });
 
 
-    /** Test Case for [BUG #7267] for different length of edited string value. */
+  /** Test Case for [BUG #7267] for different length of edited string value. */
 
   it("ModelChangeStringLength", function() {
-      var list = __createList();
+    var list = __createList();
 
-      __assertItemsAndModelLength(list,5);
+    __assertItemsAndModelLength(list, 5);
 
-      var newImageSrc = "framework/source/resource/qx/icon/Tango/48/places/folder.png";
-      var newTitleText = "Giraffe";
-      var newSubtitleText = "subtitle1";
+    var newImageSrc = "framework/source/resource/qx/icon/Tango/48/places/folder.png";
+    var newTitleText = "Giraffe";
+    var newSubtitleText = "subtitle1";
 
-      list.model.setItem(0, {title: newTitleText, subtitle: newSubtitleText, image: newImageSrc});
-      __assertItemsAndModelLength(list,5);
+    list.model.setItem(0, {
+      title: newTitleText,
+      subtitle: newSubtitleText,
+      image: newImageSrc
+    });
+    __assertItemsAndModelLength(list, 5);
 
-      var titleText = getTitleElement(list,0).innerHTML;
-      var subtitleText = getSubtitleElement(list,0).innerHTML;
-      var imageSrc = getImageWidget(list,0).source;
+    var titleText = getTitleElement(list, 0).innerHTML;
+    var subtitleText = getSubtitleElement(list, 0).innerHTML;
+    var imageSrc = getImageWidget(list, 0).source;
 
-      // VERIFY
-      assert.equal(newTitleText, titleText);
-      assert.equal(newSubtitleText, subtitleText);
-      assert.notEqual("-1", imageSrc.indexOf(newImageSrc));
+    // VERIFY
+    assert.equal(newTitleText, titleText);
+    assert.equal(newSubtitleText, subtitleText);
+    assert.notEqual("-1", imageSrc.indexOf(newImageSrc));
 
-      __cleanUp(list);
+    __cleanUp(list);
   });
 
 
   it("ModelChangeAdd", function() {
-      var list = __createList();
-      __assertItemsAndModelLength(list,5);
-      list.model.push({title:"6", subtitle:"6", image:"framework/source/resource/qx/icon/Tango/48/places/folder.png"});
-      __assertItemsAndModelLength(list,6);
-      __cleanUp(list);
+    var list = __createList();
+    __assertItemsAndModelLength(list, 5);
+    list.model.push({
+      title: "6",
+      subtitle: "6",
+      image: "framework/source/resource/qx/icon/Tango/48/places/folder.png"
+    });
+    __assertItemsAndModelLength(list, 6);
+    __cleanUp(list);
   });
 
 
   it("ExtractRowsToRender", function() {
-      var list = new qx.ui.list.List();
+    var list = new qx.ui.list.List();
 
-      assert.deepEqual([0], list._extractRowsToRender("0"));
-      assert.deepEqual([0], list._extractRowsToRender("[0].propertyName"));
-      assert.deepEqual([0,1,2], list._extractRowsToRender("[0-2].propertyName"));
-      assert.deepEqual([12,13,14], list._extractRowsToRender("[12-14].propertyName"));
+    assert.deepEqual([0], list._extractRowsToRender("0"));
+    assert.deepEqual([0], list._extractRowsToRender("[0].propertyName"));
+    assert.deepEqual([0, 1, 2], list._extractRowsToRender("[0-2].propertyName"));
+    assert.deepEqual([12, 13, 14], list._extractRowsToRender("[12-14].propertyName"));
 
-      list.dispose();
+    list.dispose();
   });
 
 
   it("Factory", function(done) {
-      var list = qxWeb.create("<ul></ul>").toList().appendTo(getRoot());
-      assert.instanceOf(list, qx.ui.list.List);
-      assert.equal(list, list[0].$$widget);
-      setTimeout( function (){
-        assert.equal("qx.ui.list.List", list.getData("qxWidget"));
-        done();
-      }, 100);
+    var list = qxWeb.create("<ul></ul>").toList().appendTo(getRoot());
+    assert.instanceOf(list, qx.ui.list.List);
+    assert.equal(list, list[0].$$widget);
+    setTimeout(function() {
+      assert.equal("qx.ui.list.List", list.getData("qxWidget"));
+      done();
+    }, 100);
   });
 });
