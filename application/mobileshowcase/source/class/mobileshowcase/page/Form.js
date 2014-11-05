@@ -160,13 +160,11 @@ qx.Class.define("mobileshowcase.page.Form",
         .appendTo(form);
 
       var male = new qx.ui.form.RadioButton();
+      male.name = "gender";
       this.__items.push(male);
       var female = new qx.ui.form.RadioButton();
+      female.name = "gender";
       this.__items.push(female);
-
-      var radioGroup = new qx.ui.form.RadioGroup();
-      radioGroup.allowEmptySelection = true;
-      radioGroup.add(male, female);
 
       new qx.ui.form.Row(male, "Male")
         .appendTo(genderGroup);

@@ -21,26 +21,6 @@
 
 /**
  * The Radio button for mobile.
- *
- * *Example*
- *
- * <pre class='javascript'>
- *    var form = new qx.ui.form.Form();
- *
- *    var radio1 = new qx.ui.form.RadioButton();
- *    var radio2 = new qx.ui.form.RadioButton();
- *    var radio3 = new qx.ui.form.RadioButton();
- *
- *    var group = new qx.ui.form.RadioGroup(radio1, radio2, radio3);
-
- *    form.add(radio1, "Germany");
- *    form.add(radio2, "UK");
- *    form.add(radio3, "USA");
- *
- *    this.getRoot.append(new qx.ui.form.renderer.Single(form));
- * </pre>
- *
- *
  */
 qx.Class.define("qx.ui.form.RadioButton",
 {
@@ -74,6 +54,10 @@ qx.Class.define("qx.ui.form.RadioButton",
       check  : "qx.ui.form.RadioGroup",
       nullable : true,
       apply : "_applyRadioGroup"
+    },
+
+    name : {
+      nullable: true
     }
   },
 
@@ -100,6 +84,13 @@ qx.Class.define("qx.ui.form.RadioButton",
      * Reacts on tap on radio button.
      */
     _onTap : function() {
+      qxWeb("." + this.defaultCssClass).forEach(function(el) {
+        el = qxWeb(el);
+        if (el.name == this.name) {
+          el.value = false;
+        }
+      }.bind(this));
+
       this.emit("changeValue", {value: true, old: this.value, target: this});
 
       // Toggle State.
