@@ -93,7 +93,7 @@ qx.Class.define("mobileshowcase.page.Dialog",
 
       this.__menu = new qx.ui.dialog.Menu(menuModel).appendTo(body);
       this.__menu.title = "Menu";
-      this.__menu.on("changeSelection", this.__onMenuChangeSelection, this);
+      this.__menu.on("selected", this.__onMenuChangeSelection, this);
       this.__menu.visibleListItems = 10;
 
        // PICKER DIALOG
@@ -351,8 +351,13 @@ qx.Class.define("mobileshowcase.page.Dialog",
     /**
      * Reacts on "changeSelection" event on Menu, and displays the values on resultsLabel.
      */
-    __onMenuChangeSelection : function(data) {
-       this.__resultsLabel.value = ("Received <b>changeSelection</b> from Menu Dialog. [index: "+ data.index + "] [item: " + data.item.title + "]");
+    __onMenuChangeSelection : function(el) {
+      var index = el.getData("row");
+      var model = this.__menu.model.getItem(index);
+      this.__resultsLabel.value = (
+        "Received <b>changeSelection</b> from Menu Dialog. [index: "
+        + index + "] [item: " + model.title + "]");
+      this.__menu.hideWithDelay(500);
     }
   }
 });

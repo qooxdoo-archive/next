@@ -22,22 +22,7 @@
  * This widget displays a menu. A dialog menu extends a popup and contains a
  * list, which provides the user the possibility to select one value.
  * The selected value is identified through selected index.
- *
- *
- * *Example*
- * <pre class='javascript'>
- *
- * var model = new qx.data.Array(["item1","item2","item3"]);
- *
- * var menu = new qx.ui.dialog.Menu(model);
- * menu.show();
- * menu.on("changeSelection", function(evt){
- *    var selectedIndex = evt.getData().index;
- *    var selectedItem = evt.getData().item;
- * }, this);
- * </pre>
- *
- * This example creates a menu with several choosable items.
+ * @require(qx.module.DataBinding)
  */
 qx.Class.define("qx.ui.dialog.Menu",
 {
@@ -49,24 +34,18 @@ qx.Class.define("qx.ui.dialog.Menu",
    * @param anchor {qx.ui.Widget ?} The anchor widget for this item. If no anchor is available, the menu will be displayed modal and centered on screen.
    * @attach {qxWeb, toMenu}
    */
-  construct : function(itemsModel, anchor)
-  {
-    // Create the list with a delegate that
-    // configures the list item.
-    this.__selectionList = this._createSelectionList();
-
-    if(itemsModel) {
-      this.__selectionList.model = itemsModel;
-    }
+  construct : function(itemsModel, anchor) {
+    this.__list = this._createList();
 
     this.__menuContainer = new qx.ui.Widget();
-    this.__clearButton = this._createClearButton();
-    this.__listScroller = this._createListScroller(this.__selectionList);
+    this.__listScroller = this._createListScroller(this.__list);
 
     this.__menuContainer.append(this.__listScroller);
-    this.__menuContainer.append(this.__clearButton);
 
     this.super(qx.ui.dialog.Popup, "constructor", this.__menuContainer, anchor);
+
+    qxWeb.data.bind(this, "model", this.__list, "model");
+    this.model = itemsModel;
 
     this.modal = !!anchor;
   },
@@ -76,82 +55,33 @@ qx.Class.define("qx.ui.dialog.Menu",
   {
     /**
      * Fired when the selection is changed.
-     * {
-     *   index : number
-     *   item : var
-     * }
      */
-    changeSelection : "Object"
+    selected : "qxWeb"
   },
 
 
   properties :
   {
     // overridden
-    defaultCssClass :
-    {
+    defaultCssClass : {
       init : "menu"
     },
 
 
     /**
-     *  Class which is assigned to selected items.
-     *  Useful for re-styling your menu via LESS.
+     * The model to use to render the list.
      */
-    selectedItemClass :
+    model :
     {
-      init : "item-selected"
-    },
-
-
-    /**
-     * Class which is assigned to unselected items.
-     * Useful for re-styling your menu via LESS.
-     */
-    unselectedItemClass :
-    {
-      init : "item-unselected"
-    },
-
-
-    /**
-     * Defines if the menu has a null value in the list, which can be chosen
-     * by the user. The label
-     */
-    nullable :
-    {
-      init : false,
-      check : "Boolean",
-      apply : "_applyNullable"
-    },
-
-
-    /**
-     * The label of the null value entry of the list. Only relevant
-     * when nullable property is set to <code>true</code>.
-     */
-    clearButtonLabel :
-    {
-      init : "Clear",
-      check : "String",
-      apply : "_applyClearButtonLabel"
-    },
-
-
-    /**
-     * The selected index of this menu.
-     */
-    selectedIndex :
-    {
-      check : "Number",
-      apply : "_applySelectedIndex",
+      check : "qx.data.Array",
+      event: true,
       nullable : true,
       init : null
     },
 
 
     /**
-    * This value defines how much list items are visible inside the menu.
+    * This value defines how many list items are visible inside the menu.
     */
     visibleListItems :
     {
@@ -164,31 +94,9 @@ qx.Class.define("qx.ui.dialog.Menu",
 
   members :
   {
-    __selectionList: null,
-    __clearButton : null,
+    __list: null,
     __listScroller : null,
     __menuContainer : null,
-
-
-    // overidden
-    show : function() {
-      this.super(qx.ui.dialog.Popup, "show");
-
-      this.scrollToItem(this.selectedIndex);
-    },
-
-
-    /**
-     * Creates the clearButton. Override this to customize the widget.
-     *
-     * @return {qx.ui.Button} the clearButton of this menu.
-     */
-    _createClearButton : function() {
-      var clearButton = new qx.ui.Button(this.clearButtonLabel);
-      clearButton.on("tap", this.__onClearButtonTap, this);
-      clearButton.exclude();
-      return clearButton;
-    },
 
 
     /**
@@ -205,15 +113,6 @@ qx.Class.define("qx.ui.dialog.Menu",
     },
 
 
-    /**
-    * Getter for the scroll container which contains a @see {qx.ui.list.List} with the choosable items.
-    * @return {qx.ui.container.Scroll} the scroll container which contains the selectionList of this menu.
-    */
-    _getListScroller : function() {
-      return this.__listScroller;
-    },
-
-
     // overridden
     _updatePosition : function() {
       var parentHeight = this._getParentWidget().getHeight();
@@ -221,7 +120,7 @@ qx.Class.define("qx.ui.dialog.Menu",
       listScrollerHeight = parseInt(listScrollerHeight,10);
 
       if (this.visibleListItems !== null) {
-        var newListScrollerHeight = this.__selectionList.getListItemHeight() * this.visibleListItems;
+        var newListScrollerHeight = this.__list.getListItemHeight() * this.visibleListItems;
         listScrollerHeight = Math.min(newListScrollerHeight, listScrollerHeight);
       }
 
@@ -236,98 +135,15 @@ qx.Class.define("qx.ui.dialog.Menu",
      *
      * @return {qx.ui.list.List} The selectionList of this menu.
      */
-    _createSelectionList : function() {
-      var self = this;
+    _createList : function() {
       var selectionList = new qx.ui.list.List();
-
-      // Add an changeSelection event
-      selectionList.on("selected", this.__onListChangeSelection, this);
-      selectionList.on("tap", this._onSelectionListTap, this);
+      selectionList.on("selected", this._onSelected, this);
       return selectionList;
     },
 
 
-    /**
-    * Getter for the selectionList of the menu.
-    * @return {qx.ui.list.List} The selectionList of this menu.
-    */
-    getSelectionList : function() {
-      return this.__selectionList;
-    },
-
-
-    /** Handler for tap event on selection list. */
-    _onSelectionListTap : function() {
-      this.hideWithDelay(500);
-    },
-
-
-    /**
-     * Sets the choosable items of the menu.
-     * @param itemsModel {qx.data.Array}, the model of choosable items in the menu.
-     */
-    setItems : function (itemsModel) {
-      if(this.__selectionList) {
-        this.__selectionList.model = null;
-        this.__selectionList.model = itemsModel;
-      }
-    },
-
-
-    /**
-     * Fires an event which contains index and data.
-     * @param el {qxWeb} the selected element.
-     */
-    __onListChangeSelection : function (el) {
-      this.selectedIndex = parseInt(el.getData("row"), 10);
-    },
-
-
-    /**
-     * Event handler for tap on clear button.
-     */
-    __onClearButtonTap : function() {
-      this.emit("changeSelection", {index: null, item: null});
-      this.hide();
-    },
-
-
-    // property apply
-    _applySelectedIndex : function(value, old) {
-      var listModel = this.__selectionList.model;
-
-      if(listModel !== null) {
-        var selectedItem = listModel.getItem(value);
-        this.emit("changeSelection", {index: value, item: selectedItem});
-      }
-
-      this._render();
-    },
-
-
-    // property apply
-    _applyNullable : function(value, old) {
-      if(value){
-        this.__clearButton.visibility = "visible";
-      } else {
-        this.__clearButton.visibility = "excluded";
-      }
-    },
-
-
-    // property apply
-    _applyClearButtonLabel : function(value, old) {
-      this.__clearButton.value = value;
-    },
-
-
-    /**
-     * Triggers (re-)rendering of menu items.
-     */
-    _render : function() {
-      var tmpModel = this.__selectionList.model;
-      this.__selectionList.model = null;
-      this.__selectionList.model = tmpModel;
+    _onSelected : function(data) {
+      this.emit("selected", data);
     },
 
 
@@ -336,7 +152,7 @@ qx.Class.define("qx.ui.dialog.Menu",
      * @param index {Integer}, the index of the listItem to which the listScroller should scroll to.
      */
     scrollToItem : function(index) {
-      if (index !== null && this.__selectionList.model != null) {
+      if (index !== null && this.__list.model != null) {
         var listItems = qxWeb("#" + this.__listScroller.getAttribute("id") + " .list-item");
         var targetListItemElement = listItems[index];
         this.__listScroller.scrollToElement(targetListItemElement);
@@ -346,11 +162,9 @@ qx.Class.define("qx.ui.dialog.Menu",
 
     dispose : function() {
       this.super(qx.ui.dialog.Popup, "dispose");
-      this.__selectionList.off("tap", this._onSelectionListTap, this);
-      this.__selectionList && this.__selectionList.dispose();
-      this.__clearButton && this.__clearButton.dispose();
-      this.__listScroller && this.__listScroller.dispose();
-      this.__menuContainer && this.__menuContainer.dispose();
+      this.__list.dispose();
+      this.__listScroller.dispose();
+      this.__menuContainer.dispose();
     }
   },
 
@@ -358,5 +172,4 @@ qx.Class.define("qx.ui.dialog.Menu",
   classDefined : function(statics) {
     qxWeb.$attachWidget(statics);
   }
-
 });
