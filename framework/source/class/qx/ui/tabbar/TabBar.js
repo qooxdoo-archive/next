@@ -166,7 +166,8 @@ qx.Class.define("qx.ui.tabbar.TabBar", {
      */
     render: function() {
       if (this.isRendered()) {
-        return this._render();
+        this._render();
+        return this;
       }
       else {
         this.once("appear", this._render, this);
