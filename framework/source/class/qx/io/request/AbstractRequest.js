@@ -46,7 +46,6 @@ qx.Class.define("qx.io.request.AbstractRequest",
     }
 
     this.__requestHeaders = {};
-    this._setPhase("unsent");
 
     this.__onReadyStateChangeBound = qx.lang.Function.bind(this._onReadyStateChange, this);
     this.__onLoadBound = qx.lang.Function.bind(this._onLoad, this);
@@ -181,6 +180,33 @@ qx.Class.define("qx.io.request.AbstractRequest",
     },
 
     /**
+     * Get current phase.
+     *
+     * A more elaborate version of {@link #getReadyState}, this method indicates
+     * the current phase of the request. Maps to stateful (i.e. deterministic)
+     * events (success, abort, timeout, statusError) and intermediate
+     * readyStates (unsent, configured, loading, load).
+     *
+     * When the requests is successful, it progresses the states:<br>
+     * 'unsent', 'opened', 'sent', 'loading', 'load', 'success'
+     *
+     * In case of failure, the final state is one of:<br>
+     * 'abort', 'timeout', 'statusError'
+     *
+     * For each change of the phase, a {@link #changePhase} data event is fired.
+     *
+     * @return {String} Current phase.
+     */
+    phase: {
+      check: function(value) {
+        return qx.lang.Type.isString(value) &&
+               /^(unsent|opened|sent|loading|load|success|abort|timeout|statusError)$/.test(value);
+      },
+      event: "changePhase",
+      init: "unsent"
+    },
+
+    /**
      * Data to be send as part of the request.
      *
      * Supported types:
@@ -276,11 +302,6 @@ qx.Class.define("qx.io.request.AbstractRequest",
      __abort: null,
 
     /**
-     * Current phase.
-     */
-    __phase: null,
-
-    /**
      * Request headers.
      */
     __requestHeaders: null,
@@ -360,7 +381,7 @@ qx.Class.define("qx.io.request.AbstractRequest",
       }
 
       this._open(method, url, async);
-      this._setPhase("opened");
+      this.phase = "opened";
 
       //
       // Send request
@@ -375,7 +396,7 @@ qx.Class.define("qx.io.request.AbstractRequest",
         this.debug("Send low-level request");
       }
       method == "GET" ? this._send() : this._send(serializedData);
-      this._setPhase("sent");
+      this.phase = "sent";
 
       return this;
     },
@@ -390,7 +411,7 @@ qx.Class.define("qx.io.request.AbstractRequest",
       this.__abort = true;
 
       // Update phase to "abort" before user handler are invoked [BUG #5485]
-      this.__phase = "abort";
+      this.phase = "abort";
 
       this._abort();
     },
@@ -537,29 +558,6 @@ qx.Class.define("qx.io.request.AbstractRequest",
     },
 
     /**
-     * Get current phase.
-     *
-     * A more elaborate version of {@link #getReadyState}, this method indicates
-     * the current phase of the request. Maps to stateful (i.e. deterministic)
-     * events (success, abort, timeout, statusError) and intermediate
-     * readyStates (unsent, configured, loading, load).
-     *
-     * When the requests is successful, it progresses the states:<br>
-     * 'unsent', 'opened', 'sent', 'loading', 'load', 'success'
-     *
-     * In case of failure, the final state is one of:<br>
-     * 'abort', 'timeout', 'statusError'
-     *
-     * For each change of the phase, a {@link #changePhase} data event is fired.
-     *
-     * @return {String} Current phase.
-     *
-     */
-    getPhase: function() {
-      return this.__phase;
-    },
-
-    /**
      * Get status code.
      *
      * @return {Number} The transport’s status code.
@@ -675,7 +673,7 @@ qx.Class.define("qx.io.request.AbstractRequest",
       }
 
       if (readyState === 3) {
-        this._setPhase("loading");
+        this.phase = "loading";
       }
 
       if (this.isDone()) {
@@ -692,7 +690,7 @@ qx.Class.define("qx.io.request.AbstractRequest",
       }
 
       // Event "load" fired in onLoad
-      this._setPhase("load");
+      this.phase = "load";
 
       // Successful HTTP status
       if (qx.util.Request.isSuccessful(this.status)) {
@@ -781,26 +779,8 @@ qx.Class.define("qx.io.request.AbstractRequest",
       if (qx.core.Environment.get("qx.debug")) {
         qx.core.Assert.assertString(evt);
       }
-      this._setPhase(evt);
+      this.phase = evt;
       this.emit(evt, {target: this});
-    },
-
-    /**
-     * Set phase.
-     *
-     * @param phase {String} The phase to set.
-     */
-    _setPhase: function(phase) {
-      var previousPhase = this.__phase;
-
-      if (qx.core.Environment.get("qx.debug")) {
-        qx.core.Assert.assertString(phase);
-        qx.core.Assert.assertMatch(phase,
-          /^(unsent)|(opened)|(sent)|(loading)|(load)|(success)|(abort)|(timeout)|(statusError)$/);
-      }
-
-      this.__phase = phase;
-      this.emit("changePhase", {value: phase, old: previousPhase, target: this});
     },
 
     /**

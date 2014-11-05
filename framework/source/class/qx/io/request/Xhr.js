@@ -600,7 +600,7 @@ qx.Class.define("qx.io.request.Xhr",
       this.__abort = true;
 
       // Update phase to "abort" before user handler are invoked [BUG #5485]
-      this.__phase = "abort";
+      this.phase = "abort";
       /* --- */
 
       return this;

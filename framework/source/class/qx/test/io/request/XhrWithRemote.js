@@ -82,9 +82,9 @@ qx.Class.define("qx.test.io.request.XhrWithRemote",
           url = this.getUrl("qx/test/xmlhttp/sample.txt");
 
       req.on("changePhase", function() {
-        phases.push(req.getPhase());
+        phases.push(req.phase);
 
-        if (req.getPhase() === "success") {
+        if (req.phase === "success") {
           this.resume(function() {
             this.assertArrayEquals(expectedPhases, phases);
           }, this);
@@ -105,9 +105,9 @@ qx.Class.define("qx.test.io.request.XhrWithRemote",
           url = this.getUrl("qx/test/xmlhttp/sample.txt");
 
       req.on("changePhase", function() {
-        phases.push(req.getPhase());
+        phases.push(req.phase);
 
-        if (req.getPhase() === "abort") {
+        if (req.phase === "abort") {
           this.assertArrayEquals(expectedPhases, phases);
         }
 
@@ -132,9 +132,9 @@ qx.Class.define("qx.test.io.request.XhrWithRemote",
           url = this.noCache(this.getUrl("qx/test/xmlhttp/loading.php")) + "&duration=100";
 
       req.on("changePhase", function() {
-        phases.push(req.getPhase());
+        phases.push(req.phase);
 
-        if (req.getPhase() === "abort") {
+        if (req.phase === "abort") {
           this.resume(function() {
             this.assertArrayEquals(expectedPhases, phases);
           });
@@ -162,7 +162,7 @@ qx.Class.define("qx.test.io.request.XhrWithRemote",
 
       req.on("timeout", function() {
         this.resume(function() {
-          this.assertEquals("timeout", req.getPhase());
+          this.assertEquals("timeout", req.phase);
         });
       }, this);
 

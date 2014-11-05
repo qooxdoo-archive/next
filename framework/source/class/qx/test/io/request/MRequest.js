@@ -335,7 +335,7 @@ qx.Mixin.define("qx.test.io.request.MRequest",
     //
 
     "test: phase is unsent": function() {
-      this.assertEquals("unsent", this.req.getPhase());
+      this.assertEquals("unsent", this.req.phase);
     },
 
     "test: phase was open before send": function() {
@@ -343,7 +343,7 @@ qx.Mixin.define("qx.test.io.request.MRequest",
           phases = [];
 
       req.on("changePhase", function() {
-        phases.push(req.getPhase());
+        phases.push(req.phase);
       });
 
       req.url = "/url";
@@ -358,7 +358,7 @@ qx.Mixin.define("qx.test.io.request.MRequest",
       req.url = "/url";
       req.send();
 
-      this.assertEquals("sent", req.getPhase());
+      this.assertEquals("sent", req.phase);
     },
 
     "test: phase is loading": function() {
@@ -367,7 +367,7 @@ qx.Mixin.define("qx.test.io.request.MRequest",
       req.readyState = 3;
       req.onreadystatechange();
 
-      this.assertEquals("loading", req.getPhase());
+      this.assertEquals("loading", req.phase);
     },
 
     "test: phase is load intermediately": function() {
@@ -375,7 +375,7 @@ qx.Mixin.define("qx.test.io.request.MRequest",
           phases = [];
 
       req.on("changePhase", function() {
-        phases.push(req.getPhase());
+        phases.push(req.phase);
       });
 
       req.readyState = 4;
@@ -389,7 +389,7 @@ qx.Mixin.define("qx.test.io.request.MRequest",
       var req = this.req;
 
       this.respond();
-      this.assertEquals("success", req.getPhase());
+      this.assertEquals("success", req.phase);
     },
 
     // Error handling
@@ -398,7 +398,7 @@ qx.Mixin.define("qx.test.io.request.MRequest",
       var req = this.req;
 
       this.respond(500);
-      this.assertEquals("statusError", req.getPhase());
+      this.assertEquals("statusError", req.phase);
     },
 
     "test: phase is abort": function() {
@@ -411,7 +411,7 @@ qx.Mixin.define("qx.test.io.request.MRequest",
       req.readyState = 4;
       req.onreadystatechange();
 
-      this.assertEquals("abort", req.getPhase());
+      this.assertEquals("abort", req.phase);
     },
 
     "test: phase is abort when from cache": function() {
@@ -427,7 +427,7 @@ qx.Mixin.define("qx.test.io.request.MRequest",
       req.readyState = 4;
       req.onreadystatechange();
 
-      this.assertEquals("abort", req.getPhase());
+      this.assertEquals("abort", req.phase);
     },
 
     "test: phase is abort on readyState DONE when aborted before": function() {
@@ -435,7 +435,7 @@ qx.Mixin.define("qx.test.io.request.MRequest",
 
       req.on("readyStateChange", function() {
         if (req.getReadyState() == 4) {
-          this.assertEquals("abort", req.getPhase());
+          this.assertEquals("abort", req.phase);
         }
       }, this);
 
@@ -454,7 +454,7 @@ qx.Mixin.define("qx.test.io.request.MRequest",
 
       req.on("readyStateChange", function() {
         if (req.getReadyState() == 4) {
-          this.assertEquals("abort", req.getPhase());
+          this.assertEquals("abort", req.phase);
         }
       }, this);
 
@@ -477,7 +477,7 @@ qx.Mixin.define("qx.test.io.request.MRequest",
       var req = this.req;
 
       req.on("loadEnd", function() {
-        this.assertEquals("abort", req.getPhase());
+        this.assertEquals("abort", req.phase);
       }, this);
 
       req.send();
@@ -494,7 +494,7 @@ qx.Mixin.define("qx.test.io.request.MRequest",
       var req = this.req;
 
       this.timeout();
-      this.assertEquals("timeout", req.getPhase());
+      this.assertEquals("timeout", req.phase);
     },
 
     getFakeReq: function() {
