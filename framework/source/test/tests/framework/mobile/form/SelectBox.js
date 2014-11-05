@@ -40,8 +40,7 @@ describe("mobile.form.SelectBox", function() {
 
     // Attempt to set value to "Item 3"
     selectBox.value = "Item 3";
-    assert.equal(2, selectBox.selection);
-    assert.equal("Item 3", selectBox.value);
+    assert.equal("Item 3", selectBox.getAttribute("value"));
 
     // Attempting to set invalid value throws validation error.
     assert.throw(function() {
@@ -52,43 +51,13 @@ describe("mobile.form.SelectBox", function() {
 
     selectBox.dispose();
     dd.dispose();
-    dd = null;
   });
 
 
-  it("Nullable", function() {
-    var model = new qx.data.Array(["Item 1", "Item 2", "Item 3"]);
-    var selectBox = new qx.ui.form.SelectBox();
-    selectBox.model = model;
-
-    // Default case: nullable is true, selection is null.
-    assert.equal(null, selectBox.selection, "Default selection of SelectBox should be null.");
-
-    // Switch to nullable true...
-    selectBox.nullable = false;
-    selectBox.selection = 0;
-
-    // Attempting to set null value throws validation error.
-    assert.throw(function() {
-      selectBox.selection = null;
-    });
-
-    // Switch to nullable true... try to set selection to null..
-    selectBox.nullable = true;
-    selectBox.selection = null;
-    assert.equal(null, selectBox.selection, "Value should be null.");
-
-    // After
-    selectBox.dispose();
-    model.dispose();
-    model = null;
-  });
-
-
-  it("SelectionNoModel", function() {
+  it("ValueNoModel", function() {
     var selectBox = new qx.ui.form.SelectBox();
     assert.throw(function() {
-      selectBox.selection = 4;
+      selectBox.value = "Anything";
     });
 
     selectBox.dispose();
@@ -99,84 +68,43 @@ describe("mobile.form.SelectBox", function() {
     var model = new qx.data.Array(["Item 1", "Item 2", "Item 3"]);
     var selectBox = new qx.ui.form.SelectBox();
     selectBox.model = model;
-    selectBox.nullable = true;
     selectBox.value = "Item 3";
 
-    assert.equal(2, selectBox.selection);
-
     selectBox.value = undefined;
+    assert.equal(null, selectBox.value);
 
-    assert.equal(null, selectBox.selection);
-
-    // After
     selectBox.dispose();
-    model.dispose();
-    model = null;
   });
 
 
-  it("ResetValueNotNullable", function() {
+  it("ChangeModel", function() {
     var model = new qx.data.Array(["Item 1", "Item 2", "Item 3"]);
+    var model2 = new qx.data.Array(["Item 11", "Item 22", "Item 33"]);
     var selectBox = new qx.ui.form.SelectBox();
     selectBox.model = model;
-    selectBox.nullable = false;
     selectBox.value = "Item 3";
 
-    assert.equal(2, selectBox.selection);
+    assert.equal("Item 3", selectBox.getAttribute("value"));
+    selectBox.model = model2;
+    assert.isNull(selectBox.getAttribute("value"));
 
-    selectBox.value = undefined;
-
-    assert.equal(0, selectBox.selection);
-
-    // After
     selectBox.dispose();
-    model.dispose();
-    model = null;
   });
 
 
-  it("Selection", function() {
+  it("UpdateModel", function() {
     var model = new qx.data.Array(["Item 1", "Item 2", "Item 3"]);
     var selectBox = new qx.ui.form.SelectBox();
     selectBox.model = model;
+    selectBox.value = "Item 3";
 
-    // Default value of selectedIndex after setting model is 0.
-    assert.equal(null, selectBox.selection);
+    assert.equal("Item 3", selectBox.getAttribute("value"));
+    model.push("Item 4");
+    assert.equal("Item 3", selectBox.getAttribute("value"));
+    selectBox.value = "Item 4"
+    assert.equal("Item 4", selectBox.getAttribute("value"));
 
-    // Set selection success
-    selectBox.selection = 2;
-    assert.equal(2, selectBox.selection);
-    assert.equal("Item 3", selectBox.value);
-
-    // Set selection failure
-    // Nothing is changed because invalid selectedIndex value.
-    assert.throw(function() {
-      selectBox.selection = 4;
-    });
-
-    assert.equal(2, selectBox.selection);
-    assert.equal("Item 3", selectBox.value);
-
-    // Negative values are not allowed. Nothing is changed.
-    assert.throw(function() {
-      selectBox.selection = -1;
-    });
-
-    assert.equal(2, selectBox.selection);
-    assert.equal("Item 3", selectBox.value);
-
-    // Only type Number is allowed. Nothing is changed.
-    assert.throw(function() {
-      selectBox.selection = "foo";
-    });
-
-    assert.equal(2, selectBox.selection);
-    assert.equal("Item 3", selectBox.value);
-
-    // After
     selectBox.dispose();
-    model.dispose();
-    model = null;
   });
 
 

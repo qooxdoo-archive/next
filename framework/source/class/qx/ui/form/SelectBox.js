@@ -46,7 +46,6 @@ qx.Class.define("qx.ui.form.SelectBox",
     this.on("focus", this.blur);
     this.on("tap", this._onTap, this);
 
-    // Selection dialog creation.
     this.__selectionDialog = this._createSelectionDialog();
 
     this.addClass("gap");
@@ -62,18 +61,13 @@ qx.Class.define("qx.ui.form.SelectBox",
   {
     /**
      * Fired when user selects an item.
-     * {
-     *   index : number,
-     *   item : var
-     * }
      */
-    changeSelection : "Object"
+    selected : "qxWeb"
   },
 
 
   properties :
   {
-
     // overridden
     defaultCssClass :
     {
@@ -99,18 +93,6 @@ qx.Class.define("qx.ui.form.SelectBox",
       event : true,
       nullable : true,
       init : null
-    },
-
-
-    /**
-     * The selected index of this SelectBox.
-     */
-    selection :
-    {
-      init : null,
-      check : "_checkSelection",
-      apply : "_applySelection",
-      nullable : true
     }
   },
 
@@ -159,65 +141,35 @@ qx.Class.define("qx.ui.form.SelectBox",
 
 
     /**
-     * Sets the selected text value of this SelectBox.
-     * @param value {String} the text value which should be selected.
-     */
-    _setValue : function(value) {
-      if(this.model == null) {
-        return;
-      }
-
-      if (!value) {
-        if (this.nullable) {
-          this.selection = null;
-        } else {
-          this.selection = 0;
-        }
-      } else if (value != null) {
-        this.selection = this.model.indexOf(value);
-      } else {
-        this.selection = null;
-      }
-
-      this.validate();
-    },
-
-
-    /**
-     * Get the text value of this
-     * It is called by the setValue method of the qx.ui.form.MForm
-     * mixin.
-     * @return {Number} the new selected index of the SelectBox.
-     */
-    _getValue : function() {
-      return this.getAttribute("value");
-    },
-
-
-    /**
-     * Renders this SelectBox. Override this if you would like to display the
-     * values of the SelectBox in a different way than the default.
-     */
-    _render : function() {
-      if (this.model != null && this.model.length > 0) {
-        var selectedItem = this.model.getItem(this.selection);
-        this.setAttribute("value", selectedItem);
-      }
-    },
-
-
-    /**
      * Sets the model property to the new value
      * @param value {qx.data.Array}, the new model
      * @param old {qx.data.Array?}, the old model
      */
     _applyModel : function(value, old){
-      value.on("change", this._render, this);
+      value.on("change", this._updateValue, this);
       if (old != null) {
-        old.off("change", this._render, this);
+        old.off("change", this._updateValue, this);
       }
+      this._updateValue();
+    },
 
-      this._render();
+
+    _updateValue : function() {
+      if (this.model) {
+        if (this.model.indexOf(this.value) === -1) {
+          this.value = null;
+        }
+      }
+    },
+
+    _setValue : function(value) {
+      if (value === undefined) {
+        value = null;
+      }
+      if (this.model.indexOf(value) === -1 && value !== null) {
+        throw new Error("Value not in model");
+      }
+      this.setAttribute("value", value);
     },
 
 
@@ -236,8 +188,8 @@ qx.Class.define("qx.ui.form.SelectBox",
      * @param evt {qx.event.type.Data} data event.
      */
     _onSelected : function (el) {
-      this.selection = parseInt(el.getData("row"), 10);
-      this._render();
+      var row = parseInt(el.getData("row"), 10);
+      this.value = this.model.getItem(row);
       this.__selectionDialog.hideWithDelay(500);
 
       this.validate();
@@ -258,10 +210,10 @@ qx.Class.define("qx.ui.form.SelectBox",
 
 
     /**
-     * Validates the selection value.
-     * @param value {Integer} the selection value to validate.
+     * Validates the selected value.
+     * @param value {Integer} the selected value to validate.
      */
-    _checkSelection : function(value) {
+    _checkSelected : function(value) {
       if(value != null && qx.lang.Type.isNumber(value) == false)
       {
         throw new qx.core.ValidationError(
@@ -288,15 +240,6 @@ qx.Class.define("qx.ui.form.SelectBox",
       }
 
       return true;
-    },
-
-
-    // property apply
-    _applySelection : function(value, old) {
-      var selectedItem = this.model.getItem(value);
-      this.emit("changeSelection", {index: value, item: selectedItem});
-
-      this._render();
     },
 
 

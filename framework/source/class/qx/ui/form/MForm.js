@@ -185,6 +185,9 @@ qx.Mixin.define("qx.ui.form.MForm",
         if (typeof this._setValue == "function") {
           this._setValue(value);
         } else {
+          if (value === undefined) {
+            value = null;
+          }
           this.setAttribute("value", value);
         }
 
