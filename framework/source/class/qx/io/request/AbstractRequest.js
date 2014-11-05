@@ -384,6 +384,8 @@ qx.Class.define("qx.io.request.AbstractRequest",
       }
       method == "GET" ? this._send() : this._send(serializedData);
       this._setPhase("sent");
+
+      return this;
     },
 
     /**
@@ -740,7 +742,7 @@ qx.Class.define("qx.io.request.AbstractRequest",
      * Handle "loadEnd" event.
      */
     _onLoadEnd: function() {
-      this.emit("loadEnd");
+      this.emit("loadEnd", this);
     },
 
     /**

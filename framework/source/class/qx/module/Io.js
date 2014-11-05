@@ -26,8 +26,6 @@
  * * Script tag
  * * Script tag using JSONP
  *
- * @require(qx.bom.request.Xhr#open)
- *
  * @group (IO)
  */
 qx.Class.define("qx.module.Io", {
@@ -47,14 +45,14 @@ qx.Class.define("qx.module.Io", {
      * </ul>
      *
      * @attachStatic {qxWeb, io.xhr}
-     * @return {qx.bom.request.Xhr} The request object.
+     * @return {qx.io.request.Xhr} The request object.
      */
     xhr : function(url, settings) {
       if (!settings) {
         settings = {};
       }
-      var xhr = new qx.bom.request.Xhr();
-      xhr.open(settings.method, url, settings.async);
+      var xhr = new qx.io.request.Xhr(url, settings.method);
+      xhr.async = settings.async;
       if (settings.header) {
         var header = settings.header;
         for (var key in header) {
@@ -71,10 +69,10 @@ qx.Class.define("qx.module.Io", {
      *
      * @param url {String} Mandatory URL to load the data from.
      * @attachStatic {qxWeb, io.script}
-     * @return {qx.bom.request.Script} The request object.
+     * @return {qx.io.request.Script} The request object.
      */
     script : function(url) {
-      var script = new qx.bom.request.Script();
+      var script = new qx.io.request.Script();
       script.open("get", url);
       return script;
     },
@@ -92,10 +90,10 @@ qx.Class.define("qx.module.Io", {
      *      be called by the loaded script.
      * * <code>callbackParam</code>: The name of the callback expected by the server
      * @attachStatic {qxWeb, io.jsonp}
-     * @return {qx.bom.request.Jsonp} The request object.
+     * @return {qx.io.request.Jsonp} The request object.
      */
     jsonp : function(url, settings) {
-      var script = new qx.bom.request.Jsonp();
+      var script = new qx.io.request.Jsonp();
       if (settings && settings.callbackName) {
         script.setCallbackName(settings.callbackName);
       }

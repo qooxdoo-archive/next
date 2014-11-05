@@ -311,7 +311,7 @@ qx.Class.define("qx.io.request.Xhr",
             this.__nativeXhr.onerror = function() {
               this._emit("readystatechange");
               this._emit("error");
-              this._emit("loadend");
+              this._emit("loadend", this);
             }.bind(this);
 
             if (qx.core.Environment.get("qx.debug.io")) {
@@ -876,7 +876,7 @@ qx.Class.define("qx.io.request.Xhr",
       }
 
       // Always fire "onloadend" when DONE
-      this._emit("loadend");
+      this._emit("loadend", this);
     },
 
 

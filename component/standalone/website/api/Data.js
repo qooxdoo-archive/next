@@ -160,7 +160,7 @@ var Data = q.define({
 
     _loadIndex : function() {
       // load API data of q
-      q.io.xhr("script/qxWeb.json").on("loadend", function(xhr) {
+      q.io.xhr("script/qxWeb.json").send().on("loadend", function(xhr) {
         var isFileProtocol = function() {
           return (location.protocol.indexOf("file") === 0);
         };
@@ -177,7 +177,7 @@ var Data = q.define({
         } else {
           this.emit("loadingFailed");
         }
-      }, this).send();
+      }, this);
     },
 
 
@@ -260,7 +260,7 @@ var Data = q.define({
 
     __loadSimpleClass : function(type, name) {
       this.__loading++;
-      q.io.xhr("script/" + name + ".json").on("loadend", function(xhr) {
+      q.io.xhr("script/" + name + ".json").send().on("loadend", function(xhr) {
         this.__loading--;
         if (xhr.readyState == 4 && xhr.status >= 200 && xhr.status < 400) {
           var ast = JSON.parse(xhr.responseText);
@@ -271,7 +271,7 @@ var Data = q.define({
           console && console.error(name + "' could not be loaded.");
         }
         this._checkReady();
-      }, this).send();
+      }, this);
     },
 
 
@@ -308,7 +308,7 @@ var Data = q.define({
 
       this.__loadedClasses.push(className);
       this.__loading++;
-      q.io.xhr("script/" + className + ".json").on("loadend", function(xhr) {
+      q.io.xhr("script/" + className + ".json").send().on("loadend", function(xhr) {
         this.__loading--;
         if (xhr.readyState == 4 && xhr.status >= 200 && xhr.status < 400) {
           var ast = JSON.parse(xhr.responseText);
@@ -361,7 +361,7 @@ var Data = q.define({
           console && console.error("Couldn't load class doc for ", className);
         }
         this._checkReady();
-      }, this).send();
+      }, this);
     },
 
 
@@ -380,7 +380,7 @@ var Data = q.define({
 
     _loadModuleDoc : function(className, moduleName) {
       this.__loading++;
-      q.io.xhr("script/" + className + ".json").on("loadend", function(xhr) {
+      q.io.xhr("script/" + className + ".json").send().on("loadend", function(xhr) {
         this.__loading--;
         if (xhr.readyState == 4 && xhr.status >= 200 && xhr.status < 400) {
           var ast = JSON.parse(xhr.responseText);
@@ -394,7 +394,7 @@ var Data = q.define({
           console && console.error("Couldn't load class doc for ", className);
         }
         this._checkReady();
-      }, this).send();
+      }, this);
     },
 
     _containsItem : function(list, item) {
