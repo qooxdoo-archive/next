@@ -187,7 +187,6 @@ qx.Class.define("mobileshowcase.page.Form",
           model : dd
         });
       this.__items.push(select);
-      select.setClearButtonLabel("Clear");
       select.setDialogTitle(selQuestion);
 
       new qx.ui.form.Row(select, selQuestion)

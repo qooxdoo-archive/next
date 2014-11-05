@@ -35,7 +35,7 @@ describe("mobile.form.SelectBox", function() {
     var dd = new qx.data.Array(["Item 1", "Item 2", "Item 3"]);
     selectBox.model = dd;
 
-    // Initial value '''
+    // Initial value ''
     assert.equal(null, selectBox.value);
 
     // Attempt to set value to "Item 3"

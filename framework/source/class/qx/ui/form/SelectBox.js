@@ -51,8 +51,8 @@ qx.Class.define("qx.ui.form.SelectBox",
 
     this.addClass("gap");
 
-    // When selectionDialogs changes selection, get chosen selectedIndex from it.
-    this.__selectionDialog.on("changeSelection", this._onChangeSelection, this);
+    this.__selectionDialog.on("selected", this._onSelected, this);
+    qxWeb.data.bind(this, "model", this.__selectionDialog, "model");
     this.initMForm();
     this.initMText();
   },
@@ -86,17 +86,6 @@ qx.Class.define("qx.ui.form.SelectBox",
     {
       refine :true,
       init : true
-    },
-
-
-    /**
-     * Defines if the SelectBox has a clearButton, which resets the selection.
-     */
-    nullable :
-    {
-      init : true,
-      check : "Boolean",
-      apply : "_applyNullable"
     },
 
 
@@ -146,14 +135,7 @@ qx.Class.define("qx.ui.form.SelectBox",
      */
     _createSelectionDialog : function() {
       var menu = new qx.ui.dialog.Menu();
-
-      // Special appearance for SelectBox menu items.
-      menu.selectedItemClass = "selectbox-selected";
-      menu.unselectedItemClass = "selectbox-unselected";
-
-      // Hide selectionDialog on tap on blocker.
       menu.hideOnBlockerTap = true;
-
       return menu;
     },
 
@@ -173,15 +155,6 @@ qx.Class.define("qx.ui.form.SelectBox",
      */
     setDialogTitle : function(title) {
       this.__selectionDialog.title = title;
-    },
-
-
-    /**
-     * Set the ClearButton label of the selection dialog.
-     * @param value {String} the value to set on the ClearButton at selection dialog.
-     */
-    setClearButtonLabel : function(value) {
-      this.__selectionDialog.clearButtonLabel = value;
     },
 
 
@@ -253,9 +226,6 @@ qx.Class.define("qx.ui.form.SelectBox",
      */
     __showSelectionDialog : function () {
       if(this.enabled === true) {
-        // Set index before items, because setItems() triggers rendering.
-        this.__selectionDialog.selectedIndex = this.selection;
-        this.__selectionDialog.setItems(this.model);
         this.__selectionDialog.show();
       }
     },
@@ -265,9 +235,11 @@ qx.Class.define("qx.ui.form.SelectBox",
      * Gets the selectedIndex out of change selection event and renders view.
      * @param evt {qx.event.type.Data} data event.
      */
-    _onChangeSelection : function (evt) {
-      this.selection = evt.index;
+    _onSelected : function (el) {
+      this.selection = parseInt(el.getData("row"), 10);
       this._render();
+      this.__selectionDialog.hideWithDelay(500);
+
       this.validate();
     },
 
@@ -328,18 +300,10 @@ qx.Class.define("qx.ui.form.SelectBox",
     },
 
 
-    // property apply
-    _applyNullable : function(value, old) {
-      // Delegate nullable property.
-      this.__selectionDialog.nullable = value;
-    },
-
-
     dispose : function() {
       this.super(qx.ui.Widget, "dispose");
-      this.__selectionDialog.off("changeSelection", this._onChangeSelection, this);
-
-      this.__selectionDialog && this.__selectionDialog.dispose();
+      this.__selectionDialog.off("selected", this._onSelected, this);
+      this.__selectionDialog.dispose();
 
       this.off("focus", this.blur);
       this.off("tap", this._onTap, this);
