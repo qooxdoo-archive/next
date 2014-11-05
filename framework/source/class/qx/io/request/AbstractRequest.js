@@ -165,6 +165,22 @@ qx.Class.define("qx.io.request.AbstractRequest",
     },
 
     /**
+     * The HTTP method.
+     */
+    method: {
+      check: "String",
+      init: "GET"
+    },
+
+    /**
+     * Whether to process asynchronously.
+     */
+    async: {
+      check: "Boolean",
+      init: true
+    },
+
+    /**
      * Data to be send as part of the request.
      *
      * Supported types:
@@ -316,30 +332,6 @@ qx.Class.define("qx.io.request.AbstractRequest",
     },
 
     /**
-     * Get method.
-     *
-     * This method MAY be overridden. It is called in {@link #send}
-     * before the request is initialized.
-     *
-     * @return {String} The method.
-     */
-    _getMethod: function() {
-      return "GET";
-    },
-
-    /**
-     * Whether async.
-     *
-     * This method MAY be overridden. It is called in {@link #send}
-     * before the request is initialized.
-     *
-     * @return {Boolean} Whether to process asynchronously.
-     */
-    _isAsync: function() {
-      return true;
-    },
-
-    /**
      * Send request.
      */
     send: function() {
@@ -358,8 +350,8 @@ qx.Class.define("qx.io.request.AbstractRequest",
       }
 
       // Support transports with enhanced feature set
-      method = this._getMethod();
-      async = this._isAsync();
+      method = this.method;
+      async = this.async;
 
       // Open
       if (qx.core.Environment.get("qx.debug.io")) {

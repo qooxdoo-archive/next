@@ -128,6 +128,22 @@ qx.Class.define("qx.io.request.Jsonp",
   properties:
   {
     /**
+     * The HTTP method.
+     */
+    method: {
+      // overwrite
+      writable: false
+    },
+
+    /**
+     * Whether to process asynchronously.
+     */
+    async: {
+      // overwrite
+      writable: false
+    },
+
+    /**
      * Whether to allow request to be answered from cache.
      *
      * Allowed values:

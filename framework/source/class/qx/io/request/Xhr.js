@@ -154,21 +154,6 @@ qx.Class.define("qx.io.request.Xhr",
   properties:
   {
     /**
-     * The HTTP method.
-     */
-    method: {
-      init: "GET"
-    },
-
-    /**
-     * Whether the request should be executed asynchronously.
-     */
-    async: {
-      check: "Boolean",
-      init: true
-    },
-
-    /**
      * The content type to accept. By default, every content type
      * is accepted.
      *
@@ -583,16 +568,6 @@ qx.Class.define("qx.io.request.Xhr",
       }
 
       return headers;
-    },
-
-    // overridden
-    _getMethod: function() {
-      return this.method;
-    },
-
-    // overridden
-    _isAsync: function() {
-      return this.async;
     },
 
     /**
