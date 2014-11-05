@@ -251,6 +251,14 @@ qx.Class.define("qx.io.request.AbstractRequest",
     },
 
     /**
+     * @type {String} The response of the request as text.
+     */
+    responseText: {
+      type: "String",
+      init: ""
+    },
+
+    /**
      * Authentication delegate.
      *
      * The delegate must implement {@link qx.io.request.authentication.IAuthentication}.
@@ -263,11 +271,6 @@ qx.Class.define("qx.io.request.AbstractRequest",
 
   members :
   {
-    /**
-     * @type {String} The response of the request as text.
-     */
-    responseText: "",
-
     /**
      * @type {Object} The response of the request as a Document object.
      */
@@ -558,15 +561,6 @@ qx.Class.define("qx.io.request.AbstractRequest",
      */
     getStatusText: function() {
       return this.statusText;
-    },
-
-    /**
-     * Get raw (unprocessed) response.
-     *
-     * @return {String} The raw response of the request.
-     */
-    getResponseText: function() {
-      return this.responseText;
     },
 
     /**

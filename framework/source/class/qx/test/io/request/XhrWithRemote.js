@@ -42,7 +42,7 @@ qx.Class.define("qx.test.io.request.XhrWithRemote",
 
       req.on("success", function(e) {
         this.resume(function() {
-          this.assertEquals("SAMPLE", e.target.getResponseText());
+          this.assertEquals("SAMPLE", e.target.responseText);
         }, this);
       }, this);
 
