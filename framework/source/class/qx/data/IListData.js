@@ -22,6 +22,12 @@
  * This interface defines a data structure compatible with the data binding
  * controllers.
  * It defines a minimum of functionality which the controller need to work.
+ * @require(qx.data.IListData#getItem)
+ * @require(qx.data.IListData#setItem)
+ * @require(qx.data.IListData#splice)
+ * @require(qx.data.IListData#contains)
+ * @require(qx.data.IListData#getLength)
+ * @require(qx.data.IListData#toArray)
  */
 qx.Interface.define("qx.data.IListData",
 {
