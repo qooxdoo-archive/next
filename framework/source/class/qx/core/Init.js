@@ -45,6 +45,7 @@ qx.Class.define("qx.core.Init", {
     ready : function() {
       if (!(qxWeb.isReady())) {
         qxWeb.ready(qx.core.Init.ready);
+        return;
       }
 
       if (qx.core.Init.__application) {
