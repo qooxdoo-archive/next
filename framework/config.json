@@ -106,7 +106,7 @@
       "extend" : [ "cache" ],
 
       "include": ["qx.*"],
-      "exclude": ["qx.test.*", "qx.Part", "qx.io.part.*"],
+      "exclude": ["qx.test.*", "qx.Part", "qx.io.part.*", "qx.dev.unit.Sinon"],
 
       "environment" :
       {
