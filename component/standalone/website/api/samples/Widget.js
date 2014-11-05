@@ -9,8 +9,8 @@ addSample(".widget", {
 addSample(".widget", {
   javascript: function() {
     var widget = new qx.ui.Widget();
-    widget.on("tab", function () {
-      console.log('click on widget');
+    widget.on("tap", function () {
+      console.log("tap on widget");
     });
   }
 });
