@@ -72,16 +72,16 @@ qx.Class.define("qx.ui.basic.Atom",
       init : "atom"
     },
 
-    /** The label/caption/text of the qx.ui.basic.Atom instance */
-    text :
+    /** The label/caption/text of the qx.ui.mobile.basic.Atom instance */
+    label :
     {
-      apply : "_applyText",
+      apply : "_applyLabel",
       nullable : true,
       check : "String",
       event : true
     },
 
-    /** Any URI String supported by qx.ui.basic.Image to display an icon */
+    /** Any URI String supported by qx.ui.mobile.basic.Image to display an icon */
     icon :
     {
       check : "String",
@@ -118,7 +118,7 @@ qx.Class.define("qx.ui.basic.Atom",
 
   members :
   {
-    __text : null,
+    __label : null,
     __icon : null,
     __childrenContainer : null,
 
@@ -163,11 +163,11 @@ qx.Class.define("qx.ui.basic.Atom",
     // property apply
     _applyShowChildren : function(value, old)
     {
-      if (this.__text) {
+      if (this.__label) {
         if (value === 'both' || value === 'label') {
-          this.__text.show();
+          this.__label.show();
         } else if(value === 'icon') {
-          this.__text.exclude();
+          this.__label.exclude();
         }
       }
       if (this.__icon) {
@@ -181,13 +181,13 @@ qx.Class.define("qx.ui.basic.Atom",
 
 
     // property apply
-    _applyText : function(value, old)
+    _applyLabel : function(value, old)
     {
-      if (this.__text) {
-        this.__text.value = value;
+      if (this.__label) {
+        this.__label.value = value;
       } else {
-        this.__text = this._createLabelWidget(value);
-        this.append(this.__text);
+        this.__label = this._createLabelWidget(value);
+        this.append(this.__label);
       }
     },
 
@@ -199,8 +199,8 @@ qx.Class.define("qx.ui.basic.Atom",
         this.__icon.source = value;
       } else {
         this.__icon = this._createIconWidget(value);
-        if (this.__text) {
-          this.__icon.insertBefore(this.__text);
+        if (this.__label) {
+          this.__icon.insertBefore(this.__label);
         } else {
           this.append(this.__icon);
         }
@@ -224,7 +224,7 @@ qx.Class.define("qx.ui.basic.Atom",
      * @return {qx.ui.basic.Label} The label widget.
      */
     getLabelWidget : function() {
-      return this.__text;
+      return this.__label;
     },
 
 
@@ -271,7 +271,7 @@ qx.Class.define("qx.ui.basic.Atom",
       var layout;
       var verticalLayout = [ "top", "bottom" ].indexOf(this.iconPosition) != -1;
       // If Atom has no Label, only Icon is shown, and should vertically centered.
-      var hasNoLabel = !this.__text;
+      var hasNoLabel = !this.__label;
 
       if (verticalLayout || hasNoLabel) {
         layout = new qx.ui.layout.VBox();
@@ -291,7 +291,7 @@ qx.Class.define("qx.ui.basic.Atom",
 
     dispose : function() {
       this.super(qx.ui.Widget, "dispose");
-      this.__text && this.__text.dispose();
+      this.__label && this.__label.dispose();
       this.__icon && this.__icon.dispose();
     }
   },
