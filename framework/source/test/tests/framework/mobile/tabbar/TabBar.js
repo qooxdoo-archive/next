@@ -79,27 +79,31 @@ describe("mobile.tabbar.TabBar", function() {
   });
 
 
-  it("Selected", function() {
+  it("Active", function() {
     var tabBar = __tabBar;
 
     var button1 = new qx.ui.Button()
       .setData("qxConfigPage", "#foo")
       .appendTo(tabBar);
-    assert.equal(button1, tabBar.selected);
+    assert.equal(button1[0], tabBar.active);
 
     var button2 = new qx.ui.Button()
       .setData("qxConfigPage", "#bar")
       .appendTo(tabBar);
-    assert.equal(button1, tabBar.selected);
+    assert.equal(button1[0], tabBar.active);
 
-    tabBar.selected = button2;
-    assert.equal(button2, tabBar.selected);
+    tabBar.active = button2[0];
+    assert.equal(button2[0], tabBar.active);
 
     button2.remove();
-    assert.equal(button1[0], tabBar.selected[0]);
+    assert.equal(button1[0], tabBar.active);
 
-    qx.core.Assert.assertEventFired(tabBar, "changeSelected", function() {
-      tabBar.selected = null;
+    button2.appendTo(tabBar);
+    qx.core.Assert.assertEventFired(tabBar, "changeActive", function() {
+      tabBar.active = button2[0];
+    },
+    function(e) {
+      assert.equal(button2[0], e.value);
     });
   });
 
@@ -131,7 +135,7 @@ describe("mobile.tabbar.TabBar", function() {
       .setData("qxConfigPage", "#" + view3.getAttribute("id"))
       .appendTo(tabBar);
 
-    tabBar.selected = button3;
+    tabBar.active = button3[0];
     assert.isTrue(view1.hasClass("exclude"));
     assert.isTrue(view2.hasClass("exclude"));
     assert.isFalse(view3.hasClass("exclude"));

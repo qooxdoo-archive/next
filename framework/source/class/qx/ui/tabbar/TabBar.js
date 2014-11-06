@@ -69,12 +69,12 @@ qx.Class.define("qx.ui.tabbar.TabBar", {
     },
 
     /**
-     * The currently selected button, wrapped in a qxWeb collection
+     * The currently selected button
      */
-    selected: {
+    active: {
       nullable: true,
-      check: "qxWeb",
-      apply: "_applySelected",
+      check: "Element",
+      apply: "_applyActive",
       event: true
     },
 
@@ -147,12 +147,13 @@ qx.Class.define("qx.ui.tabbar.TabBar", {
 
 
     _onRemovedChild : function(child) {
+      child.removeClass("selected");
       if (this.orientation === "horizontal" &&
-        this.selected && this.selected[0] === child[0]) {
+        this.active === child[0]) {
         var buttons = this.find("> .button");
         for (var i=0, l=buttons.length; i<l; i++) {
           if (buttons[i] !== child[0]) {
-            this.selected = qxWeb(buttons[i]);
+            this.active = buttons[i];
             return;
           }
         }
@@ -230,8 +231,8 @@ qx.Class.define("qx.ui.tabbar.TabBar", {
           selectedButton = qxWeb(firstButton[0]);
         }
       }
-      this.selected = null;
-      this.selected = selectedButton;
+      this.active = null;
+      this.active = selectedButton[0];
 
       this._applyAlignment(this.align);
 
@@ -259,7 +260,7 @@ qx.Class.define("qx.ui.tabbar.TabBar", {
         }
 
         if (button.hasClass("selected")) {
-          this.selected = button;
+          this.active = button[0];
         } else {
           var page = this.getPage(button);
           if (page.length > 0 && page.exclude) {
@@ -287,9 +288,9 @@ qx.Class.define("qx.ui.tabbar.TabBar", {
      * @param value {qxWeb?} The newly selected page
      * @param old {qxWeb?} The previously selected page
      */
-    _applySelected : function(value, old) {
+    _applyActive : function(value, old) {
       this.find("> .button")._forEachElementWrapped(function(button) {
-        if (value && value[0] === button[0]) {
+        if (value === button[0]) {
           button.addClass("selected");
           this.getPage(button).show();
         } else {
@@ -374,11 +375,11 @@ qx.Class.define("qx.ui.tabbar.TabBar", {
       var oldButton = this.find("> ." + "selected");
 
       if (oldButton[0] == tappedButton && this.orientation == "vertical") {
-        this.selected = null;
+        this.active = null;
         return;
       }
 
-      this.selected = qxWeb(tappedButton);
+      this.active = tappedButton;
     },
 
 
@@ -404,7 +405,7 @@ qx.Class.define("qx.ui.tabbar.TabBar", {
       }
 
       if (next && next.length > 0) {
-        this.selected = qxWeb(next);
+        this.active = next;
         next.focus();
       }
     },
