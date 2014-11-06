@@ -381,7 +381,13 @@ qx.Class.define("qx.ui.container.Carousel",
      * Scrolls the carousel to next page.
      */
     nextPage : function() {
-      if(!this.__isDirectionLocked("left") && !this.__locked){
+
+      if(!this.__isDirectionLocked("left") && !this.__locked) {
+
+        if(!this.scrollLoop && (this.currentIndex == this.__pages.length - 1)) {
+          return;
+        }
+
         this.__direction = "left";
         this.__steps = 1;
         this.__locked = true;
@@ -394,7 +400,13 @@ qx.Class.define("qx.ui.container.Carousel",
      * Scrolls the carousel to previous page.
      */
     previousPage : function() {
+
       if(!this.__isDirectionLocked("right") && !this.__locked) {
+
+        if(!this.scrollLoop && (this.currentIndex == 0)) {
+          return;
+        }
+
         this.__direction = "right";
         this.__steps = 1;
         this.__locked = true;
@@ -479,26 +491,12 @@ qx.Class.define("qx.ui.container.Carousel",
     */
     _orderPages : function (direction, steps) {
 
-      var fragment = qxWeb(document.createDocumentFragment());
-
       var items = qxWeb(".qx-carousel-page", this.__carouselScroller[0]);
 
       if(direction == "left") {
-        for(var i = 0; i < steps; i++) {
-          this.__carouselScroller.getChildren().getFirst().appendTo(fragment);
-        }
-        fragment.appendTo(this.__carouselScroller);
+        qxWeb(items.slice(0, steps)).appendTo(this.__carouselScroller);
       } else {
-        var last = null;
-        for(var i = 0; i < steps; i++) {
-          last = this.__carouselScroller.getChildren().getLast();
-          if(i === 0) {
-            last.appendTo(fragment);
-          }else{
-            last.insertBefore(this.__carouselScroller.getChildren().getFirst());
-          }
-        }
-        fragment.insertBefore(items.getFirst());
+        qxWeb(items.slice(items.length - steps)).insertBefore(items.eq(0));
       }
 
       this._setTransitionDuration(0);
