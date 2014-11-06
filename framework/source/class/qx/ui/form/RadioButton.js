@@ -21,6 +21,26 @@
 
 /**
  * The Radio button for mobile.
+ *
+ * *Example*
+ *
+ * <pre class='javascript'>
+ *    var form = new qx.ui.mobile.form.Form();
+ *
+ *    var radio1 = new qx.ui.mobile.form.RadioButton();
+ *    var radio2 = new qx.ui.mobile.form.RadioButton();
+ *    var radio3 = new qx.ui.mobile.form.RadioButton();
+ *
+ *    var group = new qx.ui.mobile.form.RadioGroup(radio1, radio2, radio3);
+
+ *    form.add(radio1, "Germany");
+ *    form.add(radio2, "UK");
+ *    form.add(radio3, "USA");
+ *
+ *    this.getRoot.append(new qx.ui.mobile.form.renderer.Single(form));
+ * </pre>
+ *
+ *
  */
 qx.Class.define("qx.ui.form.RadioButton",
 {
@@ -49,11 +69,11 @@ qx.Class.define("qx.ui.form.RadioButton",
 
 
     /** The assigned qx.ui.form.RadioGroup which handles the switching between registered buttons */
-    radioGroup :
+    group :
     {
       check  : "qx.ui.form.RadioGroup",
       nullable : true,
-      apply : "_applyRadioGroup"
+      apply : "_applyGroup"
     },
 
     name : {
@@ -120,7 +140,7 @@ qx.Class.define("qx.ui.form.RadioButton",
      * @param value {qx.ui.form.RadioGroup} the new radio group to which this radio button belongs.
      * @param old {qx.ui.form.RadioGroup} the old radio group of this radio button.
      */
-    _applyRadioGroup : function(value, old)
+    _applyGroup : function(value, old)
     {
       if (old) {
         old.remove(this);
