@@ -108,34 +108,38 @@ describe("mobile.tabbar.TabBar", function() {
     var tabBar = __tabBar;
 
     var view1 = new qx.ui.basic.Label("1").
-    appendTo(getRoot()).hide();
-    assert.isTrue(view1.getStyle("visibility") == "hidden");
+    appendTo(getRoot()).exclude();
+    assert.isTrue(view1.hasClass("exclude"));
     var button1 = new qx.ui.Button("Button 1")
+      .addClass("selected")
       .setData("qxConfigPage", "#" + view1.getAttribute("id"))
       .appendTo(tabBar);
-    assert.isTrue(view1.getStyle("visibility") == "visible");
+
+    assert.isFalse(view1.hasClass("exclude"));
 
     var view2 = new qx.ui.basic.Label("2").
-    appendTo(getRoot());
+    appendTo(getRoot()).exclude();
     var button2 = new qx.ui.Button("Button 2")
       .setData("qxConfigPage", "#" + view2.getAttribute("id"))
       .appendTo(tabBar);
-    assert.isFalse(view2.getStyle("visibility") == "visible");
+
+    assert.isTrue(view2.hasClass("exclude"));
 
     var view3 = new qx.ui.basic.Label("3").
-    appendTo(getRoot());
+    appendTo(getRoot()).exclude();
     var button3 = new qx.ui.Button("Button 3")
       .setData("qxConfigPage", "#" + view3.getAttribute("id"))
       .appendTo(tabBar);
+
     tabBar.selected = button3;
-    assert.isTrue(view1.getStyle("visibility") == "hidden");
-    assert.isTrue(view2.getStyle("visibility") == "hidden");
-    assert.isTrue(view3.getStyle("visibility") == "visible");
+    assert.isTrue(view1.hasClass("exclude"));
+    assert.isTrue(view2.hasClass("exclude"));
+    assert.isFalse(view3.hasClass("exclude"));
 
     button3.remove();
-    assert.isTrue(view1.getStyle("visibility") == "visible");
-    assert.isTrue(view2.getStyle("visibility") == "hidden");
-    assert.isTrue(view3.getStyle("visibility") == "visible");
+    assert.isFalse(view1.hasClass("exclude"));
+    assert.isTrue(view2.hasClass("exclude"));
+    assert.isFalse(view3.hasClass("exclude"));
   });
 
 
