@@ -96,60 +96,7 @@ qx.Class.define("qx.io.request.Xhr",
     DONE: 4
   },
 
-  // Only document events with transport specific details.
-  // For a complete list of events, refer to AbstractRequest.
-
-  events:
-  {
-    /** Fired at ready state changes. */
-    "readystatechange" : "qx.io.request.Xhr",
-
-    /** Fired on error. */
-    "error" : "qx.io.request.Xhr",
-
-    /** Fired at loadend. */
-    "loadend" : "qx.io.request.Xhr",
-
-    /** Fired on timeouts. */
-    "timeout" : "qx.io.request.Xhr",
-
-    /** Fired when the request is aborted. */
-    "abort" : "qx.io.request.Xhr",
-
-    /**
-     * Fired on every change of the transport’s readyState.
-     *
-     * See {@link qx.io.request.Xhr} for available readyStates.
-     */
-    "readyStateChange": "qx.io.request.Xhr",
-
-    /**
-    * Fired when request completes without eror and transport’s status
-    * indicates success.
-     *
-     * Refer to {@link qx.util.Request#isSuccessful} for a list of HTTP
-     * status considered successful.
-     */
-    "success": "qx.io.request.Xhr",
-
-    /**
-     * Fired when request completes without error.
-     *
-     * Every request not canceled or aborted completes. This means that
-     * even requests receiving a response with erroneous HTTP status
-     * fire a "load" event. If you are only interested in successful
-     * responses, listen to the {@link #success} event instead.
-     */
-    "load": "qx.io.request.Xhr",
-
-    /**
-     * Fired when request completes without error but erroneous HTTP status.
-     *
-     * Refer to {@link qx.util.Request#isSuccessful} for a list of HTTP
-     * status considered successful.
-     */
-    "statusError": "qx.io.request.Xhr"
-  },
+  // for events refer to AbstractRequest
 
   properties:
   {

@@ -89,41 +89,7 @@ qx.Class.define("qx.io.request.Jsonp",
     this.transport.ontimeout = function() { this.emit("timeout"); }.bind(this);
   },
 
-  events:
-  {
-
-    /**
-     * Fired when request completes without error and data has been received.
-     */
-    "success": null,
-
-    /**
-     * Fired when request completes without error.
-     *
-     * Every request receiving a response completes without error. This means
-     * that even for responses that do not call the callback, a "load" event
-     * is fired. If you are only interested in the JSON data received, consider
-     * listening to the {@link #success} event instead.
-     */
-    "load": null,
-
-    /**
-     * Fired when request completes without error but no data was received.
-     *
-     * The underlying script transport does not know the HTTP status of the
-     * response. However, if the callback was not called (no data received)
-     * an erroneous status (500) is assigned to the transport’s status
-     * property.
-     *
-     * Note: If you receive an unexpected "statusError", check that the JSONP
-     * service accepts arbitrary callback names given as the "callback"
-     * parameter. In case the service expects another parameter for the callback
-     * name, use {@link #setCallbackParam}. Should the service respond with a
-     * hard-coded callback, set a custom callback name with
-     * {@link #setCallbackName}.
-     */
-    "statusError": null
-  },
+  // for events refer to AbstractRequest
 
   properties:
   {
