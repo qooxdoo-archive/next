@@ -29,8 +29,8 @@ qx.Class.define("qx.ui.form.Group",
   /**
    * @attach {qxWeb, toGroup}
    */
-  construct : function(title) {
-    this.super(qx.ui.Widget, "constructor");
+  construct : function(title, element) {
+    this.super(qx.ui.Widget, "constructor", element);
     if (title) {
       qxWeb.create('<h2 class="form-title">' + title + '</h2>').appendTo(this);
     }

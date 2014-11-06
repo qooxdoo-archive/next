@@ -70,9 +70,9 @@ qx.Class.define("qx.ui.dialog.Popup",
    * @param anchor {qx.ui.Widget?} optional parameter, a widget to attach this popup to
    * @attach {qxWeb, toPopup}
    */
-  construct : function(widget, anchor)
+  construct : function(widget, anchor, element)
   {
-    this.super(qx.ui.Widget, "constructor");
+    this.super(qx.ui.Widget, "constructor", element);
     this.exclude();
 
     this.__child = widget;

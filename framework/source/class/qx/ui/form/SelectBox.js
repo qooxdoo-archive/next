@@ -34,9 +34,9 @@ qx.Class.define("qx.ui.form.SelectBox",
   /**
    * @attach {qxWeb, toSelectBox}
    */
-  construct : function()
+  construct : function(element)
   {
-    this.super(qx.ui.Widget, "constructor");
+    this.super(qx.ui.Widget, "constructor", element);
 
     // This text node is for compatibility reasons, because Firefox can not
     // change appearance of SelectBoxes.

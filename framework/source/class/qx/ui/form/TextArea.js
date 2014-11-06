@@ -36,9 +36,9 @@ qx.Class.define("qx.ui.form.TextArea",
   /**
    * @param value {var?null} The value of the widget.
    */
-  construct : function(value)
+  construct : function(value, element)
   {
-    this.super(qx.ui.Widget, "constructor");
+    this.super(qx.ui.Widget, "constructor", element);
 
     if (value) {
       this.value = value;

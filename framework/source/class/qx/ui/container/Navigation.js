@@ -43,9 +43,9 @@ qx.Class.define("qx.ui.container.Navigation",
   extend : qx.ui.Widget,
 
 
-  construct : function()
+  construct : function(element)
   {
-    this.super(qx.ui.Widget, "constructor");
+    this.super(qx.ui.Widget, "constructor", element);
     this.layout = new qx.ui.layout.VBox();
 
     this.__navigationBar = this._createNavigationBar();
