@@ -617,11 +617,6 @@ qx.Class.define("qx.io.request.Xhr",
     __onXhrTimeoutBound: null,
 
     /**
-     * @type {Function} Bound __onUnload handler.
-     */
-    __onUnloadBound: null,
-
-    /**
      * @type {Boolean} Send flag
      */
     __send: null,
@@ -864,19 +859,6 @@ qx.Class.define("qx.io.request.Xhr",
       if (this.status === 1223) {
         this.status = 204;
       }
-    },
-
-
-    /**
-     * Handler for native unload event.
-     */
-    __onUnload: function() {
-      try {
-        // Abort and dispose
-        if (this) {
-          this._dispose();
-        }
-      } catch(e) {}
     },
 
     /*
