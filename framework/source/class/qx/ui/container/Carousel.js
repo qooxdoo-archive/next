@@ -119,7 +119,6 @@ qx.Class.define("qx.ui.container.Carousel",
     this._append(carouselScroller);
     pagination.layoutPrefs = {flex: 1};
     this._append(pagination);
-
   },
 
 
@@ -203,6 +202,7 @@ qx.Class.define("qx.ui.container.Carousel",
     __steps : null,
     __moved : false,
     __touchStarted : false,
+    __prevIndex : 0,
 
 
     // overridden
@@ -381,18 +381,8 @@ qx.Class.define("qx.ui.container.Carousel",
      * Scrolls the carousel to next page.
      */
     nextPage : function() {
-
-      if(!this.__isDirectionLocked("left") && !this.__locked) {
-
-        if(!this.scrollLoop && (this.currentIndex == this.__pages.length - 1)) {
-          return;
-        }
-
-        this.__direction = "left";
-        this.__steps = 1;
-        this.__locked = true;
-        this.currentIndex = (this.currentIndex + 1) % this.__pages.length;
-      }
+      this._setTransitionDuration(this.transitionDuration);
+      this.currentIndex = (this.currentIndex + 1) % this.__pages.length;
     },
 
 
@@ -400,18 +390,8 @@ qx.Class.define("qx.ui.container.Carousel",
      * Scrolls the carousel to previous page.
      */
     previousPage : function() {
-
-      if(!this.__isDirectionLocked("right") && !this.__locked) {
-
-        if(!this.scrollLoop && (this.currentIndex == 0)) {
-          return;
-        }
-
-        this.__direction = "right";
-        this.__steps = 1;
-        this.__locked = true;
-        this.currentIndex = (this.currentIndex - 1 + this.__pages.length) % this.__pages.length;
-      }
+      this._setTransitionDuration(this.transitionDuration);
+      this.currentIndex = (this.currentIndex - 1 + this.__pages.length) % this.__pages.length;
     },
 
 
@@ -446,15 +426,19 @@ qx.Class.define("qx.ui.container.Carousel",
 
       var duration = parseFloat(this.__carouselScroller.getStyle("transitionDuration"));
 
+
       /* If the currentIndex has been changed externaly
       * detect detect the direction and calculate the steps
       */
-      if(oldIndex && (this.__direction === null)) {
+      if((oldIndex !== undefined) && (this.__direction === null)) {
+
         var buffer = this.__carouselScroller.getChildren();
         var prevPos = buffer.indexOf(this.__pages[oldIndex]);
         var nextPos = buffer.indexOf(this.__pages[pageIndex]);
         this.__steps = Math.abs(prevPos - nextPos);
         this.__direction = nextPos > prevPos ? "left" : "right";
+        this._orderPages(this.__direction, this.__steps);
+      }else if(duration === 0 && this.__direction !== null) {
         this._orderPages(this.__direction, this.__steps);
       }
 
@@ -510,9 +494,18 @@ qx.Class.define("qx.ui.container.Carousel",
     */
     _onScrollerTransitionEnd : function() {
 
-      if(this.__centerChanged) {
-        this._orderPages(this.__direction, this.__steps);
+      if(this.__prevIndex != this.currentIndex) {
+        var items = qxWeb(".qx-carousel-page", this.__carouselScroller[0]);
+        var currentIndex = items.indexOf(this.__pages[this.currentIndex][0]);
+        var prevIndex = items.indexOf(this.__pages[this.__prevIndex][0]);
+        var dir = currentIndex > prevIndex ? "left" : "right";
+        var steps = Math.abs(currentIndex - prevIndex);
+        this._orderPages(dir, steps);
       }
+
+      this.__prevIndex = this.currentIndex;
+
+      this._setTransitionDuration(0);
 
       // Reset flags
       this.__moved = false;
@@ -669,9 +662,11 @@ qx.Class.define("qx.ui.container.Carousel",
      */
     _onPointerDown : function(evt) {
 
-      if(!evt.isPrimary || this.__locked) {
+      if(!evt.isPrimary) {
         return;
       }
+
+      this._setTransitionDuration(0);
 
       this.__moved = false;
       this.__touchStarted = true;
@@ -686,25 +681,13 @@ qx.Class.define("qx.ui.container.Carousel",
     },
 
 
-    __isDirectionLocked : function(direction) {
-      if(!this.scrollLoop) {
-        if( (this.currentIndex === 0) && (direction == "right")) {
-          return true;
-        } else if((this.currentIndex == this.__pages.length - 1) && (direction == "left")) {
-          return true;
-        }
-      }
-      return false;
-    },
-
-
     /**
      * Event handler for <code>track</code> events.
      * @param evt {qx.event.type.Track} The track event.
      */
     _onTrack : function(evt) {
 
-      if(!evt._original.isPrimary || this.__locked || !this.__touchStarted) { // TODO: add 'isPrimary' property to track event?
+      if(!evt._original.isPrimary || !this.__touchStarted) { // TODO: add 'isPrimary' property to track event?
         return;
       }
 
@@ -720,9 +703,6 @@ qx.Class.define("qx.ui.container.Carousel",
       if (!this.__isPageScrollTarget) {
 
         this.__direction = this.__deltaX > 0 ? "right" : "left";
-        if(this.__isDirectionLocked(this.__direction)) {
-          return;
-        }
 
         this.__onMoveOffset[0] = Math.floor(this.__deltaX + this.__lastOffset[0]);
 
@@ -753,14 +733,12 @@ qx.Class.define("qx.ui.container.Carousel",
       this.__direction = null;
 
       var items = this.__carouselScroller.getChildren();
-
       var left = 0, right = 0, half = this.__carouselWidth/2, next = null;
-      var center = this.__pages[this.currentIndex];
       var direction = this.__onMoveOffset[0] > this.__lastOffset[0] ? "right" : "left";
       var width = null;
       var minFactor = 0.1;
 
-      var centeredIndex = items.indexOf(center);
+      var centeredIndex = Math.floor((items.length - 1)/2);
 
       for(var i = 0; i < items.length; i++) {
 
@@ -784,17 +762,22 @@ qx.Class.define("qx.ui.container.Carousel",
 
       }
 
+      var leftOfNext = Math.abs(this.__onMoveOffset[0] + items[next].offsetLeft);
+      var duration = (leftOfNext * this.transitionDuration) / this.__carouselWidth;
+
+      //this._setTransitionDuration(duration.toFixed(2));
+
       var pages = [];
       this.__pages.forEach(function(page){
         pages.push(page[0]);
       });
 
+      var indexToShow = pages.indexOf(items[next]);
+
       this.__direction = direction;
-      this.__steps = 1;
+      this.__steps = Math.abs(this.currentIndex - indexToShow);
 
-
-
-      return pages.indexOf(items[next]);
+      return indexToShow;
     },
 
 
@@ -804,17 +787,22 @@ qx.Class.define("qx.ui.container.Carousel",
     */
     _onPointerUp : function(evt) {
 
-      if(!evt.isPrimary || this.__locked || !this.__moved) {
+      if(!evt.isPrimary || !this.__moved) {
+        return;
+      }
+
+      if(evt.type == "pointerout" && evt.relatedTarget && qxWeb(evt.relatedTarget).isChildOf(this)) {
         return;
       }
 
       this.__touchStarted = false;
 
-      this.__locked = true;
+      this.__locked = true
+      this.__moved = false;
 
       this._setTransitionDuration(this.transitionDuration);
 
-      var indexToShow = this._getItemToshow()
+      var indexToShow = this._getItemToshow();
 
       this.__centerChanged = this.currentIndex != indexToShow;
 

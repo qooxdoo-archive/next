@@ -78,10 +78,10 @@ qx.Class.define("qx.test.mobile.container.Carousel",
 
       // OVERFLOW
       carousel.nextPage();
-      this.assertEquals(1, carousel.currentIndex);
+      this.assertEquals(0, carousel.currentIndex);
 
       carousel.previousPage();
-      this.assertEquals(0,carousel.currentIndex);
+      this.assertEquals(1,carousel.currentIndex);
 
       // OVERFLOW
       carousel.previousPage();
@@ -107,6 +107,7 @@ qx.Class.define("qx.test.mobile.container.Carousel",
       this.assertEventFired(carousel, "changeCurrentIndex", function() {
         carousel.nextPage();
       }, function(e) {
+
         this.assertEquals(1, e.value);
         this.assertEquals(0, e.old);
       }.bind(this));
@@ -114,6 +115,7 @@ qx.Class.define("qx.test.mobile.container.Carousel",
       this.assertEventFired(carousel, "changeCurrentIndex", function() {
         carousel.previousPage();
       }, function(e) {
+
         this.assertEquals(0, e.value);
         this.assertEquals(1, e.old);
       }.bind(this));
@@ -150,7 +152,7 @@ qx.Class.define("qx.test.mobile.container.Carousel",
 
     testFactory: function() {
       var carousel = q.create('<div>')
-        .carousel()
+        .toCarousel()
         .appendTo(this.getRoot());
 
       this.assertInstance(carousel, qx.ui.container.Carousel);
