@@ -63,15 +63,10 @@ qx.Class.define("qx.ui.control.Picker",
   events :
   {
     /**
-     * Fired when the selection of a slot has changed.
-     * Example:
-     * <code> {
-     *   index: 0,
-     *   item: [Object],
-     *   slot: 0
-     * }</code>
+     * Fired if an item is selected. The value is an Array containing
+     * the selected item of each slot.
      */
-    changeSelection : "Object"
+    selected : "Array"
   },
 
 
@@ -84,7 +79,18 @@ qx.Class.define("qx.ui.control.Picker",
 
 
     /**
-    * Controls how much visible items are shown inside the picker.
+     * Array containing the currently selected item of each slot.
+     */
+    selected: {
+      check: "Array",
+      nullable: false,
+      apply: "_applySelected",
+      event: true
+    },
+
+
+    /**
+    * Controls how many visible items are shown inside the picker.
     */
     visibleItems : {
       init : 5,
@@ -127,6 +133,20 @@ qx.Class.define("qx.ui.control.Picker",
     // property apply
     _applyVisibleItems : function(value) {
       this.setData("items", value);
+    },
+
+
+    _applySelected: function(value, old) {
+      for (var i = 0; i < value.length; i++) {
+        var slotContainer = this._slots.getItem(i).container;
+        if (slotContainer.contains(value[i]).length > 0) {
+          var row = qxWeb(value[i]).getData("row");
+          slotContainer.scrollTo(0, row * this._calcItemHeight());
+        } else {
+          throw new Error("'" + value[i] + "' is not a selectable element for slot " + i);
+        }
+      }
+      this.emit("selected", value);
     },
 
 
@@ -224,7 +244,11 @@ qx.Class.define("qx.ui.control.Picker",
     */
     _onChangeSelection: function(slotIndex, el) {
       var index = parseInt(el.getData("row"), 10);
-      this.setSelectedIndex(slotIndex, index);
+      var slot = this._slots.getItem(slotIndex);
+
+      if (this.visibility === "visible") {
+        slot.container.scrollTo(0, index * this._calcItemHeight());
+      }
     },
 
 
@@ -233,38 +257,11 @@ qx.Class.define("qx.ui.control.Picker",
     * @param data {qx.event.type.Data} the waypoint data.
     */
     _onWaypoint: function(data) {
-      var elementIndex = data.element;
-      this.slot.selectedIndex = elementIndex;
+      var element = this.slot.container.find("*[data-row=" + data.element + "]")[0];
+      this.slot.container.scrollTo(0, data.element * this.self._calcItemHeight());
 
-      this.self.emit("changeSelection", {
-        index: elementIndex,
-        item: this.slotModel.getItem(elementIndex),
-        slot: this.slotIndex
-      });
-    },
-
-
-    /**
-    * Getter for the selectedIndex of a picker slot, identified by its index.
-    * @param slotIndex {Integer} the index of the target picker slot.
-    * @return {Integer} the index of the target picker slot, or null if slotIndex is unknown.
-    */
-    getSelectedIndex : function(slotIndex) {
-      return this._slots.getItem(slotIndex).selectedIndex;
-    },
-
-
-    /**
-     * Setter for the selectedIndex of a picker slot, identified by its index.
-     * @param slotIndex {Integer} the index of the target picker slot.
-     * @param selectedIndex {Integer} the selectedIndex of the slot.
-     */
-    setSelectedIndex: function(slotIndex, selectedIndex) {
-      var slot = this._slots.getItem(slotIndex);
-      slot.selectedIndex = selectedIndex;
-      if (this.visibility === "visible") {
-        slot.container.scrollTo(0, selectedIndex * this._calcItemHeight());
-      }
+      this.self.selected[this.slotIndex] = element;
+      this.self.emit("selected", this.self.selected);
     },
 
 
@@ -291,6 +288,8 @@ qx.Class.define("qx.ui.control.Picker",
 
         slotModel.on("changeBubble", this._onSlotDataChange, scrollContainer);
         slotModel.on("change", this._onSlotDataChange, scrollContainer);
+
+        this.selected = this.find("*[data-row=0]");
       }
     },
 
@@ -300,7 +299,7 @@ qx.Class.define("qx.ui.control.Picker",
      * @param slotIndex {Integer} the index of the target picker slot.
      */
     removeSlot : function(slotIndex) {
-      if(this._pickerModel.length > slotIndex && slotIndex > -1) {
+      if (this._pickerModel.length > slotIndex && slotIndex > -1) {
         var slotModel = this._pickerModel.getItem(slotIndex);
         var scrollContainer = this._slots.getItem(slotIndex).container;
 
@@ -317,6 +316,8 @@ qx.Class.define("qx.ui.control.Picker",
 
         this._pickerModel.removeAt(slotIndex);
         this._slots.removeAt(slotIndex);
+
+        this.selected = this.find("*[data-row=0]");
       }
     },
 

@@ -185,12 +185,13 @@ qx.Class.define("mobileshowcase.page.Dialog",
     */
     _createPicker : function(anchor) {
       var picker = this.__picker = new qx.ui.control.Picker();
-      picker.on("changeSelection", this.__onPickerChangeSelection,this);
 
       this.__pickerDaySlotData = this._createDayPickerSlot(0, new Date().getFullYear());
       picker.addSlot(this.__pickerDaySlotData);
       picker.addSlot(this._createMonthPickerSlot());
       picker.addSlot(this._createYearPickerSlot());
+
+      picker.on("selected", this.__onPickerChangeSelection,this);
 
       var hidePickerButton = new qx.ui.Button("OK");
       hidePickerButton.on("tap", function(e) {
@@ -287,11 +288,16 @@ qx.Class.define("mobileshowcase.page.Dialog",
     /**
      * Reacts on "changeSelection" event on picker, and displays the values on resultsLabel.
      */
-    __onPickerChangeSelection : function(data) {
-      if (data.slot > 0) {
-        setTimeout(this._updatePickerDaySlot.bind(this), 100);
-      }
-      this.__resultsLabel.value = "Received <b>changeSelection</b> from Picker Dialog. [slot: "+ data.slot+ "] [item: "+ data.item.title+"]";
+    __onPickerChangeSelection : function(selected) {
+      setTimeout(this._updatePickerDaySlot.bind(this), 100);
+
+      var label = "Picker selection changed: ";
+      selected.forEach(function(el, slotIndex) {
+        var rowIndex = parseInt(qxWeb(el).getData("row"), 10);
+        var item = this.__picker.getModel().getItem(slotIndex).getItem(rowIndex);
+        label = label + " [slot " + slotIndex + ": " + item.title + "]";
+      }.bind(this));
+      this.__resultsLabel.value = label;
     },
 
 
@@ -299,6 +305,7 @@ qx.Class.define("mobileshowcase.page.Dialog",
     * Updates the shown days in the picker slot.
     */
     _updatePickerDaySlot : function() {
+      return; //TODO
       var dayIndex = this.__picker.getSelectedIndex(0);
       var monthIndex = this.__picker.getSelectedIndex(1);
       var yearIndex = this.__picker.getSelectedIndex(2);

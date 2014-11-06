@@ -59,4 +59,104 @@ describe("mobile.control.Picker", function() {
     picker.dispose();
   });
 
+
+  it("DefaultSelection", function() {
+    var picker = new qx.ui.control.Picker()
+      .appendTo(getRoot());
+
+    var pickerSlot1 = new qx.data.Array(["a", "b", "c"]);
+    var pickerSlot2 = new qx.data.Array(["0", "1", "2"]);
+    picker.addSlot(pickerSlot1);
+    picker.addSlot(pickerSlot2);
+
+    var sel = picker.find("*[data-row=0]");
+    assert.equal(sel[0], picker.selected[0]);
+    assert.equal(sel[1], picker.selected[1]);
+
+    picker.dispose();
+  });
+
+
+  it("SelectionAddSlot", function() {
+    var picker = new qx.ui.control.Picker()
+      .appendTo(getRoot());
+
+    var pickerSlot1 = new qx.data.Array(["a", "b", "c"]);
+    var pickerSlot2 = new qx.data.Array(["0", "1", "2"]);
+
+    picker.addSlot(pickerSlot1);
+    var sel = picker.find("*[data-row=0]");
+    assert.equal(sel[0], picker.selected[0]);
+
+    picker.addSlot(pickerSlot2);
+    sel = picker.find("*[data-row=0]");
+    assert.equal(sel[0], picker.selected[0]);
+    assert.equal(sel[1], picker.selected[1]);
+
+    picker.dispose();
+  });
+
+
+  it("SelectionRemoveSlot", function() {
+    var picker = new qx.ui.control.Picker()
+      .appendTo(getRoot());
+
+    var pickerSlot1 = new qx.data.Array(["a", "b", "c"]);
+    var pickerSlot2 = new qx.data.Array(["0", "1", "2"]);
+
+    picker.addSlot(pickerSlot1);
+    picker.addSlot(pickerSlot2);
+
+    var sel = picker.find("*[data-row=0]");
+    assert.equal(sel[0], picker.selected[0]);
+    assert.equal(sel[1], picker.selected[1]);
+
+    picker.removeSlot(1);
+    sel = picker.find("*[data-row=0]");
+    assert.equal(1, sel.length);
+    assert.equal(sel[0], picker.selected[0]);
+    assert.equal(1, picker.selected.length);
+
+    picker.dispose();
+  });
+
+
+  it("Selected", function() {
+    var picker = new qx.ui.control.Picker()
+      .appendTo(getRoot());
+
+    var pickerSlot1 = new qx.data.Array(["a", "b", "c"]);
+    var pickerSlot2 = new qx.data.Array(["0", "1", "2"]);
+    picker.addSlot(pickerSlot1);
+    picker.addSlot(pickerSlot2);
+    var spy = sinon.spy();
+    picker.on("selected", spy);
+    var selection = picker.find("*[data-row=2]");
+    picker.selected = selection;
+    sinon.assert.calledOnce(spy);
+    assert.equal(selection[0], spy.args[0][0][0]);
+    assert.equal(selection[1], spy.args[0][0][1]);
+
+    picker.dispose();
+  });
+
+
+  it("SelectInvalid", function() {
+    var picker = new qx.ui.control.Picker()
+      .appendTo(getRoot());
+
+    var pickerSlot1 = new qx.data.Array(["a", "b", "c"]);
+    var pickerSlot2 = new qx.data.Array(["0", "1", "2"]);
+    picker.addSlot(pickerSlot1);
+    picker.addSlot(pickerSlot2);
+    var spy = sinon.spy();
+    picker.on("selected", spy);
+    var selection = ["affe"];
+    assert.throws(function() {
+      picker.selected = selection;
+    });
+
+    picker.dispose();
+  });
+
 });
