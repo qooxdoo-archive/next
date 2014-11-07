@@ -75,7 +75,6 @@ qx.Class.define("qx.ui.dialog.Popup",
     this.super(qx.ui.Widget, "constructor", element);
     this.exclude();
 
-    this.__child = widget;
     this.__anchor = anchor;
 
     qxWeb(document.body).append(this);
@@ -142,7 +141,6 @@ qx.Class.define("qx.ui.dialog.Popup",
   members :
   {
     __isShown : false,
-    __child : null,
     __childrenContainer : null,
     __percentageTop : null,
     __anchor: null,

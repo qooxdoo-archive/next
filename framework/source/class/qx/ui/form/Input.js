@@ -20,12 +20,11 @@
 ************************************************************************ */
 
 /**
- * Abstract class for all input fields.
+ * Base class for all input fields.
  * @require(qx.module.AnimationFrame)
  */
 qx.Class.define("qx.ui.form.Input",
 {
-  // ABSTRACT
   extend : qx.ui.Widget,
 
   include : [
