@@ -202,6 +202,7 @@ qx.Class.define("qx.ui.control.Calendar", {
      * Re-build the calendar UI
      */
     _render: function() {
+      this._disposeMonthElements();
       this.showDate(this.__displayedDate);
     },
 
@@ -458,13 +459,18 @@ qx.Class.define("qx.ui.control.Calendar", {
       el.find("." + this.defaultCssClass + "-day").off("tap", this._selectDay, this);
     },
 
-
-    dispose : function() {
+    _disposeMonthElements: function() {
       for (var key in this.__monthElements) {
         this._removeListeners(this.__monthElements[key]);
          this.__monthElements[key].setHtml("");
         this.__monthElements[key] = undefined;
       }
+      this.__monthElements = {};
+    },
+
+
+    dispose : function() {
+      this._disposeMonthElements();
       this._removeListeners(this);
       this.off("keydown", this._onKeyDown, this);
 
