@@ -149,5 +149,36 @@ Samples = {
         alert("Loggin in " + user.value);
       }
     }, this);
+  },
+
+  "sample Calendar with selection" : function() {
+    qx.Class.define("DateSelector", {
+
+      extend: qx.ui.control.Calendar,
+
+      members: {
+        _selected: null,
+
+        showDate: function(date) {
+          this.super(qx.ui.control.Calendar, "showDate", date);
+          if (this._selected) {
+            this.find("." + this.defaultCssClass + "-day").forEach(function(el) {
+              if (el.getAttribute("value") == this._selected) {
+                qxWeb(el).getParents().addClass("selected");
+              }
+            }.bind(this));
+          }
+        },
+
+        _selectDay : function(e) {
+          this.super(qx.ui.control.Calendar, "_selectDay", e);
+          this.find("td").removeClass("selected");
+          qxWeb(e.target).getParents().addClass("selected");
+          this._selected = e.target.getAttribute("value");
+        }
+      }
+    });
+
+    new DateSelector().appendTo(this.getRoot());
   }
-}
+};
