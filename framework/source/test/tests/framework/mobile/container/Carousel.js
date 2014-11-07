@@ -80,10 +80,10 @@ describe("mobile.container.Carousel", function() {
 
     // OVERFLOW
     carousel.nextPage();
-    assert.equal(1, carousel.currentIndex);
+    assert.equal(0, carousel.currentIndex);
 
     carousel.previousPage();
-    assert.equal(0, carousel.currentIndex);
+    assert.equal(1, carousel.currentIndex);
 
     // OVERFLOW
     carousel.previousPage();

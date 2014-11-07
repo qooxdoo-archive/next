@@ -21,7 +21,8 @@ describe("mobile.form.TextField", function() {
 
   beforeEach(function() {
     setUpRoot();
-    __tf = new qx.ui.form.TextField();
+    __tf = new qx.ui.form.TextField()
+      .appendTo(getRoot());
   });
 
 
