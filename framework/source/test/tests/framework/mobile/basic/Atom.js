@@ -161,14 +161,14 @@ describe("mobile.basic.Atom", function()
   it("Factory", function() {
     var imagePath = "../resource/qx/icon/Tango/48/places/user-home.png";
     var imageUri = qx.util.ResourceManager.getInstance().toUri(imagePath);
-    var text = "myText";
+    var label = "myText";
     var atom = q.create('<div></div>')
-      .toAtom(text, imageUri)
+      .toAtom(label, imageUri)
       .appendTo(getRoot());
 
     assert.instanceOf(atom, qx.ui.basic.Atom);
     assert.equal(atom, atom[0].$$widget);
-    assert.equal(text, atom.text);
+    assert.equal(label, atom.label);
     assert.equal(imageUri, atom.icon);
     assert.equal("qx.ui.basic.Atom", atom.getData("qxWidget"));
     atom.remove().dispose();
