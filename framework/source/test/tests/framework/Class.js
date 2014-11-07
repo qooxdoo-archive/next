@@ -523,10 +523,11 @@ describe("Class", function() {
 
   it("PropertyChecks", function() {
     var O = qx.Class.define(null, {
-      implement: [qx.ui.core.ISingleSelectionProvider],
+      implement: [qx.application.IApplication],
       members: {
-        getItems: function() {},
-        isItemSelectable: function() {}
+        main : function() {},
+        close : function() {},
+        terminate : function() {}
       }
     });
 
@@ -563,7 +564,7 @@ describe("Class", function() {
           check: "qx.dev.unit.TestClass"
         },
         i: {
-          check: "qx.ui.core.ISingleSelectionProvider"
+          check: "qx.application.IApplication"
         }
       }
     });
