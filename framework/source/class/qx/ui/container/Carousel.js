@@ -455,7 +455,10 @@ qx.Class.define("qx.ui.container.Carousel",
     * @param page {qx.ui.Widget} The page which should be centered.
     */
     _centerPage : function(page) {
-
+      // Quick fix for [Bug #8684]
+      if (!page) {
+        return;
+      }
       // get the center of the clipper element
       var clipperCenter = this.__carouselWidth/2;
 
