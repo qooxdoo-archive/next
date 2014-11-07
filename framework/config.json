@@ -30,6 +30,7 @@
     "lint-test",
     "provider",
     "pretty-test",
+    "source-all",
     "test",
     "test-inline",
     "test-source",
@@ -81,6 +82,7 @@
       "lint",
       "provider-deps",
       "provider-classes",
+      "source-all",
       "test",
       "test-source",
       "test-inline",
@@ -140,6 +142,21 @@
       "config-warnings" :
       {
         "exclude" : ["qx.test.*", "qx.Part", "qx.io.part.*", "qx.core.Init"]
+      }
+    },
+
+    "source-all": {
+
+      "=include": ["qx.*"],
+      "=exclude": ["qx.test.*", "qx.Part", "qx.io.part.*", "qx.dev.unit.Sinon"],
+
+      "compile-options": {
+        "paths" :
+        {
+          "file"     : "source/script/qx-source.js",
+          "app-root" : "${BUILD_PATH}",
+          "loader-template" : "../tool/data/generator/website.loader.source.tmpl.js"
+        }
       }
     },
 
