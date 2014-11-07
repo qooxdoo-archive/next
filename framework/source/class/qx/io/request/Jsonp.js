@@ -45,7 +45,7 @@
  *   req.getStatus();
  *
  *   // "success"
- *   req.getPhase();
+ *   req.phase;
  *
  *   // JSON response
  *   req.getResponse();

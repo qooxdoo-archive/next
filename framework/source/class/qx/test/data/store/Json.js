@@ -555,7 +555,7 @@ qx.Class.define("qx.test.data.store.Json",
       this.__store.on("error", function(req)
       {
         this.resume(function() {
-          this.assertEquals("statusError", req.getPhase());
+          this.assertEquals("statusError", req.phase;
         }, this);
       }, this);
 

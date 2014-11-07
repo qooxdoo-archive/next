@@ -338,7 +338,7 @@ qx.Class.define("qx.io.rest.Resource",
         onsuccess: {
           callback: function(req, action) {
             return function() {
-              var data = this._createEventData(req.getResponse(), req, action, req.getPhase());
+              var data = this._createEventData(req.getResponse(), req, action, req.phase;
               this.emit(action + "Success", data);
               this.emit("success", data);
             };
@@ -348,7 +348,7 @@ qx.Class.define("qx.io.rest.Resource",
         onfail: {
           callback: function(req, action) {
             return function() {
-              var data = this._createEventData(req.getResponse(), req, action, req.getPhase());
+              var data = this._createEventData(req.getResponse(), req, action, req.phase;
               this.emit(action + "Error", data);
               this.emit("error", data);
             };
