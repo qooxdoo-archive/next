@@ -120,6 +120,8 @@ describe("bom.Location", function() {
     assert.equal(15, pos.left);
     assert.equal(25, pos.top);
 
+    document.body.scrollTop = 0;
+    document.body.scrollLeft = 0;
     pos = qx.bom.element.Location.get(document.body, "scroll");
     assert.equal(15, pos.left);
     assert.equal(25, pos.top);

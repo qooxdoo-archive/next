@@ -19,8 +19,17 @@
 
 describe("bom.Selector", function() {
 
+  beforeEach(function() {
+    setUpRoot();
+    this.sandbox = q.create("<div id='sandbox'></div>").appendTo(getRoot());
+  });
+
+  afterEach(function() {
+    this.sandbox.setHtml("").remove();
+    tearDownRoot();
+  });
+
   it("ElementClass", function() {
-    var sandbox = q.create("<div id='sandbox'></div>").appendTo(document.body);
     var Element = qx.dom.Element;
     var Attribute = qx.bom.element.Attribute;
 
@@ -31,11 +40,9 @@ describe("bom.Selector", function() {
         "id": "setid" + i
       });
 
-      sandbox.append(el);
+      this.sandbox.append(el);
     }
-    assert.equal(250, qx.bom.Selector.query("ul.fromcode", document.body).length);
-    assert.equal(755, qx.bom.Selector.query("ul > li").length);
-
-    sandbox.remove();
+    assert.equal(250, qx.bom.Selector.query("#sandbox ul.fromcode", getRoot()[0]).length);
+    assert.equal(750, qx.bom.Selector.query("#sandbox ul > li").length);
   });
 });
