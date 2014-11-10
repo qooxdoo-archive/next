@@ -18,19 +18,16 @@
 ************************************************************************ */
 describe("bom.element.Transform", function() {
 
-  var __el = null;
-  var __keys = null;
-
   beforeEach(function() {
-    __keys = qx.core.Environment.get("css.transform");
-    __el = {
+    this.__keys = qx.core.Environment.get("css.transform");
+    this.__el = {
       style: {}
     };
   });
 
   afterEach(function() {
-    __el = null;
-    __keys = null;
+    this.__el = null;
+    this.__keys = null;
   });
 
 
@@ -39,41 +36,41 @@ describe("bom.element.Transform", function() {
    */
 
   it("Translate", function() {
-    qx.bom.element.Transform.translate(__el, "123px");
+    qx.bom.element.Transform.translate(this.__el, "123px");
 
-    assert.isTrue(__el.style[__keys.name].indexOf("translate(123px)") != -1);
+    assert.isTrue(this.__el.style[this.__keys.name].indexOf("translate(123px)") != -1);
   });
 
 
   it("Rotate", function() {
-    qx.bom.element.Transform.rotate(__el, "123deg");
+    qx.bom.element.Transform.rotate(this.__el, "123deg");
 
-    assert.isTrue(__el.style[__keys.name].indexOf("rotate(123deg)") != -1);
+    assert.isTrue(this.__el.style[this.__keys.name].indexOf("rotate(123deg)") != -1);
   });
 
 
   it("Skew", function() {
-    qx.bom.element.Transform.skew(__el, "123deg");
+    qx.bom.element.Transform.skew(this.__el, "123deg");
 
-    assert.isTrue(__el.style[__keys.name].indexOf("skew(123deg)") != -1);
+    assert.isTrue(this.__el.style[this.__keys.name].indexOf("skew(123deg)") != -1);
   });
 
 
   it("Scale", function() {
-    qx.bom.element.Transform.scale(__el, 1.5);
+    qx.bom.element.Transform.scale(this.__el, 1.5);
 
-    assert.isTrue(__el.style[__keys.name].indexOf("scale(1.5)") != -1);
+    assert.isTrue(this.__el.style[this.__keys.name].indexOf("scale(1.5)") != -1);
   });
 
 
   it("Transform", function() {
-    qx.bom.element.Transform.transform(__el, {
+    qx.bom.element.Transform.transform(this.__el, {
       scale: 1.2,
       translate: "123px"
     });
 
-    assert.isTrue(__el.style[__keys.name].indexOf("translate(123px)") != -1);
-    assert.isTrue(__el.style[__keys.name].indexOf("scale(1.2)") != -1);
+    assert.isTrue(this.__el.style[this.__keys.name].indexOf("translate(123px)") != -1);
+    assert.isTrue(this.__el.style[this.__keys.name].indexOf("scale(1.2)") != -1);
   });
 
 
@@ -83,7 +80,7 @@ describe("bom.element.Transform", function() {
       translate: "123px"
     });
     var sheet = qx.bom.Stylesheet.createElement();
-    qx.bom.Stylesheet.addRule(sheet, ".test", css);
+    qx.bom.Stylesheet.addRule(sheet, ".ldsakjf", css);
     var computedRule = sheet.cssRules[0].cssText;
 
     assert.isTrue(computedRule.indexOf("translate(123px)") != -1, "Found: " + computedRule);
@@ -111,16 +108,16 @@ describe("bom.element.Transform", function() {
    */
 
   it("3D", function() {
-    qx.bom.element.Transform.translate(__el, ["1px", "2px", "3px"]);
+    qx.bom.element.Transform.translate(this.__el, ["1px", "2px", "3px"]);
 
     // 3d property
     if (qx.core.Environment.get("css.transform.3d")) {
-      assert.isTrue(__el.style[__keys.name].indexOf("translate3d(1px, 2px, 3px)") != -1, "translate3d");
+      assert.isTrue(this.__el.style[this.__keys.name].indexOf("translate3d(1px, 2px, 3px)") != -1, "translate3d");
     }
 
     // 2d property
     else {
-      assert.isTrue(__el.style[__keys.name].indexOf("translateX(1px) translateY(2px)") != -1);
+      assert.isTrue(this.__el.style[this.__keys.name].indexOf("translateX(1px) translateY(2px)") != -1);
     }
   });
 
@@ -161,7 +158,7 @@ describe("bom.element.Transform", function() {
     var value = qx.bom.element.Transform.getCss({
       scale: 1.2
     });
-    assert.equal(qx.bom.Style.getCssName(__keys.name) + ":scale(1.2);", value);
+    assert.equal(qx.bom.Style.getCssName(this.__keys.name) + ":scale(1.2);", value);
   });
 
 
@@ -170,37 +167,37 @@ describe("bom.element.Transform", function() {
    */
 
   it("Origin", function() {
-    qx.bom.element.Transform.setOrigin(__el, "30% 20%");
-    assert.equal("30% 20%", __el.style[__keys["origin"]]);
-    assert.equal("30% 20%", qx.bom.element.Transform.getOrigin(__el));
+    qx.bom.element.Transform.setOrigin(this.__el, "30% 20%");
+    assert.equal("30% 20%", this.__el.style[this.__keys["origin"]]);
+    assert.equal("30% 20%", qx.bom.element.Transform.getOrigin(this.__el));
   });
 
 
   it("Style", function() {
-    qx.bom.element.Transform.setStyle(__el, "affe");
-    assert.equal("affe", __el.style[__keys["style"]]);
-    assert.equal("affe", qx.bom.element.Transform.getStyle(__el));
+    qx.bom.element.Transform.setStyle(this.__el, "affe");
+    assert.equal("affe", this.__el.style[this.__keys["style"]]);
+    assert.equal("affe", qx.bom.element.Transform.getStyle(this.__el));
   });
 
 
   it("Perspective", function() {
-    qx.bom.element.Transform.setPerspective(__el, 123);
-    assert.equal("123px", __el.style[__keys["perspective"]]);
-    assert.equal("123px", qx.bom.element.Transform.getPerspective(__el));
+    qx.bom.element.Transform.setPerspective(this.__el, 123);
+    assert.equal("123px", this.__el.style[this.__keys["perspective"]]);
+    assert.equal("123px", qx.bom.element.Transform.getPerspective(this.__el));
   });
 
 
   it("PerspectiveOrigin", function() {
-    qx.bom.element.Transform.setPerspectiveOrigin(__el, "30% 10%");
-    assert.equal("30% 10%", __el.style[__keys["perspective-origin"]]);
-    assert.equal("30% 10%", qx.bom.element.Transform.getPerspectiveOrigin(__el));
+    qx.bom.element.Transform.setPerspectiveOrigin(this.__el, "30% 10%");
+    assert.equal("30% 10%", this.__el.style[this.__keys["perspective-origin"]]);
+    assert.equal("30% 10%", qx.bom.element.Transform.getPerspectiveOrigin(this.__el));
   });
 
 
   it("BackfaceVisibility", function() {
-    qx.bom.element.Transform.setBackfaceVisibility(__el, true);
-    assert.equal("visible", __el.style[__keys["backface-visibility"]]);
-    assert.isTrue(qx.bom.element.Transform.getBackfaceVisibility(__el));
+    qx.bom.element.Transform.setBackfaceVisibility(this.__el, true);
+    assert.equal("visible", this.__el.style[this.__keys["backface-visibility"]]);
+    assert.isTrue(qx.bom.element.Transform.getBackfaceVisibility(this.__el));
   });
 
 
@@ -240,7 +237,7 @@ describe("bom.element.Transform", function() {
 
 
   it("TransformArray", function() {
-    qx.bom.element.Transform.transform(__el, {
+    qx.bom.element.Transform.transform(this.__el, {
       translate: ["1px", "2px", "3px"],
       scale: [1, 2, 3],
       rotate: ["1deg", "2deg", "3deg"],
@@ -249,19 +246,19 @@ describe("bom.element.Transform", function() {
 
     // 3d property
     if (qx.core.Environment.get("css.transform.3d")) {
-      assert.isTrue(__el.style[__keys.name].indexOf("translate3d(1px, 2px, 3px)") != -1, "translate3d");
-      assert.isTrue(__el.style[__keys.name].indexOf("scale3d(1, 2, 3)") != -1, "scale3d");
+      assert.isTrue(this.__el.style[this.__keys.name].indexOf("translate3d(1px, 2px, 3px)") != -1, "translate3d");
+      assert.isTrue(this.__el.style[this.__keys.name].indexOf("scale3d(1, 2, 3)") != -1, "scale3d");
 
-      assert.isTrue(__el.style[__keys.name].indexOf("rotateZ(3deg)") != -1, "rotate");
-      assert.isTrue(__el.style[__keys.name].indexOf("skewX(1deg) skewY(2deg)") != -1, "skew");
+      assert.isTrue(this.__el.style[this.__keys.name].indexOf("rotateZ(3deg)") != -1, "rotate");
+      assert.isTrue(this.__el.style[this.__keys.name].indexOf("skewX(1deg) skewY(2deg)") != -1, "skew");
     }
 
     // 2d property
     else {
-      assert.isTrue(__el.style[__keys.name].indexOf("translateX(1px) translateY(2px)") != -1, "translate");
-      assert.isTrue(__el.style[__keys.name].indexOf("scaleX(1) scaleY(2)") != -1, "scale");
+      assert.isTrue(this.__el.style[this.__keys.name].indexOf("translateX(1px) translateY(2px)") != -1, "translate");
+      assert.isTrue(this.__el.style[this.__keys.name].indexOf("scaleX(1) scaleY(2)") != -1, "scale");
 
-      assert.isTrue(__el.style[__keys.name].indexOf("skewX(1deg) skewY(2deg)") != -1, "skew");
+      assert.isTrue(this.__el.style[this.__keys.name].indexOf("skewX(1deg) skewY(2deg)") != -1, "skew");
     }
   });
 });
