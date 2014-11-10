@@ -298,7 +298,7 @@ qx.Class.define("testrunner.runner.TestRunnerBasic", {
         this.error("Couldn't get test descriptions from loader!");
         return null;
       }
-      return qx.lang.Json.parse(testRep);
+      return JSON.parse(testRep);
     },
 
 

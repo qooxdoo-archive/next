@@ -82,7 +82,7 @@ qx.Mixin.define("qx.dev.unit.MRequirements", {
 
       req.on("load", function() {
         try {
-          qx.lang.Json.parse(req.responseText);
+          JSON.parse(req.responseText);
           qx.dev.unit.MRequirements.__hasPhp = true;
         } catch(ex) {
           qx.dev.unit.MRequirements.__hasPhp = false;

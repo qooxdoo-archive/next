@@ -82,7 +82,7 @@ qx.Class.define("testrunner.ApplicationBasic", {
       if (opts) {
         opts = opts.replace(/\\\{/g, "{").replace(/\\\}/g, "}");
         try {
-          opts = qx.lang.Json.parse(opts);
+          opts = JSON.parse(opts);
         } catch(ex) {
           var msg = ex.toString() + "\nMake sure none of the command line"
           + " settings contain paths with spaces!";

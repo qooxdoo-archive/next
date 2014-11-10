@@ -301,8 +301,8 @@ qx.Class.define("qx.io.request.Jsonp",
 
       // Sanitize and parse
       if (qx.core.Environment.get("qx.debug")) {
-        data = qx.lang.Json.stringify(data);
-        data = qx.lang.Json.parse(data);
+        data = JSON.stringify(data);
+        data = JSON.parse(data);
       }
 
       // Set response

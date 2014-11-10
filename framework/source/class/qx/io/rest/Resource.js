@@ -641,7 +641,7 @@ qx.Class.define("qx.io.rest.Resource",
 
         if (req.method && qx.util.Request.methodAllowsRequestBody(req.method)) {
           if ((/application\/.*\+?json/).test(contentType)) {
-            data = qx.lang.Json.stringify(data);
+            data = JSON.stringify(data);
             req.requestData = data;
           }
         }

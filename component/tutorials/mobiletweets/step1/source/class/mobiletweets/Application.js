@@ -155,7 +155,7 @@ qx.Class.define("mobiletweets.Application",
     // property apply
     _applyTweets : function(value, old) {
       // print the loaded data in the console
-      this.debug("Tweets: ", qx.lang.Json.stringify(value)); // just display the data
+      this.debug("Tweets: ", JSON.stringify(value)); // just display the data
     },
 
 

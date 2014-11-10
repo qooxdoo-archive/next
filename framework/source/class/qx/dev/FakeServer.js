@@ -39,7 +39,7 @@
  *         var responseData = {
  *           description: "Mock REST response for resource " + request.url
  *         };
- *         var body = qx.lang.Json.stringify(responseData);
+ *         var body = JSON.stringify(responseData);
  *         request.respond(status, headers, body);
  *       }
  *     },
@@ -49,7 +49,7 @@
  *       response: [
  *         200,
  *         { "Content-Type": "application/json" },
- *         qx.lang.Json.stringify({userId: 'someUser'})
+ *         JSON.stringify({userId: 'someUser'})
  *       ]
  *     }
  *   ];

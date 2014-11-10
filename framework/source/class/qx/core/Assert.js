@@ -104,7 +104,7 @@ qx.Class.define("qx.core.Assert",
         stringValue = "Array[" + value.length + "]";
       } else if ((value instanceof Object) && (value.toString == null))
       {
-        stringValue = qx.lang.Json.stringify(value, null, 2);
+        stringValue = JSON.stringify(value, null, 2);
       } else
       {
         try {
@@ -305,8 +305,8 @@ qx.Class.define("qx.core.Assert",
      */
     assertJsonEquals : function(expected, found, msg) {
       this.assertEquals(
-        qx.lang.Json.stringify(expected),
-        qx.lang.Json.stringify(found),
+        JSON.stringify(expected),
+        JSON.stringify(found),
         msg
       );
     },

@@ -706,7 +706,7 @@ qx.Class.define("playground.Application",
     __parseURLCode : function(state)
     {
       try {
-        var data = qx.lang.Json.parse(state);
+        var data = JSON.parse(state);
         // change the mode in case a different mode is given
         if (data.mode && data.mode != this.__mode) {
           this.setMode(data.mode);

@@ -81,7 +81,7 @@ qx.Class.define("apiviewer.ui.panels.ConstantPanel", {
       if (this.__hasConstantValueHtml(node)) {
         var value = node.getValue();
         if (typeof value !== "string") {
-          value = qx.lang.Json.stringify(value);
+          value = JSON.stringify(value);
         }
         value = qx.bom.String.escape(value);
         var html = new qx.util.StringBuilder(

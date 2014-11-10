@@ -425,7 +425,7 @@ qx.Class.define("qx.test.io.rest.Resource",
       res.post({id: 1}, data);
 
       this.assertJsonEquals('{"location":"Karlsruhe"}', req.requestData);
-      this.assertCalledWith(qx.lang.Json.stringify, data);
+      this.assertCalledWith(JSON.stringify, data);
     },
 
     "test: invoke action when content type json and get": function() {
@@ -436,7 +436,7 @@ qx.Class.define("qx.test.io.rest.Resource",
       req.getRequestHeader.withArgs("Content-Type").returns("application/json");
       res.get();
 
-      this.assertNotCalled(qx.lang.Json.stringify);
+      this.assertNotCalled(JSON.stringify);
     },
 
     "test: invoke action for url with port": function() {

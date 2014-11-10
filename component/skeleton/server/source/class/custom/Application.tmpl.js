@@ -76,7 +76,7 @@ qx.Class.define("${Namespace}.Application",
       }
       if (opts) {
         opts = opts.replace(/\\\{/g, "{").replace(/\\\}/g, "}");
-        opts = qx.lang.Json.parse(opts);
+        opts = JSON.parse(opts);
         for (var prop in opts) {
           var value = opts[prop];
           if (typeof value == "string") {

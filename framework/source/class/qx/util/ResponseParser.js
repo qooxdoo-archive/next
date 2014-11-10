@@ -46,7 +46,7 @@ qx.Class.define("qx.util.ResponseParser",
      * Known parsers are: <code>"json"</code> and <code>"xml"</code>.
      */
     PARSER: {
-      json: qx.lang.Json.parse,
+      json: JSON.parse,
       xml: qx.xml.Document.fromString
     }
   },

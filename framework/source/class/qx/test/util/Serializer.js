@@ -281,7 +281,7 @@ qx.Class.define("qx.test.util.Serializer",
       this.__model.data3 = ("c");
 
       var json = this.__s.toJson(this.__model);
-      var model = qx.data.marshal.Json.createModel(qx.lang.Json.parse(json));
+      var model = qx.data.marshal.Json.createModel(JSON.parse(json));
 
       this.assertEquals(this.__model.data1, model.data1);
       this.assertEquals(this.__model.data2[0], model.data2.getItem(0));

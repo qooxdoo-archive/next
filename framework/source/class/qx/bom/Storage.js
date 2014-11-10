@@ -103,7 +103,7 @@ qx.Class.define("qx.bom.Storage", {
      * @param value {var} The data, which will be stored as JSON.
      */
     setItem : function(key, value) {
-      value = qx.lang.Json.stringify(value);
+      value = JSON.stringify(value);
       try {
         this.getStorage(this.__type).setItem(key, value);
       } catch (e) {
@@ -122,10 +122,10 @@ qx.Class.define("qx.bom.Storage", {
       var item = this.getStorage(this.__type).getItem(key);
 
       if (qx.lang.Type.isString(item)) {
-        item = qx.lang.Json.parse(item);
+        item = JSON.parse(item);
       // special case for FF3
       } else if (item && item.value && qx.lang.Type.isString(item.value)) {
-        item = qx.lang.Json.parse(item.value);
+        item = JSON.parse(item.value);
       }
 
       return item;

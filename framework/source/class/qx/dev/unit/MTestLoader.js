@@ -138,7 +138,7 @@ qx.Mixin.define("qx.dev.unit.MTestLoader", {
         desc.push(clsDesc);
       }
 
-      return qx.lang.Json.stringify(desc);
+      return JSON.stringify(desc);
     },
 
 

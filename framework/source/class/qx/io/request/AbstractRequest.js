@@ -797,7 +797,7 @@ qx.Class.define("qx.io.request.AbstractRequest",
       }
 
       if (isJson && (qx.lang.Type.isObject(data) || qx.lang.Type.isArray(data))) {
-        return qx.lang.Json.stringify(data);
+        return JSON.stringify(data);
       }
 
       if (qx.lang.Type.isObject(data)) {
