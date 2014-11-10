@@ -55,16 +55,6 @@ describe("dev.StackTrace", function() {
   });
 
 
-  it("FilenameConverterDefault", function() {
-
-    var ex = new Error("Just a test");
-    var stack = qx.dev.StackTrace.getStackTraceFromError(ex);
-    for (var i = 0, l = stack.length; i < l; i++) {
-      assert.match(stack[i], /((?:test\.dev\.StackTrace)|(?:dev\.unit)|(?:testrunner\.js)|(?:tests\.js))/);
-    }
-  });
-
-
   it("FilenameConverterCustom", function() {
     var converter = function(fileName) {
       assert.isString(fileName);
