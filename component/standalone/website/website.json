@@ -6,8 +6,6 @@
     {
       "path" : "${QOOXDOO_PATH}/tool/data/config/application.json",
       "block" : [
-        "test-source",
-        "test",
         "build",
         "source",
         "source-server",
