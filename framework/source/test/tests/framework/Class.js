@@ -706,6 +706,8 @@ describe("Class", function() {
       });
     });
 
+    delete C;
+    delete D;
   });
 
 
@@ -724,6 +726,8 @@ describe("Class", function() {
         }
       });
     });
+
+    delete A;
   });
 
 
