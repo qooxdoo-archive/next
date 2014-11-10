@@ -86,6 +86,7 @@ describe("bom.Stylesheet", function() {
     for (var i = 0, l = linkElems.length; i < l; i++) {
       if (linkElems[i].href.match(/test\/style\.css/)) {
         found = true;
+        linkElems[i].parentNode.removeChild(linkElems[i]);
         break;
       }
     }
