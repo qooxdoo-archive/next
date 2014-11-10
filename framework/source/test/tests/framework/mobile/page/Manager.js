@@ -30,13 +30,13 @@ describe("mobile.page.Manager", function() {
 
 
   it("Create", function() {
-    var manager = new qx.ui.page.Manager();
+    var manager = new qx.ui.page.Manager(undefined, qxWeb(document.body));
     manager.dispose();
   });
 
 
   it("AddTablet", function() {
-    var manager = new qx.ui.page.Manager(true);
+    var manager = new qx.ui.page.Manager(true, qxWeb(document.body));
     var page = new qx.ui.page.NavigationPage();
     manager.addMaster([page]);
     manager.addDetail([page]);
@@ -45,7 +45,7 @@ describe("mobile.page.Manager", function() {
 
 
   it("AddMobile", function() {
-    var manager = new qx.ui.page.Manager(false);
+    var manager = new qx.ui.page.Manager(false, qxWeb(document.body));
     var page1 = new qx.ui.page.NavigationPage();
     var page2 = new qx.ui.page.NavigationPage();
     manager.addMaster([page1]);
