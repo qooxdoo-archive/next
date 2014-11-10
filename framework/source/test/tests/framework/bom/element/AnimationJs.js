@@ -18,6 +18,7 @@
 ************************************************************************ */
 describe("bom.element.AnimationJs", function ()
 {
+
   it("Stop", function(done) {
     var el = qx.dom.Element.create("div");
     var handle = qx.bom.element.AnimationJs.animate(el, {
@@ -38,18 +39,21 @@ describe("bom.element.AnimationJs", function ()
     setTimeout(function() {
       sinon.assert.notCalled(spy);
       done();
-    }, 500);
+    }, 300);
   });
 
 
   it("animate properties which are CSS properties and element attributes", function(done) {
     var el = qx.dom.Element.create("div");
-    qx.bom.element.Style.setStyles(el, { width: "200px", height: "200px" });
+    qx.bom.element.Style.setStyles(el, { width: "200px", height: "200px",
+    backgroundColor: "red" });
 
     document.body.appendChild(el);
+    // force re-rendering (fixes Chrome bug)
+    el.offsetWidth;
 
     var handle = qx.bom.element.Animation.animate(el, {
-      "duration": 100,
+      "duration": 30,
       "keyFrames": {
         0: {
           "width": "200px",
@@ -63,12 +67,12 @@ describe("bom.element.AnimationJs", function ()
       "keep": 100
     });
 
-    setTimeout( function() {
-      assert.equal("400px", qx.bom.element.Style.get(el, "width"));
-      assert.equal("400px", qx.bom.element.Style.get(el, "height"));
+    handle.on("end", function() {
+      assert.equal("400px", qx.bom.element.Style.get(el, "width"), "width");
+      assert.equal("400px", qx.bom.element.Style.get(el, "height"), "height");
       document.body.removeChild(el);
       done();
-    }, 500);
+    });
   });
 
 });
