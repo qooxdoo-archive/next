@@ -67,11 +67,8 @@ qx.Class.define("qx.ui.toolbar.ToolBar",
       */
     append : function(child, layoutProperties)
     {
-      if(!(child instanceof qx.ui.toolbar.Separator))
-      {
-        layoutProperties = layoutProperties ? layoutProperties : {};
-        qx.lang.Object.mergeWith(layoutProperties, {flex: 1}, false);
-      }
+      layoutProperties = layoutProperties ? layoutProperties : {};
+      qx.lang.Object.mergeWith(layoutProperties, {flex: 1}, false);
       child.layoutPrefs = layoutProperties;
       this.super(qx.ui.Widget, "append", child);
     }
