@@ -163,7 +163,7 @@ qx.Class.define("qx.ui.control.Picker",
      * Creates a picker slot.
      * @param slotModel {qx.data.Array} the picker slot model.
      * @param slotIndex {Number} the index of this slot.
-     * @param delegate {qx.ui.list.IListDelegate?null} the list delegate object for this slot list.
+     * @param delegate {Object?null} the list delegate object for this slot list.
      * @return {qx.ui.container.Scroll} the picker slot as a scroll container.
      */
     _createPickerSlot : function(slotModel, slotIndex, delegate) {
@@ -277,7 +277,7 @@ qx.Class.define("qx.ui.control.Picker",
     /**
      * Adds an picker slot to the end of the array.
      * @param slotModel {qx.data.Array} the picker slot model to display.
-     * @param delegate {qx.ui.list.IListDelegate?null} the list delegate object for this slot.
+     * @param delegate {Object?null} the list delegate object for this slot.
      */
     addSlot : function(slotModel, delegate) {
       if (slotModel !== null && slotModel instanceof qx.data.Array) {
