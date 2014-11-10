@@ -164,6 +164,7 @@ qx.Class.define("qx.ui.container.Carousel",
     currentIndex : {
       check : "Number",
       init : 0,
+      nullable : true,
       apply : "_scrollToPage",
       event : true
     },
@@ -341,10 +342,17 @@ qx.Class.define("qx.ui.container.Carousel",
         if(pageIndex == this.currentIndex) {
 
           if(this.currentIndex >= this.__pages.length) {
+
             if(this.__pages.length%2 == 1) {
               last.insertBefore(first);
             }
-            this.currentIndex = this.__pages.length - 1;
+
+            if((this.currentIndex >= this.__pages.length) && (this.__pages.length > 0)) {
+              this.currentIndex = this.__pages.length - 1;
+            } else if(this.__pages.length === 0) {
+              this.currentIndex = undefined;
+            }
+
             this._scrollToPage(this.currentIndex)
           } else {
             if(this.__pages.length%2 === 0) {
