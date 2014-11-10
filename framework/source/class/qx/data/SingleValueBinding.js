@@ -181,7 +181,7 @@ qx.Class.define("qx.data.SingleValueBinding",
               );
             } else {
               // try to set the initial value
-              if (propertyNames[i] != null && source[propertyNames[i]] != null) {
+              if (propertyNames[i] != null && propertyNames[i] in source) {
                 var currentValue = source[propertyNames[i]];
                 this.__setInitialValue(currentValue, targetObject, targetPropertyChain, options, sourceObject);
               }
@@ -223,7 +223,7 @@ qx.Class.define("qx.data.SingleValueBinding",
             var itemIndex = arrayIndexValues[i] === "last" ?
               source.length - 1 : arrayIndexValues[i];
             source = source.getItem(itemIndex);
-          } else if (source[propertyNames[i]] == null) {
+          } else if (!(propertyNames[i] in source)) {
             source = undefined;
           } else {
             source = source[propertyNames[i]];
