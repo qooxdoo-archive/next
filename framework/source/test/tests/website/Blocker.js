@@ -69,18 +69,6 @@ describe('Blocker', function() {
 
     var blockerDiv = document.$$blocker.div;
     assert.isTrue(q.$$qx.dom.Hierarchy.isRendered(blockerDiv[0]));
-
-    var os = q.env.get("os.name");
-    if (os == "android" || os == "ios") {
-      // in WebKit on Android and iOS, the blocker will sometimes be 1 pixel
-      // higher and/or wider than the viewport
-      assert.isTrue(Math.abs(blockerDiv.getWidth() - q(window).getWidth()) < 2);
-      assert.isTrue(Math.abs(blockerDiv.getHeight() - q(window).getHeight()) < 2);
-    } else {
-      assert.equal(q(window).getWidth(), blockerDiv.getWidth());
-      assert.equal(q(window).getHeight(), blockerDiv.getHeight());
-    }
-
     assert.equal(q(document.body).getChildren(":first")[0], blockerDiv[0]);
     assert.equal('fixed', blockerDiv.getStyle("position"));
     assert.equal('100%', blockerDiv[0].style.width);
