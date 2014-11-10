@@ -94,6 +94,24 @@ qx.Class.define("qx.io.request.Script",
     "load" : "qx.io.request.Script"
   },
 
+  properties: {
+    /**
+     * @type {Object} Delegator for events.
+     * Enables pre/post-processing injection.
+     *
+     * Set delegate functions. This is a possibility to run
+     * logic after/before handlers (e.g. __onNativeLoadBound).
+     *
+     * Note:
+     *  The handler functions (e.g. __onNativeLoadBound) have
+     *  then to be called manually!
+     */
+    delegate : {
+      init: null,
+      nullable: true
+    }
+  },
+
   members :
   {
 
@@ -563,10 +581,6 @@ qx.Class.define("qx.io.request.Script",
      */
     _disposed: null,
 
-    /**
-     * @type {Object} Delegator for events.
-     */
-    _delegate: null,
 
     /*
     ---------------------------------------------------------------------------
@@ -614,21 +628,6 @@ qx.Class.define("qx.io.request.Script",
       this.statusText = null;
     },
 
-
-    /**
-     * Set delegate functions. This is a possibility to run
-     * logic after/before handlers (e.g. __onNativeLoadBound).
-     *
-     * Note:
-     *  The handler functions (e.g. __onNativeLoadBound) have
-     *  then to be called manually!
-     *
-     * @param obj {Object} Contains overriden handler.
-     */
-    setDelegate: function(obj) {
-      this._delegate = obj;
-    },
-
     /**
      * Create and configure script element.
      *
@@ -639,9 +638,9 @@ qx.Class.define("qx.io.request.Script",
 
       script.src = this.__url;
 
-      if (this._delegate && this._delegate.onNativeLoad && this._delegate.onNativeError) {
-        script.onload = this._delegate.onNativeLoad;
-        script.onerror = this._delegate.onNativeError;
+      if (this.delegate && this.delegate.onNativeLoad && this.delegate.onNativeError) {
+        script.onload = this.delegate.onNativeLoad;
+        script.onerror = this.delegate.onNativeError;
       } else {
         script.onload = this.__onNativeLoadBound;
         script.onerror = this.__onNativeErrorBound;

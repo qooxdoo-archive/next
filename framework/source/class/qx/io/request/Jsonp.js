@@ -197,7 +197,7 @@ qx.Class.define("qx.io.request.Jsonp",
         onNativeLoad: this._onNativeLoad.bind(this),
         onNativeError: this._onNativeError.bind(this)
       };
-      this.transport.setDelegate(delegate);
+      this.transport.delegate = delegate;
 
       // Reset properties that may have been set by previous request
       this.responseJson = null;
