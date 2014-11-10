@@ -19,11 +19,13 @@ module.exports = function(grunt) {
 
       var tests = glob.sync(testPath);
       var scriptTags = '  <!-- TESTS START -->\n';
-      tests.forEach(function(path) {
-        // ignore all files starting with lower letter like setup.js
-        if (path.indexOf("setup.js") != -1) {
-          return;
-        }
+      tests.filter(function(path) {
+        // exclude infrastructure files
+        return path.indexOf("setup.js") === -1 &&
+               path.indexOf("mochaSetup.js") === -1 &&
+               path.indexOf("TestCase.js") === -1;
+      })
+      .forEach(function(path) {
         scriptTags += '  <script src="' + path + '"></script>\n';
       });
       scriptTags += '  <!-- TESTS END -->';
