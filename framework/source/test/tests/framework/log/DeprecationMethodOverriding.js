@@ -6,71 +6,71 @@ describe("log.DeprecationMethodOverriding", function ()
   var __orgTraceMesthod = null;
 
   beforeEach (function ()  {
-      __orgWarnMesthod = qx.log.Logger.warn;
-      __orgTraceMesthod = qx.log.Logger.trace;
+    __orgWarnMesthod = qx.log.Logger.warn;
+    __orgTraceMesthod = qx.log.Logger.trace;
 
-      qx.log.Logger.warn = function(msg) {
-        __lastWarnMsg = msg;
-      };
-      qx.log.Logger.trace = function() {};
+    qx.log.Logger.warn = function(msg) {
+      __lastWarnMsg = msg;
+    };
+    qx.log.Logger.trace = function() {};
   });
 
 
   afterEach (function ()  {
-      qx.log.Logger.warn = __orgWarnMesthod;
-      qx.log.Logger.trace = __orgTraceMesthod;
-      __orgWarnMesthod = null;
-      __orgTraceMesthod = null;
-      __lastWarnMsg = null;
+    qx.log.Logger.warn = __orgWarnMesthod;
+    qx.log.Logger.trace = __orgTraceMesthod;
+    __orgWarnMesthod = null;
+    __orgTraceMesthod = null;
+    __lastWarnMsg = null;
   });
 
 
   it("ClassA: baseclass", function() {
-      var instance = new log.fixture.ClassA();
-      __test(instance, 1, 1, null);
+    var instance = new log.fixture.ClassA();
+    __test(instance, 1, 1, null);
   });
 
 
   it("ClassB1: overrides method", function() {
-      var instance = new log.fixture.ClassB1();
-      __test(instance, 2, 2, /log.fixture.ClassB1.prototype._applyOldProperty()/);
+    var instance = new log.fixture.ClassB1();
+    __test(instance, 2, 2, /log.fixture.ClassB1.prototype._applyOldProperty()/);
   });
 
 
   it("ClassC1: doesn't override method", function() {
-      var instance = new log.fixture.ClassC1();
-      __test(instance, 2, 3, /log.fixture.ClassB1.prototype._applyOldProperty()/);
+    var instance = new log.fixture.ClassC1();
+    __test(instance, 2, 3, /log.fixture.ClassB1.prototype._applyOldProperty()/);
   });
 
 
   it("ClassB2: doesn't override method", function() {
-      var instance = new log.fixture.ClassB2();
-      __test(instance, 1, 2, null);
+    var instance = new log.fixture.ClassB2();
+    __test(instance, 1, 2, null);
   });
 
 
   it("ClassC2: overrides method", function() {
-      var instance = new log.fixture.ClassC2();
-      __test(instance, 2, 3, /log.fixture.ClassC2.prototype._applyOldProperty()/);
+    var instance = new log.fixture.ClassC2();
+    __test(instance, 2, 3, /log.fixture.ClassC2.prototype._applyOldProperty()/);
   });
 
 
-  function __test (instance, callCountOldProperty, callCountNewProperty, reqExpWarnMsg)
+  function __test(instance, callCountOldProperty, callCountNewProperty, reqExpWarnMsg)
   {
-      instance.oldProperty = "Jo";
-      instance.newProperty = "Do";
+    instance.oldProperty = "Jo";
+    instance.newProperty = "Do";
 
-      assert.equal(callCountOldProperty, instance.getCallCountApplyOldProperty());
-      assert.equal(callCountNewProperty, instance.getCallCountApplyNewProperty());
+    assert.equal(callCountOldProperty, instance.getCallCountApplyOldProperty());
+    assert.equal(callCountNewProperty, instance.getCallCountApplyNewProperty());
 
-      if (qx.core.Environment.get("qx.debug"))
-      {
-        if (reqExpWarnMsg) {
-          assert.isTrue(reqExpWarnMsg.test(__lastWarnMsg));
-        } else {
-          assert.isNull(__lastWarnMsg);
-        }
+    if (qx.core.Environment.get("qx.debug"))
+    {
+      if (reqExpWarnMsg) {
+        assert.isTrue(reqExpWarnMsg.test(__lastWarnMsg));
+      } else {
+        assert.isNull(__lastWarnMsg);
       }
+    }
   }
 });
 
@@ -131,13 +131,13 @@ qx.Class.define("log.fixture.ClassB1",
   members :
   {
     _applyOldProperty: function () {
-      this.base(log.fixture.ClassA, "_applyOldProperty");
+      this.super(log.fixture.ClassA, "_applyOldProperty");
 
       this._callCountApplyOldProperty++;
     },
 
     _applyNewProperty: function () {
-      this.base(log.fixture.ClassA, "_applyNewProperty");
+      this.super(log.fixture.ClassA, "_applyNewProperty");
 
       this._callCountApplyNewProperty++;
     }
@@ -152,7 +152,7 @@ qx.Class.define("log.fixture.ClassB2",
   members :
   {
     _applyNewProperty: function () {
-      this.base(log.fixture.ClassA, "_applyNewProperty");
+      this.super(log.fixture.ClassA, "_applyNewProperty");
 
       this._callCountApplyNewProperty++;
     }
@@ -167,7 +167,7 @@ qx.Class.define("log.fixture.ClassC1",
   members :
   {
     _applyNewProperty: function () {
-      this.base(log.fixture.ClassB1, "_applyNewProperty");
+      this.super(log.fixture.ClassB1, "_applyNewProperty");
 
       this._callCountApplyNewProperty++;
     }
@@ -182,13 +182,13 @@ qx.Class.define("log.fixture.ClassC2",
   members :
   {
     _applyOldProperty: function () {
-      this.base(log.fixture.ClassB2, "_applyOldProperty");
+      this.super(log.fixture.ClassB2, "_applyOldProperty");
 
       this._callCountApplyOldProperty++;
     },
 
     _applyNewProperty: function () {
-      this.base(log.fixture.ClassB2, "_applyNewProperty");
+      this.super(log.fixture.ClassB2, "_applyNewProperty");
 
       this._callCountApplyNewProperty++;
     }
