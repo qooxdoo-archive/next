@@ -19,9 +19,6 @@
 
 describe("mobile.control.Calendar", function() {
 
-  this.timeout(2500);
-
-
   beforeEach(function() {
     setUpRoot();
     this.__now = new Date();
