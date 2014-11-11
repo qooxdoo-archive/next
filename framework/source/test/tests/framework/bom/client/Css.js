@@ -22,7 +22,7 @@ describe("bom.client.Css", function() {
   it("BorderImageSyntax", function() {
     var styleName = qx.core.Environment.get("css.borderimage");
     if (typeof styleName !== "string") {
-      throw new qx.dev.unit.RequirementError("css.borderimage");
+      return;
     }
 
     var standardSyntax = qx.core.Environment.get("css.borderimage.standardsyntax");
