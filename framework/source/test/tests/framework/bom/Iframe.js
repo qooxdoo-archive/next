@@ -22,7 +22,7 @@ describe("bom.Iframe", function() {
   var __iframe = null;
 
   afterEach(function() {
-    __iframe.remove();
+    qxWeb(__iframe).remove();
   });
 
 
