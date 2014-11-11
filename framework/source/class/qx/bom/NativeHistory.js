@@ -24,6 +24,7 @@
  * Default history manager implementation. Either polls for URL fragment
  * identifier (hash) changes or uses the native "hashchange" event.
  *
+ * @require(qx.module.Event)
  * @internal
  */
 qx.Class.define("qx.bom.NativeHistory",
