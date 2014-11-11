@@ -42,13 +42,13 @@ describe("mobile.basic.Atom", function()
 
       getRoot().append(atom);
 
-      assert.isString(atom.text);
-      assert.equal(atom.text, "myText");
-      assert.equal(atom.text, atom.getLabelWidget().getHtml());
+      assert.isString(atom.label);
+      assert.equal(atom.label, "myText");
+      assert.equal(atom.label, atom.getLabelWidget().getHtml());
 
-      atom.text = "mySecondText";
-      assert.equal(atom.text, "mySecondText");
-      assert.equal(atom.text, atom.getLabelWidget().getHtml());
+      atom.label = "mySecondText";
+      assert.equal(atom.label, "mySecondText");
+      assert.equal(atom.label, atom.getLabelWidget().getHtml());
 
       atom.dispose();
   });
@@ -141,7 +141,7 @@ describe("mobile.basic.Atom", function()
       var imageURL = qx.util.ResourceManager.getInstance().toUri("/framework/source/resource/qx/icon/Tango/48/places/user-home.png");
 
       var atom = new qx.ui.basic.Atom();
-      atom.text = testText;
+      atom.label = testText;
       atom.icon = imageURL;
 
       var atomElement = atom[0];

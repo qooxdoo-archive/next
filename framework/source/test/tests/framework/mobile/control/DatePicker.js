@@ -35,7 +35,7 @@ describe("mobile.control.DatePicker", function() {
     var datePickerHtml = q.create("<input type='text' id='datepicker' data-qx-class='qx.ui.control.DatePicker' data-qx-config-readonly='false' value='' />");
     getRoot().append(datePickerHtml);
 
-    var datePicker = q("input#datepicker").datePicker();
+    var datePicker = q("input#datepicker").toDatePicker();
 
     // config is set via data attribute 'data-qx-config-input-read-only'
     assert.isFalse(datePicker.getAttribute('readonly'));
@@ -47,7 +47,7 @@ describe("mobile.control.DatePicker", function() {
     var datePickerHtml = q.create("<input type='text' class='datepicker' data-qx-class='qx.ui.control.DatePicker' data-qx-config-readonly='true' value='' />");
     getRoot().append(datePickerHtml);
 
-    var datePicker = q("input.datepicker").datePicker();
+    var datePicker = q("input.datepicker").toDatePicker();
     assert.isTrue(datePicker.readonly);
     assert.isTrue(datePicker.getAttribute('readonly'));
     datePicker.readonly = false;
@@ -61,7 +61,7 @@ describe("mobile.control.DatePicker", function() {
     var datePickerHtml = q.create("<input type='text' class='datepicker' data-qx-class='qx.ui.control.DatePicker' value='' />");
     getRoot().append(datePickerHtml);
 
-    var datePicker = q("input.datepicker").datePicker();
+    var datePicker = q("input.datepicker").toDatePicker();
     datePicker.icon = 'framework/source/resource/qx/icon/Tango/22/apps/office-calendar.png';
 
     var icon = datePicker.getNext();
@@ -77,7 +77,7 @@ describe("mobile.control.DatePicker", function() {
     var datePickerHtml = q.create("<input type='text' class='datepicker' data-qx-class='qx.ui.control.DatePicker' value='' />");
     getRoot().append(datePickerHtml);
 
-    var datePicker = q("input.datepicker").datePicker();
+    var datePicker = q("input.datepicker").toDatePicker();
     datePicker.icon = 'framework/source/resource/qx/icon/Tango/22/apps/office-calendar.png';
     var icon = datePicker.getNext(".qx-datepicker-icon");
     assert.equal(1, icon.length);
