@@ -21,15 +21,17 @@ describe("application.Routing", function() {
 
   var __r = null;
   var __initialState = null;
+  var fakeHistory = new qx.event.Emitter();
 
   beforeEach(function() {
-    __initialState = qx.bom.History.getInstance().state;
+    fakeHistory.state = "/";
+    sinon.stub(qx.bom.History, "getInstance").returns(fakeHistory);
     __r = new qx.application.Routing();
   });
 
 
   afterEach(function() {
-    qx.bom.History.getInstance().state = __initialState;
+    qx.bom.History.getInstance.restore();
     __r.dispose();
   });
 
@@ -95,6 +97,8 @@ describe("application.Routing", function() {
     r2.executeGet("/abc", {
       a: true
     });
+    fakeHistory.emit("changeState", {value: "/abc"})
+
     sinon.assert.calledOnce(handler);
     assert.isTrue(handler.args[0][0].customData.a);
     r2.dispose();
@@ -177,7 +181,7 @@ describe("application.Routing", function() {
     sinon.assert.notCalled(handler);
     sinon.assert.calledOnce(defaultHandler);
 
-    qx.bom.History.getInstance().state = "/a/b/c";
+    fakeHistory.emit("changeState", {value: "/a/b/c"});
     sinon.assert.calledOnce(handler);
   });
 
