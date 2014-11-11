@@ -42,7 +42,6 @@ describe("bom.Stylesheet", function() {
     } else if (sheet.cssText) {
       assert.match(sheet.cssText, /@import/);
     }
-    qx.bom.Stylesheet.removeImport(sheet, uri);
   });
 
 
@@ -95,6 +94,11 @@ describe("bom.Stylesheet", function() {
 
 
   it("RemoveAllImports", function() {
+    // removing an @import rule breaks subsequent animation tests on Linux
+    // and Windows
+    if (qxWeb.env.get("os.name") !== "osx") {
+      return;
+    }
     var sheet = this.__sheet = qx.bom.Stylesheet.createElement();
     var uri = "../resource/qx/test/style.css";
     qx.bom.Stylesheet.addImport(sheet, uri);
@@ -123,14 +127,22 @@ describe("bom.Stylesheet", function() {
 
 
   it("RemoveImport", function() {
+    // removing an @import rule breaks subsequent animation tests on Linux
+    // and Windows
+    if (qxWeb.env.get("os.name") !== "osx") {
+      return;
+    }
     var sheet = this.__sheet = qx.bom.Stylesheet.createElement();
     var uri = "../resource/qx/test/style.css";
     qx.bom.Stylesheet.addImport(sheet, uri);
+    var rules = sheet.cssRules || sheet.rules;
+    assert.equal(1, rules.length);
+    assert.equal(0, rules[0].cssText.indexOf("@import"));
 
     qx.bom.Stylesheet.removeImport(sheet, uri);
-    if (sheet.cssRules) {
-      var rules = sheet.cssRules || sheet.rules;
-      assert.equal(0, sheet.cssRules.length);
+    rules = sheet.cssRules || sheet.rules;
+    if (rules) {
+      assert.equal(0, rules.length);
     } else if (typeof sheet.cssText == "string") {
       assert.equal("", sheet.cssText);
     }
