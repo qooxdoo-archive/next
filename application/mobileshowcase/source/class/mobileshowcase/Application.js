@@ -75,6 +75,7 @@ qx.Class.define("mobileshowcase.Application",
       var dialogs = new mobileshowcase.page.Dialog();
       var dataBinding = new mobileshowcase.page.DataBinding();
       var maps = new mobileshowcase.page.Maps();
+      var canvas = new mobileshowcase.page.Canvas();
       var theming = new mobileshowcase.page.Theming();
       var tree = new mobileshowcase.page.Tree();
 
@@ -95,6 +96,7 @@ qx.Class.define("mobileshowcase.Application",
         dialogs,
         dataBinding,
         maps,
+        canvas,
         theming,
         tree
       ]);
@@ -120,6 +122,7 @@ qx.Class.define("mobileshowcase.Application",
       routing.onGet("/databinding", this._show, dataBinding);
       routing.onGet("/event", this._show, events);
       routing.onGet("/maps", this._show, maps);
+      routing.onGet("/canvas", this._show, canvas);
       routing.onGet("/theming", this._show, theming);
       routing.onGet("/tree", this._show, tree);
       routing.onGet("/animation", this._show, animation);
