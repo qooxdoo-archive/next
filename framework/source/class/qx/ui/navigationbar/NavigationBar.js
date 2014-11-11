@@ -29,11 +29,10 @@
  *   var bar = new qx.ui.navigationbar.NavigationBar();
  *   var backButton = new qx.ui.Button();
  *   bar.append(backButton);
- *   var title = new qx.ui.navigationbar.Title();
- *   title.layoutPrefs = {flex:1};
- *   var.append(title);
+ *   var title = qxWeb.create('<h1>').setHtml('Headline').addClass('title');
+ *   bar.append(title);
  *
- *   this.getRoot.append(bar);
+ *   qxWeb(document.body).append(bar);
  * </pre>
  *
  * This example creates a navigation bar and adds a back button and a title to it.

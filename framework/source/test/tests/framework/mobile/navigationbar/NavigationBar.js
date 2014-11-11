@@ -37,7 +37,7 @@ describe("mobile.navigationbar.NavigationBar", function()
       var back = new qx.ui.Button("Back");
       bar.append(back);
 
-      var title = new qx.ui.navigationbar.Title("Title");
+      var title = qxWeb.create('<h1>').setHtml('Title').addClass('title');
       bar.append(title);
 
       var button = new qx.ui.Button("Action");

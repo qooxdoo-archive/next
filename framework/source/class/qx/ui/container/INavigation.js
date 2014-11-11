@@ -26,14 +26,6 @@ qx.Interface.define("qx.ui.container.INavigation",
   members :
   {
     /**
-     * Returns the title widget that is merged into the navigation bar.
-     *
-     * @return {qx.ui.navigationbar.Title} The title of the navigation bar
-     */
-    getTitleWidget : function() {},
-
-
-    /**
      * Returns the left container that is merged into the navigation bar.
      *
      * @return {qx.ui.Widget} The left container of the navigation bar

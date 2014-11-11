@@ -203,27 +203,16 @@ qx.Class.define("qx.ui.page.NavigationPage",
     // interface implementation
     getTitleWidget : function() {
       if (!this.__title) {
-        this.__title = this._createTitleWidget();
+        this.__title = qxWeb.create('<h1>').setHtml(this.title).addClass('title');
       }
       return this.__title;
-    },
-
-
-    /**
-     * Creates the navigation bar title.
-     *
-     * @return {qx.ui.navigationbar.Title} The created title widget
-     */
-    _createTitleWidget : function()
-    {
-      return new qx.ui.navigationbar.Title(this.title);
     },
 
 
     // property apply
     _applyTitle : function(value, old) {
       if (this.__title) {
-        this.__title.value = value;
+        this.__title.setHtml(value);
       }
     },
 
