@@ -30,10 +30,6 @@
   color: $toolbar-active-text-color;
 }
 
-.toolbar-separator {
-  width: rem(4);
-}
-
 .toolbar {
   @include box-align(stretch);
 
@@ -56,8 +52,4 @@
   text-align:center;
   // For displaying ellipsis correctly.
   max-width:100%;
-}
-
-.toolbar-separator {
-  width: $toolbar-padding;
 }
