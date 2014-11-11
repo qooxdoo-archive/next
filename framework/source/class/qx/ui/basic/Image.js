@@ -21,19 +21,6 @@
 /**
  * The image widget displays an image file.
  *
- * *Example*
- *
- * Here is a little example of how to use the widget.
- *
- * <pre class='javascript'>
- *   var image = new qx.ui.basic.Image("path/to/icon.png");
- *
- *   this.getRoot().append(image);
- * </pre>
- *
- * This example create a widget to display the image
- * <code>path/to/icon.png</code>.
- *
  * @ignore(qx.application.Scaling.*)
  * @group(Widget)
  */

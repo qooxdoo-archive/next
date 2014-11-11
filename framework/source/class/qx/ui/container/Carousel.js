@@ -29,24 +29,6 @@
  * A carousel shows by default a pagination indicator at the bottom of the carousel.
  * This pagination indicator can be hidden by property <code>showPagination</code>.
  *
- * *Example*
- *
- * Here is a little example of how to use the widget.
- *
- * <pre class='javascript'>
- *
- *  var carousel = new qx.ui.container.Carousel();
- *  var carouselPage1 = new qx.ui.Widget();
- *  var carouselPage2 = new qx.ui.Widget();
- *
- *  carouselPage1.append(new qx.ui.basic.Label("This is a carousel. Please swipe left."));
- *  carouselPage2.append(new qx.ui.basic.Label("Now swipe right."));
- *
- *  carousel.append(carouselPage1);
- *  carousel.append(carouselPage2);
- * </pre>
- *
- *
  * @require(qx.module.Transform)
  * @group(Widget)
  */

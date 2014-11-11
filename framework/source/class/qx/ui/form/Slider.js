@@ -26,24 +26,6 @@
  * groove and translates the handle's position into an integer value
  * within the defined range.
  *
- * *Example*
- *
- * Here is a little example of how to use the widget.
- *
- * <pre class='javascript'>
- *    var slider= new qx.ui.form.Slider().set({
- *       minimum : 0,
- *       maximum : 10,
- *       step : 2
- *     });
- *     slider.on("changeValue", handler, this);
- *
- *   this.getRoot.append(slider);
- * </pre>
- *
- * This example creates a slider and attaches an
- * event listener to the {@link #changeValue} event.
- *
  * @require(qx.module.AnimationFrame)
  * @group(Widget)
  */
