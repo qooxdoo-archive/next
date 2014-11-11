@@ -14,56 +14,46 @@ describe('Animation', function() {
   it("FadeOut", function(done) {
     var test = q.create("<div id='testdiv'/>");
     test.appendTo(sandbox[0]);
-    test.fadeOut();
     test.on("animationEnd", function() {
-      setTimeout(function() {
-        assert.equal("none", test[0].style["display"]);
-        test.remove();
-        done();
-      }, 0);
+      assert.equal("none", test[0].style["display"]);
+      test.remove();
+      done();
     }, test);
+    test.fadeOut();
   });
 
 
   it("FadeIn", function(done) {
-    var testValue = (qxWeb.env.get("browser.name") === "ie" &&
-      qxWeb.env.get("browser.version") <= 9) ? 0.99 : 1;
-
     var test = q.create("<div id='testdiv'/>");
     test.appendTo(sandbox[0]);
-    test.fadeIn();
     test.on("animationEnd", function() {
-      setTimeout(function() {
-        assert.equal(testValue, test.getStyle("opacity"), "not visible after the animation");
-        test.remove();
-        done();
-      }, 0);
+      assert.equal(1, test.getStyle("opacity"), "not visible after the animation");
+      test.remove();
+      done();
     }, test);
+    test.fadeIn();
   });
 
 
   it("FadeInWithInvisibleElement", function(done) {
-    var testValue = (qxWeb.env.get("browser.name") === "ie" &&
-      qxWeb.env.get("browser.version") <= 9) ? 0.99 : 1;
-
     var styleSheet = "css/style2.css";
     q.includeStylesheet(styleSheet);
 
     var test = q.create('<div id="invisible"></div>');
     test.appendTo(sandbox[0]);
-    test.fadeIn();
 
     test.on('animationEnd', function() {
       setTimeout(function() {
-        assert.equal(testValue, test.getStyle('opacity'), 'not visible after the animation');
+        assert.equal(1, test.getStyle('opacity'), 'not visible after the animation');
         test.remove();
         var sheets = [].filter.call(document.styleSheets, function(sheet) {
           return sheet.href && sheet.href.indexOf("style2.css") != -1;
         });
         sheets.length > 0 && q(sheets[0].ownerNode).remove();
         done();
-      }, 0);
+      }, 10);
     }, test);
+    test.fadeIn();
   });
 
 
