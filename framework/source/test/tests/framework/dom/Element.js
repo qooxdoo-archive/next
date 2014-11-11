@@ -27,7 +27,7 @@ describe("dom.Element", function() {
 
 
   afterEach(function() {
-    document.getElementById("sandbox").remove();
+    qxWeb("#sandbox").remove();
   });
 
 
