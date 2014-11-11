@@ -51,7 +51,12 @@ qx.Class.define("qx.ui.list.List",
 
 
   /**
-   * @param delegate {Object?null} The {@link #delegate} to use
+   * @param delegate {Object?null}
+   *    <ul>
+   *      <li>configureItem: Gives the user the opportunity to set individual styles and properties on the item widget cells created by the controller.</li>
+   *      <li>group: Gives the user the opportunity to group the model.</li>
+   *    </ul>
+   *
    * @attach {qxWeb, toList}
    * @return {qx.ui.list.List} The new list widget.
    */
@@ -105,9 +110,6 @@ qx.Class.define("qx.ui.list.List",
 
     /**
      * Delegation object which can have group or/and configureData functions.
-     *
-     * delegate.configureItem {qx.ui.Widget} Gives the user the opportunity to set individual styles and properties on the item widget cells created by the controller.
-     * delegate.group {var} Gives the user the opportunity to group the model.
      */
     delegate :
     {
