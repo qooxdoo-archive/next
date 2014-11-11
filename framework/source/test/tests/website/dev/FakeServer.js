@@ -15,13 +15,16 @@ describe('FakeServer', function() {
       response: expectedResponse
     }]);
 
-    var req = q.io.xhr(url).on("readystatechange", function(xhr) {
+    // debugger
+    var req = q.io.xhr(url);
+    req.on("readystatechange", function(xhr) {
       if (xhr.status == 200 && xhr.readyState == 4 && xhr.responseText == expectedResponse) {
         setTimeout(function() {
           done();
         }, 0);
       }
-    }, this).send();
+    }, this);
+    req.send();
   });
 
 
@@ -37,13 +40,15 @@ describe('FakeServer', function() {
 
     q.dev.fakeServer.removeResponse("GET", url);
 
-    var req = q.io.xhr(url).on("readystatechange", function(xhr) {
+    var req = q.io.xhr(url);
+    req.on("readystatechange", function(xhr) {
       if (xhr.status == 404 && xhr.readyState == 4) {
         setTimeout(function() {
           done();
         }, 0);
       }
-    }, this).send();
+    }, this);
+    req.send();
   });
 
 
@@ -52,12 +57,14 @@ describe('FakeServer', function() {
     var expectedResponse = "OK";
     q.dev.fakeServer.respondWith("GET", url, expectedResponse);
 
-    var req = q.io.xhr(url).on("readystatechange", function(xhr) {
+    var req = q.io.xhr(url);
+    req.on("readystatechange", function(xhr) {
       if (xhr.status == 200 && xhr.readyState == 4 && xhr.responseText == expectedResponse) {
         setTimeout(function() {
           done();
         }, 0);
       }
-    }, this).send();
+    }, this);
+    req.send();
   });
 });
