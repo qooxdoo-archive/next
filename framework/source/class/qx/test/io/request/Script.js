@@ -80,14 +80,14 @@ qx.Class.define("qx.test.io.request.Script",
       var count = 0,
           that = this;
 
-      this.req.onload = function() {
+      this.req.on("load", function() {
         count += 1;
         if (count == 2) {
           that.resume(function() {});
           return;
         }
         that.request();
-      };
+      });
 
       this.request();
       this.wait();
@@ -97,19 +97,11 @@ qx.Class.define("qx.test.io.request.Script",
     // Event helper
     //
 
-    "test: call event handler": function() {
-      var req = this.req;
-      req.onevent = this.spy();
-      req._emit("event");
-      this.assertCalled(req.onevent);
-    },
-
     "test: fire event": function(){
       var req = this.req;
       var event = this.spy();
-      req.onevent = this.spy();
       req.on("event", event);
-      req._emit("event");
+      req.emit("event");
       this.assertCalled(event);
     },
 
@@ -121,13 +113,13 @@ qx.Class.define("qx.test.io.request.Script",
       var that = this,
           req = this.req;
 
-      req.onload = function() {
+      req.on("load", function() {
         that.resume(function() {
           that.assertEquals(4, req.readyState);
           that.assertEquals(200, req.status);
           that.assertEquals("200", req.statusText);
         });
-      };
+      });
 
       this.request();
       this.wait();
@@ -139,11 +131,11 @@ qx.Class.define("qx.test.io.request.Script",
     "test: status indicates success when determineSuccess returns true": function() {
       var that = this;
 
-      this.req.onload = function() {
+      this.req.on("load", function() {
         that.resume(function() {
           that.assertEquals(200, that.req.status);
         });
-      };
+      });
 
       this.req.setDetermineSuccess(function() {
         return SCRIPT_LOADED === true;
@@ -159,13 +151,13 @@ qx.Class.define("qx.test.io.request.Script",
       var that = this,
           req = this.req;
 
-      req.onerror = function() {
+      req.on("error", function() {
         that.resume(function() {
           that.assertEquals(4, req.readyState);
           that.assertEquals(0, req.status);
           that.assertNull(req.statusText);
         });
-      };
+      });
 
       this.request("http://fail.tld");
       this.wait(15000);
@@ -182,13 +174,13 @@ qx.Class.define("qx.test.io.request.Script",
           req = this.req;
 
       req.timeout = 25;
-      req.ontimeout = function() {
+      req.on("timeout", function() {
         that.resume(function() {
           that.assertEquals(4, req.readyState);
           that.assertEquals(0, req.status);
           that.assertNull(req.statusText);
         });
-      };
+      });
 
       this.requestPending();
       this.wait();
@@ -197,11 +189,11 @@ qx.Class.define("qx.test.io.request.Script",
     "test: status indicates failure when determineSuccess returns false": function() {
       var that = this;
 
-      this.req.onload = function() {
+      this.req.on("load", function() {
         that.resume(function() {
           that.assertEquals(500, that.req.status);
         });
-      };
+      });
 
       this.req.setDetermineSuccess(function() {
         return false;
@@ -215,14 +207,14 @@ qx.Class.define("qx.test.io.request.Script",
       var req = this.req,
           that = this;
 
-      req.onload = function() {
+      req.on("load", function() {
         that.resume(function() {
           req.open("GET", "/url");
           that.assertIdentical(1, req.readyState);
           that.assertIdentical(0, req.status);
           that.assertIdentical("", req.statusText);
         });
-      };
+      });
 
       this.request();
       this.wait();
@@ -324,9 +316,9 @@ qx.Class.define("qx.test.io.request.Script",
 
       var that = this;
 
-      this.req.onload = function() {
+      this.req.on("load", function() {
         that.resume(function() {});
-      };
+      });
 
       this.request();
       this.wait();
@@ -337,7 +329,7 @@ qx.Class.define("qx.test.io.request.Script",
           readyStates = [],
           that = this;
 
-      req.onreadystatechange = function() {
+      req.on("readystatechange", function() {
         readyStates.push(req.readyState);
 
         if (req.readyState === 4) {
@@ -345,7 +337,7 @@ qx.Class.define("qx.test.io.request.Script",
             that.assertArrayEquals([1, 2, 3, 4], readyStates);
           });
         }
-      };
+      });
 
       if (this.isIe()) {
         this.request(this.noCache(this.url));
@@ -361,9 +353,9 @@ qx.Class.define("qx.test.io.request.Script",
     "test: call onloadend on network error": function() {
       var that = this;
 
-      this.req.onloadend = function() {
+      this.req.on("loadend", function() {
         that.resume(function() {});
-      };
+      });
 
       this.request("http://fail.tld");
       this.wait(15000);
@@ -372,9 +364,9 @@ qx.Class.define("qx.test.io.request.Script",
     "test: call onloadend when request completes": function() {
       var that = this;
 
-      this.req.onloadend = function() {
+      this.req.on("loadend", function() {
         that.resume(function() {});
-      };
+      });
 
       this.request();
       this.wait();
@@ -393,15 +385,15 @@ qx.Class.define("qx.test.io.request.Script",
 
       var that = this;
 
-      this.req.onload = function() {
+      this.req.on("load", function() {
         that.resume(function() {
           throw Error("Called onload");
         });
-      };
+      });
 
-      this.req.onerror = function() {
+      this.req.on("error", function() {
         that.resume();
-      };
+      });
 
       this.request("http://fail.tld");
       this.wait(15000);
@@ -416,9 +408,9 @@ qx.Class.define("qx.test.io.request.Script",
 
       var that = this;
 
-      this.req.onerror = function() {
+      this.req.on("error", function() {
         that.resume(function() {});
-      };
+      });
 
       this.request("http://fail.tld");
       this.wait(15000);
@@ -467,9 +459,9 @@ qx.Class.define("qx.test.io.request.Script",
       var that = this;
 
       this.req.timeout = 25;
-      this.req.ontimeout = function() {
+      this.req.on("timeout", function() {
         that.resume(function() {});
-      };
+      });
 
       this.requestPending();
       this.wait();
@@ -479,18 +471,18 @@ qx.Class.define("qx.test.io.request.Script",
       var req = this.req,
           that = this;
 
-      this.spy(req, "ontimeout");
+      this.spy(req, "emit");
 
-      req.onload = function() {
+      req.on("load", function() {
         that.resume(function() {
 
-          // Assert that onload() cancels timeout
+          // Assert that timeout is canceled
           that.wait(350, function() {
-            that.assertNotCalled(req.ontimeout);
+            that.assertNull(req.__timeoutId);
           });
 
         });
-      };
+      });
 
       req.timeout = 300;
       this.request();
@@ -500,11 +492,11 @@ qx.Class.define("qx.test.io.request.Script",
     "test: call onabort when request was aborted": function() {
       var req = this.req;
 
-      this.spy(req, "onabort");
+      this.spy(req, "emit");
       this.request();
       req.abort();
 
-      this.assertCalled(req.onabort);
+      this.assertCalledWith(req.emit, "abort");
     },
 
     //
@@ -515,12 +507,12 @@ qx.Class.define("qx.test.io.request.Script",
       var script,
           that = this;
 
-      this.req.onload = function() {
+      this.req.on("load", function() {
         that.resume(function() {
           script = this.req._getScriptElement();
           that.assertFalse(that.isInDom(script));
         });
-      };
+      });
 
       this.request();
       this.wait();
@@ -531,12 +523,12 @@ qx.Class.define("qx.test.io.request.Script",
           that = this;
 
       // In IE < 9, "load" is fired instead of "error"
-      this.req.onerror = this.req.onload = function() {
+      this.req.on("error", function() {
         that.resume(function() {
           script = this.req._getScriptElement();
           that.assertFalse(that.isInDom(script));
         });
-      };
+      });
 
       this.request("http://fail.tld");
       this.wait(15000);
@@ -553,12 +545,12 @@ qx.Class.define("qx.test.io.request.Script",
           that = this;
 
       this.req.timeout = 25;
-      this.req.ontimeout = function() {
+      this.req.on("timeout", function() {
         that.resume(function() {
           script = that.req._getScriptElement();
           that.assertFalse(that.isInDom(script));
         });
-      };
+      });
 
       this.requestPending();
       this.wait();

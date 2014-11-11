@@ -81,12 +81,12 @@ qx.Class.define("qx.io.request.Jsonp",
     this.__id = this.__generateId();
     this.transport = new qx.io.request.Script();
 
-    this.transport.onreadystatechange = function() { this.emit("readystatechange"); }.bind(this);
-    this.transport.onload = function() { this.emit("load"); }.bind(this);
-    this.transport.onloadend = function() { this.emit("loadend"); }.bind(this);
-    this.transport.onerror = function() { this.emit("error"); }.bind(this);
-    this.transport.onabort = function() { this.emit("abort"); }.bind(this);
-    this.transport.ontimeout = function() { this.emit("timeout"); }.bind(this);
+    this.transport.on("readystatechange", function() { this.emit("readystatechange"); }.bind(this));
+    this.transport.on("load", function() { this.emit("load"); }.bind(this));
+    this.transport.on("loadend", function() { this.emit("loadend"); }.bind(this));
+    this.transport.on("error", function() { this.emit("error"); }.bind(this));
+    this.transport.on("abort", function() { this.emit("abort"); }.bind(this));
+    this.transport.on("timeout", function() { this.emit("timeout"); }.bind(this));
   },
 
   // for events refer to AbstractRequest

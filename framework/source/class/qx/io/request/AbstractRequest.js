@@ -55,6 +55,7 @@ qx.Class.define("qx.io.request.AbstractRequest",
     this.__onErrorBound = qx.lang.Function.bind(this._onError, this);
 
     this.onreadystatechange = this.__onReadyStateChangeBound;
+    this.on("readystatechange", this._onReadyStateChange, this);
     this.onload = this.__onLoadBound;
     this.onloadend = this.__onLoadEndBound;
     this.onabort = this.__onAbortBound;
@@ -65,9 +66,14 @@ qx.Class.define("qx.io.request.AbstractRequest",
   events :
   {
     /**
-     * Fired on every change of the transport’s readyState.
+     * Fired on every change of the transport’s readyState (high level).
      */
     "readyStateChange": "null",
+
+    /**
+     * Fired on every change of the transport’s readyState (low level).
+     */
+    "readystatechange": "null",
 
     /**
      * Fired when request completes without error and transport’s status

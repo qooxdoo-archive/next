@@ -58,6 +58,7 @@
 
 qx.Class.define("qx.io.request.Script",
 {
+  include: [qx.event.MEmitter],
 
   construct : function()
   {
@@ -69,10 +70,7 @@ qx.Class.define("qx.io.request.Script",
 
     this.__headElement = document.head || document.getElementsByTagName( "head" )[0] ||
                          document.documentElement;
-
-    this._emitter = new qx.event.Emitter();
   },
-
 
   events : {
     /** Fired at ready state changes. */
@@ -157,21 +155,6 @@ qx.Class.define("qx.io.request.Script",
      * @type {Function} Function that is executed once the script was loaded.
      */
     __determineSuccess: null,
-
-
-    /**
-     * Add an event listener for the given event name.
-     *
-     * @param name {String} The name of the event to listen to.
-     * @param listener {Function} The function to execute when the event is fired
-     * @param ctx {var?} The context of the listener.
-     * @return {qx.io.request.Script} Self for chaining.
-     */
-    on: function(name, listener, ctx) {
-      this._emitter.on(name, listener, ctx);
-      return this;
-    },
-
 
     /**
      * Initializes (prepares) request.
@@ -279,20 +262,9 @@ qx.Class.define("qx.io.request.Script",
 
       this.__abort = true;
       this.__disposeScriptElement();
-      this._emit("abort");
+      this.emit("abort");
       return this;
     },
-
-
-    /**
-     * Helper to emit events and call the callback methods.
-     * @param event {String} The name of the event.
-     */
-    _emit: function(event) {
-      this["on" + event]();
-      this._emitter.emit(event, this);
-    },
-
 
     /**
      * Event handler for an event that fires at every state change.
@@ -427,6 +399,7 @@ qx.Class.define("qx.io.request.Script",
 
         if (this.__timeoutId) {
           window.clearTimeout(this.__timeoutId);
+          this.__timeoutId = null;
         }
 
         this._disposed = true;
@@ -473,7 +446,7 @@ qx.Class.define("qx.io.request.Script",
      */
     _onTimeout: function() {
       this.__failure();
-      this._emit("timeout");
+      this.emit("timeout");
     },
 
 
@@ -511,13 +484,14 @@ qx.Class.define("qx.io.request.Script",
 
       if (this.__timeoutId) {
         window.clearTimeout(this.__timeoutId);
+        this.__timeoutId = null;
       }
 
       window.setTimeout(function() {
         that._success();
         that._readyStateChange(4);
-        that._emit("load");
-        that._emit("loadend");
+        that.emit("load");
+        that.emit("loadend");
       });
     },
 
@@ -526,8 +500,8 @@ qx.Class.define("qx.io.request.Script",
      */
     _onNativeError: function() {
       this.__failure();
-      this._emit("error");
-      this._emit("loadend");
+      this.emit("error");
+      this.emit("loadend");
     },
 
     /*
@@ -604,7 +578,7 @@ qx.Class.define("qx.io.request.Script",
      */
     _readyStateChange: function(readyState) {
       this.readyState = readyState;
-      this._emit("readystatechange");
+      this.emit("readystatechange");
     },
 
     /**

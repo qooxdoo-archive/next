@@ -320,7 +320,7 @@ qx.Class.define("qx.test.io.request.Xhr",
       req.method = "GET";
 
       readyStates.push(req.readyState);
-      req.on("readyStateChange", function() {
+      req.on("readystatechange", function() {
         readyStates.push(req.readyState);
         statuses.push(req.status);
       }, this);
