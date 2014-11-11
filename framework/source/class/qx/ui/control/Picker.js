@@ -289,7 +289,7 @@ qx.Class.define("qx.ui.control.Picker",
         slotModel.on("changeBubble", this._onSlotDataChange, scrollContainer);
         slotModel.on("change", this._onSlotDataChange, scrollContainer);
 
-        this.selected = this.find("*[data-row=0]");
+        this.selected = this.find("*[data-row=0]").toArray();
       }
     },
 
@@ -317,7 +317,7 @@ qx.Class.define("qx.ui.control.Picker",
         this._pickerModel.removeAt(slotIndex);
         this._slots.removeAt(slotIndex);
 
-        this.selected = this.find("*[data-row=0]");
+        this.selected = this.find("*[data-row=0]").toArray();
       }
     },
 

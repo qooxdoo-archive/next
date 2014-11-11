@@ -131,7 +131,7 @@ describe("mobile.control.Picker", function() {
     picker.addSlot(pickerSlot2);
     var spy = sinon.spy();
     picker.on("selected", spy);
-    var selection = picker.find("*[data-row=2]");
+    var selection = picker.find("*[data-row=2]").toArray();
     picker.selected = selection;
     sinon.assert.calledOnce(spy);
     assert.equal(selection[0], spy.args[0][0][0]);
