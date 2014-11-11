@@ -17,25 +17,26 @@
 
 ************************************************************************ */
 
-// TODO
 describe("data.store.Rest", function() {
 
   var reg;
   var res;
   var marshal;
-  setup();
 
-  function setup() {
+
+  beforeEach(function() {
     req = setUpDoubleRequest();
     res = setUpResource();
-    marshal = new qx.data.marshal.Json();
-    marshal = shallowStub(marshal, qx.data.marshal.Json, ["dispose", "emit", "on", "once", "off", "offById", "getListenerId",
-      "hasListener", "getListeners", "getEntryById", "_getStorage"
-    ]);
-    marshal.toModel.returns({});
-
     store = new qx.data.store.Rest(res, "index");
-  }
+  });
+
+
+  afterEach(function() {
+    qx.io.request.Xhr.restore();
+    store.dispose();
+    res.dispose();
+  });
+
 
 
   function __getOwnProperties(object, targetClazz) {
@@ -104,15 +105,6 @@ describe("data.store.Rest", function() {
   };
 
 
-  beforeEach(function() {
-    // marshal = new qx.data.marshal.Json();
-    // marshal = shallowStub(marshal, qx.data.marshal.Json,
-    //   ["dispose", "emit", "on", "once", "off", "offById", "getListenerId",
-    //    "hasListener", "getListeners", "getEntryById", "_getStorage"]);
-    // injectStub(qx.data.marshal, "Json", marshal);
-  });
-
-
   function setUpResource() {
     var description = {
       "index": {
@@ -141,8 +133,7 @@ describe("data.store.Rest", function() {
 
   afterEach(function() {
     sinon.sandbox.restore();
-    //req.dispose();
-    //res.dispose();
+    req.dispose();
     store.dispose();
   });
 
@@ -197,19 +188,22 @@ describe("data.store.Rest", function() {
 
 
   it("marshal response", function() {
+    sinon.stub(store._marshaler, "toModel");
+
     var data = {
       "key": "value"
     };
     res.index();
     respond(data);
-    assert.isTrue(marshal.toModel.calledWith(data))
+
+    sinon.assert.calledOnce(store._marshaler.toModel);
+    sinon.assert.calledWith(store._marshaler.toModel, data);
+
+    store._marshaler.toModel.restore();
   });
 
 
   it("populates model property with marshaled response", function() {
-    // Do not stub marshal.Json
-    // qx.data.marshal.Json.restore();
-
     var res = setUpResource();
     var store = new qx.data.store.Rest(res, "index");
 
@@ -223,9 +217,6 @@ describe("data.store.Rest", function() {
 
 
   it("fires changeModel", function() {
-    // Do not stub marshal.Json
-    //qx.data.marshal.Json.restore();
-
     var res = setUpResource(),
       store = new qx.data.store.Rest(res, "index");
 
@@ -253,7 +244,7 @@ describe("data.store.Rest", function() {
     var store = new qx.data.store.Rest(res, "index", delegate);
 
     // Configure before sending
-    sinon.assert.notCalled(req.send());
+    sinon.assert.notCalled(req.send);
 
     res.index();
     assert.isTrue(configureRequest.calledWith(req));
@@ -279,21 +270,24 @@ describe("data.store.Rest", function() {
     };
 
     var store = new qx.data.store.Rest(res, "index", delegate);
+    sinon.stub(store._marshaler, "toModel");
+
     res.index();
     respond(data);
     assert.isTrue(manipulateData.calledWith(data));
-    assert.isTrue(marshal.toModel.calledWith({
+    assert.isTrue(store._marshaler.toModel.calledWith({
       "name": "Maus"
     }));
 
     store.dispose();
+    store._marshaler.toModel.restore();
   });
 
 
   // Fake response
   var respond = function(response) {
     response = response || "";
-    req.getPhase.returns("success");
+    req.phase = "success";
 
     // Set parsed response
     req.getResponse.returns(response);

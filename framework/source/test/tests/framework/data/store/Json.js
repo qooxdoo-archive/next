@@ -470,27 +470,21 @@ describe("data.store.Json", function() {
   });
 
 
-  it("test Internal Server Error", function() {
-    // TODO: Convert to mocha/chai
-    this.useFakeServer();
+  it("test Internal Server Error", function(done) {
+    sinon.sandbox.useFakeServer();
 
-    var server = this.getServer();
+    var server = sinon.sandbox.server;
     server.respondWith("GET", "/foo", [ 500,
       {"Content-Type": "application/json"}, "SERVER ERROR" ]);
 
-    this.__store.on("error", function(req)
-    {
-      this.resume(function() {
-        this.assertEquals("statusError", req.phase);
-      }, this);
+    __store.on("error", function(req) {
+      assert.equal("statusError", req.phase);
+      done();
     }, this);
 
-    window.setTimeout(function()
-    {
-      this.__store.url = ("/foo");
+    setTimeout(function() {
+      __store.url = "/foo";
       server.respond();
-    }.bind(this), 500);
-
-    this.wait(1000);
+    }, 500);
   });
 });
