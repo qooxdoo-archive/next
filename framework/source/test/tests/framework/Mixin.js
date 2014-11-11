@@ -106,16 +106,16 @@ describe("Mixin", function() {
 
     if (qx.core.Environment.get("qx.debug")) {
       assert.throw(function() {
-          qx.Class.define("qx.Mix4", {
-            extend: Object,
-            include: qx.MMix1,
-            construct: function() {},
-            properties: {
-              color: {}
-            }
-          });
-        },
-        Error, "Cannot redefine property", "t3");
+        qx.Class.define("qx.Mix4", {
+          extend: Object,
+          include: qx.MMix1,
+          construct: function() {},
+          properties: {
+            color: {}
+          }
+        });
+      },
+      Error, undefined, "t3");
     }
   });
 
