@@ -54,26 +54,26 @@ describe("mobile.dialog.Popup", function() {
     popup.show();
 
     assert.equal("visible", popup.visibility, 'popup should be visible.');
-    assert.equal(0, qxWeb(document.body).getChildren(".blocker").length, 'Modal mode is false, blocker should be still hidden.');
+    assert.equal(0, qxWeb(document.body).getChildren(".qx-blocker").length, 'Modal mode is false, blocker should be still hidden.');
 
     popup.hide();
 
     assert.notEqual("visible", popup.visibility, 'popup should not be visible.');
-    assert.equal(0, qxWeb(document.body).getChildren(".blocker").length, 'Modal mode is false, called popup.hide(), blocker should be still hidden.');
+    assert.equal(0, qxWeb(document.body).getChildren(".qx-blocker").length, 'Modal mode is false, called popup.hide(), blocker should be still hidden.');
 
     popup.show();
 
-    assert.equal(0, qxWeb(document.body).getChildren(".blocker").length, 'Modal mode is false, called popup.show(), blocker should be still hidden.');
+    assert.equal(0, qxWeb(document.body).getChildren(".qx-blocker").length, 'Modal mode is false, called popup.show(), blocker should be still hidden.');
     assert.equal("visible", popup.visibility, 'popup should be visible.');
 
     // Modal mode true test cases
     popup.modal = true;
     popup.show();
 
-    assert.equal(1, qxWeb(document.body).getChildren(".blocker").length, 'Modal mode is true, called popup.show(), Blocker should be shown.');
+    assert.equal(1, qxWeb(document.body).getChildren(".qx-blocker").length, 'Modal mode is true, called popup.show(), Blocker should be shown.');
 
     popup.hide();
-    assert.equal(0, qxWeb(document.body).getChildren(".blocker").length, 'Modal mode is true, called dialog.hide(), Blocker should not be shown.');
+    assert.equal(0, qxWeb(document.body).getChildren(".qx-blocker").length, 'Modal mode is true, called dialog.hide(), Blocker should not be shown.');
     popup.dispose();
   });
 

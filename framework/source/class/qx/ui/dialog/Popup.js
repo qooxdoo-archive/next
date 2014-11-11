@@ -246,10 +246,7 @@ qx.Class.define("qx.ui.dialog.Popup",
 
       if(this.modal === true)
       {
-        qxWeb(document).block()
-        // TODO: Use SCSS to style the blocker
-        .getBlocker().removeClass("qx-blocker")
-        .addClass("blocker");
+        qxWeb(document).block();
 
         if(this.hideOnBlockerTap) {
           qxWeb(document).getBlocker().on("tap", this.hide, this);
