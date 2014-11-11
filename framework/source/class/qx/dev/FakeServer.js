@@ -205,7 +205,7 @@ qx.Class.define("qx.dev.FakeServer", {
      */
     getFakeServer : function() {
       if (!this.__fakeServer) {
-        var sinon = this.__sinon = qx.dev.unit.Sinon.getSinon();
+        var sinon = this.__sinon = window.sinon || qx.dev.unit.Sinon.getSinon();
         sinon.FakeXMLHttpRequest.useFilters = true;
         this.__fakeServer = sinon.sandbox.useFakeServer();
         this.__fakeServer.autoRespond = true;
