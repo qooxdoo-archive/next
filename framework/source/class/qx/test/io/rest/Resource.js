@@ -419,7 +419,7 @@ qx.Class.define("qx.test.io.rest.Resource",
         req.setRequestHeader("Content-Type", "application/json");
       });
 
-      this.spy(qx.lang.Json, "stringify");
+      this.spy(JSON, "stringify");
       var data = {location: "Karlsruhe"};
       res.map("post", "POST", "/photos/{id}/meta");
       res.post({id: 1}, data);
@@ -432,7 +432,7 @@ qx.Class.define("qx.test.io.rest.Resource",
       var res = this.res,
           req = this.req;
 
-      this.spy(qx.lang.Json, "stringify");
+      this.spy(JSON, "stringify");
       req.getRequestHeader.withArgs("Content-Type").returns("application/json");
       res.get();
 
