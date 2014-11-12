@@ -112,7 +112,7 @@
 
       "environment" :
       {
-        "qx.debug" : true,
+        "qx.debug" : false,
         "qx.aspects" : false
       },
 
