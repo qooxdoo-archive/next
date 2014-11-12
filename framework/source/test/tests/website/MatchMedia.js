@@ -14,6 +14,11 @@ describe('MatchMedia', function() {
 
   it("Landscape", function(done) {
 
+    if (qxWeb.env.get("qx.debug")) {
+      done();
+      return;
+    }
+
     var iframe = this.__iframe[0];
     iframe.width = "500px";
     iframe.height = "400px";
@@ -32,6 +37,12 @@ describe('MatchMedia', function() {
 
 
   it("MinWidth", function(done) {
+
+    if (qxWeb.env.get("qx.debug")) {
+      done();
+      return;
+    }
+
     var iframe = this.__iframe[0];
 
     iframe.width = "500px";
@@ -53,6 +64,11 @@ describe('MatchMedia', function() {
 
   it("MaxWidth", function(done) {
 
+    if (qxWeb.env.get("qx.debug")) {
+      done();
+      return;
+    }
+
     var iframe = this.__iframe[0];
 
     iframe.width = "500px";
@@ -72,6 +88,12 @@ describe('MatchMedia', function() {
 
 
   it("And", function(done) {
+
+    if (qxWeb.env.get("qx.debug")) {
+      done();
+      return;
+    }
+
     var iframe = this.__iframe[0];
 
     iframe.width = "300px";
@@ -91,6 +113,12 @@ describe('MatchMedia', function() {
 
 
   it("MinHeight", function(done) {
+
+    if (qxWeb.env.get("qx.debug")) {
+      done();
+      return;
+    }
+
     var iframe = this.__iframe[0];
 
     iframe.width = "500px";
@@ -110,6 +138,12 @@ describe('MatchMedia', function() {
 
 
   it("Color", function(done) {
+
+    if (qxWeb.env.get("qx.debug")) {
+      done();
+      return;
+    }
+
     var iframe = this.__iframe[0];
 
     iframe.width = "500px";
@@ -130,6 +164,11 @@ describe('MatchMedia', function() {
 
   it("Combined", function(done) {
 
+    if (qxWeb.env.get("qx.debug")) {
+      done();
+      return;
+    }
+
     var iframe = this.__iframe[0];
 
     iframe.width = "800px";
@@ -149,6 +188,12 @@ describe('MatchMedia', function() {
 
 
   it("DeviceWidth", function(done) {
+
+    if (qxWeb.env.get("qx.debug")) {
+      done();
+      return;
+    }
+
     var iframe = this.__iframe[0];
 
     qxWeb(window).once('message', function(e) {
@@ -167,6 +212,12 @@ describe('MatchMedia', function() {
 
 
   it("Width", function(done) {
+
+    if (qxWeb.env.get("qx.debug")) {
+      done();
+      return;
+    }
+
     var iframe = this.__iframe[0];
     iframe.width = "800px";
 
@@ -184,6 +235,12 @@ describe('MatchMedia', function() {
 
 
   it("Pixelratio", function(done) {
+
+    if (qxWeb.env.get("qx.debug")) {
+      done();
+      return;
+    }
+
     var iframe = this.__iframe[0];
     iframe.width = "800px";
 
@@ -201,6 +258,12 @@ describe('MatchMedia', function() {
 
 
   it("Not", function(done) {
+
+    if (qxWeb.env.get("qx.debug")) {
+      done();
+      return;
+    }
+
     var iframe = this.__iframe[0];
     iframe.width = "500px";
 
@@ -218,6 +281,11 @@ describe('MatchMedia', function() {
 
 
   it("MediaQueryMatches", function() {
+
+    if (qxWeb.env.get("qx.debug")) {
+      return;
+    }
+
     var iframe = this.__iframe[0];
     sandbox.mediaQueryToClass("only screen", "testMediaQueryMatches", iframe.window);
 
@@ -226,6 +294,11 @@ describe('MatchMedia', function() {
 
 
   it("MediaQueryNotMatches", function() {
+
+    if (qxWeb.env.get("qx.debug")) {
+      return;
+    }
+
     var iframe = this.__iframe[0];
     sandbox.mediaQueryToClass("only print", "testMediaQueryNotMatches", iframe.window);
 
@@ -234,6 +307,12 @@ describe('MatchMedia', function() {
 
 
   it("MediaQueryMatchesAfterResizing", function(done) {
+
+    if (qxWeb.env.get("qx.debug")) {
+      done();
+      return;
+    }
+
     var iframe = this.__iframe[0];
     sandbox.mediaQueryToClass("only screen and (min-width: 40.063em)", "testMediaQueryMatchesAfterResizing", iframe.window);
 
