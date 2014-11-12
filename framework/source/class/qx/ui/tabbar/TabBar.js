@@ -216,7 +216,7 @@ qx.Class.define("qx.ui.tabbar.TabBar", {
           else if(page.getParents() === this) {
             page.insertAfter(this);
           }
-          page.exclude();
+          page.hide();
         }
 
         if (button.hasClass("selected")) {
@@ -263,8 +263,8 @@ qx.Class.define("qx.ui.tabbar.TabBar", {
           this.active = button[0];
         } else {
           var page = this.getPage(button);
-          if (page.length > 0 && page.exclude) {
-            page.exclude();
+          if (page.length > 0 && page.hide) {
+            page.hide();
           }
         }
 
@@ -296,9 +296,9 @@ qx.Class.define("qx.ui.tabbar.TabBar", {
         } else {
           button.removeClass("selected");
           var page = this.getPage(button);
-          // empty collections do not have an exclude method
-          if (page && page.exclude) {
-            page.exclude();
+          // empty collections do not have an hide method
+          if (page && page.hide) {
+            page.hide();
           }
         }
       }.bind(this));
