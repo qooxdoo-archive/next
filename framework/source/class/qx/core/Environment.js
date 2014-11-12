@@ -640,24 +640,6 @@ qx.Class.define("qx.core.Environment",
      *   (Details in the class doc)
      */
     get : function(key) {
-      if (qx.Class.DEBUG) {
-        // @deprecated {3.5}
-        if (key === "json") {
-          qx.Class.warn("The environment key 'json' is deprecated " +
-            "and will eventually be removed.");
-        }
-        // @deprecated {4.0}
-        if (key === "qx.emulatemouse") {
-          qx.Class.warn("The environment key 'qx.emulatemouse' has been removed. " +
-            "See the release notes for more details.");
-        }
-
-        // @deprecated {4.0}
-        if (key === "qx.mobile.emulatetouch") {
-          qx.Class.warn("The environment key 'qx.mobile.emulatetouch' has been removed. " +
-            "See the release notes for more details.");
-        }
-      }
       // check the cache
       if (this.__cache[key] != undefined) {
         return this.__cache[key];
