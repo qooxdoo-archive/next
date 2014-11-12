@@ -123,12 +123,12 @@ qx.Class.define("qx.test.io.request.JsonpLowLevel",
     // Properties
     //
 
-    "test: responseJson holds response with default callback": function() {
+    "test: response holds response with default callback": function() {
       var that = this;
 
       this.req.on("load", function() {
         that.resume(function() {
-          var data = this.req.responseJson;
+          var data = this.req.getResponse();
           that.assertObject(data);
           that.assertTrue(data["boolean"]);
         });
@@ -138,14 +138,14 @@ qx.Class.define("qx.test.io.request.JsonpLowLevel",
       this.wait();
     },
 
-    "test: reset responseJson when reopened": function() {
+    "test: reset response when reopened": function() {
       var req = this.req,
           that = this;
 
       req.on("load", function() {
         that.resume(function() {
           req._open("GET", "/url");
-          that.assertNull(req.responseJson);
+          that.assertNull(req.getResponse());
         });
       });
 

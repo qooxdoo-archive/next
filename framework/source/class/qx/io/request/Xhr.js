@@ -557,7 +557,7 @@ qx.Class.define("qx.io.request.Xhr",
      * @return {qx.util.ResponseParser} parser.
      */
     _createResponseParser: function() {
-        return new qx.util.ResponseParser();
+      return new qx.util.ResponseParser();
     },
 
     /**

@@ -131,11 +131,6 @@ qx.Class.define("qx.io.request.Jsonp",
     transport: null,
 
     /**
-     * @type {Object} Parsed JSON response.
-     */
-    responseJson: null,
-
-    /**
      * @type {Number} Identifier of this instance.
      */
     __id: null,
@@ -200,7 +195,7 @@ qx.Class.define("qx.io.request.Jsonp",
       this.transport.delegate = delegate;
 
       // Reset properties that may have been set by previous request
-      this.responseJson = null;
+      this.__response = null;
       this.__callbackCalled = false;
 
       callbackParam = this.__callbackParam || "callback";
@@ -247,7 +242,7 @@ qx.Class.define("qx.io.request.Jsonp",
     /**
      * Callback provided for JSONP response to pass data.
      *
-     * Called internally to populate responseJson property
+     * Called internally to populate response property
      * and indicate successful status.
      *
      * Note: If you write a custom callback you’ll need to call
@@ -272,7 +267,7 @@ qx.Class.define("qx.io.request.Jsonp",
       }
 
       // Set response
-      this.responseJson = data;
+      this.__response = data;
 
       // Delete global reference to this
       this.constructor[this.__id] = undefined;
@@ -452,14 +447,14 @@ qx.Class.define("qx.io.request.Jsonp",
     },
 
     /**
-     * Return the transport’s responseJson property.
+     * Return the transport’s response property.
      *
      * See {@link qx.io.request.Jsonp}.
      *
      * @return {Object} The parsed response of the request.
      */
     _getParsedResponse: function() {
-      return this.responseJson;
+      return this.__response;
     },
 
     /**
