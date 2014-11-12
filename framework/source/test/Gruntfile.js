@@ -42,6 +42,7 @@ module.exports = function(grunt) {
   grunt.registerTask('build', 'Build the test artifact (optimized version)', function() {
     console.log('Opening the framework folder');
     shell.cd('../../');
+    shell.exec('npm install');
     shell.exec('grunt build-all');
     shell.cd('source/test');
   });
@@ -49,6 +50,7 @@ module.exports = function(grunt) {
   grunt.registerTask('source', 'Build the test artifact (source version)', function() {
     console.log('Opening the framework folder');
     shell.cd('../../');
+    shell.exec('npm install');
     shell.exec('grunt source-all --gargs="-m BUILD_PATH:source/test"');
     shell.cd('source/test');
   });
