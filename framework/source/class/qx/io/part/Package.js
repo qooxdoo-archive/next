@@ -235,7 +235,7 @@ qx.Class.define("qx.io.part.Package",
           return;
         }
 
-        var loader = new qx.bom.request.Script();
+        var loader = new qx.io.request.Script();
         loader.open("GET", urls.shift());
 
         loader.onload = function()

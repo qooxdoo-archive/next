@@ -88,7 +88,7 @@ qx.Class.define("qx.bom.WebWorker",
      */
     __initFake: function(src) {
       var that = this;
-      var req = new qx.bom.request.Xhr();
+      var req = new qx.io.request.Xhr();
       req.onload = function() {
         that.__fake = (function() {
           var postMessage = function(e) {
