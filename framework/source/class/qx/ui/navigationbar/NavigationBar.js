@@ -43,6 +43,7 @@ qx.Class.define("qx.ui.navigationbar.NavigationBar",
 
   /**
    * @attach {qxWeb, toNavigationBar}
+   * @return {qx.ui.navigationbar.NavigationBar} The new navigationbar widget.
    */
   construct : function(layout, element) {
     this.super(qx.ui.Widget, "constructor", element);

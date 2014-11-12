@@ -25,16 +25,7 @@
  * The intended purpose of qx.ui.basic.Atom is to easily align the common icon-text
  * combination in different ways.
  *
- * *Example*
- *
- * Here is a little example of how to use the widget.
- *
- * <pre class='javascript'>
- *   var atom = new qx.ui.basic.Atom("Icon Right", "icon/32/actions/go-next.png");
- *   this.getRoot().append(atom);
- * </pre>
- *
- * This example creates an atom with the label "Icon Right" and an icon.
+ * @group(Widget)
  */
 qx.Class.define("qx.ui.basic.Atom",
 {
@@ -42,10 +33,10 @@ qx.Class.define("qx.ui.basic.Atom",
 
 
   /**
+   * @attach {qxWeb, toAtom}
    * @param label {String?} Label to use
    * @param icon {String?null} Icon to use
-   * @attach {qxWeb, toAtom}
-   * @signature function(label, icon)
+   * @return {qx.ui.basic.Atom} The new atom widget.
    */
   construct : function(label, icon, element)
   {
@@ -106,7 +97,7 @@ qx.Class.define("qx.ui.basic.Atom",
 
     /**
      * The position of the icon in relation to the text.
-     * Only useful/needed if text and icon is configured and 'show' is configured as 'both' (default)
+     * Only useful/needed if text and icon is configured and 'show' is configured as 'both'
      */
     iconPosition :
     {

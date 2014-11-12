@@ -28,6 +28,7 @@ qx.Class.define("qx.ui.form.Group",
 
   /**
    * @attach {qxWeb, toGroup}
+   * @return {qx.ui.form.Group} The new form group widget.
    */
   construct : function(title, element) {
     this.super(qx.ui.Widget, "constructor", element);

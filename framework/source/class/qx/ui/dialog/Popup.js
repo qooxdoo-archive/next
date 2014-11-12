@@ -69,6 +69,7 @@ qx.Class.define("qx.ui.dialog.Popup",
    * @param widget {qx.ui.Widget} the widget that will be shown in the popup
    * @param anchor {qx.ui.Widget?} optional parameter, a widget to attach this popup to
    * @attach {qxWeb, toPopup}
+   * @return {qx.ui.container.Popup} The new popup widget.
    */
   construct : function(widget, anchor, element)
   {

@@ -47,7 +47,10 @@ qx.Class.define("qx.ui.control.Picker",
 {
   extend : qx.ui.Widget,
 
-
+  /**
+   * @param element
+   * @return {qx.ui.control.Picker} The new picker widget.
+   */
   construct : function(element)
   {
     this.super(qx.ui.Widget, "constructor", element);

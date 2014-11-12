@@ -51,6 +51,7 @@ qx.Class.define("qx.ui.container.Drawer",
    * used for this container.
    * @param element {Element?null} The new drawer widget.
    * @attach {qxWeb, toDrawer}
+   * @return {qx.ui.container.Drawer} The new drawer widget.
    */
   construct : function(layout, element)
   {

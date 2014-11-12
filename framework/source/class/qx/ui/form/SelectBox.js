@@ -33,6 +33,7 @@ qx.Class.define("qx.ui.form.SelectBox",
 
   /**
    * @attach {qxWeb, toSelectBox}
+   * @return {qx.ui.form.SelectBox} The new select box widget.
    */
   construct : function(element)
   {

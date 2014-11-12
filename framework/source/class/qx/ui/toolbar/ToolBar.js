@@ -28,6 +28,7 @@ qx.Class.define("qx.ui.toolbar.ToolBar",
 
   /**
    * @attach {qxWeb, toToolBar}
+   * @return {qx.ui.toolbar.ToolBar} The new toolbar widget.
    */
   construct : function(layout, element)
   {

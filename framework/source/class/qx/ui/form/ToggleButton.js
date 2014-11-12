@@ -58,6 +58,7 @@ qx.Class.define("qx.ui.form.ToggleButton",
    * @param labelChecked {Boolean?"ON"} The value of the text display when toggleButton is active
    * @param labelUnchecked {Boolean?"OFF"} The value of the text display when toggleButton is inactive
    * @attach {qxWeb, toToggleButton}
+   * @return {qx.ui.form.ToggleButton} The new toggle button widget.
    */
   construct : function(value, labelChecked, labelUnchecked)
   {

@@ -20,20 +20,10 @@
 
 /**
  * The label widget displays a text or HTML content.
- * *Example*
- *
- * Here is a little example of how to use the widget.
- *
- * <pre class='javascript'>
- *   var label = new qx.ui.basic.Label("Hello World");
- *
- *   this.getRoot().append(label);
- * </pre>
- *
- * This example create a widget to display the label.
  *
  * @ignore(qx.type.BaseString.*)
  *
+ * @group(Widget)
  */
 qx.Class.define("qx.ui.basic.Label",
 {
@@ -43,6 +33,7 @@ qx.Class.define("qx.ui.basic.Label",
   /**
    * @param value {String?null} Text or HTML content to display
    * @attach {qxWeb, toLabel}
+   * @return {qx.ui.basic.Label} The new label widget.
    */
   construct : function(value, element)
   {

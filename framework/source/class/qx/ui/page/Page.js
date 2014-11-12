@@ -62,6 +62,7 @@ qx.Class.define("qx.ui.page.Page",
 
   /**
    * @attach {qxWeb, toPage}
+   * @return {qx.ui.page.Page} The new page widget.
    */
   construct : function(layout, element)
   {

@@ -37,6 +37,7 @@ qx.Class.define("qx.ui.form.Input",
 
   /**
    * @attach {qxWeb, toInput}
+   * @return {qx.ui.form.Input} The new input widget.
    */
   construct : function(element)
   {

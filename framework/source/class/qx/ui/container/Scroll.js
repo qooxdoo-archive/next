@@ -49,6 +49,7 @@ qx.Class.define("qx.ui.container.Scroll",
   /**
   * @param scrollProperties {Object?} A map with scroll properties which are passed to the scrolling container (may contain iScroll properties).
   * @attach {qxWeb, toScroll}
+  * @return {qx.ui.container.Scroll} The new scroll widget.
   */
   construct : function(scrollProperties, element)
   {
