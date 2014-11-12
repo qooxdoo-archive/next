@@ -11,7 +11,8 @@ addSample(".getAttribute", {
 
 addSample(".setAttributes", {
   html: ['<div id="container"></div>'],
-  javascript: function() {var input = q.create('<input type="text"></input>');
+  javascript: function() {
+var input = q.create('<input type="text"/>');
 input.setAttributes({
   value: 'foo',
   placeholder: 'Search ...',
