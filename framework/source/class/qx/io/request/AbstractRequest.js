@@ -47,31 +47,15 @@ qx.Class.define("qx.io.request.AbstractRequest",
 
     this.__requestHeaders = {};
 
-    this.__onReadyStateChangeBound = qx.lang.Function.bind(this._onReadyStateChange, this);
-    this.__onLoadBound = qx.lang.Function.bind(this._onLoad, this);
-    this.__onLoadEndBound = qx.lang.Function.bind(this._onLoadEnd, this);
-    this.__onAbortBound = qx.lang.Function.bind(this._onAbort, this);
-    this.__onTimeoutBound = qx.lang.Function.bind(this._onTimeout, this);
-    this.__onErrorBound = qx.lang.Function.bind(this._onError, this);
-
-    this.onreadystatechange = this.__onReadyStateChangeBound;
     this.on("readystatechange", this._onReadyStateChange, this);
-    this.onload = this.__onLoadBound;
-    this.onloadend = this.__onLoadEndBound;
-    this.onabort = this.__onAbortBound;
-    this.ontimeout = this.__onTimeoutBound;
-    this.onerror = this.__onErrorBound;
+    this.on("timeout", this._onTimeout, this);
+    this.on("error", this._onError, this);
   },
 
   events :
   {
     /**
-     * Fired on every change of the transport’s readyState (high level).
-     */
-    "readyStateChange": "null",
-
-    /**
-     * Fired on every change of the transport’s readyState (low level).
+     * Fired on every change of the transport’s readyState.
      */
     "readystatechange": "null",
 
@@ -89,7 +73,7 @@ qx.Class.define("qx.io.request.AbstractRequest",
     /**
      * Fired when request completes with or without error.
      */
-    "loadEnd": "null",
+    "loadend": "null",
 
     /**
      * Fired when request is aborted.
@@ -303,16 +287,6 @@ qx.Class.define("qx.io.request.AbstractRequest",
 
   members :
   {
-    /**
-     * Bound handlers.
-     */
-    __onReadyStateChangeBound: null,
-    __onLoadBound: null,
-    __onLoadEndBound: null,
-    __onAbortBound: null,
-    __onTimeoutBound: null,
-    __onErrorBound: null,
-
     /**
      * Parsed response.
      */
@@ -649,7 +623,7 @@ qx.Class.define("qx.io.request.AbstractRequest",
     */
 
     /**
-     * Handle "readyStateChange" event.
+     * Handle "readystatechange" event.
      */
     _onReadyStateChange: function() {
       var readyState = this.readyState;
@@ -657,8 +631,6 @@ qx.Class.define("qx.io.request.AbstractRequest",
       if (qx.core.Environment.get("qx.debug.io")) {
         this.debug("Fire readyState: " + readyState);
       }
-
-      this.emit("readyStateChange");
 
       // Transport switches to readyState DONE on abort and may already
       // have successful HTTP status when response is served from cache.
@@ -718,31 +690,10 @@ qx.Class.define("qx.io.request.AbstractRequest",
     },
 
     /**
-     * Handle "load" event.
-     */
-    _onLoad: function() {
-      this.emit("load");
-    },
-
-    /**
-     * Handle "loadEnd" event.
-     */
-    _onLoadEnd: function() {
-      this.emit("loadEnd", this);
-    },
-
-    /**
-     * Handle "abort" event.
-     */
-    _onAbort: function() {
-      this._fireStatefulEvent("abort");
-    },
-
-    /**
      * Handle "timeout" event.
      */
     _onTimeout: function() {
-      this._fireStatefulEvent("timeout");
+      this.phase = "timeout";
 
       // A network error failure
       this.emit("fail");
@@ -752,8 +703,6 @@ qx.Class.define("qx.io.request.AbstractRequest",
      * Handle "error" event.
      */
     _onError: function() {
-      this.emit("error", {target: this});
-
       // A network error failure
       this.emit("fail", {target: this});
     },

@@ -195,11 +195,11 @@ qx.Mixin.define("qx.test.io.request.MRequest",
     // Events
     //
 
-    "test: fire readyStateChange": function() {
+    "test: fire readystatechange": function() {
       var req = this.req,
           readystatechange = this.spy();
 
-      req.on("readyStateChange", readystatechange);
+      req.on("readystatechange", readystatechange);
       this.respond();
 
       this.assertCalledOnce(readystatechange);
@@ -235,14 +235,14 @@ qx.Mixin.define("qx.test.io.request.MRequest",
       this.assertCalledOnce(load);
     },
 
-    "test: fire loadEnd": function() {
+    "test: fire loadend": function() {
       var req = this.req,
-          loadEnd = this.spy();
+          loadend = this.spy();
 
-      req.on("loadEnd", loadEnd);
+      req.on("loadend", loadend);
       this.respond();
 
-      this.assertCalledOnce(loadEnd);
+      this.assertCalledOnce(loadend);
     },
 
     "test: fire abort": function() {
@@ -250,7 +250,7 @@ qx.Mixin.define("qx.test.io.request.MRequest",
           abort = this.spy();
 
       req.on("abort", abort);
-      this.req.onabort();
+      this.req.emit("abort");
 
       this.assertCalledOnce(abort);
     },
@@ -263,7 +263,7 @@ qx.Mixin.define("qx.test.io.request.MRequest",
       req.send();
 
       req.on("timeout", timeout);
-      req.ontimeout();
+      req.emit("timeout");
 
       this.assertEquals(100, req.timeout);
       this.assertCalledOnce(timeout);
@@ -365,7 +365,7 @@ qx.Mixin.define("qx.test.io.request.MRequest",
       var req = this.req;
 
       req.readyState = 3;
-      req.onreadystatechange();
+      req.emit("readystatechange");
 
       this.assertEquals("loading", req.phase);
     },
@@ -379,7 +379,7 @@ qx.Mixin.define("qx.test.io.request.MRequest",
       });
 
       req.readyState = 4;
-      req.onreadystatechange();
+      req.emit("readystatechange");
 
       // phases = ["load", "statusError"]
       this.assertEquals("load", phases[0]);
@@ -405,11 +405,11 @@ qx.Mixin.define("qx.test.io.request.MRequest",
       var req = this.req;
 
       req.abort();
-      req.onabort();
+      req.emit("abort");
 
       // switch to readyState DONE on abort
       req.readyState = 4;
-      req.onreadystatechange();
+      req.emit("readystatechange");
 
       this.assertEquals("abort", req.phase);
     },
@@ -418,14 +418,14 @@ qx.Mixin.define("qx.test.io.request.MRequest",
       var req = this.req;
 
       req.abort();
-      req.onabort();
+      req.emit("abort");
 
       // Synchronously served from cached
       req.status = 304;
 
       // switch to readyState DONE on abort
       req.readyState = 4;
-      req.onreadystatechange();
+      req.emit("readystatechange");
 
       this.assertEquals("abort", req.phase);
     },
@@ -433,7 +433,7 @@ qx.Mixin.define("qx.test.io.request.MRequest",
     "test: phase is abort on readyState DONE when aborted before": function() {
       var req = this.req;
 
-      req.on("readyStateChange", function() {
+      req.on("readystatechange", function() {
         if (req.readyState == 4) {
           this.assertEquals("abort", req.phase);
         }
@@ -444,15 +444,15 @@ qx.Mixin.define("qx.test.io.request.MRequest",
 
       // switch to readyState DONE on abort
       req.readyState = 4;
-      req.onreadystatechange();
+      req.emit("readystatechange");
 
-      req.onabort();
+      req.emit("abort");
     },
 
     "test: phase is abort on readyState DONE when aborting loading": function() {
       var req = this.req;
 
-      req.on("readyStateChange", function() {
+      req.on("readystatechange", function() {
         if (req.readyState == 4) {
           this.assertEquals("abort", req.phase);
         }
@@ -462,15 +462,15 @@ qx.Mixin.define("qx.test.io.request.MRequest",
 
       // Loading
       req.readyState = 3;
-      req.onreadystatechange();
+      req.emit("readystatechange");
 
       // Abort loading
       req.abort();
 
       // switch to readyState DONE on abort
       req.readyState = 4;
-      req.onreadystatechange();
-      req.onabort();
+      req.emit("readystatechange");
+      req.emit("abort");
     },
 
     "test: phase is abort on loadEnd when aborted before": function() {
@@ -485,9 +485,9 @@ qx.Mixin.define("qx.test.io.request.MRequest",
 
       // fire "onloadend" on abort
       req.readyState = 4;
-      req.onloadend();
+      req.emit("load");
 
-      req.onabort();
+      req.emit("abort");
     },
 
     "test: phase is timeout": function() {
@@ -508,23 +508,22 @@ qx.Mixin.define("qx.test.io.request.MRequest",
     respond: function(status, error) {
       this.req.status = typeof status === "undefined" ? 200 : status;
       this.req.readyState = 4;
-      this.req.onreadystatechange();
+      this.req.emit("readystatechange");
 
       (function(req) {
         if (error === "timeout") {
-          req.ontimeout();
+          req.emit("timeout");
           return;
         }
 
         if (error === "network") {
-          req.onerror();
+          req.emit("error");
           return;
         }
 
-        req.onload();
+        req.emit("load");
       })(this.req);
-
-      this.req.onloadend();
+      this.req.emit("loadend");
     },
 
     respondError: function() {

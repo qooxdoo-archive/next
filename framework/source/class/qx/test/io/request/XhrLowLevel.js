@@ -194,19 +194,12 @@ qx.Class.define("qx.test.io.request.XhrLowLevel",
     // Event helper
     //
 
-    "test: call event handler": function() {
-      var req = this.req;
-      req.onevent = this.spy();
-      req._emit("event");
-      this.assertCalled(req.onevent);
-    },
-
     "test: fire event": function(){
       var req = this.req;
       var event = this.spy();
       req.onevent = this.spy();
       req.on("event", event);
-      req._emit("event");
+      req.emit("event");
       this.assertCalled(event);
     },
 
@@ -232,7 +225,7 @@ qx.Class.define("qx.test.io.request.XhrLowLevel",
     "test: emit readystatechange when reopened": function() {
       var req = this.req;
       var fakeReq = this.getFakeReq();
-      this.stub(req, "_emit");
+      this.stub(req, "emit");
 
       // Send and respond
       this.openAndSend("GET", "/");
@@ -241,7 +234,7 @@ qx.Class.define("qx.test.io.request.XhrLowLevel",
       // Reopen
       req._open("GET", "/");
 
-      this.assertCalledWith(req._emit, "readystatechange");
+      this.assertCalledWith(req.emit, "readystatechange");
     },
 
     // BUGFIXES
@@ -249,13 +242,16 @@ qx.Class.define("qx.test.io.request.XhrLowLevel",
     "test: ignore onreadystatechange when readyState is unchanged": function() {
       var req = this.req;
       var fakeReq = this.getFakeReq();
-      this.spy(req, "onreadystatechange");
+      var globalStack = [];
+
+      this.stub(req, "emit", function(evt) { globalStack.push(evt); });
 
       req.readyState = this.constructor.OPENED;
       fakeReq.onreadystatechange();
       fakeReq.onreadystatechange();
 
-      this.assertCalledOnce(req.onreadystatechange);
+      var expected = ["readystatechange"];
+      this.assertArrayEquals(expected, globalStack);
     },
 
     "test: native onreadystatechange is disposed once DONE": function() {
@@ -277,14 +273,14 @@ qx.Class.define("qx.test.io.request.XhrLowLevel",
       var req = this.req;
       var fakeReq = this.getFakeReq();
 
-      this.stub(req, "_emit");
+      this.stub(req, "emit");
       this.openAndSend("GET", "/");
 
       // Status does not matter. Set a non-empty response for file:// workaround.
       fakeReq.respond(200, {}, "RESPONSE");
 
-      this.assertCalledWith(req._emit, "load");
-      this.assertEquals(6, req._emit.callCount);
+      this.assertCalledWith(req.emit, "load");
+      this.assertEquals(6, req.emit.callCount);
     },
 
     //
@@ -300,18 +296,18 @@ qx.Class.define("qx.test.io.request.XhrLowLevel",
     "test: emit abort": function() {
       var req = this.req;
 
-      this.spy(req, "_emit");
+      this.spy(req, "emit");
 
       this.openAndSend("GET", "/");
       req._abort();
 
-      this.assertCalledWith(req._emit, "abort");
+      this.assertCalledWith(req.emit, "abort");
     },
 
     "test: emit abort before loadend": function() {
       var req = this.req;
 
-      var emit = this.stub(req, "_emit");
+      var emit = this.stub(req, "emit");
       var abort = emit.withArgs("abort");
       var loadend = emit.withArgs("loadend");
 
@@ -342,7 +338,7 @@ qx.Class.define("qx.test.io.request.XhrLowLevel",
     "test: not emit error when timeout": function() {
       var req = this.req;
 
-      var error = this.stub(req, "_emit").withArgs("error");
+      var error = this.stub(req, "emit").withArgs("error");
 
       req.timeout = 10;
       this.openAndSend("GET", "/");
@@ -355,7 +351,7 @@ qx.Class.define("qx.test.io.request.XhrLowLevel",
     "test: not emit error when aborted immediately": function() {
       var req = this.req;
 
-      var error = this.stub(req, "_emit").withArgs("error");
+      var error = this.stub(req, "emit").withArgs("error");
 
       this.openAndSend("GET", "/");
       req._abort();
@@ -367,22 +363,18 @@ qx.Class.define("qx.test.io.request.XhrLowLevel",
       var fakeReq = this.getFakeReq(),
           req = this.req;
 
-      this.spy(req, "ontimeout");
-
       req.timeout = 10;
       this.openAndSend("GET", "/");
       fakeReq.respond();
 
       this.wait(20, function() {
-        this.assertNotCalled(req.ontimeout);
+        this.assertNull(req.__timerId);
       }, this);
     },
 
     "test: cancel timeout when handler throws": function() {
       var fakeReq = this.getFakeReq(),
           req = this.req;
-
-      this.spy(req, "ontimeout");
 
       req.timeout = 10;
       this.openAndSend("GET", "/");
@@ -402,7 +394,7 @@ qx.Class.define("qx.test.io.request.XhrLowLevel",
 
       } finally {
         this.wait(20, function() {
-          this.assertNotCalled(req.ontimeout);
+          this.assertNull(req.__timerId);
         }, this);
       }
     },
@@ -415,7 +407,7 @@ qx.Class.define("qx.test.io.request.XhrLowLevel",
       var req = this.req;
       var fakeReq = this.getFakeReq();
 
-      var loadend = this.stub(req, "_emit").withArgs("loadend");
+      var loadend = this.stub(req, "emit").withArgs("loadend");
       this.openAndSend("GET", "/");
 
       // Status does not matter
@@ -682,9 +674,9 @@ qx.Class.define("qx.test.io.request.XhrLowLevel",
     "test: keep status 0 when DONE with network error and file protocol": function() {
       var fakeReq = this.getFakeReq();
       var req = this.req;
-      this.openAndSend("GET", "/");
 
       this.stub(req, "_getProtocol").returns("file:");
+      this.openAndSend("GET", "/");
 
       // Indicate network error
       fakeReq.readyState = 4;

@@ -78,9 +78,7 @@ qx.Class.define("qx.io.request.Xhr",
 
     this.__onNativeReadyStateChangeBound = this.__onNativeReadyStateChange.bind(this);
     this.__onNativeAbortBound = this.__onNativeAbort.bind(this);
-
-    // don't use 'onTimeoutBound' cause it would collide with AbstractRequest
-    this.__onXhrTimeoutBound = this.__onTimeout.bind(this);
+    this.__onTimeoutBound = this.__onTimeout.bind(this);
 
     this.__initNativeXhr();
 
@@ -241,9 +239,9 @@ qx.Class.define("qx.io.request.Xhr",
             this.readyState = 4;
             this.__nativeXhr = new XDomainRequest();
             this.__nativeXhr.onerror = function() {
-              this._emit("readystatechange");
-              this._emit("error");
-              this._emit("loadend", this);
+              this.emit("readystatechange");
+              this.emit("error");
+              this.emit("loadend", this);
             }.bind(this);
 
             if (qx.core.Environment.get("qx.debug.io")) {
@@ -356,7 +354,7 @@ qx.Class.define("qx.io.request.Xhr",
 
       // Timeout
       if (this.timeout > 0) {
-        this.__timerId = window.setTimeout(this.__onXhrTimeoutBound, this.timeout);
+        this.__timerId = window.setTimeout(this.__onTimeoutBound, this.timeout);
       }
 
       // BUGFIX: Firefox 2
@@ -554,17 +552,6 @@ qx.Class.define("qx.io.request.Xhr",
     },
 
     /**
-     * Helper to emit events and call the callback methods.
-     * @param event {String} The name of the event.
-     */
-    _emit: function(event) {
-      if (this["on" + event]) {
-        this["on" + event]();
-      }
-      this.emit(event, this);
-    },
-
-    /**
      * Create response parser.
      *
      * @return {qx.util.ResponseParser} parser.
@@ -612,9 +599,9 @@ qx.Class.define("qx.io.request.Xhr",
     __onNativeAbortBound: null,
 
     /**
-     * @type {Function} Bound __onXhrTimeout handler.
+     * @type {Function} Bound __onTimeout handler.
      */
-    __onXhrTimeoutBound: null,
+    __onTimeoutBound: null,
 
     /**
      * @type {Boolean} Send flag
@@ -760,10 +747,11 @@ qx.Class.define("qx.io.request.Xhr",
       if (this.readyState === qx.io.request.Xhr.DONE) {
         // Request determined DONE. Cancel timeout.
         window.clearTimeout(this.__timerId);
+        this.__timerId = null;
       }
 
       // Always fire "readystatechange"
-      this._emit("readystatechange");
+      this.emit("readystatechange");
       if (this.readyState === qx.io.request.Xhr.DONE) {
         this.__readyStateChangeDone();
       }
@@ -776,24 +764,24 @@ qx.Class.define("qx.io.request.Xhr",
     __readyStateChangeDone: function() {
       // Fire "timeout" if timeout flag is set
       if (this.__timeout) {
-        this.ontimeout();
+        this.emit("timeout");
         this.__timeout = false;
 
       // Fire either "abort", "load" or "error"
       } else {
         if (this.__abort) {
-          this._emit("abort");
+          this.emit("abort");
         } else{
           if (this.__isNetworkError()) {
-            this._emit("error");
+            this.emit("error");
           } else {
-            this._emit("load");
+            this.emit("load");
           }
         }
       }
 
       // Always fire "onloadend" when DONE
-      this._emit("loadend", this);
+      this.emit("loadend", this);
     },
 
 
@@ -877,6 +865,7 @@ qx.Class.define("qx.io.request.Xhr",
       }
 
       window.clearTimeout(this.__timerId);
+      this.__timerId = null;
 
       // May fail in IE
       try {

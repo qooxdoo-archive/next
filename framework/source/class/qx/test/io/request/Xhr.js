@@ -300,7 +300,7 @@ qx.Class.define("qx.test.io.request.Xhr",
         that.assertEquals("Affe", e.target.responseText);
       });
 
-      req.onreadystatechange();
+      req.emit("readystatechange");
     },
 
     //
@@ -346,7 +346,7 @@ qx.Class.define("qx.test.io.request.Xhr",
       req.readyState = 4;
       req.status = 200;
       req.responseText = "Affe";
-      req.onreadystatechange();
+      req.emit("readystatechange");
 
       this.assertEquals("Affe", req.getResponse());
     },
@@ -358,7 +358,7 @@ qx.Class.define("qx.test.io.request.Xhr",
       req.readyState = 4;
       req.status = 400;
       req.responseText = "Affe";
-      req.onreadystatechange();
+      req.emit("readystatechange");
 
       this.assertEquals("Affe", req.getResponse());
     },
@@ -373,7 +373,7 @@ qx.Class.define("qx.test.io.request.Xhr",
       req.responseText = "Affe";
 
       this.assertEventFired(req, "changeResponse", function() {
-        req.onreadystatechange();
+        req.emit("readystatechange");
       }, function(e) {
         that.assertEquals("Affe", e.value);
       });
