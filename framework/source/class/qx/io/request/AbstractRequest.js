@@ -111,6 +111,7 @@ qx.Class.define("qx.io.request.AbstractRequest",
      *
      * For example, to bind the response to the value of a label:
      *
+     * <br />
      * <pre class="javascript">
      * // req is an instance of qx.io.request.*,
      * // label an instance of qx.ui.basic.Label
