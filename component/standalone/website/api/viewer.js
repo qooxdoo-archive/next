@@ -770,7 +770,7 @@ q.ready(function() {
   var highlightNavItem = function() {
     var hash = window.location.hash,
         navItems = q("." + convertNameToCssClass(hash, "nav-"));
-    q("#list .qx-config-page ul > li").removeClass("selected");
+    q("#list .qx-tabs-page ul > li").removeClass('selected');
     navItems.addClass("selected");
 
     // open the fitting list page
