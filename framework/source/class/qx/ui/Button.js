@@ -21,22 +21,6 @@
 /**
  * A Button widget.
  *
- * *Example*
- *
- * Here is a little example of how to use the widget.
- *
- * <pre class='javascript'>
- *   var button = new qx.ui.Button("Hello World");
- *
- *   button.on("tap", function(e) {
- *     alert("Button was clicked");
- *   }, this);
- *
- *   this.getRoot.append(button);
- * </pre>
- *
- * This example creates a button with the label "Hello World" and attaches an
- * event listener to the {@link qx.ui.Widget#tap} event.
  * @group(Widget)
  */
 qx.Class.define("qx.ui.Button",
