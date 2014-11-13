@@ -256,29 +256,29 @@ qx.Class.define("qx.data.store.Json",
         return;
       }
 
-       var req = ev.target,
-           data = req.getResponse();
+      var req = ev.target,
+          data = req.getResponse();
 
-       // check for the data manipulation hook
-       var del = this._delegate;
-       if (del && qx.lang.Type.isFunction(del.manipulateData)) {
-         data = this._delegate.manipulateData(data);
-       }
+      // check for the data manipulation hook
+      var del = this._delegate;
+      if (del && qx.lang.Type.isFunction(del.manipulateData)) {
+        data = this._delegate.manipulateData(data);
+      }
 
-       // create the class
-       this._marshaler.toClass(data, true);
+      // create the class
+      this._marshaler.toClass(data, true);
 
-       // set the initial data
-       this.model = this._marshaler.toModel(data);
+      // set the initial data
+      this.model = this._marshaler.toModel(data);
 
-       // fire complete event
-       this.emit("loaded", this.model);
+      // fire complete event
+      this.emit("loaded", this.model);
 
-       // get rid of the request object
-       if (this.__request) {
-         this.__request.dispose();
-         this.__request = null;
-       }
+      // get rid of the request object
+      if (this.__request) {
+        this.__request.dispose();
+        this.__request = null;
+      }
     },
 
 
