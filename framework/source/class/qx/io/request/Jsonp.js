@@ -81,7 +81,11 @@ qx.Class.define("qx.io.request.Jsonp",
     this.__id = this.__generateId();
     this.transport = new qx.io.request.Script();
 
-    this.transport.on("readystatechange", function() { this.emit("readystatechange"); }.bind(this));
+    this.transport.on("readystatechange", function() {
+      this.readyState = this.transport.readyState;
+      this.status = this.transport.status;
+      this.emit("readystatechange");
+    }.bind(this));
     this.transport.on("load", function() { this.emit("load"); }.bind(this));
     this.transport.on("loadend", function() { this.emit("loadend"); }.bind(this));
     this.transport.on("error", function() { this.emit("error"); }.bind(this));
