@@ -53,7 +53,7 @@ qx.Class.define("qx.data.store.Jsonp",
   properties : {
     /**
      * The name of the callback parameter of the service. See
-     * {@link qx.bom.request.Jsonp#setCallbackParam} for more details.
+     * {@link qx.io.request.Jsonp#setCallbackParam} for more details.
      */
     callbackParam : {
       check : "String",
@@ -64,7 +64,7 @@ qx.Class.define("qx.data.store.Jsonp",
 
     /**
     * The name of the callback function. See
-    * {@link qx.bom.request.Jsonp#setCallbackName} for more details.
+    * {@link qx.io.request.Jsonp#setCallbackName} for more details.
     *
     * Note: Ignored when legacy transport is used.
     */
