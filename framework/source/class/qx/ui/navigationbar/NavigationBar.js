@@ -29,7 +29,7 @@
  *   var bar = new qx.ui.navigationbar.NavigationBar();
  *   var backButton = new qx.ui.Button();
  *   bar.append(backButton);
- *   var title = qxWeb.create('<h1>').setHtml('Headline').addClass('title');
+ *   var title = qxWeb.create("<h1>").setHtml("Headline");
  *   bar.append(title);
  *
  *   qxWeb(document.body).append(bar);

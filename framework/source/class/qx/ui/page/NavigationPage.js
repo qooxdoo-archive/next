@@ -204,7 +204,7 @@ qx.Class.define("qx.ui.page.NavigationPage",
     // interface implementation
     getTitleWidget : function() {
       if (!this.__title) {
-        this.__title = qxWeb.create('<h1>').setHtml(this.title).addClass('title');
+        this.__title = qxWeb.create("<h1>").setHtml(this.title);
       }
       return this.__title;
     },
