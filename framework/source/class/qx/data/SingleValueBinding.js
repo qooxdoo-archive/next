@@ -749,7 +749,7 @@ qx.Class.define("qx.data.SingleValueBinding",
             target = target.getItem(arrIndex);
           }
           else {
-            target = target["get" + qx.lang.String.firstUp(property)]();
+            target = target[property];
           }
         } catch (ex) {
           return null;
