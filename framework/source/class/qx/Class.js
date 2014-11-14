@@ -571,7 +571,7 @@ qx.Class.define("qx.Class",
      * @return {var} the return value of the method of the base class.
      * @internal
      */
-    base : qx.Class.base,
+    "super" : qx.Class.super,
 
     /**
      * Define a new class using the qooxdoo class system.
