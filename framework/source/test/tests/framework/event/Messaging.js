@@ -17,7 +17,7 @@
 
  ************************************************************************ */
 
-describe("qx.test.event.Messaging", function () {
+describe("event.Messaging", function () {
 
   var __messaging;
 

@@ -17,7 +17,7 @@
 
  ************************************************************************ */
 
-describe("qx.test.event.Emitter", function () {
+describe("event.Emitter", function () {
 
   var __eventEmitter;
 

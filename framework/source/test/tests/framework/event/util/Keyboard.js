@@ -17,7 +17,7 @@
 
  ************************************************************************
  */
-describe("qx.test.event.util.Keyboard", function () {
+describe("event.util.Keyboard", function () {
   it("testCommaAsValidKeyIdentifier", function () {
     var isValidKeyIdentifier = qx.event.util.Keyboard.isValidKeyIdentifier(',');
 
