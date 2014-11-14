@@ -1,45 +1,16 @@
-module.exports = function(grunt) {
-
-  var fs = require('fs');
-  var glob = require('glob');
-
-  var getTestPath = function (scope) {
-    if (typeof scope === 'undefined' || scope === 'all') {
-      return 'tests/**/*.js';
-    }
-    return 'tests/' + scope + '/**/*.js';
-  };
-
-  // process test HTML
-  grunt.registerTask('html', 'A task to preprocess the website.html', function(scope) {
-    var testPath = getTestPath(scope);
-    // read index files
-    ["index.html", "index-source.html"].forEach(function(fileName) {
-      var index = fs.readFileSync(fileName, {encoding: 'utf8'});
-
-      var tests = glob.sync(testPath);
-      var scriptTags = '  <!-- TESTS START -->\n';
-      tests.filter(function(path) {
-        // exclude infrastructure files
-        return path.indexOf("setup.js") === -1 &&
-               path.indexOf("mochaSetup.js") === -1 &&
-               path.indexOf("TestCase.js") === -1;
-      })
-      .forEach(function(path) {
-        scriptTags += '  <script src="' + path + '"></script>\n';
-      });
-      scriptTags += '  <!-- TESTS END -->';
-
-      index = index.replace(/\s\s<!--\sTESTS\sSTART\s-->((.|\n)*)<!--\sTESTS\sEND\s-->/g, scriptTags);
-
-      // write index file
-      fs.writeFileSync(fileName, index, {'encoding': 'utf8'});
-    });
-  });
-
+module.exports = function (grunt) {
 
   var shell = require('shelljs');
-  grunt.registerTask('build', 'Build the test artifact (optimized version)', function() {
+
+  grunt.initConfig({
+    convert: {
+      source: __dirname + '/../class/qx/test/',
+      destination: __dirname + '/tests/framework/destination/'
+    }
+  });
+
+  grunt.loadTasks('grunt-tasks');
+  grunt.registerTask('build', 'Build the test artifact (optimized version)', function () {
     console.log('Opening the framework folder');
     shell.cd('../../');
     shell.exec('npm install');
@@ -47,7 +18,7 @@ module.exports = function(grunt) {
     shell.cd('source/test');
   });
 
-  grunt.registerTask('source', 'Build the test artifact (source version)', function() {
+  grunt.registerTask('source', 'Build the test artifact (source version)', function () {
     console.log('Opening the framework folder');
     shell.cd('../../');
     shell.exec('npm install');
