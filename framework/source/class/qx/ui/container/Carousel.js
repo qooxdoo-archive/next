@@ -186,6 +186,12 @@ qx.Class.define("qx.ui.container.Carousel",
     __moved : false,
     __touchStarted : false,
     __prevIndex : 0,
+    __leftBufferSize : null,
+    __rightBufferSize : null,
+    __leftSwipeCount : 0,
+    __rightSwipeCount : 0,
+    __blocked : false,
+    __duration : 0,
 
 
     // overridden
@@ -212,17 +218,12 @@ qx.Class.define("qx.ui.container.Carousel",
       page.layoutPrefs = {flex: 1};
 
       if(pageCount < 2) {
-
         this.__carouselScroller.append(page);
-
       } else {
-
         page.insertBefore(this.__pages[0]);
-
         if( pageCount % 2 != 0) {
          this._orderPages("left", 1);
         }
-
       }
 
       var paginationLabel = this._createPaginationLabel();
@@ -414,25 +415,22 @@ qx.Class.define("qx.ui.container.Carousel",
 
       this.__centerChanged = (oldIndex !== undefined) && (oldIndex != this.currentIndex);
 
-      var duration = parseFloat(this.__carouselScroller.getStyle("transitionDuration"));
-
-
       /* If the currentIndex has been changed externaly
       * detect detect the direction and calculate the steps
       */
       if((oldIndex !== undefined) && (this.__direction === null)) {
-
         var buffer = this.__carouselScroller.getChildren();
         var prevPos = buffer.indexOf(this.__pages[oldIndex]);
         var nextPos = buffer.indexOf(this.__pages[pageIndex]);
         this.__steps = Math.abs(prevPos - nextPos);
         this.__direction = nextPos > prevPos ? "left" : "right";
         this._orderPages(this.__direction, this.__steps);
-      }else if(duration === 0 && this.__direction !== null) {
+
+      }else if(this.__duration === 0 && this.__direction !== null) {
         this._orderPages(this.__direction, this.__steps);
       }
 
-      if(duration === 0) {
+      if(this.__duration === 0) {
         this.__direction = null;
         this.__steps = null;
       }
@@ -445,7 +443,7 @@ qx.Class.define("qx.ui.container.Carousel",
     * @param page {qx.ui.Widget} The page which should be centered.
     */
     _centerPage : function(page) {
-      // Quick fix for [Bug #8684]
+
       if (!page) {
         return;
       }
@@ -506,6 +504,9 @@ qx.Class.define("qx.ui.container.Carousel",
       this.__locked = false;
       this.__direction = null;
       this.__steps = null;
+      this.__leftSwipeCount = 0;
+      this.__rightSwipeCount = 0;
+      this.__blocked = false;
     },
 
 
@@ -534,7 +535,6 @@ qx.Class.define("qx.ui.container.Carousel",
       });
 
       return paginationLabel;
-
     },
 
 
@@ -558,6 +558,8 @@ qx.Class.define("qx.ui.container.Carousel",
      */
     _onPaginationLabelTap : function(e) {
       if(this.targetIndex != this.currentIndex) {
+        this.self._setTransitionDuration(0);
+        this.self.__direction = null;
         this.self.currentIndex = this.targetIndex;
       }
     },
@@ -627,6 +629,9 @@ qx.Class.define("qx.ui.container.Carousel",
       this._setTransitionDuration(0);
       this._updateCarouselLayout();
       this._refreshScrollerPosition();
+      var l = this.__pages.length - 1;
+      this.__leftBufferSize = Math.floor(l/2);
+      this.__rightBufferSize = l -  this.__leftBufferSize;
     },
 
 
@@ -656,6 +661,10 @@ qx.Class.define("qx.ui.container.Carousel",
     _onPointerDown : function(evt) {
 
       if(!evt.isPrimary) {
+        return;
+      }
+
+       if(this.__blocked) {
         return;
       }
 
@@ -718,91 +727,53 @@ qx.Class.define("qx.ui.container.Carousel",
 
 
     /**
-    * Calculate the index of the next page to be shown
-    * @return {Integer} The index of the next page
-    */
-    _getItemToshow : function() {
-
-      this.__direction = null;
-
-      var items = this.__carouselScroller.getChildren();
-      var left = 0, right = 0, half = this.__carouselWidth/2, next = null;
-      var direction = this.__onMoveOffset[0] > this.__lastOffset[0] ? "right" : "left";
-      var width = null;
-      var minFactor = 0.1;
-
-      var centeredIndex = Math.floor((items.length - 1)/2);
-
-      for(var i = 0; i < items.length; i++) {
-
-        left = this.__onMoveOffset[0] + items[i].offsetLeft;
-
-        width = this.__carouselWidth;
-        right = left + width;
-
-        if (left <= half && right >= half) {
-          if(i != centeredIndex) {
-            next = i;
-          } else{
-            if (direction === "right") {
-              next = left >= minFactor * (width / 2) ? i - 1 : i;
-            } else{
-              next = Math.abs(left) >= minFactor * (width / 2) ? i + 1 : i;
-            }
-          }
-          break;
-        }
-
-      }
-
-      var leftOfNext = Math.abs(this.__onMoveOffset[0] + items[next].offsetLeft);
-      var duration = (leftOfNext * this.transitionDuration) / this.__carouselWidth;
-
-      //this._setTransitionDuration(duration.toFixed(2));
-
-      var pages = [];
-      this.__pages.forEach(function(page){
-        pages.push(page[0]);
-      });
-
-      var indexToShow = pages.indexOf(items[next]);
-
-      this.__direction = direction;
-      this.__steps = Math.abs(this.currentIndex - indexToShow);
-
-      return indexToShow;
-    },
-
-
-    /**
     * Handler for <code>pointerup</code> event on carousel scroller.
     * @param evt {qx.event.type.Pointer} the pointerup event.
     */
     _onPointerUp : function(evt) {
 
-      if(!evt.isPrimary || !this.__moved) {
+      if(!evt.isPrimary || this.__blocked) {
         return;
       }
 
-      if(evt.type == "pointerout" && evt.relatedTarget && qxWeb(evt.relatedTarget).isChildOf(this)) {
+      var relatedTarget = qxWeb(evt.relatedTarget);
+      if(evt.type == "pointerout") {
+        if(((relatedTarget.length > 0) && relatedTarget.isChildOf(this.__carouselScroller)) || this.__direction !== null) {
+          return;
+        }
+
+      }
+
+      if((this.__direction === null) || (Math.abs(this.__deltaX) < 50)) {
+        this._setTransitionDuration(this.transitionDuration);
+        this._refreshScrollerPosition();
         return;
+      }
+
+      if(this.__direction == "left") {
+        this.__leftSwipeCount ++;
+        if(this.__rightSwipeCount > 0) {
+          this.__rightSwipeCount --;
+        }
+      } else {
+        this.__rightSwipeCount ++;
+        if(this.__leftSwipeCount > 0) {
+          this.__leftSwipeCount --;
+        }
+      }
+
+      if((this.__leftSwipeCount == this.__rightBufferSize) || (this.__rightSwipeCount == this.__leftBufferSize)) {
+        this.__blocked = true;
       }
 
       this.__touchStarted = false;
-
       this.__locked = true
       this.__moved = false;
 
-      this._setTransitionDuration(this.transitionDuration);
-
-      var indexToShow = this._getItemToshow();
-
-      this.__centerChanged = this.currentIndex != indexToShow;
-
-      if(this.__centerChanged) {
-        this.currentIndex = indexToShow;
-      }else{
-         this._refreshScrollerPosition();
+      if(this.__direction == "left") {
+        this.nextPage();
+      } else if(this.__direction == "right") {
+        this.previousPage();
       }
 
     },
@@ -826,6 +797,7 @@ qx.Class.define("qx.ui.container.Carousel",
     * @param value {Number} the target value of the transitionDuration.
     */
     _setTransitionDuration : function(value) {
+      this.__duration = value;
       this.__carouselScroller.setStyle("transitionDuration", value+"s");
     },
 
