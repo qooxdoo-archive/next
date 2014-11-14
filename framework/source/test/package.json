@@ -9,12 +9,12 @@
     "chai": "*"
   },
   "devDependencies": {
-    "chai": "*",
+    "chai": "^1.9.2",
     "glob": "^4.0.6",
     "grunt": "^0.4.5",
-    "mocha": "*",
+    "mocha": "^1.21.4",
     "shelljs": "^0.3.0",
-    "sinon": "*"
+    "sinon": "^1.10.3"
   },
   "src_files": [
     "node_modules/chai/chai.js",
