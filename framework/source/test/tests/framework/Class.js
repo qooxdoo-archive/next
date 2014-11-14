@@ -1,3 +1,4 @@
+"use strict";
 /* ************************************************************************
 
    qooxdoo - the new era of web development
@@ -436,44 +437,84 @@ describe("Class", function() {
   });
 
 
-  it("PropertyApply", function() {
-
-    var applyA = sinon.spy(function(value, old) {
-      assert.equal(value, this.a);
-    });
-    var applyB = sinon.spy();
+  it("PropertyNullable", function() {
     var C = qx.Class.define(null, {
       properties: {
         a: {
-          apply: "_applyA"
+          nullable: true
         },
         b: {
-          apply: applyB,
-          init: "b"
-        }
-      },
-      members: {
-        _applyA: applyA
+          init: 12,
+          nullable: false
+        },
+        c: {}
+      }
+    });
+
+    var c = new C();
+
+    assert.isUndefined(c.a);
+    c.a = null;
+    assert.isNull(c.a);
+    c.a = undefined;
+    assert.isUndefined(c.a);
+
+    assert.throw(function() {
+      c.b = null;
+    });
+
+    assert.throw(function() {
+      c.c = null;
+    });
+  });
+
+
+  it("PropertyNotWritable", function() {
+    var C = qx.Class.define(null, {
+      properties: {
+        a: {},
+        b: {writable: true},
+        c: {writable: false, init: 13}
       }
     });
 
     var c = new C();
 
     c.a = 11;
-    sinon.assert.calledOnce(applyA);
-    sinon.assert.calledWith(applyA, 11, undefined, "a");
+    assert.equal(11, c.a);
 
-    c.a = 12;
-    sinon.assert.calledTwice(applyA);
-    sinon.assert.calledWith(applyA, 12, 11, "a");
+    c.b = 12;
+    assert.equal(12, c.b);
 
-    c.b = 11;
-    sinon.assert.calledOnce(applyB);
-    sinon.assert.calledWith(applyB, 11, "b", "b");
+    assert.equal(13, c.c);
+    assert.throws(function() {
+      c.c = 12323;
+    });
+    assert.equal(13, c.c);
+  });
 
-    c.b = undefined;
-    sinon.assert.calledTwice(applyB);
-    sinon.assert.calledWith(applyB, "b", 11, "b");
+
+  it("PropertyNotWritableOverride", function() {
+    var C = qx.Class.define(null, {
+      properties: {
+        a: {}
+      }
+    });
+
+    var D = qx.Class.define(null, {
+      extend : C,
+      properties: {
+        a: {init: 11, writable: false}
+      }
+    });
+
+    var d = new D();
+
+    assert.equal(11, d.a);
+    assert.throws(function() {
+      d.a = 123211;
+    });
+    assert.equal(11, d.a);
   });
 
 
@@ -705,9 +746,6 @@ describe("Class", function() {
         }
       });
     });
-
-    delete C;
-    delete D;
   });
 
 
@@ -726,8 +764,6 @@ describe("Class", function() {
         }
       });
     });
-
-    delete A;
   });
 
 

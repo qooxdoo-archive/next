@@ -314,8 +314,7 @@ qx.Class = {
 
 
 /**
- * Internal class that is responsible for bootstrapping the qooxdoo
- * framework at load time.
+ * TODO
  */
 qx.Class.define("qx.Class",
 {
@@ -364,6 +363,12 @@ qx.Class.define("qx.Class",
       }
     },
 
+
+    /**
+     * TODO
+     *
+     * supported property keys: set, get, writable, nullable, apply, event, init, check
+     */
     addProperties : function(proto, properties) {
       var propertyMap = {};
       if (!proto.$$properties) {
@@ -407,9 +412,8 @@ qx.Class.define("qx.Class",
         var getter = def.get instanceof Function ? def.get : proto[def.get];
         var setter = def.set instanceof Function ? def.set : proto[def.set];
 
-        Object.defineProperty(proto, name, {
+        var descriptor = {
           enumerable : true,
-
           get : getter || (function(name, def) {
             return function() {
               var value = this["$$" + name];
@@ -505,7 +509,17 @@ qx.Class.define("qx.Class",
 
             };
           }(name, def))
-        });
+        };
+
+        if (def.writable === false) {
+          descriptor.value = def.init;
+          descriptor.writable = false;
+          // need to delete the accessors as they are not allowed
+          delete descriptor.set;
+          delete descriptor.get;
+        }
+
+        Object.defineProperty(proto, name, descriptor);
       }
 
       // generic setter
