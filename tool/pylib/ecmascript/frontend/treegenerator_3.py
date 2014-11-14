@@ -20,7 +20,7 @@
 ################################################################################
 
 ##
-# A variant of treegenerator.py that constructs a Concrete Syntax Tree (for 
+# A variant of treegenerator.py that constructs a Concrete Syntax Tree (for
 # pretty-printing).
 #
 # Part of this code is based on Frederik Lundh's article about TDOP parsing, which
@@ -229,6 +229,13 @@ class TokenStream(IterObject):
                 s.set('constantType', 'boolean')
             elif tok.detail == "NULL":
                 s.set('constantType', 'null')
+        elif tok.name in ('reserved',) and tok.value == "super" and self.lookbehind().get('value') == "this":
+            # treat as identifier to enable basecalls via 'super' so overwrite
+            # 'name=reserved' and
+            # 'detail=FUTURE_RESERVED_WORD'
+            tok.name = 'name'
+            tok.detail = 'public'
+            s = symbol_table["identifier"]()
         elif tok.name in ('name', 'builtin'):
             s = symbol_table["identifier"]()
             # debug hook
@@ -524,7 +531,7 @@ class symbol_base(Node):
                         isComplex = preSib.getPreviousSibling().isComplex()
 
                 ## in if, try to find the mode of the parent if (if existent)
-                #elif (self.parent and self.parent.type == "body" 
+                #elif (self.parent and self.parent.type == "body"
                 #    and self.parent.parent.type == "loop" and self.parent.parent.get("loopType") == "IF")
                 #    and self.parent.parent.get()==self.parent
                 #    ):
@@ -636,7 +643,7 @@ def infix_v(id_, bp):
         r += self.children[1].toJS(opts)
         return r
     symbol(id_).toJS = toJS
-        
+
 
 ##
 # right-associative infix (all assignment ops)
@@ -953,7 +960,7 @@ def ifix(self, left):
     accessor = symbol("dotaccessor")(token.get("line"), token.get("column"))
     accessor.childappend(left)
     accessor.childappend(self)  # "."
-    accessor.childappend(expression(symbol(".").bind_left)) 
+    accessor.childappend(expression(symbol(".").bind_left))
         # i'm providing the rbp to expression() here explicitly, so "foo.bar(baz)" gets parsed
         # as (call (dotaccessor ...) (param baz)), and not (dotaccessor foo
         # (call bar (param baz))).
@@ -1423,7 +1430,7 @@ symbol("for"); symbol("in")
 def std(self):
     self.type = "loop" # compat with Node.type
     self.set("loopType", "FOR")
-    
+
     # condition
     self.childappend(token)
     advance("(")
@@ -1462,7 +1469,7 @@ def std(self):
                     exprList.childappend(assgn)
         condition.childappend(token)
         advance(";")
-        # condition part 
+        # condition part
         second = symbol("second")(token.get("line"), token.get("column"))
         condition.childappend(second)
         if token.id != ";":
@@ -1516,7 +1523,7 @@ def toJS(self, opts):
     for c in self.children:
         r.append(c.toJS(opts))
     return ''.join(r)
-    
+
 
 @method(symbol("for"))
 def toListG(self):
@@ -1652,7 +1659,7 @@ def std(self):
     self.childappend(body)
     return self
 
-# the next one - like with other loop types - is *used*, as dispatch is by class, 
+# the next one - like with other loop types - is *used*, as dispatch is by class,
 # not obj.type (cf. "loop".toJS(opts))
 @method(symbol("with"))
 def toJS(self, opts):
@@ -1976,7 +1983,7 @@ def statement():
     # normal SourceElement
     else:
         n = token
-        s = None 
+        s = None
         # function declaration, doesn't need statementEnd
         if token.id == 'function' and tokenStream.peek(1).type == 'identifier':
             advance()
@@ -2056,9 +2063,9 @@ def statementEnd():
     else:
         raise SyntaxException("Unterminated statement (pos %r)" % ((token.get("line"), token.get("column")),))
 
-    #if token.id in ("eof", 
+    #if token.id in ("eof",
     #    "eol", # these are not yielded by the TokenStream currently
-    #    ";", 
+    #    ";",
     #    "}"  # it's the last statement in a block
     #    ):
     #    advance()

@@ -86,7 +86,7 @@ def infix_v(id_):
         state.add(self.space(),_, optns)
         self.getChild(1).format(optns, state)
     symbol(id_).format = format
-        
+
 for sym in SYMBOLS['infix_v']:
     infix_v(sym)
 
@@ -334,12 +334,12 @@ def format(self, optns, state):
 
 @method(symbol("{"))
 def format(self, optns, state):
-    
+
     def allowsNewline(node): # args of 'return', 'throw' may not be separated by newline
-        return not (node.parent 
-            and node.parent.parent 
+        return not (node.parent
+            and node.parent.parent
             and node.parent.parent.type in ('return', 'throw'))
-    
+
     def wantsNewline(node): # depending on config and complexity
         return (optns.prettypOpenCurlyNewlineBefore in 'aA' # and self.hasLeadingContent():
                 or (optns.prettypOpenCurlyNewlineBefore in 'mM' and node.parent.isComplex()))
@@ -420,7 +420,7 @@ def format(self, optns, state):
     comments = []
     # handle leading newline
     if (not is_dangling_comment(self)
-        and has_preceding_text() 
+        and has_preceding_text()
         and not is_first_on_level()):
        comments.append('\n')
     commentStr = self.get("value")
@@ -473,7 +473,7 @@ class FormatterState(object):
 
     def append(self, el):
         self.output.append(el)
-     
+
     re_non_white = re.compile(r'\S',re.U)
     def not_all_white(self, s):
         return self.re_non_white.search(s)
@@ -519,7 +519,7 @@ class FormatterState(object):
             if '\n' in strng and self.inExpression:
                 self.outdent()
                 self.inExpression = False
-            
+
             # check text width and handle continuation lines
             self.handle_text_width(fragment, tokenOrArr, optns)
 
@@ -539,7 +539,7 @@ class FormatterState(object):
                 self.incCurrLine()   # ???
                 self.line = ''
         # postcond: rest of strng is in self.line
-            
+
     ##
     # Return spaces to be inserted between code and dangling comment.
     def make_comment_padding(self, comment, optns):
@@ -579,7 +579,7 @@ class FormatterState(object):
                     (node.type == "operation"
                     and node.get("operator", '') in ('DEC', 'INC')
                     and node.get("left", '')!="true")
-                or 
+                or
                     # break/continue arguments
                     (node.parent
                     and node.parent.type in ('break', 'continue',))
@@ -599,7 +599,7 @@ class FormatterState(object):
             and token.type not in (',', ';', '}', ']') # breaking before those is ugly
             and not hasUnbreakableContext(token)
             and len(strng) + self.currColumn() > optns.prettypTextWidth):
-            self.add(('\n',_),optns)
+            self.add('\n', _, optns)
             if not self.inExpression:
                 self.indent()
                 self.inExpression = True
@@ -668,8 +668,8 @@ class LineStack(object):
     def current(self):
         if self.stack:
             return self.stack[-1]
-    
-    
+
+
 FormatterOptions = formatter.FormatterOptions
 
 def formatNode(tree, options, result):
