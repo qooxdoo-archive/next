@@ -66,6 +66,24 @@ describe("mobile.container.Carousel", function() {
   });
 
 
+  it("Remove all Pages", function() {
+    var carousel = new qx.ui.container.Carousel();
+    var carouselPage1 = new qx.ui.Widget();
+    carousel.append(carouselPage1);
+    var carouselPage2 = new qx.ui.Widget();
+    carousel.append(carouselPage2);
+
+    getRoot().append(carousel);
+    carouselPage1.remove();
+
+    assert.equal(carouselPage2[0], carousel.active);
+
+    carousel.dispose();
+    carouselPage1.dispose();
+    carouselPage2.dispose();
+  });
+
+
   it("FirstActive", function() {
     var carousel = new qx.ui.container.Carousel();
     var carouselPage1 = new qx.ui.Widget();
