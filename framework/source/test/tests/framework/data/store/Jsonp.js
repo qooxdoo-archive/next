@@ -43,8 +43,9 @@ describe("data.store.Jsonp", function() {
 
   function setUpFakeRequest() {
     var req = request = new qx.io.request.Jsonp();
-    req.send = req.dispose = function() {};
-    sinon.stub(qx.io.request, "Jsonp").returns(sinon.stub(req));
+    sinon.stub(req, "dispose");
+    sinon.stub(req, "send");
+    sinon.stub(qx.io.request, "Jsonp").returns(req);
   }
 
 
@@ -127,19 +128,28 @@ describe("data.store.Jsonp", function() {
 
 
   it("DisposeRequest", function() {
+    setUpFakeRequest();
+
     var store = new qx.data.store.Jsonp(url);
     store.dispose();
 
-    assert.isTrue(store._getRequest().$$disposed);
+    sinon.assert.called(store._getRequest().dispose);
   });
 
 
   it("DisposeRequestDone", function(done) {
     __store.on("loaded", function() {
+      var req = new qx.io.request.Jsonp();
+      sinon.stub(req, "dispose");
+
+      __store._setRequest(req);
       __store.dispose();
-      assert.isTrue(__store._getRequest().$$disposed);
+
+      sinon.assert.called(__store._getRequest().dispose);
+
       done();
     }, this);
+
     __store.url = url;
   });
 
