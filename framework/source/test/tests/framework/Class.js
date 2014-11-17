@@ -319,7 +319,7 @@ describe("Class", function() {
     context = null;
     result = add(1, 2);
 
-    assert.equal(context, window);
+    assert.equal(context, undefined);
     assert.equal(3, result);
 
     context = null;
