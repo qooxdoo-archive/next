@@ -69,19 +69,6 @@ ul.tree {
     color: #aaa;
   }
 
-  a.active {
-    background-color: #dae1ea;
-    border-radius: 1px;
-    display: inline-block;
-    width: 100%;
-  }
-
-  .select-box {
-    vertical-align: top;
-    margin:0px 8px 0px 0px;
-    padding:0px;
-  }
-
   $nesting_level_margin : 20px;
   $max_level : 25;
   @for $level from 0 through $max_level {

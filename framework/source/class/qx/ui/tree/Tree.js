@@ -46,7 +46,7 @@ qx.Class.define("qx.ui.tree.Tree",
   events : {
 
     /** Fires whenever a folder is selected */
-    "selectedFolder" : "qx.event.Emitter"
+    "selected" : "Element"
   },
 
 
@@ -67,7 +67,6 @@ qx.Class.define("qx.ui.tree.Tree",
 
   members :
   {
-    __selectedFolder : qxWeb(),
     __newFolderId : null,
     __lookupModel : null,
     __dataModel : null,
@@ -84,16 +83,6 @@ qx.Class.define("qx.ui.tree.Tree",
       this.__newFolderId = parseInt(Math.random() * 10000, 10);
       this.__lookupModel = {};
       this.__addListeners();
-    },
-
-
-    // Overriden
-    render : function ()
-    {
-      // Select the root folder
-      this.selectFolder(this.__dataModel.id);
-
-      return this;
     },
 
 
@@ -141,8 +130,6 @@ qx.Class.define("qx.ui.tree.Tree",
 
       this.__renderFirstLevel();
 
-      this.render();
-
       return this;
     },
 
@@ -174,44 +161,6 @@ qx.Class.define("qx.ui.tree.Tree",
       return false;
     },
 
-
-    /**
-     * Select a given folder and opens / closes the folder.
-     * Creates the DOM elements if they are yet not present.
-     *
-     * @param id {String} the folder ID to select
-     * @return {qx.ui.tree.Tree} The collection for chaining.
-     */
-    selectFolder : function (id) {
-
-      var folder = qxWeb("#" + id);
-
-      if (folder.length > 0) {
-        this.__removeSelectionFromFolder();
-        this.__selectedFolder = folder;
-      } else {
-        // no folder got - the DOM element has to be created
-        var modelItem = this.__lookupModel[id];
-
-        var parents = this.__recursiveCollectParents(modelItem);
-
-        parents = parents.reverse();
-
-        for (var i = 0, j = parents.length; i < j; i++) {
-          // TODO: improve performance by adding the folders to a DocumentFragment
-          // and then add it in a bulk into the DOM
-          this.__openFolder(parents[i], parents[i].parent);
-        }
-
-        folder = qxWeb("#"+id);
-        this.__selectedFolder = folder;
-      }
-
-      // in the end: highlight the folder
-      this.__addSelectionToFolder();
-
-      return this;
-    },
 
     /**
      * Sort the model - the tree relies internally on a sorted
@@ -276,7 +225,6 @@ qx.Class.define("qx.ui.tree.Tree",
       lookupModel[rootId] = {
         "name": "/"
       };
-      lookupModel[rootId].selected = false;
 
       // enhance the internal data model
       lookupModel[rootId].level = 0;
@@ -330,7 +278,6 @@ qx.Class.define("qx.ui.tree.Tree",
         lookupModel[id] = {
           "name": treeNode.name
         };
-        lookupModel[id].selected = false;
 
         // enhance the internal data model
         lookupModel[id].level = level;
@@ -459,7 +406,7 @@ qx.Class.define("qx.ui.tree.Tree",
       var template = qx.ui.tree.Tree.__itemTemplate;
       var collection = qxWeb.template.renderToNode(template, this.__getTemplateData(id, meta));
 
-      collection.getChildren('span:first').addClass("level-" + meta.level);
+      collection.getChildren("span:first").addClass("level-" + meta.level);
 
       return collection;
     },
@@ -502,7 +449,7 @@ qx.Class.define("qx.ui.tree.Tree",
     __addListeners : function () {
       // all listeners should be attached at the tree container and make use of
       // event bubbling instead of adding the events to each folder.
-      this.on('tap', this.__treeFolderTapped, this);
+      this.on("tap", this.__treeFolderTapped, this);
     },
 
 
@@ -512,7 +459,6 @@ qx.Class.define("qx.ui.tree.Tree",
      * @param e {Event} native click event
      */
     __treeFolderTapped : function (e) {
-
       var target = e.target;
       var folder = qxWeb(target).getClosest("li");
       var folderId = folder.getAttribute("id");
@@ -523,16 +469,7 @@ qx.Class.define("qx.ui.tree.Tree",
         return;
       }
 
-      // Toggle the selected state
-      this.__removeSelectionFromFolder();
-
-      if (this.__selectedFolder.getAttribute("id") !== folderId) {
-        this.emit("selectedFolder", folderId);
-      }
-
-      this.__selectedFolder = folder;
-
-      this.__addSelectionToFolder();
+      this.emit("selected", folder[0]);
 
       var lookupModel = this.__lookupModel;
 
@@ -555,22 +492,6 @@ qx.Class.define("qx.ui.tree.Tree",
         }
       }
 
-    },
-
-
-    /**
-     * Helper method to remove the selection from the currently selected folder.
-     */
-    __removeSelectionFromFolder: function () {
-      this.__selectedFolder.getChildren('a').removeClass("active");
-    },
-
-
-    /**
-     * Helper method to add the selection to the currently selected folder.
-     */
-    __addSelectionToFolder: function () {
-      this.__selectedFolder.getChildren('a').addClass("active");
     },
 
 
@@ -663,7 +584,7 @@ qx.Class.define("qx.ui.tree.Tree",
      */
     __toggleState : function (folderId)
     {
-      var label = qxWeb("#" + folderId).getChildren('span:first');
+      var label = qxWeb("#" + folderId).getChildren("span:first");
       label.toggleClass("open");
     }
   },
@@ -672,5 +593,4 @@ qx.Class.define("qx.ui.tree.Tree",
   classDefined : function(statics) {
     qxWeb.$attachWidget(statics);
   }
-
 });
