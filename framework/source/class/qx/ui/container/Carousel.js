@@ -294,10 +294,7 @@ qx.Class.define("qx.ui.container.Carousel",
       var last = pages.getLast();
       var first = pages.getFirst();
 
-      paginationLabel.off("tap", this._onPaginationLabelTap, {
-        self: this,
-        targetIndex: pageIndex - 1
-      });
+      paginationLabel.off("tap", paginationLabel.tapHandler);
       paginationLabel.dispose();
 
       this.__pages.splice(pageIndex, 1);
@@ -524,10 +521,8 @@ qx.Class.define("qx.ui.container.Carousel",
       paginationLabel.append(paginationLabelText);
 
       paginationLabel.addClass("qx-carousel-pagination-label");
-      paginationLabel.on("tap", this._onPaginationLabelTap, {
-        self: this,
-        targetIndex: paginationIndex - 1
-      });
+      paginationLabel.tapHandler = this._onPaginationLabelTap.bind(this, paginationIndex - 1)
+      paginationLabel.on("tap", paginationLabel.tapHandler);
 
       return paginationLabel;
     },
@@ -551,11 +546,12 @@ qx.Class.define("qx.ui.container.Carousel",
     /**
      * Handles a tap on paginationLabel.
      */
-    _onPaginationLabelTap : function(e) {
-      if(this.targetIndex != this.__currentIndex) {
-        this.self._setTransitionDuration(0);
-        this.self.__direction = null;
-        this.self.__currentIndex = this.targetIndex;
+    _onPaginationLabelTap : function(targetIndex, e) {
+      if (targetIndex != this.__currentIndex) {
+        this._setTransitionDuration(0);
+        this.__direction = null;
+        this.__currentIndex = targetIndex;
+        this.active = this.__pages[this.__currentIndex][0];
       }
     },
 
