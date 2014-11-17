@@ -36,7 +36,7 @@ describe("mobile.container.Carousel", function() {
   });
 
 
-  it("AddCarouselPage", function() {
+  it("Add Page", function() {
     var carousel = new qx.ui.container.Carousel();
     var carouselPage = new qx.ui.Widget();
     carousel.append(carouselPage);
@@ -48,18 +48,40 @@ describe("mobile.container.Carousel", function() {
   });
 
 
-  it("RemoveCarouselPage", function() {
+  it("Remove Page", function() {
     var carousel = new qx.ui.container.Carousel();
-    var carouselPage = new qx.ui.Widget();
+    var carouselPage1 = new qx.ui.Widget();
+    carousel.append(carouselPage1);
+    var carouselPage2 = new qx.ui.Widget();
+    carousel.append(carouselPage2);
 
-    carousel.append(carouselPage);
-
+    getRoot().append(carousel);
     carousel.removePageByIndex(0);
+    // carouselPage1.remove();
+
+    assert.equal(carouselPage2[0], carousel.active);
+
+    carousel.dispose();
+    carouselPage1.dispose();
+    carouselPage2.dispose();
+  });
+
+
+  it("FirstActive", function() {
+    var carousel = new qx.ui.container.Carousel();
+    var carouselPage1 = new qx.ui.Widget();
+    carousel.append(carouselPage1);
+
+    var carouselPage2 = new qx.ui.Widget();
+    carousel.append(carouselPage2);
 
     getRoot().append(carousel);
 
+    assert.equal(carouselPage1[0], carousel.active);
+
     carousel.dispose();
-    carouselPage.dispose();
+    carouselPage1.dispose();
+    carouselPage2.dispose();
   });
 
 
@@ -73,21 +95,19 @@ describe("mobile.container.Carousel", function() {
 
     getRoot().append(carousel);
 
-    assert.equal(0, carousel.currentIndex);
-
     carousel.nextPage();
-    assert.equal(1, carousel.currentIndex);
+    assert.equal(carouselPage2[0], carousel.active);
 
     // OVERFLOW
     carousel.nextPage();
-    assert.equal(0, carousel.currentIndex);
+    assert.equal(carouselPage1[0], carousel.active);
 
     carousel.previousPage();
-    assert.equal(1, carousel.currentIndex);
+    assert.equal(carouselPage2[0], carousel.active);
 
     // OVERFLOW
     carousel.previousPage();
-    assert.equal(0, carousel.currentIndex);
+    assert.equal(carouselPage1[0], carousel.active);
 
     carousel.dispose();
     carouselPage1.dispose();
@@ -105,18 +125,18 @@ describe("mobile.container.Carousel", function() {
 
     getRoot().append(carousel);
 
-    qx.core.Assert.assertEventFired(carousel, "changeCurrentIndex", function() {
+    qx.core.Assert.assertEventFired(carousel, "changeActive", function() {
       carousel.nextPage();
-    }, function(e) {
-      assert.equal(1, e.value);
-      assert.equal(0, e.old);
+    }, function(data) {
+      assert.equal(carouselPage2[0], data.value);
+      assert.equal(carouselPage1[0], data.old);
     }.bind(this));
 
-    qx.core.Assert.assertEventFired(carousel, "changeCurrentIndex", function() {
+    qx.core.Assert.assertEventFired(carousel, "changeActive", function() {
       carousel.previousPage();
-    }, function(e) {
-      assert.equal(0, e.value);
-      assert.equal(1, e.old);
+    }, function(data) {
+      assert.equal(carouselPage1[0], data.value);
+      assert.equal(carouselPage2[0], data.old);
     }.bind(this));
 
     carousel.dispose();
@@ -125,25 +145,25 @@ describe("mobile.container.Carousel", function() {
   });
 
 
-  it("ScrollToPage", function() {
+  it("ScrollToPage", function(done) {
     var carousel = new qx.ui.container.Carousel();
     var carouselPage1 = new qx.ui.Widget();
     carousel.append(carouselPage1);
 
     var carouselPage2 = new qx.ui.Widget();
     carousel.append(carouselPage2);
-
     getRoot().append(carousel);
 
-    assert.equal(0, carousel.currentIndex);
+    assert.equal(carouselPage1[0], carousel.active);
 
-    carousel.currentIndex = 1;
-    assert.equal(1, carousel.currentIndex);
+    carousel.active = carouselPage2[0];
+    assert.equal(carouselPage2[0], carousel.active);
 
     window.setTimeout(function() {
       carousel.dispose();
       carouselPage1.dispose();
       carouselPage2.dispose();
+      done();
     }, 600);
   });
 
