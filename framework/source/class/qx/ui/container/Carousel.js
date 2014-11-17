@@ -75,6 +75,7 @@ qx.Class.define("qx.ui.container.Carousel",
       carouselScroller.addClass("qx-carousel-scroller");
     }
     carouselScroller.layout = new qx.ui.layout.HBox();
+    carouselScroller.on("removedChild", this._onRemovedChild, this);
 
     var pages = qxWeb('.qx-carousel-scroller .qx-carousel-page', this[0]);
 
@@ -268,10 +269,12 @@ qx.Class.define("qx.ui.container.Carousel",
      * @param pageIndex {Integer} The page index which should be removed from carousel.
      * @return {qx.ui.Widget} the page which was removed from carousel.
      */
-    removePageByIndex : function(pageIndex) {
+    _onRemovedChild : function(child) {
       if (!this.__pages || this.__pages.length <= pageIndex) {
         return;
       }
+
+      var pageIndex = this.__pages.map(function(item) {return item[0];}).indexOf(child[0]);
 
       var center = this.__pages[this.__currentIndex];
       var pageToRemove = this.__pages[pageIndex];
@@ -348,20 +351,6 @@ qx.Class.define("qx.ui.container.Carousel",
       this._onContainerUpdate();
 
       return targetPage;
-    },
-
-
-    // overridden
-    removeAll : function() {
-
-      var removedPages = [];
-
-      if (this.__pages) {
-        for (var i = this.__pages.length - 1; i >= 0; i--) {
-          removedPages.push(this.removePageByIndex(i));
-        }
-      }
-      return removedPages;
     },
 
 
@@ -872,6 +861,7 @@ qx.Class.define("qx.ui.container.Carousel",
         this.__carouselScroller.off("pointerup", this._onPointerUp, this);
         this.__carouselScroller.off("pointerout", this._onPointerUp, this);
         this.__carouselScroller.off("touchmove", this._onTouchmove, this);
+        this.__carouselScroller.off("removedChild", this._onRemovedChild, this);
       }
 
       this.off("appear", this._onContainerUpdate, this);

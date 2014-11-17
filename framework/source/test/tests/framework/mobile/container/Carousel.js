@@ -56,8 +56,7 @@ describe("mobile.container.Carousel", function() {
     carousel.append(carouselPage2);
 
     getRoot().append(carousel);
-    carousel.removePageByIndex(0);
-    // carouselPage1.remove();
+    carouselPage1.remove();
 
     assert.equal(carouselPage2[0], carousel.active);
 
