@@ -55,25 +55,27 @@ qx.Class.define("mobileshowcase.page.Carousel",
       var page3label = new qx.ui.basic.Label("Carousel pages may contain any widgets like labels, images, buttons etc.");
       page3.append(page3label);
 
-      var nextButton = new qx.ui.Button("Next Page");
-      nextButton.addClass("example-button");
-      nextButton.on("tap", function() {
-        setTimeout(function() {
-          carousel.nextPage();
-        }.bind(this), 0);
-      }, carousel);
+      var page3group = new qx.ui.form.Group();
+      page3group.layout = new qx.ui.layout.HBox();
+      page3.append(page3group);
 
-      var previousButton = new qx.ui.Button("Previous Page");
+      var previousButton = new qx.ui.Button("<");
       previousButton.addClass("example-button");
       previousButton.on("tap", function() {
         setTimeout(function() {
           carousel.previousPage();
         }.bind(this), 0);
       }, carousel);
+      previousButton.appendTo(page3group);
 
-      var page3group = new qx.ui.form.Group([previousButton,nextButton],false);
-      page3group.layout = new qx.ui.layout.HBox();
-      page3.append(page3group);
+      var nextButton = new qx.ui.Button(">");
+      nextButton.addClass("example-button");
+      nextButton.on("tap", function() {
+        setTimeout(function() {
+          carousel.nextPage();
+        }.bind(this), 0);
+      }, carousel);
+      nextButton.appendTo(page3group);
 
       var page4 = new qx.ui.Widget();
       page4.addClass("carousel-example-4");
@@ -103,7 +105,8 @@ qx.Class.define("mobileshowcase.page.Carousel",
         }
       }, carousel);
 
-      var moreGroup = new qx.ui.form.Group([moreButton],false);
+      var moreGroup = new qx.ui.form.Group();
+      moreGroup.append(moreButton);
       moreGroup.layout = new qx.ui.layout.HBox();
 
       page5.append(moreGroup);
