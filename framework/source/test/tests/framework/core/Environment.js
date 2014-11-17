@@ -422,11 +422,6 @@ describe("core.Environment", function ()
   });
 
 
-  it("Json", function() {
-      assert.isBoolean(qx.core.Environment.get("json"));
-  });
-
-
   it("Qx", function() {
 
       assert.isBoolean(qx.core.Environment.get("qx.allowUrlSettings"), "1");
