@@ -81,6 +81,15 @@ qx.Class.define("qx.test.io.request.Jsonp",
       var req = new qx.io.request.Jsonp("url");
       this.assertEquals("url", req.url);
       req._dispose();
+    },
+
+    "test: method or async should be readonly": function() {
+      var req = new qx.io.request.Jsonp();
+      // resetting method shouldn't be possible
+      req.method = "POST";
+      this.assertEquals("GET", req.method);
+      req.async = false;
+      this.assertTrue(req.async);
     }
   }
 });
