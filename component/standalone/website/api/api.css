@@ -33,6 +33,10 @@ html[xmlns] .clearfix {
     height: 1%;
 }
 
+.exclude {
+    display: none !important
+}
+
 .loading {
   position: absolute;
   font-family: Verdana, Arial, sans-serif;

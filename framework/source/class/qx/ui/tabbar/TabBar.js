@@ -208,7 +208,7 @@ qx.Class.define("qx.ui.tabbar.TabBar", {
       var selectedButton = null;
       this.find("> .button")._forEachElementWrapped(function(button) {
         var page = this.getPage(button);
-        if (page.length == 1) {
+        if (page.length == 1 && page.exclude) {
           var previousParent = page[0].$$qxTabPageParent;
           if (previousParent) {
             page.appendTo(previousParent);
@@ -216,7 +216,7 @@ qx.Class.define("qx.ui.tabbar.TabBar", {
           else if(page.getParents() === this) {
             page.insertAfter(this);
           }
-          page.hide();
+          page.exclude();
         }
 
         if (button.hasClass("selected")) {
@@ -263,8 +263,8 @@ qx.Class.define("qx.ui.tabbar.TabBar", {
           this.active = button[0];
         } else {
           var page = this.getPage(button);
-          if (page.length > 0 && page.hide) {
-            page.hide();
+          if (page.length > 0 && page.exclude) {
+            page.exclude();
           }
         }
 
@@ -297,8 +297,8 @@ qx.Class.define("qx.ui.tabbar.TabBar", {
           button.removeClass("selected");
           var page = this.getPage(button);
           // empty collections do not have an hide method
-          if (page && page.hide) {
-            page.hide();
+          if (page && page.exclude) {
+            page.exclude();
           }
         }
       }.bind(this));

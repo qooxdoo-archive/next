@@ -339,7 +339,7 @@ q.ready(function() {
       }
       var button = q.create("<li " + groupIcon + " data-qx-config-page='#" + groupId + "' class='button'>" + group.replace("_", " ") + "</li>")
         .appendTo("#list > ul");
-      groupPage = q.create("<li class='qx-tabs-page' id='" + groupId + "'></li>").appendTo("#list > ul");
+      groupPage = q.create("<li class='qx-tabs-page' id='" + groupId + "'></li>").toWidget().appendTo("#list > ul");
     }
 
     if (name !== "Core") {
