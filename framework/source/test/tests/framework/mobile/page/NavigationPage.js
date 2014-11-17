@@ -46,7 +46,7 @@ describe("mobile.page.NavigationPage", function ()
       var page = new qx.ui.page.NavigationPage();
 
       page.title = "Affe";
-      assert.equal("Affe", page.getTitleWidget().value);
+      assert.equal("Affe", page.getTitleWidget().getHtml());
 
       page.dispose();
   });
