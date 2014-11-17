@@ -941,6 +941,36 @@ describe("Class", function() {
   });
 
 
+  it("Custom Property Setter Override", function() {
+    var setterA = sinon.spy(function(){console.log("a");});
+    var setterB = sinon.spy(function() {console.log("b");});
+
+    var A = qx.Class.define(null, {
+      extend: Object,
+      properties: {
+        a: {
+          set: "_setA"
+        }
+      },
+      members: {
+        _setA: setterA
+      }
+    });
+
+    var B = qx.Class.define(null, {
+      extend : A,
+      members : {
+        _setA: setterB
+      }
+    });
+
+    var b = new B();
+    b.a = 123;
+    sinon.assert.notCalled(setterA);
+    sinon.assert.calledOnce(setterB);
+  });
+
+
   it("Events", function() {
     var E1 = qx.Class.define(null, {
       extend: Object,

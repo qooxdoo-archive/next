@@ -409,8 +409,28 @@ qx.Class.define("qx.Class",
         }
 
         // custom getter/setter
-        var getter = def.get instanceof Function ? def.get : proto[def.get];
-        var setter = def.set instanceof Function ? def.set : proto[def.set];
+        var getter;
+        if (def.get instanceof Function) {
+          getter = def.get;
+        } else if (def.get) {
+          // we can not use the function pointer directly due to extension
+          getter = (function(name) {
+            return function(value) {
+              return this[name](value);
+            };
+          })(def.get);
+        }
+        var setter;
+        if (def.set instanceof Function) {
+          setter = def.set;
+        } else if (def.set) {
+          // we can not use the function pointer directly due to extension
+          setter = (function(name) {
+            return function(value) {
+              return this[name](value);
+            };
+          })(def.set);
+        }
 
         var descriptor = {
           enumerable : true,
