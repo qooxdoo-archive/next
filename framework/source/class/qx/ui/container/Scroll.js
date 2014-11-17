@@ -167,18 +167,22 @@ qx.Class.define("qx.ui.container.Scroll",
    /**
     * Sets the horizontal trigger points, where a <code>waypoint</code> event will be fired.
     * @param waypoints {Array} description
+    * @return {qx.ui.container.Scroll} The widget for chaining
     */
     setWaypointsX : function(waypoints) {
       this._waypointsX = waypoints;
+      return this;
     },
 
 
     /**
      * Sets the vertical trigger points, where a <code>waypoint</code> event will be fired.
      * @param waypoints {Array} an array with waypoint descriptions. Allowed are percentage description as string, or pixel trigger points defined as numbers. <code>["20%",200]</code>
+     * @return {qx.ui.container.Scroll} The widget for chaining
      */
     setWaypointsY : function(waypoints) {
       this._waypointsY = waypoints;
+      return this;
     },
 
 
