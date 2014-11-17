@@ -573,7 +573,6 @@ qx.Class.define("qx.ui.page.NavigationPage",
       this.__rightContainer && this.__rightContainer.dispose();
       this.__backButton && this.__backButton.dispose();
       this.__actionButton && this.__actionButton.dispose();
-      this.__title && this.__title.dispose();
       this.__leftContainer = this.__rightContainer = this.__backButton = this.__actionButton = null;
       this.__title = this.__content = this.__scrollContainer = null;
       this._isTablet = null;

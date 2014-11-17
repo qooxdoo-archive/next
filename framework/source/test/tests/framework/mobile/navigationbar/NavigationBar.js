@@ -46,9 +46,8 @@ describe("mobile.navigationbar.NavigationBar", function()
       assert.equal(3, bar.getChildren().length);
 
       back.dispose();
-      title.dispose();
       button.dispose();
-      bar.dispose()
+      bar.dispose();
   });
 
 
