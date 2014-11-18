@@ -65,20 +65,20 @@ qx.Class.define("qx.test.io.request.JsonpLowLevel",
     // Callback
     //
 
-    "test: setCallbackParam()": function() {
+    "test: callbackParam": function() {
       var req = this.req;
 
-      req.setCallbackParam("myMethod");
+      req.callbackParam = "myMethod";
       req.url = this.url;
       req.send();
 
       this.assertMatch(req.getGeneratedUrl(), /(myMethod=)/);
     },
 
-    "test: setCallbackName()": function() {
+    "test: callbackName": function() {
       var req = this.req;
 
-      req.setCallbackName("myCallback");
+      req.callbackName = "myCallback";
       req.url = this.url;
       req.send();
 
@@ -106,7 +106,7 @@ qx.Class.define("qx.test.io.request.JsonpLowLevel",
       // User provided callback that must not be overwritten
       window.myExistingCallback = function() { return "Affe"; };
 
-      this.req.setCallbackName("myExistingCallback");
+      this.req.callbackName = "myExistingCallback";
 
       this.req.on("load", function() {
         that.resume(function() {
@@ -175,7 +175,7 @@ qx.Class.define("qx.test.io.request.JsonpLowLevel",
         });
       });
 
-      this.req.setCallbackName("myCallback");
+      this.req.callbackName = "myCallback";
       this.request();
       this.wait();
     },
@@ -204,7 +204,7 @@ qx.Class.define("qx.test.io.request.JsonpLowLevel",
         });
       });
 
-      this.req.setCallbackName("myCallback");
+      this.req.callbackName = "myCallback";
       this.request(this.getUrl("qx/test/script.js"));
       this.wait();
     },

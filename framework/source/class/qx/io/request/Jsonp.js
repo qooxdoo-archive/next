@@ -124,6 +124,43 @@ qx.Class.define("qx.io.request.Jsonp",
     cache: {
       check: "Boolean",
       init: true
+    },
+
+    /**
+     * Set callback parameter.
+     *
+     * Some JSONP services expect the callback name to be passed labeled with a
+     * special URL parameter key, e.g. "jsonp" in "?jsonp=myCallback". The
+     * default is "callback".
+     *
+     * @type {String} Callback parameter.
+     */
+    callbackParam: {
+      init: "",
+      nullable: true
+    },
+
+    /**
+     * Set callback name.
+     *
+     * Must be set to the name of the callback function that is called by the
+     * script returned from the JSONP service. By default, the callback name
+     * references this instance’s {@link #callback} method, allowing to connect
+     * multiple JSONP responses to different requests.
+     *
+     * If the JSONP service allows to set custom callback names, it should not
+     * be necessary to change the default. However, some services use a fixed
+     * callback name. This is when setting the callbackName is useful. A
+     * function is created and made available globally under the given name.
+     * The function receives the JSON data and dispatches it to this instance’s
+     * {@link #callback} method. Please note that this function is only created
+     * if it does not exist before.
+     *
+     * @type {String} Callback name.
+     */
+    callbackName: {
+      init: "",
+      nullable: true
     }
   },
 
@@ -138,16 +175,6 @@ qx.Class.define("qx.io.request.Jsonp",
      * @type {Number} Identifier of this instance.
      */
     __id: null,
-
-    /**
-     * @type {String} Callback parameter.
-     */
-    __callbackParam: null,
-
-    /**
-     * @type {String} Callback name.
-     */
-    __callbackName: null,
 
     /**
      * @type {Boolean} Whether callback was called.
@@ -202,12 +229,12 @@ qx.Class.define("qx.io.request.Jsonp",
       this.response = null;
       this.__callbackCalled = false;
 
-      callbackParam = this.__callbackParam || "callback";
-      callbackName = this.__callbackName || this.__prefix +
+      callbackParam = this.callbackParam || "callback";
+      callbackName = this.callbackName || this.__prefix +
         "qx.io.request.Jsonp." + this.__id + ".callback";
 
       // Default callback
-      if (!this.__callbackName) {
+      if (!this.callbackName) {
 
         // Store globally available reference to this object
         this.constructor[this.__id] = this;
@@ -218,15 +245,15 @@ qx.Class.define("qx.io.request.Jsonp",
         // Dynamically create globally available callback (if it does not
         // exist yet) with user defined name. Delegate to this object’s
         // callback method.
-        if (!window[this.__callbackName]) {
+        if (!window[this.callbackName]) {
           this.__customCallbackCreated = true;
-          window[this.__callbackName] = function(data) {
+          window[this.callbackName] = function(data) {
             that.callback(data);
           };
         } else {
           if (qx.core.Environment.get("qx.debug.io")) {
             qx.Class.debug(qx.io.request.Jsonp, "Callback " +
-              this.__callbackName + " already exists");
+              this.callbackName + " already exists");
           }
         }
 
@@ -277,46 +304,6 @@ qx.Class.define("qx.io.request.Jsonp",
       this.constructor[this.__id] = undefined;
 
       this.__deleteCustomCallback();
-    },
-
-    /**
-     * Set callback parameter.
-     *
-     * Some JSONP services expect the callback name to be passed labeled with a
-     * special URL parameter key, e.g. "jsonp" in "?jsonp=myCallback". The
-     * default is "callback".
-     *
-     * @param param {String} Name of the callback parameter.
-     * @return {qx.io.request.Jsonp} Self reference for chaining.
-     */
-    setCallbackParam: function(param) {
-      this.__callbackParam = param;
-      return this;
-    },
-
-
-    /**
-     * Set callback name.
-     *
-     * Must be set to the name of the callback function that is called by the
-     * script returned from the JSONP service. By default, the callback name
-     * references this instance’s {@link #callback} method, allowing to connect
-     * multiple JSONP responses to different requests.
-     *
-     * If the JSONP service allows to set custom callback names, it should not
-     * be necessary to change the default. However, some services use a fixed
-     * callback name. This is when setting the callbackName is useful. A
-     * function is created and made available globally under the given name.
-     * The function receives the JSON data and dispatches it to this instance’s
-     * {@link #callback} method. Please note that this function is only created
-     * if it does not exist before.
-     *
-     * @param name {String} Name of the callback function.
-     * @return {qx.io.request.Jsonp} Self reference for chaining.
-     */
-    setCallbackName: function(name) {
-      this.__callbackName = name;
-      return this;
     },
 
 
@@ -418,8 +405,8 @@ qx.Class.define("qx.io.request.Jsonp",
      *  Delete custom callback if dynamically created before.
      */
     __deleteCustomCallback: function() {
-      if (this.__customCallbackCreated && window[this.__callbackName]) {
-        window[this.__callbackName] = undefined;
+      if (this.__customCallbackCreated && window[this.callbackName]) {
+        window[this.callbackName] = undefined;
         this.__customCallbackCreated = false;
       }
     },
