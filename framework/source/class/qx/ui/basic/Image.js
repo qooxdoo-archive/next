@@ -21,7 +21,6 @@
 /**
  * The image widget displays an image file.
  *
- * @ignore(qx.application.Scaling.*)
  * @group(Widget)
  */
 qx.Class.define("qx.ui.basic.Image",
