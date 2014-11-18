@@ -128,7 +128,7 @@
         {
           "format"   : false,
           "except"   : [],
-          "optimize" : ["basecalls", "variables", "privates", "strings", "whitespace"]
+          "optimize" : ["basecalls", "variables", "privates", "strings", "whitespace", "variants"]
         }
       },
 
