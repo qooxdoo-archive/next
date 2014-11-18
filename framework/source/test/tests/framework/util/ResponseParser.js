@@ -28,15 +28,18 @@ describe("util.ResponseParser", function () {
     __responseParser = null;
   });
 
+
   var __assertParser = function (contentType, parser) {
     var msg = "Content type '" + contentType + "' handled incorrectly";
     sinon.spy()(parser, __responseParser._getParser(contentType), msg);
   };
 
+
   it(": getParser() returns undefined for unknown", function () {
     __assertParser("text/html", undefined);
     __assertParser("application/pdf", undefined);
   });
+
 
   it(": getParser() returns undefined for malformed", function () {
     __assertParser("", undefined);
@@ -46,6 +49,7 @@ describe("util.ResponseParser", function () {
     __assertParser("application/foo+xmlish", undefined);
   });
 
+
   it(": getParser() detects json", function () {
     var json = qx.util.ResponseParser.PARSER.json;
     __assertParser("application/json", json);
@@ -54,6 +58,7 @@ describe("util.ResponseParser", function () {
     __assertParser("application/vnd.oneandone.onlineoffice.email+json", json);
   });
 
+
   it(": getParser() detects xml", function () {
     var xml = qx.util.ResponseParser.PARSER.xml;
     __assertParser("application/xml", xml);
@@ -61,15 +66,18 @@ describe("util.ResponseParser", function () {
     __assertParser("text/xml");  // Deprecated
   });
 
+
   it(": getParser() detects deprecated xml", function () {
     var xml = qx.util.ResponseParser.PARSER.xml;
     __assertParser("text/xml");
   });
 
+
   it(": getParser() handles character set", function () {
     var json = qx.util.ResponseParser.PARSER.json;
     __assertParser("application/json; charset=utf-8", json);
   });
+
 
   it(": setParser() function", function () {
     var customParser = function () {
@@ -78,10 +86,12 @@ describe("util.ResponseParser", function () {
     sinon.spy()(customParser, __responseParser._getParser());
   });
 
+
   it(": setParser() symbolically", function () {
     __responseParser.setParser("json");
     assert.isFunction(__responseParser._getParser());
   });
+
 
   it(": parse() not parse empty response", function () {
     var expectedResponse = "",
@@ -90,9 +100,11 @@ describe("util.ResponseParser", function () {
     sinon.spy()(expectedResponse, parsedResponse);
   });
 
+
   it(": parse() not parse unknown response", function () {
     assert.isNull(__responseParser._getParser("application/idontexist"));
   });
+
 
   // JSON
   it(": parse() json response", function () {
@@ -103,6 +115,7 @@ describe("util.ResponseParser", function () {
     sinon.spy()(expectedResponse.animals[0], parsedResponse.animals[0]);
   });
 
+
   // XML
   it(": parse() xml response", function () {
     var xml = "<animals><monkey/><mouse/></animals>",
@@ -111,6 +124,7 @@ describe("util.ResponseParser", function () {
 
     sinon.spy()(expectedResponse.documentElement.nodeName, parsedResponse.documentElement.nodeName);
   });
+
 
   it(": parse() arbitrary xml response", function () {
     var xml = "<animals><monkey/><mouse/></animals>",

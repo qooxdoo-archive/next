@@ -42,6 +42,7 @@ describe("util.RingBuffer", function () {
     sinon.spy()(allEntries[2], 4);
   });
 
+
   it("AddMany", function () {
     var max = 3;
     var buf = new qx.util.RingBuffer(max);
@@ -57,6 +58,7 @@ describe("util.RingBuffer", function () {
     sinon.spy()(allEntries[1], 1002);
     sinon.spy()(allEntries[2], 1003);
   });
+
 
   it("Get", function () {
     var max = 7;
@@ -81,6 +83,7 @@ describe("util.RingBuffer", function () {
     sinon.spy()(entries[3], 10);
   });
 
+
   it("Mark", function () {
     var max = 3;
     var buf = new qx.util.RingBuffer(max);
@@ -98,6 +101,7 @@ describe("util.RingBuffer", function () {
     sinon.spy()(entriesSinceMark[1], 4);
   });
 
+
   it("Clear", function () {
     var max = 3;
     var buf = new qx.util.RingBuffer(max);
@@ -113,6 +117,7 @@ describe("util.RingBuffer", function () {
 
     sinon.spy()(0, buf.getAllEntries().length);
   });
+
 
   it("DataTypes", function () {
     var max = 6;

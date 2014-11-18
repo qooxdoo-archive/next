@@ -1,20 +1,20 @@
 /* ************************************************************************
 
- qooxdoo - the new era of web development
+   qooxdoo - the new era of web development
 
- http://qooxdoo.org
+   http://qooxdoo.org
 
- Copyright:
- 2007-2009 1&1 Internet AG, Germany, http://www.1und1.de
+   Copyright:
+     2007-2009 1&1 Internet AG, Germany, http://www.1und1.de
 
- License:
- LGPL: http://www.gnu.org/licenses/lgpl.html
- EPL: http://www.eclipse.org/org/documents/epl-v10.php
- See the LICENSE file in the project's top-level directory for details.
+   License:
+     LGPL: http://www.gnu.org/licenses/lgpl.html
+     EPL: http://www.eclipse.org/org/documents/epl-v10.php
+     See the LICENSE file in the project's top-level directory for details.
 
- Authors:
- * Jonathan Weiß (jonathan_rass)
- * Christian Hagendorn (cs)
+   Authors:
+     * Jonathan Weiß (jonathan_rass)
+     * Christian Hagendorn (cs)
 
  ************************************************************************ */
 
@@ -26,6 +26,7 @@ describe("util.ColorUtil", function () {
     sinon.spy()("rgb(255,0,0)", qx.util.ColorUtil.rgbToRgbString([255, 0, 0]));
   });
 
+
   it("CssStringToRgb", function () {
     sinon.spy()("255,0,0", qx.util.ColorUtil.cssStringToRgb("rgba(255,0,0,1)"));
     sinon.spy()("201,23,120", qx.util.ColorUtil.cssStringToRgb("rgba(201,23,120,0.3)"));
@@ -34,15 +35,18 @@ describe("util.ColorUtil", function () {
     sinon.spy()("201,23,120", qx.util.ColorUtil.cssStringToRgb("rgb(201,23,120)"));
   });
 
+
   it("Hex3StringToHex6String", function () {
     sinon.spy()("#FFFFFF", qx.util.ColorUtil.hex3StringToHex6String("#fff"));
     sinon.spy()("#ffffff", qx.util.ColorUtil.hex3StringToHex6String("#ffffff"));
   });
 
+
   it("RgbToHexString", function () {
     sinon.spy()("#FFFFFF", qx.util.ColorUtil.rgbToHexString([255, 255, 255]));
     sinon.spy()("#000000", qx.util.ColorUtil.rgbToHexString([0, 0, 0]));
   });
+
 
   it("ValidColors", function () {
     var validColors = {
@@ -58,6 +62,7 @@ describe("util.ColorUtil", function () {
       assert.deepEqual(validColors[color], qx.util.ColorUtil.stringToRgb(color));
     }
   });
+
 
   it("InvalidColors", function () {
     var invalidColors = [

@@ -48,9 +48,11 @@ describe("util.Serializer", function () {
     }
   });
 
+
   beforeEach(function () {
     __model = new qx.test.SerializerModel();
   });
+
 
   it("UrlString", function () {
     __model.data1 = "a";
@@ -69,6 +71,7 @@ describe("util.Serializer", function () {
     sinon.spy()("data1=1&data2=11&data3=111", __s.toUriParameter(__model));
   });
 
+
   it("UrlStringEncoded", function () {
     __model.data1 = "ä";
     __model.data2 = "ö";
@@ -81,6 +84,7 @@ describe("util.Serializer", function () {
     sinon.spy()("data1=%E2%80%93&data2=%20&data3=%C3%9F", __s.toUriParameter(__model));
   });
 
+
   it("UrlBoolean", function () {
     __model.data1 = true;
     __model.data2 = false;
@@ -88,12 +92,14 @@ describe("util.Serializer", function () {
     sinon.spy()("data1=true&data2=false&data3=null", __s.toUriParameter(__model));
   });
 
+
   it("UrlNumber", function () {
     __model.data1 = 10;
     __model.data2 = -15.3443;
     __model.data3 = Number.NaN;
     sinon.spy()("data1=10&data2=-15.3443&data3=NaN", __s.toUriParameter(__model));
   });
+
 
   it("UrlKeyEncoded", function () {
     qx.Class.define("qx.test.SerializerModelEnc", {
@@ -109,6 +115,7 @@ describe("util.Serializer", function () {
     sinon.spy()("%C3%A4%C3%BC%C3%B6=%C3%84%C3%9C%C3%96", __s.toUriParameter(model));
   });
 
+
   it("UrlQxSerializer", function () {
     var qxSerializer = function (object) {
       return object.label;
@@ -122,6 +129,7 @@ describe("util.Serializer", function () {
 
     item.dispose();
   });
+
 
   it("UrlDataArray", function () {
     var a1 = new qx.data.Array(["a"]);
@@ -141,6 +149,7 @@ describe("util.Serializer", function () {
     a3.dispose();
   });
 
+
   it("UrlDataArrayNative", function () {
     var a1 = ["a"];
     var a2 = ["a", "b"];
@@ -154,6 +163,7 @@ describe("util.Serializer", function () {
     );
   });
 
+
   it("UrlInherited", function () {
     var model = new qx.ui.basic.Atom();
     var data = __s.toUriParameter(model);
@@ -163,6 +173,7 @@ describe("util.Serializer", function () {
     assert.isTrue(data.indexOf("defaultCssClass") != -1);
     model.dispose();
   });
+
 
   it("UrlQxClass", function () {
     __model.data1 = (qx.util.Serializer);
@@ -174,12 +185,14 @@ describe("util.Serializer", function () {
     );
   });
 
+
   it("JsonFlat", function () {
     __model.data1 = ("a");
     __model.data2 = (10.456);
     __model.data3 = (true);
     sinon.spy()('{"data1":"a","data2":10.456,"data3":true}', __s.toJson(__model));
   });
+
 
   it("JsonExp", function () {
     var date = new Date(1000);
@@ -188,6 +201,7 @@ describe("util.Serializer", function () {
     __model.data3 = (45e12);
     sinon.spy()('{"data1":"' + date + '","data2":"/[0]/","data3":45000000000000}', __s.toJson(__model));
   });
+
 
   it("JsonDeep2", function () {
     var model = new qx.test.SerializerModel();
@@ -200,12 +214,14 @@ describe("util.Serializer", function () {
     sinon.spy()('{"data1":{"data1":"a","data2":11,"data3":false},"data2":null,"data3":null}', __s.toJson(__model));
   });
 
+
   it("JsonArray", function () {
     __model.data1 = ([12, 1]);
     __model.data2 = (["a", "b"]);
     __model.data3 = ([true, false]);
     sinon.spy()('{"data1":[12,1],"data2":["a","b"],"data3":[true,false]}', __s.toJson(__model));
   });
+
 
   it("JsonDataArray", function () {
     __model.data1 = (new qx.data.Array([12, 1]));
@@ -214,10 +230,12 @@ describe("util.Serializer", function () {
     sinon.spy()('{"data1":[12,1],"data2":["a","b"],"data3":[true,false]}', __s.toJson(__model));
   });
 
+
   it("JsonBig", function () {
     var model = new qx.ui.Widget();
     __s.toJson(model);
   });
+
 
   it("JsonInherited", function () {
     var model = new qx.ui.basic.Atom();
@@ -228,6 +246,7 @@ describe("util.Serializer", function () {
     assert.isTrue(data.indexOf("defaultCssClass") != -1);
   });
 
+
   it("JsonEmpty", function () {
     __model.data1 = (new qx.data.Array());
     __model.data2 = ([]);
@@ -235,12 +254,14 @@ describe("util.Serializer", function () {
     sinon.spy()('{"data1":[],"data2":[],"data3":{}}', __s.toJson(__model));
   });
 
+
   it("JsonEscape", function () {
     __model.data1 = ("''");
     __model.data2 = ('""');
     __model.data3 = ("\b\t\n\f\r\\");
     sinon.spy()('{"data1":"\'\'","data2":"\\"\\"","data3":"\\b\\t\\n\\f\\r\\\\"}', __s.toJson(__model));
   });
+
 
   it("JsonQxSerializer", function () {
     var qxSerializer = function (object) {
@@ -258,6 +279,7 @@ describe("util.Serializer", function () {
     item.dispose();
   });
 
+
   it("JsonWithMarshaler", function () {
     __model.data1 = ("a");
     __model.data2 = (["b"]);
@@ -270,6 +292,7 @@ describe("util.Serializer", function () {
     sinon.spy()(__model.data2[0], model.data2.getItem(0));
     sinon.spy()(__model.data3, model.data3);
   });
+
 
   it("JsonLateObjectSet", function () {
     var data = {
@@ -284,6 +307,7 @@ describe("util.Serializer", function () {
     sinon.spy()('{"foo":"foo","bar":"bar","goo":{"mi":"moo","la":"lili"}}', qx.util.Serializer.toJson(model));
   });
 
+
   it("JsonQxClass", function () {
     __model.data1 = (qx.util.Serializer);
     __model.data2 = (qx.data.IListData);
@@ -296,7 +320,6 @@ describe("util.Serializer", function () {
   //
   // toNativeObject tests
   //
-
   it("NativeObjectFlat", function () {
     __model.data1 = ("a");
     __model.data2 = (10.456);
@@ -309,6 +332,7 @@ describe("util.Serializer", function () {
       },
       __s.toNativeObject(__model));
   });
+
 
   it("NativeObjectExp", function () {
     var date = new Date();
@@ -323,6 +347,7 @@ describe("util.Serializer", function () {
       },
       __s.toNativeObject(__model));
   });
+
 
   it("NativeObjectDeep2", function () {
     var model = new qx.test.SerializerModel();
@@ -345,6 +370,7 @@ describe("util.Serializer", function () {
       __s.toNativeObject(__model));
   });
 
+
   it("NativeObjectArray", function () {
     __model.data1 = ([12, 1]);
     __model.data2 = (["a", "b"]);
@@ -357,6 +383,7 @@ describe("util.Serializer", function () {
       },
       __s.toNativeObject(__model));
   });
+
 
   it("NativeObjectDataArray", function () {
     __model.data1 = (new qx.data.Array([12, 1]));
@@ -375,11 +402,13 @@ describe("util.Serializer", function () {
     __model.data3.dispose();
   });
 
+
   it("NativeObjectBig", function () {
     var model = new qx.ui.Widget();
     __s.toNativeObject(model);
     model.dispose();
   });
+
 
   it("NativeObjectEmpty", function () {
     __model.data1 = (new qx.data.Array());
@@ -396,6 +425,7 @@ describe("util.Serializer", function () {
     __model.data1.dispose();
   });
 
+
   it("NativeObjectEscape", function () {
     __model.data1 = ("''");
     __model.data2 = ('""');
@@ -408,6 +438,7 @@ describe("util.Serializer", function () {
       },
       __s.toNativeObject(__model));
   });
+
 
   it("NativeObjectQxSerializer", function () {
     var qxSerializer = function (object) {
@@ -430,6 +461,7 @@ describe("util.Serializer", function () {
 
     item.dispose();
   });
+
 
   it("NativeObjectQxClass", function () {
     __model.data1 = (qx.util.Serializer);
@@ -460,6 +492,7 @@ describe("util.Serializer", function () {
     formater.dispose();
   });
 
+
   it("DateFormaterJson", function () {
     var formater = __setUpDateModel();
 
@@ -470,6 +503,7 @@ describe("util.Serializer", function () {
 
     formater.dispose();
   });
+
 
   it("DateFormaterUrl", function () {
     var formater = __setUpDateModel();
@@ -486,12 +520,12 @@ describe("util.Serializer", function () {
   /* ******************************
    * Localized strings
    * **************************** */
-
   it("JsonLocalizedStrings", function () {
     assert.equal(
       '"test affe"', qx.util.Serializer.toJson(qx.locale.Manager.tr("test affe"))
     );
   });
+
 
   it("NativeLocalizedStrings", function () {
     var ser = qx.util.Serializer.toNativeObject(qx.locale.Manager.tr("test affe"));
@@ -499,6 +533,7 @@ describe("util.Serializer", function () {
     // regular strings should not have a translate method
     assert.isUndefined(ser.translate);
   });
+
 
   it("UrlLocalizedStrings", function () {
     __model.data1 = (qx.locale.Manager.tr("test affe"));

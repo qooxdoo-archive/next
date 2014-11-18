@@ -23,6 +23,7 @@ describe("util.StringBuilder", function () {
     __stringBuilder = new qx.util.StringBuilder();
   });
 
+
   it("AddGet", function () {
     __stringBuilder.add("1");
     __stringBuilder.add("2");
@@ -31,12 +32,14 @@ describe("util.StringBuilder", function () {
     sinon.spy()("123", __stringBuilder.get());
   });
 
+
   it("Size", function () {
     __stringBuilder.add("123");
     sinon.spy()(3, __stringBuilder.size());
     __stringBuilder.add("4567");
     sinon.spy()(7, __stringBuilder.size());
   });
+
 
   it("EmptyClear", function () {
     assert.isTrue(__stringBuilder.isEmpty());

@@ -1,19 +1,19 @@
 /* ************************************************************************
 
- qooxdoo - the new era of web development
+   qooxdoo - the new era of web development
 
- http://qooxdoo.org
+   http://qooxdoo.org
 
- Copyright:
- 2004-2011 1&1 Internet AG, Germany, http://www.1und1.de
+   Copyright:
+     2004-2011 1&1 Internet AG, Germany, http://www.1und1.de
 
- License:
- LGPL: http://www.gnu.org/licenses/lgpl.html
- EPL: http://www.eclipse.org/org/documents/epl-v10.php
- See the LICENSE file in the project's top-level directory for details.
+   License:
+     LGPL: http://www.gnu.org/licenses/lgpl.html
+     EPL: http://www.eclipse.org/org/documents/epl-v10.php
+     See the LICENSE file in the project's top-level directory for details.
 
- Authors:
- * Tristan Koch (tristankoch)
+   Authors:
+     * Tristan Koch (tristankoch)
 
  ************************************************************************ */
 
@@ -28,6 +28,7 @@ describe("util.Request", function () {
     assert.isTrue(isCrossDomain("foobar" + "://" + location.host), "protocol");
   });
 
+
   it(": isCrossDomain() returns false with same-origin URL", function () {
     var location = window.location,
       origin = location.protocol + "//" + location.host,
@@ -40,6 +41,7 @@ describe("util.Request", function () {
     assert.isFalse(isCrossDomain("../foo-bar/meep.in/data.json"), "strange url");
   });
 
+
   it(": isSuccessful() returns true with successful HTTP status", function () {
     var isSuccessful = qx.util.Request.isSuccessful;
 
@@ -49,6 +51,7 @@ describe("util.Request", function () {
     assert.isFalse(isSuccessful(404));
     assert.isFalse(isSuccessful(500));
   });
+
 
   it(": isMethod() returns true if HTTP method is known", function () {
     var isMethod = qx.util.Request.isMethod;
@@ -63,9 +66,11 @@ describe("util.Request", function () {
     assert.isFalse(isMethod({}));
   });
 
+
   it(": methodAllowsRequestBody() returns false when GET", function () {
     assert.isFalse(qx.util.Request.methodAllowsRequestBody("GET"));
   });
+
 
   it(": methodAllowsRequestBody() returns true when POST", function () {
     assert.isTrue(qx.util.Request.methodAllowsRequestBody("POST"));

@@ -24,6 +24,7 @@ describe("util.Uri", function () {
     __uri = qx.util.Uri;
   });
 
+
   it(": appendParamsToUrl() with string", function () {
     var url = "http://example.com/path",
       params = "affe=true&maus=false",
@@ -33,11 +34,13 @@ describe("util.Uri", function () {
     sinon.spy()(expected, result);
   });
 
+
   it("ToParameter", function () {
     var obj = {affe: true, maus: false};
     var str = qx.util.Uri.toParameter(obj);
     sinon.spy()("affe=true&maus=false", str);
   });
+
 
   it("ToParameterUmlauts", function () {
     var obj = {"äffe": "jøah", "maüs": "nö"};
@@ -45,11 +48,13 @@ describe("util.Uri", function () {
     sinon.spy()("%C3%A4ffe=j%C3%B8ah&ma%C3%BCs=n%C3%B6", str);
   });
 
+
   it("ToParameterSpaces", function () {
     var obj = {"a f f e": true};
     var str = qx.util.Uri.toParameter(obj);
     sinon.spy()("a%20f%20f%20e=true", str);
   });
+
 
   it("ToParameterSpacesPost", function () {
     var obj = {"a f  f e": "j a"};
@@ -57,11 +62,13 @@ describe("util.Uri", function () {
     sinon.spy()("a+f++f+e=j+a", str);
   });
 
+
   it("ToParameterArray", function () {
     var obj = {id: [1, 2, 3]};
     var str = qx.util.Uri.toParameter(obj);
     sinon.spy()("id=1&id=2&id=3", str);
   });
+
 
   it(": appendParamsToUrl() with string when existing query", function () {
     var url = "http://example.com/path?giraffe=true",
@@ -71,6 +78,7 @@ describe("util.Uri", function () {
 
     sinon.spy()(expected, result);
   });
+
 
   it(": appendParamsToUrl() with map", function () {
     var url = "http://example.com/path",
@@ -82,6 +90,7 @@ describe("util.Uri", function () {
     assert.isTrue(/maus=false/.test(result));
   });
 
+
   it(": appendParamsToUrl() with undefined", function () {
     var url = "http://example.com/path",
       params = undefined,
@@ -90,6 +99,7 @@ describe("util.Uri", function () {
     sinon.spy()(url, result);
   });
 
+
   it(": appendParamsToUrl() with empty map", function () {
     var url = "http://example.com/path",
       params = {},
@@ -97,6 +107,7 @@ describe("util.Uri", function () {
 
     sinon.spy()(url, result);
   });
+
 
   it(": parseUri()", function () {
     var url = "http://www.example.com:80/foo/bar?affe=true#here",

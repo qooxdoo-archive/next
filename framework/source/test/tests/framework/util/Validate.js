@@ -35,6 +35,7 @@ describe("util.Validate", function () {
     }, qx.core.ValidationError, "Custom Error Message");
   });
 
+
   it("Email", function () {
     //The email is valid if an error isn't raised
     qx.util.Validate.email()("an@email.ro");
@@ -53,6 +54,7 @@ describe("util.Validate", function () {
     qx.util.Validate.email()("foo@bar.qooxdoo");
   });
 
+
   it("String", function () {
     //The string is valid if an error isn't raised
     qx.util.Validate.string()("I'm a string");
@@ -67,6 +69,7 @@ describe("util.Validate", function () {
       qx.util.Validate.string("Custom Error Message")(1);
     }, qx.core.ValidationError, "Custom Error Message");
   });
+
 
   it("Url", function () {
     //The url is valid if an error isn't raised
@@ -83,6 +86,7 @@ describe("util.Validate", function () {
     }, qx.core.ValidationError, "Custom Error Message");
   });
 
+
   it("Color", function () {
     //The color value is valid if an error isn't raised
     qx.util.Validate.color()("#667788");
@@ -97,6 +101,7 @@ describe("util.Validate", function () {
       qx.util.Validate.color("Custom Error Message")("not a color value");
     }, qx.core.ValidationError, "Custom Error Message");
   });
+
 
   it("Range", function () {
     //The value is valid if it's in the range
@@ -113,6 +118,7 @@ describe("util.Validate", function () {
     }, qx.core.ValidationError, "Custom Error Message");
   });
 
+
   it("InArray", function () {
     //The value is valid if it's in the range
     qx.util.Validate.inArray([2, 3])(3);
@@ -127,6 +133,7 @@ describe("util.Validate", function () {
       qx.util.Validate.inArray([2, 3], "Custom Error Message")(4);
     }, qx.core.ValidationError, "Custom Error Message");
   });
+
 
   it("Regex", function () {
     var validator = qx.util.Validate.regExp(/^\dand\d$/);
