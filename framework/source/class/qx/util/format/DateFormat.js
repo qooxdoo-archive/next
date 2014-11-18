@@ -204,11 +204,11 @@ qx.Class.define("qx.util.format.DateFormat",
 
   members :
   {
+    _parseFeed : null,
     __bindingId : null,
     __locale : null,
     __initialLocale : null,
     __format : null,
-    __parseFeed : null,
     __parseRules : null,
     __formatTree : null,
     __UTC : null,
@@ -711,7 +711,7 @@ qx.Class.define("qx.util.format.DateFormat",
       this.__initParseFeed();
 
       // Apply the regex
-      var hit = this.__parseFeed.regex.exec(dateStr);
+      var hit = this._parseFeed.regex.exec(dateStr);
 
       if (hit == null) {
         throw new Error("Date string '" + dateStr + "' does not match the date format: " + this.__format);
@@ -741,9 +741,9 @@ qx.Class.define("qx.util.format.DateFormat",
       var applyWeekYearAfterRule = false;
       var applyDayOfYearAfterRule = false;
 
-      for (var i=0; i<this.__parseFeed.usedRules.length; i++)
+      for (var i=0; i<this._parseFeed.usedRules.length; i++)
       {
-        var rule = this.__parseFeed.usedRules[i];
+        var rule = this._parseFeed.usedRules[i];
 
         var value = hit[currGroup];
 
@@ -756,8 +756,8 @@ qx.Class.define("qx.util.format.DateFormat",
         if(rule.pattern == "Y+")
         {
           var yearRuleApplied = false;
-          for(var k=0; k<this.__parseFeed.usedRules.length; k++) {
-            if(this.__parseFeed.usedRules[k].pattern == 'y+'){
+          for(var k=0; k<this._parseFeed.usedRules.length; k++) {
+            if(this._parseFeed.usedRules[k].pattern == 'y+'){
               yearRuleApplied = true;
               break;
             }
@@ -770,8 +770,8 @@ qx.Class.define("qx.util.format.DateFormat",
         if(rule.pattern.indexOf("D") != -1)
         {
           var dayRuleApplied = false;
-          for(var k=0; k<this.__parseFeed.usedRules.length; k++) {
-            if(this.__parseFeed.usedRules[k].pattern.indexOf("d") != -1){
+          for(var k=0; k<this._parseFeed.usedRules.length; k++) {
+            if(this._parseFeed.usedRules[k].pattern.indexOf("d") != -1){
               dayRuleApplied = true;
               break;
             }
@@ -995,7 +995,7 @@ qx.Class.define("qx.util.format.DateFormat",
      */
     __initParseFeed : function()
     {
-      if (this.__parseFeed != null)
+      if (this._parseFeed != null)
       {
         // We already have the parse feed
         return;
@@ -1071,8 +1071,8 @@ qx.Class.define("qx.util.format.DateFormat",
         throw new Error("Malformed date format: " + format);
       }
 
-      // Create the this.__parseFeed
-      this.__parseFeed =
+      // Create the this._parseFeed
+      this._parseFeed =
       {
         regex       : regex,
         "usedRules" : usedRules,
