@@ -92,7 +92,7 @@ qx.Class.define("mobileshowcase.page.Tab",
     __createAlignmentSwitch: function() {
       var group = new qx.ui.form.Group("Tab Button alignment (Horizontal mode only)");
 
-      var rbGroup = new qx.ui.form.RadioGroup()
+      var rbGroup = new qx.ui.form.Group()
         .set({allowEmptySelection: true});
 
       ["Left", "Justify", "Right"].forEach(function(alignment) {

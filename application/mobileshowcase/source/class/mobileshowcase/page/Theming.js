@@ -120,7 +120,7 @@ qx.Class.define("mobileshowcase.page.Theming",
       var themeGroup = new qx.ui.form.Group()
         .appendTo(themeForm);
 
-      var themeRadioGroup = new qx.ui.form.RadioGroup();
+      var themeRadioGroup = new qx.ui.form.Group();
       for (var i = 0; i < mobileshowcase.page.Theming.THEMES.length; i++) {
         var radioButton = new qx.ui.form.RadioButton();
         themeRadioGroup.add(radioButton);
