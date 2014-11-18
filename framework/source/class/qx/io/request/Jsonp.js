@@ -342,21 +342,39 @@ qx.Class.define("qx.io.request.Jsonp",
     },
 
     /**
-     * Get parsed response.
+     * Get status code.
      *
-     * @return {String} The parsed response of the request.
+     * @return {String} The transport’s status code.
      */
     getStatus: function() {
       return this.transport.status;
     },
 
     /**
-     * Get parsed response.
+     * Set status code.
      *
-     * @return {String} The parsed response of the request.
+     * @param {String} The transport’s status code.
+     */
+    setStatus: function(status) {
+      this.transport.status = status;
+    },
+
+    /**
+     * Get status text.
+     *
+     * @return {String} The transport’s status text.
      */
     getStatusText: function() {
       return this.transport.statusText;
+    },
+
+    /**
+     * Set status text.
+     *
+     * @param {String} The transport’s status text.
+     */
+    setStatusText: function(statusText) {
+      this.transport.statusText = statusText;
     },
 
     dispose: function() {

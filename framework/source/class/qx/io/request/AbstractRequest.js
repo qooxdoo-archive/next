@@ -262,6 +262,7 @@ qx.Class.define("qx.io.request.AbstractRequest",
      */
     status: {
       get: "getStatus",
+      set: "setStatus",
       type: "Number",
       init: 0
     },
@@ -271,6 +272,7 @@ qx.Class.define("qx.io.request.AbstractRequest",
      */
     statusText: {
       get: "getStatusText",
+      set: "setStatusText",
       type: "String",
       init: ""
     },
@@ -547,12 +549,30 @@ qx.Class.define("qx.io.request.AbstractRequest",
     },
 
     /**
+     * Set status code.
+     *
+     * @param status {Number} The transport’s status code.
+     */
+    setStatus: function(status) {
+      this.$$status = status;
+    },
+
+    /**
      * Get status text.
      *
      * @return {String} The transport’s status text.
      */
     getStatusText: function() {
       return this.$$statusText;
+    },
+
+    /**
+     * Set status text.
+     *
+     * @param {String} The transport’s status text.
+     */
+    setStatusText: function(statusText) {
+      this.$$statusText = statusText;
     },
 
     /**
