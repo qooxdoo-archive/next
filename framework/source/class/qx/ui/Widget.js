@@ -406,6 +406,9 @@ qx.Class.define("qx.ui.Widget", {
     // overridden
     remove : function() {
       var parent = this._getParentWidget();
+      if (parent) {
+        this.priorPosition = parent.getChildren().indexOf(this);
+      }
       this.super(qxWeb, "remove");
       this.emit("removedFromParent", parent);
       if (parent && parent.length === 1) {
@@ -419,8 +422,11 @@ qx.Class.define("qx.ui.Widget", {
     empty : function() {
       var removed = this.getChildren();
       this.super(qxWeb, "empty");
+      removed._forEachElementWrapped(function(child, index) {
+        child.priorPosition = index;
+        this.emit("removedChild", child);
+      }.bind(this));
       removed.emit("removedFromParent", this);
-      this.emit("removedChild", removed);
       return this;
     },
 

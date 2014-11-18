@@ -330,8 +330,10 @@ describe("mobile.Widget", function() {
 
 
   it("RemovedChildRemove", function() {
+    getRoot().append(qxWeb.create("<div>"));
     var child = new qx.ui.Widget();
     getRoot().append(child);
+
     qx.core.Assert.assertEventFired(getRoot(),
       "removedChild",
       function() {
@@ -339,23 +341,27 @@ describe("mobile.Widget", function() {
       }.bind(this),
       function(removedChild) {
         assert.equal(child, removedChild);
+        assert.equal(removedChild.priorPosition, 1);
       }.bind(this)
     );
   });
 
 
   it("RemovedChildEmpty", function() {
-    var child = new qx.ui.Widget();
-    getRoot().append(child);
-    qx.core.Assert.assertEventFired(getRoot(),
-      "removedChild",
-      function() {
-        getRoot().empty();
-      }.bind(this),
-      function(removedChildren) {
-        qx.core.Assert.assertInArray(child, removedChildren);
-      }.bind(this)
-    );
+    var child1 = new qx.ui.Widget();
+    getRoot().append(child1);
+    var child2 = new qx.ui.Widget();
+    getRoot().append(child2);
+
+    var cb = sinon.spy();
+    getRoot().on("removedChild", cb);
+    getRoot().empty();
+    sinon.assert.calledTwice(cb);
+    assert.equal(cb.args[0][0], child1);
+    assert.equal(cb.args[0][0].priorPosition, 0);
+    assert.equal(cb.args[1][0], child2);
+    assert.equal(cb.args[1][0].priorPosition, 1);
+    getRoot().off("removedChild", cb);
   });
 
 
