@@ -298,8 +298,8 @@ qx.Class.define("qx.io.request.AbstractRequest",
      * Note: Getter and Setter needed for later override.
      */
     status: {
-      get: "getStatus",
-      set: "setStatus",
+      get: "_getStatus",
+      set: "_setStatus",
       type: "Number",
       init: 0
     },
@@ -311,8 +311,8 @@ qx.Class.define("qx.io.request.AbstractRequest",
      * Note: Getter and Setter needed for later override.
      */
     statusText: {
-      get: "getStatusText",
-      set: "setStatusText",
+      get: "_getStatusText",
+      set: "_setStatusText",
       type: "String",
       init: ""
     },
@@ -592,7 +592,7 @@ qx.Class.define("qx.io.request.AbstractRequest",
      *
      * @return {Number} The transport’s status code.
      */
-    getStatus: function() {
+    _getStatus: function() {
       return this.$$status;
     },
 
@@ -602,7 +602,7 @@ qx.Class.define("qx.io.request.AbstractRequest",
      *
      * @param status {Number} The transport’s status code.
      */
-    setStatus: function(status) {
+    _setStatus: function(status) {
       this.$$status = status;
     },
 
@@ -612,7 +612,7 @@ qx.Class.define("qx.io.request.AbstractRequest",
      *
      * @return {String} The transport’s status text.
      */
-    getStatusText: function() {
+    _getStatusText: function() {
       return this.$$statusText;
     },
 
@@ -622,7 +622,7 @@ qx.Class.define("qx.io.request.AbstractRequest",
      *
      * @param {String} The transport’s status text.
      */
-    setStatusText: function(statusText) {
+    _setStatusText: function(statusText) {
       this.$$statusText = statusText;
     },
 

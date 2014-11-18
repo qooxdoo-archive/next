@@ -343,7 +343,7 @@ qx.Class.define("qx.io.request.Jsonp",
      *
      * @return {String} The transport’s status code.
      */
-    getStatus: function() {
+    _getStatus: function() {
       return this.transport.status;
     },
 
@@ -353,7 +353,7 @@ qx.Class.define("qx.io.request.Jsonp",
      *
      * @param {String} The transport’s status code.
      */
-    setStatus: function(status) {
+    _setStatus: function(status) {
       this.transport.status = status;
     },
 
@@ -363,7 +363,7 @@ qx.Class.define("qx.io.request.Jsonp",
      *
      * @return {String} The transport’s status text.
      */
-    getStatusText: function() {
+    _getStatusText: function() {
       return this.transport.statusText;
     },
 
@@ -373,7 +373,7 @@ qx.Class.define("qx.io.request.Jsonp",
      *
      * @param {String} The transport’s status text.
      */
-    setStatusText: function(statusText) {
+    _setStatusText: function(statusText) {
       this.transport.statusText = statusText;
     },
 
