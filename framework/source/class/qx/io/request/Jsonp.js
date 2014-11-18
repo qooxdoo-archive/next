@@ -75,6 +75,7 @@ qx.Class.define("qx.io.request.Jsonp",
 {
   extend: qx.io.request.AbstractRequest,
 
+
   construct: function(url) {
     this.super(qx.io.request.AbstractRequest, "constructor", url);
 
@@ -93,6 +94,7 @@ qx.Class.define("qx.io.request.Jsonp",
     this.transport.on("timeout", function() { this.emit("timeout"); }.bind(this));
   },
 
+
   // for events refer to AbstractRequest
 
   properties:
@@ -105,6 +107,7 @@ qx.Class.define("qx.io.request.Jsonp",
       writable: false
     },
 
+
     /**
      * Whether to process asynchronously.
      */
@@ -112,6 +115,7 @@ qx.Class.define("qx.io.request.Jsonp",
       // overwrite
       writable: false
     },
+
 
     /**
      * Whether to allow request to be answered from cache.
@@ -126,6 +130,7 @@ qx.Class.define("qx.io.request.Jsonp",
       init: true
     },
 
+
     /**
      * Set callback parameter.
      *
@@ -139,6 +144,7 @@ qx.Class.define("qx.io.request.Jsonp",
       init: "",
       nullable: true
     },
+
 
     /**
      * Set callback name.
@@ -163,6 +169,7 @@ qx.Class.define("qx.io.request.Jsonp",
       nullable: true
     },
 
+
     /**
      * Prefix used for the internal callback name.
      *
@@ -180,30 +187,36 @@ qx.Class.define("qx.io.request.Jsonp",
      */
     transport: null,
 
+
     /**
      * @type {Number} Identifier of this instance.
      */
     __id: null,
+
 
     /**
      * @type {Boolean} Whether callback was called.
      */
     __callbackCalled: null,
 
+
     /**
      * @type {Boolean} Whether a custom callback was created automatically.
      */
     __customCallbackCreated: null,
+
 
     /**
      * @type {String} The generated URL for the current request
      */
     __generatedUrl: null,
 
+
     /**
      * @type {Boolean} Whether request was disposed.
      */
     _disposed: null,
+
 
     /**
      * Initializes (prepares) request.
@@ -276,6 +289,7 @@ qx.Class.define("qx.io.request.Jsonp",
       this.__callTransport("open", [method, url]);
     },
 
+
     /**
      * Callback provided for JSONP response to pass data.
      *
@@ -313,8 +327,6 @@ qx.Class.define("qx.io.request.Jsonp",
     },
 
 
-
-
     /**
      * Returns the generated URL for the current / last request
      *
@@ -325,6 +337,7 @@ qx.Class.define("qx.io.request.Jsonp",
       return this.__generatedUrl;
     },
 
+
     /**
      * Get status code.
      *
@@ -333,6 +346,7 @@ qx.Class.define("qx.io.request.Jsonp",
     getStatus: function() {
       return this.transport.status;
     },
+
 
     /**
      * Set status code.
@@ -343,6 +357,7 @@ qx.Class.define("qx.io.request.Jsonp",
       this.transport.status = status;
     },
 
+
     /**
      * Get status text.
      *
@@ -351,6 +366,7 @@ qx.Class.define("qx.io.request.Jsonp",
     getStatusText: function() {
       return this.transport.statusText;
     },
+
 
     /**
      * Set status text.
@@ -361,12 +377,14 @@ qx.Class.define("qx.io.request.Jsonp",
       this.transport.statusText = statusText;
     },
 
+
     dispose: function() {
       // In case callback was not called
       this.__deleteCustomCallback();
 
       this.__callTransport("dispose");
     },
+
 
     /**
      * Handle native load.
@@ -383,6 +401,7 @@ qx.Class.define("qx.io.request.Jsonp",
       this.__callTransport("_onNativeLoad");
     },
 
+
     /**
      * Handle native error.
      */
@@ -398,6 +417,7 @@ qx.Class.define("qx.io.request.Jsonp",
       this.__callTransport("_onNativeError");
     },
 
+
     /**
      *  Delete custom callback if dynamically created before.
      */
@@ -407,6 +427,7 @@ qx.Class.define("qx.io.request.Jsonp",
         this.__customCallbackCreated = false;
       }
     },
+
 
     /**
      * Call overriden method.
@@ -418,6 +439,7 @@ qx.Class.define("qx.io.request.Jsonp",
       this.transport[method].apply(this.transport, args || []);
     },
 
+
     /**
      * Generate ID.
      */
@@ -426,6 +448,7 @@ qx.Class.define("qx.io.request.Jsonp",
       // that may be send at the same time
       return "qx" + (new Date().valueOf()) + ("" + Math.random()).substring(2,5);
     },
+
 
     /**
      * Get configured URL.
@@ -452,6 +475,7 @@ qx.Class.define("qx.io.request.Jsonp",
       return url;
     },
 
+
     /**
      * Return the transport’s response property.
      *
@@ -462,6 +486,7 @@ qx.Class.define("qx.io.request.Jsonp",
     _getParsedResponse: function() {
       return this.$$response;
     },
+
 
     _dispose: function() {
       // In case callback was not called
@@ -475,13 +500,16 @@ qx.Class.define("qx.io.request.Jsonp",
       this.__callTransport("dispose");
     },
 
+
     _send: function() {
       this.__callTransport("send");
     },
 
+
     _abort: function() {
       this.__callTransport("abort");
     },
+
 
     _setRequestHeader: function() {
       this.__callTransport("setRequestHeader");

@@ -59,6 +59,7 @@ qx.Class.define("qx.io.request.Script",
 {
   include: [qx.event.MEmitter],
 
+
   construct : function()
   {
     this.__initXhrProperties();
@@ -70,6 +71,7 @@ qx.Class.define("qx.io.request.Script",
     this.__headElement = document.head || document.getElementsByTagName( "head" )[0] ||
                          document.documentElement;
   },
+
 
   events : {
     /** Fired at ready state changes. */
@@ -91,6 +93,7 @@ qx.Class.define("qx.io.request.Script",
     "load" : "qx.io.request.Script"
   },
 
+
   properties: {
     /**
      * @type {Object} Delegator for events.
@@ -107,6 +110,7 @@ qx.Class.define("qx.io.request.Script",
       init: null,
       nullable: true
     },
+
 
     /**
      * @type {Number} Ready state.
@@ -126,6 +130,7 @@ qx.Class.define("qx.io.request.Script",
       init: null,
       nullable: true
     },
+
 
     /**
      * @type {Number} The status code.
@@ -148,6 +153,7 @@ qx.Class.define("qx.io.request.Script",
       nullable: true
     },
 
+
     /**
      * @type {Number} Timeout limit in milliseconds.
      *
@@ -166,6 +172,7 @@ qx.Class.define("qx.io.request.Script",
      * @type {Function} Function that is executed once the script was loaded.
      */
     __determineSuccess: null,
+
 
     /**
      * Initializes (prepares) request.
@@ -198,6 +205,7 @@ qx.Class.define("qx.io.request.Script",
       return this;
     },
 
+
     /**
      * Appends a query parameter to URL.
      *
@@ -228,6 +236,7 @@ qx.Class.define("qx.io.request.Script",
       this.__url = qx.util.Uri.appendParamsToUrl(this.__url, param);
       return this;
     },
+
 
     /**
      * Sends request.
@@ -262,6 +271,7 @@ qx.Class.define("qx.io.request.Script",
       return this;
     },
 
+
     /**
      * Aborts request.
      * @return {qx.io.request.Script} Self for chaining.
@@ -276,6 +286,7 @@ qx.Class.define("qx.io.request.Script",
       this.emit("abort");
       return this;
     },
+
 
     /**
      * Get a single response header from response.
@@ -300,6 +311,7 @@ qx.Class.define("qx.io.request.Script",
       return "unknown";
     },
 
+
     /**
      * Get all response headers from response.
      *
@@ -321,6 +333,7 @@ qx.Class.define("qx.io.request.Script",
       return "Unknown response headers";
     },
 
+
     /**
      * Determine if loaded script has expected impact on global namespace.
      *
@@ -333,6 +346,7 @@ qx.Class.define("qx.io.request.Script",
     setDetermineSuccess: function(check) {
       this.__determineSuccess = check;
     },
+
 
     /**
      * Dispose object.
@@ -381,6 +395,7 @@ qx.Class.define("qx.io.request.Script",
     _getUrl: function() {
       return this.__url;
     },
+
 
     /**
      * Get script element used for request.
@@ -446,6 +461,7 @@ qx.Class.define("qx.io.request.Script",
       });
     },
 
+
     /**
      * Handle native error.
      */
@@ -455,63 +471,60 @@ qx.Class.define("qx.io.request.Script",
       this.emit("loadend");
     },
 
-    /*
-    ---------------------------------------------------------------------------
-      PRIVATE
-    ---------------------------------------------------------------------------
-    */
 
     /**
      * @type {Element} Script element
      */
     __scriptElement: null,
 
+
     /**
      * @type {Element} Head element
      */
     __headElement: null,
+
 
     /**
      * @type {String} URL
      */
     __url: "",
 
+
     /**
      * @type {Function} Bound _onNativeLoad handler.
      */
     __onNativeLoadBound: null,
+
 
     /**
      * @type {Function} Bound _onNativeError handler.
      */
     __onNativeErrorBound: null,
 
+
     /**
      * @type {Function} Bound _onTimeout handler.
      */
     __onTimeoutBound: null,
+
 
     /**
      * @type {Number} Timeout timer iD.
      */
     __timeoutId: null,
 
+
     /**
      * @type {Boolean} Whether request was aborted.
      */
     __abort: null,
+
 
     /**
      * @type {Boolean} Whether request was disposed.
      */
     _disposed: null,
 
-
-    /*
-    ---------------------------------------------------------------------------
-      HELPER
-    ---------------------------------------------------------------------------
-    */
 
     /**
      * Initialize properties.
@@ -522,6 +535,7 @@ qx.Class.define("qx.io.request.Script",
       this.statusText = "";
     },
 
+
     /**
      * Change readyState.
      *
@@ -531,6 +545,7 @@ qx.Class.define("qx.io.request.Script",
       this.readyState = readyState;
       this.emit("readystatechange");
     },
+
 
     /**
      * Handle success.
@@ -543,6 +558,7 @@ qx.Class.define("qx.io.request.Script",
       this.statusText = "" + this.status;
     },
 
+
     /**
      * Handle failure.
      */
@@ -552,6 +568,7 @@ qx.Class.define("qx.io.request.Script",
       this.status = (!this.status) ? 0 : this.status;
       this.statusText = null;
     },
+
 
     /**
      * Create and configure script element.
@@ -574,6 +591,7 @@ qx.Class.define("qx.io.request.Script",
       return script;
     },
 
+
     /**
      * Remove script element from DOM.
      */
@@ -584,8 +602,8 @@ qx.Class.define("qx.io.request.Script",
         this.__headElement.removeChild(script);
       }
     }
-
   },
+
 
   classDefined : function() {
     if (qx && qx.core && qx.core.Environment) {

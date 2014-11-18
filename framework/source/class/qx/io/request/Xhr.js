@@ -65,6 +65,7 @@ qx.Class.define("qx.io.request.Xhr",
 {
   extend: qx.io.request.AbstractRequest,
 
+
   /**
    * @param url {String?} The URL of the resource to request.
    * @param method {String?} The HTTP method.
@@ -85,6 +86,7 @@ qx.Class.define("qx.io.request.Xhr",
     this._parser = this._createResponseParser();
   },
 
+
   statics :
   {
     UNSENT: 0,
@@ -94,7 +96,9 @@ qx.Class.define("qx.io.request.Xhr",
     DONE: 4
   },
 
+
   // for events refer to AbstractRequest
+
 
   properties:
   {
@@ -112,6 +116,7 @@ qx.Class.define("qx.io.request.Xhr",
       check: "String",
       nullable: true
     },
+
 
     /**
      * Whether to allow request to be answered from cache.
@@ -153,14 +158,9 @@ qx.Class.define("qx.io.request.Xhr",
     }
   },
 
+
   members:
   {
-    /*
-    ---------------------------------------------------------------------------
-      PUBLIC
-    ---------------------------------------------------------------------------
-    */
-
     /**
      * Initializes (prepares) request.
      *
@@ -283,6 +283,7 @@ qx.Class.define("qx.io.request.Xhr",
       return this;
     },
 
+
     /**
      * Get a single response header from response.
      *
@@ -297,6 +298,7 @@ qx.Class.define("qx.io.request.Xhr",
       return this.__nativeXhr.getResponseHeader(header);
     },
 
+
     /**
      * Get all response headers from response.
      *
@@ -308,6 +310,7 @@ qx.Class.define("qx.io.request.Xhr",
       return this.__nativeXhr.getAllResponseHeaders();
     },
 
+
     /**
      * Get wrapped native XMLHttpRequest (or equivalent).
      *
@@ -318,6 +321,7 @@ qx.Class.define("qx.io.request.Xhr",
     getRequest: function() {
       return this.__nativeXhr;
     },
+
 
     /**
      * Set parser used to parse response once request has
@@ -332,16 +336,12 @@ qx.Class.define("qx.io.request.Xhr",
       return this._parser.setParser(parser);
     },
 
-    /*
-    ---------------------------------------------------------------------------
-      PROTECTED
-    ---------------------------------------------------------------------------
-    */
 
     /**
      * @type {Function} Parser.
      */
     _parser: null,
+
 
     /**
      * Sends request.
@@ -417,6 +417,7 @@ qx.Class.define("qx.io.request.Xhr",
       return this;
     },
 
+
     /**
      * Sets an HTTP request header to be used by the request.
      *
@@ -440,6 +441,7 @@ qx.Class.define("qx.io.request.Xhr",
       this.__nativeXhr.setRequestHeader(key, value);
     },
 
+
     /**
      * Get protocol of requested URL.
      *
@@ -459,6 +461,7 @@ qx.Class.define("qx.io.request.Xhr",
 
       return window.location.protocol;
     },
+
 
     /**
      * Get configured URL.
@@ -516,6 +519,7 @@ qx.Class.define("qx.io.request.Xhr",
       return headers;
     },
 
+
     /**
      * Abort request - i.e. cancels any network activity.
      *
@@ -552,6 +556,7 @@ qx.Class.define("qx.io.request.Xhr",
       return this;
     },
 
+
     /**
      * Create response parser.
      *
@@ -560,6 +565,7 @@ qx.Class.define("qx.io.request.Xhr",
     _createResponseParser: function() {
       return new qx.util.ResponseParser();
     },
+
 
     /**
      * Returns response parsed with parser determined by content type.
@@ -573,76 +579,84 @@ qx.Class.define("qx.io.request.Xhr",
       return this._parser.parse(response, contentType);
     },
 
-    /*
-    ---------------------------------------------------------------------------
-      PRIVATE
-    ---------------------------------------------------------------------------
-    */
 
     /**
      * @type {Object} XMLHttpRequest or equivalent.
      */
     __nativeXhr: null,
 
+
     /**
      * @type {Boolean} Whether request is async.
      */
     __async: null,
+
 
     /**
      * @type {Function} Bound __onNativeReadyStateChange handler.
      */
     __onNativeReadyStateChangeBound: null,
 
+
     /**
      * @type {Function} Bound __onNativeAbort handler.
      */
     __onNativeAbortBound: null,
+
 
     /**
      * @type {Function} Bound __onTimeout handler.
      */
     __onTimeoutBound: null,
 
+
     /**
      * @type {Boolean} Send flag
      */
     __send: null,
+
 
     /**
      * @type {String} Requested URL
      */
     __url: null,
 
+
     /**
      * @type {Boolean} Timeout flag
      */
     __timeout: null,
+
 
     /**
      * @type {Boolean} Whether object has been disposed.
      */
     __disposed: null,
 
+
     /**
      * @type {Number} ID of timeout timer.
      */
     __timerId: null,
+
 
     /**
      * @type {Error} Error thrown on open, if any.
      */
     __openError: null,
 
+
     /**
      * @type {Boolean} Conditional get flag
      */
      __conditional: null,
 
+
     /**
      * @type {Array} Whitelist with all allowed data types for the request payload
      */
     __dataTypeWhiteList: null,
+
 
     /**
      * Init native XHR.
@@ -680,6 +694,7 @@ qx.Class.define("qx.io.request.Xhr",
         this.abort();
       }
     },
+
 
     /**
      * Handle native onreadystatechange.
@@ -740,6 +755,7 @@ qx.Class.define("qx.io.request.Xhr",
       }
     },
 
+
     /**
      * Handle readystatechange. Called internally when readyState is changed.
      */
@@ -757,6 +773,7 @@ qx.Class.define("qx.io.request.Xhr",
         this.__readyStateChangeDone();
       }
     },
+
 
     /**
      * Handle readystatechange. Called internally by
@@ -809,6 +826,7 @@ qx.Class.define("qx.io.request.Xhr",
       return error;
     },
 
+
     /**
      * Handle faked timeout.
      */
@@ -828,6 +846,7 @@ qx.Class.define("qx.io.request.Xhr",
       // Signal readystatechange
       this.__readyStateChange();
     },
+
 
     /**
      * Normalize status property across browsers.
@@ -850,11 +869,6 @@ qx.Class.define("qx.io.request.Xhr",
       }
     },
 
-    /*
-    ---------------------------------------------------------------------------
-      HELPER
-    ---------------------------------------------------------------------------
-    */
 
     /**
      * Dispose object and wrapped native XHR.
@@ -891,6 +905,7 @@ qx.Class.define("qx.io.request.Xhr",
       return true;
     },
 
+
     /**
      * Check if the request has already beed disposed.
      * @return {Boolean} <code>true</code>, if the request has been disposed.
@@ -898,6 +913,7 @@ qx.Class.define("qx.io.request.Xhr",
     isDisposed : function() {
       return !!this.__disposed;
     },
+
 
     /**
      * Throw when already disposed.

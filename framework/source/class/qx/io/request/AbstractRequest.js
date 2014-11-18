@@ -34,7 +34,9 @@
 qx.Class.define("qx.io.request.AbstractRequest",
 {
   extend : Object,
+
   include: [qx.event.MEmitter],
+
 
   /**
    * @param url {String?} The URL of the resource to request.
@@ -52,6 +54,7 @@ qx.Class.define("qx.io.request.AbstractRequest",
     this.on("error", this._onError, this);
   },
 
+
   events :
   {
     /**
@@ -59,41 +62,49 @@ qx.Class.define("qx.io.request.AbstractRequest",
      */
     "readystatechange": "null",
 
+
     /**
      * Fired when request completes without error and transport’s status
      * indicates success.
      */
     "success": "Object",
 
+
     /**
      * Fired when request completes without error.
      */
     "load": "null",
+
 
     /**
      * Fired when request completes with or without error.
      */
     "loadend": "null",
 
+
     /**
      * Fired when request is aborted.
      */
     "abort": "Object",
+
 
     /**
      * Fired when request reaches timeout limit.
      */
     "timeout": "Object",
 
+
     /**
      * Fired when request completes with error.
      */
     "error": "Object",
 
+
     /**
      * Fired when request completes without error but erroneous HTTP status.
      */
     "statusError": "Object",
+
 
     /**
      * Fired on timeout, error or remote error.
@@ -102,6 +113,7 @@ qx.Class.define("qx.io.request.AbstractRequest",
      * to handle error related events in a more fine-grained approach.
      */
     "fail": "Object|null",
+
 
     /**
      * Fired on change of the parsed response.
@@ -126,11 +138,13 @@ qx.Class.define("qx.io.request.AbstractRequest",
      */
     "changeResponse": "Object",
 
+
     /**
      * Fired on change of the phase.
      */
     "changePhase": "Object"
   },
+
 
   properties :
   {
@@ -145,6 +159,7 @@ qx.Class.define("qx.io.request.AbstractRequest",
       check: "String"
     },
 
+
     /**
      * Timeout limit in milliseconds. Default (0) means no limit.
      */
@@ -154,6 +169,7 @@ qx.Class.define("qx.io.request.AbstractRequest",
       init: 0
     },
 
+
     /**
      * The HTTP method.
      */
@@ -162,6 +178,7 @@ qx.Class.define("qx.io.request.AbstractRequest",
       init: "GET"
     },
 
+
     /**
      * Whether to process asynchronously.
      */
@@ -169,6 +186,7 @@ qx.Class.define("qx.io.request.AbstractRequest",
       check: "Boolean",
       init: true
     },
+
 
     /**
      * Get current phase.
@@ -196,6 +214,7 @@ qx.Class.define("qx.io.request.AbstractRequest",
       event: "changePhase",
       init: "unsent"
     },
+
 
     /**
      * Data to be send as part of the request.
@@ -226,6 +245,7 @@ qx.Class.define("qx.io.request.AbstractRequest",
       nullable: true
     },
 
+
     /**
      * @type {Number} Ready state.
      *
@@ -241,6 +261,7 @@ qx.Class.define("qx.io.request.AbstractRequest",
       init: 0
     },
 
+
     /**
      * @type {String} The response of the request as text.
      */
@@ -249,6 +270,7 @@ qx.Class.define("qx.io.request.AbstractRequest",
       init: ""
     },
 
+
     /**
      * @type {Object} The response of the request as a Document object.
      */
@@ -256,6 +278,7 @@ qx.Class.define("qx.io.request.AbstractRequest",
       init: null,
       nullable: true
     },
+
 
     /**
      * Parsed response.
@@ -267,6 +290,7 @@ qx.Class.define("qx.io.request.AbstractRequest",
       event: "changeResponse",
       nullable: true
     },
+
 
     /**
      * @type {Number} The HTTP status code.
@@ -280,6 +304,7 @@ qx.Class.define("qx.io.request.AbstractRequest",
       init: 0
     },
 
+
     /**
      * @type {String} The HTTP status text.
      *
@@ -291,6 +316,7 @@ qx.Class.define("qx.io.request.AbstractRequest",
       type: "String",
       init: ""
     },
+
 
     /**
      * Authentication delegate.
@@ -310,15 +336,18 @@ qx.Class.define("qx.io.request.AbstractRequest",
      */
      __abort: null,
 
+
     /**
      * Request headers.
      */
     __requestHeaders: null,
 
+
     /**
      * Request headers (deprecated).
      */
     __requestHeadersDeprecated: null,
+
 
     /**
      * Get configured URL.
@@ -337,6 +366,7 @@ qx.Class.define("qx.io.request.AbstractRequest",
       throw new Error("Abstract method call");
     },
 
+
     /**
      * Get configuration related request headers.
      *
@@ -346,6 +376,7 @@ qx.Class.define("qx.io.request.AbstractRequest",
      * @return {Map} Map of request headers.
      */
     _getConfiguredRequestHeaders: function() {},
+
 
     /**
      * Get parsed response.
@@ -360,6 +391,7 @@ qx.Class.define("qx.io.request.AbstractRequest",
     _getParsedResponse: function() {
       throw new Error("Abstract method call");
     },
+
 
     /**
      * Send request.
@@ -410,6 +442,7 @@ qx.Class.define("qx.io.request.AbstractRequest",
       return this;
     },
 
+
     /**
      * Abort request.
      */
@@ -425,12 +458,14 @@ qx.Class.define("qx.io.request.AbstractRequest",
       this._abort();
     },
 
+
     /**
      * Abort request.
      *
      * This method MAY be overridden. It is called in {@link #abort}.
      */
     _abort: function() {},
+
 
     /**
      * Get parsed response.
@@ -444,6 +479,7 @@ qx.Class.define("qx.io.request.AbstractRequest",
       throw new Error("Abstract method call");
     },
 
+
     /**
      * Opens a request.
      *
@@ -453,11 +489,6 @@ qx.Class.define("qx.io.request.AbstractRequest",
       throw new Error("Abstract method call");
     },
 
-    /*
-    ---------------------------------------------------------------------------
-     REQUEST HEADERS
-    ---------------------------------------------------------------------------
-    */
 
     /**
      * Apply configured request headers to transport.
@@ -474,9 +505,11 @@ qx.Class.define("qx.io.request.AbstractRequest",
 
     },
 
+
     _setRequestHeader: function() {
       throw new Error("Abstract method call");
     },
+
 
     /**
      * Set a request header.
@@ -489,6 +522,7 @@ qx.Class.define("qx.io.request.AbstractRequest",
     setRequestHeader: function(key, value) {
       this.__requestHeaders[key] = value;
     },
+
 
     /**
      * Get all request headers.
@@ -509,6 +543,7 @@ qx.Class.define("qx.io.request.AbstractRequest",
       return requestHeaders;
     },
 
+
     /**
     * Retrieve authentication headers from auth delegate.
     *
@@ -526,6 +561,7 @@ qx.Class.define("qx.io.request.AbstractRequest",
       }
     },
 
+
     /**
      * Get a request header.
      *
@@ -535,6 +571,7 @@ qx.Class.define("qx.io.request.AbstractRequest",
     getRequestHeader: function(key) {
        return this.__requestHeaders[key];
     },
+
 
     /**
      * Remove a request header.
@@ -549,6 +586,7 @@ qx.Class.define("qx.io.request.AbstractRequest",
       }
     },
 
+
     /**
      * Get status code.
      *
@@ -557,6 +595,7 @@ qx.Class.define("qx.io.request.AbstractRequest",
     getStatus: function() {
       return this.$$status;
     },
+
 
     /**
      * Set status code.
@@ -567,6 +606,7 @@ qx.Class.define("qx.io.request.AbstractRequest",
       this.$$status = status;
     },
 
+
     /**
      * Get status text.
      *
@@ -575,6 +615,7 @@ qx.Class.define("qx.io.request.AbstractRequest",
     getStatusText: function() {
       return this.$$statusText;
     },
+
 
     /**
      * Set status text.
@@ -585,6 +626,7 @@ qx.Class.define("qx.io.request.AbstractRequest",
       this.$$statusText = statusText;
     },
 
+
     /**
      * Get the content type response header from response.
      *
@@ -594,6 +636,7 @@ qx.Class.define("qx.io.request.AbstractRequest",
     getResponseContentType: function() {
       return this.getResponseHeader("Content-Type");
     },
+
 
     /**
      * Whether request completed (is done).
@@ -607,11 +650,6 @@ qx.Class.define("qx.io.request.AbstractRequest",
       return !!this.$$disposed;
     },
 
-    /*
-    ---------------------------------------------------------------------------
-      EVENT HANDLING
-    ---------------------------------------------------------------------------
-    */
 
     /**
      * Handle "readystatechange" event.
@@ -639,6 +677,7 @@ qx.Class.define("qx.io.request.AbstractRequest",
         this.__onReadyStateDone();
       }
     },
+
 
     /**
      * Called internally when readyState is DONE.
@@ -680,6 +719,7 @@ qx.Class.define("qx.io.request.AbstractRequest",
       }
     },
 
+
     /**
      * Handle "timeout" event.
      */
@@ -690,6 +730,7 @@ qx.Class.define("qx.io.request.AbstractRequest",
       this.emit("fail");
     },
 
+
     /**
      * Handle "error" event.
      */
@@ -698,11 +739,6 @@ qx.Class.define("qx.io.request.AbstractRequest",
       this.emit("fail", {target: this});
     },
 
-    /*
-    ---------------------------------------------------------------------------
-      INTERNAL / HELPERS
-    ---------------------------------------------------------------------------
-    */
 
     /**
      * Fire stateful event.
@@ -718,6 +754,7 @@ qx.Class.define("qx.io.request.AbstractRequest",
       this.phase = evt;
       this.emit(evt, {target: this});
     },
+
 
     /**
      * Serialize data.
@@ -751,6 +788,7 @@ qx.Class.define("qx.io.request.AbstractRequest",
       }
     },
 
+
     dispose: function() {
       this.$$disposed = true;
       var noop = function() {};
@@ -773,6 +811,7 @@ qx.Class.define("qx.io.request.AbstractRequest",
       throw new Error("Abstract method call");
     }
   },
+
 
   classDefined: function() {
     qx.core.Environment.add("qx.debug.io", false);
