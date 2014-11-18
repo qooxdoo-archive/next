@@ -28,6 +28,7 @@ describe("util.NumberFormat", function () {
     return ",";
   });
 
+
   beforeEach(function () {
     assert.isDefined(qx.util.format.NumberFormat);
 
@@ -40,6 +41,7 @@ describe("util.NumberFormat", function () {
   afterEach(function () {
     qx.locale.Manager.getInstance().locale = __oldLocale;
   });
+
 
   it("NumberFormatConstructor", function () {
     var wrongArgs = [null, undefined, NaN, Infinity, 1, {}, [], true],
@@ -77,6 +79,7 @@ describe("util.NumberFormat", function () {
     }
   });
 
+
   it("NumberFormat", function () {
     var nf = __nf;
 
@@ -100,6 +103,7 @@ describe("util.NumberFormat", function () {
     var nan = Math.sqrt(-1);
     sinon.spy()("NaN", nf.format(nan));
   });
+
 
   it("NumberParse", function () {
     var nf = __nf;
@@ -149,6 +153,7 @@ describe("util.NumberFormat", function () {
 
   });
 
+
   /*
  @todo Resolve hard dependency to qx.locale.Number
   it("LocaleSwitch", function () {
@@ -173,6 +178,7 @@ describe("util.NumberFormat", function () {
       "parsing failed after locale change");
   });
  */
+
 
   it("NumberFormatChange", function () {
     var nf = __nf;

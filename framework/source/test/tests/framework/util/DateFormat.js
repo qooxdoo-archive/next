@@ -1,19 +1,19 @@
 /* ************************************************************************
 
- qooxdoo - the new era of web development
+   qooxdoo - the new era of web development
 
- http://qooxdoo.org
+   http://qooxdoo.org
 
- Copyright:
- 2007-2008 1&1 Internet AG, Germany, http://www.1und1.de
+   Copyright:
+     2007-2008 1&1 Internet AG, Germany, http://www.1und1.de
 
- License:
- LGPL: http://www.gnu.org/licenses/lgpl.html
- EPL: http://www.eclipse.org/org/documents/epl-v10.php
- See the LICENSE file in the project's top-level directory for details.
+   License:
+     LGPL: http://www.gnu.org/licenses/lgpl.html
+     EPL: http://www.eclipse.org/org/documents/epl-v10.php
+     See the LICENSE file in the project's top-level directory for details.
 
- Authors:
- * Fabian Jakobs (fjakobs)
+   Authors:
+     * Fabian Jakobs (fjakobs)
 
  ************************************************************************ */
 
@@ -44,8 +44,8 @@ describe("util.DateFormat", function () {
     {'date': new Date(2012, 4, 24, 11, 49, 57, 1), 'result': {}},
     {'date': new Date(2012, 4, 24, 11, 49, 57, 12), 'result': {}},
     {'date': new Date(2012, 4, 24, 11, 49, 57, 123), 'result': {}}
-
   ];
+
 
   var __fillNumber = function (number, minSize) {
     var str = "" + number;
@@ -56,6 +56,7 @@ describe("util.DateFormat", function () {
 
     return str;
   };
+
 
   var __getExpectedYear = function (absYear, formattedSize, yearsign) {
     var expectedYear = absYear + "";
@@ -134,6 +135,7 @@ describe("util.DateFormat", function () {
     assert.isNull(dateFmt.format(invalidDate));
     dateFmt.dispose();
   });
+
 
   /*
  @todo Resolve hard dependency to qx.locale.Date
@@ -389,8 +391,8 @@ describe("util.DateFormat", function () {
       sinon.spy()(__fillNumber(dayOfMonth, 2), df.format(date));
       df.dispose();
     }
-
   });
+
 
   it("Pattern_D_", function () {
     var df, dateStr;
@@ -425,6 +427,7 @@ describe("util.DateFormat", function () {
 
   });
 
+
   it("Pattern_E_", function () {
     var df;
     var locale = qx.locale.Manager.getInstance().locale;
@@ -454,6 +457,7 @@ describe("util.DateFormat", function () {
     }
 
   });
+
 
   it("Pattern_c_", function () {
     var df;
@@ -487,6 +491,7 @@ describe("util.DateFormat", function () {
     qx.locale.Manager.getInstance().locale = locale;
   });
 
+
   it("Pattern_e_", function () {
     var df;
     var locale = qx.locale.Manager.getInstance().locale;
@@ -517,6 +522,7 @@ describe("util.DateFormat", function () {
       df.dispose();
     }
   });
+
 
   it("Pattern_e_parse", function () {
     var df, parsedDate;
@@ -552,6 +558,7 @@ describe("util.DateFormat", function () {
     }
   });
 
+
   it("Pattern_a_", function () {
     var df;
     var locale = qx.locale.Manager.getInstance().locale;
@@ -562,8 +569,8 @@ describe("util.DateFormat", function () {
       sinon.spy()(hour < 12 ? qx.locale.Date.getAmMarker(locale).toString() : qx.locale.Date.getPmMarker(locale).toString(), df.format(date));
       df.dispose();
     }
-
   });
+
 
   it("Pattern_h_", function () {
     var df;
@@ -581,8 +588,8 @@ describe("util.DateFormat", function () {
         df.dispose();
       }
     }
-
   });
+
 
   it("Pattern_H_", function () {
     var df;
@@ -600,8 +607,8 @@ describe("util.DateFormat", function () {
         df.dispose();
       }
     }
-
   });
+
 
   it("Pattern_k_", function () {
     var df;
@@ -619,8 +626,8 @@ describe("util.DateFormat", function () {
         df.dispose();
       }
     }
-
   });
+
 
   it("Pattern_K_", function () {
     var df;
@@ -638,8 +645,8 @@ describe("util.DateFormat", function () {
         df.dispose();
       }
     }
-
   });
+
 
   it("Pattern_m_", function () {
     var df;
@@ -655,8 +662,8 @@ describe("util.DateFormat", function () {
       sinon.spy()(__fillNumber(min, 2), df.format(date));
       df.dispose();
     }
-
   });
+
 
   it("Pattern_s_", function () {
     var df;
@@ -672,8 +679,8 @@ describe("util.DateFormat", function () {
       sinon.spy()(__fillNumber(sec, 2), df.format(date));
       df.dispose();
     }
-
   });
+
 
   it("Pattern_S_", function () {
     var df;
@@ -699,12 +706,11 @@ describe("util.DateFormat", function () {
       sinon.spy()(msec.substring(0, 3) + "0", df.format(date));
       df.dispose();
     }
-
   });
+
 
   // z and Z can be tested when knowing the timezoneoffset of the machines the test will run on
   // here it is EET
-
   it("Pattern_z_", function () {
     var df;
     for (var i = 0; i < __dates.length; i++) {
@@ -729,8 +735,8 @@ describe("util.DateFormat", function () {
       sinon.spy()(localTimeZone, df.format(date));
       df.dispose();
     }
-
   });
+
 
   it("Pattern_G_", function () {
     var df;
@@ -753,8 +759,8 @@ describe("util.DateFormat", function () {
         df.dispose();
       }
     }
-
   });
+
 
   it("IsoMasks", function () {
     for (var i = 0; i < __dates.length; i++) {
@@ -764,6 +770,7 @@ describe("util.DateFormat", function () {
       _testIsoMasks(date, 'isoDateTime', "yyyy-MM-dd'T'HH:mm:ss");
     }
   });
+
 
   it("ChangingLocales", function () {
     var manager = qx.locale.Manager.getInstance();
@@ -800,7 +807,6 @@ describe("util.DateFormat", function () {
     dfFR.dispose();
     dfDE.dispose();
     dfUS.dispose();
-
   });
 
 });
