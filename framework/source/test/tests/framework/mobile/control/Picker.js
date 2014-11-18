@@ -35,7 +35,6 @@ describe("mobile.control.Picker", function() {
     var pickerSlot2 = new qx.data.Array(["1.5.1", "1.6.1", "2.0.4", "2.1.2", "3.0"]);
 
     var picker = new qx.ui.control.Picker();
-    picker.title = "Picker";
 
     assert.isTrue(picker.getSlotCount() === 0, 'Unexpected picker slot count.');
 
@@ -70,8 +69,8 @@ describe("mobile.control.Picker", function() {
     picker.addSlot(pickerSlot2);
 
     var sel = picker.find("*[data-row=0]");
-    assert.equal(sel[0], picker.selected[0]);
-    assert.equal(sel[1], picker.selected[1]);
+    assert.equal(picker.selection[0], "a");
+    assert.equal(picker.selection[1], "0");
 
     picker.dispose();
   });
@@ -86,12 +85,12 @@ describe("mobile.control.Picker", function() {
 
     picker.addSlot(pickerSlot1);
     var sel = picker.find("*[data-row=0]");
-    assert.equal(sel[0], picker.selected[0]);
+    assert.equal(picker.selection[0], "a");
 
     picker.addSlot(pickerSlot2);
     sel = picker.find("*[data-row=0]");
-    assert.equal(sel[0], picker.selected[0]);
-    assert.equal(sel[1], picker.selected[1]);
+    assert.equal(picker.selection[0], "a");
+    assert.equal(picker.selection[1], "0");
 
     picker.dispose();
   });
@@ -108,14 +107,82 @@ describe("mobile.control.Picker", function() {
     picker.addSlot(pickerSlot2);
 
     var sel = picker.find("*[data-row=0]");
-    assert.equal(sel[0], picker.selected[0]);
-    assert.equal(sel[1], picker.selected[1]);
+    assert.equal(picker.selection[0], "a");
+    assert.equal(picker.selection[1], "0");
 
     picker.removeSlot(1);
     sel = picker.find("*[data-row=0]");
-    assert.equal(1, sel.length);
-    assert.equal(sel[0], picker.selected[0]);
-    assert.equal(1, picker.selected.length);
+    assert.equal(sel.length, 1);
+    assert.equal(picker.selection[0], "a");
+    assert.equal(picker.selection.length, 1);
+
+    picker.dispose();
+  });
+
+
+  it("SelectionManipulationAdd", function() {
+    var picker = new qx.ui.control.Picker()
+      .appendTo(getRoot());
+
+    var pickerSlot1 = new qx.data.Array(["a", "b", "c"]);
+    var pickerSlot2 = new qx.data.Array(["0", "1", "2"]);
+
+    picker.addSlot(pickerSlot1);
+    picker.addSlot(pickerSlot2);
+
+    var cb = sinon.spy();
+    picker.on("selected", cb);
+    picker.selection[1] = "2";
+    sinon.assert.calledOnce(cb);
+    assert.equal(cb.args[0][0][0], "a");
+    assert.equal(cb.args[0][0][1], "2");
+
+    picker.selection[2] = "bla";
+    sinon.assert.calledOnce(cb);
+
+    picker.dispose();
+  });
+
+
+  it("SelectionManipulationRemove", function() {
+    var picker = new qx.ui.control.Picker()
+      .appendTo(getRoot());
+
+    var pickerSlot1 = new qx.data.Array(["a", "b", "c"]);
+    var pickerSlot2 = new qx.data.Array(["0", "1", "2"]);
+
+    picker.addSlot(pickerSlot1);
+    picker.addSlot(pickerSlot2);
+
+    picker.removeSlot(1);
+
+    var cb = sinon.spy();
+    picker.on("selected", cb);
+    picker.selection[1] = "foo";
+    sinon.assert.notCalled(cb);
+
+    picker.dispose();
+  });
+
+
+  it("SelectionManipulationUpdate", function() {
+    var picker = new qx.ui.control.Picker()
+      .appendTo(getRoot());
+
+    var pickerSlot1 = new qx.data.Array(["a", "b", "c"]);
+    var pickerSlot2 = new qx.data.Array(["0", "1", "2"]);
+
+    picker.addSlot(pickerSlot1);
+    picker.addSlot(pickerSlot2);
+
+    var oldSelection = picker.selection;
+    picker.selection = ["b", "1"];
+    var cb = sinon.spy();
+    picker.on("selected", cb);
+    oldSelection[1] = "foo";
+    sinon.assert.notCalled(cb);
+    picker.selection[0] = "c";
+    sinon.assert.calledOnce(cb);
 
     picker.dispose();
   });
@@ -131,11 +198,10 @@ describe("mobile.control.Picker", function() {
     picker.addSlot(pickerSlot2);
     var spy = sinon.spy();
     picker.on("selected", spy);
-    var selection = picker.find("*[data-row=2]").toArray();
-    picker.selected = selection;
+    picker.selection = ["b", "1"];
     sinon.assert.calledOnce(spy);
-    assert.equal(selection[0], spy.args[0][0][0]);
-    assert.equal(selection[1], spy.args[0][0][1]);
+    assert.equal(spy.args[0][0][0], "b");
+    assert.equal(spy.args[0][0][1], "1");
 
     picker.dispose();
   });
@@ -149,11 +215,10 @@ describe("mobile.control.Picker", function() {
     var pickerSlot2 = new qx.data.Array(["0", "1", "2"]);
     picker.addSlot(pickerSlot1);
     picker.addSlot(pickerSlot2);
-    var spy = sinon.spy();
-    picker.on("selected", spy);
+
     var selection = ["affe"];
     assert.throws(function() {
-      picker.selected = selection;
+      picker.selection = selection;
     });
 
     picker.dispose();
