@@ -67,19 +67,15 @@
 
  * @require(qx.bom.element.Clip#set)
  * @require(qx.bom.element.Cursor#set)
- * @require(qx.bom.element.Opacity#set)
 
  * @require(qx.bom.element.Clip#get)
  * @require(qx.bom.element.Cursor#get)
- * @require(qx.bom.element.Opacity#get)
 
  * @require(qx.bom.element.Clip#reset)
  * @require(qx.bom.element.Cursor#reset)
- * @require(qx.bom.element.Opacity#reset)
 
  * @require(qx.bom.element.Clip#compile)
  * @require(qx.bom.element.Cursor#compile)
- * @require(qx.bom.element.Opacity#compile)
  */
 qx.Class.define("qx.bom.element.Style",
 {
@@ -162,8 +158,7 @@ qx.Class.define("qx.bom.element.Style",
     __special :
     {
       clip : qx.bom.element.Clip,
-      cursor : qx.bom.element.Cursor,
-      opacity : qx.bom.element.Opacity
+      cursor : qx.bom.element.Cursor
     },
 
 

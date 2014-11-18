@@ -324,17 +324,6 @@ qx.Class.define("qx.bom.client.Css",
 
 
     /**
-     * Checks if CSS opacity is supported
-     *
-     * @internal
-     * @return {Boolean} <code>true</code> if opacity is supported
-     */
-    getOpacity : function() {
-      return (typeof document.documentElement.style.opacity == "string");
-    },
-
-
-    /**
      * Checks if CSS texShadow is supported
      *
      * @internal
@@ -488,7 +477,6 @@ qx.Class.define("qx.bom.client.Css",
     qx.core.Environment.add("css.appearance", statics.getAppearance);
     qx.core.Environment.add("css.boxsizing", statics.getBoxSizing);
     qx.core.Environment.add("css.inlineblock", statics.getInlineBlock);
-    qx.core.Environment.add("css.opacity", statics.getOpacity);
     qx.core.Environment.add("css.textShadow", statics.getTextShadow);
     qx.core.Environment.add("css.textShadow.filter", statics.getFilterTextShadow);
     qx.core.Environment.add("css.alphaimageloaderneeded", statics.getAlphaImageLoaderNeeded);

@@ -46,7 +46,6 @@ describe("bom.Basic", function() {
   it("ElementAttributes", function() {
     var attrib = qx.bom.element.Attribute;
     var style = qx.bom.element.Style;
-    var opac = qx.bom.element.Opacity;
 
     var test1 = document.getElementById("test1");
 
@@ -90,7 +89,6 @@ describe("bom.Basic", function() {
     //assert.equal("serif", style.get(document.getElementById("test6"), "fontFamily"));
     assert.equal("Foo-Link", attrib.get(document.getElementById("test6"), "text"));
     assert.equal("<b>foo</b>-link", attrib.get(document.getElementById("test6"), "html").toLowerCase());
-    assert.equal(1, opac.get(document.getElementById("test6")));
 
     qx.log.Logger.info("test7");
     assert.equal("bottom", attrib.get(document.getElementById("test7"), "valign"));
@@ -100,14 +98,10 @@ describe("bom.Basic", function() {
     style.set(document.getElementById("test8"), "color", "red");
     style.set(document.getElementById("test8"), "backgroundColor", "black");
 
-    opac.set(document.getElementById("test8"), 0.5);
-
     var test8Color = style.get(document.getElementById("test8"), "color");
     qx.core.Assert.assertCssColor("red", test8Color);
 
     var test8BackgroundColor = style.get(document.getElementById("test8"), "backgroundColor");
     qx.core.Assert.assertCssColor("black", test8BackgroundColor);
-
-    assert.equal(0.5, opac.get(document.getElementById("test8")));
   });
 });
