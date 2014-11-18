@@ -257,6 +257,11 @@ qx.Class.define("qx.io.request.AbstractRequest",
       nullable: true
     },
 
+    /**
+     * Parsed response.
+     *
+     * @type {String} The parsed response of the request.
+     */
     response: {
       get: "_getParsedResponse",
       event: "changeResponse",
@@ -265,6 +270,8 @@ qx.Class.define("qx.io.request.AbstractRequest",
 
     /**
      * @type {Number} The HTTP status code.
+     *
+     * Note: Getter and Setter needed for later override.
      */
     status: {
       get: "getStatus",
@@ -275,6 +282,8 @@ qx.Class.define("qx.io.request.AbstractRequest",
 
     /**
      * @type {String} The HTTP status text.
+     *
+     * Note: Getter and Setter needed for later override.
      */
     statusText: {
       get: "getStatusText",
@@ -574,17 +583,6 @@ qx.Class.define("qx.io.request.AbstractRequest",
      */
     setStatusText: function(statusText) {
       this.$$statusText = statusText;
-    },
-
-    /**
-     * Override the content type response header from response.
-     *
-     * @param contentType {String}
-     *   Content type for overriding.
-     * @see qx.bom.request.Xhr#overrideMimeType
-     */
-    overrideResponseContentType: function(contentType) {
-      return this.overrideMimeType(contentType);
     },
 
     /**

@@ -255,6 +255,7 @@ qx.Class.define("qx.io.request.Xhr",
       }
     },
 
+
     /**
      * Overrides the MIME type returned by the server
      * and must be called before @send()@.

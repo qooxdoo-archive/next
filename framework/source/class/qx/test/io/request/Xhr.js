@@ -267,13 +267,6 @@ qx.Class.define("qx.test.io.request.Xhr",
       this.assertCalledWith(this.req._setRequestHeader, "Accept", "application/json");
     },
 
-    "test: override response content type": function() {
-      this.setUpFakeTransport();
-      this.req.overrideResponseContentType("text/plain;charset=Shift-JIS");
-
-      this.assertCalledWith(this.req.overrideMimeType, "text/plain;charset=Shift-JIS");
-    },
-
     "test: get response content type": function() {
       // this.stub(this.req, "getResponseHeader");
       this.req.getResponseContentType();
