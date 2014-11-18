@@ -128,7 +128,7 @@ qx.Class.define("qx.test.io.request.JsonpLowLevel",
 
       this.req.on("load", function() {
         that.resume(function() {
-          var data = this.req.getResponse();
+          var data = this.req.response;
           that.assertObject(data);
           that.assertTrue(data["boolean"]);
         });
@@ -145,7 +145,7 @@ qx.Class.define("qx.test.io.request.JsonpLowLevel",
       req.on("load", function() {
         that.resume(function() {
           req._open("GET", "/url");
-          that.assertNull(req.getResponse());
+          that.assertNull(req.response);
         });
       });
 
@@ -158,7 +158,7 @@ qx.Class.define("qx.test.io.request.JsonpLowLevel",
 
       this.req.on("load", function() {
         that.resume(function() {
-          that.assertEquals(200, that.req.getStatus());
+          that.assertEquals(200, that.req.status);
         });
       });
 
@@ -171,7 +171,7 @@ qx.Class.define("qx.test.io.request.JsonpLowLevel",
 
       this.req.on("load", function() {
         that.resume(function() {
-          that.assertEquals(200, that.req.getStatus());
+          that.assertEquals(200, that.req.status);
         });
       });
 
@@ -187,7 +187,7 @@ qx.Class.define("qx.test.io.request.JsonpLowLevel",
 
       this.req.on("error", function() {
         that.resume(function() {
-          that.assertEquals(500, that.req.getStatus());
+          that.assertEquals(500, that.req.status);
         });
       });
 
@@ -200,7 +200,7 @@ qx.Class.define("qx.test.io.request.JsonpLowLevel",
 
       this.req.on("load", function() {
         that.resume(function() {
-          that.assertEquals(500, that.req.getStatus());
+          that.assertEquals(500, that.req.status);
         });
       });
 
@@ -219,7 +219,7 @@ qx.Class.define("qx.test.io.request.JsonpLowLevel",
 
         if (count == 2) {
           that.resume(function() {
-            that.assertEquals(500, req.getStatus());
+            that.assertEquals(500, req.status);
           });
           return;
         }

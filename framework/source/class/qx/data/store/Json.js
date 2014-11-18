@@ -257,7 +257,7 @@ qx.Class.define("qx.data.store.Json",
       }
 
       var req = ev.target,
-          data = req.getResponse();
+          data = req.response;
 
       // check for the data manipulation hook
       var del = this._delegate;

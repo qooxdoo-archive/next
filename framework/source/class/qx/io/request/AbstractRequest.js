@@ -257,6 +257,12 @@ qx.Class.define("qx.io.request.AbstractRequest",
       nullable: true
     },
 
+    response: {
+      get: "_getParsedResponse",
+      event: "changeResponse",
+      nullable: true
+    },
+
     /**
      * @type {Number} The HTTP status code.
      */
@@ -290,11 +296,6 @@ qx.Class.define("qx.io.request.AbstractRequest",
 
   members :
   {
-    /**
-     * Parsed response.
-     */
-    __response: null,
-
     /**
      * Abort flag.
      */
@@ -610,35 +611,6 @@ qx.Class.define("qx.io.request.AbstractRequest",
 
     /*
     ---------------------------------------------------------------------------
-      RESPONSE
-    ---------------------------------------------------------------------------
-    */
-
-    /**
-     * Get parsed response.
-     *
-     * @return {String} The parsed response of the request.
-     */
-    getResponse: function() {
-      return this.__response;
-    },
-
-    /**
-     * Set response.
-     *
-     * @param response {String} The parsed response of the request.
-     */
-    _setResponse: function(response) {
-      var oldResponse = response;
-
-      if (this.__response !== response) {
-        this.__response = response;
-        this.emit("changeResponse", {value: this.__response, old: oldResponse, target: this});
-      }
-    },
-
-    /*
-    ---------------------------------------------------------------------------
       EVENT HANDLING
     ---------------------------------------------------------------------------
     */
@@ -689,7 +661,7 @@ qx.Class.define("qx.io.request.AbstractRequest",
           this.debug("Response is of type: '" + this.getResponseContentType() + "'");
         }
 
-        this._setResponse(this._getParsedResponse());
+        this.response = this._getParsedResponse();
 
         this._fireStatefulEvent("success");
 
@@ -697,7 +669,7 @@ qx.Class.define("qx.io.request.AbstractRequest",
       } else {
 
         try {
-          this._setResponse(this._getParsedResponse());
+          this.response = this._getParsedResponse();
         } catch (e) {
           // ignore if it does not work
         }

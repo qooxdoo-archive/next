@@ -199,7 +199,7 @@ qx.Class.define("qx.io.request.Jsonp",
       this.transport.delegate = delegate;
 
       // Reset properties that may have been set by previous request
-      this.__response = null;
+      this.response = null;
       this.__callbackCalled = false;
 
       callbackParam = this.__callbackParam || "callback";
@@ -271,7 +271,7 @@ qx.Class.define("qx.io.request.Jsonp",
       }
 
       // Set response
-      this.__response = data;
+      this.response = data;
 
       // Delete global reference to this
       this.constructor[this.__id] = undefined;
@@ -476,16 +476,7 @@ qx.Class.define("qx.io.request.Jsonp",
      * @return {Object} The parsed response of the request.
      */
     _getParsedResponse: function() {
-      return this.__response;
-    },
-
-    /**
-     * Get parsed response.
-     *
-     * @return {String} The parsed response of the request.
-     */
-    getResponse: function() {
-      return this._getParsedResponse();
+      return this.$$response;
     },
 
     _dispose: function() {

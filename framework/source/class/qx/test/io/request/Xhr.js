@@ -348,7 +348,7 @@ qx.Class.define("qx.test.io.request.Xhr",
       req.responseText = "Affe";
       req.emit("readystatechange");
 
-      this.assertEquals("Affe", req.getResponse());
+      this.assertEquals("Affe", req.response);
     },
 
     "test: get response on 400 status": function() {
@@ -360,7 +360,7 @@ qx.Class.define("qx.test.io.request.Xhr",
       req.responseText = "Affe";
       req.emit("readystatechange");
 
-      this.assertEquals("Affe", req.getResponse());
+      this.assertEquals("Affe", req.response);
     },
 
     "test: get response by change event": function() {

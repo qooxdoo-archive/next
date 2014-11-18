@@ -49,8 +49,8 @@ qx.Class.define("qx.test.io.request.JsonpWithRemote",
 
       req.on("load", function(e) {
         this.resume(function() {
-          this.assertObject(req.getResponse());
-          this.assertTrue(req.getResponse()["boolean"]);
+          this.assertObject(req.response);
+          this.assertTrue(req.response["boolean"]);
         }, this);
       }, this);
 
