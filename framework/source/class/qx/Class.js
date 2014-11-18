@@ -409,7 +409,7 @@ qx.Class.define("qx.Class",
         }
 
         // custom getter/setter
-        var getter;
+        var getter = undefined;
         if (def.get instanceof Function) {
           getter = def.get;
         } else if (def.get) {
@@ -420,7 +420,8 @@ qx.Class.define("qx.Class",
             };
           })(def.get);
         }
-        var setter;
+
+        var setter = undefined;
         if (def.set instanceof Function) {
           setter = def.set;
         } else if (def.set) {
