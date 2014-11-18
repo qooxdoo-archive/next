@@ -266,8 +266,14 @@ qx.Class.define("qx.test.io.request.Script",
 
     "test: abort() makes request not fire load": function() {
       var req = this.req;
+      var globalStack = [];
 
-      this.spy(req, "onload");
+      // test preparation
+      var emitOrig = req.emit;
+      this.stub(req, "emit", function(evt) {
+        globalStack.push(evt);
+        emitOrig.call(this, evt);
+      });
 
       if (this.isIe()) {
         this.request(this.noCache(this.url));
@@ -278,7 +284,7 @@ qx.Class.define("qx.test.io.request.Script",
       req.abort();
 
       this.wait(300, function() {
-        this.assertNotCalled(req.onload);
+        this.assertTrue(globalStack.indexOf("onload") === -1);
       }, this);
     },
 
@@ -439,6 +445,14 @@ qx.Class.define("qx.test.io.request.Script",
 
     "test: not call onerror when request exceeds timeout limit": function() {
       var req = this.req;
+      var globalStack = [];
+
+      // test preparation
+      var emitOrig = req.emit;
+      this.stub(req, "emit", function(evt) {
+        globalStack.push(evt);
+        emitOrig.call(this, evt);
+      });
 
       // Known to fail in browsers not supporting the error event
       // because timeouts are used to fake the "error"
@@ -446,12 +460,11 @@ qx.Class.define("qx.test.io.request.Script",
         this.skip();
       }
 
-      this.spy(req, "onerror");
       req.timeout = 25;
       this.requestPending();
 
       this.wait(20, function() {
-        this.assertNotCalled(req.onerror);
+        this.assertTrue(globalStack.indexOf("onload") === -1);
       }, this);
     },
 

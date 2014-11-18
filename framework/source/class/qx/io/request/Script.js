@@ -43,7 +43,6 @@
  * </pre>
  * </div>
  *
- * @ignore(qx.core, qx.core.Environment.*)
  * @require(qx.io.request.Script#_success)
  * @require(qx.io.request.Script#abort)
  * @require(qx.io.request.Script#dispose)
@@ -107,11 +106,7 @@ qx.Class.define("qx.io.request.Script",
     delegate : {
       init: null,
       nullable: true
-    }
-  },
-
-  members :
-  {
+    },
 
     /**
      * @type {Number} Ready state.
@@ -127,14 +122,20 @@ qx.Class.define("qx.io.request.Script",
      * does not receive response headers. For compatibility, another LOADING
      * state is implemented that replaces the HEADERS_RECEIVED state.
      */
-    readyState: null,
+    readyState: {
+      init: null,
+      nullable: true
+    },
 
     /**
      * @type {Number} The status code.
      *
      * Note: The script transport cannot determine the HTTP status code.
      */
-    status: null,
+    status: {
+      init: null,
+      nullable: true
+    },
 
     /**
      * @type {String} The status text.
@@ -142,14 +143,24 @@ qx.Class.define("qx.io.request.Script",
      * The script transport does not receive response headers. For compatibility,
      * the statusText property is set to the status casted to string.
      */
-    statusText: null,
+    statusText: {
+      init: null,
+      nullable: true
+    },
 
     /**
      * @type {Number} Timeout limit in milliseconds.
      *
      * 0 (default) means no timeout.
      */
-    timeout: null,
+    timeout: {
+      init: null,
+      nullable: true
+    }
+  },
+
+  members :
+  {
 
     /**
      * @type {Function} Function that is executed once the script was loaded.
@@ -178,7 +189,7 @@ qx.Class.define("qx.io.request.Script",
       this.__abort = null;
       this.__url = url;
 
-      if (this.__environmentGet("qx.debug.io")) {
+      if (qx.core.Environment.get("qx.debug.io")) {
         qx.Class.debug(qx.io.request.Script, "Open native request with " +
           "url: " + url);
       }
@@ -235,7 +246,7 @@ qx.Class.define("qx.io.request.Script",
         this.__timeoutId = window.setTimeout(this.__onTimeoutBound, this.timeout);
       }
 
-      if (this.__environmentGet("qx.debug.io")) {
+      if (qx.core.Environment.get("qx.debug.io")) {
         qx.Class.debug(qx.io.request.Script, "Send native request");
       }
 
@@ -267,66 +278,6 @@ qx.Class.define("qx.io.request.Script",
     },
 
     /**
-     * Event handler for an event that fires at every state change.
-     *
-     * Replace with custom method to get informed about the communication progress.
-     */
-    onreadystatechange: function() {},
-
-    /**
-     * Event handler for XHR event "load" that is fired on successful retrieval.
-     *
-     * Note: This handler is called even when an invalid script is returned.
-     *
-     * Warning: Internet Explorer < 9 receives a false "load" for invalid URLs.
-     * This "load" is fired about 2 seconds after sending the request. To
-     * distinguish from a real "load", consider defining a custom check
-     * function using {@link #setDetermineSuccess} and query the status
-     * property. However, the script loaded needs to have a known impact on
-     * the global namespace. If this does not work for you, you may be able
-     * to set a timeout lower than 2 seconds, depending on script size,
-     * complexity and execution time.
-     *
-     * Replace with custom method to listen to the "load" event.
-     */
-    onload: function() {},
-
-    /**
-     * Event handler for XHR event "loadend" that is fired on retrieval.
-     *
-     * Note: This handler is called even when a network error (or similar)
-     * occurred.
-     *
-     * Replace with custom method to listen to the "loadend" event.
-     */
-    onloadend: function() {},
-
-    /**
-     * Event handler for XHR event "error" that is fired on a network error.
-     *
-     * Note: Some browsers do not support the "error" event.
-     *
-     * Replace with custom method to listen to the "error" event.
-     */
-    onerror: function() {},
-
-    /**
-    * Event handler for XHR event "abort" that is fired when request
-    * is aborted.
-    *
-    * Replace with custom method to listen to the "abort" event.
-    */
-    onabort: function() {},
-
-    /**
-    * Event handler for XHR event "timeout" that is fired when timeout
-    * interval has passed.
-    *
-    * Replace with custom method to listen to the "timeout" event.
-    */
-    ontimeout: function() {},
-
-    /**
      * Get a single response header from response.
      *
      * Note: This method exists for compatibility reasons. The script
@@ -342,7 +293,7 @@ qx.Class.define("qx.io.request.Script",
         return null;
       }
 
-      if (this.__environmentGet("qx.debug")) {
+      if (qx.core.Environment.get("qx.debug")) {
         qx.Class.debug("Response header cannot be determined for " +
           "requests made with script transport.");
       }
@@ -362,7 +313,7 @@ qx.Class.define("qx.io.request.Script",
         return null;
       }
 
-      if (this.__environmentGet("qx.debug")) {
+      if (qx.core.Environment.get("qx.debug")) {
         qx.Class.debug("Response headers cannot be determined for" +
           "requests made with script transport.");
       }
@@ -462,7 +413,7 @@ qx.Class.define("qx.io.request.Script",
         return;
       }
 
-      if (this.__environmentGet("qx.debug.io")) {
+      if (qx.core.Environment.get("qx.debug.io")) {
         qx.Class.debug(qx.io.request.Script, "Received native load");
       }
 
@@ -477,7 +428,7 @@ qx.Class.define("qx.io.request.Script",
       }
 
       if (this.status === 500) {
-        if (this.__environmentGet("qx.debug.io")) {
+        if (qx.core.Environment.get("qx.debug.io")) {
           qx.Class.debug(qx.io.request.Script, "Detected error");
         }
       }
@@ -632,34 +583,8 @@ qx.Class.define("qx.io.request.Script",
       if (script && script.parentNode) {
         this.__headElement.removeChild(script);
       }
-    },
-
-    /**
-     * Proxy Environment.get to guard against env not being present yet.
-     *
-     * @param key {String} Environment key.
-     * @return {var} Value of the queried environment key
-     * @lint environmentNonLiteralKey(key)
-     */
-    __environmentGet: function(key) {
-      if (qx && qx.core && qx.core.Environment) {
-        return qx.core.Environment.get(key);
-      } else {
-        if (key === "engine.name") {
-          return qx.bom.client.Engine.getName();
-        }
-
-        if (key === "browser.documentmode") {
-          return qx.bom.client.Browser.getDocumentMode();
-        }
-
-        if (key == "qx.debug.io") {
-          return false;
-        }
-
-        throw new Error("Unknown environment key at this phase");
-      }
     }
+
   },
 
   classDefined : function() {
