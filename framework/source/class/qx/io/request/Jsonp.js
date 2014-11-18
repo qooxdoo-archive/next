@@ -161,6 +161,15 @@ qx.Class.define("qx.io.request.Jsonp",
     callbackName: {
       init: "",
       nullable: true
+    },
+
+    /**
+     * Prefix used for the internal callback name.
+     *
+     * @param prefix {String} The prefix to put in front of 'qx'
+     */
+    prefix: {
+      init: ""
     }
   },
 
@@ -196,9 +205,6 @@ qx.Class.define("qx.io.request.Jsonp",
      */
     _disposed: null,
 
-    /** Prefix used for the internal callback name. */
-    __prefix : "",
-
     /**
      * Initializes (prepares) request.
      *
@@ -230,7 +236,7 @@ qx.Class.define("qx.io.request.Jsonp",
       this.__callbackCalled = false;
 
       callbackParam = this.callbackParam || "callback";
-      callbackName = this.callbackName || this.__prefix +
+      callbackName = this.callbackName || this.prefix +
         "qx.io.request.Jsonp." + this.__id + ".callback";
 
       // Default callback
@@ -307,15 +313,6 @@ qx.Class.define("qx.io.request.Jsonp",
     },
 
 
-    /**
-     * Set the prefix used in front of 'qx.' in case 'qx' is not available
-     * (for qx.Website e.g.)
-     * @internal
-     * @param prefix {String} The prefix to put in front of 'qx'
-     */
-    setPrefix : function(prefix) {
-      this.__prefix = prefix;
-    },
 
 
     /**
