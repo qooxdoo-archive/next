@@ -1,19 +1,19 @@
 /* ************************************************************************
 
- qooxdoo - the new era of web development
+   qooxdoo - the new era of web development
 
- http://qooxdoo.org
+   http://qooxdoo.org
 
- Copyright:
- 2007-2012 1&1 Internet AG, Germany, http://www.1und1.de
+   Copyright:
+     2007-2012 1&1 Internet AG, Germany, http://www.1und1.de
 
- License:
- LGPL: http://www.gnu.org/licenses/lgpl.html
- EPL: http://www.eclipse.org/org/documents/epl-v10.php
- See the LICENSE file in the project's top-level directory for details.
+   License:
+     LGPL: http://www.gnu.org/licenses/lgpl.html
+     EPL: http://www.eclipse.org/org/documents/epl-v10.php
+     See the LICENSE file in the project's top-level directory for details.
 
- Authors:
- * Martin Wittemann (wittemann)
+   Authors:
+     * Martin Wittemann (wittemann)
 
  ************************************************************************ */
 
@@ -45,6 +45,7 @@ describe("event.Messaging", function () {
     sinon.assert.calledOnce(handlerGet);
   });
 
+
   it("Get", function () {
     var handler = sinon.spy();
     var ctx = {a: 12};
@@ -55,6 +56,7 @@ describe("event.Messaging", function () {
     sinon.assert.calledOn(handler, ctx);
     sinon.assert.calledWith(handler, {customData: data, params: {}, path: "/"});
   });
+
 
   it("RegExp", function () {
     var handler = sinon.spy();
@@ -68,6 +70,7 @@ describe("event.Messaging", function () {
     sinon.assert.calledWith(handler, {customData: data, params: {}, path: "xyzabc"});
   });
 
+
   it("GetAll", function () {
     var handler = sinon.spy();
     __messaging.on("a", /.*/, handler);
@@ -76,6 +79,7 @@ describe("event.Messaging", function () {
     sinon.assert.calledTwice(handler);
   });
 
+
   it("Any", function () {
     var handler = sinon.spy();
     __messaging.onAny(/.*/, handler);
@@ -83,6 +87,7 @@ describe("event.Messaging", function () {
     __messaging.emit("b", "abcxyz");
     sinon.assert.calledTwice(handler);
   });
+
 
   it("Twice", function () {
     var handler = sinon.spy();
@@ -95,6 +100,7 @@ describe("event.Messaging", function () {
     sinon.assert.calledOn(handler, ctx);
     sinon.assert.calledWith(handler, {customData: data, params: {}, path: "/"});
   });
+
 
   it("Param", function () {
     var handler = sinon.spy();
@@ -109,6 +115,7 @@ describe("event.Messaging", function () {
     );
   });
 
+
   it("MultipleParam", function () {
     var handler = sinon.spy();
     var data = {data: "test"};
@@ -120,6 +127,7 @@ describe("event.Messaging", function () {
     );
   });
 
+
   it("Remove", function () {
     var handler = sinon.spy();
     var id = __messaging.on("GET", "/", handler);
@@ -130,6 +138,7 @@ describe("event.Messaging", function () {
     __messaging.emit("GET", "/");
     sinon.assert.calledOnce(handler);
   });
+
 
   it("Has", function () {
     __messaging.on("GET", "/affe", function () {

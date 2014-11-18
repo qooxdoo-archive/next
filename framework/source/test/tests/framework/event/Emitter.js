@@ -1,19 +1,19 @@
 /* ************************************************************************
 
- qooxdoo - the new era of web development
+   qooxdoo - the new era of web development
 
- http://qooxdoo.org
+   http://qooxdoo.org
 
- Copyright:
- 2007-2012 1&1 Internet AG, Germany, http://www.1und1.de
+   Copyright:
+     2007-2012 1&1 Internet AG, Germany, http://www.1und1.de
 
- License:
- LGPL: http://www.gnu.org/licenses/lgpl.html
- EPL: http://www.eclipse.org/org/documents/epl-v10.php
- See the LICENSE file in the project's top-level directory for details.
+   License:
+     LGPL: http://www.gnu.org/licenses/lgpl.html
+     EPL: http://www.eclipse.org/org/documents/epl-v10.php
+     See the LICENSE file in the project's top-level directory for details.
 
- Authors:
- * Martin Wittemann (wittemann)
+   Authors:
+     * Martin Wittemann (wittemann)
 
  ************************************************************************ */
 
@@ -24,6 +24,7 @@ describe("event.Emitter", function () {
   beforeEach(function () {
     __eventEmitter = new qx.event.Emitter();
   });
+
 
   it("OnOff", function () {
     var spy = sinon.spy();
@@ -37,6 +38,7 @@ describe("event.Emitter", function () {
     sinon.assert.calledOnce(spy);
   });
 
+
   it("OnOffById", function () {
     var spy = sinon.spy();
     var id = __eventEmitter.on("test", spy, this);
@@ -48,6 +50,7 @@ describe("event.Emitter", function () {
     sinon.assert.calledOnce(spy);
   });
 
+
   it("OffReturnId", function () {
     var spy = sinon.spy();
     __eventEmitter.on("test", spy, this);
@@ -56,6 +59,7 @@ describe("event.Emitter", function () {
     var returnId = __eventEmitter.off("test2", spy, this);
     assert.equal(id, returnId);
   });
+
 
   it("OnTwoListeners", function () {
     var spy1 = sinon.spy();
@@ -73,6 +77,7 @@ describe("event.Emitter", function () {
     sinon.assert.calledTwice(spy2);
   });
 
+
   it("TwoEvents", function () {
     var spy1 = sinon.spy();
     var spy2 = sinon.spy();
@@ -88,6 +93,7 @@ describe("event.Emitter", function () {
     sinon.assert.calledOnce(spy2);
   });
 
+
   it("Once", function () {
     var spy = sinon.spy();
 
@@ -98,6 +104,7 @@ describe("event.Emitter", function () {
     __eventEmitter.emit("test");
     sinon.assert.calledOnce(spy);
   });
+
 
   it("OnAny", function () {
     var spy = sinon.spy();
@@ -110,12 +117,14 @@ describe("event.Emitter", function () {
     sinon.assert.calledTwice(spy);
   });
 
+
   it("EmitData", function () {
     var spy = sinon.spy();
     __eventEmitter.on("test", spy);
     __eventEmitter.emit("test", 123);
     sinon.assert.calledWith(spy, 123);
   });
+
 
   it("EmitOrder", function () {
     var i = 0;
@@ -130,6 +139,7 @@ describe("event.Emitter", function () {
     __eventEmitter.emit("test");
     assert.equal(2, i);
   });
+
 
   it("GetListenerId", function () {
     var id = __eventEmitter.on("test", function () {
