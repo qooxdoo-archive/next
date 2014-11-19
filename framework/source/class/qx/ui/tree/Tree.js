@@ -366,12 +366,12 @@ qx.Class.define("qx.ui.tree.Tree",
      * @return {qxWeb} a collection of the folders
      */
     __renderFolders : function (folders) {
-
       var treeCollection = qxWeb();
       var folderCollection = null;
 
-      for (var folder in folders) {
-        folderCollection = this.__renderNewFolder(folder, folders[folder]);
+      for (var id in folders) {
+        folderCollection = this.__renderNewFolder(id, folders[id]);
+        folderCollection.setProperty("model", folders[id]);
         treeCollection = treeCollection.concat(folderCollection);
       }
 
@@ -469,7 +469,7 @@ qx.Class.define("qx.ui.tree.Tree",
         return;
       }
 
-      this.emit("selected", folder[0]);
+      this.emit("selected", folder);
 
       var lookupModel = this.__lookupModel;
 

@@ -406,6 +406,8 @@ qx.Class.define("qx.ui.list.List",
           qxWeb(el); // initialize widgets
         }
       });
+
+      template.setProperty("model", this.model.getItem(index));
       return template;
     },
 

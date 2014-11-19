@@ -175,7 +175,11 @@ qx.Class.define("qx.ui.control.Calendar", {
 
       this.find("." + this.defaultCssClass + "-prev").on("tap", this.showPreviousMonth, this);
       this.find("." + this.defaultCssClass + "-next").on("tap", this.showNextMonth, this);
-      this.find("." + this.defaultCssClass + "-day").on("tap", this._selectDay, this);
+      this.find("." + this.defaultCssClass + "-day")
+        .on("tap", this._selectDay, this)
+        .forEach(function(button) {
+          button.model = new Date(button.getAttribute("value"));
+        });
 
       this.__monthElements[date.getTime()] = this.find(".calendar-container");
 
@@ -213,7 +217,7 @@ qx.Class.define("qx.ui.control.Calendar", {
      * @param e {Event} The tap event.
      */
     _selectDay : function(e) {
-      this.emit("selected", e.target);
+      this.emit("selected", qxWeb(e.target));
     },
 
 
