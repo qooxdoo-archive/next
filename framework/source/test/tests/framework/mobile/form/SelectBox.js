@@ -54,6 +54,34 @@ describe("mobile.form.SelectBox", function() {
   });
 
 
+  it("ModelValue", function() {
+    var selectBox = new qx.ui.form.SelectBox();
+    var toString = function() {return this.id;};
+    var items = [];
+    items.push({title: "A", id: 1, toString: toString});
+    items.push({title: "B", id: 2, toString: toString});
+    var dd = new qx.data.Array(items);
+    selectBox.model = dd;
+
+    // Initial value ''
+    assert.equal(null, selectBox.value);
+
+    // Attempt to set value to "Item 3"
+    selectBox.value = items[1];
+    assert.equal("2", selectBox.getAttribute("value"));
+
+    // Attempting to set invalid value throws validation error.
+    assert.throw(function() {
+      selectBox.value = "Item 4";
+    });
+
+    assert.equal(items[1], selectBox.value, "Nothing should be changed by input setValue('Item 4') because input value is not in model.");
+
+    selectBox.dispose();
+    dd.dispose();
+  });
+
+
   it("ValueNoModel", function() {
     var selectBox = new qx.ui.form.SelectBox();
     assert.throw(function() {
@@ -101,7 +129,7 @@ describe("mobile.form.SelectBox", function() {
     assert.equal("Item 3", selectBox.getAttribute("value"));
     model.push("Item 4");
     assert.equal("Item 3", selectBox.getAttribute("value"));
-    selectBox.value = "Item 4"
+    selectBox.value = "Item 4";
     assert.equal("Item 4", selectBox.getAttribute("value"));
 
     selectBox.dispose();
