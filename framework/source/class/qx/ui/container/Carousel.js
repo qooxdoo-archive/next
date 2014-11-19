@@ -52,7 +52,6 @@ qx.Class.define("qx.ui.container.Carousel",
       this.transitionDuration = transitionDuration;
     }
 
-    this.__snapPointsX = [];
     this.__onMoveOffset = [0, 0];
     this.__lastOffset = [0, 0];
     this.__boundsX = [0, 0];
@@ -100,6 +99,7 @@ qx.Class.define("qx.ui.container.Carousel",
     this._append(carouselScroller);
     pagination.layoutPrefs = {flex: 1};
     this._append(pagination);
+
   },
 
 
@@ -129,7 +129,7 @@ qx.Class.define("qx.ui.container.Carousel",
 
     /**
      * Defines the height of the carousel. If value is equal to <code>null</code>
-     * the height is set to <code>100%</code>.
+     * the height is set to/ <code>100%</code>.
      */
     height : {
       check : "Number",
@@ -167,30 +167,26 @@ qx.Class.define("qx.ui.container.Carousel",
     __carouselWidth : null,
     __paginationLabels : null,
     __pagination : null,
-    __snapPointsX : null,
     __onMoveOffset : null,
     __lastOffset : null,
     __boundsX : null,
     __pages : null,
-    __showTransition : null,
     __isPageScrollTarget : null,
     __deltaX : null,
     __deltaY : null,
     __direction : null,
-    __locked : false,
     __centerChanged : false,
     __steps : null,
     __moved : false,
     __touchStarted : false,
-    __prevIndex : 0,
     __leftBufferSize : null,
     __rightBufferSize : null,
     __leftSwipeCount : 0,
     __rightSwipeCount : 0,
-    __blocked : false,
+    __locked : false,
     __duration : 0,
     __currentIndex : 0,
-
+    __lastCompletedIndex : 0,
 
     // overridden
     /**
@@ -198,6 +194,7 @@ qx.Class.define("qx.ui.container.Carousel",
      * @param page {qx.ui.Widget} The composite which should be added as a page to the end of carousel.
      */
     append : function(page) {
+
       this.super(qx.ui.Widget, "append", page);
 
       // initial selection
@@ -270,6 +267,7 @@ qx.Class.define("qx.ui.container.Carousel",
      * @return {qx.ui.Widget} the page which was removed from carousel.
      */
     _onRemovedChild : function(child) {
+
       if (!this.__pages || this.__pages.length <= pageIndex) {
         return;
       }
@@ -277,12 +275,9 @@ qx.Class.define("qx.ui.container.Carousel",
       var pageIndex = this.__pages.map(function(item) {return item[0];}).indexOf(child[0]);
 
       var center = this.__pages[this.__currentIndex];
-      var pageToRemove = this.__pages[pageIndex];
 
-      var bufferConcat = this.__carouselScroller.getChildren();
-
-      var centeredIndex = bufferConcat.indexOf(center);
-      var indexToRemove = bufferConcat.indexOf(pageToRemove);
+      var centeredIndex = this.__carouselScroller.getChildren().indexOf(center);
+      var indexToRemove =child.priorPosition;
 
       var targetPage = this.__pages[pageIndex];
       var paginationLabel = this.__paginationLabels[pageIndex];
@@ -331,7 +326,6 @@ qx.Class.define("qx.ui.container.Carousel",
             this.__currentIndex = undefined;
             this.active = undefined;
           }
-
           this._scrollToPage(this.__currentIndex)
         } else {
           if(this.__pages.length % 2 === 0) {
@@ -342,8 +336,10 @@ qx.Class.define("qx.ui.container.Carousel",
         }
       } else {
         this.__currentIndex = this.__pages.indexOf(center);
-        this.active = this.__pages[this.__currentIndex];
+        this.active = this.__pages[this.__currentIndex][0];
       }
+
+      this.__direction = null;
 
       this._onContainerUpdate();
 
@@ -387,7 +383,6 @@ qx.Class.define("qx.ui.container.Carousel",
       var pageElements = this.__pages.map(function(item) {return item[0];});
       var index = pageElements.indexOf(value);
       var oldIndex = pageElements.indexOf(old);
-
       this._scrollToPage(index, oldIndex);
     },
 
@@ -398,6 +393,7 @@ qx.Class.define("qx.ui.container.Carousel",
      * @param oldIndex {Boolean} The index of the old centered page
      */
     _scrollToPage : function(pageIndex, oldIndex) {
+
       if (pageIndex >= this.__pages.length || pageIndex < 0) {
         return;
       }
@@ -418,7 +414,6 @@ qx.Class.define("qx.ui.container.Carousel",
         this.__steps = Math.abs(prevPos - nextPos);
         this.__direction = nextPos > prevPos ? "left" : "right";
         this._orderPages(this.__direction, this.__steps);
-
       } else if(this.__duration === 0 && this.__direction !== null) {
         this._orderPages(this.__direction, this.__steps);
       }
@@ -436,6 +431,7 @@ qx.Class.define("qx.ui.container.Carousel",
     * @param page {qx.ui.Widget} The page which should be centered.
     */
     _centerPage : function(page) {
+
       if (!page) {
         return;
       }
@@ -477,28 +473,27 @@ qx.Class.define("qx.ui.container.Carousel",
     */
     _onScrollerTransitionEnd : function() {
 
-      if (this.__prevIndex != this.__currentIndex) {
+      if (this.__lastCompletedIndex != this.__currentIndex) {
         var items = qxWeb(".qx-carousel-page", this.__carouselScroller[0]);
         var currentIndex = items.indexOf(this.__pages[this.__currentIndex][0]);
-        var prevIndex = items.indexOf(this.__pages[this.__prevIndex][0]);
+        var prevIndex = items.indexOf(this.__pages[this.__lastCompletedIndex][0]);
         var dir = currentIndex > prevIndex ? "left" : "right";
         var steps = Math.abs(currentIndex - prevIndex);
         this._orderPages(dir, steps);
       }
 
-      this.__prevIndex = this.__currentIndex;
+      this.__lastCompletedIndex = this.__currentIndex;
 
       this._setTransitionDuration(0);
 
       // Reset flags
       this.__moved = false;
       this.__centerChanged = false;
-      this.__locked = false;
       this.__direction = null;
       this.__steps = null;
       this.__leftSwipeCount = 0;
       this.__rightSwipeCount = 0;
-      this.__blocked = false;
+      this.__locked = false;
     },
 
 
@@ -550,6 +545,7 @@ qx.Class.define("qx.ui.container.Carousel",
       if (targetIndex != this.__currentIndex) {
         this._setTransitionDuration(0);
         this.__direction = null;
+        this.__lastCompletedIndex = targetIndex;
         this.__currentIndex = targetIndex;
         this.active = this.__pages[this.__currentIndex][0];
       }
@@ -599,7 +595,7 @@ qx.Class.define("qx.ui.container.Carousel",
      */
     _refreshScrollerPosition : function() {
       this.__carouselScrollerWidth = this.__carouselScroller.getWidth();
-      this._scrollToPage(this.__currentIndex);
+      this._scrollToPage(this.__currentIndex, this.__currentIndex);
     },
 
 
@@ -655,7 +651,7 @@ qx.Class.define("qx.ui.container.Carousel",
         return;
       }
 
-       if(this.__blocked) {
+       if(this.__locked) {
         return;
       }
 
@@ -722,16 +718,16 @@ qx.Class.define("qx.ui.container.Carousel",
     * @param evt {qx.event.type.Pointer} the pointerup event.
     */
     _onPointerUp : function(evt) {
-      if(!evt.isPrimary || this.__blocked) {
+
+      if(!evt.isPrimary || this.__locked) {
         return;
       }
 
       var relatedTarget = qxWeb(evt.relatedTarget);
-      if(evt.type == "pointerout") {
-        if(((relatedTarget.length > 0) && relatedTarget.isChildOf(this.__carouselScroller)) || this.__direction !== null) {
+      if((evt.type == "pointerout")) {
+        if(((relatedTarget.length > 0) && relatedTarget.isChildOf(this.__carouselScroller)) || this.__direction === null || !this.__moved) {
           return;
         }
-
       }
 
       if((this.__direction === null) || (Math.abs(this.__deltaX) < 50)) {
@@ -752,12 +748,13 @@ qx.Class.define("qx.ui.container.Carousel",
         }
       }
 
+      // Max possible swipes without dom update reached. First rearrange the dom before release the lock
       if((this.__leftSwipeCount == this.__rightBufferSize) || (this.__rightSwipeCount == this.__leftBufferSize)) {
-        this.__blocked = true;
+        this.__locked = true;
+
       }
 
       this.__touchStarted = false;
-      this.__locked = true
       this.__moved = false;
 
       if(this.__direction == "left") {
@@ -877,7 +874,7 @@ qx.Class.define("qx.ui.container.Carousel",
       qx.util.DisposeUtil.disposeContainer(this);
       qx.util.DisposeUtil.disposeArray(this,"__paginationLabels");
 
-      this.__pages = this.__paginationLabels = this.__snapPointsX = this.__onMoveOffset = this.__lastOffset = this.__boundsX = this.__isPageScrollTarget = null;
+      this.__pages = this.__paginationLabels = this.__onMoveOffset = this.__lastOffset = this.__boundsX = this.__isPageScrollTarget = null;
       this.super(qx.ui.Widget, "dispose");
     }
   },
