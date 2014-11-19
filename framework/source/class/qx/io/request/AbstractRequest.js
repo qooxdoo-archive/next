@@ -620,7 +620,7 @@ qx.Class.define("qx.io.request.AbstractRequest",
     /**
      * Set status text.
      *
-     * @param {String} The transport’s status text.
+     * @param statusText {String} The transport’s status text.
      */
     _setStatusText: function(statusText) {
       this.$$statusText = statusText;

@@ -351,7 +351,7 @@ qx.Class.define("qx.io.request.Jsonp",
     /**
      * Set status code.
      *
-     * @param {String} The transport’s status code.
+     * @param status {String} The transport’s status code.
      */
     _setStatus: function(status) {
       this.transport.status = status;
@@ -371,7 +371,7 @@ qx.Class.define("qx.io.request.Jsonp",
     /**
      * Set status text.
      *
-     * @param {String} The transport’s status text.
+     * @param statusText {String} The transport’s status text.
      */
     _setStatusText: function(statusText) {
       this.transport.statusText = statusText;
