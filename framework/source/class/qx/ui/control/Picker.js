@@ -276,7 +276,6 @@ qx.Class.define("qx.ui.control.Picker",
 
       var item = this.slotModel.getItem(parseInt(element.getData("row"), 10));
       this.self.selection[this.slotIndex] = item;
-      this.self.emit("selected", this.self.selection);
     },
 
 

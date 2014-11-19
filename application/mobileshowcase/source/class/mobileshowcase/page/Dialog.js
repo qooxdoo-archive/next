@@ -193,7 +193,8 @@ qx.Class.define("mobileshowcase.page.Dialog",
 
       picker.on("selected", this.__onPickerChangeSelection,this);
 
-      var hidePickerButton = new qx.ui.Button("OK");
+      var hidePickerButton = new qx.ui.Button("OK")
+        .setStyle("width", "100%");
       hidePickerButton.on("tap", function(e) {
         pickerDialog.hide();
       }, this);
@@ -201,7 +202,6 @@ qx.Class.define("mobileshowcase.page.Dialog",
       var pickerDialogContent = new qx.ui.Widget();
       pickerDialogContent.append(picker);
       pickerDialogContent.append(hidePickerButton);
-      //pickerDialog.append(pickerDialogContent);
       var pickerDialog = this.__pickerDialog = new qx.ui.dialog.Popup(pickerDialogContent).appendTo(qxWeb(document.body));
       pickerDialog.title = "Picker";
     },
@@ -246,9 +246,7 @@ qx.Class.define("mobileshowcase.page.Dialog",
     _createYearPickerSlot : function() {
       var slotData = [];
       for (var i = new Date().getFullYear(); i > 1950; i--) {
-        slotData.push({
-          title: "" + i
-        });
+        slotData.push(i + "");
       }
       return new qx.data.Array(slotData);
     },
@@ -288,14 +286,12 @@ qx.Class.define("mobileshowcase.page.Dialog",
     /**
      * Reacts on "changeSelection" event on picker, and displays the values on resultsLabel.
      */
-    __onPickerChangeSelection : function(selected) {
-      setTimeout(this._updatePickerDaySlot.bind(this), 100);
+    __onPickerChangeSelection : function(selection) {
+      this._updatePickerDaySlot();
 
       var label = "Picker selection changed: ";
-      selected.forEach(function(el, slotIndex) {
-        var rowIndex = parseInt(qxWeb(el).getData("row"), 10);
-        var item = this.__picker.getModel().getItem(slotIndex).getItem(rowIndex);
-        label = label + " [slot " + slotIndex + ": " + item.title + "]";
+      selection.forEach(function(item, slotIndex) {
+        label = label + " [slot " + slotIndex + ": " + (item.title || item) + "]";
       }.bind(this));
       this.__resultsLabel.value = label;
     },
@@ -305,28 +301,30 @@ qx.Class.define("mobileshowcase.page.Dialog",
     * Updates the shown days in the picker slot.
     */
     _updatePickerDaySlot : function() {
-      return; //TODO
-      var dayIndex = this.__picker.getSelectedIndex(0);
-      var monthIndex = this.__picker.getSelectedIndex(1);
-      var yearIndex = this.__picker.getSelectedIndex(2);
-      var slotData = this._createDayPickerSlot(monthIndex, new Date().getFullYear() - yearIndex);
+      var model = this.__picker.getModel();
+      var month = model.getItem(1).indexOf(this.__picker.selection[1]);
 
-      var oldDayData = this.__picker.getModel().getItem(0);
-      var diff = slotData.length - oldDayData.length;
-      if (diff < 0) {
-        for (var i = 0; i < -diff; i++) {
-          oldDayData.pop();
+      var year = parseInt(this.__picker.selection[2]);
+      var daysInMonth = new Date(year, month + 1, 0).getDate();
+
+      var displayedDays = model.getItem(0).length;
+      var diff;
+      if (displayedDays > daysInMonth) {
+        diff = displayedDays - daysInMonth;
+        if (parseInt(this.__picker.selection[0].title) > daysInMonth) {
+          this.__picker.selection[0] = model.getItem(0).getItem(daysInMonth - 1);
+          return;
         }
-      } else if (diff > 0) {
-        var ref = oldDayData.length;
-        for (var i = 0; i < diff; i++) {
-          oldDayData.push({
-            title: "" + (ref + i + 1)
+
+        model.getItem(0).splice(displayedDays - diff, diff);
+      } else if (displayedDays < daysInMonth) {
+        diff = daysInMonth - displayedDays;
+        for (var i=0; i<diff; i++) {
+          model.getItem(0).push({
+            title: displayedDays + i + 1
           });
         }
       }
-
-      this.__picker.setSelectedIndex(0, dayIndex, false);
     },
 
 

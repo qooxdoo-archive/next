@@ -64,9 +64,6 @@ qx.Class.define("qx.ui.container.Scroll",
     this._waypointsX = [];
     this._waypointsY = [];
 
-    this._currentX = 0;
-    this._currentY = 0;
-
     if (this.initMIScroll) {
       this.initMIScroll();
     }
@@ -138,8 +135,8 @@ qx.Class.define("qx.ui.container.Scroll",
     _waypointsY: null,
     _calculatedWaypointsX : null,
     _calculatedWaypointsY : null,
-    _currentX : null,
-    _currentY : null,
+    _currentX : 0,
+    _currentY : 0,
 
 
     /**
@@ -240,7 +237,7 @@ qx.Class.define("qx.ui.container.Scroll",
             for (var j = 0; j < waypointElements.length; j++) {
               var position = qxWeb(waypointElements[j]).getRelativeDistance(element);
               results.push({
-                "offset": position.top + this._currentY,
+                "offset": position.top + this[0].scrollTop,
                 "input": waypoint,
                 "index": i,
                 "element" : j
