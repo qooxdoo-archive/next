@@ -14,8 +14,14 @@ var tearDownRoot = function() {
   $$root.dispose();
 }
 
-var skipAfterTest = function(testTitle) {
-  q(".suite").find("h2").filter(function(el) {
+var skipAfterTest = function(suiteTitle, testTitle) {
+	var suites = q(".suite")
+	for(var i = 0; i < suites.length; i++){
+		if(suiteTitle.indexOf(suites[i].children[0].textContent)===0){
+			suite = suites[i];
+		}
+	}
+  suite.find("h2").filter(function(el) {
     return el.innerHTML.indexOf(testTitle) !== -1
   }).getParents()[0].className = "test pass pending";
 }

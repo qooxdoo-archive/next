@@ -74,7 +74,7 @@ describe("io.rest.Resource", function() {
 
   afterEach(function() {
     if(this.currentTest.skip){
-      skipAfterTest(this.currentTest.title);
+      skipAfterTest(this.currentTest.parent.title,this.currentTest.title);
     }
 
 

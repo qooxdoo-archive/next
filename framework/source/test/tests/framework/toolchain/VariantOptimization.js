@@ -25,6 +25,9 @@ describe("toolchain.VariantOptimization", function() {
   });
 
   after(function() {
+    if(this.currentTest.skip){
+      skipAfterTest(this.currentTest.parent.title,this.currentTest.title);
+    }
     tearDownRoot();
   });
 
@@ -47,7 +50,7 @@ describe("toolchain.VariantOptimization", function() {
    */
   it("If 'if' statement is pruned by the generator", function() {
     if(qx.core.Environment.get("qx.debug")){
-      return;
+      return this.test.skip = true;
     }
     var a = 0;
     /*
@@ -109,7 +112,7 @@ describe("toolchain.VariantOptimization", function() {
   it("test If simple 'get' call is pruned by the generator", function() {
 
     if(qx.core.Environment.get("qx.debug")){
-      return;
+      return this.test.skip = true;
     }
     // Fake "qx.test.bool_true" to be false at run time.
     qx.core.Environment.getChecks()["qx.test.bool_true"] = function() {

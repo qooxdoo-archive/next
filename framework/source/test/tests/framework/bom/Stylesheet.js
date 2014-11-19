@@ -20,6 +20,11 @@
 describe("bom.Stylesheet", function() {
 
   afterEach(function() {
+
+    if(this.currentTest.skip){
+      skipAfterTest(this.currentTest.parent.title,this.currentTest.title);
+    }
+
     if (this.__sheet) {
       var ownerNode = this.__sheet.ownerNode || this.__sheet.owningNode;
       if (ownerNode && ownerNode.parentNode) {
@@ -97,7 +102,7 @@ describe("bom.Stylesheet", function() {
     // removing an @import rule breaks subsequent animation tests on Linux
     // and Windows
     if (qxWeb.env.get("os.name") !== "osx") {
-      return;
+      return this.test.skip = true;
     }
     var sheet = this.__sheet = qx.bom.Stylesheet.createElement();
     var uri = "../resource/qx/test/style.css";
@@ -130,7 +135,7 @@ describe("bom.Stylesheet", function() {
     // removing an @import rule breaks subsequent animation tests on Linux
     // and Windows
     if (qxWeb.env.get("os.name") !== "osx") {
-      return;
+      return this.test.skip = true;
     }
     var sheet = this.__sheet = qx.bom.Stylesheet.createElement();
     var uri = "../resource/qx/test/style.css";
