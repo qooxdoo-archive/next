@@ -59,8 +59,8 @@ qx.Class.define("qx.ui.control.Picker",
     this._slots = new qx.data.Array();
 
     this._applyVisibleItems(this.$$properties.visibleItems.init); //TODO: better init
-    this.selection = [];
-    this.on("selected", this._scrollToSelected, this);
+    this.value = [];
+    this.on("changeValue", this._scrollToSelected, this);
   },
 
 
@@ -70,7 +70,7 @@ qx.Class.define("qx.ui.control.Picker",
      * Fired if an item has been selected. The value is an Array containing
      * the selected model item of each slot.
      */
-    selected : "Array"
+    changeValue : "Array"
   },
 
 
@@ -85,11 +85,10 @@ qx.Class.define("qx.ui.control.Picker",
     /**
      * Array containing the currently selected model item of each slot.
      */
-    selection: {
+    value: {
       check: "Array",
       nullable: false,
-      apply: "_applySelection",
-      event: true
+      apply: "_applyValue"
     },
 
 
@@ -128,7 +127,7 @@ qx.Class.define("qx.ui.control.Picker",
 
 
     // property apply
-    _applySelection: function(value, old) {
+    _applyValue: function(value, old) {
       if (old) {
         for (var i = 0; i < old.length; i++) {
           this._observeProperty(old, i, false);
@@ -139,7 +138,7 @@ qx.Class.define("qx.ui.control.Picker",
         value["$$" + i] = value[i];
         this._observeProperty(value, i, true);
       }
-      this.emit("selected", value);
+      this.emit("changeValue", value);
     },
 
 
@@ -147,18 +146,18 @@ qx.Class.define("qx.ui.control.Picker",
      * Scrolls the slots so the currently selected items are centered
      */
     _scrollToSelected: function() {
-      for (var i = 0; i < this.selection.length; i++) {
+      for (var i = 0; i < this.value.length; i++) {
         var slotModel = this._pickerModel.getItem(i);
         if (!slotModel) {
           continue;
         }
-        if (slotModel.contains(this.selection[i])) {
-          var row = slotModel.indexOf(this.selection[i]);
+        if (slotModel.contains(this.value[i])) {
+          var row = slotModel.indexOf(this.value[i]);
           var slotContainer = this._slots.getItem(i).container;
           slotContainer.scrollTo(0, row * this._calcItemHeight());
         } else {
-          this.selection[i] = slotModel.getItem(0);
-          throw new Error("'" + this.selection[i] + "' is not a selectable element for slot " + i);
+          this.value[i] = slotModel.getItem(0);
+          throw new Error("'" + this.value[i] + "' is not a selectable element for slot " + i);
         }
       }
     },
@@ -275,7 +274,7 @@ qx.Class.define("qx.ui.control.Picker",
       // this.slot.container.scrollTo(0, data.element * this.self._calcItemHeight());
 
       var item = this.slotModel.getItem(parseInt(element.getData("row"), 10));
-      this.self.selection[this.slotIndex] = item;
+      this.self.value[this.slotIndex] = item;
     },
 
 
@@ -303,9 +302,9 @@ qx.Class.define("qx.ui.control.Picker",
         slotModel.on("changeBubble", this._onSlotDataChange, scrollContainer);
         slotModel.on("change", this._onSlotDataChange, scrollContainer);
 
-        this._observeProperty(this.selection, slotIndex, true);
+        this._observeProperty(this.value, slotIndex, true);
 
-        this.selection[slotIndex] = slotModel.getItem(0);
+        this.value[slotIndex] = slotModel.getItem(0);
       }
     },
 
@@ -333,9 +332,9 @@ qx.Class.define("qx.ui.control.Picker",
         this._pickerModel.removeAt(slotIndex);
         this._slots.removeAt(slotIndex);
 
-        this._observeProperty(this.selection, slotIndex, false);
-        this.selection.splice(slotIndex, 1);
-        this.emit("selected", this.selection);
+        this._observeProperty(this.value, slotIndex, false);
+        this.value.splice(slotIndex, 1);
+        this.emit("changeValue", this.value);
       }
     },
 
@@ -356,7 +355,7 @@ qx.Class.define("qx.ui.control.Picker",
         set: function(value) {
           this["$$" + property] = value;
           if (fireEvent) {
-            self.emit("selected", self.selection);
+            self.emit("changeValue", self.value);
           }
         },
         get: function() {
@@ -390,7 +389,7 @@ qx.Class.define("qx.ui.control.Picker",
 
 
     dispose : function() {
-      this.off("selected", this._scrollToSelected, this);
+      this.off("changeValue", this._scrollToSelected, this);
       for (var i = this._slots.length - 1; i >= 0; i--) {
         this.removeSlot(i);
       }

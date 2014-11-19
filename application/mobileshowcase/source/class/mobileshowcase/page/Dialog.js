@@ -191,7 +191,7 @@ qx.Class.define("mobileshowcase.page.Dialog",
       picker.addSlot(this._createMonthPickerSlot());
       picker.addSlot(this._createYearPickerSlot());
 
-      picker.on("selected", this.__onPickerChangeSelection,this);
+      picker.on("changeValue", this.__onPickerChangeValue, this);
 
       var hidePickerButton = new qx.ui.Button("OK")
         .setStyle("width", "100%");
@@ -286,11 +286,11 @@ qx.Class.define("mobileshowcase.page.Dialog",
     /**
      * Reacts on "changeSelection" event on picker, and displays the values on resultsLabel.
      */
-    __onPickerChangeSelection : function(selection) {
+    __onPickerChangeValue : function(value) {
       this._updatePickerDaySlot();
 
       var label = "Picker selection changed: ";
-      selection.forEach(function(item, slotIndex) {
+      value.forEach(function(item, slotIndex) {
         label = label + " [slot " + slotIndex + ": " + (item.title || item) + "]";
       }.bind(this));
       this.__resultsLabel.value = label;
@@ -302,17 +302,17 @@ qx.Class.define("mobileshowcase.page.Dialog",
     */
     _updatePickerDaySlot : function() {
       var model = this.__picker.getModel();
-      var month = model.getItem(1).indexOf(this.__picker.selection[1]);
+      var month = model.getItem(1).indexOf(this.__picker.value[1]);
 
-      var year = parseInt(this.__picker.selection[2]);
+      var year = parseInt(this.__picker.value[2]);
       var daysInMonth = new Date(year, month + 1, 0).getDate();
 
       var displayedDays = model.getItem(0).length;
       var diff;
       if (displayedDays > daysInMonth) {
         diff = displayedDays - daysInMonth;
-        if (parseInt(this.__picker.selection[0].title) > daysInMonth) {
-          this.__picker.selection[0] = model.getItem(0).getItem(daysInMonth - 1);
+        if (parseInt(this.__picker.value[0].title) > daysInMonth) {
+          this.__picker.value[0] = model.getItem(0).getItem(daysInMonth - 1);
           return;
         }
 
