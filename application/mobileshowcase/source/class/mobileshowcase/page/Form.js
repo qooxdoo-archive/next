@@ -181,9 +181,9 @@ qx.Class.define("mobileshowcase.page.Form",
         .set({
           required : true,
           validationMessage: "Please select a value!",
-          placeholder : "Unknown",
-          model : dd
+          model: dd
         });
+      select.setHtml("Unknown");
       this.__items.push(select);
       select.setDialogTitle(selQuestion);
 

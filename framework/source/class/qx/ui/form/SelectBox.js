@@ -41,7 +41,7 @@ qx.Class.define("qx.ui.form.SelectBox",
 
     // This text node is for compatibility reasons, because Firefox can not
     // change appearance of SelectBoxes.
-    this.setAttribute("type","text");
+    this.setAttribute("type", "button");
     this.readOnly = true;
 
     this.on("focus", this.blur);
@@ -98,7 +98,7 @@ qx.Class.define("qx.ui.form.SelectBox",
     _getTagName : function()
     {
       // No select here, see BUG #6054
-      return "input";
+      return "button";
     },
 
 
@@ -162,6 +162,9 @@ qx.Class.define("qx.ui.form.SelectBox",
         throw new Error("Value not in model");
       }
       this.setAttribute("value", value);
+      if (value) {
+        this.setHtml(value);
+      }
     },
 
 

@@ -201,6 +201,10 @@ $selectbox-active-background:  lighten($highlight-color,20%),$highlight-color;
 $selectbox-active-text-color:  $background-color;
 $selectbox-item-selected-text-color:  $background-color;
 $selectbox-item-selected-background:  lighten($highlight-color,20%), $highlight-color;
+$selectbox-header-padding: rem(9) rem(40) rem(9) rem(9);
+$selectbox-arrow-size: rem(8);
+$selectbox-arrow-color:  $color-1;
+$selectbox-active-arrow-color:  $background-color;
 
 // Slider
 

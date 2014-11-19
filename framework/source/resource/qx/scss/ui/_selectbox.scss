@@ -11,7 +11,6 @@
   @include border-radius($selectbox-border-radius);
   @include background($selectbox-background);
 
-  border:none;
   cursor:pointer;
 
   vertical-align:middle;
@@ -21,6 +20,20 @@
 
   border: rem(1) solid $selectbox-border-color;
   color: $selectbox-text-color;
+
+  position: relative;
+  padding: $selectbox-header-padding;
+}
+
+.selectbox:after {
+  @include triangle-down($selectbox-arrow-size, $selectbox-arrow-color);
+
+  position: absolute;
+  top: 50%;
+  right: rem(9);
+  margin-top:-1*($selectbox-arrow-size)/2;
+  display:block;
+  content: "";
 }
 
 .selectbox-selected > div > .list-itemlabel {
@@ -34,6 +47,10 @@
 .selectbox.active {
   @include background($selectbox-active-background);
   color: $selectbox-active-text-color;
+}
+
+.selectbox.active:after {
+  @include triangle-down($selectbox-arrow-size, $selectbox-arrow-color);
 }
 
 .selectbox-selected {
