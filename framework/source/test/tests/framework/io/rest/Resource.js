@@ -63,6 +63,7 @@ describe("io.rest.Resource", function() {
   }
 
   function setUpResource() {
+
     res && res.dispose();
     res = new qx.io.rest.Resource();
 
@@ -72,6 +73,11 @@ describe("io.rest.Resource", function() {
   }
 
   afterEach(function() {
+    if(this.currentTest.skip){
+      skipAfterTest(this.currentTest.title);
+    }
+
+
     if (sandbox) {
       sandbox.restore();
     }
@@ -80,6 +86,7 @@ describe("io.rest.Resource", function() {
     __reqs.forEach(function(req) {
       req.dispose();
     });
+    tearDownRoot();
   });
 
   function __skip() {
@@ -93,10 +100,7 @@ describe("io.rest.Resource", function() {
   // Configuration
   //
 
-
-
   it("configure request receives pre-configured but unsent request", function() {
-
     // overwrite manually to ensure proper setting of GET
     req.method = "POST";
 
@@ -171,7 +175,8 @@ describe("io.rest.Resource", function() {
 
   it("map action throws when existing method", function() {
     if (!qx.core.Environment.get("qx.debug")) {
-      return;
+      return this.test.skip = true;
+
     }
 
     // For whatever reason
@@ -186,7 +191,7 @@ describe("io.rest.Resource", function() {
 
   it("map action does not throw when existing method is empty", function() {
     if (!qx.core.Environment.get("qx.debug")) {
-      return;
+      return this.test.skip = true;
     }
     res.get = (function() {});
 
@@ -250,7 +255,7 @@ describe("io.rest.Resource", function() {
   it("map action from description throws with non-object", function() {
 
     if (!qx.core.Environment.get("qx.debug")) {
-      return;
+      return this.test.skip = true;
     }
 
     qx.core.Assert.throw(function() {
@@ -263,7 +268,7 @@ describe("io.rest.Resource", function() {
   it("map action from description throws with incomplete route", function() {
 
     if (!qx.core.Environment.get("qx.debug")) {
-      return;
+       return this.test.skip = true;
     }
 
     res.dispose();
@@ -573,7 +578,7 @@ describe("io.rest.Resource", function() {
   it("invoke action ignores invalid check in production", function() {
 
     if (!qx.core.Environment.get("qx.debug")) {
-      return;
+      return this.test.skip = true;
     }
 
     var setting = sinon.stub(qx.core.Environment, "get").withArgs("qx.debug");
@@ -1048,7 +1053,7 @@ describe("io.rest.Resource", function() {
 
 
 
-  it("dispose request on loadEnd", function(done) {
+  it("dispose request on loadEnd", function() {
     sinon.spy(req, "dispose");
 
     res.get();
@@ -1056,7 +1061,6 @@ describe("io.rest.Resource", function() {
 
     setTimeout(function() {
       sinon.assert.calledOnce(req.dispose);
-      done();
     }, 100);
   });
 
