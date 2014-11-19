@@ -58,15 +58,6 @@ qx.Class.define("qx.ui.form.SelectBox",
   },
 
 
-  events :
-  {
-    /**
-     * Fired when user selects an item.
-     */
-    selected : "qxWeb"
-  },
-
-
   properties :
   {
     // overridden
