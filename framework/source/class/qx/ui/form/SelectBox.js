@@ -39,8 +39,6 @@ qx.Class.define("qx.ui.form.SelectBox",
   {
     this.super(qx.ui.Widget, "constructor", element);
 
-    // This text node is for compatibility reasons, because Firefox can not
-    // change appearance of SelectBoxes.
     this.setAttribute("type", "button");
     this.readOnly = true;
 
