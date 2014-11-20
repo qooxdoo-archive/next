@@ -22,16 +22,16 @@
   color: $selectbox-text-color;
 
   position: relative;
-  padding: $selectbox-header-padding;
+  // padding: $selectbox-header-padding;
 }
 
 .selectbox:after {
-  @include triangle-down($selectbox-arrow-size, $selectbox-arrow-color);
+  // @include triangle-down($selectbox-arrow-size, $selectbox-arrow-color);
 
   position: absolute;
   top: 50%;
   right: rem(9);
-  margin-top:-1*($selectbox-arrow-size)/2;
+  // margin-top:-1*($selectbox-arrow-size)/2;
   display:block;
   content: "";
 }
@@ -50,7 +50,7 @@
 }
 
 .selectbox.active:after {
-  @include triangle-down($selectbox-arrow-size, $selectbox-arrow-color);
+  // @include triangle-down($selectbox-arrow-size, $selectbox-arrow-color);
 }
 
 .selectbox-selected {
