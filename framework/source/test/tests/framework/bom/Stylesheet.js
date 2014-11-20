@@ -21,7 +21,7 @@ describe("bom.Stylesheet", function() {
 
   afterEach(function() {
 
-    if(this.currentTest.skip){
+    if (this.currentTest.skip) {
       skipAfterTest(this.currentTest.parent.title,this.currentTest.title);
     }
 
@@ -102,7 +102,8 @@ describe("bom.Stylesheet", function() {
     // removing an @import rule breaks subsequent animation tests on Linux
     // and Windows
     if (qxWeb.env.get("os.name") !== "osx") {
-      return this.test.skip = true;
+      this.test.skip = true;
+      return;
     }
     var sheet = this.__sheet = qx.bom.Stylesheet.createElement();
     var uri = "../resource/qx/test/style.css";
@@ -135,7 +136,8 @@ describe("bom.Stylesheet", function() {
     // removing an @import rule breaks subsequent animation tests on Linux
     // and Windows
     if (qxWeb.env.get("os.name") !== "osx") {
-      return this.test.skip = true;
+      this.test.skip = true;
+      return;
     }
     var sheet = this.__sheet = qx.bom.Stylesheet.createElement();
     var uri = "../resource/qx/test/style.css";
