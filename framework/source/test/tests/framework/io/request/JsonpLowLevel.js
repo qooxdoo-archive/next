@@ -28,26 +28,34 @@
 ************************************************************************ */
 /**
  *
- * @asset(qx/test/script.js)
- * @asset(qx/test/jsonp_primitive.php)
+ * @asset(../resource/qx/test/script.js)
+ * @asset(../resource/qx/test/jsonp_primitive.php)
  *
  * @ignore(myExistingCallback)
  */
 
 describe("io.request.JsonpLowLevel", function() {
+  var req;
+  var url;
+  /*
+  var res;
+  var __reqs;
+  var sandbox;
+  */
 
   beforeEach(function() {
-    this.require(["php"]);
+    // require(["php"]);
 
-    var req = this.req = new qx.io.request.Jsonp();
-    this.url = this.getUrl("qx/test/jsonp_primitive.php");
+    req = new qx.io.request.Jsonp();
+    url = "../resource/qx/test/jsonp_primitive.php";
   });
 
 
   afterEach(function() {
     window.SCRIPT_LOADED = undefined;
-    this.getSandbox().restore();
-    this.req.dispose();
+    sinon.sandbox.restore();
+    req.callbackName = "";
+    req.dispose();
   });
 
   //
@@ -55,10 +63,8 @@ describe("io.request.JsonpLowLevel", function() {
   //
 
   it("callbackParam", function() {
-    var req = this.req;
-
     req.callbackParam = "myMethod";
-    req.url = this.url;
+    req.url = url;
     req.send();
 
     assert.match(req.getGeneratedUrl(), /(myMethod=)/);
@@ -66,21 +72,19 @@ describe("io.request.JsonpLowLevel", function() {
 
 
   it("callbackName", function() {
-    var req = this.req;
-
     req.callbackName = "myCallback";
-    req.url = this.url;
+    req.url = url;
     req.send();
 
     assert.match(req.getGeneratedUrl(), /(=myCallback)/);
+    req.callbackName = "";
   });
 
 
   it("has default callback param and name", function() {
-    var req = this.req,
-      regExp;
+    var regExp;
 
-    req.url = this.url;
+    req.url = url;
     req.send();
 
     // String is URL encoded
@@ -93,142 +97,124 @@ describe("io.request.JsonpLowLevel", function() {
    */
 
 
-  it("not overwrite existing callback", function() {
-    var that = this;
-
+  it("not overwrite existing callback", function(done) {
     // User provided callback that must not be overwritten
     window.myExistingCallback = function() {
       return "Affe";
     };
 
-    this.req.callbackName = "myExistingCallback";
+    req.callbackName = "myExistingCallback";
 
-    this.req.on("load", function() {
-      that.resume(function() {
+    req.on("load", function() {
+      setTimeout(function() {
         assert.equal("Affe", myExistingCallback());
         window.myExistingCallback = undefined;
-      });
+        done();
+      }, 100);
     });
 
-    this.request();
-    this.wait();
+    request();
   });
 
   //
   // Properties
   //
 
-  it("response holds response with default callback", function() {
-    var that = this;
-
-    this.req.on("load", function() {
-      that.resume(function() {
-        var data = this.req.response;
+  it("response holds response with default callback", function(done) {
+    req.on("load", function() {
+      setTimeout(function() {
+        var data = req.response;
         assert.isObject(data);
         assert.isTrue(data["boolean"]);
-      });
+        done();
+      }, 100);
     });
 
-    this.request();
-    this.wait();
+    request();
   });
 
 
-  it("reset response when reopened", function() {
-    var req = this.req,
-      that = this;
-
+  it("reset response when reopened", function(done) {
     req.on("load", function() {
-      that.resume(function() {
+      setTimeout(function() {
         req._open("GET", "/url");
         assert.isNull(req.response);
-      });
+        done();
+      }, 100);
     });
 
-    this.request();
-    this.wait();
+    request();
   });
 
 
-  it("status indicates success when default callback called", function() {
-    var that = this;
-
-    this.req.on("load", function() {
-      that.resume(function() {
-        assert.equal(200, that.req.status);
-      });
+  it("status indicates success when default callback called", function(done) {
+    req.on("load", function() {
+      setTimeout(function() {
+        assert.equal(200, req.status);
+        done();
+      }, 100);
     });
 
-    this.request();
-    this.wait();
+    request();
   });
 
-
-  it("status indicates success when custom callback called", function() {
-    var that = this;
-
-    this.req.on("load", function() {
-      that.resume(function() {
-        assert.equal(200, that.req.status);
-      });
+  it("status indicates success when custom callback called", function(done) {
+    req.on("load", function() {
+      setTimeout(function() {
+        assert.equal(200, req.status);
+        done();
+      }, 100);
     });
 
-    this.req.callbackName = "myCallback";
-    this.request();
-    this.wait();
+    req.callbackName = "myOtherCallback";
+    request();
   });
 
   // Error handling
 
-  it("status indicates failure when default callback not called", function() {
-    var that = this;
-
-    this.req.on("error", function() {
-      that.resume(function() {
-        assert.equal(500, that.req.status);
-      });
+  it("status indicates failure when default callback not called", function(done) {
+    req.on("error", function() {
+      setTimeout(function() {
+        assert.equal(500, req.status);
+        done();
+      }, 100);
     });
 
-    this.request(this.getUrl("qx/test/script999.js"));
-    this.wait();
+    request("../resource/qx/test/script999.js");
   });
 
 
-  it("status indicates failure when custom callback not called", function() {
-    var that = this;
-
-    this.req.on("load", function() {
-      that.resume(function() {
-        assert.equal(500, that.req.status);
-      });
+  it("status indicates failure when custom callback not called", function(done) {
+    req.on("load", function() {
+      setTimeout(function() {
+        assert.equal(500, req.status);
+        done();
+      }, 100);
     });
 
-    this.req.callbackName = "myCallback";
-    this.request(this.getUrl("qx/test/script.js"));
-    this.wait();
+    req.callbackName = "myCallback";
+    request("../resource/qx/test/script.js");
   });
 
 
-  it("status indicates failure when callback not called on second request", function() {
-    var count = 0,
-      req = this.req,
-      that = this;
+  it("status indicates failure when callback not called on second request", function(done) {
+    var count = 0;
 
     req.on("load", function() {
       count += 1;
 
       if (count == 2) {
-        that.resume(function() {
+        setTimeout(function() {
           assert.equal(500, req.status);
-        });
+          done();
+        }, 100);
         return;
       }
 
-      that.request(that.getUrl("qx/test/script.js"));
+      request("../resource/qx/test/script.js");
     });
 
-    this.request();
-    this.wait();
+    request();
   });
 
   //
@@ -237,55 +223,46 @@ describe("io.request.JsonpLowLevel", function() {
 
 
 
-  it("call onload", function() {
-    var that = this;
-
-    this.req.on("load", function() {
-      that.resume(function() {});
+  it("call onload", function(done) {
+    req.on("load", function() {
+      setTimeout(function() { done(); }, 100);
     });
 
-    this.request();
-    this.wait();
+    request();
   });
 
   // Error handling
 
 
 
-  it("call onerror on network error", function() {
-    var that = this;
-
+  it("call onerror on network error", function(done) {
     // For legacy IEs, timeout needs to be lower than browser timeout
     // or false "load" is fired. Alternatively, a false "load"
     // can be identified by checking status property.
     if (qx.core.Environment.get("engine.name") == "mshtml" &&
       qx.core.Environment.get("browser.documentmode") < 9) {
-      this.req.timeout = 2000;
+      req.timeout = 2000;
     }
 
-    this.req.on("error", function() {
-      that.resume(function() {});
+    req.on("error", function() {
+      setTimeout(function() { done(); }, 500);
     });
 
-    this.request("http://fail.tld");
-    this.wait(15000 + 100);
+    request("http://fail.tld");
   });
 
 
-  it("call onloadend on network error", function() {
-    var that = this;
-
-    this.req.on("loadend", function() {
-      that.resume(function() {});
+  it("call onloadend on network error", function(done) {
+    req.on("loadend", function() {
+      setTimeout(function() { done(); }, 500);
     });
 
-    this.request("http://fail.tld");
-    this.wait(15000 + 100);
+    request("http://fail.tld");
   });
 
   function request(customUrl) {
-    this.req.url = customUrl || this.url;
-    this.req.send();
+    req.url = customUrl || url;
+    req.send();
   }
 
   function skip(msg) {
