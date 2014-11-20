@@ -28,7 +28,7 @@ describe("bom.webfonts.Manager", function() {
   var sheetsBefore;
   var manager;
 
-  var __fontDefinitions =
+  var fontDefinitions =
   {
     finelinerScript: {
       family: "FinelinerScriptRegular",
@@ -46,7 +46,7 @@ describe("bom.webfonts.Manager", function() {
     }
   };
 
-  function __findRule(familyName) {
+  function findRule(familyName) {
     var reg = new RegExp("@font-face.*?" + familyName, "m");
     var helper = function(cssText) {
       cssText = cssText.replace(/\n/g, "").replace(/\r/g, "");
@@ -96,10 +96,10 @@ describe("bom.webfonts.Manager", function() {
     var font = new qx.bom.webfonts.WebFont();
     font.size = 18;
     font.family = ["monospace"];
-    font.sources = [__fontDefinitions.finelinerScript];
+    font.sources = [fontDefinitions.finelinerScript];
 
     setTimeout(function() {
-      var foundRule = __findRule(__fontDefinitions.finelinerScript.family);
+      var foundRule = findRule(fontDefinitions.finelinerScript.family);
       assert.isTrue(foundRule, "@font-face rule not found in document styles!");
       done();
     }, 1500);
@@ -110,10 +110,10 @@ describe("bom.webfonts.Manager", function() {
     qx.bom.webfonts.Manager.VALIDATION_TIMEOUT = 100;
     var font = new qx.bom.webfonts.WebFont();
     font.family = ["monospace"];
-    font.sources = [__fontDefinitions.invalid];
+    font.sources = [fontDefinitions.invalid];
 
     setTimeout(function() {
-      var foundRule = __findRule(__fontDefinitions.invalid.family);
+      var foundRule = findRule(fontDefinitions.invalid.family);
       assert.isFalse(foundRule, "@font-face rule for invalid font found in document styles!");
       done();
     }, 500);
