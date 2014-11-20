@@ -1,4 +1,0 @@
-/**
- * qx.test.performance package
- *
- */
