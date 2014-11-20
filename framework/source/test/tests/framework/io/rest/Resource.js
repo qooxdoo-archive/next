@@ -49,7 +49,20 @@ describe("io.rest.Resource", function() {
     req = new qx.io.request.Xhr();
 
     // Stub request methods, leave event system intact
-    req = shallowStub(req, qx.io.request.AbstractRequest, ["dispose", "emit", "on", "once", "off", "offById", "getListenerId", "hasListener", "getListeners", "getEntryById", "_getStorage"]);
+    req = shallowStub(req, qx.io.request.AbstractRequest, [
+      "dispose",
+      "emit",
+      "on",
+      "once",
+      "off",
+      "offById",
+      "getListenerId",
+      "hasListener",
+      "getListeners",
+      "getEntryById",
+      "_getStorage",
+      "_getParsedResponse"
+    ]);
     // Inject double and return
     injectStub(qx.io.request, "Xhr", req);
 
@@ -99,7 +112,10 @@ describe("io.rest.Resource", function() {
   //
   // Configuration
   //
+<<<<<<< HEAD
 
+=======
+>>>>>>> fixed mocha test for rest.Resource
   it("configure request receives pre-configured but unsent request", function() {
     // overwrite manually to ensure proper setting of GET
     req.method = "POST";
@@ -112,7 +128,6 @@ describe("io.rest.Resource", function() {
 
     res.get();
   });
-
 
 
   it("configure request receives invocation details", function() {
@@ -144,7 +159,6 @@ describe("io.rest.Resource", function() {
   });
 
 
-
   it("map action when base URL", function() {
     var params;
 
@@ -153,7 +167,6 @@ describe("io.rest.Resource", function() {
 
     assert.equal("http://example.com/photos", params.url);
   });
-
 
 
   it("map existing action", function() {
@@ -166,11 +179,9 @@ describe("io.rest.Resource", function() {
   });
 
 
-
   it("map action creates method", function() {
     assert.isFunction(res.get);
   });
-
 
 
   it("map action throws when existing method", function() {
@@ -188,7 +199,6 @@ describe("io.rest.Resource", function() {
   });
 
 
-
   it("map action does not throw when existing method is empty", function() {
     if (!qx.core.Environment.get("qx.debug")) {
       return this.test.skip = true;
@@ -199,7 +209,6 @@ describe("io.rest.Resource", function() {
   });
 
 
-
   it("dynamically created action forwards arguments", function() {
     sinon.spy(res, "invoke");
     res.get({}, "1", "2", "3");
@@ -208,13 +217,11 @@ describe("io.rest.Resource", function() {
   });
 
 
-
   it("dynamically created action returns what invoke returns", function() {
     var id = 1;
     sinon.stub(res, "invoke").returns(id);
     assert.equal(id, res.get());
   });
-
 
 
   it("map actions from description", function() {
@@ -251,18 +258,16 @@ describe("io.rest.Resource", function() {
   });
 
 
-
   it("map action from description throws with non-object", function() {
 
     if (!qx.core.Environment.get("qx.debug")) {
       return this.test.skip = true;
     }
 
-    qx.core.Assert.throw(function() {
+    assert.throw(function() {
       var res = new qx.io.rest.Resource([]);
     });
   });
-
 
 
   it("map action from description throws with incomplete route", function() {
@@ -279,7 +284,7 @@ describe("io.rest.Resource", function() {
         }
       };
       res = new qx.io.rest.Resource(description);
-    }, Error, "URL must be string for route 'get'");
+    }, Error, /Expected value to be a string but found 'undefined'!/);
   });
 
   //
@@ -293,7 +298,6 @@ describe("io.rest.Resource", function() {
   });
 
 
-
   it("invoke action", function() {
     res.get();
 
@@ -301,11 +305,9 @@ describe("io.rest.Resource", function() {
   });
 
 
-
   it("invoke action returns id of request", function() {
     assert.isNumber(res.invoke("get"));
   });
-
 
 
   it("invoke action while other is in progress", function() {
@@ -322,7 +324,6 @@ describe("io.rest.Resource", function() {
     sinon.assert.calledOnce(req1.send);
     sinon.assert.calledOnce(req2.send);
   });
-
 
 
   it("invoke same action handles multiple requests", function() {
@@ -346,7 +347,6 @@ describe("io.rest.Resource", function() {
   });
 
 
-
   it("invoke action with positional params", function() {
     res.map("get", "GET", "/photos/{id}");
     res.get({
@@ -355,7 +355,6 @@ describe("io.rest.Resource", function() {
 
     assert.equal("/photos/1", req.url);
   });
-
 
 
   it("invoke action with positional params that evaluate to false", function() {
@@ -368,7 +367,6 @@ describe("io.rest.Resource", function() {
   });
 
 
-
   it("invoke action with non-string params", function() {
     res.map("get", "GET", "/photos/{id}");
     res.get({
@@ -377,7 +375,6 @@ describe("io.rest.Resource", function() {
 
     assert.equal("/photos/1", req.url);
   });
-
 
 
   it("invoke action with params and data", function() {
@@ -400,7 +397,6 @@ describe("io.rest.Resource", function() {
   });
 
 
-
   it("invoke action with multiple positional params", function() {
     res.map("get", "GET", "/photos/{id}/comments/{commentId}");
     res.get({
@@ -410,7 +406,6 @@ describe("io.rest.Resource", function() {
 
     assert.equal("/photos/1/comments/2", req.url);
   });
-
 
 
   it("invoke action with positional params in query", function() {
@@ -424,19 +419,16 @@ describe("io.rest.Resource", function() {
   });
 
 
-
   it("invoke action with undefined params", function() {
     res.get();
     sinon.assert.called(req.send);
   });
 
 
-
   it("invoke action with null params", function() {
     res.get(null);
     sinon.assert.called(req.send);
   });
-
 
 
   it("invoke action when content type json", function() {
@@ -458,8 +450,9 @@ describe("io.rest.Resource", function() {
 
     qx.core.Assert.assertJsonEquals('{"location":"Karlsruhe"}', req.requestData);
     sinon.assert.calledWith(JSON.stringify, data);
-  });
 
+    JSON.stringify.restore();
+  });
 
 
   it("invoke action when content type json and get", function() {
@@ -468,8 +461,9 @@ describe("io.rest.Resource", function() {
     res.get();
 
     sinon.assert.notCalled(JSON.stringify);
-  });
 
+    JSON.stringify.restore();
+  });
 
 
   it("invoke action for url with port", function() {
@@ -482,7 +476,6 @@ describe("io.rest.Resource", function() {
   });
 
 
-
   it("invoke action for relative url", function() {
     res.map("get", "GET", "{page}");
     res.get({
@@ -492,7 +485,6 @@ describe("io.rest.Resource", function() {
   });
 
 
-
   it("invoke action for relative url with dots", function() {
     res.map("get", "GET", "../{page}");
     res.get({
@@ -500,7 +492,6 @@ describe("io.rest.Resource", function() {
     });
     assert.equal("../index", req.url);
   });
-
 
 
   it("invoke action for route with check", function() {
@@ -515,14 +506,12 @@ describe("io.rest.Resource", function() {
   });
 
 
-
   it("invoke action fills in empty string when missing param and no default", function() {
     res.map("get", "GET", "/photos/{tag}");
     res.get();
 
     assertSend("GET", "/photos/");
   });
-
 
 
   it("invoke action fills in default when missing param", function() {
@@ -535,7 +524,6 @@ describe("io.rest.Resource", function() {
   });
 
 
-
   it("invoke action throws when missing required positional param", function() {
     // Require positional param
     res.map("get", "GET", "/photos/{tag}", {
@@ -545,7 +533,6 @@ describe("io.rest.Resource", function() {
       res.get();
     }, Error, "Missing parameter 'tag'");
   });
-
 
 
   it("invoke action throws when missing required request param", function() {
@@ -561,7 +548,6 @@ describe("io.rest.Resource", function() {
   });
 
 
-
   it("invoke action throws when param not match check", function() {
     res.map("get", "GET", "/photos/{id}", {
       id: /\d+/
@@ -572,7 +558,6 @@ describe("io.rest.Resource", function() {
       });
     }, Error, "Parameter 'id' is invalid");
   });
-
 
 
   it("invoke action ignores invalid check in production", function() {
@@ -596,16 +581,12 @@ describe("io.rest.Resource", function() {
   //
   // Abort
   //
-
-
-
   it("abort action", function() {
     res.get();
     res.abort("get");
 
     sinon.assert.calledOnce(req.abort);
   });
-
 
 
   it("abort action when multiple requests", function() {
@@ -622,7 +603,6 @@ describe("io.rest.Resource", function() {
   });
 
 
-
   it("abort by action id", function() {
     var id = res.get();
     res.abort(id);
@@ -634,9 +614,6 @@ describe("io.rest.Resource", function() {
   //
   // Helper
   //
-
-
-
   it("refresh action", function() {
     res.get();
     assertSend();
@@ -644,7 +621,6 @@ describe("io.rest.Resource", function() {
     res.refresh("get");
     assertSend();
   });
-
 
 
   it("refresh action replaying previous params", function() {
@@ -657,7 +633,6 @@ describe("io.rest.Resource", function() {
     res.refresh("get");
     assertSend("GET", "/photos/1");
   });
-
 
 
   it("poll action", function() {
@@ -676,7 +651,6 @@ describe("io.rest.Resource", function() {
   });
 
 
-
   it("not poll action when no response received yet", function() {
     var sandbox = sinon.sandbox;
 
@@ -690,13 +664,11 @@ describe("io.rest.Resource", function() {
   });
 
 
-
   it("poll action immediately", function() {
     sinon.spy(res, "invoke");
     res.poll("get", 10, undefined, true);
     sinon.assert.called(res.invoke);
   });
-
 
 
   it("poll action sets initial params", function() {
@@ -712,7 +684,6 @@ describe("io.rest.Resource", function() {
   });
 
 
-
   it("poll action replaying previous params", function() {
     res.map("get", "GET", "/photos/{id}");
     res.get({
@@ -723,7 +694,6 @@ describe("io.rest.Resource", function() {
     res.poll("get");
     assertSend("GET", "/photos/1");
   });
-
 
 
   it("poll action repeatedly ends previous timer", function() {
@@ -744,7 +714,6 @@ describe("io.rest.Resource", function() {
 
     sinon.assert.calledTwice(res.refresh);
   });
-
 
 
   it("poll many actions", function() {
@@ -774,7 +743,6 @@ describe("io.rest.Resource", function() {
   });
 
 
-
   it("end poll action", function() {
     var sandbox = sinon.sandbox,
       timer,
@@ -793,7 +761,6 @@ describe("io.rest.Resource", function() {
 
     sinon.assert.calledTwice(res.refresh);
   });
-
 
 
   it("end poll action does not end polling of other action", function() {
@@ -816,10 +783,8 @@ describe("io.rest.Resource", function() {
   });
 
 
-
   it("restart poll action", function() {
-    var res,
-      sandbox = sinon.sandbox,
+    var sandbox = sinon.sandbox,
       timer;
 
     sandbox.useFakeTimers();
@@ -836,11 +801,10 @@ describe("io.rest.Resource", function() {
   });
 
 
-
   it("long poll action", function() {
     var responses = [];
 
-    //sinon.stub(req, "dispose");
+    // sinon.stub(req, "dispose");
 
     res.on("getSuccess", function(e) {
       responses.push(e.response);
@@ -856,11 +820,10 @@ describe("io.rest.Resource", function() {
   });
 
 
-
   it("throttle long poll", function() {
     sinon.stub(req, "dispose");
     sinon.spy(res, "refresh");
-    sinon.stub(qx.io.rest.Resource, "POLL_THROTTLE_COUNT", "3");
+    qx.io.rest.Resource.POLL_THROTTLE_COUNT = 3;
 
     res.longPoll("get");
 
@@ -876,8 +839,10 @@ describe("io.rest.Resource", function() {
 
     // Throttling
     respond();
-  });
 
+    // reset default value
+    qx.io.rest.Resource.POLL_THROTTLE_COUNT = 30;
+  });
 
 
   it("not throttle long poll when not received within limit", function() {
@@ -899,8 +864,9 @@ describe("io.rest.Resource", function() {
 
     respond();
     sinon.assert.called(res.refresh);
-  });
 
+    res.refresh.restore();
+  });
 
 
   it("not throttle long poll when not received subsequently", function() {
@@ -926,9 +892,10 @@ describe("io.rest.Resource", function() {
       respond();
     }
 
-    sinon.assertCallCount(res.refresh, 10);
-  });
+    sinon.assert.callCount(res.refresh, 10);
 
+    res.refresh.restore();
+  });
 
 
   it("end long poll action", function() {
@@ -946,14 +913,13 @@ describe("io.rest.Resource", function() {
     respond();
 
     sinon.assert.calledTwice(res.refresh);
+
+    res.refresh.restore();
   });
 
   //
   // Events
   //
-
-
-
   it("fire actionSuccess", function() {
     res.get();
     qx.core.Assert.assertEventFired(res, "getSuccess", function() {
@@ -961,11 +927,10 @@ describe("io.rest.Resource", function() {
     }, function(e) {
       assert.equal("Affe", e.response);
       assert.equal("get", e.action);
-      assert.isStrictEqual(req, e.request);
-      assert.isInteger(e.id);
+      assert.equal(req, e.request);
+      assert.isNumber(e.id);
     });
   });
-
 
 
   it("fire success", function() {
@@ -975,11 +940,10 @@ describe("io.rest.Resource", function() {
     }, function(e) {
       assert.equal("Affe", e.response);
       assert.equal("get", e.action);
-      assert.isStrictEqual(req, e.request);
-      assert.isInteger(e.id);
+      assert.equal(req, e.request);
+      assert.isNumber(e.id);
     });
   });
-
 
 
   it("fire actionError", function() {
@@ -988,27 +952,24 @@ describe("io.rest.Resource", function() {
       respondError("statusError");
     }, function(e) {
       assert.equal("statusError", e.phase);
-      assert.isStrictEqual(req, e.request);
+      assert.equal(req, e.request);
     });
   });
 
 
-
   it("fire error", function() {
+    res.get();
     qx.core.Assert.assertEventFired(res, "error", function() {
       respondError("statusError");
     }, function(e) {
       assert.equal("statusError", e.phase);
-      assert.isStrictEqual(req, e.request);
+      assert.equal(req, e.request);
     });
   });
 
   //
   // Dispose
   //
-
-
-
   it("dispose requests", function() {
     var req1, req2;
 
@@ -1028,7 +989,6 @@ describe("io.rest.Resource", function() {
     sinon.assert.called(req1.dispose);
     sinon.assert.called(req2.dispose);
   });
-
 
 
   it("dispose requests of same action", function() {
@@ -1052,8 +1012,12 @@ describe("io.rest.Resource", function() {
   });
 
 
+<<<<<<< HEAD
 
   it("dispose request on loadEnd", function() {
+=======
+  it("dispose request on loadEnd", function(done) {
+>>>>>>> fixed mocha test for rest.Resource
     sinon.spy(req, "dispose");
 
     res.get();
@@ -1061,8 +1025,14 @@ describe("io.rest.Resource", function() {
 
     setTimeout(function() {
       sinon.assert.calledOnce(req.dispose);
+<<<<<<< HEAD
     }, 100);
+=======
+      done();
+    }, 500);
+>>>>>>> fixed mocha test for rest.Resource
   });
+
 
   function assertSend(method, url) {
 
@@ -1074,31 +1044,38 @@ describe("io.rest.Resource", function() {
     sinon.assert.called(req.send);
   }
 
+
   function skip(msg) {
     throw new qx.dev.unit.RequirementError(null, msg);
   }
+
 
   function hasDebug() {
     return qx.core.Environment.get("qx.debug");
   }
 
+
   // Fake response
-  function respond(response, req) {
+  function respond(response, aReq) {
+    var myReq = aReq || req;
     response = response || "";
-    req.isDone.returns(true);
-    req.getPhase.returns("success");
-    req.getResponse.returns(response);
-    req.emit("success");
-    req.emit("loadEnd");
+    myReq.isDone.returns(true);
+    myReq.phase = "success";
+    myReq.response = response;
+    myReq.emit("success");
+    myReq.emit("loadEnd");
   }
+
 
   // Fake erroneous response
   function respondError(phase) {
     phase = phase || "statusError";
-    req.getPhase.returns(phase);
+    req.phase = phase;
     req.emit("fail");
+    req.emit("error");
     req.emit("loadEnd");
   }
+
 
   function __stubProperty(object, prop) {
     // Leave constructor and properties intact

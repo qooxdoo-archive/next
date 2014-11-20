@@ -338,7 +338,7 @@ qx.Class.define("qx.io.rest.Resource",
         onsuccess: {
           callback: function(req, action) {
             return function() {
-              var data = this._createEventData(req.getResponse(), req, action, req.phase);
+              var data = this._createEventData(req.response, req, action, req.phase);
               this.emit(action + "Success", data);
               this.emit("success", data);
             };
@@ -348,7 +348,7 @@ qx.Class.define("qx.io.rest.Resource",
         onfail: {
           callback: function(req, action) {
             return function() {
-              var data = this._createEventData(req.getResponse(), req, action, req.phase);
+              var data = this._createEventData(req.response, req, action, req.phase);
               this.emit(action + "Error", data);
               this.emit("error", data);
             };
@@ -993,34 +993,30 @@ qx.Class.define("qx.io.rest.Resource",
       // Mark as disposed (directly, not at end, to omit recursions)
       this.$$disposed = true;
 
-      // Additional checks
-      if (qx.core.Environment.get("qx.debug"))
-      {
-        var action;
+      var action;
 
-        for (action in this.__requests) {
-          if (this.__requests[action]) {
-            this.__requests[action].forEach(function(req) {
-              req.dispose();
-            });
-          }
+      for (action in this.__requests) {
+        if (this.__requests[action]) {
+          this.__requests[action].forEach(function(req) {
+            req.dispose();
+          });
         }
-
-        if (this.__pollTimers) {
-          for (action in this.__pollTimers) {
-            this.stopPollByAction(action);
-          }
-        }
-
-        if (this.__longPollHandlers) {
-          for (action in this.__longPollHandlers) {
-            var id = this.__longPollHandlers[action];
-            this.offById(id);
-          }
-        }
-
-        this.__requests = this.__routes = this.__pollTimers = null;
       }
+
+      if (this.__pollTimers) {
+        for (action in this.__pollTimers) {
+          this.stopPollByAction(action);
+        }
+      }
+
+      if (this.__longPollHandlers) {
+        for (action in this.__longPollHandlers) {
+          var id = this.__longPollHandlers[action];
+          this.offById(id);
+        }
+      }
+
+      this.__requests = this.__routes = this.__pollTimers = null;
     }
   }
 });

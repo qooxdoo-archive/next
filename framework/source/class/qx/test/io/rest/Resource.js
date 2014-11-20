@@ -419,24 +419,24 @@ qx.Class.define("qx.test.io.rest.Resource",
         req.setRequestHeader("Content-Type", "application/json");
       });
 
-      this.spy(JSON, "stringify");
+      this.spy(qx.lang.Json, "stringify");
       var data = {location: "Karlsruhe"};
       res.map("post", "POST", "/photos/{id}/meta");
       res.post({id: 1}, data);
 
       this.assertJsonEquals('{"location":"Karlsruhe"}', req.requestData);
-      this.assertCalledWith(JSON.stringify, data);
+      this.assertCalledWith(qx.lang.Json.stringify, data);
     },
 
     "test: invoke action when content type json and get": function() {
       var res = this.res,
           req = this.req;
 
-      this.spy(JSON, "stringify");
+      this.spy(qx.lang.Json, "stringify");
       req.getRequestHeader.withArgs("Content-Type").returns("application/json");
       res.get();
 
-      this.assertNotCalled(JSON.stringify);
+      this.assertNotCalled(qx.lang.Json.stringify);
     },
 
     "test: invoke action for url with port": function() {

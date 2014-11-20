@@ -573,7 +573,7 @@ qx.Class.define("qx.io.request.Xhr",
      * @return {String|Object} The parsed response of the request.
      */
     _getParsedResponse: function() {
-      var response = this.responseText,
+      var response = this.responseText || this.$$response,
           contentType = this.getResponseContentType() || "";
 
       return this._parser.parse(response, contentType);
