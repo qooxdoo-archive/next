@@ -24,13 +24,17 @@
 describe("bom.webfonts.Manager", function() {
 
   this.timeout(4000);
+  var nodesBefore;
+  var sheetsBefore;
+  var manager;
+
   var __fontDefinitions =
   {
     finelinerScript: {
       family: "FinelinerScriptRegular",
-      source: [qx.util.ResourceManager.getInstance().toUri("framework/source/resource/qx/test/webfonts/fineliner_script-webfont.woff"),
-        qx.util.ResourceManager.getInstance().toUri("framework/source/resource/qx/test/webfonts/fineliner_script-webfont.ttf"),
-        qx.util.ResourceManager.getInstance().toUri("framework/source/resource/qx/test/webfonts/fineliner_script-webfont.eot")
+      source: ["../resource/qx/test/webfonts/fineliner_script-webfont.woff",
+        "../resource/qx/test/webfonts/fineliner_script-webfont.ttf",
+        "../resource/qx/test/webfonts/fineliner_script-webfont.eot"
       ]
     },
     invalid: {
@@ -71,34 +75,34 @@ describe("bom.webfonts.Manager", function() {
 
 
   beforeEach(function() {
-    //this.require(["webFontSupport"]);
-    __nodesBefore = document.body.childNodes.length;
-    __sheetsBefore = document.styleSheets.length;
-    __manager = qx.bom.webfonts.Manager.getInstance();
+    nodesBefore = document.body.childNodes.length;
+    sheetsBefore = document.styleSheets.length;
+    manager = qx.bom.webfonts.Manager.getInstance();
   });
 
 
   afterEach(function() {
-    __manager.dispose();
+    qx.bom.webfonts.Manager.VALIDATION_TIMEOUT = 5000;
+    manager.dispose();
     delete qx.bom.webfonts.Manager.$$instance;
-    __manager = null;
-    assert.equal(__nodesBefore, document.body.childNodes.length, "Manager did not remove all nodes!");
-    assert.equal(__sheetsBefore, document.styleSheets.length, "Manager did not remove stylesheet!");
+    manager = null;
+    assert.equal(nodesBefore, document.body.childNodes.length, "Manager did not remove all nodes!");
+    assert.equal(sheetsBefore, document.styleSheets.length, "Manager did not remove stylesheet!");
   });
 
 
   it("create rule for valid font", function(done) {
+    qx.bom.webfonts.Manager.VALIDATION_TIMEOUT = 1000;
     var font = new qx.bom.webfonts.WebFont();
     font.size = 18;
     font.family = ["monospace"];
     font.sources = [__fontDefinitions.finelinerScript];
 
     setTimeout(function() {
-
       var foundRule = __findRule(__fontDefinitions.finelinerScript.family);
       assert.isTrue(foundRule, "@font-face rule not found in document styles!");
       done();
-    }, 3000);
+    }, 1500);
   });
 
 
@@ -112,6 +116,6 @@ describe("bom.webfonts.Manager", function() {
       var foundRule = __findRule(__fontDefinitions.invalid.family);
       assert.isFalse(foundRule, "@font-face rule for invalid font found in document styles!");
       done();
-    }, 3000);
+    }, 500);
   });
 });
