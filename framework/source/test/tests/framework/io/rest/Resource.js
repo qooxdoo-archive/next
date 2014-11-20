@@ -18,22 +18,14 @@
 
 ************************************************************************ */
 
-/* ************************************************************************
-
-
-************************************************************************ */
-/**
- *
- * @asset(qx/test/xmlhttp/*)
- */
-
 describe("io.rest.Resource", function() {
   var req;
   var res;
-  var __reqs;
+  var requests;
   var sandbox;
 
   beforeEach(function() {
+    sandbox = sinon.sandbox.create();
     setUpRoot();
     setUpDoubleRequest();
     setUpResource();
@@ -67,10 +59,10 @@ describe("io.rest.Resource", function() {
     injectStub(qx.io.request, "Xhr", req);
 
     // Remember request for later disposal
-    if (!__reqs) {
-      __reqs = [];
+    if (!requests) {
+      requests = [];
     }
-    __reqs.push(req);
+    requests.push(req);
 
     return req;
   }
@@ -86,28 +78,17 @@ describe("io.rest.Resource", function() {
   }
 
   afterEach(function() {
-    if(this.currentTest.skip){
+    if (this.currentTest.skip) {
       skipAfterTest(this.currentTest.parent.title,this.currentTest.title);
     }
 
-
-    if (sandbox) {
-      sandbox.restore();
-    }
     sinon.sandbox.restore();
     res.dispose();
-    __reqs.forEach(function(req) {
+    requests.forEach(function(req) {
       req.dispose();
     });
     tearDownRoot();
   });
-
-  function __skip() {
-    if (qx.core.Environment.get("browser.name") == "safari" &&
-      qx.core.Environment.get("os.name") == "osx") {
-      require(["noSelenium"]);
-    }
-  }
 
   //
   // Configuration
@@ -132,7 +113,7 @@ describe("io.rest.Resource", function() {
     var data = {};
     var callback;
 
-    callback = sinon.spy(function(req, _action, _params, _data) {
+    callback = sandbox.spy(function(req, _action, _params, _data) {
       assert.equal("get", _action, "Unexpected action");
       assert.equal(params, _params, "Unexpected params");
       assert.equal(data, _data, "Unexpected data");
@@ -183,8 +164,8 @@ describe("io.rest.Resource", function() {
 
   it("map action throws when existing method", function() {
     if (!qx.core.Environment.get("qx.debug")) {
-      return this.test.skip = true;
-
+      this.test.skip = true;
+      return;
     }
 
     // For whatever reason
@@ -198,7 +179,8 @@ describe("io.rest.Resource", function() {
 
   it("map action does not throw when existing method is empty", function() {
     if (!qx.core.Environment.get("qx.debug")) {
-      return this.test.skip = true;
+      this.test.skip = true;
+      return;
     }
     res.get = (function() {});
 
@@ -207,7 +189,7 @@ describe("io.rest.Resource", function() {
 
 
   it("dynamically created action forwards arguments", function() {
-    sinon.spy(res, "invoke");
+    sandbox.spy(res, "invoke");
     res.get({}, "1", "2", "3");
 
     sinon.assert.calledWith(res.invoke, "get", {}, "1", "2", "3");
@@ -216,7 +198,7 @@ describe("io.rest.Resource", function() {
 
   it("dynamically created action returns what invoke returns", function() {
     var id = 1;
-    sinon.stub(res, "invoke").returns(id);
+    sandbox.stub(res, "invoke").returns(id);
     assert.equal(id, res.get());
   });
 
@@ -256,9 +238,9 @@ describe("io.rest.Resource", function() {
 
 
   it("map action from description throws with non-object", function() {
-
     if (!qx.core.Environment.get("qx.debug")) {
-      return this.test.skip = true;
+      this.test.skip = true;
+      return;
     }
 
     assert.throw(function() {
@@ -268,9 +250,9 @@ describe("io.rest.Resource", function() {
 
 
   it("map action from description throws with incomplete route", function() {
-
     if (!qx.core.Environment.get("qx.debug")) {
-       return this.test.skip = true;
+      this.test.skip = true;
+      return;
     }
 
     res.dispose();
@@ -325,7 +307,7 @@ describe("io.rest.Resource", function() {
 
   it("invoke same action handles multiple requests", function() {
     var req1, req2,
-      getSuccess = sinon.spy();
+      getSuccess = sandbox.spy();
 
     res.on("getSuccess", getSuccess);
 
@@ -436,7 +418,7 @@ describe("io.rest.Resource", function() {
       req.setRequestHeader("Content-Type", "application/json");
     });
 
-    sinon.spy(JSON, "stringify");
+    sandbox.spy(JSON, "stringify");
     var data = {
       location: "Karlsruhe"
     };
@@ -453,7 +435,7 @@ describe("io.rest.Resource", function() {
 
 
   it("invoke action when content type json and get", function() {
-    sinon.spy(JSON, "stringify");
+    sandbox.spy(JSON, "stringify");
     req.getRequestHeader.withArgs("Content-Type").returns("application/json");
     res.get();
 
@@ -558,12 +540,12 @@ describe("io.rest.Resource", function() {
 
 
   it("invoke action ignores invalid check in production", function() {
-
     if (!qx.core.Environment.get("qx.debug")) {
-      return this.test.skip = true;
+      this.test.skip = true;
+      return;
     }
 
-    var setting = sinon.stub(qx.core.Environment, "get").withArgs("qx.debug");
+    var setting = sandbox.stub(qx.core.Environment, "get").withArgs("qx.debug");
     setting.returns(false);
 
     // Invalid check
@@ -633,11 +615,8 @@ describe("io.rest.Resource", function() {
 
 
   it("poll action", function() {
-    __skip();
-    var sandbox = sinon.sandbox;
-
     sandbox.useFakeTimers();
-    sinon.spy(res, "refresh");
+    sandbox.spy(res, "refresh");
 
     res.poll("get", 10);
     respond();
@@ -652,7 +631,7 @@ describe("io.rest.Resource", function() {
     var sandbox = sinon.sandbox;
 
     sandbox.useFakeTimers();
-    sinon.spy(res, "refresh");
+    sandbox.spy(res, "refresh");
 
     res.poll("get", 10);
     sandbox.clock.tick(20);
@@ -662,7 +641,7 @@ describe("io.rest.Resource", function() {
 
 
   it("poll action immediately", function() {
-    sinon.spy(res, "invoke");
+    sandbox.spy(res, "invoke");
     res.poll("get", 10, undefined, true);
     sinon.assert.called(res.invoke);
   });
@@ -670,7 +649,7 @@ describe("io.rest.Resource", function() {
 
   it("poll action sets initial params", function() {
     res.map("get", "GET", "/photos/{id}");
-    sinon.stub(res, "invoke");
+    sandbox.stub(res, "invoke");
 
     res.poll("get", 10, {
       id: "1"
@@ -694,12 +673,11 @@ describe("io.rest.Resource", function() {
 
 
   it("poll action repeatedly ends previous timer", function() {
-    __skip();
-    var sandbox = sinon.sandbox,
-      msg;
+    // var sandbox = sinon.sandbox,
+    var msg;
 
     sandbox.useFakeTimers();
-    sinon.stub(res, "refresh");
+    sandbox.stub(res, "refresh");
 
     res.poll("get", 10);
     respond();
@@ -714,16 +692,15 @@ describe("io.rest.Resource", function() {
 
 
   it("poll many actions", function() {
-    __skip();
-    var sandbox = sinon.sandbox,
-      spy,
-      get,
-      post;
+    // var sandbox = sinon.sandbox,
+    var spy;
+    var get;
+    var post;
 
-    sinon.stub(req, "dispose");
+    sandbox.stub(req, "dispose");
     sandbox.useFakeTimers();
 
-    spy = sinon.spy(res, "refresh");
+    spy = sandbox.spy(res, "refresh");
     get = spy.withArgs("get");
     post = spy.withArgs("post");
 
@@ -747,7 +724,7 @@ describe("io.rest.Resource", function() {
 
     sandbox.useFakeTimers();
 
-    sinon.spy(res, "refresh");
+    sandbox.spy(res, "refresh");
     res.poll("get", 10);
     respond();
 
@@ -761,13 +738,12 @@ describe("io.rest.Resource", function() {
 
 
   it("end poll action does not end polling of other action", function() {
-    __skip();
-    var sandbox = sinon.sandbox,
-      timer,
-      spy;
+    // var sandbox = sinon.sandbox,
+    var timer;
+    var spy;
 
     sandbox.useFakeTimers();
-    spy = sinon.spy(res, "refresh").withArgs("get");
+    spy = sandbox.spy(res, "refresh").withArgs("get");
     respond();
 
     res.poll("get", 10);
@@ -791,7 +767,7 @@ describe("io.rest.Resource", function() {
     sandbox.clock.tick(10);
     res.stopPollByAction("get");
 
-    sinon.spy(res, "refresh");
+    sandbox.spy(res, "refresh");
     res.restartPollByAction("get");
     sandbox.clock.tick(10);
     sinon.assert.called(res.refresh);
@@ -801,7 +777,7 @@ describe("io.rest.Resource", function() {
   it("long poll action", function() {
     var responses = [];
 
-    // sinon.stub(req, "dispose");
+    // sandbox.stub(req, "dispose");
 
     res.on("getSuccess", function(e) {
       responses.push(e.response);
@@ -818,8 +794,8 @@ describe("io.rest.Resource", function() {
 
 
   it("throttle long poll", function() {
-    sinon.stub(req, "dispose");
-    sinon.spy(res, "refresh");
+    sandbox.stub(req, "dispose");
+    sandbox.spy(res, "refresh");
     qx.io.rest.Resource.POLL_THROTTLE_COUNT = 3;
 
     res.longPoll("get");
@@ -845,7 +821,7 @@ describe("io.rest.Resource", function() {
   it("not throttle long poll when not received within limit", function() {
     var sandbox = sinon.sandbox;
 
-    sinon.stub(req, "dispose");
+    sandbox.stub(req, "dispose");
 
     sandbox.useFakeTimers();
     res.longPoll("get");
@@ -856,7 +832,7 @@ describe("io.rest.Resource", function() {
       respond();
     }
 
-    sinon.spy(res, "refresh");
+    sandbox.spy(res, "refresh");
     sandbox.clock.tick(101);
 
     respond();
@@ -869,7 +845,7 @@ describe("io.rest.Resource", function() {
   it("not throttle long poll when not received subsequently", function() {
     var sandbox = sinon.sandbox;
 
-    sinon.stub(req, "dispose");
+    sandbox.stub(req, "dispose");
 
     sandbox.useFakeTimers();
     res.longPoll("get");
@@ -884,7 +860,7 @@ describe("io.rest.Resource", function() {
     respond();
 
     // More immediate responses, total count above limit
-    sinon.spy(res, "refresh");
+    sandbox.spy(res, "refresh");
     for (i = 0; i < 10; i++) {
       respond();
     }
@@ -898,8 +874,8 @@ describe("io.rest.Resource", function() {
   it("end long poll action", function() {
     var handlerId, msg;
 
-    sinon.stub(req, "dispose");
-    sinon.spy(res, "refresh");
+    sandbox.stub(req, "dispose");
+    sandbox.spy(res, "refresh");
 
     handlerId = res.longPoll("get");
 
@@ -978,8 +954,8 @@ describe("io.rest.Resource", function() {
     req2 = req;
     res.post();
 
-    sinon.spy(req1, "dispose");
-    sinon.spy(req2, "dispose");
+    sandbox.spy(req1, "dispose");
+    sandbox.spy(req2, "dispose");
 
     res.dispose();
 
@@ -999,8 +975,8 @@ describe("io.rest.Resource", function() {
     req2 = req;
     res.get();
 
-    sinon.spy(req1, "dispose");
-    sinon.spy(req2, "dispose");
+    sandbox.spy(req1, "dispose");
+    sandbox.spy(req2, "dispose");
 
     res.dispose();
 
@@ -1010,7 +986,7 @@ describe("io.rest.Resource", function() {
 
 
   it("dispose request on loadEnd", function() {
-    sinon.spy(req, "dispose");
+    sandbox.spy(req, "dispose");
 
     res.get();
     respond();
@@ -1070,14 +1046,14 @@ describe("io.rest.Resource", function() {
       return;
     }
 
-    sinon.stub(object, prop);
+    sandbox.stub(object, prop);
   }
 
 
   function injectStub(object, property, customStub) {
     var stub = customStub || this.deepStub(new object[property]);
 
-    sinon.stub(object, property).returns(stub);
+    sandbox.stub(object, property).returns(stub);
     return stub;
   }
 
