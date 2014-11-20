@@ -5,14 +5,11 @@
   "scripts": {
     "test": "mocha"
   },
-  "dependencies": {
-    "chai": "*",
-    "grunt-injector": "^0.5.4"
-  },
   "devDependencies": {
     "chai": "^1.9.2",
     "glob": "^4.0.6",
     "grunt": "^0.4.5",
+    "grunt-injector": "^0.5.4",
     "mocha": "^1.21.4",
     "shelljs": "^0.3.0",
     "sinon": "^1.10.3"
