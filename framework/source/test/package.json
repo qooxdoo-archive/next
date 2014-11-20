@@ -6,7 +6,8 @@
     "test": "mocha"
   },
   "dependencies": {
-    "chai": "*"
+    "chai": "*",
+    "grunt-injector": "^0.5.4"
   },
   "devDependencies": {
     "chai": "^1.9.2",
