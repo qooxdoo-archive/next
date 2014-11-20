@@ -112,10 +112,7 @@ describe("io.rest.Resource", function() {
   //
   // Configuration
   //
-<<<<<<< HEAD
 
-=======
->>>>>>> fixed mocha test for rest.Resource
   it("configure request receives pre-configured but unsent request", function() {
     // overwrite manually to ensure proper setting of GET
     req.method = "POST";
@@ -1012,12 +1009,7 @@ describe("io.rest.Resource", function() {
   });
 
 
-<<<<<<< HEAD
-
   it("dispose request on loadEnd", function() {
-=======
-  it("dispose request on loadEnd", function(done) {
->>>>>>> fixed mocha test for rest.Resource
     sinon.spy(req, "dispose");
 
     res.get();
@@ -1025,12 +1017,7 @@ describe("io.rest.Resource", function() {
 
     setTimeout(function() {
       sinon.assert.calledOnce(req.dispose);
-<<<<<<< HEAD
     }, 100);
-=======
-      done();
-    }, 500);
->>>>>>> fixed mocha test for rest.Resource
   });
 
 
