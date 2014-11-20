@@ -73,6 +73,7 @@ qx.Class.define("qx.ui.tabbar.TabBar", {
      */
     active: {
       nullable: true,
+      init: null,
       check: "Element",
       apply: "_applyActive",
       event: true
