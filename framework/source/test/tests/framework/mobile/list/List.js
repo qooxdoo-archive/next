@@ -232,7 +232,7 @@ describe("mobile.list.List", function() {
 
   it("SelectedRow", function() {
     var list = __createList();
-    var el = list.find("*[data-row=3]")[0]; // item 3
+    var el = list.find("*[data-row='3']")[0]; // item 3
     var spy = sinon.spy();
     list.on("selected", spy);
     list.emit("tap", {_original : {target: el}});
@@ -249,7 +249,7 @@ describe("mobile.list.List", function() {
       return {title: "Affe" + row, selectable: true};
     }};
 
-    var el = list.find("*[data-group=3]")[0]; // item 3
+    var el = list.find("*[data-group='3']")[0]; // item 3
     var spy = sinon.spy();
     list.on("selected", spy);
     list.emit("tap", {_original : {target: el}});

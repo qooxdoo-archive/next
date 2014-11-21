@@ -68,7 +68,7 @@ describe("mobile.control.Picker", function() {
     picker.addSlot(pickerSlot1);
     picker.addSlot(pickerSlot2);
 
-    var sel = picker.find("*[data-row=0]");
+    var sel = picker.find("*[data-row='0']");
     assert.equal(picker.value[0], "a");
     assert.equal(picker.value[1], "0");
 
@@ -84,11 +84,11 @@ describe("mobile.control.Picker", function() {
     var pickerSlot2 = new qx.data.Array(["0", "1", "2"]);
 
     picker.addSlot(pickerSlot1);
-    var sel = picker.find("*[data-row=0]");
+    var sel = picker.find("*[data-row='0']");
     assert.equal(picker.value[0], "a");
 
     picker.addSlot(pickerSlot2);
-    sel = picker.find("*[data-row=0]");
+    sel = picker.find("*[data-row='0']");
     assert.equal(picker.value[0], "a");
     assert.equal(picker.value[1], "0");
 
@@ -106,12 +106,12 @@ describe("mobile.control.Picker", function() {
     picker.addSlot(pickerSlot1);
     picker.addSlot(pickerSlot2);
 
-    var sel = picker.find("*[data-row=0]");
+    var sel = picker.find("*[data-row='0']");
     assert.equal(picker.value[0], "a");
     assert.equal(picker.value[1], "0");
 
     picker.removeSlot(1);
-    sel = picker.find("*[data-row=0]");
+    sel = picker.find("*[data-row='0']");
     assert.equal(sel.length, 1);
     assert.equal(picker.value[0], "a");
     assert.equal(picker.value.length, 1);

@@ -53,7 +53,7 @@ describe("mobile.dialog.Menu", function() {
     var model = new qx.data.Array(["item1", "item2", "item3"]);
     var menu = new qx.ui.dialog.Menu(model).appendTo(getRoot());
 
-    var el = menu.find("*[data-row=1]")[0]; // item 1
+    var el = menu.find("*[data-row='1']")[0]; // item 1
     var spy = sinon.spy();
     menu.on("selected", spy);
     menu.find(".list").emit("tap", {_original : {target: el}});

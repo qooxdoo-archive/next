@@ -26,8 +26,8 @@ describe("tree.Tree", function() {
     data = {
       "id": 1, "name": "root",
       "children" : [
-        {"id": "1_1", "name": "My Documents", "children" : []},
-        {"id": "1_2", "name": "My Music", "children": [] }
+        {"id": "folder_1_1", "name": "My Documents", "children" : []},
+        {"id": "folder_1_2", "name": "My Music", "children": [] }
       ]
     };
 
@@ -46,10 +46,10 @@ describe("tree.Tree", function() {
   it("selected", function() {
     var spy = sinon.spy();
 
-    var folder = tree.find("#1_1")[0];
+    var folder = tree.find("#folder_1_1")[0];
     tree.on("selected", spy);
     tree.emit("tap", {target: folder});
     sinon.assert.calledOnce(spy);
-    sinon.assert.calledWith(spy, folder);
+    assert.equal(spy.args[0][0][0], folder);
   });
 });

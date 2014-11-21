@@ -41,35 +41,35 @@ qx.Class.define("mobileshowcase.page.Tree",
           "id": 1, "name": "/",
           "children" : [
             {
-              "id": "1_1", "name": "My Pictures",
+              "id": "f1_1", "name": "My Pictures",
               "children" :
               [
-                { "id": "1_2", "name": "Work", "children": [] },
+                { "id": "f1_2", "name": "Work", "children": [] },
                 {
-                  "id": "1_3", "name": "Vacations",
+                  "id": "f1_3", "name": "Vacations",
                   "children" :
                   [
-                    { "id": "1_3_1", "name": "France", "children": [] },
-                    { "id": "1_3_2", "name": "Italy", "children": [] },
-                    { "id": "1_3_3", "name": "Romania", "children": [] },
-                    { "id": "1_3_4", "name": "Spain", "children": [] },
-                    { "id": "1_3_5", "name": "Japan", "children": [] }
+                    { "id": "f1_3_1", "name": "France", "children": [] },
+                    { "id": "f1_3_2", "name": "Italy", "children": [] },
+                    { "id": "f1_3_3", "name": "Romania", "children": [] },
+                    { "id": "f1_3_4", "name": "Spain", "children": [] },
+                    { "id": "f1_3_5", "name": "Japan", "children": [] }
                   ]
                 },
-                { "id": "1_4", "name": "Friends", "children": [] },
-                { "id": "1_5", "name": "Family", "children": [] },
-                { "id": "1_6", "name": "Wallpapers", "children": [] },
-                { "id": "1_7", "name": "Icons", "children": [] }
+                { "id": "f1_4", "name": "Friends", "children": [] },
+                { "id": "f1_5", "name": "Family", "children": [] },
+                { "id": "f1_6", "name": "Wallpapers", "children": [] },
+                { "id": "f1_7", "name": "Icons", "children": [] }
               ]
             },
             {
-              "id": "2_1", "name": "My Documents",
+              "id": "f2_1", "name": "My Documents",
               "children" : [
-                { "id": "2_2", "name": "Homework", "children": [] },
-                { "id": "2_3", "name": "Reports", "children": [] }
+                { "id": "f2_2", "name": "Homework", "children": [] },
+                { "id": "f2_3", "name": "Reports", "children": [] }
               ]
             },
-            { "id": "3_1", "name": "My Music", "children": [] }
+            { "id": "f3_1", "name": "My Music", "children": [] }
           ]
         }
       };

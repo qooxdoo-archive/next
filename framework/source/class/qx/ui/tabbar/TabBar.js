@@ -151,7 +151,7 @@ qx.Class.define("qx.ui.tabbar.TabBar", {
       child.removeClass("selected");
       if (this.orientation === "horizontal" &&
         this.active === child[0]) {
-        var buttons = this.find("> .button");
+        var buttons = this.find("* > .button");
         for (var i=0, l=buttons.length; i<l; i++) {
           if (buttons[i] !== child[0]) {
             this.active = buttons[i];
@@ -184,7 +184,7 @@ qx.Class.define("qx.ui.tabbar.TabBar", {
      */
     _render: function() {
       // initialize button widgets in predefined markup
-      this.find("> *").forEach(function(el) {
+      this.find("* > *").forEach(function(el) {
         el = qxWeb(el);
         if (el.is(".button") && !el.hasListener("tap", this._onTap, this)) {
           el.on("tap", this._onTap, this);
@@ -207,7 +207,7 @@ qx.Class.define("qx.ui.tabbar.TabBar", {
       this.layout = new qx.ui.layout.HBox();
 
       var selectedButton = null;
-      this.find("> .button")._forEachElementWrapped(function(button) {
+      this.find("* > .button")._forEachElementWrapped(function(button) {
         var page = this.getPage(button);
         if (page.length == 1 && page.exclude) {
           var previousParent = page[0].$$qxTabPageParent;
@@ -226,7 +226,7 @@ qx.Class.define("qx.ui.tabbar.TabBar", {
       }.bind(this));
 
       if (!selectedButton) {
-        var firstButton = this.find("> .button").eq(0);
+        var firstButton = this.find("* > .button").eq(0);
         if (firstButton.length === 1) {
           // eq returns a generic collection
           selectedButton = qxWeb(firstButton[0]);
@@ -247,7 +247,7 @@ qx.Class.define("qx.ui.tabbar.TabBar", {
      */
     renderVertical: function() {
       this.layout = new qx.ui.layout.VBox();
-      var buttons = this.find("> .button")
+      var buttons = this.find("* > .button")
       ._forEachElementWrapped(function(button) {
         var page = this.getPage(button);
         if (page.length == 1) {
@@ -290,7 +290,7 @@ qx.Class.define("qx.ui.tabbar.TabBar", {
      * @param old {qxWeb?} The previously selected page
      */
     _applyActive : function(value, old) {
-      this.find("> .button")._forEachElementWrapped(function(button) {
+      this.find("* > .button")._forEachElementWrapped(function(button) {
         if (value === button[0]) {
           button.addClass("selected");
           this.getPage(button).show();
@@ -327,7 +327,7 @@ qx.Class.define("qx.ui.tabbar.TabBar", {
      * @param old {String} Previous alignment value
      */
     _applyAlignment: function(value, old) {
-      var buttons = this.find("> .button");
+      var buttons = this.find("* > .button");
 
       if (value == "justify") {
         buttons.addClass("qx-flex1");
@@ -373,7 +373,7 @@ qx.Class.define("qx.ui.tabbar.TabBar", {
         return;
       }
       var tappedButton = e.currentTarget;
-      var oldButton = this.find("> ." + "selected");
+      var oldButton = this.find("* > ." + "selected");
 
       if (oldButton[0] == tappedButton && this.orientation == "vertical") {
         this.active = null;
@@ -391,7 +391,7 @@ qx.Class.define("qx.ui.tabbar.TabBar", {
      */
     _onKeyDown: function(e) {
       var next;
-      var buttons = this.find("> .button");
+      var buttons = this.find("* > .button");
       var index = buttons.indexOf(e.target);
       if (index === -1) {
         return;
@@ -413,7 +413,7 @@ qx.Class.define("qx.ui.tabbar.TabBar", {
 
 
     dispose: function() {
-      this.find("> .button").off("tap", this._onTap, this)
+      this.find("* > .button").off("tap", this._onTap, this)
         .off("keydown", this._onKeyDown, this)
         .off("addedChild", this.render, this)
         .off("removedChild", this._onRemovedChild, this)
