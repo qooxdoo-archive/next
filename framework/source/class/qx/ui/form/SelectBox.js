@@ -161,7 +161,7 @@ qx.Class.define("qx.ui.form.SelectBox",
       }
       this.setAttribute("value", value);
       if (value) {
-        this.setHtml(value);
+        this.setHtml(value + "");
       }
     },
 
