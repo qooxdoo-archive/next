@@ -78,13 +78,13 @@ describe('bom.Attribute', function() {
   it("GetAttribute", function() {
       var Attribute = qx.bom.element.Attribute;
 
-      assert.isNull(Attribute.get(this.sandbox.find("input[type!=checkbox]")[0], "maxLength"));
+      assert.isNull(Attribute.get(this.sandbox.find("input:not([type=checkbox])")[0], "maxLength"));
       assert.isFalse(Attribute.get(this.sandbox.find("input[type=checkbox]")[0], "checked"));
       assert.isNull(Attribute.get(this.sandbox[0], "className"));
       assert.isNull(Attribute.get(this.sandbox[0], "data-x"));
       assert.isNull(Attribute.get(this.sandbox.find("input[type=checkbox]")[0], "tabIndex"));
       assert.isFalse(Attribute.get(this.sandbox.find("input[type=checkbox]")[0], "readOnly"));
-      assert.isNull(Attribute.get(this.sandbox.find("input[type!=checkbox]")[0], "value"));
+      assert.isNull(Attribute.get(this.sandbox.find("input:not([type=checkbox])")[0], "value"));
 
       this.sandbox.find("input[type=checkbox]")[0].setAttribute("checked", true);
       assert.equal(true, Attribute.get(this.sandbox.find("input[type=checkbox]")[0], "checked"));
@@ -118,8 +118,8 @@ describe('bom.Attribute', function() {
   it("RemoveAttribute", function() {
       var Attribute = qx.bom.element.Attribute;
 
-      Attribute.set(this.sandbox.find("input[type!=checkbox]")[0], "maxLength", 10);
-      Attribute.set(this.sandbox.find("input[type!=checkbox]")[0], "maxLength", null);
+      Attribute.set(this.sandbox.find("input:not([type=checkbox])")[0], "maxLength", 10);
+      Attribute.set(this.sandbox.find("input:not([type=checkbox])")[0], "maxLength", null);
 
       var maxLengthValue = qx.core.Environment.select("engine.name", {
                             "mshtml": 2147483647,
@@ -127,8 +127,8 @@ describe('bom.Attribute', function() {
                             "default": -1
                            });
 
-      assert.equal(maxLengthValue, this.sandbox.find("input[type!=checkbox]")[0]["maxLength"]);
-      assert.isNull(Attribute.get(this.sandbox.find("input[type!=checkbox]")[0], "maxLength"));
+      assert.equal(maxLengthValue, this.sandbox.find("input:not([type=checkbox])")[0]["maxLength"]);
+      assert.isNull(Attribute.get(this.sandbox.find("input:not([type=checkbox])")[0], "maxLength"));
       Attribute.set(this.sandbox.find("input[type=checkbox]")[0], "checked", true);
       Attribute.set(this.sandbox.find("input[type=checkbox]")[0], "checked", null);
       assert.isFalse(this.sandbox.find("input[type=checkbox]")[0]["checked"]);
@@ -141,9 +141,9 @@ describe('bom.Attribute', function() {
   it("ResetAttribute", function() {
     var Attribute = qx.bom.element.Attribute;
 
-    Attribute.set(this.sandbox.find("input[type!=checkbox]")[0], "maxLength", 10);
-    Attribute.reset(this.sandbox.find("input[type!=checkbox]")[0], "maxLength");
-    assert.isNull(Attribute.get(this.sandbox.find("input[type!=checkbox]")[0], "maxLength"));
+    Attribute.set(this.sandbox.find("input:not([type=checkbox])")[0], "maxLength", 10);
+    Attribute.reset(this.sandbox.find("input:not([type=checkbox])")[0], "maxLength");
+    assert.isNull(Attribute.get(this.sandbox.find("input:not([type=checkbox])")[0], "maxLength"));
 
     Attribute.set(this.sandbox.find("input[type=checkbox]")[0], "disabled", true);
     Attribute.reset(this.sandbox.find("input[type=checkbox]")[0], "disabled");
@@ -160,9 +160,9 @@ describe('bom.Attribute', function() {
     Attribute.reset(this.sandbox[0], "tabIndex");
     assert.isNull(Attribute.get(this.sandbox[0], "tabIndex"));
 
-    Attribute.set(this.sandbox.find("input[type!=checkbox]")[0], "tabIndex", 20);
-    Attribute.reset(this.sandbox.find("input[type!=checkbox]")[0], "tabIndex");
-    assert.isNull(Attribute.get(this.sandbox.find("input[type!=checkbox]")[0], "tabIndex"));
+    Attribute.set(this.sandbox.find("input:not([type=checkbox])")[0], "tabIndex", 20);
+    Attribute.reset(this.sandbox.find("input:not([type=checkbox])")[0], "tabIndex");
+    assert.isNull(Attribute.get(this.sandbox.find("input:not([type=checkbox])")[0], "tabIndex"));
 
     Attribute.set(this.sandbox.find("input[type=checkbox]")[0], "checked", true);
     Attribute.reset(this.sandbox.find("input[type=checkbox]")[0], "checked");
@@ -172,8 +172,8 @@ describe('bom.Attribute', function() {
     Attribute.reset(this.sandbox.find("input[type=checkbox]")[0], "readonly");
     assert.isFalse(Attribute.get(this.sandbox.find("input[type=checkbox]")[0], "readonly"));
 
-    Attribute.set(this.sandbox.find("input[type!=checkbox]")[0], "value", "foo");
-    Attribute.reset(this.sandbox.find("input[type!=checkbox]")[0], "value");
-    assert.isNull(Attribute.get(this.sandbox.find("input[type!=checkbox]")[0], "value"));
+    Attribute.set(this.sandbox.find("input:not([type=checkbox])")[0], "value", "foo");
+    Attribute.reset(this.sandbox.find("input:not([type=checkbox])")[0], "value");
+    assert.isNull(Attribute.get(this.sandbox.find("input:not([type=checkbox])")[0], "value"));
   });
 });
