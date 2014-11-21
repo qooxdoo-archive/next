@@ -15,10 +15,9 @@ describe('FakeServer', function() {
       response: expectedResponse
     }]);
 
-    // debugger
     var req = q.io.xhr(url);
-    req.on("readystatechange", function(xhr) {
-      if (xhr.status == 200 && xhr.readyState == 4 && xhr.responseText == expectedResponse) {
+    req.on("readystatechange", function() {
+      if (req.status == 200 && req.readyState == 4 && req.responseText == expectedResponse) {
         setTimeout(function() {
           done();
         }, 0);
@@ -41,8 +40,8 @@ describe('FakeServer', function() {
     q.dev.fakeServer.removeResponse("GET", url);
 
     var req = q.io.xhr(url);
-    req.on("readystatechange", function(xhr) {
-      if (xhr.status == 404 && xhr.readyState == 4) {
+    req.on("readystatechange", function() {
+      if (req.status == 404 && req.readyState == 4) {
         setTimeout(function() {
           done();
         }, 0);
@@ -58,8 +57,8 @@ describe('FakeServer', function() {
     q.dev.fakeServer.respondWith("GET", url, expectedResponse);
 
     var req = q.io.xhr(url);
-    req.on("readystatechange", function(xhr) {
-      if (xhr.status == 200 && xhr.readyState == 4 && xhr.responseText == expectedResponse) {
+    req.on("readystatechange", function() {
+      if (req.status == 200 && req.readyState == 4 && req.responseText == expectedResponse) {
         setTimeout(function() {
           done();
         }, 0);
