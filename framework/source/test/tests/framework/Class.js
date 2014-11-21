@@ -26,6 +26,16 @@
  */
 describe("Class", function() {
 
+  var sandbox;
+
+  beforeEach(function () {
+    sandbox = sinon.sandbox.create();
+  });
+
+  afterEach(function () {
+    sandbox.restore();
+  });
+
   it("DefineAnonymous", function() {
     var clazz = qx.Class.define(null, {
       statics: {
@@ -304,6 +314,95 @@ describe("Class", function() {
 
     delete qx.test.Car;
     delete qx.test.Bmw;
+  });
+
+
+  it("Try to rename construct to constructor at super call", function() {
+    var constructSpyMethod = sandbox.spy();
+
+    qx.Class.define("qx.test.Super", {
+      construct: function () {
+        constructSpyMethod();
+      },
+      members: {
+      }
+    });
+
+    qx.Class.define("qx.test.ExtendSuper", {
+      extend: qx.test.Super,
+      construct: function () {
+        this.super(qx.test.Super, "construct");
+      }
+    });
+
+    new qx.test.ExtendSuper();
+
+    sinon.assert.calledOnce(constructSpyMethod);
+
+    delete qx.test.Super;
+    delete qx.test.ExtendSuper;
+  });
+
+
+  it("Try to rename construct to constructor at super call when construct already defined as a member", function() {
+    var constructSpyMethod = sandbox.spy();
+    var memberConstructSpyMethod = sandbox.spy();
+
+    qx.Class.define("qx.test.Super", {
+      construct: function () {
+        constructSpyMethod();
+      },
+      members: {
+        construct: memberConstructSpyMethod
+      }
+    });
+
+    qx.Class.define("qx.test.ExtendSuper", {
+      extend: qx.test.Super,
+      construct: function () {
+        this.super(qx.test.Super, "construct");
+      }
+    });
+
+    new qx.test.ExtendSuper();
+
+    sinon.assert.notCalled(constructSpyMethod);
+    sinon.assert.calledOnce(memberConstructSpyMethod);
+
+    delete qx.test.Super;
+    delete qx.test.ExtendSuper;
+  });
+
+
+  it("Try to rename construct to constructor at super call when construct already defined as a property", function() {
+    var constructSpyMethod = sinon.spy();
+    var propertyConstructSpyMethod = sinon.spy();
+
+    qx.Class.define("qx.test.Super", {
+      construct: function () {
+        constructSpyMethod();
+      },
+      properties: {
+        construct: {
+          init: propertyConstructSpyMethod
+        }
+      }
+    });
+
+    qx.Class.define("qx.test.ExtendSuper", {
+      extend: qx.test.Super,
+      construct: function () {
+        this.super(qx.test.Super, "construct");
+      }
+    });
+
+    new qx.test.ExtendSuper();
+
+    sinon.assert.notCalled(constructSpyMethod);
+    sinon.assert.calledOnce(propertyConstructSpyMethod);
+
+    delete qx.test.Super;
+    delete qx.test.ExtendSuper;
   });
 
 
