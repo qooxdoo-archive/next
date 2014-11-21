@@ -112,8 +112,11 @@ qx.Class.define("mobileshowcase.page.Maps",
         this.show();
       },this);
 
-      var groupPosition = new qx.ui.form.Group([this._showMyPositionButton],false);
-      var groupFullScreen = new qx.ui.form.Group([descriptionLabel,toggleNavigationButton],true);
+      var groupPosition = new qx.ui.form.Group();
+      groupPosition.append(this._showMyPositionButton);
+      var groupFullScreen = new qx.ui.form.Group();
+      groupFullScreen.append(descriptionLabel);
+      groupFullScreen.append(toggleNavigationButton);
 
       this._showMyPositionButton.addClass("map-shadow");
       groupFullScreen.addClass("map-shadow");
