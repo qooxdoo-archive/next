@@ -35,7 +35,7 @@ describe("io.request.JsonpWithRemote", function() {
     // this.require(["http"]);
     sandbox = sinon.sandbox.create();
     req = createRequest();
-    req = stubMethods(req);
+    req = stubMethods(req, sandbox);
 
     // preparation for _MRequest
     this.currentTest.req = req;
@@ -72,16 +72,16 @@ describe("io.request.JsonpWithRemote", function() {
     return req;
   }
 
-  function stubMethods(req) {
+  function stubMethods(req, sandbox) {
     // if already stubbed just return
     if (req && req._send && req._send.restore) { return; }
 
     // TODO: use sandbox
     sandbox.stub(req, "_open");
     sandbox.stub(req, "_setRequestHeader");
-    sandbox.sinon.stub(req, "setRequestHeader");
-    sandbox.sinon.stub(req, "_send");
-    sandbox.sinon.stub(req, "_abort");
+    sandbox.stub(req, "setRequestHeader");
+    sandbox.stub(req, "_send");
+    sandbox.stub(req, "_abort");
     return req;
   }
 
