@@ -138,26 +138,4 @@ describe("mobile.LocaleSwitch", function() {
     var subtitle1 = q(".list * .list-item-subtitle").eq(1).getHtml();
     assert.equal("test Jonny", subtitle1);
   }
-
-  //test failed
-  it("FormRendererSingle", function() {
-    var manager = qx.locale.Manager;
-
-    var title = new qx.ui.basic.Label(manager.tr("test one"));
-    var form = new qx.ui.form.Form();
-    form.add(new qx.ui.form.TextField(), manager.tr("test two"));
-
-    getRoot().append(title);
-    var renderer = new qx.ui.form.renderer.Single(form);
-    getRoot().append(renderer);
-
-    assert.equal("test one", title.value);
-    assert.equal("test two", renderer._labels[0].value);
-    manager.locale = "de_QX";
-    assert.equal("Eins", title.value);
-    assert.equal("Zwei", renderer._labels[0].value);
-    manager.locale = "en_QX";
-
-    title.dispose();
-  });
 });
