@@ -27,40 +27,70 @@
  */
 
 describe("io.request.JsonpWithRemote", function() {
-
+  var req;
 
   beforeEach(function() {
-    this.require(["http"]);
-  });
+    // TODO: Maybe use FakeServer instead
+    // this.require(["http"]);
 
+    req = createRequest();
+    req = stubMethods(req);
+
+    // preparation for _MRequest
+    this.currentTest.req = req;
+   });
 
   afterEach(function() {
-    this.req.dispose();
+    req.dispose();
+    this.currentTest.req.dispose();
   });
 
+  it("fetch json", function(done) {
+    // execute real request so restore original methods
+    req._send.restore();
+    req._open.restore();
 
-
-  it("fetch json", function() {
-    var req = this.req = new qx.io.request.Jsonp(),
-      url = this.noCache(this.getUrl("qx/test/jsonp_primitive.php"));
+    var url = noCache("../resource/qx/test/jsonp_primitive.php");
 
     req.on("load", function(e) {
-      this.resume(function() {
+      setTimeout(function() {
         assert.isObject(req.response);
         assert.isTrue(req.response["boolean"]);
-      }, this);
-    }, this);
+        done();
+      }, 100);
+    });
 
     req.url = url;
     req.send();
-
-    this.wait();
   });
 
+  function createRequest() {
+    req = new qx.io.request.Jsonp();
+    req.url = "url";
+    return req;
+  }
+
+  function stubMethods(req) {
+    // if already stubbed just return
+    if (req && req._send && req._send.restore) { return; }
+
+    // TODO: use sandbox
+    sinon.stub(req, "_open");
+    sinon.stub(req, "_setRequestHeader");
+    sinon.stub(req, "setRequestHeader");
+    sinon.stub(req, "_send");
+    sinon.stub(req, "_abort");
+    return req;
+  }
 
   function noCache(url) {
     return qx.util.Uri.appendParamsToUrl(url, "nocache=" + Date.now());
   }
 
+  // shared tests from mixin
+  var sharedTests = _MRequest();
+  for (var testName in sharedTests) {
+    it(testName, sharedTests[testName]);
+  }
 
 });
