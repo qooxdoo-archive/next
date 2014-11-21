@@ -28,6 +28,7 @@
 
 describe("io.request.JsonpWithRemote", function() {
   var req;
+  var sandbox;
 
   beforeEach(function() {
     // TODO: Maybe use FakeServer instead
