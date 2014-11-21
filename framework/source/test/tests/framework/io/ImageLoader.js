@@ -17,8 +17,6 @@
 
 ************************************************************************ */
 
-/* ************************************************************************
- ************************************************************************ */
 /**
  *
  * @asset(qx/test/colorstrip.gif)
@@ -37,107 +35,83 @@ describe("io.ImageLoader", function() {
   });
 
 
-  it("LoadImageSuccess", function() {
+  it("LoadImageSuccess", function(done) {
     this.__imageSource = null;
     qx.io.ImageLoader.load(this.__imageUri, function(source, entry) {
       this.__imageSource = source;
     }, this);
 
     window.setTimeout(function(e) {
-      var self = this;
-      this.resume(function() {
-        assert.isTrue(qx.io.ImageLoader.isLoaded(this.__imageSource));
-      }, self);
+      assert.isTrue(qx.io.ImageLoader.isLoaded(this.__imageSource));
+      done();
     }.bind(this), 500);
-
-    this.wait();
   });
 
 
-  it("LoadImageFailure", function() {
+  it("LoadImageFailure", function(done) {
     this.__imageSource = null;
     qx.io.ImageLoader.load(this.__wrongImageUri, function(source, entry) {
       this.__imageSource = source;
     }, this);
 
     window.setTimeout(function(e) {
-      var self = this;
-      this.resume(function() {
-        assert.isTrue(qx.io.ImageLoader.isFailed(this.__imageSource));
-      }, self);
+      assert.isTrue(qx.io.ImageLoader.isFailed(this.__imageSource));
+      done();
     }.bind(this), 500);
-
-    this.wait();
   });
 
 
-  it("ImageWidth", function() {
+  it("ImageWidth", function(done) {
     this.__imageSource = null;
     qx.io.ImageLoader.load(this.__imageUri, function(source, entry) {
       this.__imageSource = source;
     }, this);
 
     window.setTimeout(function(e) {
-      var self = this;
-      this.resume(function() {
-        assert.equal(192, qx.io.ImageLoader.getWidth(this.__imageSource));
-      }, self);
+      assert.equal(192, qx.io.ImageLoader.getWidth(this.__imageSource));
+      done();
     }.bind(this), 500);
-
-    this.wait();
   });
 
 
-  it("ImageHeight", function() {
+  it("ImageHeight", function(done) {
     this.__imageSource = null;
     qx.io.ImageLoader.load(this.__imageUri, function(source, entry) {
       this.__imageSource = source;
     }, this);
 
     window.setTimeout(function(e) {
-      var self = this;
-      this.resume(function() {
-        assert.equal(10, qx.io.ImageLoader.getHeight(this.__imageSource));
-      }, self);
+      assert.equal(10, qx.io.ImageLoader.getHeight(this.__imageSource));
+      done();
     }.bind(this), 500);
-
-    this.wait();
   });
 
 
-  it("ImageSize", function() {
+  it("ImageSize", function(done) {
     this.__imageSource = null;
     qx.io.ImageLoader.load(this.__imageUri, function(source, entry) {
       this.__imageSource = source;
     }, this);
 
     window.setTimeout(function(e) {
-      var self = this;
-      this.resume(function() {
-        var size = qx.io.ImageLoader.getSize(this.__imageSource);
-        assert.equal(192, size.width);
-        assert.equal(10, size.height);
-      }, self);
+      var size = qx.io.ImageLoader.getSize(this.__imageSource);
+      assert.equal(192, size.width);
+      assert.equal(10, size.height);
+      done();
     }.bind(this), 500);
-
-    this.wait();
   });
 
 
-  it("ImageFormat", function() {
+  it("ImageFormat", function(done) {
     this.__imageSource = null;
     qx.io.ImageLoader.load(this.__imageUri, function(source, entry) {
       this.__imageSource = source;
     }, this);
 
     window.setTimeout(function(e) {
-      var self = this;
-      this.resume(function() {
-        assert.equal("gif", qx.io.ImageLoader.getFormat(this.__imageSource));
-      }, self);
+      assert.equal("gif", qx.io.ImageLoader.getFormat(this.__imageSource));
+      done();
     }.bind(this), 500);
-
-    this.wait();
   });
 
 
