@@ -196,7 +196,7 @@ qx.Class.define("qx.event.type.dom.Pointer", {
   },
 
   construct : function(type, domEvent, customProps) {
-    return this.super(qx.event.type.dom.Custom, "constructor", type, domEvent, customProps);
+    return this.super(qx.event.type.dom.Custom, "construct", type, domEvent, customProps);
   },
 
   members : {

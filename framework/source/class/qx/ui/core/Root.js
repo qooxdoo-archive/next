@@ -34,7 +34,7 @@ qx.Class.define("qx.ui.core.Root",
   construct : function(root, layout)
   {
     this.__root = root || document.body;
-    this.super(qx.ui.Widget, "constructor", this.__root);
+    this.super(qx.ui.Widget, "construct", this.__root);
     this.layout = layout || new qx.ui.layout.VBox();
   },
 

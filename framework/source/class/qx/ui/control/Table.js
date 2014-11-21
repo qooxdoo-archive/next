@@ -95,7 +95,7 @@ qx.Class.define("qx.ui.control.Table", {
    * @return {qx.ui.control.Table} The new table widget.
    */
   construct : function(model, element) {
-    this.super(qx.ui.Widget, "constructor", element);
+    this.super(qx.ui.Widget, "construct", element);
     this.model =  model;
 
     if (qxWeb.getNodeName(this).toUpperCase() !== "TABLE") {

@@ -52,7 +52,7 @@ qx.Class.define("qx.ui.container.Collapsible",
    */
   construct : function(title, element)
   {
-    this.super(qx.ui.Widget, "constructor", element);
+    this.super(qx.ui.Widget, "construct", element);
 
     // Get exiting content and clear it afterwards
     var content = this.getHtml();

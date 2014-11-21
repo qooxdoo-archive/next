@@ -31,7 +31,7 @@ qx.Class.define("qx.ui.form.Group",
    * @return {qx.ui.form.Group} The new form group widget.
    */
   construct : function(title, element) {
-    this.super(qx.ui.Widget, "constructor", element);
+    this.super(qx.ui.Widget, "construct", element);
     if (title) {
       qxWeb.create('<h2 class="form-title">' + title + '</h2>').appendTo(this);
     }

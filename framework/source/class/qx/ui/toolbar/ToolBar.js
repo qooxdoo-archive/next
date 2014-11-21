@@ -32,7 +32,7 @@ qx.Class.define("qx.ui.toolbar.ToolBar",
    */
   construct : function(layout, element)
   {
-    this.super(qx.ui.Widget, "constructor", element);
+    this.super(qx.ui.Widget, "construct", element);
     this.layout = layout;
     if (!layout) {
       layout = new qx.ui.layout.HBox();

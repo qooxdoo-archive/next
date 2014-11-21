@@ -46,7 +46,7 @@ qx.Class.define("qx.ui.container.Carousel",
   construct : function(transitionDuration, element)
   {
 
-    this.super(qx.ui.Widget, "constructor", element);
+    this.super(qx.ui.Widget, "construct", element);
 
     if (transitionDuration) {
       this.transitionDuration = transitionDuration;

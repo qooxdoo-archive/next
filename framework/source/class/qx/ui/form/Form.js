@@ -31,7 +31,7 @@ qx.Class.define("qx.ui.form.Form",
    */
   construct : function(element)
   {
-    this.super(qx.ui.Widget, "constructor", element);
+    this.super(qx.ui.Widget, "construct", element);
     this.defaultCssClass = "form";
     this._resetter = this._createResetter();
     this.on("addedChild", this._onAddedChild, this);

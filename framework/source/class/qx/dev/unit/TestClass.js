@@ -53,7 +53,7 @@ qx.Class.define("qx.dev.unit.TestClass",
    */
   construct : function(clazz)
   {
-    this.super(qx.dev.unit.AbstractTestSuite, "constructor");
+    this.super(qx.dev.unit.AbstractTestSuite, "construct");
 
     if (!clazz)
     {

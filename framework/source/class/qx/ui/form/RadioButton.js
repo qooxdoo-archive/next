@@ -52,7 +52,7 @@ qx.Class.define("qx.ui.form.RadioButton",
    */
   construct : function(value)
   {
-    this.super(qx.ui.form.Input, "constructor");
+    this.super(qx.ui.form.Input, "construct");
 
     this.value = !!value;
     this.on("tap", this._onTap, this);

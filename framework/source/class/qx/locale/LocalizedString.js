@@ -33,7 +33,7 @@ qx.Class.define("qx.locale.LocalizedString",
    */
   construct : function(translation, messageId, args)
   {
-    this.super(qx.type.BaseString, "constructor", translation);
+    this.super(qx.type.BaseString, "construct", translation);
 
     this.__messageId = messageId;
     this.__args = args;

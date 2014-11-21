@@ -40,7 +40,7 @@ qx.Class.define("qx.ui.basic.Atom",
    */
   construct : function(label, icon, element)
   {
-    this.super(qx.ui.Widget, "constructor", element);
+    this.super(qx.ui.Widget, "construct", element);
 
     this.addClass("qx-flex-center");
 

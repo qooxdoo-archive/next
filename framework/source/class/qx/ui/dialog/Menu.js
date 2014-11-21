@@ -43,7 +43,7 @@ qx.Class.define("qx.ui.dialog.Menu",
 
     this.__menuContainer.append(this.__listScroller);
 
-    this.super(qx.ui.dialog.Popup, "constructor", this.__menuContainer, anchor);
+    this.super(qx.ui.dialog.Popup, "construct", this.__menuContainer, anchor);
 
     qxWeb.data.bind(this, "model", this.__list, "model");
     this.model = itemsModel;

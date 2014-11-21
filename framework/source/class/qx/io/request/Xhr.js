@@ -75,7 +75,7 @@ qx.Class.define("qx.io.request.Xhr",
       this.method = method;
     }
 
-    this.super(qx.io.request.AbstractRequest, "constructor", url);
+    this.super(qx.io.request.AbstractRequest, "construct", url);
 
     this.__onNativeReadyStateChangeBound = this.__onNativeReadyStateChange.bind(this);
     this.__onNativeAbortBound = this.__onNativeAbort.bind(this);

@@ -39,7 +39,7 @@ qx.Class.define("qx.ui.form.PasswordField",
    * @return {qx.ui.form.PasswordField} The new password field widget.
    */
   construct: function(value, element) {
-    this.super(qx.ui.form.TextField, "constructor", value, element);
+    this.super(qx.ui.form.TextField, "construct", value, element);
     this.type = "password";
   },
 

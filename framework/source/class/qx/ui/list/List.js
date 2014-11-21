@@ -62,7 +62,7 @@ qx.Class.define("qx.ui.list.List",
    */
   construct : function(delegate, element)
   {
-    this.super(qx.ui.Widget, "constructor", element);
+    this.super(qx.ui.Widget, "construct", element);
 
     this.on("tap", this._onTap, this);
 

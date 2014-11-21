@@ -73,7 +73,7 @@ qx.Class.define("qx.ui.dialog.Popup",
    */
   construct : function(widget, anchor, element)
   {
-    this.super(qx.ui.Widget, "constructor", element);
+    this.super(qx.ui.Widget, "construct", element);
     this.exclude();
 
     this.__anchor = anchor;
