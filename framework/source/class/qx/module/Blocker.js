@@ -61,7 +61,7 @@ qxWeb.define("qx.module.Blocker", {
       }
 
       if (isDocument) {
-        item.$$blocker.div.insertBefore(qxWeb(win.document.body).getChildren(':first'));
+        item.$$blocker.div.insertBefore(qxWeb(win.document.body).getChildren(':first-child'));
       } else {
         item.$$blocker.div.appendTo(win.document.body);
       }

@@ -69,7 +69,7 @@ describe('Blocker', function() {
 
     var blockerDiv = document.$$blocker.div;
     assert.isTrue(q.$$qx.dom.Hierarchy.isRendered(blockerDiv[0]));
-    assert.equal(q(document.body).getChildren(":first")[0], blockerDiv[0]);
+    assert.equal(q(document.body).getChildren(":first-child")[0], blockerDiv[0]);
     assert.equal('fixed', blockerDiv.getStyle("position"));
     assert.equal('100%', blockerDiv[0].style.width);
     assert.equal('100%', blockerDiv[0].style.height);

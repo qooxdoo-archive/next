@@ -406,7 +406,7 @@ qx.Class.define("qx.ui.tree.Tree",
       var template = qx.ui.tree.Tree.__itemTemplate;
       var collection = qxWeb.template.renderToNode(template, this.__getTemplateData(id, meta));
 
-      collection.getChildren("span:first").addClass("level-" + meta.level);
+      collection.getChildren("span:first-child").addClass("level-" + meta.level);
 
       return collection;
     },
@@ -584,7 +584,7 @@ qx.Class.define("qx.ui.tree.Tree",
      */
     __toggleState : function (folderId)
     {
-      var label = qxWeb("#" + folderId).getChildren("span:first");
+      var label = qxWeb("#" + folderId).getChildren("span:first-child");
       label.toggleClass("open");
     }
   },
