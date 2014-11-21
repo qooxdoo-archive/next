@@ -37,13 +37,9 @@
 describe("io.request.JsonpLowLevel", function() {
   var req;
   var url;
-  /*
-  var res;
-  var __reqs;
-  var sandbox;
-  */
 
   beforeEach(function() {
+    // TODO: Maybe use FakeServer instead
     // require(["php"]);
 
     req = new qx.io.request.Jsonp();
