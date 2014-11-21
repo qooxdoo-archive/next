@@ -29,7 +29,7 @@ qx.Class.define("mobileshowcase.page.List",
 
   construct : function()
   {
-    this.super(mobileshowcase.page.Abstract, "constructor");
+    this.super(mobileshowcase.page.Abstract, "construct");
     this.title = "List";
   },
 

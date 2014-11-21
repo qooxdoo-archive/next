@@ -27,7 +27,7 @@ qx.Class.define("mobileshowcase.page.Overview",
 
   construct : function()
   {
-    this.super(qx.ui.page.NavigationPage, "constructor");
+    this.super(qx.ui.page.NavigationPage, "construct");
     this.title = "Overview";
   },
 

@@ -27,7 +27,7 @@ qx.Class.define("mobileshowcase.page.Abstract",
 
   construct : function(wrapContentByGroup)
   {
-    this.super(qx.ui.page.NavigationPage, "constructor", wrapContentByGroup);
+    this.super(qx.ui.page.NavigationPage, "construct", wrapContentByGroup);
     this.showBackButton = true;
     this.backButtonText = "Back";
   },
