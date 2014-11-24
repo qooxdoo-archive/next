@@ -610,7 +610,6 @@ describe("io.request.XhrWithRemoteLowLevel", function() {
   });
 
 
-  /*
   it("timeout triggers timeout error", function(done) {
     // "timeout error" is specified here
     // http://www.w3.org/TR/XMLHttpRequest2/#timeout-error
@@ -631,7 +630,6 @@ describe("io.request.XhrWithRemoteLowLevel", function() {
           "changePhase",
           "readystatechange",
           "changePhase",
-          "changeResponse",
           "changePhase",
           "success",
           "timeout",
@@ -655,7 +653,6 @@ describe("io.request.XhrWithRemoteLowLevel", function() {
     });
 
   });
-  */
 
 
   it("timeout not call onabort", function(done) {
@@ -742,7 +739,6 @@ describe("io.request.XhrWithRemoteLowLevel", function() {
   });
 
 
-  /*
   it("call handler in order when request failed", function(done) {
     __skip(["win", "osx"]);
 
@@ -755,7 +751,6 @@ describe("io.request.XhrWithRemoteLowLevel", function() {
         var expected = ["readystatechange",
           "readystatechange",
           "changePhase",
-          "changeResponse",
           "error",
           "fail",
           "loadend"
@@ -777,7 +772,6 @@ describe("io.request.XhrWithRemoteLowLevel", function() {
     }, 0);
 
   });
-  */
 
   //
   // Disposing
