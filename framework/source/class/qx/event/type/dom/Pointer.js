@@ -294,10 +294,14 @@ qx.Class.define("qx.event.type.dom.Pointer", {
 
 
   classDefined: function(statics) {
-    if (qxWeb.env.get("engine.name") == "gecko") {
+    var isIos8 = (qxWeb.env.get("os.name") == "ios" && parseFloat(qxWeb.env.get("os.version")) >= 8);
+    var isSafari8 = (qxWeb.env.get("browser.name") == "safari" && parseFloat(qxWeb.env.get("browser.version")) >= 8);
+    var isGecko = qxWeb.env.get("engine.name") == "gecko";
+
+    if (isGecko) {
       statics.READONLY_PROPERTIES.push("buttons");
     }
-    else if (qxWeb.env.get("os.name") == "ios" && parseFloat(qxWeb.env.get("os.version")) >= 8) {
+    else if (isIos8 || isSafari8) {
       statics.READONLY_PROPERTIES = statics.READONLY_PROPERTIES.concat(statics.MOUSE_PROPERTIES);
     }
   }
