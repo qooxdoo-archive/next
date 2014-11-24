@@ -14,7 +14,6 @@
 
   "export":
   [
-    "api",
     "api-data",
     "api-verify",
     "build-all",
@@ -230,19 +229,11 @@
       "translate" : { "poentry-with-occurrences" : false  }
     },
 
-    "api" :
-    {
-      "extend" : [ "no-compile-lint" ],
-      "config-warnings" :
-      {
-        "environment" : [ "non-literal-keys" ]
-      }
-    },
 
     "api-verify" :
     {
-      "desc" : "creates an Apiviewer while checking internal links. Also creates an XML sitemap with a link for each class",
-      "extend" : [ "api" ],
+      "desc" : "Checks internal links in class comments. Also creates an XML sitemap with a link for each class",
+      "extend" : [ "api-data" ],
       "api" : {
         "verify" : [ "links", "types", "statistics" ],
         "sitemap" :
