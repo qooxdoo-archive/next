@@ -28,7 +28,7 @@ qx.Class.define("mobileshowcase.page.Form",
 
   construct : function()
   {
-    this.super(mobileshowcase.page.Abstract, "constructor");
+    this.super(mobileshowcase.page.Abstract, "construct");
     this.title = "Form";
     this.__items = [];
   },

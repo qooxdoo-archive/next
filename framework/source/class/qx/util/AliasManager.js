@@ -55,7 +55,7 @@ qx.Class.define("qx.util.AliasManager",
 
   construct : function()
   {
-    this.super(qx.util.ValueManager, "constructor");
+    this.super(qx.util.ValueManager, "construct");
     this.initMSingleton();
 
     // Contains defined aliases (like icons/, widgets/, application/, ...)

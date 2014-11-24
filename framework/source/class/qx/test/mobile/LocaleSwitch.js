@@ -31,7 +31,7 @@ qx.Class.define("qx.test.mobile.LocaleSwitch",
 
   construct : function()
   {
-    this.super(qx.test.mobile.MobileTestCase, "constructor");
+    this.super(qx.test.mobile.MobileTestCase, "construct");
     var manager = this.manager = qx.locale.Manager.getInstance();
 
     // add dummy translations

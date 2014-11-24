@@ -66,7 +66,7 @@ qx.Class.define("qx.ui.page.Page",
    */
   construct : function(layout, element)
   {
-    this.super(qx.ui.Widget, "constructor", element);
+    this.super(qx.ui.Widget, "construct", element);
     this.layout = layout || new qx.ui.layout.VBox();
   },
 

@@ -53,7 +53,7 @@ qx.Class.define("qx.ui.container.Scroll",
   */
   construct : function(scrollProperties, element)
   {
-    this.super(qx.ui.Widget, "constructor", element);
+    this.super(qx.ui.Widget, "construct", element);
 
     if(scrollProperties) {
       this._scrollProperties = scrollProperties;

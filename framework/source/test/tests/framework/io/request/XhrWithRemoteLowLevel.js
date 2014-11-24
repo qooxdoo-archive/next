@@ -777,7 +777,6 @@ describe("io.request.XhrWithRemoteLowLevel", function() {
 
   function openAndSend(method, url, data) {
     // use API of io.XHR only
-    debugger;
     req._open(method, url);
     if (data) {
       req._send(data);

@@ -29,7 +29,7 @@ qx.Class.define("qx.ui.tree.Tree",
    */
   construct : function(element)
   {
-    this.super(qx.ui.Widget, "constructor", element);
+    this.super(qx.ui.Widget, "construct", element);
 
     this._init();
   },

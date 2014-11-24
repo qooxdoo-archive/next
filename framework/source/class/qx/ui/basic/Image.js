@@ -35,7 +35,7 @@ qx.Class.define("qx.ui.basic.Image",
    */
   construct : function(source, element)
   {
-    this.super(qx.ui.Widget, "constructor", element);
+    this.super(qx.ui.Widget, "construct", element);
 
     if (source) {
       this.source = source;

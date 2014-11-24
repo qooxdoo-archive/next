@@ -38,7 +38,7 @@ qx.Class.define("qx.ui.form.TextArea",
    */
   construct : function(value, element)
   {
-    this.super(qx.ui.Widget, "constructor", element);
+    this.super(qx.ui.Widget, "construct", element);
 
     if (value) {
       this.value = value;

@@ -46,7 +46,7 @@ qx.Class.define("qx.data.store.Jsonp",
       this.callbackParam = callbackParam;
     }
 
-    this.super(qx.data.store.Json, "constructor", url, delegate);
+    this.super(qx.data.store.Json, "construct", url, delegate);
   },
 
 

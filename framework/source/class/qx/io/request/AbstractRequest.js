@@ -395,6 +395,7 @@ qx.Class.define("qx.io.request.AbstractRequest",
 
     /**
      * Send request.
+     * @return {qx.io.request.AbstractRequest} Self for chaining.
      */
     send: function() {
       var url, method, async, serializedData;
@@ -445,6 +446,7 @@ qx.Class.define("qx.io.request.AbstractRequest",
 
     /**
      * Abort request.
+     * @return {qx.io.request.AbstractRequest} Self for chaining.
      */
     abort: function() {
       if (qx.core.Environment.get("qx.debug.io")) {
@@ -456,6 +458,8 @@ qx.Class.define("qx.io.request.AbstractRequest",
       this.phase = "abort";
 
       this._abort();
+
+      return this;
     },
 
 
@@ -502,7 +506,6 @@ qx.Class.define("qx.io.request.AbstractRequest",
       for (var key in requestHeaders) {
         this._setRequestHeader(key, requestHeaders[key]);
       }
-
     },
 
 
@@ -518,9 +521,13 @@ qx.Class.define("qx.io.request.AbstractRequest",
      *
      * @param key {String} Key of the header.
      * @param value {String} Value of the header.
+     *
+     * @return {qx.io.request.AbstractRequest} Self for chaining.
      */
     setRequestHeader: function(key, value) {
       this.__requestHeaders[key] = value;
+
+      return this;
     },
 
 
@@ -569,7 +576,7 @@ qx.Class.define("qx.io.request.AbstractRequest",
      * @return {String} The value of the header.
      */
     getRequestHeader: function(key) {
-       return this.__requestHeaders[key];
+      return this.__requestHeaders[key];
     },
 
 
@@ -579,11 +586,13 @@ qx.Class.define("qx.io.request.AbstractRequest",
      * Note: Removing request headers has no effect after the request was send.
      *
      * @param key {String} Key of the header.
+     * @return {qx.io.request.AbstractRequest} Self for chaining.
      */
     removeRequestHeader: function(key) {
       if (this.__requestHeaders[key]) {
        delete this.__requestHeaders[key];
       }
+      return this;
     },
 
 

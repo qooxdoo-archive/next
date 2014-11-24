@@ -140,6 +140,11 @@ qx.Class = {
 
 
   "super" : function(clazz, name, varargs) {
+    // Provide consistency that construct will call native constructor
+    if (name === "construct" && typeof clazz.prototype.construct !== "function") {
+      name = "constructor";
+    }
+
     if (arguments.length === 1) {
       return clazz.prototype[name].call(this);
     } else {

@@ -53,7 +53,7 @@ qx.Class.define("qx.ui.form.CheckBox",
    */
   construct : function(value, element)
   {
-    this.super(qx.ui.form.Input, "constructor", element);
+    this.super(qx.ui.form.Input, "construct", element);
     this.type = "checkbox";
     value = !!value;
 

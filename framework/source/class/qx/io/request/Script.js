@@ -341,10 +341,11 @@ qx.Class.define("qx.io.request.Script",
      * boolean indicating if the response is to be considered successful.
      *
      * @param check {Function} Function executed once the script was loaded.
-     *
+     * @return {qx.io.request.Script} Self for chaining.
      */
     setDetermineSuccess: function(check) {
       this.__determineSuccess = check;
+      return this;
     },
 
 

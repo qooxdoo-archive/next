@@ -45,7 +45,7 @@ qx.Class.define("qx.ui.dialog.BusyIndicator",
   construct : function(label)
   {
     // the image passed as second argument is a blank 1px transparent png
-    this.super(qx.ui.basic.Atom, "constructor", label, qx.ui.basic.Image.PLACEHOLDER_IMAGE);
+    this.super(qx.ui.basic.Atom, "construct", label, qx.ui.basic.Image.PLACEHOLDER_IMAGE);
 
     this.on("appear", this._onAppear, this);
     this.on("disappear", this._onDisappear, this);

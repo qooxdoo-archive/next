@@ -53,7 +53,7 @@ qx.Class.define("qx.ui.control.Picker",
    */
   construct : function(element)
   {
-    this.super(qx.ui.Widget, "constructor", element);
+    this.super(qx.ui.Widget, "construct", element);
 
     this._pickerModel = new qx.data.Array();
     this._slots = new qx.data.Array();

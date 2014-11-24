@@ -105,7 +105,7 @@ qx.Class.define("qx.ui.Widget", {
    * @return {qx.ui.Widget} The new widget.
    */
   construct : function(element) {
-    this.super(qxWeb, "constructor");
+    this.super(qxWeb, "construct");
 
     if (element) {
       this.push(element);

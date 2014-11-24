@@ -55,7 +55,7 @@ qx.Class.define("qx.ui.container.Drawer",
    */
   construct : function(layout, element)
   {
-    this.super(qx.ui.Widget, "constructor", element);
+    this.super(qx.ui.Widget, "construct", element);
 
     if (layout) {
       this.layout = layout;

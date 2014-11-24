@@ -46,7 +46,7 @@ qx.Class.define("qx.ui.form.Slider",
    */
   construct : function(element)
   {
-    this.super(qx.ui.Widget, "constructor", element);
+    this.super(qx.ui.Widget, "construct", element);
     this.append(this._createKnobElement());
     this._registerEventListener();
     this._refresh();

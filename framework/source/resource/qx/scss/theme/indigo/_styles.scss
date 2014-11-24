@@ -193,18 +193,18 @@ $radiobutton-border-color: $color-2;
 
 // SelectBox
 
-$selectbox-border-radius:  rem(4);
-$selectbox-border-color:  $color-2;
-$selectbox-text-color:  $color-1;
-$selectbox-background:  $background-color,$color-4;
-$selectbox-active-background:  lighten($highlight-color,20%),$highlight-color;
-$selectbox-active-text-color:  $background-color;
-$selectbox-item-selected-text-color:  $background-color;
-$selectbox-item-selected-background:  lighten($highlight-color,20%), $highlight-color;
+$selectbox-border-radius: rem(4);
+$selectbox-border-color: $color-2;
+$selectbox-text-color: $color-1;
+$selectbox-background: $background-color,$color-4;
+$selectbox-active-background: lighten($highlight-color,20%),$highlight-color;
+$selectbox-active-text-color: $background-color;
+$selectbox-item-selected-text-color: $background-color;
+$selectbox-item-selected-background: lighten($highlight-color,20%), $highlight-color;
 $selectbox-header-padding: rem(9) rem(40) rem(9) rem(9);
 $selectbox-arrow-size: rem(8);
-$selectbox-arrow-color:  $color-1;
-$selectbox-active-arrow-color:  $background-color;
+$selectbox-arrow-color: $color-1;
+$selectbox-active-arrow-color: $background-color;
 
 // Slider
 

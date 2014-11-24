@@ -119,6 +119,9 @@ var _MRequest = function() {
 
 
     "append qooxdoo obj data to URL with GET request": function() {
+      // see beforeEach()
+      req = this.test.req;
+
       qx.Class.define("Klass", {
         extend: Object,
 

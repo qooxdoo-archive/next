@@ -53,7 +53,7 @@ qx.Class.define("qx.ui.layout.Card",
 
   construct : function()
   {
-    this.super(qx.ui.layout.Abstract, "constructor");
+    this.super(qx.ui.layout.Abstract, "construct");
 
     this.__cardAnimation = new qx.ui.layout.CardAnimation();
   },

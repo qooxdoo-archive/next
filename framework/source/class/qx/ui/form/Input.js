@@ -41,7 +41,7 @@ qx.Class.define("qx.ui.form.Input",
    */
   construct : function(element)
   {
-    this.super(qx.ui.Widget, "constructor", element);
+    this.super(qx.ui.Widget, "construct", element);
     this._applyRequired(this.required);
     this.addClass("gap");
 

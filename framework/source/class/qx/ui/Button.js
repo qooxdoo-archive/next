@@ -49,7 +49,7 @@ qx.Class.define("qx.ui.Button",
    * @return {qx.ui.Button} The new Button widget.
    */
   construct : function(label, icon, element) {
-    this.super(qx.ui.basic.Atom, "constructor", label, icon, element);
+    this.super(qx.ui.basic.Atom, "construct", label, icon, element);
   },
 
   members: {

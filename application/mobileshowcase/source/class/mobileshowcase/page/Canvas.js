@@ -28,7 +28,7 @@ qx.Class.define("mobileshowcase.page.Canvas",
     extend: mobileshowcase.page.Abstract,
 
     construct: function () {
-      this.super(mobileshowcase.page.Abstract, "constructor", false);
+      this.super(mobileshowcase.page.Abstract, "construct", false);
       this.title = "Canvas";
       this.__ratio = qxWeb.env.get("device.pixelRatio");
     },

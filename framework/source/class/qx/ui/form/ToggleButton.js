@@ -62,7 +62,7 @@ qx.Class.define("qx.ui.form.ToggleButton",
    */
   construct : function(value, labelChecked, labelUnchecked)
   {
-    this.super(qx.ui.Widget, "constructor");
+    this.super(qx.ui.Widget, "construct");
 
     if(labelChecked && labelUnchecked) {
        this.__labelUnchecked = labelUnchecked;

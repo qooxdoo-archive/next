@@ -27,7 +27,7 @@ qx.Class.define("mobileshowcase.page.Animation",
 
   construct : function()
   {
-    this.super(mobileshowcase.page.Abstract, "constructor");
+    this.super(mobileshowcase.page.Abstract, "construct");
     this.title = "Page Transitions";
   },
 

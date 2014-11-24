@@ -37,7 +37,7 @@ qx.Class.define("qx.ui.form.SelectBox",
    */
   construct : function(element)
   {
-    this.super(qx.ui.Widget, "constructor", element);
+    this.super(qx.ui.Widget, "construct", element);
 
     this.setAttribute("type", "button");
     this.readOnly = true;

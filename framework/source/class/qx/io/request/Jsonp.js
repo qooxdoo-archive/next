@@ -77,7 +77,7 @@ qx.Class.define("qx.io.request.Jsonp",
 
 
   construct: function(url) {
-    this.super(qx.io.request.AbstractRequest, "constructor", url);
+    this.super(qx.io.request.AbstractRequest, "construct", url);
 
     this.__id = this.__generateId();
     this.transport = new qx.io.request.Script();

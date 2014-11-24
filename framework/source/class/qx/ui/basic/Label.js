@@ -37,7 +37,7 @@ qx.Class.define("qx.ui.basic.Label",
    */
   construct : function(value, element)
   {
-    this.super(qx.ui.Widget, "constructor", element);
+    this.super(qx.ui.Widget, "construct", element);
 
     var html = this.getHtml();
     this.setHtml('');
