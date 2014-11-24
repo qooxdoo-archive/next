@@ -92,23 +92,21 @@ qx.Class.define("mobileshowcase.page.Tab",
     __createAlignmentSwitch: function() {
       var group = new qx.ui.form.Group("Tab Button alignment (Horizontal mode only)");
 
-      var rbGroup = new qx.ui.form.Group()
-        .set({allowEmptySelection: true});
-
       ["Left", "Justify", "Right"].forEach(function(alignment) {
         var rb = new qx.ui.form.RadioButton()
-          .setAttribute("name", alignment.toLowerCase());
-        if (alignment.toLowerCase() === this.__tabBar.align) {
-          rb.value = true;
-        }
-        rbGroup.add(rb);
+          .set({
+            value: alignment.toLowerCase() === this.__tabBar.align
+          })
+          .setAttribute("name", alignment.toLowerCase())
+          .on("changeValue", function(e) {
+            if (e.value) {
+              this.__tabBar.align = e.target.getAttribute("name");
+            }
+          }.bind(this))
+          .appendTo(group);
 
         new qx.ui.form.Row(rb, alignment)
           .appendTo(group);
-      }.bind(this));
-
-      rbGroup.on("changeSelection", function(e) {
-        this.__tabBar.align = e.value[0].getAttribute("name");
       }.bind(this));
 
       return group;
