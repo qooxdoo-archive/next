@@ -92,4 +92,42 @@
      assert.equal(1, coll2.length);
      assert.equal("inner1", coll2[0].id);
    });
+
+
+   it("Override qxWeb prototype methods with $attach", function () {
+     assert.isUndefined(qxWeb.prototype['__attach_test']);
+
+     qxWeb.$attach({
+       "__attach_test": function () {
+         return "foo";
+       }
+     });
+     assert.isDefined(qxWeb.prototype['__attach_test']);
+     assert.equal("foo", qxWeb(document.body).__attach_test());
+
+     if (qx.core.Environment.get("qx.debug")) {
+       assert.throw(function () {
+         qxWeb.$attach({
+           "__attach_test": function () {
+             return "bar";
+           }
+         });
+       }, Error);
+     } else {
+       qxWeb.$attach({
+         "__attach_test": function () {
+           return "bar";
+         }
+       });
+     }
+
+     assert.equal("foo", qxWeb(document.body).__attach_test());
+
+     qxWeb.$attach({
+       "__attach_test": function () {
+         return "bar";
+       }
+     }, true);
+     assert.equal("bar", qxWeb(document.body).__attach_test());
+   });
  });
