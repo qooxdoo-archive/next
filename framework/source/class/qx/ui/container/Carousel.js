@@ -503,20 +503,18 @@ qx.Class.define("qx.ui.container.Carousel",
      * @param pageIndex {Integer} The page index
      */
     _createPaginationLabel : function(pageIndex) {
-
       var paginationIndex = this.__pages.length;
 
-      var paginationLabel = new qx.ui.Widget();
-      var paginationLabelText = new qx.ui.basic.Label("" + paginationIndex);
+      var paginationLabel = qxWeb.create('<div class="qx-carousel-pagination-label"></div>');
+      var paginationLabelText = qxWeb.create('<div class="label">' + paginationIndex + '</div>');
 
-      if(typeof pageIndex != "undefined") {
+      if (typeof pageIndex != "undefined") {
         paginationIndex = pageIndex + 1;
       }
 
       paginationLabel.append(paginationLabelText);
 
-      paginationLabel.addClass("qx-carousel-pagination-label");
-      paginationLabel.tapHandler = this._onPaginationLabelTap.bind(this, paginationIndex - 1)
+      paginationLabel.tapHandler = this._onPaginationLabelTap.bind(this, paginationIndex - 1);
       paginationLabel.on("tap", paginationLabel.tapHandler);
 
       return paginationLabel;
@@ -872,7 +870,9 @@ qx.Class.define("qx.ui.container.Carousel",
       this.__pagination.dispose();
 
       qx.util.DisposeUtil.disposeContainer(this);
-      qx.util.DisposeUtil.disposeArray(this,"__paginationLabels");
+      this.__paginationLabels.forEach(function(el) {
+        qxWeb(el).allOff();
+      });
 
       this.__pages = this.__paginationLabels = this.__onMoveOffset = this.__lastOffset = this.__boundsX = this.__isPageScrollTarget = null;
       this.super(qx.ui.Widget, "dispose");
