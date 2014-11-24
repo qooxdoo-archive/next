@@ -211,7 +211,7 @@ qx.Class.define("qx.io.request.AbstractRequest",
         return qx.lang.Type.isString(value) &&
                /^(unsent|opened|sent|loading|load|success|abort|timeout|statusError)$/.test(value);
       },
-      event: "changePhase",
+      event: true,
       init: "unsent"
     },
 
@@ -287,7 +287,7 @@ qx.Class.define("qx.io.request.AbstractRequest",
      */
     response: {
       get: "_getParsedResponse",
-      event: "changeResponse",
+      event: true,
       nullable: true
     },
 
