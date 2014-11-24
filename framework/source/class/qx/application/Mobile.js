@@ -70,7 +70,9 @@ qx.Class.define("qx.application.Mobile",
 
       // [BUG #7785] Document element's clientHeight is calculated wrong on iPad iOS7
       if (qx.core.Environment.get("os.name") == "ios") {
-        qxWeb(document.body).on("touchmove", this._preventDefault);
+        qxWeb(document.body).on("touchmove", function(e) {
+          e.preventDefault();
+        });
 
         if (window.innerHeight != document.documentElement.clientHeight) {
           qxWeb(document.body).addClass("ios-viewport-fix");
