@@ -27,22 +27,28 @@
  */
 
 describe("io.request.XhrWithRemoteLowLevel", function() {
-  var req = null;
+
+  var req;
+  var sandbox;
 
   beforeEach(function() {
+    sandbox = sinon.sandbox.create();
+
     req = new qx.io.request.Xhr();
   });
 
 
   afterEach(function() {
-     req.dispose();
+    sinon.sandbox.restore();
+
+    req.dispose();
   });
 
   function __skip(skipOs) {
     // certain tests fail if loaded through the Selenium proxy on Windows and OS X
     if (qx.core.Environment.get("browser.name") == "chrome" &&
       qx.lang.Array.contains(skipOs, qx.core.Environment.get("os.name"))) {
-      this.require(["noSelenium"]);
+      // this.require(["noSelenium"]);
     }
   }
 
@@ -62,7 +68,7 @@ describe("io.request.XhrWithRemoteLowLevel", function() {
         },10);
       }
     });
-      openAndSend("GET", noCache(url));
+    openAndSend("GET", noCache(url));
 
   });
 
@@ -79,7 +85,7 @@ describe("io.request.XhrWithRemoteLowLevel", function() {
       }
     };
     req.on("readystatechange", onreadystatechange);
-    this.openAndSend("GET", noCache(url));
+    openAndSend("GET", noCache(url));
   });
 
 
@@ -100,7 +106,8 @@ describe("io.request.XhrWithRemoteLowLevel", function() {
 
 
   it("handle arbitrary XML", function(done) {
-    this.require(["php"]);
+    // TODO: Maybe use FakeServer instead
+    // require(["php"]);
 
     // Content-Type: foo/bar+xml
     var url =  "../resource/qx/test/xmlhttp/xml.php";
@@ -135,7 +142,8 @@ describe("io.request.XhrWithRemoteLowLevel", function() {
 
 
   it("POST", function(done) {
-    this.require(["php"]);
+    // TODO: Maybe use FakeServer instead
+    // require(["php"]);
 
     var url =  "../resource/qx/test/xmlhttp/echo_post_request.php";
     req._open("POST", noCache(url));
@@ -159,7 +167,8 @@ describe("io.request.XhrWithRemoteLowLevel", function() {
 
 
   it("have readyState OPENED", function() {
-    this.require(["php"]);
+    // TODO: Maybe use FakeServer instead
+    // require(["php"]);
 
     var url = "../resource/qx/test/xmlhttp/echo_post_request.php";
     req._open("GET", noCache(url));
@@ -169,7 +178,9 @@ describe("io.request.XhrWithRemoteLowLevel", function() {
 
 
   it("abort pending request", function() {
-    this.require(["php"]);
+    // TODO: Maybe use FakeServer instead
+    // require(["php"]);
+
     var url =  "../resource/qx/test/xmlhttp/echo_get_request.php";
 
     req._open("GET", noCache(url));
@@ -180,7 +191,8 @@ describe("io.request.XhrWithRemoteLowLevel", function() {
 
 
   it("have status 200 when modified", function(done) {
-    this.require(["php"]);
+    // TODO: Maybe use FakeServer instead
+    // require(["php"]);
 
     var url =  "../resource/qx/test/xmlhttp/echo_get_request.php";
 
@@ -198,7 +210,8 @@ describe("io.request.XhrWithRemoteLowLevel", function() {
 
 
   it("validate freshness", function(done) {
-    this.require(["php", "noIe"]);
+    // TODO: Maybe use FakeServer instead
+    // require(["php", "noIe"]);
 
     var url =  "../resource/qx/test/xmlhttp/time.php";
 
@@ -240,7 +253,8 @@ describe("io.request.XhrWithRemoteLowLevel", function() {
 
 
   it("overrideMimeType content type unchanged", function(done) {
-    this.require(["php", "noIe"]);
+    // TODO: Maybe use FakeServer instead
+    // require(["php", "noIe"]);
 
     var onloadAssertContentTypeUnchanged = function() {
       setTimeout(function() {
@@ -259,7 +273,8 @@ describe("io.request.XhrWithRemoteLowLevel", function() {
 
 
   it("overrideMimeType content type override", function(done) {
-    this.require(["php", "noIe"]);
+    // TODO: Maybe use FakeServer instead
+    // require(["php", "noIe"]);
 
     var onloadAssertContentTypeOverride = function() {
       setTimeout(function() {
@@ -310,7 +325,7 @@ describe("io.request.XhrWithRemoteLowLevel", function() {
     });
 
     var url = "../resource/qx/test/xmlhttp/sample.txt";
-    req._open("GET", this.noCache(url), false);
+    req._open("GET", noCache(url), false);
     req._send();
 
     // There is no HEADERS_RECEIVED and LOADING when sync.
@@ -356,7 +371,9 @@ describe("io.request.XhrWithRemoteLowLevel", function() {
 
 
   it("have status 304 when cache is fresh", function(done) {
-    this.require(["php"]);
+    // TODO: Maybe use FakeServer instead
+    // require(["php"]);
+
     var url = "../resource/qx/test/xmlhttp/not_modified.php";
 
     req.on("readystatechange", function() {
@@ -404,7 +421,7 @@ describe("io.request.XhrWithRemoteLowLevel", function() {
     var count = 0;
 
     function request() {
-      req._open("GET", that.noCache(url));
+      req._open("GET", noCache(url));
       req._send();
     }
 
@@ -448,7 +465,7 @@ describe("io.request.XhrWithRemoteLowLevel", function() {
         });
       }
     });
-    this.openAndSend("GET", this.noCache(url));
+    openAndSend("GET", noCache(url));
 
   });
 
@@ -472,7 +489,8 @@ describe("io.request.XhrWithRemoteLowLevel", function() {
 
 
   it("call onreadystatechange when aborting LOADING", function(done) {
-    require(["php", "noIe9"]);
+    // TODO: Maybe use FakeServer instead
+    // require(["php", "noIe9"]);
 
     req.on("readystatechange", function() {
       if (req.readyState == 4) {
@@ -496,13 +514,15 @@ describe("io.request.XhrWithRemoteLowLevel", function() {
 
 
   it("call onloadend when aborting LOADING", function(done) {
-    this.timeout(15000);
-    require(["php", "noIe9"]);
+    this.timeout(200);
+
+    // TODO: Maybe use FakeServer instead
+    // require(["php", "noIe9"]);
 
     req.on("loadend", function() {
       setTimeout(function(){
         done();
-      },15000);
+      },100);
     });
 
     // Will "never" complete
@@ -529,30 +549,30 @@ describe("io.request.XhrWithRemoteLowLevel", function() {
       setTimeout(function() {
         assert.equal(4, req.readyState);
         done();
-      },15000);
+      },100);
     });
 
     // Network error (async)
     // Is sync in Opera >= 11.5
     window.setTimeout(function() {
       openAndSend("GET", "http://fail.tld");
-    }.bind(this), 0);
+    }, 0);
 
   });
 
 
-  it("call onerror on file error", function(done) {
-    this.require(["file"]);
+  // it("call onerror on file error", function(done) {
+  //   // require(["file"]);
 
-    req.on("error", function() {
-      setTimeout(function() {
-        assert.equal(4, req.readyState);
-        done();
-      },10);
-    });
+  //   req.on("error", function() {
+  //     setTimeout(function() {
+  //       assert.equal(4, req.readyState);
+  //       done();
+  //     },100);
+  //   });
 
-    openAndSend("GET", "not-found");
-  });
+  //   openAndSend("GET", "not-found");
+  // });
 
 
   it("throw error on network error when sync", function() {
@@ -590,11 +610,13 @@ describe("io.request.XhrWithRemoteLowLevel", function() {
   });
 
 
+  /*
   it("timeout triggers timeout error", function(done) {
     // "timeout error" is specified here
     // http://www.w3.org/TR/XMLHttpRequest2/#timeout-error
 
-    this.require(["php"]);
+    // TODO: Maybe use FakeServer instead
+    // require(["php"]);
 
     var url = "../resource/qx/test/xmlhttp/loading.php",
       globalStack = [];
@@ -633,10 +655,12 @@ describe("io.request.XhrWithRemoteLowLevel", function() {
     });
 
   });
+  */
 
 
   it("timeout not call onabort", function(done) {
-    this.require(["php"]);
+    // TODO: Maybe use FakeServer instead
+    // require(["php"]);
 
     var url = "../resource/qx/test/xmlhttp/loading.php",
       globalStack = [];
@@ -670,14 +694,14 @@ describe("io.request.XhrWithRemoteLowLevel", function() {
     // May take a while to detect network error
       setTimeout(function(){
         done();
-      },15000);
+      }, 100);
     });
 
     // Network error
     // Is sync in Opera >= 11.5
     window.setTimeout(function() {
       openAndSend("GET", "http://fail.tld");
-    }.bind(this), 0);
+    }, 0);
 
   });
 
@@ -718,9 +742,9 @@ describe("io.request.XhrWithRemoteLowLevel", function() {
   });
 
 
+  /*
   it("call handler in order when request failed", function(done) {
     __skip(["win", "osx"]);
-    var req = this.req;
 
     var globalStack = [];
 
@@ -738,10 +762,10 @@ describe("io.request.XhrWithRemoteLowLevel", function() {
         ];
         assert.deepEqual(expected, globalStack);
         done();
-      },15000);
+      }, 100);
     });
     var emitOrig = req.emit;
-    this.stub(req, "emit", function(evt) {
+    sandbox.stub(req, "emit", function(evt) {
       globalStack.push(evt);
       emitOrig.call(this, evt);
     });
@@ -750,9 +774,10 @@ describe("io.request.XhrWithRemoteLowLevel", function() {
     setTimeout(function() {
       req._open("GET", "http://fail.tld");
       req._send();
-    }.bind(this), 0);
+    }, 0);
 
   });
+  */
 
   //
   // Disposing
@@ -801,19 +826,19 @@ describe("io.request.XhrWithRemoteLowLevel", function() {
   }
 
 
-  function hasNoIe() {
-    return !(qx.core.Environment.get("engine.name") == "mshtml");
-  }
+  // function hasNoIe() {
+  //   return !(qx.core.Environment.get("engine.name") == "mshtml");
+  // }
 
 
-  function hasNoIe9() {
-    return (qx.core.Environment.get("engine.name") !== "mshtml" ||
-      qx.core.Environment.get("browser.documentmode") !== 9);
-  }
+  // function hasNoIe9() {
+  //   return (qx.core.Environment.get("engine.name") !== "mshtml" ||
+  //     qx.core.Environment.get("browser.documentmode") !== 9);
+  // }
 
 
-  function hasFile() {
-    return location.protocol === "file:";
-  }
+  // function hasFile() {
+  //   return location.protocol === "file:";
+  // }
 
 });
