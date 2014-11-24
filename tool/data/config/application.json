@@ -8,18 +8,8 @@
     },
 
     {
-      "path" : "${QOOXDOO_PATH}/component/apiviewer/api.json",
-      "as"   : "apiconf"
-    },
-
-    {
       "path" : "${QOOXDOO_PATH}/component/testrunner/testrunner.json",
       "as"   : "testrunner"
-    },
-
-    {
-      "path" : "${QOOXDOO_PATH}/component/inspector/inspector.json",
-      "as"   : "inspector"
     }
   ],
 
@@ -32,97 +22,46 @@
   "jobs"  :
   {
 
-    "api" :
-    {
-      "desc"   : "create api doc for the current library",
-
-      "extend" : ["libraries", "apiconf::build-viewer"],
-
-      "run" : [
-        "api-data"
-      ],
-
-      "let"    :
-      {
-        "APIVIEWER_ROOT" : "${QOOXDOO_PATH}/component/apiviewer",
-        "BUILD_PATH"     : "${ROOT}/api"
-      }
-    },
-
-
     "api-data" :
     {
       "desc"   : "create api doc json data files",
 
-      "extend" : ["libraries", "apiconf::build-data"],
+      "extend" : ["libraries"],
+
+      "config-warnings" :
+      {
+        "exclude" : "${API_EXCLUDE}",
+        "environment" : [ "non-literal-keys" ]
+      },
+
+      "cache" :
+      {
+        "compile"      : "${CACHE}",
+        "downloads"    : "${CACHE}/downloads",
+        "invalidate-on-tool-change" : true
+      },
 
       "let"    :
       {
         "BUILD_PATH"     : "${ROOT}/api",
         "API_INCLUDE"    : ["qx.*", "${APPLICATION}.*"],
         "API_EXCLUDE"    : ["qx.test.*", "${APPLICATION}.test.*", "${APPLICATION}.simulation.*"]
-      }
-    },
-
-
-    "inspector":
-    {
-      "desc"   : "create an inspector instance in the current library",
-
-      "extend" : ["inspector::build"],
-
-      "let"    :
-      {
-        "INSPECTOR_ROOT" : "${QOOXDOO_PATH}/component/inspector",
-        "INSPECTOR_PATH"    : "${ROOT}/inspector"
       },
 
-      "=run" : ["inspector-resources", "inspector-script", "inspector-files"]
-    },
+      "include" : "${API_INCLUDE}",
+      "exclude" : "${API_EXCLUDE}",
 
-
-    "inspector-resources":
-    {
-      "extend"  : ["inspector::build-resources"],
-
-      "copy-files" : // piggy-packing another files copy job onto this one
+      "api" :
       {
-        "files"  :
-        [
-          "index.html"
-        ],
-
-        "target" : "${INSPECTOR_PATH}",
-        "source" : "${INSPECTOR_ROOT}/source/resource/inspector/html"
-      }
-    },
-
-    "inspector-script":
-    {
-      "extend"  : ["inspector::build-script"],
-
-      "compile-options":
-      {
-        "uris" :
-        {
-          "resource" : "../inspector/resource",
-          "script"   : "../inspector/script"
+        "path" : "${BUILD_PATH}/script",
+        "warnings" : {
+          "output" : [ "data", "console" ]
         }
-      }
-    },
+      },
 
-    "inspector-files":
-    {
-      "extend" : ["inspector::build-files"],
-
-      "copy-files" :
-      {
-        "=files" :
-        [
-          "inspector.html"
-        ],
-
-        "target" : "${ROOT}/source"
+      "lint-check" : {
+        "warn-unknown-jsdoc-keys" : true,
+        "warn-jsdoc-key-syntax"   : true
       }
     },
 
