@@ -639,7 +639,7 @@ describe("io.request.XhrWithRemoteLowLevel", function() {
         ];
         assert.deepEqual(expected, globalStack);
         done();
-      },10);
+      }, 500);
     });
 
     req.timeout = 10;
@@ -757,7 +757,7 @@ describe("io.request.XhrWithRemoteLowLevel", function() {
         ];
         assert.deepEqual(expected, globalStack);
         done();
-      }, 100);
+      }, 500);
     });
     var emitOrig = req.emit;
     sandbox.stub(req, "emit", function(evt) {
@@ -769,7 +769,7 @@ describe("io.request.XhrWithRemoteLowLevel", function() {
     setTimeout(function() {
       req._open("GET", "http://fail.tld");
       req._send();
-    }, 0);
+    }, 200);
 
   });
 
