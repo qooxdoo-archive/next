@@ -18,89 +18,83 @@
 ************************************************************************ */
 
 describe("io.request.XhrWithRemote", function() {
+  var req;
 
   beforeEach(function() {
-    this.req = new qx.io.request.Xhr();
-    this.require(["http"]);
+    req = new qx.io.request.Xhr();
+
+    // TODO: Maybe use FakeServer instead
+    // require(["http"]);
   });
 
 
   afterEach(function() {
-    this.req.dispose();
+    req.dispose();
   });
 
-
-  it("fetch resource", function() {
-
-    var req = this.req,
-      url = this.noCache(this.getUrl("qx/test/xmlhttp/sample.txt"));
+  it("fetch resource", function(done) {
+    var url = noCache("../resource/qx/test/xmlhttp/sample.txt");
 
     req.on("success", function(e) {
-      this.resume(function() {
+      setTimeout(function() {
         assert.equal("SAMPLE", e.target.responseText);
-      }, this);
-    }, this);
+        done();
+      }, 100);
+    });
 
     req.url = url;
     req.send();
-
-    this.wait();
   });
 
 
-  it("recycle request", function() {
+  it("recycle request", function(done) {
     var req = new qx.io.request.Xhr(),
-      url1 = this.noCache(this.getUrl("qx/test/xmlhttp/sample.txt") + "?1"),
-      url2 = this.noCache(this.getUrl("qx/test/xmlhttp/sample.txt") + "?2"),
+      url1 = noCache("../resource/qx/test/xmlhttp/sample.txt" + "?1"),
+      url2 = noCache("../resource/qx/test/xmlhttp/sample.txt" + "?2"),
       count = 0;
 
     req.on("success", function() {
       count++;
 
       if (count == 2) {
-        this.resume();
+        setTimeout(function() { done(); });
       } else {
         req.url = url2;
         req.send();
       }
-    }, this);
+    });
 
     req.url = url1;
     req.send();
-
-    this.wait();
   });
 
 
-  it("progress phases", function() {
-    var req = this.req,
-      phases = [],
+  it("progress phases", function(done) {
+    var phases = [],
       expectedPhases = ["opened", "sent", "loading", "load", "success"],
-      url = this.getUrl("qx/test/xmlhttp/sample.txt");
+      url = "../resource/qx/test/xmlhttp/sample.txt";
 
     req.on("changePhase", function() {
       phases.push(req.phase);
 
       if (req.phase === "success") {
-        this.resume(function() {
+        setTimeout(function() {
           assert.deepEqual(expectedPhases, phases);
-        }, this);
+          done();
+        }, 100);
       }
 
-    }, this);
+    });
 
     req.url = url;
     req.send();
-
-    this.wait();
   });
 
 
   it("progress phases when abort after send", function() {
-    var req = this.req,
-      phases = [],
+    var phases = [],
       expectedPhases = ["opened", "sent", "abort"],
-      url = this.getUrl("qx/test/xmlhttp/sample.txt");
+      url = "../resource/qx/test/xmlhttp/sample.txt";
 
     req.on("changePhase", function() {
       phases.push(req.phase);
@@ -109,7 +103,7 @@ describe("io.request.XhrWithRemote", function() {
         assert.deepEqual(expectedPhases, phases);
       }
 
-    }, this);
+    });
 
     req.url = url;
     req.send();
@@ -117,29 +111,31 @@ describe("io.request.XhrWithRemote", function() {
   });
 
 
-  it("progress phases when abort after loading", function() {
+  it("progress phases when abort after loading", function(done) {
     // Note:
     //   * Breaks in Selenium and IE because no intermediate loading event
     //     is fired while requesting "loading.php"
     //   * Breaks on Windows 7 in every browser because the loading phase
     //     is never entered
-    this.require(["noSelenium", "noIe", "noWin7"]);
 
-    var req = this.req,
-      phases = [],
+    // TODO: Use skip() and wrap with conditions
+    // this.require(["noSelenium", "noIe", "noWin7"]);
+
+    var phases = [],
       expectedPhases = ["opened", "sent", "loading", "abort"],
-      url = this.noCache(this.getUrl("qx/test/xmlhttp/loading.php")) + "&duration=100";
+      url = noCache("../resource/qx/test/xmlhttp/loading.php") + "&duration=100";
 
     req.on("changePhase", function() {
       phases.push(req.phase);
 
       if (req.phase === "abort") {
-        this.resume(function() {
+        setTimeout(function() {
           assert.deepEqual(expectedPhases, phases);
-        });
+          done();
+        }, 100);
       }
 
-    }, this);
+    });
 
     req.url = url;
     req.send();
@@ -147,9 +143,7 @@ describe("io.request.XhrWithRemote", function() {
     // Abort loading. Give remote some time to respond.
     window.setTimeout(function() {
       req.abort();
-    }.bind(this), 500);
-
-    this.wait();
+    }, 500);
   });
 
   // Not sure how to harmonize with XhrWithRemoteLowLevel
@@ -157,40 +151,38 @@ describe("io.request.XhrWithRemote", function() {
   // conflicts with _onTimeout from io.Xhr.
 
 
-  it("timeout", function() {
-    var req = this.req,
-      url = this.noCache(this.getUrl("qx/test/xmlhttp/loading.php")) + "&duration=100";
+  it("timeout", function(done) {
+    var url = noCache("../resource/qx/test/xmlhttp/loading.php") + "&duration=100";
 
     req.on("timeout", function() {
-      this.resume(function() {
+      setTimeout(function() {
         assert.equal("timeout", req.phase);
-      });
-    }, this);
+        done();
+      }, 100);
+    });
 
     req.url = url;
     req.timeout = 1 / 1000;
     req.send();
-    this.wait();
   });
 
 
-  it("timeout with header call", function() {
-    var req = this.req,
-      url = this.noCache(this.getUrl("qx/test/xmlhttp/loading.php")) + "&duration=100";
+  it("timeout with header call", function(done) {
+    var url = noCache("../resource/qx/test/xmlhttp/loading.php") + "&duration=100";
 
     req.on("timeout", function() {
-      this.resume(function() {
+      setTimeout(function() {
         try {
           req.getResponseHeader("X-UI-My-Header");
           throw new Error("DOM exception expected!");
         } catch (ex) {}
-      });
-    }, this);
+        done();
+      }, 100);
+    });
 
     req.url = url;
     req.timeout = (1 / 1000);
     req.send();
-    this.wait();
   });
 
 
@@ -198,8 +190,7 @@ describe("io.request.XhrWithRemote", function() {
     return qx.util.Uri.appendParamsToUrl(url, "nocache=" + (new Date).valueOf());
   }
 
-
-  function hasNoIe() {
-    return !(qx.core.Environment.get("engine.name") == "mshtml");
-  }
+  // function hasNoIe() {
+  //   return !(qx.core.Environment.get("engine.name") == "mshtml");
+  // }
 });
