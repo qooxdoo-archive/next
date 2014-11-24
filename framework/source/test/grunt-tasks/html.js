@@ -22,11 +22,14 @@ module.exports = function (grunt) {
           'tests/TestCase.js'
         ]
       },
-      test: {
-        files: {
-          // paths will set dynamically
-          "index.html": [],
-          "index-source.html": []
+      testBuild: {
+        options: {
+          template: "index.tmpl"
+        }
+      },
+      testSource: {
+        options: {
+          template: "index-source.tmpl"
         }
       }
     }
@@ -36,9 +39,11 @@ module.exports = function (grunt) {
     var injectorConfig = grunt.config.get('injector');
 
     var sourcePaths = getSourcePaths(scope);
-    injectorConfig.test.files = {
-      "index-source.html": sourcePaths,
+    injectorConfig.testBuild.files = {
       "index.html": sourcePaths
+    };
+    injectorConfig.testSource.files = {
+      "index-source.html": [sourcePaths]
     };
     grunt.config.set('injector', injectorConfig);
     grunt.task.run(['injector']);
