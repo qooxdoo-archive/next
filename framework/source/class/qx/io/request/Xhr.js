@@ -789,7 +789,7 @@ qx.Class.define("qx.io.request.Xhr",
       } else {
         if (this.__abort) {
           this.emit("abort");
-        } else{
+        } else {
           if (this.__isNetworkError()) {
             this.emit("error");
           } else {
