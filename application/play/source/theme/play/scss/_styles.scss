@@ -15,7 +15,7 @@ $color-2: mix($foreground-color, $background-color, 70%);
 $color-3: mix($foreground-color, $background-color, 50%);
 $color-4: mix($foreground-color, $background-color, 30%);
 $color-5: mix($foreground-color, $background-color, 10%);
- 
+
 // Application
 
 $application-font:  "Segoe UI","Slate Pro",sans-serif,Helvetica;
@@ -201,6 +201,10 @@ $selectbox-active-background:  lighten($highlight-color,20%),$highlight-color;
 $selectbox-active-text-color:  $background-color;
 $selectbox-item-selected-text-color:  $background-color;
 $selectbox-item-selected-background:  lighten($highlight-color,20%), $highlight-color;
+$selectbox-header-padding: rem(9) rem(40) rem(9) rem(9);
+$selectbox-arrow-size: rem(8);
+$selectbox-arrow-color:  $color-3;
+$selectbox-active-arrow-color:  $color-5;
 
 // Slider
 
