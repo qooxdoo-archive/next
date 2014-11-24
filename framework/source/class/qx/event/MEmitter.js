@@ -91,14 +91,15 @@ qx.Mixin.define("qx.event.MEmitter",
      */
     off : function(name, listener, ctx) {
       var storage = this._getStorage(name);
-      var foundId;
-      storage.forEach(function(entry, i, storage) {
-        if (entry.listener == listener && entry.ctx == ctx) {
+      // reverse iteration since the storage is a sparse array with most items
+      // at the end
+      for (var i = storage.length - 1; i >= 0; i--) {
+        var entry = storage[i];
+        if (entry && entry.listener == listener && entry.ctx == ctx) {
           storage.splice(i, 1);
-          foundId = entry.id;
-          return;
+          break;
         }
-      });
+      }
       return this;
     },
 
