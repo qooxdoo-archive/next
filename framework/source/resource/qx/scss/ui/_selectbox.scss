@@ -23,6 +23,9 @@
 
   position: relative;
   padding: $selectbox-header-padding;
+
+  font-family: $application-font;
+  font-size: rem(15);
 }
 
 .selectbox:after {
