@@ -38,69 +38,70 @@
  *
  */
 describe("io.request.Xhr", function() {
+  var req;
+  var sandbox;
 
   beforeEach(function() {
-    this.setUpRequest();
-    this.setUpFakeTransport();
+    sandbox = sinon.sandbox.create();
+    setUpRequest();
+    setUpFakeTransport();
   });
 
   function setUpRequest() {
-    this.req && this.req.dispose();
-    this.req = new qx.io.request.Xhr();
-    this.req.url = "url";
+    req && req.dispose();
+    req = new qx.io.request.Xhr();
+    req.url = "url";
   }
 
   function setUpFakeTransport() {
     // if already stubbed just return
-    if (this.req && this.req._send && this.req._send.restore) {
+    if (req && req._send && req._send.restore) {
       return;
     }
 
     // Stub transport methods which in this case are methods of qx.io.request.Xhr itself
-    this.stub(this.req, "_open");
-    this.stub(this.req, "_setRequestHeader");
-    this.stub(this.req, "setRequestHeader");
-    this.stub(this.req, "_send");
-    this.stub(this.req, "_abort");
-    this.stub(this.req, "getResponseHeader");
-    this.stub(this.req, "getAllResponseHeaders");
-    this.stub(this.req, "overrideMimeType");
-    this.stub(this.req, "getRequest");
+    sandbox.stub(req, "_open");
+    sandbox.stub(req, "_setRequestHeader");
+    sandbox.stub(req, "setRequestHeader");
+    sandbox.stub(req, "_send");
+    sandbox.stub(req, "_abort");
+    sandbox.stub(req, "getResponseHeader");
+    sandbox.stub(req, "getAllResponseHeaders");
+    sandbox.stub(req, "overrideMimeType");
+    sandbox.stub(req, "getRequest");
   }
 
   function setUpFakeServer() {
       // Not fake transport
-      this.getSandbox().restore();
+      sandbox.restore();
 
-      this.useFakeServer();
-      this.setUpRequest();
+      sandbox.useFakeServer();
+      setUpRequest();
 
-      this.server = this.getServer();
-
-      this.server.respondWith("GET", "/found", [200, {
+      sandbox.server.respondWith("GET", "/found", [200, {
         "Content-Type": "text/html"
       }, "FOUND"]);
 
-      this.server.respondWith("GET", "/found.json", [200, {
+      sandbox.server.respondWith("GET", "/found.json", [200, {
         "Content-Type": "application/json; charset=utf-8"
       }, "JSON"]);
 
-      this.server.respondWith("GET", "/found.other", [200, {
+      sandbox.server.respondWith("GET", "/found.other", [200, {
         "Content-Type": "application/other"
       }, "OTHER"]);
     }
 
     function setUpFakeXhr() {
       // Not fake transport
-      this.getSandbox().restore();
+      sinon.sandbox.restore();
 
-      this.useFakeXMLHttpRequest();
-      this.setUpRequest();
+      sandbox.useFakeXMLHttpRequest();
+      setUpRequest();
     }
 
   afterEach(function() {
-    this.getSandbox().restore();
-    this.req.dispose();
+    sinon.sandbox.restore();
+    req.dispose();
 
     // May fail in IE
     try {
@@ -130,23 +131,24 @@ describe("io.request.Xhr", function() {
   //
 
   it("send POST request", function() {
-    this.setUpFakeTransport();
-    this.req.method = "POST";
-    this.req.send();
+    setUpFakeTransport();
+    req.method = "POST";
+    req.send();
 
-    this.assertCalledWith(this.req._open, "POST");
+    sinon.assert.calledWith(req._open, "POST");
   });
 
 
   it("send sync request", function() {
-    this.require(["http"]);
+    // TODO: Maybe use FakeServer instead
+    //require(["http"]);
 
-    this.setUpFakeTransport();
-    this.req.async = false;
-    this.req.send();
+    setUpFakeTransport();
+    req.async = false;
+    req.send();
 
-    this.assertCalledWith(this.req._open, "GET", "url", false);
-    this.assertCalled(this.req._send);
+    sinon.assert.calledWith(req._open, "GET", "url", false);
+    sinon.assert.called(req._send);
   });
 
   //
@@ -154,12 +156,12 @@ describe("io.request.Xhr", function() {
   //
 
   it("set content type urlencoded for POST request with body when no type given", function() {
-    this.setUpFakeTransport();
-    this.req.method = "POST";
-    this.req.requestData = "Affe";
-    this.req.send();
+    setUpFakeTransport();
+    req.method = "POST";
+    req.requestData = "Affe";
+    req.send();
 
-    this.assertCalledWith(this.req._setRequestHeader,
+    sinon.assert.calledWith(req._setRequestHeader,
       "Content-Type", "application/x-www-form-urlencoded");
   });
 
@@ -167,55 +169,63 @@ describe("io.request.Xhr", function() {
   it("not set content type urlencoded for POST request with body when type given", function() {
     var msg;
 
-    this.setUpFakeTransport();
-    this.req.method = "POST";
-    this.req.requestData = "Affe";
-    this.req.setRequestHeader("Content-Type", "application/json");
-    this.req.send();
+    setUpFakeTransport();
+    req.method = "POST";
+    req.requestData = "Affe";
+    req.setRequestHeader("Content-Type", "application/json");
+    req.send();
 
     msg = "Must not set content type urlencoded when other type given";
-    this.assert(!this.req.setRequestHeader.calledWith("Content-Type",
+    assert(!req.setRequestHeader.calledWith("Content-Type",
       "application/x-www-form-urlencoded"), msg);
   });
 
 
   it("send string data with POST request", function() {
-    this.setUpFakeTransport();
-    this.req.method = "POST";
-    this.req.requestData = "str";
-    this.req.send();
+    setUpFakeTransport();
+    req.method = "POST";
+    req.requestData = "str";
+    req.send();
 
-    this.assertCalledWith(this.req._send, "str");
+    sinon.assert.calledWith(req._send, "str");
   });
 
 
   it("send obj data with POST request", function() {
-    this.setUpFakeTransport();
-    this.req.method = "POST";
-    this.req.requestData = {
+    setUpFakeTransport();
+    req.method = "POST";
+    req.requestData = {
       "af fe": true
     };
-    this.req.send();
+    req.send();
 
-    this.assertCalledWith(this.req._send, "af+fe=true");
+    sinon.assert.calledWith(req._send, "af+fe=true");
   });
 
 
   it("send qooxdoo obj data with POST request", function() {
-    this.setUpFakeTransport();
-    this.setUpKlass();
-    var obj = new Klass();
-    this.req.method = "POST";
-    this.req.requestData = obj;
-    this.req.send();
+    setUpFakeTransport();
+    qx.Class.define("Klass", {
+      extend: Object,
 
-    this.assertCalledWith(this.req._send, "affe=true");
+      properties: {
+       affe: {
+          init: true
+        }
+      }
+    });
+
+    var obj = new Klass();
+    req.method = "POST";
+    req.requestData = obj;
+    req.send();
+
+    sinon.assert.calledWith(req._send, "affe=true");
   });
 
 
   it("serialize data", function() {
-    var req = this.req,
-      data = {
+      var data = {
         "abc": "def",
         "uvw": "xyz"
       },
@@ -244,47 +254,47 @@ describe("io.request.Xhr", function() {
 
 
   it("set requested-with header", function() {
-    this.setUpFakeTransport();
-    this.req.send();
+    setUpFakeTransport();
+    req.send();
 
-    this.assertCalledWith(this.req._setRequestHeader, "X-Requested-With", "XMLHttpRequest");
+    sinon.assert.calledWith(req._setRequestHeader, "X-Requested-With", "XMLHttpRequest");
   });
 
 
   it("not set requested-with header when cross-origin", function() {
-    this.setUpFakeTransport();
-    var spy = this.req.setRequestHeader.withArgs("X-Requested-With", "XMLHttpRequest");
+    setUpFakeTransport();
+    var spy = req.setRequestHeader.withArgs("X-Requested-With", "XMLHttpRequest");
 
-    this.req.url = "http://example.com";
-    this.req.send();
+    req.url = "http://example.com";
+    req.send();
 
-    this.assertNotCalled(spy);
+    sinon.assert.notCalled(spy);
   });
 
 
   it("set cache control header", function() {
-    this.setUpFakeTransport();
-    this.req.cache = "no-cache";
-    this.req.send();
+    setUpFakeTransport();
+    req.cache = "no-cache";
+    req.send();
 
-    this.assertCalledWith(this.req._setRequestHeader, "Cache-Control", "no-cache");
+    sinon.assert.calledWith(req._setRequestHeader, "Cache-Control", "no-cache");
   });
 
 
   it("set accept header", function() {
-    this.setUpFakeTransport();
-    this.req.accept = "application/json";
-    this.req.send();
+    setUpFakeTransport();
+    req.accept = "application/json";
+    req.send();
 
-    this.assertCalledWith(this.req._setRequestHeader, "Accept", "application/json");
+    sinon.assert.calledWith(req._setRequestHeader, "Accept", "application/json");
   });
 
 
   it("get response content type", function() {
-    // this.stub(this.req, "getResponseHeader");
-    this.req.getResponseContentType();
+    // stub(req, "getResponseHeader");
+    req.getResponseContentType();
 
-    this.assertCalledWith(this.req.getResponseHeader, "Content-Type");
+    sinon.assert.calledWith(req.getResponseHeader, "Content-Type");
   });
 
   //
@@ -294,9 +304,7 @@ describe("io.request.Xhr", function() {
   // Documentation only
 
   it("event handler receives request", function() {
-    this.setUpFakeTransport();
-    var req = this.req,
-      that = this;
+    setUpFakeTransport();
 
     req.readyState = 4;
     req.status = 200;
@@ -315,12 +323,11 @@ describe("io.request.Xhr", function() {
   //
 
   it("sync XHR properties for every readyState", function() {
-    this.require(["http"]);
+    // TODO: Maybe use FakeServer instead
+    //require(["http"]);
 
-    this.setUpFakeServer();
-    var req = this.req,
-      server = this.server,
-      readyStates = [],
+    setUpFakeServer();
+      var readyStates = [],
       statuses = [];
 
     req.url = "/found";
@@ -330,10 +337,10 @@ describe("io.request.Xhr", function() {
     req.on("readystatechange", function() {
       readyStates.push(req.readyState);
       statuses.push(req.status);
-    }, this);
+    });
 
     req.send();
-    server.respond();
+    sandbox.server.respond();
 
     assert.deepEqual([0, 1, 2, 3, 4], readyStates);
     assert.deepEqual([0, 200, 200, 200], statuses);
@@ -347,8 +354,7 @@ describe("io.request.Xhr", function() {
   //
 
   it("get response", function() {
-    this.setUpFakeTransport();
-    var req = this.req;
+    setUpFakeTransport();
 
     req.readyState = 4;
     req.status = 200;
@@ -360,8 +366,7 @@ describe("io.request.Xhr", function() {
 
 
   it("get response on 400 status", function() {
-    this.setUpFakeTransport();
-    var req = this.req;
+    setUpFakeTransport();
 
     req.readyState = 4;
     req.status = 400;
@@ -373,15 +378,13 @@ describe("io.request.Xhr", function() {
 
 
   it("get response by change event", function() {
-    this.setUpFakeTransport();
-    var req = this.req,
-      that = this;
+    setUpFakeTransport();
 
     req.readyState = 4;
     req.status = 200;
     req.responseText = "Affe";
 
-    this.assertEventFired(req, "changeResponse", function() {
+    qx.core.Assert.assertEventFired(req, "changeResponse", function() {
       req.emit("readystatechange");
     }, function(e) {
       assert.equal("Affe", e.value);
@@ -394,34 +397,32 @@ describe("io.request.Xhr", function() {
   //
 
   it("_getParsedResponse", function() {
-    var req = this.req,
-      json = '{"animals": 3}',
+    var json = '{"animals": 3}',
       contentType = "application/json",
       stubbedParser = req._createResponseParser();
 
     req.responseText = json;
-    this.stub(req, "getResponseContentType").returns(contentType);
+    sandbox.stub(req, "getResponseContentType").returns(contentType);
 
     // replace real parser with stub
-    this.stub(stubbedParser, "parse");
+    sandbox.stub(stubbedParser, "parse");
     req._parser = stubbedParser;
 
     req._getParsedResponse();
-    this.assertCalledWith(stubbedParser.parse, json, contentType);
+    sinon.assert.calledWith(stubbedParser.parse, json, contentType);
   });
 
 
   it("setParser", function() {
-    var req = this.req,
-      customParser = function() {},
+    var customParser = function() {},
       stubbedParser = req._createResponseParser();
 
     // replace real parser with stub
-    this.stub(stubbedParser, "setParser");
+    sandbox.stub(stubbedParser, "setParser");
     req._parser = stubbedParser;
 
     req.setParser(customParser);
-    this.assertCalledWith(stubbedParser.setParser, customParser);
+    sinon.assert.calledWith(stubbedParser.setParser, customParser);
   });
 
   //
@@ -429,15 +430,15 @@ describe("io.request.Xhr", function() {
   //
 
   it("basic auth", function() {
-    this.setUpFakeTransport();
+    setUpFakeTransport();
 
     var auth, call, key, credentials;
 
     auth = new qx.io.request.authentication.Basic("affe", "geheim");
-    this.req.authentication = auth;
-    this.req.send();
+    req.authentication = auth;
+    req.send();
 
-    call = this.req._setRequestHeader.getCall(1);
+    call = req._setRequestHeader.getCall(1);
     key = "Authorization";
     credentials = /Basic\s(.*)/.exec(call.args[1])[1];
     assert.equal(key, call.args[0]);
