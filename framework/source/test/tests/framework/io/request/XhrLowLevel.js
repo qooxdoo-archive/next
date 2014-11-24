@@ -41,15 +41,18 @@ describe("io.request.XhrLowLevel", function() {
    * The request to test.
    */
   var req = null;
+  var sandbox;
 
   beforeEach(function() {
-    this.fakeNativeXhr();
-    this.req = new qx.io.request.Xhr();
+    sandbox = sinon.sandbox.create();
+    fakeNativeXhr();
+    req = new qx.io.request.Xhr();
   });
 
   afterEach(function() {
-    this.req = null;
-    this.getSandbox().restore();
+    sandbox.restore();
+    req = null;
+
   });
 
   //
@@ -57,12 +60,12 @@ describe("io.request.XhrLowLevel", function() {
   //
 
   it("create instance", function() {
-    assert.isObject(this.req);
+    assert.isObject(req);
   });
 
 
   it("detect native XHR", function() {
-    var nativeXhr = this.req.getRequest();
+    var nativeXhr = req.getRequest();
 
     assert.isObject(nativeXhr);
     assert.isNotNull(nativeXhr.readyState);
@@ -73,19 +76,18 @@ describe("io.request.XhrLowLevel", function() {
   //
 
   it("open request", function() {
-    var fakeReq = this.getFakeReq();
-    this.spy(fakeReq, "open");
+    var fakeReq = getFakeReq();
+    sandbox.spy(fakeReq, "open");
 
     var url = "/foo";
     var method = "GET";
-    this.req._open(method, url);
+    req._open(method, url);
 
-    this.assertCalledWith(fakeReq.open, method, url);
+    sinon.assert.calledWith(fakeReq.open, method, url);
   });
 
 
   it("open request throws when missing arguments", function() {
-    var req = this.req;
     var msg = /Not enough arguments/;
     assert.throw(function() {
       req._open();
@@ -97,28 +99,28 @@ describe("io.request.XhrLowLevel", function() {
 
 
   it("open async request on default", function() {
-    var fakeReq = this.getFakeReq();
-    this.spy(fakeReq, "open");
+    var fakeReq = getFakeReq();
+    sandbox.spy(fakeReq, "open");
 
-    this.req._open(null, null);
+    req._open(null, null);
     assert.isTrue(fakeReq.open.args[0][2], "async must be true");
   });
 
 
   it("open sync request", function() {
-    var fakeReq = this.getFakeReq();
-    this.spy(fakeReq, "open");
+    var fakeReq = getFakeReq();
+    sandbox.spy(fakeReq, "open");
 
-    this.req._open(null, null, false);
+    req._open(null, null, false);
     assert.isFalse(fakeReq.open.args[0][2], "async must be false");
   });
 
 
   it("open request with username and password", function() {
-    var fakeReq = this.getFakeReq();
-    this.spy(fakeReq, "open");
+    var fakeReq = getFakeReq();
+    sandbox.spy(fakeReq, "open");
 
-    this.req._open(null, null, null, "affe", "geheim");
+    req._open(null, null, null, "affe", "geheim");
     assert.equal("affe", fakeReq.open.args[0][3], "Unexpected user");
     assert.equal("geheim", fakeReq.open.args[0][4], "Unexpected password");
   });
@@ -128,14 +130,14 @@ describe("io.request.XhrLowLevel", function() {
   //
 
   it("set request header", function() {
-    var fakeReq = this.getFakeReq();
-    this.spy(fakeReq, "setRequestHeader");
+    var fakeReq = getFakeReq();
+    sandbox.spy(fakeReq, "setRequestHeader");
 
     // Request must be opened before request headers can be set
-    this.req._open("GET", "/");
+    req._open("GET", "/");
 
-    this.req._setRequestHeader("header", "value");
-    this.assertCalledWith(fakeReq.setRequestHeader, "header", "value");
+    req._setRequestHeader("header", "value");
+    sinon.assert.calledWith(fakeReq.setRequestHeader, "header", "value");
   });
 
   //
@@ -143,25 +145,25 @@ describe("io.request.XhrLowLevel", function() {
   //
 
   it("send() with data", function() {
-    var fakeReq = this.getFakeReq();
-    this.spy(fakeReq, "send");
+    var fakeReq = getFakeReq();
+    sandbox.spy(fakeReq, "send");
 
     var data = "AFFE";
-    this.req._open("GET", "/affe");
-    this.req._send(data);
+    req._open("GET", "/affe");
+    req._send(data);
 
-    this.assertCalledWith(fakeReq.send, data);
+    sinon.assert.calledWith(fakeReq.send, data);
   });
 
   // BUGFIXES
 
   it("send() without data", function() {
-    var fakeReq = this.getFakeReq();
-    this.spy(fakeReq, "send");
+    var fakeReq = getFakeReq();
+    sandbox.spy(fakeReq, "send");
 
-    this.openAndSend("GET", "/affe");
+    openAndSend("GET", "/affe");
 
-    this.assertCalledWith(fakeReq.send, null);
+    sinon.assert.calledWith(fakeReq.send, null);
   });
 
   //
@@ -169,21 +171,19 @@ describe("io.request.XhrLowLevel", function() {
   //
 
   it("abort() aborts native Xhr", function() {
-    var req = this.req;
-    var fakeReq = this.getFakeReq();
-    this.spy(fakeReq, "abort");
+    var fakeReq = getFakeReq();
+    sandbox.spy(fakeReq, "abort");
 
     req._abort();
-    this.assertCalled(fakeReq.abort);
+    sinon.assert.called(fakeReq.abort);
   });
 
 
   it("abort() resets readyState", function() {
-    var req = this.req;
     req._open("GET", "/");
     req.abort();
 
-    assert.equal(this.constructor.UNSENT, req.readyState, "Must be UNSENT");
+    assert.equal(statics.UNSENT, req.readyState, "Must be UNSENT");
   });
 
   //
@@ -191,12 +191,11 @@ describe("io.request.XhrLowLevel", function() {
   //
 
   it("fire event", function() {
-    var req = this.req;
-    var event = this.spy();
-    req.onevent = this.spy();
+    var event = sandbox.spy();
+    req.onevent = sandbox.spy();
     req.on("event", event);
     req.emit("event");
-    this.assertCalled(event);
+    sinon.assert.called(event);
   });
 
   //
@@ -205,10 +204,7 @@ describe("io.request.XhrLowLevel", function() {
   //
 
   it("responseText set before onreadystatechange is called", function() {
-    var req = this.req;
-    var fakeReq = this.getFakeReq();
-
-    var that = this;
+    var fakeReq = getFakeReq();
     req.onreadystatechange = function() {
       assert.equal("Affe", req.responseText);
     };
@@ -220,32 +216,30 @@ describe("io.request.XhrLowLevel", function() {
 
 
   it("emit readystatechange when reopened", function() {
-    var req = this.req;
-    var fakeReq = this.getFakeReq();
-    this.stub(req, "emit");
+    var fakeReq = getFakeReq();
+    sandbox.stub(req, "emit");
 
     // Send and respond
-    this.openAndSend("GET", "/");
+    openAndSend("GET", "/");
     fakeReq.respond();
 
     // Reopen
     req._open("GET", "/");
 
-    this.assertCalledWith(req.emit, "readystatechange");
+    sinon.assert.calledWith(req.emit, "readystatechange");
   });
 
   // BUGFIXES
 
   it("ignore onreadystatechange when readyState is unchanged", function() {
-    var req = this.req;
-    var fakeReq = this.getFakeReq();
+    var fakeReq = getFakeReq();
     var globalStack = [];
 
-    this.stub(req, "emit", function(evt) {
+    sandbox.stub(req, "emit", function(evt) {
       globalStack.push(evt);
     });
 
-    req.readyState = this.constructor.OPENED;
+    req.readyState = statics.OPENED;
     fakeReq.onreadystatechange();
     fakeReq.onreadystatechange();
 
@@ -255,13 +249,12 @@ describe("io.request.XhrLowLevel", function() {
 
 
   it("native onreadystatechange is disposed once DONE", function() {
-    var req = this.req;
-    var fakeReq = this.getFakeReq();
+    var fakeReq = getFakeReq();
 
     req.onreadystatechange = function() {
       return "OP";
     };
-    this.openAndSend("GET", "/");
+    openAndSend("GET", "/");
 
     fakeReq.respond();
     assert.isUndefined(req.getRequest().onreadystatechange());
@@ -272,16 +265,15 @@ describe("io.request.XhrLowLevel", function() {
   //
 
   it("emit load on successful request", function() {
-    var req = this.req;
-    var fakeReq = this.getFakeReq();
+    var fakeReq = getFakeReq();
 
-    this.stub(req, "emit");
-    this.openAndSend("GET", "/");
+    sandbox.stub(req, "emit");
+    openAndSend("GET", "/");
 
     // Status does not matter. Set a non-empty response for file:// workaround.
     fakeReq.respond(200, {}, "RESPONSE");
 
-    this.assertCalledWith(req.emit, "load");
+    sinon.assert.calledWith(req.emit, "load");
     assert.equal(6, req.emit.callCount);
   });
 
@@ -296,95 +288,85 @@ describe("io.request.XhrLowLevel", function() {
   //
 
   it("emit abort", function() {
-    var req = this.req;
+    sandbox.spy(req, "emit");
 
-    this.spy(req, "emit");
-
-    this.openAndSend("GET", "/");
+    openAndSend("GET", "/");
     req._abort();
 
-    this.assertCalledWith(req.emit, "abort");
+    sinon.assert.calledWith(req.emit, "abort");
   });
 
 
   it("emit abort before loadend", function() {
-    var req = this.req;
-
-    var emit = this.stub(req, "emit");
+    var emit = sandbox.stub(req, "emit");
     var abort = emit.withArgs("abort");
     var loadend = emit.withArgs("loadend");
 
-    this.openAndSend("GET", "/");
+    openAndSend("GET", "/");
     req._abort();
 
-    this.assertCallOrder(abort, loadend);
+    sinon.assert.callOrder(abort, loadend);
   });
 
   //
   // ontimeout()
   //
 
-  it("emit timeout", function() {
-    var req = this.req,
-      that = this;
-
-    var timeout = this.stub(req, "emit").withArgs("timeout");
+  it("emit timeout", function(done) {
+    var timeout = sandbox.stub(req, "emit").withArgs("timeout");
 
     req.timeout = 10;
-    this.openAndSend("GET", "/");
+    openAndSend("GET", "/");
 
-    this.wait(20, function() {
-      this.assertCalledOnce(timeout);
-    }, this);
+    setTimeout(function() {
+      sinon.assert.calledOnce(timeout);
+      done();
+    },20);
   });
 
 
-  it("not emit error when timeout", function() {
-    var req = this.req;
-
-    var error = this.stub(req, "emit").withArgs("error");
+  it("not emit error when timeout", function(done) {
+    var error = sandbox.stub(req, "emit").withArgs("error");
 
     req.timeout = 10;
-    this.openAndSend("GET", "/");
+    openAndSend("GET", "/");
 
-    this.wait(20, function() {
-      this.assertNotCalled(error);
-    }, this);
+    setTimeout(function() {
+      sinon.assert.notCalled(error);
+      done();
+   },20);
   });
 
 
   it("not emit error when aborted immediately", function() {
-    var req = this.req;
 
-    var error = this.stub(req, "emit").withArgs("error");
 
-    this.openAndSend("GET", "/");
+    var error = sandbox.stub(req, "emit").withArgs("error");
+
+    openAndSend("GET", "/");
     req._abort();
 
-    this.assertNotCalled(error);
+    sinon.assert.notCalled(error);
   });
 
 
-  it("cancel timeout when DONE", function() {
-    var fakeReq = this.getFakeReq(),
-      req = this.req;
-
+  it("cancel timeout when DONE", function(done) {
+    var fakeReq = getFakeReq();
     req.timeout = 10;
-    this.openAndSend("GET", "/");
+    openAndSend("GET", "/");
     fakeReq.respond();
 
-    this.wait(20, function() {
+    setTimeout(function() {
       assert.isNull(req.__timerId);
-    }, this);
+      done();
+   },20);
   });
 
 
-  it("cancel timeout when handler throws", function() {
-    var fakeReq = this.getFakeReq(),
-      req = this.req;
-
+  it("cancel timeout when handler throws", function(done) {
+    var fakeReq = getFakeReq();
     req.timeout = 10;
-    this.openAndSend("GET", "/");
+    openAndSend("GET", "/");
 
     // Simulate error in handler for readyState DONE
     req.onreadystatechange = function() {
@@ -400,9 +382,10 @@ describe("io.request.XhrLowLevel", function() {
     } catch (e) {
 
     } finally {
-      this.wait(20, function() {
+      setTimeout(function() {
         assert.isNull(req.__timerId);
-      }, this);
+        done();
+      },20);
     }
   });
 
@@ -411,16 +394,15 @@ describe("io.request.XhrLowLevel", function() {
   //
 
   it("fire loadend when request complete", function() {
-    var req = this.req;
-    var fakeReq = this.getFakeReq();
+    var fakeReq = getFakeReq();
 
-    var loadend = this.stub(req, "emit").withArgs("loadend");
-    this.openAndSend("GET", "/");
+    var loadend = sandbox.stub(req, "emit").withArgs("loadend");
+    openAndSend("GET", "/");
 
     // Status does not matter
     fakeReq.respond();
 
-    this.assertCalled(loadend);
+    sinon.assert.called(loadend);
   });
 
   //
@@ -433,20 +415,19 @@ describe("io.request.XhrLowLevel", function() {
   //
 
   it("set readyState appropriate to native readyState", function() {
-    var req = this.req;
-    var fakeReq = this.getFakeReq();
+    var fakeReq = getFakeReq();
 
     // Created
-    assert.equal(this.constructor.UNSENT, req.readyState);
+    assert.equal(statics.UNSENT, req.readyState);
 
     // Open
     req._open("GET", "/affe");
-    assert.equal(this.constructor.OPENED, req.readyState);
+    assert.equal(statics.OPENED, req.readyState);
 
     // Send (and receive)
     req._send();
-    fakeReq.respond(this.constructor.DONE);
-    assert.equal(this.constructor.DONE, req.readyState);
+    fakeReq.respond(statics.DONE);
+    assert.equal(statics.DONE, req.readyState);
   });
 
   //
@@ -454,32 +435,31 @@ describe("io.request.XhrLowLevel", function() {
   //
 
   it("responseText is empty string when OPEN", function() {
-    this.req._open("GET", "/affe");
-    this.assertIdentical("", this.req.responseText);
+    req._open("GET", "/affe");
+    assert.strictEqual("", req.responseText);
   });
 
 
   it("responseText is empty string when reopened", function() {
-    var fakeReq = this.getFakeReq();
+    var fakeReq = getFakeReq();
 
     // Send and respond
-    var req = this.req;
-    this.openAndSend("GET", "/");
+
+    openAndSend("GET", "/");
     fakeReq.respond(200, {
       "Content-Type": "text/html"
     }, "Affe");
 
     // Reopen
     req._open("GET", "/elefant");
-    this.assertIdentical("", req.responseText);
+    assert.strictEqual("", req.responseText);
   });
 
 
   it("responseText is set when DONE", function() {
-    var req = this.req;
-    var fakeReq = this.getFakeReq();
+    var fakeReq = getFakeReq();
 
-    this.openAndSend("GET", "/");
+    openAndSend("GET", "/");
     fakeReq.respond(200, {
       "Content-Type": "text/html"
     }, "Affe");
@@ -490,9 +470,7 @@ describe("io.request.XhrLowLevel", function() {
   // BUGFIXES
 
   it("query responseText when available", function() {
-    var that = this;
-    var req = this.req;
-    var fakeReq = this.getFakeReq();
+    var fakeReq = getFakeReq();
 
     function success(state) {
 
@@ -504,26 +482,24 @@ describe("io.request.XhrLowLevel", function() {
       // Trigger readystatechange handler
       fakeReq.onreadystatechange();
 
-      that.assertEquals("YIPPIE", req.responseText,
+      assert.equal("YIPPIE", req.responseText,
         "When readyState is " + state);
     }
 
-    success(this.constructor.DONE);
+    success(statics.DONE);
 
     // Assert responseText to be set when in progress
     // in browsers other than IE < 9
-    if (!this.isIEBelow(9)) {
-      success(this.constructor.HEADERS_RECEIVED);
-      success(this.constructor.LOADING);
+    if (!isIEBelow(9)) {
+      success(statics.HEADERS_RECEIVED);
+      success(statics.LOADING);
     }
 
   });
 
 
   it("not query responseText if unavailable", function() {
-    var that = this;
-    var req = this.req;
-    var fakeReq = this.getFakeReq();
+    var fakeReq = getFakeReq();
 
     function trap(state) {
 
@@ -534,15 +510,15 @@ describe("io.request.XhrLowLevel", function() {
       // Trigger readystatechange handler
       fakeReq.onreadystatechange();
 
-      that.assertNotEquals("BOGUS", req.responseText,
+      assert.notEqual("BOGUS", req.responseText,
         "When readyState is " + state);
     }
 
-    if (this.isIEBelow(9)) {
-      trap(this.constructor.UNSENT);
-      trap(this.constructor.OPENED);
-      trap(this.constructor.HEADERS_RECEIVED);
-      trap(this.constructor.LOADING);
+    if (isIEBelow(9)) {
+      trap(statics.UNSENT);
+      trap(statics.OPENED);
+      trap(statics.HEADERS_RECEIVED);
+      trap(statics.LOADING);
     }
 
   });
@@ -553,16 +529,16 @@ describe("io.request.XhrLowLevel", function() {
 
 
   it("responseXML is null when not DONE", function() {
-    assert.isNull(this.req.responseXML);
+    assert.isNull(req.responseXML);
   });
 
 
   it("responseXML is null when reopened", function() {
-    var fakeReq = this.getFakeReq();
+    var fakeReq = getFakeReq();
 
     // Send and respond
-    var req = this.req;
-    this.openAndSend("GET", "/");
+
+    openAndSend("GET", "/");
     fakeReq.respond(200, {
       "Content-Type": "application/xml"
     }, "<affe></affe>");
@@ -574,10 +550,10 @@ describe("io.request.XhrLowLevel", function() {
 
 
   it("responseXML is parsed document with XML response", function() {
-    var req = this.req;
-    var fakeReq = this.getFakeReq();
 
-    this.openAndSend("GET", "/");
+    var fakeReq = getFakeReq();
+
+    openAndSend("GET", "/");
 
     var headers = {
       "Content-Type": "application/xml"
@@ -594,76 +570,75 @@ describe("io.request.XhrLowLevel", function() {
 
 
   it("http status is 0 when UNSENT", function() {
-    this.assertIdentical(0, this.req.status);
+    assert.strictEqual(0, req.status);
   });
 
 
   it("http status is 0 when OPENED", function() {
-    var req = this.req;
+
     req._open("GET", "/");
 
-    this.assertIdentical(0, req.status);
+    assert.strictEqual(0, req.status);
   });
 
 
   it("http status is 0 when aborted immediately", function() {
-    this.require(["http"]);
+    // require(["http"]);
 
-    var req = this.req;
-    this.openAndSend("GET", "/");
+    openAndSend("GET", "/");
     req._abort();
 
-    this.assertIdentical(0, req.status);
+    assert.strictEqual(0, req.status);
   });
 
 
   it("http status when DONE", function() {
-    var req = this.req;
-    var fakeReq = this.getFakeReq();
+
+    var fakeReq = getFakeReq();
     req._open("GET", "/");
     fakeReq.respond(200);
 
-    this.assertIdentical(200, req.status);
+    assert.strictEqual(200, req.status);
   });
 
 
   it("statusText is empty string when UNSENT", function() {
-    this.assertIdentical("", this.req.statusText);
+    assert.strictEqual("", req.statusText);
   });
 
 
   it("statusText is set when DONE", function() {
-    var fakeReq = this.getFakeReq();
-    var req = this.req;
+    var fakeReq = getFakeReq();
+
     req._open("GET", "/");
     fakeReq.respond(200);
 
-    this.assertIdentical("OK", req.statusText);
+    assert.strictEqual("OK", req.statusText);
   });
 
 
   it("status is set when LOADING", function() {
-    var fakeReq = this.getFakeReq();
-    var req = this.req;
+    var fakeReq = getFakeReq();
+
     req._open("GET", "/");
-    fakeReq.readyState = this.constructor.LOADING;
+    fakeReq.readyState = statics.LOADING;
     fakeReq.status = 200;
     fakeReq.responseHeaders = {};
     fakeReq.onreadystatechange();
 
-    this.assertIdentical(200, req.status);
+    assert.strictEqual(200, req.status);
   });
 
 
   it("reset status when reopened", function() {
-    var fakeReq = this.getFakeReq();
-    var req = this.req;
+    var fakeReq = getFakeReq();
+
     req._open("GET", "/");
     fakeReq.respond(200);
     req._open("GET", "/");
 
-    this.assertIdentical(0, req.status);
-    this.assertIdentical("", req.statusText);
+    assert.strictEqual(0, req.status);
+    assert.strictEqual("", req.statusText);
   });
 
   // BUGFIXES
@@ -671,21 +646,21 @@ describe("io.request.XhrLowLevel", function() {
 
 
   it("normalize status 1223 to 204", function() {
-    var fakeReq = this.getFakeReq();
-    var req = this.req;
-    this.openAndSend("GET", "/");
+    var fakeReq = getFakeReq();
+
+    openAndSend("GET", "/");
     fakeReq.respond(1223);
 
-    this.assertIdentical(204, req.status);
+    assert.strictEqual(204, req.status);
   });
 
 
   it("normalize status 0 to 200 when DONE and file protocol", function() {
-    var fakeReq = this.getFakeReq();
-    var req = this.req;
-    this.openAndSend("GET", "/");
+    var fakeReq = getFakeReq();
 
-    this.stub(req, "_getProtocol").returns("file:");
+    openAndSend("GET", "/");
+
+    sandbox.stub(req, "_getProtocol").returns("file:");
     fakeReq.respond(0, {}, "Response");
 
     assert.equal(200, req.status);
@@ -693,9 +668,9 @@ describe("io.request.XhrLowLevel", function() {
 
 
   it("keep status 0 when not yet DONE and file protocol", function() {
-    var fakeReq = this.getFakeReq();
-    var req = this.req;
-    this.stub(req, "_getProtocol").returns("file:");
+    var fakeReq = getFakeReq();
+
+    sandbox.stub(req, "_getProtocol").returns("file:");
     req._open("GET", "/");
 
     fakeReq.readyState = 3;
@@ -706,11 +681,10 @@ describe("io.request.XhrLowLevel", function() {
 
 
   it("keep status 0 when DONE with network error and file protocol", function() {
-    var fakeReq = this.getFakeReq();
-    var req = this.req;
+    var fakeReq = getFakeReq();
 
-    this.stub(req, "_getProtocol").returns("file:");
-    this.openAndSend("GET", "/");
+    sandbox.stub(req, "_getProtocol").returns("file:");
+    openAndSend("GET", "/");
 
     // Indicate network error
     fakeReq.readyState = 4;
@@ -726,7 +700,7 @@ describe("io.request.XhrLowLevel", function() {
 
 
   it("read protocol from requested URL when it contains protocol", function() {
-    var req = this.req;
+
     req._open("GET", "http://example.org/index.html");
 
     assert.equal("http:", req._getProtocol());
@@ -734,9 +708,8 @@ describe("io.request.XhrLowLevel", function() {
 
 
   it("read protocol from window if requested URL is without protocol", function() {
-    this.require(["http"]);
+    // require(["http"]);
 
-    var req = this.req;
     req._open("GET", "index.html");
 
     assert.match(req._getProtocol(), (/https?:/));
@@ -747,13 +720,13 @@ describe("io.request.XhrLowLevel", function() {
   //
 
   it("getResponseHeader()", function() {
-    var fakeReq = this.getFakeReq();
+    var fakeReq = getFakeReq();
     fakeReq.open();
     fakeReq.setResponseHeaders({
       "key": "value"
     });
 
-    var responseHeader = this.req.getResponseHeader("key");
+    var responseHeader = req.getResponseHeader("key");
     assert.equal("value", responseHeader);
   });
 
@@ -762,14 +735,14 @@ describe("io.request.XhrLowLevel", function() {
   //
 
   it("getAllResponseHeaders()", function() {
-    var fakeReq = this.getFakeReq();
+    var fakeReq = getFakeReq();
     fakeReq.open();
     fakeReq.setResponseHeaders({
       "key1": "value1",
       "key2": "value2"
     });
 
-    var responseHeaders = this.req.getAllResponseHeaders();
+    var responseHeaders = req.getAllResponseHeaders();
     assert.match(responseHeaders, /key1: value1/);
     assert.match(responseHeaders, /key2: value2/);
   });
@@ -779,37 +752,35 @@ describe("io.request.XhrLowLevel", function() {
   //
 
   it("dispose() deletes native Xhr", function() {
-    this.req._dispose();
+    req._dispose();
 
-    assert.isNull(this.req.getRequest());
+    assert.isNull(req.getRequest());
   });
 
 
   it("dispose() aborts", function() {
-    var req = this.req;
+    sandbox.spy(req, "abort");
+    req._dispose();
 
-    this.spy(req, "abort");
-    this.req._dispose();
-
-    this.assertCalled(req.abort);
+    sinon.assert.called(req.abort);
   });
 
 
   it("isDisposed()", function() {
-    assert.isFalse(this.req.isDisposed());
-    this.req._dispose();
-    assert.isTrue(this.req.isDisposed());
+    assert.isFalse(req.isDisposed());
+    req._dispose();
+    assert.isTrue(req.isDisposed());
   });
 
 
   it("invoking public method throws when disposed", function() {
-    var req = this.req;
-    var assertDisposedException = qx.lang.Function.bind(function(callback) {
-      assert.throw(qx.lang.Function.bind(callback, this),
-        Error, /Already disposed/);
-    }, this);
 
-    this.req._dispose();
+    var assertDisposedException = qx.lang.Function.bind(function(callback) {
+      assert.throw(qx.lang.Function.bind(callback,
+        Error, /Already disposed/));
+    });
+
+    req._dispose();
     assertDisposedException(function() {
       req._open("GET", "/");
     });
@@ -834,30 +805,30 @@ describe("io.request.XhrLowLevel", function() {
 
   function openAndSend(method, url) {
     // use API of io.XHR only
-    this.req._open(method, url);
-    this.req._send();
+    req._open(method, url);
+    req._send();
 
     // use API of io.AbstractRequest
     /*
-    this.req.setMethod(method);
-    this.req.setUrl(url);
-    this.req.send()
+    req.setMethod(method);
+    req.setUrl(url);
+    req.send()
     */
   }
 
 
   function fakeNativeXhr() {
-    this.fakedXhr = this.useFakeXMLHttpRequest();
+    fakedXhr = sandbox.useFakeXMLHttpRequest();
 
     // Reset pre-existing request so that it uses the faked XHR
-    if (this.req) {
-      this.req = new qx.io.request.Xhr();
+    if (req) {
+      req = new qx.io.request.Xhr();
     }
   }
 
 
   function getFakeReq() {
-    return this.getRequests().slice(-1)[0];
+    return fakedXhr.requests.slice(-1)[0];
   }
 
 
@@ -878,13 +849,11 @@ describe("io.request.XhrLowLevel", function() {
 
 
   function hasIEBelow9() {
-    return this.isIEBelow(9);
+    return isIEBelow(9);
   }
 
 
   function skip(msg) {
     throw new qx.dev.unit.RequirementError(null, msg);
   }
-
-
 });
