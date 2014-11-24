@@ -41,7 +41,7 @@ describe("event.Emitter", function () {
 
   it("OnOffById", function () {
     var spy = sinon.spy();
-    var id = __eventEmitter.on("test", spy, this);
+    var id = __eventEmitter.on("test", spy, this).getListenerId();
     __eventEmitter.emit("test");
     sinon.assert.calledOnce(spy);
 
@@ -54,9 +54,9 @@ describe("event.Emitter", function () {
   it("OffReturnId", function () {
     var spy = sinon.spy();
     __eventEmitter.on("test", spy, this);
-    var id = __eventEmitter.on("test2", spy, this);
+    var id = __eventEmitter.on("test2", spy, this).getListenerId();
 
-    var returnId = __eventEmitter.off("test2", spy, this);
+    var returnId = __eventEmitter.off("test2", spy, this).getListenerId();
     assert.equal(id, returnId);
   });
 
@@ -142,12 +142,20 @@ describe("event.Emitter", function () {
 
 
   it("GetListenerId", function () {
-    var id = __eventEmitter.on("test", function () {
-    });
+    var id = __eventEmitter.on("test", function () {}).getListenerId();
     assert.equal(id, __eventEmitter.getListenerId());
 
-    id = __eventEmitter.on("test", function () {
-    });
+    id = __eventEmitter.on("test", function () {}).getListenerId();
     assert.equal(id, __eventEmitter.getListenerId());
+  });
+
+
+  it("Chaining", function() {
+    assert.equal(__eventEmitter, __eventEmitter.on("abc"));
+    assert.equal(__eventEmitter, __eventEmitter.once("abc"));
+    assert.equal(__eventEmitter, __eventEmitter.off("abc"));
+    var id = __eventEmitter.on("abc").getListenerId();
+    assert.equal(__eventEmitter, __eventEmitter.offById(id));
+    assert.equal(__eventEmitter, __eventEmitter.emit("noname"));
   });
 });

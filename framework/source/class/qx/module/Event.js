@@ -102,7 +102,7 @@ qx.Class.define("qx.module.Event", {
           el.$$emitter = new qx.event.Emitter();
         }
 
-        el.$$lastlistenerId = el.$$emitter.on(type, bound, ctx);
+        el.$$lastlistenerId = el.$$emitter.on(type, bound, ctx).getListenerId();
         // save the useCapture for removing
         el.$$emitter.getEntryById(el.$$lastlistenerId).useCapture = !!useCapture;
 

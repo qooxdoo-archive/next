@@ -43,7 +43,7 @@ qx.Mixin.define("qx.event.MEmitter",
      * @param name {String} The name of the event to listen to.
      * @param listener {Function} The function execute on {@link #emit}.
      * @param ctx {var?Window} The context of the listener.
-     * @return {Integer} An unique <code>id</code> for the attached listener.
+     * @return {qx.event.MEmitter} Self reference for chaining.
      */
     on : function(name, listener, ctx) {
       this.$$lastListenerId = qx.event.MEmitter.__storageId++;
@@ -53,7 +53,7 @@ qx.Mixin.define("qx.event.MEmitter",
         ctx: ctx,
         id: this.$$lastListenerId
       };
-      return this.$$lastListenerId;
+      return this;
     },
 
 
@@ -65,7 +65,7 @@ qx.Mixin.define("qx.event.MEmitter",
      * @param name {String} The name of the event to listen to.
      * @param listener {Function} The function execute on {@link #emit}.
      * @param ctx {var?Window} The context of the listener.
-     * @return {Integer} An unique <code>id</code> for the attached listener.
+     * @return {qx.event.MEmitter} Self reference for chaining.
      */
     once : function(name, listener, ctx) {
       this.$$lastListenerId = qx.event.MEmitter.__storageId++;
@@ -76,7 +76,7 @@ qx.Mixin.define("qx.event.MEmitter",
         once: true,
         id: this.$$lastListenerId
       };
-      return this.$$lastListenerId;
+      return this;
     },
 
 
@@ -87,8 +87,7 @@ qx.Mixin.define("qx.event.MEmitter",
      * @param name {String} The name of the event to listen to.
      * @param listener {Function} The function execute on {@link #emit}.
      * @param ctx {var?Window} The context of the listener.
-     * @return {Integer|null} The listener's id if it was removed or
-     * <code>null</code> if it wasn't found
+     * @return {qx.event.MEmitter} Self reference for chaining.
      */
     off : function(name, listener, ctx) {
       var storage = this._getStorage(name);
@@ -100,7 +99,7 @@ qx.Mixin.define("qx.event.MEmitter",
           return;
         }
       });
-      return foundId === undefined ? null : foundId;
+      return this;
     },
 
 
@@ -109,16 +108,14 @@ qx.Mixin.define("qx.event.MEmitter",
      * will be return on attaching the listener and can be stored for removing.
      *
      * @param id {Integer} The id of the listener.
-     * @return {Map|null} The listener's id if it was removed or
-     * <code>null</code> if it wasn't found
+     * @return {qx.event.MEmitter} Self reference for chaining.
      */
     offById : function(id) {
       var entry = this.getEntryById(id);
       if (entry) {
         this.off(entry.name, entry.listener, entry.ctx);
-        return entry.id;
       }
-      return null;
+      return this;
     },
 
 
@@ -136,6 +133,7 @@ qx.Mixin.define("qx.event.MEmitter",
      * to the listener.
      * @param name {String} The name of the event to emit.
      * @param data {var?undefined} The data which should be passed to the listener.
+     * @return {qx.event.MEmitter} Self reference for chaining.
      */
     emit : function(name, data) {
       var storage = this._getStorage(name);
@@ -151,6 +149,7 @@ qx.Mixin.define("qx.event.MEmitter",
       storage.forEach(function(entry) {
         entry.listener.call(entry.ctx, data);
       });
+      return this;
     },
 
 

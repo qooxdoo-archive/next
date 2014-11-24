@@ -108,7 +108,8 @@ qx.Mixin.define("qx.data.marshal.MEventBubbling",
         // create the listener
         var listener = this.__changePropertyListener.bind(this, name);
         // add the listener
-        var id = value.on("changeBubble", listener, this);
+        value.on("changeBubble", listener, this);
+        var id = value.getListenerId();
         listeners = value["$$idBubble-" + this.$$eventBubblingHash];
         if (listeners == null) {
           listeners = [];
