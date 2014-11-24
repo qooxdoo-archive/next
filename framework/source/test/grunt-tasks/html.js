@@ -5,9 +5,14 @@ var glob = require('glob');
 
 var getSourcePaths = function (scope) {
   if (typeof scope === 'undefined' || scope === 'all') {
-    return 'tests/**/*.js';
+    return [
+      'tests/**/*.js'
+    ];
   }
-  return 'tests/' + scope + '/**/*.js';
+  return [
+    'tests/' + scope + '*.js',
+    'tests/' + scope + '/**/*.js'
+  ];
 };
 
 module.exports = function (grunt) {
@@ -43,7 +48,7 @@ module.exports = function (grunt) {
       "index.html": sourcePaths
     };
     injectorConfig.testSource.files = {
-      "index-source.html": [sourcePaths]
+      "index-source.html": sourcePaths
     };
     grunt.config.set('injector', injectorConfig);
     grunt.task.run(['injector']);
