@@ -22,7 +22,7 @@
  * @asset(framework/source/resource/qx/icon/Tango/48/places/folder.png)
  */
 
-describe("mobile.list.List", function() {
+describe("mobile.List", function() {
   /**
    * Returns the img element on the given list, of the element item identified by elementIndex.
    */
@@ -82,7 +82,7 @@ describe("mobile.list.List", function() {
 
 
   function __createList() {
-    var list = new qx.ui.list.List();
+    var list = new qx.ui.List();
     getRoot().append(list);
     list.model = __createModel();
     return list;
@@ -211,7 +211,7 @@ describe("mobile.list.List", function() {
 
 
   it("ExtractRowsToRender", function() {
-    var list = new qx.ui.list.List();
+    var list = new qx.ui.List();
 
     assert.deepEqual([0], list._extractRowsToRender("0"));
     assert.deepEqual([0], list._extractRowsToRender("[0].propertyName"));
@@ -224,9 +224,9 @@ describe("mobile.list.List", function() {
 
   it("Factory", function() {
     var list = qxWeb.create("<ul></ul>").toList().appendTo(getRoot());
-    assert.instanceOf(list, qx.ui.list.List);
+    assert.instanceOf(list, qx.ui.List);
     assert.equal(list, list[0].$$widget);
-    assert.equal("qx.ui.list.List", list.getData("qxWidget"));
+    assert.equal("qx.ui.List", list.getData("qxWidget"));
   });
 
 

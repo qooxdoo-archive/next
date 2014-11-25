@@ -69,7 +69,7 @@ qx.Class.define("mobileshowcase.page.List",
 
       this._model = this._createModel();
 
-      var list = new qx.ui.list.List({
+      var list = new qx.ui.List({
         group: function(data, row) {
           var title = "Items";
           if (data.selectable) {

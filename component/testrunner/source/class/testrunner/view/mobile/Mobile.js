@@ -83,7 +83,7 @@ qx.Class.define("testrunner.view.mobile.Mobile", {
       mainPage.on("initialize", function()
       {
         this.__testRows = {};
-        var list = this.__testListWidget = new qx.ui.list.List({
+        var list = this.__testListWidget = new qx.ui.List({
           configureItem : this._configureListItem.bind(this)
         });
         list.on("changeSelection", this._onListChangeSelection, this);

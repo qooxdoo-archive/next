@@ -62,7 +62,7 @@ Samples = {
    */
   "sample List" : function() {
     var group = new qx.ui.form.Group("List").appendTo(this.getRoot());
-    var list = new qx.ui.list.List();
+    var list = new qx.ui.List();
     list.delegate = {group: function(data, row) {
       return {
         title: (row < 5) ? "A" : "B",
@@ -95,7 +95,7 @@ Samples = {
     var group = new qx.ui.form.Group("Tap group header to collapse")
       .appendTo(this.getRoot());
 
-    var list = new qx.ui.list.List();
+    var list = new qx.ui.List();
     list.delegate = {group: function(data, row) {
       return {
         title: (row < 5) ? "A" : "B",

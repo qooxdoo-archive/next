@@ -93,7 +93,7 @@ describe("mobile.LocaleSwitch", function() {
   it("List", function() {
 
     var manager = qx.locale.Manager;
-    var list = new qx.ui.list.List({
+    var list = new qx.ui.List({
       configureItem: function(item, data, row) {
         item.setTitle(data.title);
         item.setSubtitle(data.subTitle);

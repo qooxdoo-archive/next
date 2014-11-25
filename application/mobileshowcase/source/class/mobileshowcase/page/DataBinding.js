@@ -190,7 +190,7 @@ qx.Class.define("mobileshowcase.page.DataBinding",
     __createListDataBindings : function() {
       var self = this;
 
-      var list = new qx.ui.list.List({
+      var list = new qx.ui.List({
       configureItem : function(item, data, row)
         {
           var stopCount = self.listData.getLength()-row;

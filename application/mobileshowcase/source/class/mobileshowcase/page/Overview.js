@@ -46,7 +46,7 @@ qx.Class.define("mobileshowcase.page.Overview",
     {
       this.super(qx.ui.page.NavigationPage, "_initialize");
 
-      var list = new qx.ui.list.List({
+      var list = new qx.ui.List({
         configureData : function(data) {
           data.showArrow = true;
           return data;

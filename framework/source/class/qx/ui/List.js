@@ -27,7 +27,7 @@
  * @require(qx.ui.basic.Image)
  * @group(Widget)
  */
-qx.Class.define("qx.ui.list.List",
+qx.Class.define("qx.ui.List",
 {
   extend : qx.ui.Widget,
 
@@ -58,7 +58,7 @@ qx.Class.define("qx.ui.list.List",
    *    </ul>
    *
    * @attach {qxWeb, toList}
-   * @return {qx.ui.list.List} The new list widget.
+   * @return {qx.ui.List} The new list widget.
    */
   construct : function(delegate, element)
   {
@@ -392,7 +392,7 @@ qx.Class.define("qx.ui.list.List",
 
 
     __getRowTemplate : function(index) {
-      var template = qx.ui.list.List.itemTemplate;
+      var template = qx.ui.List.itemTemplate;
       var data = this.model.getItem(index);
       if (qx.Class.getClass(data) === "String") {
         data = {title: data};
@@ -413,7 +413,7 @@ qx.Class.define("qx.ui.list.List",
 
 
     __getGroupHeaderTemplate : function(group, groupIndex) {
-      var template = qx.ui.list.List.groupHeaderTemplate;
+      var template = qx.ui.List.groupHeaderTemplate;
       var fragment = qxWeb.template.renderToNode(template, group);
       qxWeb(fragment[0]).setData("group", groupIndex);
       return fragment;

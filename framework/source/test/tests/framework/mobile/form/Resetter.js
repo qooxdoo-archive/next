@@ -110,7 +110,7 @@ describe("mobile.form.Resetter", function() {
     var slider = new qx.ui.form.Slider();
     var textarea = new qx.ui.form.TextArea();
     var radiobutton = new qx.ui.form.RadioButton();
-    var list = new qx.ui.list.List();
+    var list = new qx.ui.List();
     var model = new qx.data.Array("a", "b", "c");
     var vsb = new qx.ui.form.SelectBox();
     vsb.model = model;

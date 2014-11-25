@@ -102,7 +102,7 @@ qx.Class.define("qx.ui.dialog.Menu",
 
     /**
      * Creates the scroll container for the selectionList. Override this to customize the widget.
-     * @param selectionList {qx.ui.list.List} The selectionList of this menu.
+     * @param selectionList {qx.ui.List} The selectionList of this menu.
      * @return {qx.ui.container.Scroll} the scroll container which contains the selectionList of this menu.
      */
     _createListScroller : function(selectionList) {
@@ -134,10 +134,10 @@ qx.Class.define("qx.ui.dialog.Menu",
     /**
      * Creates the selection list. Override this to customize the widget.
      *
-     * @return {qx.ui.list.List} The selectionList of this menu.
+     * @return {qx.ui.List} The selectionList of this menu.
      */
     _createList : function() {
-      var selectionList = new qx.ui.list.List();
+      var selectionList = new qx.ui.List();
       selectionList.on("selected", this._onSelected, this);
       return selectionList;
     },

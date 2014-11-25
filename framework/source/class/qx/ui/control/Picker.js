@@ -202,7 +202,7 @@ qx.Class.define("qx.ui.control.Picker",
         slotModel : slotModel
       });
 
-      var list = new qx.ui.list.List(delegate);
+      var list = new qx.ui.List(delegate);
       list.itemHeight = this._calcItemHeight();
       list.on("selected", this._onChangeSelection.bind(this, slotIndex));
       list.model = slotModel;

@@ -88,7 +88,7 @@ qx.Class.define("qx.test.mobile.LocaleSwitch",
     testList : function()
     {
       var manager = qx.locale.Manager;
-      var list = new qx.ui.list.List({
+      var list = new qx.ui.List({
         configureItem : function(item, data, row) {
           item.setTitle(data.title);
           item.setSubtitle(data.subTitle);
