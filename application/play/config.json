@@ -34,7 +34,6 @@
     "test-source",
     "test-mobile",
     "test-mobile-source",
-    "translation",
     "validate-config",
     "validate-manifest",
     "watch-scss",

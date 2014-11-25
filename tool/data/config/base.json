@@ -494,20 +494,6 @@
     },
 
 
-    "translation" :
-    {
-      "desc"    : "create .po files for current library",
-
-      "extend" : ["scan-local-lib"],
-
-      "translate" :
-      {
-        "locales": "${LOCALES}",
-        "namespaces" : ["${APPLICATION}"]
-      }
-    },
-
-
     "pretty" :
     {
       "desc"    : "pretty-formatting of the source code of the current library",

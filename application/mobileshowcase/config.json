@@ -10,8 +10,6 @@
 
   "export" :
   [
-    "api",
-    "api-data",
     "build",
     "clean",
     "distclean",
@@ -25,7 +23,6 @@
     "source-with-dot",
     "source-all",
     "source-hybrid",
-    "translation",
     "validate-config",
     "validate-manifest",
     "watch",

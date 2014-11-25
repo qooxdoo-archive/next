@@ -32,7 +32,6 @@
     "source-all",
     "test",
     "test-source",
-    "translation",
     "validate-config",
     "validate-manifest",
     "watch-scss"
@@ -62,8 +61,7 @@
       "source-all",
       "test",
       "test-source",
-      "testrunner::tests-common",
-      "translation"
+      "testrunner::tests-common"
     ]
   },
 
@@ -222,13 +220,6 @@
     {
       "include": ["=qx.test.*"]
     },
-
-    "translation" :
-    {
-      "=include": ["qx.*"],
-      "translate" : { "poentry-with-occurrences" : false  }
-    },
-
 
     "api-verify" :
     {

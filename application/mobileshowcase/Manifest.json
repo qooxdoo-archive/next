@@ -1,15 +1,15 @@
 {
-  "info" : 
+  "info" :
   {
     "name" : "mobileshowcase",
 
     "summary" : "Mobile showcase",
     "description" : "This is a showcase for some mobile features of qooxdoo.",
-    
+
     "homepage" : "http://demo.qooxdoo.org/current/mobileshowcase",
 
     "license" : "LGPL/EPL",
-    "authors" : 
+    "authors" :
     [
       {
         "name" : "Tino Butz (tbtz)",
@@ -20,14 +20,13 @@
     "version" : "trunk",
     "qooxdoo-versions": ["trunk"]
   },
-  
-  "provides" : 
+
+  "provides" :
   {
     "namespace"   : "mobileshowcase",
     "encoding"    : "utf-8",
     "class"       : "source/class",
     "resource"    : "source/resource",
-    "translation" : "source/translation",
     "type"        : "application"
   }
 }

@@ -1,16 +1,16 @@
 {
-  "info" : 
+  "info" :
   {
     "name" : "qooxdoo framework",
 
     "summary" : "The qooxdoo framework library",
     "description" : "This library contains the qooxdoo Javascript framework classes for website, mobile, desktop and server.",
-    
+
     "keywords" : ["qooxdoo", "framework", "widget", "cross-browser", "ajax"],
     "homepage" : "http://qooxdoo.org",
 
     "license" : "LGPL/EPL",
-    "authors" : 
+    "authors" :
     [
      {
        "name" : "Alexander Steitz (asteitz)",
@@ -63,37 +63,36 @@
 
     "sourceViewUri" : "https://github.com/qooxdoo/qooxdoo/blob/%{qxGitBranch}/framework/source/class/%{classFilePath}#L%{lineNumber}"
   },
-  
-  "provides" : 
+
+  "provides" :
   {
     "namespace"   : "qx",
     "encoding"    : "utf-8",
     "class"       : "source/class",
     "resource"    : "source/resource",
-    "translation" : "source/translation",
     "type"        : "library"
   },
-  
+
   "setup" :
   {
-    "qx.debug" : 
+    "qx.debug" :
     {
       "values" : [ "on", "off" ],
-      "default" : "on"  
+      "default" : "on"
     },
-    
-    "qx.aspects" : 
+
+    "qx.aspects" :
     {
       "values" : [ "on", "off" ],
-      "default" : "off"  
+      "default" : "off"
     },
-    
-    "qx.dynlocale" : 
+
+    "qx.dynlocale" :
     {
       "values" : [ "on", "off" ],
-      "default" : "off"  
+      "default" : "off"
     },
-    
+
     "qx.theme" :
     {
       "default" : "qx.theme.Modern"
