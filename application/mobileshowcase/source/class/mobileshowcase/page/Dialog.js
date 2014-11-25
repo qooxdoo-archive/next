@@ -54,7 +54,7 @@ qx.Class.define("mobileshowcase.page.Dialog",
 
       this.super(mobileshowcase.page.Abstract, "_initialize");
 
-      this.__resultsLabel = new qx.ui.basic.Label("No events received so far.");
+      this.__resultsLabel = new qx.ui.Label("No events received so far.");
       var resultsGroup = new qx.ui.form.Group();
       new qx.ui.form.Row()
         .append(this.__resultsLabel)
@@ -333,7 +333,7 @@ qx.Class.define("mobileshowcase.page.Dialog",
     * @return {qx.ui.form.Label} the group title label.
     */
     _createGroupTitle : function(value) {
-      var titleLabel = new qx.ui.basic.Label(value);
+      var titleLabel = new qx.ui.Label(value);
       titleLabel.addClass("dialog-group-title");
       titleLabel.addClass("gap");
       return titleLabel;

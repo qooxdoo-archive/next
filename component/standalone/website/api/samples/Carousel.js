@@ -17,10 +17,10 @@ addSample('.carousel', {
     var carousel = new qx.ui.container.Carousel();
 
     var frontPage = new qx.ui.Widget()
-      .append(new qx.ui.basic.Label("This is a carousel. Please swipe left."));
+      .append(new qx.ui.Label("This is a carousel. Please swipe left."));
 
     var secondPage = new qx.ui.Widget()
-      .append(new qx.ui.basic.Label("Now swipe right."));
+      .append(new qx.ui.Label("Now swipe right."));
 
     carousel.append(frontPage);
     carousel.append(secondPage);

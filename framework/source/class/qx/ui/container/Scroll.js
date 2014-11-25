@@ -34,7 +34,7 @@
  *   var scroll = new qx.ui.container.Scroll()
  *
  *   // add a children
- *   scroll.append(new qx.ui.basic.Label("Name: "));
+ *   scroll.append(new qx.ui.Label("Name: "));
  *
  *   this.getRoot().append(scroll);
  * </pre>

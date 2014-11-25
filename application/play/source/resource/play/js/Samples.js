@@ -43,7 +43,7 @@ Samples = {
     page2.backButtonText = "Back";
 
     page2.on("initialize", function() {
-      var label = new qx.ui.basic.Label("Content of Page 2");
+      var label = new qx.ui.Label("Content of Page 2");
       page2.getContent().append(label);
     },this);
 

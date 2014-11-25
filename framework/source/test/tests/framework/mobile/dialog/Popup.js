@@ -30,7 +30,7 @@ describe("mobile.dialog.Popup", function() {
 
 
   it("Show", function() {
-    var label = new qx.ui.basic.Label("test");
+    var label = new qx.ui.Label("test");
     var popup = new qx.ui.dialog.Popup(label);
     getRoot().append(popup);
 

@@ -46,11 +46,11 @@
  * var container = new qx.ui.Widget();
  * container.layout = layout;
  *
- * container.append(new qx.ui.basic.Label("1"));
- * var item2 = new qx.ui.basic.Label("2");
+ * container.append(new qx.ui.Label("1"));
+ * var item2 = new qx.ui.Label("2");
  * item2.layoutPrefs = {flex:1};
  * container.append(item2);
- * container.append(new qx.ui.basic.Label("3"));
+ * container.append(new qx.ui.Label("3"));
  * </pre>
  */
 qx.Class.define("qx.ui.layout.VBox",

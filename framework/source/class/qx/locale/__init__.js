@@ -1,4 +1,4 @@
-/** 
+/**
  * This package provides support for internationalization (*I18N*) and
  * localization (*L10N*).
  *
@@ -30,7 +30,7 @@
  * MTranslation}), so you can use them on your application classes right away.
  *
  * <pre class='javascript'>
- * var label = new qx.ui.basic.Label(this.tr("News * section"));
+ * var label = new qx.ui.Label(this.tr("News * section"));
  * </pre>
  *
  * In the simple case calls like <code>this.tr()</code> above will return the
@@ -51,7 +51,7 @@
  * preferences for formatting and other properties with regard to such data.
  *
  * For more information about how to deploy I18N and L10N in qooxdoo
- * applications see the corresponding 
+ * applications see the corresponding
  * <a href="http://manual.qooxdoo.org/${qxversion}/pages/development/internationalization.html">
  * manual section</a>.
  */

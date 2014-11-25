@@ -15,12 +15,12 @@ The simplest form of single value binding is to bind one property to another. Te
 
 ::
 
-    var label1 = new qx.ui.basic.Label();
-    var label2 = new qx.ui.basic.Label();
+    var label1 = new qx.ui.Label();
+    var label2 = new qx.ui.Label();
 
     label1.bind("value", label2, "value");
 
-``label1`` is the source object to bind, with the following three arguments to that call: 
+``label1`` is the source object to bind, with the following three arguments to that call:
 
 #. The name of the property which should be the source of the binding.
 #. The target object which has the target property.
@@ -48,7 +48,7 @@ case.
 ::
 
    var textField = new qx.ui.form.TextField();
-   var label = new qx.ui.basic.Label();
+   var label = new qx.ui.Label();
 
    textField.bind("changeValue", label, "value");
 
@@ -87,7 +87,7 @@ A more advanced feature of the single value binding is to bind a hierarchy of pr
     // bind the property to a labels value
     a.bind("child.name", label, "value");
 
-Now every change of the ``name`` of ``b`` will change the labels value. But also a change of the ``child`` property of ``a`` to another Node with another name will change the value of the label to the new name. 
+Now every change of the ``name`` of ``b`` will change the labels value. But also a change of the ``child`` property of ``a`` to another Node with another name will change the value of the label to the new name.
 With that mechanism a even deeper binding in a hierarchy is possible. Just separate every property with a dot. But always keep in mind that every property needs to fire a change event to work with the property binding.
 
 .. _pages/data_binding/single_value_binding#bind_an_array_to_a_property:
@@ -116,7 +116,7 @@ The method for binding introduced so far has the same set of arguments. The firs
   * **onUpdate**: A key in the options map under which you can add a method. This method will be called on a validation case if the validation was successful.
   * **onSetFail**: The counterpart to onUpdate which will be called if the validation fails.
 
-In addition there is a built in default conversion which takes care of the default conversion cases automatically. Default cases are, for example, string to number conversion. To get that working it is necessary to know the desired target type. This information is taken from the check key in the property definition of the target property.  
+In addition there is a built in default conversion which takes care of the default conversion cases automatically. Default cases are, for example, string to number conversion. To get that working it is necessary to know the desired target type. This information is taken from the check key in the property definition of the target property.
 
 .. _pages/data_binding/single_value_binding#managing_bindings:
 
@@ -151,6 +151,6 @@ Every binding function maps to the event binding function. This is where the hea
 
 ::
 
-    targetObject["set" + qx.lang.String.firstUp(targetProperty)](data);            
+    targetObject["set" + qx.lang.String.firstUp(targetProperty)](data);
 
 In that line the listener sets the data given by the data event to the target property.

@@ -34,7 +34,7 @@
  * that an error has occured.
  * It will be centered to the screen.
  * <pre class='javascript'>
- * var label = new qx.ui.basic.Label("Item1");
+ * var label = new qx.ui.Label("Item1");
  * var widget = new qx.ui.Button("Error!");
  * var popup = new qx.ui.dialog.Popup(widget, label);
  * popup.show();

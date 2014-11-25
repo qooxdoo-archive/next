@@ -126,7 +126,7 @@ qx.Class.define("qx.io.request.AbstractRequest",
      * <br />
      * <pre class="javascript">
      * // req is an instance of qx.io.request.*,
-     * // label an instance of qx.ui.basic.Label
+     * // label an instance of qx.ui.Label
      * req.bind("response", label, "value");
      * </pre>
      *

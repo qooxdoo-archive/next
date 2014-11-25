@@ -101,7 +101,7 @@ The request's response can be bound to a widget, model or any other object using
   // Bind response to value of a label
   //
   // req is an instance of qx.io.request.*,
-  // label an instance of qx.ui.basic.Label
+  // label an instance of qx.ui.Label
   req.bind("response", label, "value");
 
 Debugging

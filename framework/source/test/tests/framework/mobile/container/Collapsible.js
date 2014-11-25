@@ -32,7 +32,7 @@ describe("mobile.container.Collapsible", function() {
       .appendTo(getRoot());
 
     assert.instanceOf(collapsible, qx.ui.container.Collapsible);
-    assert.instanceOf(qxWeb(collapsible.getChildren()[0]), qx.ui.basic.Label);
+    assert.instanceOf(qxWeb(collapsible.getChildren()[0]), qx.ui.Label);
     assert.instanceOf(collapsible.find(".collapsible-content"), qx.ui.Widget);
     collapsible.remove().dispose();
   });

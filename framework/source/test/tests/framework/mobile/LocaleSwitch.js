@@ -67,7 +67,7 @@ describe("mobile.LocaleSwitch", function() {
 
   it("Label", function() {
     var manager = qx.locale.Manager;
-    var label = new qx.ui.basic.Label(manager.tr("test one"));
+    var label = new qx.ui.Label(manager.tr("test one"));
     getRoot().append(label);
 
     assert.equal("test one", label.value);

@@ -309,7 +309,7 @@ qx.Class.define("qx.ui.dialog.Manager",
         lLayout.alignX = "center";
         var labelWidget = new qx.ui.Widget();
         labelWidget.layout = lLayout;
-        labelWidget.append(new qx.ui.basic.Label(text));
+        labelWidget.append(new qx.ui.Label(text));
         labelWidget.addClass("gap");
         widget.append(labelWidget);
         if(dialogType == qx.ui.dialog.Manager.INPUT_DIALOG)

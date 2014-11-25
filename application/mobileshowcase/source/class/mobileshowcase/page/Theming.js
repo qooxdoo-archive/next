@@ -140,7 +140,7 @@ qx.Class.define("mobileshowcase.page.Theming",
       var demoImage = new qx.ui.Image("mobileshowcase/icon/image.png")
         .addClass("resolution-demo-image");
 
-      this.__demoImageLabel = new qx.ui.basic.Label()
+      this.__demoImageLabel = new qx.ui.Label()
         .addClass("resolution-demo-label");
       this._updateDemoImageLabel();
 

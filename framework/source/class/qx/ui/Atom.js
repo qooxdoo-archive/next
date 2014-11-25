@@ -212,7 +212,7 @@ qx.Class.define("qx.ui.Atom",
     /**
      * Returns the label widget.
      *
-     * @return {qx.ui.basic.Label} The label widget.
+     * @return {qx.ui.Label} The label widget.
      */
     getLabelWidget : function() {
       return this.__label;
@@ -239,11 +239,11 @@ qx.Class.define("qx.ui.Atom",
      * Creates the label widget.
      *
      * @param label {String} The text that should be displayed.
-     * @return {qx.ui.basic.Label} The created label widget.
+     * @return {qx.ui.Label} The created label widget.
      */
     _createLabelWidget : function(label)
     {
-      var labelWidget = new qx.ui.basic.Label(label);
+      var labelWidget = new qx.ui.Label(label);
       labelWidget.anonymous = true;
       labelWidget.textWrap = false;
       labelWidget.addClasses(["gap", "qx-flex-center"]);

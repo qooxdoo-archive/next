@@ -134,7 +134,7 @@ qx.Class.define("mobileshowcase.page.Event",
         containerTouchArea.append(circle);
       }
 
-      var label = this.__label = new qx.ui.basic.Label("Touch / Tap / Swipe this area");
+      var label = this.__label = new qx.ui.Label("Touch / Tap / Swipe this area");
       containerTouchArea.append(label);
 
       var descriptionText = "<b>Testing Pointer Events:</b> Touch / Tap / Swipe the area<br />\n\

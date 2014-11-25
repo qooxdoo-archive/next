@@ -20,7 +20,7 @@
 
 /**
  * Creates a Collapsible widget.
- * It contains a {@link qx.ui.basic.Label Label} for the header and a {@link qx.ui.Widget}
+ * It contains a {@link qx.ui.Label Label} for the header and a {@link qx.ui.Widget}
  * for the content.
  *
  * The visiblity of the content composite toggles when user taps on header.
@@ -34,7 +34,7 @@
  *  collapsible.combined = false;
  *  collapsible.collapsed = false;
  *
- *  var label = new qx.ui.basic.Label("This is the content of the Collapsible.");
+ *  var label = new qx.ui.Label("This is the content of the Collapsible.");
  *  collapsible.append(label);
  *
  * </pre>
@@ -129,7 +129,7 @@ qx.Class.define("qx.ui.container.Collapsible",
     * @param title {String} the Collapsible's title.
     */
     setTitle : function(title) {
-      if(title && this._header instanceof qx.ui.basic.Label) {
+      if(title && this._header instanceof qx.ui.Label) {
         this._header.value = title;
       }
     },
@@ -147,7 +147,7 @@ qx.Class.define("qx.ui.container.Collapsible",
 
     /**
     * Getter for the Collapsible's header label.
-    * @return {qx.ui.basic.Label} the header.
+    * @return {qx.ui.Label} the header.
     */
     getHeader : function() {
       return this._header;
@@ -165,10 +165,10 @@ qx.Class.define("qx.ui.container.Collapsible",
 
     /**
     * Factory method for the Collapsible's header.
-    * @return {qx.ui.basic.Label} the label which represents the header.
+    * @return {qx.ui.Label} the label which represents the header.
     */
     _createHeader : function() {
-      var header = new qx.ui.basic.Label();
+      var header = new qx.ui.Label();
       header.anonymous = false;
       header.activatable = true;
       return header;

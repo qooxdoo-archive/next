@@ -57,7 +57,7 @@ qx.Class.define("mobileshowcase.page.Tab",
         .setData("qxConfigPage", "#page_v1")
         .addClass("selected")
         .appendTo(tabBar);
-      new qx.ui.basic.Label("<b>qx.Desktop</b><br/><br/>Create desktop oriented applications. Features a rich and extendable set of widgets. No HTML/CSS knowledge required.")
+      new qx.ui.Label("<b>qx.Desktop</b><br/><br/>Create desktop oriented applications. Features a rich and extendable set of widgets. No HTML/CSS knowledge required.")
         .setAttribute("id", "page_v1")
         .addClass("view1")
         .appendTo(tabBar);
@@ -65,7 +65,7 @@ qx.Class.define("mobileshowcase.page.Tab",
       new qx.ui.Button("Mobile")
         .setData("qxConfigPage", "#page_v2")
         .appendTo(tabBar);
-      new qx.ui.basic.Label("<b>qx.Mobile</b><br/><br/>Create mobile apps that run on all major mobile operating systems, without writing any HTML.")
+      new qx.ui.Label("<b>qx.Mobile</b><br/><br/>Create mobile apps that run on all major mobile operating systems, without writing any HTML.")
         .setAttribute("id", "page_v2")
         .addClass("view2")
         .appendTo(tabBar);
@@ -73,7 +73,7 @@ qx.Class.define("mobileshowcase.page.Tab",
       new qx.ui.Button("Server")
         .setData("qxConfigPage", "#page_v3")
         .appendTo(tabBar);
-      new qx.ui.basic.Label("<b>qx.Server</b><br/><br/>Use the same OOP pattern known from the client side, reuse code and generate files you can deploy in your server environment.")
+      new qx.ui.Label("<b>qx.Server</b><br/><br/>Use the same OOP pattern known from the client side, reuse code and generate files you can deploy in your server environment.")
         .setAttribute("id", "page_v3")
         .addClass("view3")
         .appendTo(tabBar);
@@ -81,7 +81,7 @@ qx.Class.define("mobileshowcase.page.Tab",
       new qx.ui.Button("Website")
         .setData("qxConfigPage", "#page_v4")
         .appendTo(tabBar);
-      new qx.ui.basic.Label("<b>qx.Website</b><br/><br/>A cross-browser DOM manipulation library to enhance websites with a rich user experience.")
+      new qx.ui.Label("<b>qx.Website</b><br/><br/>A cross-browser DOM manipulation library to enhance websites with a rich user experience.")
         .setAttribute("id", "page_v4")
         .addClass("view4")
         .appendTo(tabBar);

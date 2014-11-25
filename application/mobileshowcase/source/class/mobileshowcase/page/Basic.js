@@ -71,7 +71,7 @@ qx.Class.define("mobileshowcase.page.Basic",
 
       var labelText = "qx.Mobile is a sophisticated HTML5 framework. It provides specific UI widgets for touch devices, handling of mobile events like swiping, custom theming and much more. It is suitable for mobile web browsers on platforms such as Android, iOS, WP8 or BlackBerry 10.";
 
-      var exLabel = new qx.ui.basic.Label(labelText);
+      var exLabel = new qx.ui.Label(labelText);
       exLabel.addClass("space-top");
 
       var exImage = new qx.ui.Image("mobileshowcase/icon/mobile.png");
@@ -144,7 +144,7 @@ qx.Class.define("mobileshowcase.page.Basic",
 
     _createCollapsible : function() {
       var collapsible = new qx.ui.container.Collapsible("Collapsible Header");
-      var label = new qx.ui.basic.Label("This is the content of the Collapsible.");
+      var label = new qx.ui.Label("This is the content of the Collapsible.");
       collapsible.append(label);
       return collapsible;
     }

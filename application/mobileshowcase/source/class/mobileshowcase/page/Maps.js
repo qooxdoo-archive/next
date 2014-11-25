@@ -96,7 +96,7 @@ qx.Class.define("mobileshowcase.page.Maps",
       menuContainer.setAttribute("id", "mapMenu");
 
       // LABEL
-      var descriptionLabel = new qx.ui.basic.Label("Page Title");
+      var descriptionLabel = new qx.ui.Label("Page Title");
       descriptionLabel.addClass("osmMapLabel");
 
       // TOGGLE BUTTON

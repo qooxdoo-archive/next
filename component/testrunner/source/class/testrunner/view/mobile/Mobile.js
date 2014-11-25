@@ -198,7 +198,7 @@ qx.Class.define("testrunner.view.mobile.Mobile", {
       var statusBar = new qx.ui.Widget(new qx.ui.layout.HBox());
       var statusGroup = new qx.ui.form.Group([statusBar]);
       statusGroup.setAttribute("id", "statusgroup");
-      this.__statusLabel = new qx.ui.basic.Label("Loading...");
+      this.__statusLabel = new qx.ui.Label("Loading...");
       statusBar.append(this.__statusLabel);
       return statusGroup;
     },
@@ -420,9 +420,9 @@ qx.Class.define("testrunner.view.mobile.Mobile", {
             var ex = exceptions[x].exception;
             var msg = ex.toString ? ex.toString() : ex.message;
             var stack = ex.getStackTrace ? ex.getStackTrace() : qx.dev.StackTrace.getStackTraceFromError(ex);
-            var msgLabel = new qx.ui.basic.Label(msg);
+            var msgLabel = new qx.ui.Label(msg);
             msgLabel.wrap = true;
-            var stackLabel = new qx.ui.basic.Label(stack.join("<br/>"));
+            var stackLabel = new qx.ui.Label(stack.join("<br/>"));
             stackLabel.wrap = true;
             var detailContainer = new qx.ui.Widget(new qx.ui.layout.VBox());
             detailContainer.append(msgLabel);

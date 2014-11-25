@@ -37,11 +37,11 @@ qx.Class.define("qx.ui.form.Row",
     // label handling
     var labelWidget;
     if (label) {
-      labelWidget = new qx.ui.basic.Label(label, document.createElement("label"))
+      labelWidget = new qx.ui.Label(label, document.createElement("label"))
         .appendTo(this);
     }
 
-    labelWidget = this.find("label").setData("qxWidget", "qx.ui.basic.Label");
+    labelWidget = this.find("label").setData("qxWidget", "qx.ui.Label");
     labelWidget.anonymous = false;
     labelWidget.layoutPrefs = {flex:1};
 

@@ -83,9 +83,9 @@ module.exports = {
       test.strictEqual(this.depAnalyzer.assemble(fakeVarNode), 'qx.ui.treevirtual.MTreePrimitive');
       escodegen.generate = function() { return 'qx.ui.table.Table'; };
       test.strictEqual(this.depAnalyzer.assemble(fakeVarNode), 'qx.ui.table.Table');
-      escodegen.generate = function() { return 'qx.ui.basic.Label.toggleRich()'; };
-      test.strictEqual(this.depAnalyzer.assemble(fakeVarNode), 'qx.ui.basic.Label');
-      test.strictEqual(this.depAnalyzer.assemble(fakeVarNode, true), 'qx.ui.basic.Label.toggleRich()');
+      escodegen.generate = function() { return 'qx.ui.Label.toggleRich()'; };
+      test.strictEqual(this.depAnalyzer.assemble(fakeVarNode), 'qx.ui.Label');
+      test.strictEqual(this.depAnalyzer.assemble(fakeVarNode, true), 'qx.ui.Label.toggleRich()');
       escodegen.generate = function() { return 'qx.event.IEventHandler'; };
       test.strictEqual(this.depAnalyzer.assemble(fakeVarNode), 'qx.event.IEventHandler');
       escodegen.generate = function() { return 'qx.bom.Style.__supports.call'; };

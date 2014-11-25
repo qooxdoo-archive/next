@@ -263,7 +263,7 @@ function findVarRoot(varNode) {
  * <ul>
  *  <li><code>qx.ui.treevirtual.MTreePrimitive.Type.BRANCH</code></li>
  *  <li><code>qx.ui.table.Table</code></li>
- *  <li><code>qx.ui.basic.Label.toggleRich()</code></li>
+ *  <li><code>qx.ui.Label.toggleRich()</code></li>
  *  <li><code>qx.event.IEventHandler</code></li>
  *  <li><code>WebKitCSSMatrix</code></li>
  *  <li><code>qxWeb</code></li>
@@ -274,7 +274,7 @@ function findVarRoot(varNode) {
  * <ul>
  *  <li><code>qx.ui.treevirtual.MTreePrimitive</code></li>
  *  <li><code>qx.ui.table.Table</code></li>
- *  <li><code>qx.ui.basic.Label</code></li>
+ *  <li><code>qx.ui.Label</code></li>
  *  <li><code>qx.event.IEventHandler</code></li>
  *  <li><code>WebKitCSSMatrix</code></li>
  *  <li><code>qxWeb</code></li>

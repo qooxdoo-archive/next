@@ -25,7 +25,7 @@
  *
  * @group(Widget)
  */
-qx.Class.define("qx.ui.basic.Label",
+qx.Class.define("qx.ui.Label",
 {
   extend : qx.ui.Widget,
 
@@ -33,7 +33,7 @@ qx.Class.define("qx.ui.basic.Label",
   /**
    * @param value {String?null} Text or HTML content to display
    * @attach {qxWeb, toLabel}
-   * @return {qx.ui.basic.Label} The new label widget.
+   * @return {qx.ui.Label} The new label widget.
    */
   construct : function(value, element)
   {

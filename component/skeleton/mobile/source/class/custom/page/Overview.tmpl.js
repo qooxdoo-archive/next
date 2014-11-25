@@ -30,7 +30,7 @@ qx.Class.define("${Namespace}.page.Overview",
     {
       this.super(qx.ui.page.NavigationPage, "_initialize");
 
-      this.getContent().append(new qx.ui.basic.Label("Your first app."));
+      this.getContent().append(new qx.ui.Label("Your first app."));
     },
 
 
