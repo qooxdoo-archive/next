@@ -50,7 +50,7 @@ qx.Class.define("mobileshowcase.page.Tab",
     __createTabBar: function() {
       var group = new qx.ui.form.Group();
 
-      var tabBar = this.__tabBar = new qx.ui.tabbar.TabBar()
+      var tabBar = this.__tabBar = new qx.ui.TabBar()
         .set({mediaQuery: "(min-width: 750px) and (orientation: landscape)"});
 
       new qx.ui.Button("Desktop")

@@ -28,13 +28,13 @@
  *
  * @group (Widget)
  */
-qx.Class.define("qx.ui.tabbar.TabBar", {
+qx.Class.define("qx.ui.TabBar", {
 
   extend : qx.ui.Widget,
 
   /**
    * @attach {qxWeb, toTabBar}
-   * @return {qx.ui.tabbar.TabBar} The new tab bar widget.
+   * @return {qx.ui.TabBar} The new tab bar widget.
    */
   construct: function(orientation, align, element) {
     this.super(qx.ui.Widget, "construct", element);

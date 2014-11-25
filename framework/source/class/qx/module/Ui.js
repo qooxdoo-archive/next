@@ -49,7 +49,7 @@
  * @require(qx.ui.page.NavigationPage)
  * @require(qx.ui.page.Page)
  * @require(qx.ui.navigationbar.NavigationBar)
- * @require(qx.ui.tabbar.TabBar)
+ * @require(qx.ui.TabBar)
  * @require(qx.ui.ToolBar)
  * @require(qx.ui.Tree)
  * @require(qx.ui.layout.Abstract)

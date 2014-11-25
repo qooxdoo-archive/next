@@ -17,13 +17,13 @@
 
 ************************************************************************ */
 
-describe("mobile.tabbar.TabBar", function() {
+describe("mobile.TabBar", function() {
 
   var __tabBar = null;
 
   beforeEach(function() {
     setUpRoot();
-    __tabBar = new qx.ui.tabbar.TabBar();
+    __tabBar = new qx.ui.TabBar();
     getRoot().append(__tabBar);
   });
 
@@ -149,8 +149,8 @@ describe("mobile.tabbar.TabBar", function() {
 
   it("Factory", function() {
     __tabBar = qxWeb.create("<div>").toTabBar().appendTo(getRoot());
-    assert.instanceOf(__tabBar, qx.ui.tabbar.TabBar);
+    assert.instanceOf(__tabBar, qx.ui.TabBar);
     assert.equal(__tabBar, __tabBar[0].$$widget);
-    assert.equal("qx.ui.tabbar.TabBar", __tabBar.getData("qxWidget"));
+    assert.equal("qx.ui.TabBar", __tabBar.getData("qxWidget"));
   });
 });
