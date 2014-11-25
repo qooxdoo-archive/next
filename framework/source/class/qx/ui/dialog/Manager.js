@@ -30,8 +30,8 @@
  *
  * <pre class='javascript'>
  *    var buttons = [];
- *    buttons.push(qx.locale.Manager.tr("OK"));
- *    buttons.push(qx.locale.Manager.tr("Cancel"));
+ *    buttons.push("OK");
+ *    buttons.push("Cancel");
  *    var title = "Delete item";
  *    var text = "Do you want to delete the item?"
  *    qx.ui.dialog.Manager.getInstance().confirm(title, text, function(index) {

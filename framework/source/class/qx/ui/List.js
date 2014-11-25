@@ -77,10 +77,6 @@ qx.Class.define("qx.ui.List",
     } else {
       this.delegate = this;
     }
-
-    if (qx.core.Environment.get("qx.dynlocale")) {
-      qx.locale.Manager.getInstance().on("changeLocale", this.render, this);
-    }
   },
 
 
@@ -528,9 +524,6 @@ qx.Class.define("qx.ui.List",
     dispose : function() {
       this.super(qx.ui.Widget, "dispose");
       this.__trackElement = null;
-      if (qx.core.Environment.get("qx.dynlocale")) {
-        qx.locale.Manager.getInstance().off("changeLocale", this.render, this);
-      }
     }
   },
 

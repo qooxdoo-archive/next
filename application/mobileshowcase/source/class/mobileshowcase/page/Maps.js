@@ -219,7 +219,7 @@ qx.Class.define("mobileshowcase.page.Maps",
       this._showMyPositionButton.setEnabled(false);
 
       var buttons = [];
-      buttons.push(qx.locale.Manager.tr("OK"));
+      buttons.push("OK");
       var title = "Problem with Geolocation";
       var text = "Please activate location services on your browser and device.";
       qx.ui.dialog.Manager.getInstance().confirm(title, text, function() {

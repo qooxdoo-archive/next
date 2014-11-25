@@ -226,22 +226,23 @@ qx.Class.define("mobileshowcase.page.Dialog",
 
 
     /**
-     * Creates the picker slot data for month names, based on current locale settings.
+     * Creates the picker slot data for month names.
      */
     _createMonthPickerSlot : function() {
-      var names = qx.locale.Date.getMonthNames("wide", qx.locale.Manager.getInstance().locale);
       var slotData = [];
-      for (var i = 0; i < names.length; i++) {
+      ["January", "February", "March", "April", "May", "June", "July",
+      "August", "September", "October", "November", "December"]
+      .forEach(function(name) {
         slotData.push({
-          title: "" + names[i]
+          title: name
         });
-      }
+      });
       return new qx.data.Array(slotData);
     },
 
 
     /**
-     * Creates the picker slot data from 1950 till current year.
+     * Creates the picker slot data from 1950 until the current year.
      */
     _createYearPickerSlot : function() {
       var slotData = [];

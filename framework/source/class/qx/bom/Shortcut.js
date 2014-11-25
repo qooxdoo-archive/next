@@ -370,7 +370,7 @@ qx.Class.define("qx.bom.Shortcut",
     */
 
     /**
-     * Returns the shortcut as string using the currently selected locale.
+     * Returns the shortcut as a string.
      *
      * @return {String} shortcut
      */
@@ -386,12 +386,12 @@ qx.Class.define("qx.bom.Shortcut",
         // Boolean values
         if (this.__modifier[modifier])
         {
-          str.push(qx.locale.Key.getKeyName("short", modifier));
+          str.push(modifier);
         }
       }
 
       if (key) {
-        str.push(qx.locale.Key.getKeyName("short", key));
+        str.push(key);
       }
 
       return str.join("+");

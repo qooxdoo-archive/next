@@ -140,8 +140,6 @@ Alternatively, you could set the init value of the property in the constructor o
 
 Using an initializing function ``this.initMyProperty(value)`` in the constructor would allow you to assign complex non-primitive types (so-called "reference types" like ``Array``, ``Object``) that should not be shared among instances, but be unique on instance level.
 
-Another scenario would be to use a localizable init value when :doc:`internationalizing your application </pages/development/internationalization>`: Because ``this.tr()`` cannot be used in the property definition, you may either use the static ``qx.locale.Manager.tr()`` there instead, or use ``this.tr()`` in the call of the initializing function in the constructor.
-
 .. note::
 
     You need to add a ``deferredInit:true`` to the property configuration to allow for a deferred initialization for reference types as mentioned above.

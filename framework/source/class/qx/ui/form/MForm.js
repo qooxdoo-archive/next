@@ -131,10 +131,6 @@ qx.Mixin.define("qx.ui.form.MForm",
      * constructor.
      */
     initMForm : function() {
-      if (qx.core.Environment.get("qx.dynlocale")) {
-        qx.locale.Manager.getInstance().on("changeLocale", this.__onChangeLocale, this);
-      }
-
       if (this._getTagName() == "input" || this._getTagName() == "textarea") {
         this.on("change", this._onChangeContent, this);
         this.on("input", this._onInput, this);
@@ -337,30 +333,7 @@ qx.Mixin.define("qx.ui.form.MForm",
     },
 
 
-    /**
-     * Locale change event handler
-     *
-     * @signature function(e)
-     * @param e {Event} the change event
-     * TODO
-     */
-    __onChangeLocale : qx.core.Environment.select("qx.dynlocale", {
-      "true" : function(e) {
-        var validationMessage = this.validationMessage;
-        if (validationMessage && validationMessage.translate) {
-          this.validationMessage = validationMessage.translate();
-        }
-      },
-
-      "false" : null
-    }),
-
-
     disposeMForm : function() {
-      if (qx.core.Environment.get("qx.dynlocale")) {
-        qx.locale.Manager.getInstance().off("changeLocale", this.__onChangeLocale, this);
-      }
-
       this.off("focus", this._onFocus,this);
       this.off("blur", this._onBlur,this);
 

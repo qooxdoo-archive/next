@@ -154,12 +154,6 @@ describe("type.BaseArray", function() {
   });
 
 
-  it("ArrayToLocaleString", function() {
-    var list = new type.TestArray(1, 2, 3);
-    assert.equal([1, 2, 3].toLocaleString(), list.toLocaleString());
-  });
-
-
   it("ArrayAccess", function() {
     var list = new type.TestArray(1, 2, 3);
     assert.equal(1, list[0]);

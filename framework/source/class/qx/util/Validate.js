@@ -69,7 +69,7 @@ qx.Class.define("qx.util.Validate",
     number : function(errorMessage) {
       return function(value) {
         qx.util.Validate.checkNumber(value, null, errorMessage);
-      }
+      };
     },
 
 
@@ -88,8 +88,7 @@ qx.Class.define("qx.util.Validate",
      */
     checkNumber : function(value, formItem, errorMessage)
     {
-      errorMessage = errorMessage ||
-        qx.locale.Manager.tr("%1 is not a number.", value);
+      errorMessage = errorMessage || (value + " is not a number.");
 
       if ((typeof value !== "number" && (!(value instanceof Number)))
         || (!(isFinite(value))))
@@ -108,7 +107,7 @@ qx.Class.define("qx.util.Validate",
     email : function(errorMessage) {
       return function(value) {
         qx.util.Validate.checkEmail(value, null, errorMessage);
-      }
+      };
     },
 
 
@@ -127,8 +126,7 @@ qx.Class.define("qx.util.Validate",
      */
     checkEmail : function(value, formItem, errorMessage)
     {
-      errorMessage = errorMessage ||
-        qx.locale.Manager.tr("'%1' is not an email address.", (value || ""));
+      errorMessage = errorMessage || ("'" + value + "'' is not an email address.");
 
       var reg = /^([A-Za-z0-9_\-\.])+\@([A-Za-z0-9_\-\.])+\.([A-Za-z]{2,})$/;
       if (reg.test(value) === false) {
@@ -146,7 +144,7 @@ qx.Class.define("qx.util.Validate",
     string : function(errorMessage) {
       return function(value) {
         qx.util.Validate.checkString(value, null, errorMessage);
-      }
+      };
     },
 
 
@@ -164,8 +162,7 @@ qx.Class.define("qx.util.Validate",
      */
     checkString : function(value, formItem, errorMessage)
     {
-      errorMessage = errorMessage ||
-        qx.locale.Manager.tr("%1 is not a string.", value);
+      errorMessage = errorMessage || (value + " is not a string.");
 
       if (typeof value !== "string" && (!(value instanceof String))) {
         throw new qx.core.ValidationError("Validation Error", errorMessage);
@@ -182,7 +179,7 @@ qx.Class.define("qx.util.Validate",
     url : function(errorMessage) {
       return function(value) {
         qx.util.Validate.checkUrl(value, null, errorMessage);
-      }
+      };
     },
 
 
@@ -200,8 +197,7 @@ qx.Class.define("qx.util.Validate",
      */
     checkUrl : function(value, formItem, errorMessage)
     {
-      errorMessage = errorMessage ||
-        qx.locale.Manager.tr("%1 is not an url.", value);
+      errorMessage = errorMessage || (value + " is not a valid URL.");
 
       var reg =  /([A-Za-z0-9])+:\/\/(\w+:{0,1}\w*@)?(\S+)(:[0-9]+)?(\/|\/([\w#!:.?+=&%@!\-\/]))?/;
       if (!reg.test(value)) {
@@ -219,7 +215,7 @@ qx.Class.define("qx.util.Validate",
     color : function(errorMessage) {
       return function(value) {
         qx.util.Validate.checkColor(value, null, errorMessage);
-      }
+      };
     },
 
 
@@ -241,8 +237,7 @@ qx.Class.define("qx.util.Validate",
       try {
         qx.util.ColorUtil.stringToRgb(value);
       } catch (e) {
-        var message = errorMessage ||
-          qx.locale.Manager.tr("%1 is not a color! %2", value, e);
+        var message = errorMessage || (value + " is not a color! " + e);
         throw new qx.core.ValidationError("Validation Error", message);
       }
     },
@@ -265,13 +260,12 @@ qx.Class.define("qx.util.Validate",
     {
       return function(value)
       {
-        var message = errorMessage ||
-          qx.locale.Manager.tr("%1 is not in the range from [%2, %3].", value, from, to);
+        var message = errorMessage || (value + " is not in the range from " + from + " to " + to);
 
         if (value < from || value > to) {
           throw new qx.core.ValidationError("Validation Error", message);
         }
-      }
+      };
     },
 
 
@@ -288,13 +282,12 @@ qx.Class.define("qx.util.Validate",
     {
       return function(value)
       {
-        var message = errorMessage ||
-          qx.locale.Manager.tr("%1 is not in %2", value, array);
+        var message = errorMessage || (value + " is not in " + array);
 
         if (array.indexOf(value) === -1) {
           throw new qx.core.ValidationError("Validation Error", message);
         }
-      }
+      };
     },
 
 
@@ -312,13 +305,12 @@ qx.Class.define("qx.util.Validate",
     {
       return function(value)
       {
-        var message = errorMessage ||
-          qx.locale.Manager.tr("%1 does not fit %2.", value, reg);
+        var message = errorMessage || (value + " does not fit " + reg);
 
         if (!reg.test(value)) {
           throw new qx.core.ValidationError("Validation Error", message);
         }
-      }
+      };
     }
   }
 });

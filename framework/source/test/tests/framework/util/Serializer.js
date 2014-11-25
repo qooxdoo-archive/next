@@ -20,16 +20,6 @@ describe("util.Serializer", function () {
   var __s = qx.util.Serializer;
   var __model = null;
 
-  var __setUpDateModel = function () {
-    var formater = new qx.util.format.DateFormat("yyyy-mm-dd", "en");
-    var date1 = new Date(0);
-    var date2 = new Date(100000);
-    var date3 = new Date(25168418651);
-    __model.data1 = date1;
-    __model.data2 = date2;
-    __model.data3 = date3;
-    return formater;
-  };
 
   qx.Class.define("qx.test.SerializerModel", {
     extend: Object,
@@ -476,72 +466,4 @@ describe("util.Serializer", function () {
       __s.toNativeObject(__model));
   });
 
-
-  it("DateFormaterNative", function () {
-    var formater = __setUpDateModel();
-
-    assert.deepEqual(
-      {
-        "data1": "1970-00-01",
-        "data2": "1970-01-01",
-        "data3": "1970-13-19"
-      },
-      __s.toNativeObject(__model, null, formater)
-    );
-
-    formater.dispose();
-  });
-
-
-  it("DateFormaterJson", function () {
-    var formater = __setUpDateModel();
-
-    assert.equal(
-      '{"data1":"1970-00-01","data2":"1970-01-01","data3":"1970-13-19"}',
-      __s.toJson(__model, null, formater)
-    );
-
-    formater.dispose();
-  });
-
-
-  it("DateFormaterUrl", function () {
-    var formater = __setUpDateModel();
-
-    assert.equal(
-      "data1=1970-00-01&data2=1970-01-01&data3=1970-13-19",
-      __s.toUriParameter(__model, null, formater)
-    );
-
-    formater.dispose();
-  });
-
-
-  /* ******************************
-   * Localized strings
-   * **************************** */
-  it("JsonLocalizedStrings", function () {
-    assert.equal(
-      '"test affe"', qx.util.Serializer.toJson(qx.locale.Manager.tr("test affe"))
-    );
-  });
-
-
-  it("NativeLocalizedStrings", function () {
-    var ser = qx.util.Serializer.toNativeObject(qx.locale.Manager.tr("test affe"));
-    sinon.spy()("test affe", ser);
-    // regular strings should not have a translate method
-    assert.isUndefined(ser.translate);
-  });
-
-
-  it("UrlLocalizedStrings", function () {
-    __model.data1 = (qx.locale.Manager.tr("test affe"));
-    __model.data2 = null;
-    __model.data3 = null;
-    assert.equal(
-      "data1=test%20affe&data2=null&data3=null",
-      qx.util.Serializer.toUriParameter(__model)
-    );
-  });
 });

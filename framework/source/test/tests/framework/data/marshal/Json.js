@@ -68,20 +68,6 @@ describe("data.marshal.Json", function() {
   });
 
 
-  it("LocalizedString", function() {
-
-    var str = qx.locale.Manager.tr("test one");
-    var data = {
-      a: str
-    };
-    __marshaler.toClass(data);
-
-    var model = __marshaler.toModel(data);
-
-    assert.equal(str, model.a);
-  });
-
-
   it("ClassCreationSingle", function() {
 
     __marshaler.toClass(__data);

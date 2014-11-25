@@ -50,10 +50,6 @@ qx.Class.define("qx.ui.Label",
       this.value = value;
     }
     this.textWrap = true;
-
-    if (qx.core.Environment.get("qx.dynlocale")) {
-      qx.locale.Manager.getInstance().on("changeLocale", this._onChangeLocale, this);
-    }
   },
 
 
@@ -128,31 +124,9 @@ qx.Class.define("qx.ui.Label",
       }
     },
 
-    /**
-     * Locale change event handler
-     *
-     * @signature function(e)
-     * @param e {Event} the change event
-     */
-    _onChangeLocale : qx.core.Environment.select("qx.dynlocale",
-    {
-      "true" : function(e)
-      {
-        var content = this.value;
-        if (content && content.translate) {
-          this.value = content.translate();
-        }
-      },
-
-      "false" : null
-    }),
-
 
     dispose : function() {
       this.super(qx.ui.Widget, "dispose");
-      if (qx.core.Environment.get("qx.dynlocale")) {
-        qx.locale.Manager.getInstance().off("changeLocale", this._onChangeLocale, this);
-      }
     }
   },
 

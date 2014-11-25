@@ -22,7 +22,6 @@
  * This is an util class responsible for serializing qooxdoo objects.
  *
  * @ignore(qx.data, qx.data.IListData)
- * @ignore(qx.locale, qx.locale.LocalizedString)
  * @ignore(qxWeb)
  */
 qx.Class.define("qx.util.Serializer",
@@ -37,15 +36,12 @@ qx.Class.define("qx.util.Serializer",
      *
      * @param object {Object} Any qooxdoo object
      * @param qxSerializer {Function} Function used for serializing qooxdoo
-     *   objects stored in the propertys of the object. Check for the type of
-     *   classes <ou want to serialize and return the serialized value. In all
+     *   objects stored in the properties of the object. Check for the type of
+     *   classes you want to serialize and return the serialized value. In all
      *   other cases, just return nothing.
-     * @param dateFormat {qx.util.format.DateFormat} If a date formatter is given,
-     *   the format method of this given formatter is used to convert date
-     *   objects into strings.
      * @return {String} The serialized object.
      */
-    toUriParameter : function(object, qxSerializer, dateFormat) // TODO use new properties
+    toUriParameter : function(object, qxSerializer) // TODO use new properties
     {
       var result = "";
       var properties = qx.util.PropertyUtil.getAllProperties(object.constructor);
@@ -61,10 +57,6 @@ qx.Class.define("qx.util.Serializer",
             var valueAtI = isdataArray ? value.getItem(i) : value[i];
             result += this.__toUriParameter(name, valueAtI, qxSerializer);
           }
-        } else if (qx.lang.Type.isDate(value) && dateFormat) {
-          result += this.__toUriParameter(
-            name, dateFormat.format(value), qxSerializer
-          );
         } else {
           result += this.__toUriParameter(name, value, qxSerializer);
         }
@@ -117,13 +109,10 @@ qx.Class.define("qx.util.Serializer",
      *   of the object. Check for the type of classes you want to serialize
      *   and return the serialized value. In all other cases, just return
      *   nothing.
-     * @param dateFormat {qx.util.format.DateFormat} If a date formatter is given,
-     *   the format method of this given formatter is used to convert date
-     *   objects into strings.
      * @return {String}
      *   The serialized object.
      */
-    toNativeObject : function(object, qxSerializer, dateFormat)
+    toNativeObject : function(object, qxSerializer)
     {
       var result;
 
@@ -140,7 +129,7 @@ qx.Class.define("qx.util.Serializer",
         for (var i = 0; i < object.getLength(); i++)
         {
           result.push(qx.util.Serializer.toNativeObject(
-            object.getItem(i), qxSerializer, dateFormat)
+            object.getItem(i), qxSerializer)
           );
         }
 
@@ -155,16 +144,6 @@ qx.Class.define("qx.util.Serializer",
       // return names for qooxdoo interfaces and mixins
       if (object.$$type == "Interface" || object.$$type == "Mixin") {
         return object.name;
-      }
-
-      // date objects with date format
-      if (qx.lang.Type.isDate(object) && dateFormat) {
-        return dateFormat.format(object);
-      }
-
-      // localized strings
-      if (qx.locale && qx.locale.LocalizedString && object instanceof qx.locale.LocalizedString) {
-        return object.toString();
       }
 
       // qooxdoo object
@@ -188,7 +167,7 @@ qx.Class.define("qx.util.Serializer",
         for (var name in properties) {
           var value = object[name];
           result[name] = qx.util.Serializer.toNativeObject(
-            value, qxSerializer, dateFormat
+            value, qxSerializer
           );
         }
 
@@ -202,7 +181,7 @@ qx.Class.define("qx.util.Serializer",
         for (var i = 0; i < object.length; i++)
         {
           result.push(qx.util.Serializer.toNativeObject(
-            object[i], qxSerializer, dateFormat)
+            object[i], qxSerializer)
           );
         }
 
@@ -217,7 +196,7 @@ qx.Class.define("qx.util.Serializer",
         for (var key in object)
         {
           result[key] = qx.util.Serializer.toNativeObject(
-            object[key], qxSerializer, dateFormat
+            object[key], qxSerializer
           );
         }
 
@@ -235,14 +214,11 @@ qx.Class.define("qx.util.Serializer",
      * @param object {Object} Any qooxdoo object
      * @param qxSerializer {Function?} Function used for serializing qooxdoo
      *   objects stored in the properties of the object. Check for the type of
-     *   classes <ou want to serialize and return the serialized value. In all
+     *   classes you want to serialize and return the serialized value. In all
      *   other cases, just return nothing.
-     * @param dateFormat {qx.util.format.DateFormat?} If a date formatter is given,
-     *   the format method of this given formatter is used to convert date
-     *   objects into strings.
      * @return {String} The serialized object.
      */
-    toJson : function(object, qxSerializer, dateFormat) {
+    toJson : function(object, qxSerializer) {
       var result = "";
 
       if (object === null || object === undefined) {
@@ -255,7 +231,7 @@ qx.Class.define("qx.util.Serializer",
       {
         result += "[";
         for (var i = 0; i < object.getLength(); i++) {
-          result += qx.util.Serializer.toJson(object.getItem(i), qxSerializer, dateFormat) + ",";
+          result += qx.util.Serializer.toJson(object.getItem(i), qxSerializer) + ",";
         }
         if (result != "[") {
           result = result.substring(0, result.length - 1);
@@ -273,12 +249,6 @@ qx.Class.define("qx.util.Serializer",
         return '"' + object.name + '"';
       }
 
-      // localized strings
-      if (qx.locale && qx.locale.LocalizedString && object instanceof qx.locale.LocalizedString) {
-        object = object.toString();
-        // no return here because we want to have the string checks as well!
-      }
-
       // qooxdoo object
       if (object.classname && object.$$name) {
         if (qxSerializer) {
@@ -293,7 +263,7 @@ qx.Class.define("qx.util.Serializer",
         var properties = qx.util.PropertyUtil.getAllProperties(object.constructor);
         for (var name in properties) {
           var value = object[name];
-          result += '"' + name + '":' + qx.util.Serializer.toJson(value, qxSerializer, dateFormat) + ",";
+          result += '"' + name + '":' + qx.util.Serializer.toJson(value, qxSerializer) + ",";
         }
         if (result != "{") {
           result = result.substring(0, result.length - 1);
@@ -305,7 +275,7 @@ qx.Class.define("qx.util.Serializer",
       if (qx.lang.Type.isArray(object)) {
         result += "[";
         for (var i = 0; i < object.length; i++) {
-          result += qx.util.Serializer.toJson(object[i], qxSerializer, dateFormat) + ",";
+          result += qx.util.Serializer.toJson(object[i], qxSerializer) + ",";
         }
         if (result != "[") {
           result = result.substring(0, result.length - 1);
@@ -313,17 +283,12 @@ qx.Class.define("qx.util.Serializer",
         return result + "]";
       }
 
-      // date objects with formatter
-      if (qx.lang.Type.isDate(object) && dateFormat) {
-        return '"' + dateFormat.format(object) + '"';
-      }
-
       // javascript objects
       if (qx.lang.Type.isObject(object)) {
         result += "{";
         for (var key in object) {
           result += '"' + key + '":' +
-                    qx.util.Serializer.toJson(object[key], qxSerializer, dateFormat) + ",";
+                    qx.util.Serializer.toJson(object[key], qxSerializer) + ",";
         }
         if (result != "{") {
           result = result.substring(0, result.length - 1);

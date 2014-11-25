@@ -25,7 +25,6 @@ describe("lang.Type", function() {
     assert.isTrue(Type.isString(""));
     assert.isTrue(Type.isString("Juhu"));
     assert.isTrue(Type.isString(new String("Juhu")));
-    assert.isTrue(Type.isString(new qx.locale.LocalizedString("Juhu")));
     assert.isTrue(Type.isString(new qx.type.BaseString("juhu")));
 
     assert.isFalse(Type.isString());
@@ -37,7 +36,7 @@ describe("lang.Type", function() {
     assert.isFalse(Type.isString(/juhu/));
 
     // test IE issue with a null returned from DOM
-    assert.isFalse(Type.isString(document.getElementById("ReturenedNull")));
+    assert.isFalse(Type.isString(document.getElementById("ReturnedNull")));
   });
 
 
