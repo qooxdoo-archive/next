@@ -17,7 +17,7 @@
 
 ************************************************************************ */
 
-describe("tree.Tree", function() {
+describe("Tree", function() {
   var data;
   var tree;
 
@@ -31,7 +31,7 @@ describe("tree.Tree", function() {
       ]
     };
 
-    tree = new qx.ui.tree.Tree();
+    tree = new qx.ui.Tree();
     tree.appendTo(document.body);
     tree.setModel(data);
   });

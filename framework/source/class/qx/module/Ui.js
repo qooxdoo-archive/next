@@ -51,7 +51,7 @@
  * @require(qx.ui.navigationbar.NavigationBar)
  * @require(qx.ui.tabbar.TabBar)
  * @require(qx.ui.toolbar.ToolBar)
- * @require(qx.ui.tree.Tree)
+ * @require(qx.ui.Tree)
  * @require(qx.ui.layout.Abstract)
  * @require(qx.ui.layout.AbstractBox)
  * @require(qx.ui.layout.HBox)

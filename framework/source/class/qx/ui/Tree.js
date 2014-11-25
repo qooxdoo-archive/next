@@ -19,13 +19,13 @@
  * @require(qx.module.Template)
  * @group(Widget)
  */
-qx.Class.define("qx.ui.tree.Tree",
+qx.Class.define("qx.ui.Tree",
 {
   extend : qx.ui.Widget,
 
   /**
    * @attach {qxWeb, toTree}
-   * @return {qx.ui.tree.Tree} The new tree widget.
+   * @return {qx.ui.Tree} The new tree widget.
    */
   construct : function(element)
   {
@@ -111,7 +111,7 @@ qx.Class.define("qx.ui.tree.Tree",
      * </pre>
      *
      * @param data {Object} data model to use.
-     * @return {qx.ui.tree.Tree} The collection for chaining.
+     * @return {qx.ui.Tree} The collection for chaining.
      */
     setModel : function (data)
     {
@@ -403,7 +403,7 @@ qx.Class.define("qx.ui.tree.Tree",
      */
     __renderNewFolder : function (id, meta) {
 
-      var template = qx.ui.tree.Tree.__itemTemplate;
+      var template = qx.ui.Tree.__itemTemplate;
       var collection = qxWeb.template.renderToNode(template, this.__getTemplateData(id, meta));
 
       collection.getChildren("span:first-child").addClass("level-" + meta.level);
