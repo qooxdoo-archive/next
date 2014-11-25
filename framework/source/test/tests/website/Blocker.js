@@ -13,7 +13,6 @@ describe('Blocker', function() {
 
 
   it("Blocker", function() {
-    //this.require(["qx.debug"]);
     var styles = {
       position: "absolute",
       top: "250px",
@@ -27,7 +26,6 @@ describe('Blocker', function() {
     test.block("#00FF00", 1);
 
     var blockerDiv = test[0].$$blocker.div;
-    // this.assertElement(blockerDiv[0]);
     assert.isTrue(q.$$qx.dom.Hierarchy.isRendered(blockerDiv[0]));
     var blockerLocation = blockerDiv.getOffset();
     assert.equal(styles.top, blockerLocation.top + "px");
@@ -63,8 +61,6 @@ describe('Blocker', function() {
 
 
   it("BlockDocument", function() {
-    // this.require(["qx.debug"]);
-
     q(document).block();
 
     var blockerDiv = document.$$blocker.div;
@@ -124,7 +120,6 @@ describe('Blocker', function() {
 
 
   it("BlockerWithCSSClassStyling", function(done) {
-    //this.require(["qx.debug"]);
     var styleSheet = "css/style2.css";
     q.includeStylesheet(styleSheet);
 
