@@ -19,7 +19,7 @@
 ************************************************************************ */
 
 /**
- * Specialized page. This page includes already a {@link qx.ui.navigationbar.NavigationBar}
+ * Specialized page. This page includes already a {@link qx.ui.NavigationBar}
  * and and a {@link qx.ui.container.Scroll} container.
  * The NavigationPage can only be used with a page manager {@link qx.ui.page.Manager}.
 

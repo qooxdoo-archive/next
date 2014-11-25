@@ -19,7 +19,7 @@
 ************************************************************************ */
 
 /**
- * The navigation controller includes already a {@link qx.ui.navigationbar.NavigationBar}
+ * The navigation controller includes already a {@link qx.ui.NavigationBar}
  * and a {@link qx.ui.Widget} container with a {@link qx.ui.layout.Card} layout.
  * All widgets that implement the {@link qx.ui.container.INavigation}
  * interface can be added to the container. The added widget provide the title
@@ -106,7 +106,7 @@ qx.Class.define("qx.ui.container.Navigation",
     /**
      * Returns the navigation bar.
      *
-     * @return {qx.ui.navigationbar.NavigationBar} The navigation bar.
+     * @return {qx.ui.NavigationBar} The navigation bar.
      */
     getNavigationBar : function()
     {
@@ -231,11 +231,11 @@ qx.Class.define("qx.ui.container.Navigation",
     /**
      * Creates the navigation bar.
      *
-     * @return {qx.ui.navigationbar.NavigationBar} The created navigation bar
+     * @return {qx.ui.NavigationBar} The created navigation bar
      */
     _createNavigationBar : function()
     {
-      return new qx.ui.navigationbar.NavigationBar();
+      return new qx.ui.NavigationBar();
     },
 
 

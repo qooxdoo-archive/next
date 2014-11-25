@@ -17,7 +17,7 @@
 
 ************************************************************************ */
 
-describe("mobile.navigationbar.NavigationBar", function()
+describe("mobile.NavigationBar", function()
 {
 
   beforeEach( function () {
@@ -31,7 +31,7 @@ describe("mobile.navigationbar.NavigationBar", function()
 
 
   it("Create", function() {
-      var bar = new qx.ui.navigationbar.NavigationBar();
+      var bar = new qx.ui.NavigationBar();
       getRoot().append(bar);
 
       var back = new qx.ui.Button("Back");
@@ -53,8 +53,8 @@ describe("mobile.navigationbar.NavigationBar", function()
 
   it("Factory", function() {
     var navigationBar = qxWeb.create("<div>").toNavigationBar().appendTo(getRoot());
-    assert.instanceOf(navigationBar, qx.ui.navigationbar.NavigationBar);
+    assert.instanceOf(navigationBar, qx.ui.NavigationBar);
     assert.equal(navigationBar, navigationBar[0].$$widget);
-    assert.equal("qx.ui.navigationbar.NavigationBar", navigationBar.getData("qxWidget"));
+    assert.equal("qx.ui.NavigationBar", navigationBar.getData("qxWidget"));
   });
 });

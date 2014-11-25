@@ -26,7 +26,7 @@
  * Here is a little example of how to use the widget.
  *
  * <pre class='javascript'>
- *   var bar = new qx.ui.navigationbar.NavigationBar();
+ *   var bar = new qx.ui.NavigationBar();
  *   var backButton = new qx.ui.Button();
  *   bar.append(backButton);
  *   var title = qxWeb.create("<h1>").setHtml("Headline");
@@ -37,13 +37,13 @@
  *
  * This example creates a navigation bar and adds a back button and a title to it.
  */
-qx.Class.define("qx.ui.navigationbar.NavigationBar",
+qx.Class.define("qx.ui.NavigationBar",
 {
   extend : qx.ui.Widget,
 
   /**
    * @attach {qxWeb, toNavigationBar}
-   * @return {qx.ui.navigationbar.NavigationBar} The new navigationbar widget.
+   * @return {qx.ui.NavigationBar} The new navigationbar widget.
    */
   construct : function(layout, element) {
     this.super(qx.ui.Widget, "construct", element);
