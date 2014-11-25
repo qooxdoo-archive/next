@@ -121,7 +121,7 @@ describe("util.Serializer", function () {
       return object.label;
     };
 
-    var item = new qx.ui.basic.Atom("a");
+    var item = new qx.ui.Atom("a");
     __model.data1 = item;
     __model.data2 = "b";
     __model.data3 = "c";
@@ -165,7 +165,7 @@ describe("util.Serializer", function () {
 
 
   it("UrlInherited", function () {
-    var model = new qx.ui.basic.Atom();
+    var model = new qx.ui.Atom();
     var data = __s.toUriParameter(model);
     // property included in widget
     assert.isTrue(data.indexOf("label") != -1);
@@ -238,7 +238,7 @@ describe("util.Serializer", function () {
 
 
   it("JsonInherited", function () {
-    var model = new qx.ui.basic.Atom();
+    var model = new qx.ui.Atom();
     var data = __s.toJson(model);
     // property included in widget
     assert.isTrue(data.indexOf("enabled") != -1);
@@ -265,12 +265,12 @@ describe("util.Serializer", function () {
 
   it("JsonQxSerializer", function () {
     var qxSerializer = function (object) {
-      if (object instanceof qx.ui.basic.Atom) {
+      if (object instanceof qx.ui.Atom) {
         return object.label;
       }
     };
 
-    var item = new qx.ui.basic.Atom("a");
+    var item = new qx.ui.Atom("a");
     __model.data1 = (item);
     __model.data2 = (10.456);
     __model.data3 = (true);
@@ -442,12 +442,12 @@ describe("util.Serializer", function () {
 
   it("NativeObjectQxSerializer", function () {
     var qxSerializer = function (object) {
-      if (object instanceof qx.ui.basic.Atom) {
+      if (object instanceof qx.ui.Atom) {
         return object.label;
       }
     };
 
-    var item = new qx.ui.basic.Atom("a");
+    var item = new qx.ui.Atom("a");
     __model.data1 = (item);
     __model.data2 = (10.456);
     __model.data3 = (true);

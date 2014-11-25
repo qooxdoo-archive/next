@@ -36,7 +36,7 @@
  */
 qx.Class.define("qx.ui.dialog.BusyIndicator",
 {
-  extend : qx.ui.basic.Atom,
+  extend : qx.ui.Atom,
 
 
   /**
@@ -45,7 +45,7 @@ qx.Class.define("qx.ui.dialog.BusyIndicator",
   construct : function(label)
   {
     // the image passed as second argument is a blank 1px transparent png
-    this.super(qx.ui.basic.Atom, "construct", label, qx.ui.basic.Image.PLACEHOLDER_IMAGE);
+    this.super(qx.ui.Atom, "construct", label, qx.ui.basic.Image.PLACEHOLDER_IMAGE);
 
     this.on("appear", this._onAppear, this);
     this.on("disappear", this._onDisappear, this);
@@ -97,7 +97,7 @@ qx.Class.define("qx.ui.dialog.BusyIndicator",
     // overridden
     _createIconWidget : function(iconUrl)
     {
-      var iconWidget = this.super(qx.ui.basic.Atom, "_createIconWidget", iconUrl);
+      var iconWidget = this.super(qx.ui.Atom, "_createIconWidget", iconUrl);
       iconWidget.addClass(this.spinnerClass);
       return iconWidget;
     },
@@ -116,7 +116,7 @@ qx.Class.define("qx.ui.dialog.BusyIndicator",
 
 
     dispose : function() {
-      this.super(qx.ui.basic.Atom, "dispose");
+      this.super(qx.ui.Atom, "dispose");
       this.off("appear", this._onAppear, this);
       this.off("disappear", this._onDisappear, this);
 

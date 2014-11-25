@@ -21,7 +21,7 @@
  * @require(qx.ui.Button)
  * @require(qx.ui.Rating)
  * @require(qx.ui.Widget)
- * @require(qx.ui.basic.Atom)
+ * @require(qx.ui.Atom)
  * @require(qx.ui.basic.Image)
  * @require(qx.ui.basic.Label)
  * @require(qx.ui.container.Carousel)

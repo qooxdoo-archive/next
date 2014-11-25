@@ -83,7 +83,7 @@ qx.Class.define("mobileshowcase.page.Basic",
         layout: new qx.ui.layout.VBox()
       });
       for (var i = 0; i < positions.length; i++) {
-        var atomExample = new qx.ui.basic.Atom("Icon Position: "+positions[i], iconSrc);
+        var atomExample = new qx.ui.Atom("Icon Position: "+positions[i], iconSrc);
         atomExample.iconPosition = positions[i];
         atomRow.append(atomExample);
         this._widgets.push(atomExample);

@@ -94,7 +94,7 @@ qx.Class.define("qx.ui.dialog.Popup",
 
 
     /**
-     * The label/caption/text of the qx.ui.basic.Atom instance
+     * The label/caption/text of the qx.ui.Atom instance
      */
     title :
     {
@@ -443,7 +443,7 @@ qx.Class.define("qx.ui.dialog.Popup",
     /**
      * Creates the title atom widget.
      *
-     * @return {qx.ui.basic.Atom} The title atom widget.
+     * @return {qx.ui.Atom} The title atom widget.
      */
     _getTitleWidget : function()
     {
@@ -451,7 +451,7 @@ qx.Class.define("qx.ui.dialog.Popup",
         return this.__titleWidget;
       }
       if (this.title || this.icon) {
-        this.__titleWidget = new qx.ui.basic.Atom(this.title, this.icon);
+        this.__titleWidget = new qx.ui.Atom(this.title, this.icon);
         this.__titleWidget.addClass('popup-title');
         return this.__titleWidget;
       }
@@ -471,7 +471,7 @@ qx.Class.define("qx.ui.dialog.Popup",
         }
         else
         {
-          this.__titleWidget = new qx.ui.basic.Atom(value, this.icon);
+          this.__titleWidget = new qx.ui.Atom(value, this.icon);
           this.__titleWidget.addClass('popup-title');
 
           if(this.__widget) {
@@ -493,7 +493,7 @@ qx.Class.define("qx.ui.dialog.Popup",
         if (this.__titleWidget) {
           this.__titleWidget.icon = value;
         } else {
-          this.__titleWidget = new qx.ui.basic.Atom(this.title, value);
+          this.__titleWidget = new qx.ui.Atom(this.title, value);
           this.__titleWidget.addClass('popup-title');
 
           if (this.__widget) {
@@ -533,7 +533,7 @@ qx.Class.define("qx.ui.dialog.Popup",
     /**
      * Returns the title widget.
      *
-     * @return {qx.ui.basic.Atom} The title widget.
+     * @return {qx.ui.Atom} The title widget.
      */
     getTitleWidget : function() {
       return this.__titleWidget;

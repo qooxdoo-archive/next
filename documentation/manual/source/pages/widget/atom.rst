@@ -35,5 +35,5 @@ Here are some links that demonstrate the usage of the widget:
 API
 ---
 | Here is a link to the API of the Widget:
-| `qx.ui.basic.Atom <http://demo.qooxdoo.org/%{version}/apiviewer/#qx.ui.basic.Atom>`_
+| `qx.ui.Atom <http://demo.qooxdoo.org/%{version}/apiviewer/#qx.ui.Atom>`_
 

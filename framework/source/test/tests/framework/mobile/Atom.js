@@ -25,7 +25,7 @@
  * @asset(qx/icon/Tango/32/places/folder-open.png)
  */
 
-describe("mobile.basic.Atom", function()
+describe("mobile.Atom", function()
 {
   beforeEach( function () {
      setUpRoot();
@@ -38,7 +38,7 @@ describe("mobile.basic.Atom", function()
 
 
  it("Label", function() {
-      var atom = new qx.ui.basic.Atom("myText");
+      var atom = new qx.ui.Atom("myText");
 
       getRoot().append(atom);
 
@@ -56,7 +56,7 @@ describe("mobile.basic.Atom", function()
 
   it("Icon", function() {
       var imageURL = qx.util.ResourceManager.getInstance().toUri("/framework/source/resource/qx/icon/Tango/48/places/user-home.png");
-      var atom = new qx.ui.basic.Atom("myText", imageURL);
+      var atom = new qx.ui.Atom("myText", imageURL);
 
       getRoot().append(atom);
 
@@ -79,7 +79,7 @@ describe("mobile.basic.Atom", function()
 
   it("Show", function() {
       var imageURL = qx.util.ResourceManager.getInstance().toUri("/framework/source/resource/qx/icon/Tango/48/places/user-home.png");
-      var atom = new qx.ui.basic.Atom("myText", imageURL);
+      var atom = new qx.ui.Atom("myText", imageURL);
 
       getRoot().append(atom);
 
@@ -102,7 +102,7 @@ describe("mobile.basic.Atom", function()
 
   it("IconPosition", function() {
       var imageURL = qx.util.ResourceManager.getInstance().toUri("/framework/source/resource/qx/icon/Tango/48/places/user-home.png");
-      var atom = new qx.ui.basic.Atom("myTextmyTextmyTextmyTextmyText", imageURL);
+      var atom = new qx.ui.Atom("myTextmyTextmyTextmyTextmyText", imageURL);
 
       getRoot().append(atom);
 
@@ -140,7 +140,7 @@ describe("mobile.basic.Atom", function()
       var testText = "test234";
       var imageURL = qx.util.ResourceManager.getInstance().toUri("/framework/source/resource/qx/icon/Tango/48/places/user-home.png");
 
-      var atom = new qx.ui.basic.Atom();
+      var atom = new qx.ui.Atom();
       atom.label = testText;
       atom.icon = imageURL;
 
@@ -166,11 +166,11 @@ describe("mobile.basic.Atom", function()
       .toAtom(label, imageUri)
       .appendTo(getRoot());
 
-    assert.instanceOf(atom, qx.ui.basic.Atom);
+    assert.instanceOf(atom, qx.ui.Atom);
     assert.equal(atom, atom[0].$$widget);
     assert.equal(label, atom.label);
     assert.equal(imageUri, atom.icon);
-    assert.equal("qx.ui.basic.Atom", atom.getData("qxWidget"));
+    assert.equal("qx.ui.Atom", atom.getData("qxWidget"));
     atom.remove().dispose();
   });
 

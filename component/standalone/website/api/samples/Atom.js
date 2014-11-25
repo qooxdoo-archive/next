@@ -9,7 +9,7 @@ addSample('.atom', {
 
 addSample('.atom', {
   javascript: function () {
-    var atom = new qx.ui.basic.Atom("qooxdoo desktop", "http://qooxdoo.org/_media/desktop.png");
+    var atom = new qx.ui.Atom("qooxdoo desktop", "http://qooxdoo.org/_media/desktop.png");
     atom.iconPosition = 'bottom';
     q(document.body).append(atom);
   },

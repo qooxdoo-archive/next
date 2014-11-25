@@ -22,12 +22,12 @@
 /**
  * A multi-purpose widget, which combines a label with an icon.
  *
- * The intended purpose of qx.ui.basic.Atom is to easily align the common icon-text
+ * The intended purpose of qx.ui.Atom is to easily align the common icon-text
  * combination in different ways.
  *
  * @group(Widget)
  */
-qx.Class.define("qx.ui.basic.Atom",
+qx.Class.define("qx.ui.Atom",
 {
   extend : qx.ui.Widget,
 
@@ -36,7 +36,7 @@ qx.Class.define("qx.ui.basic.Atom",
    * @attach {qxWeb, toAtom}
    * @param label {String?} Label to use
    * @param icon {String?null} Icon to use
-   * @return {qx.ui.basic.Atom} The new atom widget.
+   * @return {qx.ui.Atom} The new atom widget.
    */
   construct : function(label, icon, element)
   {
@@ -63,7 +63,7 @@ qx.Class.define("qx.ui.basic.Atom",
       init : "atom"
     },
 
-    /** The label/caption/text of the qx.ui.mobile.basic.Atom instance */
+    /** The label/caption/text of the qx.ui.Atom instance */
     label :
     {
       apply : "_applyLabel",
@@ -72,7 +72,7 @@ qx.Class.define("qx.ui.basic.Atom",
       event : true
     },
 
-    /** Any URI String supported by qx.ui.mobile.basic.Image to display an icon */
+    /** Any URI String supported by qx.ui.mobile.Image to display an icon */
     icon :
     {
       check : "String",
