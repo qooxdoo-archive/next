@@ -44,9 +44,7 @@ qx.Class.define("qx.ui.container.Carousel",
    * @attach {qxWeb, toCarousel}
    * @return {qx.ui.container.Carousel} The new carousel widget.
    */
-  construct : function(transitionDuration, element)
-  {
-
+  construct : function(transitionDuration, element) {
     this.super(qx.ui.Widget, "construct", element);
 
     if (transitionDuration) {
@@ -101,6 +99,7 @@ qx.Class.define("qx.ui.container.Carousel",
     pagination.layoutPrefs = {flex: 1};
     this._append(pagination);
 
+    this.on("addedChild", this._onAddedChild, this);
   },
 
 
@@ -189,15 +188,12 @@ qx.Class.define("qx.ui.container.Carousel",
     __currentIndex : 0,
     __lastCompletedIndex : 0,
 
-    // overridden
+
     /**
      * Adds a page to the end of the carousel.
      * @param page {qx.ui.Widget} The composite which should be added as a page to the end of carousel.
      */
-    append : function(page) {
-
-      this.super(qx.ui.Widget, "append", page);
-
+    _onAddedChild : function(page) {
       // initial selection
       if (!this.active) {
         this.active = page[0];
@@ -856,11 +852,11 @@ qx.Class.define("qx.ui.container.Carousel",
         this.__carouselScroller.off("removedChild", this._onRemovedChild, this);
       }
 
-      this.off("appear", this._onContainerUpdate, this);
+      this.off("appear", this._onContainerUpdate, this)
+        .off("addedChild", this._onAddedChild, this)
+        .off("scroll", this._onNativeScroll, this);
 
       qxWeb(window).off("orientationchange", this._onContainerUpdate, this).off("resize", this._onContainerUpdate, this);
-
-      this.off("scroll", this._onNativeScroll, this);
     },
 
 
