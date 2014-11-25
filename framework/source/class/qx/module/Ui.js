@@ -22,7 +22,7 @@
  * @require(qx.ui.Rating)
  * @require(qx.ui.Widget)
  * @require(qx.ui.Atom)
- * @require(qx.ui.basic.Image)
+ * @require(qx.ui.Image)
  * @require(qx.ui.basic.Label)
  * @require(qx.ui.container.Carousel)
  * @require(qx.ui.container.Collapsible)

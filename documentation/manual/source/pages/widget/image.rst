@@ -31,12 +31,12 @@ Demos
 -----
 Here are some links that demonstrate the usage of the widget:
 
-* `Image demo <http://demo.qooxdoo.org/%{version}/demobrowser/#widget~Image.html>`_ 
+* `Image demo <http://demo.qooxdoo.org/%{version}/demobrowser/#widget~Image.html>`_
 
 .. _pages/widget/image#api:
 
 API
 ---
 | Here is a link to the API of the Widget:
-| `qx.ui.basic.Image <http://demo.qooxdoo.org/%{version}/apiviewer/#qx.ui.basic.Image>`_
+| `qx.ui.Image <http://demo.qooxdoo.org/%{version}/apiviewer/#qx.ui.Image>`_
 

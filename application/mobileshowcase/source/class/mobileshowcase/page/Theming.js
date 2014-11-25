@@ -101,7 +101,7 @@ qx.Class.define("mobileshowcase.page.Theming",
     {
       var appScaling = qx.application.Scaling.getInstance();
 
-      var appScale = qx.ui.basic.Image.getAppScale();
+      var appScale = qx.ui.Image.getAppScale();
       var fontScale = appScaling.get();
 
       if(appScale != this.__appScale || fontScale != this.__fontScale)
@@ -137,7 +137,7 @@ qx.Class.define("mobileshowcase.page.Theming",
     __createImageResolutionHandlingDemo : function() {
       this.getContent().append(qxWeb.create('<h2 class="form-title">Resolution-specific Images</h2>'));
 
-      var demoImage = new qx.ui.basic.Image("mobileshowcase/icon/image.png")
+      var demoImage = new qx.ui.Image("mobileshowcase/icon/image.png")
         .addClass("resolution-demo-image");
 
       this.__demoImageLabel = new qx.ui.basic.Label()
@@ -159,7 +159,7 @@ qx.Class.define("mobileshowcase.page.Theming",
     {
       var pixelRatio = parseFloat(q.env.get("device.pixelRatio").toFixed(2));
       var fontScale = qx.application.Scaling.getInstance().get();
-      var appScale = qx.ui.basic.Image.getAppScale();
+      var appScale = qx.ui.Image.getAppScale();
 
       var demoLabelTemplate = "<div>Best available image for total app scale<span>%1</span></div> <div><br/></div> <div>Device pixel ratio:<span>%2</span></div>  <div>Computed font scale:<span>%3</span></div> ";
       var labelContent = qxWeb.string.format(demoLabelTemplate, [this.__format(appScale), this.__format(pixelRatio), this.__format(fontScale)]);

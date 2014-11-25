@@ -24,7 +24,7 @@
  *
  * @require(qx.module.AnimationFrame)
  * @require(qx.module.Template)
- * @require(qx.ui.basic.Image)
+ * @require(qx.ui.Image)
  * @group(Widget)
  */
 qx.Class.define("qx.ui.List",
@@ -35,7 +35,7 @@ qx.Class.define("qx.ui.List",
 
   statics : {
     itemTemplate : '<li class="list-item qx-hbox qx-flex-align-center {{#removable}}removable{{/removable}} {{#showArrow}}arrow{{/showArrow}}" {{#selectable}}data-selectable="true" data-activatable="true"{{/selectable}} data-row="{{row}}">' +
-                     '{{#image}}<img class="list-item-image" data-qx-widget="qx.ui.basic.Image" data-qx-config-source="{{image}}" style="pointer-events: none;">{{/image}}' +
+                     '{{#image}}<img class="list-item-image" data-qx-widget="qx.ui.Image" data-qx-config-source="{{image}}" style="pointer-events: none;">{{/image}}' +
                      '<div class="qx-vbox qx-flex1">' +
                        '{{#title}}<div class="label no-wrap list-item-title" style="pointer-events: none;">{{title}}</div>{{/title}}' +
                        '{{#subtitle}}<div class="label no-wrap list-item-subtitle" style="pointer-events: none;">{{subtitle}}</div>{{/subtitle}}' +

@@ -106,7 +106,7 @@ qx.Class.define("qx.ui.dialog.Popup",
 
 
     /**
-     * Any URI String supported by qx.ui.basic.Image to display an icon
+     * Any URI String supported by qx.ui.Image to display an icon
      */
     icon :
     {

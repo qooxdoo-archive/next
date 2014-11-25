@@ -202,7 +202,7 @@ qx.Class.define("qx.ui.Atom",
     /**
      * Returns the icon widget.
      *
-     * @return {qx.ui.basic.Image} The icon widget.
+     * @return {qx.ui.Image} The icon widget.
      */
     getIconWidget: function() {
       return this.__icon;
@@ -223,11 +223,11 @@ qx.Class.define("qx.ui.Atom",
      * Creates the icon widget.
      *
      * @param iconUrl {String} The icon url.
-     * @return {qx.ui.basic.Image} The created icon widget.
+     * @return {qx.ui.Image} The created icon widget.
      */
     _createIconWidget : function(iconUrl)
     {
-      var iconWidget = new qx.ui.basic.Image(iconUrl);
+      var iconWidget = new qx.ui.Image(iconUrl);
       iconWidget.setStyle("display", "block");
       iconWidget.anonymous = true;
       iconWidget.addClass("gap");

@@ -23,7 +23,7 @@
  *
  * @group(Widget)
  */
-qx.Class.define("qx.ui.basic.Image",
+qx.Class.define("qx.ui.Image",
 {
   extend : qx.ui.Widget,
 
@@ -31,7 +31,7 @@ qx.Class.define("qx.ui.basic.Image",
   /**
    * @param source {String?null} The URL of the image to display.
    * @attach {qxWeb, toImage}
-   * @return {qx.ui.basic.Image} The new image widget.
+   * @return {qx.ui.Image} The new image widget.
    */
   construct : function(source, element)
   {
@@ -123,7 +123,7 @@ qx.Class.define("qx.ui.basic.Image",
         if (resourceManager.has(source)) {
           var highResSource = this._findHighResolutionSource(source);
           if (highResSource) {
-            source = qx.ui.basic.Image.PLACEHOLDER_IMAGE;
+            source = qx.ui.Image.PLACEHOLDER_IMAGE;
             uri = resourceManager.toUri(highResSource);
           } else {
             source = uri;
@@ -164,10 +164,10 @@ qx.Class.define("qx.ui.basic.Image",
       if (!qx.application.Scaling) {
         return null;
       }
-      var pixelRatioCandidates = qx.ui.basic.Image.PIXEL_RATIOS;
+      var pixelRatioCandidates = qx.ui.Image.PIXEL_RATIOS;
 
       // Calculate the optimal ratio, based on the rem scale factor of the application and the device pixel ratio.
-      var factor = qx.ui.basic.Image.getAppScale();
+      var factor = qx.ui.Image.getAppScale();
       if (factor <= 1) {
         return false;
       }

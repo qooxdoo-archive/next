@@ -74,7 +74,7 @@ qx.Class.define("mobileshowcase.page.Basic",
       var exLabel = new qx.ui.basic.Label(labelText);
       exLabel.addClass("space-top");
 
-      var exImage = new qx.ui.basic.Image("mobileshowcase/icon/mobile.png");
+      var exImage = new qx.ui.Image("mobileshowcase/icon/mobile.png");
 
       // ATOMS
       var positions = [ "top", "left", "right", "bottom" ];

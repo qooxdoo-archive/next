@@ -106,7 +106,7 @@ qx.Class.define("mobileshowcase.page.Event",
       container.append(containerTouchArea);
 
       // GESTURE TARGET OBJECT
-      this.__gestureTarget = new qx.ui.basic.Image("mobileshowcase/icon/HTML5_Badge_512.png");
+      this.__gestureTarget = new qx.ui.Image("mobileshowcase/icon/HTML5_Badge_512.png");
 
       this.__gestureTarget.addClass("gesture-target");
       this.__gestureTarget.on("trackstart", this.__onTrackStart, this);

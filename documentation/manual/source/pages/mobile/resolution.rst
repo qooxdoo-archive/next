@@ -106,7 +106,7 @@ Fallback
 
 In your app you can adjust the set of scale factors to check by modifying this static array:
 
-``qx.ui.mobile.basic.Image.PIXEL_RATIOS``
+``qx.ui.mobile.Image.PIXEL_RATIOS``
 
 For the best visual result %{Mobile} uses the following fallback logic:
 
