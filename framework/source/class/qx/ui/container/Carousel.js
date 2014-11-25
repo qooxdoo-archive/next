@@ -291,7 +291,7 @@ qx.Class.define("qx.ui.container.Carousel",
       var first = pages.getFirst();
 
       paginationLabel.off("tap", paginationLabel.tapHandler);
-      paginationLabel.dispose();
+      paginationLabel.empty();
 
       this.__pages.splice(pageIndex, 1);
       this.__paginationLabels.splice(pageIndex, 1);
