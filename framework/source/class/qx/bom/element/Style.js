@@ -66,16 +66,9 @@
  * @require(qx.bom.client.Css)
 
  * @require(qx.bom.element.Clip#set)
- * @require(qx.bom.element.Cursor#set)
-
  * @require(qx.bom.element.Clip#get)
- * @require(qx.bom.element.Cursor#get)
-
  * @require(qx.bom.element.Clip#reset)
- * @require(qx.bom.element.Cursor#reset)
-
  * @require(qx.bom.element.Clip#compile)
- * @require(qx.bom.element.Cursor#compile)
  */
 qx.Class.define("qx.bom.element.Style",
 {
@@ -157,8 +150,7 @@ qx.Class.define("qx.bom.element.Style",
      */
     __special :
     {
-      clip : qx.bom.element.Clip,
-      cursor : qx.bom.element.Cursor
+      clip : qx.bom.element.Clip
     },
 
 
