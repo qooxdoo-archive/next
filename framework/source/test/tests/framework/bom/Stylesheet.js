@@ -26,11 +26,10 @@ describe("bom.Stylesheet", function() {
     }
 
     if (this.__sheet) {
+      qx.bom.Stylesheet.removeAllRules(this.__sheet);
       var ownerNode = this.__sheet.ownerNode || this.__sheet.owningNode;
       if (ownerNode && ownerNode.parentNode) {
         ownerNode.parentNode.removeChild(ownerNode);
-      } else {
-        qx.bom.Stylesheet.removeAllRules(this.__sheet);
       }
     }
   });
