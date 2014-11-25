@@ -847,17 +847,19 @@ qx.Class.define("qx.io.rest.Resource",
         return false;
       }
 
-      var handlerId = this.__longPollHandlers[action] =
-        this.on(action + "Success", function longPollHandler() {
-          if (res.isDisposed()) {
-            return;
-          }
 
-          if (!throttle()) {
-            lastResponse = new Date();
-            res.refresh(action);
-          }
-        });
+      var emitObj = this.on(action + "Success", function longPollHandler() {
+        if (res.isDisposed()) {
+          return;
+        }
+
+        if (!throttle()) {
+          lastResponse = new Date();
+          res.refresh(action);
+        }
+      });
+
+      var handlerId = this.__longPollHandlers[action] = emitObj.getListenerId();
 
       this.invoke(action);
       return handlerId;

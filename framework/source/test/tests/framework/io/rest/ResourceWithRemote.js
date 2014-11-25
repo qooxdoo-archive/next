@@ -30,27 +30,31 @@
 
 describe("io.rest.ResourceWithRemote", function() {
   var res;
+
   beforeEach(function() {
     // require(["http"]);
+    setUpRoot();
     res = new qx.io.rest.Resource();
   });
 
   afterEach(function() {
     res.dispose();
+    tearDownRoot();
   });
 
 
   it("invoke action and handle response", function(done) {
     // Handles GET
-    var url = qx.util.ResourceManager.getInstance().toUri("qx/test/xmlhttp/sample.txt");
+    var url = "../resource/qx/test/xmlhttp/sample.txt";
     res.map("get", "GET", url);
     res.on("getSuccess", function(e) {
       setTimeout(function(){
         assert.equal("SAMPLE", e.response);
-        res.get();
         done();
-      },100)
+      },100);
     });
+
+    res.get();
   });
 
 
@@ -63,16 +67,17 @@ describe("io.rest.ResourceWithRemote", function() {
       setTimeout(function() {
         assert.equal("statusError", e.phase);
         assert.equal("get", e.action);
-        res.get();
         done();
-      }, 10)
+      }, 10);
     });
+
+    res.get();
   });
 
 
   it("poll action", function(done) {
     // Handles GET
-    var url = qx.util.ResourceManager.getInstance().toUri("qx/test/xmlhttp/random.php"),
+    var url = "../resource/qx/test/xmlhttp/random.php",
       count = 0,
       previousResponse = "";
 
@@ -91,17 +96,19 @@ describe("io.rest.ResourceWithRemote", function() {
 
       if (count >= 10) {
         setTimeout(function() {
-          res.poll("get", 100);
-          done();
+          if (count === 10) {
+            done();
+          }
         }, 10);
       }
     });
 
+    res.poll("get", 100);
   });
 
 
   it("long poll", function(done) {
-    var url = qx.util.ResourceManager.getInstance().toUri("qx/test/xmlhttp/long_poll.php"),
+    var url = "../resource/qx/test/xmlhttp/long_poll.php",
       count = 0,
       responses = [];
 
@@ -111,14 +118,18 @@ describe("io.rest.ResourceWithRemote", function() {
       responses.push(response);
 
       if (++count >= 5) {
+        console.log(count);
         setTimeout(function() {
           assert(parseFloat(responses[4]) > parseFloat(responses[0]),
             "Must increase");
-          res.longPoll("get");
-          done()
-        }, 10);
+          if (count === 5) {
+            done();
+          }
+        }, 100);
       }
     });
+
+    res.longPoll("get");
   });
 
 });

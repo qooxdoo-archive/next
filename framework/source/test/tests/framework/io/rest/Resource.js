@@ -985,7 +985,7 @@ describe("io.rest.Resource", function() {
   });
 
 
-  it("dispose request on loadEnd", function() {
+  it("dispose request on loadEnd", function(done) {
     sandbox.spy(req, "dispose");
 
     res.get();
@@ -993,6 +993,7 @@ describe("io.rest.Resource", function() {
 
     setTimeout(function() {
       sinon.assert.calledOnce(req.dispose);
+      done();
     }, 100);
   });
 
