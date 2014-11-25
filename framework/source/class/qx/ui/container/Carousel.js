@@ -39,7 +39,8 @@ qx.Class.define("qx.ui.container.Carousel",
 
 
   /**
-   * @param transitionDuration {Integer ? 0.4} transition duration on carouselPage change in seconds.
+   * @param transitionDuration {Integer?null} transition duration on carouselPage change in seconds.
+   * @param element {Element?null} The new carousel widget.
    * @attach {qxWeb, toCarousel}
    * @return {qx.ui.container.Carousel} The new carousel widget.
    */
