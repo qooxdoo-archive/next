@@ -22,13 +22,13 @@
  * A toolbar widget.
  *
  */
-qx.Class.define("qx.ui.toolbar.ToolBar",
+qx.Class.define("qx.ui.ToolBar",
 {
   extend : qx.ui.Widget,
 
   /**
    * @attach {qxWeb, toToolBar}
-   * @return {qx.ui.toolbar.ToolBar} The new toolbar widget.
+   * @return {qx.ui.ToolBar} The new toolbar widget.
    */
   construct : function(layout, element)
   {

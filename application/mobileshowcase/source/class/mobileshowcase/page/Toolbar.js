@@ -74,7 +74,7 @@ qx.Class.define("mobileshowcase.page.Toolbar",
 
       this.getContent().append(qxWeb.create('<h2 class="form-title">Search</h2>'));
 
-      var toolbar = this.__toolbar = new qx.ui.toolbar.ToolBar();
+      var toolbar = this.__toolbar = new qx.ui.ToolBar();
       this.append(toolbar);
 
       var searchBtn = new qx.ui.Button("Search");
