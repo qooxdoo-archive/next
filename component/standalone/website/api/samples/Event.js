@@ -80,23 +80,23 @@ var myHandler = function(e) {
   var target = e.getTarget();
   // more code ...
 };
-q("#navigationBar").on("tap", myHandler);
+q("#navigation").on("tap", myHandler);
 
 // removing the listener - it's important to remove it with the same arguments
-q("#navigationBar").off("tap", myHandler);
+q("#navigation").off("tap", myHandler);
 
 // this WON'T remove the listener, since you hand in a different context
 // same for adding a listener with a context and forget to pass the third argument
-q("#navigationBar").off("tap", myHandler, window); // WRONG: listener still there
+q("#navigation").off("tap", myHandler, window); // WRONG: listener still there
 });
 
 
 addSample(".allOff", function() {
 // before removing DOM elements, remove *all tap* listeners
-q("#navigationBar").allOff("tap").remove();
+q("#navigation").allOff("tap").remove();
 
 // before removing DOM elements, remove *all* listeners
-q("#navigationBar").allOff().remove();
+q("#navigation").allOff().remove();
 }
 );
 
