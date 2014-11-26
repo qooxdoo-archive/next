@@ -104,9 +104,9 @@ qx.Class.define("qx.ui.container.Navigation",
 
 
     /**
-     * Returns the navigation bar.
+     * Returns the navigation bar widget.
      *
-     * @return {qx.ui.NavigationBar} The navigation bar.
+     * @return {qx.ui.Widget} The navigation bar widget.
      */
     getNavigationBar : function()
     {
@@ -231,11 +231,11 @@ qx.Class.define("qx.ui.container.Navigation",
     /**
      * Creates the navigation bar.
      *
-     * @return {qx.ui.NavigationBar} The created navigation bar
+     * @return {qx.ui.Widget} The created navigation bar
      */
     _createNavigationBar : function()
     {
-      return new qx.ui.NavigationBar();
+      return new qx.ui.Widget();
     },
 
 
