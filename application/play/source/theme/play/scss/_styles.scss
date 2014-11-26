@@ -141,26 +141,6 @@ $list-group-header-font: normal rem(16) sans-serif;
 $menu-item-selected-text-color:  $background-color;
 $menu-item-selected-background:  lighten($highlight-color, 20%), $highlight-color;
 
-// NavigationBar
-
-$navigationbar-height:  rem(40);
-$navigationbar-background:  $color-2,$color-1;
-$navigationbar-text-size:  $navigationbar-height/2;
-$navigationbar-text-color:  $background-color;
-$navigationbar-padding:  rem(4);
-$navigationbar-font-weight: bold;
-
-// NavigationBar Button
-
-$navigationbarbutton-border-radius:  rem(4);
-$navigationbarbutton-background:  $background-color,$color-4;
-$navigationbarbutton-border-color:  $color-2;
-$navigationbarbutton-text-color:  $color-1;
-$navigationbarbutton-active-background:  lighten($highlight-color,20%),$highlight-color;
-$navigationbarbutton-active-text-color:  $background-color;
-$navigationbarbutton-active-border-color:  $background-color;
-$navigationbarbutton-font-weight: bold;
-
 // Page
 
 $navigationpage-background: $color-5;
