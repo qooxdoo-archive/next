@@ -20,15 +20,15 @@
 ************************************************************************ */
 
 /**
- * Listens for (native or synthetic) pointer events and fires events
- * for gestures like "tap" or "swipe"
+ * Listens for synthetic gesture events and fires events
+ * for gestures like "tap" or "swipe".
  */
 qx.Class.define("qx.event.handler.GestureCore", {
   extend : Object,
 
   statics : {
 
-    TYPES : ["tap", "swipe", "longtap", "dbltap", "track", "trackstart", "trackend", "rotate", "pinch", "roll"],
+    TYPES : ["tap", "swipe", "longtap", "dbltap", "rotate", "pinch", "roll"],
 
     GESTURE_EVENTS : ["gesturebegin", "gesturefinish", "gesturemove", "gesturecancel"],
 
@@ -181,7 +181,6 @@ qx.Class.define("qx.event.handler.GestureCore", {
       if (domEvent.isPrimary) {
         this.__isMultiPointerGesture = false;
         this.__primaryTarget = target;
-        this.__fireTrack("trackstart", domEvent, target);
       } else {
         this.__isMultiPointerGesture = true;
         if(Object.keys(this.__gesture).length === 2) {
@@ -222,7 +221,6 @@ qx.Class.define("qx.event.handler.GestureCore", {
         }
 
         if(!this.__isMultiPointerGesture) {
-          this.__fireTrack("track", domEvent, gesture.target);
           this._fireRoll(domEvent, "touch", gesture.target);
         }
 
@@ -290,7 +288,6 @@ qx.Class.define("qx.event.handler.GestureCore", {
         gesture.target
       );
 
-      this.__fireTrack("trackend", domEvent, gesture.target);
 
       if (gesture.isTap) {
         if (target !== gesture.target) {
@@ -599,19 +596,6 @@ qx.Class.define("qx.event.handler.GestureCore", {
       };
 
       return swipe;
-    },
-
-
-    /**
-     * Fires a track event.
-     *
-     * @param type {String} the track type
-     * @param domEvent {Event} DOM event
-     * @param target {Element} event target
-     */
-    __fireTrack : function(type, domEvent, target) {
-      domEvent.delta = this._getDeltaCoordinates(domEvent);
-      this._fireEvent(domEvent, type, domEvent.target || target);
     },
 
 
