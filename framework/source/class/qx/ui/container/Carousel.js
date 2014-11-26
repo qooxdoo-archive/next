@@ -679,11 +679,11 @@ qx.Class.define("qx.ui.container.Carousel",
 
       this._setTransitionDuration(0);
 
-      this.__deltaX = evt._original.delta.x; // TODO: add 'delta' property to track event?
-      this.__deltaY = evt._original.delta.y;
+      this.__deltaX = evt.delta.x;
+      this.__deltaY = evt.delta.y;
 
       if (this.__isPageScrollTarget === null) {
-        this.__isPageScrollTarget = (evt._original.delta.axis == "y");
+        this.__isPageScrollTarget = (evt.delta.axis == "y");
       }
 
       if (!this.__isPageScrollTarget) {
