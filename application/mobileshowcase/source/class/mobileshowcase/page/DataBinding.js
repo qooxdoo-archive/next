@@ -85,12 +85,12 @@ qx.Class.define("mobileshowcase.page.DataBinding",
       this.__increaseButton = new qx.ui.Button("+")
         .setStyle("width", "100%");
       this.__increaseButton.on("pointerdown", this.__onIncrease, this);
-      this.__increaseButton.on("pointerup", this.__onPointerUp, this);
+      qxWeb(document.documentElement).on("pointerup", this.__onPointerUp, this, true);
 
       this.__decreaseButton = new qx.ui.Button("-")
         .setStyle("width", "100%");
       this.__decreaseButton.on("pointerdown", this.__onDecrease, this);
-      this.__decreaseButton.on("pointerup", this.__onPointerUp, this);
+      qxWeb(document.documentElement).on("pointerup", this.__onPointerUp, this, true);
 
       this.__stopTimeButton = new qx.ui.Button("Take Time Snapshot")
         .setStyle("width", "100%");
