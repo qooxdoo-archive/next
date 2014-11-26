@@ -105,7 +105,7 @@ qx.Class.define("qxWeb", {
      * to {@link q}.
      *
      * @param module {Map} A map containing the methods to attach.
-     * @param override {Boolean?null} Force to override
+     * @param override {Boolean?false} Force to override
      */
     $attach : function(module, override) {
       for (var name in module) {
