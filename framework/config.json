@@ -4,16 +4,43 @@
   "include" :
   [
     {
-      "path" : "${QOOXDOO_PATH}/tool/data/config/application.json"
+      "path" : "${QOOXDOO_PATH}/tool/data/config/application.json",
+      "block" : ["build"]
     },
 
     {
       "path" : "image.json"
+    },
+    {
+      "path" : "${QOOXDOO_PATH}/component/standalone/website/module.json",
+      "import" : [
+        "build",
+        "build-module-all-min",
+        "build-core-min",
+        "build-module-animation-min",
+        "build-module-blocker-min",
+        "build-module-cookie-min",
+        "build-module-dataset-min",
+        "build-module-dev-min",
+        "build-module-io-min",
+        "build-module-matchmedia-min",
+        "build-module-messaging-min",
+        "build-module-placeholder-min",
+        "build-module-placement-min",
+        "build-module-rest-min",
+        "build-module-storage-min",
+        "build-module-template-min",
+        "build-module-textselection-min",
+        "build-module-transform-min",
+        "build-module-util-min",
+        "build-module-ui-min"
+      ]
     }
   ],
 
   "export":
   [
+    "api",
     "api-data",
     "api-verify",
     "build-all",
@@ -42,8 +69,10 @@
   {
     "APPLICATION"  : "qx",
     "QOOXDOO_PATH" : "..",
-    "API_INCLUDE"    : ["q", "qxWeb", "qx.*"],
-    "API_EXCLUDE"  : ["qx.test.*"],
+    // "API_INCLUDE"    : ["q", "qxWeb", "qx.*"],
+    "API_INCLUDE" : ["qx.module.*", "qxWeb"],
+    "API_EXCLUDE"  : [],
+    "API_SCRIPT_PATH"  : "api/script",
     "TEST_INCLUDE" : "qx.test.*",
     "CACHE"        : "${TMPDIR}/qx${QOOXDOO_VERSION}/cache"
   },
@@ -53,6 +82,7 @@
     "job-shadowing" :
     [
       "api",
+      "api-data",
       "common",
       "dependencies",
       "lint",
@@ -221,19 +251,58 @@
       "include": ["=qx.test.*"]
     },
 
+
+    "api" :
+    {
+      "desc" : "Create a qx.Website Apiviewer",
+      "run" : ["build-api", "api-data"]
+    },
+
+
+    "build-api" :
+    {
+      "let" : {
+        "BUILD_PATH" : "${API_SCRIPT_PATH}",
+        "APPLICATION"  : "library"
+      },
+      "environment" :
+      {
+        "q.eventtypes" : "qx.module.event.Mouse,qx.module.event.Keyboard,qx.module.event.Native,qx.module.event.Orientation,qx.module.event.Touch,qx.module.event.Pointer,qx.module.event.Swipe,qx.module.event.Track,qx.module.event.Pinch,qx.module.event.Rotate,qx.module.event.Tap",
+        "apiviewer.modulenamereplacements" : {
+          "qx\\.module\\.": "",
+          "qx\\.ui\\.website\\.": ""
+        }
+      },
+      "run": [
+        "build-module-all-min"
+      ]
+    },
+
+
+    "api-data" : {
+      "desc" : "Create API data for the qx.Website API viewer",
+      "extend" : ["cache"],
+      "library" : [
+        {"manifest" : "${QOOXDOO_PATH}/framework/Manifest.json"}
+      ],
+
+      "include" : "${API_INCLUDE}",
+
+      "api" : {
+        "path" : "${API_SCRIPT_PATH}"
+      }
+    },
+
+
     "api-verify" :
     {
       "desc" : "Checks internal links in class comments. Also creates an XML sitemap with a link for each class",
       "extend" : [ "api-data" ],
       "api" : {
-        "verify" : [ "links", "types", "statistics" ],
-        "sitemap" :
-        {
-          "link-uri" : "http://api.qooxdoo.org/#%s",
-          "file" : "api/sitemap.xml"
-        }
+        "verify" : [ "links", "types", "statistics" ]
       }
     },
+
 
     "watch-scss" :
     {
