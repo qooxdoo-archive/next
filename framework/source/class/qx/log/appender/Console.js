@@ -309,14 +309,6 @@ qx.Class.define("qx.log.appender.Console",
      */
     __onKeyPress : function(e)
     {
-      if (e.type === "longtap") {
-        var target = e.target;
-        if (target && target.className && target.className.indexOf && target.className.indexOf("navigationbar") != -1) {
-          this.toggle();
-        }
-        return;
-      }
-
       var iden = e.getKeyIdentifier ? e.getKeyIdentifier() : null;
 
       // Console toggling
