@@ -87,7 +87,4 @@ describe("mobile.dialog.Popup", function() {
 
     popup.dispose();
   });
-  // function hasDebug () {
-  //   return qx.core.Environment.get("qx.debug");
-  // }
 });
