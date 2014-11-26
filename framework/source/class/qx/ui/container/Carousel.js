@@ -30,6 +30,7 @@
  * This pagination indicator can be hidden by property <code>showPagination</code>.
  *
  * @require(qx.module.Transform)
+ * @require(qx.module.event.TrackHandler)
  * @group(Widget)
  */
 qx.Class.define("qx.ui.container.Carousel",

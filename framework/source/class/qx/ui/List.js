@@ -25,6 +25,7 @@
  * @require(qx.module.AnimationFrame)
  * @require(qx.module.Template)
  * @require(qx.ui.Image)
+ * @require(qx.module.event.TrackHandler)
  * @group(Widget)
  */
 qx.Class.define("qx.ui.List",

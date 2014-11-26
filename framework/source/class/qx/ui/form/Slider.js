@@ -27,6 +27,7 @@
  * within the defined range.
  *
  * @require(qx.module.AnimationFrame)
+ * @require(qx.module.event.TrackHandler)
  * @group(Widget)
  */
 qx.Class.define("qx.ui.form.Slider",

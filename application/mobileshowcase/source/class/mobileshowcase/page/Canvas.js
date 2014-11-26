@@ -22,6 +22,7 @@
  * Mobile page showing a HTML5 canvas example.
  *
  * @asset(qx/css/*)
+ * @require(qx.module.event.TrackHandler)
  */
 qx.Class.define("mobileshowcase.page.Canvas",
   {
