@@ -39,13 +39,13 @@ qx.Class.define("qx.event.handler.Track", {
    */
   construct : function(target) {
     this.__defaultTarget = target;
-    this._startTargets = {};
+    this._trackData = {};
     this._initObserver();
   },
 
   members : {
     __defaultTarget : null,
-    _startTargets : null,
+    _trackData : null,
 
 
     /**
@@ -108,11 +108,15 @@ qx.Class.define("qx.event.handler.Track", {
      * @param target {Element} event target
      */
     gestureBegin : function(domEvent, target) {
-      if (this._startTargets[domEvent.pointerId]) {
-        delete this._startTargets[domEvent.pointerId];
+      if (this._trackData[domEvent.pointerId]) {
+        delete this._trackData[domEvent.pointerId];
       }
       if (domEvent.isPrimary) {
-        this._startTargets[domEvent.pointerId] = target;
+        this._trackData[domEvent.pointerId] = {
+          target: target,
+          startX : domEvent.clientX,
+          startY : domEvent.clientY
+        };
         this._fireTrack("trackstart", domEvent, target);
       }
     },
@@ -125,9 +129,9 @@ qx.Class.define("qx.event.handler.Track", {
      * @param target {Element} event target
      */
     gestureMove : function(domEvent, target) {
-      var startTarget = this._startTargets[domEvent.pointerId];
-      if (startTarget) {
-        this._fireTrack("track", domEvent, startTarget);
+      var trackData = this._trackData[domEvent.pointerId];
+      if (trackData) {
+        this._fireTrack("track", domEvent, trackData.target);
       }
     },
 
@@ -157,10 +161,10 @@ qx.Class.define("qx.event.handler.Track", {
      * @param domEvent {Event} DOM event
      */
     gestureFinish : function(domEvent) {
-      var startTarget = this._startTargets[domEvent.pointerId];
+      var trackData = this._trackData[domEvent.pointerId];
 
       // If no start position is available for this pointerup event, cancel gesture recognition.
-      if (!startTarget) {
+      if (!trackData) {
         return;
       }
 
@@ -170,13 +174,13 @@ qx.Class.define("qx.event.handler.Track", {
         since it bubbles.
        */
       if (this._hasIntermediaryHandler(this.__defaultTarget)) {
-        delete this._startTargets[domEvent.pointerId];
+        delete this._trackData[domEvent.pointerId];
         return;
       }
 
-      this._fireTrack("trackend", domEvent, startTarget);
+      this._fireTrack("trackend", domEvent, trackData.target);
 
-      delete this._startTargets[domEvent.pointerId];
+      delete this._trackData[domEvent.pointerId];
     },
 
 
@@ -185,8 +189,8 @@ qx.Class.define("qx.event.handler.Track", {
      * @param id {Number} The pointer Id.
      */
     gestureCancel : function(id) {
-      if (this._startTargets[id]) {
-        delete this._startTargets[id];
+      if (this._trackData[id]) {
+        delete this._trackData[id];
       }
     },
 
@@ -206,9 +210,29 @@ qx.Class.define("qx.event.handler.Track", {
 
       var evt = new qx.event.type.dom.Custom(type, domEvent, {
         bubbles: true,
-        pointerType: domEvent.pointerType
+        pointerType: domEvent.pointerType,
+        delta: this._getDeltaCoordinates(domEvent)
       });
       target.dispatchEvent(evt);
+    },
+
+
+    /**
+    * Calculates the delta coordinates in relation to the position on <code>pointerstart</code> event.
+    * @param domEvent {Event} The DOM event from the browser.
+    * @return {Map} containing the deltaX as x, and deltaY as y.
+    */
+    _getDeltaCoordinates : function(domEvent) {
+      var trackData = this._trackData[domEvent.pointerId];
+
+      var deltaX = domEvent.clientX - trackData.startX;
+      var deltaY = domEvent.clientY - trackData.startY;
+
+      return {
+        "x": deltaX,
+        "y": deltaY,
+        "axis": Math.abs(deltaX / deltaY) < 1 ? "y" : "x"
+      };
     },
 
 
