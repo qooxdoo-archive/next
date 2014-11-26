@@ -167,8 +167,8 @@ qx.Class.define("qx.ui.dialog.Popup",
 
         var rootHeight = parent.getHeight();
         var rootWidth = parent.getWidth();
-        var rootPosition = parent.getPosition();
-        var anchorPosition = this.__anchor.getPosition();
+        var rootPosition = parent.getLocation();
+        var anchorPosition = this.__anchor.getLocation();
         var popupDimension = {
           width: this.getWidth(),
           height: this.getHeight()
