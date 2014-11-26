@@ -30,7 +30,7 @@ qx.Class.define("qx.event.handler.Track", {
 
     TYPES : ["track", "trackstart", "trackend"],
 
-    GESTURE_EVENTS : ["gesturebegin", "gesturefinish", "gesturemove", "gesturecancel"]
+    GESTURE_EVENTS : ["gesturebegin", "gesturemove", "gesturecancel"]
   },
 
   /**
@@ -39,13 +39,13 @@ qx.Class.define("qx.event.handler.Track", {
    */
   construct : function(target) {
     this.__defaultTarget = target;
-    this.__gesture = {};
+    this._startTargets = {};
     this._initObserver();
   },
 
   members : {
     __defaultTarget : null,
-    __gesture : null,
+    _startTargets : null,
 
 
     /**
@@ -65,6 +65,8 @@ qx.Class.define("qx.event.handler.Track", {
       qx.event.handler.Track.GESTURE_EVENTS.forEach(function(gestureType) {
         defaultTarget.on(gestureType, this.checkAndFireGesture, this);
       }.bind(this));
+
+      qxWeb(document.documentElement).on("pointerup", this.gestureFinish, this);
     },
 
 
@@ -76,6 +78,8 @@ qx.Class.define("qx.event.handler.Track", {
       qx.event.handler.Track.GESTURE_EVENTS.forEach(function(pointerType) {
         defaultTarget.off(pointerType, this.checkAndFireGesture, this);
       }.bind(this));
+
+      qxWeb(document.documentElement).off("pointerup", this.gestureFinish, this);
     },
 
 
@@ -83,24 +87,15 @@ qx.Class.define("qx.event.handler.Track", {
      * Checks if a gesture was made and fires the gesture event.
      *
      * @param domEvent {Event} DOM event
-     * @param type {String ? null} type of the event
-     * @param target {Element ? null} event target
      */
-    checkAndFireGesture : function(domEvent, type, target) {
-      if (!type) {
-        type = domEvent.type;
-      }
-
-      if (!target) {
-        target = qx.bom.Event.getTarget(domEvent);
-      }
+    checkAndFireGesture : function(domEvent) {
+      var type = domEvent.type;
+      var target = qx.bom.Event.getTarget(domEvent);
 
       if (type == "gesturebegin") {
         this.gestureBegin(domEvent, target);
       } else if (type == "gesturemove") {
         this.gestureMove(domEvent, target);
-      } else if (type == "gesturefinish") {
-        this.gestureFinish(domEvent, target);
       } else if (type == "gesturecancel") {
         this.gestureCancel(domEvent.pointerId);
       }
@@ -113,13 +108,11 @@ qx.Class.define("qx.event.handler.Track", {
      * @param target {Element} event target
      */
     gestureBegin : function(domEvent, target) {
-      if (this.__gesture[domEvent.pointerId]) {
-        delete this.__gesture[domEvent.pointerId];
+      if (this._startTargets[domEvent.pointerId]) {
+        delete this._startTargets[domEvent.pointerId];
       }
       if (domEvent.isPrimary) {
-        this.__gesture[domEvent.pointerId] = {
-          "target" : target
-        };
+        this._startTargets[domEvent.pointerId] = target;
         this._fireTrack("trackstart", domEvent, target);
       }
     },
@@ -132,10 +125,9 @@ qx.Class.define("qx.event.handler.Track", {
      * @param target {Element} event target
      */
     gestureMove : function(domEvent, target) {
-      var gesture = this.__gesture[domEvent.pointerId];
-
-      if (gesture) {
-        this._fireTrack("track", domEvent, gesture.target);
+      var startTarget = this._startTargets[domEvent.pointerId];
+      if (startTarget) {
+        this._fireTrack("track", domEvent, startTarget);
       }
     },
 
@@ -163,13 +155,12 @@ qx.Class.define("qx.event.handler.Track", {
      * Helper method for gesture end.
      *
      * @param domEvent {Event} DOM event
-     * @param target {Element} event target
      */
-    gestureFinish : function(domEvent, target) {
-      var gesture = this.__gesture[domEvent.pointerId];
+    gestureFinish : function(domEvent) {
+      var startTarget = this._startTargets[domEvent.pointerId];
 
       // If no start position is available for this pointerup event, cancel gesture recognition.
-      if (!gesture) {
+      if (!startTarget) {
         return;
       }
 
@@ -178,14 +169,14 @@ qx.Class.define("qx.event.handler.Track", {
         a gesture handler, we don't need to fire the gesture again
         since it bubbles.
        */
-      if (this._hasIntermediaryHandler(target)) {
-        delete this.__gesture[domEvent.pointerId];
+      if (this._hasIntermediaryHandler(this.__defaultTarget)) {
+        delete this._startTargets[domEvent.pointerId];
         return;
       }
 
-      this._fireTrack("trackend", domEvent, gesture.target);
+      this._fireTrack("trackend", domEvent, startTarget);
 
-      delete this.__gesture[domEvent.pointerId];
+      delete this._startTargets[domEvent.pointerId];
     },
 
 
@@ -194,8 +185,8 @@ qx.Class.define("qx.event.handler.Track", {
      * @param id {Number} The pointer Id.
      */
     gestureCancel : function(id) {
-      if (this.__gesture[id]) {
-        delete this.__gesture[id];
+      if (this._startTargets[id]) {
+        delete this._startTargets[id];
       }
     },
 
@@ -212,7 +203,6 @@ qx.Class.define("qx.event.handler.Track", {
       if (!this.__defaultTarget) {
         return;
       }
-      target = domEvent.target || target;
 
       var evt = new qx.event.type.dom.Custom(type, domEvent, {
         bubbles: true,
