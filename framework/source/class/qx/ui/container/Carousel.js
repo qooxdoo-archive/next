@@ -145,7 +145,8 @@ qx.Class.define("qx.ui.container.Carousel",
     active : {
       check : "Element",
       apply : "_applyActive",
-      event : true
+      event : true,
+      nullable : true
     },
 
     /**
@@ -320,8 +321,8 @@ qx.Class.define("qx.ui.container.Carousel",
             this.__currentIndex = this.__pages.length - 1;
             this.active = this.__pages[this.__currentIndex];
           } else if(this.__pages.length === 0) {
-            this.__currentIndex = undefined;
-            this.active = undefined;
+            this.__currentIndex = null;
+            this.active = null;
           }
           this._scrollToPage(this.__currentIndex)
         } else {
