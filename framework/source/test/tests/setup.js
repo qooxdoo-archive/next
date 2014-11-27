@@ -27,31 +27,6 @@ window.skipAfterTest = function(suiteTitle, testTitle) {
 };
 
 
-// TODO move to a framework class??
-window.createMouseEvent = function(type) {
-  var domEvent;
-  if (qxWeb.env.get("event.customevent")) {
-    domEvent = new MouseEvent(type, {
-      canBubble: true,
-      cancelable: true,
-      view: window,
-    });
-    domEvent.initMouseEvent(type, true, true, window,
-      1, 0, 0, 0, 0,
-      false, false, false, false,
-      0, null);
-  } else if (document.createEvent) {
-    domEvent = document.createEvent("UIEvents");
-    domEvent.initEvent(type, true, true);
-  } else if (document.createEventObject) {
-    domEvent = document.createEventObject();
-    domEvent.type = type;
-  }
-  return domEvent;
-};
-
-
-
 // CSS metrics should be integer by default in IE10 Release Preview, but
 // getBoundingClientRect will randomly return float values unless this
 // feature is explicitly deactivated:
