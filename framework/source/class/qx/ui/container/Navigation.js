@@ -235,7 +235,8 @@ qx.Class.define("qx.ui.container.Navigation",
      */
     _createNavigationBar : function()
     {
-      return new qx.ui.Widget();
+      var classes = ['navigationbar', 'qx-hbox', 'qx-flex-align-center'];
+      return new qx.ui.Widget().addClasses(classes);
     },
 
 
