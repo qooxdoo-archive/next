@@ -28,7 +28,7 @@
  *
  * @group (Widget)
  */
-qx.Class.define("qx.ui.control.DatePicker", {
+qx.Class.define("qx.ui.form.DatePicker", {
   extend : qx.ui.Widget,
 
   properties: {
@@ -77,7 +77,7 @@ qx.Class.define("qx.ui.control.DatePicker", {
 
   /**
    * @attach {qxWeb, toDatePicker}
-   * @return {qx.ui.control.DatePicker} The new date picker widget.
+   * @return {qx.ui.form.DatePicker} The new date picker widget.
    */
   construct : function(date, element) {
     this.super(qx.ui.Widget, "construct", element);

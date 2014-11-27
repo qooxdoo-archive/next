@@ -18,12 +18,11 @@
 ************************************************************************ */
 
 /**
- * @require(qx.ui.control.DatePicker)
+ * @require(qx.ui.form.DatePicker)
  */
-describe("mobile.control.DatePicker", function() {
-
+describe("mobile.form.DatePicker", function() {
   it("ReadOnlyInputElement", function() {
-    var datePickerHtml = q.create("<input type='text' id='datepicker' data-qx-class='qx.ui.control.DatePicker' data-qx-config-readonly='false' value='' />");
+    var datePickerHtml = q.create("<input type='text' id='datepicker' data-qx-class='qx.ui.form.DatePicker' data-qx-config-read-only='false' value='' />");
     sandbox.append(datePickerHtml);
 
     var datePicker = q("input#datepicker").toDatePicker();
@@ -35,7 +34,7 @@ describe("mobile.control.DatePicker", function() {
 
 
   it("ReadOnlyInputElementWithConfig", function() {
-    var datePickerHtml = q.create("<input type='text' class='datepicker' data-qx-class='qx.ui.control.DatePicker' data-qx-config-readonly='true' value='' />");
+    var datePickerHtml = q.create("<input type='text' class='datepicker' data-qx-class='qx.ui.form.DatePicker' data-qx-config-read-only='true' value='' />");
     sandbox.append(datePickerHtml);
 
     var datePicker = q("input.datepicker").toDatePicker();
@@ -49,7 +48,7 @@ describe("mobile.control.DatePicker", function() {
 
 
   it("IconOpener", function() {
-    var datePickerHtml = q.create("<input type='text' class='datepicker' data-qx-class='qx.ui.control.DatePicker' value='' />");
+    var datePickerHtml = q.create("<input type='text' class='datepicker' data-qx-class='qx.ui.form.DatePicker' value='' />");
     sandbox.append(datePickerHtml);
 
     var datePicker = q("input.datepicker").toDatePicker();
@@ -65,7 +64,7 @@ describe("mobile.control.DatePicker", function() {
 
 
   it("IconOpenerToggle", function() {
-    var datePickerHtml = q.create("<input type='text' class='datepicker' data-qx-class='qx.ui.control.DatePicker' value='' />");
+    var datePickerHtml = q.create("<input type='text' class='datepicker' data-qx-class='qx.ui.form.DatePicker' value='' />");
     sandbox.append(datePickerHtml);
 
     var datePicker = q("input.datepicker").toDatePicker();
@@ -84,9 +83,9 @@ describe("mobile.control.DatePicker", function() {
 
   it("Factory", function() {
     var datePicker = qxWeb.create("<div>").toDatePicker().appendTo(sandbox);
-    assert.instanceOf(datePicker, qx.ui.control.DatePicker);
+    assert.instanceOf(datePicker, qx.ui.form.DatePicker);
     qx.core.Assert.assertEquals(datePicker, datePicker[0].$$widget);
-    assert.equal("qx.ui.control.DatePicker", datePicker.getData("qxWidget"));
+    assert.equal("qx.ui.form.DatePicker", datePicker.getData("qxWidget"));
 
     datePicker.dispose();
   });
