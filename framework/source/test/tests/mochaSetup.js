@@ -5,6 +5,7 @@
     isBrowser = false;
 } else {
     // We are in the browser. Set up variables like above using served js files.
+    chai.config.includeStack = true;
     assert = chai.assert;
     isBrowser = true;
 }
