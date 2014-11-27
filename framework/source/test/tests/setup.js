@@ -1,4 +1,4 @@
-// (function() { TODO
+(function() {
 
 mocha.setup('bdd');
 
@@ -13,7 +13,7 @@ if (typeof process !== 'undefined') {
 }
 
 
-var skipAfterTest = function(suiteTitle, testTitle) {
+window.skipAfterTest = function(suiteTitle, testTitle) {
   var suites = qxWeb(".suite");
   for (var i = 0; i < suites.length; i++) {
     if (suiteTitle.indexOf(suites[i].children[0].textContent) === 0) {
@@ -28,7 +28,7 @@ var skipAfterTest = function(suiteTitle, testTitle) {
 
 
 // TODO move to a framework class??
-var createMouseEvent = function(type) {
+window.createMouseEvent = function(type) {
   var domEvent;
   if (qxWeb.env.get("event.customevent")) {
     domEvent = new MouseEvent(type, {
@@ -81,7 +81,7 @@ qxWeb.ready(function() {
   // register global before / after hooks
   runner.on("suite", function(suite) {
     suite.beforeEach(commonBeforeEach);
-    suite._beforeEach.reverse(); // make sure the common is executed before all other
+    suite._beforeEach.reverse(); // make sure the common beforeEach is executed before all other
     suite.afterEach(commonAfterEach);
   });
 
@@ -90,4 +90,4 @@ qxWeb.ready(function() {
   });
 });
 
-// })();
+})();
