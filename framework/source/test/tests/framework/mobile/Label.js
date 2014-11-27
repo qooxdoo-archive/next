@@ -19,19 +19,10 @@
 
 describe("mobile.Label", function() {
 
-  beforeEach(function() {
-    setUpRoot();
-  });
-
-  afterEach(function() {
-    tearDownRoot();
-  });
-
-
   it("Value", function() {
 
     var label = new qx.ui.Label("affe");
-    getRoot().append(label);
+    sandbox.append(label);
 
     assert.isString(label.value);
     assert.equal(label.value, "affe");
@@ -52,7 +43,7 @@ describe("mobile.Label", function() {
     var text = "myText";
     var label = q.create('<div></div>')
       .toLabel(text)
-      .appendTo(getRoot());
+      .appendTo(sandbox);
 
     assert.instanceOf(label, qx.ui.Label);
     assert.equal(label, label[0].$$widget);

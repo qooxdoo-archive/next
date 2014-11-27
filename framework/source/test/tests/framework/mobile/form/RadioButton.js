@@ -19,24 +19,14 @@
 
 describe("mobile.form.RadioButton", function() {
 
-  beforeEach(function() {
-    setUpRoot();
-  });
-
-
-  afterEach(function() {
-    tearDownRoot();
-  });
-
-
   it("Value", function() {
     var radio1 = new qx.ui.form.RadioButton().set({name: "abc"});
     var radio2 = new qx.ui.form.RadioButton().set({name: "abc"});
     var radio3 = new qx.ui.form.RadioButton().set({name: "abc"});
 
-    getRoot().append(radio1);
-    getRoot().append(radio2);
-    getRoot().append(radio3);
+    sandbox.append(radio1);
+    sandbox.append(radio2);
+    sandbox.append(radio3);
 
     // Verify: inital all radios buttons should be disabled.
     assert.equal(false, radio1.getValue());
@@ -73,7 +63,7 @@ describe("mobile.form.RadioButton", function() {
 
   it("Enabled", function() {
     var radio1 = new qx.ui.form.RadioButton();
-    getRoot().append(radio1);
+    sandbox.append(radio1);
 
     radio1.enabled = false;
 
@@ -85,7 +75,7 @@ describe("mobile.form.RadioButton", function() {
 
 
   it("withForm", function() {
-    var form = new qx.ui.form.Form().appendTo(getRoot());
+    var form = new qx.ui.form.Form().appendTo(sandbox);
 
     var radio1 = new qx.ui.form.RadioButton().set({name: "abc"}).appendTo(form);
     var radio2 = new qx.ui.form.RadioButton().set({name: "abc"}).appendTo(form);
@@ -105,11 +95,11 @@ describe("mobile.form.RadioButton", function() {
 
 
   it("twoForms", function() {
-    var form1 = new qx.ui.form.Form().appendTo(getRoot());
+    var form1 = new qx.ui.form.Form().appendTo(sandbox);
     var radio1 = new qx.ui.form.RadioButton().set({name: "abc"}).appendTo(form1);
     var radio2 = new qx.ui.form.RadioButton().set({name: "abc"}).appendTo(form1);
 
-    var form2 = new qx.ui.form.Form().appendTo(getRoot());
+    var form2 = new qx.ui.form.Form().appendTo(sandbox);
     var radio3 = new qx.ui.form.RadioButton().set({name: "abc"}).appendTo(form2);
     var radio4 = new qx.ui.form.RadioButton().set({name: "abc"}).appendTo(form2);
 
@@ -136,12 +126,12 @@ describe("mobile.form.RadioButton", function() {
 
 
   it("globalAndForm", function() {
-    var form1 = new qx.ui.form.Form().appendTo(getRoot());
+    var form1 = new qx.ui.form.Form().appendTo(sandbox);
     var radio1 = new qx.ui.form.RadioButton().set({name: "abc"}).appendTo(form1);
     var radio2 = new qx.ui.form.RadioButton().set({name: "abc"}).appendTo(form1);
 
-    var radio3 = new qx.ui.form.RadioButton().set({name: "abc"}).appendTo(getRoot());
-    var radio4 = new qx.ui.form.RadioButton().set({name: "abc"}).appendTo(getRoot());
+    var radio3 = new qx.ui.form.RadioButton().set({name: "abc"}).appendTo(sandbox);
+    var radio4 = new qx.ui.form.RadioButton().set({name: "abc"}).appendTo(sandbox);
 
     radio1.value = true;
     assert.equal(true, radio1.getValue());

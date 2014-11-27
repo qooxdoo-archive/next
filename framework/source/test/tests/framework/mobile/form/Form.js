@@ -23,10 +23,8 @@ describe("mobile.form.Form", function() {
   var form;
 
   beforeEach(function() {
-    setUpRoot();
-
     form = new qx.ui.form.Form()
-      .appendTo(getRoot());
+      .appendTo(sandbox);
 
     username = new qx.ui.form.TextField()
       .set({
@@ -38,7 +36,6 @@ describe("mobile.form.Form", function() {
 
 
   afterEach(function() {
-    tearDownRoot();
     username.dispose();
     form.dispose();
   });
@@ -82,7 +79,7 @@ describe("mobile.form.Form", function() {
 
 
   it("Factory", function() {
-    var form = qxWeb.create("<form>").toForm().appendTo(getRoot());
+    var form = qxWeb.create("<form>").toForm().appendTo(sandbox);
     assert.instanceOf(form, qx.ui.form.Form);
     assert.equal(form, form[0].$$widget);
     assert.equal("qx.ui.form.Form", form.getData("qxWidget"));

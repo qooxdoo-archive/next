@@ -16,20 +16,10 @@
 
 describe("mobile.container.Collapsible", function() {
 
-  beforeEach(function() {
-    setUpRoot();
-  });
-
-
-  afterEach(function() {
-    tearDownRoot();
-  });
-
-
   it("Factory", function() {
     var collapsible = q.create('<div>')
       .toCollapsible("Header")
-      .appendTo(getRoot());
+      .appendTo(sandbox);
 
     assert.instanceOf(collapsible, qx.ui.container.Collapsible);
     assert.instanceOf(qxWeb(collapsible.getChildren()[0]), qx.ui.Label);

@@ -26,7 +26,6 @@ describe("io.rest.Resource", function() {
 
   beforeEach(function() {
     sandbox = sinon.sandbox.create();
-    setUpRoot();
     setUpDoubleRequest();
     setUpResource();
   });
@@ -87,7 +86,6 @@ describe("io.rest.Resource", function() {
     requests.forEach(function(req) {
       req.dispose();
     });
-    tearDownRoot();
   });
 
   //

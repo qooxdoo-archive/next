@@ -19,20 +19,10 @@
 
 describe("mobile.layout.Card", function() {
 
-  beforeEach(function() {
-    setUpRoot();
-  });
-
-
-  afterEach(function() {
-    tearDownRoot();
-  });
-
-
   it("Add", function() {
     var composite = new qx.ui.Widget();
     composite.layout = new qx.ui.layout.Card();
-    getRoot().append(composite);
+    sandbox.append(composite);
 
     assert.isTrue(composite.hasClass("layout-card"));
 
@@ -53,7 +43,7 @@ describe("mobile.layout.Card", function() {
   it("Remove", function() {
     var composite = new qx.ui.Widget();
     composite.layout = new qx.ui.layout.Card();
-    getRoot().append(composite);
+    sandbox.append(composite);
 
     var widget1 = new qx.ui.Widget();
     composite.append(widget1);
@@ -78,7 +68,7 @@ describe("mobile.layout.Card", function() {
   it("Reset", function() {
     var composite = new qx.ui.Widget();
     composite.layout = new qx.ui.layout.Card();
-    getRoot().append(composite);
+    sandbox.append(composite);
 
     composite.layout = null;
     assert.isFalse(composite.hasClass("layout-card"));
@@ -90,7 +80,7 @@ describe("mobile.layout.Card", function() {
   it("Show", function() {
     var composite = new qx.ui.Widget();
     composite.layout = new qx.ui.layout.Card();
-    getRoot().append(composite);
+    sandbox.append(composite);
 
     var widget1 = new qx.ui.Widget();
     composite.append(widget1);

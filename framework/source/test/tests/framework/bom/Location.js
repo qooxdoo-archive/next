@@ -47,8 +47,11 @@ describe("bom.Location", function() {
     __bodyStyles.position = "static";
     __bodyStyles.padding = "0px";
 
-    sandbox = q.create("<div id='sandbox' style='position: absolute; top: 0; left: 0;'></div>");
-    sandbox.appendTo(document.body);
+    sandbox.setStyles({
+      position: "absolute",
+      top: 0,
+      left: 0
+    });
   });
 
 
@@ -60,8 +63,6 @@ describe("bom.Location", function() {
     __bodyStyles.position = __position;
     __bodyStyles.border = __border;
     __bodyStyles.padding = __padding;
-
-    sandbox.remove();
   });
 
 

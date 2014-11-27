@@ -20,15 +20,13 @@
 describe("mobile.control.Calendar", function() {
 
   beforeEach(function() {
-    setUpRoot();
     this.__now = new Date();
-    this.__cal = new qx.ui.control.Calendar(this.__now).appendTo(getRoot());
+    this.__cal = new qx.ui.control.Calendar(this.__now).appendTo(sandbox);
   });
 
 
   afterEach(function() {
     this.__cal.dispose();
-    tearDownRoot();
   });
 
 
@@ -51,13 +49,13 @@ describe("mobile.control.Calendar", function() {
 
 
   it("NewCollection", function() {
-    var c1 = getRoot().find(".calendar");
+    var c1 = sandbox.find(".calendar");
     assert.equal(c1.classname, "qx.ui.control.Calendar");
   });
 
 
   it("Factory", function() {
-    this.__cal = qxWeb.create("<div>").toCalendar().appendTo(getRoot());
+    this.__cal = qxWeb.create("<div>").toCalendar().appendTo(sandbox);
     assert.instanceOf(this.__cal, qx.ui.control.Calendar);
     qx.core.Assert.assertEquals(this.__cal, this.__cal[0].$$widget);
     assert.equal("qx.ui.control.Calendar", this.__cal.getData("qxWidget"));

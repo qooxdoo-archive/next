@@ -17,22 +17,11 @@
 
 ************************************************************************ */
 
-describe("mobile.Button", function()
-{
-
-  beforeEach( function () {
-     setUpRoot();
-  });
-
-
-  afterEach( function (){
-     tearDownRoot();
-  });
-
+describe("mobile.Button", function() {
 
   it("Label", function() {
       var button = new qx.ui.Button("affe");
-      getRoot().append(button);
+      sandbox.append(button);
 
       assert.isString(button.label);
       assert.equal("affe", button.label );
@@ -50,7 +39,7 @@ describe("mobile.Button", function()
 
 
   it("Factory", function() {
-      var button = qxWeb.create("<div>").toButton().appendTo(getRoot());
+      var button = qxWeb.create("<div>").toButton().appendTo(sandbox);
       assert.instanceOf(button, qx.ui.Button);
       assert.equal(button, button[0].$$widget);
       assert.equal("qx.ui.Button", button.getData("qxWidget"));

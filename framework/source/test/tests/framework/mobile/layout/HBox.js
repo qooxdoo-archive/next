@@ -19,20 +19,10 @@
 
 describe("mobile.layout.HBox", function() {
 
-  beforeEach(function() {
-    setUpRoot();
-  });
-
-
-  afterEach(function() {
-    tearDownRoot();
-  });
-
-
   it("Add", function() {
     var composite = new qx.ui.Widget();
     composite.layout = new qx.ui.layout.HBox();
-    getRoot().append(composite);
+    sandbox.append(composite);
 
     assert.isTrue(composite.hasClass("qx-hbox"));
     var widget1 = new qx.ui.Widget();
@@ -50,7 +40,7 @@ describe("mobile.layout.HBox", function() {
   it("Flex", function() {
     var composite = new qx.ui.Widget();
     composite.layout = new qx.ui.layout.HBox();
-    getRoot().append(composite);
+    sandbox.append(composite);
 
     var widget1 = new qx.ui.Widget();
     widget1.layoutPrefs = {
@@ -75,7 +65,7 @@ describe("mobile.layout.HBox", function() {
   it("Remove", function() {
     var composite = new qx.ui.Widget();
     composite.layout = new qx.ui.layout.HBox();
-    getRoot().append(composite);
+    sandbox.append(composite);
 
     var widget1 = new qx.ui.Widget();
     widget1.layoutPrefs = {
@@ -105,7 +95,7 @@ describe("mobile.layout.HBox", function() {
   it("Reset", function() {
     var composite = new qx.ui.Widget();
     composite.layout = new qx.ui.layout.HBox();
-    getRoot().append(composite);
+    sandbox.append(composite);
 
     composite.layout = null;
     assert.isFalse(composite.hasClass("qx-hbox"));

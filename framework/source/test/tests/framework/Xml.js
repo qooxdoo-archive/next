@@ -19,14 +19,6 @@
 
 describe("Xml", function() {
 
-  before(function(){
-    setUpRoot();
-  });
-
-  after(function(){
-    tearDownRoot();
-  })
-
   function serializeArray(arr) {
     var ser = [];
 

@@ -17,15 +17,10 @@
 describe("mobile.form.Input", function() {
 
   beforeEach(function() {
-    setUpRoot();
     __item = new qx.ui.form.Input();
-    getRoot().append(__item);
+    sandbox.append(__item);
   });
 
-
-  afterEach(function() {
-    tearDownRoot();
-  });
 
   var onValid = function(e) {
     assert.isTrue(e.value);
@@ -98,7 +93,7 @@ describe("mobile.form.Input", function() {
 
 
   it("Factory", function() {
-    var input = qxWeb.create("<div>").toInput().appendTo(getRoot());
+    var input = qxWeb.create("<div>").toInput().appendTo(sandbox);
     assert.instanceOf(input, qx.ui.form.Input);
     assert.equal(input, input[0].$$widget);
     assert.equal("qx.ui.form.Input", input.getData("qxWidget"));

@@ -19,19 +19,9 @@
 
 describe("mobile.container.Carousel", function() {
 
-  beforeEach(function() {
-    setUpRoot();
-  });
-
-
-  afterEach(function() {
-    tearDownRoot();
-  });
-
-
   it("Init", function() {
     var carousel = new qx.ui.container.Carousel(0.4);
-    getRoot().append(carousel);
+    sandbox.append(carousel);
     carousel.dispose();
   });
 
@@ -41,7 +31,7 @@ describe("mobile.container.Carousel", function() {
     var carouselPage = new qx.ui.Widget();
     carousel.append(carouselPage);
 
-    getRoot().append(carousel);
+    sandbox.append(carousel);
 
     carousel.dispose();
     carouselPage.dispose();
@@ -55,7 +45,7 @@ describe("mobile.container.Carousel", function() {
     var carouselPage2 = new qx.ui.Widget();
     carousel.append(carouselPage2);
 
-    getRoot().append(carousel);
+    sandbox.append(carousel);
     carouselPage1.remove();
 
     assert.equal(carouselPage2[0], carousel.active);
@@ -73,7 +63,7 @@ describe("mobile.container.Carousel", function() {
     var carouselPage2 = new qx.ui.Widget();
     carousel.append(carouselPage2);
 
-    getRoot().append(carousel);
+    sandbox.append(carousel);
     carouselPage1.remove();
 
     assert.equal(carouselPage2[0], carousel.active);
@@ -92,7 +82,7 @@ describe("mobile.container.Carousel", function() {
     var carouselPage2 = new qx.ui.Widget();
     carousel.append(carouselPage2);
 
-    getRoot().append(carousel);
+    sandbox.append(carousel);
 
     assert.equal(carouselPage1[0], carousel.active);
 
@@ -110,7 +100,7 @@ describe("mobile.container.Carousel", function() {
     var carouselPage2 = new qx.ui.Widget();
     carousel.append(carouselPage2);
 
-    getRoot().append(carousel);
+    sandbox.append(carousel);
 
     carousel.nextPage();
     assert.equal(carouselPage2[0], carousel.active);
@@ -140,7 +130,7 @@ describe("mobile.container.Carousel", function() {
     var carouselPage2 = new qx.ui.Widget();
     carousel.append(carouselPage2);
 
-    getRoot().append(carousel);
+    sandbox.append(carousel);
 
     qx.core.Assert.assertEventFired(carousel, "changeActive", function() {
       carousel.nextPage();
@@ -169,7 +159,7 @@ describe("mobile.container.Carousel", function() {
 
     var carouselPage2 = new qx.ui.Widget();
     carousel.append(carouselPage2);
-    getRoot().append(carousel);
+    sandbox.append(carousel);
 
     assert.equal(carouselPage1[0], carousel.active);
 
@@ -188,7 +178,7 @@ describe("mobile.container.Carousel", function() {
   it("Factory", function() {
     var carousel = q.create('<div>')
       .toCarousel()
-      .appendTo(getRoot());
+      .appendTo(sandbox);
 
     assert.instanceOf(carousel, qx.ui.container.Carousel);
     assert.equal(carousel, carousel[0].$$widget);

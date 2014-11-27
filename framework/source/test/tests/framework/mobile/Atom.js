@@ -17,30 +17,13 @@
 
 ************************************************************************ */
 
-/* ************************************************************************
-************************************************************************ */
-/**
- *
- * @asset(qx/icon/Tango/48/places/user-home.png)
- * @asset(qx/icon/Tango/32/places/folder-open.png)
- */
-
-describe("mobile.Atom", function()
-{
-  beforeEach( function () {
-     setUpRoot();
-  });
-
-
-  afterEach( function (){
-     tearDownRoot();
-  });
+describe("mobile.Atom", function() {
 
 
  it("Label", function() {
       var atom = new qx.ui.Atom("myText");
 
-      getRoot().append(atom);
+      sandbox.append(atom);
 
       assert.isString(atom.label);
       assert.equal(atom.label, "myText");
@@ -58,7 +41,7 @@ describe("mobile.Atom", function()
       var imageURL = qx.util.ResourceManager.getInstance().toUri("/framework/source/resource/qx/icon/Tango/48/places/user-home.png");
       var atom = new qx.ui.Atom("myText", imageURL);
 
-      getRoot().append(atom);
+      sandbox.append(atom);
 
       assert.isString(atom.icon);
       assert.equal(atom.getIconWidget().source, imageURL);
@@ -81,7 +64,7 @@ describe("mobile.Atom", function()
       var imageURL = qx.util.ResourceManager.getInstance().toUri("/framework/source/resource/qx/icon/Tango/48/places/user-home.png");
       var atom = new qx.ui.Atom("myText", imageURL);
 
-      getRoot().append(atom);
+      sandbox.append(atom);
 
       assert.equal("visible", atom.getIconWidget().visibility);
       assert.equal("visible", atom.getLabelWidget().visibility);
@@ -104,7 +87,7 @@ describe("mobile.Atom", function()
       var imageURL = qx.util.ResourceManager.getInstance().toUri("/framework/source/resource/qx/icon/Tango/48/places/user-home.png");
       var atom = new qx.ui.Atom("myTextmyTextmyTextmyTextmyText", imageURL);
 
-      getRoot().append(atom);
+      sandbox.append(atom);
 
       var iconElement = atom.getIconWidget()[0];
       var labelElement = atom.getLabelWidget()[0];
@@ -164,7 +147,7 @@ describe("mobile.Atom", function()
     var label = "myText";
     var atom = q.create('<div></div>')
       .toAtom(label, imageUri)
-      .appendTo(getRoot());
+      .appendTo(sandbox);
 
     assert.instanceOf(atom, qx.ui.Atom);
     assert.equal(atom, atom[0].$$widget);

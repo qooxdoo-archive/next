@@ -19,21 +19,11 @@
 
 describe("mobile.form.Group", function() {
 
-  beforeEach(function() {
-    setUpRoot();
-  });
-
-
-  afterEach(function() {
-    tearDownRoot();
-  });
-
-
   it("Group", function() {
     var button = new qx.ui.Button("affe");
     var group = new qx.ui.form.Group();
     group.append(button);
-    getRoot().append(button);
+    sandbox.append(button);
 
     group.dispose();
     button.dispose();
@@ -41,7 +31,7 @@ describe("mobile.form.Group", function() {
 
 
   it("Factory", function() {
-    var group = qxWeb.create("<div>").toGroup().appendTo(getRoot());
+    var group = qxWeb.create("<div>").toGroup().appendTo(sandbox);
     assert.instanceOf(group, qx.ui.form.Group);
     assert.equal(group, group[0].$$widget);
     assert.equal("qx.ui.form.Group", group.getData("qxWidget"));

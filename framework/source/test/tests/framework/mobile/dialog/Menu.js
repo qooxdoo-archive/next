@@ -19,28 +19,18 @@
 
 describe("mobile.dialog.Menu", function() {
 
-  beforeEach(function() {
-    setUpRoot();
-  });
-
-
-  afterEach(function() {
-    tearDownRoot();
-  });
-
-
   it("Init", function() {
     var model = new qx.data.Array(["item1", "item2", "item3"]);
     var model2 = new qx.data.Array(["item4", "item5", "item6"]);
 
-    var menu = new qx.ui.dialog.Menu(model).appendTo(getRoot());
+    var menu = new qx.ui.dialog.Menu(model).appendTo(sandbox);
     menu.model = model2;
     menu.dispose();
   });
 
 
   it("Factory", function() {
-    var menu = qxWeb.create("<div>").toMenu().appendTo(getRoot());
+    var menu = qxWeb.create("<div>").toMenu().appendTo(sandbox);
     assert.instanceOf(menu, qx.ui.dialog.Menu);
     qx.core.Assert.assertEquals(menu, menu[0].$$widget);
     assert.equal("qx.ui.dialog.Menu", menu.getData("qxWidget"));
@@ -51,7 +41,7 @@ describe("mobile.dialog.Menu", function() {
 
   it("Selected", function() {
     var model = new qx.data.Array(["item1", "item2", "item3"]);
-    var menu = new qx.ui.dialog.Menu(model).appendTo(getRoot());
+    var menu = new qx.ui.dialog.Menu(model).appendTo(sandbox);
 
     var el = menu.find("*[data-row='1']")[0]; // item 1
     var spy = sinon.spy();

@@ -20,16 +20,6 @@
 
 describe("mobile.form.SelectBox", function() {
 
-  beforeEach(function() {
-    setUpRoot();
-  });
-
-
-  afterEach(function() {
-    tearDownRoot();
-  });
-
-
   it("Value", function() {
     var selectBox = new qx.ui.form.SelectBox();
     var dd = new qx.data.Array(["Item 1", "Item 2", "Item 3"]);
@@ -137,7 +127,7 @@ describe("mobile.form.SelectBox", function() {
 
 
   it("Factory", function() {
-    var selectBox = qxWeb.create("<div>").toSelectBox().appendTo(getRoot());
+    var selectBox = qxWeb.create("<div>").toSelectBox().appendTo(sandbox);
     assert.instanceOf(selectBox, qx.ui.form.SelectBox);
     assert.equal(selectBox, selectBox[0].$$widget);
     assert.equal("qx.ui.form.SelectBox", selectBox.getData("qxWidget"));

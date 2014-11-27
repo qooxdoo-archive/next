@@ -24,14 +24,8 @@ describe("mobile.Rating", function() {
   var __rating = null;
 
   beforeEach(function() {
-    setUpRoot();
     __rating = new qx.ui.Rating();
-    getRoot().append(__rating);
-  });
-
-
-  afterEach(function() {
-    tearDownRoot();
+    sandbox.append(__rating);
   });
 
 
@@ -44,7 +38,7 @@ describe("mobile.Rating", function() {
 
   it("FullConstructor", function() {
     __rating = new qx.ui.Rating(11, "X");
-    getRoot().append(__rating);
+    sandbox.append(__rating);
     assert.equal(11, __rating.size);
     assert.equal("X", __rating.symbol);
   });
@@ -109,7 +103,7 @@ describe("mobile.Rating", function() {
 
   it("DomConfig", function() {
     __rating = qxWeb.create("<div data-qx-widget='qx.ui.Rating' data-qx-config-symbol='+' data-qx-config-size='3' data-qx-config-value='2'>")
-      .appendTo(getRoot());
+      .appendTo(sandbox);
     assert.equal("+", __rating.getChildren().getHtml());
     assert.equal(3, __rating.getChildren().length);
     assert.equal(2, __rating.value);
@@ -118,13 +112,13 @@ describe("mobile.Rating", function() {
 
   it("DomConfig bug #8645", function() {
     __rating = qxWeb.create("<div data-qx-widget='qx.ui.Rating' data-qx-config-value='2'>")
-      .appendTo(getRoot());
+      .appendTo(sandbox);
     assert.equal(3, __rating.find("." + __rating.defaultCssClass + "-item-off").length);
   });
 
 
   it("Factory", function() {
-    var rating = _rating = qxWeb.create("<div>").toRating().appendTo(getRoot());
+    var rating = _rating = qxWeb.create("<div>").toRating().appendTo(sandbox);
     assert.instanceOf(rating, qx.ui.Rating);
     assert.equal(rating, rating[0].$$widget);
     assert.equal("qx.ui.Rating", rating.getData("qxWidget"));

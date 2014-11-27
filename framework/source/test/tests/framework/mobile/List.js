@@ -83,7 +83,7 @@ describe("mobile.List", function() {
 
   function __createList() {
     var list = new qx.ui.List();
-    getRoot().append(list);
+    sandbox.append(list);
     list.model = __createModel();
     return list;
   }
@@ -110,16 +110,6 @@ describe("mobile.List", function() {
       modelData = null;
     }
   }
-
-
-  beforeEach(function() {
-    setUpRoot();
-  });
-
-
-  afterEach(function() {
-    tearDownRoot();
-  });
 
 
   it("Create", function() {
@@ -223,7 +213,7 @@ describe("mobile.List", function() {
 
 
   it("Factory", function() {
-    var list = qxWeb.create("<ul></ul>").toList().appendTo(getRoot());
+    var list = qxWeb.create("<ul></ul>").toList().appendTo(sandbox);
     assert.instanceOf(list, qx.ui.List);
     assert.equal(list, list[0].$$widget);
     assert.equal("qx.ui.List", list.getData("qxWidget"));

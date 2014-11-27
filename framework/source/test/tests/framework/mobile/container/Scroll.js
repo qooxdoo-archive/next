@@ -19,18 +19,9 @@
 
 describe("mobile.container.Scroll", function() {
 
-  beforeEach(function() {
-    setUpRoot();
-  });
-
-  afterEach(function() {
-    tearDownRoot();
-  });
-
-
   it("Create", function() {
     var container = new qx.ui.container.Scroll();
-    getRoot().append(container);
+    sandbox.append(container);
     container.dispose();
   });
 
@@ -38,7 +29,7 @@ describe("mobile.container.Scroll", function() {
   it("Factory", function() {
     var scroll = q.create('<div>')
       .toScroll()
-      .appendTo(getRoot());
+      .appendTo(sandbox);
 
     assert.instanceOf(scroll, qx.ui.container.Scroll);
     assert.equal(scroll, scroll[0].$$widget);

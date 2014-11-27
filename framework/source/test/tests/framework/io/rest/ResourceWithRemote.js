@@ -33,13 +33,11 @@ describe("io.rest.ResourceWithRemote", function() {
 
   beforeEach(function() {
     // require(["http"]);
-    setUpRoot();
     res = new qx.io.rest.Resource();
   });
 
   afterEach(function() {
     res.dispose();
-    tearDownRoot();
   });
 
 

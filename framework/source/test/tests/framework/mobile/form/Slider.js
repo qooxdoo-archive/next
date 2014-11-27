@@ -22,14 +22,12 @@ describe("mobile.form.Slider", function() {
   var slider;
 
   beforeEach(function() {
-    setUpRoot();
     slider = new qx.ui.form.Slider();
-    getRoot().append(slider);
+    sandbox.append(slider);
   });
 
 
   afterEach(function() {
-    tearDownRoot();
     slider.remove().dispose();
   });
 
@@ -106,7 +104,7 @@ describe("mobile.form.Slider", function() {
   it("Factory", function() {
     var slider = q.create('<div>')
       .toSlider()
-      .appendTo(getRoot());
+      .appendTo(sandbox);
 
     assert.instanceOf(slider, qx.ui.form.Slider);
     assert.equal(1, slider.getChildren("div[data-value]").length);

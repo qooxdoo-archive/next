@@ -19,18 +19,8 @@
 
 describe("mobile.form.PasswordField", function() {
 
-  beforeEach(function() {
-    setUpRoot();
-  });
-
-
-  afterEach(function() {
-    tearDownRoot();
-  });
-
-
   it("Factory", function() {
-    var passwordField = qxWeb.create("<div>").toPasswordField().appendTo(getRoot());
+    var passwordField = qxWeb.create("<div>").toPasswordField().appendTo(sandbox);
     assert.instanceOf(passwordField, qx.ui.form.PasswordField);
     assert.equal(passwordField, passwordField[0].$$widget);
     assert.equal("qx.ui.form.PasswordField", passwordField.getData("qxWidget"));

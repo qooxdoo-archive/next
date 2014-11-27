@@ -20,14 +20,8 @@
 describe("mobile.form.TextField", function() {
 
   beforeEach(function() {
-    setUpRoot();
     __tf = new qx.ui.form.TextField()
-      .appendTo(getRoot());
-  });
-
-
-  afterEach(function() {
-    tearDownRoot();
+      .appendTo(sandbox);
   });
 
 
@@ -45,7 +39,7 @@ describe("mobile.form.TextField", function() {
 
 
   it("Value", function() {
-    getRoot().append(__tf);
+    sandbox.append(__tf);
 
     assert.equal(null, __tf.value);
     assert.equal(null, qx.bom.element.Attribute.get(__tf[0], 'value'));
@@ -60,7 +54,7 @@ describe("mobile.form.TextField", function() {
     __tf.dispose();
 
     __tf = new qx.ui.form.TextField('affe');
-    getRoot().append(__tf);
+    sandbox.append(__tf);
     assert.equal('affe', __tf.value);
     assert.equal('affe', qx.bom.element.Attribute.get(__tf[0], 'value'));
     __tf.dispose();
@@ -68,7 +62,7 @@ describe("mobile.form.TextField", function() {
 
 
   it("Enabled", function() {
-    getRoot().append(__tf);
+    sandbox.append(__tf);
     assert.equal(true, __tf.enabled);
     assert.isFalse(qx.bom.element.Class.has(__tf[0], 'disabled'));
 
@@ -164,7 +158,7 @@ describe("mobile.form.TextField", function() {
 
 
   it("Factory", function() {
-    var textField = qxWeb.create("<div>").toTextField().appendTo(getRoot());
+    var textField = qxWeb.create("<div>").toTextField().appendTo(sandbox);
     assert.instanceOf(textField, qx.ui.form.TextField);
     assert.equal(textField, textField[0].$$widget);
     assert.equal("qx.ui.form.TextField", textField.getData("qxWidget"));

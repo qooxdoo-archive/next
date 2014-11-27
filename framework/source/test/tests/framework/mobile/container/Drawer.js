@@ -19,20 +19,10 @@
 
 describe("mobile.container.Drawer", function() {
 
-  beforeEach(function() {
-    setUpRoot();
-  });
-
-
-  afterEach(function() {
-    tearDownRoot();
-  });
-
-
   it("InitComposite", function() {
     var drawer = new qx.ui.container.Drawer();
 
-    var parentContainer = getRoot().append(drawer);
+    var parentContainer = sandbox.append(drawer);
 
     var drawerCandidate = parentContainer.getChildren()[0];
 
@@ -44,9 +34,9 @@ describe("mobile.container.Drawer", function() {
 
   it("InitRoot", function() {
     var drawer = new qx.ui.container.Drawer();
-    getRoot().append(drawer);
+    sandbox.append(drawer);
 
-    var drawerCandidate = getRoot().getChildren()[0];
+    var drawerCandidate = sandbox.getChildren()[0];
 
     assert.equal(drawer[0], drawerCandidate, "Unexpected children of root.");
 
@@ -56,7 +46,7 @@ describe("mobile.container.Drawer", function() {
 
   it("ShowHide", function() {
     var drawer = new qx.ui.container.Drawer();
-    getRoot().append(drawer);
+    sandbox.append(drawer);
 
     drawer.transitionDuration = 0;
 
@@ -79,7 +69,7 @@ describe("mobile.container.Drawer", function() {
 
   it("ToggleVisibility", function() {
     var drawer = new qx.ui.container.Drawer();
-    getRoot().append(drawer);
+    sandbox.append(drawer);
 
     drawer.transitionDuration = 0;
 
@@ -105,7 +95,7 @@ describe("mobile.container.Drawer", function() {
   it("Factory", function() {
     var drawer = q.create('<div>')
       .toDrawer()
-      .appendTo(getRoot());
+      .appendTo(sandbox);
 
     assert.instanceOf(drawer, qx.ui.container.Drawer);
     assert.equal(drawer, drawer[0].$$widget);

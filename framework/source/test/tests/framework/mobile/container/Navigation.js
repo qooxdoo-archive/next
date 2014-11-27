@@ -19,18 +19,9 @@
 
 describe("mobile.container.Navigation", function() {
 
-  beforeEach(function() {
-    setUpRoot();
-  });
-
-  afterEach(function() {
-    tearDownRoot();
-  });
-
-
   it("Create", function() {
     var container = new qx.ui.container.Navigation();
-    getRoot().append(container);
+    sandbox.append(container);
     container.dispose();
   });
 
@@ -38,7 +29,7 @@ describe("mobile.container.Navigation", function() {
   it("Add", function() {
     var container = new qx.ui.container.Navigation();
     var page = new qx.ui.page.NavigationPage();
-    getRoot().append(container);
+    sandbox.append(container);
     assert.isFalse(container.getContent().getChildren().length > 0);
     container.append(page);
     assert.isTrue(container.getContent().getChildren().length > 0);
@@ -50,7 +41,7 @@ describe("mobile.container.Navigation", function() {
   it("Remove", function() {
     var container = new qx.ui.container.Navigation();
     var page = new qx.ui.page.NavigationPage();
-    getRoot().append(container);
+    sandbox.append(container);
     assert.isFalse(container.getContent().getChildren().length > 0);
     container.append(page);
     assert.isTrue(container.getContent().getChildren().length > 0);
@@ -71,7 +62,7 @@ describe("mobile.container.Navigation", function() {
 
     var page1 = new qx.ui.page.NavigationPage();
     var page2 = new qx.ui.page.NavigationPage();
-    getRoot().append(container);
+    sandbox.append(container);
     container.append(page1);
     container.append(page2);
     page2.show();
@@ -87,7 +78,7 @@ describe("mobile.container.Navigation", function() {
   it("Factory", function() {
     var navigation = q.create('<div>')
       .toNavigation()
-      .appendTo(getRoot());
+      .appendTo(sandbox);
 
     assert.instanceOf(navigation, qx.ui.container.Navigation);
     assert.equal(navigation, navigation[0].$$widget);

@@ -19,20 +19,10 @@
 
 describe("mobile.dialog.Popup", function() {
 
-  beforeEach(function() {
-    setUpRoot();
-  });
-
-
-  afterEach(function() {
-    tearDownRoot();
-  });
-
-
   it("Show", function() {
     var label = new qx.ui.Label("test");
     var popup = new qx.ui.dialog.Popup(label);
-    getRoot().append(popup);
+    sandbox.append(popup);
 
     assert.notEqual("visible", popup.visibility);
 
@@ -47,7 +37,7 @@ describe("mobile.dialog.Popup", function() {
 
   it("ShowHide", function() {
     var popup = new qx.ui.dialog.Popup(new qx.ui.Widget());
-    getRoot().append(popup);
+    sandbox.append(popup);
 
     // Modal mode false test cases, no changes expected.
     popup.modal = false;
@@ -80,7 +70,7 @@ describe("mobile.dialog.Popup", function() {
 
   it("Factory", function() {
     var content = qxWeb.create("<div>").toWidget();
-    var popup = qxWeb.create("<div>").toPopup(content).appendTo(getRoot());
+    var popup = qxWeb.create("<div>").toPopup(content).appendTo(sandbox);
     assert.instanceOf(popup, qx.ui.dialog.Popup);
     qx.core.Assert.assertEquals(popup, popup[0].$$widget);
     assert.equal("qx.ui.dialog.Popup", popup.getData("qxWidget"));

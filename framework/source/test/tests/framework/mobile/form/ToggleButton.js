@@ -19,19 +19,9 @@
 
 describe("mobile.form.ToggleButton", function() {
 
-  beforeEach(function() {
-    setUpRoot();
-  });
-
-
-  afterEach(function() {
-    tearDownRoot();
-  });
-
-
   it("Value", function() {
     var button = new qx.ui.form.ToggleButton(true);
-    getRoot().append(button);
+    sandbox.append(button);
 
     assert.isBoolean(button.getValue());
     assert.isTrue(button.getValue());
@@ -49,7 +39,7 @@ describe("mobile.form.ToggleButton", function() {
 
   it("Toggle", function() {
     var button = new qx.ui.form.ToggleButton(true);
-    getRoot().append(button);
+    sandbox.append(button);
 
     assert.isBoolean(button.getValue());
     assert.isTrue(button.getValue());
@@ -65,7 +55,7 @@ describe("mobile.form.ToggleButton", function() {
 
 
   it("Factory", function() {
-    var toggleButton = qxWeb.create("<div>").toToggleButton().appendTo(getRoot());
+    var toggleButton = qxWeb.create("<div>").toToggleButton().appendTo(sandbox);
     assert.instanceOf(toggleButton, qx.ui.form.ToggleButton);
     assert.equal(toggleButton, toggleButton[0].$$widget);
     assert.equal("qx.ui.form.ToggleButton", toggleButton.getData("qxWidget"));

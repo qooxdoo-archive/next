@@ -22,14 +22,12 @@ describe("mobile.TabBar", function() {
   var __tabBar = null;
 
   beforeEach(function() {
-    setUpRoot();
     __tabBar = new qx.ui.TabBar();
-    getRoot().append(__tabBar);
+    sandbox.append(__tabBar);
   });
 
 
   afterEach(function() {
-    tearDownRoot();
     __tabBar.dispose();
   });
 
@@ -112,7 +110,7 @@ describe("mobile.TabBar", function() {
     var tabBar = __tabBar;
 
     var view1 = new qx.ui.Label("1").
-    appendTo(getRoot()).exclude();
+    appendTo(sandbox).exclude();
     assert.isTrue(view1.hasClass("exclude"));
     var button1 = new qx.ui.Button("Button 1")
       .addClass("selected")
@@ -122,7 +120,7 @@ describe("mobile.TabBar", function() {
     assert.isFalse(view1.hasClass("exclude"));
 
     var view2 = new qx.ui.Label("2").
-    appendTo(getRoot()).exclude();
+    appendTo(sandbox).exclude();
     var button2 = new qx.ui.Button("Button 2")
       .setData("qxConfigPage", "#" + view2.getAttribute("id"))
       .appendTo(tabBar);
@@ -130,7 +128,7 @@ describe("mobile.TabBar", function() {
     assert.isTrue(view2.hasClass("exclude"));
 
     var view3 = new qx.ui.Label("3").
-    appendTo(getRoot()).exclude();
+    appendTo(sandbox).exclude();
     var button3 = new qx.ui.Button("Button 3")
       .setData("qxConfigPage", "#" + view3.getAttribute("id"))
       .appendTo(tabBar);
@@ -148,7 +146,7 @@ describe("mobile.TabBar", function() {
 
 
   it("Factory", function() {
-    __tabBar = qxWeb.create("<div>").toTabBar().appendTo(getRoot());
+    __tabBar = qxWeb.create("<div>").toTabBar().appendTo(sandbox);
     assert.instanceOf(__tabBar, qx.ui.TabBar);
     assert.equal(__tabBar, __tabBar[0].$$widget);
     assert.equal("qx.ui.TabBar", __tabBar.getData("qxWidget"));

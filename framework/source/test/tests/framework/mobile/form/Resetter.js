@@ -19,7 +19,6 @@
 describe("mobile.form.Resetter", function() {
 
   beforeEach(function() {
-    setUpRoot();
     this.__username = new qx.ui.form.TextField();
     this.__password1 = new qx.ui.form.TextField();
     this.__password2 = new qx.ui.form.TextField();
@@ -28,7 +27,6 @@ describe("mobile.form.Resetter", function() {
 
 
   afterEach(function() {
-    tearDownRoot();
     this.__username.dispose();
     this.__password1.dispose();
     this.__password2.dispose();

@@ -19,19 +19,9 @@
 
 describe("mobile.form.CheckBox", function() {
 
-  beforeEach(function() {
-    setUpRoot();
-  });
-
-
-  afterEach(function() {
-    tearDownRoot();
-  });
-
-
   it("Value", function() {
     var checkBox = new qx.ui.form.CheckBox(false);
-    getRoot().append(checkBox);
+    sandbox.append(checkBox);
 
     assert.equal(false, checkBox.getValue());
     assert.equal(false, qxWeb(checkBox[0]).hasClass("checked"));
@@ -46,7 +36,7 @@ describe("mobile.form.CheckBox", function() {
 
   it("Enabled", function() {
     var checkBox = new qx.ui.form.CheckBox();
-    getRoot().append(checkBox);
+    sandbox.append(checkBox);
     checkBox.enabled = false;
     assert.equal(false, checkBox.enabled);
     assert.equal(true, qx.bom.element.Class.has(checkBox[0], 'disabled'));
@@ -56,7 +46,7 @@ describe("mobile.form.CheckBox", function() {
 
 
   it("Factory", function() {
-    var checkBox = qxWeb.create("<div>").toCheckBox().appendTo(getRoot());
+    var checkBox = qxWeb.create("<div>").toCheckBox().appendTo(sandbox);
     assert.instanceOf(checkBox, qx.ui.form.CheckBox);
     assert.equal(checkBox, checkBox[0].$$widget);
     assert.equal("qx.ui.form.CheckBox", checkBox.getData("qxWidget"));

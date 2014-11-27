@@ -21,14 +21,12 @@ describe("toolchain.VariantOptimization", function() {
 
   before(function() {
      // require(["variantsOptimized"]);
-    setUpRoot();
   });
 
   after(function() {
     if(this.currentTest.skip){
       skipAfterTest(this.currentTest.parent.title,this.currentTest.title);
     }
-    tearDownRoot();
   });
 
   afterEach(function(){

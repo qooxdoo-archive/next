@@ -19,16 +19,6 @@
 
 describe("mobile.page.Manager", function() {
 
-  beforeEach(function() {
-    setUpRoot();
-  });
-
-
-  afterEach(function() {
-    tearDownRoot();
-  });
-
-
   it("Create", function() {
     var manager = new qx.ui.page.Manager(undefined, qxWeb(document.body));
     manager.dispose();

@@ -23,15 +23,10 @@
 
 describe("mobile.Image", function() {
 
-  beforeEach(function() {
-    setUpRoot();
-  });
-
   afterEach(function() {
     if(this.currentTest.skip){
       skipAfterTest(this.currentTest.parent.title,this.currentTest.title);
     }
-    tearDownRoot();
   });
 
 
@@ -51,13 +46,13 @@ describe("mobile.Image", function() {
       }, 100);
 
     }, this);
-    getRoot().append(image);
+    sandbox.append(image);
   });
 
 
   it("LoadingFailed", function(done) {
     var image = new qx.ui.Image("does not exist.png" + Math.random());
-    getRoot().append(image);
+    sandbox.append(image);
 
     image.on("loadingFailed", function() {
       setTimeout(function() {
@@ -75,7 +70,7 @@ describe("mobile.Image", function() {
     var source = '../resource/qx/icon/Tango/48/places/folder.png';
     var img = q.create('<img data-qx-config-source="../resource/qx/icon/Tango/48/places/folder.png">')
       .toImage()
-      .appendTo(getRoot());
+      .appendTo(sandbox);
 
     assert.instanceOf(img, qx.ui.Image);
     assert.equal("../resource/qx/icon/Tango/48/places/folder.png", img.source);

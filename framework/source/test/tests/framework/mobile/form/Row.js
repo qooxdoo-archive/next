@@ -19,18 +19,8 @@
 
 describe("mobile.form.Row", function() {
 
-  beforeEach(function() {
-    setUpRoot();
-  });
-
-
-  afterEach(function() {
-    tearDownRoot();
-  });
-
-
   it("Factory", function() {
-    var row = qxWeb.create("<div>").toRow().appendTo(getRoot());
+    var row = qxWeb.create("<div>").toRow().appendTo(sandbox);
     assert.instanceOf(row, qx.ui.form.Row);
     assert.equal(row, row[0].$$widget);
     assert.equal("qx.ui.form.Row", row.getData("qxWidget"));

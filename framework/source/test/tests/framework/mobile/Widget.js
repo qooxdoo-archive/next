@@ -19,20 +19,10 @@
 
 describe("mobile.Widget", function() {
 
-  beforeEach(function() {
-    setUpRoot();
-  });
-
-
-  afterEach(function() {
-    tearDownRoot();
-  });
-
-
   it("Create", function() {
     var widget = new qx.ui.Widget();
     widget.setAttribute("id", "affe");
-    getRoot().append(widget);
+    sandbox.append(widget);
 
     var element = document.getElementById("affe");
     qx.core.Assert.assertElement(element);
@@ -44,7 +34,7 @@ describe("mobile.Widget", function() {
   it("SetCssClass", function() {
     var widget = new qx.ui.Widget();
 
-    getRoot().append(widget);
+    sandbox.append(widget);
 
     var element = widget[0];
 
@@ -65,7 +55,7 @@ describe("mobile.Widget", function() {
 
   it("AddRemoveCssClass", function() {
     var widget = new qx.ui.Widget();
-    getRoot().append(widget);
+    sandbox.append(widget);
 
     var element = widget[0];
 
@@ -100,7 +90,7 @@ describe("mobile.Widget", function() {
 
   it("WidgetRegistration", function() {
     var widget = new qx.ui.Widget();
-    getRoot().append(widget);
+    sandbox.append(widget);
 
     widget = qx.ui.Widget.getWidgetById(widget.getAttribute("id"));
     assert.instanceOf(widget, qx.ui.Widget)
@@ -123,7 +113,7 @@ describe("mobile.Widget", function() {
 
   it("Visibility", function() {
     var widget = new qx.ui.Widget();
-    getRoot().append(widget);
+    sandbox.append(widget);
 
     __assertShow(widget);
 
@@ -165,7 +155,7 @@ describe("mobile.Widget", function() {
 
   it("Enabled", function() {
     var widget = new qx.ui.Widget();
-    getRoot().append(widget);
+    sandbox.append(widget);
 
     assert.equal(true, widget.enabled);
     assert.isFalse(qx.bom.element.Class.has(widget[0], 'disabled'));
@@ -179,7 +169,7 @@ describe("mobile.Widget", function() {
     widget.dispose();
 
     widget = new qx.ui.Widget();
-    getRoot().append(widget);
+    sandbox.append(widget);
 
     widget.enabled = true;
     widget.anonymous = true;
@@ -200,11 +190,11 @@ describe("mobile.Widget", function() {
   it("InitWidget", function() {
     var el1 = document.createElement("div");
     el1.setAttribute("data-qx-widget", "qx.ui.Widget");
-    getRoot()[0].appendChild(el1);
+    sandbox[0].appendChild(el1);
 
     var el2 = document.createElement("div");
     el2.setAttribute("data-qx-widget", "qx.ui.Widget");
-    getRoot()[0].appendChild(el2);
+    sandbox[0].appendChild(el2);
 
     qx.ui.Widget.initWidgets();
 
@@ -216,12 +206,12 @@ describe("mobile.Widget", function() {
   it("InitWidgetSelector", function() {
     var el1 = document.createElement("div");
     el1.setAttribute("data-qx-widget", "qx.ui.Widget");
-    getRoot()[0].appendChild(el1);
+    sandbox[0].appendChild(el1);
 
     var el2 = document.createElement("div");
     el2.setAttribute("class", "foo");
     el2.setAttribute("data-qx-widget", "qx.ui.Widget");
-    getRoot()[0].appendChild(el2);
+    sandbox[0].appendChild(el2);
 
     qx.ui.Widget.initWidgets(".foo");
 
@@ -232,12 +222,12 @@ describe("mobile.Widget", function() {
 
   it("InitWidgetFunction", function() {
     var el1 = document.createElement("div");
-    getRoot()[0].appendChild(el1);
+    sandbox[0].appendChild(el1);
 
     var el2 = document.createElement("div");
     el2.affe = true;
     el2.setAttribute("data-qx-widget", "qx.ui.Widget");
-    getRoot()[0].appendChild(el2);
+    sandbox[0].appendChild(el2);
 
     qx.ui.Widget.initWidgets(function(el) {
       return !!el2.affe;
@@ -251,7 +241,7 @@ describe("mobile.Widget", function() {
   it("RestoreInstance", function() {
     var widget = new qx.ui.Widget();
     widget.setAttribute("id", "affe");
-    getRoot().append(widget);
+    sandbox.append(widget);
 
     var element = document.getElementById("affe");
     assert.equal(widget, qxWeb(element));
@@ -262,7 +252,7 @@ describe("mobile.Widget", function() {
 
   function _testAddedChild(invokeFunc) {
     var child = new qx.ui.Widget();
-    qx.core.Assert.assertEventFired(getRoot(),
+    qx.core.Assert.assertEventFired(sandbox,
       "addedChild",
       invokeFunc.bind(this, child),
       function(newChild) {
@@ -274,21 +264,21 @@ describe("mobile.Widget", function() {
 
   it("AddedChildAppend", function() {
     _testAddedChild(function(child) {
-      getRoot().append(child);
+      sandbox.append(child);
     });
   });
 
 
   it("AddedChildAppendAt", function() {
     _testAddedChild(function(child) {
-      getRoot().appendAt(child, 0);
+      sandbox.appendAt(child, 0);
     });
   });
 
 
   it("AddedChildInsertAfter", function() {
     var sibling = new qx.ui.Widget();
-    getRoot().append(sibling);
+    sandbox.append(sibling);
     _testAddedChild(function(child) {
       child.insertAfter(sibling);
     });
@@ -297,7 +287,7 @@ describe("mobile.Widget", function() {
 
   it("AddedChildInsertBefore", function() {
     var sibling = new qx.ui.Widget();
-    getRoot().append(sibling);
+    sandbox.append(sibling);
     _testAddedChild(function(child) {
       child.insertBefore(sibling);
     });
@@ -306,7 +296,7 @@ describe("mobile.Widget", function() {
 
   it("AddedChildAfter", function() {
     var sibling = new qx.ui.Widget();
-    getRoot().append(sibling);
+    sandbox.append(sibling);
     _testAddedChild(function(child) {
       sibling.after(child);
     });
@@ -315,7 +305,7 @@ describe("mobile.Widget", function() {
 
   it("AddedChildBefore", function() {
     var sibling = new qx.ui.Widget();
-    getRoot().append(sibling);
+    sandbox.append(sibling);
     _testAddedChild(function(child) {
       sibling.before(child);
     });
@@ -324,17 +314,17 @@ describe("mobile.Widget", function() {
 
   it("AddedChildAppendTo", function() {
     _testAddedChild(function(child) {
-      child.appendTo(getRoot());
+      child.appendTo(sandbox);
     });
   });
 
 
   it("RemovedChildRemove", function() {
-    getRoot().append(qxWeb.create("<div>"));
+    sandbox.append(qxWeb.create("<div>"));
     var child = new qx.ui.Widget();
-    getRoot().append(child);
+    sandbox.append(child);
 
-    qx.core.Assert.assertEventFired(getRoot(),
+    qx.core.Assert.assertEventFired(sandbox,
       "removedChild",
       function() {
         child.remove();
@@ -349,24 +339,24 @@ describe("mobile.Widget", function() {
 
   it("RemovedChildEmpty", function() {
     var child1 = new qx.ui.Widget();
-    getRoot().append(child1);
+    sandbox.append(child1);
     var child2 = new qx.ui.Widget();
-    getRoot().append(child2);
+    sandbox.append(child2);
 
     var cb = sinon.spy();
-    getRoot().on("removedChild", cb);
-    getRoot().empty();
+    sandbox.on("removedChild", cb);
+    sandbox.empty();
     sinon.assert.calledTwice(cb);
     assert.equal(cb.args[0][0], child1);
     assert.equal(cb.args[0][0].priorPosition, 0);
     assert.equal(cb.args[1][0], child2);
     assert.equal(cb.args[1][0].priorPosition, 1);
-    getRoot().off("removedChild", cb);
+    sandbox.off("removedChild", cb);
   });
 
 
   it("Factory", function() {
-    var widget = qxWeb.create("<div>").toWidget().appendTo(getRoot());
+    var widget = qxWeb.create("<div>").toWidget().appendTo(sandbox);
     assert.instanceOf(widget, qx.ui.Widget);
     assert.equal(widget, widget[0].$$widget);
     assert.equal("qx.ui.Widget", widget.getData("qxWidget"));

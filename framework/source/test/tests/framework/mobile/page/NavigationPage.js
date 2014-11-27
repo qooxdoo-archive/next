@@ -18,18 +18,7 @@
 ************************************************************************ */
 
 
-describe("mobile.page.NavigationPage", function ()
-{
-
-  beforeEach( function () {
-     setUpRoot();
-  });
-
-
-  afterEach( function (){
-     tearDownRoot();
-  });
-
+describe("mobile.page.NavigationPage", function () {
 
  it("NavigationInterface", function() {
       var page = new qx.ui.page.NavigationPage();
@@ -86,7 +75,7 @@ describe("mobile.page.NavigationPage", function ()
 
 
   it("Factory", function() {
-    var navigationPage = qxWeb.create("<div>").toNavigationPage().appendTo(getRoot());
+    var navigationPage = qxWeb.create("<div>").toNavigationPage().appendTo(sandbox);
     assert.instanceOf(navigationPage, qx.ui.page.NavigationPage);
     assert.equal(navigationPage, navigationPage[0].$$widget);
     assert.equal("qx.ui.page.NavigationPage", navigationPage.getData("qxWidget"));

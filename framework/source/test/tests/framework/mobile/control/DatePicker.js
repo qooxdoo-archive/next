@@ -22,18 +22,9 @@
  */
 describe("mobile.control.DatePicker", function() {
 
-  beforeEach(function() {
-    setUpRoot();
-  });
-
-  afterEach(function() {
-    tearDownRoot();
-  });
-
-
   it("ReadOnlyInputElement", function() {
     var datePickerHtml = q.create("<input type='text' id='datepicker' data-qx-class='qx.ui.control.DatePicker' data-qx-config-readonly='false' value='' />");
-    getRoot().append(datePickerHtml);
+    sandbox.append(datePickerHtml);
 
     var datePicker = q("input#datepicker").toDatePicker();
 
@@ -45,7 +36,7 @@ describe("mobile.control.DatePicker", function() {
 
   it("ReadOnlyInputElementWithConfig", function() {
     var datePickerHtml = q.create("<input type='text' class='datepicker' data-qx-class='qx.ui.control.DatePicker' data-qx-config-readonly='true' value='' />");
-    getRoot().append(datePickerHtml);
+    sandbox.append(datePickerHtml);
 
     var datePicker = q("input.datepicker").toDatePicker();
     assert.isTrue(datePicker.readonly);
@@ -59,7 +50,7 @@ describe("mobile.control.DatePicker", function() {
 
   it("IconOpener", function() {
     var datePickerHtml = q.create("<input type='text' class='datepicker' data-qx-class='qx.ui.control.DatePicker' value='' />");
-    getRoot().append(datePickerHtml);
+    sandbox.append(datePickerHtml);
 
     var datePicker = q("input.datepicker").toDatePicker();
     datePicker.icon = 'framework/source/resource/qx/icon/Tango/22/apps/office-calendar.png';
@@ -75,7 +66,7 @@ describe("mobile.control.DatePicker", function() {
 
   it("IconOpenerToggle", function() {
     var datePickerHtml = q.create("<input type='text' class='datepicker' data-qx-class='qx.ui.control.DatePicker' value='' />");
-    getRoot().append(datePickerHtml);
+    sandbox.append(datePickerHtml);
 
     var datePicker = q("input.datepicker").toDatePicker();
     datePicker.icon = 'framework/source/resource/qx/icon/Tango/22/apps/office-calendar.png';
@@ -92,7 +83,7 @@ describe("mobile.control.DatePicker", function() {
 
 
   it("Factory", function() {
-    var datePicker = qxWeb.create("<div>").toDatePicker().appendTo(getRoot());
+    var datePicker = qxWeb.create("<div>").toDatePicker().appendTo(sandbox);
     assert.instanceOf(datePicker, qx.ui.control.DatePicker);
     qx.core.Assert.assertEquals(datePicker, datePicker[0].$$widget);
     assert.equal("qx.ui.control.DatePicker", datePicker.getData("qxWidget"));

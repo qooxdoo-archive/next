@@ -22,13 +22,11 @@ describe("mobile.ToolBar", function() {
   var __toolBar = null;
 
   beforeEach(function () {
-    setUpRoot();
     __toolBar = new qx.ui.ToolBar();
-    getRoot().append(__toolBar);
+    sandbox.append(__toolBar);
   });
 
   afterEach(function() {
-    tearDownRoot();
     __toolBar.dispose();
   });
 
@@ -86,7 +84,7 @@ describe("mobile.ToolBar", function() {
 
 
   it("Factory", function() {
-    __toolBar = qxWeb.create("<div>").toToolBar().appendTo(getRoot());
+    __toolBar = qxWeb.create("<div>").toToolBar().appendTo(sandbox);
     assert.instanceOf(__toolBar, qx.ui.ToolBar);
     assert.equal(__toolBar, __toolBar[0].$$widget);
     assert.equal("qx.ui.ToolBar", __toolBar.getData("qxWidget"));
