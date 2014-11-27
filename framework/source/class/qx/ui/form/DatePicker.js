@@ -31,16 +31,15 @@
 qx.Class.define("qx.ui.form.DatePicker", {
   extend : qx.ui.Widget,
 
-  properties: {
+  include : [
+    qx.ui.form.MText,
+    qx.ui.form.MForm
+  ],
+  implement : [
+    qx.ui.form.IForm
+  ],
 
-    /**
-     * Boolean value to control if the connected input element is read-only.
-     */
-    readonly: {
-      check: "Boolean",
-      init: false,
-      apply: "_applyReadOnly"
-    },
+  properties: {
 
     /**
      * Path to an icon which will be placed next to the input element as
@@ -200,20 +199,6 @@ qx.Class.define("qx.ui.form.DatePicker", {
       var formattedValue = this.format.call(this, e.value);
       this.setValue(formattedValue);
       this.getCalendar().setStyle("display", "none");
-    },
-
-
-    /**
-     * Helper method to set the readonly status on the input element
-     *
-     * @param collection {qxWeb} collection to work on
-     */
-    _applyReadOnly : function(value, old) {
-      if (value) {
-        this.setAttribute('readonly', 'readonly');
-      } else {
-        this.removeAttribute('readonly');
-      }
     },
 
     /**
