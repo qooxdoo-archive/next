@@ -17,9 +17,9 @@
 }
 
 .navigation.hidden {
-  margin-bottom:-(rem(40));
+  margin-bottom:-($navigationbar-height);
   @include transition(-webkit-transform 0.8s ease-in-out );
-  @include transform(translateY(-(rem(40))));
+  @include transform(translateY(-($navigationbar-height)));
 }
 
 .left-container {
@@ -27,7 +27,7 @@
   left: 0;
   top: 0;
   width:auto;
-  height: rem(40);
+  height: $navigationbar-height;
 }
 
 .right-container {
@@ -35,5 +35,5 @@
   right: 0;
   top: 0;
   width:auto;
-  height: rem(40);
+  height: $navigationbar-height;
 }
