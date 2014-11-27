@@ -38,9 +38,9 @@ describe("mobile.form.DatePicker", function() {
     sandbox.append(datePickerHtml);
 
     var datePicker = q("input.datepicker").toDatePicker();
-    assert.isTrue(datePicker.readonly);
+    assert.isTrue(datePicker.readOnly);
     assert.isTrue(datePicker.getAttribute('readonly'));
-    datePicker.readonly = false;
+    datePicker.readOnly = false;
     assert.isFalse(datePicker.getAttribute('readonly'));
 
     datePicker.dispose();
