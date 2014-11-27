@@ -258,7 +258,6 @@ qx.Class.define("qx.ui.container.Carousel",
      * @return {qx.ui.Widget} the page which was removed from carousel.
      */
     _onRemovedChild : function(child) {
-
       if (!this.__pages || this.__pages.length <= pageIndex) {
         return;
       }
