@@ -43,7 +43,7 @@ qx.Class.define("qxWeb", {
   extend : qx.type.BaseArray,
   statics : {
     // internal storage for all initializers
-    __init : [],
+    _init : [],
 
     // internal reference to the used qx namespace
     $$qx : qx,
@@ -92,8 +92,8 @@ qx.Class.define("qxWeb", {
         col = qx.lang.Array.cast(clean, clazz);
       }
 
-      for (var i=0; i < qxWeb.__init.length; i++) {
-        qxWeb.__init[i].call(col);
+      for (var i=0; i < qxWeb._init.length; i++) {
+        qxWeb._init[i].call(col);
       }
 
       return col;
@@ -146,7 +146,7 @@ qx.Class.define("qxWeb", {
      * @param init {Function} The initialization method for a module.
      */
     $attachInit : function(init) {
-      this.__init.push(init);
+      this._init.push(init);
     },
 
 
