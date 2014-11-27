@@ -319,7 +319,7 @@ qx.Class.define("qx.ui.form.Slider",
      */
     _setValue : function(value)
     {
-      this.__value = value;
+      this.__value = Math.max(Math.min(value, this.maximum), this.minimum);
       qxWeb.requestAnimationFrame(this._refresh, this);
     },
 

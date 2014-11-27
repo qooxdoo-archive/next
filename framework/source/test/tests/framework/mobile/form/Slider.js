@@ -19,21 +19,24 @@
 
 describe("mobile.form.Slider", function() {
 
+  var slider;
+
   beforeEach(function() {
     setUpRoot();
+    slider = new qx.ui.form.Slider();
+    getRoot().append(slider);
   });
 
 
   afterEach(function() {
     tearDownRoot();
+    slider.remove().dispose();
   });
 
-  var slider = new qx.ui.form.Slider();
 
 
   it("Value", function() {
     slider.step = 4;
-    getRoot().append(slider);
 
     assert.equal(0, slider.value);
     assert.equal(0, qx.bom.element.Dataset.get(slider._getKnobElement(), "value"));
@@ -56,18 +59,35 @@ describe("mobile.form.Slider", function() {
     }, function(evt) {
       assert.equal(7, evt.value);
     }.bind(this));
-
-    slider.dispose();
   });
 
 
   it("Enabled", function() {
-    getRoot().append(slider);
     slider.enabled = false;
     assert.equal(false, slider.enabled);
     assert.equal(true, qx.bom.element.Class.has(slider[0], 'disabled'));
+  });
 
-    slider.dispose();
+
+  it("Maximum", function() {
+    var initMax = slider.maximum;
+    slider.value = initMax + 100;
+    assert.equal(slider.value, initMax);
+
+    slider.maximum = 1111;
+    slider.value = 1200;
+    assert.equal(slider.value, 1111);
+  });
+
+
+  it("Minimum", function() {
+    var initMin = slider.minimum;
+    slider.value = initMin - 100;
+    assert.equal(slider.value, initMin);
+
+    slider.minimum = -100;
+    slider.value = -200;
+    assert.equal(slider.value, -100);
   });
 
 
