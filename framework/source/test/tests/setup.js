@@ -10,8 +10,8 @@ if (typeof process !== 'undefined') {
 } else {
   // We are in the browser. Set up variables like above using served js files.
   assert = chai.assert;
+  chai.config.includeStack = true;
 }
-
 
 window.skipAfterTest = function(suiteTitle, testTitle) {
   var suites = qxWeb(".suite");
