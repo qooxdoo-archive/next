@@ -190,6 +190,16 @@ qx.Class.define("mobileshowcase.page.Form",
       new qx.ui.form.Row(select, selQuestion)
         .appendTo(feedbackGroup);
 
+
+      var birthDateGroup = new qx.ui.form.Group("Birth date")
+        .appendTo(form);
+
+      var birthDatePicker = new qx.ui.form.DatePicker();
+      var birthDateQuestion = "When is you date of birth?";
+      new qx.ui.form.Row(birthDatePicker, birthDateQuestion)
+        .appendTo(birthDateGroup);
+
+
       var licenseGroup = new qx.ui.form.Group("License")
         .appendTo(form);
 
