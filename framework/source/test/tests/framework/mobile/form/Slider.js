@@ -74,9 +74,13 @@ describe("mobile.form.Slider", function() {
     slider.value = initMax + 100;
     assert.equal(slider.value, initMax);
 
+    var spy = sinon.spy();
+    slider.on("changeValue", spy);
     slider.maximum = 1111;
     slider.value = 1200;
     assert.equal(slider.value, 1111);
+    sinon.assert.calledOnce(spy);
+    assert.equal(1111, spy.args[0][0].value);
   });
 
 
@@ -85,9 +89,17 @@ describe("mobile.form.Slider", function() {
     slider.value = initMin - 100;
     assert.equal(slider.value, initMin);
 
+    var spy = sinon.spy();
+    slider.on("changeValue", spy);
     slider.minimum = -100;
     slider.value = -200;
     assert.equal(slider.value, -100);
+    sinon.assert.calledOnce(spy);
+    assert.equal(-100, spy.args[0][0].value);
+
+    slider.value = -300;
+    assert.equal(slider.value, -100);
+    sinon.assert.calledOnce(spy);
   });
 
 

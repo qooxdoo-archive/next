@@ -176,7 +176,6 @@ qx.Class.define("mobileshowcase.page.DataBinding",
       new qx.ui.form.Row(this.__dataLabel, "Slider value: ")
         .appendTo(form);
 
-      qx.data.SingleValueBinding.bind(this.__dataLabel, "value", this.__slider, "value");
       qx.data.SingleValueBinding.bind(this.__slider, "value", this.__dataLabel, "value");
 
       return form;

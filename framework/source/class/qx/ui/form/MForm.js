@@ -179,7 +179,10 @@ qx.Mixin.define("qx.ui.form.MForm",
         }
 
         if (typeof this._setValue == "function") {
-          this._setValue(value);
+          var normalizedValue = this._setValue(value);
+          if (normalizedValue !== undefined) {
+            value = normalizedValue;
+          }
         } else {
           if (value === undefined) {
             value = null;

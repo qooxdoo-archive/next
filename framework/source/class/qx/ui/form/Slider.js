@@ -311,17 +311,21 @@ qx.Class.define("qx.ui.form.Slider",
       return this._knobElement;
     },
 
+
     /**
      * Sets the value of this slider.
      * It is called by the setValue method of the qx.ui.form.MForm
      * mixin
-     * @param value {Integer} the new value of the slider
+     * @param value {Number} the new value of the slider
+     * @return {Number} The normalized value according to it's min / max properties.
      */
     _setValue : function(value)
     {
       this.__value = Math.max(Math.min(value, this.maximum), this.minimum);
       qxWeb.requestAnimationFrame(this._refresh, this);
+      return this.__value;
     },
+
 
     /**
      * Gets the value [true/false] of this slider.
