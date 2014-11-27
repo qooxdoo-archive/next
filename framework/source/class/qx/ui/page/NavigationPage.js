@@ -284,7 +284,6 @@ qx.Class.define("qx.ui.page.NavigationPage",
     },
 
 
-
     /**
       * Creates the navigation bar button.
       * Creates the content container.
@@ -293,51 +292,6 @@ qx.Class.define("qx.ui.page.NavigationPage",
       */
     _createButton : function() {
      return new qx.ui.Button(this.buttonText, this.buttonIcon);
-    },
-
-
-    /**
-    * @deprecated {4.0} This method was moved to qx.ui.container.Scroll
-    *
-    * Scrolls the wrapper contents to the x/y coordinates in a given
-    * period.
-    *
-    * @param x {Integer} X coordinate to scroll to.
-    * @param y {Integer} Y coordinate to scroll to.
-    * @param time {Integer} Time slice in which scrolling should
-    *              be done.
-    *
-    */
-    scrollTo : function(x, y, time)
-    {
-      if (qx.core.Environment.get("qx.debug"))
-      {
-        qx.log.Logger.deprecatedMethodWarning(arguments.callee,"The method 'scrollTo()' was moved to 'qx.ui.container.Scroll'.");
-      }
-      this.__scrollContainer.scrollTo(x, y, time);
-    },
-
-
-    /**
-    * @deprecated {4.0} This method was moved to qx.ui.container.Scroll
-    *
-    * Scrolls the wrapper contents to the widgets coordinates in a given
-    * period.
-    *
-    * @param widget {qx.ui.Widget} the widget, the scroll container should scroll to.
-    * @param time {Integer} Time slice in which scrolling should
-    *              be done.
-    *
-    */
-    scrollToWidget : function(widget, time)
-    {
-      if (qx.core.Environment.get("qx.debug"))
-      {
-        qx.log.Logger.deprecatedMethodWarning(arguments.callee,"The method 'scrollToWidget()' was moved to 'qx.ui.container.Scroll'.");
-      }
-      if(widget) {
-        this.__scrollContainer.scrollToElement(widget.getAttribute("id"), time);
-      }
     },
 
 
