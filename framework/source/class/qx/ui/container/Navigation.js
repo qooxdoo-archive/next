@@ -43,7 +43,7 @@ qx.Class.define("qx.ui.container.Navigation",
   extend : qx.ui.Widget,
 
   /**
-   * @param element
+   * @param element {Element?null} The new navigation widget.
    * @return {qx.ui.container.Navigation} The new navigation widget.
    */
   construct : function(element)
