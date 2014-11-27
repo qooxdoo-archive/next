@@ -120,14 +120,6 @@ qx.Class.define("qx.ui.container.Carousel",
     },
 
 
-    /** Defines whether the carousel should scroll back to first or last page
-     * when the start/end of carousel pages is reached  */
-    scrollLoop : {
-      check : "Boolean",
-      init : true
-    },
-
-
     /**
      * Defines the height of the carousel. If value is equal to <code>null</code>
      * the height is set to/ <code>100%</code>.
