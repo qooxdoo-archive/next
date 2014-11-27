@@ -76,6 +76,8 @@ qx.Class.define("qx.ui.form.DatePicker", {
 
   /**
    * @attach {qxWeb, toDatePicker}
+   * @param date {Date} The current shown date
+   * @param element {Element?null} The new date picker widget.
    * @return {qx.ui.form.DatePicker} The new date picker widget.
    */
   construct : function(date, element) {
@@ -203,10 +205,8 @@ qx.Class.define("qx.ui.form.DatePicker", {
 
     /**
      * Helper method to add / remove an icon next to the input element
-     *
-     * @param collection {qxWeb} collection to work on
      */
-    _applyIcon : function(value, old) {
+    _applyIcon : function() {
       var icon;
 
       if (this.icon === null) {
@@ -241,6 +241,7 @@ qx.Class.define("qx.ui.form.DatePicker", {
       }
     },
 
+    // overridden
     _getTagName: function () {
       return "input";
     },
@@ -248,8 +249,6 @@ qx.Class.define("qx.ui.form.DatePicker", {
     /**
      * Helper method to add a listener to the connected input element
      * if the configured mode is set.
-     *
-     * @param collection {qxWeb} collection to work on
      */
     __addInputListener : function() {
       if (this.mode === 'icon') {
