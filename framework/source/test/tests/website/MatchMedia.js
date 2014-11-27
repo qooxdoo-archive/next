@@ -1,14 +1,8 @@
 describe('MatchMedia', function() {
 
   beforeEach(function() {
-    globalSetup();
     this.__iframe = q.create('<iframe src="html/media.html" frameborder="0" width="500" height="400" name="Testframe"></iframe>');
     this.__iframe.appendTo(sandbox[0]);
-  });
-
-
-  afterEach(function() {
-    globalTeardown();
   });
 
 

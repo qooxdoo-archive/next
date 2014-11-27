@@ -5,14 +5,6 @@ describe('Placeholder', function() {
       //this.skip("Native placeholder supported.");
       return;
     }
-    globalSetup();
-  });
-
-
-  afterEach(function() {
-    if (!q.env.get("css.placeholder")) {
-      globalTeardown();
-    }
   });
 
 

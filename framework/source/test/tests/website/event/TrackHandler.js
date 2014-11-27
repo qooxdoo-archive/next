@@ -1,15 +1,5 @@
 describe('event.TrackHandler', function() {
 
-  beforeEach(function() {
-    globalSetup();
-  });
-
-
-  afterEach(function() {
-    globalTeardown();
-  });
-
-
   it("Register", function() {
     var cb = function() {};
     var test = q.create('<div></div>').appendTo(sandbox[0])

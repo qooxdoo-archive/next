@@ -1,15 +1,5 @@
 describe('event.Touch', function() {
 
-  beforeEach(function() {
-    globalSetup();
-  });
-
-
-  afterEach(function() {
-    globalTeardown();
-  });
-
-
   it("EventNormalization", function() {
     var eventTypes = ["tap", "swipe"];
     assert.isArray(eventTypes);

@@ -1,15 +1,5 @@
 describe('event.TouchHandler', function() {
 
-  beforeEach(function() {
-    globalSetup();
-  });
-
-
-  afterEach(function() {
-    globalTeardown();
-  });
-
-
   it("Register", function() {
     //require(["qx.debug"]);
     var cb = function() {};

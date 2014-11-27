@@ -1,14 +1,5 @@
 describe('Attribute', function() {
 
-  beforeEach(function() {
-    globalSetup();
-  });
-
-
-  afterEach(function() {
-    globalTeardown();
-  });
-
 
   it("Html", function() {
     var test = q.create("<div/>");

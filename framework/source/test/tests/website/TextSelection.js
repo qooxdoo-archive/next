@@ -1,15 +1,5 @@
 describe('TextSelection', function() {
 
-  beforeEach(function() {
-    globalSetup();
-  });
-
-
-  afterEach(function() {
-    globalTeardown();
-  });
-
-
   var __testSelection = function(coll, selected) {
     var isIe8 = q.env.get("engine.name") == "mshtml" && q.env.get("browser.documentmode") < 9;
     coll.setTextSelection(5, 9);

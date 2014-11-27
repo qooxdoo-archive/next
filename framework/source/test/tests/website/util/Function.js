@@ -2,16 +2,6 @@ describe('FunctionUtil', function() {
 
   this.timeout(5000);
 
-  beforeEach(function() {
-    globalSetup();
-  });
-
-
-  afterEach(function() {
-    globalTeardown();
-  });
-
-
   it("FunctionDebounce", function(done) {
     var called = 0;
     var checkCalled;

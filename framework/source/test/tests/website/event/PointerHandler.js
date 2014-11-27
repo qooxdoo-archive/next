@@ -1,15 +1,5 @@
 describe('event.PointerHandler', function() {
 
-  beforeEach(function() {
-    globalSetup();
-  });
-
-
-  afterEach(function() {
-    globalTeardown();
-  });
-
-
   it("Register", function() {
     //this.require(["qx.debug"]);
     if (q.$$qx.core.Environment.get("event.mspointer")) {

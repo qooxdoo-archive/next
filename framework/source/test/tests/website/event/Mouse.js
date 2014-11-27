@@ -1,15 +1,5 @@
 describe('event.Mouse', function() {
 
-  beforeEach(function() {
-    globalSetup();
-  });
-
-
-  afterEach(function() {
-    globalTeardown();
-  });
-
-
   it("EventNormalization", function() {
     var eventTypes = ["click", "dblclick", "mousedown", "mouseup", "mouseover", "mousemove",
       "mouseout"

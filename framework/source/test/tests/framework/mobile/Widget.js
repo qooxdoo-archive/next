@@ -103,7 +103,7 @@ describe("mobile.Widget", function() {
     getRoot().append(widget);
 
     widget = qx.ui.Widget.getWidgetById(widget.getAttribute("id"));
-    assertQxMobileWidget(widget);
+    assert.instanceOf(widget, qx.ui.Widget)
 
     widget.dispose();
   });

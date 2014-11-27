@@ -1,15 +1,5 @@
 describe('Templates', function() {
 
-  beforeEach(function() {
-    globalSetup();
-  });
-
-
-  afterEach(function() {
-    globalTeardown();
-  });
-
-
   it("Render", function() {
     var result = q.template.render("{{affe}}", {
       affe: "george"

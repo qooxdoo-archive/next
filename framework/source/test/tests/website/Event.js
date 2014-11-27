@@ -1,15 +1,5 @@
 describe('Events', function() {
 
-  beforeEach(function() {
-    globalSetup();
-  });
-
-
-  afterEach(function() {
-    globalTeardown();
-  });
-
-
   it("OnOffEmit", function() {
     var test = q.create("<div/>");
     var self = this;
@@ -247,16 +237,6 @@ describe('Events', function() {
 
 describe('event.Normalization', function() {
 
-  beforeEach(function() {
-    globalSetup();
-  });
-
-
-  afterEach(function() {
-    globalTeardown();
-  });
-
-
   var __registerNormalization = function(type, normalizer) {
     q.define("EventNormalize" + Date.now(), {
       statics: {
@@ -412,16 +392,6 @@ describe('event.Normalization', function() {
 
 
 describe('event.RegistrationHooks', function() {
-
-  beforeEach(function() {
-    globalSetup();
-  });
-
-
-  afterEach(function() {
-    globalTeardown();
-  });
-
 
   it("RegisterHook", function() {
     var test = q.create('<div></div>').appendTo(sandbox[0]);

@@ -1,15 +1,5 @@
  describe('ObjectUtil', function() {
 
-   beforeEach(function() {
-     globalSetup();
-   });
-
-
-   afterEach(function() {
-     globalTeardown();
-   });
-
-
    it("ObjectMerge", function() {
 
      var target = {

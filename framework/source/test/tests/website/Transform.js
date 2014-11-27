@@ -1,12 +1,5 @@
 describe('Transform', function() {
 
-  beforeEach(function() {
-    globalSetup();
-  });
-  afterEach(function() {
-    globalTeardown();
-  });
-
   // smoke tests
 
   it("Translate", function() {

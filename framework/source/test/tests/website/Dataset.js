@@ -1,24 +1,13 @@
 describe('Dataset', function() {
 
-  beforeEach(function() {
-    globalSetup.call(this);
-    this.__element = q.create("<div id='testEl'></div>");
-    this.__element.appendTo(sandbox[0]);
-  });
-
-
-  afterEach(function() {
-    globalTeardown();
-  });
-
 
   it("SetDataAttribute", function() {
 
-    this.__element.setData("type", "domelement");
-    this.__element.setData("option", "test");
+    sandbox.setData("type", "domelement");
+    sandbox.setData("option", "test");
 
-    var datatype = this.__element.getAttribute("data-type");
-    var dataoption = this.__element.getAttribute("data-option");
+    var datatype = sandbox.getAttribute("data-type");
+    var dataoption = sandbox.getAttribute("data-option");
 
     assert.equal(datatype, "domelement");
     assert.equal(dataoption, "test");
@@ -33,27 +22,26 @@ describe('Dataset', function() {
 
   it("SetDataAttributeHyphenated", function() {
 
-    this.__element.setData("hyphenated-data-attribute", "hyphenated");
+    sandbox.setData("hyphenated-data-attribute", "hyphenated");
 
-    var hyphenatedExpected = this.__element.getAttribute("data-hyphenated-data-attribute");
-    var hyphenatedFound = this.__element.getData("hyphenatedDataAttribute");
+    var hyphenatedExpected = sandbox.getAttribute("data-hyphenated-data-attribute");
+    var hyphenatedFound = sandbox.getData("hyphenatedDataAttribute");
 
     assert.equal(hyphenatedExpected, hyphenatedFound);
   });
 
 
   it("GetDataAttribute", function() {
+    sandbox.setData("type", "domelement");
+    sandbox.setData("option", "test");
 
-    this.__element.setData("type", "domelement");
-    this.__element.setData("option", "test");
-
-    var expected = this.__element.getAttribute("data-type");
-    var found = this.__element.getData("type");
+    var expected = sandbox.getAttribute("data-type");
+    var found = sandbox.getData("type");
 
     assert.equal(expected, found);
 
-    var expected2 = this.__element.getAttribute("data-option");
-    var found2 = q("#testEl").getData("option");
+    var expected2 = sandbox.getAttribute("data-option");
+    var found2 = q("#sandbox").getData("option");
 
     assert.equal(expected2, found2);
   });
@@ -61,11 +49,11 @@ describe('Dataset', function() {
 
   it("GetAllData", function() {
 
-    this.__element.setData("type", "domelement");
-    this.__element.setData("option", "test");
-    this.__element.setData("hyphenated-data-attribute", "hyphenated");
+    sandbox.setData("type", "domelement");
+    sandbox.setData("option", "test");
+    sandbox.setData("hyphenated-data-attribute", "hyphenated");
 
-    var expected = q("#testEl").getAllData();
+    var expected = q("#sandbox").getAllData();
 
     var datatype = "domelement";
     var dataoption = "test";
@@ -79,10 +67,10 @@ describe('Dataset', function() {
 
 
   it("RemoveData", function() {
-    this.__element.setData("hyphenated-data-attribute", "hyphenated");
-    q("#testEl").removeData("hyphenatedDataAttribute");
-    var found = q("#testEl").getData("hyphenatedDataAttribute");
-    assert.isNull(this.__element.getAttribute("data-hyphenated-data-attribute"));
+    sandbox.setData("hyphenated-data-attribute", "hyphenated");
+    q("#sandbox").removeData("hyphenatedDataAttribute");
+    var found = q("#sandbox").getData("hyphenatedDataAttribute");
+    assert.isNull(sandbox.getAttribute("data-hyphenated-data-attribute"));
 
     //must be ignored:
     q(window).removeData("fooBar");
@@ -91,10 +79,11 @@ describe('Dataset', function() {
 
 
   it("HasData", function() {
-   assert.isFalse(this.__element.hasData());
-   this.__element.setData("type", "test");
-   assert.isTrue(this.__element.hasData());
-   this.__element.removeData("type");
-   assert.isFalse(this.__element.hasData());
+    var div = q.create("<div>").appendTo(sandbox);
+    assert.isFalse(div.hasData());
+    div.setData("type", "test");
+    assert.isTrue(div.hasData());
+    div.removeData("type");
+    assert.isFalse(div.hasData());
   });
 });

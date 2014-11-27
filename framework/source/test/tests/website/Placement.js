@@ -1,9 +1,6 @@
 describe('Placement', function() {
 
-
   beforeEach(function() {
-    globalSetup();
-
     q("#sandbox").setStyles({
       position: "absolute",
       top: 0,
@@ -32,7 +29,6 @@ describe('Placement', function() {
 
 
   afterEach(function() {
-    globalTeardown();
     q("#sandbox #bar").setStyle("position", "relative");
   });
 

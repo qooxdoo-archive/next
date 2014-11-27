@@ -1,15 +1,5 @@
 describe('event.Keyboard', function() {
 
-  beforeEach(function() {
-    globalSetup();
-  });
-
-
-  afterEach(function() {
-    globalTeardown();
-  });
-
-
   it("EventNormalization", function() {
     var eventTypes = ["keydown", "keypress", "keyup"];
     assert.isArray(eventTypes);

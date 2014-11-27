@@ -1,15 +1,5 @@
 describe('Traversing', function() {
 
-  beforeEach(function() {
-    globalSetup();
-  });
-
-
-  afterEach(function() {
-    globalTeardown();
-  });
-
-
   it("IsRendered", function() {
     assert.isTrue(sandbox.isRendered());
     assert.isFalse(q.create("<div>").isRendered());
@@ -673,18 +663,19 @@ describe('Traversing', function() {
 
 
   it("Contains", function() {
-    sandbox.append("<h2 class='foo'>Foo</h2>");
+    var div = q.create("<div>").appendTo(sandbox);
+    div.append(q.create("<h2 class='foo'>Foo</h2>"));
 
     assert.equal(1, qxWeb(document.documentElement).contains(document.body).length);
-    assert.equal(1, sandbox.contains(q("#sandbox .foo")[0]).length);
-    assert.equal(0, sandbox.contains(window).length);
+    assert.equal(1, div.contains(q(".foo")[0]).length);
+    assert.equal(0, div.contains(window).length);
 
-    assert.equal(1, sandbox.contains(q("#sandbox .foo")).length);
-    assert.equal(0, sandbox.contains(q("#sandbox .nope")).length);
+    assert.equal(1, div.contains(q("#sandbox .foo")).length);
+    assert.equal(0, div.contains(q("#sandbox .nope")).length);
 
-    sandbox.push(window);
-    sandbox.push(q.create("<div>")[0]);
-    assert.equal(2, sandbox.contains(q("#sandbox .foo")).length);
-    assert.equal(0, sandbox.contains(q("#sandbox .nope")).length);
+    div.push(window);
+    div.push(q.create("<div>")[0]);
+    assert.equal(2, div.contains(q("#sandbox .foo")).length);
+    assert.equal(0, div.contains(q("#sandbox .nope")).length);
   });
 });

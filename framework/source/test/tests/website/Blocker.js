@@ -1,12 +1,7 @@
 describe('Blocker', function() {
 
-  beforeEach(function() {
-    globalSetup();
-  });
-
 
   afterEach(function() {
-    globalTeardown();
     q(document).unblock();
     q('link[href="css/style2.css"]').remove();
   });

@@ -1,15 +1,5 @@
 describe('event.Native', function() {
 
-  beforeEach(function() {
-    globalSetup();
-  });
-
-
-  afterEach(function() {
-    globalTeardown();
-  });
-
-
   it("GetTarget", function() {
 
     var obj = {

@@ -2,16 +2,6 @@
 
    this.timeout(5000);
 
-   beforeEach(function() {
-     globalSetup();
-   });
-
-
-   afterEach(function() {
-     globalTeardown();
-   });
-
-
    it("CreateDiv", function() {
      assert.isNotNull(q.create("<div/>"));
      assert.equal(1, q.create("<div/>")[0].nodeType);

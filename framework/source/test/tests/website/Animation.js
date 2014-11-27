@@ -1,12 +1,6 @@
 describe('Animation', function() {
 
-  beforeEach(function() {
-    globalSetup();
-  });
-
-
   afterEach(function() {
-    globalTeardown();
     q('link[href="css/style2.css"]').remove();
   });
 

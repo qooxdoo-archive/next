@@ -1,22 +1,13 @@
  describe('q', function() {
 
-   beforeEach(function() {
-     globalSetup();
-   });
-
-
-   afterEach(function() {
-     globalTeardown();
-   });
-
-
    it("Unique", function() {
-     var c = q("#sandbox").add(q("#sandbox"));
+     var div = qxWeb.create("<div id='unique'>").appendTo(sandbox);
+     var c = q("#unique").add(q("#unique"));
      assert.equal(2, c.length);
-     assert.isTrue(c.is("#sandbox"));
+     assert.isTrue(c.is("#unique"));
      var u = c.unique();
      assert.equal(1, u.length);
-     assert.isTrue(u.is("#sandbox"));
+     assert.isTrue(u.is("#unique"));
    });
 
 
