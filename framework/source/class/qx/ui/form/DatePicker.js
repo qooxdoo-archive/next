@@ -101,6 +101,7 @@ qx.Class.define("qx.ui.form.DatePicker", {
     // if the user taps outside
     var bodyElement = qxWeb.getDocument(this).body;
     qxWeb(bodyElement).on('tap', this._hideCalendar, this);
+    qxWeb(document).on("roll", this._hideCalendar, this);
 
     // react on date selection
     calendar.on('changeValue', this._calendarChangeValue, this);
