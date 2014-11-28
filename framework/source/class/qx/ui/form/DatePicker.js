@@ -36,6 +36,11 @@ qx.Class.define("qx.ui.form.DatePicker", {
   ],
 
   properties: {
+    // overridden
+    defaultCssClass :
+    {
+      init : "qx-datepicker"
+    },
 
     /**
      * Path to an icon which will be placed next to the input element as
