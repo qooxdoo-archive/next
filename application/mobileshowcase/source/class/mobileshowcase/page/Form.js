@@ -195,6 +195,13 @@ qx.Class.define("mobileshowcase.page.Form",
         .appendTo(form);
 
       var birthDatePicker = new qx.ui.form.DatePicker();
+      birthDatePicker.set({
+          required: true,
+          pattern : ".{3,}",
+          validationMessage: "Please enter a valid date of birth!",
+          liveUpdate: true,
+          readOnly: true
+        });
       var birthDateQuestion = "When is you date of birth?";
       new qx.ui.form.Row(birthDatePicker, birthDateQuestion)
         .appendTo(birthDateGroup);
