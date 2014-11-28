@@ -26,16 +26,6 @@
  */
 describe("Class", function() {
 
-  var sandbox;
-
-  beforeEach(function () {
-    sandbox = sinon.sandbox.create();
-  });
-
-  afterEach(function () {
-    sandbox.restore();
-  });
-
   it("DefineAnonymous", function() {
     var clazz = qx.Class.define(null, {
       statics: {
@@ -318,7 +308,7 @@ describe("Class", function() {
 
 
   it("Try to rename construct to constructor at super call", function() {
-    var constructSpyMethod = sandbox.spy();
+    var constructSpyMethod = sinonSandbox.spy();
 
     qx.Class.define("qx.test.Super", {
       construct: function () {
@@ -345,8 +335,8 @@ describe("Class", function() {
 
 
   it("Try to rename construct to constructor at super call when construct already defined as a member", function() {
-    var constructSpyMethod = sandbox.spy();
-    var memberConstructSpyMethod = sandbox.spy();
+    var constructSpyMethod = sinonSandbox.spy();
+    var memberConstructSpyMethod = sinonSandbox.spy();
 
     qx.Class.define("qx.test.Super", {
       construct: function () {
@@ -375,8 +365,8 @@ describe("Class", function() {
 
 
   it("Try to rename construct to constructor at super call when construct already defined as a property", function() {
-    var constructSpyMethod = sinon.spy();
-    var propertyConstructSpyMethod = sinon.spy();
+    var constructSpyMethod = sinonSandbox.spy();
+    var propertyConstructSpyMethod = sinonSandbox.spy();
 
     qx.Class.define("qx.test.Super", {
       construct: function () {
@@ -631,7 +621,7 @@ describe("Class", function() {
 
     var c = new C();
 
-    var handler = sinon.spy();
+    var handler = sinonSandbox.spy();
     c.on("changeA", handler);
     c.a = 12;
 
@@ -756,10 +746,10 @@ describe("Class", function() {
 
 
   it("PropertyCheckFunction", function() {
-    var checkA = sinon.spy(function() {
+    var checkA = sinonSandbox.spy(function() {
       return true;
     });
-    var checkB = sinon.spy(function() {
+    var checkB = sinonSandbox.spy(function() {
       return true;
     });
     var C = qx.Class.define(null, {
@@ -867,7 +857,7 @@ describe("Class", function() {
 
 
   it("PropertyInheritance", function() {
-    var apply = sinon.spy();
+    var apply = sinonSandbox.spy();
     var C = qx.Class.define(null, {
       properties: {
         a: {
@@ -897,7 +887,7 @@ describe("Class", function() {
 
 
   it("ClassDefined", function() {
-    var classDefined = sinon.spy();
+    var classDefined = sinonSandbox.spy();
     var C = qx.Class.define(null, {
       extend: Object,
       classDefined: classDefined
@@ -967,7 +957,7 @@ describe("Class", function() {
 
 
   it("DefaultConstructor", function() {
-    var construct = sinon.spy();
+    var construct = sinonSandbox.spy();
     var A = qx.Class.define(null, {
       extend: Object,
       construct: construct
@@ -984,7 +974,7 @@ describe("Class", function() {
 
   it("CustomPropertyGetter", function() {
     var self = this;
-    var getter = sinon.spy(function() {
+    var getter = sinonSandbox.spy(function() {
       assert.equal(this, a);
     });
     var A = qx.Class.define(null, {
@@ -1012,7 +1002,7 @@ describe("Class", function() {
 
   it("CustomPropertySetter", function() {
     var self = this;
-    var setter = sinon.spy(function() {
+    var setter = sinonSandbox.spy(function() {
       assert.equal(this, a);
     });
     var A = qx.Class.define(null, {
@@ -1041,8 +1031,8 @@ describe("Class", function() {
 
 
   it("Custom Property Setter Override", function() {
-    var setterA = sinon.spy(function(){console.log("a");});
-    var setterB = sinon.spy(function() {console.log("b");});
+    var setterA = sinonSandbox.spy(function(){console.log("a");});
+    var setterB = sinonSandbox.spy(function() {console.log("b");});
 
     var A = qx.Class.define(null, {
       extend: Object,

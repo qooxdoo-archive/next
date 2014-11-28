@@ -80,14 +80,14 @@ describe("data.store.Rest", function() {
       return;
     }
 
-    sinon.stub(object, prop);
+    sinonSandbox.stub(object, prop);
   }
 
 
   function injectStub(object, property, customStub) {
     var stub = customStub || this.deepStub(new object[property]);
 
-    sinon.stub(object, property).returns(stub);
+    sinonSandbox.stub(object, property).returns(stub);
     return stub;
   }
 
@@ -132,7 +132,6 @@ describe("data.store.Rest", function() {
 
 
   afterEach(function() {
-    sinon.sandbox.restore();
     req.dispose();
     store.dispose();
   });
@@ -180,7 +179,7 @@ describe("data.store.Rest", function() {
   it("add listener for actionSuccess to res", function() {
     var store;
 
-    sinon.stub(res, "on");
+    sinonSandbox.stub(res, "on");
     store = new qx.data.store.Rest(res, "index");
     sinon.assert.called(res.on);
     store.dispose();
@@ -188,7 +187,7 @@ describe("data.store.Rest", function() {
 
 
   it("marshal response", function() {
-    sinon.stub(store._marshaler, "toModel");
+    sinonSandbox.stub(store._marshaler, "toModel");
 
     var data = {
       "key": "value"
@@ -233,7 +232,7 @@ describe("data.store.Rest", function() {
 
 
   it("configure request with delegate", function() {
-    var configureRequest = sinon.spy(function(req) {
+    var configureRequest = sinonSandbox.spy(function(req) {
       req.affe = true;
     });
 
@@ -260,7 +259,7 @@ describe("data.store.Rest", function() {
       "name": "Tiger"
     };
 
-    var manipulateData = sinon.spy(function(data) {
+    var manipulateData = sinonSandbox.spy(function(data) {
       data.name = "Maus";
       return data;
     });
@@ -270,7 +269,7 @@ describe("data.store.Rest", function() {
     };
 
     var store = new qx.data.store.Rest(res, "index", delegate);
-    sinon.stub(store._marshaler, "toModel");
+    sinonSandbox.stub(store._marshaler, "toModel");
 
     res.index();
     respond(data);

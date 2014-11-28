@@ -261,7 +261,7 @@ var _MRequest = function() {
       // see beforeEach()
       req = this.test.req;
 
-      var readystatechange = sinon.spy();
+      var readystatechange = sinonSandbox.spy();
 
       req.on("readystatechange", readystatechange);
       respond();
@@ -274,7 +274,7 @@ var _MRequest = function() {
       // see beforeEach()
       req = this.test.req;
 
-      var success = sinon.spy();
+      var success = sinonSandbox.spy();
 
       req.on("success", success);
       respond();
@@ -287,7 +287,7 @@ var _MRequest = function() {
       // see beforeEach()
       req = this.test.req;
 
-      var success = sinon.spy();
+      var success = sinonSandbox.spy();
 
       req.on("success", success);
       respond(500);
@@ -300,7 +300,7 @@ var _MRequest = function() {
       // see beforeEach()
       req = this.test.req;
 
-      var load = sinon.spy();
+      var load = sinonSandbox.spy();
 
       req.on("load", load);
       respond();
@@ -313,7 +313,7 @@ var _MRequest = function() {
       // see beforeEach()
       req = this.test.req;
 
-      var loadend = sinon.spy();
+      var loadend = sinonSandbox.spy();
 
       req.on("loadend", loadend);
       respond();
@@ -326,7 +326,7 @@ var _MRequest = function() {
       // see beforeEach()
       req = this.test.req;
 
-      var abort = sinon.spy();
+      var abort = sinonSandbox.spy();
 
       req.on("abort", abort);
       req.emit("abort");
@@ -339,7 +339,7 @@ var _MRequest = function() {
       // see beforeEach()
       req = this.test.req;
 
-      var timeout = sinon.spy();
+      var timeout = sinonSandbox.spy();
 
       req.timeout = 100;
       req.send();
@@ -356,7 +356,7 @@ var _MRequest = function() {
       // see beforeEach()
       req = this.test.req;
 
-      var error = sinon.spy();
+      var error = sinonSandbox.spy();
 
       req.on("error", error);
       respondError();
@@ -369,7 +369,7 @@ var _MRequest = function() {
       // see beforeEach()
       req = this.test.req;
 
-      var statusError = sinon.spy();
+      var statusError = sinonSandbox.spy();
 
       req.on("statusError", statusError);
       respond(500);
@@ -382,7 +382,7 @@ var _MRequest = function() {
       // see beforeEach()
       req = this.test.req;
 
-      var fail = sinon.spy();
+      var fail = sinonSandbox.spy();
 
       req.on("fail", fail);
       respond(500);
@@ -395,7 +395,7 @@ var _MRequest = function() {
       // see beforeEach()
       req = this.test.req;
 
-      var fail = sinon.spy();
+      var fail = sinonSandbox.spy();
 
       req.on("fail", fail);
       respondError();
@@ -408,7 +408,7 @@ var _MRequest = function() {
       // see beforeEach()
       req = this.test.req;
 
-      var fail = sinon.spy();
+      var fail = sinonSandbox.spy();
 
       req.on("fail", fail);
       timeout();

@@ -72,7 +72,7 @@ describe("mobile.form.Slider", function() {
     slider.value = initMax + 100;
     assert.equal(slider.value, initMax);
 
-    var spy = sinon.spy();
+    var spy = sinonSandbox.spy();
     slider.on("changeValue", spy);
     slider.maximum = 1111;
     slider.value = 1200;
@@ -87,7 +87,7 @@ describe("mobile.form.Slider", function() {
     slider.value = initMin - 100;
     assert.equal(slider.value, initMin);
 
-    var spy = sinon.spy();
+    var spy = sinonSandbox.spy();
     slider.on("changeValue", spy);
     slider.minimum = -100;
     slider.value = -200;

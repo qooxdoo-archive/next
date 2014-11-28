@@ -28,7 +28,6 @@ describe("data.store.Json", function() {
 
 
   beforeEach(function() {
-    var sandbox = sinon.sandbox.create();
     __store = new qx.data.store.Json();
 
     __data = eval("({s: 'String', n: 12, b: true})");
@@ -37,7 +36,6 @@ describe("data.store.Json", function() {
 
 
   afterEach(function() {
-    sinon.sandbox.restore();
     __store.dispose();
 
     if (qx.data.model) {
@@ -399,7 +397,7 @@ describe("data.store.Json", function() {
       }
     };
 
-    sinon.spy(delegate, "manipulateData");
+    sinonSandbox.spy(delegate, "manipulateData");
 
     __store.dispose();
     __store = new qx.data.store.Json(null, delegate);
@@ -424,7 +422,7 @@ describe("data.store.Json", function() {
       }
     };
 
-    sinon.spy(delegate, "configureRequest");
+    sinonSandbox.spy(delegate, "configureRequest");
 
     __store.dispose();
     __store = new qx.data.store.Json(null, delegate);
@@ -471,9 +469,9 @@ describe("data.store.Json", function() {
 
 
   it("test Internal Server Error", function(done) {
-    sinon.sandbox.useFakeServer();
+    sinonSandbox.useFakeServer();
 
-    var server = sinon.sandbox.server;
+    var server = sinonSandbox.server;
     server.respondWith("GET", "/foo", [ 500,
       {"Content-Type": "application/json"}, "SERVER ERROR" ]);
 

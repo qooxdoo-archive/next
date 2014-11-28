@@ -28,14 +28,12 @@
 
 describe("io.request.JsonpWithRemote", function() {
   var req;
-  var sandbox;
 
   beforeEach(function() {
     // TODO: Maybe use FakeServer instead
     // this.require(["http"]);
-    sandbox = sinon.sandbox.create();
     req = createRequest();
-    req = stubMethods(req, sandbox);
+    req = stubMethods(req);
 
     // preparation for _MRequest
     this.currentTest.req = req;
@@ -44,7 +42,6 @@ describe("io.request.JsonpWithRemote", function() {
   afterEach(function() {
     req.dispose();
     this.currentTest.req.dispose();
-    sinon.sandbox.restore();
   });
 
   it("fetch json", function(done) {
@@ -72,16 +69,16 @@ describe("io.request.JsonpWithRemote", function() {
     return req;
   }
 
-  function stubMethods(req, sandbox) {
+  function stubMethods(req) {
     // if already stubbed just return
     if (req && req._send && req._send.restore) { return; }
 
     // TODO: use sandbox
-    sandbox.stub(req, "_open");
-    sandbox.stub(req, "_setRequestHeader");
-    sandbox.stub(req, "setRequestHeader");
-    sandbox.stub(req, "_send");
-    sandbox.stub(req, "_abort");
+    sinonSandbox.stub(req, "_open");
+    sinonSandbox.stub(req, "_setRequestHeader");
+    sinonSandbox.stub(req, "setRequestHeader");
+    sinonSandbox.stub(req, "_send");
+    sinonSandbox.stub(req, "_abort");
     return req;
   }
 

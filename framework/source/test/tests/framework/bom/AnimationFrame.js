@@ -26,7 +26,7 @@ describe("bom.AnimationFrame", function() {
 
 
   it("Start", function(done) {
-    var clb = sinon.spy();
+    var clb = sinonSandbox.spy();
     this.__frame.once("frame", clb);
     this.__frame.startSequence(300);
     setTimeout(function() {
@@ -38,7 +38,7 @@ describe("bom.AnimationFrame", function() {
 
 
   it("Cancel", function(done) {
-    var clb = sinon.spy();
+    var clb = sinonSandbox.spy();
     this.__frame.once("frame", clb);
     this.__frame.startSequence(300);
     this.__frame.cancelSequence();

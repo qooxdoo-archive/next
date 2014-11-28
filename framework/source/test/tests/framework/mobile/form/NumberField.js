@@ -50,7 +50,7 @@ describe("mobile.form.NumberField", function ()
     assert.equal(42, __nf.minimum);
     assert.equal(42, __nf.getAttribute("min"));
 
-    var cb = sinon.spy(function(e) {
+    var cb = sinonSandbox.spy(function(e) {
       assert.equal(41, e.target.value);
       assert.isFalse(e.value);
       assert.isFalse(e.target.valid);
@@ -73,7 +73,7 @@ describe("mobile.form.NumberField", function ()
     assert.equal(42, __nf.maximum);
     assert.equal(42, __nf.getAttribute("max"));
 
-    var cb = sinon.spy(function(e) {
+    var cb = sinonSandbox.spy(function(e) {
       assert.equal(43, e.target.value);
       assert.isFalse(e.value);
       assert.isFalse(e.target.valid);
@@ -95,7 +95,7 @@ describe("mobile.form.NumberField", function ()
     assert.equal(10, __nf.step);
     assert.equal(10, __nf.getAttribute("step"));
 
-    var cb = sinon.spy(function(e) {
+    var cb = sinonSandbox.spy(function(e) {
       assert.equal(12, e.target.value);
       assert.isFalse(e.value);
       assert.isFalse(e.target.valid);

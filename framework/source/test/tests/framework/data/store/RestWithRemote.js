@@ -28,7 +28,7 @@ describe("data.store.RestWithRemote", function() {
         url: url
       }
     });
-    store = store = new qx.data.store.Rest(res, "index");
+    store = new qx.data.store.Rest(res, "index");
 
     res.configureRequest(function(req) {
       req.setParser(qx.util.ResponseParser.PARSER.json);

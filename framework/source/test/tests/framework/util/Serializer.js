@@ -48,17 +48,17 @@ describe("util.Serializer", function () {
     __model.data1 = "a";
     __model.data2 = "b";
     __model.data3 = "c";
-    sinon.spy()("data1=a&data2=b&data3=c", __s.toUriParameter(__model));
+    sinonSandbox.spy()("data1=a&data2=b&data3=c", __s.toUriParameter(__model));
 
     __model.data1 = "A";
     __model.data2 = "B";
     __model.data3 = "C";
-    sinon.spy()("data1=A&data2=B&data3=C", __s.toUriParameter(__model));
+    sinonSandbox.spy()("data1=A&data2=B&data3=C", __s.toUriParameter(__model));
 
     __model.data1 = "1";
     __model.data2 = "11";
     __model.data3 = "111";
-    sinon.spy()("data1=1&data2=11&data3=111", __s.toUriParameter(__model));
+    sinonSandbox.spy()("data1=1&data2=11&data3=111", __s.toUriParameter(__model));
   });
 
 
@@ -66,12 +66,12 @@ describe("util.Serializer", function () {
     __model.data1 = "ä";
     __model.data2 = "ö";
     __model.data3 = "ü";
-    sinon.spy()("data1=%C3%A4&data2=%C3%B6&data3=%C3%BC", __s.toUriParameter(__model));
+    sinonSandbox.spy()("data1=%C3%A4&data2=%C3%B6&data3=%C3%BC", __s.toUriParameter(__model));
 
     __model.data1 = "–";
     __model.data2 = " ";
     __model.data3 = "ß";
-    sinon.spy()("data1=%E2%80%93&data2=%20&data3=%C3%9F", __s.toUriParameter(__model));
+    sinonSandbox.spy()("data1=%E2%80%93&data2=%20&data3=%C3%9F", __s.toUriParameter(__model));
   });
 
 
@@ -79,7 +79,7 @@ describe("util.Serializer", function () {
     __model.data1 = true;
     __model.data2 = false;
     __model.data3 = null;
-    sinon.spy()("data1=true&data2=false&data3=null", __s.toUriParameter(__model));
+    sinonSandbox.spy()("data1=true&data2=false&data3=null", __s.toUriParameter(__model));
   });
 
 
@@ -87,7 +87,7 @@ describe("util.Serializer", function () {
     __model.data1 = 10;
     __model.data2 = -15.3443;
     __model.data3 = Number.NaN;
-    sinon.spy()("data1=10&data2=-15.3443&data3=NaN", __s.toUriParameter(__model));
+    sinonSandbox.spy()("data1=10&data2=-15.3443&data3=NaN", __s.toUriParameter(__model));
   });
 
 
@@ -102,7 +102,7 @@ describe("util.Serializer", function () {
     });
     var model = new qx.test.SerializerModelEnc();
 
-    sinon.spy()("%C3%A4%C3%BC%C3%B6=%C3%84%C3%9C%C3%96", __s.toUriParameter(model));
+    sinonSandbox.spy()("%C3%A4%C3%BC%C3%B6=%C3%84%C3%9C%C3%96", __s.toUriParameter(model));
   });
 
 
@@ -115,7 +115,7 @@ describe("util.Serializer", function () {
     __model.data1 = item;
     __model.data2 = "b";
     __model.data3 = "c";
-    sinon.spy()("data1=a&data2=b&data3=c", __s.toUriParameter(__model, qxSerializer));
+    sinonSandbox.spy()("data1=a&data2=b&data3=c", __s.toUriParameter(__model, qxSerializer));
 
     item.dispose();
   });
@@ -180,7 +180,7 @@ describe("util.Serializer", function () {
     __model.data1 = ("a");
     __model.data2 = (10.456);
     __model.data3 = (true);
-    sinon.spy()('{"data1":"a","data2":10.456,"data3":true}', __s.toJson(__model));
+    sinonSandbox.spy()('{"data1":"a","data2":10.456,"data3":true}', __s.toJson(__model));
   });
 
 
@@ -189,7 +189,7 @@ describe("util.Serializer", function () {
     __model.data1 = (date);
     __model.data2 = (/[0]/);
     __model.data3 = (45e12);
-    sinon.spy()('{"data1":"' + date + '","data2":"/[0]/","data3":45000000000000}', __s.toJson(__model));
+    sinonSandbox.spy()('{"data1":"' + date + '","data2":"/[0]/","data3":45000000000000}', __s.toJson(__model));
   });
 
 
@@ -201,7 +201,7 @@ describe("util.Serializer", function () {
 
     __model.data1 = (model);
     __model.data3 = (null);
-    sinon.spy()('{"data1":{"data1":"a","data2":11,"data3":false},"data2":null,"data3":null}', __s.toJson(__model));
+    sinonSandbox.spy()('{"data1":{"data1":"a","data2":11,"data3":false},"data2":null,"data3":null}', __s.toJson(__model));
   });
 
 
@@ -209,7 +209,7 @@ describe("util.Serializer", function () {
     __model.data1 = ([12, 1]);
     __model.data2 = (["a", "b"]);
     __model.data3 = ([true, false]);
-    sinon.spy()('{"data1":[12,1],"data2":["a","b"],"data3":[true,false]}', __s.toJson(__model));
+    sinonSandbox.spy()('{"data1":[12,1],"data2":["a","b"],"data3":[true,false]}', __s.toJson(__model));
   });
 
 
@@ -217,7 +217,7 @@ describe("util.Serializer", function () {
     __model.data1 = (new qx.data.Array([12, 1]));
     __model.data2 = (new qx.data.Array(["a", "b"]));
     __model.data3 = (new qx.data.Array([true, false]));
-    sinon.spy()('{"data1":[12,1],"data2":["a","b"],"data3":[true,false]}', __s.toJson(__model));
+    sinonSandbox.spy()('{"data1":[12,1],"data2":["a","b"],"data3":[true,false]}', __s.toJson(__model));
   });
 
 
@@ -241,7 +241,7 @@ describe("util.Serializer", function () {
     __model.data1 = (new qx.data.Array());
     __model.data2 = ([]);
     __model.data3 = ({});
-    sinon.spy()('{"data1":[],"data2":[],"data3":{}}', __s.toJson(__model));
+    sinonSandbox.spy()('{"data1":[],"data2":[],"data3":{}}', __s.toJson(__model));
   });
 
 
@@ -249,7 +249,7 @@ describe("util.Serializer", function () {
     __model.data1 = ("''");
     __model.data2 = ('""');
     __model.data3 = ("\b\t\n\f\r\\");
-    sinon.spy()('{"data1":"\'\'","data2":"\\"\\"","data3":"\\b\\t\\n\\f\\r\\\\"}', __s.toJson(__model));
+    sinonSandbox.spy()('{"data1":"\'\'","data2":"\\"\\"","data3":"\\b\\t\\n\\f\\r\\\\"}', __s.toJson(__model));
   });
 
 
@@ -264,7 +264,7 @@ describe("util.Serializer", function () {
     __model.data1 = (item);
     __model.data2 = (10.456);
     __model.data3 = (true);
-    sinon.spy()('{"data1":"a","data2":10.456,"data3":true}', __s.toJson(__model, qxSerializer));
+    sinonSandbox.spy()('{"data1":"a","data2":10.456,"data3":true}', __s.toJson(__model, qxSerializer));
 
     item.dispose();
   });
@@ -278,9 +278,9 @@ describe("util.Serializer", function () {
     var json = __s.toJson(__model);
     var model = qx.data.marshal.Json.createModel(JSON.parse(json));
 
-    sinon.spy()(__model.data1, model.data1);
-    sinon.spy()(__model.data2[0], model.data2.getItem(0));
-    sinon.spy()(__model.data3, model.data3);
+    sinonSandbox.spy()(__model.data1, model.data1);
+    sinonSandbox.spy()(__model.data2[0], model.data2.getItem(0));
+    sinonSandbox.spy()(__model.data3, model.data3);
   });
 
 
@@ -294,7 +294,7 @@ describe("util.Serializer", function () {
     var model = qx.data.marshal.Json.createModel(data);
     model.goo = {mi: "moo", la: "lili"};
 
-    sinon.spy()('{"foo":"foo","bar":"bar","goo":{"mi":"moo","la":"lili"}}', qx.util.Serializer.toJson(model));
+    sinonSandbox.spy()('{"foo":"foo","bar":"bar","goo":{"mi":"moo","la":"lili"}}', qx.util.Serializer.toJson(model));
   });
 
 
@@ -303,7 +303,7 @@ describe("util.Serializer", function () {
     __model.data2 = (qx.data.IListData);
     __model.data3 = (qx.data.MBinding);
 
-    sinon.spy()('{"data1":"qx.util.Serializer","data2":"qx.data.IListData","data3":"qx.data.MBinding"}', __s.toJson(__model));
+    sinonSandbox.spy()('{"data1":"qx.util.Serializer","data2":"qx.data.IListData","data3":"qx.data.MBinding"}', __s.toJson(__model));
   });
 
 

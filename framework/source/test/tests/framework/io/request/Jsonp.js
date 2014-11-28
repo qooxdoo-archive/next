@@ -52,16 +52,15 @@ describe("io.request.Jsonp", function() {
       return;
     }
 
-    sinon.stub(req, "_open");
-    sinon.stub(req, "_setRequestHeader");
-    sinon.stub(req, "setRequestHeader");
-    sinon.stub(req, "_send");
-    sinon.stub(req, "_abort");
+    SinonSandbox.stub(req, "_open");
+    SinonSandbox.stub(req, "_setRequestHeader");
+    SinonSandbox.stub(req, "setRequestHeader");
+    SinonSandbox.stub(req, "_send");
+    SinonSandbox.stub(req, "_abort");
   }
 
 
   afterEach(function() {
-    sinon.sandbox.restore();
     req._dispose();
 
     // May fail in IE

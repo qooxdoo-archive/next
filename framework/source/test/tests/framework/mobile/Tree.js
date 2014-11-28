@@ -44,7 +44,7 @@ describe("Tree", function() {
 
 
   it("selected", function() {
-    var spy = sinon.spy();
+    var spy = sinonSandbox.spy();
 
     var folder = tree.find("#folder_1_1")[0];
     tree.on("selected", spy);

@@ -24,7 +24,6 @@ describe("data.store.Offline", function() {
   var model = null;
 
   afterEach(function() {
-    sinon.sandbox.restore();
     // erase the data from the storages
     qx.bom.Storage.getLocal().removeItem(__testKey);
 
@@ -62,7 +61,7 @@ describe("data.store.Offline", function() {
 
   it("CreateWithDelegate", function() {
     var del = {};
-    var spy = sinon.spy(qx.data.marshal, "Json");
+    var spy = sinonSandbox.spy(qx.data.marshal, "Json");
     var store = new qx.data.store.Offline(__testKey, "local", del);
     assert(spy.calledWith(del));
   });
@@ -114,7 +113,7 @@ describe("data.store.Offline", function() {
 
 
   it("ModelRead", function() {
-    sinon.stub(qx.bom.Storage.getLocal(), "getItem").returns({
+    sinonSandbox.stub(qx.bom.Storage.getLocal(), "getItem").returns({
       b: "b"
     });
     __initDefaultStore();

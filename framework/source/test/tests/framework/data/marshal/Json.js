@@ -1065,7 +1065,7 @@ describe("data.marshal.Json", function() {
     }];
 
     var model = qx.data.marshal.Json.createModel(data, true);
-    var spy = sinon.spy();
+    var spy = sinonSandbox.spy();
     model.on("changeBubble", spy);
 
     var newItem = qx.data.marshal.Json.createModel({

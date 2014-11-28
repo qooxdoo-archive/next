@@ -19,7 +19,7 @@
 
 describe("util.ResponseParser", function () {
   var __responseParser;
-  
+
   beforeEach(function () {
     __responseParser = new qx.util.ResponseParser();
   });
@@ -31,7 +31,7 @@ describe("util.ResponseParser", function () {
 
   var __assertParser = function (contentType, parser) {
     var msg = "Content type '" + contentType + "' handled incorrectly";
-    sinon.spy()(parser, __responseParser._getParser(contentType), msg);
+    sinonSandbox.spy()(parser, __responseParser._getParser(contentType), msg);
   };
 
 
@@ -83,7 +83,7 @@ describe("util.ResponseParser", function () {
     var customParser = function () {
     };
     __responseParser.setParser(customParser);
-    sinon.spy()(customParser, __responseParser._getParser());
+    sinonSandbox.spy()(customParser, __responseParser._getParser());
   });
 
 
@@ -97,7 +97,7 @@ describe("util.ResponseParser", function () {
     var expectedResponse = "",
       parsedResponse = __responseParser.parse("", "application/json");
 
-    sinon.spy()(expectedResponse, parsedResponse);
+    sinonSandbox.spy()(expectedResponse, parsedResponse);
   });
 
 
@@ -112,7 +112,7 @@ describe("util.ResponseParser", function () {
       expectedResponse = qx.util.ResponseParser.PARSER.json.call(this, json),
       parsedResponse = __responseParser.parse(json, "application/json");
 
-    sinon.spy()(expectedResponse.animals[0], parsedResponse.animals[0]);
+    sinonSandbox.spy()(expectedResponse.animals[0], parsedResponse.animals[0]);
   });
 
 
@@ -122,7 +122,7 @@ describe("util.ResponseParser", function () {
       expectedResponse = qx.util.ResponseParser.PARSER.xml.call(this, xml),
       parsedResponse = __responseParser.parse(xml, "application/xml");
 
-    sinon.spy()(expectedResponse.documentElement.nodeName, parsedResponse.documentElement.nodeName);
+    sinonSandbox.spy()(expectedResponse.documentElement.nodeName, parsedResponse.documentElement.nodeName);
   });
 
 
@@ -131,6 +131,6 @@ describe("util.ResponseParser", function () {
       expectedResponse = qx.util.ResponseParser.PARSER.xml.call(this, xml),
       parsedResponse = __responseParser.parse(xml, "animal/affe+xml");
 
-    sinon.spy()(expectedResponse.documentElement.nodeName, parsedResponse.documentElement.nodeName);
+    sinonSandbox.spy()(expectedResponse.documentElement.nodeName, parsedResponse.documentElement.nodeName);
   });
 });

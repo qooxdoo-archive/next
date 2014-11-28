@@ -52,7 +52,7 @@ describe("util.Delegate", function () {
 
 
   it("MethodCall", function () {
-    var spy = sinon.spy(__delegate, "myMethod");
+    var spy = sinonSandbox.spy(__delegate, "myMethod");
 
     var myMethod = qx.util.Delegate.getMethod(__delegate, "myMethod");
     myMethod(99, 89, 99);

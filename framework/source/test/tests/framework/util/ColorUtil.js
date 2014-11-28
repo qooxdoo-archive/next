@@ -20,31 +20,31 @@
 
 describe("util.ColorUtil", function () {
   it("RgbToRgbString", function () {
-    sinon.spy()("rgba(255,0,0,1)", qx.util.ColorUtil.rgbToRgbString([255, 0, 0, 1]));
-    sinon.spy()("rgba(255,0,0,0.5)", qx.util.ColorUtil.rgbToRgbString([255, 0, 0, 0.5]));
-    sinon.spy()("rgba(255,0,0,0)", qx.util.ColorUtil.rgbToRgbString([255, 0, 0, 0]));
-    sinon.spy()("rgb(255,0,0)", qx.util.ColorUtil.rgbToRgbString([255, 0, 0]));
+    sinonSandbox.spy()("rgba(255,0,0,1)", qx.util.ColorUtil.rgbToRgbString([255, 0, 0, 1]));
+    sinonSandbox.spy()("rgba(255,0,0,0.5)", qx.util.ColorUtil.rgbToRgbString([255, 0, 0, 0.5]));
+    sinonSandbox.spy()("rgba(255,0,0,0)", qx.util.ColorUtil.rgbToRgbString([255, 0, 0, 0]));
+    sinonSandbox.spy()("rgb(255,0,0)", qx.util.ColorUtil.rgbToRgbString([255, 0, 0]));
   });
 
 
   it("CssStringToRgb", function () {
-    sinon.spy()("255,0,0", qx.util.ColorUtil.cssStringToRgb("rgba(255,0,0,1)"));
-    sinon.spy()("201,23,120", qx.util.ColorUtil.cssStringToRgb("rgba(201,23,120,0.3)"));
+    sinonSandbox.spy()("255,0,0", qx.util.ColorUtil.cssStringToRgb("rgba(255,0,0,1)"));
+    sinonSandbox.spy()("201,23,120", qx.util.ColorUtil.cssStringToRgb("rgba(201,23,120,0.3)"));
 
-    sinon.spy()("255,0,0", qx.util.ColorUtil.cssStringToRgb("rgb(255,0,0)"));
-    sinon.spy()("201,23,120", qx.util.ColorUtil.cssStringToRgb("rgb(201,23,120)"));
+    sinonSandbox.spy()("255,0,0", qx.util.ColorUtil.cssStringToRgb("rgb(255,0,0)"));
+    sinonSandbox.spy()("201,23,120", qx.util.ColorUtil.cssStringToRgb("rgb(201,23,120)"));
   });
 
 
   it("Hex3StringToHex6String", function () {
-    sinon.spy()("#FFFFFF", qx.util.ColorUtil.hex3StringToHex6String("#fff"));
-    sinon.spy()("#ffffff", qx.util.ColorUtil.hex3StringToHex6String("#ffffff"));
+    sinonSandbox.spy()("#FFFFFF", qx.util.ColorUtil.hex3StringToHex6String("#fff"));
+    sinonSandbox.spy()("#ffffff", qx.util.ColorUtil.hex3StringToHex6String("#ffffff"));
   });
 
 
   it("RgbToHexString", function () {
-    sinon.spy()("#FFFFFF", qx.util.ColorUtil.rgbToHexString([255, 255, 255]));
-    sinon.spy()("#000000", qx.util.ColorUtil.rgbToHexString([0, 0, 0]));
+    sinonSandbox.spy()("#FFFFFF", qx.util.ColorUtil.rgbToHexString([255, 255, 255]));
+    sinonSandbox.spy()("#000000", qx.util.ColorUtil.rgbToHexString([0, 0, 0]));
   });
 
 

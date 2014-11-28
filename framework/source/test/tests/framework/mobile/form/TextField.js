@@ -44,7 +44,7 @@ describe("mobile.form.TextField", function() {
     assert.equal(null, __tf.value);
     assert.equal(null, qx.bom.element.Attribute.get(__tf[0], 'value'));
 
-    var cb = sinon.spy();
+    var cb = sinonSandbox.spy();
     __tf.once("changeValue", cb);
     __tf.value = "mytext";
     sinon.assert.calledOnce(cb);
@@ -79,22 +79,22 @@ describe("mobile.form.TextField", function() {
     __tf.pattern = pattern;
     assert.isTrue(__tf.valid);
 
-    var cb = sinon.spy(onInvalid);
+    var cb = sinonSandbox.spy(onInvalid);
     __tf.once("changeValid", cb);
     __tf.value = "aa";
     sinon.assert.calledOnce(cb);
 
-    cb = sinon.spy(onValid);
+    cb = sinonSandbox.spy(onValid);
     __tf.once("changeValid", cb);
     __tf.value = "Foo";
     sinon.assert.calledOnce(cb);
 
-    cb = sinon.spy(onInvalid);
+    cb = sinonSandbox.spy(onInvalid);
     __tf.once("changeValid", cb);
     __tf.pattern = "aa";
     sinon.assert.calledOnce(cb);
 
-    cb = sinon.spy(onValid);
+    cb = sinonSandbox.spy(onValid);
     __tf.once("changeValid", cb);
     __tf.value = "";
     sinon.assert.calledOnce(cb);
@@ -114,7 +114,7 @@ describe("mobile.form.TextField", function() {
 
 
   it("MaxLengthIllegal", function() {
-    var cb = sinon.spy(onInvalid);
+    var cb = sinonSandbox.spy(onInvalid);
     __tf.once("changeValid", cb);
     __tf.maxLength = 1;
     __tf[0].value = "Foo";
@@ -128,12 +128,12 @@ describe("mobile.form.TextField", function() {
     assert.equal("email", __tf[0].getAttribute("type"));
     assert.isTrue(__tf.valid);
 
-    var cb = sinon.spy(onInvalid);
+    var cb = sinonSandbox.spy(onInvalid);
     __tf.once("changeValid", cb);
     __tf.value = "Foo";
     sinon.assert.calledOnce(cb);
 
-    cb = sinon.spy(onValid);
+    cb = sinonSandbox.spy(onValid);
     __tf.once("changeValid", cb);
     __tf.value = "foo@example.com";
     sinon.assert.calledOnce(cb);
@@ -145,12 +145,12 @@ describe("mobile.form.TextField", function() {
     assert.equal("url", __tf[0].getAttribute("type"));
     assert.isTrue(__tf.valid);
 
-    var cb = sinon.spy(onInvalid);
+    var cb = sinonSandbox.spy(onInvalid);
     __tf.once("changeValid", cb);
     __tf.value = "Foo";
     sinon.assert.calledOnce(cb);
 
-    cb = sinon.spy(onValid);
+    cb = sinonSandbox.spy(onValid);
     __tf.once("changeValid", cb);
     __tf.value = "http://www.example.com";
     sinon.assert.calledOnce(cb);

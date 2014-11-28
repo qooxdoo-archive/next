@@ -33,7 +33,7 @@ describe("bom.element.AnimationJs", function ()
       },
       "delay": 200
     });
-    var spy = sinon.spy();
+    var spy = sinonSandbox.spy();
     handle.on("start", spy);
     handle.stop();
     setTimeout(function() {

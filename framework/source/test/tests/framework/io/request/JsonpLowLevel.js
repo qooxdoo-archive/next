@@ -49,7 +49,6 @@ describe("io.request.JsonpLowLevel", function() {
 
   afterEach(function() {
     window.SCRIPT_LOADED = undefined;
-    sinon.sandbox.restore();
     req.callbackName = "";
     req.dispose();
   });

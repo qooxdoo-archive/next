@@ -69,7 +69,7 @@ describe('data.dataArrayWithChangeBubble', function() {
       assert.equal(array, data.item);
     };
 
-    var spy = sinon.spy(handler);
+    var spy = sinonSandbox.spy(handler);
     testObject.on("changeBubble", spy, this);
 
     array.append(["D", "E", "F"]);
@@ -89,7 +89,7 @@ describe('data.dataArrayWithChangeBubble', function() {
       assert.equal(array, data.item);
     };
 
-    var spy = sinon.spy(handler);
+    var spy = sinonSandbox.spy(handler);
     testObject.on("changeBubble", spy, this);
 
     array.append(["D"]);
@@ -110,7 +110,7 @@ describe('data.dataArrayWithChangeBubble', function() {
       assert.equal(array, data.item);
     };
 
-    var spy = sinon.spy(handler);
+    var spy = sinonSandbox.spy(handler);
     testObject.on("changeBubble", spy, this);
     array.insertAfter("B", "BB");
     assert(spy.calledOnce);
@@ -129,7 +129,7 @@ describe('data.dataArrayWithChangeBubble', function() {
       assert.equal(array, data.item);
     };
 
-    var spy = sinon.spy(handler);
+    var spy = sinonSandbox.spy(handler);
     testObject.on("changeBubble", spy, this);
 
     array.insertAt(2, "BB");
@@ -150,7 +150,7 @@ describe('data.dataArrayWithChangeBubble', function() {
       assert.equal(array, data.item);
     };
 
-    var spy = sinon.spy(handler);
+    var spy = sinonSandbox.spy(handler);
     testObject.on("changeBubble", spy, this);
 
     array.insertBefore("C", "BB");
@@ -171,7 +171,7 @@ describe('data.dataArrayWithChangeBubble', function() {
       assert.equal(array, data.item);
     };
 
-    var spy = sinon.spy(handler);
+    var spy = sinonSandbox.spy(handler);
     testObject.on("changeBubble", spy, this);
 
     array.pop();
@@ -192,7 +192,7 @@ describe('data.dataArrayWithChangeBubble', function() {
       assert.equal(array, data.item);
     };
 
-    var spy = sinon.spy(handler);
+    var spy = sinonSandbox.spy(handler);
     testObject.on("changeBubble", spy, this);
 
     array.push("D");
@@ -213,7 +213,7 @@ describe('data.dataArrayWithChangeBubble', function() {
       assert.equal(array, data.item);
     };
 
-    var spy = sinon.spy(handler);
+    var spy = sinonSandbox.spy(handler);
     testObject.on("changeBubble", spy, this);
 
     array.remove("B");
@@ -234,7 +234,7 @@ describe('data.dataArrayWithChangeBubble', function() {
       assert.equal(array, data.item);
     };
 
-    var spy = sinon.spy(handler);
+    var spy = sinonSandbox.spy(handler);
     testObject.on("changeBubble", spy, this);
 
     array.removeAll();
@@ -255,7 +255,7 @@ describe('data.dataArrayWithChangeBubble', function() {
       assert.equal(array, data.item);
     };
 
-    var spy = sinon.spy(handler);
+    var spy = sinonSandbox.spy(handler);
     testObject.on("changeBubble", spy, this);
 
     array.removeAt(1);
@@ -277,7 +277,7 @@ describe('data.dataArrayWithChangeBubble', function() {
       assert.equal(array, data.item);
     };
 
-    var spy = sinon.spy(handler);
+    var spy = sinonSandbox.spy(handler);
     testObject.on("changeBubble", spy, this);
 
     array.reverse();
@@ -298,7 +298,7 @@ describe('data.dataArrayWithChangeBubble', function() {
       assert.equal(array, data.item);
     };
 
-    var spy = sinon.spy(handler);
+    var spy = sinonSandbox.spy(handler);
     testObject.on("changeBubble", spy, this);
 
     array.setItem(1, "BB");
@@ -319,7 +319,7 @@ describe('data.dataArrayWithChangeBubble', function() {
       assert.equal(array, data.item);
     };
 
-    var spy = sinon.spy(handler);
+    var spy = sinonSandbox.spy(handler);
     testObject.on("changeBubble", spy, this);
 
     array.shift();
@@ -340,7 +340,7 @@ describe('data.dataArrayWithChangeBubble', function() {
       assert.equal(array, data.item);
     };
 
-    var spy = sinon.spy(handler);
+    var spy = sinonSandbox.spy(handler);
     testObject.on("changeBubble", spy, this);
 
     array.sort(function(a, b) {
@@ -368,7 +368,7 @@ describe('data.dataArrayWithChangeBubble', function() {
       changeBubbleExecutionCounter++;
     };
 
-    var spy = sinon.spy(handler);
+    var spy = sinonSandbox.spy(handler);
     testObject.on("changeBubble", spy, this);
 
     array.sort(function(a, b) {
@@ -396,7 +396,7 @@ describe('data.dataArrayWithChangeBubble', function() {
       assert.equal(array, data.item);
     };
 
-    var spy = sinon.spy(handler);
+    var spy = sinonSandbox.spy(handler);
     testObject.on("changeBubble", spy, this);
 
     array.splice(2, 3, "D", "E", "F").dispose();
@@ -417,7 +417,7 @@ describe('data.dataArrayWithChangeBubble', function() {
       assert.equal(array, data.item);
     };
 
-    var spy = sinon.spy(handler);
+    var spy = sinonSandbox.spy(handler);
     testObject.on("changeBubble", spy, this);
 
     array.splice(1, 2).dispose();
@@ -438,7 +438,7 @@ describe('data.dataArrayWithChangeBubble', function() {
       assert.equal(array, data.item);
     };
 
-    var spy = sinon.spy(handler);
+    var spy = sinonSandbox.spy(handler);
     testObject.on("changeBubble", spy, this);
 
     array.unshift("D");
@@ -470,7 +470,7 @@ describe('data.dataArrayWithChangeBubble', function() {
       assert.equal("two", data.old);
     };
 
-    var spy = sinon.spy(handler);
+    var spy = sinonSandbox.spy(handler);
     model.on("changeBubble", spy, this);
 
     model.getItem(0).foo = ("zwei");
@@ -499,7 +499,7 @@ describe('data.dataArrayWithChangeBubble', function() {
       assert.equal("three", data.old);
     };
 
-    var spy = sinon.spy(handler);
+    var spy = sinonSandbox.spy(handler);
     model.on("changeBubble", spy, this);
 
     model.getItem(0).foo = ("drei");
@@ -530,7 +530,7 @@ describe('data.dataArrayWithChangeBubble', function() {
       assert.equal("one", data.old);
     };
 
-    var spy = sinon.spy(handler);
+    var spy = sinonSandbox.spy(handler);
     model.on("changeBubble", spy, this);
 
     model.getItem(1).foo = "eins";
@@ -565,7 +565,7 @@ describe('data.dataArrayWithChangeBubble', function() {
       assert.equal("three", data.old);
     };
 
-    var spy = sinon.spy(handler);
+    var spy = sinonSandbox.spy(handler);
     model.on("changeBubble", spy, this);
 
     model.getItem(0).foo = "drei";
@@ -596,7 +596,7 @@ describe('data.dataArrayWithChangeBubble', function() {
       assert.equal("one", data.old);
     };
 
-    var spy = sinon.spy(handler);
+    var spy = sinonSandbox.spy(handler);
     model.on("changeBubble", spy, this);
     model.getItem(1).foo = ("eins");
   });

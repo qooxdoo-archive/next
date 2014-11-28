@@ -26,8 +26,8 @@ describe("event.Messaging", function () {
   });
 
   it("TwoChannels", function () {
-    var handlerGet = sinon.spy();
-    var handlerPost = sinon.spy();
+    var handlerGet = sinonSandbox.spy();
+    var handlerPost = sinonSandbox.spy();
     var ctx = {a: 12};
     var data = {data: "test"};
     __messaging.on("GET", "/get", handlerGet, ctx);
@@ -47,7 +47,7 @@ describe("event.Messaging", function () {
 
 
   it("Get", function () {
-    var handler = sinon.spy();
+    var handler = sinonSandbox.spy();
     var ctx = {a: 12};
     var data = {data: "test"};
     __messaging.on("get", "/", handler, ctx);
@@ -59,7 +59,7 @@ describe("event.Messaging", function () {
 
 
   it("RegExp", function () {
-    var handler = sinon.spy();
+    var handler = sinonSandbox.spy();
     var ctx = {a: 12};
     var data = {data: "abcdef"};
     __messaging.on("xyz", /^xyz/g, handler, ctx);
@@ -72,7 +72,7 @@ describe("event.Messaging", function () {
 
 
   it("GetAll", function () {
-    var handler = sinon.spy();
+    var handler = sinonSandbox.spy();
     __messaging.on("a", /.*/, handler);
     __messaging.emit("a", "xyzabc");
     __messaging.emit("a", "abcxyz");
@@ -81,7 +81,7 @@ describe("event.Messaging", function () {
 
 
   it("Any", function () {
-    var handler = sinon.spy();
+    var handler = sinonSandbox.spy();
     __messaging.onAny(/.*/, handler);
     __messaging.emit("a", "xyzabc");
     __messaging.emit("b", "abcxyz");
@@ -90,7 +90,7 @@ describe("event.Messaging", function () {
 
 
   it("Twice", function () {
-    var handler = sinon.spy();
+    var handler = sinonSandbox.spy();
     var ctx = {a: 12};
     var data = {data: "test"};
     __messaging.on("GET", "/", handler, ctx);
@@ -103,7 +103,7 @@ describe("event.Messaging", function () {
 
 
   it("Param", function () {
-    var handler = sinon.spy();
+    var handler = sinonSandbox.spy();
     var ctx = {a: 12};
     var data = {data: "test"};
     __messaging.on("POST", "/{id}/affe", handler, ctx);
@@ -117,7 +117,7 @@ describe("event.Messaging", function () {
 
 
   it("MultipleParam", function () {
-    var handler = sinon.spy();
+    var handler = sinonSandbox.spy();
     var data = {data: "test"};
     __messaging.on("POST", "/{id}-{name}/affe", handler);
     __messaging.emit("POST", "/123456-xyz/affe", data);
@@ -129,7 +129,7 @@ describe("event.Messaging", function () {
 
 
   it("Remove", function () {
-    var handler = sinon.spy();
+    var handler = sinonSandbox.spy();
     var id = __messaging.on("GET", "/", handler);
     __messaging.emit("GET", "/");
     sinon.assert.calledOnce(handler);

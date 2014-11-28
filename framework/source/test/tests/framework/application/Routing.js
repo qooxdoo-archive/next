@@ -25,19 +25,18 @@ describe("application.Routing", function() {
 
   beforeEach(function() {
     fakeHistory.state = "/";
-    sinon.stub(qx.bom.History, "getInstance").returns(fakeHistory);
+    sinonSandbox.stub(qx.bom.History, "getInstance").returns(fakeHistory);
     __r = new qx.application.Routing();
   });
 
 
-  afterEach(function() {
-    qx.bom.History.getInstance.restore();
+  afterEach(function() {qx.bom.History.getInstance.restore();
     __r.dispose();
   });
 
 
   it("Get", function() {
-    var handler = sinon.spy();
+    var handler = sinonSandbox.spy();
     __r.onGet("/abc", handler);
     __r.executeGet("/abc");
     sinon.assert.calledOnce(handler);
@@ -45,8 +44,8 @@ describe("application.Routing", function() {
 
 
   it("Back", function() {
-    var aHandler = sinon.spy();
-    var bHandler = sinon.spy();
+    var aHandler = sinonSandbox.spy();
+    var bHandler = sinonSandbox.spy();
     __r.onGet("/a", aHandler);
     __r.onGet("/b", bHandler);
     __r.executeGet("/a");
@@ -62,9 +61,9 @@ describe("application.Routing", function() {
    */
 
   it("BackCycle", function() {
-    var aHandler = sinon.spy();
-    var bHandler = sinon.spy();
-    var cHandler = sinon.spy();
+    var aHandler = sinonSandbox.spy();
+    var bHandler = sinonSandbox.spy();
+    var cHandler = sinonSandbox.spy();
     __r.onGet("/a", aHandler);
     __r.onGet("/b", bHandler);
     __r.onGet("/c", cHandler);
@@ -80,7 +79,7 @@ describe("application.Routing", function() {
 
 
   it("GetCustomData", function() {
-    var handler = sinon.spy();
+    var handler = sinonSandbox.spy();
     __r.onGet("/abc", handler);
     __r.executeGet("/abc", {
       a: true
@@ -92,7 +91,7 @@ describe("application.Routing", function() {
 
   it("GetCustomDataTwoInstances", function() {
     var r2 = new qx.application.Routing();
-    var handler = sinon.spy();
+    var handler = sinonSandbox.spy();
     __r.onGet("/abc", handler);
     r2.executeGet("/abc", {
       a: true
@@ -106,7 +105,7 @@ describe("application.Routing", function() {
 
 
   it("On", function() {
-    var handler = sinon.spy();
+    var handler = sinonSandbox.spy();
     __r.on("/", handler);
     __r.execute("/");
     sinon.assert.calledOnce(handler);
@@ -114,7 +113,7 @@ describe("application.Routing", function() {
 
 
   it("Post", function() {
-    var handler = sinon.spy();
+    var handler = sinonSandbox.spy();
     __r.onPost("/abc", handler);
     __r.executePost("/abc");
     sinon.assert.calledOnce(handler);
@@ -122,7 +121,7 @@ describe("application.Routing", function() {
 
 
   it("PostParam", function() {
-    var handler = sinon.spy();
+    var handler = sinonSandbox.spy();
     var data = {
       data: "test"
     };
@@ -141,7 +140,7 @@ describe("application.Routing", function() {
 
 
   it("Delete", function() {
-    var handler = sinon.spy();
+    var handler = sinonSandbox.spy();
     __r.onDelete("/abc", handler);
     __r.executeDelete("/abc");
     sinon.assert.calledOnce(handler);
@@ -149,7 +148,7 @@ describe("application.Routing", function() {
 
 
   it("Put", function() {
-    var handler = sinon.spy();
+    var handler = sinonSandbox.spy();
     __r.onPut("/abc", handler);
     __r.executePut("/abc");
     sinon.assert.calledOnce(handler);
@@ -157,7 +156,7 @@ describe("application.Routing", function() {
 
 
   it("Any", function() {
-    var handler = sinon.spy();
+    var handler = sinonSandbox.spy();
     __r.onAny("/abc", handler);
     __r.executePost("/abc");
     __r.executeDelete("/abc");
@@ -166,8 +165,8 @@ describe("application.Routing", function() {
 
 
   it("Init", function() {
-    var handler = sinon.spy();
-    var defaultHandler = sinon.spy();
+    var handler = sinonSandbox.spy();
+    var defaultHandler = sinonSandbox.spy();
 
     __r.dispose();
     __r = new qx.application.Routing();

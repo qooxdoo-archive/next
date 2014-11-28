@@ -120,7 +120,7 @@ describe("data.singlevalue.Deep", function() {
       a: null
     });
 
-    var spy = sinon.spy(function() {
+    var spy = sinonSandbox.spy(function() {
       return 123;
     });
     qx.data.SingleValueBinding.bind(m, "a.b", t, "a", {

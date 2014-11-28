@@ -27,12 +27,6 @@ describe("bom.element.AnimationHandle", function() {
     }
   });
 
-
-  afterEach(function() {
-    sinon.sandbox.restore();
-  });
-
-
   it(" stop of CSS animation", function(done) {
     var el = qx.dom.Element.create("div");
     var handle = qx.bom.element.Animation.animate(el, {
@@ -47,7 +41,7 @@ describe("bom.element.AnimationHandle", function() {
       },
       "delay": 200
     });
-    var spy = sinon.spy(qx.bom.element.AnimationJs, "stop");
+    var spy = sinonSandbox.spy(qx.bom.element.AnimationJs, "stop");
     handle.on("start", spy);
     handle.stop();
     setTimeout(function() {

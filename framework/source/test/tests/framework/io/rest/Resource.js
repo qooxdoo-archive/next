@@ -22,10 +22,8 @@ describe("io.rest.Resource", function() {
   var req;
   var res;
   var requests;
-  var sandbox;
 
   beforeEach(function() {
-    sandbox = sinon.sandbox.create();
     setUpDoubleRequest();
     setUpResource();
   });
@@ -78,10 +76,9 @@ describe("io.rest.Resource", function() {
 
   afterEach(function() {
     if (this.currentTest.skip) {
-      skipAfterTest(this.currentTest.parent.title,this.currentTest.title);
+      skipAfterTest(this.currentTest.parent.title, this.currentTest.title);
     }
 
-    sinon.sandbox.restore();
     res.dispose();
     requests.forEach(function(req) {
       req.dispose();
@@ -111,7 +108,7 @@ describe("io.rest.Resource", function() {
     var data = {};
     var callback;
 
-    callback = sandbox.spy(function(req, _action, _params, _data) {
+    callback = sinonSandbox.spy(function(req, _action, _params, _data) {
       assert.equal("get", _action, "Unexpected action");
       assert.equal(params, _params, "Unexpected params");
       assert.equal(data, _data, "Unexpected data");
@@ -187,7 +184,7 @@ describe("io.rest.Resource", function() {
 
 
   it("dynamically created action forwards arguments", function() {
-    sandbox.spy(res, "invoke");
+    sinonSandbox.spy(res, "invoke");
     res.get({}, "1", "2", "3");
 
     sinon.assert.calledWith(res.invoke, "get", {}, "1", "2", "3");
@@ -196,7 +193,7 @@ describe("io.rest.Resource", function() {
 
   it("dynamically created action returns what invoke returns", function() {
     var id = 1;
-    sandbox.stub(res, "invoke").returns(id);
+    sinonSandbox.stub(res, "invoke").returns(id);
     assert.equal(id, res.get());
   });
 
@@ -305,7 +302,7 @@ describe("io.rest.Resource", function() {
 
   it("invoke same action handles multiple requests", function() {
     var req1, req2,
-      getSuccess = sandbox.spy();
+      getSuccess = sinonSandbox.spy();
 
     res.on("getSuccess", getSuccess);
 
@@ -416,7 +413,7 @@ describe("io.rest.Resource", function() {
       req.setRequestHeader("Content-Type", "application/json");
     });
 
-    sandbox.spy(JSON, "stringify");
+    sinonSandbox.spy(JSON, "stringify");
     var data = {
       location: "Karlsruhe"
     };
@@ -433,7 +430,7 @@ describe("io.rest.Resource", function() {
 
 
   it("invoke action when content type json and get", function() {
-    sandbox.spy(JSON, "stringify");
+    sinonSandbox.spy(JSON, "stringify");
     req.getRequestHeader.withArgs("Content-Type").returns("application/json");
     res.get();
 
@@ -543,7 +540,7 @@ describe("io.rest.Resource", function() {
       return;
     }
 
-    var setting = sandbox.stub(qx.core.Environment, "get").withArgs("qx.debug");
+    var setting = sinonSandbox.stub(qx.core.Environment, "get").withArgs("qx.debug");
     setting.returns(false);
 
     // Invalid check
@@ -613,12 +610,12 @@ describe("io.rest.Resource", function() {
 
 
   it("poll action", function() {
-    sandbox.useFakeTimers();
-    sandbox.spy(res, "refresh");
+    sinonSandbox.useFakeTimers();
+    sinonSandbox.spy(res, "refresh");
 
     res.poll("get", 10);
     respond();
-    sandbox.clock.tick(20);
+    sinonSandbox.clock.tick(20);
 
     sinon.assert.calledWith(res.refresh, "get");
     sinon.assert.calledOnce(res.refresh);
@@ -626,20 +623,18 @@ describe("io.rest.Resource", function() {
 
 
   it("not poll action when no response received yet", function() {
-    var sandbox = sinon.sandbox;
-
-    sandbox.useFakeTimers();
-    sandbox.spy(res, "refresh");
+    sinonSandbox.useFakeTimers();
+    sinonSandbox.spy(res, "refresh");
 
     res.poll("get", 10);
-    sandbox.clock.tick(20);
+    sinonSandbox.clock.tick(20);
 
     sinon.assert.notCalled(res.refresh);
   });
 
 
   it("poll action immediately", function() {
-    sandbox.spy(res, "invoke");
+    sinonSandbox.spy(res, "invoke");
     res.poll("get", 10, undefined, true);
     sinon.assert.called(res.invoke);
   });
@@ -647,7 +642,7 @@ describe("io.rest.Resource", function() {
 
   it("poll action sets initial params", function() {
     res.map("get", "GET", "/photos/{id}");
-    sandbox.stub(res, "invoke");
+    sinonSandbox.stub(res, "invoke");
 
     res.poll("get", 10, {
       id: "1"
@@ -671,41 +666,39 @@ describe("io.rest.Resource", function() {
 
 
   it("poll action repeatedly ends previous timer", function() {
-    // var sandbox = sinon.sandbox,
     var msg;
 
-    sandbox.useFakeTimers();
-    sandbox.stub(res, "refresh");
+    sinonSandbox.useFakeTimers();
+    sinonSandbox.stub(res, "refresh");
 
     res.poll("get", 10);
     respond();
-    sandbox.clock.tick(20);
+    sinonSandbox.clock.tick(20);
 
     res.poll("get", 100);
     respond();
-    sandbox.clock.tick(100);
+    sinonSandbox.clock.tick(100);
 
     sinon.assert.calledTwice(res.refresh);
   });
 
 
   it("poll many actions", function() {
-    // var sandbox = sinon.sandbox,
     var spy;
     var get;
     var post;
 
-    sandbox.stub(req, "dispose");
-    sandbox.useFakeTimers();
+    sinonSandbox.stub(req, "dispose");
+    sinonSandbox.useFakeTimers();
 
-    spy = sandbox.spy(res, "refresh");
+    spy = sinonSandbox.spy(res, "refresh");
     get = spy.withArgs("get");
     post = spy.withArgs("post");
 
     res.poll("get", 10);
     res.poll("post", 10);
     respond();
-    sandbox.clock.tick(20);
+    sinonSandbox.clock.tick(20);
 
     sinon.assert.calledOnce(get);
     sinon.assert.calledOnce(post);
@@ -716,58 +709,55 @@ describe("io.rest.Resource", function() {
 
 
   it("end poll action", function() {
-    var sandbox = sinon.sandbox,
-      timer,
+    var timer,
       numCalled;
 
-    sandbox.useFakeTimers();
+    sinonSandbox.useFakeTimers();
 
-    sandbox.spy(res, "refresh");
+    sinonSandbox.spy(res, "refresh");
     res.poll("get", 10);
     respond();
 
     // 10ms invoke, 20ms refresh, 30ms refresh
-    sandbox.clock.tick(30);
+    sinonSandbox.clock.tick(30);
     res.stopPollByAction("get");
-    sandbox.clock.tick(100);
+    sinonSandbox.clock.tick(100);
 
     sinon.assert.calledTwice(res.refresh);
   });
 
 
   it("end poll action does not end polling of other action", function() {
-    // var sandbox = sinon.sandbox,
     var timer;
     var spy;
 
-    sandbox.useFakeTimers();
-    spy = sandbox.spy(res, "refresh").withArgs("get");
+    sinonSandbox.useFakeTimers();
+    spy = sinonSandbox.spy(res, "refresh").withArgs("get");
     respond();
 
     res.poll("get", 10);
     timer = res.poll("post", 10);
-    sandbox.clock.tick(20);
+    sinonSandbox.clock.tick(20);
     window.clearInterval(timer);
-    sandbox.clock.tick(10);
+    sinonSandbox.clock.tick(10);
 
     sinon.assert.calledTwice(spy);
   });
 
 
   it("restart poll action", function() {
-    var sandbox = sinon.sandbox,
-      timer;
+    var timer;
 
-    sandbox.useFakeTimers();
+    sinonSandbox.useFakeTimers();
     respond();
 
     res.poll("get", 10);
-    sandbox.clock.tick(10);
+    sinonSandbox.clock.tick(10);
     res.stopPollByAction("get");
 
-    sandbox.spy(res, "refresh");
+    sinonSandbox.spy(res, "refresh");
     res.restartPollByAction("get");
-    sandbox.clock.tick(10);
+    sinonSandbox.clock.tick(10);
     sinon.assert.called(res.refresh);
   });
 
@@ -775,7 +765,7 @@ describe("io.rest.Resource", function() {
   it("long poll action", function() {
     var responses = [];
 
-    // sandbox.stub(req, "dispose");
+    // sinonSandbox.stub(req, "dispose");
 
     res.on("getSuccess", function(e) {
       responses.push(e.response);
@@ -792,8 +782,8 @@ describe("io.rest.Resource", function() {
 
 
   it("throttle long poll", function() {
-    sandbox.stub(req, "dispose");
-    sandbox.spy(res, "refresh");
+    sinonSandbox.stub(req, "dispose");
+    sinonSandbox.spy(res, "refresh");
     qx.io.rest.Resource.POLL_THROTTLE_COUNT = 3;
 
     res.longPoll("get");
@@ -817,21 +807,19 @@ describe("io.rest.Resource", function() {
 
 
   it("not throttle long poll when not received within limit", function() {
-    var sandbox = sinon.sandbox;
+    sinonSandbox.stub(req, "dispose");
 
-    sandbox.stub(req, "dispose");
-
-    sandbox.useFakeTimers();
+    sinonSandbox.useFakeTimers();
     res.longPoll("get");
 
     // A number of delayed responses, above count
     for (var i = 0; i < 31; i++) {
-      sandbox.clock.tick(101);
+      sinonSandbox.clock.tick(101);
       respond();
     }
 
-    sandbox.spy(res, "refresh");
-    sandbox.clock.tick(101);
+    sinonSandbox.spy(res, "refresh");
+    sinonSandbox.clock.tick(101);
 
     respond();
     sinon.assert.called(res.refresh);
@@ -841,11 +829,10 @@ describe("io.rest.Resource", function() {
 
 
   it("not throttle long poll when not received subsequently", function() {
-    var sandbox = sinon.sandbox;
 
-    sandbox.stub(req, "dispose");
+    sinonSandbox.stub(req, "dispose");
 
-    sandbox.useFakeTimers();
+    sinonSandbox.useFakeTimers();
     res.longPoll("get");
 
     // A number of immediate responses
@@ -854,11 +841,11 @@ describe("io.rest.Resource", function() {
     }
 
     // Delayed response
-    sandbox.clock.tick(101);
+    sinonSandbox.clock.tick(101);
     respond();
 
     // More immediate responses, total count above limit
-    sandbox.spy(res, "refresh");
+    sinonSandbox.spy(res, "refresh");
     for (i = 0; i < 10; i++) {
       respond();
     }
@@ -872,8 +859,8 @@ describe("io.rest.Resource", function() {
   it("end long poll action", function() {
     var handlerId, msg;
 
-    sandbox.stub(req, "dispose");
-    sandbox.spy(res, "refresh");
+    sinonSandbox.stub(req, "dispose");
+    sinonSandbox.spy(res, "refresh");
 
     handlerId = res.longPoll("get");
 
@@ -952,8 +939,8 @@ describe("io.rest.Resource", function() {
     req2 = req;
     res.post();
 
-    sandbox.spy(req1, "dispose");
-    sandbox.spy(req2, "dispose");
+    sinonSandbox.spy(req1, "dispose");
+    sinonSandbox.spy(req2, "dispose");
 
     res.dispose();
 
@@ -973,8 +960,8 @@ describe("io.rest.Resource", function() {
     req2 = req;
     res.get();
 
-    sandbox.spy(req1, "dispose");
-    sandbox.spy(req2, "dispose");
+    sinonSandbox.spy(req1, "dispose");
+    sinonSandbox.spy(req2, "dispose");
 
     res.dispose();
 
@@ -984,7 +971,7 @@ describe("io.rest.Resource", function() {
 
 
   it("dispose request on loadEnd", function(done) {
-    sandbox.spy(req, "dispose");
+    sinonSandbox.spy(req, "dispose");
 
     res.get();
     respond();
@@ -1045,14 +1032,14 @@ describe("io.rest.Resource", function() {
       return;
     }
 
-    sandbox.stub(object, prop);
+    sinonSandbox.stub(object, prop);
   }
 
 
   function injectStub(object, property, customStub) {
     var stub = customStub || this.deepStub(new object[property]);
 
-    sandbox.stub(object, property).returns(stub);
+    sinonSandbox.stub(object, property).returns(stub);
     return stub;
   }
 

@@ -24,22 +24,22 @@ describe("util.RingBuffer", function () {
     var buf = new qx.util.RingBuffer(max);
 
     buf.addEntry(1);
-    sinon.spy()(1, buf.getAllEntries().length);
+    sinonSandbox.spy()(1, buf.getAllEntries().length);
 
     buf.addEntry(2);
-    sinon.spy()(2, buf.getAllEntries().length);
+    sinonSandbox.spy()(2, buf.getAllEntries().length);
 
     buf.addEntry(3);
-    sinon.spy()(3, buf.getAllEntries().length);
+    sinonSandbox.spy()(3, buf.getAllEntries().length);
 
     buf.addEntry(4);
 
     var allEntries = buf.getAllEntries();
-    sinon.spy()(3, allEntries.length);
+    sinonSandbox.spy()(3, allEntries.length);
 
-    sinon.spy()(allEntries[0], 2);
-    sinon.spy()(allEntries[1], 3);
-    sinon.spy()(allEntries[2], 4);
+    sinonSandbox.spy()(allEntries[0], 2);
+    sinonSandbox.spy()(allEntries[1], 3);
+    sinonSandbox.spy()(allEntries[2], 4);
   });
 
 
@@ -52,11 +52,11 @@ describe("util.RingBuffer", function () {
     }
 
     var allEntries = buf.getAllEntries();
-    sinon.spy()(3, allEntries.length);
+    sinonSandbox.spy()(3, allEntries.length);
 
-    sinon.spy()(allEntries[0], 1001);
-    sinon.spy()(allEntries[1], 1002);
-    sinon.spy()(allEntries[2], 1003);
+    sinonSandbox.spy()(allEntries[0], 1001);
+    sinonSandbox.spy()(allEntries[1], 1002);
+    sinonSandbox.spy()(allEntries[2], 1003);
   });
 
 
@@ -75,12 +75,12 @@ describe("util.RingBuffer", function () {
     buf.addEntry(10);
 
     var entries = buf.getEntries(4);
-    sinon.spy()(4, entries.length);
+    sinonSandbox.spy()(4, entries.length);
 
-    sinon.spy()(entries[0], 7);
-    sinon.spy()(entries[1], 8);
-    sinon.spy()(entries[2], 9);
-    sinon.spy()(entries[3], 10);
+    sinonSandbox.spy()(entries[0], 7);
+    sinonSandbox.spy()(entries[1], 8);
+    sinonSandbox.spy()(entries[2], 9);
+    sinonSandbox.spy()(entries[3], 10);
   });
 
 
@@ -95,10 +95,10 @@ describe("util.RingBuffer", function () {
     buf.addEntry(4);
 
     var entriesSinceMark = buf.getEntries(9999, true);
-    sinon.spy()(2, entriesSinceMark.length);
+    sinonSandbox.spy()(2, entriesSinceMark.length);
 
-    sinon.spy()(entriesSinceMark[0], 3);
-    sinon.spy()(entriesSinceMark[1], 4);
+    sinonSandbox.spy()(entriesSinceMark[0], 3);
+    sinonSandbox.spy()(entriesSinceMark[1], 4);
   });
 
 
@@ -111,11 +111,11 @@ describe("util.RingBuffer", function () {
     buf.addEntry(3);
     buf.addEntry(4);
 
-    sinon.spy()(3, buf.getAllEntries().length);
+    sinonSandbox.spy()(3, buf.getAllEntries().length);
 
     buf.clear();
 
-    sinon.spy()(0, buf.getAllEntries().length);
+    sinonSandbox.spy()(0, buf.getAllEntries().length);
   });
 
 
@@ -136,14 +136,14 @@ describe("util.RingBuffer", function () {
     });
 
     var allEntries = buf.getAllEntries();
-    sinon.spy()(6, allEntries.length);
+    sinonSandbox.spy()(6, allEntries.length);
 
-    sinon.spy()(allEntries[0], null);
-    sinon.spy()(allEntries[1], buf);
-    sinon.spy()(allEntries[2], "Some string");
-    sinon.spy()(allEntries[3].some, "map");
-    sinon.spy()(allEntries[4][0], "Some array");
-    sinon.spy()(typeof allEntries[5], "function");
+    sinonSandbox.spy()(allEntries[0], null);
+    sinonSandbox.spy()(allEntries[1], buf);
+    sinonSandbox.spy()(allEntries[2], "Some string");
+    sinonSandbox.spy()(allEntries[3].some, "map");
+    sinonSandbox.spy()(allEntries[4][0], "Some array");
+    sinonSandbox.spy()(typeof allEntries[5], "function");
   });
 
 });

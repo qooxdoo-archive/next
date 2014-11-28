@@ -41,16 +41,14 @@ describe("io.request.XhrLowLevel", function() {
    * The request to test.
    */
   var req = null;
-  var sandbox;
+
 
   beforeEach(function() {
-    sandbox = sinon.sandbox.create();
     fakeNativeXhr();
     req = new qx.io.request.Xhr();
   });
 
   afterEach(function() {
-    sandbox.restore();
     req = null;
 
   });
@@ -77,7 +75,7 @@ describe("io.request.XhrLowLevel", function() {
 
   it("open request", function() {
     var fakeReq = getFakeReq();
-    sandbox.spy(fakeReq, "open");
+    sinonSandbox.spy(fakeReq, "open");
 
     var url = "/foo";
     var method = "GET";
@@ -100,7 +98,7 @@ describe("io.request.XhrLowLevel", function() {
 
   it("open async request on default", function() {
     var fakeReq = getFakeReq();
-    sandbox.spy(fakeReq, "open");
+    sinonSandbox.spy(fakeReq, "open");
 
     req._open(null, null);
     assert.isTrue(fakeReq.open.args[0][2], "async must be true");
@@ -109,7 +107,7 @@ describe("io.request.XhrLowLevel", function() {
 
   it("open sync request", function() {
     var fakeReq = getFakeReq();
-    sandbox.spy(fakeReq, "open");
+    sinonSandbox.spy(fakeReq, "open");
 
     req._open(null, null, false);
     assert.isFalse(fakeReq.open.args[0][2], "async must be false");
@@ -118,7 +116,7 @@ describe("io.request.XhrLowLevel", function() {
 
   it("open request with username and password", function() {
     var fakeReq = getFakeReq();
-    sandbox.spy(fakeReq, "open");
+    sinonSandbox.spy(fakeReq, "open");
 
     req._open(null, null, null, "affe", "geheim");
     assert.equal("affe", fakeReq.open.args[0][3], "Unexpected user");
@@ -131,7 +129,7 @@ describe("io.request.XhrLowLevel", function() {
 
   it("set request header", function() {
     var fakeReq = getFakeReq();
-    sandbox.spy(fakeReq, "setRequestHeader");
+    sinonSandbox.spy(fakeReq, "setRequestHeader");
 
     // Request must be opened before request headers can be set
     req._open("GET", "/");
@@ -146,7 +144,7 @@ describe("io.request.XhrLowLevel", function() {
 
   it("send() with data", function() {
     var fakeReq = getFakeReq();
-    sandbox.spy(fakeReq, "send");
+    sinonSandbox.spy(fakeReq, "send");
 
     var data = "AFFE";
     req._open("GET", "/affe");
@@ -159,7 +157,7 @@ describe("io.request.XhrLowLevel", function() {
 
   it("send() without data", function() {
     var fakeReq = getFakeReq();
-    sandbox.spy(fakeReq, "send");
+    sinonSandbox.spy(fakeReq, "send");
 
     openAndSend("GET", "/affe");
 
@@ -172,7 +170,7 @@ describe("io.request.XhrLowLevel", function() {
 
   it("abort() aborts native Xhr", function() {
     var fakeReq = getFakeReq();
-    sandbox.spy(fakeReq, "abort");
+    sinonSandbox.spy(fakeReq, "abort");
 
     req._abort();
     sinon.assert.called(fakeReq.abort);
@@ -191,8 +189,8 @@ describe("io.request.XhrLowLevel", function() {
   //
 
   it("fire event", function() {
-    var event = sandbox.spy();
-    req.onevent = sandbox.spy();
+    var event = sinonSandbox.spy();
+    req.onevent = sinonSandbox.spy();
     req.on("event", event);
     req.emit("event");
     sinon.assert.called(event);
@@ -217,7 +215,7 @@ describe("io.request.XhrLowLevel", function() {
 
   it("emit readystatechange when reopened", function() {
     var fakeReq = getFakeReq();
-    sandbox.stub(req, "emit");
+    sinonSandbox.stub(req, "emit");
 
     // Send and respond
     openAndSend("GET", "/");
@@ -235,7 +233,7 @@ describe("io.request.XhrLowLevel", function() {
     var fakeReq = getFakeReq();
     var globalStack = [];
 
-    sandbox.stub(req, "emit", function(evt) {
+    sinonSandbox.stub(req, "emit", function(evt) {
       globalStack.push(evt);
     });
 
@@ -267,7 +265,7 @@ describe("io.request.XhrLowLevel", function() {
   it("emit load on successful request", function() {
     var fakeReq = getFakeReq();
 
-    sandbox.stub(req, "emit");
+    sinonSandbox.stub(req, "emit");
     openAndSend("GET", "/");
 
     // Status does not matter. Set a non-empty response for file:// workaround.
@@ -288,7 +286,7 @@ describe("io.request.XhrLowLevel", function() {
   //
 
   it("emit abort", function() {
-    sandbox.spy(req, "emit");
+    sinonSandbox.spy(req, "emit");
 
     openAndSend("GET", "/");
     req._abort();
@@ -298,7 +296,7 @@ describe("io.request.XhrLowLevel", function() {
 
 
   it("emit abort before loadend", function() {
-    var emit = sandbox.stub(req, "emit");
+    var emit = sinonSandbox.stub(req, "emit");
     var abort = emit.withArgs("abort");
     var loadend = emit.withArgs("loadend");
 
@@ -313,7 +311,7 @@ describe("io.request.XhrLowLevel", function() {
   //
 
   it("emit timeout", function(done) {
-    var timeout = sandbox.stub(req, "emit").withArgs("timeout");
+    var timeout = sinonSandbox.stub(req, "emit").withArgs("timeout");
 
     req.timeout = 10;
     openAndSend("GET", "/");
@@ -326,7 +324,7 @@ describe("io.request.XhrLowLevel", function() {
 
 
   it("not emit error when timeout", function(done) {
-    var error = sandbox.stub(req, "emit").withArgs("error");
+    var error = sinonSandbox.stub(req, "emit").withArgs("error");
 
     req.timeout = 10;
     openAndSend("GET", "/");
@@ -341,7 +339,7 @@ describe("io.request.XhrLowLevel", function() {
   it("not emit error when aborted immediately", function() {
 
 
-    var error = sandbox.stub(req, "emit").withArgs("error");
+    var error = sinonSandbox.stub(req, "emit").withArgs("error");
 
     openAndSend("GET", "/");
     req._abort();
@@ -396,7 +394,7 @@ describe("io.request.XhrLowLevel", function() {
   it("fire loadend when request complete", function() {
     var fakeReq = getFakeReq();
 
-    var loadend = sandbox.stub(req, "emit").withArgs("loadend");
+    var loadend = sinonSandbox.stub(req, "emit").withArgs("loadend");
     openAndSend("GET", "/");
 
     // Status does not matter
@@ -660,7 +658,7 @@ describe("io.request.XhrLowLevel", function() {
 
     openAndSend("GET", "/");
 
-    sandbox.stub(req, "_getProtocol").returns("file:");
+    sinonSandbox.stub(req, "_getProtocol").returns("file:");
     fakeReq.respond(0, {}, "Response");
 
     assert.equal(200, req.status);
@@ -670,7 +668,7 @@ describe("io.request.XhrLowLevel", function() {
   it("keep status 0 when not yet DONE and file protocol", function() {
     var fakeReq = getFakeReq();
 
-    sandbox.stub(req, "_getProtocol").returns("file:");
+    sinonSandbox.stub(req, "_getProtocol").returns("file:");
     req._open("GET", "/");
 
     fakeReq.readyState = 3;
@@ -683,7 +681,7 @@ describe("io.request.XhrLowLevel", function() {
   it("keep status 0 when DONE with network error and file protocol", function() {
     var fakeReq = getFakeReq();
 
-    sandbox.stub(req, "_getProtocol").returns("file:");
+    sinonSandbox.stub(req, "_getProtocol").returns("file:");
     openAndSend("GET", "/");
 
     // Indicate network error
@@ -759,7 +757,7 @@ describe("io.request.XhrLowLevel", function() {
 
 
   it("dispose() aborts", function() {
-    sandbox.spy(req, "abort");
+    sinonSandbox.spy(req, "abort");
     req._dispose();
 
     sinon.assert.called(req.abort);
@@ -818,7 +816,7 @@ describe("io.request.XhrLowLevel", function() {
 
 
   function fakeNativeXhr() {
-    fakedXhr = sandbox.useFakeXMLHttpRequest();
+    fakedXhr = sinonSandbox.useFakeXMLHttpRequest();
 
     // Reset pre-existing request so that it uses the faked XHR
     if (req) {

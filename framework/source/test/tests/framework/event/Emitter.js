@@ -27,7 +27,7 @@ describe("event.Emitter", function () {
 
 
   it("OnOff", function () {
-    var spy = sinon.spy();
+    var spy = sinonSandbox.spy();
     __eventEmitter.on("test", spy, this);
     __eventEmitter.emit("test");
     sinon.assert.calledOnce(spy);
@@ -40,7 +40,7 @@ describe("event.Emitter", function () {
 
 
   it("OnOffById", function () {
-    var spy = sinon.spy();
+    var spy = sinonSandbox.spy();
     var id = __eventEmitter.on("test", spy, this).getListenerId();
     __eventEmitter.emit("test");
     sinon.assert.calledOnce(spy);
@@ -52,7 +52,7 @@ describe("event.Emitter", function () {
 
 
   it("OffReturnId", function () {
-    var spy = sinon.spy();
+    var spy = sinonSandbox.spy();
     __eventEmitter.on("test", spy, this);
     var id = __eventEmitter.on("test2", spy, this).getListenerId();
 
@@ -62,8 +62,8 @@ describe("event.Emitter", function () {
 
 
   it("OnTwoListeners", function () {
-    var spy1 = sinon.spy();
-    var spy2 = sinon.spy();
+    var spy1 = sinonSandbox.spy();
+    var spy2 = sinonSandbox.spy();
 
     __eventEmitter.on("test", spy1);
     __eventEmitter.on("test", spy2);
@@ -79,8 +79,8 @@ describe("event.Emitter", function () {
 
 
   it("TwoEvents", function () {
-    var spy1 = sinon.spy();
-    var spy2 = sinon.spy();
+    var spy1 = sinonSandbox.spy();
+    var spy2 = sinonSandbox.spy();
 
     __eventEmitter.on("test1", spy1);
     __eventEmitter.on("test2", spy2);
@@ -95,7 +95,7 @@ describe("event.Emitter", function () {
 
 
   it("Once", function () {
-    var spy = sinon.spy();
+    var spy = sinonSandbox.spy();
 
     __eventEmitter.once("test", spy);
     __eventEmitter.emit("test");
@@ -107,7 +107,7 @@ describe("event.Emitter", function () {
 
 
   it("OnAny", function () {
-    var spy = sinon.spy();
+    var spy = sinonSandbox.spy();
 
     __eventEmitter.on("*", spy);
     __eventEmitter.emit("test");
@@ -119,7 +119,7 @@ describe("event.Emitter", function () {
 
 
   it("EmitData", function () {
-    var spy = sinon.spy();
+    var spy = sinonSandbox.spy();
     __eventEmitter.on("test", spy);
     __eventEmitter.emit("test", 123);
     sinon.assert.calledWith(spy, 123);

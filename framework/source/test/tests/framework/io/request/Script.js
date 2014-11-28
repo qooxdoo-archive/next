@@ -27,12 +27,9 @@
 describe("io.request.Script", function() {
 
   var req;
-  var sandbox;
   var url;
 
   beforeEach(function() {
-    sandbox = sinon.sandbox.create();
-
     req = new qx.io.request.Script();
     url = "../resource/qx/test/script.js";
   });
@@ -94,7 +91,7 @@ describe("io.request.Script", function() {
   //
 
   it("fire event", function() {
-    var event = sandbox.spy();
+    var event = sinonSandbox.spy();
     req.on("event", event);
     req.emit("event");
     sinon.assert.called(event);
@@ -248,7 +245,7 @@ describe("io.request.Script", function() {
 
     // test preparation
     var emitOrig = req.emit;
-    sandbox.stub(req, "emit", function(evt) {
+    sinonSandbox.stub(req, "emit", function(evt) {
       globalStack.push(evt);
       emitOrig.call(this, evt);
     });
@@ -416,7 +413,7 @@ describe("io.request.Script", function() {
 
     // test preparation
     var emitOrig = req.emit;
-    sandbox.stub(req, "emit", function(evt) {
+    sinonSandbox.stub(req, "emit", function(evt) {
       globalStack.push(evt);
       emitOrig.call(this, evt);
     });
@@ -449,7 +446,7 @@ describe("io.request.Script", function() {
 
 
   it("not call ontimeout when request is within timeout limit", function(done) {
-    sandbox.spy(req, "emit");
+    sinonSandbox.spy(req, "emit");
 
     req.on("load", function() {
       setTimeout(function() {
@@ -466,7 +463,7 @@ describe("io.request.Script", function() {
 
 
   it("call onabort when request was aborted", function() {
-    sandbox.spy(req, "emit");
+    sinonSandbox.spy(req, "emit");
     request();
     req.abort();
 

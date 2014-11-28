@@ -29,18 +29,13 @@
 describe("io.request.XhrWithRemoteLowLevel", function() {
 
   var req;
-  var sandbox;
 
   beforeEach(function() {
-    sandbox = sinon.sandbox.create();
-
     req = new qx.io.request.Xhr();
   });
 
 
   afterEach(function() {
-    sinon.sandbox.restore();
-
     req.dispose();
   });
 
@@ -65,7 +60,7 @@ describe("io.request.XhrWithRemoteLowLevel", function() {
         setTimeout(function() {
           assert.equal(req.responseText, "SAMPLE");
           done();
-        },10);
+        }, 10);
       }
     });
     openAndSend("GET", noCache(url));
@@ -74,14 +69,14 @@ describe("io.request.XhrWithRemoteLowLevel", function() {
 
 
   it("GET with event", function(done) {
-    var url =  "../resource/qx/test/xmlhttp/sample.txt";
+    var url = "../resource/qx/test/xmlhttp/sample.txt";
 
     var onreadystatechange = function() {
       if (req.readyState == 4) {
         setTimeout(function() {
           assert.equal(req.responseText, "SAMPLE");
           done();
-        },10);
+        }, 10);
       }
     };
     req.on("readystatechange", onreadystatechange);
@@ -90,14 +85,14 @@ describe("io.request.XhrWithRemoteLowLevel", function() {
 
 
   it("GET XML", function(done) {
-    var url =  "../resource/qx/test/xmlhttp/sample.xml";
+    var url = "../resource/qx/test/xmlhttp/sample.xml";
 
     req.on("readystatechange", function() {
       if (req.readyState == 4) {
         setTimeout(function() {
           assert.isObject(req.responseXML.documentElement, "Must be XML object");
           done();
-        },10);
+        }, 10);
       }
     });
     openAndSend("GET", noCache(url));
@@ -110,14 +105,14 @@ describe("io.request.XhrWithRemoteLowLevel", function() {
     // require(["php"]);
 
     // Content-Type: foo/bar+xml
-    var url =  "../resource/qx/test/xmlhttp/xml.php";
+    var url = "../resource/qx/test/xmlhttp/xml.php";
 
     req.on("readystatechange", function() {
       if (req.readyState == 4) {
         setTimeout(function() {
           assert.isObject(req.responseXML.documentElement, "Must be XML object");
           done();
-        },10);
+        }, 10);
       }
     });
     openAndSend("GET", noCache(url));
@@ -126,14 +121,14 @@ describe("io.request.XhrWithRemoteLowLevel", function() {
 
 
   it("handle invalid XML", function(done) {
-    var url =  "../resource/qx/test/xmlhttp/invalid.xml";
+    var url = "../resource/qx/test/xmlhttp/invalid.xml";
 
     req.on("readystatechange", function() {
       if (req.readyState == 4) {
         setTimeout(function() {
           req.responseXML;
           done();
-        },10);
+        }, 10);
       }
     });
 
@@ -145,7 +140,7 @@ describe("io.request.XhrWithRemoteLowLevel", function() {
     // TODO: Maybe use FakeServer instead
     // require(["php"]);
 
-    var url =  "../resource/qx/test/xmlhttp/echo_post_request.php";
+    var url = "../resource/qx/test/xmlhttp/echo_post_request.php";
     req._open("POST", noCache(url));
     req._setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
 
@@ -154,7 +149,7 @@ describe("io.request.XhrWithRemoteLowLevel", function() {
         setTimeout(function() {
           assert.equal('{"affe":"true"}', req.responseText);
           done();
-        },10);
+        }, 10);
       }
     });
     req._send("affe=true");
@@ -181,7 +176,7 @@ describe("io.request.XhrWithRemoteLowLevel", function() {
     // TODO: Maybe use FakeServer instead
     // require(["php"]);
 
-    var url =  "../resource/qx/test/xmlhttp/echo_get_request.php";
+    var url = "../resource/qx/test/xmlhttp/echo_get_request.php";
 
     req._open("GET", noCache(url));
     req.abort();
@@ -194,14 +189,14 @@ describe("io.request.XhrWithRemoteLowLevel", function() {
     // TODO: Maybe use FakeServer instead
     // require(["php"]);
 
-    var url =  "../resource/qx/test/xmlhttp/echo_get_request.php";
+    var url = "../resource/qx/test/xmlhttp/echo_get_request.php";
 
     req.on("readystatechange", function() {
       if (req.readyState == 4) {
         setTimeout(function() {
           assert.equal(200, req.status);
           done();
-        },10);
+        }, 10);
       }
     });
     // Make sure resource is not served from cache
@@ -213,7 +208,7 @@ describe("io.request.XhrWithRemoteLowLevel", function() {
     // TODO: Maybe use FakeServer instead
     // require(["php", "noIe"]);
 
-    var url =  "../resource/qx/test/xmlhttp/time.php";
+    var url = "../resource/qx/test/xmlhttp/time.php";
 
     var send = function() {
       req._open("GET", url);
@@ -230,7 +225,7 @@ describe("io.request.XhrWithRemoteLowLevel", function() {
         setTimeout(function() {
           assert.notEqual(results[0], results[1], "Response must differ");
           done();
-        },10);
+        }, 10);
       }
     });
 
@@ -239,7 +234,7 @@ describe("io.request.XhrWithRemoteLowLevel", function() {
 
 
   it("open throws error with insecure method", function() {
-    url =  "../resource/qx/test/xmlhttp/sample.txt";
+    url = "../resource/qx/test/xmlhttp/sample.txt";
 
     assert.throw(function() {
       // Type of error is of no interest
@@ -353,7 +348,7 @@ describe("io.request.XhrWithRemoteLowLevel", function() {
               setTimeout(function() {
                 assert.deepEqual([1, 2, 3, 4], states);
                 done();
-              },10);
+              }, 10);
             }
           });
 
@@ -480,7 +475,7 @@ describe("io.request.XhrWithRemoteLowLevel", function() {
     assert.equal(req.readyState, 1);
     req.abort();
 
-    setTimeout(function(){
+    setTimeout(function() {
       // after abort readyState is 0
       assert.equal(req.readyState, 0);
       done();
@@ -494,8 +489,8 @@ describe("io.request.XhrWithRemoteLowLevel", function() {
 
     req.on("readystatechange", function() {
       if (req.readyState == 4) {
-        setTimeout(function(){
-        done();
+        setTimeout(function() {
+          done();
         });
       }
     });
@@ -520,9 +515,9 @@ describe("io.request.XhrWithRemoteLowLevel", function() {
     // require(["php", "noIe9"]);
 
     req.on("loadend", function() {
-      setTimeout(function(){
+      setTimeout(function() {
         done();
-      },100);
+      }, 100);
     });
 
     // Will "never" complete
@@ -545,11 +540,11 @@ describe("io.request.XhrWithRemoteLowLevel", function() {
 
     req.on("error", function() {
 
-    // May take a while to detect network error
+      // May take a while to detect network error
       setTimeout(function() {
         assert.equal(4, req.readyState);
         done();
-      },100);
+      }, 100);
     });
 
     // Network error (async)
@@ -647,7 +642,7 @@ describe("io.request.XhrWithRemoteLowLevel", function() {
     req._send();
 
     var emitOrig = req.emit;
-    sinon.stub(req, "emit", function(evt) {
+    sinonSandbox.stub(req, "emit", function(evt) {
       globalStack.push(evt);
       emitOrig.call(this, evt);
     });
@@ -672,7 +667,7 @@ describe("io.request.XhrWithRemoteLowLevel", function() {
     req.timeout = 100;
 
     var emitOrig = req.emit;
-    sinon.stub(req, "emit", function(evt) {
+    sinonSandbox.stub(req, "emit", function(evt) {
       globalStack.push(evt);
       emitOrig.call(this, evt);
     });
@@ -688,8 +683,8 @@ describe("io.request.XhrWithRemoteLowLevel", function() {
   it("call onloadend on network error", function(done) {
     req.on("loadend", function() {
 
-    // May take a while to detect network error
-      setTimeout(function(){
+      // May take a while to detect network error
+      setTimeout(function() {
         done();
       }, 100);
     });
@@ -727,10 +722,10 @@ describe("io.request.XhrWithRemoteLowLevel", function() {
         ];
         assert.deepEqual(expected, globalStack);
         done();
-      },10);
+      }, 10);
     });
     var emitOrig = req.emit;
-    sinon.stub(req, "emit", function(evt) {
+    sinonSandbox.stub(req, "emit", function(evt) {
       globalStack.push(evt);
       emitOrig.call(this, evt);
     });
@@ -746,7 +741,7 @@ describe("io.request.XhrWithRemoteLowLevel", function() {
 
     req.on("loadend", function() {
 
-    // May take a while to detect network error
+      // May take a while to detect network error
       setTimeout(function() {
         var expected = ["readystatechange",
           "readystatechange",
@@ -760,7 +755,7 @@ describe("io.request.XhrWithRemoteLowLevel", function() {
       }, 500);
     });
     var emitOrig = req.emit;
-    sandbox.stub(req, "emit", function(evt) {
+    sinonSandbox.stub(req, "emit", function(evt) {
       globalStack.push(evt);
       emitOrig.call(this, evt);
     });

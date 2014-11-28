@@ -46,25 +46,25 @@ describe("mobile.form.Input", function() {
     assert.isTrue(__item.valid);
     assert.isFalse(__item.hasClass("invalid"));
 
-    var cb = sinon.spy(onInvalid);
+    var cb = sinonSandbox.spy(onInvalid);
     __item.once("changeValid", cb);
     __item.validate();
     sinon.assert.calledOnce(cb);
     assert.isTrue(__item.hasClass("invalid"));
 
-    cb = sinon.spy(onValid);
+    cb = sinonSandbox.spy(onValid);
     __item.once("changeValid", cb);
     __item.value = "Foo";
     sinon.assert.calledOnce(cb);
     assert.isFalse(__item.hasClass("invalid"));
 
-    cb = sinon.spy(onInvalid);
+    cb = sinonSandbox.spy(onInvalid);
     __item.once("changeValid", cb);
     __item.value = null;
     sinon.assert.calledOnce(cb);
     assert.isTrue(__item.hasClass("invalid"));
 
-    cb = sinon.spy(onValid);
+    cb = sinonSandbox.spy(onValid);
     __item.once("changeValid", cb);
     __item.required = false;
     sinon.assert.calledOnce(cb);
@@ -75,17 +75,17 @@ describe("mobile.form.Input", function() {
   it("CustomValidator", function() {
     assert.isTrue(__item.valid);
 
-    var validator = sinon.spy(function(value) {
+    var validator = sinonSandbox.spy(function(value) {
       return false;
     });
 
-    var cb = sinon.spy(onInvalid);
+    var cb = sinonSandbox.spy(onInvalid);
     __item.once("changeValid", cb);
     __item.validator = validator;
     sinon.assert.calledOnce(validator);
     sinon.assert.calledOnce(cb);
 
-    cb = sinon.spy(onValid);
+    cb = sinonSandbox.spy(onValid);
     __item.once("changeValid", cb);
     __item.validator = null;
     sinon.assert.calledOnce(cb);

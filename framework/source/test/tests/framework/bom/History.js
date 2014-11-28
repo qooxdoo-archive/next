@@ -27,7 +27,7 @@ describe("bom.History", function() {
     if (__history._writeState.restore) {
       __history._writeState.restore();
     }
-    sinon.spy(__history, "_writeState");
+    sinonSandbox.spy(__history, "_writeState");
   });
 
 

@@ -27,17 +27,17 @@ describe("util.StringBuilder", function () {
   it("AddGet", function () {
     __stringBuilder.add("1");
     __stringBuilder.add("2");
-    sinon.spy()("12", __stringBuilder.get());
+    sinonSandbox.spy()("12", __stringBuilder.get());
     __stringBuilder.add("3");
-    sinon.spy()("123", __stringBuilder.get());
+    sinonSandbox.spy()("123", __stringBuilder.get());
   });
 
 
   it("Size", function () {
     __stringBuilder.add("123");
-    sinon.spy()(3, __stringBuilder.size());
+    sinonSandbox.spy()(3, __stringBuilder.size());
     __stringBuilder.add("4567");
-    sinon.spy()(7, __stringBuilder.size());
+    sinonSandbox.spy()(7, __stringBuilder.size());
   });
 
 

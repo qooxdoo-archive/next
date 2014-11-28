@@ -39,10 +39,8 @@
  */
 describe("io.request.Xhr", function() {
   var req;
-  var sandbox;
 
   beforeEach(function() {
-    sandbox = sinon.sandbox.create();
     setUpRequest();
     setUpFakeTransport();
   });
@@ -60,22 +58,21 @@ describe("io.request.Xhr", function() {
     }
 
     // Stub transport methods which in this case are methods of qx.io.request.Xhr itself
-    sandbox.stub(req, "_open");
-    sandbox.stub(req, "_setRequestHeader");
-    sandbox.stub(req, "setRequestHeader");
-    sandbox.stub(req, "_send");
-    sandbox.stub(req, "_abort");
-    sandbox.stub(req, "getResponseHeader");
-    sandbox.stub(req, "getAllResponseHeaders");
-    sandbox.stub(req, "overrideMimeType");
-    sandbox.stub(req, "getRequest");
+    sinonSandbox.stub(req, "_open");
+    sinonSandbox.stub(req, "_setRequestHeader");
+    sinonSandbox.stub(req, "setRequestHeader");
+    sinonSandbox.stub(req, "_send");
+    sinonSandbox.stub(req, "_abort");
+    sinonSandbox.stub(req, "getResponseHeader");
+    sinonSandbox.stub(req, "getAllResponseHeaders");
+    sinonSandbox.stub(req, "overrideMimeType");
+    sinonSandbox.stub(req, "getRequest");
   }
 
   function setUpFakeServer() {
       // Not fake transport
-      sandbox.restore();
 
-      sandbox.useFakeServer();
+      sinonSandbox.useFakeServer();
       setUpRequest();
 
       sandbox.server.respondWith("GET", "/found", [200, {
@@ -93,14 +90,12 @@ describe("io.request.Xhr", function() {
 
     function setUpFakeXhr() {
       // Not fake transport
-      sinon.sandbox.restore();
 
-      sandbox.useFakeXMLHttpRequest();
+      sinonSandbox.useFakeXMLHttpRequest();
       setUpRequest();
     }
 
   afterEach(function() {
-    sinon.sandbox.restore();
     req.dispose();
 
     // May fail in IE
@@ -402,10 +397,10 @@ describe("io.request.Xhr", function() {
       stubbedParser = req._createResponseParser();
 
     req.responseText = json;
-    sandbox.stub(req, "getResponseContentType").returns(contentType);
+    sinonSandbox.stub(req, "getResponseContentType").returns(contentType);
 
     // replace real parser with stub
-    sandbox.stub(stubbedParser, "parse");
+    sinonSandbox.stub(stubbedParser, "parse");
     req._parser = stubbedParser;
 
     req._getParsedResponse();
@@ -418,7 +413,7 @@ describe("io.request.Xhr", function() {
       stubbedParser = req._createResponseParser();
 
     // replace real parser with stub
-    sandbox.stub(stubbedParser, "setParser");
+    sinonSandbox.stub(stubbedParser, "setParser");
     req._parser = stubbedParser;
 
     req.setParser(customParser);

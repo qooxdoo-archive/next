@@ -22,19 +22,19 @@ describe("util.Base64", function () {
   it("EncodeDecode", function () {
     var str = "Luke, I'm your father! Nooooooooooo!";
     var encodedStr = qx.util.Base64.encode(str);
-    sinon.spy()(str, qx.util.Base64.decode(encodedStr));
+    sinonSandbox.spy()(str, qx.util.Base64.decode(encodedStr));
   });
 
   it("ChineseChars", function () {
     var str = "Abecedariab语言工具";
     var encodedStr = qx.util.Base64.encode(str);
-    sinon.spy()(str, qx.util.Base64.decode(encodedStr));
+    sinonSandbox.spy()(str, qx.util.Base64.decode(encodedStr));
   });
 
   it("ChineseCharsExplicitNot8bit", function () {
     var str = "Abecedariab语言工具";
     var encodedStr = qx.util.Base64.encode(str, false);
-    sinon.spy()(str, qx.util.Base64.decode(encodedStr, false));
+    sinonSandbox.spy()(str, qx.util.Base64.decode(encodedStr, false));
   });
 
   it("ChineseCharsExplicit8bit", function () {
@@ -46,14 +46,14 @@ describe("util.Base64", function () {
   it("GermanChars", function () {
     var str = "Am Donnerstag diskutieren die Abgeordneten dann ab 9 Uhr zweieinhalb Stunden lang in erster Lesung über drei fraktionsübergreifende Gesetzentwürfe zur Präimplantationsdiagnostik (PID). Weitere Themen sind am Donnerstag unter anderem der Schutz vor Straßen- und Schienenlärm und die Einführung eines Mindestlohns";
     var encodedStr = qx.util.Base64.encode(str);
-    sinon.spy()(str, qx.util.Base64.decode(encodedStr));
+    sinonSandbox.spy()(str, qx.util.Base64.decode(encodedStr));
   });
 
   it("KnownEncoding", function () {
     var str = "Hello\nThis\nIs\nA\nText\nFile";
     var expected = "SGVsbG8KVGhpcwpJcwpBClRleHQKRmlsZQ==";
     var encodedStr = qx.util.Base64.encode(str);
-    sinon.spy()(encodedStr, expected);
-    sinon.spy()(str, qx.util.Base64.decode(encodedStr));
+    sinonSandbox.spy()(encodedStr, expected);
+    sinonSandbox.spy()(str, qx.util.Base64.decode(encodedStr));
   });
 });

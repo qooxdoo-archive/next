@@ -343,7 +343,7 @@ describe("mobile.Widget", function() {
     var child2 = new qx.ui.Widget();
     sandbox.append(child2);
 
-    var cb = sinon.spy();
+    var cb = sinonSandbox.spy();
     sandbox.on("removedChild", cb);
     sandbox.empty();
     sinon.assert.calledTwice(cb);

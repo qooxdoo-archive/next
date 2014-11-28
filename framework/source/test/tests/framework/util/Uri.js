@@ -31,42 +31,42 @@ describe("util.Uri", function () {
       expected = "http://example.com/path?affe=true&maus=false",
       result = __uri.appendParamsToUrl(url, params);
 
-    sinon.spy()(expected, result);
+    sinonSandbox.spy()(expected, result);
   });
 
 
   it("ToParameter", function () {
     var obj = {affe: true, maus: false};
     var str = qx.util.Uri.toParameter(obj);
-    sinon.spy()("affe=true&maus=false", str);
+    sinonSandbox.spy()("affe=true&maus=false", str);
   });
 
 
   it("ToParameterUmlauts", function () {
     var obj = {"äffe": "jøah", "maüs": "nö"};
     var str = qx.util.Uri.toParameter(obj);
-    sinon.spy()("%C3%A4ffe=j%C3%B8ah&ma%C3%BCs=n%C3%B6", str);
+    sinonSandbox.spy()("%C3%A4ffe=j%C3%B8ah&ma%C3%BCs=n%C3%B6", str);
   });
 
 
   it("ToParameterSpaces", function () {
     var obj = {"a f f e": true};
     var str = qx.util.Uri.toParameter(obj);
-    sinon.spy()("a%20f%20f%20e=true", str);
+    sinonSandbox.spy()("a%20f%20f%20e=true", str);
   });
 
 
   it("ToParameterSpacesPost", function () {
     var obj = {"a f  f e": "j a"};
     var str = qx.util.Uri.toParameter(obj, true);
-    sinon.spy()("a+f++f+e=j+a", str);
+    sinonSandbox.spy()("a+f++f+e=j+a", str);
   });
 
 
   it("ToParameterArray", function () {
     var obj = {id: [1, 2, 3]};
     var str = qx.util.Uri.toParameter(obj);
-    sinon.spy()("id=1&id=2&id=3", str);
+    sinonSandbox.spy()("id=1&id=2&id=3", str);
   });
 
 
@@ -76,7 +76,7 @@ describe("util.Uri", function () {
       expected = "http://example.com/path?giraffe=true&affe=true&maus=false",
       result = __uri.appendParamsToUrl(url, params);
 
-    sinon.spy()(expected, result);
+    sinonSandbox.spy()(expected, result);
   });
 
 
@@ -96,7 +96,7 @@ describe("util.Uri", function () {
       params = undefined,
       result = __uri.appendParamsToUrl(url, params);
 
-    sinon.spy()(url, result);
+    sinonSandbox.spy()(url, result);
   });
 
 
@@ -105,7 +105,7 @@ describe("util.Uri", function () {
       params = {},
       result = __uri.appendParamsToUrl(url, params);
 
-    sinon.spy()(url, result);
+    sinonSandbox.spy()(url, result);
   });
 
 
@@ -115,11 +115,11 @@ describe("util.Uri", function () {
 
     // Some integration tests, parseUri is better covered here
     // http://stevenlevithan.com/demo/parseuri/js/
-    sinon.spy()("http", result.protocol);
-    sinon.spy()("www.example.com", result.host);
-    sinon.spy()("80", result.port);
-    sinon.spy()("/foo/bar?affe=true#here", result.relative);
-    sinon.spy()("here", result.anchor);
+    sinonSandbox.spy()("http", result.protocol);
+    sinonSandbox.spy()("www.example.com", result.host);
+    sinonSandbox.spy()("80", result.port);
+    sinonSandbox.spy()("/foo/bar?affe=true#here", result.relative);
+    sinonSandbox.spy()("here", result.anchor);
   });
 
 });

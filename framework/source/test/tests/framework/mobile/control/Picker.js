@@ -120,7 +120,7 @@ describe("mobile.control.Picker", function() {
     picker.addSlot(pickerSlot1);
     picker.addSlot(pickerSlot2);
 
-    var cb = sinon.spy();
+    var cb = sinonSandbox.spy();
     picker.on("changeValue", cb);
     picker.value[1] = "2";
     sinon.assert.calledOnce(cb);
@@ -146,7 +146,7 @@ describe("mobile.control.Picker", function() {
 
     picker.removeSlot(1);
 
-    var cb = sinon.spy();
+    var cb = sinonSandbox.spy();
     picker.on("changeValue", cb);
     picker.value[1] = "foo";
     sinon.assert.notCalled(cb);
@@ -167,7 +167,7 @@ describe("mobile.control.Picker", function() {
 
     var oldValue = picker.value;
     picker.value = ["b", "1"];
-    var cb = sinon.spy();
+    var cb = sinonSandbox.spy();
     picker.on("changeValue", cb);
     oldValue[1] = "foo";
     sinon.assert.notCalled(cb);
@@ -186,7 +186,7 @@ describe("mobile.control.Picker", function() {
     var pickerSlot2 = new qx.data.Array(["0", "1", "2"]);
     picker.addSlot(pickerSlot1);
     picker.addSlot(pickerSlot2);
-    var spy = sinon.spy();
+    var spy = sinonSandbox.spy();
     picker.on("changeValue", spy);
     picker.value = ["b", "1"];
     sinon.assert.calledOnce(spy);
