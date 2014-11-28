@@ -29,14 +29,10 @@
  * @group (Widget)
  */
 qx.Class.define("qx.ui.form.DatePicker", {
-  extend : qx.ui.Widget,
+  extend: qx.ui.form.Input,
 
-  include : [
-    qx.ui.form.MText,
-    qx.ui.form.MForm
-  ],
-  implement : [
-    qx.ui.form.IForm
+  include: [
+    qx.ui.form.MText
   ],
 
   properties: {
@@ -81,7 +77,7 @@ qx.Class.define("qx.ui.form.DatePicker", {
    * @return {qx.ui.form.DatePicker} The new date picker widget.
    */
   construct : function(date, element) {
-    this.super(qx.ui.Widget, "construct", element);
+    this.super(qx.ui.form.Input, "construct", element);
 
     this.format = function(date) {
       return date.toLocaleDateString();
@@ -104,7 +100,7 @@ qx.Class.define("qx.ui.form.DatePicker", {
     // grab tap events at the body element to be able to hide the calender popup
     // if the user taps outside
     var bodyElement = qxWeb.getDocument(this).body;
-    qxWeb(bodyElement).on('tap', this._onBodyTap, this);
+    qxWeb(bodyElement).on('tap', this._hideCalendar, this);
 
     // react on date selection
     calendar.on('changeValue', this._calendarChangeValue, this);
@@ -112,6 +108,8 @@ qx.Class.define("qx.ui.form.DatePicker", {
     if (date !== undefined) {
       calendar.setValue(date);
     }
+
+    this.initMText();
   },
 
   members : {
@@ -163,7 +161,7 @@ qx.Class.define("qx.ui.form.DatePicker", {
      *
      * @param e {Event} tap event
      */
-    _onBodyTap : function(e) {
+    _hideCalendar : function(e) {
       var target = qxWeb(e.target);
 
       // fast check for tap on the connected input field
@@ -241,11 +239,6 @@ qx.Class.define("qx.ui.form.DatePicker", {
       }
     },
 
-    // overridden
-    _getTagName: function () {
-      return "input";
-    },
-
     /**
      * Helper method to add a listener to the connected input element
      * if the configured mode is set.
@@ -266,7 +259,7 @@ qx.Class.define("qx.ui.form.DatePicker", {
       this.off('tap', this._onTap);
 
       var bodyElement = qxWeb.getDocument(this).body;
-      qxWeb(bodyElement).off('tap', this._onBodyTap, this);
+      qxWeb(bodyElement).off('tap', this._hideCalendar, this);
 
       this.getCalendar().off('changeValue', this._calendarChangeValue, this)
         .off('tap', this._onCalendarTap);
@@ -274,6 +267,8 @@ qx.Class.define("qx.ui.form.DatePicker", {
       var calendar = qxWeb('div#' + this.__calendarId);
       calendar.remove();
       calendar.dispose();
+
+      this.super(qx.ui.form.Input, "dispose");
     }
   },
 
