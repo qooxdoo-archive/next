@@ -335,7 +335,7 @@ describe("io.request.Xhr", function() {
     });
 
     req.send();
-    sandbox.server.respond();
+    sinonSandbox.server.respond();
 
     assert.deepEqual([0, 1, 2, 3, 4], readyStates);
     assert.deepEqual([0, 200, 200, 200], statuses);

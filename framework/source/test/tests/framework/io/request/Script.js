@@ -36,7 +36,6 @@ describe("io.request.Script", function() {
 
 
   afterEach(function() {
-    sinon.sandbox.restore();
     req.dispose();
 
     if (this.currentTest.skip) {

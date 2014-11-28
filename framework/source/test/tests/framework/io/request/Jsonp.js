@@ -52,11 +52,11 @@ describe("io.request.Jsonp", function() {
       return;
     }
 
-    SinonSandbox.stub(req, "_open");
-    SinonSandbox.stub(req, "_setRequestHeader");
-    SinonSandbox.stub(req, "setRequestHeader");
-    SinonSandbox.stub(req, "_send");
-    SinonSandbox.stub(req, "_abort");
+    sinonSandbox.stub(req, "_open");
+    sinonSandbox.stub(req, "_setRequestHeader");
+    sinonSandbox.stub(req, "setRequestHeader");
+    sinonSandbox.stub(req, "_send");
+    sinonSandbox.stub(req, "_abort");
   }
 
 
