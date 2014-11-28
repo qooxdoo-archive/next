@@ -85,7 +85,7 @@ qx.Class.define("qx.ui.form.DatePicker", {
     this.super(qx.ui.form.Input, "construct", element);
 
     this.format = function(date) {
-      return date.toLocaleDateString();
+      return new Date(date).toLocaleDateString();
     };
 
     this.__uniqueId = Math.round(Math.random() * 10000);
@@ -109,7 +109,7 @@ qx.Class.define("qx.ui.form.DatePicker", {
     qxWeb(document).on("roll", this._hideCalendar, this);
 
     // react on date selection
-    calendar.on('changeValue', this._calendarChangeValue, this);
+    calendar.on('selected', this._calendarChangeValue, this);
 
     if (date !== undefined) {
       calendar.setValue(date);
@@ -202,9 +202,9 @@ qx.Class.define("qx.ui.form.DatePicker", {
      * @param e {Event} selected date value
      */
     _calendarChangeValue : function(e) {
-      var formattedValue = this.format.call(this, e.value);
+      var formattedValue = this.format.call(this, e.getValue());
       this.setValue(formattedValue);
-      this.getCalendar().setStyle("display", "none");
+      this._hideCalendar(e);
     },
 
     /**
