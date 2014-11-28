@@ -206,10 +206,8 @@ qx.Class.define("mobileshowcase.page.Form",
       birthDatePicker.getCalendar().on('selected', function (element) {
         var currentTimestamp = new Date().getTime();
         var selectedTimestamp = new Date(element.getValue()).getTime();
-        if (selectedTimestamp < currentTimestamp) {
-          console.log('past');
-        } else {
-          console.log('future');
+        if (selectedTimestamp > currentTimestamp) {
+          console.error('Invalid date of birth');
         }
       });
       var birthDateQuestion = "When is you date of birth?";
