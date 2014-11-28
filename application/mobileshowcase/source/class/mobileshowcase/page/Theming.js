@@ -120,10 +120,10 @@ qx.Class.define("mobileshowcase.page.Theming",
       var themeGroup = new qx.ui.form.Group()
         .appendTo(themeForm);
 
-      var themeRadioGroup = new qx.ui.form.Group();
       for (var i = 0; i < mobileshowcase.page.Theming.THEMES.length; i++) {
-        var radioButton = new qx.ui.form.RadioButton();
-        themeRadioGroup.add(radioButton);
+        var radioButton = new qx.ui.form.RadioButton().set({
+          name: "themes"
+        });
         new qx.ui.form.Row(radioButton, mobileshowcase.page.Theming.THEMES[i].name)
           .appendTo(themeGroup);
         radioButton.on("tap", this.__switchTheme.bind(this, i));
