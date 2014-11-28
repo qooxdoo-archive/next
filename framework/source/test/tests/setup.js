@@ -2,18 +2,24 @@
 
 mocha.setup('bdd');
 
-// Basic setup
+// node.js
 if (typeof process !== 'undefined') {
-  // We are in node. Require modules.
   assert = require('chai').assert;
   sinon = require('sinon');
+// Browser
 } else {
-  // We are in the browser. Set up variables like above using served js files.
   assert = chai.assert;
   chai.config.includeStack = true;
+
+  // CSS metrics should be integer by default in IE10 Release Preview, but
+  // getBoundingClientRect will randomly return float values unless this
+  // feature is explicitly deactivated:
+  if (document.msCSSOMElementFloatMetrics) {
+    document.msCSSOMElementFloatMetrics = null;
+  }
 }
 
-window.skipAfterTest = function(suiteTitle, testTitle) {
+skipAfterTest = function(suiteTitle, testTitle) {
   var suites = qxWeb(".suite");
   for (var i = 0; i < suites.length; i++) {
     if (suiteTitle.indexOf(suites[i].children[0].textContent) === 0) {
@@ -27,26 +33,26 @@ window.skipAfterTest = function(suiteTitle, testTitle) {
 };
 
 
-// CSS metrics should be integer by default in IE10 Release Preview, but
-// getBoundingClientRect will randomly return float values unless this
-// feature is explicitly deactivated:
-if (document.msCSSOMElementFloatMetrics) {
-  document.msCSSOMElementFloatMetrics = null;
-}
-
-
 var commonBeforeEach = function() {
-  // set up root widget (sandbox)
-  window.sandbox = new qx.ui.core.Root(document.createElement("div"));
-  window.sandbox.setAttribute("id", "sandbox");
-  window.sandbox.appendTo(document.body);
-}
+  // root widget (DOM sandbox)
+  sandbox = new qx.ui.core.Root(document.createElement("div"));
+  sandbox.setAttribute("id", "sandbox");
+  sandbox.appendTo(document.body);
+
+  // sinon sandbox
+  sinonSandbox = sinon.sandbox.create();
+};
 
 
 var commonAfterEach = function() {
-  window.sandbox.remove().dispose();
-  window.sandbox = null;
-}
+  // root widget
+  sandbox.remove().dispose();
+  sandbox = null;
+
+  // sinon sandbox
+  sinonSandbox.restore();
+  sinonSandbox = null;
+};
 
 
 // start
@@ -61,7 +67,7 @@ qxWeb.ready(function() {
   });
 
   runner.on("end", function() {
-    window.testsDone = true;
+    testsDone = true;
   });
 });
 
