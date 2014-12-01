@@ -12,7 +12,7 @@
       "path" : "image.json"
     },
     {
-      "path" : "${QOOXDOO_PATH}/component/standalone/website/website.json",
+      "path" : "./website.json",
       "as": "qxweb"
     }
   ],

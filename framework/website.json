@@ -14,11 +14,9 @@
   "let" :
   {
     "APPLICATION"  : "library",
-    "QOOXDOO_PATH" : "../../..",
     "LOCALES"      : [ "en" ],
     "CACHE"        : "${TMPDIR}/qx${QOOXDOO_VERSION}/cache",
     "ROOT"         : ".",
-    "SCRIPT_PATH"      : "script",
 
     "QXWEB_ALL" : [
       "qx.module.*",
