@@ -28,13 +28,13 @@
 
   "config-warnings" :
   {
-    "job-shadowing" : [ "common", "distclean", "clean", "build" ],
+    "job-shadowing" : [ "common", "distclean", "clean", "qxweb-build" ],
     "environment" : [ "non-literal-keys" ]
   },
 
   "jobs" :
   {
-    "log-deps" :
+    "qxweb-log-deps" :
     {
       "extend" : ["build-min"],
 
@@ -58,13 +58,13 @@
       }
     },
 
-    "build" : {
+    "qxweb-build" : {
       "let" : {
         "QXDEBUG" : true
       }
     },
 
-    "source" :
+    "qxweb-source" :
     {
       "extend" : ["website-common", "source-script"],
 

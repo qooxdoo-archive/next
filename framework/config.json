@@ -12,8 +12,9 @@
       "path" : "image.json"
     },
     {
-      "path" : "./website.json",
-      "as": "qxweb"
+      "path" : "./website.json"
+      // ,
+      // "as": "qxweb"
     }
   ],
 
@@ -35,12 +36,12 @@
     "lint-test",
     "provider",
     "pretty-test",
-    "qxweb::build",
-    "qxweb::build-min",
-    "qxweb::build-module-all",
-    "qxweb::build-module-all-min",
-    "qxweb::log-deps",
-    "qxweb::source",
+    "qxweb-build",
+    "qxweb-build-min",
+    "qxweb-build-module-all",
+    "qxweb-build-module-all-min",
+    "qxweb-log-deps",
+    "qxweb-source",
     "source-all",
     "test",
     "test-source",
@@ -69,12 +70,14 @@
     [
       "api",
       "api-data",
+      "clean",
       "common",
       "dependencies",
+      "distclean",
       "lint",
       "provider-deps",
       "provider-classes",
-      "qxweb::source",
+      "qxweb-source",
       "source-all",
       "test",
       "test-source",
@@ -261,7 +264,7 @@
         }
       },
       "run": [
-        "qxweb::build-module-all-min"
+        "qxweb-build-module-all-min"
       ]
     },
 
@@ -314,7 +317,7 @@
       "=exclude" : [ "${APPLICATION}.test.*" ]
     },
 
-    "qxweb::source" : {
+    "qxweb-source" : {
       "let" : {
         "BUILD_PATH": "source/script"
       }

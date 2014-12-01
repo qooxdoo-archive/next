@@ -64,6 +64,31 @@ module.exports = function(grunt) {
         options: {
           message: 'API samples concatenated.'
         }
+      },
+      'qxweb-source': {
+        options: {
+          message: 'qx.Website source version generated.'
+        }
+      },
+      'qxweb-build': {
+        options: {
+          message: 'qx.Website unminified build version generated.'
+        }
+      },
+      'qxweb-build-min': {
+        options: {
+          message: 'qx.Website minified build version generated.'
+        }
+      },
+      'qxweb-build-module-all': {
+        options: {
+          message: 'qx.Website unminified modular build version generated.'
+        }
+      },
+      'qxweb-build-module-all-min': {
+        options: {
+          message: 'qx.Website minified modular build version generated.'
+        }
       }
     }
   };
@@ -85,6 +110,22 @@ module.exports = function(grunt) {
     'Concat the samples and generate the API.',
     ['concat:samples', 'generate-api', 'notify:api']
   );
+
+  // 'extend' qxWeb jobs
+  [
+    'qxweb-source',
+    'qxweb-build',
+    'qxweb-build-min',
+    'qxweb-build-module-all',
+    'qxweb-build-module-all-min'
+  ].forEach(function(task) {
+    grunt.task.renameTask(task, 'temp');
+    grunt.task.registerTask(
+      task,
+      'Generate the build version of qx.Website and the widget CSS',
+      ['generate:' + task, 'sass:indigo', 'notify:' + task]
+    );
+  });
 
   // pre-process the index file
   var fs = require('fs');
