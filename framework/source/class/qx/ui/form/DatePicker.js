@@ -109,7 +109,7 @@ qx.Class.define("qx.ui.form.DatePicker", {
     qxWeb(document).on("roll", this._hideCalendar, this);
 
     // react on date selection
-    calendar.on('selected', this._calendarChangeValue, this);
+    calendar.on('selected', this._calendarSelected, this);
 
     if (date !== undefined) {
       calendar.setValue(date);
@@ -199,12 +199,12 @@ qx.Class.define("qx.ui.form.DatePicker", {
      *
      * The format of the date can be controlled with the 'format' config function
      *
-     * @param e {Event} selected date value
+     * @param selectedDay {qxWeb} qxWeb instance of the current selected day
      */
-    _calendarChangeValue : function(e) {
-      var formattedValue = this.format.call(this, e.getValue());
+    _calendarSelected : function(selectedDay) {
+      var formattedValue = this.format.call(this, selectedDay.getValue());
       this.setValue(formattedValue);
-      this._hideCalendar(e);
+      this.getCalendar().setStyle("display", "none");
     },
 
     /**
@@ -267,7 +267,7 @@ qx.Class.define("qx.ui.form.DatePicker", {
       var bodyElement = qxWeb.getDocument(this).body;
       qxWeb(bodyElement).off('tap', this._hideCalendar, this);
 
-      this.getCalendar().off('changeValue', this._calendarChangeValue, this)
+      this.getCalendar().off('changeValue', this._calendarSelected, this)
         .off('tap', this._onCalendarTap);
 
       var calendar = qxWeb('div#' + this.__calendarId);
