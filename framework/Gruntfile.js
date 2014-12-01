@@ -37,6 +37,18 @@ module.exports = function(grunt) {
       }
     },
 
+    sass: {
+      indigo: {
+        options: {
+          style: 'compressed'
+        },
+        files: {
+          'build/resource/qx/css/indigo.css': 'source/resource/qx/scss/indigo.scss'
+          //TODO: flat.scss
+        }
+      }
+    },
+
     notify: {
       api: {
         options: {
@@ -63,6 +75,7 @@ module.exports = function(grunt) {
 
   grunt.loadNpmTasks('grunt-contrib-concat');
   grunt.loadNpmTasks('grunt-contrib-watch');
+  grunt.loadNpmTasks('grunt-contrib-sass');
   grunt.loadNpmTasks('grunt-notify');
 
   // 'extend' API job
