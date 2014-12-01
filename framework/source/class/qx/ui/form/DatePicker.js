@@ -39,7 +39,7 @@ qx.Class.define("qx.ui.form.DatePicker", {
     // overridden
     defaultCssClass :
     {
-      init : "qx-datepicker"
+      init : "text-field"
     },
 
     /**
