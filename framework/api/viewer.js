@@ -168,7 +168,7 @@ q.ready(function() {
 
       // use the method names together with the navigation headers as source for filtering
       // e.g. if the developer filters for "css" all methods for the module are listed
-      var searchItems = groupPage.find('> a').concat(groupPage.find('> ul > li'));
+      var searchItems = groupPage.find('* > a').concat(groupPage.find('* > ul > li'));
       searchItems.forEach(function(item) {
 
         var isHeader = q.getNodeName(item) === 'a';
@@ -331,7 +331,7 @@ q.ready(function() {
     var group = data.group;
     var groupId = "list-group-" + group;
 
-    var groupPage = q("#list").find("> ul > #" + groupId);
+    var groupPage = q("#list").find("* > ul > #" + groupId);
     if (groupPage.length == 0) {
       var groupIcon = icons[group];
       if (groupIcon) {
@@ -359,7 +359,7 @@ q.ready(function() {
 
   var sortList = function() {
     var groups = {};
-    q("#list").find(">ul > .button").forEach(function(li) {
+    q("#list").find("* > ul > .button").forEach(function(li) {
       li = q(li);
       var groupName = li.getData("qxConfigPage").replace("#list-group-", "");
       var next = li.getNext()[0];
@@ -776,7 +776,7 @@ q.ready(function() {
     // open the fitting list page
     var page = navItems.getAncestors(".qx-tabs-page");
     var pageId = page.getAttribute("id");
-    var button = page.getParents().find("*[data-qx-config-page=#" + pageId + "]");
+    var button = page.getParents().find("*[data-qx-config-page=\"#" + pageId + "\"]");
     acc.selected = button;
   };
 
