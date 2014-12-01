@@ -75,15 +75,15 @@ describe("io.request.Xhr", function() {
       sinonSandbox.useFakeServer();
       setUpRequest();
 
-      sandbox.server.respondWith("GET", "/found", [200, {
+      sinonSandbox.server.respondWith("GET", "/found", [200, {
         "Content-Type": "text/html"
       }, "FOUND"]);
 
-      sandbox.server.respondWith("GET", "/found.json", [200, {
+      sinonSandbox.server.respondWith("GET", "/found.json", [200, {
         "Content-Type": "application/json; charset=utf-8"
       }, "JSON"]);
 
-      sandbox.server.respondWith("GET", "/found.other", [200, {
+      sinonSandbox.server.respondWith("GET", "/found.other", [200, {
         "Content-Type": "application/other"
       }, "OTHER"]);
     }
@@ -320,7 +320,6 @@ describe("io.request.Xhr", function() {
   it("sync XHR properties for every readyState", function() {
     // TODO: Maybe use FakeServer instead
     //require(["http"]);
-
     setUpFakeServer();
       var readyStates = [],
       statuses = [];
