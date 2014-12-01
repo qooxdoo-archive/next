@@ -18,27 +18,6 @@ module.exports = function(grunt) {
       "QXTHEME": "<%= common.APPLICATION %>.theme.Theme"
     },
 
-    concat: {
-      options: {
-        separator: ';'
-      },
-      samples : {
-        src: ['api/samples/*.js'],
-        dest: 'api/script/samples.js'
-      }
-    },
-
-    watch: {
-      samples: {
-        files: ['api/samples/*.js'],
-        tasks: ['concat:samples', "notify:samples"]
-      },
-      "api-data": {
-        files: ['../../../framework/source/**/*.js'],
-        tasks: ['api-data', "notify:apidata"]
-      }
-    },
-
     sass: {
       indigo: {
         options: {
@@ -51,21 +30,6 @@ module.exports = function(grunt) {
     },
 
     notify: {
-      samples: {
-        options: {
-          message: 'Samples built and saved.'
-        }
-      },
-      apidata: {
-        options: {
-          message: 'API data generated.'
-        }
-      },
-      api: {
-        options: {
-          message: 'API viewer generated.'
-        }
-      },
       source: {
         options: {
           message: 'qx.Website source version generated.'
@@ -80,7 +44,6 @@ module.exports = function(grunt) {
   };
 
   var mergedConf = qx.config.mergeConfig(config);
-  //console.log(util.inspect(mergedConf, false, null));
   grunt.initConfig(mergedConf);
 
   qx.task.registerTasks(grunt);
@@ -90,14 +53,6 @@ module.exports = function(grunt) {
   grunt.loadNpmTasks('grunt-contrib-watch');
   grunt.loadNpmTasks('grunt-notify');
   grunt.loadNpmTasks('grunt-contrib-sass');
-
-  // 'extend' API job
-  grunt.task.renameTask('api', 'generate-api');
-  grunt.task.registerTask(
-    'api',
-    'Concat the samples and generate the API.',
-    ["concat:samples", "generate-api", "sass:indigo", "notify:api"]
-  );
 
   // 'extend' source job
   grunt.task.renameTask('source', 'temp');
@@ -115,27 +70,4 @@ module.exports = function(grunt) {
     ["generate:build", "sass:indigo", "notify:build"]
   );
 
-
-  // pre-process the index file
-  var fs = require('fs');
-  grunt.registerTask('process-api-html', 'A task to preprocess the index.html', function() {
-    // read index file
-    var index = fs.readFileSync('api/index.html', {encoding: 'utf8'});
-
-    // process index file
-    var found = index.match(/<!--\s*\{.*\}\s*-->/g);
-    for (var i = 0; i < found.length; i++) {
-      var name = found[i].replace(/<!--|-->|\{|\}/g, "").trim();
-      var templateFileName = "api/" + name + ".html";
-      if (fs.existsSync(templateFileName)) {
-        console.log("Processing '" + name + "': OK");
-        index = index.replace(found[i], fs.readFileSync(templateFileName));
-      } else {
-        console.log("Processing '" + name + "': ignore");
-      }
-    }
-
-    // write index file
-    fs.writeFileSync('api/index.new.html', index, {'encoding': 'utf8'});
-  });
 };
