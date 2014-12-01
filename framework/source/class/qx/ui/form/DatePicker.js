@@ -95,9 +95,14 @@ qx.Class.define("qx.ui.form.DatePicker", {
     this.__addInputListener(this);
 
     var calendarId = 'datepicker-calendar-' + this.__uniqueId;
-    var calendar = qxWeb.create('<div id="' + calendarId + '"></div>').toCalendar();
-    calendar.on('tap', this._onCalendarTap);
-    calendar.appendTo(document.body).setStyle("display", "none");
+    var calendar = qxWeb.create('<div id="' + calendarId + '"></div>')
+      .toCalendar()
+      .setStyles({
+        position: "absolute",
+        display: "none"
+      })
+      .on('tap', this._onCalendarTap)
+      .appendTo(document.body);
 
     // create the connection between the date picker and the corresponding calendar widget
     this.__calendarId = calendarId;
@@ -147,7 +152,7 @@ qx.Class.define("qx.ui.form.DatePicker", {
       var calendar = qxWeb('div#' + this.__calendarId);
 
       if (calendar.getStyle("display") == "none") {
-        this.getCalendar().placeTo(this, 'bottom-left').setStyle("display", "block");
+        this.getCalendar().placeTo(this, "bottom-right").setStyle("display", "block");
       } else {
         this.getCalendar().setStyle("display", "none");
       }
