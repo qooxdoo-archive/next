@@ -47,7 +47,6 @@ qx.Class.define("qx.ui.form.Input",
     this._applyRequired(this.required);
     this.addClass("gap");
 
-    this.on("focus", this._onSelected, this);
     this.initMForm();
   },
 
@@ -142,31 +141,8 @@ qx.Class.define("qx.ui.form.Input",
     },
 
 
-    /**
-     * Handles the <code>focus</code> event on this input widget.
-     * @param evt {Event} <code>click</code> or <code>focus</code> event
-     */
-    _onSelected : function(evt) {
-      var scrollContainer = this._getParentScrollContainer();
-      if(scrollContainer === null) {
-        return;
-      }
-
-      setTimeout(function() {
-        scrollContainer.scrollToWidget(this._getParentWidget(), 0);
-
-        // Refresh caret position after scrolling.
-        this.setStyle("position", "relative");
-        qxWeb.requestAnimationFrame(function() {
-          this.setStyle("position", null);
-        }, this);
-      }.bind(this), 300);
-    },
-
-
     dispose : function() {
       this.super(qx.ui.Widget, "dispose");
-      this.off("focus", this._onSelected, this);
       this.disposeMForm();
     }
   },
