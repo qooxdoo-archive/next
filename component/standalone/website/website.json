@@ -4,15 +4,6 @@
   "include" :
   [
     {
-      "path" : "${QOOXDOO_PATH}/tool/data/config/application.json",
-      "block" : [
-        "build",
-        "source",
-        "source-server",
-        "source-httpd-config"
-      ]
-    },
-    {
       "path" : "module.json",
       "block" : [
         "build-module-min"
@@ -96,7 +87,6 @@
           "file" : "${BUILD_PATH}/q-source.js",
           "app-root" : "",
           "loader-template" : "${QOOXDOO_PATH}/tool/data/generator/website.loader.source.tmpl.js"
-
         }
       }
     },
@@ -123,35 +113,6 @@
         [
           "${API_SCRIPT_PATH}/*"
         ]
-      }
-    }
-
-    ,"source-server" :
-    {
-      "desc"  : "start a lightweight web server that exports the source version"
-      ,"extend" : ["cache"]
-      ,"compile-options" : { "paths" : { "app-root" : "." }}
-      ,"web-server" :
-      {
-        "document-root" : "."   // calculate dynamically from libraries
-        ,"server-port"  : 0
-        ,"log-level"    : "error"  // use "info" for more console logging, "fatal" for none
-        ,"allow-remote-access" : false
-      }
-    }
-
-    ,"source-httpd-config":
-    {
-      "desc"  : "generate a httpd configuration for the source version"
-      ,"extend" : ["cache"]
-      ,"compile-options" : { "paths" : { "app-root" : "." }}
-      ,"web-server-config" :
-      {
-        "output-dir" : "."
-        ,"document-root" : "."
-        ,"template-dir" : "${QOOXDOO_PATH}/tool/data/generator"
-        ,"httpd-type" : "apache2"
-        ,"httpd-host-url" : "http://localhost"
       }
     }
   }

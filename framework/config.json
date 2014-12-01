@@ -12,29 +12,8 @@
       "path" : "image.json"
     },
     {
-      "path" : "${QOOXDOO_PATH}/component/standalone/website/module.json",
-      "import" : [
-        "build",
-        "build-module-all-min",
-        "build-core-min",
-        "build-module-animation-min",
-        "build-module-blocker-min",
-        "build-module-cookie-min",
-        "build-module-dataset-min",
-        "build-module-dev-min",
-        "build-module-io-min",
-        "build-module-matchmedia-min",
-        "build-module-messaging-min",
-        "build-module-placeholder-min",
-        "build-module-placement-min",
-        "build-module-rest-min",
-        "build-module-storage-min",
-        "build-module-template-min",
-        "build-module-textselection-min",
-        "build-module-transform-min",
-        "build-module-util-min",
-        "build-module-ui-min"
-      ]
+      "path" : "${QOOXDOO_PATH}/component/standalone/website/website.json",
+      "as": "qxweb"
     }
   ],
 
@@ -56,6 +35,12 @@
     "lint-test",
     "provider",
     "pretty-test",
+    "qxweb::build",
+    "qxweb::build-min",
+    "qxweb::build-module-all",
+    "qxweb::build-module-all-min",
+    "qxweb::log-deps",
+    "qxweb::source",
     "source-all",
     "test",
     "test-source",
@@ -67,14 +52,15 @@
 
   "let" :
   {
-    "APPLICATION"  : "qx",
+    "APPLICATION" : "qx",
     "QOOXDOO_PATH" : "..",
     // "API_INCLUDE"    : ["q", "qxWeb", "qx.*"],
     "API_INCLUDE" : ["qx.module.*", "qxWeb"],
-    "API_EXCLUDE"  : [],
-    "API_SCRIPT_PATH"  : "api/script",
+    "API_EXCLUDE" : [],
+    "API_SCRIPT_PATH" : "api/script",
+    "SCRIPT_PATH" : "build/script",
     "TEST_INCLUDE" : "qx.test.*",
-    "CACHE"        : "${TMPDIR}/qx${QOOXDOO_VERSION}/cache"
+    "CACHE" : "${TMPDIR}/qx${QOOXDOO_VERSION}/cache"
   },
 
   "config-warnings" :
@@ -88,6 +74,7 @@
       "lint",
       "provider-deps",
       "provider-classes",
+      "qxweb::source",
       "source-all",
       "test",
       "test-source",
@@ -254,7 +241,7 @@
 
     "api" :
     {
-      "desc" : "Create a qx.Website Apiviewer",
+      "desc" : "Create a qx.Website API Viewer",
       "run" : ["build-api", "api-data"]
     },
 
@@ -274,7 +261,7 @@
         }
       },
       "run": [
-        "build-module-all-min"
+        "qxweb::build-module-all-min"
       ]
     },
 
@@ -325,6 +312,12 @@
     "dependencies" :
     {
       "=exclude" : [ "${APPLICATION}.test.*" ]
+    },
+
+    "qxweb::source" : {
+      "let" : {
+        "BUILD_PATH": "source/script"
+      }
     }
   }
 }
