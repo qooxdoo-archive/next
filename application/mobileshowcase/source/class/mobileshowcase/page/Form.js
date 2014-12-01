@@ -207,7 +207,7 @@ qx.Class.define("mobileshowcase.page.Form",
         var selectedTimestamp = new Date(element.getValue()).getTime();
         birthDatePicker.valid = (selectedTimestamp < currentTimestamp);
       });
-      var birthDateQuestion = "When is you date of birth?";
+      var birthDateQuestion = "What is your date of birth?";
       new qx.ui.form.Row(birthDatePicker, birthDateQuestion)
         .appendTo(birthDateGroup);
 
