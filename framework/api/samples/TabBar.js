@@ -1,4 +1,4 @@
-addSample(".tabBar", {
+addSample(".toTabBar", {
   html: [
     '<ul id="tab-bar-example">',
       '<li class="button" data-qx-config-page=".view-website">Website</li>',
@@ -16,7 +16,7 @@ addSample(".tabBar", {
   showMarkup: true
 });
 
-addSample(".tabBar", {
+addSample(".toTabBar", {
   javascript: function () {
     var tabBar = q.create('<ul>').appendTo(document.body);
 

@@ -1,4 +1,4 @@
-addSample(".drawer", {
+addSample(".toDrawer", {
   html : ['<div id="drawer-example"></div>'],
   javascript: function() {
     var drawer = q('#drawer-example').toDrawer();
@@ -12,7 +12,7 @@ addSample(".drawer", {
   showMarkup: true
 });
 
-addSample(".drawer", {
+addSample(".toDrawer", {
   javascript: function() {
     var drawer = new qx.ui.container.Drawer();
     drawer.positionZ = "below";

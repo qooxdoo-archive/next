@@ -1,4 +1,4 @@
-addSample('.atom', {
+addSample('.toAtom', {
   html: '<div id="atom-example"></div>',
   javascript: function () {
     q('#atom-example').toAtom("qooxdoo desktop", "http://qooxdoo.org/_media/desktop.png");
@@ -7,7 +7,7 @@ addSample('.atom', {
   showMarkup: true
 });
 
-addSample('.atom', {
+addSample('.toAtom', {
   javascript: function () {
     var atom = new qx.ui.Atom("qooxdoo desktop", "http://qooxdoo.org/_media/desktop.png");
     atom.iconPosition = 'bottom';

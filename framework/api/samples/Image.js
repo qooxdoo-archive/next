@@ -1,4 +1,4 @@
-addSample('.image', {
+addSample('.toImage', {
   html: '<img id="image-example" data-qx-config-source="http://qooxdoo.org/_media/desktop.png" />',
   javascript: function () {
     q('#image-example').toImage();
@@ -7,7 +7,7 @@ addSample('.image', {
   showMarkup: true
 });
 
-addSample('.image', {
+addSample('.toImage', {
   javascript: function () {
     var image = new qx.ui.Image("http://qooxdoo.org/_media/desktop.png");
     q(document.body).append(image);

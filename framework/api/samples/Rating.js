@@ -1,4 +1,4 @@
-addSample(".rating", {
+addSample(".toRating", {
   html: '<div id="rating-example"></div>',
   javascript: function() {
     q("#rating-example").toRating();
@@ -7,7 +7,7 @@ addSample(".rating", {
   showMarkup: true
 });
 
-addSample(".rating", {
+addSample(".toRating", {
   javascript: function() {
 var rating = new qx.ui.Rating();
 rating.set({

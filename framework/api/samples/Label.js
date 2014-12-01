@@ -1,4 +1,4 @@
-addSample(".label", {
+addSample(".toLabel", {
   html : ['<div id="label-example">Hello qooxdoo</div>'],
   javascript: function() {
     q('#label-example').toLabel();
@@ -7,7 +7,7 @@ addSample(".label", {
   showMarkup: true
 });
 
-addSample(".label", {
+addSample(".toLabel", {
   javascript: function() {
     var label = new qx.ui.Label("Hello qooxdoo");
     q(document.body).append(label);

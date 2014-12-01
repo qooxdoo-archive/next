@@ -1,4 +1,4 @@
-addSample(".button", {
+addSample(".toButton", {
   html: ['<button id="button-example"></button>'],
   javascript: function() {
     q("#button-example").toButton("Label");
@@ -7,32 +7,13 @@ addSample(".button", {
   showMarkup: true
 });
 
-addSample("button.setLabel", {
+addSample(".toButton", {
   html: ['<button id="button-example"></button>'],
   javascript: function() {
-    q("#button-example").toButton().setLabel("Label");
-  },
-  executable: true
-});
-
-addSample("button.setIcon", {
-  html: ['<button id="button-example">Label</button>'],
-  javascript: function() {
-    q("#button-example").toButton().setIcon("samples/edit-clear.png");
-  },
-  executable: true
-});
-
-addSample("button.setMenu", {
-  html: [
-    '<ul id="button-menu">',
-    '  <li>Item 1</li>',
-    '  <li>Item 2</li>',
-    '</ul>',
-    '<button id="button-example"></button>'
-  ],
-  javascript: function() {
-    q("#button-example").toButton().setMenu(q("#button-menu"));
+    q("#button-example").toButton().set({
+      label: "Label",
+      icon: "samples/edit-clear.png"
+    });
   },
   executable: true
 });

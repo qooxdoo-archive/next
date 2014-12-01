@@ -1,4 +1,4 @@
-addSample('.carousel', {
+addSample('.toCarousel', {
   html: '<div id="carousel-example">' +
     '<div class="qx-carousel-scroller">' +
     '<div class="qx-carousel-page">asd</div>' +
@@ -12,7 +12,7 @@ addSample('.carousel', {
   showMarkup: true
 });
 
-addSample('.carousel', {
+addSample('.toCarousel', {
   javascript: function () {
     var carousel = new qx.ui.container.Carousel();
 

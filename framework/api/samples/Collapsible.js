@@ -1,4 +1,4 @@
-addSample(".collapsible", {
+addSample(".toCollapsible", {
   html : ['<div id="collapsible-example">This is the content of the Collapsible.</div>'],
   javascript: function() {
     q("#collapsible-example").toCollapsible("Collapsible Header");
@@ -7,7 +7,7 @@ addSample(".collapsible", {
   showMarkup: true
 });
 
-addSample(".collapsible", {
+addSample(".toCollapsible", {
   javascript: function() {
     var collapsible = new qx.ui.container.Collapsible("Collapsible Header");
     var label = new qx.ui.Label("This is the content of the Collapsible.");

@@ -1,4 +1,4 @@
-addSample(".slider", {
+addSample(".toSlider", {
   html: ['<div id="slider-example"></div>'],
   javascript: function () {
     var slider = q('#slider-example').toSlider().set({
@@ -10,7 +10,7 @@ addSample(".slider", {
   showMarkup: true
 });
 
-addSample(".slider", {
+addSample(".toSlider", {
   javascript: function () {
     var slider = new qx.ui.form.Slider();
     slider.set({
