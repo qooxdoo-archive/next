@@ -9,9 +9,7 @@
         "build",
         "source",
         "source-server",
-        "source-httpd-config",
-        "api-data",
-        "api"
+        "source-httpd-config"
       ]
     },
     {
@@ -26,20 +24,17 @@
   {
     "APPLICATION"  : "library",
     "QOOXDOO_PATH" : "../../..",
-    "API_EXCLUDE"  : ["qx.test.*"],
     "LOCALES"      : [ "en" ],
     "CACHE"        : "${TMPDIR}/qx${QOOXDOO_VERSION}/cache",
     "ROOT"         : ".",
     "SCRIPT_PATH"      : "script",
 
-    "API_SCRIPT_PATH"  : "api/script",
     "QXWEB_ALL" : [
       "qx.module.*",
       "qxWeb"
     ],
     //"QFILES_VERSION_PART": "-${QOOXDOO_VERSION}",
-    "QFILES_VERSION_PART": "",
-    "API_INCLUDE" : "${QXWEB_ALL}"
+    "QFILES_VERSION_PART": ""
   },
 
   "config-warnings" :
@@ -106,45 +101,6 @@
       }
     },
 
-
-    "api" :
-    {
-      "desc" : "Create a qx.Website Apiviewer",
-      "run" : ["build-api", "api-data"]
-    },
-
-
-    "build-api" :
-    {
-      "let" : {
-        "BUILD_PATH" : "${API_SCRIPT_PATH}"
-      },
-      "environment" :
-      {
-        "q.eventtypes" : "qx.module.event.Mouse,qx.module.event.Keyboard,qx.module.event.Native,qx.module.event.Orientation,qx.module.event.Touch,qx.module.event.Pointer,qx.module.event.Swipe,qx.module.event.Track,qx.module.event.Pinch,qx.module.event.Rotate,qx.module.event.Tap",
-        "apiviewer.modulenamereplacements" : {
-          "qx\\.module\\.": "",
-          "qx\\.ui\\.website\\.": ""
-        }
-      },
-      "run": [
-        "build-module-all-min"
-      ]
-    },
-
-    "api-data" : {
-      "desc" : "Create API data for the qx.Website API viewer",
-      "extend" : ["cache"],
-      "library" : [
-        {"manifest" : "${QOOXDOO_PATH}/framework/Manifest.json"}
-      ],
-
-      "include" : "${API_INCLUDE}",
-
-      "api" : {
-        "path" : "${API_SCRIPT_PATH}"
-      }
-    },
 
     "distclean" :
     {

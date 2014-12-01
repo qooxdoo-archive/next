@@ -18,8 +18,6 @@
     "build-module-matchmedia-min",
     "source",
     "log-deps",
-    "api-data",
-    "api",
     "distclean",
     "clean",
     "validate-config"
