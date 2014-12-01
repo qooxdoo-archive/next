@@ -263,7 +263,7 @@ qx.Class.define("qx.ui.List",
     * @return {Element} the target list item.
     */
     _getElement : function(evt) {
-      var element = evt._original.target;
+      var element = evt.target;
 
       // Click on border: do nothing.
       if(element.tagName == "UL") {
