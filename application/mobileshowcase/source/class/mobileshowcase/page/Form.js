@@ -197,7 +197,6 @@ qx.Class.define("mobileshowcase.page.Form",
       var birthDatePicker = new qx.ui.form.DatePicker();
       birthDatePicker.set({
         required: true,
-        pattern: ".{1,}",
         validationMessage: "Please enter a valid date of birth!",
         liveUpdate: true,
         readOnly: true
@@ -206,9 +205,7 @@ qx.Class.define("mobileshowcase.page.Form",
       birthDatePicker.getCalendar().on('selected', function (element) {
         var currentTimestamp = new Date().getTime();
         var selectedTimestamp = new Date(element.getValue()).getTime();
-        if (selectedTimestamp > currentTimestamp) {
-          console.error('Invalid date of birth');
-        }
+        birthDatePicker.valid = (selectedTimestamp < currentTimestamp);
       });
       var birthDateQuestion = "When is you date of birth?";
       new qx.ui.form.Row(birthDatePicker, birthDateQuestion)
