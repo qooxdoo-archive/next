@@ -105,8 +105,8 @@ qxWeb.define("qx.module.Placement", {
       };
 
       var size = {
-        width: this.getWidth(),
-        height: this.getHeight()
+        width: this.getWidth(true),
+        height: this.getHeight(true)
       };
 
       var parent = this.getParents();
