@@ -21,6 +21,8 @@
 /**
  * The NumberField is a single-line number input field. It uses HTML5 input field type
  * "number" and the attributes "min" ,"max" and "step".
+ *
+ * @group(Widget)
  */
 qx.Class.define("qx.ui.form.NumberField",
 {

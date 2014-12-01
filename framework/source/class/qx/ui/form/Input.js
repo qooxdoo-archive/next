@@ -22,6 +22,8 @@
 /**
  * Base class for all input fields.
  * @require(qx.module.AnimationFrame)
+ *
+ * @group(Widget)
  */
 qx.Class.define("qx.ui.form.Input",
 {

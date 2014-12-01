@@ -30,6 +30,8 @@
  *
  * To adjust the behavior of {@link #send} override
  * {@link #_getConfiguredUrl} and {@link #_getConfiguredRequestHeaders}.
+ *
+ * @group (IO)
  */
 qx.Class.define("qx.io.request.AbstractRequest",
 {

@@ -54,6 +54,7 @@
  * {@link #_initialize} lifecycle method are only called when the page is shown
  * for the first time.
  *
+ * @group(Widget)
  */
 qx.Class.define("qx.ui.page.Page",
 {

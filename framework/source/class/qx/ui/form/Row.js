@@ -20,6 +20,8 @@
 
 /**
  * The Row widget represents a row in a {@link Form}.
+ *
+ * @group(Widget)
  */
 qx.Class.define("qx.ui.form.Row",
 {

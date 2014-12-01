@@ -23,6 +23,8 @@
  * list, which provides the user the possibility to select one value.
  * The selected value is identified through selected index.
  * @require(qx.module.DataBinding)
+ *
+ * @group(Widget)
  */
 qx.Class.define("qx.ui.dialog.Menu",
 {

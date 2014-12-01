@@ -20,6 +20,8 @@
 
 /**
  * The TextField is a single-line text input field.
+ *
+ * @group(Widget)
  */
 qx.Class.define("qx.ui.form.TextField",
 {

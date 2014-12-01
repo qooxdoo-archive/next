@@ -40,6 +40,8 @@
  * </pre>
  *
  * @require(qx.module.Transform)
+ *
+ * @group(Widget)
  */
 qx.Class.define("qx.ui.container.Drawer",
 {

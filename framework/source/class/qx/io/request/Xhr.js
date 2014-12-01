@@ -60,6 +60,8 @@
  *
  * In order to debug requests, set the environment flag
  * <code>qx.debug.io</code>.
+ *
+ * @group (IO)
  */
 qx.Class.define("qx.io.request.Xhr",
 {

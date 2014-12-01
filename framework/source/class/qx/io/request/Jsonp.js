@@ -70,6 +70,8 @@
  * <code>qx.debug.io</code>.
  *
  * Internally uses {@link qx.io.request.Jsonp}.
+ *
+ * @group (IO)
  */
 qx.Class.define("qx.io.request.Jsonp",
 {

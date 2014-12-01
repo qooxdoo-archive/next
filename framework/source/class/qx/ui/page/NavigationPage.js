@@ -51,6 +51,8 @@
  *
  * This example creates a NavigationPage with a title and a back button. In the
  * <code>initialize</code> lifecycle method a button is added.
+ *
+ * @group(Widget)
  */
 qx.Class.define("qx.ui.page.NavigationPage",
 {

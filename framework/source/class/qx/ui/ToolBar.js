@@ -21,6 +21,7 @@
 /**
  * A toolbar widget.
  *
+ * @group(Widget)
  */
 qx.Class.define("qx.ui.ToolBar",
 {

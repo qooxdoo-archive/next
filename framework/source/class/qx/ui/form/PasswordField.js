@@ -20,6 +20,8 @@
 
 /**
  * The PasswordField is a single-line password input field.
+ *
+ * @group(Widget)
  */
 qx.Class.define("qx.ui.form.PasswordField",
 {

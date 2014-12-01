@@ -41,6 +41,8 @@
  * event listener to the {@link #changeValue} event.
  *
  * @require(qx.module.event.Swipe)
+ *
+ * @group(Widget)
  */
 qx.Class.define("qx.ui.form.ToggleButton",
 {

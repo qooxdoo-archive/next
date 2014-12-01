@@ -19,7 +19,11 @@
 
 ************************************************************************ */
 
-
+/**
+ * TODOC
+ *
+ * @group(Widget)
+ */
 qx.Class.define("qx.ui.form.SelectBox",
 {
   extend : qx.ui.Widget,

@@ -40,6 +40,8 @@
  * </pre>
  *
  * This example creates a scroll container and adds a label to it.
+ *
+ * @group(Widget)
  */
 qx.Class.define("qx.ui.container.Scroll",
 {

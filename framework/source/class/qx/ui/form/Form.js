@@ -20,6 +20,8 @@
 
 /**
  * TODOC
+ *
+ * @group(Widget)
  */
 qx.Class.define("qx.ui.form.Form",
 {

@@ -60,6 +60,8 @@
  * Same as the first example, but this time the popup will be shown at the 25,100 coordinates.
  *
  * @require(qx.module.Blocker)
+ *
+ * @group(Widget)
  */
 qx.Class.define("qx.ui.dialog.Popup",
 {
