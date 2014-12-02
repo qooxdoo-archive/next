@@ -126,7 +126,7 @@ qx.Class.define("qxWeb", {
      *
      * @param module {Map} A map containing the methods to attach.
      */
-    $attachStatic : function(module) {
+    $attachStatic : function(module, override) {
       for (var name in module) {
         if (qx.core.Environment.get("qx.debug")) {
           if (qxWeb[name] != undefined && override !== true) {
