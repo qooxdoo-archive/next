@@ -196,6 +196,7 @@ qx.Class.define("mobileshowcase.page.Form",
 
       var birthDatePicker = new qx.ui.form.DatePicker();
       birthDatePicker.set({
+        icon: "resource/mobileshowcase/icon/office-calendar.png",
         required: true,
         validationMessage: "Please enter a valid date of birth!",
         liveUpdate: true,
