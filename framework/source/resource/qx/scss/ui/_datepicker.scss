@@ -1,11 +1,26 @@
 .qx-datepicker {
+  @include background-clip(padding-box);
+  @include box-sizing(border-box);
+  @include border-radius($input-border-radius);
+  @include background($input-background);
+
+  text-indent: rem(4);
+  height: rem(26);
   font-size: rem(14);
+  border: rem(1) solid $input-border-color;
+  color:  $input-text-color;
+  width: 100%;
+  outline: none;
+}
+
+.qx-datepicker.invalid {
+  border: rem(1) solid $input-invalid-border-color !important;
 }
 
 .qx-datepicker-icon {
   cursor: pointer;
-  vertical-align: top;
-  margin-left: rem(4);
+  margin-top: rem(1);
+  margin-left: - rem(28);
   width: rem(22);
   height: rem(22);
 }
