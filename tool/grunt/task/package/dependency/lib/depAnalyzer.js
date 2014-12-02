@@ -665,6 +665,30 @@ function collectAtHintsFromComments(tree) {
   return atHints;
 }
 
+/**
+ * Convert the run dependencies of prioritized deps to load deps (i.e. load only).
+ *
+ * @param {Object} classesDeps
+ * @param {string[]} classesDeps.prio
+ * @param {string[]} classesDeps.load
+ * @param {string[]} classesDeps.run
+ * @param {string[]} classesDeps.atHint
+ * @param {string[]} prioDeps
+ * @return {Object} classesDeps
+ */
+function convertRunDepsOfPrioDepsToLoadOnly(classesDeps, prioDeps) {
+  var classId;
+
+  for (classId in classesDeps) {
+    if (prioDeps.indexOf(classId) !== -1) {
+      classesDeps[classId].load = classesDeps[classId].load.concat(classesDeps[classId].run);
+      classesDeps[classId].run = [];
+    }
+  }
+
+  return classesDeps;
+}
+
 //------------------------------------------------------------------------------
 // Public Interface
 //------------------------------------------------------------------------------
@@ -687,11 +711,13 @@ module.exports = {
     var deps = {
       'load' : [],
       'run' : [],
+      'prio': [],
       'athint': {}
     };
     var depsOptimized = {
       'load' : [],
       'run' : [],
+      'prio': [],
       'athint': {}
     };
     var treeOptimized = {};
@@ -724,6 +750,28 @@ module.exports = {
         var escg = require("escodegen");
         console.log("dep", escg.generate(tree));
       }
+    };
+    var collectPrioritizedDeps = function(scopeRefs) {
+      var classIdRegex = /.*?[A-Z]\w+/;
+      var prioDeps = [];
+
+      for (var i = 0; i < scopeRefs.length; i++) {
+        var curScopeRef = scopeRefs[i];
+        var curRef;
+        var curPrioDepClassId;
+
+        if (curScopeRef.isLoadTime) {
+          curRef = escodegen.generate(curScopeRef.identifier.parent.parent);
+
+          if (classIdRegex.test(curRef)) {
+            curPrioDepClassId = classIdRegex.exec(curRef)[0];
+          }
+          // console.log(curPrioDepClassId);
+          prioDeps.push(curPrioDepClassId);
+        }
+      }
+
+      return _.uniq(prioDeps);
     };
 
     // replace env calls with their value
@@ -813,6 +861,31 @@ module.exports = {
       );
     }
 
+    var classIdRegex = /.*?[A-Z]\w+/;
+    for (var i = 0; i < filteredScopeRefs.length; i++) {
+      var curScopeRef = filteredScopeRefs[i];
+      var curRef;
+      var curPrioDepClassId;
+
+      if (curScopeRef.isLoadTime) {
+        curRef = escodegen.generate(curScopeRef.identifier.parent.parent);
+
+        if (classIdRegex.test(curRef)) {
+          curPrioDepClassId = classIdRegex.exec(curRef)[0];
+        }
+        // console.log(curPrioDepClassId);
+        deps.prio = curPrioDepClassId;
+        if (opts && opts.variants) {
+          depsOptimized.prio = curPrioDepClassId;
+        }
+      }
+    }
+
+    deps.prio = collectPrioritizedDeps(filteredScopeRefs);
+    if (opts && opts.variants) {
+      depsOptimized.prio = collectPrioritizedDeps(filteredScopeRefsOptimized);
+    }
+
     deps.load = filteredScopeRefs.filter(notRuntime);
     deps.run = _.difference(filteredScopeRefs, deps.load);
     if (opts && opts.variants) {
@@ -840,8 +913,12 @@ module.exports = {
 
     // add/remove deps according to atHints
     deps = applyIgnoreRequireAndUse(deps, tree.qxClassName);
+    deps.load = _.uniq(deps.load);
+    deps.run = _.uniq(deps.run);
     if (opts && opts.variants) {
       depsOptimized = applyIgnoreRequireAndUse(depsOptimized, tree.qxClassName);
+      depsOptimized.load = _.uniq(depsOptimized.load);
+      depsOptimized.run = _.uniq(depsOptimized.run);
     }
 
     // overlappings aren't important - remove them
@@ -852,7 +929,7 @@ module.exports = {
     }
 
     if (opts && opts.variants) {
-      var logDepsDiffAfterVaraintsOptimization = function() {
+      var logDepsDiffAfterVariantsOptimization = function() {
         var jsondiffpatch = require('jsondiffpatch').create({});
         var diff = jsondiffpatch.diff(deps, depsOptimized);
 
@@ -866,7 +943,7 @@ module.exports = {
           // console.log("===");
         }
       };
-      // logDepsDiffAfterVaraintsOptimization();
+      // logDepsDiffAfterVariantsOptimization();
       return (opts && opts.flattened ? depsOptimized.load.concat(depsOptimized.run) : depsOptimized);
     }
 
@@ -887,6 +964,7 @@ module.exports = {
    */
   collectDepsRecursive: function(basePaths, initClassIds, excludedClassIds, envMap, options) {
     var classesDeps = {};
+    var prioClassIds = [];
 
     if (!options) {
       options = {};
@@ -976,7 +1054,9 @@ module.exports = {
 
         var classDeps = {
           'load': [],
-          'run': []
+          'run': [],
+          'prio': [],
+          'atHint': {}
         };
 
         if (cache) {
@@ -1000,6 +1080,8 @@ module.exports = {
         } else {
           classDeps = figureOutDeps(classIds[i], basePaths);
         }
+
+        prioClassIds = _.uniq(prioClassIds.concat(classDeps.prio));
 
         // Note: Excluded classes will still be entries in load and run deps!
         // Maybe it's better to remove them here too ...
@@ -1025,8 +1107,10 @@ module.exports = {
     initClassIds = globClassIds(initClassIds, basePaths);
     var cacheOrNull = (opts.cachePath) ? new Cache(opts.cachePath) : null;
     var result = recurse(basePaths, initClassIds, initClassIds, excludedClassIds, cacheOrNull);
-    return result;
+    return convertRunDepsOfPrioDepsToLoadOnly(result, prioClassIds);
   },
+
+
 
   /**
    * Sorts classes topologically (after their dependencies) to ensure a

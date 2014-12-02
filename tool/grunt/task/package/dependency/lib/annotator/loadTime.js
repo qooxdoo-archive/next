@@ -59,13 +59,13 @@ function isClassDefinedFunction(node) {
 }
 
 /**
- * Annotate deps of static method calls within <code>defer()</code>
- * as load time (cause defer is load time too).
+ * Annotate static methods as load time.
  *
  * @param {Scope} scope
+ * @see {@link http://constellation.github.io/escope/Scope.html|Scope class}
  */
-function recurseAndAnnotateDeferDeps(scope) {
-  // statics arg should be first arg of defer func
+function annotateStaticMethods(scope) {
+  // statics arg should be first arg of classDefined func
   var staticsArgName = (scope.variables && scope.variables[1] && scope.variables[1].name)
                        ? scope.variables[1].name
                        : 'statics';
@@ -108,6 +108,33 @@ function recurseAndAnnotateDeferDeps(scope) {
   }
 }
 
+
+/**
+ * Annotate unknown references as load time.
+ *
+ * @param {Scope} scope
+ * @see {@link http://constellation.github.io/escope/Scope.html|Scope class}
+ */
+function annotateUnknownReferences(scope) {
+  var i = 0;
+
+  for (; i < scope.through.length; i++) {
+    scope.through[i][annotateKey] = true;
+  }
+}
+
+/**
+ * Annotate deps of static method calls within <code>classDefined()</code>
+ * as load time (cause classDefined is load time too).
+ *
+ * @param {Scope} scope
+ * @see {@link http://constellation.github.io/escope/Scope.html|Scope class}
+ */
+function recurseAndAnnotateClassDefinedDeps(scope) {
+  annotateStaticMethods(scope);
+  annotateUnknownReferences(scope);
+}
+
 /**
  * Check whether node is immediate call (i.e. <code>(function(){})()</code> aka
  *  <abbr title="Immediately-Invoked Function Expression">IIFE</abbr>).
@@ -139,7 +166,7 @@ module.exports = {
     } else if (scope.type === 'function') {
       if (isClassDefinedFunction(node)) {
         scope[annotateKey] = true;
-        recurseAndAnnotateDeferDeps(scope);
+        recurseAndAnnotateClassDefinedDeps(scope);
       } else if (isImmediateCall(node)) {
         scope[annotateKey] = parentLoad; // inherit
       } else {

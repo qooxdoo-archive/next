@@ -33,7 +33,7 @@ module.exports = {
       var tree = {
       };
 
-      var qxFooMyClass = 'qx.Class.define("qx.foo.MyClass",\n'+    // 1
+      var qxFooMyClass = 'qx.Class.define("qx.foo.MyClass",\n'+        // 1
         '{\n'+                                                         // 2
         '  statics:\n'+                                                // 3
         '  {\n'+                                                       // 4
@@ -44,12 +44,13 @@ module.exports = {
         '      a.b.foo("abc");\n'+                                     // 9
         '    }\n'+                                                     // 10
         '  },\n'+                                                      // 11
-        '  defer: function(statics) {\n'+                              // 12
+        '  classDefined: function(statics) {\n'+                       // 12
         '    var x = 1;\n'+                                            // 13
         '    a.b.foo("abc");\n'+                                       // 14
-        '    statics.myStaticMethod();\n'+                             // 15
-        '  }\n'+                                                       // 16
-        '});';                                                         // 17
+        '    qxWeb("def");\n'+                                         // 15
+        '    statics.myStaticMethod();\n'+                             // 16
+        '  }\n'+                                                       // 17
+        '});';                                                         // 18
 
       var esprima = require('esprima');
       var tree = esprima.parse(qxFooMyClass);
@@ -60,21 +61,26 @@ module.exports = {
       var scope1_global = scopes[0];
       var scope2_myStaticMethod = scopes[1];
       var scope3_myStaticMethod2 = scopes[2];
-      var scope4_defer = scopes[3];
+      var scope4_classDefined = scopes[3];
 
       this.ltAnnotator.annotate(scope1_global, true);
       this.ltAnnotator.annotate(scope2_myStaticMethod, true);
       this.ltAnnotator.annotate(scope3_myStaticMethod2, true);
-      this.ltAnnotator.annotate(scope4_defer, true);
+      this.ltAnnotator.annotate(scope4_classDefined, true);
 
       // should be load time because is global scope
       test.deepEqual(scope1_global.isLoadTime, true);
-      // should be load time because of defer which uses this and therefore pulls it 'into' load time
+      // should be load time because of classDefined which uses this and therefore pulls it 'into' load time
       test.deepEqual(scope2_myStaticMethod.isLoadTime, true);
       // should be run time
       test.deepEqual(scope3_myStaticMethod2.isLoadTime, false);
-      // should be load time because is defer scope
-      test.deepEqual(scope4_defer.isLoadTime, true);
+      // should be load time because is classDefined scope
+      test.deepEqual(scope4_classDefined.isLoadTime, true);
+
+      // a.b.foo() should be load time
+      test.deepEqual(scope4_classDefined.through[0].isLoadTime, true);
+      // qxWeb should be load time
+      test.deepEqual(scope4_classDefined.through[1].isLoadTime, true);
 
       test.done();
     }
