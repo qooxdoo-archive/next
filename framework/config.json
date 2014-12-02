@@ -103,7 +103,8 @@
       "environment" :
       {
         "qx.debug" : false,
-        "qx.aspects" : false
+        "qx.aspects" : false,
+        "qx.application" : "${APPLICATION_MAIN_CLASS}"
       },
 
       "compile-options" :

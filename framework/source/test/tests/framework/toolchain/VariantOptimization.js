@@ -19,13 +19,11 @@
 
 describe("toolchain.VariantOptimization", function() {
 
-  before(function() {
-     // require(["variantsOptimized"]);
-  });
-
-  after(function() {
-    if(this.currentTest.skip){
-      skipAfterTest(this.currentTest.parent.title,this.currentTest.title);
+  beforeEach(function() {
+    if (qx.core.Environment.get("qx.debug") ||
+        !qx.core.Environment.get("qx.optimization.variants"))
+    {
+      this.currentTest.skip = true;
     }
   });
 
@@ -35,11 +33,6 @@ describe("toolchain.VariantOptimization", function() {
     };
   });
 
-
-  function hasVariantsOptimized() {
-    return qx.core.Environment.get("qx.optimization.variants");
-  }
-
   /*
    * 1.
    *
@@ -47,9 +40,10 @@ describe("toolchain.VariantOptimization", function() {
    * only the 'then' branch made it into the optimized code.
    */
   it("If 'if' statement is pruned by the generator", function() {
-    if(qx.core.Environment.get("qx.debug")){
-      return this.test.skip = true;
+    if (this.test.skip) {
+      return;
     }
+
     var a = 0;
     /*
      * "qx.test.bool_true" and "qx.test.bool_false" are custom environment
@@ -86,10 +80,10 @@ describe("toolchain.VariantOptimization", function() {
    * expression has been optimized.
    */
   it("If 'select' call is pruned by the generator", function() {
-
-    if(qx.core.Environment.get("qx.debug")){
+    if (this.test.skip) {
       return;
     }
+
     // Fake "qx.test.bool_true" to be false at run time.
     qx.core.Environment.getChecks()["qx.test.bool_true"] = function() {
       return false;
@@ -108,10 +102,10 @@ describe("toolchain.VariantOptimization", function() {
    * Check if a simple .get call is optimized.
    */
   it("test If simple 'get' call is pruned by the generator", function() {
-
-    if(qx.core.Environment.get("qx.debug")){
-      return this.test.skip = true;
+    if (this.test.skip) {
+      return;
     }
+
     // Fake "qx.test.bool_true" to be false at run time.
     qx.core.Environment.getChecks()["qx.test.bool_true"] = function() {
       return false;

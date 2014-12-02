@@ -60,21 +60,6 @@ describe('Basic', function() {
   });
 
 
-  it("Dependencies", function() {
-    if (q.$$qx.core.Environment.get("qx.debug")) {
-      //this.skip("Only reasonable in non-debug version.");
-      return;
-    }
-    assert.isUndefined(q.$$qx.Class, "Class");
-    assert.isUndefined(q.$$qx.Interface, "Interface");
-    assert.isUndefined(q.$$qx.Mixin, "Mixin");
-    assert.isUndefined(q.$$qx.core.Assert, "Assert");
-    if (q.$$qx.event) {
-      assert.isUndefined(q.$$qx.event.Registration, "event.Registration");
-    }
-  });
-
-
   it("NoConflict", function() {
     assert.equal(q, qxWeb);
   });

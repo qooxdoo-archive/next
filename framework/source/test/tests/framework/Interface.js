@@ -281,14 +281,16 @@ describe("Interface", function() {
       }
     });
 
-    assert.throw(function() {
-      qx.Class.define(null, {
-        implement: [IFoo],
-        members: {
-          bar: function() {}
-        }
+    if (qx.core.Environment.get("qx.debug")) {
+      assert.throw(function() {
+        qx.Class.define(null, {
+          implement: [IFoo],
+          members: {
+            bar: function() {}
+          }
+        });
       });
-    });
+    }
 
     qx.Class.define(null, {
       implement: [IFoo],
@@ -333,14 +335,16 @@ describe("Interface", function() {
       }
     });
 
-    assert.throw(function() {
-      qx.Class.define(null, {
-        implement: [IFoo],
-        properties: {
-          foo: {}
-        }
+    if (qx.core.Environment.get("qx.debug")) {
+      assert.throw(function() {
+        qx.Class.define(null, {
+          implement: [IFoo],
+          properties: {
+            foo: {}
+          }
+        });
       });
-    });
+    }
 
     qx.Class.define(null, {
       implement: [IFoo],
@@ -397,17 +401,19 @@ describe("Interface", function() {
       }
     });
 
-    assert.throw(function() {
-      var C = qx.Class.define(null, {
-        implement: [IBar],
-        members: {
-          bar: function() {}
-        },
-        properties: {
-          qux: {}
-        }
+    if (qx.core.Environment.get("qx.debug")) {
+      assert.throw(function() {
+        var C = qx.Class.define(null, {
+          implement: [IBar],
+          members: {
+            bar: function() {}
+          },
+          properties: {
+            qux: {}
+          }
+        });
       });
-    });
+    }
 
     var C = qx.Class.define(null, {
       implement: [IBar],

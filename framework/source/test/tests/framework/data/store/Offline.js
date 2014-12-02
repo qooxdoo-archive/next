@@ -45,9 +45,11 @@ describe("data.store.Offline", function() {
 
   it("Create", function() {
     var store;
-    assert.throw(function() {
-      store = new qx.data.store.Offline();
-    });
+    if (qx.core.Environment.get("qx.debug")) {
+      assert.throw(function() {
+        store = new qx.data.store.Offline();
+      });
+    }
 
     // fallback for the storage is local
     store = new qx.data.store.Offline(__testKey);
