@@ -83,7 +83,7 @@
         "paths" :
         {
           "file" : "${BUILD_PATH}/q-source.js",
-          "app-root" : "",
+          "app-root" : "./source",
           "loader-template" : "${QOOXDOO_PATH}/tool/data/generator/website.loader.source.tmpl.js"
         }
       }
