@@ -61,6 +61,12 @@
     "qxweb-build" : {
       "let" : {
         "QXDEBUG" : true
+      },
+      "copy-files" :
+      {
+        "files"     : [ "index.html" ],
+        "source" : "source/resource/qx/html",
+        "target"  : "${SCRIPT_PATH}/.."
       }
     },
 
