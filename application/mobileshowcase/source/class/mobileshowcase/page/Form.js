@@ -156,6 +156,25 @@ qx.Class.define("mobileshowcase.page.Form",
       new qx.ui.form.Row(age, "Age")
         .appendTo(contactGroup);
 
+      var birthDatePicker = new qx.ui.form.DatePicker();
+      birthDatePicker.set({
+        required: true,
+        validationMessage: "Please enter a valid date of birth!",
+        liveUpdate: true,
+        readOnly: true
+      });
+      this.__items.push(birthDatePicker);
+
+      birthDatePicker.getCalendar().on('selected', function (element) {
+        var currentTimestamp = new Date().getTime();
+        var selectedTimestamp = new Date(element.getValue()).getTime();
+        birthDatePicker.valid = (selectedTimestamp < currentTimestamp);
+      });
+      var birthDateQuestion = "What is your date of birth?";
+      new qx.ui.form.Row(birthDatePicker, birthDateQuestion)
+        .appendTo(contactGroup);
+
+
       var genderGroup = new qx.ui.form.Group("Gender")
         .appendTo(form);
 
@@ -193,24 +212,6 @@ qx.Class.define("mobileshowcase.page.Form",
 
       var birthDateGroup = new qx.ui.form.Group("Birth date")
         .appendTo(form);
-
-      var birthDatePicker = new qx.ui.form.DatePicker();
-      birthDatePicker.set({
-        icon: "resource/mobileshowcase/icon/office-calendar.png",
-        required: true,
-        validationMessage: "Please enter a valid date of birth!",
-        liveUpdate: true,
-        readOnly: true
-      });
-
-      birthDatePicker.getCalendar().on('selected', function (element) {
-        var currentTimestamp = new Date().getTime();
-        var selectedTimestamp = new Date(element.getValue()).getTime();
-        birthDatePicker.valid = (selectedTimestamp < currentTimestamp);
-      });
-      var birthDateQuestion = "What is your date of birth?";
-      new qx.ui.form.Row(birthDatePicker, birthDateQuestion)
-        .appendTo(birthDateGroup);
 
 
       var licenseGroup = new qx.ui.form.Group("License")
