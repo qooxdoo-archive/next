@@ -76,6 +76,17 @@ module.exports = function(grunt) {
   };
 
   var mergedConf = qx.config.mergeConfig(config);
+  // define custom 'clean' task
+  mergedConf.clean = {
+    options: {
+      force: true
+    },
+    api: ["<%= common.ROOT %>/api/script"],
+    app: ["<%= common.SOURCE_PATH %>/script",
+          "<%= common.BUILD_PATH %>",
+          "<%= common.ROOT %>/api/script"]
+  };
+  // console.log(util.inspect(mergedConf, false, null));
   grunt.initConfig(mergedConf);
 
   qx.task.registerTasks(grunt);
@@ -103,7 +114,7 @@ module.exports = function(grunt) {
   };
 
   for (var task in qxWebTasks) {
-    config.notify[task] = {
+    mergedConf.notify[task] = {
       options: {
         message: qxWebTasks[task]
       }
@@ -115,9 +126,6 @@ module.exports = function(grunt) {
       ['generate:' + task, 'sass:indigo', 'notify:' + task]
     );
   }
-  // Object.keys(qxWebTasks).forEach(function(task) {
-
-  // });
 
   // pre-process the index file
   var fs = require('fs');
