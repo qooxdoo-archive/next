@@ -44,7 +44,14 @@ module.exports = function(grunt) {
         },
         files: {
           'build/resource/qx/css/indigo.css': 'source/resource/qx/scss/indigo.scss'
-          //TODO: flat.scss
+        }
+      },
+      flat: {
+        options: {
+          style: 'compressed'
+        },
+        files: {
+          'build/resource/qx/css/flat.css': 'source/resource/qx/scss/flat.scss'
         }
       }
     },
