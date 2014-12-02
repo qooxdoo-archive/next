@@ -34,7 +34,7 @@ var common = {
   "QXTHEME": "<%= common.APPLICATION %>.theme.Theme",
   "QXICONTHEME": ["Tango"],
   "TMPDIR": os.tmpdir(),
-  "CACHE": "<%= common.TMPDIR %>/qx<%= common.QOOXDOO_VERSION %>/cache",
+  "CACHE": "<%= common.TMPDIR %>/next<%= common.QOOXDOO_VERSION %>/cache",
   "CACHE_KEY":
   {
     "compile": "<%= common.CACHE %>",
