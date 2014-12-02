@@ -5,7 +5,7 @@ module.exports = function (grunt) {
   grunt.initConfig({
     convert: {
       source: __dirname + '/../class/qx/test/',
-      destination: __dirname + '/tests/framework/destination/'
+      destination: __dirname + '/tests/destination/'
     }
   });
 

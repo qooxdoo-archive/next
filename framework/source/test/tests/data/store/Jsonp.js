@@ -21,7 +21,7 @@ describe("data.store.Jsonp", function() {
 
   var __store;
   var request;
-  var url = "tests/framework/data/store/jsonp_primitive.php";
+  var url = "tests/data/store/jsonp_primitive.php";
 
   beforeEach(function() {
     __store = new qx.data.store.Jsonp();

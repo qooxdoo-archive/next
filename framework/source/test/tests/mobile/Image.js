@@ -18,13 +18,13 @@
 ************************************************************************ */
 
 /**
- * @asset(/framework/source/resource/qx/icon/Tango/48/places/folder.png)
+ * @asset(/../resource/qx/icon/Tango/48/places/folder.png)
  */
 
 describe("mobile.Image", function() {
 
   it("Src", function(done) {
-    var source = qx.util.ResourceManager.getInstance().toUri("framework/source/resource/qx/icon/Tango/48/places/folder.png");
+    var source = "../resource/qx/icon/Tango/48/places/folder.png";
     if (qx.io.ImageLoader.isLoaded(source)) {
       console.warn("mobile.Image.testLoadedEvent skipped! Image already loaded.");
       this.test.skip = true;

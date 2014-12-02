@@ -25,7 +25,7 @@
 describe("io.ImageLoader", function() {
 
   beforeEach(function() {
-    this.__imageUri = qx.util.ResourceManager.getInstance().toUri("qx/test/colorstrip.gif");
+    this.__imageUri = "../resource/qx/test/colorstrip.gif";
     this.__wrongImageUri = this.__imageUri.replace(/color/, "foocolor");
   });
 

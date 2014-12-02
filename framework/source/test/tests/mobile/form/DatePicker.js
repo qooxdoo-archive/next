@@ -52,7 +52,7 @@ describe("mobile.form.DatePicker", function() {
     sandbox.append(datePickerHtml);
 
     var datePicker = q("input.datepicker").toDatePicker();
-    datePicker.icon = 'framework/source/resource/qx/icon/Tango/22/apps/office-calendar.png';
+    datePicker.icon = '../resource/qx/icon/Tango/22/apps/office-calendar.png';
 
     var icon = datePicker.getNext();
     assert.equal(1, icon.length);
@@ -68,7 +68,7 @@ describe("mobile.form.DatePicker", function() {
     sandbox.append(datePickerHtml);
 
     var datePicker = q("input.datepicker").toDatePicker();
-    datePicker.icon = 'framework/source/resource/qx/icon/Tango/22/apps/office-calendar.png';
+    datePicker.icon = '../resource/qx/icon/Tango/22/apps/office-calendar.png';
     var icon = datePicker.getNext(".qx-datepicker-icon");
     assert.equal(1, icon.length);
 

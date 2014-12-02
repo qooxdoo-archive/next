@@ -19,7 +19,7 @@
 
 /**
  *
- * @asset(framework/source/resource/qx/icon/Tango/48/places/folder.png)
+ * @asset(../resource/qx/icon/Tango/48/places/folder.png)
  */
 
 describe("mobile.List", function() {
@@ -55,27 +55,27 @@ describe("mobile.List", function() {
     data.push({
       title: "1",
       subtitle: "s1",
-      image: "framework/source/resource/qx/icon/Tango/48/places/folder.png"
+      image: "../resource/qx/icon/Tango/48/places/folder.png"
     });
     data.push({
       title: "2",
       subtitle: "s2",
-      image: "framework/source/resource/qx/icon/Tango/48/places/folder.png"
+      image: "../resource/qx/icon/Tango/48/places/folder.png"
     });
     data.push({
       title: "3",
       subtitle: "s3",
-      image: "framework/source/resource/qx/icon/Tango/48/places/folder.png"
+      image: "../resource/qx/icon/Tango/48/places/folder.png"
     });
     data.push({
       title: "4",
       subtitle: "s4",
-      image: "framework/source/resource/qx/icon/Tango/48/places/folder.png"
+      image: "../resource/qx/icon/Tango/48/places/folder.png"
     });
     data.push({
       title: "5",
       subtitle: "s5",
-      image: "framework/source/resource/qx/icon/Tango/48/places/folder.png"
+      image: "../resource/qx/icon/Tango/48/places/folder.png"
     });
     return new qx.data.Array(data);
   }
@@ -145,7 +145,7 @@ describe("mobile.List", function() {
     list.model.setItem(0, {
       title: "affe",
       subtitle: "1",
-      image: "framework/source/resource/qx/icon/Tango/48/places/folder.png"
+      image: "../resource/qx/icon/Tango/48/places/folder.png"
     });
     __assertItemsAndModelLength(list, 5);
 
@@ -163,7 +163,7 @@ describe("mobile.List", function() {
 
     __assertItemsAndModelLength(list, 5);
 
-    var newImageSrc = "framework/source/resource/qx/icon/Tango/48/places/folder.png";
+    var newImageSrc = "../resource/qx/icon/Tango/48/places/folder.png";
     var newTitleText = "Giraffe";
     var newSubtitleText = "subtitle1";
 
@@ -193,7 +193,7 @@ describe("mobile.List", function() {
     list.model.push({
       title: "6",
       subtitle: "6",
-      image: "framework/source/resource/qx/icon/Tango/48/places/folder.png"
+      image: "../resource/qx/icon/Tango/48/places/folder.png"
     });
     __assertItemsAndModelLength(list, 6);
     __cleanUp(list);

@@ -18,7 +18,7 @@
  ************************************************************************ */
 /**
  *
- * @asset(framework/source/resource/qx/test/webfonts/*)
+ * @asset(../resource/qx/test/webfonts/*)
  */
 
 describe("bom.webfonts.Manager", function() {

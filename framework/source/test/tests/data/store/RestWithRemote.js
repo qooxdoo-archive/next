@@ -21,7 +21,7 @@
 describe("data.store.RestWithRemote", function() {
 
   beforeEach(function() {
-    var url = "tests/framework/data/store/primitive.json";
+    var url = "tests/data/store/primitive.json";
     res = res = new qx.io.rest.Resource({
       index: {
         method: "GET",

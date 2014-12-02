@@ -24,7 +24,7 @@ describe("data.store.Json", function() {
   var __data = null;
   var __propertyNames = null;
   var xhr = null;
-  var url = "tests/framework/data/store/primitive.json";
+  var url = "tests/data/store/primitive.json";
 
 
   beforeEach(function() {
@@ -92,7 +92,7 @@ describe("data.store.Json", function() {
       }, 0);
     }, this);
 
-    __store.url = "tests/framework/data/store/primitive.json";
+    __store.url = "tests/data/store/primitive.json";
   });
 
 
@@ -107,10 +107,10 @@ describe("data.store.Json", function() {
     }, this);
 
     // invoke alias handling
-    qx.util.AliasManager.getInstance().add("testLoadResource", "/../framework/source/resource/qx/test");
+    qx.util.AliasManager.getInstance().add("testLoadResource", "../resource/qx/test");
 
 
-    __store.url = "tests/framework/data/store/primitive.json";
+    __store.url = "tests/data/store/primitive.json";
   });
 
 
@@ -151,7 +151,7 @@ describe("data.store.Json", function() {
       }, 0);
     }, this);
 
-    __store.url = "tests/framework/data/store/array.json";
+    __store.url = "tests/data/store/array.json";
   });
 
 
@@ -166,7 +166,7 @@ describe("data.store.Json", function() {
       }, 0);
     }, this);
 
-    __store.url = "tests/framework/data/store/object.json";
+    __store.url = "tests/data/store/object.json";
   });
 
 
@@ -212,7 +212,7 @@ describe("data.store.Json", function() {
       }, 0);
     }, this);
 
-    __store.url = "tests/framework/data/store/object.json";
+    __store.url = "tests/data/store/object.json";
   });
 
 
@@ -234,7 +234,7 @@ describe("data.store.Json", function() {
       }, 0);
     }, this);
 
-    __store.url = "tests/framework/data/store/object.json";
+    __store.url = "tests/data/store/object.json";
   });
 
 
@@ -264,7 +264,7 @@ describe("data.store.Json", function() {
       }, 0);
     }, this);
 
-    __store.url = "tests/framework/data/store/object.json";
+    __store.url = "tests/data/store/object.json";
   });
 
 
@@ -291,7 +291,7 @@ describe("data.store.Json", function() {
       }, 0);
     }, this);
 
-    __store.url = "tests/framework/data/store/object.json";
+    __store.url = "tests/data/store/object.json";
   });
 
 
@@ -313,7 +313,7 @@ describe("data.store.Json", function() {
       }, 0);
     }, this);
 
-    __store.url = "tests/framework/data/store/object.json";
+    __store.url = "tests/data/store/object.json";
   });
 
 
@@ -346,7 +346,7 @@ describe("data.store.Json", function() {
       }, 0);
     }, this);
 
-    __store.url = "tests/framework/data/store/object.json";
+    __store.url = "tests/data/store/object.json";
   });
 
 
@@ -386,7 +386,7 @@ describe("data.store.Json", function() {
       }, 0);
     }, this);
 
-    __store.url = "tests/framework/data/store/object.json";
+    __store.url = "tests/data/store/object.json";
   });
 
 

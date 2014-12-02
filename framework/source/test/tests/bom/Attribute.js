@@ -21,7 +21,7 @@
 ************************************************************************ */
 /**
  *
- * @asset(framework/source/resource/qx/icon/Tango/48/places/folder.png)
+ * @asset(../resource/qx/icon/Tango/48/places/folder.png)
  */
 
 describe('bom.Attribute', function() {
@@ -62,8 +62,8 @@ describe('bom.Attribute', function() {
       Attribute.set(this.sandbox[0], "selected", true);
       assert.equal("selected", this.sandbox[0].getAttribute("selected"));
 
-      Attribute.set(this.sandbox.find("img")[0], "src", "framework/source/resource/qx/icon/Tango/48/places/folder.png");
-      assert.equal("framework/source/resource/qx/icon/Tango/48/places/folder.png", this.sandbox.find("img")[0].getAttribute("src", 2));
+      Attribute.set(this.sandbox.find("img")[0], "src", "../resource/qx/icon/Tango/48/places/folder.png");
+      assert.equal("../resource/qx/icon/Tango/48/places/folder.png", this.sandbox.find("img")[0].getAttribute("src", 2));
   });
 
 
@@ -110,8 +110,8 @@ describe('bom.Attribute', function() {
       this.sandbox.find("input[type=checkbox]")[0]["value"] = "vanillebaer";
       assert.equal("vanillebaer", Attribute.get(this.sandbox.find("input[type=checkbox]")[0], "value"));
 
-      Attribute.set(this.sandbox.find("img")[0], "src", "framework/source/resource/qx/icon/Tango/48/places/folder.png");
-      assert.equal("framework/source/resource/qx/icon/Tango/48/places/folder.png", Attribute.get(this.sandbox.find("img")[0], "src"));
+      Attribute.set(this.sandbox.find("img")[0], "src", "../resource/qx/icon/Tango/48/places/folder.png");
+      assert.equal("../resource/qx/icon/Tango/48/places/folder.png", Attribute.get(this.sandbox.find("img")[0], "src"));
   });
 
 
