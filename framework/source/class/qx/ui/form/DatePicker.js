@@ -73,8 +73,9 @@ qx.Class.define("qx.ui.form.DatePicker", {
     this.on('tap', this._onTap);
 
     var calendarId = 'datepicker-calendar-' + this.__uniqueId;
-    var calendar = qxWeb.create('<div id="' + calendarId + '"></div>')
-      .toCalendar()
+
+    var calendar = new qx.ui.control.Calendar()
+      .setAttribute('id', calendarId)
       .setStyles({
         position: "absolute",
         display: "none"
