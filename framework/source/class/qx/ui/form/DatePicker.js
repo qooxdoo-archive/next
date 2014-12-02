@@ -244,7 +244,13 @@ qx.Class.define("qx.ui.form.DatePicker", {
             icon.on('tap', this._onTap, this);
           }
 
-          icon.insertAfter(this);
+          if (this.isRendered()) {
+            icon.insertAfter(this);
+          } else {
+            this.once("appear", function insertIcon() {
+              icon.insertAfter(this);
+            }, this);
+          }
         }
 
       }
