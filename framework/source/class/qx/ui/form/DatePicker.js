@@ -192,11 +192,9 @@ qx.Class.define("qx.ui.form.DatePicker", {
 
       this.getCalendar()
         .off('selected', this._calendarSelected, this)
-        .off('tap', this._onCalendarTap);
-
-      var calendar = qxWeb('div#' + this.__calendarId);
-      calendar.remove();
-      calendar.dispose();
+        .off('tap', this._onCalendarTap)
+        .remove()
+        .dispose();
 
       this.super(qx.ui.form.Input, "dispose");
     }
