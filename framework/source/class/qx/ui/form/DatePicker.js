@@ -127,7 +127,9 @@ qx.Class.define("qx.ui.form.DatePicker", {
 
       var calendar = this.getCalendar();
       if (calendar.getStyle("display") == "none") {
-        calendar.placeTo(this, "bottom-right").setStyle("display", "block");
+        calendar
+          .placeTo(this, "bottom-left", null, "keep-align")
+          .setStyle("display", "block");
       } else {
         calendar.setStyle("display", "none");
       }
