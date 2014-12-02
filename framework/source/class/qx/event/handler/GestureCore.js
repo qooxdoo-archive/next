@@ -314,7 +314,11 @@ qx.Class.define("qx.event.handler.GestureCore", {
             }
           }
         }
-        this.__lastTap[Date.now()] = {x: domEvent.clientX, y: domEvent.clientY};
+        this.__lastTap[Date.now()] = {
+          x: domEvent.clientX,
+          y: domEvent.clientY,
+          target: domEvent.target || target
+        };
 
       } else if (!this._isBelowTapMaxDistance(domEvent)) {
         var swipe = this.__getSwipeGesture(domEvent, target);
