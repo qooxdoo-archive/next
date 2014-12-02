@@ -23,6 +23,8 @@
  * Support for native and custom events.
  *
  * @require(qx.module.Environment)
+ * @require(qx.bom.Event)
+ * @require(qx.event.Emitter)
  * @use(qx.module.event.PointerHandler)
  * @group (Core)
  */

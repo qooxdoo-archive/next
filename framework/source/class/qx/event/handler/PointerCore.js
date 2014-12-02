@@ -23,6 +23,7 @@
  * Low-level pointer event handler.
  *
  * @require(qx.bom.client.Event)
+ * @require(qx.lang.Function)
  */
 qx.Class.define("qx.event.handler.PointerCore", {
 

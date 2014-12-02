@@ -22,6 +22,7 @@
  * TODOC
  *
  * @require(qx.module.Event)
+ * @require(qx.event.handler.PointerCore)
  *
  * @group (Event_Normalization)
  */

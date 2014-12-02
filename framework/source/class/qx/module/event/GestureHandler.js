@@ -24,6 +24,7 @@
  *
  * @require(qx.module.Event)
  * @require(qx.module.event.PointerHandler)
+ * @require(qx.event.handler.GestureCore)
  *
  * @group (Event_Normalization)
  */
