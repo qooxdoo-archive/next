@@ -37,10 +37,6 @@ describe("io.request.Script", function() {
 
   afterEach(function() {
     req.dispose();
-
-    if (this.currentTest.skip) {
-      skipAfterTest(this.currentTest.parent.title, this.currentTest.title);
-    }
   });
 
   //

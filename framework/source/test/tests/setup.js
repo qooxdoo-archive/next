@@ -19,7 +19,7 @@ if (typeof process !== 'undefined') {
   }
 }
 
-skipAfterTest = function(suiteTitle, testTitle) {
+var skipAfterTest = function(suiteTitle, testTitle) {
   var suites = qxWeb(".suite");
   for (var i = 0; i < suites.length; i++) {
     if (suiteTitle.indexOf(suites[i].children[0].textContent) === 0) {
@@ -52,6 +52,10 @@ var commonAfterEach = function() {
   // sinon sandbox
   sinonSandbox.restore();
   sinonSandbox = null;
+
+  if (this.currentTest.skip) {
+    skipAfterTest(this.currentTest.parent.title, this.currentTest.title);
+  }
 };
 
 

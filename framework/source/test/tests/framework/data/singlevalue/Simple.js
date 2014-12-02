@@ -530,7 +530,11 @@ describe("data.singlevalue.Simple", function() {
 
 
   it("WrongArguments", function() {
-    //require(["qx.debug"]);
+    if (!qx.core.Environment.get("qx.debug")) {
+      this.test.skip = true;
+      return;
+    }
+
     assert.throw(function() {
       qx.data.SingleValueBinding.bind(this.__a, "appearance", this.__b, undefined);
     }, qx.core.AssertionError, "");

@@ -23,18 +23,12 @@
 
 describe("mobile.Image", function() {
 
-  afterEach(function() {
-    if(this.currentTest.skip){
-      skipAfterTest(this.currentTest.parent.title,this.currentTest.title);
-    }
-  });
-
-
   it("Src", function(done) {
     var source = qx.util.ResourceManager.getInstance().toUri("framework/source/resource/qx/icon/Tango/48/places/folder.png");
     if (qx.io.ImageLoader.isLoaded(source)) {
-      //qx.log.Logger.debug("testLoadedEvent skipped! Image already loaded.");
-      return this.test.skip = true;
+      console.warn("mobile.Image.testLoadedEvent skipped! Image already loaded.");
+      this.test.skip = true;
+      return;
     }
     var image = new qx.ui.Image("../resource/qx/icon/Tango/48/places/folder.png");
     image.on("loaded", function() {

@@ -20,11 +20,6 @@
 describe("bom.Stylesheet", function() {
 
   afterEach(function() {
-
-    if (this.currentTest.skip) {
-      skipAfterTest(this.currentTest.parent.title,this.currentTest.title);
-    }
-
     if (this.__sheet) {
       qx.bom.Stylesheet.removeAllRules(this.__sheet);
       var ownerNode = this.__sheet.ownerNode || this.__sheet.owningNode;
