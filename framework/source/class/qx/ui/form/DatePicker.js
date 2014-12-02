@@ -15,6 +15,7 @@
 
    Authors:
      * Alexander Steitz (aback)
+     * Tobias Oberrauch (toberrauch)
 
 ************************************************************************ */
 
@@ -40,28 +41,6 @@ qx.Class.define("qx.ui.form.DatePicker", {
     defaultCssClass :
     {
       init : "qx-datepicker"
-    },
-
-    /**
-     * Path to an icon which will be placed next to the input element as
-     * an additional opener. If configured, an <code>img</code> element
-     * is created and equipped with the <code>qx-datepicker-icon</code>
-     * CSS class to style it.
-     */
-    icon: {
-      check: "String",
-      nullable: true,
-      init: null,
-      apply: "_applyIcon"
-    },
-
-    /**
-     * Which control should trigger showing the date picker.
-     */
-    mode: {
-      check: function(value) {
-        return ["input", "icon", "both"].indexOf(value) >= 0;
-      }
     },
 
     /**
@@ -91,8 +70,7 @@ qx.Class.define("qx.ui.form.DatePicker", {
     this.__uniqueId = Math.round(Math.random() * 10000);
 
     delete this.readonly;
-    this._applyIcon();
-    this.__addInputListener(this);
+    this.on('tap', this._onTap);
 
     var calendarId = 'datepicker-calendar-' + this.__uniqueId;
     var calendar = qxWeb.create('<div id="' + calendarId + '"></div>')
@@ -109,8 +87,7 @@ qx.Class.define("qx.ui.form.DatePicker", {
 
     // grab tap events at the body element to be able to hide the calender popup
     // if the user taps outside
-    var bodyElement = qxWeb.getDocument(this).body;
-    qxWeb(bodyElement).on('tap', this._hideCalendar, this);
+    qxWeb(document.body).on("tap", this._hideCalendar, this);
     qxWeb(document).on("roll", this._hideCalendar, this);
 
     // react on date selection
@@ -125,7 +102,6 @@ qx.Class.define("qx.ui.form.DatePicker", {
 
   members : {
 
-    __iconId: null,
     __calendarId: null,
     __uniqueId: null,
 
@@ -149,12 +125,11 @@ qx.Class.define("qx.ui.form.DatePicker", {
         return;
       }
 
-      var calendar = qxWeb('div#' + this.__calendarId);
-
+      var calendar = this.getCalendar();
       if (calendar.getStyle("display") == "none") {
-        this.getCalendar().placeTo(this, "bottom-right").setStyle("display", "block");
+        calendar.placeTo(this, "bottom-right").setStyle("display", "block");
       } else {
-        this.getCalendar().setStyle("display", "none");
+        calendar.setStyle("display", "none");
       }
     },
 
@@ -181,15 +156,6 @@ qx.Class.define("qx.ui.form.DatePicker", {
         return;
       }
 
-      // fast check for tap on the configured icon
-      if (this.icon !== null) {
-        var icon = qxWeb('#' + this.__iconId);
-        if (icon.length > 0 && target.length > 0 &&
-            icon[0] == target[0]) {
-          return;
-        }
-      }
-
       // otherwise check if the target is a child of the (rendered) calendar
       if (this.getCalendar().isRendered()) {
         if (target.isChildOf(this.getCalendar()) === false) {
@@ -212,73 +178,17 @@ qx.Class.define("qx.ui.form.DatePicker", {
       this.getCalendar().setStyle("display", "none");
     },
 
-    /**
-     * Helper method to add / remove an icon next to the input element
-     */
-    _applyIcon : function() {
-      var icon;
-
-      if (this.icon === null) {
-        icon = this.getNext('img#' + this.__iconId);
-        if (icon.length === 1) {
-          icon.off('tap', this._onTap, this);
-          icon.remove();
-        }
-      } else {
-        // check if there is already an icon
-        if (!this.__iconId) {
-          var iconId = 'datepicker-icon-' + this.__uniqueId;
-          this.__iconId =  iconId;
-
-          icon = qxWeb.create('<img>');
-
-          icon.setAttributes({
-            id: iconId,
-            src: this.icon
-          });
-
-          icon.addClass('qx-datepicker-icon');
-
-          var openingMode = this.mode;
-          if (openingMode === 'icon' || openingMode === 'both') {
-            icon.on('tap', this._onTap, this);
-          }
-
-          if (this.isRendered()) {
-            icon.insertAfter(this);
-          } else {
-            this.once("appear", function insertIcon() {
-              icon.insertAfter(this);
-            }, this);
-          }
-        }
-
-      }
-    },
-
-    /**
-     * Helper method to add a listener to the connected input element
-     * if the configured mode is set.
-     */
-    __addInputListener : function() {
-      if (this.mode === 'icon') {
-        this.off('tap', this._onTap);
-      } else {
-        this.on('tap', this._onTap);
-      }
-    },
-
     // overridden
     dispose : function() {
       this.readonly = false;
-      this.getNext('img#' + this.__iconId).remove();
 
       this.off('tap', this._onTap);
 
-      var bodyElement = qxWeb.getDocument(this).body;
-      qxWeb(bodyElement).off('tap', this._hideCalendar, this);
+      qxWeb(document.body).off("tap", this._hideCalendar, this);
+      qxWeb(document).off("roll", this._hideCalendar, this);
 
-      this.getCalendar().off('changeValue', this._calendarSelected, this)
+      this.getCalendar()
+        .off('selected', this._calendarSelected, this)
         .off('tap', this._onCalendarTap);
 
       var calendar = qxWeb('div#' + this.__calendarId);
