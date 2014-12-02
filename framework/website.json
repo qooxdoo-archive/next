@@ -89,27 +89,17 @@
       }
     },
 
-
-    "distclean" :
-    {
-      "desc"    : "remove local generated files and global cache",
-      "extend"  : ["clean"]
-    },
-
-    "clean" :
+    "qxweb-clean" :
     {
       "desc"    : "remove local generated files",
       "extend"  : ["cache"],
 
       "=clean-files" :
       {
-        "Cleaning up script path" :
+        "Cleaning up script paths" :
         [
-          "${SCRIPT_PATH}/*"
-        ],
-        "Cleaning up api" :
-        [
-          "${API_SCRIPT_PATH}/*"
+          "${SCRIPT_PATH}/*",
+          "${SOURCE_SCRIPT_PATH}/*"
         ]
       }
     }

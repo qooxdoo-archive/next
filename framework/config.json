@@ -7,14 +7,11 @@
       "path" : "${QOOXDOO_PATH}/tool/data/config/application.json",
       "block" : ["build"]
     },
-
     {
       "path" : "image.json"
     },
     {
       "path" : "./website.json"
-      // ,
-      // "as": "qxweb"
     }
   ],
 
@@ -60,6 +57,7 @@
     "API_EXCLUDE" : [],
     "API_SCRIPT_PATH" : "api/script",
     "SCRIPT_PATH" : "build/script",
+    "SOURCE_SCRIPT_PATH" : "source/script",
     "TEST_INCLUDE" : "qx.test.*",
     "CACHE" : "${TMPDIR}/qx${QOOXDOO_VERSION}/cache"
   },
@@ -145,7 +143,7 @@
       "compile-options": {
         "paths" :
         {
-          "file"     : "source/script/qx-source.js",
+          "file"     : "${SOURCE_SCRIPT_PATH}/qx-source.js",
           "app-root" : "${BUILD_PATH}",
           "loader-template" : "../tool/data/generator/website.loader.source.tmpl.js"
         }
@@ -293,7 +291,6 @@
       }
     },
 
-
     "watch-scss" :
     {
       "desc": "Watch and compile the theme scss",
@@ -320,6 +317,28 @@
     "qxweb-source" : {
       "let" : {
         "BUILD_PATH": "source/script"
+      }
+    },
+
+    "distclean" :
+    {
+      "desc"    : "remove local generated files and global cache",
+      "extend"  : ["clean"]
+    },
+
+    "clean":
+    {
+      "extend"  : ["qxweb-clean"],
+      "clean-files" :
+      {
+        "Cleaning up api" :
+        [
+          "${API_SCRIPT_PATH}/*"
+        ],
+        "Cleaning up generated resources" :
+        [
+          "build/resource/*"
+        ]
       }
     }
   }
