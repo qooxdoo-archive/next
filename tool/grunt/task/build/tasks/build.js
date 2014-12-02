@@ -123,21 +123,21 @@ module.exports = function(grunt) {
     // ------------------------------------------------------
     var locales = {"C": {}};
     var localeData = {"C": qxLoc.getTailoredCldrData("en") };
-    var translationPaths = qxLib.getPathsFor("translation", opts.libraries);
-    var transData = {"C": qxTra.getTranslationFor("en", translationPaths) };
-    opts.locales.forEach(function(locale){
-      locales[locale] = {};
-      localeData[locale] = qxLoc.getTailoredCldrData(locale);
-      transData[locale] = {};
-      transData[locale] = qxTra.getTranslationFor(locale, translationPaths);
-    });
+    // var translationPaths = qxLib.getPathsFor("translation", opts.libraries);
+    // var transData = {"C": qxTra.getTranslationFor("en", translationPaths) };
+    // opts.locales.forEach(function(locale){
+    //   locales[locale] = {};
+    //   localeData[locale] = qxLoc.getTailoredCldrData(locale);
+    //   transData[locale] = {};
+    //   transData[locale] = qxTra.getTranslationFor(locale, translationPaths);
+    // });
     grunt.log.ok('Done.');
 
 
     var locResTrans = {
       "locales": localeData,
       "resources": resData,
-      "translations": transData
+      // "translations": transData
     };
     var locResTransContent = "qx.$$packageData['0']=" + JSON.stringify(locResTrans) + ";";
 
