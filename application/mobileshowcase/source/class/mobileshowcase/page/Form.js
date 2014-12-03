@@ -174,11 +174,6 @@ qx.Class.define("mobileshowcase.page.Form",
       });
       this.__items.push(birthDatePicker);
 
-      birthDatePicker.getCalendar().on('selected', function (element) {
-        var currentTimestamp = new Date().getTime();
-        var selectedTimestamp = new Date(element.getValue()).getTime();
-        birthDatePicker.valid = (selectedTimestamp < currentTimestamp);
-      });
       var birthDateQuestion = "What is your date of birth?";
       new qx.ui.form.Row(birthDatePicker, birthDateQuestion)
         .appendTo(contactGroup);
