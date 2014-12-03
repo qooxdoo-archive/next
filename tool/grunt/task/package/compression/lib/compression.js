@@ -124,6 +124,9 @@ function hasStartingDunderButNotTrailingDunder(s) {
  *
  * @param {string} code - JavaScript code
  * @return {string[]} privates
+ *
+ * @see http://lisperator.net/uglifyjs/walk
+ * @see http://lisperator.net/uglifyjs/ast
  */
 function collectAstObjectKeyValPrivates(code) {
   var ast = U2.parse(code);
@@ -141,8 +144,13 @@ function collectAstObjectKeyValPrivates(code) {
     };
 
     if (node instanceof U2.AST_ObjectKeyVal
-      && isMembersOrStaticsProp(this.stack)
+      // [members, statics] doesn't work with Class.js because
+      // of its self-references - not sure why I wrote this function
+      // in the first instance. The following apps will show if this
+      // is needed again ...
+      // && isMembersOrStaticsProp(this.stack)
       && hasStartingDunderButNotTrailingDunder(node.key.toString())) {
+      // console.log(node.key.toString());
       privates.push(node);
     }
   }));
@@ -159,6 +167,8 @@ function collectAstObjectKeyValPrivates(code) {
  * @param {string} privates - nodes to be replaced
  * @param {Object} globalPrivatesMap - classIdAndName (key) and hash (value)
  * @return {string} code - adapted code
+ *
+ * @see http://lisperator.net/uglifyjs/ast
  */
 function replaceAstObjectKeyValPrivates(classId, code, privates, globalPrivatesMap) {
   var l = privates.length;
@@ -184,6 +194,9 @@ function replaceAstObjectKeyValPrivates(classId, code, privates, globalPrivatesM
  *
  * @param {string} code - JavaScript code
  * @return {string[]} privates
+ *
+ * @see http://lisperator.net/uglifyjs/walk
+ * @see http://lisperator.net/uglifyjs/ast
  */
 function collectAstStrings(code) {
   var ast = U2.parse(code);
@@ -207,6 +220,8 @@ function collectAstStrings(code) {
  * @param {string} privates - nodes to be replaced
  * @param {Object} globalPrivatesMap - classIdAndName (key) and hash (value)
  * @return {string} code - adapted code
+ *
+ * @see http://lisperator.net/uglifyjs/ast
  */
 function replaceAstStrings(classId, code, privates, globalPrivatesMap) {
   var l = privates.length;
@@ -232,6 +247,9 @@ function replaceAstStrings(classId, code, privates, globalPrivatesMap) {
  *
  * @param {string} code - JavaScript code
  * @return {string[]} privates
+ *
+ * @see http://lisperator.net/uglifyjs/walk
+ * @see http://lisperator.net/uglifyjs/ast
  */
 function collectAstDotPrivates(code) {
   var ast = U2.parse(code);
@@ -257,6 +275,8 @@ function collectAstDotPrivates(code) {
  * @param {string} privates - nodes to be replaced
  * @param {Object} globalPrivatesMap - classIdAndName (key) and hash (value)
  * @return {string} code - adapted code
+ *
+ * @see http://lisperator.net/uglifyjs/ast
  */
 function replaceAstDotPrivates(classId, code, privates, globalPrivatesMap) {
   var l = privates.length;
@@ -299,6 +319,7 @@ function replaceSourceCode(code, begin, end, replacement) {
  */
 function replacePrivates(classId, jsCode) {
   var newCode = "";
+
   newCode = replaceAstObjectKeyValPrivates(classId, jsCode, collectAstObjectKeyValPrivates(jsCode), globalPrivatesMap);
   newCode = replaceAstDotPrivates(classId, newCode, collectAstDotPrivates(newCode), globalPrivatesMap);
   newCode = replaceAstStrings(classId, newCode, collectAstStrings(newCode), globalPrivatesMap);

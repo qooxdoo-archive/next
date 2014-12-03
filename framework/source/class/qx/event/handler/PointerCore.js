@@ -24,6 +24,7 @@
  *
  * @require(qx.bom.client.Event)
  * @require(qx.lang.Function)
+ * @require(qx.event.type.dom.Pointer)
  */
 qx.Class.define("qx.event.handler.PointerCore", {
 
