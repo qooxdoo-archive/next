@@ -210,10 +210,6 @@ qx.Class.define("mobileshowcase.page.Form",
         .appendTo(feedbackGroup);
 
 
-      var birthDateGroup = new qx.ui.form.Group("Birth date")
-        .appendTo(form);
-
-
       var licenseGroup = new qx.ui.form.Group("License")
         .appendTo(form);
 
