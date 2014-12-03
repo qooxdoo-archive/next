@@ -64,7 +64,7 @@ qx.Class.define("qx.ui.form.DatePicker", {
     this.super(qx.ui.form.Input, "construct", element);
 
     this.format = function(date) {
-      return new Date(date).toLocaleDateString();
+      return date;
     };
 
     this.__uniqueId = Math.round(Math.random() * 10000);
