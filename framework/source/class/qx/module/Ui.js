@@ -45,6 +45,7 @@
  * @require(qx.ui.form.Slider)
  * @require(qx.ui.form.TextField)
  * @require(qx.ui.form.ToggleButton)
+ * @require(qx.ui.FlexCarousel)
  * @require(qx.ui.List)
  * @require(qx.ui.page.NavigationPage)
  * @require(qx.ui.page.Page)
