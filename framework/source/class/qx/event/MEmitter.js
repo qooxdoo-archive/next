@@ -137,7 +137,7 @@ qx.Mixin.define("qx.event.MEmitter",
      * @return {qx.event.MEmitter} Self reference for chaining.
      */
     emit : function(name, data) {
-      var storage = this._getStorage(name);
+      var storage = this._getStorage(name).concat();
       storage.forEach(function(entry) {
         entry.listener.call(entry.ctx, data);
         if (entry.once) {
