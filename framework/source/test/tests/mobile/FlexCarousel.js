@@ -102,11 +102,12 @@ describe("mobile.FlexCarousel", function() {
 
 
   it("nextPage", function() {
-    var p1 = new qx.ui.Widget();
-    p1.appendTo(carousel);
-    var p2 = new qx.ui.Widget();
-    p2.appendTo(carousel);
-    var p3 = new qx.ui.Widget();
+    var p1 = new qx.ui.Widget()
+      .appendTo(carousel);
+    var p2 = new qx.ui.Widget()
+      .appendTo(carousel);
+    var p3 = new qx.ui.Widget()
+      .appendTo(carousel);
 
     carousel.nextPage();
     assert.equal(carousel.active[0], p2[0]);
@@ -115,6 +116,25 @@ describe("mobile.FlexCarousel", function() {
     assert.equal(carousel.active[0], p3[0]);
 
     carousel.nextPage();
+    assert.equal(carousel.active[0], p1[0]);
+  });
+
+
+  it("previousPage", function() {
+    var p1 = new qx.ui.Widget()
+      .appendTo(carousel);
+    var p2 = new qx.ui.Widget()
+      .appendTo(carousel);
+    var p3 = new qx.ui.Widget()
+      .appendTo(carousel);
+
+    carousel.previousPage();
+    assert.equal(carousel.active[0], p3[0]);
+
+    carousel.previousPage();
+    assert.equal(carousel.active[0], p2[0]);
+
+    carousel.previousPage();
     assert.equal(carousel.active[0], p1[0]);
   });
 });

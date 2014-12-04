@@ -15,12 +15,9 @@ qx.Class.define("qx.ui.FlexCarousel",
 
   construct: function(element) {
     this.super(qx.ui.Widget, "construct", element);
-    var outerContainer = qxWeb.create("<div>")
+    var outerContainer = new qx.ui.container.Scroll()
       .addClass("flexcarousel-container")
       .on("scroll", this._onScroll, this)
-      // .once("pointerdown", function(e) {
-      //   this._scroll(qxWeb(e.currentTarget));
-      // }, this)
       .appendTo(this);
 
     this.__pageContainer = (new qx.ui.Widget())
@@ -36,8 +33,14 @@ qx.Class.define("qx.ui.FlexCarousel",
 
 
     nextPage: function() {
-      var pages = this.__pageContainer.find(".flexcarousel-page");
-      this.active = pages.eq((pages.indexOf(this.active) + 1) % pages.length);
+      var container = this.find(".flexcarousel-container");
+      container[0].scrollLeft = this.getWidth() * 2;
+    },
+
+
+    previousPage: function() {
+      var container = this.find(".flexcarousel-container");
+      container[0].scrollLeft = 0;
     },
 
 
@@ -49,35 +52,53 @@ qx.Class.define("qx.ui.FlexCarousel",
       this._updateWidth();
       if (!this.active) {
         this.active = child;
+      } else {
+        this._update();
       }
-      this._update();
     },
 
 
     _onRemovedChild: function(child) {
+      this._updateWidth();
+
       if (this.active[0] == child[0]) {
         this.active = this.__pageContainer.find(".flexcarousel-page").eq(0);
+      } else {
+        this._update();
       }
-      this._update();
     },
 
 
-    _update: function() {
-      this._updateOrder();
+    _update: function(value, old) {
+      var direction = this._updateOrder();
       var container = this.find(".flexcarousel-container");
-      container.setScrollLeft(container.getWidth());
+      if (direction == "right") {
+        container[0].scrollLeft -= container.getWidth();
+      } else if (direction == "left") {
+        container[0].scrollLeft += container.getWidth();
+      }
     },
 
 
     _updateOrder: function() {
+      var scrollDirection;
       var pages = this.__pageContainer.find(".flexcarousel-page");
-      var activeIndex = pages.indexOf(this.active);
+      var orderBefore = parseInt(this.active.getStyle("order"), 10);
+      if (orderBefore > 0) {
+        scrollDirection = "right";
+      } else if (orderBefore < 0) {
+        scrollDirection = "left";
+      }
+      if (orderBefore === 0 && pages.length == 3) {
+        scrollDirection = "right";
+      }
 
+      var activeIndex = pages.indexOf(this.active);
       this.active.setStyle("order", 0);
       var order = 1;
 
       for (var i = activeIndex + 1; i < pages.length; i++) {
-        if (activeIndex == 0 && i == pages.length - 1) {
+        if (activeIndex === 0 && i == pages.length - 1) {
           order = -1;
         }
         qxWeb(pages[i]).setStyle("order", order++);
@@ -90,46 +111,33 @@ qx.Class.define("qx.ui.FlexCarousel",
         }
         qxWeb(pages[i]).setStyle("order", order++);
       }
+
+      return scrollDirection;
     },
 
 
     _updateWidth: function() {
       var containerWidth = this.getWidth() * this.__pageContainer.find(".flexcarousel-page").length;
-      this.__pageContainer.setStyles({
-        width: containerWidth + "px"
-        // ,
-        // paddingLeft: "10px",
-        // paddingRight: "10px"
-      });
-      this.__pageContainer.find(".flexcarousel-page")[0].scrollLeft = 10;
+      this.__pageContainer.setStyle("width", containerWidth + "px");
     },
 
 
-    _onScroll: function(ev) {
-      var container = qxWeb(ev.target);
-      this._scroll(container);
-    },
-
-
-    _scroll: function(container) {
-      console.log("scroll")
-      var containerWidth = container.getWidth();
-      var shiftPage;
-      var pages = container.find(".flexcarousel-page");
-
-      if (container[0].scrollLeft < containerWidth) {
-        for (var i = pages.length - 1; i >= 0; i--) {
-          var page = qxWeb(pages[i]);
-          var computedOrder = parseInt(page.getStyle("order"), 10) + 1;
-          page.setStyle("order", computedOrder);
-          if (!shiftPage || parseInt(shiftPage.getStyle("order"), 10) < computedOrder) {
-            shiftPage = page;
-          }
+    _onScroll: function(e) {
+      var container = this.find(".flexcarousel-container");
+      var width = this.getWidth();
+      var pages = this.__pageContainer.find(".flexcarousel-page");
+      if (container[0].scrollLeft < (width - width / 2)) {
+        var prev = this.active.getPrev();
+        if (prev.length == 0) {
+          prev = pages.eq(pages.length - 1);
         }
-
-        var newOrder = parseInt(shiftPage.getStyle("order"), 10) - 1;
-        shiftPage.setStyle("order", newOrder);
-        container[0].scrollLeft += containerWidth;
+        this.active = prev;
+      } else if (container[0].scrollLeft > (width + width / 2)) {
+        var next = this.active.getNext();
+        if (next.length == 0) {
+          next = pages.eq(0);
+        }
+        this.active = next;
       }
     }
   }
