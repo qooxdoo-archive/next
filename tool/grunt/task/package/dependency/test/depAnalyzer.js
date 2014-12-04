@@ -304,6 +304,7 @@ module.exports = {
         run: [
           'qx.core.Environment'
         ],
+        prio: [],
         athint: {
           ignore: [],
           require: [
