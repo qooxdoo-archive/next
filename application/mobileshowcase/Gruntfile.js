@@ -12,7 +12,6 @@ module.exports = function(grunt) {
 
     common: {
       "APPLICATION" : "mobileshowcase",
-      "LOCALES": ["en"],
       "QOOXDOO_PATH" : "../..",
       "QXTHEME": "",
       "THEME": "indigo",  // possible values: "indigo","flat"

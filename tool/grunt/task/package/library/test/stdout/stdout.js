@@ -29,8 +29,6 @@ console.log(library.getPathsFromManifest(testManifestPaths));
 
 console.log(library.getPathsFor('class', testManifestPaths, {withKeys: true}));
 console.log(library.getPathsFor('resource', testManifestPaths, {withKeys: true}));
-console.log(library.getPathsFor('translation', testManifestPaths, {withKeys: true}));
 
 console.log(library.getPathsFor('class', testManifestPaths));
 console.log(library.getPathsFor('resource', testManifestPaths));
-console.log(library.getPathsFor('translation', testManifestPaths));

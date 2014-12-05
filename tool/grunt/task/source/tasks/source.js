@@ -35,10 +35,8 @@ var pathIsInside = require("path-is-inside");
 
 // qx
 var qxRes = require("qx-resource");
-var qxLoc = require("qx-locale");
 var qxDep = require("qx-dependency");
 var qxLib = require("qx-library");
-var qxTra = require("qx-translation");
 
 //------------------------------------------------------------------------------
 // Helpers
@@ -95,7 +93,6 @@ function calculateRelPaths(manifestPaths, qxPath, appName, ns) {
 //------------------------------------------------------------------------------
 
 module.exports = function(grunt) {
-// function runGruntTask(grunt) {
 
   grunt.registerTask('source', 'create source version of current application', function() {
     var opts = this.options();
@@ -139,35 +136,17 @@ module.exports = function(grunt) {
     var resData = qxRes.collectResources(assetNsBasesPaths, resBasePathMap, {metaFiles: true});
     grunt.log.ok('Done.');
 
-
-    grunt.log.writeln('Get locale and translation data ...');
-    // ------------------------------------------------------
-    var locales = {"C": {}};
-    var localeData = {"C": qxLoc.getTailoredCldrData("en") };
-    // var translationPaths = qxLib.getPathsFor("translation", opts.libraries);
-    // var transData = {"C": qxTra.getTranslationFor("en", translationPaths) };
-    // opts.locales.forEach(function(locale){
-    //   locales[locale] = {};
-    //   localeData[locale] = qxLoc.getTailoredCldrData(locale);
-    //   transData[locale] = {};
-    //   transData[locale] = qxTra.getTranslationFor(locale, translationPaths);
-    // });
-    grunt.log.ok('Done.');
-
-
-    var locResTrans = {
-      "locales": localeData,
-      "resources": resData,
-      // "translations": transData
+    var resources = {
+      "resources": resData
     };
-    var locResTransContent = "qx.$$packageData['0']=" + JSON.stringify(locResTrans) + ";";
+    var resourcesContent = "qx.$$packageData['0']=" + JSON.stringify(resources) + ";";
 
-    var locResTransHash = createHashOver(locResTransContent).substr(0,12);
-    var locResTransFileName = opts.appName + "." + locResTransHash + ".js";
+    var resourcesHash = createHashOver(resourcesContent).substr(0,12);
+    var resourcesFileName = opts.appName + "." + resourcesHash + ".js";
 
     // {"uris":["__out__:myapp.e2c18d74cbbe.js","qx:qx/Bootstrap.js", ...]};
     var packagesUris = {
-      "uris": ["__out__:"+locResTransFileName].concat(classListPaths)
+      "uris": ["__out__:"+resourcesFileName].concat(classListPaths)
     };
 
     var libinfo = { "__out__":{"sourceUri":"script"} };
@@ -193,8 +172,6 @@ module.exports = function(grunt) {
       EnvSettings: opts.environment,
       Libinfo: libinfo,
       Resources: {},
-      Translations: locales,
-      Locales: locales,
       Parts: {"boot":[0]},             // TODO: impl missing
       Packages: {"0": packagesUris},   // ...
       UrisBefore: [],                  // ...
@@ -210,20 +187,15 @@ module.exports = function(grunt) {
     grunt.log.writeln('Generate loader script ...');
     // ---------------------------------------------
     var tmpl = grunt.file.read(opts.loaderTemplate);
+    debugger;
     var renderedTmpl = renderLoaderTmpl(tmpl, ctx);
 
     var appFileName = opts.appName + ".js";
 
     // write script files
     grunt.file.write(path.join(opts.sourcePath, appFileName), renderedTmpl);
-    grunt.file.write(path.join(opts.sourcePath, locResTransFileName), locResTransContent);
+    grunt.file.write(path.join(opts.sourcePath, resourcesFileName), resourcesContent);
     grunt.log.ok('Done.');
   });
 
 };
-
-//------------------------------------------------------------------------------
-// Exports
-//------------------------------------------------------------------------------
-
-// module.exports = runGruntTask;

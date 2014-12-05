@@ -13,10 +13,8 @@ var libinfo = %{Libinfo};
 for (var k in libinfo) qx.$$libraries[k] = libinfo[k];
 
 qx.$$resources = %{Resources};
-qx.$$translations = %{Translations};
-qx.$$locales = %{Locales};
 qx.$$packageData = {};
-qx.$$g = {}
+qx.$$g = {};
 
 qx.$$loader = {
   parts : %{Parts},
@@ -143,24 +141,6 @@ qx.$$loader.importPackageData = function (dataMap, callback) {
   if (dataMap["resources"]){
     var resMap = dataMap["resources"];
     for (var k in resMap) qx.$$resources[k] = resMap[k];
-  }
-  if (dataMap["locales"]){
-    var locMap = dataMap["locales"];
-    var qxlocs = qx.$$locales;
-    for (var lang in locMap){
-      if (!qxlocs[lang]) qxlocs[lang] = locMap[lang];
-      else
-        for (var k in locMap[lang]) qxlocs[lang][k] = locMap[lang][k];
-    }
-  }
-  if (dataMap["translations"]){
-    var trMap   = dataMap["translations"];
-    var qxtrans = qx.$$translations;
-    for (var lang in trMap){
-      if (!qxtrans[lang]) qxtrans[lang] = trMap[lang];
-      else
-        for (var k in trMap[lang]) qxtrans[lang][k] = trMap[lang][k];
-    }
   }
   if (callback){
     callback(dataMap);

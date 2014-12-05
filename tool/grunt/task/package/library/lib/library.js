@@ -47,7 +47,6 @@ module.exports = {
    *  <li>/provides/namespace</li>
    *  <li>/provides/class</li>
    *  <li>/provides/resource</li>
-   *  <li>/provides/translation</li>
    * </ul>
    *
    * @param {string[]} filePaths
@@ -75,7 +74,6 @@ module.exports = {
         },
         class: manif.provides.class,
         resource: manif.provides.resource,
-        translation: manif.provides.translation
       };
     }
 
@@ -83,8 +81,8 @@ module.exports = {
   },
 
   /**
-   * Extracts data by kind (<code>'class'</code>,
-   * <code>'resource'</code>, <code>'translation'</code>) from given
+   * Extracts data by kind (<code>'class'</code> or
+   * <code>'resource'</code> from given
    * <code>Manifest.json</code> paths optionally with namespace key.
    *
    * @param {string} kind
@@ -95,7 +93,7 @@ module.exports = {
    */
   getPathsFor: function(kind, filePaths, options) {
     var libPaths = getPathsFromManifest(filePaths);
-    var validKinds = ['class', 'resource', 'translation'];
+    var validKinds = ['class', 'resource'];
     var specificPathsWithKeys = {};
     var specificPaths = [];
     var lib = '';

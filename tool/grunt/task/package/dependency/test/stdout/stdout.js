@@ -32,12 +32,14 @@ var atHintIndex = {};
 
 var excludedClassIds = ['myapp.test.*'];
 
+/*
 classesDeps = depAnalyzer.collectDepsRecursive(
   {'myapp': './test/data/myapp/source/class/',
    'qx': '../../../../../framework/source/class/'},
   ['myapp.Application', 'myapp.theme.Theme'],
   excludedClassIds
 );
+*/
 
 /*
 classesDeps = depAnalyzer.collectDepsRecursive(
@@ -49,17 +51,15 @@ classesDeps = depAnalyzer.collectDepsRecursive(
 );
 */
 
-/*
 classesDeps = depAnalyzer.collectDepsRecursive(
   {'qx': '../../../../../framework/source/class/'},
-  ['qx.Class',
-   'qx.Mixin',
-   'qx.Interface',
-   'qx.data.marshal.Json',
-   'qx.bom.client.Runtime'],
+  // ['qx.Interface'],
+  // ['qx.util.Uri']
+  // ['qxWeb'],
+  // ['qx.core.Init'],
+  ['qx.Interface'],
   []
 );
-*/
 
 classListLoadOrder = depAnalyzer.sortDepsTopologically(classesDeps, 'load', excludedClassIds);
 classListLoadOrder = depAnalyzer.prependNamespace(classListLoadOrder, ['qx', 'myapp']);
