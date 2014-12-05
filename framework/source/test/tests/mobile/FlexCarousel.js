@@ -19,8 +19,15 @@ describe("mobile.FlexCarousel", function() {
   var carousel;
 
   beforeEach(function() {
-    carousel = new qx.ui.FlexCarousel();
-    carousel.appendTo(sandbox);
+    carousel = new qx.ui.FlexCarousel()
+      .setStyles({
+        position: "absolute",
+        top: "0px",
+        left: "0px",
+        width: "400px",
+        height: "400px"
+      })
+      .appendTo(sandbox);
   });
 
 
@@ -101,7 +108,7 @@ describe("mobile.FlexCarousel", function() {
   });
 
 
-  it("nextPage", function() {
+  it("nextPage", function(done) {
     var p1 = new qx.ui.Widget()
       .appendTo(carousel);
     var p2 = new qx.ui.Widget()
@@ -109,18 +116,38 @@ describe("mobile.FlexCarousel", function() {
     var p3 = new qx.ui.Widget()
       .appendTo(carousel);
 
-    carousel.nextPage();
-    assert.equal(carousel.active[0], p2[0]);
+    var cb = sinon.sandbox.spy(function() {
+      switch(count) {
+        case 1:
+          assert.equal(carousel.active[0], p2[0]);
+          break;
+        case 2:
+          assert.equal(carousel.active[0], p3[0]);
+          break;
+        case 3:
+          assert.equal(carousel.active[0], p1[0]);
+          break;
+      }
+    });
 
-    carousel.nextPage();
-    assert.equal(carousel.active[0], p3[0]);
+    var count = 0;
+    carousel.on("changeActive", cb);
 
-    carousel.nextPage();
-    assert.equal(carousel.active[0], p1[0]);
+    for (var i = 1; i < 4; i++) {
+      window.setTimeout(function() {
+        count = i;
+        carousel.nextPage();
+      }, 20 * i);
+    }
+
+    window.setTimeout(function() {
+      sinon.assert.calledThrice(cb);
+      done();
+    }, 80);
   });
 
 
-  it("previousPage", function() {
+  it("previousPage", function(done) {
     var p1 = new qx.ui.Widget()
       .appendTo(carousel);
     var p2 = new qx.ui.Widget()
@@ -128,13 +155,33 @@ describe("mobile.FlexCarousel", function() {
     var p3 = new qx.ui.Widget()
       .appendTo(carousel);
 
-    carousel.previousPage();
-    assert.equal(carousel.active[0], p3[0]);
+    var cb = sinon.sandbox.spy(function(e) {
+      switch(count) {
+        case 1:
+          assert.equal(carousel.active[0], p3[0]);
+          break;
+        case 2:
+          assert.equal(carousel.active[0], p2[0]);
+          break;
+        case 3:
+          assert.equal(carousel.active[0], p1[0]);
+          break;
+      }
+    });
 
-    carousel.previousPage();
-    assert.equal(carousel.active[0], p2[0]);
+    var count = 0;
+    carousel.on("changeActive", cb);
 
-    carousel.previousPage();
-    assert.equal(carousel.active[0], p1[0]);
+    for (var i = 1; i < 4; i++) {
+      window.setTimeout(function() {
+        count = i;
+        carousel.nextPage();
+      }, 20 * i);
+    }
+
+    window.setTimeout(function() {
+      sinon.assert.calledThrice(cb);
+      done();
+    }, 80);
   });
 });

@@ -3,7 +3,7 @@
 
   .flexcarousel-container {
     width: 100%;
-    height: 100%; //TODO: add scrollbar height
+    height: 100%;
     overflow-y: hidden;
     overflow-x: auto;
   }
@@ -13,6 +13,6 @@
   }
 
   .flexcarousel-container > div {
-    height: 100%; //TODO: add scrollbar height
+    height: 100%;
   }
 }

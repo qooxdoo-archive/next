@@ -9,7 +9,8 @@ qx.Class.define("qx.ui.FlexCarousel",
 
     active: {
       check: "qxWeb",
-      apply: "_update"
+      apply: "_update",
+      event: true
     }
   },
 
@@ -54,6 +55,10 @@ qx.Class.define("qx.ui.FlexCarousel",
         this.active = child;
       } else {
         this._update();
+      }
+
+      if (this.__pageContainer.find(".flexcarousel-page").length === 3) {
+        this.find(".flexcarousel-container")[0].scrollLeft = this.getWidth();
       }
     },
 
