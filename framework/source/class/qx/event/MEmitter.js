@@ -144,6 +144,7 @@ qx.Mixin.define("qx.event.MEmitter",
           storage.splice(storage.indexOf(entry), 1);
         }
       });
+      this.__listener[name] = storage;
 
       // call on any
       storage = this._getStorage("*");
