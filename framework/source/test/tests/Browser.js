@@ -28,7 +28,7 @@ describe("Browser", function() {
 
     var order = ["234", "123", "345"];
 
-    // google chrome, opera 10.5 and ie 9
+    // google chrome, opera 10.5, Safari 7 and ie 9
     if (
       qx.core.Environment.get("browser.name") == "chrome" ||
       (qx.core.Environment.get("browser.name") == "opera" &&
@@ -36,7 +36,9 @@ describe("Browser", function() {
       (qx.core.Environment.get("browser.name") == "ie" &&
         qx.core.Environment.get("browser.documentmode") >= 9) ||
       (qx.core.Environment.get("browser.name") == "firefox" &&
-        qx.core.Environment.get("browser.version") >= 21)
+        qx.core.Environment.get("browser.version") >= 21) ||
+      (qx.core.Environment.get("browser.name") == "safari" &&
+        qx.core.Environment.get("browser.version") >= 7)
     ) {
       var i = 0;
       // is in a sorted order
