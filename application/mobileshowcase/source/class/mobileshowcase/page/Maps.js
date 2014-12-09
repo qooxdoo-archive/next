@@ -100,12 +100,11 @@ qx.Class.define("mobileshowcase.page.Maps",
       descriptionLabel.addClass("osmMapLabel");
 
       // TOGGLE BUTTON
-      var toggleNavigationButton = new qx.ui.form.ToggleButton(true,"Show","Hide",12);
+      var toggleNavigationButton = new qx.ui.form.ToggleButton(true,"ON","OFF",12);
 
       // SHOW MY POSITION BUTTON
       this._showMyPositionButton = new qx.ui.Button("Find me!");
       this._showMyPositionButton.on("tap", this._getGeoPosition, this);
-
       toggleNavigationButton.on("changeValue", function() {
         var newNavBarState = !this.navigationBarHidden;
         this.navigationBarHidden = newNavBarState;

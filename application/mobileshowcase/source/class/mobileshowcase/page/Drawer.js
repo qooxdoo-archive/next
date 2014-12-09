@@ -1,4 +1,5 @@
 "use strict";
+
 /* ************************************************************************
 
    qooxdoo - the new era of web development
@@ -52,7 +53,7 @@ qx.Class.define("mobileshowcase.page.Drawer",
         target.hide();
       }, this);
 
-      var drawerContent = new qx.ui.form.Group("This is the "+target.orientation+" drawer.")
+      var drawerContent = new qx.ui.form.Group("This is the " + target.orientation + " drawer.")
         .append(closeDrawerButton);
       return drawerContent;
     },
@@ -62,7 +63,7 @@ qx.Class.define("mobileshowcase.page.Drawer",
     _createDrawerMenu : function(drawers) {
       var drawerGroup = new qx.ui.form.Group();
       for(var i = 0; i < drawers.length; i++) {
-        var openDrawerButton = new qx.ui.Button("Open "+drawers[i].orientation +" drawer");
+        var openDrawerButton = new qx.ui.Button("Open "+ drawers[i].orientation + " drawer");
         openDrawerButton.on("tap", drawers[i].show, drawers[i]);
         drawerGroup.append(openDrawerButton);
       }
@@ -98,22 +99,42 @@ qx.Class.define("mobileshowcase.page.Drawer",
 
       // Z POSITION TOGGLE BUTTON
 
-      var frontBackToggleButton = new qx.ui.form.ToggleButton(false, "Above","Below");
+      var positionGroup = new qx.ui.form.Group("Position");
+      var radioAbove = new qx.ui.form.RadioButton().set({
+        name: "above",
+        value: false
+      });
+      new qx.ui.form.Row(radioAbove, "Above")
+        .appendTo(positionGroup);
 
-      frontBackToggleButton.on("changeValue",function() {
-        this._togglePositionZ(drawerLeft);
-        this._togglePositionZ(drawerRight);
-        this._togglePositionZ(drawerTop);
-        this._togglePositionZ(drawerBottom);
-      },this);
+      radioAbove.on("tap", function() {
+        radioBelow.value = false;
+        radioAbove.value = true;
+        this._togglePositionZ(radioAbove.name, drawerLeft);
+        this._togglePositionZ(radioAbove.name, drawerRight);
+        this._togglePositionZ(radioAbove.name, drawerTop);
+        this._togglePositionZ(radioAbove.name, drawerBottom);
+      }, this);
+
+
+      var radioBelow = new qx.ui.form.RadioButton().set({
+        name: "below",
+        value: true
+      });
+      new qx.ui.form.Row(radioBelow, "Below")
+        .appendTo(positionGroup);
+
+      radioBelow.on("tap", function() {
+        radioAbove.value = false;
+        radioBelow.value = true;
+        this._togglePositionZ(radioBelow.name, drawerLeft);
+        this._togglePositionZ(radioBelow.name, drawerRight);
+        this._togglePositionZ(radioBelow.name, drawerTop);
+        this._togglePositionZ(radioBelow.name, drawerBottom);
+      }, this);
 
       // PAGE CONTENT
-
-      var toggleModeGroup = new qx.ui.form.Group("Position")
-        .append(frontBackToggleButton);
-
-      this.getContent().append(toggleModeGroup);
-
+      this.getContent().append(positionGroup);
       var actionButtonGroup = new qx.ui.form.Group("Action")
        .append(this._createDrawerMenu([drawerTop, drawerRight, drawerBottom, drawerLeft]));
 
@@ -124,15 +145,17 @@ qx.Class.define("mobileshowcase.page.Drawer",
     /**
      * Toggles the z-Index position of the target drawer.
      */
-    _togglePositionZ : function(target) {
+    _togglePositionZ : function(position,target) {
       target.setStyle("transitionDuration", "0s");
       target.setStyle("position", "relative");
 
-      if(target.positionZ == "above") {
-        target.positionZ = "below";
-      }
-      else {
+      if(position.indexOf("above")!= -1) {
         target.positionZ = "above";
+
+      }
+      else if (position.indexOf("below")!= -1) {
+        target.positionZ = "below";
+
       }
 
       window.setTimeout(function() {
