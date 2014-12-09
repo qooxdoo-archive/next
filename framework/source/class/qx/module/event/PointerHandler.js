@@ -22,7 +22,7 @@
  * TODOC
  *
  * @require(qx.module.Event)
- * @require(qx.event.handler.PointerCore)
+ * @require(qx.event.handler.Pointer)
  *
  * @group (Event_Normalization)
  */
@@ -63,7 +63,7 @@ qx.Class.define("qx.module.event.PointerHandler", {
       }
 
       if (!element.$$pointerHandler) {
-        element.$$pointerHandler = new qx.event.handler.PointerCore(element, element.$$emitter);
+        element.$$pointerHandler = new qx.event.handler.Pointer(element, element.$$emitter);
       }
     },
 

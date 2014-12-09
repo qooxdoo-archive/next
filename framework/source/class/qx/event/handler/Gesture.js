@@ -23,7 +23,7 @@
  * Listens for synthetic gesture events and fires events
  * for gestures like "tap" or "swipe".
  */
-qx.Class.define("qx.event.handler.GestureCore", {
+qx.Class.define("qx.event.handler.Gesture", {
   extend : Object,
 
   statics : {
@@ -90,14 +90,14 @@ qx.Class.define("qx.event.handler.GestureCore", {
       // force qx.bom.Event.supportsEvent to return true for this type so we
       // can use the native addEventListener (synthetic gesture events use the
       // native dispatchEvent).
-      qx.event.handler.GestureCore.TYPES.forEach(function(type) {
+      qx.event.handler.Gesture.TYPES.forEach(function(type) {
         if (!this.__defaultTarget["on" + type]) {
           this.__defaultTarget["on" + type] = true;
         }
       }.bind(this));
 
       var defaultTarget = qxWeb(this.__defaultTarget);
-      qx.event.handler.GestureCore.GESTURE_EVENTS.forEach(function(gestureType) {
+      qx.event.handler.Gesture.GESTURE_EVENTS.forEach(function(gestureType) {
         defaultTarget.on(gestureType, this.checkAndFireGesture, this);
       }.bind(this));
 
@@ -112,7 +112,7 @@ qx.Class.define("qx.event.handler.GestureCore", {
      */
     _stopObserver : function() {
       var defaultTarget = qxWeb(this.__defaultTarget);
-      qx.event.handler.GestureCore.GESTURE_EVENTS.forEach(function(pointerType) {
+      qx.event.handler.Gesture.GESTURE_EVENTS.forEach(function(pointerType) {
         defaultTarget.off(pointerType, this.checkAndFireGesture, this);
       }.bind(this));
 
@@ -174,7 +174,7 @@ qx.Class.define("qx.event.handler.GestureCore", {
         "isPrimary" : domEvent.isPrimary,
         "longTapTimer" : window.setTimeout(
           this.__fireLongTap.bind(this, domEvent, target),
-          qx.event.handler.GestureCore.LONGTAP_TIME
+          qx.event.handler.Gesture.LONGTAP_TIME
         )
       };
 
@@ -300,7 +300,7 @@ qx.Class.define("qx.event.handler.GestureCore", {
         var isDblTap = false;
         if (Object.keys(this.__lastTap).length > 0) {
           // delete old tap entries
-          var limit = Date.now() - qx.event.handler.GestureCore.DOUBLETAP_TIME;
+          var limit = Date.now() - qx.event.handler.Gesture.DOUBLETAP_TIME;
           for (var time in this.__lastTap) {
 
             if (time < limit) {
@@ -487,7 +487,7 @@ qx.Class.define("qx.event.handler.GestureCore", {
      */
     _isBelowTapMaxDistance: function(domEvent) {
       var delta = this._getDeltaCoordinates(domEvent);
-      var maxDistance = qx.event.handler.GestureCore.TAP_MAX_DISTANCE[domEvent.getPointerType()];
+      var maxDistance = qx.event.handler.Gesture.TAP_MAX_DISTANCE[domEvent.getPointerType()];
       if (!delta) {
         return null;
       }
@@ -509,7 +509,7 @@ qx.Class.define("qx.event.handler.GestureCore", {
      * @return {Boolean} <code>true</code>, if points are in range
      */
     __isBelowDoubleTapDistance : function(x1, y1, x2, y2, type) {
-      var clazz = qx.event.handler.GestureCore;
+      var clazz = qx.event.handler.Gesture;
 
       var inX = Math.abs(x1 - x2) < clazz.TAP_MAX_DISTANCE[type];
       var inY = Math.abs(y1 - y2) < clazz.TAP_MAX_DISTANCE[type];
@@ -597,7 +597,7 @@ qx.Class.define("qx.event.handler.GestureCore", {
         return null;
       }
 
-      var clazz = qx.event.handler.GestureCore;
+      var clazz = qx.event.handler.Gesture;
       var deltaCoordinates = this._getDeltaCoordinates(domEvent);
       var duration = new Date().getTime() - gesture.startTime;
       var axis = (Math.abs(deltaCoordinates.x) >= Math.abs(deltaCoordinates.y)) ? "x" : "y";
@@ -628,8 +628,8 @@ qx.Class.define("qx.event.handler.GestureCore", {
     _fireRoll : function(domEvent, type, target) {
       if (domEvent.type === qx.core.Environment.get("event.mousewheel").type) {
         domEvent.delta = {
-          x: qx.util.Wheel.getDelta(domEvent, "x") * qx.event.handler.GestureCore.ROLL_FACTOR,
-          y: qx.util.Wheel.getDelta(domEvent, "y") * qx.event.handler.GestureCore.ROLL_FACTOR
+          x: qx.util.Wheel.getDelta(domEvent, "x") * qx.event.handler.Gesture.ROLL_FACTOR,
+          y: qx.util.Wheel.getDelta(domEvent, "y") * qx.event.handler.Gesture.ROLL_FACTOR
         };
         domEvent.delta.axis = Math.abs(domEvent.delta.x / domEvent.delta.y) < 1 ? "y" : "x";
         domEvent.pointerType = "wheel";
@@ -713,7 +713,7 @@ qx.Class.define("qx.event.handler.GestureCore", {
      */
     isBelowTapMaxDistance: function(event) {
       var deltaCoordinates = this._calcDelta(event);
-      var clazz = qx.event.handler.GestureCore;
+      var clazz = qx.event.handler.Gesture;
 
       return (Math.abs(deltaCoordinates.x) <= clazz.TAP_MAX_DISTANCE &&
               Math.abs(deltaCoordinates.y) <= clazz.TAP_MAX_DISTANCE);

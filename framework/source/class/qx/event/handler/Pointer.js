@@ -26,7 +26,7 @@
  * @require(qx.lang.Function)
  * @require(qx.event.type.dom.Pointer)
  */
-qx.Class.define("qx.event.handler.PointerCore", {
+qx.Class.define("qx.event.handler.Pointer", {
 
   extend : Object,
 
@@ -156,7 +156,7 @@ qx.Class.define("qx.event.handler.PointerCore", {
       if (!this.__nativePointerEvents) {
         domEvent.stopPropagation();
       }
-      var type = qx.event.handler.PointerCore.MSPOINTER_TO_POINTER_MAPPING[domEvent.type] || domEvent.type;
+      var type = qx.event.handler.Pointer.MSPOINTER_TO_POINTER_MAPPING[domEvent.type] || domEvent.type;
       var evt = new qx.event.type.dom.Pointer(type, domEvent, {bubbles: true});
       this._fireEvent(evt, type, domEvent.target);
     },
@@ -170,7 +170,7 @@ qx.Class.define("qx.event.handler.PointerCore", {
         return;
       }
       domEvent.$$qxProcessed = true;
-      var type = qx.event.handler.PointerCore.TOUCH_TO_POINTER_MAPPING[domEvent.type];
+      var type = qx.event.handler.Pointer.TOUCH_TO_POINTER_MAPPING[domEvent.type];
       var changedTouches = domEvent.changedTouches;
 
       this._determineActiveTouches(domEvent.type, changedTouches);
@@ -233,7 +233,7 @@ qx.Class.define("qx.event.handler.PointerCore", {
           // always simulate left click on touch interactions for primary pointer
           touchProps.button = 0;
           touchProps.buttons = 1;
-          qx.event.handler.PointerCore.__lastTouch = {
+          qx.event.handler.Pointer.__lastTouch = {
             "x": touch.clientX,
             "y": touch.clientY,
             "time": new Date().getTime()
@@ -282,7 +282,7 @@ qx.Class.define("qx.event.handler.PointerCore", {
         this.__buttonStates[domEvent.which] = 0;
       }
 
-      var type = qx.event.handler.PointerCore.MOUSE_TO_POINTER_MAPPING[domEvent.type];
+      var type = qx.event.handler.Pointer.MOUSE_TO_POINTER_MAPPING[domEvent.type];
       var buttonsPressed = qx.lang.Array.sum(this.__buttonStates);
       var mouseProps = {pointerType : "mouse", pointerId: 1, bubbles : true};
 
@@ -352,13 +352,13 @@ qx.Class.define("qx.event.handler.PointerCore", {
      * @return {Boolean} <code>true</code> if passed mouse position is a synthetic MouseEvent.
      */
     _isSimulatedMouseEvent: function(x, y) {
-      var touch = qx.event.handler.PointerCore.__lastTouch;
+      var touch = qx.event.handler.Pointer.__lastTouch;
       if (touch) {
         var timeSinceTouch = new Date().getTime() - touch.time;
-        var dist = qx.event.handler.PointerCore.SIM_MOUSE_DISTANCE;
-        var distX = Math.abs(x - qx.event.handler.PointerCore.__lastTouch.x);
-        var distY = Math.abs(y - qx.event.handler.PointerCore.__lastTouch.y);
-        if (timeSinceTouch < qx.event.handler.PointerCore.SIM_MOUSE_DELAY) {
+        var dist = qx.event.handler.Pointer.SIM_MOUSE_DISTANCE;
+        var distX = Math.abs(x - qx.event.handler.Pointer.__lastTouch.x);
+        var distY = Math.abs(y - qx.event.handler.Pointer.__lastTouch.y);
+        if (timeSinceTouch < qx.event.handler.Pointer.SIM_MOUSE_DELAY) {
           if (distX < dist || distY < dist) {
             return true;
           }
@@ -392,7 +392,7 @@ qx.Class.define("qx.event.handler.PointerCore", {
       var gestureEvent;
       if (type == "pointerdown" || type == "pointerup" || type == "pointermove") {
         gestureEvent = new qx.event.type.dom.Pointer(
-          qx.event.handler.PointerCore.POINTER_TO_GESTURE_MAPPING[type],
+          qx.event.handler.Pointer.POINTER_TO_GESTURE_MAPPING[type],
           domEvent,
           {
             bubbles: true,
