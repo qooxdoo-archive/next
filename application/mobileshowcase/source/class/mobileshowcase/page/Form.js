@@ -254,6 +254,8 @@ qx.Class.define("mobileshowcase.page.Form",
       var resetButton = this._createResetButton()
         .appendTo(buttonContainer);
 
+      form.redefineResetter();
+
       return form;
     },
 
