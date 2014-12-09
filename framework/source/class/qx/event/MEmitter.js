@@ -138,13 +138,21 @@ qx.Mixin.define("qx.event.MEmitter",
      */
     emit : function(name, data) {
       var storage = this._getStorage(name).concat();
+      var toDelete = [];
       storage.forEach(function(entry) {
         entry.listener.call(entry.ctx, data);
         if (entry.once) {
-          storage.splice(storage.indexOf(entry), 1);
+          toDelete.push(entry);
         }
       });
-      this.__listener[name] = storage;
+
+      // listener callbacks could manipulate the storage
+      // (e.g. module.Event.once)
+      toDelete.forEach(function(entry) {
+        var origStorage = this.__getStorage(name);
+        var idx = origStorage.indexOf(entry);
+        origStorage.splice(idx, 1);
+      });
 
       // call on any
       storage = this._getStorage("*");
