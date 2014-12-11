@@ -149,7 +149,7 @@ qx.Mixin.define("qx.event.MEmitter",
       // listener callbacks could manipulate the storage
       // (e.g. module.Event.once)
       toDelete.forEach(function(entry) {
-        var origStorage = this.__getStorage(name);
+        var origStorage = this._getStorage(name);
         var idx = origStorage.indexOf(entry);
         origStorage.splice(idx, 1);
       }.bind(this));
