@@ -74,7 +74,7 @@ qx.Class.define("qx.ui.TabBar", {
     active: {
       nullable: true,
       init: null,
-      check: "Element",
+      check: "HTMLLIElement",
       apply: "_applyActive",
       event: true
     },
