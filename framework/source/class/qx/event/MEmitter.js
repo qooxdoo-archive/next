@@ -152,7 +152,7 @@ qx.Mixin.define("qx.event.MEmitter",
         var origStorage = this.__getStorage(name);
         var idx = origStorage.indexOf(entry);
         origStorage.splice(idx, 1);
-      });
+      }.bind(this));
 
       // call on any
       storage = this._getStorage("*");
