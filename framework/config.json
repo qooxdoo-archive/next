@@ -11,6 +11,9 @@
       "path" : "image.json"
     },
     {
+      "path" : "./server.json"
+    },
+    {
       "path" : "./website.json"
     }
   ],
@@ -34,8 +37,17 @@
     "info",
     "lint",
     "lint-test",
+    "npm-package-copy",
+    "npm-package-publish",
+    "npm-package-test",
     "provider",
     "pretty-test",
+    "qxserver-api",
+    "qxserver-build",
+    "qxserver-build-min",
+    "qxserver-clean",
+    "qxserver-distclean",
+    "qxserver-test",
     "qxweb-build",
     "qxweb-build-min",
     "qxweb-build-module-all",

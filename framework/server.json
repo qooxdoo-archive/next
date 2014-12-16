@@ -1,0 +1,260 @@
+{
+  "name"    : "server component include config",
+
+  "include" :
+  [
+    {
+      "path" : "${QOOXDOO_PATH}/component/testrunner/testrunner.json",
+      "import" : ["build-basic-portable", "build-basic-script"]
+    }
+  ],
+
+  "let" :
+  {
+    "APPLICATION"  : "server",
+    "QOOXDOO_PATH" : "../",
+    "QXTHEME"      : "server.theme.Theme",
+    "API_EXCLUDE"  : ["qx.test.*", "${APPLICATION}.theme.*", "${APPLICATION}.test.*"],
+    "LOCALES"      : [ "en" ],
+    "CACHE"        : "${TMPDIR}/qx${QOOXDOO_VERSION}/cache",
+    //"SFILES_VERSION_PART" : "-${QOOXDOO_VERSION}",
+    "SFILES_VERSION_PART" : "",
+    "BUILD_PATH"   : "script",
+    "ROOT"         : ".",
+    "TEST_NAMESPACE" : "test"
+  },
+
+
+  "jobs" :
+  {
+
+    "qxserver-common" :
+    {
+      "config-warnings" :
+      {
+        "exclude" : ["qx.event.GlobalError"]
+      },
+
+      "lint-check" :
+      {
+        "allowed-globals" : [ "qx.event.GlobalError" ]
+      },
+
+      "library" :
+      [
+        {
+          "manifest" : "${QOOXDOO_PATH}/framework/Manifest.json",
+          "uri" : ".."
+        }
+      ],
+
+      "extend" : [ "cache" ],
+
+      "include" :
+      [
+        "qx.Class"
+        ,"qx.Mixin"
+        ,"qx.Interface"
+        ,"qx.data.marshal.Json"
+        ,"qx.bom.client.Runtime"
+      ],
+
+      "exclude" :
+      [
+        "qx.event.GlobalError"
+      ],
+
+      "environment" :
+      {
+        "qx.debug" : false,
+        "qx.debug.dispose" : false,
+        "qx.debug.databinding" : false,
+        "qx.aspects" : false,
+        "qx.globalErrorHandling" : false
+      },
+
+      "compile-options" :
+      {
+        "paths" :
+        {
+          "file-prefix" : "${QOOXDOO_PATH}/tool/data/generator/copyright.include.js",
+          "loader-template" : "${QOOXDOO_PATH}/tool/data/generator/oo.loader.tmpl.js"
+        },
+        "uris" :
+        {
+          "script"   : ".",
+          "resource" : "."
+        }
+      }
+    },
+
+
+    "qxserver-build-min" :
+    {
+      "desc" : "a basic qooxdoo OO library",
+      "extend" : [ "qxserver-common" ],
+
+      "compile-options" :
+      {
+        "paths" :
+        {
+          "file" : "${BUILD_PATH}/qx-oo${SFILES_VERSION_PART}.min.js",
+          "app-root" : "."
+        },
+        "code" :
+        {
+          "format"   : true,
+          "except"   : [],
+          "optimize" : [ "variables", "basecalls", "privates", "strings", "variants", "whitespace" ]
+        }
+      },
+      "compile" : { "type" : "build" }
+    },
+
+
+    "qxserver-build" :
+    {
+      "desc" : "a basic qooxdoo OO library (non-optimized)",
+      "extend" : [ "qxserver-common" ],
+
+      "compile-options" :
+      {
+        "paths" :
+        {
+          "file" : "${BUILD_PATH}/qxserver${SFILES_VERSION_PART}.js",
+          "app-root" : "."
+        },
+        "code" :
+        {
+          "format"   : true,
+          "except"   : [],
+          "optimize" : [ ]
+        }
+      },
+      "compile" : { "type" : "build" }
+    },
+
+    "npm-package-copy" :
+    {
+      "desc" : "create an NPM package",
+      "extend" : ["cache"],
+      "shell" :
+      {
+        "command" : [
+          "mkdir -p npm/build",
+          "cp ${BUILD_PATH}/qxserver${SFILES_VERSION_PART}.js npm/build",
+          "cp npm/package.json npm/build",
+          "cp npm/readme.md npm/build"
+        ]
+      }
+    },
+
+    "npm-package-test" :
+    {
+      "desc" : "test the NPM package",
+      "extend" : ["cache"],
+      "shell" :
+      {
+        "command" : "cd test/npm && npm install ../../npm/build/ && node npm.js"
+      }
+    },
+
+    "npm-package-publish" :
+    {
+      "desc" : "publish the NPM package (run after npm-package-copy)",
+      "extend" : ["cache"],
+      "shell" :
+      {
+        "command" : "cd npm/build && npm publish"
+      }
+    },
+
+    "qxserver-api" :
+    {
+      "desc" : "create api doc for qxserver",
+      "=library" : [
+        {
+          "manifest" : "${QOOXDOO_PATH}/framework/Manifest.json"
+        },
+        {
+          "manifest" : "${QOOXDOO_PATH}/component/apiviewer/Manifest.json"
+        },
+        {
+          "manifest" : "${QOOXDOO_PATH}/component/library/versionlabel/Manifest.json"
+        }
+      ],
+      "let" :
+      {
+        "BUILD_PATH"     : "./api",
+        "API_INCLUDE"    : ["qx.Class", "qx.Mixin", "qx.Interface"],
+        "API_EXCLUDE"    : ["qx.test.*", "qx.event.GlobalError"]
+      }
+    },
+
+    "apiconf::build-data" : {
+      "extend" : ["qxserver-common"],
+      "compile-options": { "code" : { "optimize" : ["variants"] }}
+    },
+
+    "qxserver-test" :
+    {
+      "let" :
+      {
+        "TESTRUNNER_ROOT" : "${QOOXDOO_PATH}/component/testrunner",
+        "BUILD_SCRIPT_FILE" : "test/script/testrunner.js"
+      },
+
+      "run" :
+        [
+          "build-basic-portable",
+          "test-replace"
+        ]
+    },
+
+    "test-replace" :
+    {
+      "extend" : ["cache"],
+      "shell" : {
+        "command" : "sed -i -e s/qx/__qx__/g ${BUILD_SCRIPT_FILE}"
+      }
+    },
+
+    "qxserver-distclean" :
+    {
+      "extend" : ["qxserver-clean"]
+    },
+
+    "qxserver-clean" :
+    {
+      "=clean-files" :
+      {
+        "Deleting build" :
+          [
+            "${BUILD_PATH}"
+          ],
+        "Cleaning up source" :
+          [
+            "${ROOT}/source/script"
+          ],
+        "Deleting api folder" :
+          [
+            "${ROOT}/api"
+          ],
+        "Deleting test artefacts" :
+          [
+            "${ROOT}/test/script",
+            "${ROOT}/test/npm/node_modules",
+            "${ROOT}/npm/build"
+          ],
+        "Deleting inspector folder" :
+          [
+            "${ROOT}/inspector"
+          ],
+        "Deleting simulator folder" :
+          [
+            "${ROOT}/simulator"
+          ]
+      }
+    }
+  }
+}
