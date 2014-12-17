@@ -78,6 +78,20 @@ describe('Dataset', function() {
   });
 
 
+  it("testRemoveDataOnCollection", function() {
+    var firstElement = qxWeb.create("<div></div>").appendTo(sandbox);
+    var secondElement = firstElement.clone().appendTo(sandbox);
+
+    var collection = sandbox.getChildren();
+
+    collection.setData("option", "test");
+    collection.removeData("option");
+
+    assert.isNull(firstElement.getAttribute('data-option'));
+    assert.isNull(secondElement.getAttribute('data-option'));
+  }),
+
+
   it("HasData", function() {
     var div = q.create("<div>").appendTo(sandbox);
     assert.isFalse(div.hasData());
