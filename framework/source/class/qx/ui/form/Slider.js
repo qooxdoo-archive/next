@@ -210,6 +210,7 @@ qx.Class.define("qx.ui.form.Slider",
     _createHiddenField: function () {
       this._hiddenField = qxWeb.create("<input>")[0];
       this._hiddenField.type = "hidden";
+      this._hiddenField.value = 0;
 
       return this._hiddenField;
     },
@@ -365,7 +366,7 @@ qx.Class.define("qx.ui.form.Slider",
       if (knobElement) {
         qxWeb(knobElement)
           .setStyle("width", width - (width - position) + "px")
-          .setData("value", this.value)
+          .setData("value", this._hiddenField.value)
           .setData("percent", Math.floor(percent));
       }
     },
