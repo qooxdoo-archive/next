@@ -363,7 +363,8 @@ qx.Class.define("qx.ui.form.Slider",
 
       var knobElement = this._getKnobElement();
       if (knobElement) {
-        qxWeb(knobElement).setStyle("width", width - (width - position) + "px")
+        qxWeb(knobElement)
+          .setStyle("width", width - (width - position) + "px")
           .setData("value", this.value)
           .setData("percent", Math.floor(percent));
       }
@@ -390,7 +391,7 @@ qx.Class.define("qx.ui.form.Slider",
     _valueToPercent : function(value)
     {
       var min = this.minimum;
-      var value = this._limitValue(value);
+      value = this._limitValue(value);
 
       var percent = ((value - min) * 100) / this._getRange();
 
