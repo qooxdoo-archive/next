@@ -11,7 +11,6 @@ You therefore have to run 'generate.py build' ahead of running the test scripts.
 Then:
   cd test
   node node.js
-  rhino rhino.js
 
 npm-package-copy:
 Copies the relevant files under npm/build, from where they can be published.
