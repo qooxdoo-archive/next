@@ -49,6 +49,7 @@ qx.Class.define("qx.ui.form.Slider",
   {
     this.super(qx.ui.Widget, "construct", element);
     this.append(this._createKnobElement());
+    this.append(this._createHiddenField());
     this._registerEventListener();
     this._refresh();
     this.displayValue = undefined;
@@ -156,6 +157,7 @@ qx.Class.define("qx.ui.form.Slider",
   members :
   {
     _knobElement : null,
+    _hiddenField : null,
     _containerElementWidth : null,
     _containerElementLeft : null,
     _pixelPerStep : null,
@@ -198,6 +200,18 @@ qx.Class.define("qx.ui.form.Slider",
     _createKnobElement : function()
     {
       return qxWeb.create("<div>")[0];
+    },
+
+    /**
+     * Creates hidden field to sync the value to make sure the form can get the value on submit
+     *
+     * @returns {qx.ui.form.Slider}
+     */
+    _createHiddenField: function () {
+      this._hiddenField = qxWeb.create("<input>")[0];
+      this._hiddenField.type = "hidden";
+
+      return this._hiddenField;
     },
 
 
@@ -321,9 +335,9 @@ qx.Class.define("qx.ui.form.Slider",
      */
     _setValue : function(value)
     {
-      this.__value = Math.max(Math.min(value, this.maximum), this.minimum);
+      this._hiddenField.value = Math.max(Math.min(value, this.maximum), this.minimum);
       qxWeb.requestAnimationFrame(this._refresh, this);
-      return this.__value;
+      return this._hiddenField.value;
     },
 
 
@@ -333,7 +347,7 @@ qx.Class.define("qx.ui.form.Slider",
      * @return {Integer} the value of the slider
      */
     _getValue : function() {
-      return this.__value;
+      return this._hiddenField.value;
     },
 
 
