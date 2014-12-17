@@ -99,7 +99,7 @@
 
     "npm-package-publish" :
     {
-      "desc" : "publish the NPM package (run after npm-package-copy)",
+      "desc" : "Publishes the qooxdoo npm module to npmjs.org. Depends on 'npm-package-copy' having run, and a valid npm user account.",
       "extend" : ["cache"],
       "shell" :
       {

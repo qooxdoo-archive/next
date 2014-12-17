@@ -11,7 +11,3 @@ You therefore have to run 'generate.py build' ahead of running the test scripts.
 Then:
   cd test
   node node.js
-
-npm-package-publish:
-Publishes the qooxdoo npm module to npmjs.org. Depends on 'npm-package-copy'
-having run, and a valid npm user account.
