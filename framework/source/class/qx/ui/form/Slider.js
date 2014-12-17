@@ -161,7 +161,6 @@ qx.Class.define("qx.ui.form.Slider",
     _containerElementWidth : null,
     _containerElementLeft : null,
     _pixelPerStep : null,
-    __value: 0,
 
 
     // overridden
