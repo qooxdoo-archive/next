@@ -18,7 +18,7 @@
     "LOCALES"      : [ "en" ],
     "CACHE"        : "${TMPDIR}/qx${QOOXDOO_VERSION}/cache",
     "SFILES_VERSION_PART" : "",
-    "BUILD_PATH"   : "script",
+    "BUILD_PATH"   : "build",
     "ROOT"         : ".",
     "TEST_NAMESPACE" : "test"
   },
@@ -93,7 +93,7 @@
       "extend" : ["cache"],
       "shell" :
       {
-        "command" : "cd test/npm && npm install ../../npm/build/ && node npm.js"
+        "command" : "cd npm/test && npm install ../build/ && node npm.js"
       }
     },
 
