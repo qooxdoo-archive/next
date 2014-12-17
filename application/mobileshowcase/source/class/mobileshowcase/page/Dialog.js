@@ -119,6 +119,7 @@ qx.Class.define("mobileshowcase.page.Dialog",
       }]);
       this.__anchorMenu = new qx.ui.dialog.Menu(anchorMenuModel, showAnchorMenuButton).appendTo(body);
       this.__anchorMenu.title = "Colors";
+      this.__anchorMenu.on("selected", this.__onAnchorMenuChangeSelection, this);
 
       // BUTTONS
       var showPopupButton = new qx.ui.Button("Popup");
@@ -364,6 +365,15 @@ qx.Class.define("mobileshowcase.page.Dialog",
         "Received <b>changeSelection</b> from Menu Dialog. [index: "
         + index + "] [item: " + model.title + "]");
       this.__menu.hideWithDelay(500);
+    },
+
+    __onAnchorMenuChangeSelection: function(el) {
+      var index = el.getData("row");
+      var model = this.__anchorMenu.model.getItem(index);
+      this.__resultsLabel.value = (
+        "Received <b>changeSelection</b> from Anchor Menu Dialog. [index: " + index + "] [item: " + model.title + "]");
+      this.__anchorMenu.hideWithDelay(500);
     }
+
   }
 });
