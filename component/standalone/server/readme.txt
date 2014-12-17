@@ -12,11 +12,6 @@ Then:
   cd test
   node node.js
 
-npm-package-test:
-Tests the structure under npm/build, to be sure it's a valid npm package before
-publishing. Depends on 'npm-package-copy' having run. (This creates
-test/npm/node_modules).
-
 npm-package-publish:
 Publishes the qooxdoo npm module to npmjs.org. Depends on 'npm-package-copy'
 having run, and a valid npm user account.
