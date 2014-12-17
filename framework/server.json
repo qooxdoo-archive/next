@@ -74,7 +74,7 @@
 
     "npm-package-copy" :
     {
-      "desc" : "create an NPM package",
+      "desc" : "Copies the relevant files under npm/build, from where they can be published. Depends on 'build' having run.",
       "extend" : ["cache"],
       "shell" :
       {

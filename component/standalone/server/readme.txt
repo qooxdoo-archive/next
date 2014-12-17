@@ -12,10 +12,6 @@ Then:
   cd test
   node node.js
 
-npm-package-copy:
-Copies the relevant files under npm/build, from where they can be published.
-Depends on 'build' having run.
-
 npm-package-test:
 Tests the structure under npm/build, to be sure it's a valid npm package before
 publishing. Depends on 'npm-package-copy' having run. (This creates
