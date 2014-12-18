@@ -57,6 +57,7 @@ qx.Class.define("qx.ui.List",
    *      <li>configureItem: Gives the user the opportunity to set individual styles and properties on the item widget cells created by the controller.</li>
    *      <li>group: Gives the user the opportunity to group the model.</li>
    *    </ul>
+   * @param element {Element?null} The new list widget.
    *
    * @attach {qxWeb, toList}
    * @return {qx.ui.List} The new list widget.
