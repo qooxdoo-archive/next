@@ -94,7 +94,6 @@ qx.Class.define("mobileshowcase.page.Maps",
 
       var menuContainer = new qx.ui.Widget();
       menuContainer.setAttribute("id", "mapMenu");
-      menuContainer.setStyles({"top":"10px","right":"10px"})
       // LABEL
       var descriptionLabel = new qx.ui.Label("Page Title");
       descriptionLabel.addClass("osmMapLabel");
@@ -114,7 +113,6 @@ qx.Class.define("mobileshowcase.page.Maps",
       var groupPosition = new qx.ui.form.Group();
       groupPosition.append(this._showMyPositionButton);
       var groupFullScreen = new qx.ui.form.Group();
-      groupFullScreen.setStyle("background","white");
       groupFullScreen.append(descriptionLabel);
       groupFullScreen.append(toggleNavigationButton);
 
