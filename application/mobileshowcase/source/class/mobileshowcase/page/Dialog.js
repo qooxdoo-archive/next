@@ -364,7 +364,6 @@ qx.Class.define("mobileshowcase.page.Dialog",
       this.__resultsLabel.value = (
         "Received <b>changeSelection</b> from Menu Dialog. [index: "
         + index + "] [item: " + model.title + "]");
-      this.__menu.hideWithDelay(500);
     },
 
     __onAnchorMenuChangeSelection: function(el) {
@@ -372,7 +371,6 @@ qx.Class.define("mobileshowcase.page.Dialog",
       var model = this.__anchorMenu.model.getItem(index);
       this.__resultsLabel.value = (
         "Received <b>changeSelection</b> from Anchor Menu Dialog. [index: " + index + "] [item: " + model.title + "]");
-      this.__anchorMenu.hideWithDelay(500);
     }
 
   }
