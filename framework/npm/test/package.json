@@ -1,0 +1,18 @@
+{
+  "name": "qooxdoo-server-framework-tests",
+  "version": "0.1.0",
+  "description": "Test enviroment for qooxdoo-server",
+  "main": "index.js",
+  "scripts": {
+    "test": "nodeunit index.js"
+  },
+  "keywords": [
+    "qooxdoo",
+    "next",
+    "nodeunit",
+    "unit",
+    "tests"
+  ],
+  "author": "Tobias Oberrauch <tobias.oberrauch@1und1.de>",
+  "license": "LGPL"
+}
