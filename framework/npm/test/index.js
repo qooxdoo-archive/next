@@ -1,5 +1,6 @@
 /*global exports*/
 var fs = require('fs');
+var assert = require('chai').assert;
 var qxServerFilePath = '../build/qxserver.js';
 
 if (!fs.existsSync(qxServerFilePath)) {
@@ -8,20 +9,14 @@ if (!fs.existsSync(qxServerFilePath)) {
 
 var qx = require(qxServerFilePath);
 
-exports.testQxClassExists = function (test) {
-  test.notEqual(qx.Class, undefined);
-
-  test.done();
-};
-
-exports.testQxInterfaceExists = function (test) {
-  test.notEqual(qx.Interface, undefined);
-
-  test.done();
-};
-
-exports.testQxMixinExists = function (test) {
-  test.notEqual(qx.Mixin, undefined);
-
-  test.done();
-};
+describe("qxserver tests", function () {
+  it("test if qx.Class exists", function () {
+    assert.notEqual(qx.Class, undefined);
+  });
+  it("test if qx.Interface exists", function () {
+    assert.notEqual(qx.Interface, undefined);
+  });
+  it("test if qx.Mixin exists", function () {
+    assert.notEqual(qx.Mixin, undefined);
+  });
+});
