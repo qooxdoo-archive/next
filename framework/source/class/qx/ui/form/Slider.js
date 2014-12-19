@@ -174,6 +174,22 @@ qx.Class.define("qx.ui.form.Slider",
       return this.value;
     },
 
+    // overriden
+    setAttribute: function (name, value) {
+      if (name === "name") {
+        this._hiddenField.setAttribute("name", value);
+      }
+      this.super(qx.ui.Widget, "setAttribute", name, value);
+    },
+
+    // overriden
+    getAttribute: function (name) {
+      if (name === "name") {
+        return this._hiddenField.getAttribute("name");
+      }
+      return this.super(qx.ui.Widget, "getAttribute", name);
+    },
+
 
     /**
      * Increments the current value.
