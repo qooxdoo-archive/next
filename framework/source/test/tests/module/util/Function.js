@@ -2,30 +2,31 @@ describe('FunctionUtil', function() {
 
   this.timeout(5000);
 
-  it("FunctionDebounce", function(done) {
-    var called = 0;
-    var checkCalled;
+  beforeEach(function() {
+    this.clock = sinonSandbox.useFakeTimers();
+  });
 
-    var spy = function() {
-      called++;
-    };
+  afterEach(function() {
+    this.clock.restore();
+  });
+
+  it("FunctionDebounce", function() {
+
+    var spy = sinonSandbox.spy();
 
     var deferred = q.func.debounce(spy, 300);
     deferred();
 
-    window.setTimeout((function() {
-      checkCalled = (called === 0);
-    }), 200);
+    this.clock.tick(200);
+    sinon.assert.notCalled(spy);
 
-    window.setTimeout(function() {
-      assert.isTrue(checkCalled);
-      assert.equal(1, called);
-      done();
-    }, 1000);
+    this.clock.tick(800);
+    sinon.assert.calledOnce(spy);
+
   });
 
 
-  it("FunctionDebounceWithEvents", function(done) {
+  it("FunctionDebounceWithEvents", function() {
     var callCounter = 0;
     var context;
     var data;
@@ -37,27 +38,19 @@ describe('FunctionUtil', function() {
 
     sandbox.on("myEvent", q.func.debounce(myCallback, 200), sandbox);
 
-    var counter = 0;
-    var intervalId = window.setInterval((function() {
-      this.emit("myEvent", "interval_" + counter);
-      counter++;
-
-      if (counter === 20) {
-        window.clearInterval(intervalId);
-      }
-    }).bind(sandbox), 50);
-
+    for (var i = 0; i < 5; i++) {
+      this.clock.tick(50);
+      sandbox.emit("myEvent", "interval_" + i);
+    }
     var checkContext = sandbox;
-    setTimeout(function() {
-      assert.equal(1, callCounter);
-      assert.equal(checkContext, context);
-      assert.equal("interval_19", data);
-      done();
-    }, 1500);
+    this.clock.tick(500);
+    assert.equal(1, callCounter);
+    assert.equal(checkContext, context);
+    assert.equal("interval_4", data);
   });
 
 
-  it("FunctionDebounceWithImmediateEvents", function(done) {
+  it("FunctionDebounceWithImmediateEvents", function() {
     var callCounter = 0;
     var context;
     var data;
@@ -69,163 +62,95 @@ describe('FunctionUtil', function() {
 
     sandbox.on("myEvent", q.func.debounce(myCallback, 200, true), sandbox);
 
-    var counter = 0;
-    var intervalId = window.setInterval((function() {
-      var that = this.emit("myEvent", "interval_" + counter);
-      counter++;
-
-      if (counter === 20) {
-        window.clearInterval(intervalId);
-
-        setTimeout(function() {
-          that.emit("myEvent", "interval_" + counter);
-        }, 500);
+    for (var i = 0; i <= 20; i++) {
+      sandbox.emit("myEvent", "interval_" + i);
+      this.clock.tick(50);
+      if (i === 20) {
+        this.clock.tick(500);
+        sandbox.emit("myEvent", "interval_" + i);
       }
-    }).bind(sandbox), 50);
-
+    }
     var checkContext = sandbox;
-    setTimeout(function() {
-      assert.equal(2, callCounter);
-      assert.equal(checkContext, context);
-      assert.equal("interval_20", data);
-      done();
-    }, 1950);
+    assert.equal(2, callCounter);
+    assert.equal(checkContext, context);
+    assert.equal("interval_20", data);
+
   });
 
 
-  it("FunctionThrottle", function(done) {
+  it("FunctionThrottle", function() {
     var intervalCounter = 0;
     var callInfo = [];
-    var spy = function() {
-      callInfo.push(Date.now());
-    };
+    var spy = sinonSandbox.spy();
     var throttled = q.func.throttle(spy, 250);
-
-    var intervalId = window.setInterval((function() {
+    for (var i = 0; i <= 20; i++) {
       throttled();
-      if (intervalCounter == 10) {
-        window.clearInterval(intervalId);
-      }
-      intervalCounter++;
-    }), 10);
-
-    setTimeout(function() {
-      assert.equal(2, callInfo.length);
-      done();
-    }, 1000);
+      this.clock.tick(25);
+    }
+    sinon.assert.calledTwice(spy);
   });
 
 
-  it("FunctionThrottleNoTrailing", function(done) {
+  it("FunctionThrottleNoTrailing", function() {
     var intervalCounter = 0;
     var callInfo = [];
-    var spy = function() {
-      callInfo.push(Date.now());
-    };
+    var spy = sinonSandbox.spy();
     var throttled = q.func.throttle(spy, 500, {
       trailing: false
     });
 
-    var intervalId = window.setInterval((function() {
+    for (var i = 0; i <= 20; i++) {
+      this.clock.tick(90);
       throttled();
-      if (intervalCounter == 20) {
-        window.clearInterval(intervalId);
-      }
-      intervalCounter++;
-    }).bind(this), 80);
+    }
 
-    window.setTimeout((function() {
-      assert.equal(3, callInfo.length);
-      done();
-    }), 2000);
+    sinon.assert.calledThrice(spy);
   });
 
 
-  it("FunctionThrottleNoLeadingNoTrailing", function(done) {
+  it("FunctionThrottleNoLeadingNoTrailing", function() {
     var intervalCounter = 0;
     var callInfo = [];
-    var spy = function() {
-      callInfo.push(Date.now());
-    };
+    var spy = sinonSandbox.spy();
     var throttled = q.func.throttle(spy, 500, {
       leading: false,
       trailing: false
     });
-
-    var intervalId = window.setInterval((function() {
+    for (var i = 0; i <= 20; i++) {
+      this.clock.tick(80);
       throttled();
-      if (intervalCounter == 20) {
-        window.clearInterval(intervalId);
-      }
-      intervalCounter++;
-    }).bind(this), 80);
-
-    window.setTimeout(function() {
-      assert.equal(2, callInfo.length);
-      done();
-    }, 2000);
+    }
+    sinon.assert.calledTwice(spy);
   });
 
 
-  it("FunctionThrottleWithEvents", function(done) {
-
-    var context;
-    var callInfo = [];
-    var spy = function(e) {
-      context = this;
-      callInfo.push(Date.now());
-    };
+  it("FunctionThrottleWithEvents", function() {
+    var spy = sinonSandbox.spy();
     sandbox.on("myEvent", q.func.throttle(spy, 400), sandbox);
 
-    var counter = 0;
-    var intervalId = window.setInterval((function() {
-      this.emit("myEvent");
-
-      if (counter === 4) {
-        window.clearInterval(intervalId);
-      }
-      counter++;
-    }).bind(sandbox), 150);
-
-    var checkContext = sandbox;
-    setTimeout(function() {
-      assert.equal(checkContext, context);
-      assert.equal(3, callInfo.length);
-      done();
-    }, 2000);
+    for (var i = 0; i < 4; i++) {
+      this.clock.tick(350);
+      sandbox.emit("myEvent");
+    }
+    sinon.assert.calledThrice(spy);
   });
 
 
-  it("FunctionThrottleWithLeadingEvents", function(done) {
-    var context;
-    var callInfo = [];
-    var spy = function(e) {
-      context = this;
-      callInfo.push(Date.now());
-    };
+  it("FunctionThrottleWithLeadingEvents", function() {
+    var spy = sinonSandbox.spy();
+
     sandbox.on("myEvent", q.func.throttle(spy, 250, {
       trailing: false
     }), sandbox);
-
-    var counter = 0;
-    var intervalId = window.setInterval((function() {
-      var that = this.emit("myEvent");
-
-      if (counter === 14) {
-        window.clearInterval(intervalId);
-
-        window.setTimeout(function() {
-          that.emit("myEvent");
-        }, 500);
+    for (var i = 0; i < 17; i++) {
+      this.clock.tick(100);
+      sandbox.emit("myEvent");
+      if (i === 14) {
+        this.clock.tick(500);
+        sandbox.emit("myEvent");
       }
-      counter++;
-    }).bind(sandbox), 100);
-
-    var checkContext = sandbox;
-    setTimeout(function() {
-      assert.equal(checkContext, context);
-      assert.equal(6, callInfo.length);
-      done();
-    }, 2500);
+    }
+    assert.equal(6, spy.callCount);
   });
+
 });
