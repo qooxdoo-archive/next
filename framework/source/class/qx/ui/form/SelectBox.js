@@ -111,6 +111,7 @@ qx.Class.define("qx.ui.form.SelectBox",
      */
     _createSelectionDialog : function() {
       var menu = new qx.ui.dialog.Menu();
+      menu.modal = true;
       menu.hideOnBlockerTap = true;
       return menu;
     },
