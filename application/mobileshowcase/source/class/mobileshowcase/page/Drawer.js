@@ -52,9 +52,8 @@ qx.Class.define("mobileshowcase.page.Drawer",
       closeDrawerButton.on("tap", function() {
         target.hide();
       }, this);
-
       var drawerContent = new qx.ui.form.Group("This is the " + target.orientation + " drawer.")
-        .append(closeDrawerButton);
+        .append(closeDrawerButton).addClass("bordered");
       return drawerContent;
     },
 
