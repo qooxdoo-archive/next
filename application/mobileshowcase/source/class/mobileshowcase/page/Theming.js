@@ -116,19 +116,22 @@ qx.Class.define("mobileshowcase.page.Theming",
 
     /** Creates the form which controls the chosen qx.Mobile theme. */
     __createThemeChooser: function() {
-      var themeForm = new qx.ui.form.Form();
-      var themeGroup = new qx.ui.form.Group()
-        .appendTo(themeForm);
+
+      var  themeForm = new qx.ui.form.Form();
+      var themeGroup = new qx.ui.form.Group().appendTo(themeForm);
 
       for (var i = 0; i < mobileshowcase.page.Theming.THEMES.length; i++) {
         var radioButton = new qx.ui.form.RadioButton().set({
           name: "themes"
         });
+
+        if (qx.core.Environment.get("qx.theme").indexOf(mobileshowcase.page.Theming.THEMES[i].name.toLowerCase()) != -1) {
+          radioButton.setValue(true);
+        }
         new qx.ui.form.Row(radioButton, mobileshowcase.page.Theming.THEMES[i].name)
           .appendTo(themeGroup);
         radioButton.on("tap", this.__switchTheme.bind(this, i));
       }
-
       this.getContent().append(themeForm);
     },
 
