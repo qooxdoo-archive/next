@@ -90,8 +90,7 @@
       "qxweb-source",
       "source-all",
       "test",
-      "test-source",
-      "testrunner::tests-common"
+      "test-source"
     ]
   },
 
@@ -110,7 +109,7 @@
       "extend" : [ "cache" ],
 
       "include": ["qx.*"],
-      "exclude": ["qx.test.*", "qx.Part", "qx.io.part.*", "qx.dev.unit.Sinon"],
+      "exclude": ["qx.test.*", "qx.Part", "qx.io.part.*"],
 
       "environment" :
       {
@@ -174,17 +173,6 @@
 
 
     // -- Test Jobs ------------------------------------------------------------
-
-    // This one is used in all jobs relating to the generated AUT
-    "testrunner::tests-common" :
-    {
-      "extend" : [ "no-compile-lint" ],
-      "environment" :
-      {
-        "qx.test.bool_true" : true,
-        "qx.test.bool_false" : false
-      }
-    },
 
     "test" :
     {

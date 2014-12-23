@@ -1,14 +1,6 @@
 {
   "name"    : "server component include config",
 
-  "include" :
-  [
-    {
-      "path" : "${QOOXDOO_PATH}/component/testrunner/testrunner.json",
-      "import" : ["build-basic-portable", "build-basic-script"]
-    }
-  ],
-
   "let" :
   {
     "APPLICATION"  : "server",
@@ -132,29 +124,6 @@
     "apiconf::build-data" : {
       "extend" : ["qxserver-common"],
       "compile-options": { "code" : { "optimize" : ["variants"] }}
-    },
-
-    "qxserver-test" :
-    {
-      "let" :
-      {
-        "TESTRUNNER_ROOT" : "${QOOXDOO_PATH}/component/testrunner",
-        "BUILD_SCRIPT_FILE" : "test/script/testrunner.js"
-      },
-
-      "run" :
-        [
-          "build-basic-portable",
-          "test-replace"
-        ]
-    },
-
-    "test-replace" :
-    {
-      "extend" : ["cache"],
-      "shell" : {
-        "command" : "sed -i -e s/qx/__qx__/g ${BUILD_SCRIPT_FILE}"
-      }
     },
 
     "qxserver-distclean" :

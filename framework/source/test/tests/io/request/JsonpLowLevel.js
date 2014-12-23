@@ -260,9 +260,4 @@ describe("io.request.JsonpLowLevel", function() {
     req.send();
   }
 
-  function skip(msg) {
-    throw new qx.dev.unit.RequirementError(null, msg);
-  }
-
-
 });

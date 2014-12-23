@@ -989,12 +989,6 @@ describe("io.rest.Resource", function() {
     sinon.assert.called(req.send);
   }
 
-
-  function skip(msg) {
-    throw new qx.dev.unit.RequirementError(null, msg);
-  }
-
-
   function hasDebug() {
     return qx.core.Environment.get("qx.debug");
   }

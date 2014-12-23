@@ -1,15 +1,16 @@
 describe('FakeServer', function() {
 
   afterEach(function() {
-    q.dev.fakeServer.restore();
+    sinonSandbox.fakeServer.restore();
   });
 
 
   it("ConfiguredResponse", function(done) {
+    debugger;
     var url = "/doesnotexist" + Date.now();
     var expectedResponse = "OK";
 
-    q.dev.fakeServer.configure([{
+    sinonSandbox.fakeServer.configure([{
       method: "GET",
       url: url,
       response: expectedResponse
@@ -26,18 +27,17 @@ describe('FakeServer', function() {
     req.send();
   });
 
-
   it("RemoveResponse", function(done) {
     var url = "/doesnotexist" + Date.now();
     var expectedResponse = "OK";
 
-    q.dev.fakeServer.configure([{
+    sinonSandbox.fakeServer.configure([{
       method: "GET",
       url: url,
       response: expectedResponse
     }]);
 
-    q.dev.fakeServer.removeResponse("GET", url);
+    sinonSandbox.fakeServer.removeResponse("GET", url);
 
     var req = q.io.xhr(url);
     req.on("readystatechange", function() {
@@ -54,7 +54,7 @@ describe('FakeServer', function() {
   it("RespondWith", function(done) {
     var url = "/doesnotexist" + Date.now();
     var expectedResponse = "OK";
-    q.dev.fakeServer.respondWith("GET", url, expectedResponse);
+    sinonSandbox.fakeServer.respondWith("GET", url, expectedResponse);
 
     var req = q.io.xhr(url);
     req.on("readystatechange", function() {

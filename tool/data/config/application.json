@@ -5,11 +5,6 @@
   [
     {
       "path" : "./base.json"
-    },
-
-    {
-      "path" : "${QOOXDOO_PATH}/component/testrunner/testrunner.json",
-      "as"   : "testrunner"
     }
   ],
 
@@ -62,125 +57,6 @@
       "lint-check" : {
         "warn-unknown-jsdoc-keys" : true,
         "warn-jsdoc-key-syntax"   : true
-      }
-    },
-
-
-    "test" :
-    {
-      "desc"    : "create a test runner app for unit tests of the current library",
-
-      "extend"  : ["testrunner::build"],
-
-      "let" :
-      {
-        "TESTRUNNER_ORIGIN" : "iframe",
-        "TESTRUNNER_VIEW" : "testrunner.view.Html",
-        "TESTRUNNER_MAIN_CLASS" : "testrunner.Application",
-        "TESTRUNNER_ROOT" : "${QOOXDOO_PATH}/component/testrunner",
-        "TEST_INCLUDE"    : "${APPLICATION}.test.*",
-        "BUILD_PATH"      : "${ROOT}/test"
-      }
-    },
-
-
-    "test-inline" :
-    {
-      "extend" : ["test"],
-
-      "let" :
-      {
-        "TESTS_SCRIPT" : "tests-inline.js"
-      },
-
-      "include" : ["testrunner.TestLoaderInline"]
-    },
-
-
-    "test-native" :
-    {
-      "extend" : ["test"],
-
-      "let" :
-      {
-        "TESTS_SCRIPT" : "tests-native.js"
-      },
-
-      "include" : ["testrunner.TestLoaderNative"]
-    },
-
-
-    "test-source" :
-    {
-      "desc"    : "create a test runner app for unit tests (source version) of the current library",
-
-      "extend" : ["testrunner::build-with-tests-source"],
-
-      "let" :
-      {
-        "TESTRUNNER_ORIGIN" : "iframe",
-        "TESTRUNNER_VIEW" : "testrunner.view.Html",
-        "TESTRUNNER_MAIN_CLASS" : "testrunner.Application",
-        "TESTRUNNER_ROOT" : "${QOOXDOO_PATH}/component/testrunner",
-        "TEST_INCLUDE"    : "${APPLICATION}.test.*",
-        "QXTHEME"         : "qx.theme.Modern",
-        "BUILD_PATH"      : "${ROOT}/test"
-      }
-    },
-
-    "test-basic" :
-    {
-      "desc" : "create a basic (server-side/headless) test runner app for unit tests of the current library",
-
-      "extend" : ["testrunner::build-basic"],
-
-      "let" :
-      {
-        "TESTRUNNER_ROOT" : "${QOOXDOO_PATH}/component/testrunner",
-        "TEST_INCLUDE"    : "${APPLICATION}.test.*",
-        "BUILD_PATH"      : "${ROOT}/test"
-      }
-    },
-
-    "test-basic-source" :
-    {
-      "desc" : "create a basic (server-side/headless) test runner app for unit tests (source version) of the current library",
-
-      "extend" : ["testrunner::source-basic"],
-
-      "let" :
-      {
-        "TESTRUNNER_ROOT" : "${QOOXDOO_PATH}/component/testrunner",
-        "TEST_INCLUDE"    : "${APPLICATION}.test.*",
-        "BUILD_PATH"      : "${ROOT}/test"
-      }
-    },
-
-    "test-mobile" :
-    {
-      "desc" : "create a mobile test runner app for unit tests of the current library",
-
-      "extend" : ["testrunner::build-mobile"],
-
-      "let" :
-      {
-        "TESTRUNNER_ROOT" : "${QOOXDOO_PATH}/component/testrunner",
-        "TEST_INCLUDE"    : "${APPLICATION}.test.*",
-        "BUILD_PATH"      : "${ROOT}/test"
-      }
-    },
-
-    "test-mobile-source" :
-    {
-      "desc" : "create a basic (server-side/headless) test runner app for unit tests (source version) of the current library",
-
-      "extend" : ["testrunner::build-mobile-with-tests-source"],
-
-      "let" :
-      {
-        "TESTRUNNER_ROOT" : "${QOOXDOO_PATH}/component/testrunner",
-        "TEST_INCLUDE"    : "${APPLICATION}.test.*",
-        "BUILD_PATH"      : "${ROOT}/test"
       }
     }
   }

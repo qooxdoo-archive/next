@@ -51,8 +51,7 @@
     "MOBILE_THEME" : "custom",
     "MOBILE_THEME_PATH" : "${APPLICATION_PATH}/css/${MOBILE_THEME}.css",
     "ROOT"         : ".",
-    "QXTHEME"      : "", // preventing mobile app to load desktop icons
-    "TEST_LOADER" : "testrunner.TestLoaderMobile"
+    "QXTHEME"      : "" // preventing mobile app to load desktop icons
   },
 
   "config-warnings" :

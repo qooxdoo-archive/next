@@ -845,13 +845,7 @@ describe("io.request.XhrLowLevel", function() {
     return name == "gecko" && parseFloat(version) < targetVersion;
   }
 
-
   function hasIEBelow9() {
     return isIEBelow(9);
-  }
-
-
-  function skip(msg) {
-    throw new qx.dev.unit.RequirementError(null, msg);
   }
 });

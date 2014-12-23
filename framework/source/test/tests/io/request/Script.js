@@ -570,10 +570,4 @@ describe("io.request.Script", function() {
   function noCache(url) {
     return url + "?nocache=" + (new Date()).valueOf();
   }
-
-
-  function skip(msg) {
-    throw new qx.dev.unit.RequirementError(null, msg);
-  }
-
 });
