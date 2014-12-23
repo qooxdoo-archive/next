@@ -4,7 +4,7 @@ var assert = require('chai').assert;
 var qxServerFilePath = '../build/qxserver.js';
 
 if (!fs.existsSync(qxServerFilePath)) {
-  throw new Error("You have to run './generate.py npm-package-copy' before");
+  throw new Error("You have to run './generate.py qxserver-build,npm-package-copy' before");
 }
 
 var qx = require(qxServerFilePath);

@@ -85,7 +85,7 @@
       "extend" : ["cache"],
       "shell" :
       {
-        "command" : "cd npm/test && npm install ../build/ && npm test"
+        "command" : "cd npm/test && npm install && npm test"
       }
     },
 
