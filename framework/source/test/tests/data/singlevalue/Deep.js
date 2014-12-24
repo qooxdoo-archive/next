@@ -444,6 +444,13 @@ describe("data.singlevalue.Deep", function() {
 
 
   it("DeepTargetChangeArray", function() {
+    after(function(){
+      if(oldArray&&newArray){
+        oldArray.dispose();
+        newArray.dispose();
+      }
+    });
+
     qx.data.SingleValueBinding.bind(__label, "value", __a, "array[0]");
 
     __label.value = ("123");
@@ -458,12 +465,16 @@ describe("data.singlevalue.Deep", function() {
     assert.equal("456", newArray.getItem(0));
     assert.equal("123", oldArray.getItem(0));
 
-    oldArray.dispose();
-    newArray.dispose();
   });
 
 
   it("DeepTargetChangeArrayLast", function() {
+    after(function() {
+      if (oldArray && newArray) {
+        oldArray.dispose();
+        newArray.dispose();
+      }
+    });
     qx.data.SingleValueBinding.bind(__label, "value", __a, "array[last]");
 
     __label.value = ("123");
@@ -477,9 +488,6 @@ describe("data.singlevalue.Deep", function() {
     __label.value = ("456");
     assert.equal("456", newArray.getItem(2));
     assert.equal("123", oldArray.getItem(2));
-
-    oldArray.dispose();
-    newArray.dispose();
   });
 
 
