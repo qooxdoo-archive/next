@@ -242,11 +242,12 @@ qx.Class.define("qx.ui.container.Scroll",
                 "offset": position.top + this[0].scrollTop,
                 "input": waypoint,
                 "index": i,
-                "element" : j
+                "element": j
               });
             }
           }
-        } else if (qx.lang.Type.isNumber(waypoint)) {
+        }
+        else if (qx.lang.Type.isNumber(waypoint)) {
           results.push({
             "offset": waypoint,
             "input": waypoint,
@@ -256,7 +257,7 @@ qx.Class.define("qx.ui.container.Scroll",
         }
       }
 
-      results.sort(function(a, b) {
+      results.sort(function (a, b) {
         return a.offset - b.offset;
       });
     },
