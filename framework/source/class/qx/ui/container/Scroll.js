@@ -209,7 +209,7 @@ qx.Class.define("qx.ui.container.Scroll",
     _updateWaypoints: function() {
       this._calculatedWaypointsX = [];
       this._calculatedWaypointsY = [];
-      this._calcWaypoints(this._waypointsX, this._calculatedWaypointsX, this.getScrollWidth());
+      this._calcWaypoints(this._waypointsX, this._calculatedWaypointsX, this.getScrollWidth(), "x");
       this._calcWaypoints(this._waypointsY, this._calculatedWaypointsY, this.getScrollHeight());
     },
 
@@ -219,18 +219,23 @@ qx.Class.define("qx.ui.container.Scroll",
      * @param waypoints {Array} an array with waypoint descriptions.
      * @param results {Array} the array where calculated waypoints will be added.
      * @param scrollSize {Number} the vertical or horizontal scroll size.
+     * @param axis {String?} "x" or "y".
      */
-    _calcWaypoints: function(waypoints, results, scrollSize) {
+    _calcWaypoints: function (waypoints, results, scrollSize, axis) {
+      axis = axis || "y";
+
+      var offset = 0;
       for (var i = 0; i < waypoints.length; i++) {
         var waypoint = waypoints[i];
         if (qx.lang.Type.isString(waypoint)) {
           if (qx.lang.String.endsWith(waypoint, "%")) {
-            var offset = parseInt(waypoint, 10) * (scrollSize / 100);
+            offset = parseInt(waypoint, 10) * (scrollSize / 100);
             results.push({
               "offset": offset,
               "input": waypoint,
               "index": i,
-              "element": null
+              "element": null,
+              "axis": axis
             });
           } else {
             // Dynamically created waypoints, based upon a selector.
@@ -238,11 +243,17 @@ qx.Class.define("qx.ui.container.Scroll",
             var waypointElements = qxWeb(waypoint, element);
             for (var j = 0; j < waypointElements.length; j++) {
               var position = qxWeb(waypointElements[j]).getRelativeDistance(element);
+              if (axis === "y") {
+                offset = position.top + this[0].scrollTop;
+              } else if (axis === "x") {
+                offset = position.left + this[0].scrollLeft;
+              }
               results.push({
-                "offset": position.top + this[0].scrollTop,
+                "offset": offset,
                 "input": waypoint,
                 "index": i,
-                "element": j
+                "element": j,
+                "axis": axis
               });
             }
           }
@@ -252,7 +263,8 @@ qx.Class.define("qx.ui.container.Scroll",
             "offset": waypoint,
             "input": waypoint,
             "index": i,
-            "element": null
+            "element": null,
+            "axis": axis
           });
         }
       }
