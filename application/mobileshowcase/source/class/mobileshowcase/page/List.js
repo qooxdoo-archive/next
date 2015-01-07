@@ -108,10 +108,10 @@ qx.Class.define("mobileshowcase.page.List",
     * Handler for <code>waypoint</code> event on scrollContainer.
     * @param evt {qx.event.type.Data} the waypoint event.
     */
-    _onWaypoint : function(data) {
+    _onWaypoint : function(evt) {
       var targetElement = this._waypointsLabel;
-      var index = data.index;
-      var direction = data.direction;
+      var index = evt.index;
+      var direction = evt.direction;
 
       targetElement.animate({
         "duration": 1000,
