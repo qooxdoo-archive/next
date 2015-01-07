@@ -548,10 +548,6 @@
         [
           "${SOURCE_PATH}/script"
         ],
-        "Deleting api folder" :
-        [
-          "${ROOT}/api"
-        ],
         "Deleting test folder" :
         [
           "${ROOT}/test"

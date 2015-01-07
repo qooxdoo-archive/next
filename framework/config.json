@@ -331,10 +331,6 @@
       "extend"  : ["qxweb-clean"],
       "clean-files" :
       {
-        "Cleaning up api" :
-        [
-          "${API_SCRIPT_PATH}/*"
-        ],
         "Cleaning up generated resources" :
         [
           "build/resource/*"
