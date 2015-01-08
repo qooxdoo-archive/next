@@ -526,6 +526,7 @@ module.exports = {
           'qx.log.appender.Native',
           'qx.ui.form.Button'
         ],
+        prio: [],
         athint: {
           ignore: [],
           require: [],
