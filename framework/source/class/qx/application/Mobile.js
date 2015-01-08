@@ -64,6 +64,7 @@ qx.Class.define("qx.application.Mobile",
       qxWeb(document.body).addClasses([
         qx.core.Environment.get("os.name"),
         "v" + qx.core.Environment.get("os.version").charAt(0),
+        qx.core.Environment.get("device.type")
       ]);
 
       qxWeb(window).on("orientationchange", this._onOrientationChange, this);
