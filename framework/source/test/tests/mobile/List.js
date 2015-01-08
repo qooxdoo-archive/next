@@ -225,7 +225,7 @@ describe("mobile.List", function() {
     var el = list.find("*[data-row='3']")[0]; // item 3
     var spy = sinonSandbox.spy();
     list.on("selected", spy);
-    list.emit("tap", {_original : {target: el}});
+    list.emit("tap", {target: el});
     sinon.assert.calledOnce(spy);
     assert.equal(spy.args[0][0][0], el);
 
@@ -242,7 +242,7 @@ describe("mobile.List", function() {
     var el = list.find("*[data-group='3']")[0]; // item 3
     var spy = sinonSandbox.spy();
     list.on("selected", spy);
-    list.emit("tap", {_original : {target: el}});
+    list.emit("tap", {target: el});
     sinon.assert.calledOnce(spy);
     assert.equal(spy.args[0][0][0], el);
 
