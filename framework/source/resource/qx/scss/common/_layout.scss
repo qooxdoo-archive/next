@@ -70,7 +70,7 @@
 }
 
 // Devices which supports old flexbox syntax.
-.mobile:not(.qx-flex-ready),
+body:not(.qx-flex-ready),
 .qx-widget:not(.qx-flex-ready) {
   .qx-hbox, .qx-vbox {
     display: -webkit-box;      /* OLD - iOS 6-, Safari 3.1-6 */
