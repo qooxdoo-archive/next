@@ -30,8 +30,8 @@
  * <pre class="javascript">
  * var req = new qx.io.request.Xhr("/some/path/file.json");
  *
- * req.on("success", function(e) {
- *   var req = e.target;
+ * req.on("success", function(origReq) {
+ *   var req = origReq;
  *
  *   // Response parsed according to the server's
  *   // response content type, e.g. JSON
@@ -241,8 +241,8 @@ qx.Class.define("qx.io.request.Xhr",
             this.readyState = 4;
             this.__nativeXhr = new XDomainRequest();
             this.__nativeXhr.onerror = function() {
-              this.emit("readystatechange");
-              this.emit("error");
+              this.emit("readystatechange", this);
+              this.emit("error", this);
               this.emit("loadend", this);
             }.bind(this);
 
@@ -770,7 +770,7 @@ qx.Class.define("qx.io.request.Xhr",
       }
 
       // Always fire "readystatechange"
-      this.emit("readystatechange");
+      this.emit("readystatechange", this);
       if (this.readyState === qx.io.request.Xhr.DONE) {
         this.__readyStateChangeDone();
       }
@@ -784,18 +784,18 @@ qx.Class.define("qx.io.request.Xhr",
     __readyStateChangeDone: function() {
       // Fire "timeout" if timeout flag is set
       if (this.__timeout) {
-        this.emit("timeout");
+        this.emit("timeout", this);
         this.__timeout = false;
 
       // Fire either "abort", "load" or "error"
       } else {
         if (this.__abort) {
-          this.emit("abort");
+          this.emit("abort", this);
         } else {
           if (this.__isNetworkError()) {
-            this.emit("error");
+            this.emit("error", this);
           } else {
-            this.emit("load");
+            this.emit("load", this);
           }
         }
       }
