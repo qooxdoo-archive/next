@@ -220,6 +220,8 @@ qx.Class.define("qx.ui.control.Picker",
         slotWrapper.append(this._createPlaceholderItem());
       }
       scrollContainer.append(slotWrapper);
+      scrollContainer.append(this._createHiddenField(slotModel.getItem(0)));
+
       this.append(scrollContainer);
 
       scrollContainer.refresh();
@@ -227,6 +229,38 @@ qx.Class.define("qx.ui.control.Picker",
       return scrollContainer;
     },
 
+    /**
+     * Creates hidden field to store value to provide form api
+     *
+     * @param {String|Object} currentItem
+     * @returns {Element} the hidden field
+     */
+    _createHiddenField: function (currentItem) {
+      var hiddenField = qxWeb.create("<input>")[0];
+      hiddenField.type = "hidden";
+      hiddenField.value = this._guessItemValue(currentItem);
+
+      return hiddenField;
+    },
+
+    /**
+     * Extracts the value from the passed item.
+     *
+     * @param {String|Object} item
+     * @returns {String} The current item value
+     */
+    _guessItemValue: function (item) {
+      var Type = qx.lang.Type;
+
+      if (Type.isString(item)) {
+        return item;
+      }
+      else if (Type.isObject(item) && typeof item.title !== 'undefined') {
+        return item.title;
+      }
+
+      return "";
+    },
 
     /**
     * Creates a placeholder list item, for making sure the selected item is vertically centered.
@@ -274,6 +308,7 @@ qx.Class.define("qx.ui.control.Picker",
 
       var item = this.slotModel.getItem(parseInt(element.getData("row"), 10));
       this.self.value[this.slotIndex] = item;
+      this.slot.container.find('input[type=hidden]').setValue(this.self._guessItemValue(item));
     },
 
 
