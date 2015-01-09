@@ -40,7 +40,7 @@ qx.Class.define("qx.ui.TabBar", {
     this.super(qx.ui.Widget, "construct", element);
 
     // prevent unnecessary _render calls when adding multiple children
-    this._render = qxWeb.func.debounce(this._render.bind(this), 300, true);
+    this._render = qxWeb.func.throttle(this._render.bind(this), 300);
 
     if (orientation) {
       this.orientation = orientation;
@@ -232,8 +232,11 @@ qx.Class.define("qx.ui.TabBar", {
           selectedButton = qxWeb(firstButton[0]);
         }
       }
+
       this.active = null;
-      this.active = selectedButton[0];
+      if (selectedButton) {
+        this.active = selectedButton[0];
+      }
 
       this._applyAlignment(this.align);
 
