@@ -162,11 +162,6 @@
 
       "config-warnings" :
       {
-        "exclude" :
-        [
-          "qx.test.*",
-          "${APPLICATION}.test.*"
-        ],
         "environment" :
         [
           "non-literal-keys"
@@ -178,11 +173,6 @@
       [
         "${APPLICATION}.*",
         "qx.*"
-      ],
-      "exclude" :
-      [
-        "qx.test.*",
-        "${APPLICATION}.test.*"
       ],
 
       "compile-options" :
@@ -357,11 +347,7 @@
     "provider-deps":
     {
       // will only run when invoked from "provider"
-      "config-warnings" : {
-        "exclude" : [ "${APPLICATION}.test.*" ]
-      }
-      ,"include" : [ "=${APPLICATION}.*" ]
-      ,"exclude" : [ "${APPLICATION}.test.*" ]
+      "include" : [ "=${APPLICATION}.*" ]
 
       ,"log" :
       {
@@ -381,11 +367,8 @@
 
     "provider-classes" :
     {
-      // will only run when invoked from "provider"
-      "config-warnings" : {
-        "exclude" : [ "${APPLICATION}.test.*" ]
-      }
-      ,"compile-options" :
+
+      "compile-options" :
       {
         "code" :
         {
@@ -396,7 +379,6 @@
       }
 
       ,"include" : [ "${APPLICATION}.*" ]
-      ,"exclude" : [ "${APPLICATION}.test.*" ]
 
       ,"environment" :
       {
@@ -411,7 +393,6 @@
       {
         "app-root" : "${PROVIDER_ROOT}",
         "include"  : ["${APPLICATION}.*"],
-        "exclude"  : ["${APPLICATION}.test.*" ],
         "compile"  : ["source", "build"]
       }
     },
@@ -423,10 +404,8 @@
       ,"extend" : ["cache", "libraries"]
       ,"config-warnings" : {
         "include" : false,
-        "exclude" : [ "${APPLICATION}.test.*" ]
       }
       ,"include" : [ "=${APPLICATION}.*" ]
-      ,"exclude" : [ "${APPLICATION}.test.*" ]
 
       ,"log" :
       {

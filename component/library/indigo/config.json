@@ -9,14 +9,13 @@
   ],
 
   "export" : [],
-  
+
   "default-job" : "lint",
 
   "let" :
   {
     "APPLICATION"  : "indigo",
     "QOOXDOO_PATH" : "../../..",
-    "API_EXCLUDE"  : ["qx.test.*", "${APPLICATION}.test.*"],
     "LOCALES"      : [ "en" ],
     "CACHE"        : "${TMPDIR}/qx${QOOXDOO_VERSION}/cache",
     "ROOT"         : "."

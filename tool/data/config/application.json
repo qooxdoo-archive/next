@@ -39,12 +39,10 @@
       "let"    :
       {
         "BUILD_PATH"     : "${ROOT}/api",
-        "API_INCLUDE"    : ["qx.*", "${APPLICATION}.*"],
-        "API_EXCLUDE"    : ["qx.test.*", "${APPLICATION}.test.*"]
+        "API_INCLUDE"    : ["qx.*", "${APPLICATION}.*"]
       },
 
       "include" : "${API_INCLUDE}",
-      "exclude" : "${API_EXCLUDE}",
 
       "api" :
       {

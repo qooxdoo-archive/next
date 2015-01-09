@@ -29,10 +29,6 @@
     "source-server",
     "source-server-reload",
     "source-httpd-config",
-    "test",
-    "test-source",
-    "test-mobile",
-    "test-mobile-source",
     "validate-config",
     "validate-manifest",
     "watch-scss",
@@ -134,11 +130,6 @@
       "include" :
       [
         "qx.ui.*"
-      ],
-      "=exclude" :
-      [
-        "qx.test.*",
-        "${APPLICATION}.test.*"
       ],
       "add-css" : [
         { "uri" : "./resource/${MOBILE_THEME_PATH}" }
