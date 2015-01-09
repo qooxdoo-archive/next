@@ -361,7 +361,7 @@ qx.Class.define("qx.ui.control.Picker",
         container.find(".placeholder-item")._forEachElementWrapped(function(item) {
           item.dispose();
         });
-        container.getChildren().dispose();
+        container.getChildren().remove();
         container.dispose();
 
         this._pickerModel.removeAt(slotIndex);
