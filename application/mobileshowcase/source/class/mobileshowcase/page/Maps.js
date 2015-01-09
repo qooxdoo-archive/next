@@ -107,8 +107,6 @@ qx.Class.define("mobileshowcase.page.Maps",
       toggleNavigationButton.on("changeValue", function() {
         var newNavBarState = !this.navigationBarHidden;
         this.navigationBarHidden = newNavBarState;
-        this.exclude();
-        this.show();
       },this);
 
       var groupPosition = new qx.ui.form.Group();

@@ -162,7 +162,8 @@ qx.Class.define("qx.ui.page.NavigationPage",
     navigationBarHidden:
     {
       check : "Boolean",
-      init : false
+      init : false,
+      event: true
     },
 
 

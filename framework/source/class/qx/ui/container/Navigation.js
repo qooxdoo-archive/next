@@ -56,6 +56,7 @@ qx.Class.define("qx.ui.container.Navigation",
       this._append(this.__navigationBar);
     }
 
+    this.__navBarListeners = {};
     this.__content = this._createContent();
     this.__content.layoutPrefs = {flex: 1};
     this._append(this.__content);
@@ -81,6 +82,7 @@ qx.Class.define("qx.ui.container.Navigation",
   {
     __navigationBar : null,
     __content : null,
+    __navBarListeners: null,
 
 
     // overridden
@@ -170,6 +172,10 @@ qx.Class.define("qx.ui.container.Navigation",
     _onAddedChild : function(child) {
       this._update(child);
       child.on("changeVisibility", this._onChangeChildVisibility, this);
+
+      var navBarListener = this._update.bind(this, child);
+      this.__navBarListeners[child.getAttribute("id")] = navBarListener;
+      child.on("changeNavigationBarHidden", navBarListener, this);
     },
 
 
@@ -181,6 +187,8 @@ qx.Class.define("qx.ui.container.Navigation",
      */
     _onRemovedChild : function(child) {
       child.off("changeVisibility", this._onChangeChildVisibility, this);
+      child.off("changeNavigationBarHidden", this.__navBarListeners[child.getAttribute("id")], this);
+      delete this.__navBarListeners[child.getAttribute("id")];
       this._update(child);
     },
 
