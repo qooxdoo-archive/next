@@ -181,8 +181,7 @@ qx.Class.define("qx.ui.control.Picker",
      */
     _createPickerSlot : function(slotModel, slotIndex, delegate) {
       var scrollContainer = new qx.ui.container.Scroll({
-        // "snap": ".list-item",
-        "vScrollbar" : false
+        "vScrollbar": false
       });
       scrollContainer.setWaypointsY([".list-item"]);
 
@@ -197,9 +196,9 @@ qx.Class.define("qx.ui.control.Picker",
 
       scrollContainer.on("waypoint", this._onWaypoint, {
         self: this,
-        slot : slot,
-        slotIndex : slotIndex,
-        slotModel : slotModel
+        slot: slot,
+        slotIndex: slotIndex,
+        slotModel: slotModel
       });
 
       var list = new qx.ui.List(delegate);
