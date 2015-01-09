@@ -285,11 +285,12 @@ qx.Class.define("qx.ui.control.Picker",
 
 
     /**
-    * Handler for <code>changeSelection</code> event on picker list.
-    * @param evt {qx.event.type.Data} the events data.
-    */
-    _onChangeSelection: function(slotIndex, el) {
-      var index = parseInt(el.getData("row"), 10);
+     * Handler for <code>changeSelection</code> event on picker list.
+     * @param slotIndex {Integer} the index of the target picker slot.
+     * @param evt {qx.event.type.Data} the events data.
+     */
+    _onChangeSelection: function(slotIndex, evt) {
+      var index = parseInt(evt.getData("row"), 10);
       var slot = this._slots.getItem(slotIndex);
 
       if (this.visibility === "visible") {
