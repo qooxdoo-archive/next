@@ -50,6 +50,31 @@ qx.Class.define("qx.ui.form.DatePicker", {
      */
     format: {
       check: "Function"
+    },
+
+    /**
+     * Position of the calendar popup from the point of view of the <code>INPUT</code> element.
+     * Possible values are
+     *
+     * * <code>top-left</code>
+     * * <code>top-center</code>
+     * * <code>top-right</code>,
+     * * <code>bottom-left</code>
+     * * <code>bottom-center</code>
+     * * <code>bottom-right</code>
+     * * <code>left-top</code>
+     * * <code>left-middle</code>
+     * * <code>left-bottom</code>
+     * * <code>right-top</code>
+     * * <code>right-middle</code>
+     * * <code>right-bottom</code>
+     *
+     * Default value:
+     * <pre>bottom-left</pre>
+     */
+    position: {
+      init : "bottom-left",
+      check : "_checkPosition"
     }
   },
 
@@ -106,6 +131,18 @@ qx.Class.define("qx.ui.form.DatePicker", {
     __calendarId: null,
     __uniqueId: null,
 
+    /**
+     * Property validation
+     * @param value {String} value
+     * @return {Boolean} <code>true</code> if the value is valid.
+     */
+    _checkPosition : function(value) {
+      return [ 'top-left', 'top-center', 'top-right',
+               'bottom-left', 'bottom-center', 'bottom-right',
+               'left-top', 'left-middle', 'left-bottom',
+               'right-top', 'right-middle', 'right-bottom' ].indexOf(value) !== -1;
+    },
+
 
     /**
      * Get the associated calendar widget
@@ -129,7 +166,7 @@ qx.Class.define("qx.ui.form.DatePicker", {
       var calendar = this.getCalendar();
       if (calendar.getStyle("display") == "none") {
         calendar
-          .placeTo(this, "bottom-left", null, "keep-align")
+          .placeTo(this, this.position, null, "keep-align")
           .setStyle("display", "block");
       } else {
         calendar.setStyle("display", "none");
