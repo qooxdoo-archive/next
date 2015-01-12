@@ -58,7 +58,7 @@ qx.Class.define("qx.ui.form.DatePicker", {
      *
      * * <code>top-left</code>
      * * <code>top-center</code>
-     * * <code>top-right</code>,
+     * * <code>top-right</code>
      * * <code>bottom-left</code>
      * * <code>bottom-center</code>
      * * <code>bottom-right</code>
