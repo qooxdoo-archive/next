@@ -135,7 +135,7 @@ qx.Class.define("qx.ui.form.Picker",
     /**
      * Scrolls the slots so the currently selected items are centered
      */
-    _scrollToSelected: function(event) {
+    _scrollToSelected: function() {
       for (var i = 0; i < this.__value.length; i++) {
         var slotModel = this._pickerModel.getItem(i);
         if (!slotModel) {
