@@ -343,19 +343,6 @@ qx.Class.define("mobileshowcase.page.Dialog",
 
 
     /**
-     * Reacts on "confirmSelection" event on picker, and displays the values on resultsLabel.
-     */
-    __onPickerConfirmSelection : function(data) {
-      this.__resultsLabel.value = "";
-
-      for (var i = 0; i < data.length; i++) {
-        var entry = data[i];
-        this.__resultsLabel.value = (this.__resultsLabel.value + " Received <b>confirmSelection</b> from Picker Dialog. [slot: " + entry.slot + "] [item: " + entry.item + "] <br>");
-      }
-    },
-
-
-    /**
      * Reacts on "changeSelection" event on Menu, and displays the values on resultsLabel.
      */
     __onMenuChangeSelection : function(el) {
