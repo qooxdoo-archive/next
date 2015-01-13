@@ -516,10 +516,13 @@ qx.Class.define("qx.ui.List",
      * @return {Object} the group object, to which the item belongs to.
      */
     __getGroup : function(index) {
-      var item = this.model.getItem(index);
-      item = this.__configureData(item);
+      var data = this.model.getItem(index);
+      if (qx.Class.getClass(data) === "String") {
+        data = {title: data};
+      }
+      data = this.__configureData(data);
       var group = qx.util.Delegate.getMethod(this.delegate, "group");
-      return group(item, index);
+      return group(data, index);
     },
 
 
