@@ -165,14 +165,21 @@ describe("mobile.control.Picker", function() {
     picker.addSlot(pickerSlot1);
     picker.addSlot(pickerSlot2);
 
-    var oldValue = picker.value;
-    picker.value = ["b", "1"];
-    var cb = sinonSandbox.spy();
-    picker.on("changeValue", cb);
-    oldValue[1] = "foo";
-    sinon.assert.notCalled(cb);
-    picker.value[0] = "c";
-    sinon.assert.calledOnce(cb);
+    qx.core.Assert.assertEventFired(
+      picker,
+      "changeValue",
+      function () {
+        assert.equal(picker.value[0], "a");
+        assert.equal(picker.value[1], "0");
+
+        picker.value = ["b", "1"];
+      }.bind(this),
+      function (event) {
+        assert.equal(event.value[0], "b");
+        assert.equal(event.value[1], "1");
+        assert.equal(picker, event.target);
+      }.bind(this)
+    );
 
     picker.dispose();
   });
@@ -190,8 +197,8 @@ describe("mobile.control.Picker", function() {
     picker.on("changeValue", spy);
     picker.value = ["b", "1"];
     sinon.assert.calledOnce(spy);
-    assert.equal(spy.args[0][0][0], "b");
-    assert.equal(spy.args[0][0][1], "1");
+    assert.equal(spy.args[0][0].value[0], "b");
+    assert.equal(spy.args[0][0].value[1], "1");
 
     picker.dispose();
   });
@@ -201,8 +208,8 @@ describe("mobile.control.Picker", function() {
     var picker = new qx.ui.control.Picker()
       .appendTo(sandbox);
 
-    var pickerSlot1 = new qx.data.Array(["a", "b", "c"]);
-    var pickerSlot2 = new qx.data.Array(["0", "1", "2"]);
+    var pickerSlot1 = new qx.data.Array(["d", "e", "f"]);
+    var pickerSlot2 = new qx.data.Array(["3", "4", "5"]);
     picker.addSlot(pickerSlot1);
     picker.addSlot(pickerSlot2);
 
