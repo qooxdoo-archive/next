@@ -185,7 +185,7 @@ qx.Class.define("mobileshowcase.page.Dialog",
     * @return {qx.ui.dialog.Picker} the date picker.
     */
     _createPicker : function(anchor) {
-      var picker = this.__picker = new qx.ui.control.Picker();
+      var picker = this.__picker = new qx.ui.form.Picker();
 
       this.__pickerDaySlotData = this._createDayPickerSlot(0, new Date().getFullYear());
       picker.addSlot(this.__pickerDaySlotData);

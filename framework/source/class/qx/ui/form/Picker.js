@@ -29,7 +29,7 @@
  * You can add an array with objects which contain the keys <code>title</code>, a <code>subtitle</code> or an <code>image</code> (all optional).
  *
  * <pre>
- * var picker = new qx.ui.control.Picker();
+ * var picker = new qx.ui.form.Picker();
  * picker.height = 200;
  * picker.on("changeSelection", function(evt) {
  *   var data = evt.getData();
@@ -43,7 +43,7 @@
  * </pre>
  *
  */
-qx.Class.define("qx.ui.control.Picker",
+qx.Class.define("qx.ui.form.Picker",
 {
   extend : qx.ui.Widget,
   include : [
@@ -55,7 +55,7 @@ qx.Class.define("qx.ui.control.Picker",
 
   /**
    * @param element {Element}
-   * @return {qx.ui.control.Picker} The new picker widget.
+   * @return {qx.ui.form.Picker} The new picker widget.
    */
   construct : function(element)
   {
@@ -113,7 +113,7 @@ qx.Class.define("qx.ui.control.Picker",
 
 
     /**
-     * @param {Array} value
+     * @param value {Array}
      */
     _setValue: function(value) {
       for (var i = 0; i < value.length; i++) {
@@ -222,7 +222,7 @@ qx.Class.define("qx.ui.control.Picker",
     /**
      * Creates hidden field to store value to provide form api
      *
-     * @param {String|Object} currentItem
+     * @param currentItem {String|Object}
      * @returns {Element} the hidden field
      */
     _createHiddenField: function (currentItem) {
@@ -236,7 +236,7 @@ qx.Class.define("qx.ui.control.Picker",
     /**
      * Extracts the value from the passed item.
      *
-     * @param {String|Object} item
+     * @param item {String|Object}
      * @returns {String} The current item value
      */
     _serializeItemValue: function (item) {
