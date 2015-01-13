@@ -46,6 +46,12 @@
 qx.Class.define("qx.ui.control.Picker",
 {
   extend : qx.ui.Widget,
+  include : [
+    qx.ui.form.MForm
+  ],
+  implement : [
+    qx.ui.form.IForm
+  ],
 
   /**
    * @param element {Element}
@@ -64,31 +70,11 @@ qx.Class.define("qx.ui.control.Picker",
   },
 
 
-  events :
-  {
-    /**
-     * Fired if an item has been selected. The value is an Array containing
-     * the selected model item of each slot.
-     */
-    changeValue : "Array"
-  },
-
-
   properties :
   {
     // overridden
     defaultCssClass : {
       init : "picker"
-    },
-
-
-    /**
-     * Array containing the currently selected model item of each slot.
-     */
-    value: {
-      check: "Array",
-      nullable: false,
-      apply: "_applyValue"
     },
 
 
@@ -126,38 +112,42 @@ qx.Class.define("qx.ui.control.Picker",
     },
 
 
-    // property apply
-    _applyValue: function(value, old) {
-      if (old) {
-        for (var i = 0; i < old.length; i++) {
-          this._observeProperty(old, i, false);
-        }
-      }
-
+    /**
+     * @param {Array} value
+     */
+    _setValue: function(value) {
       for (var i = 0; i < value.length; i++) {
         value["$$" + i] = value[i];
         this._observeProperty(value, i, true);
       }
-      this.emit("changeValue", value);
+      this.__value = value;
+      this.__fireChangeValue(value);
+    },
+
+    /**
+     * @returns {Array}
+     */
+    _getValue: function () {
+      return this.__value;
     },
 
 
     /**
      * Scrolls the slots so the currently selected items are centered
      */
-    _scrollToSelected: function() {
-      for (var i = 0; i < this.value.length; i++) {
+    _scrollToSelected: function(event) {
+      for (var i = 0; i < this.__value.length; i++) {
         var slotModel = this._pickerModel.getItem(i);
         if (!slotModel) {
           continue;
         }
-        if (slotModel.contains(this.value[i])) {
-          var row = slotModel.indexOf(this.value[i]);
+        if (slotModel.contains(this.__value[i])) {
+          var row = slotModel.indexOf(this.__value[i]);
           var slotContainer = this._slots.getItem(i).container;
           slotContainer.scrollTo(0, row * this._calcItemHeight());
         } else {
-          this.value[i] = slotModel.getItem(0);
-          throw new Error("'" + this.value[i] + "' is not a selectable element for slot " + i);
+          this.__value[i] = slotModel.getItem(0);
+          throw new Error("'" + this.__value[i] + "' is not a selectable element for slot " + i);
         }
       }
     },
@@ -238,7 +228,7 @@ qx.Class.define("qx.ui.control.Picker",
     _createHiddenField: function (currentItem) {
       var hiddenField = qxWeb.create("<input>")[0];
       hiddenField.type = "hidden";
-      hiddenField.value = this._guessItemValue(currentItem);
+      hiddenField.value = this._serializeItemValue(currentItem);
 
       return hiddenField;
     },
@@ -249,14 +239,18 @@ qx.Class.define("qx.ui.control.Picker",
      * @param {String|Object} item
      * @returns {String} The current item value
      */
-    _guessItemValue: function (item) {
+    _serializeItemValue: function (item) {
       var Type = qx.lang.Type;
 
       if (Type.isString(item)) {
         return item;
       }
-      else if (Type.isObject(item) && typeof item.title !== 'undefined') {
-        return item.title;
+      else if (Type.isObject(item)) {
+        if (typeof item.title !== 'undefined') {
+          return item.title;
+        } else {
+          return item.toString();
+        }
       }
 
       return "";
@@ -309,7 +303,7 @@ qx.Class.define("qx.ui.control.Picker",
 
       var item = this.slotModel.getItem(parseInt(element.getData("row"), 10));
       this.self.value[this.slotIndex] = item;
-      this.slot.container.find('input[type=hidden]').setValue(this.self._guessItemValue(item));
+      this.slot.container.find('input[type=hidden]').setValue(this.self._serializeItemValue(item));
     },
 
 
