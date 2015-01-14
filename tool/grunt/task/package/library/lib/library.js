@@ -23,7 +23,7 @@
  * @module library
  *
  * @desc
- * Wrapper for <code>Manifest.json</code> files. Reads them and provides their contents.
+ * Wrapper for <code>package.json</code> files. Reads them and provides their contents.
  */
 
 //------------------------------------------------------------------------------
@@ -41,49 +41,45 @@ var path = require('path');
 
 module.exports = {
   /**
-   * Extracts data from given <code>Manifest.json</code> paths:
-   *
-   * <ul>
-   *  <li>/provides/namespace</li>
-   *  <li>/provides/class</li>
-   *  <li>/provides/resource</li>
-   * </ul>
+   * Read JSON file (e.g. package.json).
    *
    * @param {string[]} filePaths
    * @returns {Object}
    */
-  getPathsFromManifest: function(filePaths) {
+  readPackageJson: function(filePaths) {
     var i = 0;
     var l = filePaths.length;
-    var manifPath = '';
+    var jsonPath = '';
     var contents = '';
-    var manif = '';
-    var manifests = {};
+    var packageJson = '';
+    var packageJsonFiles = {};
 
     for (; i<l; i++) {
-      manifPath = filePaths[i];
-      if (!fs.existsSync(manifPath)) {
-        throw Error('Can\'t read Manifest file at: ' + manifPath);
+      jsonPath = filePaths[i];
+      if (!fs.existsSync(jsonPath)) {
+        throw Error('Can\'t read package.json file from: ' + jsonPath);
       }
-      contents = fs.readFileSync(manifPath, {encoding: 'utf8'});
-      manif = JSON.parse(contents);
-      manifests[manif.provides.namespace] = {
-        base: {
-          rel: path.dirname(manifPath),
-          abs: path.resolve(path.dirname(manifPath))
+      contents = fs.readFileSync(jsonPath, {encoding: 'utf8'});
+      packageJson = JSON.parse(contents);
+      packageJsonFiles[packageJson.org_next.namespace] = {
+        "base": {
+          rel: path.dirname(jsonPath),
+          abs: path.resolve(path.dirname(jsonPath))
         },
-        class: manif.provides.class,
-        resource: manif.provides.resource,
+        "data": packageJson,
+        "class": packageJson.org_next.class,
+        "resource": packageJson.org_next.resource
       };
+
     }
 
-    return manifests;
+    return packageJsonFiles;
   },
 
   /**
    * Extracts data by kind (<code>'class'</code> or
    * <code>'resource'</code> from given
-   * <code>Manifest.json</code> paths optionally with namespace key.
+   * <code>package.json</code> paths optionally with namespace key.
    *
    * @param {string} kind
    * @param {string[]} filePaths
@@ -92,7 +88,7 @@ module.exports = {
    * @returns {Object|string[]}
    */
   getPathsFor: function(kind, filePaths, options) {
-    var libPaths = getPathsFromManifest(filePaths);
+    var libPaths = readPackageJson(filePaths);
     var validKinds = ['class', 'resource'];
     var specificPathsWithKeys = {};
     var specificPaths = [];
@@ -126,4 +122,5 @@ module.exports = {
 };
 
 // shortcut
-var getPathsFromManifest = module.exports.getPathsFromManifest;
+var getPathsFor = module.exports.getPathsFor;
+var readPackageJson = module.exports.readPackageJson;

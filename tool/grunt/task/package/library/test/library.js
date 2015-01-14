@@ -24,16 +24,16 @@ var path = require('path');
 module.exports = {
   setUp: function(done) {
     this.library = require('../lib/library.js');
-    this.testManifestPaths = [
-      './test/data/myapp/Manifest.json',
-      './test/data/framework/Manifest.json'
+    this.testJsonPaths = [
+      './test/data/myapp/package.json',
+      './test/data/framework/package.json'
     ];
     done();
   },
 
-  getPathsFromManifest: function (test) {
+  readPackageJson: function (test) {
     var expected = ['myapp', 'qx'];
-    var actual = this.library.getPathsFromManifest(this.testManifestPaths);
+    var actual = this.library.readPackageJson(this.testJsonPaths);
     test.deepEqual(Object.keys(actual), expected);
 
     test.done();
@@ -44,28 +44,28 @@ module.exports = {
       myapp: path.normalize('test/data/myapp/source/class'),
       qx: path.normalize('test/data/framework/source/class')
     };
-    var actualClassWithKeys = this.library.getPathsFor('class', this.testManifestPaths, {withKeys: true});
+    var actualClassWithKeys = this.library.getPathsFor('class', this.testJsonPaths, {withKeys: true});
     test.deepEqual(actualClassWithKeys, expectedClassWithKeys);
 
     var expectedRessourceWithKeys = {
       myapp: path.normalize('test/data/myapp/source/resource'),
       qx: path.normalize('test/data/framework/source/resource')
     };
-    var actualResourceWithKeys = this.library.getPathsFor('resource', this.testManifestPaths, {withKeys: true});
+    var actualResourceWithKeys = this.library.getPathsFor('resource', this.testJsonPaths, {withKeys: true});
     test.deepEqual(actualResourceWithKeys, expectedRessourceWithKeys);
 
     var expectedClass = [
       path.normalize('test/data/myapp/source/class'),
       path.normalize('test/data/framework/source/class')
     ];
-    var actualClass = this.library.getPathsFor('class', this.testManifestPaths);
+    var actualClass = this.library.getPathsFor('class', this.testJsonPaths);
     test.deepEqual(actualClass, expectedClass);
 
     var expectedResource = [
       path.normalize('test/data/myapp/source/resource'),
       path.normalize('test/data/framework/source/resource')
     ];
-    var actualResource = this.library.getPathsFor('resource', this.testManifestPaths);
+    var actualResource = this.library.getPathsFor('resource', this.testJsonPaths);
     test.deepEqual(actualResource, expectedResource);
 
     test.done();
