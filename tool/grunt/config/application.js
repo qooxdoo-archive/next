@@ -90,11 +90,11 @@ var getConfig = function() {
         cachePath: "<%= common.CACHE %>",
         loaderTemplate: "<%= common.QOOXDOO_PATH %>/tool/data/generator/loader.tmpl.js",
         environment: common.ENVIRONMENT,
-        includes: ["<%= common.APPLICATION_MAIN_CLASS %>", "<%= common.QXTHEME %>"],
+        includes: ["<%= common.APPLICATION_MAIN_CLASS %>"],
         excludes: [],
         libraries: [
-          "<%= common.QOOXDOO_PATH %>/framework/Manifest.json",
-          "<%= common.ROOT %>/Manifest.json"
+          "<%= common.QOOXDOO_PATH %>/framework/package.json",
+          "<%= common.ROOT %>/package.json"
         ]
       }
     },
@@ -115,11 +115,11 @@ var getConfig = function() {
           "qx.debug.ui.queue" : false,
           "qx.debug.io" : false
         }),
-        includes: ["<%= common.APPLICATION_MAIN_CLASS %>", "<%= common.QXTHEME %>"],
+        includes: ["<%= common.APPLICATION_MAIN_CLASS %>"],
         excludes: [],
         libraries: [
-          "<%= common.QOOXDOO_PATH %>/framework/Manifest.json",
-          "<%= common.ROOT %>/Manifest.json"
+          "<%= common.QOOXDOO_PATH %>/framework/package.json",
+          "<%= common.ROOT %>/package.json"
         ]
       }
     },
