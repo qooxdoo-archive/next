@@ -477,18 +477,6 @@
  *     </tr>
 
  *     <tr>
- *       <td colspan="4"><b>locale</b></td>
- *     </tr>
- *     <tr>
- *       <td>locale</td><td><i>String</i></td><td><code>de</code></td>
- *       <td>{@link qx.bom.client.Locale#getLocale}</td>
- *     </tr>
- *     <tr>
- *       <td>locale.variant</td><td><i>String</i></td><td><code>de</code></td>
- *       <td>{@link qx.bom.client.Locale#getVariant}</td>
- *     </tr>
-
- *     <tr>
  *       <td colspan="4"><b>os</b></td>
  *     </tr>
  *     <tr>
@@ -650,10 +638,6 @@
  *       <td><i>default:</i> <code>true</code></td>
  *     </tr>
  *     <tr>
- *       <td>qx.dynlocale</td><td><i>Boolean</i></td><td><code>true</code></td>
- *       <td><i>default:</i> <code>true</code></td>
- *     </tr>
- *     <tr>
  *       <td>qx.dyntheme</td><td><i>Boolean</i></td><td><code>true</code></td>
  *       <td><i>default:</i> <code>true</code></td>
  *     </tr>
@@ -765,8 +749,6 @@ qx.Class.define("qx.core.Environment",
       "device.type" : "qx.bom.client.Device.getType",
       "device.pixelRatio" : "qx.bom.client.Device.getPixelRatio",
       "device.touch" : "qx.bom.client.Device.getTouch",
-      "locale" : "qx.bom.client.Locale.getLocale",
-      "locale.variant" : "qx.bom.client.Locale.getVariant",
       "os.name" : "qx.bom.client.OperatingSystem.getName",
       "os.version" : "qx.bom.client.OperatingSystem.getVersion",
       "os.scrollBarOverlayed" : "qx.bom.client.Scroll.scrollBarOverlayed",
@@ -1202,7 +1184,6 @@ qx.Class.define("qx.core.Environment",
       this.add("qx.debug", function() {return true;});
       this.add("qx.debug.ui.queue", function() {return true;});
       this.add("qx.aspects", function() {return false;});
-      this.add("qx.dynlocale", function() {return true;});
       this.add("qx.dyntheme", function() {return true;});
       this.add("qx.emulatemouse", function() {return false;});
       this.add("qx.blankpage", function() { return "qx/static/blank.html";});

@@ -305,9 +305,9 @@ describe("io.request.Xhr", function() {
     req.status = 200;
     req.responseText = "Affe";
 
-    req.on("success", function(e) {
-      assert.equal(e.target, req);
-      assert.equal("Affe", e.target.responseText);
+    req.on("success", function(origReq) {
+      assert.equal(origReq, req);
+      assert.equal("Affe", origReq.responseText);
     });
 
     req.emit("readystatechange");

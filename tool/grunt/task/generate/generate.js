@@ -86,7 +86,7 @@ module.exports = function(grunt) {
 
     // forward child STDERR
     child.stderr.on("data", function(data) {
-      grunt.log.error(data);
+      grunt.log.warn(data);
     });
 
     // clean-up on child exit

@@ -10,7 +10,6 @@
 
   "export" :
   [
-    "api",
     "api-data",
     "build",
     "clean",
@@ -30,10 +29,6 @@
     "source-server",
     "source-server-reload",
     "source-httpd-config",
-    "test",
-    "test-source",
-    "test-mobile",
-    "test-mobile-source",
     "validate-config",
     "validate-manifest",
     "watch-scss",
@@ -52,8 +47,7 @@
     "MOBILE_THEME" : "custom",
     "MOBILE_THEME_PATH" : "${APPLICATION_PATH}/css/${MOBILE_THEME}.css",
     "ROOT"         : ".",
-    "QXTHEME"      : "", // preventing mobile app to load desktop icons
-    "TEST_LOADER" : "testrunner.TestLoaderMobile"
+    "QXTHEME"      : "" // preventing mobile app to load desktop icons
   },
 
   "config-warnings" :
@@ -136,11 +130,6 @@
       "include" :
       [
         "qx.ui.*"
-      ],
-      "=exclude" :
-      [
-        "qx.test.*",
-        "${APPLICATION}.test.*"
       ],
       "add-css" : [
         { "uri" : "./resource/${MOBILE_THEME_PATH}" }

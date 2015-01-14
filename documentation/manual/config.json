@@ -20,7 +20,7 @@
     "APPLICATION"  : "manual",
     "QOOXDOO_PATH" : "../..",
     "QXTHEME"      : "manual.theme.Theme",
-    "API_EXCLUDE"  : ["qx.test.*", "${APPLICATION}.theme.*", "${APPLICATION}.test.*"],
+    "API_EXCLUDE"  : ["${APPLICATION}.theme.*"],
     "LOCALES"      : [ "en" ],
     "CACHE"        : "${TMPDIR}/qx${QOOXDOO_VERSION}/cache",
     "ROOT"         : "."

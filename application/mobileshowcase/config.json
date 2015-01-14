@@ -161,11 +161,6 @@
     "source-all-script" :
     {
       "extend" : ["mobile-common"],
-      "=exclude" :
-      [
-        "qx.test.*",
-        "${APPLICATION}.test.*"
-      ],
       "add-css" : [
         { "uri" : "./resource/${APPLICATION}/css/${THEME}.css" }
       ],

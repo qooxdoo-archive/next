@@ -14,7 +14,6 @@ module.exports = function(grunt) {
     common: {
       "APPLICATION" : "${Namespace}",
       "QOOXDOO_PATH" : "${REL_QOOXDOO_PATH}",
-      "LOCALES": ["en"],
       "QXTHEME": "${Namespace}.theme.Theme"
     }
 

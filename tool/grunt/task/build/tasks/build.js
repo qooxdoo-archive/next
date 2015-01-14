@@ -36,10 +36,8 @@ var shell = require('shelljs');
 
 // qx
 var qxRes = require("qx-resource");
-var qxLoc = require("qx-locale");
 var qxDep = require("qx-dependency");
 var qxLib = require("qx-library");
-var qxTra = require("qx-translation");
 var qxCpr = require("qx-compression");
 
 //------------------------------------------------------------------------------
@@ -119,34 +117,17 @@ module.exports = function(grunt) {
     grunt.log.ok('Done.');
 
 
-    grunt.log.writeln('Get locale and translation data ...');
-    // ------------------------------------------------------
-    var locales = {"C": {}};
-    var localeData = {"C": qxLoc.getTailoredCldrData("en") };
-    // var translationPaths = qxLib.getPathsFor("translation", opts.libraries);
-    // var transData = {"C": qxTra.getTranslationFor("en", translationPaths) };
-    // opts.locales.forEach(function(locale){
-    //   locales[locale] = {};
-    //   localeData[locale] = qxLoc.getTailoredCldrData(locale);
-    //   transData[locale] = {};
-    //   transData[locale] = qxTra.getTranslationFor(locale, translationPaths);
-    // });
-    grunt.log.ok('Done.');
-
-
-    var locResTrans = {
-      "locales": localeData,
-      "resources": resData,
-      // "translations": transData
+    var resources = {
+      "resources": resData
     };
-    var locResTransContent = "qx.$$packageData['0']=" + JSON.stringify(locResTrans) + ";";
+    var resourcesContent = "qx.$$packageData['0']=" + JSON.stringify(resources) + ";";
 
-    var locResTransHash = createHashOver(locResTransContent).substr(0,12);
-    var locResTransFileName = opts.appName + "." + locResTransHash + ".js";
+    var resourcesHash = createHashOver(resourcesContent).substr(0,12);
+    var resourcesFileName = opts.appName + "." + resourcesHash + ".js";
 
     // {"uris":["__out__:myapp.e2c18d74cbbe.js"]};
     var packagesUris = {
-      "uris": ["__out__:"+locResTransFileName]
+      "uris": ["__out__:"+resourcesFileName]
     };
 
     var libinfo = { "__out__":{"sourceUri":"script"} };
@@ -177,7 +158,7 @@ module.exports = function(grunt) {
     grunt.log.ok('Done.');
 
     var bootPart = "_";
-    bootPart += locResTransContent;
+    bootPart += resourcesContent;
     bootPart += "\n";
     bootPart += "(function(){"+classCodeCompressedList.join("")+"})();";
 
@@ -185,8 +166,6 @@ module.exports = function(grunt) {
       EnvSettings: opts.environment,
       Libinfo: libinfo,
       Resources: {},
-      Translations: locales,
-      Locales: locales,
       Parts: {"boot":[0]},             // TODO: impl missing
       Packages: {"0": packagesUris},   // ...
       UrisBefore: [],                  // ...

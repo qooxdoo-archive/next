@@ -84,7 +84,6 @@ qx.Class.define("qx.ui.core.Root",
     dispose : function() {
       this.super(qx.ui.Widget, "dispose");
       this.off("touchmove", this._preventDefault);
-      qxWeb(window).off("orientationchange", this._onOrientationChange, this);
     }
   }
 });

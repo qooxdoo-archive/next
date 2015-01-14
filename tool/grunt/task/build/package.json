@@ -34,9 +34,7 @@
   "dependencies": {
     "qx-dependency": "~0.1.0",
     "qx-library": "~0.1.0",
-    "qx-locale": "~0.1.0",
     "qx-resource": "~0.1.0",
-    "qx-translation": "~0.1.0",
     "qx-compression": "~0.1.0",
     "shelljs": "~0.3.0"
   },

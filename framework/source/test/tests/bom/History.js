@@ -75,7 +75,7 @@ describe("bom.History", function() {
       }, 500);
     }, this);
 
-    window.setTimeout(function() {
+    setTimeout(function() {
       __history.addToHistory("baz");
     }, 250);
   });

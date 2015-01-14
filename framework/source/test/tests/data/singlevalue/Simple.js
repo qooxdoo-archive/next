@@ -25,9 +25,6 @@
  * @ignore(qx.Target)
  * @ignore(qx.Test)
  */
-
-//include : qx.dev.unit.MRequirements,
-
 describe("data.singlevalue.Simple", function() {
 
   this.__a = null;

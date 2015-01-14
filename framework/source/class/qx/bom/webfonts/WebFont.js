@@ -23,6 +23,8 @@ qx.Class.define("qx.bom.webfonts.WebFont", {
 
   extend : qx.bom.Font,
 
+  include: [qx.event.MEmitter],
+
   events :
   {
     /**
@@ -73,10 +75,10 @@ qx.Class.define("qx.bom.webfonts.WebFont", {
      */
     _onWebFontChangeStatus : function(result)
     {
-      this.fireDataEvent("changeStatus", result);
+      this.emit("changeStatus", result);
       if (qx.core.Environment.get("qx.debug")) {
         if (result.valid === false) {
-          this.warn("WebFont " + result.family + " was not applied, perhaps the source file could not be loaded.");
+          qx.log.Logger.warn(this, "WebFont " + result.family + " was not applied, perhaps the source file could not be loaded.");
         }
       }
     },

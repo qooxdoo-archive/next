@@ -242,6 +242,7 @@ qx.Class.define("qx.io.request.AbstractRequest",
     requestData: {
       check: function(value) {
         return qx.lang.Type.isString(value) ||
+               qx.lang.Type.isArray(value) ||
                qx.lang.Type.isObject(value);
       },
       nullable: true
@@ -725,7 +726,7 @@ qx.Class.define("qx.io.request.AbstractRequest",
         // A remote error failure
         if (this.status !== 0) {
           this._fireStatefulEvent("statusError");
-          this.emit("fail", {target: this});
+          this.emit("fail", this);
         }
       }
     },
@@ -738,7 +739,7 @@ qx.Class.define("qx.io.request.AbstractRequest",
       this.phase = "timeout";
 
       // A network error failure
-      this.emit("fail");
+      this.emit("fail", this);
     },
 
 
@@ -747,7 +748,7 @@ qx.Class.define("qx.io.request.AbstractRequest",
      */
     _onError: function() {
       // A network error failure
-      this.emit("fail", {target: this});
+      this.emit("fail", this);
     },
 
 
@@ -763,7 +764,7 @@ qx.Class.define("qx.io.request.AbstractRequest",
         qx.core.Assert.assertString(evt);
       }
       this.phase = evt;
-      this.emit(evt, {target: this});
+      this.emit(evt, this);
     },
 
 
@@ -797,8 +798,9 @@ qx.Class.define("qx.io.request.AbstractRequest",
       if (qx.lang.Type.isObject(data)) {
         return qx.util.Uri.toParameter(data, isPost);
       }
-    },
 
+      return null;
+    },
 
     dispose: function() {
       this.$$disposed = true;

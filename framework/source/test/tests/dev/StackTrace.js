@@ -41,7 +41,7 @@ describe("dev.StackTrace", function() {
     if (!qx.core.Environment.get("ecmascript.error.stacktrace")) {
       skip("Test skipped since the client doesn't provide stack traces");
     }
-    var qxErrorClasses = [qx.type.BaseError, qx.dev.unit.RequirementError];
+    var qxErrorClasses = [qx.type.BaseError];
     for (var i = 0, l = qxErrorClasses.length; i < l; i++) {
       var cls = qxErrorClasses[i];
       var e = new cls();

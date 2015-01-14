@@ -239,7 +239,7 @@ qx.Class.define("mobileshowcase.page.Form",
         .appendTo(licenseGroup);
       this.__items.push(slider);
 
-      var agree = new qx.ui.form.ToggleButton(false,"Agree","Reject",13);
+      var agree = new qx.ui.form.ToggleButton(false,"YES","NO",13);
       this.__items.push(agree);
       agree.on("changeValue", this._enableFormSubmitting, this);
       new qx.ui.form.Row(agree, "Agree?")
@@ -253,6 +253,8 @@ qx.Class.define("mobileshowcase.page.Form",
 
       var resetButton = this._createResetButton()
         .appendTo(buttonContainer);
+
+      form.redefineResetter();
 
       return form;
     },

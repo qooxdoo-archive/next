@@ -26,16 +26,20 @@ $background-color: white;
 
   thead tr:first-child td:first-child {
     border-right: 0;
+    border-right-color: transparent;
   }
 
-  thead tr:first-child td:nth-child(2) {
+  thead .qx-calendar-month {
     border-left: 0;
     border-right: 0;
+    border-left-color: transparent;
+    border-right-color: transparent;
     text-align: center;
   }
 
   thead tr:first-child td:last-child {
     border-left: 0;
+    border-left-color: transparent;
     text-align: right;
   }
 

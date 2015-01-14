@@ -24,7 +24,7 @@
     "APPLICATION"  : "gui",
     "QOOXDOO_PATH" : "../../../../..",
     "QXTHEME"      : "gui.theme.Theme",
-    "API_EXCLUDE"  : ["qx.test.*", "${APPLICATION}.theme.*", "${APPLICATION}.test.*"],
+    "API_EXCLUDE"  : ["${APPLICATION}.theme.*"],
     "LOCALES"      : [ "en" ],
     "CACHE"        : "${TMPDIR}/qx${QOOXDOO_VERSION}/cache",
     "ROOT"         : "."
@@ -34,7 +34,7 @@
   {
     "test-settings" :
     {
-      "cache" : { "compile" : "${CACHE}" }  
+      "cache" : { "compile" : "${CACHE}" }
     }
 
     /*
@@ -42,9 +42,9 @@
      * compare the resulting .po file; the '*-compare' job will bomb if the
      * files are not equal.
      */
-    ,"testPOFile" : 
-    { 
-      "desc": "run the standard translation job on the sample app, and compare the .po file", 
+    ,"testPOFile" :
+    {
+      "desc": "run the standard translation job on the sample app, and compare the .po file",
       "run" : ["testPOFile-translation", "testPOFile-compare", "testPOFile-teardown"] }
 
     ,"testPOFile-translation" :

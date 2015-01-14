@@ -110,4 +110,15 @@ describe("mobile.form.Slider", function() {
     assert.equal(1, slider.getChildren("div[data-value]").length);
     slider.remove().dispose();
   });
+
+
+  it("Check availability of input field", function() {
+    assert.equal(1, slider.getChildren("input[type=hidden]").length);
+  });
+
+
+  it("Set and get name attribute", function() {
+    slider.setAttribute("name", "slider");
+    assert.equal("slider", slider.getAttribute("name"));
+  });
 });

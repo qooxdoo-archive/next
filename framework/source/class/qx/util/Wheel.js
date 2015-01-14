@@ -75,12 +75,12 @@ qx.Class.define("qx.util.Wheel", {
             x = domEvent.wheelDeltaX ? this.__normalize(-domEvent.wheelDeltaX) : 0;
           }
         } else {
-          if (domEvent.axis && domEvent.axis == domEvent.HORIZONTAL_AXIS) {
-            if ((domEvent.detail !== undefined) && (domEvent.detail > 0)) {
-              x = this.__normalize(domEvent.detail);
-            } else if (domEvent.deltaX !== undefined) {
-              x = this.__normalize(domEvent.deltaX);
-            }
+          if (domEvent.axis && domEvent.axis == domEvent.HORIZONTAL_AXIS &&
+            (domEvent.detail !== undefined) && (domEvent.detail > 0)
+          ) {
+            x = this.__normalize(domEvent.detail);
+          } else if (domEvent.deltaX !== undefined) {
+            x = this.__normalize(domEvent.deltaX);
           }
         }
         return x;
@@ -96,12 +96,12 @@ qx.Class.define("qx.util.Wheel", {
             y = this.__normalize(-domEvent.wheelDelta);
           }
         } else {
-          if (!(domEvent.axis && domEvent.axis == domEvent.HORIZONTAL_AXIS)) {
-            if ((domEvent.detail !== undefined) && (domEvent.detail > 0)) {
-              y = this.__normalize(domEvent.detail);
-            } else if (domEvent.deltaY !== undefined) {
-              y = this.__normalize(domEvent.deltaY);
-            }
+          if (!(domEvent.axis && domEvent.axis == domEvent.HORIZONTAL_AXIS) &&
+            (domEvent.detail !== undefined) && (domEvent.detail > 0)
+          ) {
+            y = this.__normalize(domEvent.detail);
+          } else if (domEvent.deltaY !== undefined) {
+            y = this.__normalize(domEvent.deltaY);
           }
         }
         return y;

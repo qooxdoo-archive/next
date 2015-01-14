@@ -35,9 +35,9 @@ describe("io.request.XhrWithRemote", function() {
   it("fetch resource", function(done) {
     var url = noCache("../resource/qx/test/xmlhttp/sample.txt");
 
-    req.on("success", function(e) {
+    req.on("success", function(origReq) {
       setTimeout(function() {
-        assert.equal("SAMPLE", e.target.responseText);
+        assert.equal("SAMPLE", origReq.responseText);
         done();
       }, 100);
     });

@@ -16,9 +16,6 @@
      * Christian Hagendorn (chris_schmidt)
 
 ************************************************************************ */
-// qx.Class.define("qx.test.data.DataArrayWithChangeBubble",
-// {
-//   extend : qx.dev.unit.TestCase,
 describe('data.dataArrayWithChangeBubble', function() {
 
   var testObject = null;

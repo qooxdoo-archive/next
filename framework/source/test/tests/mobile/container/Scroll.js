@@ -38,4 +38,29 @@ describe("mobile.container.Scroll", function() {
     scroll.dispose();
   });
 
+
+  it("Horizontal way-point", function (done) {
+    var scrollContainer = new qx.ui.container.Scroll();
+    scrollContainer.setStyles({
+      overflow: "hidden"
+    });
+    scrollContainer.setWaypointsX([200]);
+    scrollContainer.on("waypoint", function (wayPoint) {
+      assert.equal("x", wayPoint.axis);
+      assert.equal(0, wayPoint.index);
+      assert.equal("left", wayPoint.direction);
+
+      done();
+    }, this);
+
+    var content = new qx.ui.Widget();
+    content.setStyles({
+      width: "5000px",
+      height: "5000px"
+    });
+    scrollContainer.append(content).appendTo(sandbox);
+
+    scrollContainer._updateWaypoints();
+    scrollContainer.setScrollLeft(250);
+  });
 });

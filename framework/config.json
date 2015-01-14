@@ -11,6 +11,9 @@
       "path" : "image.json"
     },
     {
+      "path" : "./server.json"
+    },
+    {
       "path" : "./website.json"
     }
   ],
@@ -20,8 +23,10 @@
     "api",
     "api-data",
     "api-verify",
+    "build-api",
     "build-all",
-    "dependencies",
+    "build-core-min",
+    "build-script",
     "clean",
     "clean-cache",
     "compile-framework-scss",
@@ -29,10 +34,13 @@
     "fix",
     "images",
     "info",
-    "lint",
-    "lint-test",
+    "npm-package-copy",
+    "npm-package-publish",
+    "npm-package-test",
     "provider",
     "pretty-test",
+    "qxserver-build",
+    "qxserver-build-min",
     "qxweb-build",
     "qxweb-build-min",
     "qxweb-build-module-all",
@@ -40,8 +48,6 @@
     "qxweb-log-deps",
     "qxweb-source",
     "source-all",
-    "test",
-    "test-source",
     "validate-config",
     "validate-manifest",
     "watch-scss"
@@ -58,7 +64,6 @@
     "API_SCRIPT_PATH" : "api/script",
     "SCRIPT_PATH" : "build/script",
     "SOURCE_SCRIPT_PATH" : "source/script",
-    "TEST_INCLUDE" : "qx.test.*",
     "CACHE" : "${TMPDIR}/qx${QOOXDOO_VERSION}/cache"
   },
 
@@ -72,14 +77,10 @@
       "common",
       "dependencies",
       "distclean",
-      "lint",
       "provider-deps",
       "provider-classes",
       "qxweb-source",
       "source-all",
-      "test",
-      "test-source",
-      "testrunner::tests-common"
     ]
   },
 
@@ -98,7 +99,7 @@
       "extend" : [ "cache" ],
 
       "include": ["qx.*"],
-      "exclude": ["qx.test.*", "qx.Part", "qx.io.part.*", "qx.dev.unit.Sinon"],
+      "exclude": ["qx.Part", "qx.io.part.*"],
 
       "environment" :
       {
@@ -132,14 +133,14 @@
 
       "config-warnings" :
       {
-        "exclude" : ["qx.test.*", "qx.Part", "qx.io.part.*", "qx.core.Init"]
+        "exclude" : ["qx.Part", "qx.io.part.*", "qx.core.Init"]
       }
     },
 
     "source-all": {
 
       "=include": ["qx.*"],
-      "=exclude": ["qx.test.*", "qx.Part", "qx.io.part.*", "qx.dev.unit.Sinon"],
+      "=exclude": ["qx.Part", "qx.io.part.*"],
 
       "compile-options": {
         "paths" :
@@ -160,57 +161,6 @@
       }
     },
 
-
-    // -- Test Jobs ------------------------------------------------------------
-
-    // This one is used in all jobs relating to the generated AUT
-    "testrunner::tests-common" :
-    {
-      "extend" : [ "no-compile-lint" ],
-      "environment" :
-      {
-        "qx.test.bool_true" : true,
-        "qx.test.bool_false" : false
-      }
-    },
-
-    "test" :
-    {
-      "extend" : [ "no-compile-lint" ],
-      "config-warnings" : {
-        "environment" : ["non-literal-keys"]
-      },
-      "run" : ["test-copy-files"],
-
-      "let" :
-      {
-        "LOCALES" : ["de", "de_DE", "en", "en_GB", "en_US"]
-      }
-    },
-
-    "test-copy-files" :
-    {
-      "extend" : [ "cache" ],
-
-      "copy-files" :
-      {
-        "files"    : [ "test" ],
-        "source"   : "source/resource/qx",
-        "target"   : "test/resource/qx"
-      }
-    },
-
-
-    "test-source" :
-    {
-      "extend" : [ "no-compile-lint" ],
-      "let" :
-      {
-        "LOCALES" : ["de", "de_DE", "en", "en_GB", "en_US"]
-      }
-    },
-
-
     "provider-classes" :
     {
       "provider" :
@@ -229,17 +179,6 @@
       "desc" : "clip and combine all images used in the framework",
       "run" : [ "image-clipping", "image-combine" ]
     },
-
-    "lint" :
-    {
-      "exclude": ["qx.test.*"]
-    },
-
-    "lint-test" :
-    {
-      "include": ["=qx.test.*"]
-    },
-
 
     "api" :
     {
@@ -310,11 +249,6 @@
       "extend" : ["pretty"]
     },
 
-    "dependencies" :
-    {
-      "=exclude" : [ "${APPLICATION}.test.*" ]
-    },
-
     "qxweb-source" : {
       "let" : {
         "BUILD_PATH": "source/script"
@@ -332,10 +266,6 @@
       "extend"  : ["qxweb-clean"],
       "clean-files" :
       {
-        "Cleaning up api" :
-        [
-          "${API_SCRIPT_PATH}/*"
-        ],
         "Cleaning up generated resources" :
         [
           "build/resource/*"

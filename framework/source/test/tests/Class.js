@@ -690,9 +690,7 @@ describe("Class", function() {
         r: {
           check: "RegExp"
         },
-        q: {
-          check: "qx.dev.unit.TestClass"
-        },
+
         i: {
           check: "qx.application.IApplication"
         }
@@ -709,7 +707,6 @@ describe("Class", function() {
     c.d = new Date();
     c.e = new Error();
     c.r = /./g;
-    c.q = new qx.dev.unit.TestClass();
     c.i = new O();
 
     assert.throw(function() {

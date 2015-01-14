@@ -1,0 +1,32 @@
+{
+  "name": "qooxdoo",
+  "version": "4.1.0",
+  "author": "Martin Wittemann <martin.wittemann@1und1.de>",
+  "contributors": [{
+    "name": "Tobias Oberrauch",
+    "email": "tobias.oberrauch@1und1.de"
+  }, {
+    "name": "Richard Sternagel",
+    "email": "richard.sternagel@1und1.de"
+  }, {
+    "name": "Daniel Wagner",
+    "email": "daniel.wagner@1und1.de"
+  }],
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/qooxdoo/qooxdoo.git"
+  },
+  "bugs": {
+    "url": "http://bugzilla.qooxdoo.org/"
+  },
+  "license": "LGPL / EPL",
+  "engines": {
+    "node": ">=0.4"
+  },
+  "dependencies": {},
+  "devDependencies": {},
+  "description": "OO programming with classes, mixins, interfaces and dynamic getters/setters",
+  "keywords" : ["oop", "class", "inheritance", "object-oriented"],
+  "homepage": "http://manual.qooxdoo.org/4.1/pages/core.html",
+  "main": "qxserver"
+}

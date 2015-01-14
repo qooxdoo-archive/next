@@ -109,6 +109,19 @@ describe('Events', function() {
   });
 
 
+  it("OnceWith3", function() {
+    var test = q.create("<div/>");
+    var called = 0;
+    var listener = function(data) {called++;};
+    test.once("changeName", listener);
+    test.once("changeName", listener);
+    test.once("changeName", listener);
+
+    test.emit("changeName");
+    assert.equal(3, called);
+  });
+
+
   it("OnOffEmitNative", function() {
     var test = q.create("<div id='foo'/>");
     test.appendTo(sandbox[0]);

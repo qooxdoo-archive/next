@@ -147,6 +147,7 @@ qx.Class.define("qx.ui.dialog.Menu",
 
     _onSelected : function(data) {
       this.emit("selected", data);
+      this.hideWithDelay(500);
     },
 
 

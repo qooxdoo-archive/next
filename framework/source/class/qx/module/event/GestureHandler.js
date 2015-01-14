@@ -24,7 +24,7 @@
  *
  * @require(qx.module.Event)
  * @require(qx.module.event.PointerHandler)
- * @require(qx.event.handler.GestureCore)
+ * @require(qx.event.handler.Gesture)
  *
  * @group (Event_Normalization)
  */
@@ -44,7 +44,7 @@ qx.Class.define("qx.module.event.GestureHandler", {
      */
     register : function(element, type) {
       if (!element.$$gestureHandler) {
-        element.$$gestureHandler = new qx.event.handler.GestureCore(element);
+        element.$$gestureHandler = new qx.event.handler.Gesture(element);
       }
     },
 

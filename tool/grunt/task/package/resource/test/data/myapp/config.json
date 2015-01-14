@@ -29,8 +29,6 @@
     "source-server",
     "source-server-reload",
     "source-httpd-config",
-    "test",
-    "test-source",
     "translation",
     "validate-config",
     "validate-manifest",
@@ -44,7 +42,7 @@
     "APPLICATION"  : "myapp",
     "QOOXDOO_PATH" : "../../../../../../..",
     "QXTHEME"      : "myapp.theme.Theme",
-    "API_EXCLUDE"  : ["qx.test.*", "${APPLICATION}.theme.*", "${APPLICATION}.test.*"],
+    "API_EXCLUDE"  : ["${APPLICATION}.theme.*"],
     "LOCALES"      : [ "en" ],
     "CACHE"        : "${TMPDIR}/qx${QOOXDOO_VERSION}/cache",
     "ROOT"         : "."

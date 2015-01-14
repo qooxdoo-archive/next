@@ -85,7 +85,7 @@ qx.Class.define("qx.module.Dataset", {
 
 
     /**
-     * Remove an HTML "data-*" attribute from the given DOM element
+     * Remove an HTML "data-*" attribute on each item in the collection
      *
      * @attach {qxWeb}
      * @param name {String} Name of the attribute
@@ -93,9 +93,10 @@ qx.Class.define("qx.module.Dataset", {
      */
     removeData : function(name)
     {
-      if (this[0] && this[0].nodeType === 1) {
-        qx.bom.element.Dataset.remove(this[0], name);
-      }
+      this._forEachElement(function(item) {
+        qx.bom.element.Dataset.remove(item, name);
+      });
+
       return this;
     }
 

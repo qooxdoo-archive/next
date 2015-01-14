@@ -46,7 +46,7 @@ describe("mobile.dialog.Menu", function() {
     var el = menu.find("*[data-row='1']")[0]; // item 1
     var spy = sinonSandbox.spy();
     menu.on("selected", spy);
-    menu.find(".list").emit("tap", {_original : {target: el}});
+    menu.find(".list").emit("tap", {target: el});
 
     sinon.assert.calledOnce(spy);
     assert.equal(spy.args[0][0][0], el);

@@ -30,8 +30,6 @@
     "source-httpd-config",
     "simulation-build",
     "simulation-run",
-    "test",
-    "test-source",
     "translation",
     "validate-config",
     "validate-manifest",
@@ -45,7 +43,7 @@
     "APPLICATION"  : "test",
     "QOOXDOO_PATH" : "../../../../..",
     "QXTHEME"      : "test.theme.Theme",
-    "API_EXCLUDE"  : ["qx.test.*", "${APPLICATION}.theme.*", "${APPLICATION}.test.*", "${APPLICATION}.simulation.*"],
+    "API_EXCLUDE"  : ["${APPLICATION}.theme.*", "${APPLICATION}.simulation.*"],
     "LOCALES"      : [ "en" ],
     "CACHE"        : "${TMPDIR}/qx${QOOXDOO_VERSION}/cache",
     "ROOT"         : "."

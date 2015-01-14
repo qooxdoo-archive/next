@@ -94,22 +94,19 @@ qx.Class.define("mobileshowcase.page.Maps",
 
       var menuContainer = new qx.ui.Widget();
       menuContainer.setAttribute("id", "mapMenu");
-
       // LABEL
       var descriptionLabel = new qx.ui.Label("Page Title");
       descriptionLabel.addClass("osmMapLabel");
 
       // TOGGLE BUTTON
-      var toggleNavigationButton = new qx.ui.form.ToggleButton(true,"Show","Hide",12);
+      var toggleNavigationButton = new qx.ui.form.ToggleButton(true,"ON","OFF",12);
 
       // SHOW MY POSITION BUTTON
       this._showMyPositionButton = new qx.ui.Button("Find me!");
       this._showMyPositionButton.on("tap", this._getGeoPosition, this);
-
       toggleNavigationButton.on("changeValue", function() {
         var newNavBarState = !this.navigationBarHidden;
         this.navigationBarHidden = newNavBarState;
-        this.show();
       },this);
 
       var groupPosition = new qx.ui.form.Group();
@@ -155,7 +152,6 @@ qx.Class.define("mobileshowcase.page.Maps",
         this._zoomToPosition(13.41, 52.52, 15);
       }
     },
-
 
     /**
      * Zooms the map to a  position.

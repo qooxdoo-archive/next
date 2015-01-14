@@ -32,7 +32,7 @@ describe('event.PointerHandler', function() {
     var test = q.create('<div></div>').appendTo(sandbox[0])
       .on("pointerdown", cb)
       .on("pointerup", cb);
-    assert.equal("qx.event.handler.PointerCore", test[0].$$pointerHandler.classname);
+    assert.equal("qx.event.handler.Pointer", test[0].$$pointerHandler.classname);
     test.off("pointerdown", cb);
     assert.isDefined(test[0].$$pointerHandler);
     test.off("pointerup", cb);

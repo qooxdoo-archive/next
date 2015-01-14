@@ -47,40 +47,6 @@ describe("mobile.form.DatePicker", function() {
   });
 
 
-  it("IconOpener", function() {
-    var datePickerHtml = q.create("<input type='text' class='datepicker' data-qx-class='qx.ui.form.DatePicker' value='' />");
-    sandbox.append(datePickerHtml);
-
-    var datePicker = q("input.datepicker").toDatePicker();
-    datePicker.icon = '../resource/qx/icon/Tango/22/apps/office-calendar.png';
-
-    var icon = datePicker.getNext();
-    assert.equal(1, icon.length);
-    assert.equal('img', q.getNodeName(icon));
-    assert.equal('qx-datepicker-icon', icon.getClass());
-
-    datePicker.dispose();
-  });
-
-
-  it("IconOpenerToggle", function() {
-    var datePickerHtml = q.create("<input type='text' class='datepicker' data-qx-class='qx.ui.form.DatePicker' value='' />");
-    sandbox.append(datePickerHtml);
-
-    var datePicker = q("input.datepicker").toDatePicker();
-    datePicker.icon = '../resource/qx/icon/Tango/22/apps/office-calendar.png';
-    var icon = datePicker.getNext(".qx-datepicker-icon");
-    assert.equal(1, icon.length);
-
-    datePicker.icon = null;
-
-    icon = datePicker.getNext(".qx-datepicker-icon");
-    assert.equal(0, icon.length);
-
-    datePicker.dispose();
-  });
-
-
   it("Factory", function() {
     var datePicker = qxWeb.create("<div>").toDatePicker().appendTo(sandbox);
     assert.instanceOf(datePicker, qx.ui.form.DatePicker);

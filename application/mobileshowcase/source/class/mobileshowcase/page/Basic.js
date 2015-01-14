@@ -50,7 +50,7 @@ qx.Class.define("mobileshowcase.page.Basic",
       this.super(mobileshowcase.page.Abstract, "_initialize");
 
       // TOGGLE BUTTON
-      var toggleEnableButton = new qx.ui.form.ToggleButton(true,"Enable","Disable");
+      var toggleEnableButton = new qx.ui.form.ToggleButton(true,"ON","OFF");
 
       toggleEnableButton.on("changeValue", function(e) {
         for (var i = 0; i < this._widgets.length; i++) {
@@ -59,7 +59,7 @@ qx.Class.define("mobileshowcase.page.Basic",
       }, this);
 
       // TOGGLE LABEL WRAP BUTTON
-      var toggleLabelWrapButton = new qx.ui.form.ToggleButton(true,"Wrap","Ellipsis");
+      var toggleLabelWrapButton = new qx.ui.form.ToggleButton(true,"ON","OFF");
       toggleLabelWrapButton.on("changeValue", function(e) {
         exLabel.textWrap = !exLabel.textWrap;
       }, this);
@@ -101,16 +101,17 @@ qx.Class.define("mobileshowcase.page.Basic",
       this._widgets.push(rating);
 
       // BUILD VIEW
-
+      var row = new qx.ui.form.Row();
+      row.append(toggleEnableButton,"Enable");
+      row.append(toggleLabelWrapButton,"Wrap");
       var menuGroup = new qx.ui.form.Group("Widget Modes")
         .appendTo(this.getContent());
-      new qx.ui.form.Row()
-        .set({
-          layout: new qx.ui.layout.VBox()
-        })
-        .appendTo(menuGroup)
-        .append(toggleEnableButton)
-        .append(toggleLabelWrapButton);
+
+      new qx.ui.form.Row(toggleEnableButton, "Enable")
+        .appendTo(menuGroup);
+
+      new qx.ui.form.Row(toggleLabelWrapButton, "Wrap")
+        .appendTo(menuGroup);
 
       new qx.ui.form.Group("Button")
         .appendTo(this.getContent())

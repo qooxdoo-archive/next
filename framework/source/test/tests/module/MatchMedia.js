@@ -6,6 +6,11 @@ describe('MatchMedia', function() {
   });
 
 
+  afterEach(function() {
+    qxWeb(window).off('message', null, null);
+  });
+
+
   it("Landscape", function(done) {
 
     if (qxWeb.env.get("qx.debug")) {

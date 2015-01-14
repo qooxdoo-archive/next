@@ -40,7 +40,7 @@ qx.Class.define("qx.ui.TabBar", {
     this.super(qx.ui.Widget, "construct", element);
 
     // prevent unnecessary _render calls when adding multiple children
-    this._render = qxWeb.func.debounce(this._render.bind(this), 300, true);
+    this._render = qxWeb.func.throttle(this._render.bind(this), 300);
 
     if (orientation) {
       this.orientation = orientation;
@@ -74,7 +74,7 @@ qx.Class.define("qx.ui.TabBar", {
     active: {
       nullable: true,
       init: null,
-      check: "Element",
+      check: "HTMLElement",
       apply: "_applyActive",
       event: true
     },
@@ -140,6 +140,9 @@ qx.Class.define("qx.ui.TabBar", {
         var page = this.find(selector);
         if (page.length === 0) {
           page = qxWeb(selector);
+        }
+        if (!(page instanceof qx.ui.Widget)) {
+          page = new qx.ui.Widget(page[0]);
         }
         return page;
       }
@@ -209,7 +212,7 @@ qx.Class.define("qx.ui.TabBar", {
       var selectedButton = null;
       this.find("* > .button")._forEachElementWrapped(function(button) {
         var page = this.getPage(button);
-        if (page.length == 1 && page.exclude) {
+        if (page.length == 1) {
           var previousParent = page[0].$$qxTabPageParent;
           if (previousParent) {
             page.appendTo(previousParent);
@@ -232,8 +235,11 @@ qx.Class.define("qx.ui.TabBar", {
           selectedButton = qxWeb(firstButton[0]);
         }
       }
+
       this.active = null;
-      this.active = selectedButton[0];
+      if (selectedButton) {
+        this.active = selectedButton[0];
+      }
 
       this._applyAlignment(this.align);
 
@@ -264,7 +270,7 @@ qx.Class.define("qx.ui.TabBar", {
           this.active = button[0];
         } else {
           var page = this.getPage(button);
-          if (page.length > 0 && page.exclude) {
+          if (page.length > 0) {
             page.exclude();
           }
         }
@@ -298,7 +304,7 @@ qx.Class.define("qx.ui.TabBar", {
           button.removeClass("selected");
           var page = this.getPage(button);
           // empty collections do not have an hide method
-          if (page && page.exclude) {
+          if (page.length > 0) {
             page.exclude();
           }
         }

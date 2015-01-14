@@ -26,6 +26,7 @@ var path = require('path');
 
 // third party
 var shell = require('shelljs');
+var hooker = require('hooker');
 
 // lib
 var qx = {};
@@ -34,6 +35,26 @@ qx.tool.Cache = require('../lib/qx/tool/Cache');
 
 
 // functions
+var isSetupDone = function(path) {
+  return fs.existsSync(path);
+};
+
+var abortOnError = function(grunt) {
+  var exit = function(e) {
+    if (e && e.message) {
+      grunt.fatal(e.message);
+    } else if (e) {
+      grunt.fatal(e);
+    }
+    // don't exit when no 'e', try to continue
+    // to next meaningful error with a message
+  };
+
+  // run on error
+  hooker.hook(grunt.log, 'fail', exit);
+  hooker.hook(grunt.log, 'error', exit);
+};
+
 var queryAndWriteCurrentJobs = function(grunt, cacheFilePath, cache) {
   var cmd = 'python generate.py --list-jobs';
   var jobs = {};
@@ -44,7 +65,7 @@ var queryAndWriteCurrentJobs = function(grunt, cacheFilePath, cache) {
     jobs.map = JSON.parse(stdout);
     cache.write(cacheFilePath, JSON.stringify(jobs));
   } catch (syntaxError) {
-    grunt.warn("Abort JSON parsing. 'python generate.py --list-jobs'"+
+    grunt.warn("Aborted JSON parsing. 'python generate.py --list-jobs' "+
                "doesn't generate valid JSON:\n" + syntaxError.message);
   }
 
@@ -133,6 +154,14 @@ var registerTasks = function(grunt) {
     "config": "config.json",
     "jobsAndDesc": "jobsAndDesc-" + fs.realpathSync(conf.ROOT)
   };
+
+  // exit early
+  if (!isSetupDone(path.join(conf.QOOXDOO_PATH, "tool/grunt/task/source/node_modules"))) {
+    grunt.fatal("Aborted due to missing setup. Go to '" +
+                path.resolve(path.join(conf.QOOXDOO_PATH, "tool/grunt")) +
+                "' and run 'node setup.js' with admin privileges.");
+  }
+  abortOnError(grunt);
 
   var jobs = retrieveGeneratorJobsFromCache(files, cache);
   if (jobs) {

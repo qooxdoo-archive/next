@@ -410,7 +410,9 @@ qx.Class.define("qx.ui.dialog.Popup",
         parentWidget.off("popup", this.hide, this);
         parentWidget.off("pointerdown", this._trackUserTap, this);
       }
-
+      if(this.__anchor) {
+        qxWeb(this.__anchor).removeClass("anchor-target");
+      }
       qxWeb(window).off("resize", this._updatePosition, this);
     },
 
