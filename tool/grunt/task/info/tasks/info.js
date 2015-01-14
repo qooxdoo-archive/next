@@ -77,7 +77,12 @@ module.exports = function(grunt) {
           grunt.log.ok("Path: " + compDir);
           if (grunt.file.isDir(compDir)) {
             grunt.log.ok("Dir exists: true");
-            grunt.log.ok("Cache file revision: " + grunt.file.read(compDir + "/" + CACHE_CHECK_FILE));
+            var cacheCheckFilePath = compDir + "/" + CACHE_CHECK_FILE;
+            if (grunt.file.exists(cacheCheckFilePath)) {
+              grunt.log.ok("Cache file revision: " + grunt.file.read(cacheCheckFilePath));
+            } else {
+              grunt.log.warn("Cache check file exists: false");
+            }
             grunt.log.ok("Elements in cache: " + fs.readdirSync(compDir).length);
           } else {
             grunt.log.warn("Dir exists: false");
