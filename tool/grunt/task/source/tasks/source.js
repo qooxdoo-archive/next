@@ -63,7 +63,7 @@ function renderLoaderTmpl(tmpl, ctx) {
   return tmpl;
 }
 
-function calculateRelPaths(manifestPaths, qxPath, appName, ns) {
+function calculateRelPaths(packageJsonData, qxPath, appName, ns) {
   var resolved_qxPath = path.resolve(qxPath);
   var gruntDir = "tool/grunt";
   var rel = {
@@ -72,17 +72,17 @@ function calculateRelPaths(manifestPaths, qxPath, appName, ns) {
     class: ""
   };
   // qx path depending on whether app is within qooxdoo sdk or not
-  rel.qx = (pathIsInside(manifestPaths[appName].base.abs, resolved_qxPath))
-           ? path.relative(manifestPaths[appName].base.abs, resolved_qxPath)
+  rel.qx = (pathIsInside(packageJsonData[appName].base.abs, resolved_qxPath))
+           ? path.relative(packageJsonData[appName].base.abs, resolved_qxPath)
            : qxPath;
 
   // paths depending on whether app is within "tool/grunt" dir ('myapp' test app) or not
-  if (pathIsInside(manifestPaths[appName].base.abs, path.join(resolved_qxPath, gruntDir))) {
-    rel.res = url.resolve("../", manifestPaths[ns].resource);
-    rel.class = url.resolve("../", manifestPaths[ns].class);
+  if (pathIsInside(packageJsonData[appName].base.abs, path.join(resolved_qxPath, gruntDir))) {
+    rel.res = url.resolve(path.join("../", packageJsonData[ns].resource), '');
+    rel.class = url.resolve(path.join("../", packageJsonData[ns].class), '');
   } else {
-    rel.res = url.resolve("../", manifestPaths[ns].base.rel, manifestPaths[ns].resource);
-    rel.class = url.resolve("../", manifestPaths[ns].base.rel, manifestPaths[ns].class);
+    rel.res = url.resolve(path.join("../", packageJsonData[ns].base.rel, packageJsonData[ns].resource), '');
+    rel.class = url.resolve(path.join("../", packageJsonData[ns].base.rel, packageJsonData[ns].class), '');
   }
 
   return rel;
@@ -123,6 +123,7 @@ module.exports = function(grunt) {
     // ------------------------------------------------------------------------------
     var classListLoadOrder = qxDep.sortDepsTopologically(classesDeps, "load", opts.excludes);
     classListLoadOrder = qxDep.prependNamespace(classListLoadOrder, allNamespaces);
+    console.log(classListLoadOrder);
     var classListPaths = qxDep.translateClassIdsToPaths(classListLoadOrder);
     var atHintIndex = qxDep.createAtHintsIndex(classesDeps);
     grunt.log.ok('Done.');
@@ -151,11 +152,11 @@ module.exports = function(grunt) {
     };
 
     var libinfo = { "__out__":{"sourceUri":"script"} };
-    var manifestPaths = qxLib.getPathsFromManifest(opts.libraries);
+    var packageJsonData = qxLib.readPackageJson(opts.libraries);
     var relPaths = {};
     var ns = "";
-    for (ns in manifestPaths) {
-      relPaths = calculateRelPaths(manifestPaths, opts.qxPath, opts.appName, ns);
+    for (ns in packageJsonData) {
+      relPaths = calculateRelPaths(packageJsonData, opts.qxPath, opts.appName, ns);
       libinfo[ns] = {};
       if (ns === "qx") {
         libinfo[ns] = {
@@ -188,7 +189,6 @@ module.exports = function(grunt) {
     grunt.log.writeln('Generate loader script ...');
     // ---------------------------------------------
     var tmpl = grunt.file.read(opts.loaderTemplate);
-    debugger;
     var renderedTmpl = renderLoaderTmpl(tmpl, ctx);
 
     var appFileName = opts.appName + ".js";
