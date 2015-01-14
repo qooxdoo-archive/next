@@ -261,8 +261,7 @@ qx.Class.define("mobileshowcase.page.Form",
       this.__submitButton = this._createSubmitButton()
         .appendTo(buttonContainer);
 
-      var resetButton = this._createResetButton()
-        .appendTo(buttonContainer);
+      this._createResetButton().appendTo(buttonContainer);
 
       form.redefineResetter();
 
