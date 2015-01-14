@@ -16,7 +16,9 @@ qx.Class.define("qx.ui.FlexCarousel",
 
   construct: function(element) {
     this.super(qx.ui.Widget, "construct", element);
-    var outerContainer = new qx.ui.container.Scroll()
+    var outerContainer = new qx.ui.container.Scroll({
+        snap: ".qx-hbox > .flexcarousel-page"
+      })
       .addClass("flexcarousel-container")
       .on("scroll", this._onScroll, this)
       .appendTo(this);

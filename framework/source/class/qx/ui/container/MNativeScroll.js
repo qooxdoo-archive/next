@@ -137,11 +137,11 @@ qx.Mixin.define("qx.ui.container.MNativeScroll",
       this._setCurrentX(scrollLeft);
       this._setCurrentY(scrollTop);
 
-      if(this._snapTimeoutId) {
+      if (this._snapTimeoutId) {
         clearTimeout(this._snapTimeoutId);
       }
       this._snapTimeoutId = setTimeout(function() {
-        if(!this._onTrack) {
+        if (!this._onTrack) {
           this._snap();
         }
       }.bind(this), 100);
@@ -201,9 +201,6 @@ qx.Mixin.define("qx.ui.container.MNativeScroll",
       this.emit("scrollEnd");
       var element = this[0];
 
-      if(element.scrollTop < 1 || element.scrollTop > this._getScrollHeight()) {
-        return;
-      }
       var current = this._getPosition();
       var nextX = this._determineSnapPoint(current[0], "left");
       var nextY = this._determineSnapPoint(current[1], "top");
