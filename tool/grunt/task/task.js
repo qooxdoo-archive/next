@@ -163,17 +163,19 @@ var registerTasks = function(grunt) {
   }
   abortOnError(grunt);
 
-  var jobs = retrieveGeneratorJobsFromCache(files, cache);
-  if (jobs) {
-    registerGeneratorJobsAsTasks(grunt, jobs, getSupersededJobs(), getMalfunctionedJobs(), getCancelledJobs());
-    registerNodeTasks(grunt, conf.QOOXDOO_PATH);
-  } else {
-    jobs = queryAndWriteCurrentJobs(grunt, files.jobsAndDesc, cache);
-    if (jobs !== null) {
-      registerGeneratorJobsAsTasks(grunt, jobs, getSupersededJobs(), getMalfunctionedJobs(), getCancelledJobs());
-    }
-    registerNodeTasks(grunt, conf.QOOXDOO_PATH);
-  }
+  registerNodeTasks(grunt, conf.QOOXDOO_PATH);
+
+  // var jobs = retrieveGeneratorJobsFromCache(files, cache);
+  // if (jobs) {
+  //   registerGeneratorJobsAsTasks(grunt, jobs, getSupersededJobs(), getMalfunctionedJobs(), getCancelledJobs());
+  //   registerNodeTasks(grunt, conf.QOOXDOO_PATH);
+  // } else {
+  //   jobs = queryAndWriteCurrentJobs(grunt, files.jobsAndDesc, cache);
+  //   if (jobs !== null) {
+  //     registerGeneratorJobsAsTasks(grunt, jobs, getSupersededJobs(), getMalfunctionedJobs(), getCancelledJobs());
+  //   }
+  //   registerNodeTasks(grunt, conf.QOOXDOO_PATH);
+  // }
 };
 
 // exports
