@@ -42,6 +42,9 @@ qx.Class.define("mobileshowcase.page.Form",
     __closeResultPopup : null,
     __form : null,
     __submitButton : null,
+    __picker : null,
+    __pickerDialog : null,
+    __pickerDaySlotData : null,
 
 
     // overridden
@@ -179,6 +182,13 @@ qx.Class.define("mobileshowcase.page.Form",
         .appendTo(contactGroup);
 
 
+      this._createPicker();
+      this.__items.push(this.__picker);
+
+      new qx.ui.form.Row(this.__picker, "Which OS and device type are you using?")
+        .appendTo(contactGroup);
+
+
       var genderGroup = new qx.ui.form.Group("Gender")
         .appendTo(form);
 
@@ -260,6 +270,35 @@ qx.Class.define("mobileshowcase.page.Form",
     },
 
 
+    /**
+     * Creates the date picker dialog.
+     * @return {qx.ui.form.Picker} the date picker.
+     */
+    _createPicker: function () {
+      var picker = this.__picker = new qx.ui.form.Picker();
+      picker.addSlot(new qx.data.Array([
+        "Windows",
+        "Mac OS X",
+        "Linux"
+      ]));
+      picker.addSlot(new qx.data.Array([
+        "Desktop",
+        "Laptop"
+      ]));
+
+      var hidePickerButton = new qx.ui.Button("OK").setStyle("width", "100%");
+      hidePickerButton.on("tap", function (e) {
+        pickerDialog.hide();
+      }, this);
+
+      var pickerDialogContent = new qx.ui.Widget();
+      pickerDialogContent.append(picker);
+      pickerDialogContent.append(hidePickerButton);
+      var pickerDialog = this.__pickerDialog = new qx.ui.dialog.Popup(pickerDialogContent).appendTo(qxWeb(document.body));
+      pickerDialog.title = "Picker";
+    },
+
+
     _enableFormSubmitting : function(data) {
       this.__submitButton.enabled = data.value;
     },
@@ -286,7 +325,13 @@ qx.Class.define("mobileshowcase.page.Form",
           invalid = true;
         }
         if (!(item instanceof qx.ui.form.TextArea)) {
-          result.push(item.getPrev()[0].textContent + " : " + item.value);
+          var value = null;
+          if (qx.lang.Type.isArray(item.value)) {
+            value = item.value.join(', ');
+          } else if (qx.lang.Type.isString(item.value)) {
+            value = item.value
+          }
+          result.push(item.getPrev()[0].textContent + " : " + value);
         }
       }.bind(this));
 
