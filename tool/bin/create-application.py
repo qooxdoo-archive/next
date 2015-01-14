@@ -35,10 +35,8 @@ from misc import Path
 SCRIPT_DIR    = qxenviron.scriptDir
 FRAMEWORK_DIR = os.path.normpath(os.path.join(SCRIPT_DIR, os.pardir, os.pardir))
 SKELETON_DIR  = unicode(os.path.normpath(os.path.join(FRAMEWORK_DIR, "component", "skeleton")))
-GENERATE_PY   = unicode(os.path.normpath(os.path.join(FRAMEWORK_DIR, "tool", "data", "generator", "generate.tmpl.py")))
 PACKAGE_JSON  = unicode(os.path.normpath(os.path.join(FRAMEWORK_DIR, "tool", "grunt", "data", "package.tmpl.json")))
 GRUNTFILE     = unicode(os.path.normpath(os.path.join(FRAMEWORK_DIR, "tool", "grunt", "data", "Gruntfile.tmpl.js")))
-APP_DIRS      = [x for x in os.listdir(SKELETON_DIR) if not re.match(r'^\.',x)]
 
 R_ILLEGAL_NS_CHAR   = re.compile(r'(?u)[^\.\w]')  # allow unicode, but disallow $
 R_SHORT_DESC        = re.compile(r'(?m)^short::\s*(.*)$')  # to search "short:: ..." in skeleton's 'readme.txt'
@@ -50,28 +48,23 @@ class TARGET:
     GENERATOR = 1
     GRUNT = 2
 
-def getAppInfos():
-    appInfos = {}
-    for dir_ in APP_DIRS:
-        readme = os.path.join(SKELETON_DIR, dir_, "readme.txt")
-        appinfo = defaultdict(unicode)
-        if os.path.isfile(readme):
-            cont = open(readme, "rU").readlines()
-            for line in cont:
-                # short::
-                mo   = R_SHORT_DESC.search(line)
-                if mo:
-                    appinfo['short'] = mo.group(1)
-                # copy_file:: - could be multiple
-                mo   = R_COPY_FILE.search(line)
-                if mo:
-                    if not isinstance(appinfo['copy_file'], types.ListType):
-                        appinfo['copy_file'] = []
-                    appinfo['copy_file'].append(mo.group(1))
-        appInfos[dir_] = appinfo
-    return appInfos
-
-APP_INFOS = getAppInfos()
+def getAppInfo():
+    readme = os.path.join(SKELETON_DIR, "readme.txt")
+    appinfo = defaultdict(unicode)
+    if os.path.isfile(readme):
+      cont = open(readme, "rU").readlines()
+      for line in cont:
+          # short::
+          mo   = R_SHORT_DESC.search(line)
+          if mo:
+              appinfo['short'] = mo.group(1)
+          # copy_file:: - could be multiple
+          mo   = R_COPY_FILE.search(line)
+          if mo:
+              if not isinstance(appinfo['copy_file'], types.ListType):
+                  appinfo['copy_file'] = []
+              appinfo['copy_file'].append(mo.group(1))
+    return appinfo
 
 
 def getQxVersion():
@@ -92,15 +85,12 @@ def npm_install(skel_dir, options):
     npm_install = 'npm install --loglevel warn'
     console.log("Adding Node.js modules...")
     shellCmd.execute(npm_install, skel_dir)
-    if options.type == 'contribution':
-        shellCmd.execute(npm_install, os.path.join(skel_dir, 'demo/default'))
 
 
-def copyGenericIfNoSpecific(specificFilename, genericFilepath, destFilepath, appType):
+def copyGenericIfNoSpecific(specificFilename, genericFilepath, destFilepath):
     if not os.path.isfile(os.path.join(destFilepath, specificFilename)):
       shutil.copy(genericFilepath, destFilepath)
-      if appType == "contribution":
-          shutil.copy(genericFilepath, os.path.join(destFilepath, "demo", "default"))
+
 
 def createApplication(options):
     out = options.out
@@ -118,27 +108,19 @@ def createApplication(options):
 
 
     outDir = os.path.join(out, options.name)
-
-    if not options.type in APP_INFOS:
-        console.warn("No such skeleton: %s" % options.type)
-        listSkeletons(console, APP_INFOS)
-        sys.exit(1)
-
-    is_contribution = options.type == "contribution"
-    appDir = os.path.join(outDir, "trunk") if is_contribution else outDir
-    app_infos = APP_INFOS[options.type]
+    appDir = outDir
+    appInfo = getAppInfo()
 
     # copy the template structure
-    copySkeleton(options.skeleton_path, options.type, outDir, options.namespace)
+    copySkeleton(options.skeleton_path, outDir, options.namespace)
 
     # copy generic file if no more specific is available
-    copyGenericIfNoSpecific("", GENERATE_PY, appDir, options.type)
-    copyGenericIfNoSpecific("package.tmpl.json", PACKAGE_JSON, appDir, options.type)
-    copyGenericIfNoSpecific("Gruntfile.tmpl.js", GRUNTFILE, appDir, options.type)
+    copyGenericIfNoSpecific("package.tmpl.json", PACKAGE_JSON, appDir)
+    copyGenericIfNoSpecific("Gruntfile.tmpl.js", GRUNTFILE, appDir)
 
     # copy files
-    if isinstance(app_infos['copy_file'], types.ListType):
-        for pair in app_infos['copy_file']:
+    if isinstance(appInfo['copy_file'], types.ListType):
+        for pair in appInfo['copy_file']:
             src, dest = pair.split(None, 1)
             src_path = os.path.join(FRAMEWORK_DIR, src)
             dst_path = os.path.join(appDir, dest)
@@ -152,8 +134,6 @@ def createApplication(options):
 
     # rename files
     rename_folders(appDir, options.namespace)
-    if options.type == "contribution":
-        rename_folders(os.path.join(appDir, "demo", "default"), options.namespace)
 
     # clean out unwanted
     cleanSkeleton(appDir)
@@ -191,16 +171,11 @@ def rename_folders(root_dir, namespace):
             os.rename(script_file, script_file.replace("custom", namespace))
 
 
-def copySkeleton(skeleton_path, app_type, dir_, namespace):
+def copySkeleton(skeleton_path, dir_, namespace):
     console.log("Copy skeleton into the output directory: %s" % dir_)
 
-    template = os.path.join(skeleton_path, app_type)
-    if not os.path.isdir(template):
-        console.error("Unknown application type '%s'." % app_type)
-        sys.exit(1)
-
     try:
-        shutil.copytree(template, dir_)
+        shutil.copytree(skeleton_path, dir_)
     except OSError:
         console.error("Failed to copy skeleton, maybe the directory already exists")
         sys.exit(1)
@@ -275,11 +250,6 @@ def determineRelPathToSdk(appDir, framework_dir, options):
         console.error("Relative path to qooxdoo directory is not correct: '%s'" % relPath)
         sys.exit(1)
 
-    if options.type == "contribution":
-        #relPath = os.path.join(os.pardir, os.pardir, "qooxdoo", QOOXDOO_VERSION)
-        #relPath = re.sub(r'\\', "/", relPath)
-        pass
-
     return relPath
 
 
@@ -311,8 +281,6 @@ def renderTemplates(inAndOutFilePaths, options, relPathToSdk, absPathToSdk, rend
 
         # hack for uncommon contribution dir structure
         contribDemoRelPathToSdk = ""
-        if options.type == "contribution"  and "demo/default" in outFile:
-          contribDemoRelPathToSdk = os.path.join("../../", relPathToSdk)
 
         context = {
           "Name": options.name,
@@ -321,7 +289,7 @@ def renderTemplates(inAndOutFilePaths, options, relPathToSdk, absPathToSdk, rend
           "REL_QOOXDOO_PATH": contribDemoRelPathToSdk if contribDemoRelPathToSdk else relPathToSdk,
           "ABS_QOOXDOO_PATH": absPathToSdk,
           "QOOXDOO_VERSION": QOOXDOO_VERSION,
-          "Cache" : options.cache,
+          "Cache" : '${TMPDIR}/next'+QOOXDOO_VERSION+'/cache',
         }
 
         if renderTarget == TARGET.GRUNT:
@@ -411,23 +379,6 @@ def checkNamespace(options):
             sys.exit(1)
 
 
-def skeletonsHelpString():
-    helpString = "Type of the application to create, one of: "
-    helpString += str(map(str, sorted(APP_INFOS.keys()))) + "."
-    helpString += str("; ".join(["'%s' -- %s" % (x, y) for x,y in sorted([(k,i['short']) for k,i in APP_INFOS.items()])]))
-    helpString += ". (Default: %default)"
-    return helpString
-
-
-def listSkeletons(console, info):
-    console.info("Available skeletons:")
-    console.indent()
-    for skeleton in sorted(info.keys()):
-        sdesc = ""
-        if "short" in info[skeleton]:
-            sdesc = "%s -- %s" % ((12 - len(skeleton)) * " ", info[skeleton]["short"])
-        console.info(skeleton + sdesc)
-
 ##
 # checks for Node and sufficient version
 def isNodeInstalled():
@@ -482,7 +433,7 @@ def main():
 
     parser.set_usage('''\
 %prog --name APPLICATIONNAME [--out DIRECTORY]
-                             [--namespace NAMESPACE] [--type TYPE]
+                             [--namespace NAMESPACE]
                              [-logfile LOGFILE] [--skeleton-path PATH]
 
 Script to create a new qooxdoo application.
@@ -503,10 +454,6 @@ Example: For creating a regular GUI application \'myapp\' you could execute:
         help="Applications's top-level namespace. (Default: APPLICATIONNAME)"
     )
     parser.add_option(
-        "-t", "--type", dest="type", metavar="TYPE", default="desktop",
-        help=skeletonsHelpString()
-     )
-    parser.add_option(
         "-l", "--logfile", dest="logfile", metavar="LOGFILE",
         default=None, type="string", help="Log file"
     )
@@ -515,10 +462,6 @@ Example: For creating a regular GUI application \'myapp\' you could execute:
         help="(Advanced) Path where the script looks for skeletons. " +
           "The directory must contain sub directories named by " +
           "the application types. (Default: %default)"
-    )
-    parser.add_option(
-        "--cache", dest="cache", metavar="PATH", default="${TMPDIR}/qx${QOOXDOO_VERSION}/cache",
-        help="Path to the cache directory; will be entered into config.json's CACHE macro (Default: %default)"
     )
 
     (options, args) = parser.parse_args(sys.argv[1:])
