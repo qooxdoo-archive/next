@@ -32,7 +32,7 @@ qx.Class.define("qx.module.event.GestureHandler", {
 
   statics : {
 
-    TYPES : ["tap", "longtap", "swipe", "dbltap", "track", "trackstart", "trackend", "roll", "rotate", "pinch"],
+    TYPES : ["tap", "longtap", "swipe", "dbltap", "roll", "rotate", "pinch"],
 
 
     /**
