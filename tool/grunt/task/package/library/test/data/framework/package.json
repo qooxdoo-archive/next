@@ -1,0 +1,21 @@
+{
+  "name": "framework",
+  "version": "4.1.0",
+  "repository" : {
+    "type" : "git",
+    "url" : "https://github.com/qooxdoo/qooxdoo"
+  },
+  "devDependencies": {
+    "grunt": "~0.4.2",
+    "grunt-contrib-clean": "~0.5.0",
+    "grunt-contrib-concat": "~0.3.0",
+    "grunt-contrib-watch": "~0.5.3",
+    "grunt-contrib-sass": "~0.5.0",
+    "grunt-notify": "^0.4.0"
+  },
+  "org_next": {
+    "namespace": "qx",
+    "class": "source/class",
+    "resource": "source/resource"
+  }
+}

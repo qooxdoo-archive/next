@@ -1,0 +1,20 @@
+{
+  "name": "myapp",
+  "version": "0.1.0",
+  "description": "This is a skeleton for a custom application with next.",
+  "repository" : {},
+  "author": "Author Name",
+  "license": "SomeLicense",
+  "keywords": [
+    "next"
+  ],
+  "devDependencies": {
+    "grunt": "~0.4.2",
+    "grunt-contrib-clean": "~0.5.0"
+  },
+  "org_next": {
+    "namespace": "myapp",
+    "class": "source/class",
+    "resource": "source/resource"
+  }
+}
