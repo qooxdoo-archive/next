@@ -123,7 +123,6 @@ module.exports = function(grunt) {
     // ------------------------------------------------------------------------------
     var classListLoadOrder = qxDep.sortDepsTopologically(classesDeps, "load", opts.excludes);
     classListLoadOrder = qxDep.prependNamespace(classListLoadOrder, allNamespaces);
-    console.log(classListLoadOrder);
     var classListPaths = qxDep.translateClassIdsToPaths(classListLoadOrder);
     var atHintIndex = qxDep.createAtHintsIndex(classesDeps);
     grunt.log.ok('Done.');

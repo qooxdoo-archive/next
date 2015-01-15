@@ -25,12 +25,11 @@ qx.Class.define("${Namespace}.Application",
      */
     main : function()
     {
-      q.create("<button>")
-        .toButton("First Button")
-        .on("tap", function() {
-          alert("Hello World");
-        }, this)
-        .appendTo(this.getRoot());
+      var button = new qx.ui.Button("First Button");
+      button.on("tap", function() {
+        alert("Hello World");
+      }, this);
+      button.appendTo(this.getRoot());
     }
   }
 });
