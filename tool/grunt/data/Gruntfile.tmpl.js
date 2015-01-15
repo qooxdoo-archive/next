@@ -33,7 +33,15 @@ module.exports = function(grunt) {
   grunt.task.registerTask(
     'source',
     'Build the playground and compile the stylesheets with Sass.',
-    ["source-base", "sass:indigo"]
+    ["sass:indigo", "source-base"]
+  );
+
+  // 'extend' build job
+  grunt.task.renameTask('build', 'build-base');
+  grunt.task.registerTask(
+    'build',
+    'Build the playground and compile the stylesheets with Sass.',
+    ["sass:indigo", "build-base"]
   );
 
   // grunt.loadNpmTasks('grunt-my-plugin');
