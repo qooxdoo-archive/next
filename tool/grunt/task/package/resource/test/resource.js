@@ -48,8 +48,8 @@ module.exports = {
     },
 
     findResourceMetaFiles: function(test) {
-      var actual = this.res.findResourceMetaFiles('.');
-      var expected = ['test/data/myapp/source/resource/myapp/tree-combined.meta'];
+      var actual = this.res.findResourceMetaFiles('test/data/myapp');
+      var expected = ['source/resource/myapp/tree-combined.meta'];
 
       test.deepEqual(actual, expected);
 

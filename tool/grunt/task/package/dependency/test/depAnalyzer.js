@@ -518,13 +518,10 @@ module.exports = {
       var expectedClassDeps = {
         load: [
           'qx.Class',
-          'qx.application.Standalone'
+          'qx.application.Mobile'
         ],
         run: [
-          'qx.core.Environment',
-          'qx.log.appender.Console',
-          'qx.log.appender.Native',
-          'qx.ui.form.Button'
+          'qx.ui.Button'
         ],
         prio: [],
         athint: {
@@ -546,7 +543,7 @@ module.exports = {
       var classesDeps = this.depAnalyzer.collectDepsRecursive(
         {'myapp': './test/data/myapp/source/class/',
          'qx': '../../../../../framework/source/class/'},
-        ['myapp.Application', 'myapp.theme.Theme'],
+        ['myapp.Application'],
         excludedClassIds,
         {}
       );
@@ -759,7 +756,7 @@ module.exports = {
 
     readFileContent: function(test) {
       var actualOk = this.depAnalyzer.readFileContent(
-        ['myapp.Application', 'myapp.theme.Theme'],
+        ['myapp.Application'],
         {'myapp': './test/data/myapp/source/class/',
          'qx': '../../../../../framework/source/class/'}
       );
