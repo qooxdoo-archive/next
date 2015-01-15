@@ -170,7 +170,7 @@ qx.Class.define("qx.data.controller.Form",
             // check if the target is a selection
             var clazz = items[name].constructor;
             var itemValue = null;
-            if (qx.Interface.classImplements(clazz, qx.ui.core.ISingleSelection)) {
+            if (items[name].modelSelection) {
               // use the first element of the selection because passed to the
               // marshaler (and its single selection anyway) [BUG #3541]
               itemValue = items[name].modelSelection.getItem(0) || null;
@@ -359,8 +359,7 @@ qx.Class.define("qx.data.controller.Form",
      * @return {Boolean} true, if given item fits.
      */
     __isModelSelectable : function(item) {
-      return qx.Interface.classImplements(item.constructor, qx.ui.core.ISingleSelection) &&
-      ("modelSelection" in item);
+      return ("modelSelection" in item);
     },
 
 
