@@ -9,13 +9,11 @@ module.exports = function(grunt) {
     common: {
       "APPLICATION" : "play",
       "QOOXDOO_PATH" : "../..",
-      "LOCALES": ["en"],
       "THEME": "custom",
     },
 
     source: {
       options: {
-        addCss: ["theme/<%= common.APPLICATION %>/css/<%= common.THEME %>.css"],
         includes: ["<%= common.APPLICATION %>.*", "qx.*"],
         excludes: [
          "qx.test.*",

@@ -31,7 +31,7 @@ var q = require('qooxdoo');
 var common = {
   "ROOT": ".",
   "QOOXDOO_PATH": "../../..",
-  "QXTHEME": "<%= common.APPLICATION %>.theme.Theme",
+  "THEME": "custom",
   "QXICONTHEME": ["Tango"],
   "TMPDIR": os.tmpdir(),
   "CACHE": "<%= common.TMPDIR %>/next<%= common.QOOXDOO_VERSION %>/cache",
@@ -46,7 +46,7 @@ var common = {
   "ENVIRONMENT": {
     "qx.application": "<%= common.APPLICATION %>.Application",
     "qx.revision":"",
-    "qx.theme": "<%= common.QXTHEME %>",
+    "qx.theme": "<%= common.THEME %>",
     "qx.version":"<%= common.QOOXDOO_VERSION %>"
   }
 };
@@ -71,10 +71,12 @@ var getConfig = function() {
       options: {
         force: true
       },
-      source: ["<%= common.SOURCE_PATH %>/script"],
+      source: ["<%= common.SOURCE_PATH %>/script",
+               "<%= common.SOURCE_PATH %>/theme/*.css*"],
       build: ["<%= common.BUILD_PATH %>"],
       api: ["<%= common.ROOT %>/api"],
       app: ["<%= common.SOURCE_PATH %>/script",
+            "<%= common.SOURCE_PATH %>/theme/*.css*",
             "<%= common.BUILD_PATH %>",
             "<%= common.ROOT %>/api"],
       cache: ["<%= common.CACHE_KEY.compile %>",
@@ -90,6 +92,7 @@ var getConfig = function() {
         cachePath: "<%= common.CACHE %>",
         loaderTemplate: "<%= common.QOOXDOO_PATH %>/tool/data/generator/loader.tmpl.js",
         environment: common.ENVIRONMENT,
+        addCss: ["theme/<%= common.THEME %>.css"],
         includes: ["<%= common.APPLICATION_MAIN_CLASS %>"],
         excludes: [],
         libraries: [
@@ -115,6 +118,7 @@ var getConfig = function() {
           "qx.debug.ui.queue" : false,
           "qx.debug.io" : false
         }),
+        addCss: ["theme/<%= common.THEME %>.css"],
         includes: ["<%= common.APPLICATION_MAIN_CLASS %>"],
         excludes: [],
         libraries: [
@@ -140,9 +144,9 @@ var getConfig = function() {
         },
         files: [{
           expand: true,
-          cwd: 'source/theme/<%= common.APPLICATION %>/scss',
+          cwd: 'source/theme',
           src: ['*.scss'],
-          dest: 'source/theme/<%= common.APPLICATION %>/css',
+          dest: 'source/theme',
           ext: '.css'
         }]
       }
