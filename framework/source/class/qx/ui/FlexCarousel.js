@@ -36,14 +36,23 @@ qx.Class.define("qx.ui.FlexCarousel",
 
 
     nextPage: function() {
-      var container = this.find(".flexcarousel-container");
-      container[0].scrollLeft = this.getWidth() * 2;
+      this._scrollContainer(this.getWidth() * 2, 500);
     },
 
 
     previousPage: function() {
+      this._scrollContainer(0, 500);
+    },
+
+
+    _scrollContainer: function(left, time) {
       var container = this.find(".flexcarousel-container");
-      container[0].scrollLeft = 0;
+      container
+        .off("scroll", this._onScroll, this)
+        .once("animationEnd", function() {
+          container.on("scroll", this._onScroll, this);
+        }, this)
+        .scrollTo(left, 0, time);
     },
 
 
