@@ -2,7 +2,7 @@
 <html lang="en">
   <head>
     <meta content="text/html; charset=UTF-8" http-equiv="content-type">
-    <title>Mobile Test Matrix</title>
+    <title>Browser Test Matrix</title>
     <style type="text/css">
     th {
       vertical-align: top;
@@ -12,17 +12,27 @@
 
     /* s. http://tinyurl.com/49eatag */
     table {
-      /*margin: 10px;*/
+      /* margin: 10px;*/
       page-break-inside:auto
     }
-    tr    { page-break-inside:avoid; page-break-after:auto }
-    thead { display:table-header-group }
-    tfoot { display:table-footer-group }
+
+    tr {
+      page-break-inside:avoid; page-break-after:auto
+    }
+
+    thead {
+      display:table-header-group
+    }
+
+    tfoot {
+      display:table-footer-group
+    }
 
     td {
       vertical-align: top;
     }
-    .platforms td {
+
+    tr.platforms td {
       width: 8%;
     }
 
@@ -30,12 +40,12 @@
     <script type="text/javascript" src="utils.js"></script>
   </head>
   <body onload="adjustVersionStrings(); autonumbering(); minitests([]); colorNA(); linkifyEntries();">
-    <h1 align="center">Mobile Tests - qooxdoo <span name="versstring">$(qxversion)</span></h1>
+    <h1 align="center">Browser Tests - next </h1>
     <table border="1" cellpadding="2" cellspacing="0">
       <thead>
         <tr>
-          <th rowspan="3" colspan="2">Application Tests</th>
-          <th colspan="3">Platform</th>
+          <th rowspan="2" colspan="2">Application Tests</th>
+          <td colspan="3" rowspan="1"><span style="font-weight: bold;">Platform</span></td>
         </tr>
         <tr class="platforms">
           <td><br>
@@ -45,73 +55,160 @@
           <td><br>
           </td>
         </tr>
-      </thead>
+      </thead><!-- Don't worry about the line numbers - they will be auto-adjusted. Just make sure to use the 'name="number"' attribute -->
+      <tbody>
+        <tr>
+          <th name="number">14</th>
+          <th class="linkable" data-url="framework/api/" rowspan="1" colspan="4">API Viewer</th>
+        </tr>
+        <tr class="mini">
+          <td name="number" width="2%">13.1</td>
+          <td>Documentation looks ok</td>
+          <td><br>
+          </td>
+          <td><br>
+          </td>
+          <td><br>
+          </td>
+        </tr>
+        <tr class="mini">
+          <td name="number" width="2%">13.2</td>
+          <td>No red ! in the list (which means
+            method is missing)</td>
+          <td><br>
+          </td>
+          <td><br>
+          </td>
+          <td><br>
+          </td>
+        </tr>
+        <tr class="mini">
+          <td name="number" width="2%">13.1</td>
+          <td>Select item from list: Content jumps to the selected item<br>
+          </td>
+          <td><br>
+          </td>
+          <td><br>
+          </td>
+          <td><br>
+          </td>
+        </tr>
+        <tr class="mini">
+          <td name="number" width="2%">13.1</td>
+          <td>Syntax highlighting works e.g. in the
+            animation module<br>
+          </td>
+          <td><br>
+          </td>
+          <td><br>
+          </td>
+          <td><br>
+          </td>
+        </tr>
+        <tr class="mini">
+          <td name="number" width="2%">13.1</td>
+          <td>Links of return types and parameters
+            work<br>
+          </td>
+          <td><br>
+          </td>
+          <td><br>
+          </td>
+          <td><br>
+          </td>
+        </tr>
+        <tr>
+          <td name="number">13.1<br>
+          </td>
+          <td>Filter works as expected (Results
+            shown in the group header)<br>
+          </td>
+          <td><br>
+          </td>
+          <td><br>
+          </td>
+          <td><br>
+          </td>
+        </tr>
+        <tr>
+          <td name="number">13.1<br>
+          </td>
+          <td>Groups without filter results should
+            not open<br>
+          </td>
+          <td><br>
+          </td>
+          <td><br>
+          </td>
+          <td><br>
+          </td>
+        </tr>
+        <tr>
+          <td name="number">13.1<br>
+          </td>
+          <td>Reload opens the list and former
+            documentation<br>
+          </td>
+          <td><br>
+          </td>
+          <td><br>
+          </td>
+          <td><br>
+          </td>
+        </tr>
+        <tr>
+          <td name="number">13.1<br>
+          </td>
+          <td>CodePen Links work<br>
+          </td>
+          <td><br>
+          </td>
+          <td> <br>
+          </td>
+          <td><br>
+          </td>
+        </tr>
+        <tr>
+          <td name="number">13.1<br>
+          </td>
+          <td>Resizing the browser removes the list
+            (responsive)<br>
+          </td>
+          <td><br>
+          </td>
+          <td><br>
+          </td>
+          <td><br>
+          </td>
+        </tr>
+        <tr>
+          <th name="number">15</th>
+          <th class="linkable" data-url="framework/source/test/" rowspan="1" colspan="4">Tests</th>
+        </tr>
+        <tr class="mini">
+          <td name="number" width="2%">13.1</td>
+          <td>Test app loads<br>
+          </td>
+          <td><br>
+          </td>
+          <td><br>
+          </td>
+          <td><br>
+          </td>
+        </tr>
+        <tr class="mini">
+          <td name="number" width="2%">13.1</td>
+          <td>Tests run (no errors, skips ok)<br>
+          </td>
+          <td><br>
+          </td>
+          <td><br>
+          </td>
+          <td><br>
+          </td>
+        </tr>
       <tbody>
         <!-- Don't worry about the line numbers - they will be auto-adjusted. Just make sure to use the 'name="number"' attribute -->
-        <tr>
-          <th name="number">1</th>
-          <th class="linkable" data-url="application/feedreader/build-mobile" colspan="4">Feed Reader</th>
-        </tr>
-        <tr>
-          <td name="number" width="2%">1.1</td>
-          <td>Feed list loads and looks ok</td>
-          <td><br>
-          </td>
-          <td><br>
-          </td>
-          <td><br>
-          </td>
-        </tr>
-        <tr>
-          <td name="number" width="2%">1.2</td>
-          <td>Post lists for all feeds load and look ok</td>
-          <td><br>
-          </td>
-          <td><br>
-          </td>
-          <td><br>
-          </td>
-        </tr>
-        <tr>
-          <td name="number" width="2%">1.3</td>
-          <td>Individual posts load</td>
-          <td><br>
-          </td>
-          <td><br>
-          </td>
-          <td><br>
-          </td>
-        </tr>
-        <tr>
-          <td name="number" width="2%">1.4</td>
-          <td>Back navigation works</td>
-          <td><br>
-          </td>
-          <td><br>
-          </td>
-          <td><br>
-          </td>
-        </tr>
-        <tr>
-          <td name="number" width="2%">1.5</td>
-          <td>Drag-Scroll works</td>
-          <td><br>
-          </td>
-          <td><br>
-          </td>
-          <td><br>
-          </td>
-        </tr>
-        <tr>
-          <td name="number" width="2%">1.7</td>
-          <td>Resize / Orientation-change: Application adapts <strong>[c]</strong></td>
-          <td><br>
-          </td>
-          <td><br>
-          </td>
-          <td><br>
-          </td>
-        </tr>
         <tr>
           <th name="number">2</th>
           <th class="linkable" data-url="application/mobileshowcase/build-indigo" colspan="4">Showcase</th>
@@ -291,6 +388,18 @@
           <td><br>
           </td>
         </tr>
+                <tr>
+          <td name="number">2.9<br>
+          </td>
+          <td><span class="linkable" data-url="application/mobileshowcase/build-indigo#/tree">Tree:</span> Tree looks ok and can be used<br>
+          </td>
+          <td><br>
+          </td>
+          <td><br>
+          </td>
+          <td><br>
+          </td>
+        </tr>
         <tr>
           <td name="number" width="2%">2.11</td>
           <td>Resize / Orientation-change: Application adapts</td>
@@ -312,14 +421,34 @@
           <td><br>
           </td>
         </tr>
-        <tr>
-          <td name="number">3</td>
-          <td colspan="5" rowspan="1">Tutorial</td>
+                <tr>
+          <th name="number">5</th>
+          <th rowspan="1" class="linkable" data-url="application/playground/build/" colspan="4">Play</th>
+        </tr>
+        <tr class="mini">
+          <td name="number" width="2%">5.1</td>
+          <td>Samples load</td>
+          <td><br>
+          </td>
+          <td><br>
+          </td>
+          <td><br>
+          </td>
+        </tr>
+        <tr class="mini">
+          <td name="number" width="2%">5.3</td>
+          <td>Running changed code works</td>
+          <td><br>
+          </td>
+          <td><br>
+          </td>
+          <td><br>
+          </td>
         </tr>
         <tr>
-          <td name="number">3.1<br>
-          </td>
-          <td class="linkable" data-url="component/tutorials/mobiletweets/step1/">MobileTweets - Step1 loads</td>
+          <td name="number" width="2%">6.8</td>
+          <td>Shorten URL works (use e.g. a changed sample, where the code is in
+            the URL)</td>
           <td><br>
           </td>
           <td><br>
@@ -327,13 +456,40 @@
           <td><br>
           </td>
         </tr>
+        <tr>
+          <td name="number" width="2%">5.9</td>
+          <td>Code via URL hash works (use the short URL gained in the previous
+            step)</td>
+          <td><br>
+          </td>
+          <td><br>
+          </td>
+          <td><br>
+          </td>
+        </tr>
+        <tr>
+          <td name="number" width="2%">5.15</td>
+          <td>Resizing browser: Application adapts</td>
+          <td><br>
+          </td>
+          <td><br>
+          </td>
+          <td><br>
+          </td>
+        </tr>
+        <tr>
+          <td name="number" width="2%">5.16</td>
+          <td>Resizing browser: Content/controls remain accessible</td>
+          <td><br>
+          </td>
+          <td><br>
+          </td>
+          <td><br>
+          </td>
+        </tr>
+        <tr>
       </tbody>
     </table>
-    <div> </div>
-    <div> Legend: <img src="http://resources.qooxdoo.org/images/icons/dialog-apply.22.png">
-      &nbsp;Ok &nbsp;&nbsp;&nbsp; (<img src="http://resources.qooxdoo.org/images/icons/dialog-apply.22.png">)
-      &nbsp;Mainly Ok &nbsp;&nbsp;&nbsp; <img src="http://resources.qooxdoo.org/images/icons/edit-delete.22.png">
-      &nbsp;Not Ok </div>
     <h3>Annotations</h3>
     <ul>
       <li>Mobile and desktop devices should be connected to "onair" network. </li>
@@ -348,5 +504,11 @@
         rotating the tablet device by 90 degrees, or resizing the browser
         windows size to less/above 50:50 ratio</li>
     </ul>
+    </tbody>
+    </table>
+    <div> Legend: <img src="http://resources.qooxdoo.org/images/icons/dialog-apply.22.png">
+      &nbsp;Ok &nbsp;&nbsp;&nbsp; (<img src="http://resources.qooxdoo.org/images/icons/dialog-apply.22.png">)
+      &nbsp;Mainly Ok &nbsp;&nbsp;&nbsp; <img src="http://resources.qooxdoo.org/images/icons/edit-delete.22.png">
+      &nbsp;Not Ok </div>
   </body>
 </html>
