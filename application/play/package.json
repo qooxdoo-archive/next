@@ -14,5 +14,10 @@
     "grunt": "~0.4.2",
     "grunt-contrib-sass": "^0.7.3",
     "grunt-contrib-clean": "~0.5.0"
+  },
+  "org_next": {
+    "namespace": "play",
+    "class": "source/class",
+    "resource": "source/resource"
   }
 }

@@ -19,6 +19,7 @@
 
 /**
  * @asset(play/*)
+ * @ignore(ace)
  * @ignore(ace.edit)
  */
 qx.Class.define("play.Application",
