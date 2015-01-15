@@ -33,7 +33,31 @@ module.exports = function(grunt) {
           "<%= common.ROOT %>/package.json"
         ]
       }
+    },
+
+    build: {
+      options: {
+        includes: ["<%= common.APPLICATION %>.*", "qx.*"],
+        excludes: [
+         "qx.test.*",
+         "qx.dev.unit.*",
+         "qx.dev.FakeServer",  // as this depends on qx.dev.unit classes
+         "playground.test.*"
+        ],
+        environment: {
+          "qx.debug" : true,
+          "qx.debug.ui.queue" : true,
+          "qx.nativeScrollBars" : true,
+          "qx.allowUrlSettings" : true,
+          "qx.mobile.emulatetouch" : true
+        },
+        libraries: [
+          "<%= common.QOOXDOO_PATH %>/framework/package.json",
+          "<%= common.ROOT %>/package.json"
+        ]
+      }
     }
+
   };
 
   var mergedConf = qx.config.mergeConfig(config, {"build": "build-base", "source": "source-base"});
@@ -47,6 +71,14 @@ module.exports = function(grunt) {
   grunt.task.registerTask(
     'source',
     'Build the playground and compile the stylesheets with Sass.',
-    ["source-base", "sass:indigo"]
+    ["sass:indigo", "source-base"]
+  );
+
+  // 'extend' build job
+  grunt.task.renameTask('build', 'build-base');
+  grunt.task.registerTask(
+    'build',
+    'Build the playground and compile the stylesheets with Sass.',
+    ["sass:indigo", "build-base"]
   );
 };

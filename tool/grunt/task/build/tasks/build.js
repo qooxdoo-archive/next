@@ -131,9 +131,9 @@ module.exports = function(grunt) {
     };
 
     var libinfo = { "__out__":{"sourceUri":"script"} };
-    var manifestPaths = qxLib.getPathsFromManifest(opts.libraries);
+    var packageJsonData = qxLib.readPackageJson(opts.libraries);
     var ns = "";
-    for (ns in manifestPaths) {
+    for (ns in packageJsonData) {
       libinfo[ns] = {};
       libinfo[ns] = {
         "resourceUri": "resource",
@@ -184,8 +184,15 @@ module.exports = function(grunt) {
       shell.mkdir(opts.buildPath);
     }
     shell.cp("-f", path.join(opts.sourcePath, 'index.html'), opts.buildPath);
+
+    var sourceThemePath = path.join(opts.sourcePath, 'theme/*.css*');
+    var buildThemePath = path.join(opts.buildPath, 'theme');
+    shell.mkdir("-p", buildThemePath);
+    shell.cp("-f", sourceThemePath, buildThemePath);
+
     var buildResourcePath = path.join(opts.buildPath, 'resource');
     qxRes.copyResources(buildResourcePath, resBasePathMap, assetNsPaths);
+
     grunt.log.ok('Done.');
 
 
