@@ -145,6 +145,7 @@ var registerNodeTasks = function(grunt, relSdkPath) {
   grunt.loadTasks(relSdkPath + '/tool/grunt/task/source/tasks');
   grunt.loadTasks(relSdkPath + '/tool/grunt/task/build/tasks');
   grunt.loadNpmTasks('grunt-contrib-clean');
+  grunt.loadNpmTasks('grunt-contrib-sass');
 };
 
 var registerTasks = function(grunt) {

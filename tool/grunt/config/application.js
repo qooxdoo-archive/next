@@ -130,6 +130,23 @@ var getConfig = function() {
         cachePaths: "<%= common.CACHE_KEY %>"
       }
     },
+    /* grunt-contrib-sass */
+    sass: {
+      indigo: {
+        options: {
+          style: 'compressed',
+          noCache: true,
+          loadPath: ['<%= common.QOOXDOO_PATH %>/framework/source/resource/qx/scss']
+        },
+        files: [{
+          expand: true,
+          cwd: 'source/theme/<%= common.APPLICATION %>/scss',
+          src: ['*.scss'],
+          dest: 'source/theme/<%= common.APPLICATION %>/css',
+          ext: '.css'
+        }]
+      }
+    },
   };
 
   return config;
