@@ -27,6 +27,9 @@ describe("mobile.FlexCarousel", function() {
         width: "400px",
         height: "400px"
       })
+      .set({
+        pageSwitchDuration: 100
+      })
       .appendTo(sandbox);
   });
 
@@ -110,78 +113,95 @@ describe("mobile.FlexCarousel", function() {
 
   it("nextPage", function(done) {
     var p1 = new qx.ui.Widget()
+      .setHtml("page1")
       .appendTo(carousel);
     var p2 = new qx.ui.Widget()
+      .setHtml("page2")
       .appendTo(carousel);
     var p3 = new qx.ui.Widget()
+      .setHtml("page3")
       .appendTo(carousel);
 
-    var cb = sinon.sandbox.spy(function() {
-      switch(count) {
-        case 1:
-          assert.equal(carousel.active[0], p2[0]);
-          break;
-        case 2:
-          assert.equal(carousel.active[0], p3[0]);
-          break;
-        case 3:
-          assert.equal(carousel.active[0], p1[0]);
-          break;
-      }
+    var cb3 = sinon.sandbox.spy(function(e) {
+      assert.equal(carousel.active[0], p1[0]);
+      assert.equal(carousel.active[0], e.value[0]);
+      assert.equal(p1[0], e.value[0]);
     });
 
-    var count = 0;
-    carousel.on("changeActive", cb);
+    var cb2 = sinon.sandbox.spy(function(e) {
+      assert.equal(carousel.active[0], p3[0]);
+      assert.equal(carousel.active[0], e.value[0]);
+      assert.equal(p3[0], e.value[0]);
 
-    for (var i = 1; i < 4; i++) {
-      window.setTimeout(function() {
-        count = i;
-        carousel.nextPage();
-      }, 20 * i);
-    }
+      carousel.once("changeActive", cb3);
+      carousel.nextPage();
+    });
+
+    var cb1 = sinon.sandbox.spy(function(e) {
+      assert.equal(carousel.active[0], p2[0]);
+      assert.equal(carousel.active[0], e.value[0]);
+      assert.equal(p2[0], e.value[0]);
+
+      carousel.once("changeActive", cb2);
+      carousel.nextPage();
+    });
+
+    carousel.once("changeActive", cb1);
+    carousel.nextPage();
 
     window.setTimeout(function() {
-      sinon.assert.calledThrice(cb);
+      sinon.assert.calledOnce(cb1);
+      sinon.assert.calledOnce(cb2);
+      sinon.assert.calledOnce(cb3);
       done();
-    }, 80);
+    }, 600);
+
   });
 
 
   it("previousPage", function(done) {
     var p1 = new qx.ui.Widget()
+      .setHtml("page1")
       .appendTo(carousel);
     var p2 = new qx.ui.Widget()
+      .setHtml("page2")
       .appendTo(carousel);
     var p3 = new qx.ui.Widget()
+      .setHtml("page3")
       .appendTo(carousel);
 
-    var cb = sinon.sandbox.spy(function(e) {
-      switch(count) {
-        case 1:
-          assert.equal(carousel.active[0], p3[0]);
-          break;
-        case 2:
-          assert.equal(carousel.active[0], p2[0]);
-          break;
-        case 3:
-          assert.equal(carousel.active[0], p1[0]);
-          break;
-      }
+    var cb3 = sinon.sandbox.spy(function(e) {
+      assert.equal(carousel.active[0], p1[0]);
+      assert.equal(carousel.active[0], e.value[0]);
+      assert.equal(p1[0], e.value[0]);
     });
 
-    var count = 0;
-    carousel.on("changeActive", cb);
+    var cb2 = sinon.sandbox.spy(function(e) {
+      assert.equal(carousel.active[0], p2[0]);
+      assert.equal(carousel.active[0], e.value[0]);
+      assert.equal(p2[0], e.value[0]);
 
-    for (var i = 1; i < 4; i++) {
-      window.setTimeout(function() {
-        count = i;
-        carousel.nextPage();
-      }, 20 * i);
-    }
+      carousel.once("changeActive", cb3);
+      carousel.previousPage();
+    });
+
+    var cb1 = sinon.sandbox.spy(function(e) {
+      assert.equal(carousel.active[0], p3[0]);
+      assert.equal(carousel.active[0], e.value[0]);
+      assert.equal(p3[0], e.value[0]);
+
+      carousel.once("changeActive", cb2);
+      carousel.previousPage();
+    });
+
+    carousel.once("changeActive", cb1);
+    carousel.previousPage();
 
     window.setTimeout(function() {
-      sinon.assert.calledThrice(cb);
+      sinon.assert.calledOnce(cb1);
+      sinon.assert.calledOnce(cb2);
+      sinon.assert.calledOnce(cb3);
       done();
-    }, 80);
+    }, 600);
   });
 });
