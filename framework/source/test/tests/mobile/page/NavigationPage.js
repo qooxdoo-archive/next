@@ -23,7 +23,7 @@ describe("mobile.page.NavigationPage", function () {
  it("NavigationInterface", function() {
       var page = new qx.ui.page.NavigationPage();
 
-      assert.isNotNull(page.getTitleWidget());
+      assert.isNotNull(page.getTitleElement());
       assert.isNotNull(page.getLeftContainer());
       assert.isNotNull(page.getRightContainer());
 
@@ -35,7 +35,7 @@ describe("mobile.page.NavigationPage", function () {
       var page = new qx.ui.page.NavigationPage();
 
       page.title = "Affe";
-      assert.equal("Affe", page.getTitleWidget().getHtml());
+      assert.equal("Affe", page.getTitleElement().getHtml());
 
       page.dispose();
   });

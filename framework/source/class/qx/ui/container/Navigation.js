@@ -221,7 +221,7 @@ qx.Class.define("qx.ui.container.Navigation",
         navigationBar.append(leftContainer);
       }
 
-      var title = widget.getTitleWidget();
+      var title = widget.getTitleElement();
       if (title) {
         title.layoutPrefs = {flex:1};
         navigationBar.append(title);
