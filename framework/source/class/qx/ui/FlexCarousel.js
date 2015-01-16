@@ -1,3 +1,24 @@
+"use strict";
+/* ************************************************************************
+
+   qooxdoo - the new era of web development
+
+   http://qooxdoo.org
+
+   Copyright:
+     2014-2015 1&1 Internet AG, Germany, http://www.1und1.de
+
+   License:
+     LGPL: http://www.gnu.org/licenses/lgpl.html
+     EPL: http://www.eclipse.org/org/documents/epl-v10.php
+     See the LICENSE file in the project's top-level directory for details.
+
+************************************************************************ */
+
+/**
+ * TODOC
+ * @require(qx.module.Transform)
+ */
 qx.Class.define("qx.ui.FlexCarousel",
 {
   extend : qx.ui.Widget,
@@ -11,6 +32,12 @@ qx.Class.define("qx.ui.FlexCarousel",
       check: "qxWeb",
       apply: "_update",
       event: true
+    },
+
+    showPagination : {
+      check : "Boolean",
+      init : true,
+      apply : "_applyShowPagination"
     }
   },
 
@@ -28,11 +55,21 @@ qx.Class.define("qx.ui.FlexCarousel",
       .on("removedChild", this._onRemovedChild, this)
       .appendTo(outerContainer);
 
+    this.__paginationLabels = [];
+    this.__pagination = new qx.ui.Widget()
+      .set({
+        layout: new qx.ui.layout.HBox(),
+        layoutPrefs: {flex: 1}
+      })
+      .addClass("flexcarousel-pagination")
+      .appendTo(this);
+
     this.on("addedChild", this._onAddedChild, this);
   },
 
   members: {
     __pageContainer: null,
+    __paginationLabels: null,
 
 
     nextPage: function() {
@@ -61,7 +98,12 @@ qx.Class.define("qx.ui.FlexCarousel",
         .appendTo(this.__pageContainer)
         .setStyle("width", this.getWidth() + "px");
 
+      var paginationLabel = this._createPaginationLabel();
+      this.__paginationLabels.push(paginationLabel);
+      this.__pagination.append(paginationLabel);
+
       this._updateWidth();
+
       if (!this.active) {
         this.active = child;
       } else {
@@ -82,17 +124,26 @@ qx.Class.define("qx.ui.FlexCarousel",
       } else {
         this._update();
       }
+
+      this.__paginationLabels.splice(child.priorPosition, 1)[0].remove();
+      for (var i = 0; i < this.__paginationLabels.length; i++) {
+        this.__paginationLabels[i].getChildren(".label").setHtml((i + 1) + "");
+      }
     },
 
 
     _update: function(value, old) {
       var direction = this._updateOrder();
       var container = this.find(".flexcarousel-container");
-      if (direction == "right") {
-        container[0].scrollLeft -= container.getWidth();
-      } else if (direction == "left") {
-        container[0].scrollLeft += container.getWidth();
+      if (container[0].scrollLeft !== this.getWidth()) {
+        if (direction == "right") {
+          this._scrollContainer(container[0].scrollLeft - container.getWidth(), 0);
+        } else if (direction == "left") {
+          this._scrollContainer(container[0].scrollLeft + container.getWidth(), 0);
+        }
       }
+
+      this._updatePagination();
     },
 
 
@@ -155,6 +206,54 @@ qx.Class.define("qx.ui.FlexCarousel",
         }
         this.active = next;
       }
+    },
+
+
+    _applyShowPagination : function(value, old) {
+      if (value) {
+        if (this.__pageContainer.find(".flexcarousel-page").length > 1) {
+          this.__pagination.show();
+        }
+      } else {
+        this.__pagination.hide();
+      }
+    },
+
+
+    /**
+     * Factory method for a paginationLabel.
+     * @return {qx.ui.Widget} the created pagination label.
+     * @param pageIndex {Integer} The page index
+     */
+    _createPaginationLabel : function(pageIndex) {
+      var paginationIndex = this.__pageContainer.find(".flexcarousel-page").length;
+
+      var paginationLabel = qxWeb.create('<div class="flexcarousel-pagination-label"></div>')
+        .on("tap", this._onPaginationLabelTap, this)
+        .append(qxWeb.create('<div class="label">' + paginationIndex + '</div>'));
+
+      return paginationLabel;
+    },
+
+
+    _onPaginationLabelTap: function(e) {
+      this.__paginationLabels.forEach(function(label, idx) {
+        if (label[0] === e.currentTarget ) {
+          this.active = this.__pageContainer.find(".flexcarousel-page").eq(idx);
+        }
+      }.bind(this));
+    },
+
+
+    /**
+     * Updates the pagination indicator of this carousel.
+     * Adds the 'active' CSS class to the currently visible page's
+     * pagination button.
+     */
+    _updatePagination : function() {
+      this.find(".flexcarousel-pagination-label").removeClass("active");
+      var pages = this.__pageContainer.find(".flexcarousel-page");
+      this.__paginationLabels[pages.indexOf(this.active)].addClass("active");
     }
   }
 });

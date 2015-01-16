@@ -15,4 +15,54 @@
   .flexcarousel-container > div {
     height: 100%;
   }
+
+  .flexcarousel-pagination {
+    -webkit-backface-visibility:hidden;
+    -webkit-transition: -webkit-transform 2s;
+    -moz-transition: -moz-transform 2s;
+    transition: transform 2s;
+
+    position: absolute;
+    bottom: 0;
+    padding-bottom: rem(10);
+    width: 100%;
+    white-space: nowrap;
+  }
+
+  .flexcarousel-pagination::before,
+  .flexcarousel-pagination::after {
+    content: "";
+    @include flex(1);
+  }
+
+  .flexcarousel-pagination-label + .flexcarousel-pagination-label {
+    margin-left: $carousel-pagination-size/2;
+  }
+
+  .flexcarousel-pagination-label {
+    @include border-radius($carousel-pagination-border-radius);
+    @include background($carousel-pagination-background);
+    @include box-sizing(border-box);
+    @include flex(0 0);
+
+    border: rem(1) solid $carousel-pagination-border-color;
+    text-align: center;
+
+    display:inline-block;
+
+    width: $carousel-pagination-size;
+    height: $carousel-pagination-size;
+    line-height: $carousel-pagination-size;
+    overflow: hidden;
+
+    color: $carousel-pagination-font-color;
+    font-size: $carousel-pagination-font-size;
+  }
+
+  .flexcarousel-pagination-label.active {
+    @include background($carousel-pagination-active-background);
+    border: rem(1) solid $carousel-pagination-active-border-color;
+    color: $background-color;
+  }
 }
+
