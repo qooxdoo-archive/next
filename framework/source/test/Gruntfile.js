@@ -14,6 +14,7 @@ module.exports = function (grunt) {
     console.log('Opening the framework folder');
     shell.cd('../../');
     shell.exec('npm install');
+    shell.exec('grunt sass:indigo');
     shell.exec('grunt build-all');
     shell.cd('source/test');
   });
@@ -22,6 +23,7 @@ module.exports = function (grunt) {
     console.log('Opening the framework folder');
     shell.cd('../../');
     shell.exec('npm install');
+    shell.exec('grunt sass:indigo');
     shell.exec('grunt source-all --gargs="-m BUILD_PATH:source/test"');
     shell.cd('source/test');
   });
