@@ -126,6 +126,7 @@ qx.Class.define("qx.ui.FlexCarousel",
       if (this.__pageContainer.find(".flexcarousel-page").length === 3) {
         this.find(".flexcarousel-container")[0].scrollLeft = this.getWidth();
       }
+      this._updatePagination();
     },
 
 
@@ -142,6 +143,7 @@ qx.Class.define("qx.ui.FlexCarousel",
       for (var i = 0; i < this.__paginationLabels.length; i++) {
         this.__paginationLabels[i].getChildren(".label").setHtml((i + 1) + "");
       }
+      this._updatePagination();
     },
 
 
