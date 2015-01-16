@@ -34,10 +34,15 @@ qx.Class.define("qx.ui.FlexCarousel",
       event: true
     },
 
-    showPagination : {
-      check : "Boolean",
-      init : true,
-      apply : "_applyShowPagination"
+    showPagination: {
+      check: "Boolean",
+      init: true,
+      apply: "_applyShowPagination"
+    },
+
+    pageSwitchDuration: {
+      check: "Number",
+      init: 500
     }
   },
 
@@ -73,12 +78,20 @@ qx.Class.define("qx.ui.FlexCarousel",
 
 
     nextPage: function() {
-      this._scrollContainer(this.getWidth() * 2, 500);
+      this._scrollContainer(this.getWidth() * 2, this.pageSwitchDuration);
+      if (this.pageSwitchDuration < 50) {
+        // Chrome won't fire a scroll event for low duration values
+        this._onScroll();
+      }
     },
 
 
     previousPage: function() {
-      this._scrollContainer(0, 500);
+      this._scrollContainer(0, this.pageSwitchDuration);
+      if (this.pageSwitchDuration < 50) {
+        // Chrome won't fire a scroll event for low duration values
+        this._onScroll();
+      }
     },
 
 
