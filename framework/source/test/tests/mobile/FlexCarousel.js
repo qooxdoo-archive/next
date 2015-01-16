@@ -126,12 +126,18 @@ describe("mobile.FlexCarousel", function() {
       assert.equal(carousel.active[0], p1[0]);
       assert.equal(carousel.active[0], e.value[0]);
       assert.equal(p1[0], e.value[0]);
+      var activeButton = carousel.find(".active");
+      assert.equal(carousel.find(".flexcarousel-pagination-label").indexOf(activeButton), 0);
+      assert.equal(activeButton[0].textContent, "1");
     });
 
     var cb2 = sinon.sandbox.spy(function(e) {
       assert.equal(carousel.active[0], p3[0]);
       assert.equal(carousel.active[0], e.value[0]);
       assert.equal(p3[0], e.value[0]);
+      var activeButton = carousel.find(".active");
+      assert.equal(carousel.find(".flexcarousel-pagination-label").indexOf(activeButton), 2);
+      assert.equal(activeButton[0].textContent, "3");
 
       carousel.once("changeActive", cb3);
       carousel.nextPage();
@@ -141,6 +147,9 @@ describe("mobile.FlexCarousel", function() {
       assert.equal(carousel.active[0], p2[0]);
       assert.equal(carousel.active[0], e.value[0]);
       assert.equal(p2[0], e.value[0]);
+      var activeButton = carousel.find(".active");
+      assert.equal(carousel.find(".flexcarousel-pagination-label").indexOf(activeButton), 1);
+      assert.equal(activeButton[0].textContent, "2");
 
       carousel.once("changeActive", cb2);
       carousel.nextPage();
@@ -174,12 +183,18 @@ describe("mobile.FlexCarousel", function() {
       assert.equal(carousel.active[0], p1[0]);
       assert.equal(carousel.active[0], e.value[0]);
       assert.equal(p1[0], e.value[0]);
+      var activeButton = carousel.find(".active");
+      assert.equal(carousel.find(".flexcarousel-pagination-label").indexOf(activeButton), 0);
+      assert.equal(activeButton[0].textContent, "1");
     });
 
     var cb2 = sinon.sandbox.spy(function(e) {
       assert.equal(carousel.active[0], p2[0]);
       assert.equal(carousel.active[0], e.value[0]);
       assert.equal(p2[0], e.value[0]);
+      var activeButton = carousel.find(".active");
+      assert.equal(carousel.find(".flexcarousel-pagination-label").indexOf(activeButton), 1);
+      assert.equal(activeButton[0].textContent, "2");
 
       carousel.once("changeActive", cb3);
       carousel.previousPage();
@@ -189,6 +204,9 @@ describe("mobile.FlexCarousel", function() {
       assert.equal(carousel.active[0], p3[0]);
       assert.equal(carousel.active[0], e.value[0]);
       assert.equal(p3[0], e.value[0]);
+      var activeButton = carousel.find(".active");
+      assert.equal(carousel.find(".flexcarousel-pagination-label").indexOf(activeButton), 2);
+      assert.equal(activeButton[0].textContent, "3");
 
       carousel.once("changeActive", cb2);
       carousel.previousPage();
@@ -203,5 +221,29 @@ describe("mobile.FlexCarousel", function() {
       sinon.assert.calledOnce(cb3);
       done();
     }, 600);
+  });
+
+
+  it("pagination update on page remove", function() {
+    var p1 = new qx.ui.Widget()
+      .setHtml("page1")
+      .appendTo(carousel);
+    var p2 = new qx.ui.Widget()
+      .setHtml("page2")
+      .appendTo(carousel);
+    var p3 = new qx.ui.Widget()
+      .setHtml("page3")
+      .appendTo(carousel);
+
+    var labels = carousel.find(".flexcarousel-pagination-label");
+    assert.equal(3, labels.length);
+    assert.isTrue(labels.eq(0).is(".active"));
+    assert.equal(labels.eq(0)[0].textContent, "1");
+
+    p1.remove();
+    labels = carousel.find(".flexcarousel-pagination-label");
+    assert.equal(2, labels.length);
+    assert.isTrue(labels.eq(0).is(".active"));
+    assert.equal(labels.eq(0)[0].textContent, "1");
   });
 });
