@@ -104,6 +104,7 @@ qx.Class.define("qx.ui.form.Picker",
   {
     _slots : null,
     _pickerModel : null,
+    _name: "picker",
 
 
     // property apply
@@ -129,6 +130,25 @@ qx.Class.define("qx.ui.form.Picker",
      */
     _getValue: function () {
       return this.__value;
+    },
+
+    // overriden
+    setAttribute: function (name, value) {
+      if (name === "name") {
+        this._slots.forEach(function (slot) {
+          slot.container.find('input[type=hidden]').setAttribute("name", value + "[]");
+        }, this);
+        this._name = value;
+      }
+      this.super(qx.ui.Widget, "setAttribute", name, value);
+    },
+
+    // overriden
+    getAttribute: function (name) {
+      if (name === "name") {
+        return this._name;
+      }
+      return this.super(qx.ui.Widget, "getAttribute", name);
     },
 
 
@@ -228,6 +248,7 @@ qx.Class.define("qx.ui.form.Picker",
     _createHiddenField: function (currentItem) {
       var hiddenField = qxWeb.create("<input>")[0];
       hiddenField.type = "hidden";
+      hiddenField.name = this._name + "[]";
       hiddenField.value = this._serializeItemValue(currentItem);
 
       return hiddenField;
