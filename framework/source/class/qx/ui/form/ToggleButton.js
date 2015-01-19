@@ -83,7 +83,7 @@ qx.Class.define("qx.ui.form.ToggleButton",
 
     this.on("tap", this._onTap, this);
     this.on("swipe", this._onSwipe, this);
-
+    this.on("track", this._onTrack,this);
     this.addClass("gap");
     this.initMForm();
   },
@@ -235,6 +235,19 @@ qx.Class.define("qx.ui.form.ToggleButton",
       }
     },
 
+    _onTrack: function(evt)
+    {
+      var center = this.getOffset().left + ((this.getOffset().right - this.getOffset().left) / 2);
+      if (evt._original.getDocumentLeft() < center) {
+        if (this.__value == true) {
+          this.toggle();
+        }
+      } else {
+          if (this.__value == false) {
+            this.toggle();
+          }
+      }
+    },
 
     /**
      * Checks if last touch event (swipe,tap) is more than 500ms ago.
