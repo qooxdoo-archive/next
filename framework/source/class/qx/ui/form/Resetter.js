@@ -36,14 +36,13 @@ qx.Class.define("qx.ui.form.Resetter",
     __items : null,
 
     /**
-     * Adding a widget to the reseter will get its current value and store
+     * Adding a widget to the resetter will get its current value and store
      * it for resetting. To access the value, the given item needs to specify
-     * a value property or implement the {@link qx.ui.core.ISingleSelection}
-     * interface.
+     * a value property.
      *
      * @param item {qx.ui.core.Widget} The widget which should be added.
      */
-    add : function(item) {
+    add: function (item) {
       // check the init values
       var init = this.getInitValue(item);
       if (init === undefined) {
