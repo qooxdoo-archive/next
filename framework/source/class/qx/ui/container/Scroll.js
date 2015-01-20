@@ -252,7 +252,7 @@ qx.Class.define("qx.ui.container.Scroll",
                 "offset": offset,
                 "input": waypoint,
                 "index": i,
-                "element": j,
+                "element": waypointElements[j],
                 "axis": axis
               });
             }
