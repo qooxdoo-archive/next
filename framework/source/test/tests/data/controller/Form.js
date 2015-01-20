@@ -51,7 +51,8 @@ describe('data.controller.Form', function() {
 
 
   it("SetModelNull", function() {
-    var c = new qx.data.controller.Form(__model, __form);
+    c = new qx.data.controller.Form(__model, __form);
+
 
     // set some values
     __tf1.value = ("1111");

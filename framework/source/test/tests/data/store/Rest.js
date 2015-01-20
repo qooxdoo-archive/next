@@ -19,7 +19,7 @@
 
 describe("data.store.Rest", function() {
 
-  var reg;
+  var req;
   var res;
   var marshal;
 
@@ -289,7 +289,7 @@ describe("data.store.Rest", function() {
     req.phase = "success";
 
     // Set parsed response
-    req.getResponse.returns(response);
+    req.getResponseContentType.returns(response);
 
     req.emit("success");
   }

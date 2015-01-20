@@ -28,7 +28,7 @@ describe("bom.webfonts.Validator", function() {
   afterEach(function() {
     if (__val) {
       __val.dispose();
-      delete __val;
+      // delete __val;
     }
     qx.bom.webfonts.Validator.removeDefaultHelperElements();
     assert.equal(__nodesBefore, document.body.childNodes.length, "Validator did not clean up correctly!");
@@ -45,7 +45,7 @@ describe("bom.webfonts.Validator", function() {
     }, this);
     window.setTimeout(function() {
       __val.validate();
-    }, 0);
+    }, 10);
   });
 
 
@@ -56,12 +56,12 @@ describe("bom.webfonts.Validator", function() {
       setTimeout(function() {
         assert.isFalse(result.valid);
         done();
-      }, 500);
+      }, 350);
     }, this);
 
-    window.setTimeout(function() {
+    setTimeout(function() {
       __val.validate();
-    }, 0);
+    }, 100);
   });
 
 });
