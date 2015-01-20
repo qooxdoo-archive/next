@@ -165,7 +165,7 @@ qx.Class.define("qx.ui.form.Resetter",
           dataEntry = this.__items[i];
           break;
         }
-      };
+      }
 
       // check for the available init value
       if (dataEntry === undefined) {
