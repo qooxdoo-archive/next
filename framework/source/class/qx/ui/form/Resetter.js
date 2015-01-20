@@ -46,7 +46,7 @@ qx.Class.define("qx.ui.form.Resetter",
       // check the init values
       var init = this.getInitValue(item);
       if (init === undefined) {
-        throw new Error("Item " + item + " not supported for reseting.");
+        throw new Error("Item " + item + " not supported for resetting.");
       }
       // store the item and its init value
       this.__items.push({item: item, init: init});
@@ -54,7 +54,7 @@ qx.Class.define("qx.ui.form.Resetter",
 
 
     /**
-     * Removes a widget to the reseter
+     * Removes a widget to the resetter
      *
      * @param item {qx.ui.core.Widget} The widget which should be removed.
      * @return {Boolean} <code>true</code>, if the widget has been removed.
