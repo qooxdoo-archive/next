@@ -22,6 +22,10 @@
  * A wrapper around Sinon.JS's FakeXMLHttpRequest and FakeServer features that
  * allows quick and simple configuration of mock HTTP backends for testing and
  * development.
+ *
+ * NOTE: SinonJS is not included and must be loaded separately before
+ * FakeServer can be used.
+ *
  * Automatically creates URL filtering rules to ensure that only configured
  * requests are faked while others will be processed normally by the browser's
  * XHR implementation.
@@ -205,7 +209,11 @@ qx.Class.define("qx.dev.FakeServer", {
      */
     getFakeServer : function() {
       if (!this.__fakeServer) {
-        var sinon = this.__sinon = window.sinon || qx.dev.unit.Sinon.getSinon();
+        if (!window.sinon) {
+          console.error(this.classname + ": window.sinon not found. Please make sure SinonJS is loaded before using FakeServer.");
+          return null;
+        }
+        var sinon = this.__sinon = window.sinon;
         sinon.FakeXMLHttpRequest.useFilters = true;
         this.__fakeServer = sinon.sandbox.useFakeServer();
         this.__fakeServer.autoRespond = true;
