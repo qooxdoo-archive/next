@@ -235,6 +235,7 @@ qx.Class.define("qx.ui.form.ToggleButton",
       }
     },
 
+
     _onTrack: function(evt)
     {
       var center = this.getOffset().left + ((this.getOffset().right - this.getOffset().left) / 2);
@@ -248,6 +249,7 @@ qx.Class.define("qx.ui.form.ToggleButton",
           }
       }
     },
+
 
     /**
      * Checks if last touch event (swipe,tap) is more than 500ms ago.
