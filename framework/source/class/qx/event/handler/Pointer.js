@@ -390,7 +390,9 @@ qx.Class.define("qx.event.handler.Pointer", {
       type = type || domEvent.type;
 
       var gestureEvent;
-      if (type == "pointerdown" || type == "pointerup" || type == "pointermove") {
+      if ((domEvent.pointerType !== "mouse" || domEvent.button === 0) &&
+        (type == "pointerdown" || type == "pointerup" || type == "pointermove"))
+      {
         gestureEvent = new qx.event.type.dom.Pointer(
           qx.event.handler.Pointer.POINTER_TO_GESTURE_MAPPING[type],
           domEvent,
