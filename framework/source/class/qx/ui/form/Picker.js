@@ -132,7 +132,7 @@ qx.Class.define("qx.ui.form.Picker",
       return this.__value;
     },
 
-    // overriden
+    // overridden
     setAttribute: function (name, value) {
       if (name === "name") {
         this._slots.forEach(function (slot) {
@@ -143,7 +143,7 @@ qx.Class.define("qx.ui.form.Picker",
       this.super(qx.ui.Widget, "setAttribute", name, value);
     },
 
-    // overriden
+    // overridden
     getAttribute: function (name) {
       if (name === "name") {
         return this._name;
