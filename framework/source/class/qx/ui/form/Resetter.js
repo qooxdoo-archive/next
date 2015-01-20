@@ -115,7 +115,7 @@ qx.Class.define("qx.ui.form.Resetter",
 
     getInitValue: function(item) {
       if (this._supportsValue(item)) {
-        return item.getValue();
+        return item.value;
       }
       return undefined;
     },
@@ -132,7 +132,7 @@ qx.Class.define("qx.ui.form.Resetter",
     {
       // set the init value
       if (this._supportsValue(item)) {
-        item.setValue(init);
+        item.value = init;
       }
     },
 
@@ -187,7 +187,7 @@ qx.Class.define("qx.ui.form.Resetter",
     __getCurrentValue : function(item)
     {
       if (this._supportsValue(item)) {
-        return item.getValue();
+        return item.value;
       }
     },
 
