@@ -45,7 +45,10 @@ qx.Class.define("qx.ui.form.Resetter",
     add: function (item) {
       // check the init values
       var init = this.getInitValue(item);
-      if (init === undefined) {
+      if (qx.lang.Type.isArray(init)) {
+        init = init.slice(0);
+      }
+      else if (init === undefined) {
         throw new Error("Item " + item + " not supported for resetting.");
       }
       // store the item and its init value
@@ -131,7 +134,13 @@ qx.Class.define("qx.ui.form.Resetter",
     {
       // set the init value
       if (this._supportsValue(item)) {
-        item.value = init;
+        if (qx.lang.Type.isArray(init)) {
+          for (var i = 0; i < item.value.length; i++) {
+            item.value[i] = init[i];
+          }
+        } else {
+          item.value = init;
+        }
       }
     },
 
