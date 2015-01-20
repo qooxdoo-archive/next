@@ -46,13 +46,16 @@ var commonBeforeEach = function() {
 
 var commonAfterEach = function() {
   // root widget
-  sandbox.remove().dispose();
-  sandbox = null;
+  if(sandbox){
+    sandbox.remove().dispose();
+    sandbox = null;
+  }
 
   // sinon sandbox
-  sinonSandbox.restore();
-  sinonSandbox = null;
-
+  if(sinonSandbox){
+    sinonSandbox.restore();
+    sinonSandbox = null;
+  }
   if (this.currentTest.skip) {
     skipAfterTest(this.currentTest.parent.title, this.currentTest.title);
   }

@@ -20,6 +20,7 @@
 
 describe("data.store.Json", function() {
 
+  this.timeout(6000);
   var __store = null;
   var __data = null;
   var __propertyNames = null;
@@ -36,7 +37,10 @@ describe("data.store.Json", function() {
 
 
   afterEach(function() {
-    __store.dispose();
+    if(__store){
+      __store.dispose();
+    }
+
 
     if (qx.data.model) {
       delete qx.data.model.o;
@@ -53,6 +57,7 @@ describe("data.store.Json", function() {
 
   it("LoadUrl", function(done) {
     __store.on("loaded", function() {
+
       var model = __store.model;
       assert.equal("String", model.string, "The model is not created how it should!");
       done();
@@ -63,21 +68,17 @@ describe("data.store.Json", function() {
 
   it("ProgressStates", function(done) {
     var states = [];
-
     __store.on("changeState", function(evt) {
       var state = evt.value;
       states.push(state);
-
       if (state == "completed") {
         setTimeout(function() {
           var expected = ["sending", "receiving", "completed"];
           assert.deepEqual(expected, states);
           done();
-
         }, 0);
       }
     }, this);
-
     __store.url = url;
 
   });
@@ -399,7 +400,6 @@ describe("data.store.Json", function() {
 
     sinonSandbox.spy(delegate, "manipulateData");
 
-    __store.dispose();
     __store = new qx.data.store.Json(null, delegate);
 
     __store.on("loaded", function() {
@@ -424,7 +424,6 @@ describe("data.store.Json", function() {
 
     sinonSandbox.spy(delegate, "configureRequest");
 
-    __store.dispose();
     __store = new qx.data.store.Json(null, delegate);
 
     __store.on("loaded", function() {
