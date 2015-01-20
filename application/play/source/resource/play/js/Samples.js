@@ -180,5 +180,41 @@ Samples = {
     });
 
     new DateSelector().appendTo(this.getRoot());
+  },
+
+  "sample Horizontal waypoints": function () {
+    var colors = ['red', 'green', 'blue', 'black', 'brown'];
+
+    var content = new qx.ui.Widget();
+    content.setStyle("color", "white");
+
+    var scrollContainer = new qx.ui.container.Scroll();
+    scrollContainer.layout = new qx.ui.layout.HBox();
+    scrollContainer.setStyles({
+      overflow: "scroll",
+      height: "200px"
+    });
+
+    var waypointsX = [0, "33%", ".box-2", "66%", "100%"];
+    scrollContainer.setWaypointsX(waypointsX);
+    scrollContainer.on("waypoint", function (wayPoint) {
+      content.setHtml("Waypoint '" + waypointsX[wayPoint.index] + "' reached");
+      content.setStyle('backgroundColor', colors[wayPoint.index]);
+    }, this);
+
+    for (var i = 0; i < 5; i++) {
+      var box = new qx.ui.Widget();
+      box.setStyles({
+        minWidth: "500px",
+        height: "185px",
+        backgroundColor: colors[i],
+        color: "white"
+      });
+      box.addClass('box-' + i);
+
+      scrollContainer.append(box);
+    }
+
+    this.getRoot().append(scrollContainer).append(content);
   }
 };
