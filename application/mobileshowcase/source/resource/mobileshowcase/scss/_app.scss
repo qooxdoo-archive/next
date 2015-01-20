@@ -347,3 +347,8 @@ $waypoint-width: 300px;
     color: white !important;
   }
 }
+
+.picker {
+  @include border-radius(4px);
+  border: rem(1) solid $input-border-color;
+}
