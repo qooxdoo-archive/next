@@ -90,7 +90,8 @@ qx.Class.define("qx.ui.container.Carousel",
     carouselScroller.on("pointerout", this._onPointerUp, this);
     carouselScroller.on("track", this._onTrack, this);
 
-    this.__carouselScroller.on("transitionend",this._onScrollerTransitionEnd, this);
+    this.__carouselScroller.on(qx.core.Environment.get("css.transition")["end-event"],
+      this._onScrollerTransitionEnd, this);
     qxWeb(window).on("orientationchange", this._onContainerUpdate, this)
       .on("resize", this._onContainerUpdate, this);
     this.on("scroll", this._onNativeScroll, this);

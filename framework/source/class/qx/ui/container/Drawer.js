@@ -254,13 +254,14 @@ qx.Class.define("qx.ui.container.Drawer",
         this._enableTransition();
 
         var transitionTarget = this._getTransitionTarget();
+        var transitionEnd = qx.core.Environment.get("css.transition")["end-event"];
         var onTransitionEnd = function(evt) {
           this.super(qx.ui.Widget, "show");
           this._disableTransition();
           this.__inTransition = false;
-          transitionTarget.off("transitionend", onTransitionEnd, this);
+          transitionTarget.off(transitionEnd, onTransitionEnd, this);
         };
-        transitionTarget.on("transitionend", onTransitionEnd, this);
+        transitionTarget.on(transitionEnd, onTransitionEnd, this);
 
         window.setTimeout(function() {
           this.removeClass("hidden");
@@ -298,13 +299,15 @@ qx.Class.define("qx.ui.container.Drawer",
         this._enableTransition();
 
         var transitionTarget = this._getTransitionTarget();
-        var listenerId = transitionTarget.on("transitionend", function(evt) {
-          this.super(qx.ui.Widget, "hide");
-          this._disableTransition();
-          parent.removeClass("blocked");
-          this.__inTransition = false;
-          transitionTarget.offById(listenerId);
-        }, this).getListenerId();
+        var listenerId = transitionTarget.on(qx.core.Environment.get("css.transition")["end-event"],
+          function(evt) {
+            this.super(qx.ui.Widget, "hide");
+            this._disableTransition();
+            parent.removeClass("blocked");
+            this.__inTransition = false;
+            transitionTarget.offById(listenerId);
+          }, this)
+          .getListenerId();
 
         window.setTimeout(function() {
           this.addClass("hidden");
