@@ -117,6 +117,17 @@ qx.Mixin.define("qx.ui.form.MText",
         value = " " + value;
       }
       this.setAttribute("placeholder", value);
+
+      if (qx.core.Environment.get("browser.name") === "firefox" &&
+          parseFloat(qx.core.Environment.get("browser.version")) < 36 &&
+          this._getTagName() === "textarea" &&
+          !this.isRendered())
+      {
+        this.once("addedToParent", function() {
+          this.removeAttribute("placeholder")
+            .setAttribute("placeholder", value);
+        }, this);
+      }
     },
 
 
