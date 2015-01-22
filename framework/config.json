@@ -236,7 +236,7 @@
       "desc": "Watch and compile the theme scss",
       "extend": ["cache"],
       "let": {
-        "QX_SHARED_THEME_PATH": "source/resource/qx/scss"
+        "QX_SHARED_THEME_PATH": "source/resource/qx"
       },
       "shell": {
         "command": "sass -C -t compressed -I ${QX_SHARED_THEME_PATH} --watch ${QX_SHARED_THEME_PATH}/scss:${QX_SHARED_THEME_PATH}/css"
