@@ -114,6 +114,17 @@ qx.Mixin.define("qx.ui.form.MForm",
       check: "String",
       init: "Value is invalid",
       nullable: true
+    },
+
+
+    /**
+     * Property name chain used by qx.data.controller.Form to synchronize
+     * the form item's value with a model property.
+     * @type {Object}
+     */
+    modelName: {
+      check: "String",
+      nullable: true
     }
 
   },

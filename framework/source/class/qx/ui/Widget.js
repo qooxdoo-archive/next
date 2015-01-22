@@ -118,7 +118,6 @@ qx.Class.define("qx.ui.Widget", {
       this.setAttribute("id", clazz.ID_PREFIX + clazz.__idCounter++);
     }
     this.defaultCssClass = undefined;
-    this.name = undefined;
     this.anonymous = undefined;
     this.activatable = undefined;
     this[0].$$widget = this;

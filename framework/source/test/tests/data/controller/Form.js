@@ -26,9 +26,12 @@ describe('data.controller.Form', function() {
 
   beforeEach(function() {
     __form = new qx.ui.form.Form();
-    __tf1 = new qx.ui.form.TextField();
-    __tf2 = new qx.ui.form.TextField("init");
-    __cb = new qx.ui.form.CheckBox();
+    __tf1 = new qx.ui.form.TextField()
+      .setAttribute("name", "tf1");
+    __tf2 = new qx.ui.form.TextField("init")
+      .setAttribute("name", "tf2");
+    __cb = new qx.ui.form.CheckBox()
+      .setAttribute("name", "cb");
     __model = qx.data.marshal.Json.createModel({
       tf1: null,
       tf2: null,
@@ -36,9 +39,9 @@ describe('data.controller.Form', function() {
     });
 
     // build the form
-    __form.add(__tf1, "label1", null, "tf1");
-    __form.add(__tf2, "label2", null, "tf2");
-    __form.add(__cb, "label3", null, "cb");
+    __form.append(__tf1);
+    __form.append(__tf2);
+    __form.append(__cb);
 
   });
 
@@ -63,9 +66,9 @@ describe('data.controller.Form', function() {
     c.model = (null);
 
     // all values should be null as well
-    assert.equal("", __tf1.value);
-    assert.equal("", __tf2.value);
-    assert.equal("", __cb.value);
+    assert.equal(null, __tf1.value);
+    assert.equal(null, __tf2.value);
+    assert.equal(null, __cb.value);
 
     c.dispose();
   });
@@ -78,7 +81,7 @@ describe('data.controller.Form', function() {
 
     __tf2.value = ("affe");
     __form.reset();
-    assert.equal("", __tf2.value);
+    assert.equal(null, __tf2.value);
 
     c.dispose();
   });
@@ -87,8 +90,10 @@ describe('data.controller.Form', function() {
   it("UnidirectionalDeep", function() {
     __form = new qx.ui.form.Form();
 
-    __form.add(__tf1, "label1", null, "a.tf1");
-    __form.add(__tf2, "label2", null, "a.tf2");
+    __form.append(__tf1);
+    __tf1.modelName = "a.tf1";
+    __form.append(__tf2);
+    __tf2.modelName = "a.tf2";
     // just create the controller
     var c = new qx.data.controller.Form(null, __form, true);
     var model = c.createModel();
@@ -293,12 +298,15 @@ describe('data.controller.Form', function() {
 
     // create a new form
     var form = new qx.ui.form.Form();
-    var tf1 = new qx.ui.form.TextField();
-    var tf2 = new qx.ui.form.TextField("init");
-    var cb = new qx.ui.form.CheckBox();
-    form.add(tf1, "tf1");
-    form.add(tf2, "tf2");
-    form.add(cb, "cb");
+    var tf1 = new qx.ui.form.TextField()
+      .setAttribute("name", "tf1");
+    var tf2 = new qx.ui.form.TextField("init")
+      .setAttribute("name", "tf2");
+    var cb = new qx.ui.form.CheckBox()
+      .setAttribute("name", "cb");
+    form.append(tf1);
+    form.append(tf2);
+    form.append(cb);
 
     c.target = (form);
 
@@ -345,14 +353,26 @@ describe('data.controller.Form', function() {
 
     // create the form
     var form = new qx.ui.form.Form();
-    var tf1 = new qx.ui.form.TextField();
-    var tf2 = new qx.ui.form.TextField();
-    var cb = new qx.ui.form.CheckBox();
+    var tf1 = new qx.ui.form.TextField()
+      .setAttribute("name", "label1")
+      .set({
+        modelName: "a.tf1"
+      });
+    var tf2 = new qx.ui.form.TextField()
+      .setAttribute("name", "label2")
+      .set({
+        modelName: "b.c.tf2"
+      });
+    var cb = new qx.ui.form.CheckBox()
+      .setAttribute("name", "label3")
+      .set({
+        modelName: "cb"
+      });
 
     // add the form incl. deep binding instructions
-    form.add(tf1, "label1", null, "a.tf1");
-    form.add(tf2, "label2", null, "b.c.tf2");
-    form.add(cb, "label3", null, "cb");
+    form.append(tf1);
+    form.append(tf2);
+    form.append(cb);
 
     // create the controller
     var c = new qx.data.controller.Form(model, form);
@@ -447,11 +467,13 @@ describe('data.controller.Form', function() {
 
   it("ModelCreationDeep", function() {
     var form = new qx.ui.form.Form();
-    var tf1 = new qx.ui.form.TextField("A");
-    var tf2 = new qx.ui.form.TextField("B");
+    var tf1 = new qx.ui.form.TextField("A")
+      .set({modelName: "a.b1"});
+    var tf2 = new qx.ui.form.TextField("B")
+      .set({modelName: "a.b2.c"});
 
-    form.add(tf1, null, null, "a.b1");
-    form.add(tf2, null, null, "a.b2.c");
+    form.append(tf1);
+    form.append(tf2);
 
     var c = new qx.data.controller.Form(null, form);
     var model = c.createModel(true);
@@ -468,9 +490,10 @@ describe('data.controller.Form', function() {
 
   it("ModelCreationSpecialCaracter", function() {
     var form = new qx.ui.form.Form();
-    var tf1 = new qx.ui.form.TextField("A");
+    var tf1 = new qx.ui.form.TextField("A")
+      .setAttribute("name", "a&b-c+d*e/f|g!h i.,:?;!~+-*/%{}()[]<>=^&|@/\\");
 
-    form.add(tf1, "a&b-c+d*e/f|g!h i.,:?;!~+-*/%{}()[]<>=^&|@/\\");
+    form.append(tf1);
 
     var c = new qx.data.controller.Form(null, form);
     var model = c.createModel(true);
@@ -484,7 +507,7 @@ describe('data.controller.Form', function() {
 
 
   it("RemoveTarget", function() {
-    __form.add(__tf1, "tf1");
+    __form.append(__tf1);
 
     var model = qx.data.marshal.Json.createModel({
       tf1: null,
@@ -586,7 +609,7 @@ describe('data.controller.Form', function() {
   it("BindingCreateMissingOne", function() {
     // add an unknown item
     var tf = new qx.ui.form.TextField();
-    __form.add(tf, "Unknown");
+    __form.append(tf);
 
     // create the controller
     var c = new qx.data.controller.Form(__model, __form);

@@ -128,9 +128,18 @@ qx.Class.define("qx.data.controller.Form",
       }
 
       // renew the affected binding
-      var item = this.target.getItems()[name];
-      var targetProperty =
-        this.__isModelSelectable(item) ? "modelSelection[0]" : "value";
+      var item;
+      var items = this.target.find("*[data-qx-widget]");
+      for (var i=0; i<items.length; i++) {
+        var found = qxWeb(items[i]);
+        var itemName = this._getItemName(found);
+        if (itemName === name) {
+          item = found;
+          break;
+        }
+      }
+
+      var targetProperty = "value";
 
       // remove the binding
       this.__objectController.removeTarget(item, targetProperty, name);
@@ -159,24 +168,21 @@ qx.Class.define("qx.data.controller.Form",
         throw new Error("No target is set.");
       }
 
-      var items = target.getItems();
       var data = {};
-      for (var name in items) {
+      var items = target.find("*[data-qx-widget]");
+      for (var j=0; j<items.length; j++) {
+        var item = qxWeb(items[j]);
+        var name = this._getItemName(item);
         var names = name.split(".");
         var currentData = data;
         for (var i = 0; i < names.length; i++) {
           // if its the last item
           if (i + 1 == names.length) {
             // check if the target is a selection
-            var clazz = items[name].constructor;
+            var clazz = item.constructor;
             var itemValue = null;
-            if (items[name].modelSelection) {
-              // use the first element of the selection because passed to the
-              // marshaler (and its single selection anyway) [BUG #3541]
-              itemValue = items[name].modelSelection.getItem(0) || null;
-            } else {
-              itemValue = items[name].value;
-            }
+              itemValue = item.value;
+
             // call the converter if available [BUG #4382]
             if (this.__bindingOptions[name] && this.__bindingOptions[name][1]) {
               itemValue = this.__bindingOptions[name][1].converter(itemValue);
@@ -212,11 +218,11 @@ qx.Class.define("qx.data.controller.Form",
         return;
       }
 
-      var items = this.target.getItems();
-      for (var name in items) {
-        var item = items[name];
-        var sourceProperty =
-          this.__isModelSelectable(item) ? "modelSelection[0]" : "value";
+      var items = this.target.find("*[data-qx-widget]");
+      for (var i=0; i<items.length; i++) {
+        var item = qxWeb(items[i]);
+        var name = this._getItemName(item);
+        var sourceProperty = "value";
 
         var options = this.__bindingOptions[name];
         options = options && this.__bindingOptions[name][1];
@@ -225,6 +231,25 @@ qx.Class.define("qx.data.controller.Form",
           item, sourceProperty, this.model, name, options
         );
       }
+    },
+
+
+    /**
+     * Returns a form item's name to be used for data binding
+     *
+     * @param item {qx.ui.Widget} The form item
+     * @return {String} The item's name
+     */
+    _getItemName: function(item) {
+      if (item.modelName) {
+        return item.modelName;
+      }
+
+      var name = item.getAttribute("name") || item.getAttribute("id");
+      name = name.replace(
+        /\s+|&|-|\+|\*|\/|\||!|\.|,|:|\?|;|~|%|\{|\}|\(|\)|\[|\]|<|>|=|\^|@|\\/g, ""
+      );
+      return name;
     },
 
 
@@ -257,11 +282,11 @@ qx.Class.define("qx.data.controller.Form",
 
       // first, get rid off all bindings (avoids wrong data population)
       if (this.__objectController != null) {
-        var items = this.target.getItems();
-        for (var name in items) {
-          var item = items[name];
-          var targetProperty =
-            this.__isModelSelectable(item) ? "modelSelection[0]" : "value";
+        var items = this.target.find("*[data-qx-widget]");
+        for (var i=0; i<items.length; i++) {
+          var item = qxWeb(items[i]);
+          var name = this._getItemName(item);
+          var targetProperty = "value";
           this.__objectController.removeTarget(item, targetProperty, name);
         }
       }
@@ -295,13 +320,13 @@ qx.Class.define("qx.data.controller.Form",
       }
 
       // get the form items
-      var items = this.target.getItems();
+      var items = this.target.find("*[data-qx-widget]");
 
       // connect all items
-      for (var name in items) {
-        var item = items[name];
-        var targetProperty =
-          this.__isModelSelectable(item) ? "modelSelection[0]" : "value";
+      for (var i=0; i<items.length; i++) {
+        var item = qxWeb(items[i]);
+        var name = this._getItemName(item);
+        var targetProperty = "value";
         var options = this.__bindingOptions[name];
 
         // try to bind all given items in the form
@@ -338,28 +363,15 @@ qx.Class.define("qx.data.controller.Form",
       }
 
       // get the items
-      var items = oldTarget.getItems();
+      var items = oldTarget.find("*[data-qx-widget]");
+      for (var j=0; j<items.length; j++) {
+        var item = qxWeb(items[j]);
+        var name = this._getItemName(item);
 
-      // disconnect all items
-      for (var name in items) {
-        var item = items[name];
-        var targetProperty =
-          this.__isModelSelectable(item) ? "modelSelection[0]" : "value";
+        // disconnect all items
+        var targetProperty = "value";
         this.__objectController.removeTarget(item, targetProperty, name);
       }
-    },
-
-
-    /**
-     * Returns whether the given item implements
-     * {@link qx.ui.core.ISingleSelection} and has a <code>modelSelection</code> property.
-     *
-     * @param item {qx.ui.form.IForm} The form item to check.
-     *
-     * @return {Boolean} true, if given item fits.
-     */
-    __isModelSelectable : function(item) {
-      return ("modelSelection" in item);
     },
 
 
