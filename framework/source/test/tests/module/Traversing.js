@@ -532,6 +532,7 @@ describe('Traversing', function() {
 
   it("IsDocument", function() {
     assert.isTrue(q.isDocument(document));
+    assert.isTrue((q.isDocument(document)));
     assert.isFalse(q.isDocument(q("#sandbox")[0]));
     assert.isFalse(q.isDocument({}));
   });
