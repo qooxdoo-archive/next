@@ -416,7 +416,7 @@ qx.Class.define("qx.ui.container.Scroll",
      * @return {Boolean} <code>true</code> or <code>false</code>
      */
     _isScrollableX: function() {
-      if (!this._getParentWidget()) {
+      if (!this[0].parentNode) {
         return false;
       }
 
@@ -438,7 +438,7 @@ qx.Class.define("qx.ui.container.Scroll",
      * @return {Boolean} <code>true</code> or <code>false</code>
      */
     _isScrollableY: function() {
-      if (!this._getParentWidget()) {
+      if (!this[0].parentNode) {
         return false;
       }
 

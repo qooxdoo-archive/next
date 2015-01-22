@@ -71,7 +71,7 @@ qx.Mixin.define("qx.ui.container.MNativeScroll",
     */
     _onTouchMove : function(evt) {
       // If scroll container is scrollable
-      if (this._isScrollableY()) {
+      if (this._isScrollableY() || this._isScrollableX()) {
         evt.stopPropagation();
       } else {
         evt.preventDefault();
