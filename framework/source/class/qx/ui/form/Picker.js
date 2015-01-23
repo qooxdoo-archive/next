@@ -323,8 +323,7 @@ qx.Class.define("qx.ui.form.Picker",
     * @param data {qx.event.type.Data} the waypoint data.
     */
     _onWaypoint: function(data) {
-      var element = this.slot.container.find(".list-item").eq(data.element + 2); // TODO: upper placeholder count
-      // this.slot.container.scrollTo(0, data.element * this.self._calcItemHeight());
+      var element = this.slot.container.find(".list-item").eq(data.index + 2);
 
       var item = this.slotModel.getItem(parseInt(element.getData("row"), 10));
       this.self.value[this.slotIndex] = item;

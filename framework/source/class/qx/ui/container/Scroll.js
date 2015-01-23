@@ -251,7 +251,7 @@ qx.Class.define("qx.ui.container.Scroll",
               results.push({
                 "offset": offset,
                 "input": waypoint,
-                "index": i,
+                "index": j,
                 "element": waypointElements[j],
                 "axis": axis
               });
