@@ -17,14 +17,14 @@
 
 ************************************************************************ */
 
-describe("mobile.control.Picker", function() {
+describe("mobile.form.Picker", function() {
 
   it("Init", function() {
     // SMOKE TEST for Picker widget.
     var pickerSlot1 = new qx.data.Array(["qx.Desktop", "qx.Mobile", "qx.Website", "qx.Server"]);
     var pickerSlot2 = new qx.data.Array(["1.5.1", "1.6.1", "2.0.4", "2.1.2", "3.0"]);
 
-    var picker = new qx.ui.mobile.Picker();
+    var picker = new qx.ui.form.Picker();
 
     assert.isTrue(picker.getSlotCount() === 0, 'Unexpected picker slot count.');
 
@@ -41,16 +41,16 @@ describe("mobile.control.Picker", function() {
 
   it("Factory", function() {
     var picker = qxWeb.create("<div>").toPicker().appendTo(sandbox);
-    assert.instanceOf(picker, qx.ui.mobile.Picker);
+    assert.instanceOf(picker, qx.ui.form.Picker);
     qx.core.Assert.assertEquals(picker, picker[0].$$widget);
-    assert.equal("qx.ui.mobile.Picker", picker.getData("qxWidget"));
+    assert.equal("qx.ui.form.Picker", picker.getData("qxWidget"));
 
     picker.dispose();
   });
 
 
   it("DefaultValue", function() {
-    var picker = new qx.ui.mobile.Picker()
+    var picker = new qx.ui.form.Picker()
       .appendTo(sandbox);
 
     var pickerSlot1 = new qx.data.Array(["a", "b", "c"]);
@@ -67,7 +67,7 @@ describe("mobile.control.Picker", function() {
 
 
   it("ValueAddSlot", function() {
-    var picker = new qx.ui.mobile.Picker()
+    var picker = new qx.ui.form.Picker()
       .appendTo(sandbox);
 
     var pickerSlot1 = new qx.data.Array(["a", "b", "c"]);
@@ -87,7 +87,7 @@ describe("mobile.control.Picker", function() {
 
 
   it("ValueRemoveSlot", function() {
-    var picker = new qx.ui.mobile.Picker()
+    var picker = new qx.ui.form.Picker()
       .appendTo(sandbox);
 
     var pickerSlot1 = new qx.data.Array(["a", "b", "c"]);
@@ -111,7 +111,7 @@ describe("mobile.control.Picker", function() {
 
 
   it("ValueManipulationAdd", function() {
-    var picker = new qx.ui.mobile.Picker()
+    var picker = new qx.ui.form.Picker()
       .appendTo(sandbox);
 
     var pickerSlot1 = new qx.data.Array(["a", "b", "c"]);
@@ -135,7 +135,7 @@ describe("mobile.control.Picker", function() {
 
 
   it("ValueManipulationRemove", function() {
-    var picker = new qx.ui.mobile.Picker()
+    var picker = new qx.ui.form.Picker()
       .appendTo(sandbox);
 
     var pickerSlot1 = new qx.data.Array(["a", "b", "c"]);
@@ -156,7 +156,7 @@ describe("mobile.control.Picker", function() {
 
 
   it("ValueManipulationUpdate", function() {
-    var picker = new qx.ui.mobile.Picker()
+    var picker = new qx.ui.form.Picker()
       .appendTo(sandbox);
 
     var pickerSlot1 = new qx.data.Array(["a", "b", "c"]);
@@ -186,7 +186,7 @@ describe("mobile.control.Picker", function() {
 
 
   it("ChangeValue", function() {
-    var picker = new qx.ui.mobile.Picker()
+    var picker = new qx.ui.form.Picker()
       .appendTo(sandbox);
 
     var pickerSlot1 = new qx.data.Array(["a", "b", "c"]);
@@ -205,7 +205,7 @@ describe("mobile.control.Picker", function() {
 
 
   it("ValueInvalid", function() {
-    var picker = new qx.ui.mobile.Picker()
+    var picker = new qx.ui.form.Picker()
       .appendTo(sandbox);
 
     var pickerSlot1 = new qx.data.Array(["d", "e", "f"]);
