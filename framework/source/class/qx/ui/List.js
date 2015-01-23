@@ -177,10 +177,13 @@ qx.Class.define("qx.ui.List",
       if(!element) {
         return;
       }
-      element = qxWeb(element).addClass("active");
-      qxWeb(document.documentElement).once("pointerup", function() {
-        this.removeClass("active")
-      }, element);
+      element = qxWeb(element);
+      if (element.getData("selectable")) {
+        element.addClass("active");
+        qxWeb(document.documentElement).once("pointerup", function() {
+          this.removeClass("active")
+        }, element);
+      }
     },
 
 
