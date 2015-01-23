@@ -57,6 +57,16 @@ qx.Class.define("qx.ui.control.Calendar", {
         return qx.Class.getClass(value) === "Array" && value.length === 7;
       },
       apply: "_render"
+    },
+
+    /**
+     * Hide all days of the previous/next month. If the entire last row of the calandar are days of
+     * the next month the whole row is not rendered.
+     */
+    hideDaysOfOtherMonth: {
+      init: false,
+      check: Boolean,
+      apply: "_render"
     }
   },
 
@@ -93,7 +103,7 @@ qx.Class.define("qx.ui.control.Calendar", {
      * Default value:
      * <pre><tr>
      *   {{#row}}<td class='{{cssClass}}'>
-     *     <button class='{{cssPrefix}}-day' value='{{date}}'>{{day}}</button>
+     *     <button class='{{cssPrefix}}-day {{hidden}}' value='{{date}}'>{{day}}</button>
      *   </td>{{/row}}
      * </tr></pre>
      *
@@ -115,7 +125,7 @@ qx.Class.define("qx.ui.control.Calendar", {
                  "{{#row}}<td class='{{cssPrefix}}-dayname'>{{.}}</td>{{/row}}" +
                "</tr>",
       row : "<tr>" +
-              "{{#row}}<td class='{{cssClass}}'><button class='{{cssPrefix}}-day' {{disabled}} value='{{date}}'>{{day}}</button></td>{{/row}}" +
+              "{{#row}}<td class='{{cssClass}}'><button class='{{cssPrefix}}-day {{hidden}}' {{disabled}} value='{{date}}'>{{day}}</button></td>{{/row}}" +
             "</tr>",
       table : "<table class='{{cssPrefix}}-container'><thead>{{{thead}}}</thead><tbody>{{{tbody}}}</tbody></table>"
     }
@@ -295,7 +305,20 @@ qx.Class.define("qx.ui.control.Calendar", {
         var data = {row: []};
 
         for (var i=0; i<7; i++) {
-          var cssClasses = helpDate.getMonth() !== date.getMonth() ? this.defaultCssClass + "-othermonth" : "";
+
+          var cssClasses = "";
+          var hidden = "";
+
+          if (helpDate.getMonth() !== date.getMonth()) {
+
+            // first day of the last displayed is already
+            if (this.hideDaysOtherMonth === true && week === 5 && i === 0) {
+              break;
+            }
+
+            cssClasses += this.defaultCssClass + "-othermonth";
+            hidden += this.hideDaysOtherMonth ? "qx-hidden" : "";
+          }
 
           cssClasses += today.toDateString() === helpDate.toDateString() ? " " + this.defaultCssClass + "-today" : "";
 
@@ -308,7 +331,8 @@ qx.Class.define("qx.ui.control.Calendar", {
             date: helpDate.toDateString(),
             cssPrefix: this.defaultCssClass,
             cssClass: cssClasses,
-            disabled: disabled
+            disabled: disabled,
+            hidden: hidden
           });
           helpDate.setDate(helpDate.getDate() + 1);
         }
