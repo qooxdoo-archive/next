@@ -81,9 +81,15 @@ qx.Class.define("qx.ui.form.ToggleButton",
       this.value = value;
     }
 
+    this.on("appear", function(){
+      if (value){
+        this._setKnobRight();
+      }
+    });
+
     this.on("tap", this._onTap, this);
-    this.on("swipe", this._onSwipe, this);
-    this.on("track", this._onTrack,this);
+    this.getChildren().on("track", this._onTrack, this);
+    this.getChildren().on("trackend", this._onTrackend, this);
     this.addClass("gap");
     this.initMForm();
   },
@@ -127,16 +133,15 @@ qx.Class.define("qx.ui.form.ToggleButton",
     __value : false,
     __labelUnchecked : "OFF",
     __labelChecked : "ON",
-    __lastToggleTimestamp : 0,
 
     // overridden
-    setValue: function(value) {
+    setValue : function(value) {
       this.value = value;
     },
 
 
     // overridden
-    getValue: function() {
+    getValue : function() {
       return this.value;
     },
 
@@ -171,7 +176,7 @@ qx.Class.define("qx.ui.form.ToggleButton",
     _setValue : function(value)
     {
       if (typeof value !== 'boolean') {
-        throw new Error("value for "+this+" should be boolean");
+        throw new Error("value for " + this + " should be boolean");
       }
       if (value) {
         this.addClass("checked");
@@ -181,6 +186,7 @@ qx.Class.define("qx.ui.form.ToggleButton",
        this.__value = value;
     },
 
+
     /**
      * Gets the value [true/false] of this toggle button.
      * It is called by the getValue method of the qx.ui.form.MForm mixin
@@ -188,6 +194,16 @@ qx.Class.define("qx.ui.form.ToggleButton",
      */
     _getValue : function() {
       return this.__value;
+    },
+
+
+    _setKnobRight : function() {
+      return this.getChildren().translate(this.getWidth()-this.getChildren().getWidth() -2 + "px");
+    },
+
+
+    _setKnobLeft : function() {
+      return this.getChildren().translate("0px");
     },
 
 
@@ -203,70 +219,95 @@ qx.Class.define("qx.ui.form.ToggleButton",
      * Event handler. Called when the tap event occurs.
      * Toggles the button.
      *
-     * @param evt {qx.event.type.Tap} The tap event.
      */
-    _onTap : function(evt)
+    _onTap : function()
     {
-      if(this._checkLastPointerTime()) {
-        this.toggle();
+      if(this._getValue()){
+        this._setValue(false);
+        this._setKnobLeft();
+      }else{
+        this._setValue(true);
+        this._setKnobRight();
       }
     },
 
 
     /**
-     * Event handler. Called when the swipe event occurs.
-     * Toggles the button, when.
+     * Event handler. Called when the track event occurs.
+     * Tracks the switch and toggles.
      *
-     * @param evt {qx.event.type.Swipe} The swipe event.
+     * @param evt {qx.event.type.Track} The track event.
      */
-    _onSwipe : function(evt)
-    {
-      if (this._checkLastPointerTime()) {
-        var direction = evt.getDirection();
-        if (direction == "left") {
-          if (this.__value == true) {
-            this.toggle();
-          }
-        } else {
-          if (this.__value == false) {
-            this.toggle();
-          }
+    _onTrack : function(evt) {
+
+      if (this.__isPointerOutLeft(evt)) {
+        this._setValue(false);
+        this._setKnobLeft();
+      } else if (this.__isPointerOutRight(evt)) {
+        this._setValue(true);
+        this._setKnobRight();
+
+      } else {
+        if (evt.delta.x < 0 && (this.getChildren().getOffset().left - 1 !== this.getOffset().left)) {
+          this.getChildren().translate(this.getWidth() - this.getChildren().getWidth() + evt.delta.x + "px");
+        } else if (evt.delta.x > 0 && (this.getChildren().getOffset().right + 1 !== this.getOffset().right)) {
+          this.getChildren().translate(evt.delta.x + "px");
         }
       }
-    },
 
-
-    _onTrack: function(evt)
-    {
-      var center = this.getOffset().left + ((this.getOffset().right - this.getOffset().left) / 2);
-      if (evt._original.getDocumentLeft() < center) {
-        if (this.__value == true) {
-          this.toggle();
-        }
+      if (this.__isSwitchLeftSided()) {
+        this._setValue(false);
       } else {
-          if (this.__value == false) {
-            this.toggle();
-          }
+        this._setValue(true);
       }
     },
 
 
     /**
-     * Checks if last touch event (swipe,tap) is more than 500ms ago.
-     * Bugfix for several simulator/emulator, when tap is immediately followed by a swipe.
-     * @return {Boolean} <code>true</code> if the last event was more than 500ms ago
+     * Event handler. Called when the trackend event occurs.
+     * Toggles the button.
+     *
+     * @param evt {qx.event.type.Track} The trackend event.
      */
-    _checkLastPointerTime : function() {
-      var elapsedTime = new Date().getTime() - this.__lastToggleTimestamp;
-      this.__lastToggleTimestamp = new Date().getTime();
-      return elapsedTime>500;
+    _onTrackend : function(evt) {
+      if (this.__isSwitchLeftSided()) {
+        this._setValue(false);
+        this._setKnobLeft();
+      } else {
+        this._setValue(true);
+        this._setKnobRight();
+      }
     },
+
+
+    __isSwitchLeftSided : function() {
+      var toggleCenter = this.getOffset().left + this.getWidth() /2;
+      var knobCenter = this.getChildren().getOffset().left + this.getChildren().getWidth() /2;
+      if (knobCenter < toggleCenter) {
+        return true;
+      }
+    },
+
+
+    __isPointerOutLeft : function(evt) {
+      if (evt._original.getDocumentLeft() <= this.getOffset().left || this.getChildren().getOffset().left <= this.getOffset().left) {
+        return true;
+      }
+    },
+
+
+    __isPointerOutRight : function(evt) {
+      if (evt._original.getDocumentLeft() >= this.getOffset().right || this.getChildren().getOffset().right >= this.getOffset().right) {
+        return true;
+      }
+    },
+
 
     dispose : function() {
       this.super(qx.ui.Widget, "dispose");
       this.off("tap", this._onTap, this);
-      this.off("swipe", this._onSwipe, this);
-
+      this.getChildren().off("track", this._onTrack, this);
+      this.getChildren().off("trackend", this._onTrack, this);
       this.__switch && this.__switch.dispose();
       this.disposeMForm();
     }
