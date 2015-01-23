@@ -18,6 +18,10 @@
 /**
  * TODOC
  * @require(qx.module.Transform)
+ * @require(qx.module.event.Swipe)
+ * @require(qx.module.event.GestureHandler)
+ * @require(qx.module.event.Track)
+ * @require(qx.module.event.TrackHandler)
  */
 qx.Class.define("qx.ui.FlexCarousel",
 {
@@ -48,11 +52,27 @@ qx.Class.define("qx.ui.FlexCarousel",
 
   construct: function(element) {
     this.super(qx.ui.Widget, "construct", element);
+    this.on("trackstart", this._onTrackStart, this);
+    this.on("track", this._onTrack, this);
+    this.on("swipe", function(e) {
+      if (e.getAxis() == "x" &&
+          Math.abs(e.getVelocity()) > 1.5 &&
+          Math.abs(e.getDistance()) > (this.getWidth() / 4)
+        )
+      {
+        if (e.getDirection() == "left") {
+          this.nextPage();
+        } else if (e.getDirection() == "right") {
+          this.previousPage();
+        }
+      }
+    });
+
     var outerContainer = new qx.ui.container.Scroll({
         snap: ".qx-hbox > .flexcarousel-page"
       })
+      .setStyle("oveflowX", "auto")
       .addClass("flexcarousel-container")
-      .on("scroll", this._onScroll, this)
       .appendTo(this);
 
     this.__pageContainer = (new qx.ui.Widget())
@@ -78,20 +98,14 @@ qx.Class.define("qx.ui.FlexCarousel",
 
 
     nextPage: function() {
-      this._scrollContainer(this.getWidth() * 2, this.pageSwitchDuration);
-      if (this.pageSwitchDuration < 50) {
-        // Chrome won't fire a scroll event for low duration values
-        this._onScroll();
-      }
+      this.find(".flexcarousel-container")
+        .scrollTo(this.getWidth() * 2, 0, this.pageSwitchDuration);
     },
 
 
     previousPage: function() {
-      this._scrollContainer(0, this.pageSwitchDuration);
-      if (this.pageSwitchDuration < 50) {
-        // Chrome won't fire a scroll event for low duration values
-        this._onScroll();
-      }
+      this.find(".flexcarousel-container")
+        .scrollTo(0, 0, this.pageSwitchDuration);
     },
 
 
@@ -220,6 +234,18 @@ qx.Class.define("qx.ui.FlexCarousel",
           next = pages.eq(0);
         }
         this.active = next;
+      }
+    },
+
+
+    _onTrackStart: function(e) {
+      this.__trackStart = this.find(".flexcarousel-container")[0].scrollLeft;
+    },
+
+
+    _onTrack: function(e) {
+      if (e.delta.axis == "x") {
+        this._scrollContainer(this.__trackStart - e.delta.x);
       }
     },
 
