@@ -112,12 +112,18 @@ describe("mobile.form.Resetter", function() {
     var model = new qx.data.Array("a", "b", "c");
     var vsb = new qx.ui.form.SelectBox();
     vsb.model = model;
+    var picker = new qx.ui.form.Picker();
+    var pickerSlot1 = new qx.data.Array(["a", "b", "c"]);
+    var pickerSlot2 = new qx.data.Array(["0", "1", "2"]);
+    picker.addSlot(pickerSlot1);
+    picker.addSlot(pickerSlot2);
 
     // set the init values
     slider.value = 22;
     textarea.value = "aaa";
     radiobutton.value = false;
     vsb.value = "b";
+    picker.value = ["b", "1"];
 
     // add the resetter
     this.__resetter.add(slider);
@@ -125,12 +131,14 @@ describe("mobile.form.Resetter", function() {
     this.__resetter.add(radiobutton);
     //this.__resetter.add(list);
     this.__resetter.add(vsb);
+    this.__resetter.add(picker);
 
     // change the values
     slider.value = 55;
     textarea.value = "bbb";
     radiobutton.value = true;
     vsb.value = "c";
+    picker.value = ["c", "2"];
 
     // reset
     this.__resetter.reset();
@@ -140,6 +148,8 @@ describe("mobile.form.Resetter", function() {
     assert.equal("aaa", textarea.value);
     assert.equal(false, radiobutton.value);
     assert.equal("b", vsb.value);
+    assert.equal("b", picker.value[0]);
+    assert.equal("1", picker.value[1]);
 
     // tear down
     list.dispose();
@@ -148,6 +158,7 @@ describe("mobile.form.Resetter", function() {
     slider.dispose();
     vsb.dispose();
     model.dispose();
+    picker.dispose();
   });
 
 
