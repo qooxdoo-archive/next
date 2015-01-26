@@ -183,7 +183,9 @@ qx.Class.define("qx.bom.element.Style",
         }
 
         // normalize name
-        name = this.__styleNames[name] || this.__getStyleName(name) || name;
+        if(name !== "float"){
+          name = this.__styleNames[name] || this.__getStyleName(name) || name ;
+        }
 
         // process special properties
         if (special[name]) {
