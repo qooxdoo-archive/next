@@ -129,12 +129,26 @@ qx.Class.define("qx.ui.form.Picker",
       this.__fireChangeValue(value);
     },
 
+
+    // overridden
+    setValue: function(value) {
+      this._setValue(value);
+    },
+
+
     /**
      * @returns {Array}
      */
     _getValue: function () {
       return this.__value;
     },
+
+
+    // overridden
+    getValue: function() {
+      return this._getValue();
+    },
+
 
     // overridden
     setAttribute: function (name, value) {

@@ -76,11 +76,14 @@ describe("mobile.form.Picker", function() {
     picker.addSlot(pickerSlot1);
     var sel = picker.find("*[data-row='0']");
     assert.equal(picker.value[0], "a");
+    assert.equal(picker.getValue()[0], "a");
 
     picker.addSlot(pickerSlot2);
     sel = picker.find("*[data-row='0']");
     assert.equal(picker.value[0], "a");
+    assert.equal(picker.getValue()[0], "a");
     assert.equal(picker.value[1], "0");
+    assert.equal(picker.getValue()[1], "0");
 
     picker.dispose();
   });
@@ -98,13 +101,17 @@ describe("mobile.form.Picker", function() {
 
     var sel = picker.find("*[data-row='0']");
     assert.equal(picker.value[0], "a");
+    assert.equal(picker.getValue()[0], "a");
     assert.equal(picker.value[1], "0");
+    assert.equal(picker.getValue()[1], "0");
 
     picker.removeSlot(1);
     sel = picker.find("*[data-row='0']");
     assert.equal(sel.length, 1);
     assert.equal(picker.value[0], "a");
+    assert.equal(picker.getValue()[0], "a");
     assert.equal(picker.value.length, 1);
+    assert.equal(picker.getValue().length, 1);
 
     picker.dispose();
   });
@@ -170,7 +177,9 @@ describe("mobile.form.Picker", function() {
       "changeValue",
       function () {
         assert.equal(picker.value[0], "a");
+        assert.equal(picker.getValue()[0], "a");
         assert.equal(picker.value[1], "0");
+        assert.equal(picker.getValue()[1], "0");
 
         picker.value = ["b", "1"];
       }.bind(this),
