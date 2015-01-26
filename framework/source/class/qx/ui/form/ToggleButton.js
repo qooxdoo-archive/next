@@ -223,10 +223,10 @@ qx.Class.define("qx.ui.form.ToggleButton",
     _onTap : function()
     {
       if(this._getValue()){
-        this._setValue(false);
+        this.setValue(false);
         this._setKnobLeft();
       }else{
-        this._setValue(true);
+        this.setValue(true);
         this._setKnobRight();
       }
     },
@@ -241,10 +241,10 @@ qx.Class.define("qx.ui.form.ToggleButton",
     _onTrack : function(evt) {
 
       if (this.__isPointerOutLeft(evt)) {
-        this._setValue(false);
+        this.setValue(false);
         this._setKnobLeft();
       } else if (this.__isPointerOutRight(evt)) {
-        this._setValue(true);
+        this.setValue(true);
         this._setKnobRight();
 
       } else {
@@ -256,9 +256,9 @@ qx.Class.define("qx.ui.form.ToggleButton",
       }
 
       if (this.__isSwitchLeftSided()) {
-        this._setValue(false);
+        this.setValue(false);
       } else {
-        this._setValue(true);
+        this.setValue(true);
       }
     },
 
@@ -271,10 +271,10 @@ qx.Class.define("qx.ui.form.ToggleButton",
      */
     _onTrackend : function(evt) {
       if (this.__isSwitchLeftSided()) {
-        this._setValue(false);
+        this.setValue(false);
         this._setKnobLeft();
       } else {
-        this._setValue(true);
+        this.setValue(true);
         this._setKnobRight();
       }
     },
