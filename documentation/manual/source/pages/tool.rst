@@ -130,8 +130,6 @@ Some of the tools that come with the SDK are described elsewhere in this
 manual. Here are some pointers:
 
 * :doc:`application/apiviewer`
-* :doc:`development/frame_apps_testrunner`
-* :doc:`application/inspector`
 * :doc:`application/featureconfigeditor`
 * :doc:`development/simulator`
 

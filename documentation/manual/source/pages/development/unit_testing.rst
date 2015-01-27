@@ -1,14 +1,23 @@
-.. _pages/unit_testing#unit_testing:
 
 Unit Testing
-************
+**************
 
-qooxdoo comes with its own, nicely integrated unit testing environment and the corresponding application called `Testrunner <http://demo.qooxdoo.org/%{version}/testrunner>`_. While being similar to JSUnit, the solution that ships with the qooxdoo SDK does not require any additional software. 
+For the next unit tests we would avoid maintainance of an own test runner and framework. Therefore it was essential to refer to an external test framework. The test framework `mocha <http://mochajs.org/>`_ is versatile and provides expandability and asynchronous testing in all current desktop and mobile browsers. To get a sufficient number of assertions we decided to make use of `chai <http://chaijs.com//>`_ library.
 
-If you look at the component section of a qooxdoo distribution, you will find the Test Runner tailored to test the functionality of the qooxdoo *framework*. It provides a convenient interface to test classes that have been written to that end. You can run single tests, or a whole suite of them at once.
+How to run the tests
+======================
 
-But the Test Runner framework can be deployed for your *own application*. It provides a GUI, a layer of infrastructure and a certain interface for arbitrary test classes. You can write your own test classes and take advantage of the Test Runner environment.
+You can find the next test structure on ``framework/source/test``
 
-* `Test Tools <http://qooxdoo.org/docs/general/test_tools>`_ – an overview over test tools and approaches
-* :doc:`frame_apps_testrunner`  – how to deploy the Testrunner component for your own application
+To run the tests for the first time, install the required node modules in the test directory. Create a ``index.html`` file by command ``grunt html``
+
+Now the tests can be executed on your desired browser.
+
+Find the number of passed and failed tests as well as the duration and the progress of running tests in the right corner. Click on a test suite or test case to run a test separately.
+
+
+
+
+
+
 

@@ -82,7 +82,6 @@ API reference
 Testing
 -------
 
-* Integrated unit testing framework :doc:`Test Runner </pages/development/frame_apps_testrunner>`
 * Integrated functional testing framework :doc:`Simulator </pages/development/simulator>` (deprecated)
 
 .. _pages/introduction/features#deployment:

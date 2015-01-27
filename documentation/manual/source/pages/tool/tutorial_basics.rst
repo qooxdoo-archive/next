@@ -161,7 +161,6 @@ Source Code:
 Development:
 
 -  ``api`` -- create an application-specific instance of the Apiviewer
--  ``test`` -- create an application-specific instance of the Testrunner
 -  ``inspector`` -- create an application-specific instance of the
    Inspector
 

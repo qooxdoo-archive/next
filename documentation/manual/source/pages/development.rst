@@ -44,7 +44,6 @@ Testing
    :maxdepth: 1
 
    development/unit_testing
-   development/frame_apps_testrunner
    development/simulator
    development/simulator_locators
 

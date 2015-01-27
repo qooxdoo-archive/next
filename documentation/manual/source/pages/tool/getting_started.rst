@@ -185,22 +185,4 @@ To start the :doc:`API Viewer application </pages/application/apiviewer>`, open 
 
 .. _pages/getting_started/helloworld#unit_testing:
 
-Unit Testing
-============
-
-You might have noticed the ``test/DemoTest.js`` file in the ``source/class`` folder of your application. This class demonstrates how to define "unit tests" for your application. qooxdoo comes with its own unit testing framework, it does not require any additional software installation. Simply execute the following command:
-
-::
-
-    generate.py test
-
-Open ``index.html`` from the newly created top-level ``test`` folder in your browser. The :doc:`Testrunner application </pages/application/testrunner>` allows you to select and run the tests under your application namespace:
-
-|Testrunner application|
-
-.. |Testrunner application| image:: /_static/testrunner.png
-                            :width: 500 px
-                            :target: ../../_images/testrunner.png
-
-You may skip the rather advanced topic of unit tests while continuing to extend your custom application code. In case you are interested in test-driven development and creating your own unit tests, please see the corresponding :doc:`Unit Testing </pages/development/unit_testing>` documentation.
 
