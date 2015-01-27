@@ -52,9 +52,8 @@ qx.Class.define("qx.ui.FlexCarousel",
 
   construct: function(element) {
     this.super(qx.ui.Widget, "construct", element);
-    this.on("trackstart", this._onTrackStart, this);
-    this.on("track", this._onTrack, this);
-    this.on("swipe", this._onSwipe, this);
+    this.on("trackstart", this._onTrackStart, this)
+    .on("track", this._onTrack, this);
 
     var outerContainer = new qx.ui.container.Scroll({
         snap: ".qx-hbox > .flexcarousel-page"
@@ -81,23 +80,50 @@ qx.Class.define("qx.ui.FlexCarousel",
 
     this.on("addedChild", this._onAddedChild, this);
 
-    outerContainer.on("scroll", this._onScroll, this);
+    this._enableEvents();
   },
 
   members: {
     __pageContainer: null,
     __paginationLabels: null,
+    __trackStart: null,
 
-
-    nextPage: function() {
+    nextPage: function(acceleration) {
+      acceleration = acceleration || 1;
+      this._disableEvents();
       this.find(".flexcarousel-container")
-        .scrollTo(this.getWidth() * 2, 0, this.pageSwitchDuration);
+        .scrollTo(this.getWidth() * 2, 0, parseInt(this.pageSwitchDuration / acceleration))
+        .once("animationEnd", function() {
+          this._enableEvents();
+          this._onScroll();
+        }, this);
     },
 
 
-    previousPage: function() {
+    previousPage: function(acceleration) {
+      acceleration = acceleration || 1;
+      this._disableEvents();
       this.find(".flexcarousel-container")
-        .scrollTo(0, 0, this.pageSwitchDuration);
+        .scrollTo(0, 0, parseInt(this.pageSwitchDuration / acceleration))
+        .once("animationEnd", function() {
+          this._enableEvents();
+          this._onScroll();
+        }, this);
+    },
+
+
+    _enableEvents : function() {
+      if (this.__trackStart === null) {
+        this.find(".flexcarousel-container")
+          .on("scroll", this._onScroll, this);
+      }
+      this.on("swipe", this._onSwipe, this);
+    },
+
+    _disableEvents : function() {
+      this.find(".flexcarousel-container")
+        .off("scroll", this._onScroll, this);
+      this.off("swipe", this._onSwipe, this);
     },
 
 
@@ -204,7 +230,7 @@ qx.Class.define("qx.ui.FlexCarousel",
     },
 
 
-    _onScroll: function(e) {
+    _onScroll: function() {
       var container = this.find(".flexcarousel-container");
       var width = this.getWidth();
       var pages = this.__pageContainer.find(".flexcarousel-page");
@@ -225,11 +251,11 @@ qx.Class.define("qx.ui.FlexCarousel",
 
 
     _onTrackStart: function(e) {
-      if (e._original.currentTarget === this[0]) {
-        this.__trackStart = this.find(".flexcarousel-container")
-          .off("scroll", this._onScroll, this)
-          .getProperty("scrollLeft");
-      }
+      this.__trackStart = this.find(".flexcarousel-container").getProperty("scrollLeft");
+      this.find(".flexcarousel-container")
+        .stop()
+        .off("scroll", this._onScroll, this)
+        .setProperty("scrollLeft", this.__trackStart);
     },
 
 
@@ -242,20 +268,21 @@ qx.Class.define("qx.ui.FlexCarousel",
 
     _onTrackEnd: function(e) {
       this.find(".flexcarousel-container").once("animationEnd", function() {
-        this.find(".flexcarousel-container").on("scroll", this._onScroll, this);
+        if (this.__trackStart === null) {
+          this.find(".flexcarousel-container").on("scroll", this._onScroll, this);
+        }
       }, this);
+      this.__trackStart = null;
     },
 
 
     _onSwipe : function(e) {
-      if (e.getAxis() == "x" &&
-          Math.abs(e.getVelocity()) > 1.5
-        )
-      {
+      var velocity = Math.abs(e.getVelocity());
+      if (e.getAxis() == "x" && velocity > 1) {
         if (e.getDirection() == "left") {
-          this.nextPage();
+          this.nextPage(velocity);
         } else if (e.getDirection() == "right") {
-          this.previousPage();
+          this.previousPage(velocity);
         }
       }
     },
