@@ -92,6 +92,16 @@ qx.Class.define("qx.event.handler.Track", {
       var type = domEvent.type;
       var target = qx.bom.Event.getTarget(domEvent);
 
+      /*
+        If the dom event's target or one of its ancestors have
+        a track handler, we don't need to fire the track again
+        since it bubbles.
+       */
+      if (this._hasIntermediaryHandler(target)) {
+        delete this._trackData[domEvent.pointerId];
+        return;
+      }
+
       if (type == "gesturebegin") {
         this.gestureBegin(domEvent, target);
       } else if (type == "gesturemove") {
@@ -165,16 +175,6 @@ qx.Class.define("qx.event.handler.Track", {
 
       // If no start position is available for this pointerup event, cancel gesture recognition.
       if (!trackData) {
-        return;
-      }
-
-      /*
-        If the dom event's target or one of its ancestors have
-        a gesture handler, we don't need to fire the gesture again
-        since it bubbles.
-       */
-      if (this._hasIntermediaryHandler(this.__defaultTarget)) {
-        delete this._trackData[domEvent.pointerId];
         return;
       }
 
