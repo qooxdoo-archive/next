@@ -378,9 +378,11 @@ qx.Class.define("qx.ui.container.Scroll",
      * @param y {Integer} Y coordinate to scroll to.
      * @param time {Integer} Time slice in which scrolling should
      *              be done.
+     * @return {qx.ui.container.Scroll} Self for chaining.
      */
     scrollTo: function(x, y, time) {
       this._scrollTo(x, y, time);
+      return this;
     },
 
 
