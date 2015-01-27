@@ -158,8 +158,12 @@ qx.Mixin.define("qx.ui.container.MNativeScroll",
           this._snapPoints = [];
           var snapTargets = this[0].querySelectorAll(snap);
           for (var i = 0; i < snapTargets.length; i++) {
-            var snapPoint = this.getRelativeDistance(snapTargets[i], "scroll", "scroll");
-            this._snapPoints.push(snapPoint);
+            var parentRect = this[0].getBoundingClientRect();
+            var snapTargetRect = snapTargets[i].getBoundingClientRect();
+            this._snapPoints.push({
+              left: snapTargetRect.left - parentRect.left + this[0].scrollLeft,
+              top: snapTargetRect.top - parentRect.top + this[0].scrollTop
+            });
           }
         }
       }
@@ -169,24 +173,24 @@ qx.Mixin.define("qx.ui.container.MNativeScroll",
     /**
     * Determines the next snap points for the passed current position.
     * @param current {Integer} description
-    * @param snapProperty {String} "top" or "left"
+    * @param direction {String} "top" or "left"
     * @return {Integer} the determined snap point.
     */
-    _determineSnapPoint: function(current, snapProperty) {
+    _determineSnapPoint: function(current, direction) {
       for (var i = 0; i < this._snapPoints.length; i++) {
         var snapPoint = this._snapPoints[i];
-        if (current <= -snapPoint[snapProperty]) {
+        if (current <= snapPoint[direction]) {
           if (i > 0) {
             var previousSnapPoint = this._snapPoints[i - 1];
-            var previousSnapDiff = Math.abs(current + previousSnapPoint[snapProperty]);
-            var nextSnapDiff = Math.abs(current + snapPoint[snapProperty]);
+            var previousSnapDiff = Math.abs(current - previousSnapPoint[direction]);
+            var nextSnapDiff = Math.abs(current - snapPoint[direction]);
             if (previousSnapDiff < nextSnapDiff) {
-              return -previousSnapPoint[snapProperty];
+              return previousSnapPoint[direction];
             } else {
-              return -snapPoint[snapProperty];
+              return snapPoint[direction];
             }
           } else {
-            return -snapPoint[snapProperty];
+            return snapPoint[direction];
           }
         }
       }
@@ -202,12 +206,25 @@ qx.Mixin.define("qx.ui.container.MNativeScroll",
       var element = this[0];
 
       var current = this._getPosition();
+      this._orderSnapPoints("left");
       var nextX = this._determineSnapPoint(current[0], "left");
+      this._orderSnapPoints("top");
       var nextY = this._determineSnapPoint(current[1], "top");
 
       if (nextX != current[0] || nextY != current[1]) {
         this._scrollTo(nextX, nextY, 300);
       }
+    },
+
+
+    /**
+     * Order the snap point array descending based on the given direction.
+     * @param direction {String} Either <code>left</code> or <code>top</code>
+     */
+    _orderSnapPoints : function(direction) {
+      this._snapPoints.sort(function(a, b) {
+        return a[direction] - b[direction];
+      });
     },
 
 
