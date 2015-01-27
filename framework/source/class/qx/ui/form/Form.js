@@ -128,7 +128,7 @@ qx.Class.define("qx.ui.form.Form",
         child.on("addedChild", this._onAddedChild, this);
         child.on("removedChild", this._onRemovedChild, this);
 
-        if (this._resetter.getInitValue(child) !== undefined) {
+        if (this._resetter.getItemValue(child) !== undefined) {
           this._resetter.add(child);
         }
       }
@@ -154,7 +154,7 @@ qx.Class.define("qx.ui.form.Form",
         child.off("addedChild", this._onAddedChild, this);
         child.off("removedChild", this._onRemovedChild, this);
 
-        if (this._resetter.getInitValue(child) !== undefined) {
+        if (this._resetter.getItemValue(child) !== undefined) {
           this._resetter.remove(child);
         }
       }

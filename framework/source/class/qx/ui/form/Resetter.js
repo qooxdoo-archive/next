@@ -44,11 +44,8 @@ qx.Class.define("qx.ui.form.Resetter",
      */
     add: function (item) {
       // check the init values
-      var init = this.getInitValue(item);
-      if (qx.lang.Type.isArray(init)) {
-        init = init.slice(0);
-      }
-      else if (init === undefined) {
+      var init = this.getItemValue(item);
+      if (init === undefined) {
         throw new Error("Item " + item + " not supported for resetting.");
       }
       // store the item and its init value
@@ -115,8 +112,17 @@ qx.Class.define("qx.ui.form.Resetter",
     },
 
 
-    getInitValue: function(item) {
+    /**
+     * Internal helper top access the value of a given item.
+     *
+     * @param item {qx.ui.core.Widget} The item to access.
+     * @returns {Array|String|undefined}
+     */
+    getItemValue: function(item) {
       if (this._supportsValue(item)) {
+        if (qx.lang.Type.isArray(item.value)) {
+          return item.value.slice();
+        }
         return item.value;
       }
       return undefined;
@@ -154,7 +160,7 @@ qx.Class.define("qx.ui.form.Resetter",
       for (var i = 0; i < this.__items.length; i++) {
         var item = this.__items[i].item;
         // set the new init value for the item
-        this.__items[i].init = this.__getCurrentValue(item);
+        this.__items[i].init = this.getItemValue(item);
       }
     },
 
@@ -182,23 +188,8 @@ qx.Class.define("qx.ui.form.Resetter",
       }
 
       // set the new init value for the item
-      dataEntry.init = this.__getCurrentValue(dataEntry.item);
+      dataEntry.init = this.getItemValue(dataEntry.item);
     },
-
-
-    /**
-     * Internal helper top access the value of a given item.
-     *
-     * @param item {qx.ui.core.Widget} The item to access.
-     * @return {var} The item's value
-     */
-    __getCurrentValue : function(item)
-    {
-      if (this._supportsValue(item)) {
-        return item.value;
-      }
-    },
-
 
     /**
      * Returns true, if the value property is supplied by the form item.
