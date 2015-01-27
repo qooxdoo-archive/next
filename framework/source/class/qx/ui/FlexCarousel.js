@@ -54,26 +54,16 @@ qx.Class.define("qx.ui.FlexCarousel",
     this.super(qx.ui.Widget, "construct", element);
     this.on("trackstart", this._onTrackStart, this);
     this.on("track", this._onTrack, this);
-    this.on("swipe", function(e) {
-      if (e.getAxis() == "x" &&
-          Math.abs(e.getVelocity()) > 1.5 &&
-          Math.abs(e.getDistance()) > (this.getWidth() / 4)
-        )
-      {
-        if (e.getDirection() == "left") {
-          this.nextPage();
-        } else if (e.getDirection() == "right") {
-          this.previousPage();
-        }
-      }
-    });
+    this.on("swipe", this._onSwipe, this);
 
     var outerContainer = new qx.ui.container.Scroll({
         snap: ".qx-hbox > .flexcarousel-page"
       })
       .setStyle("oveflowX", "auto")
+      .setStyle("WebkitOverflowScrolling", "auto") // disable native iOS scrolling
       .addClass("flexcarousel-container")
-      .appendTo(this);
+      .appendTo(this)
+      .on("trackend", this._onTrackEnd, this);
 
     this.__pageContainer = (new qx.ui.Widget())
       .addClass("qx-hbox")
@@ -90,6 +80,8 @@ qx.Class.define("qx.ui.FlexCarousel",
       .appendTo(this);
 
     this.on("addedChild", this._onAddedChild, this);
+
+    outerContainer.on("scroll", this._onScroll, this);
   },
 
   members: {
@@ -110,13 +102,7 @@ qx.Class.define("qx.ui.FlexCarousel",
 
 
     _scrollContainer: function(left, time) {
-      var container = this.find(".flexcarousel-container");
-      container
-        .off("scroll", this._onScroll, this)
-        .once("animationEnd", function() {
-          container.on("scroll", this._onScroll, this);
-        }, this)
-        .scrollTo(left, 0, time);
+      this.find(".flexcarousel-container").scrollTo(left, 0, time);
     },
 
 
@@ -239,13 +225,38 @@ qx.Class.define("qx.ui.FlexCarousel",
 
 
     _onTrackStart: function(e) {
-      this.__trackStart = this.find(".flexcarousel-container")[0].scrollLeft;
+      if (e._original.currentTarget === this[0]) {
+        this.__trackStart = this.find(".flexcarousel-container")
+          .off("scroll", this._onScroll, this)
+          .getProperty("scrollLeft");
+      }
     },
 
 
     _onTrack: function(e) {
       if (e.delta.axis == "x") {
         this._scrollContainer(this.__trackStart - e.delta.x);
+      }
+    },
+
+
+    _onTrackEnd: function(e) {
+      this.find(".flexcarousel-container").once("animationEnd", function() {
+        this.find(".flexcarousel-container").on("scroll", this._onScroll, this);
+      }, this);
+    },
+
+
+    _onSwipe : function(e) {
+      if (e.getAxis() == "x" &&
+          Math.abs(e.getVelocity()) > 1.5
+        )
+      {
+        if (e.getDirection() == "left") {
+          this.nextPage();
+        } else if (e.getDirection() == "right") {
+          this.previousPage();
+        }
       }
     },
 
