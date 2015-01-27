@@ -49,14 +49,16 @@
     line-height: $carousel-pagination-size;
     overflow: hidden;
 
-    color: $carousel-pagination-font-color;
+    color: transparent;
     font-size: $carousel-pagination-font-size;
+
+    cursor: pointer;
   }
 
   .flexcarousel-pagination-label.active {
     @include background($carousel-pagination-active-background);
     border: rem(1) solid $carousel-pagination-active-border-color;
-    color: $background-color;
+    color: $carousel-pagination-active-background;
   }
 }
 
