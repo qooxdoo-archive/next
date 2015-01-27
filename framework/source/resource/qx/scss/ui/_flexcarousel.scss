@@ -22,17 +22,11 @@
     -moz-transition: -moz-transform 2s;
     transition: transform 2s;
 
-    position: absolute;
-    bottom: 0;
-    padding-bottom: rem(10);
+    position: relative;
+    margin-top: -$carousel-pagination-size - rem(10);
     width: 100%;
     white-space: nowrap;
-  }
-
-  .flexcarousel-pagination::before,
-  .flexcarousel-pagination::after {
-    content: "";
-    @include flex(1);
+    @include flex-justify-content(center);
   }
 
   .flexcarousel-pagination-label + .flexcarousel-pagination-label {
