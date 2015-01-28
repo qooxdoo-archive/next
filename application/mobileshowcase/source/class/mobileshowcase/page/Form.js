@@ -90,6 +90,7 @@ qx.Class.define("mobileshowcase.page.Form",
     _createResetButton : function() {
       return new qx.ui.Button("Reset")
         .setAttribute("formnovalidate", "formnovalidate")
+        .setAttribute("type", "reset")
         .on("tap", this._onResetButtonTap, this);
     },
 
