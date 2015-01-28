@@ -356,7 +356,14 @@ qx.Class.define("qx.ui.FlexCarousel",
 
 
     dispose : function() {
-      // TODO
+      this.super(qx.ui.Widget, "dispose");
+      qxWeb(window).off("resize", this._onResize, this);
+      this._disableEvents();
+
+      this.off("trackstart", this._onTrackStart, this)
+        .off("track", this._onTrack, this);
+
+      this.__scrollContainer.off("trackend", this._onTrackEnd, this);
     }
   }
 });
