@@ -293,6 +293,11 @@ qx.Class.define("qx.ui.FlexCarousel",
      * Updates the width of the container and the pages.
      */
     _updateWidth: function() {
+      if (!this.isRendered()) {
+        this.setStyle("visibility", "hidden");
+        this.once("appear", this._updateWidth, this);
+        return;
+      }
       // set the container width to total width of all pages
       var containerWidth =
         this.getWidth() *
@@ -300,6 +305,8 @@ qx.Class.define("qx.ui.FlexCarousel",
       this.__pageContainer.setStyle("width", containerWidth + "px");
       // set the width of all pages to the carousel width
       this.find("." + this.defaultCssClass + "-page").setStyle("width", this.getWidth() + "px");
+
+      this.setStyle("visibility", "visible");
     },
 
 
