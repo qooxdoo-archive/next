@@ -16,7 +16,12 @@
 ************************************************************************ */
 
 /**
- * TODOC
+ * A carousel is a widget which can switch between several sub pages {@link  qx.ui.Widget}.
+ * A page switch is triggered by a swipe to left, for next page, or a swipe to right for
+ * previous page. Pages can also be switched by holding and moving.
+ *
+ * A carousel shows by default a pagination indicator at the bottom of the carousel.
+ *
  * @require(qx.module.Transform)
  * @require(qx.module.event.Swipe)
  * @require(qx.module.event.GestureHandler)
@@ -28,22 +33,31 @@ qx.Class.define("qx.ui.FlexCarousel",
   extend : qx.ui.Widget,
 
   properties: {
+    // overridden
     defaultCssClass : {
       init : "flexcarousel"
     },
 
+    /**
+     * The currently selected page.
+     */
     active: {
       check: "qxWeb",
       apply: "_update",
       event: true
     },
 
+    /**
+     * The time in milliseconds for the page switch animation.
+     */
     pageSwitchDuration: {
       check: "Number",
       init: 500
     }
   },
 
+
+  // overridden
   construct: function(element) {
     this.super(qx.ui.Widget, "construct", element);
 
@@ -78,6 +92,7 @@ qx.Class.define("qx.ui.FlexCarousel",
     this._enableEvents();
   },
 
+
   members: {
     __pageContainer: null,
     __scrollContainer: null,
@@ -86,18 +101,39 @@ qx.Class.define("qx.ui.FlexCarousel",
     __pagination: null,
 
 
+    /**
+     * Scrolls the carousel to the next page.
+     *
+     * @param acceleration {Number?} An acceleration factor
+     *   usually based on the velocity of a swipe
+     * @return {qx.ui.FlexCarousel} Self instance for chaining
+     */
     nextPage: function(acceleration) {
       this._switchPage(acceleration, this.getWidth() * 2);
       return this;
     },
 
 
+    /**
+     * Scrolls the carousel to the previous page.
+     *
+     * @param acceleration {Number?} An acceleration factor
+     *   usually based on the velocity of a swipe
+     * @return {qx.ui.FlexCarousel} Self instance for chaining
+     */
     previousPage: function(acceleration) {
       this._switchPage(acceleration, 0);
       return this;
     },
 
 
+    /**
+     * Generic page switch for next / previous page.
+     *
+     * @param acceleration {Number?} An acceleration factor
+     *   usually based on the velocity of a swipe
+     * @param scrollLeft {Number} The target scroll position
+     */
     _switchPage : function(acceleration, scrollLeft) {
       acceleration = acceleration || 1;
       this._disableEvents();
@@ -110,6 +146,9 @@ qx.Class.define("qx.ui.FlexCarousel",
     },
 
 
+    /**
+     * Enabled scoll and swipe event handling.
+     */
     _enableEvents : function() {
       if (this.__startScrollLeft === null) {
         this.__scrollContainer.on("scroll", this._onScroll, this);
@@ -118,12 +157,19 @@ qx.Class.define("qx.ui.FlexCarousel",
     },
 
 
+    /**
+     * Disable scoll and swipe event handling.
+     */
     _disableEvents : function() {
       this.__scrollContainer.off("scroll", this._onScroll, this);
       this.off("swipe", this._onSwipe, this);
     },
 
 
+    /**
+     * Handler for the 'addedChild' event. Updates the pagination,
+     * scroll position, active property and the sizing.
+     */
     _onAddedChild: function(child) {
       child.addClasses(["qx-flex1", this.defaultCssClass + "-page"])
         .appendTo(this.__pageContainer);
@@ -148,6 +194,10 @@ qx.Class.define("qx.ui.FlexCarousel",
     },
 
 
+    /**
+     * Handler for the 'removedChild' event. Updates the pagination,
+     * scroll position, active property and the sizing.
+     */
     _onRemovedChild: function(child) {
       this._updateWidth();
 
@@ -165,7 +215,10 @@ qx.Class.define("qx.ui.FlexCarousel",
     },
 
 
-    _update: function(value, old) {
+    /**
+     * Updates the order, scroll position and pagination.
+     */
+    _update: function() {
       var direction = this._updateOrder();
 
       if (this.__scrollContainer[0].scrollLeft !== this.getWidth()) {
@@ -236,6 +289,9 @@ qx.Class.define("qx.ui.FlexCarousel",
     },
 
 
+    /**
+     * Updates the width of the container and the pages.
+     */
     _updateWidth: function() {
       // set the container width to total width of all pages
       var containerWidth =
@@ -247,6 +303,10 @@ qx.Class.define("qx.ui.FlexCarousel",
     },
 
 
+    /**
+     * Handler for scroll events. It checks the current scroll position
+     * and sets the active property.
+     */
     _onScroll: function() {
       var width = this.getWidth();
       var pages = this.__pageContainer.find("." + this.defaultCssClass + "-page");
@@ -269,6 +329,10 @@ qx.Class.define("qx.ui.FlexCarousel",
     },
 
 
+    /**
+     * Handler for trackstart. It saves the initial scroll position and
+     * cancels any running animation.
+     */
     _onTrackStart: function(e) {
       this.__startScrollLeft = this.__scrollContainer.getProperty("scrollLeft");
       this.__scrollContainer
@@ -282,6 +346,9 @@ qx.Class.define("qx.ui.FlexCarousel",
     },
 
 
+    /**
+     * Track handler which updates the scroll position.
+     */
     _onTrack: function(e) {
       if (e.delta.axis == "x") {
         this.__scrollContainer.scrollTo(this.__startScrollLeft - e.delta.x, 0);
@@ -289,6 +356,9 @@ qx.Class.define("qx.ui.FlexCarousel",
     },
 
 
+    /**
+     * TrackEnd handler for enabling the scroll events.
+     */
     _onTrackEnd: function(e) {
       // wait until the snap animation ended
       this.__scrollContainer.once("animationEnd", function() {
@@ -301,6 +371,10 @@ qx.Class.define("qx.ui.FlexCarousel",
     },
 
 
+    /**
+     * Swipe handler which triggers page changes based on the
+     * velocity and the direction.
+     */
     _onSwipe : function(e) {
       var velocity = Math.abs(e.getVelocity());
       if (e.getAxis() == "x" && velocity > 1) {
@@ -327,6 +401,9 @@ qx.Class.define("qx.ui.FlexCarousel",
     },
 
 
+    /**
+     * Handles the tap on pagination labels and changes to the desired page.
+     */
     _onPaginationLabelTap: function(e) {
       this.__paginationLabels.forEach(function(label, index) {
         if (label[0] === e.currentTarget) {
@@ -348,6 +425,9 @@ qx.Class.define("qx.ui.FlexCarousel",
     },
 
 
+    /**
+     * Resize handler. It updates the sizes, snap points and scroll position.
+     */
     _onResize : function() {
       this._updateWidth();
       this.__scrollContainer.refresh(); // refresh snap points
@@ -355,6 +435,7 @@ qx.Class.define("qx.ui.FlexCarousel",
     },
 
 
+    // overridden
     dispose : function() {
       this.super(qx.ui.Widget, "dispose");
       qxWeb(window).off("resize", this._onResize, this);
