@@ -368,7 +368,6 @@ qx.Class.define("qx.ui.FlexCarousel",
   }
 });
 
-// TODO flat theme
 // TODO rename
 // TODO test mobile showcase
 // TODO update tests
