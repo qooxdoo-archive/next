@@ -376,7 +376,7 @@ qx.Class.define("qx.ui.page.NavigationPage",
     _applyBackButtonText : function(value, old)
     {
       if (this.__backButton) {
-        this.__backButton.setValue(value);
+        this.__backButton.label = value;
       }
     },
 
