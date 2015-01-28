@@ -1,5 +1,6 @@
 .flexcarousel {
   overflow: hidden;
+  height: 100%;
 
   .flexcarousel-container {
     width: 100%;
@@ -45,7 +46,7 @@
 
     display:inline-block;
 
-    width: $carousel-pagination-size;
+    min-width: $carousel-pagination-size;
     height: $carousel-pagination-size;
     line-height: $carousel-pagination-size;
     overflow: hidden;

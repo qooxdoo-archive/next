@@ -36,8 +36,7 @@ qx.Class.define("mobileshowcase.page.Carousel",
   {
     // overridden
     _createScrollContainer : function() {
-      var carousel = new qx.ui.container.Carousel(0.5);
-      carousel.height = null;
+      var carousel = new qx.ui.FlexCarousel();
 
       var page1 = new qx.ui.Widget();
       page1.addClass("carousel-example-1");
@@ -62,19 +61,15 @@ qx.Class.define("mobileshowcase.page.Carousel",
       var previousButton = new qx.ui.Button("<");
       previousButton.addClass("example-button");
       previousButton.on("tap", function() {
-        setTimeout(function() {
-          carousel.previousPage();
-        }.bind(this), 0);
-      }, carousel);
+        carousel.previousPage();
+      }, this);
       previousButton.appendTo(page3group);
 
       var nextButton = new qx.ui.Button(">");
       nextButton.addClass("example-button");
       nextButton.on("tap", function() {
-        setTimeout(function() {
-          carousel.nextPage();
-        }.bind(this), 0);
-      }, carousel);
+        carousel.nextPage();
+      }, this);
       nextButton.appendTo(page3group);
 
       var page4 = new qx.ui.Widget();
@@ -88,7 +83,7 @@ qx.Class.define("mobileshowcase.page.Carousel",
       var moreButton = new qx.ui.Button("Add more pages");
       moreButton.addClass("example-button");
       moreButton.on("tap", function() {
-        for (var i = 0; i < 50; i++) {
+        for (var i = 0; i < 10; i++) {
           var page = new qx.ui.Widget();
           if (i % 2 === 0) {
             page.addClass("carousel-example-5");
@@ -103,7 +98,7 @@ qx.Class.define("mobileshowcase.page.Carousel",
 
           moreButton.exclude();
         }
-      }, carousel);
+      }, this);
 
       var moreGroup = new qx.ui.form.Group();
       moreGroup.append(moreButton);
