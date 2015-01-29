@@ -1,4 +1,4 @@
-describe('MatchMedia', function() {
+describe("module.MatchMedia", function() {
 
   beforeEach(function() {
     this.__iframe = q.create('<iframe src="html/media.html" frameborder="0" width="500" height="400" name="Testframe"></iframe>');

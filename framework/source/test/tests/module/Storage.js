@@ -1,4 +1,4 @@
-describe('Storage', function() {
+describe("module.Storage", function() {
   var __testKey = "qx_website_test_key";
 
   it("LocalSetGetRemove", function() {

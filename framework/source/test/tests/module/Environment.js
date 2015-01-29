@@ -1,4 +1,4 @@
-describe('Environment', function() {
+describe("module.Environment", function() {
 
   it("Get", function() {
     assert.equal(q.$$qx.core.Environment.get("qx.debug"), q.env.get("qx.debug"));

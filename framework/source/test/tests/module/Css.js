@@ -1,4 +1,4 @@
-describe('Css', function() {
+describe("module.Css", function() {
 
   afterEach(function() {
     q('link[href="css/style2.css"]').remove();

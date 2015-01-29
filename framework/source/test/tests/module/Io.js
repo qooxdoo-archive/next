@@ -1,4 +1,4 @@
-describe('IO', function() {
+describe("module.IO", function() {
 
   it("BasicXhr", function(done) {
     q.io.xhr("scriptload.js").on("loadend", function(xhr) {

@@ -1,4 +1,4 @@
-describe('Animation', function() {
+describe("module.Animation", function() {
 
   afterEach(function() {
     q('link[href="css/style2.css"]').remove();

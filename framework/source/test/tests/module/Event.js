@@ -1,4 +1,4 @@
-describe('Event', function() {
+describe("module.Event", function() {
 
   it("OnOffEmit", function() {
     var test = q.create("<div/>");

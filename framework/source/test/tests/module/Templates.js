@@ -1,4 +1,4 @@
-describe('Templates', function() {
+describe("module.Templates", function() {
 
   it("Render", function() {
     var result = q.template.render("{{affe}}", {

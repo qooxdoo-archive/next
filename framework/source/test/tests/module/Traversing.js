@@ -1,4 +1,4 @@
-describe('Traversing', function() {
+describe("module.Traversing", function() {
 
   it("IsRendered", function() {
     assert.isTrue(sandbox.isRendered());
