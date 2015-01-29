@@ -36,7 +36,7 @@ qx.Class.define("qx.module.Dataset", {
     setData : function(name, value)
     {
       this._forEachElement(function(item) {
-        qx.bom.element.Dataset.set(item, name, value);
+        qx.bom.element.Dataset.set(item[0], name, value);
       });
 
       return this;
@@ -94,7 +94,7 @@ qx.Class.define("qx.module.Dataset", {
     removeData : function(name)
     {
       this._forEachElement(function(item) {
-        qx.bom.element.Dataset.remove(item, name);
+        qx.bom.element.Dataset.remove(item[0], name);
       });
 
       return this;

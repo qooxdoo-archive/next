@@ -87,7 +87,8 @@ qx.Class.define("qx.module.Manipulating", {
       var arr = qx.bom.Html.clean([html]);
       var children = qxWeb.$init(arr, qxWeb);
 
-      this._forEachElement(function(item, index) {
+      this._forEachElement(function(items, index) {
+        var item = items[0];
         for (var j=0, m=children.length; j < m; j++) {
           if (index == 0) {
             // first parent: move the target node(s)
@@ -149,7 +150,7 @@ qx.Class.define("qx.module.Manipulating", {
         this._forEachElement(function(item, index) {
           if (i == 0) {
             // first target: move the target node(s)
-            qx.dom.Element.insertBefore(item, target[i]);
+            qx.dom.Element.insertBefore(item[0], target[i]);
           }
           else {
             // further targets: clone the target node(s)
@@ -241,9 +242,9 @@ qx.Class.define("qx.module.Manipulating", {
 
       this._forEachElement(function(item) {
         var clonedwrapper = wrapper.eq(0).clone(true);
-        qx.dom.Element.insertAfter(clonedwrapper[0], item);
+        qx.dom.Element.insertAfter(clonedwrapper[0], item[0]);
         var innermost = qx.module.Manipulating.__getInnermostElement(clonedwrapper[0]);
-        qx.dom.Element.insertEnd(item, innermost);
+        qx.dom.Element.insertEnd(item[0], innermost);
       });
 
       return this;
@@ -309,7 +310,7 @@ qx.Class.define("qx.module.Manipulating", {
      */
     remove : function() {
       this._forEachElement(function(item) {
-        qx.dom.Element.remove(item);
+        qx.dom.Element.remove(item[0]);
       });
       return this;
     },
@@ -322,9 +323,10 @@ qx.Class.define("qx.module.Manipulating", {
      * @return {qxWeb} The collection for chaining
      */
     empty : function() {
-      this._forEachElement(function(item) {
+      this._forEachElement(function(items) {
         // don't use innerHTML="" because of [BUG #7323]
         // and don't use textContent="" because of missing IE8 support
+        var item = items[0];
         while (item.firstChild) {
           item.removeChild(item.firstChild);
         }
@@ -359,7 +361,7 @@ qx.Class.define("qx.module.Manipulating", {
           else {
             child = kids[i];
           }
-          item.parentNode.insertBefore(child, item);
+          item[0].parentNode.insertBefore(child, item[0]);
         }
       }, this);
 
@@ -393,7 +395,7 @@ qx.Class.define("qx.module.Manipulating", {
           else {
             child = kids[i];
           }
-          item.parentNode.insertBefore(child, item.nextSibling);
+          item[0].parentNode.insertBefore(child, item[0].nextSibling);
         }
       }, this);
 

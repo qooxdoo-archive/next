@@ -155,7 +155,8 @@ qx.Class.define("qx.module.Animation", {
      * @param reverse {Boolean} <code>true</code>, if the animation should be reversed
      */
     _animate : function(desc, duration, reverse) {
-      this._forEachElement(function(el, i) {
+      this._forEachElement(function(element, i) {
+        var el = element[0];
         // stop all running animations
         if (el.$$animation) {
           el.$$animation.stop();

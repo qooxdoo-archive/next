@@ -390,7 +390,7 @@ qx.Class.define("qx.ui.form.Picker",
 
         var container = this._slots.getItem(slotIndex).container;
         container.find(".list").dispose();
-        container.find(".placeholder-item")._forEachElementWrapped(function(item) {
+        container.find(".placeholder-item")._forEachElement(function(item) {
           item.dispose();
         });
         container.getChildren().remove();
@@ -447,7 +447,7 @@ qx.Class.define("qx.ui.form.Picker",
     _disposeSlot: function(slotIndex) {
       var container = this._slots.getItem(slotIndex).container;
       container.find(".list").dispose();
-      container.find(".placeholder-item")._forEachElementWrapped(function(item) {
+      container.find(".placeholder-item")._forEachElement(function(item) {
         item.dispose();
       });
       container.getChildren().dispose();

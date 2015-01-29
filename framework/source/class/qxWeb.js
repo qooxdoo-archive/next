@@ -365,30 +365,12 @@ qx.Class.define("qxWeb", {
      * @param ctx {Object} The context for the callback function (default: The collection)
      * @return {q} The collection for chaining
      */
-    _forEachElement : function(func, ctx) {
-      for (var i=0, l=this.length; i<l; i++) {
+    _forEachElement: function (func, ctx) {
+      for (var i = 0, l = this.length; i < l; i++) {
         if (this[i] && (this[i].nodeType === 1 || this[i].nodeType === 11)) {
-          func.apply(ctx || this, [this[i], i, this]);
+          func.apply(ctx || this, [qxWeb(this[i]), i, this]);
         }
       }
-      return this;
-    },
-
-
-    /**
-     * Calls a function for each DOM element node in the collection. Each node is wrapped
-     * in a collection before the function is called.
-     *
-     * @param func {Function} Callback function. Will be called with three arguments:
-     * The element wrappend in a collection, the element's index within the collection and
-     * the collection itself.
-     * @param ctx {Object} The context for the callback function (default: The collection)
-     * @return {q} The collection for chaining
-     */
-    _forEachElementWrapped : function(func, ctx) {
-      this._forEachElement(function(item, idx, arr) {
-        func.apply(this, [qxWeb(item), idx, arr]);
-      }, ctx);
       return this;
     }
   },

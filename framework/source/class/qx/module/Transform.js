@@ -47,7 +47,7 @@ qx.Class.define("qx.module.Transform",
      */
     transform : function(transforms) {
       this._forEachElement(function(el) {
-        qx.bom.element.Transform.transform(el, transforms);
+        qx.bom.element.Transform.transform(el[0], transforms);
       });
       return this;
     },
@@ -117,7 +117,7 @@ qx.Class.define("qx.module.Transform",
      */
     setTransformOrigin : function(value) {
       this._forEachElement(function(el) {
-        qx.bom.element.Transform.setOrigin(el, value);
+        qx.bom.element.Transform.setOrigin(el[0], value);
       });
       return this;
     },
@@ -151,7 +151,7 @@ qx.Class.define("qx.module.Transform",
      */
     setTransformStyle : function(value) {
       this._forEachElement(function(el) {
-        qx.bom.element.Transform.setStyle(el, value);
+        qx.bom.element.Transform.setStyle(el[0], value);
       });
       return this;
     },
@@ -186,7 +186,7 @@ qx.Class.define("qx.module.Transform",
      */
     setTransformPerspective : function(value) {
       this._forEachElement(function(el) {
-        qx.bom.element.Transform.setPerspective(el, value);
+        qx.bom.element.Transform.setPerspective(el[0], value);
       });
       return this;
     },
@@ -220,7 +220,7 @@ qx.Class.define("qx.module.Transform",
      */
     setTransformPerspectiveOrigin : function(value) {
       this._forEachElement(function(el) {
-        qx.bom.element.Transform.setPerspectiveOrigin(el, value);
+        qx.bom.element.Transform.setPerspectiveOrigin(el[0], value);
       });
       return this;
     },
@@ -253,7 +253,7 @@ qx.Class.define("qx.module.Transform",
      */
     setTransformBackfaceVisibility : function(value) {
       this._forEachElement(function(el) {
-        qx.bom.element.Transform.setBackfaceVisibility(el, value);
+        qx.bom.element.Transform.setBackfaceVisibility(el[0], value);
       });
       return this;
     },

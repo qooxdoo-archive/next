@@ -84,14 +84,6 @@ describe("module.Traversing", function() {
     test._forEachElement(function(item) {
       exec++;
       assert.notEqual(window, item);
-      assert.equal(1, item.nodeType);
-    }, this);
-    assert.equal(2, exec);
-
-    exec = 0;
-    test._forEachElementWrapped(function(item) {
-      exec++;
-      assert.notEqual(window, item);
       assert.notEqual(window, item[0]);
       assert.instanceOf(item, qxWeb);
       assert.equal(1, item[0].nodeType);

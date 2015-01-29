@@ -421,7 +421,7 @@ qx.Class.define("qx.ui.Widget", {
     empty : function() {
       var removed = this.getChildren();
       this.super(qxWeb, "empty");
-      removed._forEachElementWrapped(function(child, index) {
+      removed._forEachElement(function(child, index) {
         child.priorPosition = index;
         this.emit("removedChild", child);
       }.bind(this));
