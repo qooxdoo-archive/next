@@ -225,7 +225,7 @@ addSample("q.$attach", {
     var addClassToEveryChildNamed = function(classToAdd, childElementName) {
       // access to DOM collection (e.g. things captured by q("#id"))
       this._forEachElement(function(item) {
-        q(item).getChildren().forEach(function(innerItem) {
+        item.getChildren().forEach(function(innerItem) {
           if (q.getNodeName(innerItem) === childElementName.toLowerCase()) {
             q(innerItem).addClass(classToAdd);
           }
