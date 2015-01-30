@@ -271,6 +271,12 @@ qx.Class.define("qx.ui.FlexCarousel",
         this.once("appear", this._updateWidth, this);
         return;
       }
+
+      // set the inital transition on first appear
+      if (this._getPositionLeft() === 0) {
+        this.__scrollContainer.translate([(-this.getWidth()) + "px", 0, 0]);
+      }
+
       // set the container width to total width of all pages
       var containerWidth =
         this.getWidth() *
@@ -474,8 +480,8 @@ qx.Class.define("qx.ui.FlexCarousel",
 });
 
 // TODO remove all pages
+
 // TODO remove additional container
 
 // TODO rename
-// TODO test mobile showcase
 // TODO update tests
