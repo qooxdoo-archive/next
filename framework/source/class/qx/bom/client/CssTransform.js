@@ -72,7 +72,7 @@ qx.Class.define("qx.bom.client.CssTransform",
      *   not supported.
      */
     getStyle : function() {
-      return qx.bom.Style.getPropertyName("transformStyle");
+      return qx.bom.Style.getPropertyName("transform");
     },
 
 
