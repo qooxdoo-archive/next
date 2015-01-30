@@ -61,15 +61,11 @@ qx.Class.define("qx.ui.FlexCarousel",
   construct: function(element) {
     this.super(qx.ui.Widget, "construct", element);
 
-    this.on("trackstart", this._onTrackStart, this)
-      .on("track", this._onTrack, this);
-
     qxWeb(window).on("resize", this._onResize, this);
 
     this.__scrollContainer = new qx.ui.Widget()
       .addClass(this.defaultCssClass + "-container")
-      .appendTo(this)
-      .on("trackend", this._onTrackEnd, this);
+      .appendTo(this);
 
     this.__pageContainer = (new qx.ui.Widget())
       .addClass("qx-hbox")
@@ -85,8 +81,8 @@ qx.Class.define("qx.ui.FlexCarousel",
       .addClass(this.defaultCssClass + "-pagination")
       .appendTo(this);
 
-    this.on("addedChild", this._onAddedChild, this)
-      .on("swipe", this._onSwipe, this);
+    this.on("addedChild", this._onAddedChild, this);
+    this._enableEvents();
   },
 
 
@@ -101,11 +97,9 @@ qx.Class.define("qx.ui.FlexCarousel",
     /**
      * Scrolls the carousel to the next page.
      *
-     * @param acceleration {Number?} An acceleration factor
-     *   usually based on the velocity of a swipe
      * @return {qx.ui.FlexCarousel} Self instance for chaining
      */
-    nextPage: function(acceleration) {
+    nextPage: function() {
       var pages = this.__pageContainer.find("." + this.defaultCssClass + "-page");
 
       var next = this.active.getNext();
@@ -121,11 +115,9 @@ qx.Class.define("qx.ui.FlexCarousel",
     /**
      * Scrolls the carousel to the previous page.
      *
-     * @param acceleration {Number?} An acceleration factor
-     *   usually based on the velocity of a swipe
      * @return {qx.ui.FlexCarousel} Self instance for chaining
      */
-    previousPage: function(acceleration) {
+    previousPage: function() {
       var pages = this.__pageContainer.find("." + this.defaultCssClass + "-page");
 
       var prev = this.active.getPrev();
@@ -354,9 +346,9 @@ qx.Class.define("qx.ui.FlexCarousel",
      * Swipe handler which triggers page changes based on the
      * velocity and the direction.
      */
-    _onSwipe : function(e) {
+    _onSwipe: function(e) {
       var velocity = Math.abs(e.getVelocity());
-      if (e.getAxis() == "x" && velocity > 1) {
+      if (e.getAxis() == "x" && velocity > 0.75) {
         if (e.getDirection() == "left") {
           this.nextPage(velocity);
         } else if (e.getDirection() == "right") {
@@ -386,7 +378,25 @@ qx.Class.define("qx.ui.FlexCarousel",
     _onPaginationLabelTap: function(e) {
       this.__paginationLabels.forEach(function(label, index) {
         if (label[0] === e.currentTarget) {
-          this.active = this.__pageContainer.find("." + this.defaultCssClass + "-page").eq(index);
+          var pages = this.__pageContainer.find("." + this.defaultCssClass + "-page");
+          var activeIndex = pages.indexOf(this.active);
+          var distance = index - activeIndex;
+
+          // set the order to deault dom order
+          pages.setStyle("order", 0);
+          // get the active page into view
+          this.__scrollContainer.translate([(- activeIndex * this.getWidth()) + "px",0 ,0])
+
+          this._disableEvents();
+          // animate to the desired page
+          this._translateTo((activeIndex + distance) * this.getWidth(), this.pageSwitchDuration);
+          this.__scrollContainer.once("animationEnd", function(page) {
+            this._enableEvents();
+            // set the viewport back to the default position
+            this.__scrollContainer.translate([(-this.getWidth()) + "px", 0, 0]);
+            this.active = page; // this also updates the order
+            this._updatePagination();
+          }.bind(this, pages.eq(index)));
         }
       }.bind(this));
     },
@@ -435,20 +445,35 @@ qx.Class.define("qx.ui.FlexCarousel",
     },
 
 
-    // overridden
-    dispose : function() {
-      this.super(qx.ui.Widget, "dispose");
-      qxWeb(window).off("resize", this._onResize, this);
+    _enableEvents: function() {
+      this.on("trackstart", this._onTrackStart, this)
+        .on("track", this._onTrack, this)
+        .on("swipe", this._onSwipe, this);
 
+      this.__scrollContainer.on("trackend", this._onTrackEnd, this);
+    },
+
+
+    _disableEvents: function() {
       this.off("trackstart", this._onTrackStart, this)
         .off("track", this._onTrack, this)
         .off("swipe", this._onSwipe, this);
 
       this.__scrollContainer.off("trackend", this._onTrackEnd, this);
+    },
+
+
+    // overridden
+    dispose : function() {
+      this.super(qx.ui.Widget, "dispose");
+      qxWeb(window).off("resize", this._onResize, this);
+
+      this._disableEvents();
     }
   }
 });
 
+// TODO remove all pages
 // TODO remove additional container
 
 // TODO rename
