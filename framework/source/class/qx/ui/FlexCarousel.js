@@ -191,7 +191,6 @@ qx.Class.define("qx.ui.FlexCarousel",
      * Updates the order, scroll position and pagination.
      */
     _update: function() {
-      debugger;
       var direction = this._updateOrder();
 
       var left;
