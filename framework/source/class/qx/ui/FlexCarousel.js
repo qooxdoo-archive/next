@@ -66,9 +66,7 @@ qx.Class.define("qx.ui.FlexCarousel",
 
     qxWeb(window).on("resize", this._onResize, this);
 
-    this.__scrollContainer = new qx.ui.container.Scroll({
-        snap: ".qx-hbox > ." + this.defaultCssClass + "-page"
-      })
+    this.__scrollContainer = new qx.ui.Widget()
       .addClass(this.defaultCssClass + "-container")
       .appendTo(this)
       .on("trackend", this._onTrackEnd, this);
@@ -87,9 +85,8 @@ qx.Class.define("qx.ui.FlexCarousel",
       .addClass(this.defaultCssClass + "-pagination")
       .appendTo(this);
 
-    this.on("addedChild", this._onAddedChild, this);
-
-    this._enableEvents();
+    this.on("addedChild", this._onAddedChild, this)
+      .on("swipe", this._onSwipe, this);
   },
 
 
@@ -97,7 +94,7 @@ qx.Class.define("qx.ui.FlexCarousel",
     __pageContainer: null,
     __scrollContainer: null,
     __paginationLabels: null,
-    __startScrollLeft: null,
+    __startPosLeft: null,
     __pagination: null,
 
 
@@ -109,7 +106,14 @@ qx.Class.define("qx.ui.FlexCarousel",
      * @return {qx.ui.FlexCarousel} Self instance for chaining
      */
     nextPage: function(acceleration) {
-      this._switchPage(acceleration, this.getWidth() * 2);
+      var pages = this.__pageContainer.find("." + this.defaultCssClass + "-page");
+
+      var next = this.active.getNext();
+      if (next.length == 0) {
+        next = pages.eq(0);
+      }
+      this.active = next;
+
       return this;
     },
 
@@ -122,47 +126,15 @@ qx.Class.define("qx.ui.FlexCarousel",
      * @return {qx.ui.FlexCarousel} Self instance for chaining
      */
     previousPage: function(acceleration) {
-      this._switchPage(acceleration, 0);
-      return this;
-    },
+      var pages = this.__pageContainer.find("." + this.defaultCssClass + "-page");
 
-
-    /**
-     * Generic page switch for next / previous page.
-     *
-     * @param acceleration {Number?} An acceleration factor
-     *   usually based on the velocity of a swipe
-     * @param scrollLeft {Number} The target scroll position
-     */
-    _switchPage : function(acceleration, scrollLeft) {
-      acceleration = acceleration || 1;
-      this._disableEvents();
-      this.__scrollContainer
-        .scrollTo(scrollLeft, 0, parseInt(this.pageSwitchDuration / acceleration))
-        .once("animationEnd", function() {
-          this._enableEvents();
-          this._onScroll();
-        }, this);
-    },
-
-
-    /**
-     * Enabled scoll and swipe event handling.
-     */
-    _enableEvents : function() {
-      if (this.__startScrollLeft === null) {
-        this.__scrollContainer.on("scroll", this._onScroll, this);
+      var prev = this.active.getPrev();
+      if (prev.length == 0) {
+        prev = pages.eq(pages.length - 1);
       }
-      this.on("swipe", this._onSwipe, this);
-    },
+      this.active = prev;
 
-
-    /**
-     * Disable scoll and swipe event handling.
-     */
-    _disableEvents : function() {
-      this.__scrollContainer.off("scroll", this._onScroll, this);
-      this.off("swipe", this._onSwipe, this);
+      return this;
     },
 
 
@@ -183,14 +155,14 @@ qx.Class.define("qx.ui.FlexCarousel",
       if (!this.active) {
         this.active = child;
       } else {
-        this._update();
+        this._updateOrder();
       }
 
       // scroll as soon as we have the third page added
       if (this.__pageContainer.find("." + this.defaultCssClass + "-page").length === 3) {
-        this.__scrollContainer[0].scrollLeft = this.getWidth();
+        this.__scrollContainer.translate([(-this.getWidth()) + "px", 0, 0]);
       }
-      this._updatePagination(); // TODO remove?
+      this._updatePagination();
     },
 
 
@@ -204,14 +176,14 @@ qx.Class.define("qx.ui.FlexCarousel",
       if (this.active[0] == child[0]) {
         this.active = this.__pageContainer.find("." + this.defaultCssClass + "-page").eq(0);
       } else {
-        this._update();
+        this._updateOrder();
       }
 
       this.__paginationLabels.splice(child.priorPosition, 1)[0].remove();
       for (var i = 0; i < this.__paginationLabels.length; i++) {
         this.__paginationLabels[i].getChildren(".label").setHtml((i + 1) + "");
       }
-      this._updatePagination(); // TODO remove?
+      this._updatePagination();
     },
 
 
@@ -219,18 +191,28 @@ qx.Class.define("qx.ui.FlexCarousel",
      * Updates the order, scroll position and pagination.
      */
     _update: function() {
+      debugger;
       var direction = this._updateOrder();
 
-      if (this.__scrollContainer[0].scrollLeft !== this.getWidth()) {
-        var left;
-        if (direction == "right") {
-          left = this.__scrollContainer[0].scrollLeft - this.__scrollContainer.getWidth();
-        } else if (direction == "left") {
-          left = this.__scrollContainer[0].scrollLeft + this.__scrollContainer.getWidth();
-        }
-        if (left !== undefined) {
-          this.__scrollContainer.scrollTo(left, 0, 0);
-        }
+      var left;
+      if (direction == "right") {
+        left = this._getPositionLeft() - this.__scrollContainer.getWidth();
+      } else if (direction == "left") {
+        left = this._getPositionLeft() + this.__scrollContainer.getWidth();
+      } else if (this.find("." + this.defaultCssClass + "-page").length >= 3) {
+        // back snapping if the order has not changed
+        this._translateTo(this.getWidth(), this.pageSwitchDuration);
+        return;
+      } else {
+        // do nothing if we don't have enough pages
+        return;
+      }
+
+      if (left !== undefined) {
+        // first, translate the old page into view
+        this.__scrollContainer.translate([(-left) + "px", 0, 0]);
+        // animate to the new page
+        this._translateTo(this.getWidth(), this.pageSwitchDuration);
       }
 
       this._updatePagination();
@@ -311,45 +293,18 @@ qx.Class.define("qx.ui.FlexCarousel",
 
 
     /**
-     * Handler for scroll events. It checks the current scroll position
-     * and sets the active property.
-     */
-    _onScroll: function() {
-      var width = this.getWidth();
-      var pages = this.__pageContainer.find("." + this.defaultCssClass + "-page");
-
-      // if more than 50% is visible of the previous page
-      if (this.__scrollContainer[0].scrollLeft < (width - (width / 2))) {
-        var prev = this.active.getPrev();
-        if (prev.length == 0) {
-          prev = pages.eq(pages.length - 1);
-        }
-        this.active = prev;
-      // if more than 50% is visible of the next page
-      } else if (this.__scrollContainer[0].scrollLeft > (width + width / 2)) {
-        var next = this.active.getNext();
-        if (next.length == 0) {
-          next = pages.eq(0);
-        }
-        this.active = next;
-      }
-    },
-
-
-    /**
      * Handler for trackstart. It saves the initial scroll position and
      * cancels any running animation.
      */
     _onTrackStart: function(e) {
-      this.__startScrollLeft = this.__scrollContainer.getProperty("scrollLeft");
+      this.__startPosLeft = this._getPositionLeft();
       this.__scrollContainer
         // stop the current scroll animation
         .stop()
         // correct the scroll position as the stopped animation
         // resets to its initial value
-        .setProperty("scrollLeft", this.__startScrollLeft)
+        .translate([(-Math.round(this.__startPosLeft)) + "px", 0, 0]);
         // do not update on tracking
-        .off("scroll", this._onScroll, this);
     },
 
 
@@ -358,7 +313,7 @@ qx.Class.define("qx.ui.FlexCarousel",
      */
     _onTrack: function(e) {
       if (e.delta.axis == "x") {
-        this.__scrollContainer.scrollTo(this.__startScrollLeft - e.delta.x, 0);
+        this.__scrollContainer.translate([-(this.__startPosLeft - e.delta.x) + "px", 0, 0]);
       }
     },
 
@@ -367,14 +322,32 @@ qx.Class.define("qx.ui.FlexCarousel",
      * TrackEnd handler for enabling the scroll events.
      */
     _onTrackEnd: function(e) {
-      // wait until the snap animation ended
-      this.__scrollContainer.once("animationEnd", function() {
-        // enabled the scorll listener if not another track session started
-        if (this.__startScrollLeft === null) {
-          this.__scrollContainer.on("scroll", this._onScroll, this);
+      this.__startPosLeft = null;
+
+      var width = this.getWidth();
+      var pages = this.__pageContainer.find("." + this.defaultCssClass + "-page");
+
+      var oldActive = this.active;
+
+      // if more than 50% is visible of the previous page
+      if (this._getPositionLeft() < (width - (width / 2))) {
+        var prev = this.active.getPrev();
+        if (prev.length == 0) {
+          prev = pages.eq(pages.length - 1);
         }
-      }, this);
-      this.__startScrollLeft = null;
+        this.active = prev;
+      // if more than 50% is visible of the next page
+      } else if (this._getPositionLeft() > (width + width / 2)) {
+        var next = this.active.getNext();
+        if (next.length == 0) {
+          next = pages.eq(0);
+        }
+        this.active = next;
+      }
+
+      if (this.active == oldActive) {
+        this._update();
+      }
     },
 
 
@@ -437,8 +410,29 @@ qx.Class.define("qx.ui.FlexCarousel",
      */
     _onResize : function() {
       this._updateWidth();
-      this.__scrollContainer.refresh(); // refresh snap points
-      this.__scrollContainer.scrollTo(this.getWidth(), 0, 0);
+      this.__scrollContainer.translate([(-this.getWidth()) + "px", 0, 0]);
+    },
+
+
+    _translateTo: function(left, time) {
+      this.__scrollContainer.animate({
+        duration: time,
+        keep: 100,
+        timing: "ease",
+        keyFrames: {
+          0: {},
+          100: {
+            translate: [(- left) + "px", 0, 0]
+          }
+        }
+      });
+    },
+
+
+    _getPositionLeft: function() {
+      var containerRect = this.__scrollContainer[0].getBoundingClientRect();
+      var parentRect = this[0].getBoundingClientRect();
+      return -(containerRect.left - parentRect.left);
     },
 
 
@@ -446,15 +440,17 @@ qx.Class.define("qx.ui.FlexCarousel",
     dispose : function() {
       this.super(qx.ui.Widget, "dispose");
       qxWeb(window).off("resize", this._onResize, this);
-      this._disableEvents();
 
       this.off("trackstart", this._onTrackStart, this)
-        .off("track", this._onTrack, this);
+        .off("track", this._onTrack, this)
+        .off("swipe", this._onSwipe, this);
 
       this.__scrollContainer.off("trackend", this._onTrackEnd, this);
     }
   }
 });
+
+// TODO remove additional container
 
 // TODO rename
 // TODO test mobile showcase
