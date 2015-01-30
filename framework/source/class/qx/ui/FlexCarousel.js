@@ -44,7 +44,8 @@ qx.Class.define("qx.ui.FlexCarousel",
     active: {
       check: "qxWeb",
       apply: "_update",
-      event: true
+      event: true,
+      nullable: true
     },
 
     /**
@@ -163,6 +164,13 @@ qx.Class.define("qx.ui.FlexCarousel",
      * scroll position, active property and the sizing.
      */
     _onRemovedChild: function(child) {
+      // reset the active page if we don' have any page at all
+      if (this.find("." + this.defaultCssClass + "-page") == 0) {
+        this.__pagination.empty();
+        this.active = null;
+        return;
+      }
+
       this._updateWidth();
 
       if (this.active[0] == child[0]) {
@@ -183,6 +191,10 @@ qx.Class.define("qx.ui.FlexCarousel",
      * Updates the order, scroll position and pagination.
      */
     _update: function() {
+      if (!this.active) {
+        return;
+      }
+
       var direction = this._updateOrder();
 
       var left;
@@ -479,7 +491,10 @@ qx.Class.define("qx.ui.FlexCarousel",
   }
 });
 
-// TODO remove all pages
+// TODO IE9 support
+// TODO only tow pages
+// TODO only one page
+
 
 // TODO remove additional container
 
