@@ -328,8 +328,9 @@ qx.Class.define("mobileshowcase.page.Form",
           var value = null;
           if (qx.lang.Type.isArray(item.value)) {
             value = item.value.join(', ');
-          } else if (qx.lang.Type.isString(item.value)) {
-            value = item.value
+          } else if (qx.lang.Type.isString(item.value) ||
+              typeof item.value == "boolean") {
+            value = item.value;
           }
           result.push(item.getPrev()[0].textContent + " : " + value);
         }
