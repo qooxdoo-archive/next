@@ -148,7 +148,7 @@ qx.Class.define("qx.ui.FlexCarousel",
 
       if (!this.active) {
         this.active = child;
-      } else {
+      } else if (this._getPages().length > 2) {
         this._updateOrder();
       }
 
@@ -166,7 +166,7 @@ qx.Class.define("qx.ui.FlexCarousel",
      */
     _onRemovedChild: function(child) {
       // reset the active page if we don' have any page at all
-      if (this.find("." + this.defaultCssClass + "-page") == 0) {
+      if (this._getPages().length == 0) {
         this.__pagination.empty();
         this.active = null;
         return;
@@ -176,8 +176,11 @@ qx.Class.define("qx.ui.FlexCarousel",
 
       if (this.active[0] == child[0]) {
         this.active = this._getPages().eq(0);
-      } else {
+      } else if (this._getPages().length > 2) {
         this._updateOrder();
+      } else {
+        // remove all order properties
+        this._getPages().setStyle("order", "0");
       }
 
       this.__paginationLabels.splice(child.priorPosition, 1)[0].remove();
@@ -199,6 +202,14 @@ qx.Class.define("qx.ui.FlexCarousel",
       // special case for only one page
       if (this._getPages().length < 2) {
         return;
+      } else if (this._getPages().length == 2) {
+        if (this._getPages()[0] === this.active[0]) {
+          this._translateTo(0, this.pageSwitchDuration);
+        } else {
+          this._translateTo(this.getWidth(), this.pageSwitchDuration);
+        }
+        this._updatePagination();
+        return;
       }
 
       var direction = this._updateOrder();
@@ -208,7 +219,7 @@ qx.Class.define("qx.ui.FlexCarousel",
         left = this._getPositionLeft() - this.__scrollContainer.getWidth();
       } else if (direction == "left") {
         left = this._getPositionLeft() + this.__scrollContainer.getWidth();
-      } else if (this.find("." + this.defaultCssClass + "-page").length >= 3) {
+      } else if (this._getPages().length >= 3) {
         // back snapping if the order has not changed
         this._translateTo(this.getWidth(), this.pageSwitchDuration);
         return;
@@ -249,11 +260,6 @@ qx.Class.define("qx.ui.FlexCarousel",
         scrollDirection = "left";
       }
 
-      // special case if a third page has been added
-      if (orderBefore === 0 && pages.length == 3) {
-        scrollDirection = "right";
-      }
-
       var activeIndex = pages.indexOf(this.active);
       this.active.setStyle("order", 0); // active page should always have order 0
       var order = 1;
@@ -291,7 +297,7 @@ qx.Class.define("qx.ui.FlexCarousel",
       }
 
       // set the inital transition on first appear
-      if (this._getPositionLeft() === 0 && this._getPages().length > 1) {
+      if (this._getPositionLeft() === 0 && this._getPages().length > 2) {
         this.__scrollContainer.translate([(-this.getWidth()) + "px", 0, 0]);
       }
 
@@ -301,7 +307,7 @@ qx.Class.define("qx.ui.FlexCarousel",
         this._getPages().length;
       this.__pageContainer.setStyle("width", containerWidth + "px");
       // set the width of all pages to the carousel width
-      this.find("." + this.defaultCssClass + "-page").setStyle("width", this.getWidth() + "px");
+      this._getPages().setStyle("width", this.getWidth() + "px");
 
       this.setStyle("visibility", "visible");
     },
@@ -327,7 +333,7 @@ qx.Class.define("qx.ui.FlexCarousel",
      * Track handler which updates the scroll position.
      */
     _onTrack: function(e) {
-      if (e.delta.axis == "x" && this._getPages().length > 1) {
+      if (e.delta.axis == "x" && this._getPages().length > 2) {
         this.__scrollContainer.translate([-(this.__startPosLeft - e.delta.x) + "px", 0, 0]);
       }
     },
@@ -337,6 +343,10 @@ qx.Class.define("qx.ui.FlexCarousel",
      * TrackEnd handler for enabling the scroll events.
      */
     _onTrackEnd: function(e) {
+      if (this._getPages().length < 3) {
+        return;
+      }
+
       this.__startPosLeft = null;
 
       var width = this.getWidth();
@@ -403,6 +413,13 @@ qx.Class.define("qx.ui.FlexCarousel",
       this.__paginationLabels.forEach(function(label, index) {
         if (label[0] === e.currentTarget) {
           var pages = this._getPages();
+
+          // wo don't reorder with two pages there just set the active property
+          if (pages.length === 2) {
+            this.active = pages.eq(index);
+            return;
+          }
+
           var activeIndex = pages.indexOf(this.active);
           var distance = index - activeIndex;
 
@@ -448,7 +465,7 @@ qx.Class.define("qx.ui.FlexCarousel",
     _onResize : function() {
       this._updateWidth();
 
-      if (this._getPages().length > 1) {
+      if (this._getPages().length > 2) {
         this.__scrollContainer.translate([(-this.getWidth()) + "px", 0, 0]);
       }
     },
@@ -510,8 +527,6 @@ qx.Class.define("qx.ui.FlexCarousel",
 });
 
 // TODO IE9 support
-// TODO only tow pages
-
 
 // TODO remove additional container
 
