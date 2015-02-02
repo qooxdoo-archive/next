@@ -28,14 +28,14 @@
  * @require(qx.module.event.Track)
  * @require(qx.module.event.TrackHandler)
  */
-qx.Class.define("qx.ui.FlexCarousel",
+qx.Class.define("qx.ui.Carousel",
 {
   extend : qx.ui.Widget,
 
   properties: {
     // overridden
     defaultCssClass : {
-      init : "flexcarousel"
+      init : "carousel"
     },
 
     /**
@@ -99,7 +99,7 @@ qx.Class.define("qx.ui.FlexCarousel",
     /**
      * Scrolls the carousel to the next page.
      *
-     * @return {qx.ui.FlexCarousel} Self instance for chaining
+     * @return {qx.ui.Carousel} Self instance for chaining
      */
     nextPage: function() {
       var pages = this._getPages();
@@ -117,7 +117,7 @@ qx.Class.define("qx.ui.FlexCarousel",
     /**
      * Scrolls the carousel to the previous page.
      *
-     * @return {qx.ui.FlexCarousel} Self instance for chaining
+     * @return {qx.ui.Carousel} Self instance for chaining
      */
     previousPage: function() {
       var pages = this._getPages();
@@ -325,7 +325,6 @@ qx.Class.define("qx.ui.FlexCarousel",
         // correct the scroll position as the stopped animation
         // resets to its initial value
         .translate([(-Math.round(this.__startPosLeft)) + "px", 0, 0]);
-        // do not update on tracking
     },
 
 
@@ -528,7 +527,4 @@ qx.Class.define("qx.ui.FlexCarousel",
 
 // TODO IE9 support
 
-// TODO remove additional container
-
-// TODO rename
 // TODO update tests

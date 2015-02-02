@@ -36,7 +36,7 @@ qx.Class.define("mobileshowcase.page.Carousel",
   {
     // overridden
     _createScrollContainer : function() {
-      var carousel = new qx.ui.FlexCarousel();
+      var carousel = new qx.ui.Carousel();
 
       var page1 = new qx.ui.Widget();
       page1.addClass("carousel-example-1");
