@@ -80,6 +80,7 @@ qx.Class.define("qx.ui.FlexCarousel",
         layoutPrefs: {flex: 1}
       })
       .addClass(this.defaultCssClass + "-pagination")
+      .hide()
       .appendTo(this);
 
     this.on("addedChild", this._onAddedChild, this);
@@ -101,7 +102,7 @@ qx.Class.define("qx.ui.FlexCarousel",
      * @return {qx.ui.FlexCarousel} Self instance for chaining
      */
     nextPage: function() {
-      var pages = this.__pageContainer.find("." + this.defaultCssClass + "-page");
+      var pages = this._getPages();
 
       var next = this.active.getNext();
       if (next.length == 0) {
@@ -119,7 +120,7 @@ qx.Class.define("qx.ui.FlexCarousel",
      * @return {qx.ui.FlexCarousel} Self instance for chaining
      */
     previousPage: function() {
-      var pages = this.__pageContainer.find("." + this.defaultCssClass + "-page");
+      var pages = this._getPages();
 
       var prev = this.active.getPrev();
       if (prev.length == 0) {
@@ -152,7 +153,7 @@ qx.Class.define("qx.ui.FlexCarousel",
       }
 
       // scroll as soon as we have the third page added
-      if (this.__pageContainer.find("." + this.defaultCssClass + "-page").length === 3) {
+      if (this._getPages().length === 3) {
         this.__scrollContainer.translate([(-this.getWidth()) + "px", 0, 0]);
       }
       this._updatePagination();
@@ -174,7 +175,7 @@ qx.Class.define("qx.ui.FlexCarousel",
       this._updateWidth();
 
       if (this.active[0] == child[0]) {
-        this.active = this.__pageContainer.find("." + this.defaultCssClass + "-page").eq(0);
+        this.active = this._getPages().eq(0);
       } else {
         this._updateOrder();
       }
@@ -192,6 +193,11 @@ qx.Class.define("qx.ui.FlexCarousel",
      */
     _update: function() {
       if (!this.active) {
+        return;
+      }
+
+      // special case for only one page
+      if (this._getPages().length < 2) {
         return;
       }
 
@@ -234,7 +240,7 @@ qx.Class.define("qx.ui.FlexCarousel",
     _updateOrder: function() {
       var scrollDirection;
 
-      var pages = this.__pageContainer.find("." + this.defaultCssClass + "-page");
+      var pages = this._getPages();
       var orderBefore = parseInt(this.active.getStyle("order"));
 
       if (orderBefore > 0) {
@@ -285,14 +291,14 @@ qx.Class.define("qx.ui.FlexCarousel",
       }
 
       // set the inital transition on first appear
-      if (this._getPositionLeft() === 0) {
+      if (this._getPositionLeft() === 0 && this._getPages().length > 1) {
         this.__scrollContainer.translate([(-this.getWidth()) + "px", 0, 0]);
       }
 
       // set the container width to total width of all pages
       var containerWidth =
         this.getWidth() *
-        this.__pageContainer.find("." + this.defaultCssClass + "-page").length;
+        this._getPages().length;
       this.__pageContainer.setStyle("width", containerWidth + "px");
       // set the width of all pages to the carousel width
       this.find("." + this.defaultCssClass + "-page").setStyle("width", this.getWidth() + "px");
@@ -321,7 +327,7 @@ qx.Class.define("qx.ui.FlexCarousel",
      * Track handler which updates the scroll position.
      */
     _onTrack: function(e) {
-      if (e.delta.axis == "x") {
+      if (e.delta.axis == "x" && this._getPages().length > 1) {
         this.__scrollContainer.translate([-(this.__startPosLeft - e.delta.x) + "px", 0, 0]);
       }
     },
@@ -334,7 +340,7 @@ qx.Class.define("qx.ui.FlexCarousel",
       this.__startPosLeft = null;
 
       var width = this.getWidth();
-      var pages = this.__pageContainer.find("." + this.defaultCssClass + "-page");
+      var pages = this._getPages();
 
       var oldActive = this.active;
 
@@ -382,7 +388,7 @@ qx.Class.define("qx.ui.FlexCarousel",
      * @param pageIndex {Integer} The page index
      */
     _createPaginationLabel : function(pageIndex) {
-      var paginationIndex = this.__pageContainer.find("." + this.defaultCssClass + "-page").length;
+      var paginationIndex = this._getPages().length;
 
       return qxWeb.create('<div class="' + this.defaultCssClass + '-pagination-label"></div>')
         .on("tap", this._onPaginationLabelTap, this)
@@ -396,7 +402,7 @@ qx.Class.define("qx.ui.FlexCarousel",
     _onPaginationLabelTap: function(e) {
       this.__paginationLabels.forEach(function(label, index) {
         if (label[0] === e.currentTarget) {
-          var pages = this.__pageContainer.find("." + this.defaultCssClass + "-page");
+          var pages = this._getPages();
           var activeIndex = pages.indexOf(this.active);
           var distance = index - activeIndex;
 
@@ -426,8 +432,12 @@ qx.Class.define("qx.ui.FlexCarousel",
      * pagination button.
      */
     _updatePagination : function() {
+      // hide the pagination for one page
+      var pagination = this.find("." + this.defaultCssClass + "-pagination");
+      this._getPages().length < 2 ? pagination.hide() : pagination.show();
+
       this.find("." + this.defaultCssClass + "-pagination-label").removeClass("active");
-      var pages = this.__pageContainer.find("." + this.defaultCssClass + "-page");
+      var pages = this._getPages();
       this.__paginationLabels[pages.indexOf(this.active)].addClass("active");
     },
 
@@ -437,7 +447,10 @@ qx.Class.define("qx.ui.FlexCarousel",
      */
     _onResize : function() {
       this._updateWidth();
-      this.__scrollContainer.translate([(-this.getWidth()) + "px", 0, 0]);
+
+      if (this._getPages().length > 1) {
+        this.__scrollContainer.translate([(-this.getWidth()) + "px", 0, 0]);
+      }
     },
 
 
@@ -453,6 +466,11 @@ qx.Class.define("qx.ui.FlexCarousel",
           }
         }
       });
+    },
+
+
+    _getPages: function() {
+      return this.__pageContainer.find("." + this.defaultCssClass + "-page");
     },
 
 
@@ -493,7 +511,6 @@ qx.Class.define("qx.ui.FlexCarousel",
 
 // TODO IE9 support
 // TODO only tow pages
-// TODO only one page
 
 
 // TODO remove additional container
