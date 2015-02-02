@@ -208,21 +208,10 @@ qx.Class.define("qx.event.handler.Track", {
         return;
       }
 
-      var movementX;
-      var movementY;
-      if (domEvent._original._original) {
-        movementX = domEvent._original._original.movementX;
-        movementY = domEvent._original._original.movementY;
-      } else {
-        movementX = domEvent._original.movementX;
-        movementY = domEvent._original.movementY;
-      }
       var evt = new qx.event.type.dom.Custom(type, domEvent, {
         bubbles: true,
         pointerType: domEvent.pointerType,
-        delta: this._getDeltaCoordinates(domEvent),
-        movementX: movementX,
-        movementY: movementY
+        delta: this._getDeltaCoordinates(domEvent)
       });
       target.dispatchEvent(evt);
     },
