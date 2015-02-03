@@ -115,10 +115,17 @@ qx.Class.define("qx.ui.Carousel",
       var pages = this._getPages();
 
       var next = this.active.getNext();
-      if (next.length == 0) {
-        next = pages.eq(0);
+      // prevent overflow if we don't use the endless loop mode
+      if (this._getPages().length > 2) {
+        if (next.length == 0) {
+          next = pages.eq(0);
+        }
       }
-      this.active = next;
+
+      if (next.length > 0) {
+        this.active = next;
+      }
+
 
       return this;
     },
@@ -133,10 +140,16 @@ qx.Class.define("qx.ui.Carousel",
       var pages = this._getPages();
 
       var prev = this.active.getPrev();
-      if (prev.length == 0) {
-        prev = pages.eq(pages.length - 1);
+      // prevent overflow if we don't use the endless loop mode
+      if (this._getPages().length > 2) {
+        if (prev.length == 0) {
+          prev = pages.eq(pages.length - 1);
+        }
       }
-      this.active = prev;
+
+      if (prev.length > 0) {
+        this.active = prev;
+      }
 
       return this;
     },
