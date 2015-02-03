@@ -344,7 +344,7 @@ qx.Class.define("qx.ui.Carousel",
      * TrackEnd handler for enabling the scroll events.
      */
     _onTrackEnd: function(e) {
-      if (this._getPages().length < 3) {
+      if (this._getPages().length < 3 || this.__scrollContainer.isPlaying()) {
         return;
       }
 
@@ -385,9 +385,9 @@ qx.Class.define("qx.ui.Carousel",
       var velocity = Math.abs(e.getVelocity());
       if (e.getAxis() == "x" && velocity > 0.75) {
         if (e.getDirection() == "left") {
-          this.nextPage(velocity);
+          this.nextPage();
         } else if (e.getDirection() == "right") {
-          this.previousPage(velocity);
+          this.previousPage();
         }
       }
     },
