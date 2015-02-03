@@ -53,7 +53,8 @@ qx.Class.define("qx.ui.Carousel",
      */
     pageSwitchDuration: {
       check: "Number",
-      init: 500
+      init: 500,
+      get: "_getPageSwitchDuration"
     }
   },
 
@@ -61,6 +62,8 @@ qx.Class.define("qx.ui.Carousel",
   // overridden
   construct: function(element) {
     this.super(qx.ui.Widget, "construct", element);
+
+    this._ie9 = qx.core.Environment.get("browser.documentmode") === 9;
 
     qxWeb(window).on("resize", this._onResize, this);
 
@@ -84,6 +87,12 @@ qx.Class.define("qx.ui.Carousel",
       .appendTo(this);
 
     this.on("addedChild", this._onAddedChild, this);
+
+    if (this._ie9) {
+      this.__pageContainer.setStyle("display", "table");
+      this.__pagination.setStyle("textAlign", "center");
+    }
+
     this._enableEvents();
   },
 
@@ -94,6 +103,7 @@ qx.Class.define("qx.ui.Carousel",
     __paginationLabels: null,
     __startPosLeft: null,
     __pagination: null,
+    _ie9: false,
 
 
     /**
@@ -152,8 +162,12 @@ qx.Class.define("qx.ui.Carousel",
         this._updateOrder();
       }
 
+      if (this._ie9) {
+        child.setStyle("display", "table-cell");
+      }
+
       // scroll as soon as we have the third page added
-      if (this._getPages().length === 3) {
+      if (this._getPages().length === 3 && !this._ie9) {
         this.__scrollContainer.translate([(-this.getWidth()) + "px", 0, 0]);
       }
       this._updatePagination();
@@ -212,27 +226,33 @@ qx.Class.define("qx.ui.Carousel",
         return;
       }
 
-      var direction = this._updateOrder();
+      if (!this._ie9) {
+        var direction = this._updateOrder();
 
-      var left;
-      if (direction == "right") {
-        left = this._getPositionLeft() - this.__scrollContainer.getWidth();
-      } else if (direction == "left") {
-        left = this._getPositionLeft() + this.__scrollContainer.getWidth();
-      } else if (this._getPages().length >= 3) {
-        // back snapping if the order has not changed
-        this._translateTo(this.getWidth(), this.pageSwitchDuration);
-        return;
+        var left;
+        if (direction == "right") {
+          left = this._getPositionLeft() - this.__scrollContainer.getWidth();
+        } else if (direction == "left") {
+          left = this._getPositionLeft() + this.__scrollContainer.getWidth();
+        } else if (this._getPages().length >= 3) {
+          // back snapping if the order has not changed
+          this._translateTo(this.getWidth(), this.pageSwitchDuration);
+          return;
+        } else {
+          // do nothing if we don't have enough pages
+          return;
+        }
+
+        if (left !== undefined) {
+          // first, translate the old page into view
+          this.__scrollContainer.translate([(-left) + "px", 0, 0]);
+          // animate to the new page
+          this._translateTo(this.getWidth(), this.pageSwitchDuration);
+        }
       } else {
-        // do nothing if we don't have enough pages
-        return;
-      }
-
-      if (left !== undefined) {
-        // first, translate the old page into view
-        this.__scrollContainer.translate([(-left) + "px", 0, 0]);
-        // animate to the new page
-        this._translateTo(this.getWidth(), this.pageSwitchDuration);
+        var index = this._getPages().indexOf(this.active);
+        var left = index * this.getWidth();
+        this._translateTo(left, this.pageSwitchDuration);
       }
 
       this._updatePagination();
@@ -249,6 +269,10 @@ qx.Class.define("qx.ui.Carousel",
      * @return {String} The scroll direction, either 'left' or 'right'.
      */
     _updateOrder: function() {
+      if (this._ie9) {
+        return;
+      }
+
       var scrollDirection;
 
       var pages = this._getPages();
@@ -300,7 +324,7 @@ qx.Class.define("qx.ui.Carousel",
       }
 
       // set the inital transition on first appear
-      if (this._getPositionLeft() === 0 && this._getPages().length > 2) {
+      if (this._getPositionLeft() === 0 && this._getPages().length > 2 && !this._ie9) {
         this.__scrollContainer.translate([(-this.getWidth()) + "px", 0, 0]);
       }
 
@@ -514,12 +538,22 @@ qx.Class.define("qx.ui.Carousel",
     },
 
 
-    _enableEvents: function() {
-      this.on("trackstart", this._onTrackStart, this)
-        .on("track", this._onTrack, this)
-        .on("swipe", this._onSwipe, this);
+    _getPageSwitchDuration: function() {
+      if (this._ie9) {
+        return 10;
+      }
+      return this["$$pageSwitchDuration"];
+    },
 
-      this.__scrollContainer.on("trackend", this._onTrackEnd, this);
+
+    _enableEvents: function() {
+      if (!this._ie9) {
+        this.on("trackstart", this._onTrackStart, this)
+          .on("track", this._onTrack, this);
+        this.__scrollContainer.on("trackend", this._onTrackEnd, this);
+      }
+
+      this.on("swipe", this._onSwipe, this);
     },
 
 
