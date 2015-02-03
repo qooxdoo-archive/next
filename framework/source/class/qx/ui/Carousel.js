@@ -290,9 +290,11 @@ qx.Class.define("qx.ui.Carousel",
      * Updates the width of the container and the pages.
      */
     _updateWidth: function() {
-      if (!this.isRendered()) {
+      if (!this.isRendered() || this.getProperty("offsetWidth") === 0) {
         this.setStyle("visibility", "hidden");
-        this.once("appear", this._updateWidth, this);
+        if (!this.hasListener("appear", this._updateWidth, this)) {
+          this.once("appear", this._updateWidth, this);
+        }
         return;
       }
 
