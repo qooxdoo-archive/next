@@ -288,7 +288,6 @@ qx.Class.define("qx.event.handler.Gesture", {
         gesture.target
       );
 
-
       if (gesture.isTap) {
         if (target !== gesture.target) {
           delete this.__gesture[domEvent.pointerId];

@@ -43,8 +43,10 @@ qx.Class.define("qx.event.type.dom.Pointer", {
       "shiftKey",
       "metaKey",
       "button",
+      "buttons",
       "which",
-      "relatedTarget"
+      "relatedTarget",
+      "pressure"
     ],
 
     POINTER_PROPERTIES : {
@@ -252,9 +254,11 @@ qx.Class.define("qx.event.type.dom.Pointer", {
           buttons = 0;
       }
 
-      if (buttons !== undefined) {
+      if (properties.buttons === undefined) {
         properties.buttons = buttons;
-        properties.pressure = buttons ? 0.5 : 0;
+      }
+      if (properties.pressure === undefined) {
+        properties.pressure = properties.buttons ? 0.5 : 0;
       }
 
       if (evt.initMouseEvent) {

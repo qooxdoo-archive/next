@@ -384,13 +384,18 @@ qx.Class.define("qx.event.handler.Pointer", {
      * @param type {String ? null} type of the event
      * @param target {Element ? null} event target
      */
-    _fireEvent : function(domEvent, type, target)
-    {
+    _fireEvent: function(domEvent, type, target) {
       target = target || domEvent.target;
       type = type || domEvent.type;
 
       var gestureEvent;
-      if ((domEvent.pointerType !== "mouse" || domEvent.button === 0) &&
+
+      var isButtonPressed = domEvent.button === 0;
+      if (!isButtonPressed && domEvent.buttons) {
+        isButtonPressed = true;
+      }
+
+      if ((domEvent.pointerType !== "mouse" || isButtonPressed) &&
         (type == "pointerdown" || type == "pointerup" || type == "pointermove"))
       {
         gestureEvent = new qx.event.type.dom.Pointer(
