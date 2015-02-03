@@ -77,13 +77,6 @@ API reference
 * Online and offline `API viewer application <http://api.qooxdoo.org>`_
 * Search functionality
 
-.. _pages/introduction/features#testing:
-
-Testing
--------
-
-* Integrated functional testing framework :doc:`Simulator </pages/development/simulator>` (deprecated)
-
 .. _pages/introduction/features#deployment:
 
 Deployment

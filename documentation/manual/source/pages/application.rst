@@ -120,16 +120,6 @@ Developer Tools
   .. toctree::
      :maxdepth: 1
 
-     development/simulator
-
-  ..
-
-    A framework to develop simulated interaction tests, using `Selenium <http://seleniumhq.org>`__.
-
-
-  .. toctree::
-     :maxdepth: 1
-
      application/featureconfigeditor
 
   ..

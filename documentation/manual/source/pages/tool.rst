@@ -131,5 +131,3 @@ manual. Here are some pointers:
 
 * :doc:`application/apiviewer`
 * :doc:`application/featureconfigeditor`
-* :doc:`development/simulator`
-

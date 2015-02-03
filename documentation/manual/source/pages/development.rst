@@ -44,8 +44,6 @@ Testing
    :maxdepth: 1
 
    development/unit_testing
-   development/simulator
-   development/simulator_locators
 
 
 Code Organisation
