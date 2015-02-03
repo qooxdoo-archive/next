@@ -107,10 +107,10 @@ qx.Class.define("qx.module.Traversing", {
      * @param ctx {Object} Context object
      * @return {qxWeb} The collection for chaining
      */
-    forEach : function(fn, ctx) {
-      for (var i=0; i < this.length; i++) {
-        fn.call(ctx, this[i], i, this);
-      };
+    forEach: function (fn, ctx) {
+      for (var i = 0; i < this.length; i++) {
+        fn.call(ctx, qxWeb(this[i]), i, this);
+      }
       return this;
     },
 
