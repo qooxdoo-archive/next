@@ -369,36 +369,39 @@ qx.Class.define("qx.ui.Carousel",
      * TrackEnd handler for enabling the scroll events.
      */
     _onTrackEnd: function(e) {
-      if (this._getPages().length < 3 || this.__scrollContainer.isPlaying()) {
-        return;
-      }
-
-      this.__startPosLeft = null;
-
-      var width = this.getWidth();
-      var pages = this._getPages();
-
-      var oldActive = this.active;
-
-      // if more than 50% is visible of the previous page
-      if (this._getPositionLeft() < (width - (width / 2))) {
-        var prev = this.active.getPrev();
-        if (prev.length == 0) {
-          prev = pages.eq(pages.length - 1);
+      // make sure the trackend handling is done after the swipe handling
+      window.setTimeout(function() {
+        if (this._getPages().length < 3 || this.__scrollContainer.isPlaying()) {
+          return;
         }
-        this.active = prev;
-      // if more than 50% is visible of the next page
-      } else if (this._getPositionLeft() > (width + width / 2)) {
-        var next = this.active.getNext();
-        if (next.length == 0) {
-          next = pages.eq(0);
-        }
-        this.active = next;
-      }
 
-      if (this.active == oldActive) {
-        this._update();
-      }
+        this.__startPosLeft = null;
+
+        var width = this.getWidth();
+        var pages = this._getPages();
+
+        var oldActive = this.active;
+
+        // if more than 50% is visible of the previous page
+        if (this._getPositionLeft() < (width - (width / 2))) {
+          var prev = this.active.getPrev();
+          if (prev.length == 0) {
+            prev = pages.eq(pages.length - 1);
+          }
+          this.active = prev;
+        // if more than 50% is visible of the next page
+        } else if (this._getPositionLeft() > (width + width / 2)) {
+          var next = this.active.getNext();
+          if (next.length == 0) {
+            next = pages.eq(0);
+          }
+          this.active = next;
+        }
+
+        if (this.active == oldActive) {
+          this._update();
+        }
+      }.bind(this), 0);
     },
 
 
