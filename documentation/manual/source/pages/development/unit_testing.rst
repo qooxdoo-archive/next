@@ -2,22 +2,17 @@
 Unit Testing
 **************
 
-For the next unit tests we would avoid maintainance of an own test runner and framework. Therefore it was essential to refer to an external test framework. The test framework `mocha <http://mochajs.org/>`_ is versatile and provides expandability and asynchronous testing in all current desktop and mobile browsers. To get a sufficient number of assertions we decided to make use of `chai <http://chaijs.com//>`_ library.
+qooxdoo uses the versatile and extensible `Mocha <http://mochajs.org/>`_ testing framework combined with the `Chai <http://chaijs.com//>`_ assertion library for its unit tests.
 
 How to run the tests
 ======================
 
-You can find the next test structure on ``framework/source/test``
+The test files are located in ``framework/source/test``.
 
-To run the tests for the first time, install the required node modules in the test directory. Create a ``index.html`` file by command ``grunt html``
+Before running the tests for the first time, install the required node modules by running ``npm install``.
 
-Now the tests can be executed on your desired browser.
+The task ``grunt build`` is used to generate an optimized, minified version of the framework classes that the tests will run against. Alternatively, ``grunt source`` will generate an unoptimized version for test development and debugging.
 
-Find the number of passed and failed tests as well as the duration and the progress of running tests in the right corner. Click on a test suite or test case to run a test separately.
+Finally, run the ``grunt html`` task to generate both the ``index.html`` file that loads the tests and the optimized framework dependencies and the ``index-source.html`` file for the development version.
 
-
-
-
-
-
-
+The tests can now be executed by loading one of the index files in any browser. Note that some tests, particularly in the ``io`` namespace, might not run correctly when served from the file system.
