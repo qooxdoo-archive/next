@@ -180,7 +180,7 @@ qx.Class.define("qx.ui.Carousel",
         this._updateOrder();
       } else {
         // remove all order properties
-        this._getPages().setStyle("order", "0");
+        this._setOrder(this._getPages(), 0);
       }
 
       this.__paginationLabels.splice(child.priorPosition, 1)[0].remove();
@@ -252,7 +252,7 @@ qx.Class.define("qx.ui.Carousel",
       var scrollDirection;
 
       var pages = this._getPages();
-      var orderBefore = parseInt(this.active.getStyle("order"));
+      var orderBefore = this._getOrder(this.active);
 
       if (orderBefore > 0) {
         scrollDirection = "right";
@@ -261,7 +261,8 @@ qx.Class.define("qx.ui.Carousel",
       }
 
       var activeIndex = pages.indexOf(this.active);
-      this.active.setStyle("order", 0); // active page should always have order 0
+
+      this._setOrder(this.active, 0)// active page should always have order 0
       var order = 1;
 
       // order all pages with a higher index than the active page
@@ -270,7 +271,7 @@ qx.Class.define("qx.ui.Carousel",
         if (activeIndex === 0 && i == pages.length - 1) {
           order = -1;
         }
-        qxWeb(pages[i]).setStyle("order", order++);
+        this._setOrder(pages.eq(i), order++);
       }
 
       // order all pages with a lower index than the active page
@@ -279,7 +280,7 @@ qx.Class.define("qx.ui.Carousel",
         if (i == activeIndex - 1) {
           order = -1;
         }
-        qxWeb(pages[i]).setStyle("order", order++);
+        this._setOrder(pages.eq(i), order++)
       }
 
       return scrollDirection;
@@ -425,7 +426,7 @@ qx.Class.define("qx.ui.Carousel",
           var distance = index - activeIndex;
 
           // set the order to deault dom order
-          pages.setStyle("order", 0);
+          this._setOrder(pages, 0);
           // get the active page into view
           this.__scrollContainer.translate([(- activeIndex * this.getWidth()) + "px",0 ,0])
 
@@ -485,6 +486,21 @@ qx.Class.define("qx.ui.Carousel",
       });
     },
 
+
+    _setOrder: function(col, value) {
+      col.setStyles({
+        order: value,
+        msFlexOrder: value
+      });
+    },
+
+    _getOrder: function(col) {
+      var order = parseInt(col.getStyle("order"));
+      if (isNaN(order)) {
+        order = parseInt(col.getStyle("msFlexOrder"));
+      }
+      return order;
+    },
 
     _getPages: function() {
       return this.__pageContainer.find("." + this.defaultCssClass + "-page");
