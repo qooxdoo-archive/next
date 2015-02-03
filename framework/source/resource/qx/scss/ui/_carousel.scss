@@ -13,52 +13,53 @@
   }
 
   .carousel-container > div {
-    height: 100%;
-  }
-
-  .carousel-pagination {
-    -webkit-backface-visibility:hidden;
-    -webkit-transition: -webkit-transform 2s;
-    -moz-transition: -moz-transform 2s;
-    transition: transform 2s;
-
-    position: relative;
-    margin-top: -$carousel-pagination-size - rem(10);
-    width: 100%;
-    white-space: nowrap;
-    @include flex-justify-content(center);
-  }
-
-  .carousel-pagination-label + .carousel-pagination-label {
-    margin-left: $carousel-pagination-size/2;
-  }
-
-  .carousel-pagination-label {
-    @include border-radius($carousel-pagination-border-radius);
-    @include background($carousel-pagination-background);
-    @include box-sizing(border-box);
-    @include flex(0 0);
-
-    border: rem(1) solid $carousel-pagination-border-color;
-    text-align: center;
-
-    display:inline-block;
-
-    min-width: $carousel-pagination-size;
-    height: $carousel-pagination-size;
-    line-height: $carousel-pagination-size;
-    overflow: hidden;
-
-    color: transparent;
-    font-size: $carousel-pagination-font-size;
-
-    cursor: pointer;
-  }
-
-  .carousel-pagination-label.active {
-    @include background($carousel-pagination-active-background);
-    border: rem(1) solid $carousel-pagination-active-border-color;
-    color: $carousel-pagination-active-background;
+   height: 100%;
   }
 }
+
+.carousel-pagination {
+  -webkit-backface-visibility:hidden;
+  -webkit-transition: -webkit-transform 2s;
+  -moz-transition: -moz-transform 2s;
+  transition: transform 2s;
+
+  position: relative;
+  //margin-top: -$carousel-pagination-size - rem(10);
+  width: 100%;
+  white-space: nowrap;
+  @include flex-justify-content(center);
+}
+
+.carousel-pagination-label + .carousel-pagination-label {
+  margin-left: $carousel-pagination-size/2;
+}
+
+.carousel-pagination-label {
+  @include border-radius($carousel-pagination-border-radius);
+  @include background($carousel-pagination-background);
+  @include box-sizing(border-box);
+  @include flex(0 0);
+
+  border: rem(1) solid $carousel-pagination-border-color;
+  text-align: center;
+
+  display:inline-block;
+
+  min-width: $carousel-pagination-size;
+  height: $carousel-pagination-size;
+  line-height: $carousel-pagination-size;
+  overflow: hidden;
+
+  color: transparent;
+  font-size: $carousel-pagination-font-size;
+
+  cursor: pointer;
+}
+
+.carousel-pagination-label.active {
+  @include background($carousel-pagination-active-background);
+  border: rem(1) solid $carousel-pagination-active-border-color;
+  color: $carousel-pagination-active-background;
+}
+
 

@@ -449,10 +449,9 @@ qx.Class.define("qx.ui.Carousel",
      */
     _updatePagination : function() {
       // hide the pagination for one page
-      var pagination = this.find("." + this.defaultCssClass + "-pagination");
-      this._getPages().length < 2 ? pagination.hide() : pagination.show();
+      this._getPages().length < 2 ? this.__pagination.hide() : this.__pagination.show();
 
-      this.find("." + this.defaultCssClass + "-pagination-label").removeClass("active");
+      this.__pagination.find("." + this.defaultCssClass + "-pagination-label").removeClass("active");
       var pages = this._getPages();
       this.__paginationLabels[pages.indexOf(this.active)].addClass("active");
     },
