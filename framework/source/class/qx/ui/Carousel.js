@@ -592,6 +592,4 @@ qx.Class.define("qx.ui.Carousel",
   }
 });
 
-// TODO IE9 support
-
 // TODO update tests
