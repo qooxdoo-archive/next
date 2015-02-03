@@ -49,7 +49,7 @@ qx.Class.define("qx.module.Attribute", {
     setHtml : function(html) {
       html = qx.bom.Html.fixEmptyTags(html);
       this._forEachElement(function(item) {
-        qx.bom.element.Attribute.set(item[0], "html", html);
+        qx.bom.element.Attribute.set(item, "html", html);
       });
       return this;
     },
@@ -65,7 +65,7 @@ qx.Class.define("qx.module.Attribute", {
      */
     setAttribute : function(name, value) {
       this._forEachElement(function(item) {
-        qx.bom.element.Attribute.set(item[0], name, value);
+        qx.bom.element.Attribute.set(item, name, value);
       });
       return this;
     },
@@ -96,7 +96,7 @@ qx.Class.define("qx.module.Attribute", {
      */
     removeAttribute : function(name) {
       this._forEachElement(function(item) {
-        qx.bom.element.Attribute.set(item[0], name, null);
+        qx.bom.element.Attribute.set(item, name, null);
       });
       return this;
     },
@@ -275,7 +275,7 @@ qx.Class.define("qx.module.Attribute", {
     setValue : function(value)
     {
       this._forEachElement(function(item) {
-        qx.bom.Input.setValue(item[0], value);
+        qx.bom.Input.setValue(item, value);
       });
 
       return this;

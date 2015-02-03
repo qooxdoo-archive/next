@@ -39,7 +39,7 @@ qx.Class.define("qx.module.Css", {
         name = qx.lang.String.camelCase(name);
       }
       this._forEachElement(function(item) {
-        qx.bom.element.Style.set(item[0], name, value);
+        qx.bom.element.Style.set(item, name, value);
       });
       return this;
     },
@@ -105,7 +105,7 @@ qx.Class.define("qx.module.Css", {
      */
     addClass : function(name) {
       this._forEachElement(function(item) {
-        qx.bom.element.Class.add(item[0], name);
+        qx.bom.element.Class.add(item, name);
       });
       return this;
     },
@@ -120,7 +120,7 @@ qx.Class.define("qx.module.Css", {
      */
     addClasses : function(names) {
       this._forEachElement(function(item) {
-        qx.bom.element.Class.addClasses(item[0], names);
+        qx.bom.element.Class.addClasses(item, names);
       });
       return this;
     },
@@ -135,7 +135,7 @@ qx.Class.define("qx.module.Css", {
      */
     removeClass : function(name) {
       this._forEachElement(function(item) {
-        qx.bom.element.Class.remove(item[0], name);
+        qx.bom.element.Class.remove(item, name);
       });
       return this;
     },
@@ -151,7 +151,7 @@ qx.Class.define("qx.module.Css", {
      */
     removeClasses : function(names) {
       this._forEachElement(function(item) {
-        qx.bom.element.Class.removeClasses(item[0], names);
+        qx.bom.element.Class.removeClasses(item, names);
       });
       return this;
     },
@@ -196,9 +196,9 @@ qx.Class.define("qx.module.Css", {
     toggleClass : function(name) {
       var bCls = qx.bom.element.Class;
       this._forEachElement(function(item) {
-        bCls.has(item[0], name) ?
-          bCls.remove(item[0], name) :
-          bCls.add(item[0], name);
+        bCls.has(item, name) ?
+          bCls.remove(item, name) :
+          bCls.add(item, name);
       });
       return this;
     },
@@ -229,7 +229,7 @@ qx.Class.define("qx.module.Css", {
      */
     replaceClass : function(oldName, newName) {
       this._forEachElement(function(item) {
-        qx.bom.element.Class.replace(item[0], oldName, newName);
+        qx.bom.element.Class.replace(item, oldName, newName);
       });
       return this;
     },
@@ -488,10 +488,10 @@ qx.Class.define("qx.module.Css", {
      */
     hide : function() {
       this._forEachElement(function(item) {
-        var prevStyle = item.getStyle("display");
+        var prevStyle = q(item).getStyle("display");
         if (prevStyle !== "none") {
-          item[0].$$qPrevDisp = prevStyle;
-          item.setStyle("display", "none");
+          item.$$qPrevDisp = prevStyle;
+          q(item).setStyle("display", "none");
         }
       });
 
@@ -510,19 +510,19 @@ qx.Class.define("qx.module.Css", {
      */
     show : function() {
       this._forEachElement(function(item) {
-        var currentVal = item.getStyle("display");
-        var prevVal = item[0].$$qPrevDisp;
+        var currentVal = q(item).getStyle("display");
+        var prevVal = item.$$qPrevDisp;
         var newVal;
         if (currentVal == "none") {
           if (prevVal && prevVal != "none") {
             newVal = prevVal;
           }
           else {
-            var doc = qxWeb.getDocument(item[0]);
-            newVal = qx.module.Css.__getDisplayDefault(item[0].tagName, doc);
+            var doc = qxWeb.getDocument(item);
+            newVal = qx.module.Css.__getDisplayDefault(item.tagName, doc);
           }
           item.setStyle("display", newVal);
-          item[0].$$qPrevDisp = "none";
+          item.$$qPrevDisp = "none";
         }
       });
 

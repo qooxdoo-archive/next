@@ -81,7 +81,7 @@ describe("module.Traversing", function() {
   it("ForEachElement", function() {
     var test = q.create("<div/><h1/>").add(window);
     var exec = 0;
-    test._forEachElement(function(item) {
+    test.forEach(function(item) {
       exec++;
       assert.notEqual(window, item);
       assert.notEqual(window, item[0]);

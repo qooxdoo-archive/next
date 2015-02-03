@@ -210,7 +210,7 @@ qx.Class.define("qx.ui.TabBar", {
       this.layout = new qx.ui.layout.HBox();
 
       var selectedButton = null;
-      this.find("* > .button")._forEachElement(function(button) {
+      this.find("* > .button").forEach(function(button) {
         var page = this.getPage(button);
         if (page.length == 1) {
           var previousParent = page[0].$$qxTabPageParent;
@@ -253,7 +253,7 @@ qx.Class.define("qx.ui.TabBar", {
      */
     renderVertical: function() {
       this.layout = new qx.ui.layout.VBox();
-      this.find("* > .button")._forEachElement(function(button) {
+      this.find("* > .button").forEach(function(button) {
         var page = this.getPage(button);
         if (page.length == 1) {
           // save the page's parent element for re-rendering in horizontal mode
@@ -295,7 +295,7 @@ qx.Class.define("qx.ui.TabBar", {
      * @param old {qxWeb?} The previously selected page
      */
     _applyActive : function(value, old) {
-      this.find("* > .button")._forEachElement(function(button) {
+      this.find("* > .button").forEach(function(button) {
         if (value === button[0]) {
           button.addClass("selected");
           this.getPage(button).show();

@@ -289,7 +289,7 @@ qx.Class.define("qx.module.Traversing", {
     getContents : function() {
       var found = [];
       this._forEachElement(function(item) {
-        found = found.concat(qx.lang.Array.fromCollection(item[0].childNodes));
+        found = found.concat(qx.lang.Array.fromCollection(item.childNodes));
       });
       return qxWeb.$init(found, qxWeb);
     },
@@ -359,7 +359,7 @@ qx.Class.define("qx.module.Traversing", {
       this._forEachElement(function(item, index) {
         var descendants = qx.bom.Selector.matches(selector, this.eq(index).getContents());
         if (descendants.length > 0) {
-          found.push(item[0]);
+          found.push(item);
         }
       });
 
