@@ -33,10 +33,10 @@
  *
  * <pre class="javascript">
  *  var req = new qx.io.request.Script();
- *  req.onload = function() {
+ *  req.on("load", function() {
  *    // Script is loaded and parsed and
  *    // globals set are available
- *  }
+ *  }, this);
  *
  *  req.open("GET", url);
  *  req.send();
