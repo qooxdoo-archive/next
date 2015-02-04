@@ -425,7 +425,7 @@ qx.Class.define("qx.module.Traversing", {
      */
     getNextUntil : function(selector) {
       var found = [];
-      this.forEach(function(item, index) {
+      this.forEach(function(item) {
         var nextSiblings = qx.dom.Hierarchy.getNextSiblings(item);
         for (var i=0, l=nextSiblings.length; i<l; i++) {
           if (qx.bom.Selector.matches(selector, [nextSiblings[i]]).length > 0) {
@@ -485,7 +485,7 @@ qx.Class.define("qx.module.Traversing", {
      */
     getPrevUntil : function(selector) {
       var found = [];
-      this.forEach(function(item, index) {
+      this.forEach(function(item) {
         var previousSiblings = qx.dom.Hierarchy.getPreviousSiblings(item);
         for (var i=0, l=previousSiblings.length; i<l; i++) {
           if (qx.bom.Selector.matches(selector, [previousSiblings[i]]).length > 0) {
