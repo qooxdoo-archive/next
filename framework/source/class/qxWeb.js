@@ -356,9 +356,7 @@ qx.Class.define("qxWeb", {
 
 
     /**
-     * Calls a function for each DOM element  or document fragment in the
-     * collection. This is used for DOM manipulations which can't be
-     * applied to document nodes or window objects.
+     * Calls a function for each DOM element or document fragment in the collection.
      *
      * @param func {Function} Callback function. Will be called with three arguments:
      * The element, the element's index within the collection and the collection itself.
@@ -367,18 +365,14 @@ qx.Class.define("qxWeb", {
      */
     forEach: function (func, ctx) {
       for (var i = 0, l = this.length; i < l; i++) {
-        if (this[i] && (this[i].nodeType === 1 || this[i].nodeType === 11)) {
-          func.apply(ctx || this, [qxWeb(this[i]), i, this]);
-        }
+        func.apply(ctx || this, [qxWeb(this[i]), i, this]);
       }
       return this;
     },
 
 
     /**
-     * Calls a function for each DOM element  or document fragment in the
-     * collection. This is used for DOM manipulations which can't be
-     * applied to document nodes or window objects.
+     * Calls a function for each DOM element.
      *
      * @param func {Function} Callback function. Will be called with three arguments:
      * The element, the element's index within the collection and the collection itself.
@@ -387,9 +381,7 @@ qx.Class.define("qxWeb", {
      */
     _forEachElement: function (func, ctx) {
       for (var i = 0, l = this.length; i < l; i++) {
-        if (this[i] && (this[i].nodeType === 1 || this[i].nodeType === 11)) {
-          func.apply(ctx || this, [this[i], i, this]);
-        }
+        func.apply(ctx || this, [this[i], i, this]);
       }
       return this;
     }

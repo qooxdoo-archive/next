@@ -95,27 +95,6 @@ qx.Class.define("qx.module.Traversing", {
 
 
     /**
-     * Executes the provided callback function once for each item in the
-     * collection.
-     *
-     * @attach {qxWeb}
-     * @param fn {Function} Callback function which is called with two parameters
-     * <ul>
-     *  <li>current item - DOM node</li>
-     *  <li>current index - Number</li>
-     * </ul>
-     * @param ctx {Object} Context object
-     * @return {qxWeb} The collection for chaining
-     */
-    forEach: function (fn, ctx) {
-      for (var i = 0; i < this.length; i++) {
-        fn.call(ctx, qxWeb(this[i]), i, this);
-      }
-      return this;
-    },
-
-
-    /**
      * Gets a set of elements containing the parent of each element in the
      * collection.
      * This set can be filtered with an optional expression that will cause only
