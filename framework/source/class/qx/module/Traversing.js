@@ -845,7 +845,6 @@ qx.Class.define("qx.module.Traversing", {
     qxWeb.$attach({
       "add" : statics.add,
       "getChildren" : statics.getChildren,
-      "forEach" : statics.forEach,
       "getParents" : statics.getParents,
       "getAncestors" : statics.getAncestors,
       "getAncestorsUntil" : statics.getAncestorsUntil,
