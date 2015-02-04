@@ -122,8 +122,6 @@ qx.Mixin.define("qx.ui.container.MNativeScroll",
       this._snapTimeoutId = setTimeout(function() {
         this._snap();
       }.bind(this), 100);
-
-      evt.stopPropagation();
     },
 
 
