@@ -67,6 +67,16 @@ qx.Class.define("qx.ui.control.Calendar", {
       init: false,
       check: Boolean,
       apply: "_render"
+    },
+
+    /**
+     * Disable all days of the previous/next month. The days are visible, but are not responding to
+     * user input.
+     */
+    disableDaysOtherMonth: {
+      init: false,
+      check: Boolean,
+      apply: "_render"
     }
   },
 
@@ -308,6 +318,7 @@ qx.Class.define("qx.ui.control.Calendar", {
 
           var cssClasses = "";
           var hidden = "";
+          var disabled = this.enabled ? "" : "disabled='disabled'";
 
           if (helpDate.getMonth() !== date.getMonth()) {
 
@@ -318,12 +329,10 @@ qx.Class.define("qx.ui.control.Calendar", {
 
             cssClasses += this.defaultCssClass + "-othermonth";
             hidden += this.hideDaysOtherMonth ? "qx-hidden" : "";
+            disabled = this.disableDaysOtherMonth ? "disabled='disabled'" : "";
           }
 
           cssClasses += today.toDateString() === helpDate.toDateString() ? " " + this.defaultCssClass + "-today" : "";
-
-          var disabled = this.enabled ? "" : "disabled";
-
           cssClasses += (helpDate.getDay() === 0 || helpDate.getDay() === 6) ? " " + this.defaultCssClass + "-weekend" : " " + this.defaultCssClass + "-weekday";
 
           data.row.push({
