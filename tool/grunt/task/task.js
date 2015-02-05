@@ -155,6 +155,9 @@ var registerTasks = function(grunt) {
     "config": "config.json",
     "jobsAndDesc": "jobsAndDesc-" + fs.realpathSync(conf.ROOT)
   };
+  var endsWith = function(str, suffix) {
+    return str.indexOf(suffix, str.length - suffix.length) !== -1;
+  };
 
   // exit early
   if (!isSetupDone(path.join(conf.QOOXDOO_PATH, "tool/grunt/task/source/node_modules"))) {
@@ -164,7 +167,7 @@ var registerTasks = function(grunt) {
   }
   abortOnError(grunt);
 
-  if (fs.existsSync(path.join(shell.pwd(), '../version.txt'))) {
+  if (endsWith(shell.pwd(), "framework")) {
     // enable python toolchain for SDK itself
     var jobs = retrieveGeneratorJobsFromCache(files, cache);
     if (jobs) {
