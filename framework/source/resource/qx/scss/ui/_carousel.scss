@@ -24,7 +24,7 @@
   transition: transform 2s;
 
   position: relative;
-  //margin-top: -$carousel-pagination-size - rem(10);
+  margin-top: -$carousel-pagination-size - rem(10);
   width: 100%;
   white-space: nowrap;
   @include flex-justify-content(center);

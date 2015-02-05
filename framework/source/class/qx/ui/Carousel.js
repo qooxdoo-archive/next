@@ -628,5 +628,3 @@ qx.Class.define("qx.ui.Carousel",
     }
   }
 });
-
-// TODO initial scrolling in iOS
