@@ -118,10 +118,13 @@ qx.Class.define("qx.ui.Carousel",
      */
     nextPage: function() {
       var pages = this._getPages();
+      if (pages.length == 0) {
+        return this;
+      }
 
       var next = this.active.getNext();
       // prevent overflow if we don't use the endless loop mode
-      if (this._getPages().length > 2) {
+      if (pages.length > 2) {
         if (next.length == 0) {
           next = pages.eq(0);
         }
@@ -130,7 +133,6 @@ qx.Class.define("qx.ui.Carousel",
       if (next.length > 0) {
         this.active = next;
       }
-
 
       return this;
     },
@@ -143,10 +145,13 @@ qx.Class.define("qx.ui.Carousel",
      */
     previousPage: function() {
       var pages = this._getPages();
+      if (pages.length == 0) {
+        return this;
+      }
 
       var prev = this.active.getPrev();
       // prevent overflow if we don't use the endless loop mode
-      if (this._getPages().length > 2) {
+      if (pages.length > 2) {
         if (prev.length == 0) {
           prev = pages.eq(pages.length - 1);
         }
@@ -624,5 +629,4 @@ qx.Class.define("qx.ui.Carousel",
   }
 });
 
-// TODO update tests
 // TODO initial scrolling in iOS

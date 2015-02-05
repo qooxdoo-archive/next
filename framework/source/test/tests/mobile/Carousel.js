@@ -246,4 +246,39 @@ describe("mobile.Carousel", function() {
     assert.isTrue(labels.eq(0).is(".active"));
     assert.equal(labels.eq(0)[0].textContent, "1");
   });
+
+
+  it("one page", function() {
+    var p1 = new qx.ui.Widget()
+      .setHtml("page1")
+      .appendTo(carousel);
+    carousel.nextPage();
+    assert.equal(carousel.active[0], p1[0]);
+    carousel.previousPage();
+    assert.equal(carousel.active[0], p1[0]);
+
+    p1.remove();
+    carousel.nextPage();
+    assert.isNull(carousel.active);
+  });
+
+
+  it("two pages", function() {
+    var p1 = new qx.ui.Widget()
+      .setHtml("page1")
+      .appendTo(carousel);
+
+    var p2 = new qx.ui.Widget()
+      .setHtml("page2")
+      .appendTo(carousel);
+
+    assert.equal(carousel.active[0], p1[0]);
+    carousel.previousPage();
+    assert.equal(carousel.active[0], p1[0]);
+
+    carousel.nextPage();
+    assert.equal(carousel.active[0], p2[0]);
+    carousel.nextPage();
+    assert.equal(carousel.active[0], p2[0]);
+  });
 });
