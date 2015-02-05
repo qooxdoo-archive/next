@@ -126,7 +126,7 @@ qx.Class.define("qx.ui.form.Picker",
         this._observeProperty(value, j, true);
       }
       this.__value = value;
-      this.__fireChangeValue(value);
+      this._fireChangeValue(value);
     },
 
 

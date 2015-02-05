@@ -201,7 +201,7 @@ qx.Mixin.define("qx.ui.form.MForm",
           this.setAttribute("value", value);
         }
 
-        this.__fireChangeValue(value);
+        this._fireChangeValue(value);
         this.validate();
       }
     },
@@ -257,7 +257,7 @@ qx.Mixin.define("qx.ui.form.MForm",
      *
      * @param value {var} The current value to fire.
      */
-    __fireChangeValue : function(value) {
+    _fireChangeValue : function(value) {
       if (this.__oldValue != value) {
         var old = this.__oldValue;
         this.__oldValue = value;
