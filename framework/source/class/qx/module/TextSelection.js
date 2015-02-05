@@ -137,12 +137,12 @@ qx.Class.define("qx.module.TextSelection", {
      * @attach {qxWeb}
      */
     clearTextSelection : function() {
-      this._forEachElement(function(el) {
-        if (!qx.module.TextSelection.__isInput(el)) {
-          el = qx.module.TextSelection.__getTextNode(el);
+      this._forEachElement(function(element) {
+        if (!qx.module.TextSelection.__isInput(element)) {
+          element = qx.module.TextSelection.__getTextNode(element);
         }
-        if (el) {
-          qx.bom.Selection.clear(el);
+        if (element) {
+          qx.bom.Selection.clear(element);
         }
       });
       return this;

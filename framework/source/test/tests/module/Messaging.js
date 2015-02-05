@@ -1,4 +1,4 @@
-describe('Messaging', function() {
+describe("module.Messaging", function() {
 
   it("On", function() {
     var called = 0;

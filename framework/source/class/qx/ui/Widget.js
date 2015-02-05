@@ -112,6 +112,7 @@ qx.Class.define("qx.ui.Widget", {
     } else {
       this.push(this._createContainerElement());
     }
+    this[0].$$widget = this;
 
     var clazz = qx.ui.Widget;
     if (!this.getAttribute("id")) {
@@ -120,7 +121,6 @@ qx.Class.define("qx.ui.Widget", {
     this.defaultCssClass = undefined;
     this.anonymous = undefined;
     this.activatable = undefined;
-    this[0].$$widget = this;
     this._initDomConfig();
     this.setData("qx-widget", this.classname);
   },
@@ -421,7 +421,7 @@ qx.Class.define("qx.ui.Widget", {
     empty : function() {
       var removed = this.getChildren();
       this.super(qxWeb, "empty");
-      removed._forEachElementWrapped(function(child, index) {
+      removed._forEachElement(function(child, index) {
         child.priorPosition = index;
         this.emit("removedChild", child);
       }.bind(this));

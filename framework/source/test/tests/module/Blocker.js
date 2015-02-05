@@ -1,4 +1,4 @@
-describe('Blocker', function() {
+describe("module.Blocker", function() {
 
 
   afterEach(function() {

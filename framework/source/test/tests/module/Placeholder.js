@@ -1,4 +1,4 @@
-describe('Placeholder', function() {
+describe("module.Placeholder", function() {
 
   beforeEach(function() {
     if (q.env.get("css.placeholder")) {

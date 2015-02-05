@@ -1,14 +1,18 @@
-.. _pages/unit_testing#unit_testing:
 
 Unit Testing
-************
+**************
 
-qooxdoo comes with its own, nicely integrated unit testing environment and the corresponding application called `Testrunner <http://demo.qooxdoo.org/%{version}/testrunner>`_. While being similar to JSUnit, the solution that ships with the qooxdoo SDK does not require any additional software. 
+qooxdoo uses the versatile and extensible `Mocha <http://mochajs.org/>`_ testing framework combined with the `Chai <http://chaijs.com//>`_ assertion library for its unit tests.
 
-If you look at the component section of a qooxdoo distribution, you will find the Test Runner tailored to test the functionality of the qooxdoo *framework*. It provides a convenient interface to test classes that have been written to that end. You can run single tests, or a whole suite of them at once.
+How to run the tests
+======================
 
-But the Test Runner framework can be deployed for your *own application*. It provides a GUI, a layer of infrastructure and a certain interface for arbitrary test classes. You can write your own test classes and take advantage of the Test Runner environment.
+The test files are located in ``framework/source/test``.
 
-* `Test Tools <http://qooxdoo.org/docs/general/test_tools>`_ – an overview over test tools and approaches
-* :doc:`frame_apps_testrunner`  – how to deploy the Testrunner component for your own application
+Before running the tests for the first time, install the required node modules by running ``npm install``.
 
+The task ``grunt build`` is used to generate an optimized, minified version of the framework classes that the tests will run against. Alternatively, ``grunt source`` will generate an unoptimized version for test development and debugging.
+
+Finally, run the ``grunt html`` task to generate both the ``index.html`` file that loads the tests and the optimized framework dependencies and the ``index-source.html`` file for the development version.
+
+The tests can now be executed by loading one of the index files in any browser. Note that some tests, particularly in the ``io`` namespace, might not run correctly when served from the file system.

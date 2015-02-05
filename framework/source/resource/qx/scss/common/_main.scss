@@ -34,6 +34,10 @@ body .selectable, body input,  body .text-area {
   display:none !important;
 }
 
+.qx-hidden {
+  visibility: hidden;
+}
+
 .disabled {
   opacity: 0.35;
   cursor: default;

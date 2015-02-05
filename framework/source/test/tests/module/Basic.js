@@ -1,4 +1,4 @@
-describe('Basic', function() {
+describe("module.Basic", function() {
   var initHook = function() {
     this.testInit = true;
   };

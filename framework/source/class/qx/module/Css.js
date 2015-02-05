@@ -487,11 +487,11 @@ qx.Class.define("qx.module.Css", {
      * @return {qxWeb} The collection for chaining
      */
     hide : function() {
-      this._forEachElementWrapped(function(item) {
-        var prevStyle = item.getStyle("display");
+      this._forEachElement(function(item) {
+        var prevStyle = q(item).getStyle("display");
         if (prevStyle !== "none") {
-          item[0].$$qPrevDisp = prevStyle;
-          item.setStyle("display", "none");
+          item.$$qPrevDisp = prevStyle;
+          q(item).setStyle("display", "none");
         }
       });
 
@@ -509,20 +509,20 @@ qx.Class.define("qx.module.Css", {
      * @return {qxWeb} The collection for chaining
      */
     show : function() {
-      this._forEachElementWrapped(function(item) {
-        var currentVal = item.getStyle("display");
-        var prevVal = item[0].$$qPrevDisp;
+      this._forEachElement(function(item) {
+        var currentVal = q(item).getStyle("display");
+        var prevVal = item.$$qPrevDisp;
         var newVal;
         if (currentVal == "none") {
           if (prevVal && prevVal != "none") {
             newVal = prevVal;
           }
           else {
-            var doc = qxWeb.getDocument(item[0]);
-            newVal = qx.module.Css.__getDisplayDefault(item[0].tagName, doc);
+            var doc = qxWeb.getDocument(item);
+            newVal = qx.module.Css.__getDisplayDefault(item.tagName, doc);
           }
           item.setStyle("display", newVal);
-          item[0].$$qPrevDisp = "none";
+          item.$$qPrevDisp = "none";
         }
       });
 

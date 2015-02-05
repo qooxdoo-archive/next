@@ -1,4 +1,4 @@
-describe('Transform', function() {
+describe("module.Transform", function() {
 
   // smoke tests
 

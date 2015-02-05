@@ -91,7 +91,7 @@ q.ready(function() {
     if (!value) {
       clearInterval(debouncedHideFiltered.intervalId);
       delete debouncedHideFiltered.intervalId;
-      q("#list .button")._forEachElementWrapped(function(button) {
+      q("#list .button").forEach(function(button) {
         button.setData("results", "");
         if (q.env.get("engine.name") == "mshtml") {
           // IE won't re-apply the element's styles (which use the data

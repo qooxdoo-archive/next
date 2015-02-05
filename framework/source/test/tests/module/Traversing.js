@@ -1,4 +1,4 @@
-describe('Traversing', function() {
+describe("module.Traversing", function() {
 
   it("IsRendered", function() {
     assert.isTrue(sandbox.isRendered());
@@ -81,15 +81,7 @@ describe('Traversing', function() {
   it("ForEachElement", function() {
     var test = q.create("<div/><h1/>").add(window);
     var exec = 0;
-    test._forEachElement(function(item) {
-      exec++;
-      assert.notEqual(window, item);
-      assert.equal(1, item.nodeType);
-    }, this);
-    assert.equal(2, exec);
-
-    exec = 0;
-    test._forEachElementWrapped(function(item) {
+    test.forEach(function(item) {
       exec++;
       assert.notEqual(window, item);
       assert.notEqual(window, item[0]);

@@ -17,14 +17,18 @@
 
 ************************************************************************ */
 
-describe("mobile.control.Picker", function() {
+describe("mobile.form.Picker", function() {
 
   it("Init", function() {
     // SMOKE TEST for Picker widget.
     var pickerSlot1 = new qx.data.Array(["qx.Desktop", "qx.Mobile", "qx.Website", "qx.Server"]);
     var pickerSlot2 = new qx.data.Array(["1.5.1", "1.6.1", "2.0.4", "2.1.2", "3.0"]);
 
+<<<<<<< HEAD:framework/source/test/tests/mobile/control/Picker.js
     var picker = new qx.ui.mobile.Picker();
+=======
+    var picker = new qx.ui.form.Picker();
+>>>>>>> master:framework/source/test/tests/mobile/form/Picker.js
 
     assert.isTrue(picker.getSlotCount() === 0, 'Unexpected picker slot count.');
 
@@ -41,16 +45,26 @@ describe("mobile.control.Picker", function() {
 
   it("Factory", function() {
     var picker = qxWeb.create("<div>").toPicker().appendTo(sandbox);
+<<<<<<< HEAD:framework/source/test/tests/mobile/control/Picker.js
     assert.instanceOf(picker, qx.ui.mobile.Picker);
     qx.core.Assert.assertEquals(picker, picker[0].$$widget);
     assert.equal("qx.ui.mobile.Picker", picker.getData("qxWidget"));
+=======
+    assert.instanceOf(picker, qx.ui.form.Picker);
+    qx.core.Assert.assertEquals(picker, picker[0].$$widget);
+    assert.equal("qx.ui.form.Picker", picker.getData("qxWidget"));
+>>>>>>> master:framework/source/test/tests/mobile/form/Picker.js
 
     picker.dispose();
   });
 
 
   it("DefaultValue", function() {
+<<<<<<< HEAD:framework/source/test/tests/mobile/control/Picker.js
     var picker = new qx.ui.mobile.Picker()
+=======
+    var picker = new qx.ui.form.Picker()
+>>>>>>> master:framework/source/test/tests/mobile/form/Picker.js
       .appendTo(sandbox);
 
     var pickerSlot1 = new qx.data.Array(["a", "b", "c"]);
@@ -67,7 +81,11 @@ describe("mobile.control.Picker", function() {
 
 
   it("ValueAddSlot", function() {
+<<<<<<< HEAD:framework/source/test/tests/mobile/control/Picker.js
     var picker = new qx.ui.mobile.Picker()
+=======
+    var picker = new qx.ui.form.Picker()
+>>>>>>> master:framework/source/test/tests/mobile/form/Picker.js
       .appendTo(sandbox);
 
     var pickerSlot1 = new qx.data.Array(["a", "b", "c"]);
@@ -76,18 +94,25 @@ describe("mobile.control.Picker", function() {
     picker.addSlot(pickerSlot1);
     var sel = picker.find("*[data-row='0']");
     assert.equal(picker.value[0], "a");
+    assert.equal(picker.getValue()[0], "a");
 
     picker.addSlot(pickerSlot2);
     sel = picker.find("*[data-row='0']");
     assert.equal(picker.value[0], "a");
+    assert.equal(picker.getValue()[0], "a");
     assert.equal(picker.value[1], "0");
+    assert.equal(picker.getValue()[1], "0");
 
     picker.dispose();
   });
 
 
   it("ValueRemoveSlot", function() {
+<<<<<<< HEAD:framework/source/test/tests/mobile/control/Picker.js
     var picker = new qx.ui.mobile.Picker()
+=======
+    var picker = new qx.ui.form.Picker()
+>>>>>>> master:framework/source/test/tests/mobile/form/Picker.js
       .appendTo(sandbox);
 
     var pickerSlot1 = new qx.data.Array(["a", "b", "c"]);
@@ -98,20 +123,28 @@ describe("mobile.control.Picker", function() {
 
     var sel = picker.find("*[data-row='0']");
     assert.equal(picker.value[0], "a");
+    assert.equal(picker.getValue()[0], "a");
     assert.equal(picker.value[1], "0");
+    assert.equal(picker.getValue()[1], "0");
 
     picker.removeSlot(1);
     sel = picker.find("*[data-row='0']");
     assert.equal(sel.length, 1);
     assert.equal(picker.value[0], "a");
+    assert.equal(picker.getValue()[0], "a");
     assert.equal(picker.value.length, 1);
+    assert.equal(picker.getValue().length, 1);
 
     picker.dispose();
   });
 
 
   it("ValueManipulationAdd", function() {
+<<<<<<< HEAD:framework/source/test/tests/mobile/control/Picker.js
     var picker = new qx.ui.mobile.Picker()
+=======
+    var picker = new qx.ui.form.Picker()
+>>>>>>> master:framework/source/test/tests/mobile/form/Picker.js
       .appendTo(sandbox);
 
     var pickerSlot1 = new qx.data.Array(["a", "b", "c"]);
@@ -135,7 +168,11 @@ describe("mobile.control.Picker", function() {
 
 
   it("ValueManipulationRemove", function() {
+<<<<<<< HEAD:framework/source/test/tests/mobile/control/Picker.js
     var picker = new qx.ui.mobile.Picker()
+=======
+    var picker = new qx.ui.form.Picker()
+>>>>>>> master:framework/source/test/tests/mobile/form/Picker.js
       .appendTo(sandbox);
 
     var pickerSlot1 = new qx.data.Array(["a", "b", "c"]);
@@ -156,7 +193,11 @@ describe("mobile.control.Picker", function() {
 
 
   it("ValueManipulationUpdate", function() {
+<<<<<<< HEAD:framework/source/test/tests/mobile/control/Picker.js
     var picker = new qx.ui.mobile.Picker()
+=======
+    var picker = new qx.ui.form.Picker()
+>>>>>>> master:framework/source/test/tests/mobile/form/Picker.js
       .appendTo(sandbox);
 
     var pickerSlot1 = new qx.data.Array(["a", "b", "c"]);
@@ -170,7 +211,13 @@ describe("mobile.control.Picker", function() {
       "changeValue",
       function () {
         assert.equal(picker.value[0], "a");
+<<<<<<< HEAD:framework/source/test/tests/mobile/control/Picker.js
         assert.equal(picker.value[1], "0");
+=======
+        assert.equal(picker.getValue()[0], "a");
+        assert.equal(picker.value[1], "0");
+        assert.equal(picker.getValue()[1], "0");
+>>>>>>> master:framework/source/test/tests/mobile/form/Picker.js
 
         picker.value = ["b", "1"];
       }.bind(this),
@@ -186,7 +233,11 @@ describe("mobile.control.Picker", function() {
 
 
   it("ChangeValue", function() {
+<<<<<<< HEAD:framework/source/test/tests/mobile/control/Picker.js
     var picker = new qx.ui.mobile.Picker()
+=======
+    var picker = new qx.ui.form.Picker()
+>>>>>>> master:framework/source/test/tests/mobile/form/Picker.js
       .appendTo(sandbox);
 
     var pickerSlot1 = new qx.data.Array(["a", "b", "c"]);
@@ -205,7 +256,11 @@ describe("mobile.control.Picker", function() {
 
 
   it("ValueInvalid", function() {
+<<<<<<< HEAD:framework/source/test/tests/mobile/control/Picker.js
     var picker = new qx.ui.mobile.Picker()
+=======
+    var picker = new qx.ui.form.Picker()
+>>>>>>> master:framework/source/test/tests/mobile/form/Picker.js
       .appendTo(sandbox);
 
     var pickerSlot1 = new qx.data.Array(["d", "e", "f"]);

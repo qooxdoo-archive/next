@@ -129,12 +129,26 @@ qx.Class.define("qx.ui.form.Picker",
       this.__fireChangeValue(value);
     },
 
+
+    // overridden
+    setValue: function(value) {
+      this._setValue(value);
+    },
+
+
     /**
      * @returns {Array}
      */
     _getValue: function () {
       return this.__value;
     },
+
+
+    // overridden
+    getValue: function() {
+      return this._getValue();
+    },
+
 
     // overridden
     setAttribute: function (name, value) {
@@ -323,8 +337,7 @@ qx.Class.define("qx.ui.form.Picker",
     * @param data {qx.event.type.Data} the waypoint data.
     */
     _onWaypoint: function(data) {
-      var element = this.slot.container.find(".list-item").eq(data.element + 2); // TODO: upper placeholder count
-      // this.slot.container.scrollTo(0, data.element * this.self._calcItemHeight());
+      var element = this.slot.container.find(".list-item").eq(data.index + 2);
 
       var item = this.slotModel.getItem(parseInt(element.getData("row"), 10));
       this.self.value[this.slotIndex] = item;
@@ -377,7 +390,7 @@ qx.Class.define("qx.ui.form.Picker",
 
         var container = this._slots.getItem(slotIndex).container;
         container.find(".list").dispose();
-        container.find(".placeholder-item")._forEachElementWrapped(function(item) {
+        container.find(".placeholder-item").forEach(function(item) {
           item.dispose();
         });
         container.getChildren().remove();
@@ -434,7 +447,7 @@ qx.Class.define("qx.ui.form.Picker",
     _disposeSlot: function(slotIndex) {
       var container = this._slots.getItem(slotIndex).container;
       container.find(".list").dispose();
-      container.find(".placeholder-item")._forEachElementWrapped(function(item) {
+      container.find(".placeholder-item").forEach(function(item) {
         item.dispose();
       });
       container.getChildren().dispose();

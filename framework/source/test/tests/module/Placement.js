@@ -1,4 +1,4 @@
-describe('Placement', function() {
+describe("module.Placement", function() {
 
   beforeEach(function() {
     q("#sandbox").setStyles({

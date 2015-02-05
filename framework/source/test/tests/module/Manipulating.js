@@ -1,4 +1,4 @@
- describe('Manipulating', function() {
+ describe("module.Manipulating", function() {
 
    this.timeout(5000);
 

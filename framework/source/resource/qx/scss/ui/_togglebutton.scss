@@ -1,5 +1,5 @@
 //
-// TOGGLEBUTTON 
+// TOGGLEBUTTON
 //
 
 $togglebutton-label-padding: rem(3);
@@ -47,10 +47,6 @@ $togglebutton-label-padding: rem(3);
   width: togglebutton-width;
 }
 
-.togglebutton:not(.checked) .togglebutton-switch {
-  left: 0px;
-}
-
 .togglebutton.checked {
   @include box-inset-shadow(0px rem(3) rem(2) $togglebutton-inset-shadow);
   @include background($togglebutton-active-background);
@@ -58,14 +54,13 @@ $togglebutton-label-padding: rem(3);
 
 .togglebutton.checked .togglebutton-switch {
   @include box-shadow(rem(-2) 0px rem(2) $togglebutton-knob-shadow);
-  right: 0px;
 }
 
 .togglebutton-switch {
   @include border-radius($togglebutton-border-radius - rem(1));
   @include box-shadow(rem(2) 0 rem(2) $togglebutton-knob-shadow);
   @include background($togglebutton-knob-background);
-  
+
   display: block;
   position: absolute;
   z-index: 1;

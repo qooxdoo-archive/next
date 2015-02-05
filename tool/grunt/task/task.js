@@ -164,19 +164,23 @@ var registerTasks = function(grunt) {
   }
   abortOnError(grunt);
 
-  registerNodeTasks(grunt, conf.QOOXDOO_PATH);
-
-  // var jobs = retrieveGeneratorJobsFromCache(files, cache);
-  // if (jobs) {
-  //   registerGeneratorJobsAsTasks(grunt, jobs, getSupersededJobs(), getMalfunctionedJobs(), getCancelledJobs());
-  //   registerNodeTasks(grunt, conf.QOOXDOO_PATH);
-  // } else {
-  //   jobs = queryAndWriteCurrentJobs(grunt, files.jobsAndDesc, cache);
-  //   if (jobs !== null) {
-  //     registerGeneratorJobsAsTasks(grunt, jobs, getSupersededJobs(), getMalfunctionedJobs(), getCancelledJobs());
-  //   }
-  //   registerNodeTasks(grunt, conf.QOOXDOO_PATH);
-  // }
+  if (fs.existsSync(path.join(shell.pwd(), '../version.txt'))) {
+    // enable python toolchain for SDK itself
+    var jobs = retrieveGeneratorJobsFromCache(files, cache);
+    if (jobs) {
+      registerGeneratorJobsAsTasks(grunt, jobs, getSupersededJobs(), getMalfunctionedJobs(), getCancelledJobs());
+      registerNodeTasks(grunt, conf.QOOXDOO_PATH);
+    } else {
+      jobs = queryAndWriteCurrentJobs(grunt, files.jobsAndDesc, cache);
+      if (jobs !== null) {
+        registerGeneratorJobsAsTasks(grunt, jobs, getSupersededJobs(), getMalfunctionedJobs(), getCancelledJobs());
+      }
+      registerNodeTasks(grunt, conf.QOOXDOO_PATH);
+    }
+  } else {
+    // created apps shouldn't need python toolchain
+    registerNodeTasks(grunt, conf.QOOXDOO_PATH);
+  }
 };
 
 // exports

@@ -94,6 +94,16 @@ qx.Class.define("qx.ui.form.TextArea",
       return "textarea";
     },
 
+    // overridden
+    _setValue: function (value) {
+      this.setHtml(value);
+    },
+
+    // overridden
+    _getValue: function () {
+      return this.getHtml();
+    },
+
 
     /**
      * Synchronizes the elements.scrollHeight and its height.

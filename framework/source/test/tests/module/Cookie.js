@@ -1,4 +1,4 @@
-describe('Cookie', function() {
+describe("module.Cookie", function() {
 
   it("GetSetDel", function() {
     // this.require(["http"]);

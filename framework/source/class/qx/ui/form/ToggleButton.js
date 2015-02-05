@@ -41,16 +41,18 @@
  * event listener to the {@link #changeValue} event.
  *
  * @require(qx.module.event.Swipe)
+ * @require(qx.module.event.GestureHandler)
+ * @require(qx.module.event.Track)
+ * @require(qx.module.event.TrackHandler)
  *
  * @group(Widget)
  */
-qx.Class.define("qx.ui.form.ToggleButton",
-{
-  extend : qx.ui.Widget,
-  include : [
+qx.Class.define("qx.ui.form.ToggleButton", {
+  extend: qx.ui.Widget,
+  include: [
     qx.ui.form.MForm
   ],
-  implement : [
+  implement: [
     qx.ui.form.IForm
   ],
 
@@ -62,76 +64,60 @@ qx.Class.define("qx.ui.form.ToggleButton",
    * @attach {qxWeb, toToggleButton}
    * @return {qx.ui.form.ToggleButton} The new toggle button widget.
    */
-  construct : function(value, labelChecked, labelUnchecked)
-  {
+  construct: function(value, labelChecked, labelUnchecked) {
     this.super(qx.ui.Widget, "construct");
 
-    if(labelChecked && labelUnchecked) {
+    if (labelChecked && labelUnchecked) {
        this.__labelUnchecked = labelUnchecked;
        this.__labelChecked = labelChecked;
     }
 
-    this.setData("label-checked", this.__labelChecked);
-    this.setData("label-unchecked", this.__labelUnchecked);
+    this
+      .addClass("gap")
+      .setData("label-checked", this.__labelChecked)
+      .setData("label-unchecked", this.__labelUnchecked)
+      .on("tap", this.toggle, this)
+      ._createSwitch()
+        .on("track", this._onTrack, this)
+        .on("trackend", this._onTrackend, this)
+        .appendTo(this);
 
-    this.__switch = this._createSwitch();
-    this.append(this.__switch);
+    this.value = !!value;
 
-    if (value) {
-      this.value = value;
+    if (!this.isRendered()) {
+      this.once("appear", function() {
+        if (value){
+          this._setSwitchRight();
+        }
+      }, this);
     }
 
-    this.on("tap", this._onTap, this);
-    this.on("swipe", this._onSwipe, this);
-    this.on("track", this._onTrack,this);
-    this.addClass("gap");
     this.initMForm();
   },
 
 
-  properties :
-  {
+  properties: {
     // overridden
-    defaultCssClass :
-    {
-      init : "togglebutton"
-    },
-
-
-    /**
-     * Model property for storing additional information for the ToggleButton.
-     *
-     * Be careful using that property as this is used for the
-     * {@link qx.ui.form.MModelSelection} it has some restrictions:
-     *
-     * * Don't use equal models in one widget using the
-     *     {@link qx.ui.form.MModelSelection}.
-     *
-     * * Avoid setting only some model properties if the widgets are added to
-     *     a {@link qx.ui.form.MModelSelection} widget.
-     *
-     * Both restrictions result of the fact, that the set models are deputies
-     * for their widget.
-     */
-    model :
-    {
-      nullable : true,
-      event : true
+    defaultCssClass: {
+      init: "togglebutton"
     }
   },
 
 
-  members :
-  {
-    __switch : null,
-    __value : false,
-    __labelUnchecked : "OFF",
-    __labelChecked : "ON",
-    __lastToggleTimestamp : 0,
+  members: {
+    __value: false,
+    __labelUnchecked: "OFF",
+    __labelChecked: "ON",
+
 
     // overridden
     setValue: function(value) {
       this.value = value;
+      if (this.value) {
+        this._setSwitchRight();
+      } else {
+        this._setSwitchLeft();
+      }
     },
 
 
@@ -142,97 +128,108 @@ qx.Class.define("qx.ui.form.ToggleButton",
 
 
     /**
-     * Returns the child control of the toggle button.
+     * Toggles the value of the button.
      *
-     * @return {qx.ui.Widget} the child control.
+     * @return {qx.ui.form.ToggleButton} The instance for chaining
      */
-    _getChild : function() {
-      return this.__switch;
+    toggle: function() {
+      this.setValue(!this.getValue());
+      return this;
     },
 
 
     /**
      * Creates the switch control of the widget.
+     *
      * @return {qx.ui.Widget} The switch control.
      */
-    _createSwitch : function() {
-      var toggleButtonSwitch = new qx.ui.Widget();
-      toggleButtonSwitch.addClass("togglebutton-switch");
-      return toggleButtonSwitch;
+    _createSwitch: function() {
+      return new qx.ui.Widget()
+        .addClass("togglebutton-switch");
     },
 
 
     /**
      * Sets the value [true/false] of this toggle button.
-     * It is called by the setValue method of the qx.ui.form.MForm
-     * mixin
+     * Called by the setValue method of the qx.ui.form.MForm mixin
+     *
      * @param value {Boolean} the new value of the toggle button
+     * @return {Boolean} The value of the toggle button
      */
-    _setValue : function(value)
-    {
+    _setValue: function(value) {
       if (typeof value !== 'boolean') {
-        throw new Error("value for "+this+" should be boolean");
+        throw new Error("value for " + this + " must be boolean");
       }
       if (value) {
         this.addClass("checked");
       } else {
         this.removeClass("checked");
       }
-       this.__value = value;
+      this.__value = value;
+
+      return value;
     },
+
 
     /**
      * Gets the value [true/false] of this toggle button.
-     * It is called by the getValue method of the qx.ui.form.MForm mixin
+     * Called by the getValue method of the qx.ui.form.MForm mixin
+     *
      * @return {Boolean} the value of the toggle button
      */
-    _getValue : function() {
+    _getValue: function() {
       return this.__value;
     },
 
 
     /**
-     * Toggles the value of the button.
+     * Aligns the switch with the button's right edge
      */
-    toggle : function() {
-      this.setValue(!this.getValue());
+    _setSwitchRight: function() {
+      var left = this.getContentWidth() - this.getChildren().getWidth();
+      this.getChildren().translate(left + "px");
     },
 
 
     /**
-     * Event handler. Called when the tap event occurs.
+     * Aligns the switch with the button's left edge
+     */
+    _setSwitchLeft: function() {
+      this.getChildren().translate("0px");
+    },
+
+
+    /**
+     * Event handler. Called when the track event occurs.
+     * Tracks the switch and toggles.
+     *
+     * @param evt {qx.event.type.Track} The track event.
+     */
+    _onTrack: function(evt) {
+      var movementX = evt._original._original._original.movementX;
+      var tSwitch = this.getChildren(".togglebutton-switch");
+      var buttonLeftBorder = parseInt(this.getStyle("borderLeftWidth"));
+      var buttonLeftPadding = parseInt(this.getStyle("paddingLeft"));
+
+      var limitLeft = this.getContentWidth() - tSwitch.getWidth();
+      var left = tSwitch.getLocation().left - this.getLocation().left - buttonLeftBorder -
+        buttonLeftPadding + movementX;
+      left = Math.min(left, limitLeft);
+      left = Math.max(0, left);
+      tSwitch.translate(left + "px");
+
+      this.value = !this.__isSwitchLeftSided();
+    },
+
+
+    /**
+     * Event handler. Called when the trackend event occurs.
      * Toggles the button.
      *
-     * @param evt {qx.event.type.Tap} The tap event.
+     * @param evt {qx.event.type.Track} The trackend event.
      */
-    _onTap : function(evt)
-    {
-      if(this._checkLastPointerTime()) {
-        this.toggle();
-      }
-    },
-
-
-    /**
-     * Event handler. Called when the swipe event occurs.
-     * Toggles the button, when.
-     *
-     * @param evt {qx.event.type.Swipe} The swipe event.
-     */
-    _onSwipe : function(evt)
-    {
-      if (this._checkLastPointerTime()) {
-        var direction = evt.getDirection();
-        if (direction == "left") {
-          if (this.__value == true) {
-            this.toggle();
-          }
-        } else {
-          if (this.__value == false) {
-            this.toggle();
-          }
-        }
-      }
+    _onTrackend: function(evt) {
+      this.setValue(!this.__isSwitchLeftSided());
     },
 
 
@@ -252,28 +249,30 @@ qx.Class.define("qx.ui.form.ToggleButton",
 
 
     /**
-     * Checks if last touch event (swipe,tap) is more than 500ms ago.
-     * Bugfix for several simulator/emulator, when tap is immediately followed by a swipe.
-     * @return {Boolean} <code>true</code> if the last event was more than 500ms ago
+     * Determines if the switch is within the left half of the button
+     * @return {Booles} <code>true</code> if the switch is on the left side
      */
-    _checkLastPointerTime : function() {
-      var elapsedTime = new Date().getTime() - this.__lastToggleTimestamp;
-      this.__lastToggleTimestamp = new Date().getTime();
-      return elapsedTime>500;
+    __isSwitchLeftSided: function() {
+      var toggleCenter = this.getOffset().left + this.getWidth() /2;
+      var switchCenter = this.getChildren().getOffset().left + this.getChildren().getWidth() /2;
+      return switchCenter < toggleCenter;
     },
 
-    dispose : function() {
-      this.super(qx.ui.Widget, "dispose");
-      this.off("tap", this._onTap, this);
-      this.off("swipe", this._onSwipe, this);
 
-      this.__switch && this.__switch.dispose();
+    // overridden
+    dispose: function() {
+      this.super(qx.ui.Widget, "dispose");
+      this.off("tap", this.toggle, this);
+      this.find(".togglebutton-switch")
+        .off("track", this._onTrack, this)
+        .off("trackend", this._onTrack, this)
+        .dispose();
       this.disposeMForm();
     }
   },
 
 
-  classDefined : function(statics) {
+  classDefined: function(statics) {
     qxWeb.$attachWidget(statics);
   }
 });

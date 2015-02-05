@@ -1,4 +1,4 @@
- describe('q', function() {
+ describe("q", function() {
 
    it("Unique", function() {
      var div = qxWeb.create("<div id='unique'>").appendTo(sandbox);
