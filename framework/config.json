@@ -99,7 +99,6 @@
       "extend" : [ "cache" ],
 
       "include": ["qx.*"],
-      "exclude": ["qx.Part", "qx.io.part.*"],
 
       "environment" :
       {
@@ -133,14 +132,13 @@
 
       "config-warnings" :
       {
-        "exclude" : ["qx.Part", "qx.io.part.*", "qx.core.Init"]
+        "exclude" : ["qx.core.Init"]
       }
     },
 
     "source-all": {
 
       "=include": ["qx.*"],
-      "=exclude": ["qx.Part", "qx.io.part.*"],
 
       "compile-options": {
         "paths" :
