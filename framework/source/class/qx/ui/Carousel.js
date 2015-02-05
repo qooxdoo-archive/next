@@ -91,9 +91,13 @@ qx.Class.define("qx.ui.Carousel",
     if (this._ie9) {
       this.__pageContainer.setStyle("display", "table");
       this.__pagination.setStyle("textAlign", "center");
+    } else {
+      this.on("trackstart", this._onTrackStart, this)
+        .on("track", this._onTrack, this);
+      this.__scrollContainer.on("trackend", this._onTrackEnd, this);
     }
 
-    this._enableEvents();
+    this.on("swipe", this._onSwipe, this);
   },
 
 
@@ -104,6 +108,7 @@ qx.Class.define("qx.ui.Carousel",
     __startPosLeft: null,
     __pagination: null,
     _ie9: false,
+    __blocked : false,
 
 
     /**
@@ -358,6 +363,10 @@ qx.Class.define("qx.ui.Carousel",
      * cancels any running animation.
      */
     _onTrackStart: function(e) {
+      if (this.__blocked) {
+        return;
+      }
+
       this.__startPosLeft = this._getPositionLeft();
       this.__scrollContainer
         // stop the current scroll animation
@@ -372,6 +381,10 @@ qx.Class.define("qx.ui.Carousel",
      * Track handler which updates the scroll position.
      */
     _onTrack: function(e) {
+      if (this.__blocked) {
+        return;
+      }
+
       if (e.delta.axis == "x" && this._getPages().length > 2) {
         this.__scrollContainer.translate([-(this.__startPosLeft - e.delta.x) + "px", 0, 0]);
       }
@@ -382,6 +395,10 @@ qx.Class.define("qx.ui.Carousel",
      * TrackEnd handler for enabling the scroll events.
      */
     _onTrackEnd: function(e) {
+      if (this.__startPosLeft == null || this.__blocked) { // dont end if we didn't start
+        return;
+      }
+
       // make sure the trackend handling is done after the swipe handling
       window.setTimeout(function() {
         if (this._getPages().length < 3 || this.__scrollContainer.isPlaying()) {
@@ -423,6 +440,9 @@ qx.Class.define("qx.ui.Carousel",
      * velocity and the direction.
      */
     _onSwipe: function(e) {
+      if (this.__blocked) {
+        return;
+      }
       var velocity = Math.abs(e.getVelocity());
       if (e.getAxis() == "x" && velocity > 0.75) {
         if (e.getDirection() == "left") {
@@ -470,11 +490,11 @@ qx.Class.define("qx.ui.Carousel",
           // get the active page into view
           this.__scrollContainer.translate([(- activeIndex * this.getWidth()) + "px",0 ,0])
 
-          this._disableEvents();
+          this.__blocked = true;
           // animate to the desired page
           this._translateTo((activeIndex + distance) * this.getWidth(), this.pageSwitchDuration);
           this.__scrollContainer.once("animationEnd", function(page) {
-            this._enableEvents();
+            this.__blocked = false;
             // set the viewport back to the default position
             this.__scrollContainer.translate([(-this.getWidth()) + "px", 0, 0]);
             this.active = page; // this also updates the order
@@ -562,34 +582,19 @@ qx.Class.define("qx.ui.Carousel",
     },
 
 
-    _enableEvents: function() {
-      if (!this._ie9) {
-        this.on("trackstart", this._onTrackStart, this)
-          .on("track", this._onTrack, this);
-        this.__scrollContainer.on("trackend", this._onTrackEnd, this);
-      }
-
-      this.on("swipe", this._onSwipe, this);
-    },
-
-
-    _disableEvents: function() {
-      this.off("trackstart", this._onTrackStart, this)
-        .off("track", this._onTrack, this)
-        .off("swipe", this._onSwipe, this);
-
-      this.__scrollContainer.off("trackend", this._onTrackEnd, this);
-    },
-
-
     // overridden
     dispose : function() {
       this.super(qx.ui.Widget, "dispose");
       qxWeb(window).off("resize", this._onResize, this);
 
-      this._disableEvents();
+      this.off("trackstart", this._onTrackStart, this)
+        .off("track", this._onTrack, this)
+        .off("swipe", this._onSwipe, this);
+
+      this.__scrollContainer.off("trackend", this._onTrackEnd, this);
     }
   }
 });
 
 // TODO update tests
+// TODO initial scrolling in iOS
