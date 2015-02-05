@@ -169,6 +169,7 @@ qx.Class.define("qx.event.handler.Pointer", {
       if (domEvent.$$qxProcessed) {
         return;
       }
+
       domEvent.$$qxProcessed = true;
       var type = qx.event.handler.Pointer.TOUCH_TO_POINTER_MAPPING[domEvent.type];
       var changedTouches = domEvent.changedTouches;
@@ -178,7 +179,7 @@ qx.Class.define("qx.event.handler.Pointer", {
       // Detecting vacuum touches. (Touches which are not active anymore, but did not fire a touchcancel event)
       if (domEvent.touches.length < this.__activeTouches.length) {
         // Firing pointer cancel for previously active touches.
-        for (var i = this.__activeTouches.length - 1; i >= 0; i--) {
+        for (var i = this.__activeTouches.length - 1; i >= domEvent.touches.length; i--) {
           var cancelEvent = new qx.event.type.dom.Pointer("pointercancel", domEvent, {
             identifier: this.__activeTouches[i].identifier,
             target: domEvent.target,
@@ -188,15 +189,9 @@ qx.Class.define("qx.event.handler.Pointer", {
 
           this._fireEvent(cancelEvent, "pointercancel", domEvent.target);
         }
-
-        // Reset primary identifier
-        this.__primaryIdentifier = null;
-
-        // cleanup of active touches array.
-        this.__activeTouches = [];
-
-        // Do nothing after pointer cancel.
-        return;
+        // remove vacuum touches
+        var diff = this.__activeTouches.length - domEvent.touches.length;
+        this.__activeTouches.splice(0, diff);
       }
 
       if (domEvent.type == "touchstart" && this.__primaryIdentifier === null) {
