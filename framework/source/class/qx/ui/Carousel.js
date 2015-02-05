@@ -236,9 +236,9 @@ qx.Class.define("qx.ui.Carousel",
         return;
       } else if (this._getPages().length == 2) {
         if (this._getPages()[0] === this.active[0]) {
-          this._translateTo(0, this.pageSwitchDuration);
+          this._translateTo(0);
         } else {
-          this._translateTo(this.getWidth(), this.pageSwitchDuration);
+          this._translateTo(this.getWidth());
         }
         this._updatePagination();
         return;
@@ -254,7 +254,7 @@ qx.Class.define("qx.ui.Carousel",
           left = this._getPositionLeft() + this.__scrollContainer.getWidth();
         } else if (this._getPages().length >= 3) {
           // back snapping if the order has not changed
-          this._translateTo(this.getWidth(), this.pageSwitchDuration);
+          this._translateTo(this.getWidth());
           return;
         } else {
           // do nothing if we don't have enough pages
@@ -265,12 +265,12 @@ qx.Class.define("qx.ui.Carousel",
           // first, translate the old page into view
           this.__scrollContainer.translate([(-left) + "px", 0, 0]);
           // animate to the new page
-          this._translateTo(this.getWidth(), this.pageSwitchDuration);
+          this._translateTo(this.getWidth());
         }
       } else {
         var index = this._getPages().indexOf(this.active);
         var left = index * this.getWidth();
-        this._translateTo(left, this.pageSwitchDuration);
+        this._translateTo(left);
       }
 
       this._updatePagination();
@@ -492,7 +492,7 @@ qx.Class.define("qx.ui.Carousel",
 
           this.__blocked = true;
           // animate to the desired page
-          this._translateTo((activeIndex + distance) * this.getWidth(), this.pageSwitchDuration);
+          this._translateTo((activeIndex + distance) * this.getWidth());
           this.__scrollContainer.once("animationEnd", function(page) {
             this.__blocked = false;
             // set the viewport back to the default position
@@ -532,9 +532,13 @@ qx.Class.define("qx.ui.Carousel",
     },
 
 
-    _translateTo: function(left, time) {
+    /**
+     * Animates using CSS translations to the given left position.
+     * @param left {Number} The new left position
+     */
+    _translateTo: function(left) {
       this.__scrollContainer.animate({
-        duration: time,
+        duration: this.pageSwitchDuration,
         keep: 100,
         timing: "ease",
         keyFrames: {
@@ -547,6 +551,11 @@ qx.Class.define("qx.ui.Carousel",
     },
 
 
+    /**
+     * Sets the given order on the given collection.
+     * @param col {qxWeb} The collection to set the css property.
+     * @param value {Number|String} The value for the order property
+     */
     _setOrder: function(col, value) {
       col.setStyles({
         order: value,
@@ -554,6 +563,12 @@ qx.Class.define("qx.ui.Carousel",
       });
     },
 
+
+    /**
+     * Returns the order css property of the given collection.
+     * @param col {qxWeb} The collection to check.
+     * @return {Number} The order as number.
+     */
     _getOrder: function(col) {
       var order = parseInt(col.getStyle("order"));
       if (isNaN(order)) {
@@ -562,11 +577,20 @@ qx.Class.define("qx.ui.Carousel",
       return order;
     },
 
+
+    /**
+     * Geturns a collection of all pages.
+     * @return {qxWeb} All pages.
+     */
     _getPages: function() {
       return this.__pageContainer.find("." + this.defaultCssClass + "-page");
     },
 
 
+    /**
+     * Returns the current left position.
+     * @return {Number} The position in px.
+     */
     _getPositionLeft: function() {
       var containerRect = this.__scrollContainer[0].getBoundingClientRect();
       var parentRect = this[0].getBoundingClientRect();
@@ -574,6 +598,10 @@ qx.Class.define("qx.ui.Carousel",
     },
 
 
+    /**
+     * Getter for the pageSwitchDuration
+     * @return {Number} The normalized page swipe direction
+     */
     _getPageSwitchDuration: function() {
       if (this._ie9) {
         return 10;
