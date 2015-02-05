@@ -121,8 +121,7 @@ qxWeb.define("qx.module.Blocker", {
      * @param item {Element} Blocked element
      * @param index {Number} index of the item in the collection
      */
-    __detachBlocker : function(item, index)
-    {
+    __detachBlocker : function(item, index) {
       if (!item.$$blocker) {
         return;
       }
@@ -140,7 +139,7 @@ qxWeb.define("qx.module.Blocker", {
     {
       var blockerElements = qxWeb();
 
-      collection.forEach(function(item, index) {
+      collection._forEachElement(function(item, index) {
         if (typeof item.$$blocker !== "undefined") {
           blockerElements = blockerElements.concat(item.$$blocker.div);
         }
@@ -166,7 +165,7 @@ qxWeb.define("qx.module.Blocker", {
         return this;
       }
 
-      this.forEach(function(item, index) {
+      this._forEachElement(function(item, index) {
         qx.module.Blocker.__attachBlocker(item, color, opacity, zIndex);
       });
 
@@ -186,7 +185,7 @@ qxWeb.define("qx.module.Blocker", {
         return this;
       }
 
-      this.forEach(qx.module.Blocker.__detachBlocker);
+      this._forEachElement(qx.module.Blocker.__detachBlocker);
 
       return this;
     },
