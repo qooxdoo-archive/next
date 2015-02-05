@@ -83,13 +83,8 @@ def getQxVersion():
 def npm_install(skelDir, options):
     shellCmd = ShellCmd()
     npm_install = 'npm install --loglevel warn'
-<<<<<<< HEAD
-    console.log("Adding Node.js modules...")
-    shellCmd.execute(npm_install, skel_dir)
-=======
     console.log("Running '" + npm_install + "'")
     shellCmd.execute(npm_install, skelDir)
->>>>>>> master
 
 
 def copyGenericIfNoSpecific(specificFilename, genericFilepath, destFilepath):

@@ -161,20 +161,6 @@ qx.Class.define("qx.bom.client.Css",
 
 
     /**
-<<<<<<< HEAD
-     * Checks if translate3d can be used.
-     * @return {Boolean} <code>true</code>, if it could be used.
-     * @internal
-     * @ignore(WebKitCSSMatrix)
-     */
-    getTranslate3d : function() {
-      return 'WebKitCSSMatrix' in window && 'm11' in new WebKitCSSMatrix();
-    },
-
-
-    /**
-=======
->>>>>>> master
      * Returns the (possibly vendor-prefixed) name this client uses for
      * <code>linear-gradient</code>.
      * http://dev.w3.org/csswg/css3-images/#linear-gradients
