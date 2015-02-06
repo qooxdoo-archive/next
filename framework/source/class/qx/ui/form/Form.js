@@ -119,7 +119,7 @@ qx.Class.define("qx.ui.form.Form",
       var children = [widget];
       var descendants = widget.find("*[data-qx-widget]");
       descendants.forEach(function(kid) {
-        children.push(qxWeb(kid));
+        children.push(kid);
       });
 
       for (var i = 0, l = children.length; i < l; i++) {
@@ -145,7 +145,7 @@ qx.Class.define("qx.ui.form.Form",
       var children = [widget];
       var descendants = widget.find("*[data-qx-widget]");
       descendants.forEach(function(kid) {
-        children.push(qxWeb(kid));
+        children.push(kid);
       });
 
       for (var i = 0, l = children.length; i < l; i++) {

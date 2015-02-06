@@ -402,10 +402,9 @@ qx.Class.define("qx.ui.List",
       data = this.__configureData(data);
 
       template = qxWeb.template.renderToNode(template, data);
-      template.find("*").forEach(function(el) {
-        if (el.getAttribute("data-qx-widget")) {
-          qxWeb(el); // initialize widgets
-        }
+      template.find("[data-qx-widget]").forEach(function(el) {
+        // qxWeb.forEach initializes any widgets in the collection
+        // automatically
       });
 
       template.setProperty("model", this.model.getItem(index));

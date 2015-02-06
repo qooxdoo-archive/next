@@ -115,14 +115,12 @@ qx.Class.define("qx.ui.form.RadioButton",
       var form = this.getAncestors("form");
       if (form.length > 0) {
         form.find("." + this.defaultCssClass).forEach(function(el) {
-          el = qxWeb(el);
           if (el != this && el.name == this.name) {
             el.value = false;
           }
         }.bind(this));
       } else {
         qxWeb("." + this.defaultCssClass).forEach(function(el) {
-          el = qxWeb(el);
           form = el.getAncestors("form");
           if (form.length > 0) {
             return;

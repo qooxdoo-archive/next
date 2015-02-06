@@ -139,7 +139,7 @@ qxWeb.define("qx.module.Blocker", {
     {
       var blockerElements = qxWeb();
 
-      collection._forEachElement(function(item, index) {
+      [].forEach.call(collection, function(item, index) {
         if (typeof item.$$blocker !== "undefined") {
           blockerElements = blockerElements.concat(item.$$blocker.div);
         }
@@ -165,7 +165,7 @@ qxWeb.define("qx.module.Blocker", {
         return this;
       }
 
-      this._forEachElement(function(item, index) {
+      [].forEach.call(this, function(item) {
         qx.module.Blocker.__attachBlocker(item, color, opacity, zIndex);
       });
 
@@ -185,7 +185,7 @@ qxWeb.define("qx.module.Blocker", {
         return this;
       }
 
-      this._forEachElement(qx.module.Blocker.__detachBlocker);
+      [].forEach.call(this, qx.module.Blocker.__detachBlocker);
 
       return this;
     },
@@ -207,8 +207,7 @@ qxWeb.define("qx.module.Blocker", {
         return this;
       }
 
-      var collection = qx.module.Blocker.__getBlocker(this);
-      return collection;
+      return qx.module.Blocker.__getBlocker(this);
     }
   },
 
