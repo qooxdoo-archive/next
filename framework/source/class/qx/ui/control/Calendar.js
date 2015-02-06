@@ -65,7 +65,7 @@ qx.Class.define("qx.ui.control.Calendar", {
      */
     hideDaysOfOtherMonth: {
       init: false,
-      check: Boolean,
+      check: "Boolean",
       apply: "_render"
     },
 
@@ -75,7 +75,7 @@ qx.Class.define("qx.ui.control.Calendar", {
      */
     disableDaysOtherMonth: {
       init: false,
-      check: Boolean,
+      check: "Boolean",
       apply: "_render"
     }
   },
