@@ -385,7 +385,7 @@ qx.Class.define("qx.ui.page.NavigationPage",
     _applyActionButtonText : function(value, old)
     {
       if (this.__actionButton) {
-        this.__actionButton.setValue(value);
+        this.__actionButton.label = value;
       }
     },
 

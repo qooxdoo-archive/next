@@ -35,7 +35,7 @@ describe("ui.page.NavigationPage", function () {
       var page = new qx.ui.page.NavigationPage();
 
       page.title = "Affe";
-      assert.equal("Affe", page.getTitleElement().getHtml());
+      assert.equal(page.getTitleElement().getHtml(), "Affe");
 
       page.dispose();
   });
@@ -48,10 +48,10 @@ describe("ui.page.NavigationPage", function () {
 
       page.showBackButton = true;
       page.backButtonText = "Affe";
-      assert.equal("Affe", page._getBackButton().getValue());
-      assert.equal("visible", page._getBackButton().visibility);
+      assert.equal(page._getBackButton().getChildren().getHtml(), "Affe");
+      assert.equal(page._getBackButton().visibility, "visible");
       page.showBackButton = false;
-      assert.notEqual("visible", page._getBackButton().visibility);
+      assert.notEqual(page._getBackButton().visibility, "visible");
 
       page.dispose();
   });
@@ -64,10 +64,10 @@ describe("ui.page.NavigationPage", function () {
 
       page.showButton = true;
       page.buttonText = "Affe";
-      assert.equal("Affe", page._getButton().getValue());
-      assert.equal("visible", page._getButton().visibility);
+      assert.equal(page._getButton().getChildren().getHtml(), "Affe");
+      assert.equal(page._getButton().visibility, "visible");
       page.showButton = false;
-      assert.notEqual("visible", page._getButton().visibility);
+      assert.notEqual(page._getButton().visibility, "visible");
 
       page.dispose();
 
@@ -77,7 +77,7 @@ describe("ui.page.NavigationPage", function () {
   it("Factory", function() {
     var navigationPage = qxWeb.create("<div>").toNavigationPage().appendTo(sandbox);
     assert.instanceOf(navigationPage, qx.ui.page.NavigationPage);
-    assert.equal(navigationPage, navigationPage[0].$$widget);
-    assert.equal("qx.ui.page.NavigationPage", navigationPage.getData("qxWidget"));
+    assert.equal(navigationPage[0].$$widget, navigationPage);
+    assert.equal(navigationPage.getData("qxWidget"), "qx.ui.page.NavigationPage");
   });
 });
