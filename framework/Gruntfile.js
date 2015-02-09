@@ -38,14 +38,6 @@ module.exports = function(grunt) {
     },
 
     sass: {
-      indigo: {
-        options: {
-          style: 'compressed'
-        },
-        files: {
-          'build/resource/qx/css/indigo.css': 'source/resource/qx/scss/indigo.scss'
-        }
-      },
       flat: {
         options: {
           style: 'compressed'
@@ -53,7 +45,18 @@ module.exports = function(grunt) {
         files: {
           'build/resource/qx/css/flat.css': 'source/resource/qx/scss/flat.scss'
         }
-      }
+      },
+      indigo: {
+        options: {
+          style: 'compressed'
+        },
+        files: [{
+          cwd: ".",
+          expand: false,
+          src: 'source/resource/qx/scss/indigo.scss',
+          dest: 'build/resource/qx/css/indigo.css',
+        }]
+      },
     },
 
     notify: {
