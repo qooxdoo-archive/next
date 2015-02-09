@@ -235,11 +235,10 @@ qx.Class.define("qx.data.store.Json",
     /**
      * Handler called when not completing the request successfully.
      *
-     * @param ev {qx.event.type.Event} The request’s fail event.
+     * @param request {qx.io.request.AbstractRequest} The request
      */
-    _onFail : function(ev) {
-      var req = ev.target;
-      this.emit("error", req);
+    _onFail : function(request) {
+      this.emit("error", request);
     },
 
 
@@ -248,16 +247,15 @@ qx.Class.define("qx.data.store.Json",
      * the needed classes and instances for the fetched data using
      * {@link qx.data.marshal.Json}.
      *
-     * @param ev {qx.event.type.Event} The request’s success event.
+     * @param request {qx.io.request.AbstractRequest} The request
      */
-    _onSuccess : function(ev)
+    _onSuccess : function(request)
     {
       if (this.$$dispose) {
         return;
       }
 
-      var req = ev.target,
-          data = req.response;
+      var data = request.response;
 
       // check for the data manipulation hook
       var del = this._delegate;
