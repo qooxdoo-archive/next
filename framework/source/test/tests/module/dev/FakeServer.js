@@ -1,11 +1,11 @@
 describe('FakeServer', function() {
-this.timeout(5000);
 
   it("ConfiguredResponse", function(done) {
     var url = "/doesnotexist" + Date.now();
     var expectedResponse = "OK";
 
-    sinonSandbox.useFakeServer([{
+    var fakeServer = qx.dev.FakeServer.getInstance();
+    fakeServer = fakeServer.configure([{
       method: "GET",
       url: url,
       response: expectedResponse
@@ -26,14 +26,9 @@ this.timeout(5000);
   it("RemoveResponse", function(done) {
     var url = "/doesnotexist" + Date.now();
     var expectedResponse = "OK";
-
-    sinonSandbox.useFakeServer([{
-      method: "GET",
-      url: url,
-      response: expectedResponse
-    }]);
-
-    sinonSandbox.useFakeServer().restore("GET", url);
+    var fakeServer = qx.dev.FakeServer.getInstance();
+    fakeServer.respondWith("GET", url, expectedResponse);
+    fakeServer.restore("GET", url);
 
     var req = q.io.xhr(url);
     req.on("readystatechange", function() {
@@ -50,7 +45,8 @@ this.timeout(5000);
   it("RespondWith", function(done) {
     var url = "/doesnotexist" + Date.now();
     var expectedResponse = "OK";
-    sinonSandbox.useFakeServer().respondWith("GET", url, expectedResponse);
+    var fakeServer = qx.dev.FakeServer.getInstance();
+    fakeServer.respondWith("GET", url, expectedResponse);
 
     var req = q.io.xhr(url);
     req.on("readystatechange", function() {
