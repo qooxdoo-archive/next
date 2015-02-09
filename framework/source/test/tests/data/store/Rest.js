@@ -289,7 +289,7 @@ describe("data.store.Rest", function() {
     req.phase = "success";
 
     // Set parsed response
-    req.getResponseContentType.returns(response);
+    req._getParsedResponse.returns(response);
 
     req.emit("success");
   }
