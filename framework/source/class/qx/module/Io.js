@@ -94,14 +94,14 @@ qx.Class.define("qx.module.Io", {
      */
     jsonp : function(url, settings) {
       var script = new qx.io.request.Jsonp();
+      script.url = url;
       if (settings && settings.callbackName) {
-        script.setCallbackName(settings.callbackName);
+        script.callbackName = settings.callbackName;
       }
       if (settings && settings.callbackParam) {
-        script.setCallbackParam(settings.callbackParam);
+        script.callbackParam = settings.callbackParam;
       }
-      script.setPrefix("qxWeb.$$"); // needed in case no callback name is given
-      script.open("get", url);
+      script.prefix = "qxWeb.$$"; // needed in case no callback name is given
       return script;
     }
   },

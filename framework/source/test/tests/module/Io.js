@@ -40,12 +40,12 @@ describe("module.IO", function() {
 
 
   it("BasicJsonp", function(done) {
-    q.io.jsonp("jsonpload.js", {
+    var req = q.io.jsonp("jsonpload.js", {
       callbackName: "callback"
-    }).on("loadend", function(req) {
+    }).on("loadend", function() {
       setTimeout(function() {
-        assert.equal(4, req.readyState);
-        assert.equal("test", req.responseJson.data); // comes from the test file
+        assert.equal(req.readyState, 4);
+        assert.equal(req.response.data, "test"); // comes from the test file
         req.dispose();
         done();
       }, 0);
@@ -54,7 +54,9 @@ describe("module.IO", function() {
 
 
   it("AutomatedJsonPCallback", function() {
-    var jsonp = q.io.jsonp("jsonpload.js");
+    var jsonp = q.io.jsonp("jsonpload.js", {
+      callbackName: "callback"
+    }).send();
 
     var checkForReserverdURLChars = /[\!#\$&'\(\)\*\+,\/\:;\=\?@\[\]]/;
     var url = jsonp.getGeneratedUrl();
