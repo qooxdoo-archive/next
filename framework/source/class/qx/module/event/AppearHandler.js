@@ -41,7 +41,6 @@ qx.Class.define("qx.module.event.AppearHandler", {
     register : function(element, type) {
       var clazz = qx.module.event.AppearHandler;
       if (clazz.elements.indexOf(element) == -1) {
-        element["on" + type] = true;
         clazz.elements.push(element);
         element.$$displayed = element.offsetWidth > 0;
         if (clazz.intervalId === null) {
