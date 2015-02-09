@@ -91,7 +91,7 @@ describe("bom.webfonts.Manager", function() {
   });
 
 
-  it("create rule for valid font", function() {
+  it("create rule for valid font", function(done) {
     qx.bom.webfonts.Manager.VALIDATION_TIMEOUT = 1000;
     var font = new qx.bom.webfonts.WebFont();
     font.size = 18;
@@ -101,11 +101,12 @@ describe("bom.webfonts.Manager", function() {
     setTimeout(function() {
       var foundRule = findRule(fontDefinitions.finelinerScript.family);
       assert.isTrue(foundRule, "@font-face rule not found in document styles!");
+      done();
     }, 1500);
   });
 
 
-  it("do not create rule for invalid font", function() {
+  it("do not create rule for invalid font", function(done) {
     qx.bom.webfonts.Manager.VALIDATION_TIMEOUT = 100;
     var font = new qx.bom.webfonts.WebFont();
     font.family = ["monospace"];
@@ -114,6 +115,7 @@ describe("bom.webfonts.Manager", function() {
     setTimeout(function() {
       var foundRule = findRule(fontDefinitions.invalid.family);
       assert.isFalse(foundRule, "@font-face rule for invalid font found in document styles!");
+      done();
     }, 500);
   });
 });
