@@ -3,7 +3,7 @@ describe("module.IO", function() {
   it("BasicXhr", function(done) {
     q.io.xhr("scriptload.js").on("loadend", function(xhr) {
       setTimeout(function() {
-        assert.equal(4, xhr.readyState);
+        assert.equal(xhr.readyState, 4);
         xhr.dispose();
         done();
       }, 0);
@@ -18,7 +18,7 @@ describe("module.IO", function() {
       }
     }).on("loadend", function(xhr) {
       setTimeout(function() {
-        assert.equal(4, xhr.readyState);
+        assert.equal(xhr.readyState, 4);
         xhr.dispose();
         done();
       }, 0);
@@ -27,12 +27,12 @@ describe("module.IO", function() {
 
 
   it("BasicScript", function(done) {
-    q.io.script("scriptload.js").on("loadend", function(script) {
+    var req = q.io.script("scriptload.js").on("loadend", function() {
       setTimeout(function() {
-        assert.equal(4, script.readyState);
-        assert.equal("loaded", window.qTest); // will be set by the test file
+        assert.equal(req.readyState, 4);
+        assert.equal(window.qTest, "loaded"); // will be set by the test file
         window.qTest = undefined;
-        script.dispose();
+        req.dispose();
         done();
       }, 0);
     }, this).send();
