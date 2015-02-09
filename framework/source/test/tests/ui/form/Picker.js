@@ -195,7 +195,7 @@ describe("ui.form.Picker", function() {
 
 
   it("ChangeValue", function() {
-    var picker = new qx.ui.form.Picker
+    var picker = new qx.ui.form.Picker()
       .appendTo(sandbox);
 
     var pickerSlot1 = new qx.data.Array(["a", "b", "c"]);
