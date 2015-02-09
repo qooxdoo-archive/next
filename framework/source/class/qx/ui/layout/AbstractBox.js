@@ -192,6 +192,41 @@ qx.Class.define("qx.ui.layout.AbstractBox",
     },
 
 
+    // overridden
+    disconnectFromWidget: function(widget) {
+      this.super(qx.ui.layout.Abstract, "disconnectFromWidget", widget);
+      if (widget) {
+        var classes = this._getPropertyClasses();
+        widget.removeClasses(classes);
+      }
+    },
+
+
+    /**
+     * Returns the CSS classes corresponding to the current values of
+     * the layout's properties
+     * @return {String[]} List of CSS class names
+     */
+    _getPropertyClasses: function() {
+      var map = qx.ui.layout.AbstractBox.PROPERTY_CSS_MAPPING;
+      var layoutCss = this._getCssClasses()[0];
+      var propClasses = [];
+      Object.keys(this.$$properties).forEach(function(propName) {
+        var propVal = this[propName];
+        if (propVal !== undefined && propVal !== null) {
+          propVal = propVal + "";
+          if (map[propName] && map[propName][layoutCss] &&
+            map[propName][layoutCss][propVal])
+          {
+            propClasses.push(map[propName][layoutCss][propVal]);
+          }
+        }
+      }.bind(this));
+
+      return propClasses;
+    },
+
+
 
     // property apply
     _applyLayoutChange : function(value, old, property)
