@@ -34,7 +34,7 @@ describe("bom.storage.WebStorageTestCase", function() {
     assert.isNull(storage.getItem("key1"));
 
     storage.setItem("key1", "value1");
-    assert.equal("value1", storage.getItem("key1"));
+    assert.equal(storage.getItem("key1"), "value1");
 
     storage.removeItem("key1");
     assert.isNull(storage.getItem("key1"));
@@ -53,7 +53,7 @@ describe("bom.storage.WebStorageTestCase", function() {
 
     //overriding
     storage.setItem("key2", 12);
-    assert.equal(12, storage.getItem("key2"));
+    assert.equal(storage.getItem("key2"), 12);
   };
 
 
@@ -69,7 +69,7 @@ describe("bom.storage.WebStorageTestCase", function() {
   var testGetKey = function(storage) {
     //the order is unreliable, so just test that the getKey works
     storage.setItem("key1", "value");
-    assert.equal("key1", storage.getKey(0));
+    assert.equal(storage.getKey(0), "key1");
   };
 
 
@@ -85,13 +85,13 @@ describe("bom.storage.WebStorageTestCase", function() {
 
   var testLength = function(storage) {
     storage.clear();
-    assert.equal(0, storage.getLength());
+    assert.equal(storage.getLength(), 0);
 
     for (var i = 0; i < 10; i++) {
       storage.setItem("key" + i, "value");
     }
 
-    assert.equal(10, storage.getLength());
+    assert.equal(storage.getLength(), 10);
   };
 
 
@@ -109,9 +109,9 @@ describe("bom.storage.WebStorageTestCase", function() {
     for (var i = 0; i < 10; i++) {
       storage.setItem("key" + i, "value");
     }
-    assert.equal(10, storage.getLength());
+    assert.equal(storage.getLength(), 10);
     storage.clear();
-    assert.equal(0, storage.getLength());
+    assert.equal(storage.getLength(), 0);
   };
 
 
@@ -133,9 +133,9 @@ describe("bom.storage.WebStorageTestCase", function() {
     //don't rely on the order
     i = 0;
     storage.forEach(function(key, item) {
-      assert.equal(storage.getItem(key), item);
+      assert.equal(item, storage.getItem(key));
       i++;
     }, this);
-    assert.equal(10, i);
+    assert.equal(i, 10);
   };
 });
