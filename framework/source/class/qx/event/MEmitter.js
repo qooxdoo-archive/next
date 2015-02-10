@@ -96,7 +96,7 @@ qx.Mixin.define("qx.event.MEmitter",
       for (var i = storage.length - 1; i >= 0; i--) {
         var entry = storage[i];
         if (entry && entry.listener == listener && entry.ctx == ctx) {
-          storage.splice(i, 1);
+          delete storage[i];
           break;
         }
       }
