@@ -9,10 +9,10 @@ describe("module.Css", function() {
     var test = q.create("<div/>");
     test.appendTo(sandbox[0]);
     test.setStyle("width", "10px");
-    assert.equal("10px", test.getStyle("width"));
+    assert.equal(test.getStyle("width"), "10px");
     test.setStyle("padding-top", "5px");
-    assert.equal("5px", test.getStyle("padding-top"));
-    assert.equal("5px", test.getStyle("paddingTop"));
+    assert.equal(test.getStyle("padding-top"), "5px");
+    assert.equal(test.getStyle("paddingTop"), "5px");
     test.remove();
 
     assert.isNull(q(window).getStyle("padding-top"));
@@ -34,10 +34,10 @@ describe("module.Css", function() {
       "marginBottom": "15px"
     });
     var result = test.getStyles(["width", "height", "margin-bottom", "marginBottom"]);
-    assert.equal("10px", result.width);
-    assert.equal("20px", result.height);
-    assert.equal("15px", result.marginBottom);
-    assert.equal("15px", result["margin-bottom"]);
+    assert.equal(result.width, "10px");
+    assert.equal(result.height, "20px");
+    assert.equal(result.marginBottom, "15px");
+    assert.equal(result["margin-bottom"], "15px");
     test.remove();
   });
 
@@ -62,7 +62,7 @@ describe("module.Css", function() {
       var test = q.create("<div>affe</div>").appendTo(sandbox[0])
         .setStyle(style, value);
 
-      assert.equal(value, test.getStyle(style));
+      assert.equal(test.getStyle(style), value);
     }
   });
 
@@ -70,19 +70,19 @@ describe("module.Css", function() {
   it("Class", function() {
     var test = q.create("<div/><div/>");
     test.addClass("test");
-    assert.equal("test", test.getAttribute("class"));
-    assert.equal("test", test.eq(1).getAttribute("class"));
-    assert.equal("test", test.getClass());
+    assert.equal(test.getAttribute("class"), "test");
+    assert.equal(test.eq(1).getAttribute("class"), "test");
+    assert.equal(test.getClass(), "test");
     assert.isTrue(test.eq(0).hasClass("test"));
     assert.isTrue(test.eq(1).hasClass("test"));
     test.toggleClass("test");
     assert.isFalse(test.eq(0).hasClass("test"));
     assert.isFalse(test.eq(1).hasClass("test"));
-    assert.equal("", test.getClass());
+    assert.equal(test.getClass(), "");
     test.toggleClass("test");
     assert.isTrue(test.eq(0).hasClass("test"));
     assert.isTrue(test.eq(1).hasClass("test"));
-    assert.equal("test", test.getClass());
+    assert.equal(test.getClass(), "test");
     test.removeClass("test");
     assert.isFalse(test.eq(0).hasClass("test"));
     assert.isFalse(test.eq(1).hasClass("test"));
@@ -93,7 +93,7 @@ describe("module.Css", function() {
     assert.isFalse(test.eq(1).hasClass("test"));
     assert.isTrue(test.eq(0).hasClass("foo"));
     assert.isTrue(test.eq(1).hasClass("foo"));
-    assert.equal("foo", test.getClass());
+    assert.equal(test.getClass(), "foo");
 
     // must be ignored:
     q([window, document]).addClass("test");
@@ -114,20 +114,20 @@ describe("module.Css", function() {
     assert.isTrue(test.eq(0).hasClass("foo"));
     assert.isTrue(test.eq(1).hasClass("bar"));
     assert.isTrue(test.eq(1).hasClass("bar"));
-    assert.equal("foo bar", test.getClass());
+    assert.equal(test.getClass(), "foo bar");
     test.toggleClass("bar");
     assert.isTrue(test.eq(0).hasClass("foo"));
     assert.isFalse(test.eq(0).hasClass("bar"));
     assert.isTrue(test.eq(1).hasClass("foo"));
     assert.isFalse(test.eq(1).hasClass("bar"));
-    assert.equal("foo", test.getClass());
+    assert.equal(test.getClass(), "foo");
     test.addClass("bar");
     test.removeClasses(["foo", "bar"]);
     assert.isFalse(test.eq(0).hasClass("foo"));
     assert.isFalse(test.eq(0).hasClass("bar"));
     assert.isFalse(test.eq(1).hasClass("foo"));
     assert.isFalse(test.eq(1).hasClass("bar"));
-    assert.equal("", test.getClass());
+    assert.equal(test.getClass(), "");
     test.addClass("bar");
     test.toggleClasses(["foo", "bar", "baz"]);
     assert.isTrue(test.eq(0).hasClass("foo"));
@@ -149,7 +149,7 @@ describe("module.Css", function() {
     var test = q.create("<div style='height: 100px'></div><div></div>");
     test.appendTo(sandbox[0]);
     assert.isNumber(test.getHeight());
-    assert.equal(100, test.getHeight());
+    assert.equal(test.getHeight(), 100);
     test.remove();
   });
 
@@ -158,7 +158,7 @@ describe("module.Css", function() {
     var test = q.create("<div style='display: none; height: 100px'></div><div></div>");
     test.appendTo(sandbox[0]);
     assert.isNumber(test.getHeight(true));
-    assert.equal(100, test.getHeight(true));
+    assert.equal(test.getHeight(true), 100);
     test.remove();
   });
 
@@ -177,7 +177,7 @@ describe("module.Css", function() {
     var test = q.create("<div style='width: 100px'></div><div></div>");
     test.appendTo(sandbox[0]);
     assert.isNumber(test.getWidth());
-    assert.equal(100, test.getWidth());
+    assert.equal(test.getWidth(), 100);
     test.remove();
   });
 
@@ -186,7 +186,7 @@ describe("module.Css", function() {
     var test = q.create("<div style='display: none; width: 100px'></div><div></div>");
     test.appendTo(sandbox[0]);
     assert.isNumber(test.getWidth(true));
-    assert.equal(100, test.getWidth(true));
+    assert.equal(test.getWidth(true), 100);
     test.remove();
   });
 
@@ -208,7 +208,7 @@ describe("module.Css", function() {
     assert.isNumber(test.getOffset().right);
     assert.isNumber(test.getOffset().bottom);
     assert.isNumber(test.getOffset().left);
-    assert.equal(100, test.getOffset().top);
+    assert.equal(test.getOffset().top, 100);
     assert.isNull(q(window).getOffset());
     assert.isNull(q(document).getOffset());
   });
@@ -222,7 +222,7 @@ describe("module.Css", function() {
     });
     test.appendTo(sandbox[0]);
 
-    assert.equal(200, test.getContentHeight());
+    assert.equal(test.getContentHeight(), 200);
   });
 
 
@@ -235,7 +235,7 @@ describe("module.Css", function() {
     });
     test.appendTo(sandbox[0]);
 
-    assert.equal(200, test.getContentHeight(true));
+    assert.equal(test.getContentHeight(true), 200);
   });
 
 
@@ -247,7 +247,7 @@ describe("module.Css", function() {
     });
     test.appendTo(sandbox[0]);
 
-    assert.equal(200, test.getContentWidth());
+    assert.equal(test.getContentWidth(), 200);
   });
 
 
@@ -260,7 +260,7 @@ describe("module.Css", function() {
     });
     test.appendTo(sandbox[0]);
 
-    assert.equal(200, test.getContentWidth(true));
+    assert.equal(test.getContentWidth(true), 200);
   });
 
 
@@ -278,8 +278,8 @@ describe("module.Css", function() {
     }).appendTo(outer[0]);
 
     var pos = test.getPosition();
-    assert.equal(10, pos.left);
-    assert.equal(10, pos.top);
+    assert.equal(pos.left, 10);
+    assert.equal(pos.top, 10);
   });
 
 
@@ -297,7 +297,7 @@ describe("module.Css", function() {
       } else {
         val = q("#sandbox #affe").getStyle("border-top-width");
       }
-      assert.equal("1px", val);
+      assert.equal(val, "1px");
       done();
     }, 250);
 
@@ -308,15 +308,15 @@ describe("module.Css", function() {
     var test = q.create('<div style="display: inline">Yoohoo</div>')
       .appendTo(sandbox[0]);
     test.hide();
-    assert.equal("none", test.getStyle("display"));
+    assert.equal(test.getStyle("display"), "none");
     test.show();
-    assert.equal("inline", test.getStyle("display"));
+    assert.equal(test.getStyle("display"), "inline");
 
     // no previous value:
     var test2 = q.create('<span style="display: none">Yoohoo</span>')
       .appendTo(sandbox[0]);
     test2.show();
-    assert.equal("inline", test2.getStyle("display"));
+    assert.equal(test2.getStyle("display"), "inline");
 
     // must be ignored:
     q([window, document]).hide().show();
