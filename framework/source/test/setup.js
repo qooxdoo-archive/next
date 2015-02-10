@@ -35,9 +35,10 @@ var skipAfterTest = function(suiteTitle, testTitle) {
 
 var commonBeforeEach = function() {
   // root widget (DOM sandbox)
-  sandbox = new qx.ui.core.Root(document.createElement("div"));
-  sandbox.setAttribute("id", "sandbox");
-  sandbox.appendTo(document.body);
+  sandbox = new qx.ui.core.Root(document.createElement("div"))
+    .set({layout: null})
+    .setAttribute("id", "sandbox")
+    .appendTo(document.body);
 
   // sinon sandbox
   sinonSandbox = sinon.sandbox.create();
