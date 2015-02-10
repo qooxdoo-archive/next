@@ -3,11 +3,11 @@
  * Runs the unit tests in a browser using WebDriver and dumps the results
  * in TAP stream format, e.g. for CI (Jenkins et al.)
  */
-var webDriver = require('webdriver-sync');
-var fs = require('fs');
-
 module.exports = function(grunt) {
   grunt.registerTask('webdriver', 'Runs the unit tests in a browser using WebDriver', function() {
+    var webDriver = require('webdriver-sync');
+    var fs = require('fs');
+
     var opts = this.options();
 
     var autUri = grunt.option('autUri') || opts.autUri;
@@ -63,5 +63,4 @@ module.exports = function(grunt) {
       grunt.log.write(tap);
     }
   });
-
 };
