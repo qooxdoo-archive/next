@@ -39,14 +39,6 @@ describe("io.request.XhrWithRemoteLowLevel", function() {
     req.dispose();
   });
 
-  function __skip(skipOs) {
-    // certain tests fail if loaded through the Selenium proxy on Windows and OS X
-    if (qx.core.Environment.get("browser.name") == "chrome" &&
-      qx.lang.Array.contains(skipOs, qx.core.Environment.get("os.name"))) {
-      // this.require(["noSelenium"]);
-    }
-  }
-
   //
   // Basic
   //
@@ -206,7 +198,10 @@ describe("io.request.XhrWithRemoteLowLevel", function() {
 
   it("validate freshness", function(done) {
     // TODO: Maybe use FakeServer instead
-    // require(["php", "noIe"]);
+    if (qx.core.Environment.get("browser.name") == "ie") {
+      done();
+      return;
+    }
 
     var url = "../resource/qx/test/xmlhttp/time.php";
 
@@ -249,7 +244,10 @@ describe("io.request.XhrWithRemoteLowLevel", function() {
 
   it("overrideMimeType content type unchanged", function(done) {
     // TODO: Maybe use FakeServer instead
-    // require(["php", "noIe"]);
+    if (qx.core.Environment.get("browser.name") == "ie") {
+      done();
+      return;
+    }
 
     var onloadAssertContentTypeUnchanged = function() {
       setTimeout(function() {
@@ -269,7 +267,10 @@ describe("io.request.XhrWithRemoteLowLevel", function() {
 
   it("overrideMimeType content type override", function(done) {
     // TODO: Maybe use FakeServer instead
-    // require(["php", "noIe"]);
+    if (qx.core.Environment.get("browser.name") == "ie") {
+      done();
+      return;
+    }
 
     var onloadAssertContentTypeOverride = function() {
       setTimeout(function() {
@@ -485,7 +486,12 @@ describe("io.request.XhrWithRemoteLowLevel", function() {
 
   it("call onreadystatechange when aborting LOADING", function(done) {
     // TODO: Maybe use FakeServer instead
-    // require(["php", "noIe9"]);
+    if (qx.core.Environment.get("browser.name") == "ie" &&
+      qx.core.Environment.get("browser.documentmode") < 10)
+    {
+      done();
+      return;
+    }
 
     req.on("readystatechange", function() {
       if (req.readyState == 4) {
@@ -512,7 +518,12 @@ describe("io.request.XhrWithRemoteLowLevel", function() {
     this.timeout(200);
 
     // TODO: Maybe use FakeServer instead
-    // require(["php", "noIe9"]);
+    if (qx.core.Environment.get("browser.name") == "ie" &&
+      qx.core.Environment.get("browser.documentmode") < 10)
+    {
+      done();
+      return;
+    }
 
     req.on("loadend", function() {
       setTimeout(function() {
@@ -536,8 +547,6 @@ describe("io.request.XhrWithRemoteLowLevel", function() {
   //
 
   it("call onerror on network error", function(done) {
-    __skip(["win", "osx"]);
-
     req.on("error", function() {
 
       // May take a while to detect network error
@@ -571,8 +580,6 @@ describe("io.request.XhrWithRemoteLowLevel", function() {
 
 
   it("throw error on network error when sync", function() {
-    __skip(["win", "osx"]);
-
     // Network error (sync)
     openAndSend("GET", "http://fail.tld", false);
 
@@ -735,8 +742,6 @@ describe("io.request.XhrWithRemoteLowLevel", function() {
 
 
   it("call handler in order when request failed", function(done) {
-    __skip(["win", "osx"]);
-
     var globalStack = [];
 
     req.on("loadend", function() {
@@ -813,21 +818,5 @@ describe("io.request.XhrWithRemoteLowLevel", function() {
   function noCache(url) {
     return url + "?nocache=" + (new Date()).valueOf();
   }
-
-
-  // function hasNoIe() {
-  //   return !(qx.core.Environment.get("engine.name") == "mshtml");
-  // }
-
-
-  // function hasNoIe9() {
-  //   return (qx.core.Environment.get("engine.name") !== "mshtml" ||
-  //     qx.core.Environment.get("browser.documentmode") !== 9);
-  // }
-
-
-  // function hasFile() {
-  //   return location.protocol === "file:";
-  // }
 
 });

@@ -162,10 +162,12 @@ describe("data.store.Jsonp", function() {
       __store.on("error", function() {
         setTimeout(function() {
           done();
-        }, 0);
+        }, 100);
       }, this);
 
-      __store.url = ("affe");
+      __store.url = "affe";
+    } else {
+      done();
     }
   });
 });
