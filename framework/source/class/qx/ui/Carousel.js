@@ -477,6 +477,11 @@ qx.Class.define("qx.ui.Carousel",
      * Handles the tap on pagination labels and changes to the desired page.
      */
     _onPaginationLabelTap: function(e) {
+      // Quickfix: some relief for [Bug #8918]
+      if (this.__scrollContainer.isPlaying()) {
+        return;
+      }
+
       this.__paginationLabels.forEach(function(label, index) {
         if (label[0] === e.currentTarget) {
           var pages = this._getPages();
