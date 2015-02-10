@@ -43,7 +43,6 @@ describe("ui.Carousel", function() {
     var p1 = new qx.ui.Widget();
     p1.appendTo(carousel);
     assert.equal(carousel.active[0], p1[0]);
-    assert.equal(p1.getStyle("order"), "0");
   });
 
 
