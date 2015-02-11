@@ -17,9 +17,9 @@
          assert.equal(q.getDocument(frameNode[0]), frameDoc);
          assert.equal(frameDoc.body, frameNode.getAncestors()[0]);
          done();
-       }, 1000);
+       }, 750);
      };
-     var frame = q.create('<iframe src="html/media.html"></iframe>')
+     var frame = q.create('<iframe src="../resource/qx/test/blank.html"></iframe>')
        .once("load", onIframeLoad, this)
        .appendTo("#sandbox");
    });
@@ -230,32 +230,23 @@
      var t = q.create('<div id="test" style="overflow:auto; width:50px; height:50px;"><div style="width:150px; height:150px;">AAAAA</div></div>');
      t.appendTo(sandbox[0]);
      q("#test").on("animationEnd", function() {
-       setTimeout(function() {
-         assert.equal(50, q("#test").getScrollLeft());
-         done();
-       }, 1500);
+       assert.equal(50, q("#test").getScrollLeft());
+       done();
      });
 
-     setTimeout(function() {
-       q("#test").setScrollLeft(50, 500);
-     }, 100);
+     q("#test").setScrollLeft(50, 200);
    });
 
 
-   it("AnimateScrollTop", function() {
+   it("AnimateScrollTop", function(done) {
      var t = q.create('<div id="test" style="overflow:auto; width:50px; height:50px;"><div style="width:150px; height:150px;">AAAAA</div></div>');
      t.appendTo(sandbox[0]);
      q("#test").on("animationEnd", function() {
-       setTimeout(function() {
-         assert.equal(50, q("#test").getScrollTop());
-         done();
-       }, 1500);
+       assert.equal(50, q("#test").getScrollTop());
+       done();
      });
 
-     setTimeout(function() {
-       q("#test").setScrollTop(50, 500);
-     }, 100);
-
+     q("#test").setScrollTop(50, 200);
    });
 
 
@@ -288,8 +279,6 @@
 
 
    it("before documentFragment", function() {
-
-
      var test = q.create('<p>Affe</p><p>Affe</p>');
      var df = document.createDocumentFragment();
      test.appendTo(df);

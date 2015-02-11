@@ -1,5 +1,11 @@
 describe('FakeServer', function() {
 
+  beforeEach(function() {
+    var fakeServer = qx.dev.FakeServer.getInstance();
+    fakeServer.restore();
+  });
+
+
   it("ConfiguredResponse", function(done) {
     var url = "/doesnotexist" + Date.now();
     var expectedResponse = "OK";

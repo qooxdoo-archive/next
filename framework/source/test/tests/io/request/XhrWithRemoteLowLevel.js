@@ -423,14 +423,12 @@ describe("io.request.XhrWithRemoteLowLevel", function() {
 
     req.on("readystatechange", function() {
       if (req.readyState == 4) {
-        setTimeout(function() {
-          if (++count < 3) {
-            request();
-          } else {
-            assert.equal(3, count);
-          }
+        if (++count < 3) {
+          request();
+        } else {
+          assert.equal(3, count);
           done();
-        });
+        }
       }
     });
     request();
@@ -495,21 +493,19 @@ describe("io.request.XhrWithRemoteLowLevel", function() {
 
     req.on("readystatechange", function() {
       if (req.readyState == 4) {
-        setTimeout(function() {
-          done();
-        });
+        done();
       }
     });
 
     // Will "never" complete
     // OPENED, finally LOADING
     var url = "../resource/qx/test/xmlhttp/loading.php";
-    req._open("GET", url + "?duration=100");
+    req._open("GET", url + "?duration=120");
     req._send();
 
     window.setTimeout(function() {
       req.abort();
-    }, 0);
+    }, 30);
 
   });
 
@@ -526,20 +522,14 @@ describe("io.request.XhrWithRemoteLowLevel", function() {
     }
 
     req.on("loadend", function() {
-      setTimeout(function() {
-        done();
-      }, 100);
+      done();
     });
 
     // Will "never" complete
     // OPENED, finally LOADING
     var url = "../resource/qx/test/xmlhttp/loading.php";
-    openAndSend("GET", url + "?duration=100");
-
-    window.setTimeout(function() {
-      req.abort();
-    }, 0);
-
+    openAndSend("GET", url + "?duration=130");
+    req.abort();
   });
 
   //
@@ -548,20 +538,12 @@ describe("io.request.XhrWithRemoteLowLevel", function() {
 
   it("call onerror on network error", function(done) {
     req.on("error", function() {
-
       // May take a while to detect network error
-      setTimeout(function() {
-        assert.equal(4, req.readyState);
-        done();
-      }, 100);
+      assert.equal(4, req.readyState);
+      done();
     });
 
-    // Network error (async)
-    // Is sync in Opera >= 11.5
-    window.setTimeout(function() {
-      openAndSend("GET", "http://fail.tld");
-    }, 0);
-
+    openAndSend("GET", "http://fail.tld");
   });
 
 
@@ -615,45 +597,37 @@ describe("io.request.XhrWithRemoteLowLevel", function() {
   it("timeout triggers timeout error", function(done) {
     // "timeout error" is specified here
     // http://www.w3.org/TR/XMLHttpRequest2/#timeout-error
+    var globalStack = [];
+    var expected = [
+      "readystatechange",
+      "changePhase",
+      "timeout",
+      "changePhase",
+      "fail",
+      "loadend"
+    ];
+    var url = "http://lkhfdsukfahdsiaufh";
 
-    // TODO: Maybe use FakeServer instead
-    // require(["php"]);
+    var fakeServer = qx.dev.FakeServer.getInstance();
+    fakeServer.getFakeServer().autoRespondAfter = 200;
+    fakeServer.respondWith("GET", url, "HUHU");
 
-    var url = "../resource/qx/test/xmlhttp/loading.php",
-      globalStack = [];
-
-    req.on("loadend", function() {
-      setTimeout(function() {
-        assert.equal(4, req.readyState);
-        assert.strictEqual("", req.responseText);
-        assert.strictEqual(null, req.responseXML);
-        var expected = ["readystatechange",
-          "readystatechange",
-          "changePhase",
-          "readystatechange",
-          "changePhase",
-          "changePhase",
-          "success",
-          "timeout",
-          "changePhase",
-          "fail",
-          "loadend"
-        ];
-        assert.deepEqual(expected, globalStack);
-        done();
-      }, 500);
-    });
-
+    var req = new qx.io.request.Xhr(url, "GET");
     req.timeout = 10;
-    req._open("GET", url + "?duration=10");
-    req._send();
+    req.on("loadend", function() {
+      console.log(globalStack);
+      qx.dev.FakeServer.getInstance().restore();
+      qx.dev.FakeServer.getInstance().getFakeServer().autoRespondAfter = 10;
+      assert.deepEqual(globalStack, expected);
+      done();
+    });
+    req.send();
 
     var emitOrig = req.emit;
-    sinonSandbox.stub(req, "emit", function(evt) {
+    sinonSandbox.stub(req, "emit", function(evt, data) {
       globalStack.push(evt);
-      emitOrig.call(this, evt);
+      emitOrig.call(req, evt, data);
     });
-
   });
 
 
@@ -679,7 +653,7 @@ describe("io.request.XhrWithRemoteLowLevel", function() {
       emitOrig.call(this, evt);
     });
 
-    req._open("GET", url + "?duration=100");
+    req._open("GET", url + "?duration=110");
     req._send();
   });
 

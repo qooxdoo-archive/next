@@ -72,8 +72,9 @@ describe("io.request.Script", function() {
 
     req.on("load", function() {
       count += 1;
-      if (count == 2) {
-        setTimeout(function() { done(); }, 100);
+      if (count == 6) {
+        done();
+        return;
       }
       request();
     });
@@ -98,7 +99,7 @@ describe("io.request.Script", function() {
 
   it("properties indicate success when request completed", function(done) {
     req.on("load", function() {
-      setTimeout(function() {
+      window.setTimeout(function() {
         assert.equal(4, req.readyState);
         assert.equal(200, req.status);
         assert.equal("200", req.statusText);
@@ -132,12 +133,10 @@ describe("io.request.Script", function() {
 
   it("properties indicate failure when request failed", function(done) {
     req.on("error", function() {
-      setTimeout(function() {
-        assert.equal(4, req.readyState);
-        assert.equal(0, req.status);
-        assert.isNull(req.statusText);
-        done();
-      }, 100);
+      assert.equal(4, req.readyState);
+      assert.equal(0, req.status);
+      assert.isNull(req.statusText);
+      done();
     });
 
     request("http://fail.tld");
@@ -372,6 +371,7 @@ describe("io.request.Script", function() {
     if (isIeBelow(9)) {
       this.test.skip = true;
       done();
+      return;
     }
 
     req.on("error", function() {
