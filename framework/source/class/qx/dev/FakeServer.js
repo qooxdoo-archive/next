@@ -74,8 +74,6 @@ qx.Class.define("qx.dev.FakeServer", {
   },
 
   statics : {
-    $$instance : null,
-    $$allowconstruct : false,
 
     /**
      * Helper method to handle singletons
@@ -231,6 +229,7 @@ qx.Class.define("qx.dev.FakeServer", {
       this.__filter = null;
       this.__fakeServer.restore();
       this.__fakeServer = null;
+      this.getFakeServer();
     },
 
 
