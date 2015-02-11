@@ -1,20 +1,18 @@
 describe("module.TextSelection", function() {
 
   var __testSelection = function(coll, selected) {
-    var isIe8 = q.env.get("engine.name") == "mshtml" && q.env.get("browser.documentmode") < 9;
     coll.setTextSelection(5, 9);
-    assert.equal(4, coll.getTextSelectionLength(), "selected length");
-    assert.equal(5, coll.getTextSelectionStart(), "selected start");
-    assert.equal(9, coll.getTextSelectionEnd(), "selected end");
+    assert.equal(coll.getTextSelectionLength(), 4, "selected length");
+    assert.equal(coll.getTextSelectionStart(), 5, "selected start");
+    assert.equal(coll.getTextSelectionEnd(), 9, "selected end");
     assert.equal(selected, coll.getTextSelection(), "selected text");
 
     coll.clearTextSelection();
-    assert.equal(0, coll.getTextSelectionLength(), "cleared length");
-    if (!isIe8 || coll[0].tagName.toLowerCase() !== "textarea") {
-      assert.equal(0, coll.getTextSelectionStart(), "cleared start");
-    }
-    if (!isIe8 || coll[0].tagName.toLowerCase() !== "span" && coll[0].tagName.toLowerCase() !== "textarea") {
-      assert.equal(0, coll.getTextSelectionEnd(), "cleared end");
+    assert.equal(coll.getTextSelectionLength(), 0, "cleared length");
+    assert.equal(coll.getTextSelectionStart(), 0, "cleared start");
+
+    if (coll[0].tagName.toLowerCase() !== "textarea") {
+      assert.equal(coll.getTextSelectionEnd(), 0, "cleared end");
     }
     assert.equal("", coll.getTextSelection(), "cleared text");
   };
