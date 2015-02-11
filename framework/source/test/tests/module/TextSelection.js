@@ -34,6 +34,7 @@ describe("module.TextSelection", function() {
 
   it("Span", function() {
     var coll = q.create('<span>Just some text</span>')
+      .setStyle("userSelect", "all")
       .appendTo("#sandbox");
     __testSelection(coll, "some");
   });
