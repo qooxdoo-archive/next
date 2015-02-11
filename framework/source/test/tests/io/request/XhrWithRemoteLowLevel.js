@@ -615,7 +615,6 @@ describe("io.request.XhrWithRemoteLowLevel", function() {
     var req = new qx.io.request.Xhr(url, "GET");
     req.timeout = 10;
     req.on("loadend", function() {
-      console.log(globalStack);
       qx.dev.FakeServer.getInstance().restore();
       qx.dev.FakeServer.getInstance().getFakeServer().autoRespondAfter = 10;
       assert.deepEqual(globalStack, expected);

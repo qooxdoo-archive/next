@@ -116,7 +116,6 @@ describe("io.rest.ResourceWithRemote", function() {
       responses.push(response);
 
       if (++count >= 5) {
-        console.log(count);
         setTimeout(function() {
           assert(parseFloat(responses[4]) > parseFloat(responses[0]),
             "Must increase");

@@ -1028,8 +1028,8 @@ describe("Class", function() {
 
 
   it("Custom Property Setter Override", function() {
-    var setterA = sinonSandbox.spy(function(){console.log("a");});
-    var setterB = sinonSandbox.spy(function() {console.log("b");});
+    var setterA = sinonSandbox.spy();
+    var setterB = sinonSandbox.spy();
 
     var A = qx.Class.define(null, {
       extend: Object,
