@@ -61,9 +61,6 @@ module.exports = {
       }
       contents = fs.readFileSync(jsonPath, {encoding: 'utf8'});
       packageJson = JSON.parse(contents);
-      if (!('org_next' in packageJson)) {
-        throw Error('Missing "org_next" key of package.json file from: ' + jsonPath);
-      }
       packageJsonFiles[packageJson.org_next.namespace] = {
         "base": {
           rel: path.dirname(jsonPath),

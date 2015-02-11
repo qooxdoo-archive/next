@@ -67,11 +67,11 @@ module.exports = function(grunt) {
         cachePath: "<%= common.CACHE %>",
         loaderTemplate: "<%= common.QOOXDOO_PATH %>/tool/data/generator/loader.tmpl.js",
         environment: common.ENVIRONMENT,
-        includes: ["<%= common.APPLICATION_MAIN_CLASS %>"],
+        includes: ["<%= common.APPLICATION_MAIN_CLASS %>", "<%= common.QXTHEME %>"],
         excludes: [],
         libraries: [
-          "<%= common.QOOXDOO_PATH %>/framework/package.json",
-          "<%= common.ROOT %>/test/data/myapp/package.json"
+          "<%= common.QOOXDOO_PATH %>/framework/Manifest.json",
+          "<%= common.ROOT %>/test/data/myapp/Manifest.json"
         ]
       },
     },
