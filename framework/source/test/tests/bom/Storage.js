@@ -67,9 +67,9 @@ describe("bom.Storage", function() {
   });
 
   var testGetKey = function(storage) {
-    //the order is unreliable, so just test that the getKey works
+    // the order is unreliable, so just test that the getKey works
     storage.setItem("key1", "value");
-    assert.equal(storage.getKey(0), "key1");
+    assert.notEqual(Object.keys(storage.getStorage()).indexOf("key1"), -1);
   };
 
 
