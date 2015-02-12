@@ -610,7 +610,7 @@ describe("io.request.XhrWithRemoteLowLevel", function() {
 
     var fakeServer = qx.dev.FakeServer.getInstance();
     fakeServer.getFakeServer().autoRespondAfter = 200;
-    fakeServer.respondWith("GET", url, "HUHU");
+    fakeServer.respondWith("GET", url, "");
 
     var req = new qx.io.request.Xhr(url, "GET");
     req.timeout = 10;
@@ -717,18 +717,23 @@ describe("io.request.XhrWithRemoteLowLevel", function() {
   it("call handler in order when request failed", function(done) {
     var globalStack = [];
 
-    req.on("loadend", function() {
+    var expected = [
+      "readystatechange",
+      "readystatechange",
+      "changePhase",
+      "error",
+      "fail",
+      "loadend"
+    ];
+    if (qxWeb.env.get("engine.name") == "gecko") {
+      // different readyState sequence in Firefox, see bug #8924
+      expected.unshift("readystatechange");
+    }
 
+    req.on("loadend", function() {
       // May take a while to detect network error
       setTimeout(function() {
-        var expected = ["readystatechange",
-          "readystatechange",
-          "changePhase",
-          "error",
-          "fail",
-          "loadend"
-        ];
-        assert.deepEqual(expected, globalStack);
+        assert.deepEqual(globalStack, expected);
         done();
       }, 500);
     });
@@ -738,12 +743,8 @@ describe("io.request.XhrWithRemoteLowLevel", function() {
       emitOrig.call(this, evt);
     });
 
-    // Is sync in Opera >= 11.5
-    setTimeout(function() {
-      req._open("GET", "http://fail.tld");
-      req._send();
-    }, 200);
-
+    req._open("GET", "http://fail.tld");
+    req._send();
   });
 
   //
