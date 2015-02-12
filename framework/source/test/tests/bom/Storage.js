@@ -17,7 +17,7 @@
 
 ************************************************************************ */
 
-describe("bom.storage.WebStorageTestCase", function() {
+describe("bom.Storage", function() {
 
   it("LocalItem", function() {
     testItem(qx.bom.Storage.getLocal());
