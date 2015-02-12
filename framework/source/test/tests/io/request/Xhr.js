@@ -17,10 +17,6 @@
 
 ************************************************************************ */
 
-/* ************************************************************************
-
-************************************************************************ */
-
 /**
  * @ignore(Klass)
  * @asset(qx/test/xmlhttp/*)
@@ -136,8 +132,6 @@ describe("io.request.Xhr", function() {
 
   it("send sync request", function() {
     // TODO: Maybe use FakeServer instead
-    //require(["http"]);
-
     setUpFakeTransport();
     req.async = false;
     req.send();
@@ -319,7 +313,6 @@ describe("io.request.Xhr", function() {
 
   it("sync XHR properties for every readyState", function() {
     // TODO: Maybe use FakeServer instead
-    //require(["http"]);
     setUpFakeServer();
       var readyStates = [],
       statuses = [];

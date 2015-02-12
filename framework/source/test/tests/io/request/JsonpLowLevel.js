@@ -17,15 +17,6 @@
 
 ************************************************************************ */
 
-/* ************************************************************************
-
-
-************************************************************************ */
-
-/* ************************************************************************
-
-
-************************************************************************ */
 /**
  *
  * @asset(../resource/qx/test/script.js)
@@ -40,8 +31,6 @@ describe("io.request.JsonpLowLevel", function() {
 
   beforeEach(function() {
     // TODO: Maybe use FakeServer instead
-    // require(["php"]);
-
     req = new qx.io.request.Jsonp();
     url = "../resource/qx/test/jsonp_primitive.php";
   });
@@ -101,11 +90,9 @@ describe("io.request.JsonpLowLevel", function() {
     req.callbackName = "myExistingCallback";
 
     req.on("load", function() {
-      setTimeout(function() {
-        assert.equal("Affe", myExistingCallback());
-        window.myExistingCallback = undefined;
-        done();
-      }, 100);
+      assert.equal("Affe", myExistingCallback());
+      window.myExistingCallback = undefined;
+      done();
     });
 
     request();
@@ -117,12 +104,10 @@ describe("io.request.JsonpLowLevel", function() {
 
   it("response holds response with default callback", function(done) {
     req.on("load", function() {
-      setTimeout(function() {
-        var data = req.response;
-        assert.isObject(data);
-        assert.isTrue(data["boolean"]);
-        done();
-      }, 100);
+      var data = req.response;
+      assert.isObject(data);
+      assert.isTrue(data["boolean"]);
+      done();
     });
 
     request();
@@ -131,11 +116,9 @@ describe("io.request.JsonpLowLevel", function() {
 
   it("reset response when reopened", function(done) {
     req.on("load", function() {
-      setTimeout(function() {
-        req._open("GET", "/url");
-        assert.isNull(req.response);
-        done();
-      }, 100);
+      req._open("GET", "/url");
+      assert.isNull(req.response);
+      done();
     });
 
     request();
@@ -144,10 +127,8 @@ describe("io.request.JsonpLowLevel", function() {
 
   it("status indicates success when default callback called", function(done) {
     req.on("load", function() {
-      setTimeout(function() {
-        assert.equal(200, req.status);
-        done();
-      }, 100);
+      assert.equal(200, req.status);
+      done();
     });
 
     request();
@@ -155,10 +136,8 @@ describe("io.request.JsonpLowLevel", function() {
 
   it("status indicates success when custom callback called", function(done) {
     req.on("load", function() {
-      setTimeout(function() {
-        assert.equal(200, req.status);
-        done();
-      }, 100);
+      assert.equal(200, req.status);
+      done();
     });
 
     req.callbackName = "myOtherCallback";
@@ -169,10 +148,8 @@ describe("io.request.JsonpLowLevel", function() {
 
   it("status indicates failure when default callback not called", function(done) {
     req.on("error", function() {
-      setTimeout(function() {
-        assert.equal(500, req.status);
-        done();
-      }, 100);
+      assert.equal(500, req.status);
+      done();
     });
 
     request("../resource/qx/test/script999.js");
@@ -181,10 +158,8 @@ describe("io.request.JsonpLowLevel", function() {
 
   it("status indicates failure when custom callback not called", function(done) {
     req.on("load", function() {
-      setTimeout(function() {
-        assert.equal(500, req.status);
-        done();
-      }, 100);
+      assert.equal(500, req.status);
+      done();
     });
 
     req.callbackName = "myCallback";
@@ -199,10 +174,8 @@ describe("io.request.JsonpLowLevel", function() {
       count += 1;
 
       if (count == 2) {
-        setTimeout(function() {
-          assert.equal(500, req.status);
-          done();
-        }, 100);
+        assert.equal(500, req.status);
+        done();
         return;
       }
 
@@ -220,7 +193,7 @@ describe("io.request.JsonpLowLevel", function() {
 
   it("call onload", function(done) {
     req.on("load", function() {
-      setTimeout(function() { done(); }, 100);
+      done();
     });
 
     request();
@@ -240,7 +213,7 @@ describe("io.request.JsonpLowLevel", function() {
     }
 
     req.on("error", function() {
-      setTimeout(function() { done(); }, 500);
+      done();
     });
 
     request("http://fail.tld");
@@ -249,7 +222,7 @@ describe("io.request.JsonpLowLevel", function() {
 
   it("call onloadend on network error", function(done) {
     req.on("loadend", function() {
-      setTimeout(function() { done(); }, 500);
+      done();
     });
 
     request("http://fail.tld");

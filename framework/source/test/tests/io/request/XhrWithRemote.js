@@ -22,9 +22,7 @@ describe("io.request.XhrWithRemote", function() {
 
   beforeEach(function() {
     req = new qx.io.request.Xhr();
-
     // TODO: Maybe use FakeServer instead
-    // require(["http"]);
   });
 
 
@@ -36,10 +34,8 @@ describe("io.request.XhrWithRemote", function() {
     var url = noCache("../resource/qx/test/xmlhttp/sample.txt");
 
     req.on("success", function(origReq) {
-      setTimeout(function() {
-        assert.equal("SAMPLE", origReq.responseText);
-        done();
-      }, 100);
+      assert.equal("SAMPLE", origReq.responseText);
+      done();
     });
 
     req.url = url;
@@ -57,7 +53,7 @@ describe("io.request.XhrWithRemote", function() {
       count++;
 
       if (count == 2) {
-        setTimeout(function() { done(); });
+        done();
       } else {
         req.url = url2;
         req.send();
@@ -78,12 +74,9 @@ describe("io.request.XhrWithRemote", function() {
       phases.push(req.phase);
 
       if (req.phase === "success") {
-        setTimeout(function() {
-          assert.deepEqual(expectedPhases, phases);
-          done();
-        }, 100);
+        assert.deepEqual(expectedPhases, phases);
+        done();
       }
-
     });
 
     req.url = url;
@@ -117,9 +110,7 @@ describe("io.request.XhrWithRemote", function() {
     //     is fired while requesting "loading.php"
     //   * Breaks on Windows 7 in every browser because the loading phase
     //     is never entered
-
     // TODO: Use skip() and wrap with conditions
-    // this.require(["noSelenium", "noIe", "noWin7"]);
 
     var phases = [],
       expectedPhases = ["opened", "sent", "loading", "abort"],
@@ -129,12 +120,9 @@ describe("io.request.XhrWithRemote", function() {
       phases.push(req.phase);
 
       if (req.phase === "abort") {
-        setTimeout(function() {
-          assert.deepEqual(expectedPhases, phases);
-          done();
-        }, 100);
+        assert.deepEqual(expectedPhases, phases);
+        done();
       }
-
     });
 
     req.url = url;
@@ -155,10 +143,8 @@ describe("io.request.XhrWithRemote", function() {
     var url = noCache("../resource/qx/test/xmlhttp/loading.php") + "&duration=100";
 
     req.on("timeout", function() {
-      setTimeout(function() {
-        assert.equal("timeout", req.phase);
-        done();
-      }, 100);
+      assert.equal("timeout", req.phase);
+      done();
     });
 
     req.url = url;
@@ -171,13 +157,11 @@ describe("io.request.XhrWithRemote", function() {
     var url = noCache("../resource/qx/test/xmlhttp/loading.php") + "&duration=100";
 
     req.on("timeout", function() {
-      setTimeout(function() {
-        try {
-          req.getResponseHeader("X-UI-My-Header");
-          throw new Error("DOM exception expected!");
-        } catch (ex) {}
-        done();
-      }, 100);
+      try {
+        req.getResponseHeader("X-UI-My-Header");
+        throw new Error("DOM exception expected!");
+      } catch (ex) {}
+      done();
     });
 
     req.url = url;

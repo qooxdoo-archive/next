@@ -319,7 +319,7 @@ describe("io.request.XhrLowLevel", function() {
     setTimeout(function() {
       sinon.assert.calledOnce(timeout);
       done();
-    },20);
+    }, 20);
   });
 
 
@@ -332,7 +332,7 @@ describe("io.request.XhrLowLevel", function() {
     setTimeout(function() {
       sinon.assert.notCalled(error);
       done();
-   },20);
+   }, 20);
   });
 
 
@@ -357,7 +357,7 @@ describe("io.request.XhrLowLevel", function() {
     setTimeout(function() {
       assert.isNull(req.__timerId);
       done();
-   },20);
+   }, 20);
   });
 
 
@@ -383,7 +383,7 @@ describe("io.request.XhrLowLevel", function() {
       setTimeout(function() {
         assert.isNull(req.__timerId);
         done();
-      },20);
+      }, 20);
     }
   });
 
@@ -581,8 +581,6 @@ describe("io.request.XhrLowLevel", function() {
 
 
   it("http status is 0 when aborted immediately", function() {
-    // require(["http"]);
-
     openAndSend("GET", "/");
     req._abort();
 
@@ -706,10 +704,7 @@ describe("io.request.XhrLowLevel", function() {
 
 
   it("read protocol from window if requested URL is without protocol", function() {
-    // require(["http"]);
-
     req._open("GET", "index.html");
-
     assert.match(req._getProtocol(), (/https?:/));
   });
 

@@ -17,10 +17,6 @@
 
 ************************************************************************ */
 
-/* ************************************************************************
-
-
-************************************************************************ */
 /**
  *
  * @asset(qx/test/jsonp_primitive.php)
@@ -31,7 +27,6 @@ describe("io.request.JsonpWithRemote", function() {
 
   beforeEach(function() {
     // TODO: Maybe use FakeServer instead
-    // this.require(["http"]);
     req = createRequest();
     req = stubMethods(req);
 
@@ -52,11 +47,9 @@ describe("io.request.JsonpWithRemote", function() {
     var url = noCache("../resource/qx/test/jsonp_primitive.php");
 
     req.on("load", function(e) {
-      setTimeout(function() {
-        assert.isObject(req.response);
-        assert.isTrue(req.response["boolean"]);
-        done();
-      }, 100);
+      assert.isObject(req.response);
+      assert.isTrue(req.response["boolean"]);
+      done();
     });
 
     req.url = url;

@@ -17,10 +17,6 @@
 
 ************************************************************************ */
 
-/* ************************************************************************
-
-
-************************************************************************ */
 /**
  *
  * @asset(qx/test/xmlhttp/random.php)
@@ -46,10 +42,8 @@ describe("io.rest.ResourceWithRemote", function() {
     var url = "../resource/qx/test/xmlhttp/sample.txt";
     res.map("get", "GET", url);
     res.on("getSuccess", function(e) {
-      setTimeout(function(){
-        assert.equal("SAMPLE", e.response);
-        done();
-      },100);
+      assert.equal("SAMPLE", e.response);
+      done();
     });
 
     res.get();
@@ -57,16 +51,13 @@ describe("io.rest.ResourceWithRemote", function() {
 
 
   it("invoke action and handle failure", function(done) {
-    // require(["http"]);
     var url = "/not-found";
 
     res.map("get", "GET", url);
     res.on("error", function(e) {
-      setTimeout(function() {
-        assert.equal("statusError", e.phase);
-        assert.equal("get", e.action);
-        done();
-      }, 10);
+      assert.equal("statusError", e.phase);
+      assert.equal("get", e.action);
+      done();
     });
 
     res.get();
@@ -93,11 +84,9 @@ describe("io.rest.ResourceWithRemote", function() {
       previousResponse = response;
 
       if (count >= 10) {
-        setTimeout(function() {
-          if (count === 10) {
-            done();
-          }
-        }, 10);
+        if (count === 10) {
+          done();
+        }
       }
     });
 
@@ -116,13 +105,11 @@ describe("io.rest.ResourceWithRemote", function() {
       responses.push(response);
 
       if (++count >= 5) {
-        setTimeout(function() {
-          assert(parseFloat(responses[4]) > parseFloat(responses[0]),
-            "Must increase");
-          if (count === 5) {
-            done();
-          }
-        }, 100);
+        assert(parseFloat(responses[4]) > parseFloat(responses[0]),
+          "Must increase");
+        if (count === 5) {
+          done();
+        }
       }
     });
 

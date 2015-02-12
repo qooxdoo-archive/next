@@ -2,11 +2,9 @@ describe("module.IO", function() {
 
   it("BasicXhr", function(done) {
     q.io.xhr("scriptload.js").on("loadend", function(xhr) {
-      setTimeout(function() {
-        assert.equal(xhr.readyState, 4);
-        xhr.dispose();
-        done();
-      }, 0);
+      assert.equal(xhr.readyState, 4);
+      xhr.dispose();
+      done();
     }, this).send();
   });
 
@@ -17,24 +15,20 @@ describe("module.IO", function() {
         "Content-Type": "application/json"
       }
     }).on("loadend", function(xhr) {
-      setTimeout(function() {
-        assert.equal(xhr.readyState, 4);
-        xhr.dispose();
-        done();
-      }, 0);
+      assert.equal(xhr.readyState, 4);
+      xhr.dispose();
+      done();
     }, this).send();
   });
 
 
   it("BasicScript", function(done) {
     var req = q.io.script("scriptload.js").on("loadend", function() {
-      setTimeout(function() {
-        assert.equal(req.readyState, 4);
-        assert.equal(window.qTest, "loaded"); // will be set by the test file
-        window.qTest = undefined;
-        req.dispose();
-        done();
-      }, 0);
+      assert.equal(req.readyState, 4);
+      assert.equal(window.qTest, "loaded"); // will be set by the test file
+      window.qTest = undefined;
+      req.dispose();
+      done();
     }, this).send();
   });
 
@@ -43,12 +37,10 @@ describe("module.IO", function() {
     var req = q.io.jsonp("jsonpload.js", {
       callbackName: "callback"
     }).on("loadend", function() {
-      setTimeout(function() {
-        assert.equal(req.readyState, 4);
-        assert.equal(req.response.data, "test"); // comes from the test file
-        req.dispose();
-        done();
-      }, 0);
+      assert.equal(req.readyState, 4);
+      assert.equal(req.response.data, "test"); // comes from the test file
+      req.dispose();
+      done();
     }, this).send();
   });
 

@@ -99,12 +99,10 @@ describe("io.request.Script", function() {
 
   it("properties indicate success when request completed", function(done) {
     req.on("load", function() {
-      window.setTimeout(function() {
-        assert.equal(4, req.readyState);
-        assert.equal(200, req.status);
-        assert.equal("200", req.statusText);
-        done();
-      }, 100);
+      assert.equal(4, req.readyState);
+      assert.equal(200, req.status);
+      assert.equal("200", req.statusText);
+      done();
     });
 
     request();
@@ -116,10 +114,8 @@ describe("io.request.Script", function() {
 
   it("status indicates success when determineSuccess returns true", function(done) {
     req.on("load", function() {
-      setTimeout(function() {
-        assert.equal(200, req.status);
-        done();
-      }, 100);
+      assert.equal(200, req.status);
+      done();
     });
 
     req.setDetermineSuccess(function() {
@@ -153,12 +149,10 @@ describe("io.request.Script", function() {
 
     req.timeout = 25;
     req.on("timeout", function() {
-      setTimeout(function() {
-        assert.equal(4, req.readyState);
-        assert.equal(0, req.status);
-        assert.isNull(req.statusText);
-        done();
-      }, 10);
+      assert.equal(4, req.readyState);
+      assert.equal(0, req.status);
+      assert.isNull(req.statusText);
+      done();
     });
 
     requestPending();
@@ -167,10 +161,8 @@ describe("io.request.Script", function() {
 
   it("status indicates failure when determineSuccess returns false", function(done) {
     req.on("load", function() {
-      setTimeout(function() {
-        assert.equal(500, req.status);
-        done();
-      }, 100);
+      assert.equal(500, req.status);
+      done();
     });
 
     req.setDetermineSuccess(function() {
@@ -183,13 +175,11 @@ describe("io.request.Script", function() {
 
   it("reset XHR properties when reopened", function(done) {
     req.on("load", function() {
-      setTimeout(function() {
-        req.open("GET", "/url");
-        assert.strictEqual(1, req.readyState);
-        assert.strictEqual(0, req.status);
-        assert.strictEqual("", req.statusText);
-        done();
-      }, 100);
+      req.open("GET", "/url");
+      assert.strictEqual(1, req.readyState);
+      assert.strictEqual(0, req.status);
+      assert.strictEqual("", req.statusText);
+      done();
     });
 
     request();
@@ -255,7 +245,7 @@ describe("io.request.Script", function() {
     setTimeout(function() {
       assert.isTrue(globalStack.indexOf("onload") === -1);
       done();
-    }, 300);
+    }, 100);
   });
 
   //
@@ -283,12 +273,10 @@ describe("io.request.Script", function() {
   //
 
   it("call onload", function(done) {
-
     // More precisely, the request completes when the browser
     // has loaded and parsed the script
-
     req.on("load", function() {
-      setTimeout(function() { done(); }, 100);
+      done();
     });
 
     request();
@@ -302,10 +290,8 @@ describe("io.request.Script", function() {
       readyStates.push(req.readyState);
 
       if (req.readyState === 4) {
-        setTimeout(function() {
-          assert.deepEqual([1, 2, 3, 4], readyStates);
-          done();
-        }, 100);
+        assert.deepEqual([1, 2, 3, 4], readyStates);
+        done();
       }
     });
 
@@ -320,7 +306,7 @@ describe("io.request.Script", function() {
 
   it("call onloadend on network error", function(done) {
     req.on("loadend", function() {
-      setTimeout(function() { done(); }, 100);
+      done();
     });
 
     request("http://fail.tld");
@@ -329,7 +315,7 @@ describe("io.request.Script", function() {
 
   it("call onloadend when request completes", function(done) {
     req.on("loadend", function() {
-      setTimeout(function() { done(); }, 100);
+      done();
     });
 
     request();
@@ -337,28 +323,14 @@ describe("io.request.Script", function() {
 
 
   it("not call onload when loading failed because of network error", function(done) {
-
-    // Known to fail in IE < 9,
-    // i.e. all browsers using onreadystatechange event handlerattribute
-    //
     // After a short delay, readyState progresses to "loaded" even
     // though the resource could not be loaded.
-    if (isIeBelow(9)) {
-      this.test.skip = true;
-      done();
-    }
-
     req.on("load", function() {
-      setTimeout(function() {
-        throw Error("Called onload");
-        done();
-      }, 100);
+      throw Error("Called onload");
     });
 
     req.on("error", function() {
-      setTimeout(function(){
-        done();
-      },100);
+      done();
     });
 
     request("http://fail.tld");
@@ -366,40 +338,11 @@ describe("io.request.Script", function() {
 
 
   it("call onerror on network error", function(done) {
-
-    // Known to fail in legacy IEs
-    if (isIeBelow(9)) {
-      this.test.skip = true;
-      done();
-      return;
-    }
-
     req.on("error", function() {
-      setTimeout(function() { done(); }, 100);
+      done();
     });
 
     request("http://fail.tld");
-  });
-
-
-  it.skip("call onerror on invalid script", function(done) {
-
-    // Known to fail in all browsers tested
-    // Native "error" event not fired for script element.
-    //
-    // A possible work-around is to listen to the global "error"
-    // event dispatched on the window.
-
-    // this.test.skip = true;
-    // done();
-    // return;
-
-    req.on("error", function() {
-      setTimeout(function() { done(); }, 100);
-    });
-
-    // Invalid JavaScript
-    request("../resource/qx/test/xmlhttp/sample.txt");
   });
 
 
@@ -433,7 +376,7 @@ describe("io.request.Script", function() {
   it("call ontimeout when request exceeds timeout limit", function(done) {
     req.timeout = 25;
     req.on("timeout", function() {
-      setTimeout(function() { done(); }, 100);
+      done();
     });
 
     requestPending();
@@ -445,14 +388,13 @@ describe("io.request.Script", function() {
 
     req.on("load", function() {
       setTimeout(function() {
-
         // Assert that timeout is canceled
         assert.isNull(req.__timeoutId);
         done();
-      }, 350);
+      }, 150);
     });
 
-    req.timeout = 300;
+    req.timeout = 100;
     request();
   });
 
@@ -473,11 +415,9 @@ describe("io.request.Script", function() {
     var script;
 
     req.on("load", function() {
-      setTimeout(function() {
-        script = req._getScriptElement();
-        assert.isFalse(isInDom(script));
-        done();
-      }, 100);
+      script = req._getScriptElement();
+      assert.isFalse(isInDom(script));
+      done();
     });
 
     request();
@@ -487,13 +427,10 @@ describe("io.request.Script", function() {
   it("remove script from DOM when request failed", function(done) {
     var script;
 
-    // In IE < 9, "load" is fired instead of "error"
     req.on("error", function() {
-      setTimeout(function() {
-        script = req._getScriptElement();
-        assert.isFalse(isInDom(script));
-        done();
-      }, 100);
+      script = req._getScriptElement();
+      assert.isFalse(isInDom(script));
+      done();
     });
 
     request("http://fail.tld");
@@ -501,22 +438,13 @@ describe("io.request.Script", function() {
 
 
   it("remove script from DOM when request timed out", function(done) {
-
-    // Known to fail in legacy IEs
-    if (isIeBelow(9)) {
-      this.test.skip = true;
-      done();
-    }
-
     var script;
 
     req.timeout = 25;
     req.on("timeout", function() {
-      setTimeout(function() {
-        script = req._getScriptElement();
-        assert.isFalse(isInDom(script));
-        done();
-      }, 100);
+      script = req._getScriptElement();
+      assert.isFalse(isInDom(script));
+      done();
     });
 
     requestPending();
@@ -531,7 +459,6 @@ describe("io.request.Script", function() {
 
   function requestPending(sleep) {
     // TODO: Maybe use FakeServer instead
-    // this.require(["http"]);
     var url = noCache("../resource/qx/test/jsonp_primitive.php");
 
     // In legacy browser, a long running script request blocks subsequent requests
