@@ -189,6 +189,8 @@ qx.Class.define("qx.ui.Carousel",
         child.setStyle("display", "table-cell");
       }
 
+      this.find(".scroll").setStyle("touchAction", "pan-y");
+
       // scroll as soon as we have the third page added
       if (this._getPages().length === 3 && !this._ie9) {
         this.__scrollContainer.translate([(-this.getWidth()) + "px", 0, 0]);
