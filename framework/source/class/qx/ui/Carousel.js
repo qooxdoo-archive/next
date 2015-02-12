@@ -451,7 +451,7 @@ qx.Class.define("qx.ui.Carousel",
         return;
       }
       var velocity = Math.abs(e.getVelocity());
-      if (e.getAxis() == "x" && velocity > 0.75) {
+      if (e.getAxis() == "x" && velocity > 0.25) {
         if (e.getDirection() == "left") {
           this.nextPage();
         } else if (e.getDirection() == "right") {
