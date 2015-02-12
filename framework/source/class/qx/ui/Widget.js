@@ -122,7 +122,7 @@ qx.Class.define("qx.ui.Widget", {
     this.anonymous = undefined;
     this.activatable = undefined;
     this._initDomConfig();
-    this.setData("qx-widget", this.classname);
+    this.setData("qxWidget", this.classname);
   },
 
 
