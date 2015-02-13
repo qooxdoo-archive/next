@@ -206,14 +206,13 @@ qx.Class.define("qx.ui.form.ToggleButton", {
      * @param evt {qx.event.type.Track} The track event.
      */
     _onTrack: function(evt) {
-      var movementX = evt._original._original._original.movementX;
       var tSwitch = this.getChildren(".togglebutton-switch");
       var buttonLeftBorder = parseInt(this.getStyle("borderLeftWidth"));
       var buttonLeftPadding = parseInt(this.getStyle("paddingLeft"));
 
       var limitLeft = this.getContentWidth() - tSwitch.getWidth();
       var left = tSwitch.getLocation().left - this.getLocation().left - buttonLeftBorder -
-        buttonLeftPadding + movementX;
+        buttonLeftPadding + evt.movementX;
       left = Math.min(left, limitLeft);
       left = Math.max(0, left);
       tSwitch.translate(left + "px");

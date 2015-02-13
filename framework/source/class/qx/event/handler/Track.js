@@ -116,7 +116,9 @@ qx.Class.define("qx.event.handler.Track", {
         this._trackData[domEvent.pointerId] = {
           target: target,
           startX : domEvent.clientX,
-          startY : domEvent.clientY
+          startY : domEvent.clientY,
+          currentX : domEvent.clientX,
+          currentY : domEvent.clientY
         };
         this._fireTrack("trackstart", domEvent, target);
       }
@@ -133,6 +135,9 @@ qx.Class.define("qx.event.handler.Track", {
       var trackData = this._trackData[domEvent.pointerId];
       if (trackData) {
         this._fireTrack("track", domEvent, trackData.target);
+
+        this._trackData[domEvent.pointerId].currentX = domEvent.clientX;
+        this._trackData[domEvent.pointerId].currentY = domEvent.clientY;
       }
     },
 
@@ -202,7 +207,8 @@ qx.Class.define("qx.event.handler.Track", {
       var evt = new qx.event.type.dom.Custom(type, domEvent, {
         bubbles: true,
         pointerType: domEvent.pointerType,
-        delta: this._getDeltaCoordinates(domEvent)
+        delta: this._getDeltaCoordinates(domEvent),
+        movementX: domEvent.screenX - this._trackData[domEvent.pointerId].currentX
       });
       target.dispatchEvent(evt);
     },
