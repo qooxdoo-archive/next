@@ -17,6 +17,8 @@
 describe("ui.Carousel", function() {
 
   var carousel;
+  var orderStyle = qxWeb.env.get("engine.name") == "mshtml" &&
+   qxWeb.env.get("browser.documentmode") == 10 ? "msFlexOrder" : "order";
 
   beforeEach(function() {
     carousel = new qx.ui.Carousel()
@@ -54,9 +56,9 @@ describe("ui.Carousel", function() {
     var p3 = new qx.ui.Widget();
     p3.appendTo(carousel);
 
-    assert.equal(p1.getStyle("order"), "0");
-    assert.equal(p2.getStyle("order"), "1");
-    assert.equal(p3.getStyle("order"), "-1");
+    assert.equal(p1.getStyle(orderStyle), "0");
+    assert.equal(p2.getStyle(orderStyle), "1");
+    assert.equal(p3.getStyle(orderStyle), "-1");
   });
 
 
@@ -70,9 +72,9 @@ describe("ui.Carousel", function() {
 
     carousel.active = p3;
 
-    assert.equal(p3.getStyle("order"), "0");
-    assert.equal(p1.getStyle("order"), "1");
-    assert.equal(p2.getStyle("order"), "-1");
+    assert.equal(p3.getStyle(orderStyle), "0");
+    assert.equal(p1.getStyle(orderStyle), "1");
+    assert.equal(p2.getStyle(orderStyle), "-1");
   });
 
 
@@ -86,9 +88,9 @@ describe("ui.Carousel", function() {
 
     carousel.active = p2;
 
-    assert.equal(p2.getStyle("order"), "0");
-    assert.equal(p3.getStyle("order"), "1");
-    assert.equal(p1.getStyle("order"), "-1");
+    assert.equal(p2.getStyle(orderStyle), "0");
+    assert.equal(p3.getStyle(orderStyle), "1");
+    assert.equal(p1.getStyle(orderStyle), "-1");
   });
 
   it("remove active", function() {
@@ -104,9 +106,9 @@ describe("ui.Carousel", function() {
     p1.remove();
 
     assert.equal(carousel.active[0], p2[0]);
-    assert.equal(p2.getStyle("order"), "0");
-    assert.equal(p3.getStyle("order"), "1");
-    assert.equal(p4.getStyle("order"), "-1");
+    assert.equal(p2.getStyle(orderStyle), "0");
+    assert.equal(p3.getStyle(orderStyle), "1");
+    assert.equal(p4.getStyle(orderStyle), "-1");
   });
 
 
