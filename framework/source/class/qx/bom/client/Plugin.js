@@ -151,7 +151,7 @@ qx.Class.define("qx.bom.client.Plugin",
      */
     getWindowsMediaVersion : function() {
       var entry = qx.bom.client.Plugin.__db["wmv"];
-      return qx.bom.client.Plugin.__getVersion(entry.control, entry.plugin);
+      return qx.bom.client.Plugin.__getVersion(entry.control, entry.plugin, true);
     },
 
 
@@ -223,7 +223,7 @@ qx.Class.define("qx.bom.client.Plugin",
      */
     getWindowsMedia : function() {
       var entry = qx.bom.client.Plugin.__db["wmv"];
-      return qx.bom.client.Plugin.__isAvailable(entry.control, entry.plugin);
+      return qx.bom.client.Plugin.__isAvailable(entry.control, entry.plugin, true);
     },
 
 
@@ -281,11 +281,13 @@ qx.Class.define("qx.bom.client.Plugin",
      *   the test ActiveX Object.
      * @param pluginNames {Array} The names with which the plugins are listed in
      *   the navigator.plugins list.
+     * @param forceActiveX {Boolean?false} Force detection using ActiveX
+     *   for IE11 plugins that aren't listed in navigator.plugins
      * @return {String} The version of the plugin as string.
      */
-    __getVersion : function(activeXName, pluginNames) {
+    __getVersion : function(activeXName, pluginNames, forceActiveX) {
       var available = qx.bom.client.Plugin.__isAvailable(
-        activeXName, pluginNames
+        activeXName, pluginNames, forceActiveX
       );
       // don't check if the plugin is not available
       if (!available) {
@@ -293,7 +295,9 @@ qx.Class.define("qx.bom.client.Plugin",
       }
 
       // IE checks
-      if (qx.bom.client.Engine.getName() == "mshtml") {
+      if (qx.bom.client.Engine.getName() == "mshtml" &&
+        (qx.bom.client.Browser.getDocumentMode() < 11 || forceActiveX))
+      {
         try {
           var obj = new ActiveXObject(activeXName);
           var version;
@@ -361,11 +365,15 @@ qx.Class.define("qx.bom.client.Plugin",
      *   the test ActiveX Object.
      * @param pluginNames {Array} The names with which the plugins are listed in
      *   the navigator.plugins list.
+     * @param forceActiveX {Boolean?false} Force detection using ActiveX
+     *   for IE11 plugins that aren't listed in navigator.plugins
      * @return {Boolean} <code>true</code>, if the plugin available
      */
-    __isAvailable : function(activeXName, pluginNames) {
+    __isAvailable : function(activeXName, pluginNames, forceActiveX) {
       // IE checks
-      if (qx.bom.client.Engine.getName() == "mshtml") {
+      if (qx.bom.client.Engine.getName() == "mshtml" &&
+        (qx.bom.client.Browser.getDocumentMode() < 11 || forceActiveX))
+      {
 
         if (!this.getActiveX()) {
           return false;
