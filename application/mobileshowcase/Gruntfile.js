@@ -62,6 +62,10 @@ module.exports = function(grunt) {
         }]
       }
     },
+
+    jshint: {
+      all: ['source/class/**/*.js']
+    }
   };
 
   var mergedConf = qx.config.mergeConfig(config, {"build": "build-base", "source": "source-base"});
@@ -71,6 +75,7 @@ module.exports = function(grunt) {
   qx.task.registerTasks(grunt);
 
   grunt.loadNpmTasks('grunt-contrib-sass');
+  grunt.loadNpmTasks('grunt-contrib-jshint');
 
   // 'extend' build job
   grunt.task.renameTask('build', 'build-base');
