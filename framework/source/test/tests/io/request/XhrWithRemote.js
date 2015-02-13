@@ -30,6 +30,11 @@ describe("io.request.XhrWithRemote", function() {
     req.dispose();
   });
 
+
+  function noCache(url) {
+    return qx.util.Uri.appendParamsToUrl(url, "nocache=" + Date.now());
+  }
+
   it("fetch resource", function(done) {
     var url = noCache("../resource/qx/test/xmlhttp/sample.txt");
 
@@ -169,12 +174,4 @@ describe("io.request.XhrWithRemote", function() {
     req.send();
   });
 
-
-  function noCache(url) {
-    return qx.util.Uri.appendParamsToUrl(url, "nocache=" + (new Date).valueOf());
-  }
-
-  // function hasNoIe() {
-  //   return !(qx.core.Environment.get("engine.name") == "mshtml");
-  // }
 });

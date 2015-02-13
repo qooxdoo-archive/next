@@ -515,17 +515,19 @@ describe("io.request.XhrWithRemoteLowLevel", function() {
   //
 
 
-  it("not call ontimeout when DONE and sync", function() {
+  it("not call ontimeout when DONE and sync", function(done) {
     var url = "../resource/qx/test/xmlhttp/sample.txt";
 
     // Assume that request completes in given interval
     req.timeout = 400;
 
+    var spy = sinonSandbox.spy(req, "_onTimeout");
+
     req._open("GET", url, false);
     req._send();
-
     setTimeout(function() {
-      assert.isNull(req.__timerId);
+      sinon.assert.notCalled(spy);
+      done();
     }, 500);
   });
 

@@ -337,8 +337,6 @@ describe("io.request.XhrLowLevel", function() {
 
 
   it("not emit error when aborted immediately", function() {
-
-
     var error = sinonSandbox.stub(req, "emit").withArgs("error");
 
     openAndSend("GET", "/");
@@ -351,11 +349,12 @@ describe("io.request.XhrLowLevel", function() {
   it("cancel timeout when DONE", function(done) {
     var fakeReq = getFakeReq();
     req.timeout = 10;
+    var spy = sinonSandbox.spy(req, "_onTimeout");
     openAndSend("GET", "/");
     fakeReq.respond();
 
     setTimeout(function() {
-      assert.isNull(req.__timerId);
+      sinon.assert.notCalled(spy);
       done();
    }, 20);
   });
@@ -364,6 +363,7 @@ describe("io.request.XhrLowLevel", function() {
   it("cancel timeout when handler throws", function(done) {
     var fakeReq = getFakeReq();
     req.timeout = 10;
+    var spy = sinonSandbox.spy(req, "_onTimeout");
     openAndSend("GET", "/");
 
     // Simulate error in handler for readyState DONE
@@ -381,7 +381,7 @@ describe("io.request.XhrLowLevel", function() {
 
     } finally {
       setTimeout(function() {
-        assert.isNull(req.__timerId);
+        sinon.assert.notCalled(spy);
         done();
       }, 20);
     }

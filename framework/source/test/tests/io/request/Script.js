@@ -384,14 +384,11 @@ describe("io.request.Script", function() {
 
 
   it("not call ontimeout when request is within timeout limit", function(done) {
-    sinonSandbox.spy(req, "emit");
+    var spy = sinonSandbox.spy(req, "_onTimeout");
 
     req.on("load", function() {
-      setTimeout(function() {
-        // Assert that timeout is canceled
-        assert.isNull(req.__timeoutId);
-        done();
-      }, 150);
+      sinon.assert.notCalled(spy);
+      done();
     });
 
     req.timeout = 100;
