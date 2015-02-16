@@ -71,7 +71,6 @@ module.exports = function(grunt) {
     'remove_node_modules',
     'Removes all node_modules directories',
     function() {
-      // shell.exec('find . -name "node_modules" | grep -v node_modules | grep -v tool/grunt/node_modules | xargs rm -rf');
       var dirs = shell.find('.').filter(function(file) {
         var match = file.match(/node_modules$/);
         // exclude the most important 'node_modules' dirs
