@@ -59,10 +59,10 @@ module.exports = function(grunt) {
     'build_skel',
     'Build skeleton app',
     function() {
-      shell.exec('mkdir -p release');
+      shell.mkdir('-p', 'release');
       shell.exec('python create-application.py -n test_skel -o release');
       shell.exec('grunt build --gruntfile release/test_skel/Gruntfile.js');
-      shell.exec('rm -rf release/test_skel');
+      shell.rm('-rf', 'release/test_skel');
     }
   );
 
@@ -71,7 +71,18 @@ module.exports = function(grunt) {
     'remove_node_modules',
     'Removes all node_modules directories',
     function() {
-      shell.exec('find . -name "node_modules" | grep -v node_modules/ | grep -v tool/grunt/node_modules | xargs rm -rf');
+      // shell.exec('find . -name "node_modules" | grep -v node_modules | grep -v tool/grunt/node_modules | xargs rm -rf');
+      var dirs = shell.find('.').filter(function(file) {
+        var match = file.match(/node_modules$/);
+        // exclude the most important 'node_modules' dirs
+        if (match === null || /^node_modules|^tool\/grunt\/node_modules/.test(file)) {
+          return false;
+        } else {
+          return match;
+        }
+      }).forEach(function(path) {
+        shell.rm('-rf', path);
+      });
     }
   );
 
