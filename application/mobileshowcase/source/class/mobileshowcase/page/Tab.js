@@ -117,8 +117,7 @@ qx.Class.define("mobileshowcase.page.Tab",
 
       var infoText = new qx.ui.Widget()
         .setHtml("In responsive mode, the TabBar dynamically switches between horizontal and vertical orientation based on the change events from a configurable CSS media query listener.<br>Resize your browser or change your device's orientation to test this feature.");
-      var infoRow = new qx.ui.form.Row(infoText)
-        .appendTo(group);
+      new qx.ui.form.Row(infoText).appendTo(group);
 
       var toggle = new qx.ui.form.ToggleButton(true, "ON", "OFF")
         .on("changeValue", function(e) {
@@ -128,15 +127,14 @@ qx.Class.define("mobileshowcase.page.Tab",
             this.__tabBar.mediaQuery = null;
           }
         }, this);
-      var toggleRow = new qx.ui.form.Row(toggle, "Active")
+      new qx.ui.form.Row(toggle, "Active")
         .appendTo(group);
 
       var query = this.__query = new qx.ui.form.TextField()
         .set({value: this.__tabBar.mediaQuery});
       qx.data.SingleValueBinding.bind(query, "value", this.__tabBar, "mediaQuery");
 
-      var queryRow = new qx.ui.form.Row(query, "Media Query")
-        .appendTo(group);
+      new qx.ui.form.Row(query, "Media Query").appendTo(group);
 
       return group;
     }
