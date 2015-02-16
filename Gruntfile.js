@@ -72,25 +72,20 @@ module.exports = function(grunt) {
     'Removes all node_modules directories',
     function() {
       var dirs = shell.find('.').filter(function(file) {
-        var match = file.match(/node_modules$/);
-        // exclude the most important 'node_modules' dirs
-        if (match === null || /^node_modules|^tool\/grunt\/node_modules/.test(file)) {
-          return false;
-        } else {
-          return match;
-        }
+        return file.match(/node_modules$/);
       }).forEach(function(path) {
         shell.rm('-rf', path);
       });
     }
   );
 
-  // setup toolchain and apps (grunt setup <=> grunt remove_node_modules)
+  // setup toolchain, apps and tests (grunt setup <=> grunt remove_node_modules)
   grunt.task.registerTask (
     'setup',
     'Setup toolchain and apps',
     function() {
       shell.cd('tool/grunt');
+      shell.exec('npm install');
       shell.exec('node setup.js');
       shell.cd('../../application');
       var apps = shell.ls('.');
@@ -99,6 +94,8 @@ module.exports = function(grunt) {
         shell.exec('npm install');
         shell.cd('../');
       });
+      shell.cd('../framework/source/test');
+      shell.exec('npm install');
     }
   );
 
