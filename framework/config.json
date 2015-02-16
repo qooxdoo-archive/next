@@ -34,6 +34,7 @@
     "fix",
     "images",
     "info",
+    "lint",
     "npm-package-copy",
     "npm-package-publish",
     "npm-package-test",
