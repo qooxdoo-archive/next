@@ -4,5 +4,10 @@
   "repository" : {},
   "devDependencies": {
     "grunt": "~0.4.2"
+  },
+  "org_next": {
+    "namespace": "myapp",
+    "class": "source/class",
+    "resource": "source/resource"
   }
 }
