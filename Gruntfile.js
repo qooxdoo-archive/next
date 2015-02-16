@@ -49,6 +49,11 @@ module.exports = function(grunt) {
     }
   });
 
+  // alias
+  grunt.registerTask('lint', 'run_grunt:lint_apps');
+  grunt.registerTask('clean', 'run_grunt:clean_apps');
+  grunt.registerTask('build', 'run_grunt:build_apps');
+
   // skeleton
   grunt.task.registerTask (
     'build_skel',
