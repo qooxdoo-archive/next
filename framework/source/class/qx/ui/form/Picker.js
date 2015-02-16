@@ -65,8 +65,8 @@ qx.Class.define("qx.ui.form.Picker",
     this._slots = new qx.data.Array();
 
     this._applyVisibleItems(this.$$properties.visibleItems.init); //TODO: better init
-    this.value = [];
     this.__value = [];
+    this.value = [];
     this.on("changeValue", this._scrollToSelected, this);
   },
 
