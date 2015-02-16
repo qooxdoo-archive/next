@@ -1,6 +1,7 @@
 // requires
 var util = require('util');
 var qx = require("../../tool/grunt");
+var shell = require("shelljs");
 
 // grunt
 module.exports = function(grunt) {
@@ -80,5 +81,13 @@ module.exports = function(grunt) {
     'build',
     'Build the playground and compile the stylesheets with Sass.',
     ["sass:indigo", "build-base"]
+  );
+
+  grunt.task.registerTask(
+    "lint",
+    "Lints the files of the current app",
+    function () {
+      shell.exec("python generate.py lint");
+    }
   );
 };

@@ -13,7 +13,8 @@
   "devDependencies": {
     "grunt": "~0.4.2",
     "grunt-contrib-clean": "~0.5.0",
-    "grunt-contrib-sass": "^0.8.1"
+    "grunt-contrib-sass": "^0.8.1",
+    "shelljs": "^0.3.0"
   },
   "org_next": {
     "namespace": "mobileshowcase",
