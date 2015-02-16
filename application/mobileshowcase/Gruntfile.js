@@ -22,6 +22,7 @@ module.exports = function(grunt) {
         "qx.theme": "<%= common.THEME %>",
         "qx.version":"<%= common.QOOXDOO_VERSION %>"
       },
+      "BUILD_PATH": "<%= common.ROOT %>/build-indigo",
       "MOBILE_RESOURCE_PATH": "source/resource/<%= common.APPLICATION %>"
     },
 
