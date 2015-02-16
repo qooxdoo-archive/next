@@ -66,6 +66,7 @@ qx.Class.define("qx.ui.form.Picker",
 
     this._applyVisibleItems(this.$$properties.visibleItems.init); //TODO: better init
     this.value = [];
+    this.__value = [];
     this.on("changeValue", this._scrollToSelected, this);
   },
 
@@ -105,7 +106,7 @@ qx.Class.define("qx.ui.form.Picker",
     _slots : null,
     _pickerModel : null,
     _name: "picker",
-    __value: [],
+    __value: null,
 
 
     // property apply

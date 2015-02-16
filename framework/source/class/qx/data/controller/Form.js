@@ -179,7 +179,6 @@ qx.Class.define("qx.data.controller.Form",
           // if its the last item
           if (i + 1 == names.length) {
             // check if the target is a selection
-            var clazz = item.constructor;
             var itemValue = null;
               itemValue = item.value;
 

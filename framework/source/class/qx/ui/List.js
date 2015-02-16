@@ -439,7 +439,6 @@ qx.Class.define("qx.ui.List",
             this.append(groupElement);
           }
         }
-        var item = model.getItem(index);
         var itemElement = this.__getRowTemplate(index);
 
         var itemHeight = null;

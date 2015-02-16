@@ -307,7 +307,6 @@ qx.Class.define("qx.ui.control.Calendar", {
      */
     _getWeekRows : function(date) {
       var weeks = [];
-      var value = null, valueString = null;
       var today = new Date();
       var helpDate = this._getHelpDate(date);
 

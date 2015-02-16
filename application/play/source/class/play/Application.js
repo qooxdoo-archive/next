@@ -28,6 +28,9 @@ qx.Class.define("play.Application",
 
 
   members : {
+    __root : null,
+    __manager : null,
+
     main : function()
     {
       // Call super class

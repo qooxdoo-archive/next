@@ -35,6 +35,9 @@ qx.Class.define("mobileshowcase.page.Tab",
 
   members :
   {
+    __tabBar: null,
+    __query: null,
+
     // overridden
     _initialize : function()
     {

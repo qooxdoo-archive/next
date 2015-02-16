@@ -655,6 +655,12 @@ qx.Class.define("qx.io.request.Xhr",
 
 
     /**
+     * @type {Boolean} Abort flag
+     */
+    __abort: null,
+
+
+    /**
      * @type {Array} Whitelist with all allowed data types for the request payload
      */
     __dataTypeWhiteList: null,

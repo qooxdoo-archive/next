@@ -115,6 +115,10 @@ qx.Class.define("qx.log.appender.NodeConsole", {
 
   },
 
+  /**
+   * @ignore(process.stderr)
+   * @ignore(process.stdout)
+   */
   classDefined : function(statics)
   {
     if (typeof(process) !== "undefined") {

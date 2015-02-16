@@ -201,7 +201,6 @@ qx.Mixin.define("qx.ui.container.MNativeScroll",
     */
     _snap : function() {
       this.emit("scrollEnd");
-      var element = this[0];
 
       var current = this._getPosition();
       this._orderSnapPoints("left");
