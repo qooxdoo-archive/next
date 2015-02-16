@@ -33,6 +33,6 @@
 # CSS compiler
 /framework/source/resource/qx/scss/.sass-cache/
 
-# Node/NPM
+# node/npm
 node_modules/
 npm-debug.log
