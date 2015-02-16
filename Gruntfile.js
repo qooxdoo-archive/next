@@ -40,7 +40,11 @@ module.exports = function(grunt) {
             }
           }
         },
-        src: ['application/play/Gruntfile.js', "application/mobileshowcase/Gruntfile.js"]
+        src: [
+          "application/play/Gruntfile.js",
+          "application/mobileshowcase/Gruntfile.js",
+          "framework/Gruntfile.js"
+        ]
       }
     }
   });
