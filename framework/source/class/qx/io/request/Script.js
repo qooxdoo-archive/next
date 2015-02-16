@@ -193,7 +193,7 @@ qx.Class.define("qx.io.request.Script",
       // Reset XHR properties that may have been set by previous request
       this.__initXhrProperties();
 
-      this.__abort = null;
+      this._isAbort = null;
       this.__url = url;
 
       if (qx.core.Environment.get("qx.debug.io")) {
@@ -281,7 +281,7 @@ qx.Class.define("qx.io.request.Script",
         return null;
       }
 
-      this.__abort = true;
+      this._isAbort = true;
       this.__disposeScriptElement();
       this.emit("abort");
       return this;
@@ -425,7 +425,7 @@ qx.Class.define("qx.io.request.Script",
           that = this;
 
       // Aborted request must not fire load
-      if (this.__abort) {
+      if (this._isAbort) {
         return;
       }
 

@@ -19,7 +19,7 @@
 
 /**
  *
- * @asset(../resource/qx/icon/Tango/48/places/folder.png)
+ * @asset(../resource/qx/test/folder.png)
  */
 
 describe("ui.List", function() {
@@ -55,27 +55,27 @@ describe("ui.List", function() {
     data.push({
       title: "1",
       subtitle: "s1",
-      image: "../resource/qx/icon/Tango/48/places/folder.png"
+      image: "../resource/qx/test/folder.png"
     });
     data.push({
       title: "2",
       subtitle: "s2",
-      image: "../resource/qx/icon/Tango/48/places/folder.png"
+      image: "../resource/qx/test/folder.png"
     });
     data.push({
       title: "3",
       subtitle: "s3",
-      image: "../resource/qx/icon/Tango/48/places/folder.png"
+      image: "../resource/qx/test/folder.png"
     });
     data.push({
       title: "4",
       subtitle: "s4",
-      image: "../resource/qx/icon/Tango/48/places/folder.png"
+      image: "../resource/qx/test/folder.png"
     });
     data.push({
       title: "5",
       subtitle: "s5",
-      image: "../resource/qx/icon/Tango/48/places/folder.png"
+      image: "../resource/qx/test/folder.png"
     });
     return new qx.data.Array(data);
   }
@@ -145,7 +145,7 @@ describe("ui.List", function() {
     list.model.setItem(0, {
       title: "affe",
       subtitle: "1",
-      image: "../resource/qx/icon/Tango/48/places/folder.png"
+      image: "../resource/qx/test/folder.png"
     });
     __assertItemsAndModelLength(list, 5);
 
@@ -163,7 +163,7 @@ describe("ui.List", function() {
 
     __assertItemsAndModelLength(list, 5);
 
-    var newImageSrc = "../resource/qx/icon/Tango/48/places/folder.png";
+    var newImageSrc = "../resource/qx/test/folder.png";
     var newTitleText = "Giraffe";
     var newSubtitleText = "subtitle1";
 
@@ -193,7 +193,7 @@ describe("ui.List", function() {
     list.model.push({
       title: "6",
       subtitle: "6",
-      image: "../resource/qx/icon/Tango/48/places/folder.png"
+      image: "../resource/qx/test/folder.png"
     });
     __assertItemsAndModelLength(list, 6);
     __cleanUp(list);

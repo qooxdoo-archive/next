@@ -190,7 +190,7 @@ qx.Class.define("qx.io.request.Xhr",
       }
 
       // Reset flags that may have been set on previous request
-      this.__abort = false;
+      this._isAbort = false;
       this.__send = false;
       this.__conditional = false;
 
@@ -538,7 +538,7 @@ qx.Class.define("qx.io.request.Xhr",
     _abort: function() {
       this.__checkDisposed();
 
-      this.__abort = true;
+      this._isAbort = true;
       this.__nativeXhr.abort();
 
       if (this.__nativeXhr) {
@@ -549,7 +549,7 @@ qx.Class.define("qx.io.request.Xhr",
       if (qx.core.Environment.get("qx.debug.io")) {
         this.debug("Abort request");
       }
-      this.__abort = true;
+      this._isAbort = true;
 
       // Update phase to "abort" before user handler are invoked [BUG #5485]
       this.phase = "abort";
@@ -676,7 +676,7 @@ qx.Class.define("qx.io.request.Xhr",
       }
 
       // Reset flags
-      this.__disposed = this.__send = this.__abort = false;
+      this.__disposed = this.__send = this._isAbort = false;
 
       // Initialize data white list
       this.__dataTypeWhiteList = [ "ArrayBuffer", "Blob", "HTMLDocument", "String", "FormData" ];
@@ -692,7 +692,7 @@ qx.Class.define("qx.io.request.Xhr",
     __onNativeAbort: function() {
       // When the abort that triggered this method was not a result from
       // calling abort()
-      if (!this.__abort) {
+      if (!this._isAbort) {
         this.abort();
       }
     },
@@ -789,7 +789,7 @@ qx.Class.define("qx.io.request.Xhr",
 
       // Fire either "abort", "load" or "error"
       } else {
-        if (this.__abort) {
+        if (this._isAbort) {
           this.emit("abort", this);
         } else {
           if (this.__isNetworkError()) {

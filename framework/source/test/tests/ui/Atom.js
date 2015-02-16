@@ -38,7 +38,7 @@ describe("ui.Atom", function() {
 
 
   it("Icon", function() {
-      var imageURL = "../resource/qx/icon/Tango/48/places/user-home.png";
+      var imageURL = "../resource/qx/test/user-home.png";
       var atom = new qx.ui.Atom("myText", imageURL);
 
       sandbox.append(atom);
@@ -46,22 +46,22 @@ describe("ui.Atom", function() {
       assert.isString(atom.icon);
       assert.equal(atom.getIconWidget().source, imageURL);
       // atom.getIconWidget()[0].src is usually in the form:
-      // http://127.0.0.1/tablet/framework/test/html/qx/icon/Tango/48/places/folder-remote.png
+      // http://127.0.0.1/tablet/framework/test/html/qx/test/folder-remote.png
       // but http://127.0.0.1/tablet/framework/test/html/ differs on where you test it
-      assert.isTrue(atom.getIconWidget().getAttribute("src").indexOf("../resource/qx/icon/Tango/48/places/user-home.png") != -1);
+      assert.isTrue(atom.getIconWidget().getAttribute("src").indexOf("../resource/qx/test/user-home.png") != -1);
 
-      var image2URL = "../resource/qx/icon/Tango/32/places/folder-open.png";
+      var image2URL = "../resource/qx/test/folder-open.png";
 
       atom.icon = image2URL;
       assert.equal(atom.icon, image2URL);
-      assert.isTrue(atom.getIconWidget().getAttribute("src").indexOf("../resource/qx/icon/Tango/32/places/folder-open.png") != -1);
+      assert.isTrue(atom.getIconWidget().getAttribute("src").indexOf("../resource/qx/test/folder-open.png") != -1);
 
       atom.dispose();
   });
 
 
   it("Show", function() {
-      var imageURL = "../resource/qx/icon/Tango/48/places/user-home.png";
+      var imageURL = "../resource/qx/test/user-home.png";
       var atom = new qx.ui.Atom("myText", imageURL);
 
       sandbox.append(atom);
@@ -84,7 +84,7 @@ describe("ui.Atom", function() {
 
 
   it("IconPosition", function() {
-      var imageURL = "../resource/qx/icon/Tango/48/places/user-home.png";
+      var imageURL = "../resource/qx/test/user-home.png";
       var atom = new qx.ui.Atom("myTextmyTextmyTextmyTextmyText", imageURL);
 
       sandbox.append(atom);
@@ -121,7 +121,7 @@ describe("ui.Atom", function() {
   it("SetLabelAndIcon", function() {
 
       var testText = "test234";
-      var imageURL = "../resource/qx/icon/Tango/48/places/user-home.png";
+      var imageURL = "../resource/qx/test/user-home.png";
 
       var atom = new qx.ui.Atom();
       atom.label = testText;
@@ -142,7 +142,7 @@ describe("ui.Atom", function() {
 
 
   it("Factory", function() {
-    var imagePath = "../resource/qx/icon/Tango/48/places/user-home.png";
+    var imagePath = "../resource/qx/test/user-home.png";
     var imageUri = imagePath;
     var label = "myText";
     var atom = q.create('<div></div>')
