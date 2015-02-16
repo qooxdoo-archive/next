@@ -38,54 +38,51 @@ program
 
 var rootDir = shell.pwd();
 var packages = [];
+var usingCachePackages = [];
 var tasks = [];
+var usedByTasksPackages = [];
 
 // install all packages
 shell.cd('task/package');
 
 // cache is used by others so install first
 shell.exec('node runNpmCmd.js install cache');
-var usingCachePackages = ['dependency', 'compression'];
+usingCachePackages = ['dependency', 'compression'];
 usingCachePackages.forEach(function(pkg) {
   shell.cd(pkg);
   // symlink cache package
   if (shell.test('-L', 'node_modules/qx-cache')) {
     fs.unlinkSync('node_modules/qx-cache');
   }
+  shell.mkdir('-p', 'node_modules');
   fs.symlinkSync('../../cache/', 'node_modules/qx-cache');
   shell.cd('../');
 });
 
-// exclude runNpmCmd.js through filtering
-packages = shell.ls('.').filter(function(dirOrFile) { return !dirOrFile.match(/\.js$/); });
-shell.exec('node runNpmCmd.js install');
+// exclude runNpmCmd.js through filtering (exclude cache because it's already installed)
+packages = shell.ls('.').filter(function(dirOrFile) {
+  return (['cache'].indexOf(dirOrFile) === -1 && dirOrFile.indexOf('.') === -1);
+});
+packages.forEach(function(pkg) {
+  shell.exec('node runNpmCmd.js install '+pkg);
+});
 shell.cd(rootDir);
 
 // install all tasks and symlink packages ('qx-*')
 tasks = ['source', 'build'];
+usedByTasksPackages = ['compression', 'dependency', 'library', 'resource'];
 tasks.forEach(function(task){
   shell.cd('task/'+task);
   packages.forEach(function(pkg) {
-    if (shell.test('-L', 'node_modules/qx-compression')) {
-      fs.unlinkSync('node_modules/qx-compression');
-    }
-    fs.symlinkSync('../../package/compression/', 'node_modules/qx-compression');
+    usedByTasksPackages.forEach(function(usedPkg) {
+      var nodeModulePath = 'node_modules/qx-'+usedPkg;
+      if (shell.test('-L', nodeModulePath)) {
+        fs.unlinkSync(nodeModulePath);
+      }
+      shell.mkdir('-p', 'node_modules');
+      fs.symlinkSync('../../package/'+usedPkg+'/', nodeModulePath);
 
-    if (shell.test('-L', 'node_modules/qx-dependency')) {
-      fs.unlinkSync('node_modules/qx-dependency');
-    }
-    fs.symlinkSync('../../package/dependency/', 'node_modules/qx-dependency');
-
-    if (shell.test('-L', 'node_modules/qx-library')) {
-      fs.unlinkSync('node_modules/qx-library');
-    }
-    fs.symlinkSync('../../package/library/', 'node_modules/qx-library');
-
-    if (shell.test('-L', 'node_modules/qx-resource')) {
-      fs.unlinkSync('node_modules/qx-resource');
-    }
-    fs.symlinkSync('../../package/resource/', 'node_modules/qx-resource');
-
+    });
     shell.exec('npm install');
   });
   shell.cd(rootDir);

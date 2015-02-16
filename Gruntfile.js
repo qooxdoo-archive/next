@@ -66,7 +66,7 @@ module.exports = function(grunt) {
     }
   );
 
-  // rm node_modules
+  // rm node_modules (grunt remove_node_modules <=> grunt setup)
   grunt.task.registerTask (
     'remove_node_modules',
     'Removes all node_modules directories',
@@ -81,6 +81,23 @@ module.exports = function(grunt) {
         }
       }).forEach(function(path) {
         shell.rm('-rf', path);
+      });
+    }
+  );
+
+  // setup toolchain and apps (grunt setup <=> grunt remove_node_modules)
+  grunt.task.registerTask (
+    'setup',
+    'Setup toolchain and apps',
+    function() {
+      shell.cd('tool/grunt');
+      shell.exec('node setup.js');
+      shell.cd('../../application');
+      var apps = shell.ls('.');
+      apps.forEach(function(appPath) {
+        shell.cd(appPath);
+        shell.exec('npm install');
+        shell.cd('../');
       });
     }
   );
