@@ -29,6 +29,18 @@ module.exports = function(grunt) {
           }
         },
         src: ['application/play/Gruntfile.js', "application/mobileshowcase/Gruntfile.js"]
+      },
+      lint_apps: {
+        options: {
+          log: true,
+          task: ["lint"],
+          process: function(res) {
+            if (res.fail) {
+              grunt.log.writeln('Error during linting all applications');
+            }
+          }
+        },
+        src: ['application/play/Gruntfile.js', "application/mobileshowcase/Gruntfile.js"]
       }
     }
   });
