@@ -54,18 +54,6 @@ module.exports = function(grunt) {
   grunt.registerTask('clean', 'run_grunt:clean_apps');
   grunt.registerTask('build', 'run_grunt:build_apps');
 
-  // skeleton
-  grunt.task.registerTask (
-    'build_skel',
-    'Build skeleton app',
-    function() {
-      shell.mkdir('-p', 'release');
-      shell.exec('python create-application.py -n test_skel -o release');
-      shell.exec('grunt build --gruntfile release/test_skel/Gruntfile.js');
-      shell.rm('-rf', 'release/test_skel');
-    }
-  );
-
   // rm node_modules (grunt remove_node_modules <=> grunt setup)
   grunt.task.registerTask (
     'remove_node_modules',
