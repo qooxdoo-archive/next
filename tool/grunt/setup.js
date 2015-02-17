@@ -55,7 +55,7 @@ usingCachePackages.forEach(function(pkg) {
     fs.unlinkSync('node_modules/qx-cache');
   }
   shell.mkdir('-p', 'node_modules');
-  fs.symlinkSync('../../cache/', 'node_modules/qx-cache');
+  fs.symlinkSync('../../cache/', 'node_modules/qx-cache', 'dir');
   shell.cd('../');
 });
 
@@ -80,7 +80,7 @@ tasks.forEach(function(task){
         fs.unlinkSync(nodeModulePath);
       }
       shell.mkdir('-p', 'node_modules');
-      fs.symlinkSync('../../package/'+usedPkg+'/', nodeModulePath);
+      fs.symlinkSync('../../package/'+usedPkg+'/', nodeModulePath, 'dir');
 
     });
     shell.exec('npm install');
