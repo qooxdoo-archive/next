@@ -337,7 +337,7 @@ qx.Class.define("qx.io.request.AbstractRequest",
     /**
      * Abort flag.
      */
-     __isAbort: null,
+     _isAbort: null,
 
 
     /**
@@ -455,7 +455,7 @@ qx.Class.define("qx.io.request.AbstractRequest",
       if (qx.core.Environment.get("qx.debug.io")) {
         this.debug("Abort request");
       }
-      this.__isAbort = true;
+      this._isAbort = true;
 
       // Update phase to "abort" before user handler are invoked [BUG #5485]
       this.phase = "abort";
@@ -677,7 +677,7 @@ qx.Class.define("qx.io.request.AbstractRequest",
       // have successful HTTP status when response is served from cache.
       //
       // Not fire custom event "loading" (or "success", when cached).
-      if (this.__isAbort) {
+      if (this._isAbort) {
         return;
       }
 
