@@ -87,7 +87,9 @@ module.exports = function(grunt) {
       shell.cd('tool/grunt');
       shell.exec('npm install');
       shell.exec('node setup.js');
-      shell.cd('../../application');
+      shell.cd('../../framework');
+      shell.exec('npm install');
+      shell.cd('../application');
       var apps = shell.ls('.');
       apps.forEach(function(appPath) {
         shell.cd(appPath);
