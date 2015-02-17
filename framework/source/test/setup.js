@@ -75,7 +75,27 @@ qxWeb.ready(function() {
   });
 
   runner.on("end", function() {
-    testsDone = true;
+    // Generate a TAP test stream from the results
+    var tap = "1.." + runner.stats.tests + "\n"; // TAP test plan
+    var count = 0;
+    runner.suite.suites.forEach(function(suite) {
+      suite.tests.forEach(function(test) {
+        count++;
+        var result = test.state == "passed" ? "ok" : "not ok";
+        var line = result + " " + count + " " + suite.title + " " + test.title;
+        tap += line + "\n";
+        if (test.err) {
+          if (test.err.stack) {
+            tap += "# " + test.err.stack.split("\n").join("\n#") + "\n";
+          } else {
+            tap += "# " + test.err.message + "\n";
+          }
+        }
+      });
+    });
+
+    window.tap = tap;
+    window.testsDone = true;
   });
 });
 
