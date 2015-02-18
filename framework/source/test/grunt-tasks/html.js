@@ -17,28 +17,6 @@ var getSourcePaths = function (scope) {
 
 module.exports = function (grunt) {
   grunt.loadNpmTasks('grunt-injector');
-  grunt.initConfig({
-    injector: {
-      options: {
-        addRootSlash: false,
-        ignorePath: [
-          'tests/setup.js',
-          'tests/mochaSetup.js',
-          'tests/TestCase.js'
-        ]
-      },
-      testBuild: {
-        options: {
-          template: "index.tmpl"
-        }
-      },
-      testSource: {
-        options: {
-          template: "index-source.tmpl"
-        }
-      }
-    }
-  });
 
   grunt.registerTask('html', 'A task to preprocess the website.html', function (scope) {
     var injectorConfig = grunt.config.get('injector');

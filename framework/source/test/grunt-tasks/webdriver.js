@@ -7,20 +7,6 @@ var webDriver = require('webdriver-sync');
 var fs = require('fs');
 
 module.exports = function(grunt) {
-  grunt.initConfig({
-    webdriver: {
-      options: {
-        autUri: undefined, // Test suite URI, e.g. http://localhost/next/framework/source/test/
-        serverUri: undefined, // Selenium server URI, e.g. http://localhost:4444/wd/hub/
-        capabilities: { // desired capabilities for Webdriver/Selenium Grid
-          browserName: 'firefox'
-        },
-        timeout: 600000, // test suite timeout
-        filename: undefined // output file for test results
-      }
-    }
-  });
-
   grunt.registerTask('webdriver', 'Runs the unit tests in a browser using WebDriver', function() {
     var opts = this.options();
 

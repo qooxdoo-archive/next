@@ -3,9 +3,37 @@ module.exports = function (grunt) {
   var shell = require('shelljs');
 
   grunt.initConfig({
-    convert: {
-      source: __dirname + '/../class/qx/test/',
-      destination: __dirname + '/tests/destination/'
+    injector: {
+      options: {
+        addRootSlash: false,
+        ignorePath: [
+          'tests/setup.js',
+          'tests/mochaSetup.js',
+          'tests/TestCase.js'
+        ]
+      },
+      testBuild: {
+        options: {
+          template: "index.tmpl"
+        }
+      },
+      testSource: {
+        options: {
+          template: "index-source.tmpl"
+        }
+      }
+    },
+
+    webdriver: {
+      options: {
+        autUri: undefined, // Test suite URI, e.g. http://localhost/next/framework/source/test/
+        serverUri: undefined, // Selenium server URI, e.g. http://localhost:4444/wd/hub/
+        capabilities: { // desired capabilities for Webdriver/Selenium Grid
+          browserName: 'firefox'
+        },
+        timeout: 600000, // test suite timeout
+        filename: undefined // output file for test results
+      }
     }
   });
 
