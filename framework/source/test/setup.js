@@ -66,12 +66,12 @@ var commonAfterEach = function() {
 // start
 qxWeb.ready(function() {
   var runner = mocha.run();
-
   // register global before / after hooks
-  runner.on("suite", function(suite) {
-    suite.beforeEach(commonBeforeEach);
-    suite._beforeEach.reverse(); // make sure the common beforeEach is executed before all other
-    suite.afterEach(commonAfterEach);
+  mocha.suite.beforeEach(commonBeforeEach);
+  mocha.suite._beforeEach.reverse(); // make sure the common beforeEach is executed before all other
+  mocha.suite.afterEach(commonAfterEach);
+  mocha.suite.afterAll(function() {
+    testsDone = true;
   });
 
   runner.on("end", function() {
@@ -98,5 +98,6 @@ qxWeb.ready(function() {
     window.testsDone = true;
   });
 });
+
 
 })();

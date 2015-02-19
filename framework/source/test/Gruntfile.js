@@ -3,6 +3,7 @@ module.exports = function (grunt) {
   var shell = require('shelljs');
 
   grunt.initConfig({
+
     injector: {
       options: {
         addRootSlash: false,
@@ -10,7 +11,14 @@ module.exports = function (grunt) {
           'tests/setup.js',
           'tests/mochaSetup.js',
           'tests/TestCase.js'
-        ]
+        ],
+        transform: function(filepath) {
+          if (filepath.indexOf("../class/") === 0) {
+            return '<script src="' + filepath + '" data-cover></script>';
+          } else {
+            return '<script src="' + filepath + '"></script>';
+          }
+        }
       },
       testBuild: {
         options: {
