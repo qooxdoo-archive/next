@@ -28,7 +28,6 @@
 /**
  * Mobile page responsible for switching between provided themes.
  *
- * @asset(qx/css/*)
  * @require(qx.module.util.String)
  * @require(qx.module.Blocker)
  * @require(qx.module.Io)

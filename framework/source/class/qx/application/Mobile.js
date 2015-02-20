@@ -22,7 +22,6 @@
  * For a mobile application. Supports the mobile widget set.
  *
  * @require(qx.core.Init)
- * @asset(qx/css/*)
  */
 qx.Class.define("qx.application.Mobile",
 {
