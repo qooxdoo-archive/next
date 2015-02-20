@@ -50,10 +50,10 @@ qx.Class.define("mobileshowcase.page.Theming",
   {
     THEMES: [{
       "name": "Indigo",
-      "css": "resource/mobileshowcase/css/indigo.css"
+      "css": "theme/indigo.css"
     }, {
       "name": "Flat",
-      "css": "resource/mobileshowcase/css/flat.css"
+      "css": "theme/flat.css"
     }]
   },
 

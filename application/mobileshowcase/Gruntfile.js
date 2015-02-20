@@ -23,7 +23,6 @@ module.exports = function(grunt) {
         "qx.version":"<%= common.QOOXDOO_VERSION %>"
       },
       "BUILD_PATH": "<%= common.ROOT %>/build-indigo",
-      "MOBILE_RESOURCE_PATH": "source/resource/<%= common.APPLICATION %>"
     },
 
     clean: {
@@ -34,7 +33,7 @@ module.exports = function(grunt) {
       options: {
         "=includes": ["<%= common.APPLICATION_MAIN_CLASS %>"],
         "=loaderTemplate": "<%= common.QOOXDOO_PATH %>/tool/data/generator/mobile.loader.tmpl.js",
-        addCss: ["./resource/<%= common.APPLICATION %>/css/indigo.css"]
+        addCss: ["./theme/indigo.css"]
       }
     },
 
@@ -42,28 +41,10 @@ module.exports = function(grunt) {
       options: {
         "=includes": ["<%= common.APPLICATION_MAIN_CLASS %>"],
         "=loaderTemplate": "<%= common.QOOXDOO_PATH %>/tool/data/generator/mobile.loader.tmpl.js",
-        addCss: ["./resource/<%= common.APPLICATION %>/css/indigo.css"],
+        addCss: ["./theme/indigo.css"],
         buildPath: "./build-<%= common.THEME %>"
       }
-    },
-
-    sass: {
-      indigo: {
-        options: {
-          style: 'compressed',
-          noCache: true,
-          loadPath: ['<%= common.QOOXDOO_PATH %>/framework/source/resource/qx/mobile/scss',
-                     '<%= common.QOOXDOO_PATH %>/framework/source/resource/qx/scss']
-        },
-        files: [{
-          expand: true,
-          cwd: '<%= common.MOBILE_RESOURCE_PATH %>/scss',
-          src: ['*.scss'],
-          dest: '<%= common.MOBILE_RESOURCE_PATH %>/css',
-          ext: '.css'
-        }]
-      }
-    },
+    }
   };
 
   var mergedConf = qx.config.mergeConfig(config, {"build": "build-base", "source": "source-base"});
@@ -79,7 +60,7 @@ module.exports = function(grunt) {
   grunt.task.registerTask(
     'build',
     'Build the playground and compile the stylesheets with Sass.',
-    ["build-base", "sass"]
+    ["sass:indigo", "build-base"]
   );
 
   // 'extend' source job
@@ -87,7 +68,7 @@ module.exports = function(grunt) {
   grunt.task.registerTask(
     'source',
     'Build the playground and compile the stylesheets with Sass.',
-    ["source-base", "sass"]
+    ["sass:indigo", "source-base"]
   );
 
   grunt.task.registerTask(
