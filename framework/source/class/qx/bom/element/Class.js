@@ -64,7 +64,9 @@ qx.Class.define("qx.bom.element.Class",
     add :{
       "native" : function(element, name)
       {
-        element.classList.add(name);
+        if (name.length > 0) {
+          element.classList.add(name);
+        }
         return name;
       },
 
