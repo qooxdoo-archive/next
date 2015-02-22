@@ -88,7 +88,7 @@ qx.Class.define("qx.bom.client.OperatingSystem",
         return "unix";
 
       } else if (
-        input.indexOf("SymbianOS") != -1
+        input.indexOf("Symbian") != -1
       ) {
         return "symbian";
       }
