@@ -208,7 +208,8 @@ qx.Class.define("qx.event.handler.Track", {
         bubbles: true,
         pointerType: domEvent.pointerType,
         delta: this._getDeltaCoordinates(domEvent),
-        movementX: domEvent.screenX - this._trackData[domEvent.pointerId].currentX
+        movementX: domEvent.screenX - this._trackData[domEvent.pointerId].currentX,
+        movementY: domEvent.screenY - this._trackData[domEvent.pointerId].currentY
       });
       target.dispatchEvent(evt);
     },
