@@ -157,7 +157,11 @@ qx.Class.define("qx.ui.control.Calendar", {
 
 
   events : {
-    "selected" : null
+    "selected" : null,
+
+    /** Fired whenvever a render process finished. This event can be used as hook to add
+        custom markup and/or manipulate existing. */
+    "rendered" : null
   },
 
 
@@ -202,6 +206,10 @@ qx.Class.define("qx.ui.control.Calendar", {
         });
 
       this.__monthElements[date.getTime()] = this.find(".calendar-container");
+
+      // signal the rendering process is done - this is useful for application developers if they
+      // want to hook into and change / adapt the DOM elements of the calendar
+      this.emit('rendered');
 
       return this;
     },
@@ -326,7 +334,15 @@ qx.Class.define("qx.ui.control.Calendar", {
               break;
             }
 
-            cssClasses += this.defaultCssClass + "-othermonth";
+            // set 'previous-month' and 'next-month' to make it easier for the developer to select
+            // the days after the render process
+            if ((helpDate.getMonth() < date.getMonth() && helpDate.getFullYear() == date.getFullYear()) ||
+                (helpDate.getMonth() > date.getMonth() && helpDate.getFullYear() < date.getFullYear())) {
+              cssClasses += this.defaultCssClass + "-previous-month";
+            } else {
+              cssClasses += this.defaultCssClass + "-next-month";
+            }
+
             hidden += this.hideDaysOtherMonth ? "qx-hidden" : "";
             disabled = this.disableDaysOtherMonth ? "disabled='disabled'" : "";
           }
