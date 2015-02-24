@@ -3,6 +3,9 @@ describe("module.Blocker", function() {
 
   afterEach(function() {
     q(document).unblock();
+    sandbox.getChildren().forEach(function(el) {
+      el.unblock();
+    });
     q('link[href="css/style2.css"]').remove();
   });
 
