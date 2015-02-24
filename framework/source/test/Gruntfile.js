@@ -12,13 +12,6 @@ module.exports = function (grunt) {
           'tests/mochaSetup.js',
           'tests/TestCase.js'
         ],
-        transform: function(filepath) {
-          if (filepath.indexOf("../class/") === 0) {
-            return '<script src="' + filepath + '" data-cover></script>';
-          } else {
-            return '<script src="' + filepath + '"></script>';
-          }
-        }
       },
       testBuild: {
         options: {
@@ -28,6 +21,18 @@ module.exports = function (grunt) {
       testSource: {
         options: {
           template: "index-source.tmpl"
+        }
+      },
+      testSourceCoverage: {
+        options: {
+          template: "index-coverage.tmpl",
+          transform: function(filepath) {
+            if (filepath.indexOf("../class/") === 0) {
+              return '<script src="' +filepath+ '" data-cover></script>';
+            } else {
+              return '<script src="' +filepath+ '"></script>';
+            }
+          }
         }
       }
     },
@@ -64,6 +69,5 @@ module.exports = function (grunt) {
     shell.cd('source/test');
   });
 
-
-  grunt.registerTask('default', ['build', 'html']);
+  grunt.registerTask('default', ['source', 'build', 'html']);
 };
