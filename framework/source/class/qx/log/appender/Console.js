@@ -309,7 +309,7 @@ qx.Class.define("qx.log.appender.Console",
      */
     __onKeyPress : function(e)
     {
-      var iden = e.getKeyIdentifier ? e.getKeyIdentifier() : null;
+      var iden = e.keyIdentifier;
 
       // Console toggling
       if ((iden == "F7") || (iden == "D" && e.ctrlKey))
