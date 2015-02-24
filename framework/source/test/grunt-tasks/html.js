@@ -30,7 +30,7 @@ module.exports = function(grunt) {
   grunt.registerTask('html', 'A task to preprocess the website.html', function(scope) {
     var opts = {
       includes: ["qx.*"],
-      excludes: ["qx.dev.FakeServer"],
+      excludes: [],
       environment: {},
       classPaths: {'qx': '../class'}
     };
