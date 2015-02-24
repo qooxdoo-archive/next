@@ -40,13 +40,18 @@ qx.Class.define("qx.log.appender.Native",
   statics :
   {
     /**
+     * Silent mode prevents loggin useful for testing purposes.
+     */
+    SILENT: false,
+
+    /**
      * Processes a single log entry
      *
      * @param entry {Map} The entry to process
      */
     process : function(entry) {
       var level = entry.level;
-      if (console && console[level]) {
+      if (console && console[level] && !qx.log.appender.Native.SILENT) {
         var args = qx.log.appender.Util.toText(entry);
         console[level](args);
       }

@@ -47,17 +47,14 @@ describe("bom.client.Device", function() {
 
 
     for (var i = 0; i < mobileUserAgentTests.length; i++) {
-      qx.log.Logger.info("Mobile User Agent Testing:" + mobileUserAgentTests[i]);
       assert.equal("mobile", qx.bom.client.Device.detectDeviceType(mobileUserAgentTests[i]), "Expected User Agent string to be detected as a mobile device: " + mobileUserAgentTests[i]);
     }
 
     for (i = 0; i < tabletUserAgentTests.length; i++) {
-      qx.log.Logger.info("Tablet User Agent Testing:" + tabletUserAgentTests[i]);
       assert.equal("tablet", qx.bom.client.Device.detectDeviceType(tabletUserAgentTests[i]), "Expected User Agent string to be detected as a tablet device: " + tabletUserAgentTests[i]);
     }
 
     for (i = 0; i < desktopUserAgentTests.length; i++) {
-      qx.log.Logger.info("Desktop User Agent Testing:" + desktopUserAgentTests[i]);
       assert.equal("desktop", qx.bom.client.Device.detectDeviceType(desktopUserAgentTests[i]), "Expected User Agent string to be detected as a desktop device:" + desktopUserAgentTests[i]);
     }
 

@@ -49,7 +49,6 @@ describe("Xml", function() {
     var data = "<Root><Row>test1</Row><Row>test2</Row><Row>test3</Row></Root>";
 
     var xml = qx.xml.Document.fromString(data);
-    // qx.log.Logger.debug("Converted to XML Document ", xml);
   });
 
 
@@ -112,11 +111,9 @@ describe("Xml", function() {
     } else {
       var n1 = qx.xml.Element.selectSingleNode(doc, q1, nsMap);
       var s1 = qx.xml.Element.serialize(n1);
-      // qx.log.Logger.debug("Found node: " + s1);
       assert.equal(s1, emStr);
       var n2 = qx.xml.Element.selectSingleNode(doc, q2, nsMap);
       var s2 = qx.xml.Element.serialize(n2);
-      // qx.log.Logger.debug("Found node: " + s2);
       assert.equal(s2, fooStr);
       var n3 = qx.xml.Element.selectNodes(doc, q3, nsMap);
       var n4 = qx.xml.Element.selectNodes(n3[0], q2, nsMap);
@@ -139,7 +136,6 @@ describe("Xml", function() {
 
     var templates = qx.xml.Element.getElementsByTagNameNS(nsDoc, "http://www.w3.org/1999/XSL/Transform", "template");
 
-    // qx.log.Logger.debug(qx.xml.String.escape(serializeArray(templates)));
     assert.equal(2, templates.length, "getElementsByTagNameNS for XML documents failed!");
 
     assert.equal("xsl:template", templates[0].tagName, "getElementsByTagNameNS for XML documents failed!");

@@ -32,9 +32,6 @@ describe("bom.Event", function() {
       el = qx.dom.Element.create("div", {
         name: "vanillebaer"
       }, window);
-      qx.bom.Event.addNativeListener(el, eventsToCheck[i], function(e) {
-        qx.log.Logger.info("done");
-      });
       assert.isTrue(qx.bom.Event.supportsEvent(el, eventsToCheck[i]), "Failed to check support for '" + eventsToCheck[i] + "'");
     }
 
@@ -56,9 +53,6 @@ describe("bom.Event", function() {
         el = qx.dom.Element.create("div", {
           name: "vanillebaer"
         }, window);
-        qx.bom.Event.addNativeListener(el, pointerEventsToCheck[i], function(e) {
-          qx.log.Logger.info("done");
-        });
         assert.isTrue(qx.bom.Event.supportsEvent(el, pointerEventsToCheck[i]), "Failed to check support for '" + pointerEventsToCheck[i] + "'");
       }
     }

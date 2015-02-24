@@ -21,11 +21,13 @@ describe("log.Logger", function() {
   var TEST_CONSTANT = "abc";
 
   beforeEach(function() {
+    qx.log.appender.Native.SILENT = true;
     __initialLogLevel = qx.log.Logger.getLevel();
   });
 
 
   afterEach(function() {
+    qx.log.appender.Native.SILENT = false;
     qx.log.Logger.setLevel(__initialLogLevel);
   });
 

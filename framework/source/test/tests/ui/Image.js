@@ -26,7 +26,6 @@ describe("ui.Image", function() {
   it("Src", function(done) {
     var source = "../resource/qx/static/blank.png";
     if (qx.io.ImageLoader.isLoaded(source)) {
-      console.warn("ui.Image.testLoadedEvent skipped! Image already loaded.");
       this.test.skip = true;
       return;
     }

@@ -46,7 +46,6 @@ describe("dom.Node", function() {
 
       blockElements.push(blockElement);
 
-      qx.log.Logger.info("Testing node " + qx.dom.Node.getName(blockElement));
       assert.isTrue(qx.dom.Node.isBlockNode(blockElement));
     }
   });
@@ -67,7 +66,6 @@ describe("dom.Node", function() {
 
       inlineElements.push(inlineElement);
 
-      qx.log.Logger.info("Testing node " + qx.dom.Node.getName(inlineElement));
       assert.isFalse(qx.dom.Node.isBlockNode(inlineElement));
     }
   });

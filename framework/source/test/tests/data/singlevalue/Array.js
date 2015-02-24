@@ -93,7 +93,6 @@ describe("data.singlevalue.Array", function() {
 
     // change the array itself
     __a.array = (new qx.data.Array(1, 2, 3));
-    qx.log.Logger.debug(__a.array.getItem(0));
     // check the binding
     assert.equal("1", __label.value, "Changing the array does not work!");
   });
