@@ -16,23 +16,37 @@ module.exports = function(grunt) {
     }
 
     var serverUri = grunt.option('serverUri') || opts.serverUri;
-    if (!serverUri) {
-      grunt.fail.fatal('Missing --serverUri argument.');
-    }
-
     var capabilities = grunt.option('capabilities');
+
     if (capabilities) {
       capabilities = JSON.parse(capabilities);
     } else {
       capabilities = opts.capabilities;
     }
 
-    var desiredCapabilities = (new webDriver.DesiredCapabilities()).firefox();
-    for (var key in capabilities) {
-      desiredCapabilities.setCapability(key, capabilities[key]);
+    var driver;
+    if (serverUri) {
+      var desiredCapabilities = (new webDriver.DesiredCapabilities()).firefox();
+      for (var key in capabilities) {
+        desiredCapabilities.setCapability(key, capabilities[key]);
+      }
+      driver = new webDriver.RemoteWebDriver(serverUri, desiredCapabilities);
+    }
+    else if (capabilities) {
+      if (capabilities.browserName) {
+        if (capabilities.browserName.match(/chrome/i)) {
+          driver = new webDriver.ChromeDriver();
+        } else if (capabilities.browserName.match(/internet\s?explorer/i)) {
+          driver = new webDriver.InternetExplorerDriver();
+        } else {
+          driver = new webDriver.FirefoxDriver();
+        }
+      }
+    }
+    else {
+      driver = new webDriver.FirefoxDriver();
     }
 
-    var driver = new webDriver.RemoteWebDriver(serverUri, desiredCapabilities);
     driver.manage().window().maximize();
     driver.get(autUri);
 
