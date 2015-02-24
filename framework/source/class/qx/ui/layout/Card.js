@@ -250,13 +250,8 @@ qx.Class.define("qx.ui.layout.Card",
 
       var onAnimationEnd = qx.lang.Function.bind(this._onAnimationEnd, this);
 
-      if(qx.core.Environment.get("browser.name") == "iemobile" || qx.core.Environment.get("browser.name") == "ie") {
-        fromElement.on("MSAnimationEnd", onAnimationEnd, false);
-        toElement.on("MSAnimationEnd", onAnimationEnd, false);
-      } else {
-        fromElement.on("animationEnd", this._onAnimationEnd, this);
-        toElement.on("animationEnd", this._onAnimationEnd, this);
-      }
+      fromElement.once("animationEnd", this._onAnimationEnd, this);
+      toElement.once("animationEnd", this._onAnimationEnd, this);
 
       var fromCssClasses = this.__getAnimationClasses("out");
       var toCssClasses = this.__getAnimationClasses("in");
@@ -300,13 +295,9 @@ qx.Class.define("qx.ui.layout.Card",
     __stopAnimation : function()
     {
       if (this.__inAnimation) {
-        if (qx.core.Environment.get("browser.name") == "iemobile" || qx.core.Environment.get("browser.name") == "ie") {
-          this.__currentWidget.off("MSAnimationEnd", this._onAnimationEnd, false);
-          this.__nextWidget.off("MSAnimationEnd", this._onAnimationEnd, false);
-        } else {
-          this.__currentWidget.off("animationEnd", this._onAnimationEnd, this);
-          this.__nextWidget.off("animationEnd", this._onAnimationEnd, this);
-        }
+
+        this.__currentWidget.off("animationEnd", this._onAnimationEnd, this);
+        this.__nextWidget.off("animationEnd", this._onAnimationEnd, this);
 
         this.__currentWidget.removeClasses(this.__getAnimationClasses("out"));
         this.__nextWidget.removeClasses(this.__getAnimationClasses("in"));
