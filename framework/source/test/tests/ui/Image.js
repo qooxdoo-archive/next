@@ -23,6 +23,10 @@
 
 describe("ui.Image", function() {
 
+  afterEach(function() {
+    qx.log.appender.Native.SILENT = false;
+  });
+
   it("Src", function(done) {
     var source = "../resource/qx/static/blank.png";
     if (qx.io.ImageLoader.isLoaded(source)) {
@@ -44,6 +48,8 @@ describe("ui.Image", function() {
 
 
   it("LoadingFailed", function(done) {
+    qx.log.appender.Native.SILENT = true;
+
     var image = new qx.ui.Image("does not exist.png" + Math.random());
     sandbox.append(image);
 

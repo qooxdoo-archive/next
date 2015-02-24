@@ -38,6 +38,8 @@ describe("data.singlevalue.Simple", function() {
 
 
   afterEach(function() {
+    qx.log.appender.Native.SILENT = false;
+
     qx.data.SingleValueBinding.removeAllBindingsForObject(this.__a);
     qx.data.SingleValueBinding.removeAllBindingsForObject(this.__b);
   });
@@ -239,6 +241,8 @@ describe("data.singlevalue.Simple", function() {
 
 
   it("DebugStuff", function() {
+    qx.log.appender.Native.SILENT = true;
+
     // just a test if the method runs threw without an exception
     var id1 = qx.data.SingleValueBinding.bind(this.__a, "appearance", this.__b, "appearance");
     qx.data.SingleValueBinding.bind(this.__a, "zIndex", this.__b, "zIndex");

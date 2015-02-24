@@ -47,6 +47,8 @@ describe('data.controller.Form', function() {
 
 
   afterEach(function() {
+    qx.log.appender.Native.SILENT = false;
+
     __tf1.dispose();
     __tf2.dispose();
     __cb.dispose();
@@ -607,6 +609,8 @@ describe('data.controller.Form', function() {
 
 
   it("BindingCreateMissingOne", function() {
+    qx.log.appender.Native.SILENT = true; // prevent the console.log message
+
     // add an unknown item
     var tf = new qx.ui.form.TextField();
     __form.append(tf);

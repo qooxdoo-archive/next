@@ -82,6 +82,11 @@ describe("data.singlevalue.Deep", function() {
   });
 
 
+  afterEach(function() {
+    qx.log.appender.Native.SILENT = false;
+  });
+
+
   it("ConverterChainBroken", function() {
     var m = qx.data.marshal.Json.createModel({
       a: {
@@ -262,6 +267,8 @@ describe("data.singlevalue.Deep", function() {
 
 
   it("Debug", function() {
+    qx.log.appender.Native.SILENT = true;
+
     // build the structure
     __a.child = (__b1);
     // bind the stuff together

@@ -832,7 +832,7 @@ qx.Class.define("qx.io.rest.Resource",
         if (isImmediateResponse) {
           immediateResponseCount += 1;
           if (immediateResponseCount > res._getThrottleCount()) {
-            if (qx.core.Environment.get("qx.debug")) {
+            if (qx.core.Environment.get("qx.debug.io")) {
               qx.log.Logger.debug(res, "Received successful response more than " +
                 res._getThrottleCount() + " times subsequently, each within " +
                 res._getThrottleLimit() + " ms. Throttling.");

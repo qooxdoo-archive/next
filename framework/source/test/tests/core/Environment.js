@@ -423,10 +423,8 @@ describe("core.Environment", function ()
 
 
   it("Qx", function() {
-
       assert.isBoolean(qx.core.Environment.get("qx.allowUrlSettings"), "1");
       assert.isBoolean(qx.core.Environment.get("qx.allowUrlVariants"), "2");
-      assert.isString(qx.core.Environment.get("qx.application"), "3");
       assert.isBoolean(qx.core.Environment.get("qx.nativeScrollBars"), "9");
       assert.isNumber(qx.core.Environment.get("qx.debug.property.level"), "10");
       assert.isBoolean(qx.core.Environment.get("qx.debug"), "11");

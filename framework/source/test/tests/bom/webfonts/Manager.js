@@ -82,6 +82,7 @@ describe("bom.webfonts.Manager", function() {
 
 
   afterEach(function() {
+    qx.log.appender.Native.SILENT = false;
     qx.bom.webfonts.Manager.VALIDATION_TIMEOUT = 5000;
     manager.dispose();
     delete qx.bom.webfonts.Manager.$$instance;
@@ -107,6 +108,8 @@ describe("bom.webfonts.Manager", function() {
 
 
   it("do not create rule for invalid font", function(done) {
+    qx.log.appender.Native.SILENT = true;
+
     qx.bom.webfonts.Manager.VALIDATION_TIMEOUT = 100;
     var font = new qx.bom.webfonts.WebFont();
     font.family = ["monospace"];

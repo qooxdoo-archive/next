@@ -22,8 +22,16 @@ describe("event.Messaging", function () {
   var __messaging;
 
   beforeEach(function () {
+    qx.log.appender.Native.SILENT = true;
     __messaging = new qx.event.Messaging();
   });
+
+
+  afterEach(function() {
+    qx.log.appender.Native.SILENT = false;
+
+  });
+
 
   it("TwoChannels", function () {
     var handlerGet = sinonSandbox.spy();

@@ -23,11 +23,17 @@ describe("bom.History", function() {
   var __history = null;
 
   beforeEach(function() {
+    qx.log.appender.Native.SILENT = true;
+
     __history = qx.bom.History.getInstance();
     if (__history._writeState.restore) {
       __history._writeState.restore();
     }
     sinonSandbox.spy(__history, "_writeState");
+  });
+
+  afterEach(function() {
+    qx.log.appender.Native.SILENT = false;
   });
 
 

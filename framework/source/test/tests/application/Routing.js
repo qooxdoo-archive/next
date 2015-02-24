@@ -24,13 +24,18 @@ describe("application.Routing", function() {
   var fakeHistory = new qx.event.Emitter();
 
   beforeEach(function() {
+    qx.log.appender.Native.SILENT = true;
+
     fakeHistory.state = "/";
     sinonSandbox.stub(qx.bom.History, "getInstance").returns(fakeHistory);
     __r = new qx.application.Routing();
   });
 
 
-  afterEach(function() {qx.bom.History.getInstance.restore();
+  afterEach(function() {
+    qx.log.appender.Native.SILENT = false;
+
+    qx.bom.History.getInstance.restore();
     __r.dispose();
   });
 
