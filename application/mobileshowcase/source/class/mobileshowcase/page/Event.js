@@ -177,10 +177,6 @@ qx.Class.define("mobileshowcase.page.Event",
      * @param evt {qx.event.type.Track} The track event.
      */
     __onTrack : function(evt) {
-      if (qxWeb.env.get("qx.mobile.nativescroll") === false) {
-        this._getScrollContainer().disable();
-      }
-
       var delta = evt.delta;
       this.__logoLeft = this.__logoStartLeft + delta.x;
       this.__logoTop = this.__logoStartTop + delta.y;
@@ -195,10 +191,6 @@ qx.Class.define("mobileshowcase.page.Event",
      * @param evt {qx.event.type.Track} The track event.
      */
     __onTrackEnd : function() {
-      if (qxWeb.env.get("qx.mobile.nativescroll") === false) {
-        this._getScrollContainer().enable();
-      }
-
       this.__initialRotation = this.__currentRotation;
       this.__initialScale = this.__currentScale;
     },
@@ -323,11 +315,6 @@ qx.Class.define("mobileshowcase.page.Event",
           }
         }
 
-        // Disable iScroll before
-        if (qxWeb.env.get("qx.mobile.nativescroll") == false) {
-          this._getScrollContainer().disable();
-        }
-
         this.__pointers[pointerId] = {
           target: this.__circles.pop(),
           events: [],
@@ -361,11 +348,6 @@ qx.Class.define("mobileshowcase.page.Event",
         if (evt.isPrimary) {
           this.__initialRotation = this.__currentRotation;
           this.__initialScale = this.__currentScale;
-        }
-
-        // Re-enable iScroll
-        if (qxWeb.env.get("qx.mobile.nativescroll") == false) {
-          this._getScrollContainer().enable();
         }
       }
 

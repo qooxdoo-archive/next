@@ -13,6 +13,7 @@
 
 .eventcontainer {
   -ms-touch-action: none;
+  touch-action: none;
 
   position:relative;
   overflow:hidden;
@@ -64,6 +65,7 @@
   background-repeat: no-repeat;
 
   -ms-touch-action: none;
+  touch-action: none;
 
   min-height:400px;
   color:#ffffff;
@@ -235,6 +237,7 @@
 
 #osmMap * {
   -ms-touch-action: none;
+  touch-action: none;
 }
 
 #osmMap > div {
