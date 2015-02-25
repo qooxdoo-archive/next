@@ -14,15 +14,12 @@ var qxDep = require("qx-dependency");
 var os = require("os");
 
 var getSourcePaths = function(scope) {
-  if (typeof scope === 'undefined' || scope === 'all') {
-    return [
-      'tests/**/*.js'
-    ];
-  }
-  return [
-    'tests/' + scope + '*.js',
-    'tests/' + scope + '/**/*.js'
-  ];
+  // scope is used to build tests only for one test namespace (e.g. ui)
+  // provide it on the command line like this 'grunt html:ui'
+  return (typeof scope === 'undefined' || scope === 'all')
+         ? ['tests/**/*.js' ]
+         : ['tests/' + scope + '*.js',
+            'tests/' + scope + '/**/*.js'];
 };
 
 var calculateClassLoadList = function() {
