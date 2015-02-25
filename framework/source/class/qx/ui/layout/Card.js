@@ -248,8 +248,6 @@ qx.Class.define("qx.ui.layout.Card",
       var fromElement = this.__currentWidget;
       var toElement = widget;
 
-      var onAnimationEnd = qx.lang.Function.bind(this._onAnimationEnd, this);
-
       fromElement.once("animationEnd", this._onAnimationEnd, this);
       toElement.once("animationEnd", this._onAnimationEnd, this);
 
