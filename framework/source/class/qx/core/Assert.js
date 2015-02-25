@@ -32,8 +32,6 @@ qx.Class.define("qx.core.Assert",
 {
   statics :
   {
-    __logError : true,
-
     /**
      * Assert that the condition evaluates to <code>true</code>. An
      * {@link AssertionError} is thrown if otherwise.
@@ -67,19 +65,9 @@ qx.Class.define("qx.core.Assert",
       }
       var errorMsg = "Assertion error! " + fullComment;
 
-      if (qx.Class.getByName("qx.core.AssertionError"))
-      {
-        var err = new qx.core.AssertionError(comment, msg);
-        if (this.__logError) {
-          qx.Class.error(errorMsg + "\n Stack trace: \n" + err.getStackTrace());
-        }
-        throw err;
-      }
-      else
-      {
-        if (this.__logError) {
-          qx.Class.error(errorMsg);
-        }
+      if (qx.Class.getByName("qx.core.AssertionError")) {
+        throw new qx.core.AssertionError(comment, msg);
+      } else {
         throw new Error(errorMsg);
       }
     },
@@ -431,12 +419,9 @@ qx.Class.define("qx.core.Assert",
       var error;
 
       try {
-        this.__logError = false;
         callback();
       } catch(ex) {
         error = ex;
-      } finally {
-        this.__logError = true;
       }
 
       if (!error) {
