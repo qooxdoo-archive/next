@@ -92,8 +92,8 @@ qx.Class.define("qx.bom.element.Class",
     addClasses :{
       "native" : function(element, classes)
       {
-        for (var i=0; i<classes.length; i++) {
-          if (classes[i].length > 0) {
+        for (var i = 0; i < classes.length; i++) {
+          if (classes[i] && classes[i].length > 0) {
             element.classList.add(classes[i]);
           }
         }
