@@ -420,7 +420,7 @@ qx.Class.define("qx.ui.form.Picker",
       var self = this;
       Object.defineProperty(object, property, {
         configurable: true,
-        set: function(value) {
+        set: function(value) {
           this["$$" + property] = value;
           if (fireEvent) {
             self.emit("changeValue", self.value);
