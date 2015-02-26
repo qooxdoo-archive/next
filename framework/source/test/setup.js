@@ -95,10 +95,11 @@ qxWeb.ready(function() {
           }
         });
       });
+
+      window.tap = tap;
+      window.testsDone = true;
     });
 
-    window.tap = tap;
-    window.testsDone = true;
   } else {
     // code for index-coverage.html
     mocha.suite.beforeEach(commonBeforeEach);
