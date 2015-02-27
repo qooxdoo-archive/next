@@ -17,18 +17,19 @@
      * Tino Butz (tbtz)
 
 ************************************************************************ */
+define(["class/mobileshowcase/page/Abstract"], function(AbstractPage) {
 
 /**
  * Mobile page responsible for showing the "tab" showcase.
  */
-qx.Class.define("mobileshowcase.page.Tab",
+return qx.Class.define(null,
 {
-  extend : mobileshowcase.page.Abstract,
+  extend : AbstractPage,
 
 
   construct : function()
   {
-    this.super(mobileshowcase.page.Abstract, "construct");
+    this.super(AbstractPage, "construct");
     this.title = "Tabs";
   },
 
@@ -41,7 +42,7 @@ qx.Class.define("mobileshowcase.page.Tab",
     // overridden
     _initialize : function()
     {
-      this.super(mobileshowcase.page.Abstract, "_initialize");
+      this.super(AbstractPage, "_initialize");
 
       this.getContent()
         .append(this.__createTabBar())
@@ -142,4 +143,6 @@ qx.Class.define("mobileshowcase.page.Tab",
       return group;
     }
   }
+});
+
 });

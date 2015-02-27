@@ -10,6 +10,7 @@
   <meta name="format-detection" content="telephone=no" />
   <meta name="msapplication-tap-highlight" content="no"/>
 
+  <script type="text/javascript" src="../bower_components/requirejs/require.js"></script>
   <script type="text/javascript" src="script/mobileshowcase.js"></script>
   <script type="text/javascript">
   if (location.hostname === "demo.qooxdoo.org") {
@@ -24,6 +25,12 @@
       var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
     })();
   }
+  </script>
+  <script type="text/javascript">
+    require(["class/mobileshowcase/Application"], function(App) {
+      qx.core.Init.__application = new App();
+      qx.core.Init.__application.main();
+    });
   </script>
 </head>
 <body>

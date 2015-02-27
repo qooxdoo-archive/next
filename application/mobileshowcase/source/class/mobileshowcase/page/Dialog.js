@@ -17,19 +17,21 @@
 
 ************************************************************************ */
 
+define(["class/mobileshowcase/page/Abstract"], function(AbstractPage) {
+
 /**
  * Mobile page responsible for showing all dialog widgets available:
  * - Popup
  * - Confirm dialogs
  * - Anchor dialogs
  */
-qx.Class.define("mobileshowcase.page.Dialog",
+return qx.Class.define(null,
 {
-  extend : mobileshowcase.page.Abstract,
+  extend : AbstractPage,
 
   construct : function()
   {
-    this.super(mobileshowcase.page.Abstract, "construct", false);
+    this.super(AbstractPage, "construct", false);
     this.title = "Dialog Widgets";
   },
 
@@ -52,7 +54,7 @@ qx.Class.define("mobileshowcase.page.Dialog",
     {
       var body = qxWeb(document.body);
 
-      this.super(mobileshowcase.page.Abstract, "_initialize");
+      this.super(AbstractPage, "_initialize");
 
       this.__resultsLabel = new qx.ui.Label("No events received so far.");
       var resultsGroup = new qx.ui.form.Group();
@@ -361,4 +363,6 @@ qx.Class.define("mobileshowcase.page.Dialog",
     }
 
   }
+});
+
 });

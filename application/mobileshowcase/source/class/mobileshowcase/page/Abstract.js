@@ -18,10 +18,11 @@
 
 ************************************************************************ */
 
+define(function() {
 /**
  * Abstract page for Mobile Showcase.
  */
-qx.Class.define("mobileshowcase.page.Abstract",
+return qx.Class.define(null,
 {
   extend : qx.ui.page.NavigationPage,
 
@@ -40,4 +41,6 @@ qx.Class.define("mobileshowcase.page.Abstract",
       qx.core.Init.getApplication().getRouting().back();
     }
   }
+});
+
 });

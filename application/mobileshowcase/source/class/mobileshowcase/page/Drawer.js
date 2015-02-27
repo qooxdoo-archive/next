@@ -18,17 +18,18 @@
      * Christopher Zuendorf (czuendorf)
 
 ************************************************************************ */
+define(["class/mobileshowcase/page/Abstract"], function(AbstractPage) {
 
 /**
  * Mobile page showing the "Drawer" showcase.
  */
-qx.Class.define("mobileshowcase.page.Drawer",
+return qx.Class.define(null,
 {
-  extend : mobileshowcase.page.Abstract,
+  extend : AbstractPage,
 
   construct : function()
   {
-    this.super(mobileshowcase.page.Abstract, "construct", false);
+    this.super(AbstractPage, "construct", false);
     this.title = "Drawer";
   },
 
@@ -74,7 +75,7 @@ qx.Class.define("mobileshowcase.page.Drawer",
     // overridden
     _initialize : function()
     {
-      this.super(mobileshowcase.page.Abstract, "_initialize");
+      this.super(AbstractPage, "_initialize");
 
       // DRAWERS
 
@@ -163,4 +164,6 @@ qx.Class.define("mobileshowcase.page.Drawer",
       }.bind(target), 0);
     }
   }
+});
+
 });

@@ -18,18 +18,19 @@
      * Christopher Zuendorf (czuendorf)
 
 ************************************************************************ */
+define(["class/mobileshowcase/page/Abstract"], function(AbstractPage) {
 
 /**
  * Mobile page for showing the "list" showcase.
  */
-qx.Class.define("mobileshowcase.page.List",
+return qx.Class.define(null,
 {
-  extend : mobileshowcase.page.Abstract,
+  extend : AbstractPage,
 
 
   construct : function()
   {
-    this.super(mobileshowcase.page.Abstract, "construct");
+    this.super(AbstractPage, "construct");
     this.title = "List";
   },
 
@@ -48,7 +49,7 @@ qx.Class.define("mobileshowcase.page.List",
      * @lint ignoreDeprecated(alert)
      */
     _initialize: function() {
-      this.super(mobileshowcase.page.Abstract, "_initialize");
+      this.super(AbstractPage, "_initialize");
 
       this._waypointsY = ["0%", "25%", "50%", "75%", "100%", 200];
 
@@ -206,4 +207,6 @@ qx.Class.define("mobileshowcase.page.List",
       qx.ui.dialog.Manager.getInstance().confirm("Selection", text, null, this, ["OK"]);
     }
   }
+});
+
 });

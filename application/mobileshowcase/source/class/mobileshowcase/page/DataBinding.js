@@ -17,17 +17,18 @@
      * Christopher Zündorf (czuendorf)
 
 ************************************************************************ */
+define(["class/mobileshowcase/page/Abstract"], function(AbstractPage) {
 
 /**
  * Mobile page responsible for showing the "DataBinding" showcase.
  */
-qx.Class.define("mobileshowcase.page.DataBinding",
+return qx.Class.define(null,
 {
-  extend : mobileshowcase.page.Abstract,
+  extend : AbstractPage,
 
   construct : function()
   {
-    this.super(mobileshowcase.page.Abstract, "construct");
+    this.super(AbstractPage, "construct");
     this.title = "Data Binding";
   },
 
@@ -76,7 +77,7 @@ qx.Class.define("mobileshowcase.page.DataBinding",
     // overridden
     _initialize : function()
     {
-      this.super(mobileshowcase.page.Abstract, "_initialize");
+      this.super(AbstractPage, "_initialize");
 
       this.__form = this.__createSliderDataBindings();
       this.__list = this.__createListDataBindings();
@@ -207,7 +208,9 @@ qx.Class.define("mobileshowcase.page.DataBinding",
       this._disposeObjects("__decreaseButton",
         "__increaseButton", "__stopTimeButton", "__dataLabel",
         "__slider", "__form", "__list");
-      this.super(mobileshowcase.page.Abstract, "dispose");
+      this.super(AbstractPage, "dispose");
     }
   }
+});
+
 });

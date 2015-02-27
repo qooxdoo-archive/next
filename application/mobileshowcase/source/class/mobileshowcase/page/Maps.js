@@ -17,18 +17,19 @@
      * Christopher Zuendorf (czuendorf)
 
 ************************************************************************ */
+define(["class/mobileshowcase/page/Abstract"], function(AbstractPage) {
 
 /**
  * Mobile page showing an OpenStreetMap map.
  *
  * @ignore(OpenLayers.*)
  */
-qx.Class.define("mobileshowcase.page.Maps",
+return qx.Class.define(null,
 {
-  extend : mobileshowcase.page.Abstract,
+  extend : AbstractPage,
 
   construct : function() {
-    this.super(mobileshowcase.page.Abstract, "construct", false);
+    this.super(AbstractPage, "construct", false);
     this.title = "Maps";
   },
 
@@ -46,7 +47,7 @@ qx.Class.define("mobileshowcase.page.Maps",
     // overridden
     _initialize : function()
     {
-      this.super(mobileshowcase.page.Abstract, "_initialize");
+      this.super(AbstractPage, "_initialize");
       this._loadMapLibrary();
 
       // Listens on window orientation change and resize, and triggers redraw of map.
@@ -241,4 +242,7 @@ qx.Class.define("mobileshowcase.page.Maps",
       this._disposeObjects("_mapUri","_map","_myPositionMarker","_markers","_showMyPositionButton","_mapnikLayer");
     }
   }
+});
+
+
 });

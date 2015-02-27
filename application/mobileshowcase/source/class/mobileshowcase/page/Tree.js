@@ -15,16 +15,19 @@
 
 ************************************************************************ */
 
+
+define(["class/mobileshowcase/page/Abstract"], function(AbstractPage) {
+
 /**
  * Mobile page showing the "Tree" showcase.
  */
-qx.Class.define("mobileshowcase.page.Tree",
+return qx.Class.define(null,
 {
-  extend : mobileshowcase.page.Abstract,
+  extend : AbstractPage,
 
   construct : function()
   {
-    this.super(mobileshowcase.page.Abstract, "construct");
+    this.super(AbstractPage, "construct");
     this.title = "Tree";
   },
 
@@ -34,7 +37,7 @@ qx.Class.define("mobileshowcase.page.Tree",
     // overridden
     _initialize : function()
     {
-      this.super(mobileshowcase.page.Abstract, "_initialize");
+      this.super(AbstractPage, "_initialize");
 
       var data = {
         "result": {
@@ -85,4 +88,6 @@ qx.Class.define("mobileshowcase.page.Tree",
       });
     }
   }
+});
+
 });

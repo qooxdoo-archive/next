@@ -18,16 +18,18 @@
 
 ************************************************************************ */
 
+define(["class/mobileshowcase/page/Abstract"], function(AbstractPage) {
+
 /**
  * Mobile page responsible for showing the "animation" showcase.
  */
-qx.Class.define("mobileshowcase.page.Animation",
+return qx.Class.define(null,
 {
-  extend : mobileshowcase.page.Abstract,
+  extend : AbstractPage,
 
   construct : function()
   {
-    this.super(mobileshowcase.page.Abstract, "construct");
+    this.super(AbstractPage, "construct");
     this.title = "Page Transitions";
   },
 
@@ -63,7 +65,7 @@ qx.Class.define("mobileshowcase.page.Animation",
     // overridden
     _initialize : function()
     {
-      this.super(mobileshowcase.page.Abstract, "_initialize");
+      this.super(AbstractPage, "_initialize");
 
       var list = new qx.ui.List({
         configureItem : function(item, data, row)
@@ -75,16 +77,18 @@ qx.Class.define("mobileshowcase.page.Animation",
 
       list.addClass("animation-list-1");
 
-      list.model = new qx.data.Array(mobileshowcase.page.Animation.ANIMATION_DATA);
+      list.model = new qx.data.Array(this.constructor.Animation.ANIMATION_DATA);
       list.on("selected", function(el) {
         // In Tablet Mode, animation should be shown for this showcase part.
         // On animation landing >> showAnimation is set to false.
         this._getParentWidget().layout.showAnimation = true;
         var index = el.getData("row");
-        var animation = mobileshowcase.page.Animation.ANIMATION_DATA[index].animation;
+        var animation = this.constructor.ANIMATION_DATA[index].animation;
         qx.core.Init.getApplication().getRouting().executeGet("/animation/" + animation);
       }, this);
       this.getContent().append(list);
     }
   }
+});
+
 });

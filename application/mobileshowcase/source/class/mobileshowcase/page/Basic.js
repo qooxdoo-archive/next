@@ -18,6 +18,9 @@
 
 ************************************************************************ */
 
+define(["class/mobileshowcase/page/Abstract"], function(AbstractPage) {
+
+
 /**
  * Mobile page responsible for showing all basic widgets available:
  * - Labels
@@ -27,13 +30,13 @@
  * - Collapsible
  * - Enabled / Disabled state
  */
-qx.Class.define("mobileshowcase.page.Basic",
+return qx.Class.define(null,
 {
-  extend : mobileshowcase.page.Abstract,
+  extend : AbstractPage,
 
   construct : function()
   {
-    this.super(mobileshowcase.page.Abstract, "construct", false);
+    this.super(AbstractPage, "construct", false);
     this.title = "Basic Widgets";
     this._widgets = [];
   },
@@ -47,7 +50,7 @@ qx.Class.define("mobileshowcase.page.Basic",
     // overridden
     _initialize : function()
     {
-      this.super(mobileshowcase.page.Abstract, "_initialize");
+      this.super(AbstractPage, "_initialize");
 
       // TOGGLE BUTTON
       var toggleEnableButton = new qx.ui.form.ToggleButton(true,"ON","OFF");
@@ -150,4 +153,6 @@ qx.Class.define("mobileshowcase.page.Basic",
       return collapsible;
     }
   }
+});
+
 });

@@ -19,17 +19,22 @@
 
 ************************************************************************ */
 
+define([
+  "class/mobileshowcase/page/Abstract",
+  "class/mobileshowcase/page/Animation"
+], function(AbstractPage, AnimationPage) {
+
 
 /**
  * Mobile page responsible for showing the landing page for the "animation" showcase.
  */
-qx.Class.define("mobileshowcase.page.AnimationLanding",
+return qx.Class.define(null,
 {
-  extend : mobileshowcase.page.Abstract,
+  extend : AbstractPage,
 
   construct : function()
   {
-    this.super(mobileshowcase.page.Abstract, "construct", true);
+    this.super(AbstractPage, "construct", true);
     this.title = "Page Transitions";
     this.showBackButtonOnTablet = true;
   },
@@ -51,7 +56,7 @@ qx.Class.define("mobileshowcase.page.AnimationLanding",
     // overridden
     _initialize : function()
     {
-      this.super(mobileshowcase.page.Abstract, "_initialize");
+      this.super(AbstractPage, "_initialize");
 
 
       if (this._isTablet) {
@@ -66,7 +71,7 @@ qx.Class.define("mobileshowcase.page.AnimationLanding",
       });
       list.addClass("animation-list-2");
 
-      var animationData = mobileshowcase.page.Animation.ANIMATION_DATA;
+      var animationData = AnimationPage.ANIMATION_DATA;
 
       list.model = new qx.data.Array(animationData);
       list.on("selected", function(el) {
@@ -93,4 +98,6 @@ qx.Class.define("mobileshowcase.page.AnimationLanding",
       qx.core.Init.getApplication().getRouting().executeGet("/animation", {animation: this.animation, reverse: true});
     }
   }
+});
+
 });

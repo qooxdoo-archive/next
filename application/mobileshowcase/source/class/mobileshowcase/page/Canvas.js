@@ -17,18 +17,19 @@
  * Christopher Zuendorf (czuendorf)
 
  ************************************************************************ */
+define(["class/mobileshowcase/page/Abstract"], function(AbstractPage) {
 
 /**
  * Mobile page showing a HTML5 canvas example.
  *
  * @require(qx.module.event.TrackHandler)
  */
-qx.Class.define("mobileshowcase.page.Canvas",
+return qx.Class.define(null,
   {
-    extend: mobileshowcase.page.Abstract,
+    extend: AbstractPage,
 
     construct: function () {
-      this.super(mobileshowcase.page.Abstract, "construct", false);
+      this.super(AbstractPage, "construct", false);
       this.title = "Canvas";
       this.__ratio = qxWeb.env.get("device.pixelRatio");
     },
@@ -45,7 +46,7 @@ qx.Class.define("mobileshowcase.page.Canvas",
 
       // overridden
       _initialize: function () {
-        this.super(mobileshowcase.page.Abstract, "_initialize");
+        this.super(AbstractPage, "_initialize");
 
         this.__lastPoint = {};
 
@@ -214,3 +215,5 @@ qx.Class.define("mobileshowcase.page.Canvas",
       }
     }
   });
+
+});

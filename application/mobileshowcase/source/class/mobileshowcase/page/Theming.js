@@ -24,6 +24,7 @@
 
 
 ************************************************************************ */
+define(["class/mobileshowcase/page/Abstract"], function(AbstractPage) {
 
 /**
  * Mobile page responsible for switching between provided themes.
@@ -32,13 +33,13 @@
  * @require(qx.module.Blocker)
  * @require(qx.module.Io)
  */
-qx.Class.define("mobileshowcase.page.Theming",
+return qx.Class.define(null,
 {
-  extend : mobileshowcase.page.Abstract,
+  extend : AbstractPage,
 
   construct : function()
   {
-    this.super(mobileshowcase.page.Abstract, "construct");
+    this.super(AbstractPage, "construct");
     this.title = "Theming";
 
     this.__preloadThemes();
@@ -69,8 +70,8 @@ qx.Class.define("mobileshowcase.page.Theming",
      * Preloads all css files for preventing flickering on theme switches.
      */
     __preloadThemes : function() {
-      for(var i = 0; i < mobileshowcase.page.Theming.THEMES.length; i++) {
-        var cssResource = mobileshowcase.page.Theming.THEMES[i].css;
+      for(var i = 0; i < this.constructor.THEMES.length; i++) {
+        var cssResource = this.constructor.THEMES[i].css;
         var cssURI = qx.util.ResourceManager.getInstance().toUri(cssResource);
         qxWeb.io.xhr(cssURI).send();
       }
@@ -80,7 +81,7 @@ qx.Class.define("mobileshowcase.page.Theming",
     // overridden
     _initialize : function()
     {
-      this.super(mobileshowcase.page.Abstract, "_initialize");
+      this.super(AbstractPage, "_initialize");
 
       this.getContent().append(qxWeb.create('<h2 class="form-title">Select a Theme</h2>'));
 
@@ -119,15 +120,15 @@ qx.Class.define("mobileshowcase.page.Theming",
       var  themeForm = new qx.ui.form.Form();
       var themeGroup = new qx.ui.form.Group().appendTo(themeForm);
 
-      for (var i = 0; i < mobileshowcase.page.Theming.THEMES.length; i++) {
+      for (var i = 0; i < this.constructor.THEMES.length; i++) {
         var radioButton = new qx.ui.form.RadioButton().set({
           name: "themes"
         });
 
-        if (qx.core.Environment.get("qx.theme").indexOf(mobileshowcase.page.Theming.THEMES[i].name.toLowerCase()) != -1) {
+        if (qx.core.Environment.get("qx.theme").indexOf(this.constructor.THEMES[i].name.toLowerCase()) != -1) {
           radioButton.setValue(true);
         }
-        new qx.ui.form.Row(radioButton, mobileshowcase.page.Theming.THEMES[i].name)
+        new qx.ui.form.Row(radioButton, this.constructor.THEMES[i].name)
           .appendTo(themeGroup);
         radioButton.on("tap", this.__switchTheme.bind(this, i));
       }
@@ -297,7 +298,7 @@ qx.Class.define("mobileshowcase.page.Theming",
      * @param src {qx.ui.Widget} Source widget of this event.
      */
     __switchTheme : function(index) {
-      var cssResource = mobileshowcase.page.Theming.THEMES[index].css;
+      var cssResource = this.constructor.THEMES[index].css;
       var cssURI = qx.util.ResourceManager.getInstance().toUri(cssResource);
       this.__changeCSS(cssURI);
     },
@@ -308,7 +309,7 @@ qx.Class.define("mobileshowcase.page.Theming",
      * @param cssFile {String} The css file url.
      */
     appendTheme : function(themeData) {
-      mobileshowcase.page.Theming.THEMES.push(themeData);
+      this.constructor.THEMES.push(themeData);
     },
 
 
@@ -317,4 +318,6 @@ qx.Class.define("mobileshowcase.page.Theming",
      qx.core.Init.getApplication().getRoot().off("changeAppScale", this._updateDemoImageLabel, this);
     }
   }
+});
+
 });

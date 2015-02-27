@@ -18,18 +18,16 @@
 
 ************************************************************************ */
 
-/* ************************************************************************
+define(["class/mobileshowcase/page/Abstract"], function(AbstractPage) {
 
-
-************************************************************************ */
 /**
  * Mobile page responsible for showing the different showcases.
  *
  * @asset(mobileshowcase/icon/camera.png)
  */
-qx.Class.define("mobileshowcase.page.Toolbar",
+return qx.Class.define(null,
 {
-  extend : mobileshowcase.page.Abstract,
+  extend : AbstractPage,
 
 
   statics : {
@@ -39,7 +37,7 @@ qx.Class.define("mobileshowcase.page.Toolbar",
 
   construct : function()
   {
-    this.super(mobileshowcase.page.Abstract, "construct", false);
+    this.super(AbstractPage, "construct", false);
     this.title = "Toolbar";
   },
 
@@ -70,7 +68,7 @@ qx.Class.define("mobileshowcase.page.Toolbar",
     // overridden
     _initialize : function()
     {
-      this.super(mobileshowcase.page.Abstract, "_initialize");
+      this.super(AbstractPage, "_initialize");
 
       this.getContent().append(qxWeb.create('<h2 class="form-title">Search</h2>'));
 
@@ -84,7 +82,7 @@ qx.Class.define("mobileshowcase.page.Toolbar",
       }, this);
 
       this.__goBackBtn = new qx.ui.Button(
-        null, mobileshowcase.page.Toolbar.__toolbarButtonImages[0]
+        null, this.constructor.__toolbarButtonImages[0]
       );
       this.__goBackBtn.showChildren = "icon";
 
@@ -94,7 +92,7 @@ qx.Class.define("mobileshowcase.page.Toolbar",
       }, this);
 
       this.__loadButton = new qx.ui.Button(
-        null, mobileshowcase.page.Toolbar.__toolbarButtonImages[1]
+        null, this.constructor.__toolbarButtonImages[1]
       );
       this.__loadButton.showChildren = "icon";
 
@@ -224,4 +222,6 @@ qx.Class.define("mobileshowcase.page.Toolbar",
       }
     }
   }
+});
+
 });

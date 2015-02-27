@@ -18,11 +18,12 @@
 
 ************************************************************************ */
 
+define(function() {
+
 /**
  * Mobile page responsible for showing the different showcases.
  */
-qx.Class.define("mobileshowcase.page.Overview",
-{
+return qx.Class.define(null, {
   extend : qx.ui.page.NavigationPage,
 
   construct : function()
@@ -82,4 +83,6 @@ qx.Class.define("mobileshowcase.page.Overview",
 
     }
   }
+});
+
 });

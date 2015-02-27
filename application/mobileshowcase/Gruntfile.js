@@ -31,7 +31,7 @@ module.exports = function(grunt) {
 
     source: {
       options: {
-        "=includes": ["<%= common.APPLICATION_MAIN_CLASS %>"],
+        "=includes": ["qx.*"],
         "=loaderTemplate": "<%= common.QOOXDOO_PATH %>/tool/data/generator/mobile.loader.tmpl.js",
         addCss: ["./theme/indigo.css"]
       }

@@ -26,12 +26,50 @@
 
 ************************************************************************ */
 
+
+define([
+  "class/mobileshowcase/page/Overview",
+  "class/mobileshowcase/page/Event",
+  "class/mobileshowcase/page/Carousel",
+  "class/mobileshowcase/page/Drawer",
+  "class/mobileshowcase/page/List",
+  "class/mobileshowcase/page/Tab",
+  "class/mobileshowcase/page/Toolbar",
+  "class/mobileshowcase/page/Form",
+  "class/mobileshowcase/page/Animation",
+  "class/mobileshowcase/page/AnimationLanding",
+  "class/mobileshowcase/page/Basic",
+  "class/mobileshowcase/page/Dialog",
+  "class/mobileshowcase/page/DataBinding",
+  "class/mobileshowcase/page/Maps",
+  "class/mobileshowcase/page/Canvas",
+  "class/mobileshowcase/page/Theming",
+  "class/mobileshowcase/page/Tree"
+], function(
+  Overview,
+  Event,
+  Carousel,
+  Drawer,
+  List,
+  Tab,
+  Toolbar,
+  Form,
+  Animation,
+  AnimationLanding,
+  Basic,
+  Dialog,
+  DataBinding,
+  Maps,
+  Canvas,
+  Theming,
+  Tree
+) {
 /**
  * This is the main application class for the mobile showcase app.
  * @require(qx.log.appender.Console)
  * @asset(mobileshowcase/*)
  */
-qx.Class.define("mobileshowcase.Application",
+return qx.Class.define(null,
 {
   extend : qx.application.Mobile,
 
@@ -61,23 +99,23 @@ qx.Class.define("mobileshowcase.Application",
       */
 
       // Create the pages
-      var overview = new mobileshowcase.page.Overview();
-      var events = new mobileshowcase.page.Event();
-      var carousel = new mobileshowcase.page.Carousel();
-      var drawer = new mobileshowcase.page.Drawer();
-      var list = new mobileshowcase.page.List();
-      var tab = new mobileshowcase.page.Tab();
-      var toolbar = new mobileshowcase.page.Toolbar();
-      var form = new mobileshowcase.page.Form();
-      var animation = new mobileshowcase.page.Animation();
-      var animationLanding = new mobileshowcase.page.AnimationLanding();
-      var basic = new mobileshowcase.page.Basic();
-      var dialogs = new mobileshowcase.page.Dialog();
-      var dataBinding = new mobileshowcase.page.DataBinding();
-      var maps = new mobileshowcase.page.Maps();
-      var canvas = new mobileshowcase.page.Canvas();
-      var theming = new mobileshowcase.page.Theming();
-      var tree = new mobileshowcase.page.Tree();
+      var overview = new Overview();
+      var events = new Event();
+      var carousel = new Carousel();
+      var drawer = new Drawer();
+      var list = new List();
+      var tab = new Tab();
+      var toolbar = new Toolbar();
+      var form = new Form();
+      var animation = new Animation();
+      var animationLanding = new AnimationLanding();
+      var basic = new Basic();
+      var dialogs = new Dialog();
+      var dataBinding = new DataBinding();
+      var maps = new Maps();
+      var canvas = new Canvas();
+      var theming = new Theming();
+      var tree = new Tree();
 
       // Add the pages to the page manager
       var manager = new qx.ui.page.Manager();
@@ -152,4 +190,6 @@ qx.Class.define("mobileshowcase.Application",
       this.show(data.customData);
     }
   }
+});
+
 });
