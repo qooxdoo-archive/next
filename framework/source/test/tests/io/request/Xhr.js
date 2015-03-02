@@ -213,6 +213,37 @@ describe("io.request.Xhr", function() {
   });
 
 
+  it("send blob data with POST request", function() {
+    if (typeof window.Blob == "undefined") {
+      this.test.skip = true;
+      return;
+    }
+
+    var blob = new window.Blob(['abc123'], {type: 'text/plain'});
+    setUpFakeTransport();
+    req.method = "POST";
+    req.requestData = blob;
+    req.send();
+
+    sinon.assert.calledWith(req._send, blob);
+  });
+
+
+  it("send array buffer data with POST request", function() {
+    if (typeof window.ArrayBuffer == "undefined") {
+      this.test.skip = true;
+      return;
+    }
+    var array = new window.ArrayBuffer(512);
+    setUpFakeTransport();
+    req.method = "POST";
+    req.requestData = array;
+    req.send();
+
+    sinon.assert.calledWith(req._send, array);
+  });
+
+
   it("serialize data", function() {
       var data = {
         "abc": "def",

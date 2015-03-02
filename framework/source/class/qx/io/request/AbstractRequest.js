@@ -243,7 +243,9 @@ qx.Class.define("qx.io.request.AbstractRequest",
       check: function(value) {
         return qx.lang.Type.isString(value) ||
                qx.lang.Type.isArray(value) ||
-               qx.lang.Type.isObject(value);
+               qx.lang.Type.isObject(value) ||
+               qx.Class.getClass(value) == "Blob" ||
+               qx.Class.getClass(value) == "ArrayBuffer";
       },
       nullable: true
     },
@@ -401,7 +403,7 @@ qx.Class.define("qx.io.request.AbstractRequest",
      * @return {qx.io.request.AbstractRequest} Self for chaining.
      */
     send: function() {
-      var url, method, async, serializedData;
+      var url, method, async, requestData;
 
       //
       // Open request
@@ -432,7 +434,10 @@ qx.Class.define("qx.io.request.AbstractRequest",
       // Send request
       //
 
-      serializedData = this._serializeData(this.requestData);
+      requestData = this.requestData;
+      if (["ArrayBuffer", "Blob"].indexOf(qx.Class.getClass(requestData)) == -1) {
+        requestData = this._serializeData(requestData);
+      }
 
       this._setRequestHeaders();
 
@@ -440,7 +445,7 @@ qx.Class.define("qx.io.request.AbstractRequest",
       if (qx.core.Environment.get("qx.debug.io")) {
         this.debug("Send low-level request");
       }
-      method == "GET" ? this._send() : this._send(serializedData);
+      method == "GET" ? this._send() : this._send(requestData);
       this.phase = "sent";
 
       return this;
