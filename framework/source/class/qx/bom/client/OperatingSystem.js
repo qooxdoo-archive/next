@@ -127,6 +127,8 @@ qx.Class.define("qx.bom.client.OperatingSystem",
       "Win95" : "95",
 
       // OS X
+      "Mac OS X 10_10" : "10.10",
+      "Mac OS X 10.10" : "10.10",
       "Mac OS X 10_9" : "10.9",
       "Mac OS X 10.9" : "10.9",
       "Mac OS X 10_8" : "10.8",
