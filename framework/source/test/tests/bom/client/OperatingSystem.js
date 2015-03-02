@@ -20,11 +20,15 @@
 describe("bom.client.OperatingSystem", function () {
 
   it("Usage of getName", function () {
-    assert.notEqual("", qx.bom.client.OperatingSystem.getName());
+    var osName = qx.bom.client.OperatingSystem.getName();
+    assert.isString(osName);
+    assert.notEqual("", osName);
   });
   it("Usage of getVersion", function () {
     if (qx.bom.client.OperatingSystem.getName() !== "linux") {
-      assert.notEqual("", qx.bom.client.OperatingSystem.getVersion());
+      var osVersion = qx.bom.client.OperatingSystem.getVersion();
+      assert.isString(osVersion);
+      assert.notEqual("", osVersion);
     }
   });
 });
