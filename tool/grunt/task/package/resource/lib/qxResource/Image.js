@@ -26,6 +26,7 @@
 
 // native
 var fs = require("fs");
+var path = require("path");
 
 // qx
 var q = require('qooxdoo');
@@ -45,17 +46,13 @@ q.Class.define("qxResource.Image",
    * Represents a physical image file.
    *
    * @constructs qxResource.Image
-   * @param {string} absImgPath
+-   * @param {string} relImgPath - rel path to image
    * @param {string} namespace - namespace the image is associated with
    */
-  construct: function(absImgPath, namespace)
+  construct: function(relImgPath, namespace)
   {
-    if (!fs.existsSync(absImgPath)) {
-      throw new Error("ENOENT: " + absImgPath);
-    }
-
     this.base(arguments);
-    this.__abspath = absImgPath;
+    this.__relpath = relImgPath;
     this.__namespace = namespace;
   },
 
@@ -63,7 +60,7 @@ q.Class.define("qxResource.Image",
   members:
   {
     /** @type {string} */
-    __abspath: null,
+    __relpath: null,
     /**
      * @type {Object}
      * @property {number} width
@@ -76,42 +73,17 @@ q.Class.define("qxResource.Image",
     __format: null,
 
     /**
-     * Gets the format/extname of the given img path.
-     *
-     * @returns {string} extension
-     */
-    __getFormat: function() {
-      if (!this.__format) {
-        this.__format = imgsize(this.__abspath).type;
-      }
-      return this.__format;
-    },
-
-    /**
-     * Gets the image size of the given image.
-     *
-     * @param {string} absImgPath
-     * @returns {Object} result
-     * @returns {number} result.width
-     * @returns {number} result.height
-     */
-    __getImageSize: function() {
-      if (this.__dimensions) {
-        return this.__dimensions;
-      }
-
-      imgData = imgsize(this.__abspath);
-      delete imgData.type;
-      this.__dimensions = imgData;
-      return imgData;
-    },
-
-    /**
      * Collects info (e.g. dimensions and format) and populates the image with it.
+     *
+     * @param {string} imgBasePath
      */
-    collectInfoAndPopulate: function() {
-      imgData = imgsize(this.__abspath);
+    collectInfoAndPopulate: function(imgBasePath) {
+      var absImgPath = path.join(imgBasePath, this.__relpath);
+      if (!fs.existsSync(absImgPath)) {
+        throw new Error("ENOENT: " + absImgPath);
+      }
 
+      imgData = imgsize(absImgPath);
       this.__format = imgData.type;
       delete imgData.type;
       this.__dimensions = imgData;
@@ -120,11 +92,11 @@ q.Class.define("qxResource.Image",
     /**
      * Stringifies the image.
      *
-     * @returns {Object} imageMap - <code>{myabspathToImg: [32, 32, 'png', 'myNamespace']}</code>
+     * @returns {Object} imageMap - <code>{myRelPathToImg: [32, 32, 'png', 'myNamespace']}</code>
      */
     stringify: function() {
       imgEntry = {};
-      imgEntry[this.__abspath] = [
+      imgEntry[this.__relpath] = [
         (this.__dimensions !== null ? this.__dimensions.width : null),
         (this.__dimensions !== null ? this.__dimensions.height : null),
         this.__format,

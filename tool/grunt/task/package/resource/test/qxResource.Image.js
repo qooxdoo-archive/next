@@ -25,30 +25,14 @@ module.exports = {
      */
     setUp: function(done) {
       var qxResource = { Image: require('../lib/qxResource/Image') };
-      var testPng = 'test/data/myapp/source/resource/myapp/test.png';
+      var testPng = 'data/myapp/source/resource/myapp/test.png';
       this.img = new qxResource.Image(testPng, 'myapp');
 
       done();
     },
 
-    __getFormat: function(test) {
-      var actual = this.img.__getFormat();
-      var expected = 'png';
-
-      test.strictEqual(actual, expected);
-      test.done();
-    },
-
-    __getImageSize: function(test) {
-      var actual = this.img.__getImageSize();
-      var expected = { width: 32, height: 32 };
-
-      test.deepEqual(actual, expected);
-      test.done();
-    },
-
     collectInfoAndPopulate: function(test) {
-      this.img.collectInfoAndPopulate();
+      this.img.collectInfoAndPopulate('./test');
 
       var expectedDim = { width: 32, height: 32 };
       test.deepEqual(this.img.__dimensions, expectedDim);
@@ -60,14 +44,14 @@ module.exports = {
 
     stringify: function(test) {
       var expectedBefore = {
-        'test/data/myapp/source/resource/myapp/test.png':
+        'data/myapp/source/resource/myapp/test.png':
         [ null, null, null, 'myapp' ]
       };
       test.deepEqual(this.img.stringify(), expectedBefore);
 
       this.img.collectInfoAndPopulate('./test');
       var expectedAfter = {
-        'test/data/myapp/source/resource/myapp/test.png':
+        'data/myapp/source/resource/myapp/test.png':
         [ 32, 32, 'png', 'myapp' ]
       };
       test.deepEqual(this.img.stringify(), expectedAfter);
