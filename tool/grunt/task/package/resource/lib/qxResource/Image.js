@@ -26,7 +26,6 @@
 
 // native
 var fs = require("fs");
-var path = require("path");
 
 // qx
 var q = require('qooxdoo');
@@ -46,13 +45,17 @@ q.Class.define("qxResource.Image",
    * Represents a physical image file.
    *
    * @constructs qxResource.Image
-   * @param {string} relImgPath - rel path to image
+   * @param {string} absImgPath
    * @param {string} namespace - namespace the image is associated with
    */
-  construct: function(relImgPath, namespace)
+  construct: function(absImgPath, namespace)
   {
+    if (!fs.existsSync(absImgPath)) {
+      throw new Error("ENOENT: " + absImgPath);
+    }
+
     this.base(arguments);
-    this.__relpath = relImgPath;
+    this.__abspath = absImgPath;
     this.__namespace = namespace;
   },
 
@@ -60,7 +63,7 @@ q.Class.define("qxResource.Image",
   members:
   {
     /** @type {string} */
-    __relpath: null,
+    __abspath: null,
     /**
      * @type {Object}
      * @property {number} width
@@ -75,12 +78,13 @@ q.Class.define("qxResource.Image",
     /**
      * Gets the format/extname of the given img path.
      *
-     * @param {string} imgPath - path to image (rel/abs)
      * @returns {string} extension
      */
-    __getFormat: function(imgPath) {
-      var ext = path.extname(imgPath);
-      return (ext.indexOf('.') === 0) ? ext.substr(1) : ext;
+    __getFormat: function() {
+      if (!this.__format) {
+        this.__format = imgsize(this.__abspath).type;
+      }
+      return this.__format;
     },
 
     /**
@@ -91,34 +95,36 @@ q.Class.define("qxResource.Image",
      * @returns {number} result.width
      * @returns {number} result.height
      */
-    __getImageSize: function(absImgPath) {
-      return imgsize(absImgPath);
+    __getImageSize: function() {
+      if (this.__dimensions) {
+        return this.__dimensions;
+      }
+
+      imgData = imgsize(this.__abspath);
+      delete imgData.type;
+      this.__dimensions = imgData;
+      return imgData;
     },
 
     /**
      * Collects info (e.g. dimensions and format) and populates the image with it.
-     *
-     * @param {string} imgBasePath
      */
-    collectInfoAndPopulate: function(imgBasePath) {
-      // TODO: is imgBasePath really needed?
-      var absImgPath = path.join(imgBasePath, this.__relpath);
-      if (!fs.existsSync(absImgPath)) {
-        throw new Error("ENOENT: " + absImgPath);
-      }
+    collectInfoAndPopulate: function() {
+      imgData = imgsize(this.__abspath);
 
-      this.__dimensions = this.__getImageSize(absImgPath);
-      this.__format = this.__getFormat(this.__relpath);
+      this.__format = imgData.type;
+      delete imgData.type;
+      this.__dimensions = imgData;
     },
 
     /**
      * Stringifies the image.
      *
-     * @returns {Object} imageMap - <code>{myRelPathToImg: [32, 32, 'png', 'myNamespace']}</code>
+     * @returns {Object} imageMap - <code>{myabspathToImg: [32, 32, 'png', 'myNamespace']}</code>
      */
     stringify: function() {
       imgEntry = {};
-      imgEntry[this.__relpath] = [
+      imgEntry[this.__abspath] = [
         (this.__dimensions !== null ? this.__dimensions.width : null),
         (this.__dimensions !== null ? this.__dimensions.height : null),
         this.__format,

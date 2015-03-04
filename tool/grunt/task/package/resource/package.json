@@ -34,13 +34,13 @@
     "stdout": "node test/stdout/stdout.js"
   },
   "dependencies": {
-    "qooxdoo": "~3.5.0",
-    "image-size": "~0.2.0",
-    "glob": "~3.2.0"
+    "glob": "^4.4.1",
+    "image-size": "^0.3.5",
+    "qooxdoo": "^4.1.0"
   },
   "devDependencies": {
-    "nodeunit": "^0.9.0",
-    "jsdoc": "3.3.0-alpha9"
+    "jsdoc": "^3.3.0-beta1",
+    "nodeunit": "^0.9.0"
   },
   "//": "before publishing create README.md then this can be removed",
   "private": true
