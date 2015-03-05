@@ -90,10 +90,6 @@ qx.Class.define("play.Application",
 
     run : function() {
       this.getRoot().setHtml("");
-      if (this.__manager) {
-        this.__manager.dispose();
-        delete this.__manager;
-      }
       var code = ace.edit("editor").getValue();
       play.CodeStore.add(code);
       var f = new Function(code);
