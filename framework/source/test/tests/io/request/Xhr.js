@@ -66,30 +66,22 @@ describe("io.request.Xhr", function() {
   }
 
   function setUpFakeServer() {
-      // Not fake transport
+    sinonSandbox.useFakeServer();
+    setUpRequest();
 
-      sinonSandbox.useFakeServer();
-      setUpRequest();
+    sinonSandbox.server.respondWith("GET", "/found", [200, {
+      "Content-Type": "text/html"
+    }, "FOUND"]);
 
-      sinonSandbox.server.respondWith("GET", "/found", [200, {
-        "Content-Type": "text/html"
-      }, "FOUND"]);
+    sinonSandbox.server.respondWith("GET", "/found.json", [200, {
+      "Content-Type": "application/json; charset=utf-8"
+    }, "JSON"]);
 
-      sinonSandbox.server.respondWith("GET", "/found.json", [200, {
-        "Content-Type": "application/json; charset=utf-8"
-      }, "JSON"]);
+    sinonSandbox.server.respondWith("GET", "/found.other", [200, {
+      "Content-Type": "application/other"
+    }, "OTHER"]);
+  }
 
-      sinonSandbox.server.respondWith("GET", "/found.other", [200, {
-        "Content-Type": "application/other"
-      }, "OTHER"]);
-    }
-
-    function setUpFakeXhr() {
-      // Not fake transport
-
-      sinonSandbox.useFakeXMLHttpRequest();
-      setUpRequest();
-    }
 
   afterEach(function() {
     req.dispose();

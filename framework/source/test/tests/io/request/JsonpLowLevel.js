@@ -204,6 +204,7 @@ describe("io.request.JsonpLowLevel", function() {
 
 
   it("call onerror on network error", function(done) {
+    this.timeout(5000);
     // For legacy IEs, timeout needs to be lower than browser timeout
     // or false "load" is fired. Alternatively, a false "load"
     // can be identified by checking status property.
@@ -221,6 +222,7 @@ describe("io.request.JsonpLowLevel", function() {
 
 
   it("call onloadend on network error", function(done) {
+    this.timeout(5000);
     req.on("loadend", function() {
       done();
     });
