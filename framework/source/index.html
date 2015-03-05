@@ -3,16 +3,57 @@
 <head>
   <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
   <title>qxWeb source</title>
+  <style type="text/css" media="screen">
+  html {
+    padding: 20px;
+  }
+  </style>
   <link rel="stylesheet" type="text/css" href="../source/resource/qx/css/indigo.css">
   <script type="text/javascript" src="script/q-source.js"></script>
   <script type="text/javascript">
     q.ready(function() {
-      console.log("q ready");
-      // do something awesome
+      app = q(document.body).app();
+      app.addModel("postfix", "!!!");
+      app.test = qx.data.marshal.Json.createModel({name: "initial value"});
+
+      var store = new qx.data.store.Json("resource/qx/test/primitive.json");
+      app.addModel("primitive", null),
+      qx.data.SingleValueBinding.bind(store, "model", app, "primitive");
+
+      app.slider = 20;
+
+      app.listModel = new qx.data.Array(["a", "b", "c"]);
+
+      // TODO hide, enabled, init-values in den DOM, change postfix (ergibt nullnull)
     });
   </script>
 </head>
 <body>
+
+  <div>
+    <h3>Only app code required</h3>
+    <input value="{{mycolor}}" style="color: {{mycolor}}; font-size: {{slider}}px;" placeholder="type in text color">
+  </div>
+
+  <div>
+    <h3>Bidirectional binding</h3>
+    <input value="{{test.name}}">
+    <span>{{test.name}}{{postfix}}</span>
+  </div>
+
+  <div>
+    <h3>Load via Json Store</h3>
+    <p>{{primitive.string}}</p>
+    <p>{{primitive.number}}</p>
+    <p>{{primitive.boolean}}</p>
+  </div>
+
+  <div>
+    <h3>Widget Binding</h3>
+    <div data-qx-widget="qx.ui.form.Slider" data-qx-config-value="{{slider}}"></div>
+    <p>The slider value is {{slider}}.</p>
+    <div data-qx-widget="qx.ui.List" data-qx-config-model="{{listModel}}"></div>
+  </div>
 
 </body>
 </html>
