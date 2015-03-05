@@ -487,7 +487,7 @@ describe("io.request.XhrWithRemoteLowLevel", function() {
   //
 
   it("call onerror on network error", function(done) {
-    this.timeout(5000);
+    this.timeout(7000);
     req.on("error", function() {
       // May take a while to detect network error
       assert.equal(4, req.readyState);
@@ -597,7 +597,7 @@ describe("io.request.XhrWithRemoteLowLevel", function() {
   //
 
   it("call onloadend on network error", function(done) {
-    this.timeout(5000);
+    this.timeout(7000);
     req.on("loadend", function() {
       // May take a while to detect network error
       setTimeout(function() {
@@ -646,7 +646,7 @@ describe("io.request.XhrWithRemoteLowLevel", function() {
 
 
   it("call handler in order when request failed", function(done) {
-    this.timeout(5000);
+    this.timeout(7000);
     var globalStack = [];
 
     var expected = [

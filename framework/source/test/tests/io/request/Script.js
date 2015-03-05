@@ -128,7 +128,7 @@ describe("io.request.Script", function() {
   // Error handling
 
   it("properties indicate failure when request failed", function(done) {
-    this.timeout(5000);
+    this.timeout(7000);
     req.on("error", function() {
       assert.equal(4, req.readyState);
       assert.equal(0, req.status);
@@ -141,7 +141,7 @@ describe("io.request.Script", function() {
 
 
   it("properties indicate failure when request timed out", function(done) {
-    this.timeout(5000);
+    this.timeout(7000);
     // Known to fail in legacy IEs
     if (isIeBelow(9)) {
       this.test.skip = true;
@@ -306,7 +306,7 @@ describe("io.request.Script", function() {
   // Error handling
 
   it("call onloadend on network error", function(done) {
-    this.timeout(5000);
+    this.timeout(7000);
     req.on("loadend", function() {
       done();
     });
@@ -325,7 +325,7 @@ describe("io.request.Script", function() {
 
 
   it("not call onload when loading failed because of network error", function(done) {
-    this.timeout(5000);
+    this.timeout(7000);
     // After a short delay, readyState progresses to "loaded" even
     // though the resource could not be loaded.
     req.on("load", function() {
@@ -341,7 +341,7 @@ describe("io.request.Script", function() {
 
 
   it("call onerror on network error", function(done) {
-    this.timeout(5000);
+    this.timeout(7000);
     req.on("error", function() {
       done();
     });
@@ -426,7 +426,7 @@ describe("io.request.Script", function() {
 
 
   it("remove script from DOM when request failed", function(done) {
-    this.timeout(5000);
+    this.timeout(7000);
     var script;
 
     req.on("error", function() {
