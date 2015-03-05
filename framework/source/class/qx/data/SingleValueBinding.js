@@ -642,8 +642,14 @@ qx.Class.define("qx.data.SingleValueBinding",
         }
 
         // try to reset the property
-        if (target.$$properties[lastProperty].nullable) {
+        if (target.$$properties[lastProperty] && target.$$properties[lastProperty].nullable) {
           target[lastProperty] = null;
+        } else if (qx.Class.hasProperty(target.constructor, lastProperty)) {
+          target[lastProperty] = undefined;
+        } else if (target["reset" + qx.Class.firstUp(lastProperty)]) {
+          target["reset" + qx.Class.firstUp(lastProperty)]();
+        } else if (target["set" + qx.Class.firstUp(lastProperty)]) {
+          target["set" + qx.Class.firstUp(lastProperty)](null);
         } else {
           target[lastProperty] = undefined;
         }
@@ -669,7 +675,6 @@ qx.Class.define("qx.data.SingleValueBinding",
       if (target !== null) {
         // get the name of the last property
         var lastProperty = properties[properties.length - 1];
-
         // check for array notation
         var index = this.__getArrayIndex(lastProperty);
         if (index) {
@@ -678,6 +683,10 @@ qx.Class.define("qx.data.SingleValueBinding",
             index = target.length - 1;
           }
           target.setItem(index, value);
+        } else if (qx.Class.hasProperty(target.constructor, lastProperty)) {
+          target[lastProperty] = value;
+        } else if (target["set" + qx.Class.firstUp(lastProperty)]) {
+          target["set" + qx.Class.firstUp(lastProperty)](value);
         } else {
           target[lastProperty] = value;
         }
