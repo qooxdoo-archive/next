@@ -75,8 +75,8 @@ qx.Class.define("play.Application",
         .appendTo(samplesMenu.getContents());
 
       // new app root
-      this.__root = new qx.ui.core.Root(document.getElementById("playroot"));
-      this.setRoot(this.__root);
+      var root = new qx.ui.core.Root(document.getElementById("playroot"));
+      this.setRoot(root);
 
       // run initial app
       if (!play.CodeStore.init()) {
