@@ -48,9 +48,11 @@ qx.Class.define("qx.ui.form.Slider",
   construct : function(element)
   {
     this.super(qx.ui.Widget, "construct", element);
+
     this.append(this._createKnobElement());
     this.append(this._createHiddenField());
     this._registerEventListener();
+
     this._refresh();
     this.displayValue = undefined;
 
@@ -177,7 +179,7 @@ qx.Class.define("qx.ui.form.Slider",
     // overriden
     setAttribute: function (name, value) {
       if (name === "name") {
-        this._hiddenField.setAttribute("name", value);
+        this._getHiddenField().setAttribute("name", value);
       }
       this.super(qx.ui.Widget, "setAttribute", name, value);
     },
@@ -185,7 +187,7 @@ qx.Class.define("qx.ui.form.Slider",
     // overriden
     getAttribute: function (name) {
       if (name === "name") {
-        return this._hiddenField.getAttribute("name");
+        return this._getHiddenField().getAttribute("name");
       }
       return this.super(qx.ui.Widget, "getAttribute", name);
     },
@@ -227,6 +229,13 @@ qx.Class.define("qx.ui.form.Slider",
       this._hiddenField.type = "hidden";
       this._hiddenField.value = 0;
 
+      return this._hiddenField;
+    },
+
+    _getHiddenField: function() {
+      if (!this._hiddenField) {
+        this._createHiddenField();
+      }
       return this._hiddenField;
     },
 
@@ -351,9 +360,12 @@ qx.Class.define("qx.ui.form.Slider",
      */
     _setValue : function(value)
     {
-      this._hiddenField.value = Math.max(Math.min(value, this.maximum), this.minimum);
-      qxWeb.requestAnimationFrame(this._refresh, this);
-      return this._hiddenField.value;
+      value = parseInt(value, 10);
+      if (!window.isNaN(value)) {
+        this._getHiddenField().value = Math.max(Math.min(value, this.maximum), this.minimum);
+        qxWeb.requestAnimationFrame(this._refresh, this);
+      }
+      return this._getHiddenField().value;
     },
 
 
@@ -363,7 +375,7 @@ qx.Class.define("qx.ui.form.Slider",
      * @return {Integer} the value of the slider
      */
     _getValue : function() {
-      return this._hiddenField.value;
+      return this._getHiddenField().value;
     },
 
 
@@ -381,7 +393,7 @@ qx.Class.define("qx.ui.form.Slider",
       if (knobElement) {
         qxWeb(knobElement)
           .setStyle("width", width - (width - position) + "px")
-          .setData("value", this._hiddenField.value)
+          .setData("value", this._getHiddenField().value)
           .setData("percent", Math.floor(percent));
       }
     },
