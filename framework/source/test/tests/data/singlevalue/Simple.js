@@ -532,7 +532,7 @@ describe("data.singlevalue.Simple", function() {
 
   it("WrongArguments", function() {
     if (!qx.core.Environment.get("qx.debug")) {
-      this.test.skip = true;
+      this.test.skipped = true;
       return;
     }
 

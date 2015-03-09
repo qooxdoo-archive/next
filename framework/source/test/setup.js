@@ -57,7 +57,7 @@ var commonAfterEach = function() {
     sinonSandbox.restore();
     sinonSandbox = null;
   }
-  if (this.currentTest.skip) {
+  if (this.currentTest.skipped) {
     skipAfterTest(this.currentTest.parent.title, this.currentTest.title);
   }
 };
