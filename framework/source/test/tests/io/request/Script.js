@@ -144,7 +144,7 @@ describe("io.request.Script", function() {
     this.timeout(7000);
     // Known to fail in legacy IEs
     if (isIeBelow(9)) {
-      this.test.skip = true;
+      this.test.skipped = true;
       done();
     }
 
@@ -363,7 +363,7 @@ describe("io.request.Script", function() {
     // Known to fail in browsers not supporting the error event
     // because timeouts are used to fake the "error"
     if (!supportsErrorHandler()) {
-      this.test.skip = true;
+      this.test.skipped = true;
       done();
     }
 

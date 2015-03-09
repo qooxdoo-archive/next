@@ -155,7 +155,7 @@ describe("io.rest.Resource", function() {
 
   it("map action throws when existing method", function() {
     if (!qx.core.Environment.get("qx.debug")) {
-      this.test.skip = true;
+      this.test.skipped = true;
       return;
     }
 
@@ -170,7 +170,7 @@ describe("io.rest.Resource", function() {
 
   it("map action does not throw when existing method is empty", function() {
     if (!qx.core.Environment.get("qx.debug")) {
-      this.test.skip = true;
+      this.test.skipped = true;
       return;
     }
     res.get = (function() {});
@@ -230,7 +230,7 @@ describe("io.rest.Resource", function() {
 
   it("map action from description throws with non-object", function() {
     if (!qx.core.Environment.get("qx.debug")) {
-      this.test.skip = true;
+      this.test.skipped = true;
       return;
     }
 
@@ -242,7 +242,7 @@ describe("io.rest.Resource", function() {
 
   it("map action from description throws with incomplete route", function() {
     if (!qx.core.Environment.get("qx.debug")) {
-      this.test.skip = true;
+      this.test.skipped = true;
       return;
     }
 
@@ -532,7 +532,7 @@ describe("io.rest.Resource", function() {
 
   it("invoke action ignores invalid check in production", function() {
     if (!qx.core.Environment.get("qx.debug")) {
-      this.test.skip = true;
+      this.test.skipped = true;
       return;
     }
 

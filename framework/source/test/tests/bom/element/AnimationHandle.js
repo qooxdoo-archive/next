@@ -23,7 +23,7 @@ describe("bom.element.AnimationHandle", function() {
     __keys = qx.core.Environment.get("css.animation");
     if (__keys === null) {
       // skip the test
-      this.test.skip = true;
+      this.test.skipped = true;
       return;
     }
   });

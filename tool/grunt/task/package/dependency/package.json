@@ -36,10 +36,10 @@
   "dependencies": {
     "doctrine": "^0.6.4",
     "escodegen": "^1.6.1",
-    "escope": "^2.0.5",
+    "escope": "^2.0.6",
     "esprima": "^2.0.0",
-    "estraverse": "~1.9.1",
-    "glob": "^4.4.1",
+    "estraverse": "^2.0.0",
+    "glob": "^5.0.1",
     "jshint": "^2.6.3",
     "minimatch": "^2.0.1",
     "qx-cache": "~0.1.0",
@@ -48,9 +48,9 @@
     "underscore": "^1.8.2"
   },
   "devDependencies": {
+    "jsdoc": "^3.3.0-beta2",
     "jsondiffpatch": "~0.1.8",
-    "nodeunit": "^0.9.0",
-    "jsdoc": "^3.3.0-beta1"
+    "nodeunit": "^0.9.0"
   },
   "//": "before publishing create README.md then this can be removed",
   "private": true

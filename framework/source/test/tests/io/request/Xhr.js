@@ -207,7 +207,7 @@ describe("io.request.Xhr", function() {
 
   it("send blob data with POST request", function() {
     if (typeof window.Blob == "undefined") {
-      this.test.skip = true;
+      this.test.skipped = true;
       return;
     }
 
@@ -223,7 +223,7 @@ describe("io.request.Xhr", function() {
 
   it("send array buffer data with POST request", function() {
     if (typeof window.ArrayBuffer == "undefined") {
-      this.test.skip = true;
+      this.test.skipped = true;
       return;
     }
     var array = new window.ArrayBuffer(512);

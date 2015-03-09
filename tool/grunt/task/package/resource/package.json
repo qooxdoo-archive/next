@@ -34,12 +34,12 @@
     "stdout": "node test/stdout/stdout.js"
   },
   "dependencies": {
-    "glob": "^4.4.1",
+    "glob": "^5.0.1",
     "image-size": "^0.3.5",
     "qooxdoo": "^4.1.0"
   },
   "devDependencies": {
-    "jsdoc": "^3.3.0-beta1",
+    "jsdoc": "^3.3.0-beta2",
     "nodeunit": "^0.9.0"
   },
   "//": "before publishing create README.md then this can be removed",

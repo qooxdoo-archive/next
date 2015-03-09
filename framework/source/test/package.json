@@ -1,18 +1,18 @@
 {
-  "name": "mochatest",
+  "name": "next-unittests",
   "version": "0.0.1",
   "description": "using mocha and chai in browser and node",
   "scripts": {
     "test": "mocha"
   },
   "devDependencies": {
-    "chai": "^1.9.2",
-    "glob": "^4.0.6",
+    "chai": "^2.1.1",
+    "glob": "^5.0.1",
     "grunt": "^0.4.5",
-    "grunt-injector": "^0.5.4",
-    "mocha": "^2.1.0",
+    "grunt-injector": "^0.6.0",
+    "mocha": "^2.2.1",
     "shelljs": "^0.3.0",
-    "sinon": "^1.10.3",
+    "sinon": "^1.13.0",
     "webdriver-sync": "^0.15.3"
   },
   "src_files": [

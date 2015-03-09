@@ -96,7 +96,7 @@ describe("bom.Stylesheet", function() {
     // removing an @import rule breaks subsequent animation tests on Linux
     // and Windows
     if (qxWeb.env.get("os.name") !== "osx") {
-      this.test.skip = true;
+      this.test.skipped = true;
       return;
     }
     var sheet = this.__sheet = qx.bom.Stylesheet.createElement();
@@ -130,7 +130,7 @@ describe("bom.Stylesheet", function() {
     // removing an @import rule breaks subsequent animation tests on Linux
     // and Windows
     if (qxWeb.env.get("os.name") !== "osx") {
-      this.test.skip = true;
+      this.test.skipped = true;
       return;
     }
     var sheet = this.__sheet = qx.bom.Stylesheet.createElement();

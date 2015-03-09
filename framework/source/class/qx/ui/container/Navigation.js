@@ -19,11 +19,10 @@
 ************************************************************************ */
 
 /**
- * The navigation controller includes already a {@link qx.ui.NavigationBar}
- * and a {@link qx.ui.Widget} container with a {@link qx.ui.layout.Card} layout.
+ * The navigation container includes a {@link qx.ui.Widget} container
+ * with a {@link qx.ui.layout.Card} layout.
  * All widgets that implement the {@link qx.ui.container.INavigation}
- * interface can be added to the container. The added widget provide the title
- * widget and the left/right container, which will be automatically merged into
+ * interface can be added to the container. The added widget provides the
  * navigation bar.
  *
  * *Example*
@@ -50,11 +49,6 @@ qx.Class.define("qx.ui.container.Navigation",
   {
     this.super(qx.ui.Widget, "construct", element);
     this.layout = new qx.ui.layout.VBox();
-
-    this.__navigationBar = this._createNavigationBar();
-    if (this.__navigationBar) {
-      this._append(this.__navigationBar);
-    }
 
     this.__navBarListeners = {};
     this.__content = this._createContent();
@@ -106,17 +100,6 @@ qx.Class.define("qx.ui.container.Navigation",
 
 
     /**
-     * Returns the navigation bar widget.
-     *
-     * @return {qx.ui.Widget} The navigation bar widget.
-     */
-    getNavigationBar : function()
-    {
-      return this.__navigationBar;
-    },
-
-
-    /**
      * Creates the content container.
      *
      * @return {qx.ui.Widget} The created content container
@@ -128,8 +111,8 @@ qx.Class.define("qx.ui.container.Navigation",
       layout.on("animationEnd", this._onAnimationEnd, this);
 
       var content = new qx.ui.Widget();
-      content.on("addedChild", this._onAddedChild, this);
-      content.on("removedChild", this._onRemovedChild, this);
+      content.on("addedChild", this._onContentAddedChild, this);
+      content.on("removedChild", this._onContentRemovedChild, this);
       content.layout = layout;
       return content;
     },
@@ -169,7 +152,7 @@ qx.Class.define("qx.ui.container.Navigation",
      *
      * @param child {qx.ui.Widget} added child
      */
-    _onAddedChild : function(child) {
+    _onContentAddedChild : function(child) {
       this._update(child);
       child.on("changeVisibility", this._onChangeChildVisibility, this);
 
@@ -185,7 +168,7 @@ qx.Class.define("qx.ui.container.Navigation",
      *
      * @param child {qx.ui.Widget} added child
      */
-    _onRemovedChild : function(child) {
+    _onContentRemovedChild : function(child) {
       child.off("changeVisibility", this._onChangeChildVisibility, this);
       child.off("changeNavigationBarHidden", this.__navBarListeners[child.getAttribute("id")], this);
       delete this.__navBarListeners[child.getAttribute("id")];
@@ -199,64 +182,39 @@ qx.Class.define("qx.ui.container.Navigation",
      * @param widget {qx.ui.Widget} The widget that should be merged into the navigation bar.
      */
     _update : function(widget) {
-      var navigationBar = this.getNavigationBar();
-
       this.setStyle("transitionDuration", widget.navigationBarToggleDuration+"s");
 
-      if(widget.navigationBarHidden) {
-        this.addClass("hidden");
-      } else {
-        navigationBar.show();
-        this.removeClass("hidden");
+      if (this.__navigationBar &&
+        this.__navigationBar !== widget.getNavigationBar())
+      {
+        this.__navigationBar.remove();
       }
 
-      navigationBar.empty();
+      this.__navigationBar = widget.getNavigationBar();
+      this.__navigationBar.insertBefore(this.getContent());
+
+      if (widget.navigationBarHidden) {
+        this.addClass("hidden");
+      } else {
+        this.__navigationBar.show();
+        this.removeClass("hidden");
+      }
 
       if (widget.basename) {
         this.setData("target-page", widget.basename.toLowerCase());
       }
 
-      var leftContainer = widget.getLeftContainer();
-      if (leftContainer) {
-        navigationBar.append(leftContainer);
-      }
-
-      var title = widget.getTitleElement();
-      if (title) {
-        title.layoutPrefs = {flex:1};
-        navigationBar.append(title);
-      }
-
-      var rightContainer = widget.getRightContainer();
-      if (rightContainer) {
-        navigationBar.append(rightContainer);
-      }
-
       this.emit("update", widget);
     },
-
-
-    /**
-     * Creates the navigation bar.
-     *
-     * @return {qx.ui.Widget} The created navigation bar
-     */
-    _createNavigationBar : function()
-    {
-      var classes = ['navigationbar', 'qx-hbox', 'qx-flex-align-center'];
-      return new qx.ui.Widget().addClasses(classes);
-    },
-
 
     dispose : function()
     {
       this.super(qx.ui.Widget, "dispose");
-      this.getContent().off("addedChild", this._onAddedChild, this)
-        .off("removedChild", this._onRemovedChild, this);
+      this.getContent().off("addedChild", this._onContentAddedChild, this)
+        .off("removedChild", this._onContentRemovedChild, this);
       this.getContent().layout.off("animationStart",this._onAnimationStart, this);
       this.getContent().layout.off("animationEnd",this._onAnimationEnd, this);
-
-      this.__navigationBar.dispose();
+      this.__navigationBar = null;
       this.__content.dispose();
     }
   },
