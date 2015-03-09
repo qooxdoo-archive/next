@@ -14,17 +14,22 @@
     q.ready(function() {
       app = q(document.body).app();
       app.addModel("postfix", "!!!");
-      app.test = qx.data.marshal.Json.createModel({name: "initial value"});
+      app.test = qx.data.marshal.Json.createModel({name: "model value"});
 
       var store = new qx.data.store.Json("resource/qx/test/primitive.json");
       app.addModel("primitive", null),
       qx.data.SingleValueBinding.bind(store, "model", app, "primitive");
 
-      app.slider = 20;
-
       app.listModel = new qx.data.Array(["a", "b", "c"]);
 
-      // TODO hide, enabled, init-values in den DOM, change postfix (ergibt nullnull)
+      // TODO hide, enabled
+
+      /**
+        * probleme
+        * --------
+        * - boolean attributes
+        * - converter
+        */
     });
   </script>
 </head>
@@ -50,7 +55,7 @@
 
   <div>
     <h3>Widget Binding</h3>
-    <div data-qx-widget="qx.ui.form.Slider" data-qx-config-value="{{slider}}"></div>
+    <div data-qx-widget="qx.ui.form.Slider" data-qx-config-value="{{slider = 33}}"></div>
     <p>The slider value is {{slider}}.</p>
     <div data-qx-widget="qx.ui.List" data-qx-config-model="{{listModel}}"></div>
   </div>

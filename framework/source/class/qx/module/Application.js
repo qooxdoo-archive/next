@@ -71,11 +71,11 @@ qx.Class.define("qx.module.Application", {
         } else {
           // text content
           if (child.textContent.match(/.*\{\{.*\}\}.*/g)) {
-            this._getBindings(child.textContent).forEach(function(key) {
+            this._getBindings(child.textContent).forEach(function(content, key) {
               qx.data.SingleValueBinding.bind(this, key, qxWeb(child), "html", {
-                converter : this.__textConverter.bind(this, child.textContent)
+                converter : this.__textConverter.bind(this, content)
               });
-            }.bind(this));
+            }.bind(this, child.textContent));
           }
         }
       }
@@ -89,14 +89,20 @@ qx.Class.define("qx.module.Application", {
         if (split[i].indexOf("}}") != -1) {
           found.push(split[i].split("}}")[0]);
 
-          var firstPart = found[found.length - 1].split(".")[0];
-          if (this.__modelKeys.indexOf(firstPart) === -1) {
-            this.addModel(firstPart, null); // initialize binding property
-            this.__modelKeys.push(firstPart);
-          }
+          var data = this._resolveInitValue(found[found.length - 1].split(".")[0]);
+
+          this.addModel(data.key, data.init); // initialize binding property
         }
       }
       return found;
+    },
+
+
+    _resolveInitValue: function(key) {
+      var split = key.split("=");
+
+      var init = split[1] && split[1].trim()
+      return {key: split[0].trim(), init: init}
     },
 
 
@@ -140,6 +146,7 @@ qx.Class.define("qx.module.Application", {
       child.removeAttribute(name);
 
       this._getBindings(value).forEach(function(key) {
+        key = this._resolveInitValue(key).key;
         qx.data.SingleValueBinding.bind(this, key, qxWeb(child), prop);
 
         // two way binding
@@ -169,15 +176,17 @@ qx.Class.define("qx.module.Application", {
     },
 
 
-    addModel : function(key, data) {
+    addModel : function(key, init) {
       if (this.__modelKeys.indexOf(key) != -1) {
-        qx.data.SingleValueBinding.__setTargetValue(this, key, data); // TODO no privates
+        if (init != undefined) {
+          qx.data.SingleValueBinding.__setTargetValue(this, key, init); // TODO no privates
+        }
         return;
       }
       var config = {};
       config[key] = {
         event: true,
-        init: data,
+        init: init === undefined ? null : init,
         nullable: true
       };
 
