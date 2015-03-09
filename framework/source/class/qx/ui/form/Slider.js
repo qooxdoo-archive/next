@@ -227,7 +227,7 @@ qx.Class.define("qx.ui.form.Slider",
     _createHiddenField: function () {
       this._hiddenField = qxWeb.create("<input>")[0];
       this._hiddenField.type = "hidden";
-      this._hiddenField.value = this.value;
+      this._hiddenField.value = this.value || 0;
 
       return this._hiddenField;
     },
