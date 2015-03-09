@@ -48,9 +48,9 @@
     "underscore": "^1.8.2"
   },
   "devDependencies": {
+    "jsdoc": "^3.3.0-beta2",
     "jsondiffpatch": "~0.1.8",
-    "nodeunit": "^0.9.0",
-    "jsdoc": "^3.3.0-beta1"
+    "nodeunit": "^0.9.0"
   },
   "//": "before publishing create README.md then this can be removed",
   "private": true
