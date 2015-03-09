@@ -39,7 +39,7 @@
     "escope": "^2.0.5",
     "esprima": "^2.0.0",
     "estraverse": "~1.9.1",
-    "glob": "^4.4.1",
+    "glob": "^5.0.1",
     "jshint": "^2.6.3",
     "minimatch": "^2.0.1",
     "qx-cache": "~0.1.0",

@@ -34,7 +34,7 @@
     "stdout": "node test/stdout/stdout.js"
   },
   "dependencies": {
-    "glob": "^4.4.1",
+    "glob": "^5.0.1",
     "image-size": "^0.3.5",
     "qooxdoo": "^4.1.0"
   },
