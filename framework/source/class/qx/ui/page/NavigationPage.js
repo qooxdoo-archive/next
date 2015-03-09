@@ -63,8 +63,8 @@ qx.Class.define("qx.ui.page.NavigationPage",
   /**
    * @param wrapContentByGroup {Boolean?} Defines whether a group box should wrap the content. This can be used for defining a page margin.
    * @param layout {qx.ui.layout.Abstract?} The layout of this page.
+   * @param element {Element?} Existing DOM element to use
    * @attach {qxWeb, toNavigationPage}
-   * @return {qx.ui.page.NavigationPage} The new navigation page widget.
    */
   construct : function(wrapContentByGroup, layout, element)
   {
@@ -200,6 +200,7 @@ qx.Class.define("qx.ui.page.NavigationPage",
     __content : null,
     __scrollContainer : null,
     __title : null,
+    __navigationBar : null,
     __leftContainer : null,
     __rightContainer : null,
 
@@ -219,6 +220,36 @@ qx.Class.define("qx.ui.page.NavigationPage",
       if (this.__title) {
         this.__title.setHtml(value);
       }
+    },
+
+    /**
+     * Creates the navigation bar.
+     *
+     * @return {qx.ui.Widget} The created navigation bar
+     */
+    getNavigationBar : function() {
+      if (!this.__navigationBar) {
+        var classes = ['navigationbar', 'qx-hbox', 'qx-flex-align-center'];
+        var navigationBar = this.__navigationBar = new qx.ui.Widget().addClasses(classes);
+
+        var leftContainer = this.getLeftContainer();
+        if (leftContainer) {
+          navigationBar.append(leftContainer);
+        }
+
+        var title = this.getTitleElement();
+        if (title) {
+          title.layoutPrefs = {flex:1};
+          navigationBar.append(title);
+        }
+
+        var rightContainer = this.getRightContainer();
+        if (rightContainer) {
+          navigationBar.append(rightContainer);
+        }
+      }
+
+      return this.__navigationBar;
     },
 
 
@@ -505,7 +536,7 @@ qx.Class.define("qx.ui.page.NavigationPage",
     /**
      * Event handler. Called when the tap event occurs on the back button.
      *
-     * @param evt {qx.event.type.Tap} The tap event
+     * @param evt {CustomEvent} The tap event
      */
     _onBackButtonTap : function(evt)
     {
@@ -516,7 +547,7 @@ qx.Class.define("qx.ui.page.NavigationPage",
     /**
      * Event handler. Called when the tap event occurs on the button.
      *
-     * @param evt {qx.event.type.Tap} The tap event
+     * @param evt {CustomEvent} The tap event
      */
     _onButtonTap : function(evt)
     {

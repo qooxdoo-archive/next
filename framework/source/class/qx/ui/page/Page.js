@@ -27,8 +27,8 @@
  * pages. Typically there is one page that presents the "main" view.
  *
  * Pages can have one or more child widgets from the {@link qx.ui}
- * namespace. Normally a page provides a {@link qx.ui.NavigationBar}
- * for the navigation between pages.
+ * namespace. Normally a page provides a navigation bar for the
+ * navigation between pages.
  *
  * To navigate between two pages, just call the {@link #show} method of the page
  * that should be shown. Depending on the used page manager a page transition will be animated.
