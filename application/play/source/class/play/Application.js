@@ -28,9 +28,6 @@ qx.Class.define("play.Application",
 
 
   members : {
-    __root : null,
-    __manager : null,
-
     main : function()
     {
       // Call super class
@@ -78,8 +75,8 @@ qx.Class.define("play.Application",
         .appendTo(samplesMenu.getContents());
 
       // new app root
-      this.__root = new qx.ui.core.Root(document.getElementById("playroot"));
-      this.setRoot(this.__root);
+      var root = new qx.ui.core.Root(document.getElementById("playroot"));
+      this.setRoot(root);
 
       // run initial app
       if (!play.CodeStore.init()) {
@@ -93,10 +90,6 @@ qx.Class.define("play.Application",
 
     run : function() {
       this.getRoot().setHtml("");
-      if (this.__manager) {
-        this.__manager.dispose();
-        delete this.__manager;
-      }
       var code = ace.edit("editor").getValue();
       play.CodeStore.add(code);
       var f = new Function(code);

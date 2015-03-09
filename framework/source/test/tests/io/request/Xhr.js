@@ -66,30 +66,22 @@ describe("io.request.Xhr", function() {
   }
 
   function setUpFakeServer() {
-      // Not fake transport
+    sinonSandbox.useFakeServer();
+    setUpRequest();
 
-      sinonSandbox.useFakeServer();
-      setUpRequest();
+    sinonSandbox.server.respondWith("GET", "/found", [200, {
+      "Content-Type": "text/html"
+    }, "FOUND"]);
 
-      sinonSandbox.server.respondWith("GET", "/found", [200, {
-        "Content-Type": "text/html"
-      }, "FOUND"]);
+    sinonSandbox.server.respondWith("GET", "/found.json", [200, {
+      "Content-Type": "application/json; charset=utf-8"
+    }, "JSON"]);
 
-      sinonSandbox.server.respondWith("GET", "/found.json", [200, {
-        "Content-Type": "application/json; charset=utf-8"
-      }, "JSON"]);
+    sinonSandbox.server.respondWith("GET", "/found.other", [200, {
+      "Content-Type": "application/other"
+    }, "OTHER"]);
+  }
 
-      sinonSandbox.server.respondWith("GET", "/found.other", [200, {
-        "Content-Type": "application/other"
-      }, "OTHER"]);
-    }
-
-    function setUpFakeXhr() {
-      // Not fake transport
-
-      sinonSandbox.useFakeXMLHttpRequest();
-      setUpRequest();
-    }
 
   afterEach(function() {
     req.dispose();
@@ -210,6 +202,37 @@ describe("io.request.Xhr", function() {
     req.send();
 
     sinon.assert.calledWith(req._send, "affe=true");
+  });
+
+
+  it("send blob data with POST request", function() {
+    if (typeof window.Blob == "undefined") {
+      this.test.skip = true;
+      return;
+    }
+
+    var blob = new window.Blob(['abc123'], {type: 'text/plain'});
+    setUpFakeTransport();
+    req.method = "POST";
+    req.requestData = blob;
+    req.send();
+
+    sinon.assert.calledWith(req._send, blob);
+  });
+
+
+  it("send array buffer data with POST request", function() {
+    if (typeof window.ArrayBuffer == "undefined") {
+      this.test.skip = true;
+      return;
+    }
+    var array = new window.ArrayBuffer(512);
+    setUpFakeTransport();
+    req.method = "POST";
+    req.requestData = array;
+    req.send();
+
+    sinon.assert.calledWith(req._send, array);
   });
 
 

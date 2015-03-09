@@ -45,7 +45,6 @@ var fs = require('fs');
 var path = require('path');
 
 // third party
-var imgsize = require('image-size');
 var glob = require('glob');
 var shell = require('shelljs');
 

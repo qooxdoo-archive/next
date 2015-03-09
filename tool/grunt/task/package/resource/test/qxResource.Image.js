@@ -31,25 +31,6 @@ module.exports = {
       done();
     },
 
-    __getFormat: function(test) {
-      var actual = this.img.__getFormat(this.img.__relpath);
-      var expected = 'png';
-
-      test.strictEqual(actual, expected);
-      test.done();
-    },
-
-    __getImageSize: function(test) {
-      var path = require("path");
-      var absImgPath = path.join('./test', this.img.__relpath);
-
-      var actual = this.img.__getImageSize(absImgPath);
-      var expected = { width: 32, height: 32 };
-
-      test.deepEqual(actual, expected);
-      test.done();
-    },
-
     collectInfoAndPopulate: function(test) {
       this.img.collectInfoAndPopulate('./test');
 

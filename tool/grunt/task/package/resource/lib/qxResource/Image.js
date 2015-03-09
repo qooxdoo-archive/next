@@ -46,7 +46,7 @@ q.Class.define("qxResource.Image",
    * Represents a physical image file.
    *
    * @constructs qxResource.Image
-   * @param {string} relImgPath - rel path to image
+-   * @param {string} relImgPath - rel path to image
    * @param {string} namespace - namespace the image is associated with
    */
   construct: function(relImgPath, namespace)
@@ -73,42 +73,20 @@ q.Class.define("qxResource.Image",
     __format: null,
 
     /**
-     * Gets the format/extname of the given img path.
-     *
-     * @param {string} imgPath - path to image (rel/abs)
-     * @returns {string} extension
-     */
-    __getFormat: function(imgPath) {
-      var ext = path.extname(imgPath);
-      return (ext.indexOf('.') === 0) ? ext.substr(1) : ext;
-    },
-
-    /**
-     * Gets the image size of the given image.
-     *
-     * @param {string} absImgPath
-     * @returns {Object} result
-     * @returns {number} result.width
-     * @returns {number} result.height
-     */
-    __getImageSize: function(absImgPath) {
-      return imgsize(absImgPath);
-    },
-
-    /**
      * Collects info (e.g. dimensions and format) and populates the image with it.
      *
      * @param {string} imgBasePath
      */
     collectInfoAndPopulate: function(imgBasePath) {
-      // TODO: is imgBasePath really needed?
       var absImgPath = path.join(imgBasePath, this.__relpath);
       if (!fs.existsSync(absImgPath)) {
         throw new Error("ENOENT: " + absImgPath);
       }
 
-      this.__dimensions = this.__getImageSize(absImgPath);
-      this.__format = this.__getFormat(this.__relpath);
+      imgData = imgsize(absImgPath);
+      this.__format = imgData.type;
+      delete imgData.type;
+      this.__dimensions = imgData;
     },
 
     /**

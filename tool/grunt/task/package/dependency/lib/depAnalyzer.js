@@ -368,8 +368,14 @@ function notBuiltin(ref) {
     return true;
   }
 
-  var isBuiltin = function(el) {
-    return ident.name in js_builtins[el];
+  var isBuiltin = function(category) {
+    if (category === "ecmaIdentifiers") {
+      return ident.name in js_builtins[category]["3"] ||
+             ident.name in js_builtins[category]["5"] ||
+             ident.name in js_builtins[category]["6"];
+    }
+
+    return ident.name in js_builtins[category];
   };
 
   var missingOrCustom = ["undefined", "Infinity", "performance"];

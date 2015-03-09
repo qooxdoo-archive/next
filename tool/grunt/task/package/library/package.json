@@ -33,11 +33,10 @@
     "api": "./node_modules/.bin/jsdoc lib -d api",
     "stdout": "node test/stdout/stdout.js"
   },
-  "dependencies": {
-  },
+  "dependencies": {},
   "devDependencies": {
-    "nodeunit": "^0.9.0",
-    "jsdoc": "3.3.0-alpha9"
+    "jsdoc": "^3.3.0-beta1",
+    "nodeunit": "^0.9.1"
   },
   "//": "before publishing create README.md then this can be removed",
   "private": true
