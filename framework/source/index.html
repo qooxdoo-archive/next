@@ -22,8 +22,6 @@
 
       app.listModel = new qx.data.Array(["a", "b", "c"]);
 
-      app.slider = 33;
-
       // TODO hide, enabled
 
       /**
@@ -40,7 +38,7 @@
   <div>
     <h3>Only app code required</h3>
     <input
-      data-bind="value -> {{mycolor}}; style -> color: {{mycolor}}"
+      data-bind="value -> {{mycolor}}; style -> color: {{mycolor}}; style -> font-size: {{slider}}px"
       value="red"
       style="color: blue"
       placeholder="type in text color">
@@ -63,8 +61,9 @@
 
   <div>
     <h3>Widget Binding</h3>
-    <div id="s" data-qx-widget="qx.ui.form.Slider"
-      data-bind="data-qx-config-value -> {{slider}}"></div>
+    <div data-qx-widget="qx.ui.form.Slider"
+      data-bind="data-qx-config-value -> {{slider}}"
+      data-qx-config-value="22"></div>
     <p data-bind="html -> The slider value is {{slider}}."></p>
     <div
       data-qx-widget="qx.ui.List"
