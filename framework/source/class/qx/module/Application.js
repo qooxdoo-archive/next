@@ -41,20 +41,8 @@ qx.Class.define("qx.module.Application", {
 
 
     _setUpBinding : function(root) {
-
       qxWeb("*[data-bind]", root).forEach(function(el) {
-
-        var binding = el.getAttribute("data-bind");
-        var bindings = binding.split(";");
-
-        bindings = bindings.map(function(item) {
-          var keyValue = item.split("->");
-          keyValue[0] = keyValue[0].trim();
-          keyValue[1] = keyValue[1].trim();
-          return keyValue;
-        });
-
-        bindings.forEach(function(keyValue) {
+        this._getBindings(el.getAttribute("data-bind")).forEach(function(keyValue) {
           var key = keyValue[0];
           var value = keyValue[1];
 
@@ -72,7 +60,19 @@ qx.Class.define("qx.module.Application", {
     },
 
 
-    _getBindings: function(name, value, el) { // TODO better name
+    _getBindings: function(input) {
+      var bindings = input.split(";");
+
+      return bindings.map(function(item) {
+        var keyValue = item.split("->");
+        keyValue[0] = keyValue[0].trim();
+        keyValue[1] = keyValue[1].trim();
+        return keyValue;
+      });
+    },
+
+
+    _getBindingKeys: function(name, value, el) {
       var split = value.split("{{");
       var found = [];
       for (var i = 0; i < split.length; i++) {
@@ -99,7 +99,7 @@ qx.Class.define("qx.module.Application", {
 
 
     _bindAttribute: function(name, value, el) {
-      this._getBindings(name, value, el).forEach(function(key) {
+      this._getBindingKeys(name, value, el).forEach(function(key) {
         qx.data.SingleValueBinding.bind(this, key, qxWeb(el), "attributes", {
           converter : this.__mapConverter.bind(this, name, value)
         });
@@ -107,7 +107,7 @@ qx.Class.define("qx.module.Application", {
         // check for two way bindable properties
         if (name === "value") {
           qxWeb(el).on("input", function(key, el) {
-            qx.data.SingleValueBinding.__setTargetValue(this, key, el.getValue());
+            qx.data.SingleValueBinding.__setTargetValue(this, key, el.getValue()); // TODO no private
           }.bind(this, key, qxWeb(el)));
           qxWeb(el).setValue(qx.data.SingleValueBinding.resolvePropertyChain(this, key));
         }
@@ -124,7 +124,7 @@ qx.Class.define("qx.module.Application", {
         var style = styles[i].split(":");
         style[0] = style[0].trim();
         style[1] = style[1].trim();
-        this._getBindings("style", style[1], el).forEach(function(key) {
+        this._getBindingKeys("style", style[1], el).forEach(function(key) {
           qx.data.SingleValueBinding.bind(this, key, qxWeb(el), "styles", {
             converter : this.__mapConverter.bind(this, style[0], style[1])
           });
@@ -137,7 +137,7 @@ qx.Class.define("qx.module.Application", {
       var prop = name.replace("data-qx-config-", "");
       el.removeAttribute(name);
 
-      this._getBindings(name, value, el).forEach(function(key) {
+      this._getBindingKeys(name, value, el).forEach(function(key) {
         qx.data.SingleValueBinding.bind(this, key, qxWeb(el), prop);
 
         // two way binding
@@ -158,7 +158,7 @@ qx.Class.define("qx.module.Application", {
 
 
     __textConverter : function(origContent, name) { // TODO rename
-      var values = this._getBindings(name, origContent);
+      var values = this._getBindingKeys(name, origContent);
       for (var i = 0; i < values.length; i++) {
         var value = qx.data.SingleValueBinding.resolvePropertyChain(this, values[i]);
         origContent = origContent.replace("{{" + values[i] + "}}", value);
