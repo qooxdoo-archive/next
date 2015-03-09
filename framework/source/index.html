@@ -22,6 +22,8 @@
 
       app.listModel = new qx.data.Array(["a", "b", "c"]);
 
+      app.slider = 33;
+
       // TODO hide, enabled
 
       /**
@@ -37,27 +39,36 @@
 
   <div>
     <h3>Only app code required</h3>
-    <input value="{{mycolor}}" style="color: {{mycolor}}; font-size: {{slider}}px;" placeholder="type in text color">
+    <input
+      data-bind="value -> {{mycolor}}; style -> color: {{mycolor}}"
+      value="red"
+      style="color: blue"
+      placeholder="type in text color">
   </div>
 
   <div>
     <h3>Bidirectional binding</h3>
-    <input value="{{test.name}}">
-    <span>{{test.name}}{{postfix}}</span>
+    <input data-bind="value -> {{test.name}}">
+    <span data-bind="html -> {{test.name}}{{postfix}}"></span>
   </div>
+
 
   <div>
     <h3>Load via Json Store</h3>
-    <p>{{primitive.string}}</p>
-    <p>{{primitive.number}}</p>
-    <p>{{primitive.boolean}}</p>
+    <p data-bind="html -> {{primitive.string}}"></p>
+    <p data-bind="html -> {{primitive.number}}"></p>
+    <p data-bind="html -> {{primitive.boolean}}"></p>
   </div>
+
 
   <div>
     <h3>Widget Binding</h3>
-    <div data-qx-widget="qx.ui.form.Slider" data-qx-config-value="{{slider = 33}}"></div>
-    <p>The slider value is {{slider}}.</p>
-    <div data-qx-widget="qx.ui.List" data-qx-config-model="{{listModel}}"></div>
+    <div id="s" data-qx-widget="qx.ui.form.Slider"
+      data-bind="data-qx-config-value -> {{slider}}"></div>
+    <p data-bind="html -> The slider value is {{slider}}."></p>
+    <div
+      data-qx-widget="qx.ui.List"
+      data-bind="data-qx-config-model -> {{listModel}}"></div>
   </div>
 
 </body>
