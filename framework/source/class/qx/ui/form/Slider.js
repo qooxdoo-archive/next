@@ -50,7 +50,7 @@ qx.Class.define("qx.ui.form.Slider",
     this.super(qx.ui.Widget, "construct", element);
 
     this.append(this._createKnobElement());
-    this.append(this._createHiddenField());
+    this.append(this._getHiddenField());
     this._registerEventListener();
 
     this._refresh();
@@ -227,7 +227,7 @@ qx.Class.define("qx.ui.form.Slider",
     _createHiddenField: function () {
       this._hiddenField = qxWeb.create("<input>")[0];
       this._hiddenField.type = "hidden";
-      this._hiddenField.value = 0;
+      this._hiddenField.value = this.value;
 
       return this._hiddenField;
     },
