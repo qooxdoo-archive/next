@@ -50,8 +50,7 @@
     "qxweb-source",
     "source-all",
     "validate-config",
-    "validate-manifest",
-    "watch-scss"
+    "validate-manifest"
   ],
 
 
