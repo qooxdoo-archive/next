@@ -47,8 +47,8 @@ qx.Class.define("qx.module.Application", {
           var value = keyValue[1];
 
           // special handling for style
-          if (key === "style") {
-            this._bindStyle(value, el);
+          if (key.indexOf("style.") === 0) {
+            this._bindStyle(key, value, el);
           // special handling for widget properties
           } else if (key.indexOf("data-qx-config") === 0) {
             this._bindWidget(key, value, el);
@@ -125,21 +125,14 @@ qx.Class.define("qx.module.Application", {
     },
 
 
-    _bindStyle: function(value, el) {
-      var styles = value.split(";");
-      for (var i = 0; i < styles.length; i++) {
-        if (styles[i].indexOf(":") == -1) {
-          continue;
-        }
-        var style = styles[i].split(":");
-        style[0] = style[0].trim();
-        style[1] = style[1].trim();
-        this._getBindingKeys("style", style[1], el).forEach(function(key) {
-          qx.data.SingleValueBinding.bind(this, key, qxWeb(el), "styles", {
-            converter : this.__mapConverter.bind(this, style[0], style[1])
-          });
-        }.bind(this));
-      }
+    _bindStyle: function(key, value, el) {
+      var style = key.split(".")[1];
+
+      this._getBindingKeys("style", value, el).forEach(function(key) {
+        qx.data.SingleValueBinding.bind(this, key, qxWeb(el), "styles", {
+          converter : this.__mapConverter.bind(this, style, value)
+        });
+      }.bind(this));
     },
 
 

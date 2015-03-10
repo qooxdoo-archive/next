@@ -16,15 +16,23 @@
       app.addModel("postfix", "!!!");
       app.test = qx.data.marshal.Json.createModel({name: "model value"});
 
+      app.listModel = new qx.data.Array(["a", "b", "c"]);
+
+      // converter
+      app.addTransformModel("hideChecked", "hide", function(data) {
+        return data ? "none" : "";
+      });
+
+      // JSON loading
       var store = new qx.data.store.Json("resource/qx/test/primitive.json");
       app.addModel("primitive", null),
       qx.data.SingleValueBinding.bind(store, "model", app, "primitive");
 
-      app.listModel = new qx.data.Array(["a", "b", "c"]);
 
-      app.addTransformModel("hideChecked", "hide", function(data) {
-        return data ? "none" : "";
-      });
+      // TODO
+      //  style.color -> {{mycolor}}
+      //  semicolon am ende von data-bind
+
     });
   </script>
 </head>
@@ -34,8 +42,8 @@
     <h3>Only app code required</h3>
     <input
       data-bind="value -> {{mycolor}};
-                 style -> color: {{mycolor}};
-                 style -> font-size: {{slider}}px"
+                 style.color -> {{mycolor}};
+                 style.font-size -> {{slider}}px"
       value="red"
       placeholder="type in text color">
   </div>
@@ -51,7 +59,7 @@
     <h3>Show / Hide / Enabled</h3>
     <label>hide <input type="checkbox" data-bind="checked -> {{hideChecked}}"></label>
     <label>disabled <input type="checkbox" data-bind="checked -> {{enabled}}"></label>
-    <input type="text" data-bind="style -> display: {{hide}}; disabled -> {{enabled}}" value="test"></span>
+    <input type="text" data-bind="style.display -> {{hide}}; disabled -> {{enabled}}" value="test"></span>
   </div>
 
 
@@ -75,6 +83,7 @@
     <div
       data-qx-widget="qx.ui.List"
       data-bind="data-qx-config-model -> {{listModel}}"></div>
+    <p># <span data-bind="html -> {{listModel.length}}"></span> Items in the list</p>
   </div>
 
   <div>
