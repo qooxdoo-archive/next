@@ -61,7 +61,7 @@ qx.Class.define("qx.bom.element.Class",
      * @param name {String} The class name to add
      * @return {String} The added classname (if so)
      */
-    add :{
+    add : {
       "native" : function(element, name)
       {
         if (name.length > 0) {

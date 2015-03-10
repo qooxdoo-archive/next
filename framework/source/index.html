@@ -4,8 +4,8 @@
   <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
   <title>qxWeb source</title>
   <style type="text/css" media="screen">
-  html {
-    padding: 20px;
+  body > div {
+    padding: 0 40px;
   }
   </style>
   <link rel="stylesheet" type="text/css" href="../build/resource/qx/css/indigo.css">
@@ -52,6 +52,17 @@
     <label>hide <input type="checkbox" data-bind="checked -> {{hideChecked}}"></label>
     <label>disabled <input type="checkbox" data-bind="checked -> {{enabled}}"></label>
     <input type="text" data-bind="style -> display: {{hide}}; disabled -> {{enabled}}" value="test"></span>
+  </div>
+
+
+  <div>
+    <h3>Select</h3>
+    <select data-bind="value -> {{selected}}">
+      <option>A</option>
+      <option>B</option>
+      <option>C</option>
+    </select>
+    <span data-bind="html -> Selected: {{selected}}"></span>
   </div>
 
 
