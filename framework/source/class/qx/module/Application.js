@@ -106,9 +106,15 @@ qx.Class.define("qx.module.Application", {
 
         // check for two way bindable properties
         if (name === "value") {
+
           qxWeb(el).on("input", function(key, el) {
+             qx.data.SingleValueBinding.__setTargetValue(this, key, el.getValue()); // TODO no private
+          }.bind(this, key, qxWeb(el)));
+
+          qxWeb(el).on("change", function(key, el) {
             qx.data.SingleValueBinding.__setTargetValue(this, key, el.getValue()); // TODO no private
           }.bind(this, key, qxWeb(el)));
+
           qxWeb(el).setValue(qx.data.SingleValueBinding.resolvePropertyChain(this, key));
         } else if (name === "checked") {
           qxWeb(el).on("change", function(key, el) {
