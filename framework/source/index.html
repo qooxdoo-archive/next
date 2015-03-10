@@ -28,11 +28,6 @@
       app.addModel("primitive", null),
       qx.data.SingleValueBinding.bind(store, "model", app, "primitive");
 
-
-      // TODO
-      //  style.color -> {{mycolor}}
-      //  semicolon am ende von data-bind
-
     });
   </script>
 </head>
@@ -43,7 +38,7 @@
     <input
       data-bind="value -> {{mycolor}};
                  style.color -> {{mycolor}};
-                 style.font-size -> {{slider}}px"
+                 style.font-size -> {{slider}}px;"
       value="red"
       placeholder="type in text color">
   </div>

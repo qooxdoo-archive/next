@@ -63,6 +63,11 @@ qx.Class.define("qx.module.Application", {
     _getBindings: function(input) {
       var bindings = input.split(";");
 
+      // filter out all strings without ->
+      bindings = bindings.filter(function(item) {
+        return item.indexOf("->") != -1;
+      });
+
       return bindings.map(function(item) {
         var keyValue = item.split("->");
         keyValue[0] = keyValue[0].trim();
