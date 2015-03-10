@@ -764,7 +764,7 @@ qx.Class.define("qx.data.SingleValueBinding",
           return null;
         }
       }
-      return target;
+      return target != undefined ? target : null;
     },
 
 
