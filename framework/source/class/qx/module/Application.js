@@ -30,11 +30,13 @@ qx.Class.define("qx.module.Application", {
     }
   },
 
+
   construct : function(root) {
     this.__modelKeys = [];
 
     this._setUpBinding(root);
   },
+
 
   members : {
     __modelKeys : null,
