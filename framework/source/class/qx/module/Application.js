@@ -110,6 +110,10 @@ qx.Class.define("qx.module.Application", {
             qx.data.SingleValueBinding.__setTargetValue(this, key, el.getValue()); // TODO no private
           }.bind(this, key, qxWeb(el)));
           qxWeb(el).setValue(qx.data.SingleValueBinding.resolvePropertyChain(this, key));
+        } else if (name === "checked") {
+          qxWeb(el).on("change", function(key, el) {
+            qx.data.SingleValueBinding.__setTargetValue(this, key, el.getAttribute("checked")); // TODO no private
+          }.bind(this, key, qxWeb(el)));
         }
       }.bind(this));
     },
@@ -161,7 +165,12 @@ qx.Class.define("qx.module.Application", {
       var values = this._getBindingKeys(name, origContent);
       for (var i = 0; i < values.length; i++) {
         var value = qx.data.SingleValueBinding.resolvePropertyChain(this, values[i]);
-        origContent = origContent.replace("{{" + values[i] + "}}", value);
+
+        if (origContent == "{{" + values[i] + "}}") {
+          origContent = value;
+        } else {
+          origContent = origContent.replace("{{" + values[i] + "}}", value);
+        }
       }
       return origContent;
     },
@@ -183,7 +192,16 @@ qx.Class.define("qx.module.Application", {
 
       qx.Class.addProperties(this, config);
       this.__modelKeys.push(key);
-    }
+    },
+
+
+    addTransformModel: function(source, target, converter) {
+      var initValue = qx.data.SingleValueBinding.resolvePropertyChain(this, source);
+      var initConverted = converter(initValue);
+      this.addModel(target, initConverted);
+
+      qx.data.SingleValueBinding.bind(this, source, this, target, {converter: converter});
+    },
   },
 
 

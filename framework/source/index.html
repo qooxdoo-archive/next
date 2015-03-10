@@ -22,14 +22,9 @@
 
       app.listModel = new qx.data.Array(["a", "b", "c"]);
 
-      // TODO hide, enabled
-
-      /**
-        * probleme
-        * --------
-        * - boolean attributes
-        * - converter
-        */
+      app.addTransformModel("hideChecked", "hide", function(data) {
+        return data ? "none" : "";
+      });
     });
   </script>
 </head>
@@ -38,9 +33,10 @@
   <div>
     <h3>Only app code required</h3>
     <input
-      data-bind="value -> {{mycolor}}; style -> color: {{mycolor}}; style -> font-size: {{slider}}px"
+      data-bind="value -> {{mycolor}};
+                 style -> color: {{mycolor}};
+                 style -> font-size: {{slider}}px"
       value="red"
-      style="color: blue"
       placeholder="type in text color">
   </div>
 
@@ -52,10 +48,10 @@
 
 
   <div>
-    <h3>Load via Json Store</h3>
-    <p data-bind="html -> {{primitive.string}}"></p>
-    <p data-bind="html -> {{primitive.number}}"></p>
-    <p data-bind="html -> {{primitive.boolean}}"></p>
+    <h3>Show / Hide / Enabled</h3>
+    <label>hide <input type="checkbox" data-bind="checked -> {{hideChecked}}"></label>
+    <label>disabled <input type="checkbox" data-bind="checked -> {{enabled}}"></label>
+    <input type="text" data-bind="style -> display: {{hide}}; disabled -> {{enabled}}" value="test"></span>
   </div>
 
 
@@ -68,6 +64,13 @@
     <div
       data-qx-widget="qx.ui.List"
       data-bind="data-qx-config-model -> {{listModel}}"></div>
+  </div>
+
+  <div>
+    <h3>Load via Json Store</h3>
+    <p data-bind="html -> {{primitive.string}}"></p>
+    <p data-bind="html -> {{primitive.number}}"></p>
+    <p data-bind="html -> {{primitive.boolean}}"></p>
   </div>
 
 </body>
