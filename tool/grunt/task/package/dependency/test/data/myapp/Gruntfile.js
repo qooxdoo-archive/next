@@ -32,7 +32,7 @@ module.exports = function(grunt) {
   grunt.task.renameTask('source', 'source-base');
   grunt.task.registerTask(
     'source',
-    'Build the playground and compile the stylesheets with Sass.',
+    'Build the application and compile the stylesheets with Sass.',
     ["sass:indigo", "source-base"]
   );
 
@@ -40,7 +40,7 @@ module.exports = function(grunt) {
   grunt.task.renameTask('build', 'build-base');
   grunt.task.registerTask(
     'build',
-    'Build the playground and compile the stylesheets with Sass.',
+    'Build the application and compile the stylesheets with Sass.',
     ["sass:indigo", "build-base"]
   );
 

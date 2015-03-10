@@ -382,6 +382,17 @@ describe("data.singlevalue.Array", function() {
     __a.children.shift();
     // check the binding
     assert.equal("l", __a.children.getItem(0).name, "[0].name binding does not work!");
+  });
 
+
+  it("Length", function() {
+    __a.name = null;
+    __a.children = null;
+    qx.data.SingleValueBinding.bind(__a, "children.length", __a, "name");
+    __a.children = new qx.data.Array(["a", "b", "c"]);
+    assert.equal(3, __a.name);
+
+    __a.children.push("d");
+    assert.equal(4, __a.name);
   });
 });
