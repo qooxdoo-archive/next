@@ -353,7 +353,7 @@ qx.Class.define("qx.data.SingleValueBinding",
         // if its the last property
         if (j == context.propertyNames.length - 1) {
           // if its an array
-          if (qx.Interface.classImplements(source.constructor, qx.data.IListData)) {
+          if (qx.Interface.classImplements(source.constructor, qx.data.IListData) && context.arrayIndexValues[j]) {
             // set the inital value
             var itemIndex = context.arrayIndexValues[j] === "last" ?
               source.length - 1 : context.arrayIndexValues[j];
