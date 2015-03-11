@@ -107,26 +107,26 @@ qx.Class.define("qx.module.Application", {
 
     _bindAttribute: function(name, value, el) {
       this._getBindingKeys(name, value, el).forEach(function(key) {
-        qx.data.SingleValueBinding.bind(this, key, qxWeb(el), "attributes", {
+        qx.data.SingleValueBinding.bind(this, key, el, "attributes", {
           converter : this.__mapConverter.bind(this, name, value)
         });
 
         // check for two way bindable properties
         if (name === "value") {
 
-          qxWeb(el).on("input", function(key, el) {
+          el.on("input", function(key, el) {
              qx.data.SingleValueBinding.__setTargetValue(this, key, el.getValue()); // TODO no private
-          }.bind(this, key, qxWeb(el)));
+          }.bind(this, key, el));
 
-          qxWeb(el).on("change", function(key, el) {
+          el.on("change", function(key, el) {
             qx.data.SingleValueBinding.__setTargetValue(this, key, el.getValue()); // TODO no private
-          }.bind(this, key, qxWeb(el)));
+          }.bind(this, key, el));
 
-          qxWeb(el).setValue(qx.data.SingleValueBinding.resolvePropertyChain(this, key));
+          el.setValue(qx.data.SingleValueBinding.resolvePropertyChain(this, key));
         } else if (name === "checked") {
-          qxWeb(el).on("change", function(key, el) {
+          el.on("change", function(key, el) {
             qx.data.SingleValueBinding.__setTargetValue(this, key, el.getAttribute("checked")); // TODO no private
-          }.bind(this, key, qxWeb(el)));
+          }.bind(this, key, el));
         }
       }.bind(this));
     },
@@ -136,7 +136,7 @@ qx.Class.define("qx.module.Application", {
       var style = key.split(".")[1];
 
       this._getBindingKeys("style", value, el).forEach(function(key) {
-        qx.data.SingleValueBinding.bind(this, key, qxWeb(el), "styles", {
+        qx.data.SingleValueBinding.bind(this, key, el, "styles", {
           converter : this.__mapConverter.bind(this, style, value)
         });
       }.bind(this));
@@ -148,10 +148,10 @@ qx.Class.define("qx.module.Application", {
       el.removeAttribute(name);
 
       this._getBindingKeys(name, value, el).forEach(function(key) {
-        qx.data.SingleValueBinding.bind(this, key, qxWeb(el), prop);
+        qx.data.SingleValueBinding.bind(this, key, el, prop);
 
         // two way binding
-        qxWeb(el).on("change" + qx.Class.firstUp(prop), function(key, data) {
+        el.on("change" + qx.Class.firstUp(prop), function(key, data) {
           qx.data.SingleValueBinding.__setTargetValue(this, key, data.value); // TODO no privates
         }.bind(this, key));
       }.bind(this));
