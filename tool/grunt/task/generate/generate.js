@@ -106,9 +106,4 @@ module.exports = function(grunt) {
 
   });
 
-  // A very basic default task.
-  grunt.registerTask('default', 'Running the generator default job.', function() {
-    grunt.task.run(["generate"]);
-  });
-
 };

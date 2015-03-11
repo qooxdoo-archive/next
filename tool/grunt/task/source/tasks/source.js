@@ -198,4 +198,6 @@ module.exports = function(grunt) {
     grunt.log.ok('Done.');
   });
 
+  // A very basic default task.
+  grunt.registerTask('default', ['source']);
 };
