@@ -30,24 +30,6 @@ qx.Class.define("qx.bom.client.Scroll",
   statics :
   {
     /**
-     * Check if the scrollbars should be positioned on top of the content. This
-     * is true of OSX Lion when the scrollbars disappear automatically.
-     *
-     * @internal
-     *
-     * @return {Boolean} <code>true</code> if the scrollbars should be
-     *   positioned on top of the content.
-     */
-    scrollBarOverlayed : function() {
-      var scrollBarWidth = qx.bom.element.Scroll.getScrollbarWidth();
-      var osx = qx.bom.client.OperatingSystem.getName() === "osx";
-      var nativeScrollBars = qx.core.Environment.get("qx.nativeScrollBars");
-
-      return scrollBarWidth === 0 && osx && nativeScrollBars;
-    },
-
-
-    /**
      * Checks if native scroll can be used for the current mobile device.
      *
      * @internal
@@ -90,7 +72,6 @@ qx.Class.define("qx.bom.client.Scroll",
 
 
   classDefined : function(statics) {
-    qx.core.Environment.add("os.scrollBarOverlayed", statics.scrollBarOverlayed);
     qx.core.Environment.add("qx.mobile.nativescroll", statics.getNativeScroll);
   }
 });

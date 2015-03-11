@@ -352,10 +352,6 @@
  *       <td>os.version</td><td><i>String</i></td><td><code>10.6</code></td>
  *       <td>{@link qx.bom.client.OperatingSystem#getVersion}</td>
  *     </tr>
- *     <tr>
- *       <td>os.scrollBarOverlayed</td><td><i>Boolean</i></td><td><code>false</code></td>
- *       <td>{@link qx.bom.client.Scroll#scrollBarOverlayed}</td>
- *     </tr>
 
  *     <tr>
  *       <td colspan="4"><b>phonegap</b></td>
