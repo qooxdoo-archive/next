@@ -394,7 +394,7 @@ qx.Class.define("qx.bom.element.AnimationCss",
   },
 
 
-  defer : function(statics) {
+  classDefined : function(statics) {
     // iOS 8 seems to stumble over the old sheet object on tab
     // changes or leaving the browser [BUG #8986]
     if (qx.core.Environment.get("os.name") === "ios" &&
