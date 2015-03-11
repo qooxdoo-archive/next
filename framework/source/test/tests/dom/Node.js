@@ -84,15 +84,8 @@ describe("dom.Node", function() {
 
     sandbox.append(blockElement);
 
-    var data = "<Root><foo></foo></Root>";
-    var xml = qx.xml.Document.fromString(data);
-
-    var cdataElement = xml.createCDATASection("karamelbaer");
-    xml.getElementsByTagName("foo")[0].appendChild(cdataElement);
-
     assert.equal("vanillebaer", qx.dom.Node.getText(innerTextNode), "Failed to get the right value for one text node.");
     assert.equal("schokobaervanillebaer", qx.dom.Node.getText(blockElement), "Failed to get the right value for text of an element.");
-    assert.equal("karamelbaer", qx.dom.Node.getText(xml.getElementsByTagName("foo")[0].firstChild), "Failed to get the text of a CData text node.");
   });
 
 

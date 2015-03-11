@@ -342,13 +342,6 @@ describe("core.Environment", function ()
   });
 
 
-  it("Xml", function() {
-      assert.isBoolean(qx.core.Environment.get("xml.getelementsbytagnamens"));
-      assert.isBoolean(qx.core.Environment.get("xml.attributens"));
-      assert.isBoolean(qx.core.Environment.get("xml.createelementns"));
-  });
-
-
   it("ActiveX", function() {
       assert.isBoolean(qx.core.Environment.get("plugin.activex"));
   });

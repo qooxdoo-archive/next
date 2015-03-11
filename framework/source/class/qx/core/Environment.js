@@ -302,22 +302,6 @@
  *       <td>{@link qx.bom.client.Html#getHistoryState}</td>
  *     </tr>
  *     <tr>
- *       <td colspan="4"><b>XML</b></td>
- *     </tr>
- *     <tr>
- *       <td>xml.getelementsbytagnamens</td><td><i>Boolean</i></td><td><code>true</code></td>
- *       <td>{@link qx.bom.client.Xml#getElementsByTagNameNS}</td>
- *     </tr>
- *     <tr>
- *       <td>xml.attributens</td><td><i>Boolean</i></td><td><code>true</code></td>
- *       <td>{@link qx.bom.client.Xml#getAttributeNS}</td>
- *     </tr>
- *     <tr>
- *       <td>xml.createelementns</td><td><i>Boolean</i></td><td><code>true</code></td>
- *       <td>{@link qx.bom.client.Xml#getCreateElementNS}</td>
- *     </tr>
-
- *     <tr>
  *       <td colspan="4"><b>Stylesheets</b></td>
  *     </tr>
  *     <tr>
