@@ -54,6 +54,8 @@ qx.Class.define("qx.module.Application", {
           // special handling for widget properties
           } else if (key.indexOf("data-qx-config") === 0) {
             this._bindWidget(key, value, el);
+          } else if (qx.Class.getClass(el["set" + qx.Class.firstUp(key)]) == "Function") {
+            this._bindCollection(key, value, el);
           } else {
             this._bindAttribute(key, value, el);
           }
@@ -154,6 +156,13 @@ qx.Class.define("qx.module.Application", {
         el.on("change" + qx.Class.firstUp(prop), function(key, data) {
           qx.data.SingleValueBinding.__setTargetValue(this, key, data.value); // TODO no privates
         }.bind(this, key));
+      }.bind(this));
+    },
+
+
+    _bindCollection: function(name, value, el) {
+      this._getBindingKeys(name, value, el).forEach(function(key) {
+        qx.data.SingleValueBinding.bind(this, key, el, name);
       }.bind(this));
     },
 
