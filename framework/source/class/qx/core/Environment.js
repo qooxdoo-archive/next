@@ -397,22 +397,6 @@
  *       <td>{@link qx.bom.client.Plugin#getDivXVersion}</td>
  *     </tr>
  *     <tr>
- *       <td>plugin.flash</td><td><i>Boolean</i></td><td><code>true</code></td>
- *       <td>{@link qx.bom.client.Flash#isAvailable}</td>
- *     </tr>
- *     <tr>
- *       <td>plugin.flash.express</td><td><i>Boolean</i></td><td><code>true</code></td>
- *       <td>{@link qx.bom.client.Flash#getExpressInstall}</td>
- *     </tr>
- *     <tr>
- *       <td>plugin.flash.strictsecurity</td><td><i>Boolean</i></td><td><code>true</code></td>
- *       <td>{@link qx.bom.client.Flash#getStrictSecurityModel}</td>
- *     </tr>
- *     <tr>
- *       <td>plugin.flash.version</td><td><i>String</i></td><td><code>10.2.154</code></td>
- *       <td>{@link qx.bom.client.Flash#getVersion}</td>
- *     </tr>
- *     <tr>
  *       <td>plugin.activex</td><td><i>Boolean</i></td><td><code>false</code></td>
  *       <td>{@link qx.bom.client.Plugin#getActiveX}</td>
  *     </tr>
