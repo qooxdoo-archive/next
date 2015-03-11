@@ -12,6 +12,12 @@
   <script type="text/javascript" src="script/q-source.js"></script>
   <script type="text/javascript">
     q.ready(function() {
+      // custom binding
+      q.$attach({setCustom: function(data) {
+        var content = this.getHtml();
+        return this.setHtml(data ? content.toLowerCase() : content.toUpperCase());
+      }});
+
       app = q(document.body).app();
       app.addModel("postfix", "!!!");
       app.test = qx.data.marshal.Json.createModel({name: "model value"});
@@ -22,7 +28,6 @@
       var store = new qx.data.store.Json("resource/qx/test/primitive.json");
       app.addModel("primitive", null),
       qx.data.SingleValueBinding.bind(store, "model", app, "primitive");
-
     });
   </script>
 </head>
@@ -73,7 +78,7 @@
     <div
       data-qx-widget="qx.ui.List"
       data-bind="data-qx-config-model -> {{listModel}}"></div>
-    <p># <span data-bind="html -> {{listModel.length}}"></span> Items in the list</p>
+    <p data-bind="show -> {{listModel.length}}"># <span data-bind="html -> {{listModel.length}}"></span> Items in the list</p>
   </div>
 
   <div>
@@ -81,6 +86,12 @@
     <p data-bind="html -> {{primitive.string}}"></p>
     <p data-bind="html -> {{primitive.number}}"></p>
     <p data-bind="html -> {{primitive.boolean}}"></p>
+  </div>
+
+  <div>
+    <h3>Custom key</h3>
+    <label>upper case switch <input type="checkbox" data-bind="checked -> {{custom}}" checked></label>
+    <span data-bind="custom -> {{custom}}">custom code executed</span>
   </div>
 
 </body>
