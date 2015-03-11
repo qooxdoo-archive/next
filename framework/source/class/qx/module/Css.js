@@ -532,7 +532,6 @@ qx.Class.define("qx.module.Css", {
 
 
     setShow: function(condition) {
-      console.log("setShow");
       return condition ? this.show() : this.hide();
     },
 

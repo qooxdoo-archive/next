@@ -114,18 +114,7 @@ qx.Class.define("qx.module.Application", {
         });
 
         // check for two way bindable properties
-        if (name === "value") {
-
-          el.on("input", function(key, el) {
-             qx.data.SingleValueBinding.__setTargetValue(this, key, el.getValue()); // TODO no private
-          }.bind(this, key, el));
-
-          el.on("change", function(key, el) {
-            qx.data.SingleValueBinding.__setTargetValue(this, key, el.getValue()); // TODO no private
-          }.bind(this, key, el));
-
-          el.setValue(qx.data.SingleValueBinding.resolvePropertyChain(this, key));
-        } else if (name === "checked") {
+        if (name === "checked") {
           el.on("change", function(key, el) {
             qx.data.SingleValueBinding.__setTargetValue(this, key, el.getAttribute("checked")); // TODO no private
           }.bind(this, key, el));
@@ -162,7 +151,22 @@ qx.Class.define("qx.module.Application", {
 
     _bindCollection: function(name, value, el) {
       this._getBindingKeys(name, value, el).forEach(function(key) {
-        qx.data.SingleValueBinding.bind(this, key, el, name);
+        qx.data.SingleValueBinding.bind(this, key, el, name, {converter: function(value, name) {
+          return this.__textConverter(value, name);
+        }.bind(this, value, name)});
+
+        // check for two way bindable properties
+        if (name === "value") {
+          el.on("input", function(key, el) {
+             qx.data.SingleValueBinding.__setTargetValue(this, key, el.getValue()); // TODO no private
+          }.bind(this, key, el));
+
+          el.on("change", function(key, el) {
+            qx.data.SingleValueBinding.__setTargetValue(this, key, el.getValue()); // TODO no private
+          }.bind(this, key, el));
+
+          el.setValue(qx.data.SingleValueBinding.resolvePropertyChain(this, key));
+        }
       }.bind(this));
     },
 
