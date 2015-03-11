@@ -1,9 +1,11 @@
 // requires
+var fs = require('fs');
 var util = require('util');
 var qx = require('../tool/grunt');
 
 // grunt
 module.exports = function(grunt) {
+
   var config = {
     generator_config: {
       let: {
@@ -15,6 +17,8 @@ module.exports = function(grunt) {
       'LOCALES': ['en'],
       'QOOXDOO_PATH' : '../'
     },
+
+    pkg: JSON.parse(fs.readFileSync('package.json')),
 
     concat: {
       options: {
@@ -97,6 +101,7 @@ module.exports = function(grunt) {
   grunt.loadNpmTasks('grunt-contrib-concat');
   grunt.loadNpmTasks('grunt-contrib-watch');
   grunt.loadNpmTasks('grunt-contrib-sass');
+  grunt.loadNpmTasks('grunt-eslint');
   grunt.loadNpmTasks('grunt-notify');
 
   // 'extend' API job
@@ -131,7 +136,6 @@ module.exports = function(grunt) {
   }
 
   // pre-process the index file
-  var fs = require('fs');
   grunt.registerTask('process-api-html', 'A task to preprocess the index.html', function() {
     // read index file
     var index = fs.readFileSync('api/index.html', {encoding: 'utf8'});
