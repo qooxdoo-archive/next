@@ -207,7 +207,7 @@ qx.Class.define("qx.module.Application", {
       this.addModel(target, initConverted);
 
       qx.data.SingleValueBinding.bind(this, source, this, target, {converter: converter});
-    },
+    }
   },
 
 
