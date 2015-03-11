@@ -531,6 +531,12 @@ qx.Class.define("qx.module.Css", {
     },
 
 
+    setShow: function(condition) {
+      console.log("setShow");
+      return condition ? this.show() : this.hide();
+    },
+
+
     /**
      * Maps HTML elements to their default "display" style values.
      */
@@ -620,7 +626,8 @@ qx.Class.define("qx.module.Css", {
       "getLocation" : statics.getLocation,
 
       "hide" : statics.hide,
-      "show" : statics.show
+      "show" : statics.show,
+      "setShow": statics.setShow
     });
 
     qxWeb.$attachStatic({

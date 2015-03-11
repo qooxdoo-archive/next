@@ -18,11 +18,6 @@
 
       app.listModel = new qx.data.Array(["a", "b", "c"]);
 
-      // converter
-      app.addTransformModel("hideChecked", "hide", function(data) {
-        return data ? "none" : "";
-      });
-
       // JSON loading
       var store = new qx.data.store.Json("resource/qx/test/primitive.json");
       app.addModel("primitive", null),
@@ -52,9 +47,9 @@
 
   <div>
     <h3>Show / Hide / Enabled</h3>
-    <label>hide <input type="checkbox" data-bind="checked -> {{hideChecked}}"></label>
+    <label>show <input type="checkbox" data-bind="checked -> {{show}}" checked></label>
     <label>disabled <input type="checkbox" data-bind="checked -> {{enabled}}"></label>
-    <input type="text" data-bind="style.display -> {{hide}}; disabled -> {{enabled}}" value="test"></span>
+    <input type="text" data-bind="show -> {{show}}; disabled -> {{enabled}}" value="test">
   </div>
 
 
