@@ -110,9 +110,8 @@ qx.Class.define("qx.ui.form.SelectBox",
      * @return {qx.ui.dialog.Menu} A dialog, containing a selection list.
      */
     _createSelectionDialog : function() {
-      var menu = new qx.ui.dialog.Menu();
-      menu.modal = true;
-      menu.hideOnBlockerTap = true;
+      var menu = new qx.ui.dialog.Menu(null, this);
+      menu.modal = false;
       return menu;
     },
 

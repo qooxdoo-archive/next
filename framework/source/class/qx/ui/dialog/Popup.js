@@ -156,11 +156,8 @@ qx.Class.define("qx.ui.dialog.Popup",
      */
     _updatePosition : function()
     {
-      // Traverse single anchor classes for removal
       var anchorClasses = ['top', 'bottom', 'left', 'right', 'anchor'];
-      for (var i = 0; i < anchorClasses.length; i++) {
-        this.removeClass(anchorClasses[i]);
-      }
+      this.removeClasses(anchorClasses);
 
       var parent = this._getParentWidget();
       if (this.__anchor && parent)
@@ -197,31 +194,32 @@ qx.Class.define("qx.ui.dialog.Popup",
         computedPopupPosition.top = computedPopupPosition.top - rootPosition.top;
         computedPopupPosition.left = computedPopupPosition.left - rootPosition.left;
 
-        var isOutsideViewPort = computedPopupPosition.top < 0
-          || computedPopupPosition.left < 0
-          || computedPopupPosition.left + popupDimension.width > rootWidth
-          || computedPopupPosition.top + popupDimension.height > rootHeight;
-
-        if(isOutsideViewPort) {
-          this._positionToCenter();
+        if (isTop) {
+          this.addClass('bottom');
         } else {
-          if (isTop) {
-            this.addClass('bottom');
-          } else {
-            this.addClass('top');
-          }
-          if (isLeft) {
-            this.addClass('right');
-          } else {
-            this.addClass('left');
-          }
-
-          this.placeTo(computedPopupPosition.left, computedPopupPosition.top);
+          this.addClass('top');
         }
+        if (isLeft) {
+          this.addClass('right');
+        } else {
+          this.addClass('left');
+        }
+
+        this.placeTo(computedPopupPosition.left, computedPopupPosition.top);
       } else if (this.__childrenContainer) {
         // No Anchor
         this._positionToCenter();
       }
+    },
+
+
+    /**
+     * Update position on scroll
+     */
+    _onRoll: function() {
+      setTimeout(function() {
+        this._updatePosition();
+      }.bind(this), 0);
     },
 
 
@@ -388,7 +386,8 @@ qx.Class.define("qx.ui.dialog.Popup",
 
       qxWeb(window).on("resize", this._updatePosition, this);
 
-      if(this.__anchor) {
+      if (this.__anchor) {
+        qxWeb(document.documentElement).on("roll", this._onRoll, this);
         this.__anchor.addClass("anchor-target");
 
         if (parentWidget) {
@@ -414,6 +413,7 @@ qx.Class.define("qx.ui.dialog.Popup",
         qxWeb(this.__anchor).removeClass("anchor-target");
       }
       qxWeb(window).off("resize", this._updatePosition, this);
+      qxWeb(document.documentElement).off("roll", this._onRoll, this);
     },
 
 
