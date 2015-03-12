@@ -7,6 +7,10 @@
   body > div {
     padding: 0 40px;
   }
+
+  .hidden {
+    display: none;
+  }
   </style>
   <link rel="stylesheet" type="text/css" href="../build/resource/qx/css/indigo.css">
   <script type="text/javascript" src="script/q-source.js"></script>
@@ -28,6 +32,8 @@
       var store = new qx.data.store.Json("resource/qx/test/primitive.json");
       app.addModel("primitive", null),
       qx.data.SingleValueBinding.bind(store, "model", app, "primitive");
+
+      // TODO binding von {{list[0]}}
     });
   </script>
 </head>
@@ -52,9 +58,9 @@
 
   <div>
     <h3>Show / Hide / Enabled</h3>
-    <label>show <input type="checkbox" data-bind="checked -> {{show}}" checked></label>
+    <label>hide <input type="checkbox" data-bind="checked -> {{hidden}}"></label>
     <label>disabled <input type="checkbox" data-bind="checked -> {{enabled}}"></label>
-    <input type="text" data-bind="show -> {{show}}; disabled -> {{enabled}}" value="test">
+    <input type="text" data-bind="class.hidden -> {{hidden}}; disabled -> {{enabled}}" value="test">
   </div>
 
 

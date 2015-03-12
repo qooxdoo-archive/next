@@ -235,6 +235,14 @@ qx.Class.define("qx.module.Css", {
     },
 
 
+    setClasses : function(map) {
+      for (var classname in map) {
+        map[classname] ? this.addClass(classname) : this.removeClass(classname);
+      }
+      return this;
+    },
+
+
     /**
      * Returns the rendered height of the first element in the collection.
      * @attach {qxWeb}
@@ -613,6 +621,7 @@ qx.Class.define("qx.module.Css", {
       "toggleClass" : statics.toggleClass,
       "toggleClasses" : statics.toggleClasses,
       "replaceClass" : statics.replaceClass,
+      "setClasses" : statics.setClasses,
 
       "getHeight" : statics.getHeight,
       "getWidth" : statics.getWidth,
