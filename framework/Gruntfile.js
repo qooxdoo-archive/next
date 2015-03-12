@@ -38,6 +38,10 @@ module.exports = function(grunt) {
       'api-data': {
         files: ['source/**/*.js'],
         tasks: ['api-data', 'notify:apidata']
+      },
+      'source': {
+        files: ['source/**/*.js'],
+        tasks: ['default']
       }
     },
 

@@ -147,6 +147,7 @@ var registerNodeTasks = function(grunt, relSdkPath) {
   grunt.loadNpmTasks('grunt-contrib-clean');
   grunt.loadNpmTasks('grunt-contrib-sass');
   grunt.loadNpmTasks('grunt-eslint');
+  grunt.loadNpmTasks('grunt-contrib-watch');
 };
 
 var registerTasks = function(grunt) {

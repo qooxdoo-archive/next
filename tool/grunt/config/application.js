@@ -160,6 +160,16 @@ var getConfig = function() {
         // rules??
       },
       target: ['<%= pkg.org_next.class %>']
+    },
+    /* grunt-contrib-watch */
+    watch: {
+      source: {
+        files: ["source/class/**/*.js"],
+        tasks: ["default"],
+        options: {
+          spawn: false
+        }
+      }
     }
   };
 
