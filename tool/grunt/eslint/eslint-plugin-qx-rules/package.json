@@ -1,0 +1,45 @@
+{
+  "name": "eslint-plugin-qx-rules",
+  "description": "qx specific rules for eslint",
+  "version": "0.1.0",
+  "homepage": "https://github.com/qooxdoo/next",
+  "author": {
+    "name": "qooxdoo developers",
+    "email": "info@qooxdoo.org"
+  },
+  "main": "index.js",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/qooxdoo/next"
+  },
+  "bugs": {
+    "url": "https://github.com/qooxdoo/qooxdoo/issues"
+  },
+  "keywords": [
+    "eslint",
+    "eslintplugin"
+  ],
+  "licenses": [
+    {
+      "type": "LGPL",
+      "url": "http://www.gnu.org/licenses/lgpl.html"
+    },
+    {
+      "type": "EPL",
+      "url": "http://www.eclipse.org/org/documents/epl-v10.php"
+    }
+  ],
+  "engines": {
+    "node": ">= 0.10.0"
+  },
+  "scripts": {
+    "test": "./node_modules/mocha/bin/mocha tests/lib/rules/"
+  },
+  "devDependencies": {
+    "eslint": "^0.16.1",
+    "eslint-tester": "^0.6.0",
+    "mocha": "^2.2.1"
+  },
+  "//": "before publishing create README.md then this can be removed",
+  "private": true
+}

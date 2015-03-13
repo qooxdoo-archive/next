@@ -2,5 +2,12 @@
   "globals": {
     "qx": false,
     "qxWeb": false
+  },
+  "env": {
+    "browser": true
+  },
+  "rules": {
+    "no-refs-in-members": 2,
+    "no-illegal-private-usage": 2
   }
 }
