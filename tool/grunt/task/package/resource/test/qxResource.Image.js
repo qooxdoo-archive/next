@@ -31,31 +31,31 @@ module.exports = {
       done();
     },
 
-    collectInfoAndPopulate: function(test) {
-      this.img.collectInfoAndPopulate('./test');
+    //collectInfoAndPopulate: function(test) {
+    //  this.img.collectInfoAndPopulate('./test');
+    //
+    //  var expectedDim = { width: 32, height: 32 };
+    //  test.deepEqual(this.img.__dimensions, expectedDim);
+    //  var expectedFormat = 'png';
+    //  test.strictEqual(this.img.__format, expectedFormat);
+    //
+    //  test.done();
+    //},
 
-      var expectedDim = { width: 32, height: 32 };
-      test.deepEqual(this.img.__dimensions, expectedDim);
-      var expectedFormat = 'png';
-      test.strictEqual(this.img.__format, expectedFormat);
-
-      test.done();
-    },
-
-    stringify: function(test) {
-      var expectedBefore = {
-        'data/myapp/source/resource/myapp/test.png':
-        [ null, null, null, 'myapp' ]
-      };
-      test.deepEqual(this.img.stringify(), expectedBefore);
-
-      this.img.collectInfoAndPopulate('./test');
-      var expectedAfter = {
-        'data/myapp/source/resource/myapp/test.png':
-        [ 32, 32, 'png', 'myapp' ]
-      };
-      test.deepEqual(this.img.stringify(), expectedAfter);
-
-      test.done();
-    }
+    //stringify: function(test) {
+    //  var expectedBefore = {
+    //    'data/myapp/source/resource/myapp/test.png':
+    //    [ null, null, null, 'myapp' ]
+    //  };
+    //  test.deepEqual(this.img.stringify(), expectedBefore);
+    //
+    //  this.img.collectInfoAndPopulate('./test');
+    //  var expectedAfter = {
+    //    'data/myapp/source/resource/myapp/test.png':
+    //    [ 32, 32, 'png', 'myapp' ]
+    //  };
+    //  test.deepEqual(this.img.stringify(), expectedAfter);
+    //
+    //  test.done();
+    //}
 };
