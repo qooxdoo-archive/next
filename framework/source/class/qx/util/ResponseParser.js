@@ -21,7 +21,7 @@
 /**
  * Parsers for parsing response strings (especially for XHR).
  *
- * Known parsers are: <code>"json"</code> and <code>"xml"</code>.
+ * Known parsers are: <code>"json"</code>.
  *
  * @require(qx.util.ResponseParser#parse)
  */
@@ -43,11 +43,10 @@ qx.Class.define("qx.util.ResponseParser",
      * @type {Map} Map of parser functions. Parsers defined here can be
      * referenced symbolically, e.g. with {@link #setParser}.
      *
-     * Known parsers are: <code>"json"</code> and <code>"xml"</code>.
+     * Known parsers are: <code>"json"</code>.
      */
     PARSER: {
-      json: JSON.parse,
-      xml: qx.xml.Document.fromString
+      json: JSON.parse
     }
   },
 
@@ -59,7 +58,7 @@ qx.Class.define("qx.util.ResponseParser",
      * Returns given response parsed with parser
      * determined by {@link #_getParser}.
      *
-     * @param response {String} response (e.g JSON/XML string)
+     * @param response {String} response (e.g JSON string)
      * @param contentType {String} contentType (e.g. 'application/json')
      * @return {String|Object} The parsed response of the request.
      */
@@ -151,15 +150,6 @@ qx.Class.define("qx.util.ResponseParser",
 
       if ((/^application\/(\w|\.)*\+?json$/).test(contentTypeNormalized)) {
         parser = qx.util.ResponseParser.PARSER.json;
-      }
-
-      if ((/^application\/xml$/).test(contentTypeNormalized)) {
-        parser = qx.util.ResponseParser.PARSER.xml;
-      }
-
-      // Deprecated
-      if ((/[^\/]+\/[^\+]+\+xml$/).test(contentTypeOrig)) {
-        parser = qx.util.ResponseParser.PARSER.xml;
       }
 
       return parser;

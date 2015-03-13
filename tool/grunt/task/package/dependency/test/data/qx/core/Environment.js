@@ -487,10 +487,6 @@
  *       <td>os.version</td><td><i>String</i></td><td><code>10.6</code></td>
  *       <td>{@link qx.bom.client.OperatingSystem#getVersion}</td>
  *     </tr>
- *     <tr>
- *       <td>os.scrollBarOverlayed</td><td><i>Boolean</i></td><td><code>false</code></td>
- *       <td>{@link qx.bom.client.Scroll#scrollBarOverlayed}</td>
- *     </tr>
 
  *     <tr>
  *       <td colspan="4"><b>phonegap</b></td>
@@ -751,7 +747,6 @@ qx.Class.define("qx.core.Environment",
       "device.touch" : "qx.bom.client.Device.getTouch",
       "os.name" : "qx.bom.client.OperatingSystem.getName",
       "os.version" : "qx.bom.client.OperatingSystem.getVersion",
-      "os.scrollBarOverlayed" : "qx.bom.client.Scroll.scrollBarOverlayed",
       "plugin.gears" : "qx.bom.client.Plugin.getGears",
       "plugin.activex" : "qx.bom.client.Plugin.getActiveX",
       "plugin.skype" : "qx.bom.client.Plugin.getSkype",

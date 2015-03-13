@@ -118,24 +118,6 @@ describe("lang.String", function() {
     assert.equal("€", qx.bom.String.unescape("&#x20AC;"));
 
     assert.equal("€", qx.bom.String.unescape("&#X20AC;"));
-
-    // escape XML
-    assert.equal("\n", qx.xml.String.escape("\n"));
-    assert.equal("Hello", qx.xml.String.escape("Hello"));
-    assert.equal("juhu &lt;&gt;", qx.xml.String.escape("juhu <>"));
-
-    assert.equal("&lt;div id=&apos;1&apos;&gt;&amp;nbsp; &#8364;&lt;/div&gt;", qx.xml.String.escape("<div id='1'>&nbsp; €</div>"));
-
-    assert.equal("&quot;bread&quot; &amp; &quot;butter&quot;", qx.xml.String.escape('"bread" & "butter"'));
-
-    // unescape XML
-    assert.equal("\n", qx.xml.String.unescape("\n"));
-    assert.equal("Hello", qx.xml.String.unescape("Hello"));
-    assert.equal("juhu <>", qx.xml.String.unescape("juhu &lt;&gt;"));
-
-    assert.equal("<div id='1'>&nbsp; €</div>", qx.xml.String.unescape("&lt;div id=&apos;1&apos;&gt;&amp;nbsp; &#8364;&lt;/div&gt;"));
-
-    assert.equal('"bread" & "butter"', qx.xml.String.unescape("&quot;bread&quot; &amp; &quot;butter&quot;"));
   });
 
 

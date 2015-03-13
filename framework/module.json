@@ -216,7 +216,6 @@
         "build-module-io",
         "build-module-matchmedia",
         "build-module-messaging",
-        "build-module-placeholder",
         "build-module-placement",
         "build-module-rest",
         "build-module-storage",
@@ -240,7 +239,6 @@
         "build-module-io-min",
         "build-module-matchmedia-min",
         "build-module-messaging-min",
-        "build-module-placeholder-min",
         "build-module-placement-min",
         "build-module-rest-min",
         "build-module-storage-min",
@@ -429,24 +427,6 @@
       "let" : {
         "Q_INCLUDES": ["qx.module.Messaging"],
         "MODULE_FILENAME" : "messaging"
-      }
-    },
-
-    "build-module-placeholder" :
-    {
-      "extend" : ["build-module"],
-      "let" : {
-        "Q_INCLUDES": ["qx.module.Placeholder"],
-        "MODULE_FILENAME" : "placeholder"
-      }
-    },
-
-    "build-module-placeholder-min" :
-    {
-      "extend" : ["build-module-min"],
-      "let" : {
-        "Q_INCLUDES": ["qx.module.Placeholder"],
-        "MODULE_FILENAME" : "placeholder"
       }
     },
 

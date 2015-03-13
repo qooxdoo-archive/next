@@ -59,20 +59,6 @@ describe("util.ResponseParser", function () {
   });
 
 
-  it(": getParser() detects xml", function () {
-    var xml = qx.util.ResponseParser.PARSER.xml;
-    __assertParser("application/xml", xml);
-    __assertParser("application/vnd.oneandone.domains.domain+xml", xml);
-    __assertParser("text/xml");  // Deprecated
-  });
-
-
-  it(": getParser() detects deprecated xml", function () {
-    var xml = qx.util.ResponseParser.PARSER.xml;
-    __assertParser("text/xml");
-  });
-
-
   it(": getParser() handles character set", function () {
     var json = qx.util.ResponseParser.PARSER.json;
     __assertParser("application/json; charset=utf-8", json);
@@ -113,24 +99,5 @@ describe("util.ResponseParser", function () {
       parsedResponse = __responseParser.parse(json, "application/json");
 
     sinonSandbox.spy()(expectedResponse.animals[0], parsedResponse.animals[0]);
-  });
-
-
-  // XML
-  it(": parse() xml response", function () {
-    var xml = "<animals><monkey/><mouse/></animals>",
-      expectedResponse = qx.util.ResponseParser.PARSER.xml.call(this, xml),
-      parsedResponse = __responseParser.parse(xml, "application/xml");
-
-    sinonSandbox.spy()(expectedResponse.documentElement.nodeName, parsedResponse.documentElement.nodeName);
-  });
-
-
-  it(": parse() arbitrary xml response", function () {
-    var xml = "<animals><monkey/><mouse/></animals>",
-      expectedResponse = qx.util.ResponseParser.PARSER.xml.call(this, xml),
-      parsedResponse = __responseParser.parse(xml, "animal/affe+xml");
-
-    sinonSandbox.spy()(expectedResponse.documentElement.nodeName, parsedResponse.documentElement.nodeName);
   });
 });

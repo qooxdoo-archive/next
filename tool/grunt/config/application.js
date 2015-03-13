@@ -66,6 +66,8 @@ var getConfig = function() {
 
     common: common,
 
+    pkg: JSON.parse(fs.readFileSync('package.json')),
+
     /* grunt-contrib-clean */
     clean: {
       options: {
@@ -151,6 +153,24 @@ var getConfig = function() {
         }]
       }
     },
+    /* grunt-eslint */
+    eslint: {
+      options: {
+        configFile: '<%= common.QOOXDOO_PATH %>/tool/grunt/eslint/eslint.json'
+        // rules??
+      },
+      target: ['<%= pkg.org_next.class %>']
+    },
+    /* grunt-contrib-watch */
+    watch: {
+      source: {
+        files: ["source/class/**/*.js"],
+        tasks: ["default"],
+        options: {
+          spawn: false
+        }
+      }
+    }
   };
 
   return config;

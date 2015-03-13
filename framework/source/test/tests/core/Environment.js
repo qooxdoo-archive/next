@@ -300,15 +300,6 @@ describe("core.Environment", function ()
   });
 
 
-  it("Flash", function() {
-      // just make sure the call is working
-      assert.isBoolean(qx.core.Environment.get("plugin.flash"));
-      qx.core.Environment.get("plugin.flash.version");
-      assert.isBoolean(qx.core.Environment.get("plugin.flash.express"));
-      assert.isBoolean(qx.core.Environment.get("plugin.flash.strictsecurity"));
-  });
-
-
   it("Pdf", function() {
       // just make sure the call is working
       assert.isBoolean(qx.core.Environment.get("plugin.pdf"));
@@ -348,13 +339,6 @@ describe("core.Environment", function ()
       assert.isBoolean(qx.core.Environment.get("html.stylesheet.removeimport"));
 
       assert.isBoolean(qx.core.Environment.get("html.history.state"));
-  });
-
-
-  it("Xml", function() {
-      assert.isBoolean(qx.core.Environment.get("xml.getelementsbytagnamens"));
-      assert.isBoolean(qx.core.Environment.get("xml.attributens"));
-      assert.isBoolean(qx.core.Environment.get("xml.createelementns"));
   });
 
 

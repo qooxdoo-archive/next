@@ -64,11 +64,6 @@
  *
  * @require(qx.lang.String)
  * @require(qx.bom.client.Css)
-
- * @require(qx.bom.element.Clip#set)
- * @require(qx.bom.element.Clip#get)
- * @require(qx.bom.element.Clip#reset)
- * @require(qx.bom.element.Clip#compile)
  */
 qx.Class.define("qx.bom.element.Style",
 {
@@ -146,16 +141,6 @@ qx.Class.define("qx.bom.element.Style",
       bottom : "pixelBottom"
     },
 
-    /**
-     * Whether a special class is available for the processing of this style.
-     *
-     * @internal
-     */
-    __special :
-    {
-      clip : qx.bom.element.Clip
-    },
-
 
     /*
     ---------------------------------------------------------------------------
@@ -173,7 +158,6 @@ qx.Class.define("qx.bom.element.Style",
     compile : function(map)
     {
       var html = [];
-      var special = this.__special;
       var cssNames = this.__cssNames;
       var name, value;
 
@@ -190,15 +174,10 @@ qx.Class.define("qx.bom.element.Style",
           name = this.__styleNames[name] || this.__getStyleName(name) || name ;
         }
 
-        // process special properties
-        if (special[name]) {
-          html.push(special[name].compile(value));
-        } else {
-          if (!cssNames[name]) {
-            cssNames[name] = qx.bom.Style.getCssName(name);
-          }
-          html.push(cssNames[name], ":", value === "" ? "\"\"" : value, ";");
+        if (!cssNames[name]) {
+          cssNames[name] = qx.bom.Style.getCssName(name);
         }
+        html.push(cssNames[name], ":", value === "" ? "\"\"" : value, ";");
       }
 
       return html.join("");
@@ -253,7 +232,6 @@ qx.Class.define("qx.bom.element.Style",
     isPropertySupported : function(propertyName)
     {
       return (
-        this.__special[propertyName] ||
         this.__styleNames[propertyName] ||
         propertyName in document.documentElement.style
       );
@@ -284,32 +262,18 @@ qx.Class.define("qx.bom.element.Style",
      * @param element {Element} The DOM element to modify
      * @param name {String} Name of the style attribute (js variant e.g. marginTop, wordSpacing)
      * @param value {var} The value for the given style
-     * @param smart {Boolean?true} Whether the implementation should automatically use
-     *    special implementations for some properties
      */
-    set : function(element, name, value, smart)
+    set : function(element, name, value)
     {
       if (qx.core.Environment.get("qx.debug"))
       {
         qx.core.Assert.assertElement(element, "Invalid argument 'element'");
         qx.core.Assert.assertString(name, "Invalid argument 'name'");
-        if (smart !== undefined) {
-          qx.core.Assert.assertBoolean(smart, "Invalid argument 'smart'");
-        }
       }
-
 
       // normalize name
       name = this.__styleNames[name] || this.__getStyleName(name) || name;
-
-      // special handling for specific properties
-      // through this good working switch this part costs nothing when
-      // processing non-smart properties
-      if (smart!==false && this.__special[name]) {
-        this.__special[name].set(element, value);
-      } else {
-        element.style[name] = value !== null ? value : "";
-      }
+      element.style[name] = value !== null ? value : "";
     },
 
 
@@ -319,47 +283,29 @@ qx.Class.define("qx.bom.element.Style",
      * @param element {Element} The DOM element to modify
      * @param styles {Map} a map where the key is the name of the property
      *    and the value is the value to use.
-     * @param smart {Boolean?true} Whether the implementation should automatically use
-     *    special implementations for some properties
      */
-    setStyles : function(element, styles, smart)
+    setStyles : function(element, styles)
     {
       if (qx.core.Environment.get("qx.debug"))
       {
         qx.core.Assert.assertElement(element, "Invalid argument 'element'");
         qx.core.Assert.assertMap(styles, "Invalid argument 'styles'");
-        if (smart !== undefined) {
-          qx.core.Assert.assertBoolean(smart, "Invalid argument 'smart'");
-        }
       }
 
       // inline calls to "set" and "reset" because this method is very
       // performance critical!
       var styleNames = this.__styleNames;
-      var special = this.__special;
-
       var style = element.style;
 
-      for (var key in styles)
-      {
+      for (var key in styles) {
         var value = styles[key];
         var name = styleNames[key] || this.__getStyleName(key) || key;
 
-        if (value === undefined)
-        {
-          if (smart!==false && special[name]) {
-            special[name].reset(element);
-          } else {
-            style[name] = "";
-          }
+        if (value === undefined) {
+          style[name] = "";
         }
-        else
-        {
-          if (smart!==false && special[name]) {
-            special[name].set(element, value);
-          } else {
-            style[name] = value !== null ? value : "";
-          }
+        else {
+          style[name] = value !== null ? value : "";
         }
       }
     },
@@ -370,20 +316,12 @@ qx.Class.define("qx.bom.element.Style",
      *
      * @param element {Element} The DOM element to modify
      * @param name {String} Name of the style attribute (js variant e.g. marginTop, wordSpacing)
-     * @param smart {Boolean?true} Whether the implementation should automatically use
-     *    special implementations for some properties
      */
-    reset : function(element, name, smart)
+    reset : function(element, name)
     {
       // normalize name
       name = this.__styleNames[name] || this.__getStyleName(name) || name;
-
-      // special handling for specific properties
-      if (smart!==false && this.__special[name]) {
-        this.__special[name].reset(element);
-      } else {
-        element.style[name] = "";
-      }
+      element.style[name] = "";
     },
 
 
@@ -404,24 +342,16 @@ qx.Class.define("qx.bom.element.Style",
      *
      * Ignores inheritance cascade. Does not interpret values.
      *
-     * @signature function(element, name, mode, smart)
      * @param element {Element} The DOM element to modify
      * @param name {String} Name of the style attribute (js variant e.g. marginTop, wordSpacing)
      * @param mode {Number} Choose one of the modes {@link #COMPUTED_MODE}, {@link #CASCADED_MODE},
      *   {@link #LOCAL_MODE}. The computed mode is the default one.
-     * @param smart {Boolean?true} Whether the implementation should automatically use
-     *    special implementations for some properties
      * @return {var} The value of the property
      */
-    get : function(element, name, mode, smart)
+    get : function(element, name, mode)
     {
       // normalize name
       name = this.__styleNames[name] || this.__getStyleName(name) || name;
-
-      // special handling
-      if (smart!==false && this.__special[name]) {
-        return this.__special[name].get(element, mode);
-      }
 
       // switch to right mode
       switch(mode)
