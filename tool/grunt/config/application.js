@@ -170,7 +170,8 @@ var getConfig = function() {
         ],
         tasks: ["default"],
         options: {
-          spawn: false
+          spawn: false,
+          interrupt: true
         }
       }
     }
