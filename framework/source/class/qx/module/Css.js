@@ -539,11 +539,6 @@ qx.Class.define("qx.module.Css", {
     },
 
 
-    setShow: function(condition) {
-      return condition ? this.show() : this.hide();
-    },
-
-
     /**
      * Maps HTML elements to their default "display" style values.
      */
