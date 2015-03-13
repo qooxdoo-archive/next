@@ -164,7 +164,10 @@ var getConfig = function() {
     /* grunt-contrib-watch */
     watch: {
       source: {
-        files: ["source/class/**/*.js"],
+        files: [
+          "source/class/**/*.js",
+          "source/theme/**/*.scss"
+        ],
         tasks: ["default"],
         options: {
           spawn: false
