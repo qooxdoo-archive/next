@@ -197,7 +197,4 @@ module.exports = function(grunt) {
     grunt.file.write(path.join(opts.sourcePath, resourcesFileName), resourcesContent);
     grunt.log.ok('Done.');
   });
-
-  // A very basic default task.
-  grunt.registerTask('default', ['source']);
 };
