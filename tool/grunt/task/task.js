@@ -185,6 +185,8 @@ var registerTasks = function(grunt) {
     // created apps shouldn't need python toolchain
     registerNodeTasks(grunt, conf.QOOXDOO_PATH);
   }
+
+  grunt.registerTask('default', ['source']);
 };
 
 // exports
