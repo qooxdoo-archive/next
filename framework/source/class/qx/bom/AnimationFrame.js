@@ -119,6 +119,7 @@ qx.Class.define("qx.bom.AnimationFrame",
      * The default time in ms the timeout fallback implementation uses.
      */
     TIMEOUT : 30,
+    __START: null,
 
 
     /**
@@ -176,7 +177,7 @@ qx.Class.define("qx.bom.AnimationFrame",
       var clb = function(time) {
         // check for high resolution time
         if (time < 1e10) {
-          time = qx.bom.AnimationFrame.__start + time;
+          time = qx.bom.AnimationFrame.__START + time;
         }
 
         time = time || +(new Date());
@@ -199,10 +200,10 @@ qx.Class.define("qx.bom.AnimationFrame",
    */
   classDefined : function(statics) {
     // check and use the high resolution start time if available
-    statics.__start = window.performance && performance.timing && performance.timing.navigationStart;
+    statics.__START = window.performance && performance.timing && performance.timing.navigationStart;
     // if not, simply use the current time
-    if (!statics.__start) {
-      statics.__start = Date.now();
+    if (statics.__START === null) {
+      statics.__START = Date.now();
     }
   }
 });
