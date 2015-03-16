@@ -109,7 +109,6 @@ qx.Class.define("qx.module.Application", {
     },
 
 
-
     _getProprties: function(action, content, el) {
       var tagContents = this._getTagContent(content);
       var properties = tagContents.map(this._getProperty);
@@ -122,7 +121,7 @@ qx.Class.define("qx.module.Application", {
           // special handling for html
           } else if (el["get" + qx.Class.firstUp(action)] && action !== "style") {
             init = el["get" + qx.Class.firstUp(action)]();
-          } else if (action !== "style") {
+          } else if (action !== "style" && action !== "cssClass") {
             init = el.getAttribute(action);
           }
         }
@@ -147,7 +146,7 @@ qx.Class.define("qx.module.Application", {
         tagContent = tagContent.substring(0, tagContent.length -1); // remove closing bracket
       }
       for (var i = converterList.length -1; i >= 0; i--) {
-        value = this.constructor[converterList[i]](value);
+        value = this.constructor[converterList[i]](value, this);
       }
       return value;
     },
@@ -190,13 +189,13 @@ qx.Class.define("qx.module.Application", {
     _bindClass: function(action, content, el) {
       var classname = action.split(".")[1];
 
-      this._getProprties("style", content, el).forEach(function(property) {
+      this._getProprties("cssClass", content, el).forEach(function(property) {
         qx.data.SingleValueBinding.bind(this, property, el, "classes", {
-          converter : function(classname, data) {
+          converter : function(classname, tagContent) {
             var map = {};
-            map[classname] = !!data;
+            map[classname] = !!this._getValue(tagContent);
             return map;
-          }.bind(this, classname)
+          }.bind(this, classname, this._getTagContent(content)[0]) // TODO more than one?
         });
       }.bind(this));
     },
@@ -207,7 +206,7 @@ qx.Class.define("qx.module.Application", {
       el.removeAttribute(action);
 
       this._getProprties(action, content, el).forEach(function(property) {
-        qx.data.SingleValueBinding.bind(this, property, el, widgetPropert);
+        qx.data.SingleValueBinding.bind(this, property, el, widgetPropert) // TODO support converter;
 
         // two way binding
         el.on("change" + qx.Class.firstUp(widgetPropert), function(property, data) {

@@ -17,7 +17,12 @@
   <script type="text/javascript" src="script/q-source.js"></script>
   <script type="text/javascript">
     q.ready(function() {
+      qx.module.Application.custom = function(data) {
+        return data ? ;
+      };
+
       app = q(document.body).app();
+
       app.addModel("postfix", "!!!");
       app.test = qx.data.marshal.Json.createModel({name: "model value"});
 
@@ -27,6 +32,7 @@
       var store = new qx.data.store.Json("resource/qx/test/primitive.json");
       app.addModel("primitive", null),
       qx.data.SingleValueBinding.bind(store, "model", app, "primitive");
+
 
       // TODO binding of {{list[0]}}
       // TODO use binding value as css clssanme
@@ -83,7 +89,7 @@
     <div data-qx-widget="qx.ui.form.Slider"
       data-bind="data-qx-config-value -> {{slider}}"
       data-qx-config-value="22"></div>
-    <p data-bind="html -> The slider value is {{slider}}."></p>
+    <p data-bind="html -> The slider value is {{slider}}.; class.hidden -> {{custom(slider)}}"></p>
     <div
       data-qx-widget="qx.ui.List"
       data-bind="data-qx-config-model -> {{listModel}}"></div>
