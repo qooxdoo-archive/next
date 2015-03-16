@@ -25,6 +25,9 @@ eslintTester.addRuleTest("lib/rules/no-illegal-private-usage", {
     {
       code: 'qx.Bootstrap.define("qx.foo.Bar", { members: { __known: null, foo: function(){ qx.foo.Bar.__known = true; } } });'
     },
+    {
+      code: 'qx.Bootstrap.define("qx.foo.Bar", { constructor: function(){ this.__known = true }, members: { __known: null } });'
+    },
   ],
 
   invalid: [
