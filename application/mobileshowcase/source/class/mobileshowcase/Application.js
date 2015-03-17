@@ -19,13 +19,7 @@
 
 ************************************************************************ */
 
-/*
- * If you have added resources to your app remove the leading '*' in the
- * following line to make use of them.
-
-
-************************************************************************ */
-
+/* global mobileshowcase */
 /**
  * This is the main application class for the mobile showcase app.
  * @require(qx.log.appender.Console)
