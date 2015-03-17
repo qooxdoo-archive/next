@@ -658,9 +658,9 @@ module.exports = {
     getClassCode: function(test) {
       var actual = this.qxCoreEnv.getClassCode();
 
-      // js code is string and has more than 1300 lines
+      // js code is string and not empty
       test.strictEqual((typeof actual), "string");
-      test.ok(actual.split('\n').length > 1000);
+      test.notStrictEqual(actual, "");
 
       test.done();
     },
