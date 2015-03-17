@@ -8,6 +8,14 @@
   },
   "rules": {
     "no-refs-in-members": 2,
-    "no-illegal-private-usage": 2
+    "no-illegal-private-usage": 2,
+    "global-strict": 0,
+    "key-spacing": 0,
+    "eqeqeq": 0,
+    "no-underscore-dangle": 0,
+    "space-infix-ops": 0,
+    "quotes": 0,
+    "no-loop-func": 0,
+    "dot-notation": 0
   }
 }
