@@ -30,6 +30,8 @@ qx.Class.define("qx.bom.client.Stylesheet",
 {
   statics:
   {
+    __stylesheet: null,
+
     /**
      * Returns a stylesheet to be used for feature checks
      *
