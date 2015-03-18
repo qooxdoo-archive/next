@@ -12,6 +12,14 @@
     display: none;
   }
 
+  .red {
+    color: red;
+  }
+
+  .underline {
+    text-decoration: underline;
+  }
+
   </style>
   <link rel="stylesheet" type="text/css" href="../build/resource/qx/css/indigo.css">
   <script type="text/javascript" src="script/q-source.js"></script>
@@ -49,7 +57,6 @@
 
       // TODO
       // - binding of {{list[0]}}
-      // - use binding value as css clssanme
       // - events
     });
   </script>
@@ -57,9 +64,14 @@
 <body>
 
   <div>
+    <h3 data-bind="class -> underline {{classname}}">Class name from model</h3>
+    <input data-bind="value -> {{classname}}" placeholder="e.g. red">
+  </div>
+
+  <div>
     <h3>Repeat</h3>
     <ul data-repeat="{{listModel}}">
-      <li data-bind="html -> {{listModel[$index]}};"></li>
+      <li data-bind="html -> {{listModel[$index]}}; style.color -> {{mycolor}}"></li>
     </ul>
   </div>
 

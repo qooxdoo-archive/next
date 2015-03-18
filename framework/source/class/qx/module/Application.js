@@ -135,7 +135,7 @@ qx.Class.define("qx.module.Application", {
     },
 
 
-    _getProprties: function(action, content, el) {
+    _getProperties: function(action, content, el) {
       var tagContents = this._getTagContent(content);
       var properties = tagContents.map(this._getProperty);
       properties.forEach(function(property) {
@@ -152,6 +152,7 @@ qx.Class.define("qx.module.Application", {
           }
         }
         if (property.indexOf(".") != -1) { // TODO respect arrays e.g. 'action[0]'
+          init = null;
           property = property.substring(0, property.indexOf("."));
         }
         this.addModel(property, init);
@@ -186,7 +187,7 @@ qx.Class.define("qx.module.Application", {
 
 
     _bindAttribute: function(action, content, el) {
-      this._getProprties(action, content, el).forEach(function(property) {
+      this._getProperties(action, content, el).forEach(function(property) {
         qx.data.SingleValueBinding.bind(this, property, el, "attributes", {
           converter : this.__mapConverter.bind(this, action, content)
         });
@@ -204,7 +205,7 @@ qx.Class.define("qx.module.Application", {
     _bindStyle: function(action, content, el) {
       var style = action.split(".")[1];
 
-      this._getProprties("style", content, el).forEach(function(property) {
+      this._getProperties("style", content, el).forEach(function(property) {
         qx.data.SingleValueBinding.bind(this, property, el, "styles", {
           converter : this.__mapConverter.bind(this, style, content)
         });
@@ -215,7 +216,7 @@ qx.Class.define("qx.module.Application", {
     _bindClass: function(action, content, el) {
       var classname = action.split(".")[1];
 
-      this._getProprties("cssClass", content, el).forEach(function(property) {
+      this._getProperties("cssClass", content, el).forEach(function(property) {
         qx.data.SingleValueBinding.bind(this, property, el, "classes", {
           converter : function(classname, tagContent) {
             var map = {};
@@ -231,7 +232,7 @@ qx.Class.define("qx.module.Application", {
       var widgetPropert = action.replace("data-qx-config-", "");
       el.removeAttribute(action);
 
-      this._getProprties(action, content, el).forEach(function(property) {
+      this._getProperties(action, content, el).forEach(function(property) {
         qx.data.SingleValueBinding.bind(this, property, el, widgetPropert) // TODO support converter;
 
         // two way binding
@@ -243,7 +244,7 @@ qx.Class.define("qx.module.Application", {
 
 
     _bindCollection: function(action, content, el) {
-      this._getProprties(action, content, el).forEach(function(property) {
+      this._getProperties(action, content, el).forEach(function(property) {
         qx.data.SingleValueBinding.bind(this, property, el, action, {converter: function(content, action) {
           return this.__textConverter(content);
         }.bind(this, content, action)});
