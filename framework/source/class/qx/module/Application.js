@@ -34,7 +34,7 @@ qx.Class.define("qx.module.Application", {
   statics :
   {
     app : function() {
-      var app = new qx.module.Application(this[0]);
+      var app = new qx.module.Application(this);
       return app;
     },
 
@@ -46,7 +46,7 @@ qx.Class.define("qx.module.Application", {
 
   construct : function(root) {
     this.__modelProperties = [];
-    root.$$app = this;
+    root[0].$$app = this;
     this._setUp(root);
   },
 
