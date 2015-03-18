@@ -58,6 +58,13 @@
 <body>
 
   <div>
+    <h3>Repeat</h3>
+    <ul data-repeat="{{listModel}}">
+      <li data-bind="html -> {{listModel[$index]}};"></li>
+    </ul>
+  </div>
+
+  <div>
     <h3>Not</h3>
     <input type="checkbox" data-bind="checked -> {{x}}">
     <span data-bind="html -> {{x}}"></span> !=
@@ -91,10 +98,8 @@
 
   <div>
     <h3>Select</h3>
-    <select data-bind="value -> {{selected}}">
-      <option>A</option>
-      <option>B</option>
-      <option>C</option>
+    <select data-repeat="{{listModel}}" data-bind="value -> {{selected}}">
+      <option data-bind="html -> {{listModel[$index]}};">AFFE</option>
     </select>
     <span data-bind="html -> Selected: {{selected}}"></span>
   </div>

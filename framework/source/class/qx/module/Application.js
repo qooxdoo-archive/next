@@ -46,7 +46,7 @@ qx.Class.define("qx.module.Application", {
 
   construct : function(root) {
     this.__modelProperties = [];
-
+    root.$$app = this;
     this._setUp(root);
   },
 
@@ -56,31 +56,57 @@ qx.Class.define("qx.module.Application", {
 
 
     _setUp : function(root) {
-      qxWeb("*[data-bind]", root).forEach(function(el) {
-        this._getBindings(el.getAttribute("data-bind")).forEach(function(binding) {
-          var action = binding[0];
-          var content = binding[1];
+      // repeat preparsing
+      qxWeb("*[data-repeat]", root).forEach(function(el) {
+        var value = el.getData("repeat");
+        el.removeData("repeat");
+        el.setData("qx-widget", "qx.ui.List");
+        var oldBind = el.getData("bind");
+        var newBind = "data-qx-config-model -> " + value;
+        if (oldBind) {
+          newBind += "; " + oldBind;
+        }
+        el.setData("bind", newBind);
+      });
 
-          // special handling for style
-          if (action.indexOf("style.") === 0) {
-            this._bindStyle(action, content, el);
-          // special handling for class
-          } else if (action.indexOf("class.") === 0) {
-            this._bindClass(action, content, el);
-          // special handling for widget properties
-          } else if (action.indexOf("data-qx-config") === 0) {
-            this._bindWidget(action, content, el);
-          } else if (qx.Class.getClass(el["set" + qx.Class.firstUp(action)]) == "Function") {
-            this._bindCollection(action, content, el);
-          } else {
-            this._bindAttribute(action, content, el);
-          }
-        }.bind(this));
+      // initialize all widgets before (those could remove invalid binding templates)
+      qxWeb("*[data-qx-widget]", root).forEach(function() {});
+
+      this._setUpElement(root);
+      qxWeb("*[data-bind]", root).forEach(function(el) {
+        this._setUpElement(el);
+      }.bind(this));
+    },
+
+
+    _setUpElement: function(el) {
+      this._getBindings(el.getAttribute("data-bind")).forEach(function(binding) {
+        var action = binding[0];
+        var content = binding[1];
+
+        // special handling for style
+        if (action.indexOf("style.") === 0) {
+          this._bindStyle(action, content, el);
+        // special handling for class
+        } else if (action.indexOf("class.") === 0) {
+          this._bindClass(action, content, el);
+        // special handling for widget properties
+        } else if (action.indexOf("data-qx-config") === 0) {
+          this._bindWidget(action, content, el);
+        } else if (qx.Class.getClass(el["set" + qx.Class.firstUp(action)]) == "Function") {
+          this._bindCollection(action, content, el);
+        } else {
+          this._bindAttribute(action, content, el);
+        }
       }.bind(this));
     },
 
 
     _getBindings: function(def) {
+      if (!def) {
+        return [];
+      }
+
       var bindings = def.split(";");
 
       // filter out all strings without ->
@@ -265,11 +291,9 @@ qx.Class.define("qx.module.Application", {
 
     addModel : function(property, init) {
       if (this.__modelProperties.indexOf(property) != -1) {
-        if (init != undefined) {
-          qx.data.SingleValueBinding.__setTargetValue(this, property, init); // TODO no privates
-        }
         return;
       }
+
       var config = {};
       config[property] = {
         event: true,

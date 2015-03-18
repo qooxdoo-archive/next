@@ -66,6 +66,12 @@ qx.Class.define("qx.ui.List",
   {
     this.super(qx.ui.Widget, "construct", element);
 
+    // fetch the item template from the elements content
+    if (element && element.innerHTML.trim() !== "") {
+      this.__itemTemplate = element.innerHTML.trim();
+    }
+    element.innerHTML = "";
+
     this.on("tap", this._onTap, this);
 
     this.on("trackstart", this._onTrackStart, this);
@@ -144,9 +150,11 @@ qx.Class.define("qx.ui.List",
 
   members :
   {
-    __minDeleteDistance : null,
-    __isScrollingBlocked : null,
-    __trackElement : null,
+    __minDeleteDistance: null,
+    __isScrollingBlocked: null,
+    __trackElement: null,
+
+    __itemTemplate: null,
 
 
     // overridden
@@ -270,11 +278,11 @@ qx.Class.define("qx.ui.List",
       var element = evt.target;
 
       // Click on border: do nothing.
-      if(element.tagName == "UL") {
+      if(element === this[0]) {
         return null;
       }
 
-      while (element.tagName != "LI") {
+      while (!this.getChildren().indexOf(element)) {
         element = element.parentNode;
       }
 
@@ -384,16 +392,16 @@ qx.Class.define("qx.ui.List",
      * @param index {Integer} index of the row which should be rendered.
      */
     __renderRow : function(index) {
-      var renderedItems = this.find(".list-item");
+      var renderedItems = this.getChildren();
       var oldNode = renderedItems[index];
       var newItem = this.__getRowTemplate(index);
 
-      this[0].replaceChild(newItem[0], oldNode);
+      this[0].replaceChild(newItem[0], oldNode); // TODO not necessary
     },
 
 
     __getRowTemplate : function(index) {
-      var template = qx.ui.List.itemTemplate;
+      var template = this.__itemTemplate || qx.ui.List.itemTemplate;
       var data = this.model.getItem(index);
       if (qx.Class.getClass(data) === "String") {
         data = {title: data};
@@ -401,11 +409,30 @@ qx.Class.define("qx.ui.List",
       data.row = index;
       data = this.__configureData(data);
 
-      template = qxWeb.template.renderToNode(template, data);
-      template.find("[data-qx-widget]").forEach(function(el) {
-        // qxWeb.forEach initializes any widgets in the collection
-        // automatically
-      });
+      if (this.__itemTemplate) {
+        // replace the special values
+        template = template.replace(/\$index/g, index);
+
+        template = qxWeb.create(template);
+
+        // get app
+        var app;
+        var parent = this;
+        while (!app && parent.length > 0) {
+          if (parent[0].$$app) {
+            app = parent[0].$$app;
+          }
+          parent = parent.getParents();
+        }
+
+        app._setUp(template); // TODO no protected
+      } else {
+        template = qxWeb.template.renderToNode(template, data);
+        template.find("[data-qx-widget]").forEach(function(el) {
+          // qxWeb.forEach initializes any widgets in the collection
+          // automatically
+        });
+      }
 
       template.setProperty("model", this.model.getItem(index));
       return template;
@@ -414,7 +441,7 @@ qx.Class.define("qx.ui.List",
 
     __getGroupHeaderTemplate : function(group, groupIndex) {
       var template = qx.ui.List.groupHeaderTemplate;
-      var fragment = qxWeb.template.renderToNode(template, group);
+      var fragment = qxWeb.template.renderToNode(template, group); // TODO move to binding as well
       qxWeb(fragment[0]).setData("group", groupIndex);
       return fragment;
     },
