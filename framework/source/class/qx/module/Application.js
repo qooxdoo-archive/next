@@ -151,9 +151,14 @@ qx.Class.define("qx.module.Application", {
             init = el.getAttribute(action);
           }
         }
-        if (property.indexOf(".") != -1) { // TODO respect arrays e.g. 'action[0]'
+        if (property.indexOf(".") != -1) {
           init = null;
           property = property.substring(0, property.indexOf("."));
+        }
+
+        if (property.indexOf("[") != -1) {
+          init = null;
+          property = property.substring(0, property.indexOf("["));
         }
         this.addModel(property, init);
       }.bind(this));
