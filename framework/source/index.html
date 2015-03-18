@@ -36,7 +36,7 @@
 
       app = q(document.body).app();
 
-      app.addModel("postfix", "!!!");
+      app.postfix = "!!!";
       app.test = qx.data.marshal.Json.createModel({name: "model value"});
 
       app.listModel = new qx.data.Array(["a", "b", "c"]);
@@ -50,7 +50,6 @@
       // TODO
       // - binding of {{list[0]}}
       // - use binding value as css clssanme
-      // - loops
       // - events
     });
   </script>
@@ -126,9 +125,8 @@
 
 
   <div>
-    <h3>Color to grayscale</h3>
+    <h3 data-bind="style.color -> {{grayscale(customColor)}}">Color to grayscale</h3>
     <input type="color" data-bind="value -> {{customColor}}">
-    <div data-bind="style.backgroundColor -> {{grayscale(customColor)}}">test</div>
   </div>
 
 </body>
