@@ -66,20 +66,27 @@ function renderLoaderTmpl(tmpl, ctx) {
 function calculateRelPaths(packageJsonData, qxPath, appName, ns) {
   var resolved_qxPath = path.resolve(qxPath);
   var gruntDir = "tool/grunt";
+  var frameworkDir = "framework";
   var rel = {
     qx: "",
     res: "",
     class: ""
   };
+
   // qx path depending on whether app is within qooxdoo sdk or not
   rel.qx = (pathIsInside(packageJsonData[appName].base.abs, resolved_qxPath))
            ? path.relative(packageJsonData[appName].base.abs, resolved_qxPath)
            : qxPath;
 
-  // paths depending on whether app is within "tool/grunt" dir ('myapp' test app) or not
+  // paths depending on whether app is within ...
   if (pathIsInside(packageJsonData[appName].base.abs, path.join(resolved_qxPath, gruntDir))) {
+    // ... "tool/grunt" dir ('myapp' test app) or not
     rel.res = url.resolve(path.join("../", packageJsonData[ns].resource), '');
     rel.class = url.resolve(path.join("../", packageJsonData[ns].class), '');
+  } else if (pathIsInside(packageJsonData[appName].base.abs, path.join(resolved_qxPath, frameworkDir))) {
+    // ... "framework" dir
+    rel.res = url.resolve(path.join(packageJsonData[ns].resource), '');
+    rel.class = url.resolve(path.join(packageJsonData[ns].class), '');
   } else {
     rel.res = url.resolve(path.join("../", packageJsonData[ns].base.rel, packageJsonData[ns].resource), '');
     rel.class = url.resolve(path.join("../", packageJsonData[ns].base.rel, packageJsonData[ns].class), '');
@@ -157,7 +164,7 @@ module.exports = function(grunt) {
     for (ns in packageJsonData) {
       relPaths = calculateRelPaths(packageJsonData, opts.qxPath, opts.appName, ns);
       libinfo[ns] = {};
-      if (ns === "qx") {
+      if (ns === "qx" && opts.appName !== "qx") {
         libinfo[ns] = {
           "resourceUri": url.resolve(path.join('../', relPaths.qx, '/framework/source/resource'), ''),
           "sourceUri": url.resolve(path.join('../', relPaths.qx, '/framework/source/class'), ''),

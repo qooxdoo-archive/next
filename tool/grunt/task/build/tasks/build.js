@@ -32,7 +32,8 @@ var path = require("path");
 var fs = require("fs");
 
 // third-party
-var shell = require('shelljs');
+var shell = require("shelljs");
+var glob = require("glob");
 
 // qx
 var qxRes = require("qx-resource");
@@ -183,12 +184,17 @@ module.exports = function(grunt) {
     if (!fs.existsSync(opts.buildPath)) {
       shell.mkdir(opts.buildPath);
     }
-    shell.cp("-f", path.join(opts.sourcePath, 'index.html'), opts.buildPath);
+    if (fs.existsSync(path.join(opts.sourcePath, 'index.html'))) {
+      shell.cp("-f", path.join(opts.sourcePath, 'index.html'), opts.buildPath);
+    }
 
+    var cssFiles = glob.sync('theme/*.css*', {cwd: opts.sourcePath});
     var sourceThemePath = path.join(opts.sourcePath, 'theme/*.css*');
     var buildThemePath = path.join(opts.buildPath, 'theme');
     shell.mkdir("-p", buildThemePath);
-    shell.cp("-f", sourceThemePath, buildThemePath);
+    if (cssFiles.length !== 0) {
+      shell.cp("-f", sourceThemePath, buildThemePath);
+    }
 
     var buildResourcePath = path.join(opts.buildPath, 'resource');
     qxRes.copyResources(buildResourcePath, resBasePathMap, assetNsPaths);
