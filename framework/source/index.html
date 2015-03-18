@@ -42,6 +42,13 @@
         return data;
       };
 
+      qx.module.Application.reverse = function(data) {
+        if (data) {
+          data.reverse();
+        }
+        return data;
+      };
+
       app = q(document.body).app();
 
       app.postfix = "!!!";
@@ -123,7 +130,7 @@
     <p data-bind="html -> The slider value is {{slider}}.; class.hidden -> {{slider}}"></p>
     <div
       data-qx-widget="qx.ui.List"
-      data-bind="data-qx-config-model -> {{listModel}}"></div>
+      data-bind="data-qx-config-model -> {{reverse(listModel)}}"></div>
     <p data-bind="class.hidden -> {{not(listModel.length)}}"># <span data-bind="html -> {{listModel.length}}"></span> Items in the list</p>
   </div>
 

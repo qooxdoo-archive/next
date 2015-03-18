@@ -238,7 +238,12 @@ qx.Class.define("qx.module.Application", {
       el.removeAttribute(action);
 
       this._getProperties(action, content, el).forEach(function(property) {
-        qx.data.SingleValueBinding.bind(this, property, el, widgetPropert) // TODO support converter;
+        qx.data.SingleValueBinding.bind(this, property, el, widgetPropert, {
+          converter: function(content) {
+            var tagContent = content.substring(2, content.length - 2);
+            return this._getValue(tagContent);
+          }.bind(this, content)
+        });
 
         // two way binding
         el.on("change" + qx.Class.firstUp(widgetPropert), function(property, data) {
