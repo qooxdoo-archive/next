@@ -207,10 +207,14 @@ qx.Class.define("qxWeb", {
       selector = [];
     }
     else if (qx.lang.Type.isString(selector)) {
-      if (context instanceof qxWeb) {
+      if (context instanceof qxWeb && context.length != 0) {
         context = context[0];
       }
-      selector = qx.bom.Selector.query(selector, context);
+      if (context instanceof qxWeb) {
+        selector = [];
+      } else {
+        selector = qx.bom.Selector.query(selector, context);
+      }
     }
     else if ((selector.nodeType === 1 || selector.nodeType === 9 ||
       selector.nodeType === 11) ||
