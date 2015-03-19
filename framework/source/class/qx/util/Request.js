@@ -44,7 +44,7 @@ qx.Class.define("qx.util.Request",
       var protocol = location.protocol;
 
       // URL is relative in the sence that it points to origin host
-      if (!(url.indexOf("//") !== -1)) {
+      if (!(url.indexOf("://") !== -1)) {
         return false;
       }
 
