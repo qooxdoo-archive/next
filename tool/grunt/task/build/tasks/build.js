@@ -161,7 +161,7 @@ module.exports = function(grunt) {
     var bootPart = "_";
     bootPart += resourcesContent;
     bootPart += "\n";
-    bootPart += "(function(){"+classCodeCompressedList.join("")+"})();";
+    bootPart += "(function(){" + classCodeCompressedList.join("})();(function(){") + "})();";
 
     var ctx = {
       EnvSettings: opts.environment,
