@@ -144,8 +144,8 @@ qx.Class.define("qx.module.event.Keyboard", {
     registerInputFix : function(element) {
       if (element.type === "text" || element.type === "password" || element.type === "textarea")
       {
-        if (!element.__inputFix) {
-          element.__inputFix = qxWeb(element).on("keyup", qx.module.event.Keyboard._inputFix);
+        if (!element.$$inputFix) {
+          element.$$inputFix = qxWeb(element).on("keyup", qx.module.event.Keyboard._inputFix);
         }
       }
     },
@@ -158,9 +158,9 @@ qx.Class.define("qx.module.event.Keyboard", {
      * @internal
      */
     unregisterInputFix : function(element) {
-      if (element.__inputFix && !qxWeb(element).hasListener("input")) {
+      if (element.$$inputFix && !qxWeb(element).hasListener("input")) {
         qxWeb(element).off("keyup", qx.module.event.Keyboard._inputFix);
-        element.__inputFix = null;
+        element.$$inputFix = null;
       }
     },
 
@@ -177,8 +177,8 @@ qx.Class.define("qx.module.event.Keyboard", {
       var target = ev.getTarget();
       var newValue = qxWeb(target).getValue();
 
-      if (!target.__oldInputValue || target.__oldInputValue !== newValue) {
-        target.__oldInputValue = newValue;
+      if (!target.$$oldInputValue || target.$$oldInputValue !== newValue) {
+        target.$$oldInputValue = newValue;
         ev.type = ev._type = "input";
         target.$$emitter.emit("input", ev);
       }

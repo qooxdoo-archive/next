@@ -107,21 +107,21 @@ qx.Class.define("qx.module.Event", {
         // save the useCapture for removing
         el.$$emitter.getEntryById(el.$$lastlistenerId).useCapture = !!useCapture;
 
-        if (!el.__listener) {
-          el.__listener = {};
+        if (!el.$$listener) {
+          el.$$listener = {};
         }
-        if (!el.__listener[type]) {
-          el.__listener[type] = {};
+        if (!el.$$listener[type]) {
+          el.$$listener[type] = {};
         }
-        el.__listener[type][el.$$lastlistenerId] = bound;
+        el.$$listener[type][el.$$lastlistenerId] = bound;
 
         if (!context) {
           // store a reference to the dynamically created context so we know
           // what to check for when removing the listener
-          if (!el.__ctx) {
-            el.__ctx = {};
+          if (!el.$$ctx) {
+            el.$$ctx = {};
           }
-          el.__ctx[el.$$lastlistenerId] = ctx;
+          el.$$ctx[el.$$lastlistenerId] = ctx;
         }
       }
       return this;
@@ -147,7 +147,7 @@ qx.Class.define("qx.module.Event", {
         var el = this[j];
 
         // continue if no listeners are available
-        if (!el.__listener) {
+        if (!el.$$listener) {
           continue;
         }
 
@@ -156,20 +156,20 @@ qx.Class.define("qx.module.Event", {
           types.push(type);
         } else {
           // no type specified, remove all listeners
-          for (var listenerType in el.__listener) {
+          for (var listenerType in el.$$listener) {
             types.push(listenerType);
           }
         }
 
         for (var i=0, l=types.length; i<l; i++) {
-          for (var id in el.__listener[types[i]]) {
-            var storedListener = el.__listener[types[i]][id];
+          for (var id in el.$$listener[types[i]]) {
+            var storedListener = el.$$listener[types[i]][id];
             if (removeAll || storedListener == listener || storedListener.original == listener) {
               // get the stored context
-              var hasStoredContext = typeof el.__ctx !== "undefined" && el.__ctx[id];
+              var hasStoredContext = typeof el.$$ctx !== "undefined" && el.$$ctx[id];
               var storedContext;
               if (!context && hasStoredContext) {
-                storedContext = el.__ctx[id];
+                storedContext = el.$$ctx[id];
               }
               // remove the listener from the emitter
               el.$$emitter.off(types[i], storedListener, storedContext || context);
@@ -180,10 +180,10 @@ qx.Class.define("qx.module.Event", {
                 qx.bom.Event.removeNativeListener(el, types[i], storedListener, useCapture);
               }
 
-              delete el.__listener[types[i]][id];
+              delete el.$$listener[types[i]][id];
 
               if (hasStoredContext) {
-                delete el.__ctx[id];
+                delete el.$$ctx[id];
               }
             }
           }

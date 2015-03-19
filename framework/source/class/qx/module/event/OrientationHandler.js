@@ -47,12 +47,12 @@ qx.Class.define("qx.module.event.OrientationHandler", {
         throw new Error("The 'orientationchange' event is only available on window objects!");
       }
 
-      if (!element.__orientationHandler) {
+      if (!element.$$orientationHandler) {
         if (!element.$$emitter) {
           element.$$emitter = new qx.event.Emitter();
         }
 
-        element.__orientationHandler = new qx.event.handler.OrientationCore(element, element.$$emitter);
+        element.$$orientationHandler = new qx.event.handler.OrientationCore(element, element.$$emitter);
       }
     },
 
@@ -64,9 +64,9 @@ qx.Class.define("qx.module.event.OrientationHandler", {
      */
     unregister : function(element)
     {
-      if (element.__orientationHandler) {
+      if (element.$$orientationHandler) {
         if (!element.$$emitter) {
-          element.__orientationHandler = null;
+          element.$$orientationHandler = null;
         }
         else {
           var hasListener = false;
@@ -77,7 +77,7 @@ qx.Class.define("qx.module.event.OrientationHandler", {
             }
           });
           if (!hasListener) {
-            element.__orientationHandler = null;
+            element.$$orientationHandler = null;
           }
         }
       }
