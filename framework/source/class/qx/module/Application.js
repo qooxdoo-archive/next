@@ -40,6 +40,13 @@ qx.Class.define("qx.module.Application", {
 
     not: function(data) {
       return !data;
+    },
+
+    trim: function(data) {
+      if (data && data.trim) {
+        data = data.trim();
+      }
+      return data;
     }
   },
 
@@ -53,7 +60,6 @@ qx.Class.define("qx.module.Application", {
 
   members : {
     __modelProperties : null,
-
 
     _setUp : function(root) {
       // repeat preparsing
@@ -72,15 +78,20 @@ qx.Class.define("qx.module.Application", {
       // initialize all widgets before (those could remove invalid binding templates)
       qxWeb("*[data-qx-widget]", root).forEach(function() {});
 
-      this._setUpElement(root);
+      this._setUpElementBinding(root);
       qxWeb("*[data-bind]", root).forEach(function(el) {
-        this._setUpElement(el);
+        this._setUpElementBinding(el);
+      }.bind(this));
+
+      this._setUpElementEvents(root);
+      qxWeb("*[data-event]", root).forEach(function(el) {
+        this._setUpElementEvents(el);
       }.bind(this));
     },
 
 
-    _setUpElement: function(el) {
-      this._getBindings(el.getAttribute("data-bind")).forEach(function(binding) {
+    _setUpElementBinding: function(el) {
+      this._getActionAndContent(el.getAttribute("data-bind")).forEach(function(binding) {
         var action = binding[0];
         var content = binding[1];
 
@@ -102,7 +113,19 @@ qx.Class.define("qx.module.Application", {
     },
 
 
-    _getBindings: function(def) {
+    _setUpElementEvents: function(el) {
+      var event = el.getData("event");
+      this._getActionAndContent(el.getAttribute("data-event")).forEach(function(event) {
+        var eventName = event[0];
+        var handler = event[1].replace("()", "");
+        el.on(eventName, function(handler, e) {
+          this[handler].call(el, e, this);
+        }.bind(this, handler));
+      }.bind(this));
+    },
+
+
+    _getActionAndContent: function(def) {
       if (!def) {
         return [];
       }

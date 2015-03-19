@@ -282,7 +282,7 @@ qx.Class.define("qx.ui.List",
         return null;
       }
 
-      while (this.getChildren().indexOf(element) == -1) {
+      while (element && this.getChildren().indexOf(element) == -1) {
         element = element.parentNode;
       }
 
