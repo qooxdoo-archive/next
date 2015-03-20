@@ -307,7 +307,7 @@ qx.Class.define("qx.bom.element.AnimationCss",
           if (!(possibleKeys.indexOf(name) != -1)) {
             qx.Class.warn("Unknown key '" + name + "' in the animation description.");
           }
-        };
+        }
 
         if (desc.keyFrames == null) {
           qx.Class.warn("No 'keyFrames' given > 0");
@@ -386,7 +386,7 @@ qx.Class.define("qx.bom.element.AnimationCss",
     __clearCache: function() {
       this.__id = 0;
       if (this.__sheet) {
-        this.__sheet.ownerNode.remove()
+        this.__sheet.ownerNode.remove();
         this.__sheet = null;
         this.__rules = {};
       }
@@ -404,7 +404,7 @@ qx.Class.define("qx.bom.element.AnimationCss",
         if (!document.hidden) {
           statics.__clearCache();
         }
-      }, false)
+      }, false);
     }
   }
 });

@@ -374,6 +374,7 @@ qx.Class.define("qx.Class",
      *
      * supported property keys: set, get, writable, nullable, apply, event, init, check
      */
+    /* eslint no-shadow:0 */
     addProperties : function(proto, properties) {
       var propertyMap = {};
       if (!proto.$$properties) {

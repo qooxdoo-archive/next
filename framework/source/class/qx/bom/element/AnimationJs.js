@@ -171,12 +171,12 @@ qx.Class.define("qx.bom.element.AnimationJs",
               units[name] = "";
             }
           }
-        };
+        }
       }
       // add all missing keys
-      for (var percent in keyFrames) {
+      for (percent in keyFrames) {
         var frame = keyFrames[percent];
-        for (var name in units) {
+        for (name in units) {
           if (frame[name] == undefined) {
             if (name in el.style) {
               // get the computed style if possible
@@ -193,8 +193,8 @@ qx.Class.define("qx.bom.element.AnimationJs",
               frame[name] = "0" + units[name];
             }
           }
-        };
-      };
+        }
+      }
     },
 
 
@@ -215,7 +215,7 @@ qx.Class.define("qx.bom.element.AnimationJs",
           transforms[name] = frame[name];
           delete frame[name];
         }
-      };
+      }
       if (transforms) {
         var transformStyle = qx.bom.element.Transform.getCss(transforms).split(":");
         if (transformStyle.length > 1) {
@@ -285,7 +285,7 @@ qx.Class.define("qx.bom.element.AnimationJs",
                 transforms[name][j] = this.__getNextValue(item, last[name], timing, x);
               }
             } else {
-              var x = calculationIndex / stepsToNext;
+              x = calculationIndex / stepsToNext;
               transforms[name] = this.__getNextValue(nItem, last[name], timing, x);
             }
 
@@ -296,9 +296,9 @@ qx.Class.define("qx.bom.element.AnimationJs",
             var value1 = qx.util.ColorUtil.cssStringToRgb(nItem);
             var stepValue = [];
             // calculate every color chanel
-            for (var j=0; j < value0.length; j++) {
+            for (j = 0; j < value0.length; j++) {
               var range = value0[j] - value1[j];
-              var x = calculationIndex / stepsToNext;
+              x = calculationIndex / stepsToNext;
               var timingX = qx.bom.AnimationFrame.calculateTiming(timing, x);
               stepValue[j] = parseInt(value0[j] - range * timingX, 10);
             }
@@ -306,7 +306,7 @@ qx.Class.define("qx.bom.element.AnimationJs",
             delta[i][name] = qx.util.ColorUtil.rgbToHexString(stepValue);
 
           } else if (!isNaN(parseFloat(nItem))) {
-            var x = calculationIndex / stepsToNext;
+            x = calculationIndex / stepsToNext;
             delta[i][name] = this.__getNextValue(nItem, last[name], timing, x);
           } else {
             delta[i][name] = last[name] + "";
@@ -532,8 +532,8 @@ qx.Class.define("qx.bom.element.AnimationJs",
       // get min difference
       var minDiff = 100;
       for (var i=0; i < keys.length - 1; i++) {
-        minDiff = Math.min(minDiff, keys[i+1] - keys[i])
-      };
+        minDiff = Math.min(minDiff, keys[i+1] - keys[i]);
+      }
 
       var stepTime = duration * minDiff / 100;
       while (stepTime > this.__maxStepTime) {
@@ -552,8 +552,8 @@ qx.Class.define("qx.bom.element.AnimationJs",
       var keys = Object.keys(keyFrames);
       for (var i=0; i < keys.length; i++) {
         keys[i] = parseInt(keys[i], 10);
-      };
-      keys.sort(function(a,b) {return a-b;});
+      }
+      keys.sort(function(a, b) {return a-b; });
       return keys;
     }
   }

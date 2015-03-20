@@ -119,7 +119,7 @@ qx.Class.define("qx.bom.Font",
      */
     fromConfig : function(config)
     {
-      var font = new qx.bom.Font;
+      var font = new qx.bom.Font();
       for (var prop in config) {
         font[prop] = config[prop];
       }
@@ -233,18 +233,18 @@ qx.Class.define("qx.bom.Font",
 
 
     // property apply
-    _applySize : function(value, old) {
+    _applySize : function(value) {
       this.__lookupMap.fontSize = value === null ? null : value + "px";
     },
 
 
-    _applyLineHeight : function(value, old) {
+    _applyLineHeight : function(value) {
       this.__lookupMap.lineHeight = value === null ? null : value;
     },
 
 
     // property apply
-    _applyFamily : function(value, old)
+    _applyFamily : function(value)
     {
       var family = "";
 
@@ -271,24 +271,24 @@ qx.Class.define("qx.bom.Font",
 
 
     // property apply
-    _applyBold : function(value, old) {
+    _applyBold : function(value) {
       this.__lookupMap.fontWeight = value == null ? null : value ? "bold" : "normal";
     },
 
 
     // property apply
-    _applyItalic : function(value, old) {
+    _applyItalic : function(value) {
       this.__lookupMap.fontStyle = value == null ? null : value ? "italic" : "normal";
     },
 
 
     // property apply
-    _applyDecoration : function(value, old) {
+    _applyDecoration : function(value) {
       this.__lookupMap.textDecoration = value == null ? null : value;
     },
 
     // property apply
-    _applyColor : function(value, old) {
+    _applyColor : function(value) {
       this.__lookupMap.color = null;
       if (value) {
         this.__lookupMap.color = value;
@@ -296,7 +296,7 @@ qx.Class.define("qx.bom.Font",
     },
 
     // property apply
-    _applyTextShadow : function(value, old) {
+    _applyTextShadow : function(value) {
       this.__lookupMap.textShadow = value == null ? null : value;
     },
 

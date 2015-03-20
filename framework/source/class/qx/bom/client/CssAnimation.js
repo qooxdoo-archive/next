@@ -169,7 +169,7 @@ qx.Class.define("qx.bom.client.CssAnimation",
       keyFrames.unshift("@keyframes");
 
       var sheet = qx.bom.Stylesheet.createElement();
-      for (var i=0; i < keyFrames.length; i++) {
+      for (i = 0; i < keyFrames.length; i++) {
         try {
           qx.bom.Stylesheet.addRule(sheet, keyFrames[i] + " name", "");
           return keyFrames[i];

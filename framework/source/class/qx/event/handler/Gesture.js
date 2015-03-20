@@ -381,6 +381,7 @@ qx.Class.define("qx.event.handler.Gesture", {
      * @param target {Element} The target of the momentum roll events
      * @param time {Number ?} The time in ms between the last two calls
      */
+     /* eslint no-shadow:0 */
     __handleRollImpulse : function(deltaX, deltaY, domEvent, target, time) {
       var oldTimeoutId = domEvent.timeoutId;
       // do nothing if we don't need to scroll

@@ -425,13 +425,13 @@ qx.Class.define("qx.application.Routing", {
       }
 
       length = forward.length;
-      for (var i = 0; i < length; i++)
+      for (i = 0; i < length; i++)
       {
         if (forward[i].path == path)
         {
           entry = forward[i];
           var toBack = forward.splice(0, i+1);
-          for (var a = 0; a < toBack.length; a++){
+          for (a = 0; a < toBack.length; a++){
             back.unshift(toBack[a]);
           }
           break;

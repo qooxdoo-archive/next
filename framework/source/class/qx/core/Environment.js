@@ -965,8 +965,8 @@ qx.Class.define("qx.core.Environment",
      * @return {Function} A function which could be used by a test.
      */
     __createCheck : function(value) {
-      return function(value) {
-        return value;
+      return function(val) {
+        return val;
       }.bind(null, value);
     }
   },

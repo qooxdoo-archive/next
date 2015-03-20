@@ -365,6 +365,7 @@ qx.Class.define("qx.bom.Template", {
      * all tokens that appear in that section and 2) the index in the original
      * template that represents the end of that section.
      */
+    /* eslint no-shadow:0 */
       function nestTokens(tokens) {
         var nestedTokens = [];
         var collector = nestedTokens;
@@ -399,6 +400,7 @@ qx.Class.define("qx.bom.Template", {
      * Combines the values of consecutive text tokens in the given `tokens` array
      * to a single token.
      */
+    /* eslint no-shadow:0 */
       function squashTokens(tokens) {
         var squashedTokens = [];
 

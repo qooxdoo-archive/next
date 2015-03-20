@@ -155,7 +155,7 @@ qx.Class.define("qx.bom.Html",
           wrap[1] == "<table>" && !hasBody ? div.childNodes :
           [];
 
-        for (var j=tbody.length-1; j>=0 ; --j)
+        for (var j = tbody.length - 1; j >= 0; --j)
         {
           if (tbody[j].tagName.toLowerCase() === "tbody" && !tbody[j].childNodes.length) {
             tbody[j].parentNode.removeChild(tbody[j]);

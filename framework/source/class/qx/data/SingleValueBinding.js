@@ -414,6 +414,7 @@ qx.Class.define("qx.data.SingleValueBinding",
      *   converter.
      * @return {var} A map containing the listener ids and the targets.
      */
+     /* eslint no-shadow: 0 */
     __setUpTargetBinding : function(
       sourceObject, sourcePropertyChain, targetObject, targetPropertyChain, options
     ) {

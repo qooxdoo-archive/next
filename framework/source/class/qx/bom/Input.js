@@ -85,7 +85,7 @@ qx.Class.define("qx.bom.Input",
       }
 
       // Work on a copy to not modify given attributes map
-      var attributes = attributes ? qx.lang.Object.clone(attributes) : {};
+      attributes = attributes ? qx.lang.Object.clone(attributes) : {};
 
       var tag;
 

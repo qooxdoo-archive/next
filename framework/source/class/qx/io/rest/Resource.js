@@ -681,8 +681,8 @@ qx.Class.define("qx.io.rest.Resource",
         var action = varargs;
         var reqs = this.__requests[action];
         if (this.__requests[action]) {
-          reqs.forEach(function(req) {
-            req.abort();
+          reqs.forEach(function(request) {
+            request.abort();
           });
         }
       }

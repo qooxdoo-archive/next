@@ -55,7 +55,7 @@ qx.Class.define("qx.bom.PageVisibility",
     var self = this;
     // forward the event
     qx.bom.Event.addNativeListener(this.__doc, this.__eventName, function(e) {
-      self.emit("change", e)
+      self.emit("change", e);
     });
   },
 
@@ -91,16 +91,16 @@ qx.Class.define("qx.bom.PageVisibility",
           this.__eventName = prefix[i].toLowerCase() + "visibilitychange";
           break;
         }
-      };
+      }
 
       // check for the visibilityState attribute name
-      for (var i=0; i < prefix.length; i++) {
-        var attr = prefix[i].toLowerCase() + "VisibilityState";
+      for (i = 0; i < prefix.length; i++) {
+        attr = prefix[i].toLowerCase() + "VisibilityState";
         if (this.__doc[attr] != undefined) {
           this.__visibilityAttr = attr;
           break;
         }
-      };
+      }
 
       // use the non prefixed if not supported prefixed
       if (this.__hiddenAttr == null) {

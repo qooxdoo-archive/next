@@ -109,11 +109,11 @@ qx.Class.define("qx.bom.element.Class",
         if (old)
         {
           result = old.split(this.__splitter);
-          for (var i=0, l=result.length; i<l; i++) {
+          for (var i = 0, l = result.length; i < l; i++) {
             keys[result[i]] = true;
           }
 
-          for (var i=0, l=classes.length; i<l; i++)
+          for (i = 0, l = classes.length; i < l; i++)
           {
             if (!keys[classes[i]]) {
               result.push(classes[i]);

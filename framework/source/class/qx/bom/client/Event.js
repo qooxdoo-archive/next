@@ -137,7 +137,7 @@ qx.Class.define("qx.bom.client.Event",
           target = targets[i];
           break;
         }
-      };
+      }
 
       return {type: type, target: target};
     }

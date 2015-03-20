@@ -77,7 +77,7 @@ qx.Class.define("qx.module.Event", {
           typeHooks[j](el, type, listener, context);
         }
 
-        var bound = function(el, event) {
+        var bound = function(elem, event) {
           // apply normalizations
           var registry = qx.module.Event.__normalizations;
           // generic
@@ -88,7 +88,7 @@ qx.Class.define("qx.module.Event", {
           }
 
           for (var x=0, y=normalizations.length; x<y; x++) {
-            event = normalizations[x](event, el, type);
+            event = normalizations[x](event, elem, type);
           }
           // call original listener with normalized event
           listener.apply(this, [event]);
@@ -360,8 +360,8 @@ qx.Class.define("qx.module.Event", {
         }
       }
       // make sure no emitter object has been copied
-      targetCopy.forEach(function(el) {
-        el.$$emitter = null;
+      targetCopy.forEach(function(elem) {
+        elem.$$emitter = null;
       });
 
       for (i=0; i < source.length; i++) {

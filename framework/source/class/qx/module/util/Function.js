@@ -1,4 +1,5 @@
 /* eslint strict:0 */
+/* eslint no-caller:0 */
 /* ************************************************************************
 
    qooxdoo - the new era of web development
@@ -36,6 +37,7 @@
  *
  * @group (Utilities)
  */
+
 qx.Class.define("qx.module.util.Function", {
 
   statics :

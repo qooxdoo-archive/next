@@ -62,10 +62,10 @@ qx.Class.define("qx.bom.client.Plugin",
     {
       // IE Support
       if (qx.bom.client.Plugin.getActiveX()) {
-       try {
-         new ActiveXObject("Skype.Detection");
-         return true;
-       } catch (e) {}
+        try {
+          new ActiveXObject("Skype.Detection");
+          return true;
+        } catch (e) {}
       }
 
       var mimeTypes = navigator.mimeTypes;
@@ -80,7 +80,7 @@ qx.Class.define("qx.bom.client.Plugin",
           if (desc.type.indexOf("skype.click2call") != -1) {
             return true;
           }
-        };
+        }
       }
 
       return false;

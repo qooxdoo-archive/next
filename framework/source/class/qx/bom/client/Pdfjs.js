@@ -79,7 +79,7 @@ qx.Class.define("qx.bom.client.Pdfjs",
       var resManager = qx.util.ResourceManager.getInstance();
       var urlToPdf = resManager.toUri("qx/static/empty.pdf");
       var pluginDetect = qx.bom.client.Pdfjs.__getPluginDetect();
-      var pluginDetectCallback = function(PluginDetect) {
+      var pluginDetectCallback = function() {
         var result = (pluginDetect.isMinVersion('PDFjs', 0) === 0);
         callback.call(context, result);
       };
@@ -308,8 +308,7 @@ qx.Class.define("qx.bom.client.Pdfjs",
         return o
       },
       findNavPlugin_: function (f, d) {
-        var e = this,
-          c = f.description || "",
+        var c = f.description || "",
           b = f.name || "",
           a = {};
         if ((d.Find.test(c) && (!d.Find2 || d.Find2.test(b)) && (!d.Num || d.Num.test(RegExp.leftContext + RegExp.rightContext))) || (d.Find.test(b) && (!d.Find2 || d.Find2.test(c)) && (!d.Num || d.Num.test(RegExp.leftContext + RegExp.rightContext)))) {
@@ -326,6 +325,7 @@ qx.Class.define("qx.bom.client.Pdfjs",
             status: -3,
             plugin: 0
           };
+
         if (!c.isString(d)) {
           return a
         }
@@ -626,7 +626,7 @@ qx.Class.define("qx.bom.client.Pdfjs",
               g.DoneHndlrs = []
             }
             if (g.getVersionDone != 1) {
-              var k = b.getVersion ? b.getVersion(j, d, c) : b.isMinVersion(j, "0", d, c)
+              b.getVersion ? b.getVersion(j, d, c) : b.isMinVersion(j, "0", d, c)
             }
             if (g.installed != -0.5 && g.installed != 0.5) {
               b.ev.call(h);
@@ -817,7 +817,7 @@ qx.Class.define("qx.bom.client.Pdfjs",
           c = d && f.isNum(d.offsetWidth) ? d.offsetWidth : a;
           return c > 0 ? c : (b > 0 ? b : Math.max(c, b))
         },
-        obj: function (b) {
+        obj: function () {
           var d = this,
             c = d.span,
             a = c && c.firstChild ? c.firstChild : null;
@@ -900,9 +900,7 @@ qx.Class.define("qx.bom.client.Pdfjs",
           return b.pi ? -0.1 : 0
         },
         setStyle: function (b, h) {
-          var c = this,
-            d = c.$,
-            g = b.style,
+          var g = b.style,
             a;
           if (g && h) {
             for (a = 0; a < h.length; a = a + 2) {
@@ -954,7 +952,7 @@ qx.Class.define("qx.bom.client.Pdfjs",
             f = r.$,
             s = document,
             u, l, o = s.createElement("span"),
-            j, a;
+            j;
           if (!f.isDefined(h)) {
             h = ""
           }
@@ -1007,8 +1005,8 @@ qx.Class.define("qx.bom.client.Pdfjs",
             m.appendChild(o);
             try {
               o.innerHTML = u
-            } catch (ex) {};
-            l.span = o;
+            } catch (ex) {}
+            l.span = o
             l.winLoaded = f.win.loaded
           }
           return l
@@ -1082,7 +1080,6 @@ qx.Class.define("qx.bom.client.Pdfjs",
           OTF: null,
           setPluginStatus: function () {
             var b = this,
-              c = b.$,
               d = b.doc.result,
               a = b.OTF;
             b.version = null;
@@ -1103,7 +1100,6 @@ qx.Class.define("qx.bom.client.Pdfjs",
               e = d.$,
               a = false,
               g = d.verify,
-              h = d.NOTF,
               f = d.doc;
             if (d.getVersionDone === null) {
               d.OTF = 0;
@@ -1126,7 +1122,7 @@ qx.Class.define("qx.bom.client.Pdfjs",
             $: 1,
             result: 0,
             mimeType: "application/pdf",
-            mimeType_dummy: "application/dummymimepdf",
+            mimeTypeDummy: "application/dummymimepdf",
             DummySpanTagHTML: 0,
             HTML: 0,
             DummyObjTagHTML1: 0,
@@ -1158,9 +1154,8 @@ qx.Class.define("qx.bom.client.Pdfjs",
             queryObject: function (b) {
               var j = this,
                 f = j.$,
-                g = j.$$,
                 d = j.HTML ? j.HTML.obj() : 0,
-                a, l, c, i, k = f.dbug && !f.win.loaded ? 0 : 1;
+                a, l, k = f.dbug && !f.win.loaded ? 0 : 1;
               a = f.DOM.getTagStatus(j.HTML, j.DummySpanTagHTML, j.DummyObjTagHTML1, 0, b);
               if ((!j.result || f.dbug) && a < 0) {
                 if (k) {
@@ -1185,14 +1180,14 @@ qx.Class.define("qx.bom.client.Pdfjs",
                   j.result = 1
                 }
                 j.method += "4,"
-              };
+              }
               return j.result
             },
             insertHTMLQuery: function () {
               var g = this,
                 f = g.$,
                 d = g.$$,
-                c, b, e = 1,
+                b, e = 1,
                 a = f.DOM.altHTML;
               if (g.isDisabled()) {
                 return g.result
@@ -1208,7 +1203,7 @@ qx.Class.define("qx.bom.client.Pdfjs",
                 g.HTML = f.DOM.insert("object", ["type", g.mimeType, "data", b], ["src", b], a, d, e)
               }
               if (!g.DummyObjTagHTML1) {
-                g.DummyObjTagHTML1 = f.DOM.insert("object", ["type", g.mimeType_dummy], [], a, d, e)
+                g.DummyObjTagHTML1 = f.DOM.insert("object", ["type", g.mimeTypeDummy], [], a, d, e)
               }
               g.queryObject();
               if ((g.result > 0 || g.result < 0) && !f.dbug) {
@@ -1263,8 +1258,7 @@ qx.Class.define("qx.bom.client.Pdfjs",
             queryCompleted: function () {
               var d = this,
                 b = d.$,
-                a = d.$$,
-                c = a.doc;
+                a = d.$$;
               if (a.OTF == 4) {
                 return
               }
@@ -1280,17 +1274,16 @@ qx.Class.define("qx.bom.client.Pdfjs",
         zz: 0
       }
     };
-    PluginDetect.INIT();
-    /**
-     * End of original code.
-     */
+  PluginDetect.INIT();
+  /**
+  * End of original code.
+  */
 
-      var origPluginDetect = PluginDetect;
+  var origPluginDetect = PluginDetect;
 
-      // Expose to qooxdoo
-      qx.bom.client.Pdfjs.__getPluginDetect = function() {
-        return origPluginDetect;
-      };
-
-  }).call(this);
+  // Expose to qooxdoo
+  qx.bom.client.Pdfjs.__getPluginDetect = function() {
+    return origPluginDetect;
+  };
+}).call(this);
 

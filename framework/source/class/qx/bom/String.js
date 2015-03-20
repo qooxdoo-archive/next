@@ -392,7 +392,7 @@ qx.Class.define("qx.bom.String",
      */
     fromText : function(str)
     {
-      return qx.bom.String.escape(str).replace(/(  |\n)/g, function(chr)
+      return qx.bom.String.escape(str).replace(/( {2}|\n)/g, function(chr)
       {
         var map =
         {
@@ -435,6 +435,6 @@ qx.Class.define("qx.bom.String",
   classDefined : function(statics)
   {
     /** Mapping of char codes to HTML entity names */
-    statics.FROM_CHARCODE = qx.lang.Object.invert(statics.TO_CHARCODE)
-;  }
+    statics.FROM_CHARCODE = qx.lang.Object.invert(statics.TO_CHARCODE);
+  }
 });

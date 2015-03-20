@@ -14,7 +14,7 @@
      See the LICENSE file in the project's top-level directory for details.
 
 ************************************************************************ */
-
+/* eslint no-shadow:0 */
 qx.Class.define("qx.core.Wrapper", {
   extend : Array,
   construct : function() {

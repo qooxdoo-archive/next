@@ -136,7 +136,7 @@ qx.Class.define("qx.bom.element.Animation",
 
       var transformKeys = ["scale", "rotate", "skew", "translate"];
       for (var i=0; i < keys.length; i++) {
-        var key = qx.lang.String.camelCase(keys[i]);
+        key = qx.lang.String.camelCase(keys[i]);
         if (!(key in el.style)) {
           // check for transform keys
           if (transformKeys.indexOf(keys[i]) != -1) {
@@ -148,7 +148,7 @@ qx.Class.define("qx.bom.element.Animation",
           }
           return false;
         }
-      };
+      }
       return true;
     }
   }
