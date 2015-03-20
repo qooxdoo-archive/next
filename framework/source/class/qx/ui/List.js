@@ -324,6 +324,9 @@ qx.Class.define("qx.ui.List",
      * @param evt {qx.event.type.Data} data event which contains model changeBubble data.
      */
     __onModelChangeBubble : function(data) {
+      if (this.__itemTemplate) {
+        return; // don't rerender if we use the data binding API
+      }
       var isArray = (qx.lang.Type.isArray(data.old) && qx.lang.Type.isArray(data.value));
       if (!isArray || (isArray && data.old.length == data.value.length)) {
         var rows = this._extractRowsToRender(data.name);

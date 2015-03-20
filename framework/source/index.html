@@ -65,6 +65,8 @@
       app.addModel("primitive", null),
       qx.data.SingleValueBinding.bind(store, "model", app, "primitive");
 
+      // binding of inhomogen structures, maybe using a silent fail option of the SingleValueBinding
+      // TODO control over binding direction (no two way binding e.g.)
     });
   </script>
 </head>
