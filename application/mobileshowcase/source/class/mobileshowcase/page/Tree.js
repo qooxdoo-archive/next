@@ -79,10 +79,10 @@ qx.Class.define("mobileshowcase.page.Tree",
 
       tree.setModel(data.result);
 
-      tree.on("selected", function(folder) {
-        var label = qxWeb(folder).find("span:first-child");
-        console.log("Selected Folder:", label.getHtml());
-      });
+      // tree.on("selected", function(folder) {
+      //   var label = qxWeb(folder).find("span:first-child");
+      //   console.log("Selected Folder:", label.getHtml());
+      // });
     }
   }
 });

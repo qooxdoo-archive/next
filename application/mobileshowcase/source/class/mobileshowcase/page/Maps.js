@@ -18,6 +18,8 @@
 
 ************************************************************************ */
 
+/*global OpenLayers */
+
 /**
  * Mobile page showing an OpenStreetMap map.
  *
@@ -98,7 +100,7 @@ qx.Class.define("mobileshowcase.page.Maps",
       descriptionLabel.addClass("osmMapLabel");
 
       // TOGGLE BUTTON
-      var toggleNavigationButton = new qx.ui.form.ToggleButton(true,"ON","OFF",12);
+      var toggleNavigationButton = new qx.ui.form.ToggleButton(true, "ON", "OFF", 12);
 
       // SHOW MY POSITION BUTTON
       this._showMyPositionButton = new qx.ui.Button("Find me!");
@@ -106,7 +108,7 @@ qx.Class.define("mobileshowcase.page.Maps",
       toggleNavigationButton.on("changeValue", function() {
         var newNavBarState = !this.navigationBarHidden;
         this.navigationBarHidden = newNavBarState;
-      },this);
+      }, this);
 
       var groupPosition = new qx.ui.form.Group();
       groupPosition.append(this._showMyPositionButton);
@@ -162,7 +164,7 @@ qx.Class.define("mobileshowcase.page.Maps",
     _zoomToPosition : function(longitude, latitude, zoom, showMarker) {
       var fromProjection = new OpenLayers.Projection("EPSG:4326");
       var toProjection = new OpenLayers.Projection("EPSG:900913");
-      var mapPosition = new OpenLayers.LonLat(longitude,latitude).transform(fromProjection, toProjection);
+      var mapPosition = new OpenLayers.LonLat(longitude, latitude).transform(fromProjection, toProjection);
 
       this._map.setCenter(mapPosition, zoom);
 
@@ -187,11 +189,11 @@ qx.Class.define("mobileshowcase.page.Maps",
         this._markers.removeMarker(this._myPositionMarker);
       }
 
-      this._myPositionMarker = new OpenLayers.Marker(mapPosition, icon);
-
       var size = new OpenLayers.Size(21, 25);
       var offset = new OpenLayers.Pixel(-(size.w / 2), -size.h);
       var icon = new OpenLayers.Icon('http://www.openlayers.org/dev/img/marker.png', size, offset);
+
+      this._myPositionMarker = new OpenLayers.Marker(mapPosition, icon);
 
       this._markers.addMarker(this._myPositionMarker);
     },
@@ -238,7 +240,7 @@ qx.Class.define("mobileshowcase.page.Maps",
 
     destruct : function()
     {
-      this._disposeObjects("_mapUri","_map","_myPositionMarker","_markers","_showMyPositionButton","_mapnikLayer");
+      this._disposeObjects("_mapUri", "_map", "_myPositionMarker", "_markers", "_showMyPositionButton", "_mapnikLayer");
     }
   }
 });

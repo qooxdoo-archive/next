@@ -66,7 +66,7 @@ qx.Class.define("mobileshowcase.page.Animation",
       this.super(mobileshowcase.page.Abstract, "_initialize");
 
       var list = new qx.ui.List({
-        configureItem : function(item, data, row)
+        configureItem : function(item, data)
         {
           item.setTitle(data.title);
           item.showArrow = true;

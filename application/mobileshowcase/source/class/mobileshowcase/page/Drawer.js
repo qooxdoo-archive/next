@@ -106,6 +106,11 @@ qx.Class.define("mobileshowcase.page.Drawer",
       new qx.ui.form.Row(radioAbove, "Above")
         .appendTo(positionGroup);
 
+      var radioBelow = new qx.ui.form.RadioButton().set({
+        name: "below",
+        value: true
+      });
+
       radioAbove.on("tap", function() {
         radioBelow.value = false;
         radioAbove.value = true;
@@ -115,11 +120,6 @@ qx.Class.define("mobileshowcase.page.Drawer",
         this._togglePositionZ(radioAbove.name, drawerBottom);
       }, this);
 
-
-      var radioBelow = new qx.ui.form.RadioButton().set({
-        name: "below",
-        value: true
-      });
       new qx.ui.form.Row(radioBelow, "Below")
         .appendTo(positionGroup);
 
@@ -144,7 +144,7 @@ qx.Class.define("mobileshowcase.page.Drawer",
     /**
      * Toggles the z-Index position of the target drawer.
      */
-    _togglePositionZ : function(position,target) {
+    _togglePositionZ : function(position, target) {
       target.setStyle("transitionDuration", "0s");
       target.setStyle("position", "relative");
 

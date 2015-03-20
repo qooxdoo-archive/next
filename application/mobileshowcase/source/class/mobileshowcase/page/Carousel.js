@@ -78,7 +78,7 @@ qx.Class.define("mobileshowcase.page.Carousel",
 
       var page5 = new qx.ui.Widget();
       page5.addClass("carousel-example-5");
-      page5.append(new qx.ui.Label("You can add as many pages as you want."),{flex:1});
+      page5.append(new qx.ui.Label("You can add as many pages as you want."), {flex:1});
 
       var moreButton = new qx.ui.Button("Add more pages");
       moreButton.addClass("example-button");
@@ -108,7 +108,7 @@ qx.Class.define("mobileshowcase.page.Carousel",
 
       var page6 = new qx.ui.Widget();
       page6.addClass("carousel-example-6");
-      page6.append(new qx.ui.Label("Previous page is shown when you swipe right."),{flex:1});
+      page6.append(new qx.ui.Label("Previous page is shown when you swipe right."), {flex:1});
 
       carousel.append(page1);
       carousel.append(page2);

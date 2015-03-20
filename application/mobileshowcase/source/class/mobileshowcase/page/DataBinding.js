@@ -119,7 +119,7 @@ qx.Class.define("mobileshowcase.page.DataBinding",
       var now = new Date();
       var date = now.toLocaleTimeString();
 
-      this.listData.insertAt(0,date);
+      this.listData.insertAt(0, date);
 
       this.__list.visibility = "visible";
     },
@@ -190,8 +190,7 @@ qx.Class.define("mobileshowcase.page.DataBinding",
       var self = this;
 
       var list = new qx.ui.List({
-      configureItem : function(item, data, row)
-        {
+        configureItem : function(item, data, row) {
           var stopCount = self.listData.getLength()-row;
           item.setTitle("Stop #"+stopCount);
           item.setSubtitle(data);

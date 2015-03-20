@@ -1,3 +1,4 @@
+"use strict";
 /* ************************************************************************
 
    qooxdoo - the new era of web development
@@ -77,8 +78,8 @@ qx.Class.define("mobileshowcase.page.Dialog",
 
       // ANCHOR POPUP
       var showAnchorButton = new qx.ui.Button("Anchor Popup");
-      showAnchorButton.on("tap", function(e) {
-          this.__anchorPopup.show();
+      showAnchorButton.on("tap", function() {
+        this.__anchorPopup.show();
       }, this);
 
       this.__anchorPopup = this.__createAnchorPopup(showAnchorButton);
@@ -98,7 +99,7 @@ qx.Class.define("mobileshowcase.page.Dialog",
 
        // PICKER DIALOG
       var showPickerButton = new qx.ui.Button("Picker");
-      showPickerButton.on("tap", function(e) {
+      showPickerButton.on("tap", function() {
         this.__pickerDialog.show();
       }, this);
 
@@ -106,7 +107,7 @@ qx.Class.define("mobileshowcase.page.Dialog",
 
       // ANCHORED MENU POPUP
       var showAnchorMenuButton = new qx.ui.Button("Anchor Menu");
-      showAnchorMenuButton.on("tap", function(e) {
+      showAnchorMenuButton.on("tap", function() {
         this.__anchorMenu.show();
       }, this);
 
@@ -123,22 +124,22 @@ qx.Class.define("mobileshowcase.page.Dialog",
 
       // BUTTONS
       var showPopupButton = new qx.ui.Button("Popup");
-      showPopupButton.on("tap", function(e) {
+      showPopupButton.on("tap", function() {
         this.__popup.show();
       }, this);
 
       var busyIndicatorButton = new qx.ui.Button("Busy Indicator");
-      busyIndicatorButton.on("tap", function(e) {
+      busyIndicatorButton.on("tap", function() {
         this.__busyPopup.toggleVisibility();
         window.setTimeout(this.__busyPopup.hide.bind(this.__busyPopup), 3000);
       }, this);
 
       var showMenuButton = new qx.ui.Button("Menu");
-      showMenuButton.on("tap", function(e) {
+      showMenuButton.on("tap", function() {
         this.__menu.show();
       }, this);
 
-      var popupGroup = new qx.ui.form.Group([],false);
+      var popupGroup = new qx.ui.form.Group([], false);
       popupGroup.append(this._createGroupTitle("Popup"));
       popupGroup.layout = new qx.ui.layout.VBox();
       showPopupButton.layoutPrefs = {flex:1};
@@ -146,7 +147,7 @@ qx.Class.define("mobileshowcase.page.Dialog",
       showAnchorButton.layoutPrefs = {flex:1};
       popupGroup.append(showAnchorButton);
 
-      var menuGroup = new qx.ui.form.Group([],false);
+      var menuGroup = new qx.ui.form.Group([], false);
       menuGroup.append(this._createGroupTitle("Menu"));
       menuGroup.layout = new qx.ui.layout.VBox();
       showMenuButton.layoutPrefs = {flex:1};
@@ -154,7 +155,7 @@ qx.Class.define("mobileshowcase.page.Dialog",
       showAnchorMenuButton.layoutPrefs = {flex:1};
       menuGroup.append(showAnchorMenuButton);
 
-      var otherGroup = new qx.ui.form.Group([],false);
+      var otherGroup = new qx.ui.form.Group([], false);
       otherGroup.append(this._createGroupTitle("Other"));
       otherGroup.layout = new qx.ui.layout.VBox();
       busyIndicatorButton.layoutPrefs = {flex:1};
@@ -165,11 +166,11 @@ qx.Class.define("mobileshowcase.page.Dialog",
       var groupContainer = new qx.ui.Widget();
       groupContainer.addClass("dialog-group");
       groupContainer.layout = new qx.ui.layout.HBox();
-      popupGroup.layoutPrefs =  {flex:1};
+      popupGroup.layoutPrefs = {flex:1};
       groupContainer.append(popupGroup);
-      menuGroup.layoutPrefs =  {flex:1};
+      menuGroup.layoutPrefs = {flex:1};
       groupContainer.append(menuGroup);
-      otherGroup.layoutPrefs =  {flex:1};
+      otherGroup.layoutPrefs = {flex:1};
       groupContainer.append(otherGroup);
 
       this.getContent().append(groupContainer);
@@ -181,10 +182,9 @@ qx.Class.define("mobileshowcase.page.Dialog",
 
     /**
     * Creates the date picker dialog.
-    * @param anchor {qx.ui.Widget} the anchor of the popup.
     * @return {qx.ui.dialog.Picker} the date picker.
     */
-    _createPicker : function(anchor) {
+    _createPicker : function() {
       var picker = this.__picker = new qx.ui.form.Picker();
 
       this.__pickerDaySlotData = this._createDayPickerSlot(0, new Date().getFullYear());
@@ -194,17 +194,17 @@ qx.Class.define("mobileshowcase.page.Dialog",
 
       picker.on("changeValue", this.__onPickerChangeValue, this);
 
-      var hidePickerButton = new qx.ui.Button("OK")
-        .setStyle("width", "100%");
-      hidePickerButton.on("tap", function(e) {
-        pickerDialog.hide();
-      }, this);
-
+      var hidePickerButton = new qx.ui.Button("OK").setStyle("width", "100%");
       var pickerDialogContent = new qx.ui.Widget();
+      var pickerDialog = this.__pickerDialog = new qx.ui.dialog.Popup(pickerDialogContent).appendTo(qxWeb(document.body));
+
+      pickerDialog.title = "Picker";
       pickerDialogContent.append(picker);
       pickerDialogContent.append(hidePickerButton);
-      var pickerDialog = this.__pickerDialog = new qx.ui.dialog.Popup(pickerDialogContent).appendTo(qxWeb(document.body));
-      pickerDialog.title = "Picker";
+
+      hidePickerButton.on("tap", function() {
+        pickerDialog.hide();
+      }, this);
     },
 
 
@@ -294,7 +294,7 @@ qx.Class.define("mobileshowcase.page.Dialog",
       var label = "Picker selection changed: ";
       value.forEach(function(item, slotIndex) {
         label = label + " [slot " + slotIndex + ": " + (item.title || item) + "]";
-      }.bind(this));
+      });
       this.__resultsLabel.value = label;
     },
 
