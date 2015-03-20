@@ -161,7 +161,7 @@ qx.Class.define("qx.dev.FakeServer", {
      * @param filter {Function} filter function to remove
      */
     removeFilter : function(filter) {
-     qx.lang.Array.remove(this.__sinon.FakeXMLHttpRequest.filters, filter);
+      qx.lang.Array.remove(this.__sinon.FakeXMLHttpRequest.filters, filter);
     },
 
 

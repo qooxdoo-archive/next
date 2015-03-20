@@ -31,17 +31,15 @@
  *
  * @require(qx.dev.StackTrace)
  */
-qx.Class.define("qx.log.Logger",
-{
-  statics :
-  {
+qx.Class.define("qx.log.Logger", {
+  statics: {
     /*
     ---------------------------------------------------------------------------
       CONFIGURATION
     ---------------------------------------------------------------------------
     */
 
-    __level : "debug",
+    __level: "debug",
 
 
     /**
@@ -49,7 +47,7 @@ qx.Class.define("qx.log.Logger",
      *
      * @param value {String} One of "debug", "info", "warn" or "error".
      */
-    setLevel : function(value) {
+    setLevel: function(value) {
       this.__level = value;
     },
 
@@ -60,7 +58,7 @@ qx.Class.define("qx.log.Logger",
      *
      * @return {Integer} Debug level
      */
-    getLevel : function() {
+    getLevel: function() {
       return this.__level;
     },
 
@@ -70,7 +68,7 @@ qx.Class.define("qx.log.Logger",
      *
      * @param value {Integer} Any positive integer
      */
-    setTreshold : function(value) {
+    setTreshold: function(value) {
       this.__buffer.setMaxMessages(value);
     },
 
@@ -81,7 +79,7 @@ qx.Class.define("qx.log.Logger",
      *
      * @return {Integer} Treshold value
      */
-    getTreshold : function() {
+    getTreshold: function() {
       return this.__buffer.getMaxMessages();
     },
 
@@ -96,11 +94,11 @@ qx.Class.define("qx.log.Logger",
     */
 
     /** @type {Map} Map of all known appenders by ID */
-    __appender : {},
+    __appender: {},
 
 
     /** @type {Integer} Last free appender ID */
-    __id : 0,
+    __id: 0,
 
 
     /**
@@ -109,8 +107,7 @@ qx.Class.define("qx.log.Logger",
      * @param appender {Class} A static appender class supporting at
      *   least a <code>process()</code> method to handle incoming messages.
      */
-    register : function(appender)
-    {
+    register: function(appender) {
       if (appender.$$id) {
         return;
       }
@@ -123,7 +120,7 @@ qx.Class.define("qx.log.Logger",
 
       // Insert previous messages
       var entries = this.__buffer.getAllLogEvents();
-      for (var i=0, l=entries.length; i<l; i++) {
+      for (var i = 0, l = entries.length; i < l; i++) {
         if (levels[entries[i].level] >= levels[this.__level]) {
           appender.process(entries[i]);
         }
@@ -136,8 +133,7 @@ qx.Class.define("qx.log.Logger",
      *
      * @param appender {Class} A static appender class
      */
-    unregister : function(appender)
-    {
+    unregister: function(appender) {
       var id = appender.$$id;
       if (id == null) {
         return;
@@ -165,7 +161,7 @@ qx.Class.define("qx.log.Logger",
      *   have any JavaScript data type. All data is serialized immediately and
      *   does not keep references to other objects.
      */
-    debug : function(object, message) {
+    debug: function(object, message) {
       qx.log.Logger.__log("debug", arguments);
     },
 
@@ -178,7 +174,7 @@ qx.Class.define("qx.log.Logger",
      *   have any JavaScript data type. All data is serialized immediately and
      *   does not keep references to other objects.
      */
-    info : function(object, message) {
+    info: function(object, message) {
       qx.log.Logger.__log("info", arguments);
     },
 
@@ -191,7 +187,7 @@ qx.Class.define("qx.log.Logger",
      *   have any JavaScript data type. All data is serialized immediately and
      *   does not keep references to other objects.
      */
-    warn : function(object, message) {
+    warn: function(object, message) {
       qx.log.Logger.__log("warn", arguments);
     },
 
@@ -204,7 +200,7 @@ qx.Class.define("qx.log.Logger",
      *   have any JavaScript data type. All data is serialized immediately and
      *   does not keep references to other objects.
      */
-    error : function(object, message) {
+    error: function(object, message) {
       qx.log.Logger.__log("error", arguments);
     },
 
@@ -214,10 +210,9 @@ qx.Class.define("qx.log.Logger",
      *
      * @param object {Object?} Contextual object (either instance or static class)
      */
-    trace : function(object) {
+    trace: function(object) {
       var trace = qx.dev.StackTrace.getStackTrace();
-      qx.log.Logger.__log("info",
-      [(typeof object !== "undefined" ? [object].concat(trace) : trace).join("\n")]);
+      qx.log.Logger.__log("info", [(typeof object !== "undefined" ? [object].concat(trace) : trace).join("\n")]);
     },
 
 
@@ -229,13 +224,11 @@ qx.Class.define("qx.log.Logger",
      *     arguments.callee if the calling method is to be deprecated.
      * @param msg {String?} Optional message to be printed.
      */
-    deprecatedMethodWarning : function(fcn, msg)
-    {
-      if (qx.core.Environment.get("qx.debug"))
-      {
+    deprecatedMethodWarning: function(fcn, msg) {
+      if (qx.core.Environment.get("qx.debug")) {
         var functionName = qx.lang.Function.getName(fcn);
         this.warn(
-          "The method '"+ functionName + "' is deprecated: " +
+          "The method '" + functionName + "' is deprecated: " +
           (msg || "Please consult the API documentation of this method for alternatives.")
         );
         this.trace();
@@ -250,13 +243,11 @@ qx.Class.define("qx.log.Logger",
      * @param clazz {Class} reference to the deprecated class.
      * @param msg {String?} Optional message to be printed.
      */
-    deprecatedClassWarning : function(clazz, msg)
-    {
-      if (qx.core.Environment.get("qx.debug"))
-      {
+    deprecatedClassWarning: function(clazz, msg) {
+      if (qx.core.Environment.get("qx.debug")) {
         var className = clazz.classname || "unknown";
         this.warn(
-          "The class '"+className+"' is deprecated: " +
+          "The class '" + className + "' is deprecated: " +
           (msg || "Please consult the API documentation of this class for alternatives.")
         );
         this.trace();
@@ -272,13 +263,11 @@ qx.Class.define("qx.log.Logger",
      * @param event {String} deprecated event name.
      * @param msg {String?} Optional message to be printed.
      */
-    deprecatedEventWarning : function(clazz, event, msg)
-    {
-      if (qx.core.Environment.get("qx.debug"))
-      {
+    deprecatedEventWarning: function(clazz, event, msg) {
+      if (qx.core.Environment.get("qx.debug")) {
         var className = clazz.self ? clazz.self.classname : "unknown";
         this.warn(
-          "The event '"+(event || "unknown")+"' from class '"+className+"' is deprecated: " +
+          "The event '" + (event || "unknown") + "' from class '" + className + "' is deprecated: " +
           (msg || "Please consult the API documentation of this class for alternatives.")
         );
         this.trace();
@@ -293,13 +282,11 @@ qx.Class.define("qx.log.Logger",
      * @param clazz {Class} reference to the deprecated mixin.
      * @param msg {String?} Optional message to be printed.
      */
-    deprecatedMixinWarning : function(clazz, msg)
-    {
-      if (qx.core.Environment.get("qx.debug"))
-      {
+    deprecatedMixinWarning: function(clazz, msg) {
+      if (qx.core.Environment.get("qx.debug")) {
         var mixinName = clazz ? clazz.name : "unknown";
         this.warn(
-          "The mixin '"+mixinName+"' is deprecated: " +
+          "The mixin '" + mixinName + "' is deprecated: " +
           (msg || "Please consult the API documentation of this class for alternatives.")
         );
         this.trace();
@@ -316,17 +303,15 @@ qx.Class.define("qx.log.Logger",
      * @param constant {String} The name of the constant as string.
      * @param msg {String} Optional message to be printed.
      */
-    deprecatedConstantWarning : function(clazz, constant, msg)
-    {
-      if (qx.core.Environment.get("qx.debug"))
-      {
+    deprecatedConstantWarning: function(clazz, constant, msg) {
+      if (qx.core.Environment.get("qx.debug")) {
         // check if __defineGetter__ is available
         if (clazz.__defineGetter__) {
           var self = this;
           var constantValue = clazz[constant];
           clazz.__defineGetter__(constant, function() {
             self.warn(
-              "The constant '"+ constant + "' is deprecated: " +
+              "The constant '" + constant + "' is deprecated: " +
               (msg || "Please consult the API documentation for alternatives.")
             );
             self.trace();
@@ -348,16 +333,12 @@ qx.Class.define("qx.log.Logger",
      * @param methodName {String} The method name which is deprecated for overriding.
      * @param msg {String?} Optional message to be printed.
      */
-    deprecateMethodOverriding : function(object, baseclass, methodName, msg)
-    {
-      if (qx.core.Environment.get("qx.debug"))
-      {
+    deprecateMethodOverriding: function(object, baseclass, methodName, msg) {
+      if (qx.core.Environment.get("qx.debug")) {
         var clazz = object.constructor;
 
-        while(clazz.classname !== baseclass.classname)
-        {
-          if (clazz.prototype.hasOwnProperty(methodName))
-          {
+        while (clazz.classname !== baseclass.classname) {
+          if (clazz.prototype.hasOwnProperty(methodName)) {
             this.warn(
               "The method '" + qx.lang.Function.getName(object[methodName]) +
               "' overrides a deprecated method: " +
@@ -377,7 +358,7 @@ qx.Class.define("qx.log.Logger",
      * connected appenders.
      *
      */
-    clear : function() {
+    clear: function() {
       this.__buffer.clearHistory();
     },
 
@@ -391,16 +372,15 @@ qx.Class.define("qx.log.Logger",
     */
 
     /** @type {qx.log.appender.RingBuffer} Message buffer of previously fired messages. */
-    __buffer : new qx.log.appender.RingBuffer(50),
+    __buffer: new qx.log.appender.RingBuffer(50),
 
 
     /** @type {Map} Numeric translation of log levels */
-    __levels :
-    {
-      debug : 0,
-      info : 1,
-      warn : 2,
-      error : 3
+    __levels: {
+      debug: 0,
+      info: 1,
+      warn: 2,
+      error: 3
     },
 
 
@@ -411,8 +391,7 @@ qx.Class.define("qx.log.Logger",
      * @param args {Array} List of other arguments, where the first is
      *   taken as the context object.
      */
-    __log : function(level, args)
-    {
+    __log: function(level, args) {
       // Filter according to level
       var levels = this.__levels;
       if (levels[level] < levels[this.__level]) {
@@ -423,16 +402,15 @@ qx.Class.define("qx.log.Logger",
       var object = args.length < 2 ? null : args[0];
       var start = object ? 1 : 0;
       var items = [];
-      for (var i=start, l=args.length; i<l; i++) {
+      for (var i = start, l = args.length; i < l; i++) {
         items.push(this.__serialize(args[i], true));
       }
 
       // Build entry
-      var time = new Date;
-      var entry =
-      {
-        time : time,
-        offset : time-qx.Class.LOADSTART,
+      var time = new Date();
+      var entry = {
+        time: time,
+        offset: time - qx.Class.LOADSTART,
         level: level,
         items: items,
         // store window to allow cross frame logging
@@ -440,8 +418,7 @@ qx.Class.define("qx.log.Logger",
       };
 
       // Add relation fields
-      if (object)
-      {
+      if (object) {
         if (object.$$hash !== undefined) {
           entry.object = object.$$hash;
         } else if (object.$$type) {
@@ -470,8 +447,7 @@ qx.Class.define("qx.log.Logger",
      *   "function", "array", "error", "map",
      *   "class", "instance", "node", "stringify", "unknown"
      */
-    __detect : function(value)
-    {
+    __detect: function(value) {
       if (value === undefined) {
         return "undefined";
       } else if (value === null) {
@@ -486,10 +462,7 @@ qx.Class.define("qx.log.Logger",
 
       if (type === "function" || type == "string" || type === "number" || type === "boolean") {
         return type;
-      }
-
-      else if (type === "object")
-      {
+      } else if (type === "object") {
         if (value.nodeType) {
           return "node";
           // In Gecko, DOMException doesn't inherit from Error
@@ -525,14 +498,12 @@ qx.Class.define("qx.log.Logger",
      * @return {Map} Contains the keys <code>type</code>, <code>text</code> and
      * <code>trace</code>.
      */
-    __serialize : function(value, deep)
-    {
+    __serialize: function(value, deep) {
       var type = this.__detect(value);
       var text = "unknown";
       var trace = [];
 
-      switch(type)
-      {
+      switch (type) {
         case "null":
         case "undefined":
           text = type;
@@ -546,23 +517,16 @@ qx.Class.define("qx.log.Logger",
           break;
 
         case "node":
-          if (value.nodeType === 9)
-          {
+          if (value.nodeType === 9) {
             text = "document";
-          }
-          else if (value.nodeType === 3)
-          {
+          } else if (value.nodeType === 3) {
             text = "text[" + value.nodeValue + "]";
-          }
-          else if (value.nodeType === 1)
-          {
+          } else if (value.nodeType === 1) {
             text = value.nodeName.toLowerCase();
             if (value.id) {
               text += "#" + value.id;
             }
-          }
-          else
-          {
+          } else {
             text = "node";
           }
           break;
@@ -583,33 +547,27 @@ qx.Class.define("qx.log.Logger",
         case "error":
           trace = qx.dev.StackTrace.getStackTraceFromError(value);
           text = (value.basename ? value.basename + ": " : "") +
-                 value.toString();
+            value.toString();
           break;
 
         case "array":
-          if (deep)
-          {
+          if (deep) {
             text = [];
-            for (var i=0, l=value.length; i<l; i++)
-            {
-              if (text.length > 20)
-              {
-                text.push("...(+" + (l-i) + ")");
+            for (var i = 0, l = value.length; i < l; i++) {
+              if (text.length > 20) {
+                text.push("...(+" + (l - i) + ")");
                 break;
               }
 
               text.push(this.__serialize(value[i], false));
             }
-          }
-          else
-          {
+          } else {
             text = "[...(" + value.length + ")]";
           }
           break;
 
         case "map":
-          if (deep)
-          {
+          if (deep) {
             var temp;
 
             // Produce sorted key list
@@ -621,11 +579,9 @@ qx.Class.define("qx.log.Logger",
 
             // Temporary text list
             text = [];
-            for (var i=0, l=sorted.length; i<l; i++)
-            {
-              if (text.length > 20)
-              {
-                text.push("...(+" + (l-i) + ")");
+            for (i = 0, l = sorted.length; i < l; i++) {
+              if (text.length > 20) {
+                text.push("...(+" + (l - i) + ")");
                 break;
               }
 
@@ -635,11 +591,9 @@ qx.Class.define("qx.log.Logger",
               temp.key = key;
               text.push(temp);
             }
-          }
-          else
-          {
-            var number=0;
-            for (var key in value) {
+          } else {
+            var number = 0;
+            for (key in value) {
               number++;
             }
             text = "{...(" + number + ")}";
@@ -648,18 +602,17 @@ qx.Class.define("qx.log.Logger",
       }
 
       return {
-        type : type,
-        text : text,
-        trace : trace
+        type: type,
+        text: text,
+        trace: trace
       };
     }
   },
 
 
-  classDefined : function(statics)
-  {
+  classDefined: function(statics) {
     var logs = qx.Class.$$logs;
-    for (var i=0; i<logs.length; i++) {
+    for (var i = 0; i < logs.length; i++) {
       statics.__log(logs[i][0], logs[i][1]);
     }
 

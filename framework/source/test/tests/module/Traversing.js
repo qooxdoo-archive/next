@@ -358,6 +358,7 @@ describe("module.Traversing", function() {
 
 
   it("GetNextAll", function() {
+    debugger;
     var html = '<div><span id="test">a</span><span>f</span><span id="foo">f</span></div><p>foo</p>';
     var test = q.create(html);
     test.appendTo(sandbox[0]);

@@ -420,7 +420,7 @@ qx.Class.define("qx.ui.page.Page",
 
 
     // property apply
-    _applyLifeCycleState : function(value, old) {
+    _applyLifeCycleState : function(value) {
       // TODO: better solution for event targets
       var self = this;
       var data = {

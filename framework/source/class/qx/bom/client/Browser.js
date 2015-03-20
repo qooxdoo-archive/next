@@ -93,7 +93,7 @@ qx.Class.define("qx.bom.client.Browser",
           name = "opera";
         }
       }
-      else if (engine ===  "mshtml")
+      else if (engine === "mshtml")
       {
         // IE 11's ua string no longer contains "MSIE" or even "IE"
         if (name === "msie" || name === "trident")
@@ -105,7 +105,7 @@ qx.Class.define("qx.bom.client.Browser",
             name = "iemobile";
           }
 
-          var reg = new RegExp("IEMobile");
+          reg = new RegExp("IEMobile");
           if (agent.match(reg)) {
             name = "iemobile";
           }
@@ -122,7 +122,7 @@ qx.Class.define("qx.bom.client.Browser",
       else if (engine === "gecko")
       {
         if (agent.indexOf("Maple") !== -1) {
-            name = "maple";
+          name = "maple";
         }
       }
 

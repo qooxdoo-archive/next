@@ -185,7 +185,7 @@ qx.Class.define("qx.ui.container.Collapsible",
 
 
     // property apply
-    _applyCollapsed : function(value, old) {
+    _applyCollapsed : function(value) {
       if(value === true) {
         this._content.exclude();
         this.addClass("collapsed");
@@ -197,7 +197,7 @@ qx.Class.define("qx.ui.container.Collapsible",
 
 
     // property apply
-    _applyCombined : function(value, old) {
+    _applyCombined : function(value) {
       if(value === true) {
         this.addClass("combined");
       }

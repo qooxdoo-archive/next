@@ -110,7 +110,7 @@ qx.Class.define("qx.lang.String",
       var result = this.__stringsMap[str];
       if (!result) {
         result = str.replace(/[A-Z]/g, function(match){
-          return  ('-' + match.charAt(0).toLowerCase());
+          return ('-' + match.charAt(0).toLowerCase());
         });
         if (str.indexOf("-") == -1) {
           this.__stringsMap[str] = result;
@@ -132,7 +132,11 @@ qx.Class.define("qx.lang.String",
     capitalize: function(str){
       if(this.__unicodeFirstLetterInWordRegexp === null) {
         var unicodeEscapePrefix = '\\u';
-        this.__unicodeFirstLetterInWordRegexp = new RegExp("(^|[^" + this.__unicodeLetters.replace(/[0-9A-F]{4}/g,function(match){return unicodeEscapePrefix+match}) + "])[" + this.__unicodeLetters.replace(/[0-9A-F]{4}/g,function(match){return unicodeEscapePrefix+match}) + "]", "g");
+        this.__unicodeFirstLetterInWordRegexp = new RegExp("(^|[^" + this.__unicodeLetters.replace(/[0-9A-F]{4}/g, function(match) {
+          return unicodeEscapePrefix + match
+        }) + "])[" + this.__unicodeLetters.replace(/[0-9A-F]{4}/g, function(match) {
+          return unicodeEscapePrefix + match
+        }) + "]", "g");
       }
       return str.replace(this.__unicodeFirstLetterInWordRegexp, function(match) {
         return match.toUpperCase();

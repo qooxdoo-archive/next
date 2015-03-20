@@ -273,7 +273,7 @@ qx.Class.define("qx.event.util.Keyboard", {
     }
   },
 
-  classDefined : function(statics, members)
+  classDefined : function(statics)
   {
     // construct inverse of keyCodeToIdentifierMap
     if (!statics.identifierToKeyCodeMap)
@@ -284,7 +284,7 @@ qx.Class.define("qx.event.util.Keyboard", {
         statics.identifierToKeyCodeMap[statics.keyCodeToIdentifierMap[key]] = parseInt(key, 10);
       }
 
-      for (var key in statics.specialCharCodeMap) {
+      for (key in statics.specialCharCodeMap) {
         statics.identifierToKeyCodeMap[statics.specialCharCodeMap[key]] = parseInt(key, 10);
       }
     }

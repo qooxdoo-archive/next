@@ -216,7 +216,7 @@ qx.Class.define("qx.ui.page.NavigationPage",
 
 
     // property apply
-    _applyTitle : function(value, old) {
+    _applyTitle : function(value) {
       if (this.__title) {
         this.__title.setHtml(value);
       }
@@ -325,7 +325,7 @@ qx.Class.define("qx.ui.page.NavigationPage",
       * @return {qx.ui.Button} The created button widget
       */
     _createButton : function() {
-     return new qx.ui.Button(this.buttonText, this.buttonIcon);
+      return new qx.ui.Button(this.buttonText, this.buttonIcon);
     },
 
 
@@ -404,7 +404,7 @@ qx.Class.define("qx.ui.page.NavigationPage",
 
 
     // property apply
-    _applyBackButtonText : function(value, old)
+    _applyBackButtonText : function(value)
     {
       if (this.__backButton) {
         this.__backButton.label = value;
@@ -413,7 +413,7 @@ qx.Class.define("qx.ui.page.NavigationPage",
 
 
     // property apply
-    _applyActionButtonText : function(value, old)
+    _applyActionButtonText : function(value)
     {
       if (this.__actionButton) {
         this.__actionButton.label = value;
@@ -422,7 +422,7 @@ qx.Class.define("qx.ui.page.NavigationPage",
 
 
     // property apply
-    _applyActionButtonIcon : function(value, old)
+    _applyActionButtonIcon : function(value)
     {
       if (this.__actionButton) {
         this.__actionButton.icon = value;
@@ -431,21 +431,21 @@ qx.Class.define("qx.ui.page.NavigationPage",
 
 
     // property apply
-    _applyShowBackButton : function(value, old)
+    _applyShowBackButton : function(value)
     {
       this._showBackButton();
     },
 
 
     // property apply
-    _applyShowButton : function(value, old)
+    _applyShowButton : function(value)
     {
       this._showButton();
     },
 
 
     // property apply
-    _applyContentCssClass : function(value, old)
+    _applyContentCssClass : function(value)
     {
       if (this.__content) {
         this.__content.defaultCssClass = value;
@@ -536,9 +536,8 @@ qx.Class.define("qx.ui.page.NavigationPage",
     /**
      * Event handler. Called when the tap event occurs on the back button.
      *
-     * @param evt {CustomEvent} The tap event
      */
-    _onBackButtonTap : function(evt)
+    _onBackButtonTap : function()
     {
       this.back();
     },
@@ -547,9 +546,8 @@ qx.Class.define("qx.ui.page.NavigationPage",
     /**
      * Event handler. Called when the tap event occurs on the button.
      *
-     * @param evt {CustomEvent} The tap event
      */
-    _onButtonTap : function(evt)
+    _onButtonTap : function()
     {
       this.emit("action");
     },

@@ -96,7 +96,7 @@ qx.Class.define("qx.ui.control.Table", {
    */
   construct : function(model, element) {
     this.super(qx.ui.Widget, "construct", element);
-    this.model =  model;
+    this.model = model;
 
     if (qxWeb.getNodeName(this).toUpperCase() !== "TABLE") {
       throw new Error("The collection may contain only a table element!");
@@ -108,8 +108,8 @@ qx.Class.define("qx.ui.control.Table", {
 
     this.find("tbody td").addClass("qx-table-cell");
 
-    this.__inputName =  "input" + qx.ui.control.Table.__getUID();
-    this.__getColumnMetaData(model);
+    this.__inputName = "input" + qx.ui.control.Table.__getUID();
+    this.__getColumnMetaData();
     this.setSortingFunction(this.__defaultColumnSort);
 
     this.__registerEvents();
@@ -680,10 +680,9 @@ qx.Class.define("qx.ui.control.Table", {
 
     /**
      * Initializes columns metadata
-     * @param model {Array} The widget's model
-    * @return {qx.ui.control.Table} <code>this</code> reference for chaining.
+     * @return {qx.ui.control.Table} <code>this</code> reference for chaining.
      */
-    __getColumnMetaData : function(model) {
+    __getColumnMetaData : function() {
 
       this.__addClassToHeaderAndFooter(this[0].tHead);
       this.__addClassToHeaderAndFooter(this[0].tFoot);
@@ -1168,7 +1167,7 @@ qx.Class.define("qx.ui.control.Table", {
     __getDataRows : function() {
 
       var tableNode = this[0];
-      var rows = tableNode.rows, model = [], cell=null,  cells = [];
+      var rows = tableNode.rows, model = [], cell = null, cells = [];
 
       for (var i = 0, l = rows.length; i < l; i++) {
         cells = rows.item(i).cells;

@@ -358,7 +358,7 @@ qx.Class.define("qx.io.rest.Resource",
           context: this
         },
         onloadend: {
-          callback: function(req, action) {
+          callback: function(req) {
             return function() {
               req.dispose();
             };
@@ -501,9 +501,9 @@ qx.Class.define("qx.io.rest.Resource",
      * @return {Number} Id of the action's invocation.
      */
     invoke: function(action, params, data) {
-      var req = this.__createRequest(action),
-          params = params == null ? {} : params,
-          config = this._getRequestConfig(action, params);
+      var req = this.__createRequest(action);
+      params = params == null ? {} : params;
+      var config = this._getRequestConfig(action, params);
 
       // Cache parameters
       this.__routes[action].params = params;
@@ -539,7 +539,7 @@ qx.Class.define("qx.io.rest.Resource",
       // Handle loadend (Note that loadEnd is fired after "success")
       req.once(
         "loadEnd",
-        reqHandler.onloadend.callback(req, action),
+        reqHandler.onloadend.callback(req),
         reqHandler.onloadend.context
       );
 
@@ -881,7 +881,7 @@ qx.Class.define("qx.io.rest.Resource",
       var route = this.__routes[action];
 
       // Not modify original params
-      var params = qx.lang.Object.clone(params);
+      params = qx.lang.Object.clone(params);
 
       if (!qx.lang.Type.isArray(route)) {
         throw new Error("No route for action " + action);

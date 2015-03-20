@@ -125,7 +125,7 @@ qx.Class.define("qx.ui.Carousel",
       var next = this.active.getNext();
       // prevent overflow if we don't use the endless loop mode
       if (pages.length > 2) {
-        if (next.length == 0) {
+        if (next.length === 0) {
           next = pages.eq(0);
         }
       }
@@ -276,7 +276,7 @@ qx.Class.define("qx.ui.Carousel",
         }
       } else {
         var index = this._getPages().indexOf(this.active);
-        var left = index * this.getWidth();
+        left = index * this.getWidth();
         this._translateTo(left);
       }
 
@@ -311,7 +311,7 @@ qx.Class.define("qx.ui.Carousel",
 
       var activeIndex = pages.indexOf(this.active);
 
-      this._setOrder(this.active, 0)// active page should always have order 0
+      this._setOrder(this.active, 0);// active page should always have order 0
       var order = 1;
 
       // order all pages with a higher index than the active page
@@ -324,14 +324,13 @@ qx.Class.define("qx.ui.Carousel",
       }
 
       // order all pages with a lower index than the active page
-      for (var i = 0; i < activeIndex; i++) {
+      for (i = 0; i < activeIndex; i++) {
         // move the last page to the left of the active page
         if (i == activeIndex - 1) {
           order = -1;
         }
-        this._setOrder(pages.eq(i), order++)
+        this._setOrder(pages.eq(i), order++);
       }
-
       return scrollDirection;
     },
 
@@ -369,7 +368,7 @@ qx.Class.define("qx.ui.Carousel",
      * Handler for trackstart. It saves the initial scroll position and
      * cancels any running animation.
      */
-    _onTrackStart: function(e) {
+    _onTrackStart: function() {
       if (this.__blocked) {
         return;
       }
@@ -401,7 +400,7 @@ qx.Class.define("qx.ui.Carousel",
     /**
      * TrackEnd handler for enabling the scroll events.
      */
-    _onTrackEnd: function(e) {
+    _onTrackEnd: function() {
       if (this.__startPosLeft == null || this.__blocked) { // dont end if we didn't start
         return;
       }
@@ -464,9 +463,8 @@ qx.Class.define("qx.ui.Carousel",
     /**
      * Factory method for a paginationLabel.
      * @return {qx.ui.Widget} the created pagination label.
-     * @param pageIndex {Integer} The page index
      */
-    _createPaginationLabel : function(pageIndex) {
+    _createPaginationLabel : function() {
       var paginationIndex = this._getPages().length;
 
       return qxWeb.create('<div class="' + this.defaultCssClass + '-pagination-label"></div>')
@@ -495,7 +493,7 @@ qx.Class.define("qx.ui.Carousel",
           // set the order to deault dom order
           this._setOrder(pages, 0);
           // get the active page into view
-          this.__scrollContainer.translate([(- activeIndex * this.getWidth()) + "px",0 ,0])
+          this.__scrollContainer.translate([(-activeIndex * this.getWidth()) + "px", 0, 0]);
 
           this.__blocked = true;
           // animate to the desired page
@@ -551,7 +549,7 @@ qx.Class.define("qx.ui.Carousel",
         keyFrames: {
           0: {},
           100: {
-            translate: [(- left) + "px", 0, 0]
+            translate: [(-left) + "px", 0, 0]
           }
         }
       });

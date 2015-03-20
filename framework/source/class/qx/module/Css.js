@@ -212,7 +212,7 @@ qx.Class.define("qx.module.Css", {
      * @return {qxWeb} The collection for chaining
      */
     toggleClasses : function(names) {
-      for (var i=0,l=names.length; i<l; i++) {
+      for (var i = 0, l = names.length; i < l; i++) {
         this.toggleClass(names[i]);
       }
       return this;
@@ -583,7 +583,7 @@ qx.Class.define("qx.module.Css", {
 
       var value = callback.call(context);
 
-      for (var styleProperty in currentValues) {
+      for (styleProperty in currentValues) {
         element.style[styleProperty] = currentValues[styleProperty];
       }
 

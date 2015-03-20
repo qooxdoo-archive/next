@@ -92,7 +92,7 @@ qx.Class.define("qx.bom.client.Engine",
           // in a separate "Version/" postfix
           // http://my.opera.com/chooseopera/blog/2009/05/29/changes-in-operas-user-agent-string-format
           if (agent.indexOf("Version/") != -1) {
-            var match = agent.match(/Version\/(\d+)\.(\d+)/);
+            match = agent.match(/Version\/(\d+)\.(\d+)/);
             // ignore the first match, its the whole version string
             version =
               match[1] + "." +

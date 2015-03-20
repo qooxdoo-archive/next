@@ -173,8 +173,8 @@ qx.Class.define("qx.util.RingBuffer",
 
       if (count > 0){
 
-        var indexOfYoungestElementInHistory = this.__addToIndex(this.__nextIndexToStoreTo,  -1);
-        var startIndex = this.__addToIndex(indexOfYoungestElementInHistory, - count + 1);
+        var indexOfYoungestElementInHistory = this.__addToIndex(this.__nextIndexToStoreTo, -1);
+        var startIndex = this.__addToIndex(indexOfYoungestElementInHistory, -count + 1);
 
         var result;
 

@@ -130,7 +130,7 @@ qx.Class.define("qx.Interface",
       else
       {
         // Create empty interface
-        var iface = {};
+        iface = {};
       }
 
       // Add Basics
@@ -392,7 +392,7 @@ qx.Class.define("qx.Interface",
           var maps = [ "statics", "members", "properties", "events" ];
           for (var i=0, l=maps.length; i<l; i++)
           {
-            var key = maps[i];
+            key = maps[i];
 
             if (config[key] !== undefined &&
                 ([
@@ -408,7 +408,8 @@ qx.Class.define("qx.Interface",
           // Validate extends
           if (config.extend)
           {
-            for (var i=0, a=config.extend, l=a.length; i<l; i++)
+            var a;
+            for (i = 0, a = config.extend, l = a.length; i<l; i++)
             {
               if (a[i] == null) {
                 throw new Error("Extends of interfaces must be interfaces. The extend number '" + i+1 + "' in interface '" + name + "' is undefined/null!");
@@ -423,7 +424,7 @@ qx.Class.define("qx.Interface",
           // Validate statics
           if (config.statics)
           {
-            for (var key in config.statics)
+            for (key in config.statics)
             {
               if (key.toUpperCase() !== key) {
                 throw new Error('Invalid key "' + key + '" in interface "' + name + '"! Static constants must be all uppercase.');
@@ -437,14 +438,14 @@ qx.Class.define("qx.Interface",
                   break;
 
                 default:
-                  throw new Error('Invalid key "' + key + '" in interface "' + name + '"! Static constants must be all of a primitive type.')
+                  throw new Error('Invalid key "' + key + '" in interface "' + name + '"! Static constants must be all of a primitive type.');
               }
             }
           }
         }
       },
 
-      "default" : function(name, config) {}
+      "default" : function(name) {}
     })
   }
 });

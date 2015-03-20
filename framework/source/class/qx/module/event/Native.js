@@ -160,12 +160,12 @@ qx.Class.define("qx.module.event.Native", {
       }
 
       var fwdMethods = qx.module.event.Native.FORWARD_METHODS;
-      for (var i=0, l=fwdMethods.length; i<l; i++) {
+      for (var i = 0, l = fwdMethods.length; i < l; i++) {
         event[fwdMethods[i]] = qx.bom.Event[fwdMethods[i]].bind(null, event);
       }
 
       var bindMethods = qx.module.event.Native.BIND_METHODS;
-      for (var i=0, l=bindMethods.length; i<l; i++) {
+      for (i = 0, l = bindMethods.length; i < l; i++) {
         if (typeof event[bindMethods[i]] != "function") {
           event[bindMethods[i]] = qx.module.event.Native[bindMethods[i]].bind(event);
         }

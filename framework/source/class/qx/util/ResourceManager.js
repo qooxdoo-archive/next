@@ -131,10 +131,10 @@ qx.Class.define("qx.util.ResourceManager",
     {
       var clippedtype = "";
       var entry = qx.util.ResourceManager.__registry[id];
-      var isclipped = entry && entry.length > 4 && typeof(entry[4]) == "string"
+      var isclipped = entry && entry.length > 4 && typeof (entry[4]) == "string"
         && this.constructor.__registry[entry[4]];
       if (isclipped){
-        var combId  = entry[4];
+        var combId = entry[4];
         var combImg = this.constructor.__registry[combId];
         clippedtype = combImg[2];
       }
@@ -164,7 +164,7 @@ qx.Class.define("qx.util.ResourceManager",
       }
       else
       {
-        var lib = entry[3];
+        lib = entry[3];
 
         // no lib reference
         // may mean that the image has been registered dynamically

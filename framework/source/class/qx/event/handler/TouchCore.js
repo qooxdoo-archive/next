@@ -179,7 +179,7 @@ qx.Class.define("qx.event.handler.TouchCore", {
      * @return {Number} the calculated distance.
      */
     _getScalingDistance : function(touch0, touch1) {
-      return(Math.sqrt( Math.pow(touch0.pageX - touch1.pageX, 2) + Math.pow(touch0.pageY - touch1.pageY, 2) ));
+      return (Math.sqrt( Math.pow(touch0.pageX - touch1.pageX, 2) + Math.pow(touch0.pageY - touch1.pageY, 2) ));
     },
 
 
@@ -192,7 +192,7 @@ qx.Class.define("qx.event.handler.TouchCore", {
     _getRotationAngle :  function(touch0, touch1) {
       var x = touch0.pageX - touch1.pageX;
       var y = touch0.pageY - touch1.pageY;
-      return(Math.atan2(y, x)*180/Math.PI);
+      return (Math.atan2(y, x)*180/Math.PI);
     },
 
 
@@ -250,7 +250,7 @@ qx.Class.define("qx.event.handler.TouchCore", {
      */
     _commonTouchEventHandler : function(domEvent, type)
     {
-      var type = type || domEvent.type;
+      type = type || domEvent.type;
       if (qx.core.Environment.get("event.mspointer")) {
         type = this._mapPointerEvent(type);
         var touches = this._detectTouchesByPointer(domEvent, type);
@@ -266,20 +266,20 @@ qx.Class.define("qx.event.handler.TouchCore", {
         this.__originalTarget = this._getTarget(domEvent);
 
         if(domEvent.touches && domEvent.touches.length > 1) {
-          this.__beginScalingDistance = this._getScalingDistance(domEvent.touches[0],domEvent.touches[1]);
+          this.__beginScalingDistance = this._getScalingDistance(domEvent.touches[0], domEvent.touches[1]);
           this.__beginRotation = this._getRotationAngle(domEvent.touches[0], domEvent.touches[1]);
         }
 
         for (var i = 0; i < domEvent.changedTouches.length; i++) {
           var touch = domEvent.changedTouches[i];
-          this.__touchStartPosition[touch.identifier] = [touch.clientX,touch.clientY];
+          this.__touchStartPosition[touch.identifier] = [touch.clientX, touch.clientY];
         }
       }
 
       if(type == "touchmove") {
         // Polyfill for scale
         if(typeof domEvent.scale == "undefined" && domEvent.targetTouches.length > 1) {
-          var currentScalingDistance = this._getScalingDistance(domEvent.targetTouches[0],domEvent.targetTouches[1]);
+          var currentScalingDistance = this._getScalingDistance(domEvent.targetTouches[0], domEvent.targetTouches[1]);
           domEvent.scale = currentScalingDistance / this.__beginScalingDistance;
         }
         // Polyfill for rotation
@@ -343,7 +343,7 @@ qx.Class.define("qx.event.handler.TouchCore", {
       } else if (type.indexOf("pointerup") !== -1) {
         return "touchend";
       } else if (type.indexOf("pointermove") !== -1) {
-          return "touchmove";
+        return "touchmove";
       } else if (type.indexOf("pointercancel") !== -1) {
         return "touchcancel";
       }
@@ -425,8 +425,7 @@ qx.Class.define("qx.event.handler.TouchCore", {
       if (!target) {
         target = this._getTarget(domEvent);
       }
-
-      var type = type || domEvent.type;
+      type = type || domEvent.type;
 
       if (target && target.nodeType && this.__emitter)
       {

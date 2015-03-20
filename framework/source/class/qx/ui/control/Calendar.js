@@ -1,3 +1,4 @@
+"use strict";
 /* ************************************************************************
 
    qooxdoo - the new era of web development
@@ -515,7 +516,7 @@ qx.Class.define("qx.ui.control.Calendar", {
     _disposeMonthElements: function() {
       for (var key in this.__monthElements) {
         this._removeListeners(this.__monthElements[key]);
-         this.__monthElements[key].setHtml("");
+        this.__monthElements[key].setHtml("");
         this.__monthElements[key] = undefined;
       }
       this.__monthElements = {};

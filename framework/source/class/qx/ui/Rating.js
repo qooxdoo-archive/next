@@ -114,7 +114,7 @@ qx.Class.define("qx.ui.Rating", {
       }
       var old = this.$$value;
       this.$$value = value;
-      this._applyValue(value, old);
+      this._applyValue(value);
       this.emit("changeValue", {
         value: value,
         old: old,
@@ -127,9 +127,8 @@ qx.Class.define("qx.ui.Rating", {
      * converted to the maximum or minimum if out of range.
      *
      * @param value {Number} The value of the rating.
-     * @param old {Number} The previous value
      */
-    _applyValue : function(value, old) {
+    _applyValue : function(value) {
       var children = this.getChildren("span");
 
       // When the value is greater than zero and no children are found
@@ -161,7 +160,7 @@ qx.Class.define("qx.ui.Rating", {
           .appendTo(this);
         }
       } else {
-        for (var i = 0; i < Math.abs(diff); i++) {
+        for (i = 0; i < Math.abs(diff); i++) {
           this.getChildren().getLast()
           .off("tap", this._onTap, this)
           .remove();
@@ -184,7 +183,7 @@ qx.Class.define("qx.ui.Rating", {
      * Attaches the keydown listener.
      * @param e {Event} The native focus event.
      */
-    _onFocus : function(e) {
+    _onFocus : function() {
       qxWeb(document.documentElement).on("keydown", this._onKeyDown, this);
     },
 
@@ -194,7 +193,7 @@ qx.Class.define("qx.ui.Rating", {
      *
      * @param e {Event} The native blur event.
      */
-    _onBlur : function(e) {
+    _onBlur : function() {
       qxWeb(document.documentElement).off("keydown", this._onKeyDown, this);
     },
 

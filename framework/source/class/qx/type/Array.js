@@ -1,3 +1,4 @@
+"use strict";
 /* ************************************************************************
 
    qooxdoo - the new era of web development
@@ -188,7 +189,7 @@ qx.Class.define("qx.type.Array",
         arg = [];
         for (var i=0; i < arr.length; i++) {
           arg[i] = arr[i];
-        };
+        }
       }
       return arg;
     },

@@ -98,7 +98,7 @@ qx.Class.define("qx.bom.AnimationFrame",
           this.emit("frame", timePassed);
           this.id = qx.bom.AnimationFrame.request(clb, this);
         }
-      }
+      };
 
       this.id = qx.bom.AnimationFrame.request(clb, this);
     },
@@ -155,7 +155,7 @@ qx.Class.define("qx.bom.AnimationFrame",
       var y = 0;
       for (var i=0; i < a.length; i++) {
         y += a[i] * Math.pow(x, i);
-      };
+      }
       return y;
     },
 

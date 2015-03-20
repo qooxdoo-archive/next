@@ -130,7 +130,7 @@ qx.Class.define("qx.util.Validate",
 
       var reg = /^([A-Za-z0-9_\-\.])+\@([A-Za-z0-9_\-\.])+\.([A-Za-z]{2,})$/;
       if (reg.test(value) === false) {
-        throw new qx.core.ValidationError("Validation Error",errorMessage);
+        throw new qx.core.ValidationError("Validation Error", errorMessage);
       }
     },
 
@@ -199,7 +199,7 @@ qx.Class.define("qx.util.Validate",
     {
       errorMessage = errorMessage || (value + " is not a valid URL.");
 
-      var reg =  /([A-Za-z0-9])+:\/\/(\w+:{0,1}\w*@)?(\S+)(:[0-9]+)?(\/|\/([\w#!:.?+=&%@!\-\/]))?/;
+      var reg = /([A-Za-z0-9])+:\/\/(\w+:{0,1}\w*@)?(\S+)(:[0-9]+)?(\/|\/([\w#!:.?+=&%@!\-\/]))?/;
       if (!reg.test(value)) {
         throw new qx.core.ValidationError("Validation Error", errorMessage);
       }

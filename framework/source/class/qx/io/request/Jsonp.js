@@ -448,7 +448,7 @@ qx.Class.define("qx.io.request.Jsonp",
     __generateId: function() {
       // Add random digits to date to allow immediately following requests
       // that may be send at the same time
-      return "qx" + (new Date().valueOf()) + ("" + Math.random()).substring(2,5);
+      return "qx" + (new Date().valueOf()) + ("" + Math.random()).substring(2, 5);
     },
 
 

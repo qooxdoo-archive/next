@@ -261,14 +261,14 @@ qx.Class.define("qx.Mixin",
           events[key] = mixin.name;
         }
 
-        for (var key in mixin.properties) {
+        for (key in mixin.properties) {
           if (properties[key]) {
             throw new Error('Conflict between mixin "' + mixin.name + '" and "' + properties[key] + '" in property "' + key + '"!');
           }
           properties[key] = mixin.name;
         }
 
-        for (var key in mixin.members) {
+        for (key in mixin.members) {
           if(members[key]) {
             throw new Error('Conflict between mixin "' + mixin.name + '" and "' + members[key] + '" in member "' + key + '"!');
           }
@@ -389,7 +389,7 @@ qx.Class.define("qx.Mixin",
         var maps = [ "statics", "members", "properties", "events" ];
         for (var i=0, l=maps.length; i<l; i++)
         {
-          var key = maps[i];
+          key = maps[i];
 
           if (config[key] !== undefined &&
               ([
@@ -405,7 +405,8 @@ qx.Class.define("qx.Mixin",
 
         // Validate includes
         if (config.include) {
-          for (var i=0, a=config.include, l=a.length; i<l; i++) {
+          var a = config.include;
+          for (i = 0, l = a.length; i < l; i++) {
             if (a[i] == null) {
               throw new Error("Includes of mixins must be mixins. The include number '" + (i+1) + "' in mixin '" + name + "'is undefined/null!");
             }

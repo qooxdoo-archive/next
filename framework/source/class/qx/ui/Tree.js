@@ -296,7 +296,7 @@ qx.Class.define("qx.ui.Tree",
         if (treeNode.children && treeNode.children.length > 0) {
 
           // use a closure to shield the variables
-          (function (context, root, treeLevel, parentId) {
+          (function (context, root, treeLevel) {
             context.__initLookupModel(root, ++treeLevel, parentId);
           })(this, treeNode.children, level, id);
 

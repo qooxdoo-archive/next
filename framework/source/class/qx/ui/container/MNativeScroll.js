@@ -59,7 +59,7 @@ qx.Mixin.define("qx.ui.container.MNativeScroll",
     /**
     * Event handler for <code>appear</code> event.
     */
-    _onAppear: function() {
+    _onAppear : function() {
       this._calcSnapPoints();
     },
 
@@ -82,7 +82,7 @@ qx.Mixin.define("qx.ui.container.MNativeScroll",
     /**
      * Event handler for <code>trackstart</code> events.
      */
-    _onTrackStart: function(evt) {
+    _onTrackStart : function() {
       this._onTrack = true;
 
       if (qx.core.Environment.get("os.name") == "ios") {
@@ -94,7 +94,7 @@ qx.Mixin.define("qx.ui.container.MNativeScroll",
     /**
      * Prevents the iOS page bounce if scroll container reaches the upper or lower vertical scroll limit.
      */
-    _preventPageBounce: function() {
+    _preventPageBounce : function() {
       // If scroll container is scrollable
       if (this._isScrollableY()) {
         var element = this[0];
@@ -111,9 +111,8 @@ qx.Mixin.define("qx.ui.container.MNativeScroll",
 
     /**
     * Event handler for <code>trackend</code> events.
-    * @param evt {qx.event.type.Track} the <code>track</code> event
     */
-    _onTrackEnd: function(evt) {
+    _onTrackEnd : function() {
       this._onTrack = false;
 
       if(this._snapTimeoutId) {
@@ -149,7 +148,7 @@ qx.Mixin.define("qx.ui.container.MNativeScroll",
     /**
     * Calculates the snapping points for the x/y axis.
     */
-    _calcSnapPoints: function() {
+    _calcSnapPoints : function() {
       if (this._scrollProperties) {
         var snap = this._scrollProperties.snap;
         if (snap) {
@@ -174,7 +173,7 @@ qx.Mixin.define("qx.ui.container.MNativeScroll",
     * @param direction {String} "top" or "left"
     * @return {Integer} the determined snap point.
     */
-    _determineSnapPoint: function(current, direction) {
+    _determineSnapPoint : function(current, direction) {
       for (var i = 0; i < this._snapPoints.length; i++) {
         var snapPoint = this._snapPoints[i];
         if (current <= snapPoint[direction]) {
@@ -238,7 +237,7 @@ qx.Mixin.define("qx.ui.container.MNativeScroll",
      *
      * @return {Element} The scroll element
      */
-    _createScrollElement: function() {
+    _createScrollElement : function() {
       return null;
     },
 
@@ -247,7 +246,7 @@ qx.Mixin.define("qx.ui.container.MNativeScroll",
      * Returns the current scroll position
      * @return {Array} an array with <code>[scrollLeft,scrollTop]</code>.
      */
-    _getPosition: function() {
+    _getPosition : function() {
       return [this[0].scrollLeft, this[0].scrollTop];
     },
 
@@ -257,7 +256,7 @@ qx.Mixin.define("qx.ui.container.MNativeScroll",
      *
      * @return {qxWeb} The scroll content element
      */
-    _getScrollContentElement: function() {
+    _getScrollContentElement : function() {
       return this;
     },
 
@@ -295,7 +294,7 @@ qx.Mixin.define("qx.ui.container.MNativeScroll",
      * @param y {Integer} Y coordinate to scroll to.
      * @param time {Integer} is always <code>0</code> for this mixin.
      */
-    _scrollTo: function(x, y, time) {
+    _scrollTo : function(x, y, time) {
       var element = this[0];
       if(!time) {
         element.scrollLeft = x;

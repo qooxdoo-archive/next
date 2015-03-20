@@ -295,9 +295,8 @@ qx.Class.define("qx.log.appender.Console",
     /**
      * Event handler for resize listener
      *
-     * @param e {Event} Event object
      */
-    __onResize : function(e) {
+    __onResize : function() {
       this.__log.style.height = (this.__main.clientHeight - this.__main.firstChild.offsetHeight - this.__main.lastChild.offsetHeight) + "px";
     },
 

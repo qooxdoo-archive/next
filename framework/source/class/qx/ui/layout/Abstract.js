@@ -68,7 +68,7 @@ qx.Class.define("qx.ui.layout.Abstract",
      * @param property {String?null} Optional. The layout property to set.
      * @param value {var?} Optional. The value of the layout property.
      */
-    _setLayoutProperty : function(widget, property, value, oldValue) {
+    _setLayoutProperty : function(widget, property, value) {
       if (qx.core.Environment.get("qx.debug")) {
         throw new Error("Abstract method call");
       }
@@ -98,7 +98,7 @@ qx.Class.define("qx.ui.layout.Abstract",
         }
         var value = properties[property];
         this._setLayoutProperty(widget, property, value);
-        this._addPropertyToChildLayoutCache(widget,  property, value);
+        this._addPropertyToChildLayoutCache(widget, property, value);
       }
     },
 

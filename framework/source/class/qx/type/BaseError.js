@@ -1,3 +1,4 @@
+"use strict";
  /* ************************************************************************
 
    qooxdoo - the new era of web development

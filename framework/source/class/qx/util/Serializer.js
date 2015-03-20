@@ -178,7 +178,7 @@ qx.Class.define("qx.util.Serializer",
       if (qx.lang.Type.isArray(object))
       {
         result = [];
-        for (var i = 0; i < object.length; i++)
+        for (i = 0; i < object.length; i++)
         {
           result.push(qx.util.Serializer.toNativeObject(
             object[i], qxSerializer)
@@ -274,7 +274,7 @@ qx.Class.define("qx.util.Serializer",
       // other arrays
       if (qx.lang.Type.isArray(object)) {
         result += "[";
-        for (var i = 0; i < object.length; i++) {
+        for (i = 0; i < object.length; i++) {
           result += qx.util.Serializer.toJson(object[i], qxSerializer) + ",";
         }
         if (result != "[") {

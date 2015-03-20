@@ -212,7 +212,7 @@ qx.Class.define("qx.ui.container.Drawer",
 
 
     // property apply
-    _applyTransitionDuration : function(value,old) {
+    _applyTransitionDuration : function(value) {
       this.__transitionEnabled = value > 0;
     },
 
@@ -222,7 +222,7 @@ qx.Class.define("qx.ui.container.Drawer",
      */
     show : function()
     {
-      var parent = this._getParentWidget()
+      var parent = this._getParentWidget();
       if (!parent) {
         return this;
       }
@@ -255,7 +255,7 @@ qx.Class.define("qx.ui.container.Drawer",
 
         var transitionTarget = this._getTransitionTarget();
         var transitionEnd = qx.core.Environment.get("css.transition")["end-event"];
-        var onTransitionEnd = function(evt) {
+        var onTransitionEnd = function() {
           this.super(qx.ui.Widget, "show");
           this._disableTransition();
           this.__inTransition = false;
@@ -300,7 +300,7 @@ qx.Class.define("qx.ui.container.Drawer",
 
         var transitionTarget = this._getTransitionTarget();
         var listenerId = transitionTarget.on(qx.core.Environment.get("css.transition")["end-event"],
-          function(evt) {
+          function() {
             this.super(qx.ui.Widget, "hide");
             this._disableTransition();
             parent.removeClass("blocked");
@@ -401,7 +401,7 @@ qx.Class.define("qx.ui.container.Drawer",
      * @param evt {qx.module.event.Pointer} Handled pointer event.
      */
     _onParentPointerDown : function(evt) {
-      this.__pointerStartPosition = [evt.getViewportLeft(),evt.getViewportTop()];
+      this.__pointerStartPosition = [evt.getViewportLeft(), evt.getViewportTop()];
 
       var isShown = !this.hasClass("hidden");
       if(isShown && this.hideOnParentTap) {

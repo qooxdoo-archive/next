@@ -92,7 +92,7 @@ qx.Class.define("qxWeb", {
         col = qx.lang.Array.cast(clean, clazz);
       }
 
-      for (var i=0; i < qxWeb._init.length; i++) {
+      for (i = 0; i < qxWeb._init.length; i++) {
         qxWeb._init[i].call(col);
       }
 
@@ -279,12 +279,9 @@ qx.Class.define("qxWeb", {
      * This method can also add items. Take a look at the
      * <a href='https://developer.mozilla.org/en-US/docs/JavaScript/Reference/Global_Objects/Array/splice' target='_blank'>documentation of MDN</a> for more details.
      *
-     * @param index {Number} The index to begin.
-     * @param howMany {Number} the amount of items to remove.
-     * @param varargs {var} As many items as you want to add.
      * @return {q} A new collection containing the removed items.
      */
-    splice : function(index , howMany, varargs) {
+    splice : function() {
       return qxWeb.$init(Array.prototype.splice.apply(this, arguments), qxWeb, true);
     },
 
@@ -294,10 +291,9 @@ qx.Class.define("qxWeb", {
      * <a href='https://developer.mozilla.org/en-US/docs/JavaScript/Reference/Global_Objects/Array/map' target='_blank'>MDN documentation</a>.
      *
      * @param callback {Function} Function which produces the new element.
-     * @param thisarg {var} Context of the callback.
      * @return {q} New collection containing the elements that passed the filter
      */
-    map : function(callback, thisarg) {
+    map : function() {
       return qxWeb.$init(Array.prototype.map.apply(this, arguments), qxWeb, true);
     },
 
@@ -305,10 +301,9 @@ qx.Class.define("qxWeb", {
     /**
      * Returns a copy of the collection including the given elements.
      *
-     * @param varargs {var} As many items as you want to add.
      * @return {q} A new collection containing all items.
      */
-    concat : function(varargs) {
+    concat : function() {
       var clone = Array.prototype.slice.call(this, 0);
       for (var i=0; i < arguments.length; i++) {
         if (arguments[i] instanceof qxWeb) {
@@ -354,7 +349,6 @@ qx.Class.define("qxWeb", {
      * @ignore(debugger)
      */
     debug : function() {
-      debugger;
       return this;
     },
 

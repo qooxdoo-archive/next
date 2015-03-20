@@ -120,7 +120,7 @@ qx.Class.define("qx.ui.dialog.Menu",
     _updatePosition : function() {
       var parentHeight = this._getParentWidget().getHeight();
       var listScrollerHeight = parseInt(parentHeight, 10) * 0.75;
-      listScrollerHeight = parseInt(listScrollerHeight,10);
+      listScrollerHeight = parseInt(listScrollerHeight, 10);
 
       if (this.visibleListItems !== null) {
         var newListScrollerHeight = this.__list.getListItemHeight() * this.visibleListItems;

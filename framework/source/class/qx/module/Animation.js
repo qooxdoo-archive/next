@@ -50,7 +50,7 @@ qx.Class.define("qx.module.Animation", {
      */
     getAnimationHandles : function() {
       var animationHandles = [];
-      for (var i=0; i < this.length; i++) {
+      for (var i = 0; i < this.length; i++) {
         animationHandles[i] = this[i].$$animation;
       }
       return animationHandles;
@@ -181,8 +181,8 @@ qx.Class.define("qx.module.Animation", {
         }
 
         handle.on("end", function() {
-          for (var i=0; i < self.length; i++) {
-            if (self[i].$$animation) {
+          for (var j = 0; j < self.length; j++) {
+            if (self[j].$$animation) {
               return;
             }
           }

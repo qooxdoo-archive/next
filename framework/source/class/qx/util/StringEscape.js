@@ -75,7 +75,7 @@ qx.Class.define("qx.util.StringEscape",
       return str.replace(/&[#\w]+;/gi, function(entity)
       {
         var chr = entity;
-        var entity = entity.substring(1, entity.length - 1);
+        entity = entity.substring(1, entity.length - 1);
         var code = entitiesToCharCode[entity];
 
         if (code) {

@@ -129,7 +129,7 @@ qx.Class.define("qx.data.store.Json",
     __request : null,
 
     // apply function
-    _applyUrl: function(value, old) {
+    _applyUrl: function(value) {
       if (value != null) {
         // take care of the resource management
         value = qx.util.AliasManager.getInstance().resolve(value);

@@ -212,8 +212,8 @@ qx.Class.define("qx.ui.container.Navigation",
       this.super(qx.ui.Widget, "dispose");
       this.getContent().off("addedChild", this._onContentAddedChild, this)
         .off("removedChild", this._onContentRemovedChild, this);
-      this.getContent().layout.off("animationStart",this._onAnimationStart, this);
-      this.getContent().layout.off("animationEnd",this._onAnimationEnd, this);
+      this.getContent().layout.off("animationStart", this._onAnimationStart, this);
+      this.getContent().layout.off("animationEnd", this._onAnimationEnd, this);
       this.__navigationBar = null;
       this.__content.dispose();
     }

@@ -52,9 +52,8 @@ qx.Class.define("qx.module.event.PointerHandler", {
      * is attached to it
      *
      * @param element {Element} DOM element
-     * @param type {String} event type
      */
-    register : function(element, type) {
+    register : function(element) {
       if (!element.$$pointerHandler) {
         element.$$pointerHandler = new qx.event.handler.Pointer(element, element.$$emitter);
       }

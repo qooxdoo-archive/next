@@ -334,7 +334,7 @@ qx.Class.define("qx.ui.page.Manager",
      * Called when a detailPage reaches lifecycle state "start".
      * @param evt {qx.event.type.Event} source event.
      */
-    _onDetailPageStart : function(evt) {
+    _onDetailPageStart : function() {
       if(!qxWeb.env.isLandscape() && this.hideMasterOnDetailStart) {
         this.__masterContainer.hide();
       }
@@ -422,7 +422,7 @@ qx.Class.define("qx.ui.page.Manager",
     * @param value {String} The new visibility value
     */
     _onMasterChangeVisibility: function(data) {
-      var isMasterVisible = ("visible" === data.value);
+      var isMasterVisible = (data.value === "visible");
 
       if (qxWeb.env.isLandscape()) {
         if (this.allowMasterHideOnLandscape) {
@@ -501,7 +501,7 @@ qx.Class.define("qx.ui.page.Manager",
     * @param value {String} new caption
     * @param old {String} previous caption
     */
-    _applyHideMasterButtonCaption : function(value, old) {
+    _applyHideMasterButtonCaption : function(value) {
       if(this.__isTablet) {
         this.__hideMasterButton.label = value;
       }
@@ -513,7 +513,7 @@ qx.Class.define("qx.ui.page.Manager",
     * @param value {String} new title
     * @param old {String} previous title
     */
-    _applyMasterTitle : function(value, old) {
+    _applyMasterTitle : function(value) {
       if(this.__isTablet) {
         this.__masterButton.label = value;
       }
@@ -542,7 +542,7 @@ qx.Class.define("qx.ui.page.Manager",
         qxWeb(window).on("orientationchange", this._onLayoutChange, this);
       }
 
-      this.__masterPages = this.__detailPages =  null;
+      this.__masterPages = this.__detailPages = null;
 
       this.__detailNavigation.dispose();
       if (this.__masterNavigation) {

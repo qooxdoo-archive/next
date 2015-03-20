@@ -115,7 +115,7 @@ qx.Class.define("qx.bom.client.Device",
       var isIE10Tablet = (/MSIE 10/i.test(userAgentString)) && (/ARM/i.test(userAgentString)) && !(/windows phone/i.test(userAgentString));
       var isCommonTablet = (!(/android.+mobile|Tablet PC/i.test(userAgentString)) && (/Android|ipad|tablet|playbook|silk|kindle|psp/i.test(userAgentString)));
 
-      return  isIE10Tablet || isCommonTablet;
+      return isIE10Tablet || isCommonTablet;
     },
 
 
@@ -148,9 +148,9 @@ qx.Class.define("qx.bom.client.Device",
 
 
   classDefined : function(statics) {
-      qx.core.Environment.add("device.name", statics.getName);
-      qx.core.Environment.add("device.touch", statics.getTouch);
-      qx.core.Environment.add("device.type", statics.getType);
-      qx.core.Environment.add("device.pixelRatio", statics.getDevicePixelRatio);
+    qx.core.Environment.add("device.name", statics.getName);
+    qx.core.Environment.add("device.touch", statics.getTouch);
+    qx.core.Environment.add("device.type", statics.getType);
+    qx.core.Environment.add("device.pixelRatio", statics.getDevicePixelRatio);
   }
 });

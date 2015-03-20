@@ -56,11 +56,10 @@ qx.Class.define("qx.module.event.Track", {
      * already present
      *
      * @param event {Event} Native event object
-     * @param element {Element} DOM element the listener was attached to
      * @return {Event} Normalized event object
      * @internal
      */
-    normalize : function(event, element)
+    normalize : function(event)
     {
       if (!event) {
         return event;

@@ -156,9 +156,8 @@ qx.Class.define("qx.ui.form.DatePicker", {
      * Listener which handles clicks/taps on the associated input element and
      * opens / hides the calendar.
      *
-     * @param e {Event} tap event
      */
-    _onTap : function(e) {
+    _onTap : function() {
       if (!this.enabled) {
         return;
       }

@@ -113,7 +113,7 @@ qx.Class.define("qx.ui.Image",
 
 
     // property apply
-    _applySource: function(value, old) {
+    _applySource: function(value) {
       var resourceManager = qx.util.ResourceManager.getInstance();
       var source = value;
 
@@ -171,21 +171,16 @@ qx.Class.define("qx.ui.Image",
       if (factor <= 1) {
         return false;
       }
-
       var i = pixelRatioCandidates.length;
-      while (i > 0 && factor > pixelRatioCandidates[--i]) {}
-
       var hiResImgSrc;
-
       // Search for best img with a higher resolution.
       for (var k = i; k >= 0; k--) {
         hiResImgSrc = this._getHighResolutionSource(lowResImgSrc, pixelRatioCandidates[k]);
         if (hiResImgSrc) {
-          this._createHighResolutionOverlay(hiResImgSrc,lowResImgSrc);
+          this._createHighResolutionOverlay(hiResImgSrc, lowResImgSrc);
           return hiResImgSrc;
         }
       }
-
       // Search for best img with a lower resolution.
       for (var k = i + 1; k < pixelRatioCandidates.length; k++) {
         hiResImgSrc = this._getHighResolutionSource(lowResImgSrc, pixelRatioCandidates[k]);
@@ -230,10 +225,10 @@ qx.Class.define("qx.ui.Image",
     _createHighResolutionOverlay : function(highResSource, lowResSource) {
       // Replace the source through transparent pixel for making the high-resolution background image visible.
       var resourceManager = qx.util.ResourceManager.getInstance();
-      this.setStyle("backgroundImage","url("+resourceManager.toUri(highResSource)+")");
-      this.setStyle("backgroundSize","100%");
-      this.setStyle("backgroundRepeat","no-repeat");
-      this.setStyle("backgroundPosition","50% 50%");
+      this.setStyle("backgroundImage", "url("+resourceManager.toUri(highResSource)+")");
+      this.setStyle("backgroundSize", "100%");
+      this.setStyle("backgroundRepeat", "no-repeat");
+      this.setStyle("backgroundPosition", "50% 50%");
       this.setStyle("width", resourceManager.getImageWidth(lowResSource) / 16 + "rem");
       this.setStyle("height", resourceManager.getImageHeight(lowResSource) / 16 + "rem");
     },

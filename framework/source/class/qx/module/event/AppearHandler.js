@@ -36,9 +36,8 @@ qx.Class.define("qx.module.event.AppearHandler", {
      * and starts polling if it's not started yet.
      *
      * @param element {Element} DOM element
-     * @param type {String} event type
      */
-    register : function(element, type) {
+    register : function(element) {
       var clazz = qx.module.event.AppearHandler;
       if (clazz.elements.indexOf(element) == -1) {
         clazz.elements.push(element);
@@ -54,9 +53,8 @@ qx.Class.define("qx.module.event.AppearHandler", {
      * needed.
      *
      * @param element {Element} DOM element
-     * @param type {String} event type
      */
-    unregister : function(element, type) {
+    unregister : function(element) {
       var clazz = qx.module.event.AppearHandler;
       var idx = clazz.elements.indexOf(element);
       if (idx !== -1) {

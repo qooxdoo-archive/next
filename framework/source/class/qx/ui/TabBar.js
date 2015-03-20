@@ -268,7 +268,7 @@ qx.Class.define("qx.ui.TabBar", {
         if (button.hasClass("selected")) {
           this.active = button[0];
         } else {
-          var page = this.getPage(button);
+          page = this.getPage(button);
           if (page.length > 0) {
             page.exclude();
           }
@@ -292,9 +292,8 @@ qx.Class.define("qx.ui.TabBar", {
      * Shows the newly selected page and hides any previously selected page.
      * Also adds/removes the 'active' class from the corresponding buttons
      * @param value {qxWeb?} The newly selected page
-     * @param old {qxWeb?} The previously selected page
      */
-    _applyActive : function(value, old) {
+    _applyActive : function(value) {
       this.find("* > .button").forEach(function(button) {
         if (value === button[0]) {
           button.addClass("selected");
@@ -329,9 +328,8 @@ qx.Class.define("qx.ui.TabBar", {
     /**
      * Apply the CSS classes for the alignment (horizontal mode only)
      * @param value {String} New alignment value
-     * @param old {String} Previous alignment value
      */
-    _applyAlignment: function(value, old) {
+    _applyAlignment: function(value) {
       var buttons = this.find("* > .button");
 
       if (value == "justify") {
@@ -360,11 +358,11 @@ qx.Class.define("qx.ui.TabBar", {
 
       mql = qxWeb.matchMedia(mediaQuery);
       this.__mediaQueryListener = mql;
-      mql.on("change", function(query) {
+      mql.on("change", function() {
         this.orientation = mql.matches ? "horizontal" : "vertical";
       }.bind(this));
 
-      this.orientation =  mql.matches ? "horizontal" : "vertical";
+      this.orientation = mql.matches ? "horizontal" : "vertical";
     },
 
 

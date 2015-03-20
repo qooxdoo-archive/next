@@ -75,13 +75,13 @@ qx.Class.define("qx.lang.Array",
 
       if (qx.data && qx.data.IListData) {
         if (object.constructor && qx.Interface.classImplements(object.constructor, qx.data.IListData)) {
-          var object = object.toArray();
+          object = object.toArray();
         }
       }
 
 
       // Create from given constructor
-      var ret = new constructor;
+      var ret = new constructor();
 
       // Some collections in mshtml are not able to be sliced.
       // These lines are a special workaround for this client.
@@ -543,7 +543,7 @@ qx.Class.define("qx.lang.Array",
       }
 
       // Clear object hashs
-      for (var hash in doneObjects)
+      for (hash in doneObjects)
       {
         try
         {

@@ -1,3 +1,4 @@
+"use strict";
 /* ************************************************************************
 
    qooxdoo - the new era of web development
@@ -42,7 +43,7 @@ qx.Class.define("qx.type.BaseString",
    */
   construct : function(txt)
   {
-    var txt = txt || "";
+    txt = txt || "";
 
     // no base call needed
 

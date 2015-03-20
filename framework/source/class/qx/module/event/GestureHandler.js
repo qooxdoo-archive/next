@@ -40,9 +40,8 @@ qx.Class.define("qx.module.event.GestureHandler", {
      * is attached to it
      *
      * @param element {Element} DOM element
-     * @param type {String} event type
      */
-    register : function(element, type) {
+    register : function(element) {
       if (!element.$$gestureHandler) {
         element.$$gestureHandler = new qx.event.handler.Gesture(element);
       }

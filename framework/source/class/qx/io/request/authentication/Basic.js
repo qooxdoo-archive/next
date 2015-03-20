@@ -34,7 +34,7 @@ qx.Class.define("qx.io.request.authentication.Basic",
    */
   construct : function(username, password)
   {
-     this.__credentials = qx.util.Base64.encode(username + ':' + password);
+    this.__credentials = qx.util.Base64.encode(username + ':' + password);
   },
 
   members :

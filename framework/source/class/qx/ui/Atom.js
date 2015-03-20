@@ -125,7 +125,7 @@ qx.Class.define("qx.ui.Atom",
 
 
     // property apply
-    _applyIconPosition : function(value, old) {
+    _applyIconPosition : function(value) {
       var targetLayout;
       var verticalLayout = ["top", "bottom"].indexOf(value) != -1;
 
@@ -152,7 +152,7 @@ qx.Class.define("qx.ui.Atom",
     },
 
     // property apply
-    _applyShowChildren : function(value, old)
+    _applyShowChildren : function(value)
     {
       if (this.__label) {
         if (value === 'both' || value === 'label') {
@@ -172,7 +172,7 @@ qx.Class.define("qx.ui.Atom",
 
 
     // property apply
-    _applyLabel : function(value, old)
+    _applyLabel : function(value)
     {
       if (this.__label) {
         this.__label.value = value;
@@ -184,7 +184,7 @@ qx.Class.define("qx.ui.Atom",
 
 
     // property apply
-    _applyIcon : function(value, old)
+    _applyIcon : function(value)
     {
       if (this.__icon) {
         this.__icon.source = value;
@@ -254,11 +254,9 @@ qx.Class.define("qx.ui.Atom",
     /**
      * This function is responsible for creating and adding 2 children controls to the Button widget.
      * A label and an icon.
-     * @param label {String} the text of the button
-     * @param icon {String} A path to an image resource
      *
      */
-    __createChildrenContainer : function(label, icon) {
+    __createChildrenContainer : function() {
       var layout;
       var verticalLayout = [ "top", "bottom" ].indexOf(this.iconPosition) != -1;
       // If Atom has no Label, only Icon is shown, and should vertically centered.

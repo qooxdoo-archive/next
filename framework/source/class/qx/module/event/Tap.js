@@ -135,7 +135,7 @@ qx.Class.define("qx.module.event.Tap", {
      * @return {Event} Normalized event object
      * @internal
      */
-    normalize : function(event, element)
+    normalize : function(event)
     {
       if (!event) {
         return event;

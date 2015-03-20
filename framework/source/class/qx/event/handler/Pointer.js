@@ -197,11 +197,11 @@ qx.Class.define("qx.event.handler.Pointer", {
       if (domEvent.type == "touchstart" && this.__primaryIdentifier === null) {
         this.__primaryIdentifier = changedTouches[0].identifier;
       }
-
-      for (var i = 0, l = changedTouches.length; i < l; i++) {
+      var l = changedTouches.length;
+      for (var i = 0; i < l; i++) {
         var touch = changedTouches[i];
 
-        var touchTarget = document.elementFromPoint(touch.clientX,touch.clientY) || domEvent.target;
+        var touchTarget = document.elementFromPoint(touch.clientX, touch.clientY) || domEvent.target;
 
         var touchProps = {
           clientX: touch.clientX,
@@ -321,7 +321,7 @@ qx.Class.define("qx.event.handler.Pointer", {
       } else if (type == "touchend" || type == "touchcancel") {
         var updatedActiveTouches = [];
 
-        for (var i = 0; i < this.__activeTouches.length; i++) {
+        for (i = 0; i < this.__activeTouches.length; i++) {
           var add = true;
           for (var j = 0; j < changedTouches.length; j++) {
             if (this.__activeTouches[i].identifier == changedTouches[j].identifier) {
