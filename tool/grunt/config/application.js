@@ -28,13 +28,16 @@ var path = require('path');
 var deepmerge = require('deepmerge');
 var q = require('qooxdoo');
 
+// mac/linux = USER, win = USERNAME
+var curUser = process.env.USER || process.env.USERNAME;
+
 var common = {
   "ROOT": ".",
   "QOOXDOO_PATH": "../../..",
   "THEME": "custom",
   "QXICONTHEME": ["Tango"],
   "TMPDIR": os.tmpdir(),
-  "CACHE": "<%= common.TMPDIR %>/next<%= common.QOOXDOO_VERSION %>/cache",
+  "CACHE": "<%= common.TMPDIR %>/next<%= common.QOOXDOO_VERSION %>/"+curUser+"/cache",
   "CACHE_KEY":
   {
     "compile": "<%= common.CACHE %>",
