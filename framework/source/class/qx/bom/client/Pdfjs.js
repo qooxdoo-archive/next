@@ -102,8 +102,9 @@ qx.Class.define("qx.bom.client.Pdfjs",
   }
 });
 
+
 /**
- * @lint ignoreUnused(a, b, c, d, e, f, g, h, i, j)
+ * @lint ignoreUnused(a, b, c, d, e, f, g, h, i, j, k)
  * @lint ignoreDeprecated(eval)
  */
 /*eslint semi:0*/
