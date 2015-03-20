@@ -626,7 +626,7 @@ qx.Class.define("qx.core.Environment",
       if (classAndMethod[0] != undefined) {
         var clazz = classAndMethod[0];
         var method= classAndMethod[1];
-        var value = clazz[method]();  // call the check method
+        value = clazz[method]();  // call the check method
         this.__cache[key] = value;
         return value;
       }
@@ -657,7 +657,7 @@ qx.Class.define("qx.core.Environment",
         // separate class from method
         var lastdot = implementation.lastIndexOf(".");
         if (lastdot > -1) {
-          var classname = implementation.slice(0,lastdot);
+          var classname = implementation.slice(0, lastdot);
           var methodname= implementation.slice(lastdot+1);
           var clazz = qx.Class.getByName(classname);
           if (clazz != undefined) {
@@ -750,7 +750,7 @@ qx.Class.define("qx.core.Environment",
     selectAsync : function(key, values, self) {
       this.getAsync(key, function(result) {
         var value = this.__pickFromValues(key, values);
-        value.call(self, result)
+        value.call(self, result);
       }, this);
     },
 
@@ -779,7 +779,7 @@ qx.Class.define("qx.core.Environment",
             if (ids[i] == key) {
               return values[id];
             }
-          };
+          }
         }
       }
 

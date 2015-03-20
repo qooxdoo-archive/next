@@ -234,6 +234,7 @@ qx.Class.define("qx.ui.page.Page",
      * @see #back
      * @abstract
      */
+     /* eslint no-unused-vars:0 */
     _back : function(triggeredByKeyEvent)
     {
 

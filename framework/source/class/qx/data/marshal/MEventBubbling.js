@@ -151,16 +151,16 @@ qx.Mixin.define("qx.data.marshal.MEventBubbling",
             if (rest[0] != "[") {
               rest = "." + rest;
             }
-            newName =  name + "[" + index + "]" + rest;
+            newName = name + "[" + index + "]" + rest;
           } else if (bracketIndex < dotIndex) {
             index = data.name.substring(0, bracketIndex);
             rest = data.name.substring(bracketIndex, data.name.length);
-            newName =  name + "[" + index + "]" + rest;
+            newName = name + "[" + index + "]" + rest;
           } else {
-            newName =  name + "[" + data.name + "]";
+            newName = name + "[" + data.name + "]";
           }
         } else {
-          newName =  name + "[" + data.name + "]";
+          newName = name + "[" + data.name + "]";
         }
 
       // if the target is not an array
@@ -169,7 +169,7 @@ qx.Mixin.define("qx.data.marshal.MEventBubbling",
         if (parseInt(name) == name && name !== "") {
           name = "[" + name + "]";
         }
-        newName =  name + "." + data.name;
+        newName = name + "." + data.name;
       }
 
       this.emit(

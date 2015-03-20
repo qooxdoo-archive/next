@@ -226,7 +226,7 @@ qx.Class.define("qx.data.controller.Object",
         this.model, sourceProperty, targetObject, targetProperty, options
       );
       // create the reverse binding if necessary
-      var idReverse = null
+      var idReverse = null;
       if (bidirectional) {
         idReverse = qx.data.SingleValueBinding.bind(
           targetObject, targetProperty, this.model, sourceProperty, reverseOptions

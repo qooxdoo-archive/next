@@ -138,7 +138,7 @@ qx.Class = {
     }
   },
 
-
+  /* eslint no-unused-vars:0 */
   "super" : function(clazz, name, varargs) {
     // Provide consistency that construct will call native constructor
     if (name === "construct" && typeof clazz.prototype.construct !== "function") {
@@ -205,7 +205,7 @@ qx.Class = {
           if (qx.Class.getClass(imclList) !== "Array") {
             imclList = [imclList];
           }
-          for (var i=0, l=imclList.length; i<l; i++) {
+          for (i = 0, l = imclList.length; i < l; i++) {
             qx.Mixin.add(clazz, imclList[i], false);
           }
         } else {
@@ -249,7 +249,7 @@ qx.Class = {
     clazz.basename = basename;
 
     if (config.events) {
-      //this.addEvents(clazz, config.events); TODO?
+    //  this.addEvents(clazz, config.events); TODO?
     }
 
     // add property events
@@ -272,7 +272,7 @@ qx.Class = {
         if (qx.Class.getClass(implList) !== "Array") {
           implList = [implList];
         }
-        for (var i=0, l=implList.length; i<l; i++) {
+        for (i = 0, l = implList.length; i < l; i++) {
           qx.Interface.add(clazz, implList[i]);
         }
       }
@@ -866,6 +866,7 @@ qx.Class.define("qx.Class",
      *   have any JavaScript data type. All data is serialized immediately and
      *   does not keep references to other objects.
      */
+    /* eslint no-unused-vars:0 */
     debug : function(object, message) {
       qx.Class.$$logs.push(["debug", arguments]);
     },
@@ -879,6 +880,7 @@ qx.Class.define("qx.Class",
      *   have any JavaScript data type. All data is serialized immediately and
      *   does not keep references to other objects.
      */
+    /* eslint no-unused-vars:0 */
     info : function(object, message) {
       qx.Class.$$logs.push(["info", arguments]);
     },
@@ -892,6 +894,7 @@ qx.Class.define("qx.Class",
      *   have any JavaScript data type. All data is serialized immediately and
      *   does not keep references to other objects.
      */
+    /* eslint no-unused-vars:0 */
     warn : function(object, message) {
       qx.Class.$$logs.push(["warn", arguments]);
     },
@@ -905,6 +908,7 @@ qx.Class.define("qx.Class",
      *   have any JavaScript data type. All data is serialized immediately and
      *   does not keep references to other objects.
      */
+    /* eslint no-unused-vars:0 */
     error : function(object, message) {
       qx.Class.$$logs.push(["error", arguments]);
     },
@@ -915,6 +919,7 @@ qx.Class.define("qx.Class",
      *
      * @param object {Object} Contextual object (either instance or static class)
      */
+    /* eslint no-unused-vars:0 */
     trace : function(object) {}
   }
 });

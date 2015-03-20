@@ -431,14 +431,14 @@ qx.Class.define("qx.ui.page.NavigationPage",
 
 
     // property apply
-    _applyShowBackButton : function(value)
+    _applyShowBackButton : function()
     {
       this._showBackButton();
     },
 
 
     // property apply
-    _applyShowButton : function(value)
+    _applyShowButton : function()
     {
       this._showButton();
     },

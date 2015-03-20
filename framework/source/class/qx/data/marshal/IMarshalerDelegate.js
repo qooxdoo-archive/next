@@ -44,6 +44,7 @@ qx.Interface.define("qx.data.marshal.IMarshalerDelegate",
      * @param depth {Number} The depth level of the data.
      * @return {Boolean} <code>true</code> if the set should be ignored
      */
+    /* eslint no-unused-vars:0 */
     ignore : function(properties, parentProperty, depth) {},
 
 
@@ -57,6 +58,7 @@ qx.Interface.define("qx.data.marshal.IMarshalerDelegate",
      * @return {String} The new property name which should be used for that property in
      *   the model.
      */
+     /* eslint no-unused-vars:0 */
     getPropertyMapping : function(property, properties) {},
 
 
@@ -81,6 +83,7 @@ qx.Interface.define("qx.data.marshal.IMarshalerDelegate",
      *   corresponding to the given hash of the properties. If <code>null</code>
      *   will be returned, the marshaler will create a class.
      */
+     /* eslint no-unused-vars:0 */
     getModelClass : function(properties, object, parentProperty, depth) {},
 
 
@@ -96,6 +99,7 @@ qx.Interface.define("qx.data.marshal.IMarshalerDelegate",
      *   corresponding to the given hash of the properties. If <code>null</code>
      *   will be returned, {@link Object} will be used as superclass.
      */
+     /* eslint no-unused-vars:0 */
     getModelSuperClass : function(properties, parentProperty, depth) {},
 
 
@@ -113,6 +117,7 @@ qx.Interface.define("qx.data.marshal.IMarshalerDelegate",
      *   given in the parameter. If <code>null</code> will be returned, no mixin
      *   will be included.
      */
+     /* eslint no-unused-vars:0 */
     getModelMixins : function(properties, parentProperty, depth) {},
 
 
@@ -128,6 +133,7 @@ qx.Interface.define("qx.data.marshal.IMarshalerDelegate",
      *   be included into the property definition as validator.
      *   {@link qx.core.Property} for more details.
      */
+     /* eslint no-unused-vars:0 */
     getValidationRule : function(properties, propertyName) {},
 
 
@@ -142,6 +148,7 @@ qx.Interface.define("qx.data.marshal.IMarshalerDelegate",
      * @return {Class|null} Returns the class which should be used as array class.
      *   If <code>null</code> will be returned, {@link qx.data.Array} will be used as array class.
      */
+     /* eslint no-unused-vars:0 */
     getArrayClass : function(parentProperty, depth) {}
   }
 });

@@ -122,7 +122,7 @@ qx.Class.define("qx.core.ObjectRegistry",
       // Delete the hash code
       try
       {
-        delete obj.$$hash
+        delete obj.$$hash;
       }
       catch(ex)
       {
@@ -191,7 +191,7 @@ qx.Class.define("qx.core.ObjectRegistry",
         // Delete the hash code
         try
         {
-          delete obj.$$hash
+          delete obj.$$hash;
         }
         catch(ex)
         {

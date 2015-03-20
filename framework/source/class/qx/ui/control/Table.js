@@ -886,7 +886,7 @@ qx.Class.define("qx.ui.control.Table", {
 
       var cell, row;
       var tHead = this.__getHeaderRow();
-      var createdRow = null, colMeta = null;
+      var createdRow = null;
       var renderedRow = null;
 
       var inputType = (this.rowSelection == "single") ? "radio" : "checkbox";
@@ -914,7 +914,6 @@ qx.Class.define("qx.ui.control.Table", {
 
           renderedColIndex = this.__selectionRendered() ? j + 1 : j;
           colName = this.__getColumnName(tHead.cells.item(renderedColIndex));
-          colMeta = this.__getDataForColumn(colName);
           coltemplate = this.getTemplate(colName) || coltemplate;
           renderedRow = this.__getRoot().rows.item(i);
           cell = qxWeb.create(qxWeb.template.render(coltemplate, model[i][j]))[0];

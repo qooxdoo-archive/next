@@ -35,6 +35,7 @@ qx.Interface.define("qx.data.marshal.IMarshaler",
      * @param includeBubbleEvents {Boolean} Whether the model should support
      *   the bubbling of change events or not.
      */
+     /* eslint no-unused-vars:0 */
     toClass : function(data, includeBubbleEvents) {},
 
 
@@ -46,6 +47,7 @@ qx.Interface.define("qx.data.marshal.IMarshaler",
      *
      * @return {Object} The created model object.
      */
+     /* eslint no-unused-vars:0 */
     toModel : function(data) {}
   }
 });

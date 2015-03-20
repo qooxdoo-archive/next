@@ -163,7 +163,7 @@ qx.Class.define("qx.data.marshal.Json",
       var properties = {};
       // include the disposeItem for the dispose process.
       var members = {};
-      for (var key in data) {
+      for (key in data) {
         // apply the property names mapping
         if (this.__delegate && this.__delegate.getPropertyMapping) {
           key = this.__delegate.getPropertyMapping(key, hash);
@@ -174,7 +174,7 @@ qx.Class.define("qx.data.marshal.Json",
         // check for valid JavaScript identifier (leading numbers are ok)
         if (qx.core.Environment.get("qx.debug")) {
           qx.core.Assert.assertTrue((/^[$0-9A-Za-z_]*$/).test(key),
-          "The key '" + key + "' is not a valid JavaScript identifier.")
+          "The key '" + key + "' is not a valid JavaScript identifier.");
         }
 
         properties[key] = {};
@@ -191,7 +191,7 @@ qx.Class.define("qx.data.marshal.Json",
         var superClass =
           this.__delegate.getModelSuperClass(hash, parentProperty, depth) || Object;
       } else {
-        var superClass = Object;
+        superClass = Object;
       }
 
       // try to get the mixins

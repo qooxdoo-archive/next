@@ -314,9 +314,8 @@ qx.Mixin.define("qx.ui.form.MForm",
      * Updates the <code>valid</code> property if the
      * <code>required</code> property changes
      *
-     * @param value {Boolean} new value
      */
-    _applyRequired: function(value) {
+    _applyRequired: function() {
       // Required fields shouldn't initially be marked as invalid
       if (this.__oldValue !== undefined) {
         this.valid = this._validateRequired();

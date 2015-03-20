@@ -464,9 +464,8 @@ qx.Class.define("qx.ui.Widget", {
     /**
      * Stores the given layout properties.
      *
-     * @param properties {Map} Incoming layout property data
      */
-    _applyLayoutPrefs : function(value) {
+    _applyLayoutPrefs : function() {
       // Check values through parent
       var parent = this._getParentWidget();
       if (parent && parent.length === 1) {

@@ -154,6 +154,7 @@ qx.Class.define("qx.lang.Array",
      * @param input {Array} arr with one to four elements
      * @return {Array} an arr with four elements
      */
+     /* eslint no-fallthrough:0 */
     fromShortHand : function(input)
     {
       var len = input.length;
@@ -469,6 +470,7 @@ qx.Class.define("qx.lang.Array",
      * @param arr {Array} Incoming array
      * @return {Array} Returns a copy with no duplicates
      */
+     /* eslint no-empty:0 */
     unique: function(arr)
     {
       var ret=[], doneStrings={}, doneNumbers={}, doneObjects={};

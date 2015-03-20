@@ -61,6 +61,7 @@ qx.Interface.define("qx.data.IListData",
      *
      * @return {var} The element at the given index.
      */
+    /* eslint no-unused-vars:0 */
     getItem : function(index) {},
 
 
@@ -71,6 +72,7 @@ qx.Interface.define("qx.data.IListData",
      * @param index {Number} The index of the data element.
      * @param item {var} The new item to set.
      */
+    /* eslint no-unused-vars:0 */
     setItem : function(index, item) {},
 
 
@@ -85,6 +87,7 @@ qx.Interface.define("qx.data.IListData",
      *   position to the array.
      * @return {qx.data.Array} An array containing the removed elements.
      */
+    /* eslint no-unused-vars:0 */
     splice : function(startIndex, amount, varargs) {},
 
 
@@ -94,6 +97,7 @@ qx.Interface.define("qx.data.IListData",
      * @param item {var} The item which is possibly in the data structure.
      * @return {Boolean} true, if the array contains the given item.
      */
+    /* eslint no-unused-vars:0 */
     contains : function(item) {},
 
 
@@ -102,6 +106,7 @@ qx.Interface.define("qx.data.IListData",
      *
      * @return {Number} The current length of the data structure.
      */
+    /* eslint no-unused-vars:0 */
     getLength : function() {},
 
 
@@ -110,6 +115,7 @@ qx.Interface.define("qx.data.IListData",
      *
      * @return {Array} The native array.
      */
+    /* eslint no-unused-vars:0 */
     toArray: function() {}
   }
 });

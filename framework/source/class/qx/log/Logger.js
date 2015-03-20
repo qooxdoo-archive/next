@@ -161,6 +161,7 @@ qx.Class.define("qx.log.Logger", {
      *   have any JavaScript data type. All data is serialized immediately and
      *   does not keep references to other objects.
      */
+    /* eslint no-unused-vars:0 */
     debug: function(object, message) {
       qx.log.Logger.__log("debug", arguments);
     },
@@ -174,6 +175,7 @@ qx.Class.define("qx.log.Logger", {
      *   have any JavaScript data type. All data is serialized immediately and
      *   does not keep references to other objects.
      */
+    /* eslint no-unused-vars:0 */
     info: function(object, message) {
       qx.log.Logger.__log("info", arguments);
     },
@@ -187,6 +189,7 @@ qx.Class.define("qx.log.Logger", {
      *   have any JavaScript data type. All data is serialized immediately and
      *   does not keep references to other objects.
      */
+    /* eslint no-unused-vars:0 */
     warn: function(object, message) {
       qx.log.Logger.__log("warn", arguments);
     },
@@ -200,6 +203,7 @@ qx.Class.define("qx.log.Logger", {
      *   have any JavaScript data type. All data is serialized immediately and
      *   does not keep references to other objects.
      */
+    /* eslint no-unused-vars:0 */
     error: function(object, message) {
       qx.log.Logger.__log("error", arguments);
     },

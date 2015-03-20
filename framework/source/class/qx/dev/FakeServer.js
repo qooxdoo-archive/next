@@ -253,7 +253,7 @@ qx.Class.define("qx.dev.FakeServer", {
      */
     __getCombinedFilter : function() {
       var responses = this.__responses;
-      return function(method, url, async, username, password) {
+      return function(method, url) {
         for (var i=0, l=responses.length; i<l; i++) {
           var filterMethod = responses[i][0];
           var regExp = responses[i][1];

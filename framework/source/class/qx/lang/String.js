@@ -133,9 +133,9 @@ qx.Class.define("qx.lang.String",
       if(this.__unicodeFirstLetterInWordRegexp === null) {
         var unicodeEscapePrefix = '\\u';
         this.__unicodeFirstLetterInWordRegexp = new RegExp("(^|[^" + this.__unicodeLetters.replace(/[0-9A-F]{4}/g, function(match) {
-          return unicodeEscapePrefix + match
+          return unicodeEscapePrefix + match;
         }) + "])[" + this.__unicodeLetters.replace(/[0-9A-F]{4}/g, function(match) {
-          return unicodeEscapePrefix + match
+          return unicodeEscapePrefix + match;
         }) + "]", "g");
       }
       return str.replace(this.__unicodeFirstLetterInWordRegexp, function(match) {

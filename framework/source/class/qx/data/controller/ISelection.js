@@ -29,6 +29,7 @@ qx.Interface.define("qx.data.controller.ISelection",
      * Setter for the selection.
      * @param value {qx.data.IListData} The data of the selection.
      */
+    /* eslint no-unused-vars:0 */
     setSelection : function(value) {},
 
 
@@ -36,12 +37,14 @@ qx.Interface.define("qx.data.controller.ISelection",
      * Getter for the selection list.
      * @return {qx.data.IListData} The current selection.
      */
+    /* eslint no-unused-vars:0 */
     getSelection : function() {},
 
 
     /**
      * Resets the selection to its default value.
      */
+    /* eslint no-unused-vars:0 */
     resetSelection : function() {}
   }
 });

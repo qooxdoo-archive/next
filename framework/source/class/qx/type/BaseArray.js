@@ -1,3 +1,4 @@
+/* eslint strict:0 */
 /* ************************************************************************
 
    qooxdoo - the new era of web development
@@ -76,10 +77,11 @@ qx.Class.define("qx.type.BaseArray", {
    * values as its elements, and the array's length property is set to the
    * number of arguments.
    *
-   * @param length_or_items {Integer|var?null} The initial length of the array
+   * @param lengthOrItems {Integer|var?null} The initial length of the array
    *        OR an argument list of values.
    */
-  construct: function(length_or_items) {},
+   /* eslint no-unused-vars:0 */
+  construct: function(lengthOrItems) {},
 
 
   members: {

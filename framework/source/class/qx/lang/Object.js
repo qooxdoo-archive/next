@@ -153,14 +153,14 @@ qx.Class.define("qx.lang.Object",
         return clone;
 
       } else if (qx.lang.Type.isArray(source)) {
-        var clone = [];
+        clone = [];
         for (var i=0; i < source.length; i++) {
           if (deep) {
             clone[i] = qx.lang.Object.clone(source[i]);
           } else {
             clone[i] = source[i];
           }
-        };
+        }
         return clone;
 
       }

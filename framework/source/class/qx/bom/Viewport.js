@@ -96,7 +96,7 @@ qx.Class.define("qx.bom.Viewport",
      */
     getWidth : function(win)
     {
-      var win = win || window;
+      win = win || window;
       var doc = win.document;
       return doc.documentElement.clientWidth;
     },
@@ -111,7 +111,7 @@ qx.Class.define("qx.bom.Viewport",
      */
     getHeight : function(win)
     {
-      var win = win || window;
+      win = win || window;
       var doc = win.document;
 
       // [BUG #7785] Document element's clientHeight is calculated wrong on iPad iOS7
@@ -136,7 +136,7 @@ qx.Class.define("qx.bom.Viewport",
      */
     getScrollLeft : function(win)
     {
-      var win = win ? win : window;
+      win = win ? win : window;
 
       if (typeof win.pageXOffset !== "undefined") {
         return win.pageXOffset;
@@ -164,7 +164,7 @@ qx.Class.define("qx.bom.Viewport",
      */
     getScrollTop : function(win)
     {
-      var win = win ? win : window;
+      win = win ? win : window;
 
       if (typeof win.pageYOffset !== "undefined") {
         return win.pageYOffset;
@@ -190,7 +190,7 @@ qx.Class.define("qx.bom.Viewport",
     {
       // Calculate own understanding of orientation (0 = portrait, 90 = landscape)
       var currentOrientation = this.getWidth(win) > this.getHeight(win) ? 90 : 0;
-      var deviceOrientation  = win.orientation;
+      var deviceOrientation = win.orientation;
       if (deviceOrientation == null || Math.abs( deviceOrientation % 180 ) == currentOrientation) {
         // No device orientation available or device orientation equals own understanding of orientation
         return {
@@ -237,7 +237,7 @@ qx.Class.define("qx.bom.Viewport",
     getOrientation : function(win)
     {
       // Set window.top as default, because orientationChange event is only fired top window
-      var win = win||window.top;
+      win = win||window.top;
       // The orientation property of window does not have the same behaviour over all devices
       // iPad has 0degrees = Portrait, Playbook has 90degrees = Portrait, same for Android Honeycomb
       //

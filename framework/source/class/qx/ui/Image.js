@@ -182,10 +182,10 @@ qx.Class.define("qx.ui.Image",
         }
       }
       // Search for best img with a lower resolution.
-      for (var k = i + 1; k < pixelRatioCandidates.length; k++) {
+      for (k = i + 1; k < pixelRatioCandidates.length; k++) {
         hiResImgSrc = this._getHighResolutionSource(lowResImgSrc, pixelRatioCandidates[k]);
         if (hiResImgSrc) {
-          this._createHighResolutionOverlay(hiResImgSrc,lowResImgSrc);
+          this._createHighResolutionOverlay(hiResImgSrc, lowResImgSrc);
           return hiResImgSrc;
         }
       }

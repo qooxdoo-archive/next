@@ -198,7 +198,7 @@ qx.Class.define("qx.event.handler.Pointer", {
         this.__primaryIdentifier = changedTouches[0].identifier;
       }
       var l = changedTouches.length;
-      for (var i = 0; i < l; i++) {
+      for (i = 0; i < l; i++) {
         var touch = changedTouches[i];
 
         var touchTarget = document.elementFromPoint(touch.clientX, touch.clientY) || domEvent.target;
