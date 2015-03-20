@@ -57,6 +57,12 @@ module.exports = function(grunt) {
           "<%= common.ROOT %>/package.json"
         ]
       }
+    },
+
+    eslint: {
+      options: {
+        globals: ["ace"]
+      }
     }
 
   };
