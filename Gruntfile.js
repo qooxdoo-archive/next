@@ -72,6 +72,27 @@ module.exports = function(grunt) {
   grunt.registerTask('clean', 'run_grunt:clean_apps');
   grunt.registerTask('build', 'run_grunt:build_apps');
 
+
+  // run toolchain tests
+  grunt.task.registerTask (
+    'test_toolchain',
+    'Run toolchain tests',
+    function() {
+      shell.cd('tool/grunt/');
+      shell.cd('eslint/eslint-plugin-qx-rules');
+      shell.exec('npm test');
+      shell.cd('../../task/package');
+      var packages = shell.ls('.');
+      packages.forEach(function(pkgPath) {
+        if (shell.test('-d', pkgPath)) {
+          shell.cd(pkgPath);
+          shell.exec('npm test');
+          shell.cd('../');
+        }
+      });
+    }
+  );
+
   // rm node_modules (grunt remove_node_modules <=> grunt setup)
   grunt.task.registerTask (
     'remove_node_modules',
