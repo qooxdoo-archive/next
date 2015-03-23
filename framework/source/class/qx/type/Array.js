@@ -1,3 +1,4 @@
+/* eslint strict:0 */
 /* ************************************************************************
 
    qooxdoo - the new era of web development
@@ -39,10 +40,11 @@ qx.Class.define("qx.type.Array",
    * * <code>length</code>: The initial length of the array.
    * * <code>item1, item2. .. itemN</code>:  the items that will make up the newly created array
    *
-   * @param length_or_items {Integer|var?null} The initial size of the collection
+   * @param lengthOrItems {Integer|var?null} The initial size of the collection
    *        OR an argument list of elements.
    */
-  construct : function(length_or_items) {
+   /* eslint no-unused-vars:0 */
+  construct : function(lengthOrItems) {
     qx.type.BaseArray.apply(this, arguments);
   },
 
@@ -188,7 +190,7 @@ qx.Class.define("qx.type.Array",
         arg = [];
         for (var i=0; i < arr.length; i++) {
           arg[i] = arr[i];
-        };
+        }
       }
       return arg;
     },

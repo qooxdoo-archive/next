@@ -96,7 +96,7 @@ qx.Class.define("qx.event.handler.Track", {
       if (type == "gesturebegin") {
         this.gestureBegin(domEvent, target);
       } else if (type == "gesturemove") {
-        this.gestureMove(domEvent, target);
+        this.gestureMove(domEvent);
       } else if (type == "gesturecancel") {
         this.gestureCancel(domEvent.pointerId);
       }
@@ -129,9 +129,8 @@ qx.Class.define("qx.event.handler.Track", {
      * Helper method for gesture move.
      *
      * @param domEvent {Event} DOM event
-     * @param target {Element} event target
      */
-    gestureMove : function(domEvent, target) {
+    gestureMove : function(domEvent) {
       var trackData = this._trackData[domEvent.pointerId];
       if (trackData) {
         this._fireTrack("track", domEvent, trackData.target);

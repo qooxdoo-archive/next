@@ -42,7 +42,7 @@ qx.Class.define("qx.log.appender.Util",
       {
         var obj = entry.win.qx.core.ObjectRegistry.fromHashCode(entry.object);
         if (obj) {
-          output.push("<span class='object' title='Object instance with hash code: " + obj.$$hash + "'>", obj.classname, "[" , obj.$$hash, "]</span>: ");
+          output.push("<span class='object' title='Object instance with hash code: " + obj.$$hash + "'>", obj.classname, "[", obj.$$hash, "]</span>: ");
         }
       }
       else if (entry.clazz)
@@ -58,7 +58,7 @@ qx.Class.define("qx.log.appender.Util",
 
         if (msg instanceof Array)
         {
-          var list = [];
+          list = [];
 
           for (var j=0, jl=msg.length; j<jl; j++)
           {
@@ -191,10 +191,11 @@ qx.Class.define("qx.log.appender.Util",
         msg = item.text;
 
         if (item.trace && item.trace.length > 0) {
-          if (typeof(this.FORMAT_STACK) == "function") {
+          if (typeof (this.FORMAT_STACK) == "function") {
             qx.log.Logger.deprecatedConstantWarning(qx.log.appender.Util,
               "FORMAT_STACK",
               "Use qx.dev.StackTrace.FORMAT_STACKTRACE instead");
+            /* eslint new-cap:0 */
             msg += "\n" + this.FORMAT_STACK(item.trace);
           } else {
             msg += "\n" + item.trace;

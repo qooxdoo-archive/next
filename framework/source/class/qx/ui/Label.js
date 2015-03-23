@@ -108,14 +108,14 @@ qx.Class.define("qx.ui.Label",
     },
 
     // property apply
-    _applyValue : function(value, old)
+    _applyValue : function(value)
     {
       this.setHtml(value);
     },
 
 
     // property apply
-    _applyTextWrap : function(value, old)
+    _applyTextWrap : function(value)
     {
       if (value) {
         this.removeClass("no-wrap");

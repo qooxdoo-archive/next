@@ -33,7 +33,7 @@ qx.Class.define("mobileshowcase.page.Toolbar",
 
 
   statics : {
-    __toolbarButtonImages: ["mobileshowcase/icon/arrowleft.png","mobileshowcase/icon/camera.png"]
+    __toolbarButtonImages: ["mobileshowcase/icon/arrowleft.png", "mobileshowcase/icon/camera.png"]
   },
 
 
@@ -88,7 +88,7 @@ qx.Class.define("mobileshowcase.page.Toolbar",
       );
       this.__goBackBtn.showChildren = "icon";
 
-       this.__goBackBtn.on("tap", function(){
+      this.__goBackBtn.on("tap", function(){
         var popup = this.__createAreYouSurePopup( this.__goBackBtn);
         popup.show();
       }, this);

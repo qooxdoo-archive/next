@@ -271,7 +271,7 @@ qx.Class.define("qx.ui.form.Slider",
     /**
      * Refreshes the slider and the knob position.
      */
-    _refresh : function(ev)
+    _refresh : function()
     {
       this._updateSizes();
       this._updateKnobPosition();

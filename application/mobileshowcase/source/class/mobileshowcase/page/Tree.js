@@ -81,6 +81,7 @@ qx.Class.define("mobileshowcase.page.Tree",
 
       tree.on("selected", function(folder) {
         var label = qxWeb(folder).find("span:first-child");
+        /*eslint no-console: 0*/
         console.log("Selected Folder:", label.getHtml());
       });
     }

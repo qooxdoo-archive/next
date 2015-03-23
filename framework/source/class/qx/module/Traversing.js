@@ -89,7 +89,7 @@ qx.Class.define("qx.module.Traversing", {
           found = qx.bom.Selector.matches(selector, found);
         }
         children = children.concat(found);
-      };
+      }
       return qxWeb.$init(children, qxWeb);
     },
 
@@ -112,7 +112,7 @@ qx.Class.define("qx.module.Traversing", {
           found = qx.bom.Selector.matches(selector, [found]);
         }
         parents = parents.concat(found);
-      };
+      }
       return qxWeb.$init(parents, qxWeb);
     },
 
@@ -138,7 +138,7 @@ qx.Class.define("qx.module.Traversing", {
             isChildOf = true;
             break;
           }
-        };
+        }
       }
       return isChildOf;
     },
@@ -234,7 +234,7 @@ qx.Class.define("qx.module.Traversing", {
 
       for (var i=0; i < this.length; i++) {
         findClosest(qxWeb(this[i]));
-      };
+      }
 
       return qxWeb.$init(closest, qxWeb);
     },
@@ -253,7 +253,7 @@ qx.Class.define("qx.module.Traversing", {
       var found = [];
       for (var i=0; i < this.length; i++) {
         found = found.concat(qx.bom.Selector.query(selector, this[i]));
-      };
+      }
       return qxWeb.$init(found, qxWeb);
     },
 

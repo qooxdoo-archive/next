@@ -189,7 +189,7 @@ qx.Class.define("qx.ui.List",
       if (element.getData("selectable")) {
         element.addClass("active");
         qxWeb(document.documentElement).once("pointerup", function() {
-          this.removeClass("active")
+          this.removeClass("active");
         }, element);
       }
     },
@@ -264,7 +264,7 @@ qx.Class.define("qx.ui.List",
           element.setStyle("transform", "translate3d(0,0,0)")
             .setStyle("opacity", "1")
             .removeClass("track");
-        }.bind(this));
+        });
       }
     },
 
@@ -359,17 +359,17 @@ qx.Class.define("qx.ui.List",
         var candidate = name.split(".")[0];
 
         // Normalize
-        candidate = candidate.replace("[","");
-        candidate = candidate.replace("]","");
+        candidate = candidate.replace("[", "");
+        candidate = candidate.replace("]", "");
         // "[0-2]" | "[0]"
         var isRange = (candidate.indexOf("-") != -1);
 
         if(isRange) {
           var rangeMembers = candidate.split("-");
           // 0
-          var startRange = parseInt(rangeMembers[0],10);
+          var startRange = parseInt(rangeMembers[0], 10);
           // 2
-          var endRange = parseInt(rangeMembers[1],10);
+          var endRange = parseInt(rangeMembers[1], 10);
 
           for(var i = startRange; i <= endRange; i++) {
             rows.push(i);

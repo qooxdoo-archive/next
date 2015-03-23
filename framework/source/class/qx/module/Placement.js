@@ -127,8 +127,8 @@ qxWeb.define("qx.module.Placement", {
       var align = split[1];
 
       var newPosition = {
-        x : qx.module.Placement._getPositionX(edge,align),
-        y : qx.module.Placement._getPositionY(edge,align)
+        x : qx.module.Placement._getPositionX(edge, align),
+        y : qx.module.Placement._getPositionY(edge, align)
       };
 
       var targetLocation;
@@ -239,7 +239,7 @@ qxWeb.define("qx.module.Placement", {
       return {
         left: left,
         top: top
-      }
+      };
     },
 
 

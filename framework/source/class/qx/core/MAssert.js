@@ -287,7 +287,7 @@ qx.Mixin.define("qx.core.MAssert",
      */
     assertKeyInMap : function(value, map, msg) {
       qx.core.Assert.assertKeyInMap(value, map, msg);
-    } ,
+    },
 
 
     /**
@@ -421,7 +421,7 @@ qx.Mixin.define("qx.core.MAssert",
      * @param msg {String} Message to be shown if the assertion fails.
      */
     assertRegExp : function(value, msg) {
-       qx.core.Assert.assertRegExp(value, msg);
+      qx.core.Assert.assertRegExp(value, msg);
     },
 
 

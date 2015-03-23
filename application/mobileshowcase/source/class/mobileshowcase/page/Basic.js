@@ -49,21 +49,6 @@ qx.Class.define("mobileshowcase.page.Basic",
     {
       this.super(mobileshowcase.page.Abstract, "_initialize");
 
-      // TOGGLE BUTTON
-      var toggleEnableButton = new qx.ui.form.ToggleButton(true,"ON","OFF");
-
-      toggleEnableButton.on("changeValue", function(e) {
-        for (var i = 0; i < this._widgets.length; i++) {
-          this._widgets[i].enabled = !this._widgets[i].enabled;
-        }
-      }, this);
-
-      // TOGGLE LABEL WRAP BUTTON
-      var toggleLabelWrapButton = new qx.ui.form.ToggleButton(true,"ON","OFF");
-      toggleLabelWrapButton.on("changeValue", function(e) {
-        exLabel.textWrap = !exLabel.textWrap;
-      }, this);
-
       // EXAMPLE WIDGETS
       var exButton = new qx.ui.Button("Button");
 
@@ -75,6 +60,22 @@ qx.Class.define("mobileshowcase.page.Basic",
       exLabel.addClass("space-top");
 
       var exImage = new qx.ui.Image("mobileshowcase/icon/mobile.png");
+
+      // TOGGLE BUTTON
+      var toggleEnableButton = new qx.ui.form.ToggleButton(true, "ON", "OFF");
+
+      toggleEnableButton.on("changeValue", function() {
+        /*eslint no-shadow: 0 */
+        for (var i = 0; i < this._widgets.length; i++) {
+          this._widgets[i].enabled = !this._widgets[i].enabled;
+        }
+      }, this);
+
+      // TOGGLE LABEL WRAP BUTTON
+      var toggleLabelWrapButton = new qx.ui.form.ToggleButton(true, "ON", "OFF");
+      toggleLabelWrapButton.on("changeValue", function() {
+        exLabel.textWrap = !exLabel.textWrap;
+      }, this);
 
       // ATOMS
       var positions = [ "top", "left", "right", "bottom" ];
@@ -102,8 +103,8 @@ qx.Class.define("mobileshowcase.page.Basic",
 
       // BUILD VIEW
       var row = new qx.ui.form.Row();
-      row.append(toggleEnableButton,"Enable");
-      row.append(toggleLabelWrapButton,"Wrap");
+      row.append(toggleEnableButton, "Enable");
+      row.append(toggleLabelWrapButton, "Wrap");
       var menuGroup = new qx.ui.form.Group("Widget Modes")
         .appendTo(this.getContent());
 

@@ -41,5 +41,5 @@ qx.Class.define("qx.module.DataBinding", {
         createModel : qx.data.marshal.Json.createModel
       }
     });
-   }
+  }
 });

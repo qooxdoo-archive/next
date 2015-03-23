@@ -85,7 +85,7 @@ qx.Class.define("qx.ui.form.Picker",
     visibleItems : {
       init : 5,
       check : function(value) {
-        return [3,5,7,9].indexOf(value) !== -1;
+        return [3, 5, 7, 9].indexOf(value) !== -1;
       },
       apply : "_applyVisibleItems"
     },

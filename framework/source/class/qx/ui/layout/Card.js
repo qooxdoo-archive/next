@@ -106,7 +106,7 @@ qx.Class.define("qx.ui.layout.Card",
 
     // overridden
     _getCssClasses : function() {
-      return ["layout-card","qx-vbox"];
+      return ["layout-card", "qx-vbox"];
     },
 
 
@@ -204,7 +204,7 @@ qx.Class.define("qx.ui.layout.Card",
      */
     _fixWidgetSize : function(widget) {
       if(widget) {
-        var hasResizeMixin = qx.Mixin.getClassByMixin(widget.constructor,qx.ui.core.MResize);
+        var hasResizeMixin = qx.Mixin.getClassByMixin(widget.constructor, qx.ui.core.MResize);
         if(hasResizeMixin) {
           // Size has to be fixed for animation.
           widget.fixSize();
@@ -221,7 +221,7 @@ qx.Class.define("qx.ui.layout.Card",
      */
     _releaseWidgetSize : function(widget) {
       if(widget) {
-        var hasResizeMixin = qx.Mixin.getClassByMixin(widget.constructor,qx.ui.core.MResize);
+        var hasResizeMixin = qx.Mixin.getClassByMixin(widget.constructor, qx.ui.core.MResize);
         if(hasResizeMixin) {
           // Size has to be released after animation.
           widget.releaseFixedSize();
@@ -278,9 +278,8 @@ qx.Class.define("qx.ui.layout.Card",
     /**
      * Event handler. Called when the animation of the page transition ends.
      *
-     * @param evt {qx.event.type.Event} The causing event
      */
-    _onAnimationEnd : function(evt)
+    _onAnimationEnd : function()
     {
       this.__stopAnimation();
       this.emit("animationEnd", [this.__currentWidget, this.__nextWidget]);

@@ -21,7 +21,7 @@
 
 qx.Class.define("qx.module.Routing", {
 
-  classDefined : function(statics) {
+  classDefined : function() {
     qxWeb.$attachStatic({
       routing : new qx.application.Routing()
     });

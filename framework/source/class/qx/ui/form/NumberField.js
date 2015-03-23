@@ -106,8 +106,8 @@ qx.Class.define("qx.ui.form.NumberField",
      * Called when changed the property step.
      * Delegates value change on DOM element.
      */
-    _applyStep : function(value,old) {
-      this.setAttribute("step",value);
+    _applyStep : function(value) {
+      this.setAttribute("step", value);
       this.valid = this._validateStep();
     },
 
@@ -136,8 +136,8 @@ qx.Class.define("qx.ui.form.NumberField",
      * Called when changed the property maximum.
      * Delegates value change on DOM element.
      */
-    _applyMaximum : function(value,old) {
-      this.setAttribute("max",value);
+    _applyMaximum : function(value) {
+      this.setAttribute("max", value);
       this.valid = this._validateMaximum();
     },
 
@@ -164,7 +164,7 @@ qx.Class.define("qx.ui.form.NumberField",
      * Called when changed the property minimum.
      * Delegates value change on DOM element.
      */
-    _applyMinimum : function(value,old) {
+    _applyMinimum : function(value) {
       this.setAttribute("min", value);
       this.valid = this._validateMinimum();
     },

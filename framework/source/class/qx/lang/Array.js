@@ -75,13 +75,13 @@ qx.Class.define("qx.lang.Array",
 
       if (qx.data && qx.data.IListData) {
         if (object.constructor && qx.Interface.classImplements(object.constructor, qx.data.IListData)) {
-          var object = object.toArray();
+          object = object.toArray();
         }
       }
 
 
       // Create from given constructor
-      var ret = new constructor;
+      var ret = new constructor();
 
       // Some collections in mshtml are not able to be sliced.
       // These lines are a special workaround for this client.
@@ -154,6 +154,7 @@ qx.Class.define("qx.lang.Array",
      * @param input {Array} arr with one to four elements
      * @return {Array} an arr with four elements
      */
+     /* eslint no-fallthrough:0 */
     fromShortHand : function(input)
     {
       var len = input.length;
@@ -469,10 +470,11 @@ qx.Class.define("qx.lang.Array",
      * @param arr {Array} Incoming array
      * @return {Array} Returns a copy with no duplicates
      */
+     /* eslint no-empty:0 */
     unique: function(arr)
     {
       var ret=[], doneStrings={}, doneNumbers={}, doneObjects={};
-      var value, count=0;
+      var value, hash, count=0;
       var key = "qx" + Date.now();
       var hasNull=false, hasFalse=false, hasTrue=false;
 
@@ -528,7 +530,7 @@ qx.Class.define("qx.lang.Array",
         }
         else
         {
-          var hash = value[key];
+          hash = value[key];
 
           if (hash == null) {
             hash = value[key] = count++;
@@ -543,7 +545,7 @@ qx.Class.define("qx.lang.Array",
       }
 
       // Clear object hashs
-      for (var hash in doneObjects)
+      for (hash in doneObjects)
       {
         try
         {

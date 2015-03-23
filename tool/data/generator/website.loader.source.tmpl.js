@@ -7,8 +7,6 @@ var envinfo = %{EnvSettings};
 for (var k in envinfo) qx.$$environment[k] = envinfo[k];
 
 qx.$$resources = %{Resources};
-qx.$$translations = %{Translations};
-qx.$$locales = %{Locales};
 qx.$$packageData = {};
 
 if (!qx.$$libraries) qx.$$libraries = {};
@@ -38,9 +36,9 @@ for (var id in packages) {
     } else {
      var request = new XMLHttpRequest();
     }
-    request.open("GET", uri, false); 
+    request.open("GET", uri, false);
     request.send(null);
-    
+
     var elem = document.createElement("script");
     elem.charset = "utf-8";
     elem.type = "text/javascript";

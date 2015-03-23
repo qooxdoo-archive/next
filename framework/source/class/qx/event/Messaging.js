@@ -45,7 +45,7 @@ qx.Class.define("qx.event.Messaging",
 {
   construct : function()
   {
-    this._listener = {},
+    this._listener = {};
     this.__listenerIdCount = 0;
     this.__channelToIdMapping = {};
   },
@@ -239,7 +239,7 @@ qx.Class.define("qx.event.Messaging",
       var match = listener.regExp.exec(path);
       if (match)
       {
-        var params = params || {};
+        params = params || {};
         var param = null;
         var value = null;
         match.shift(); // first match is the whole path

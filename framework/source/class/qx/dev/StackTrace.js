@@ -1,3 +1,4 @@
+/* eslint strict:0 */
 /* ************************************************************************
 
    qooxdoo - the new era of web development
@@ -199,6 +200,7 @@ qx.Class.define("qx.dev.StackTrace",
     __fileNameToClassName : function(fileName)
     {
       if (typeof qx.dev.StackTrace.FILENAME_TO_CLASSNAME == "function") {
+        /* eslint new-cap:0 */
         var convertedName = qx.dev.StackTrace.FILENAME_TO_CLASSNAME(fileName);
         if (qx.core.Environment.get("qx.debug") &&
           !qx.lang.Type.isString(convertedName))
@@ -244,6 +246,7 @@ qx.Class.define("qx.dev.StackTrace",
     __formatStackTrace : function(trace)
     {
       if (typeof qx.dev.StackTrace.FORMAT_STACKTRACE == "function") {
+        /* eslint new-cap:0 */
         trace = qx.dev.StackTrace.FORMAT_STACKTRACE(trace);
         // Can't use qx.core.Assert here since it throws an AssertionError which
         // calls getStackTrace in its constructor, leading to infinite recursion

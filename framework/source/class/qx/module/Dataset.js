@@ -111,6 +111,5 @@ qx.Class.define("qx.module.Dataset", {
       "getAllData" : statics.getAllData,
       "hasData" : statics.hasData
     });
-
-   }
+  }
 });

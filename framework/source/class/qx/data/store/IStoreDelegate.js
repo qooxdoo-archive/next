@@ -29,6 +29,7 @@
  * listed in the <code>implement</code> key of a class unless all methods are
  * really implemented.
  */
+/* eslint no-unused-vars:0 */
 qx.Interface.define("qx.data.store.IStoreDelegate",
 {
   extend : qx.data.marshal.IMarshalerDelegate,

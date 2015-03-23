@@ -51,6 +51,7 @@ qx.Class.define("qx.bom.client.Runtime",
       // check for the Node.js runtime
       } else if (typeof process !== "undefined") {
         name = "node.js";
+      /* eslint no-undef: 0 */
       } else if (typeof Titanium !== "undefined" &&
         typeof Titanium.userAgent !== "undefined")
       {

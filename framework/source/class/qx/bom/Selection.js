@@ -243,7 +243,7 @@ qx.Class.define("qx.bom.Selection",
         {
           // collapse the selection if needed
           if (!sel.isCollapsed) {
-           sel.collapseToStart();
+            sel.collapseToStart();
           }
 
           // set start and end of the range
@@ -324,7 +324,7 @@ qx.Class.define("qx.bom.Selection",
           }
 
           if (compareNode == node) {
-            sel.collapse(node,0);
+            sel.collapse(node, 0);
           }
         }
       }

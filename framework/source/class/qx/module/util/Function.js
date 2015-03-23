@@ -1,3 +1,5 @@
+/* eslint strict:0 */
+/* eslint no-caller:0 */
 /* ************************************************************************
 
    qooxdoo - the new era of web development
@@ -35,6 +37,7 @@
  *
  * @group (Utilities)
  */
+
 qx.Class.define("qx.module.util.Function", {
 
   statics :
@@ -73,7 +76,7 @@ qx.Class.define("qx.module.util.Function", {
         if (typeof id === "undefined")
         {
           // setup the interval for the first run
-          var intervalId = window.setInterval((function() {
+          var intervalId = window.setInterval(function() {
 
             // if the 'wrapperFunction' was *not* called during the last
             // interval then can call the provided callback and clear the interval
@@ -88,7 +91,7 @@ qx.Class.define("qx.module.util.Function", {
               }
             }
             this.fired = false;
-          }).bind(arguments.callee), delay);
+          }.bind(arguments.callee), delay);
 
           arguments.callee.intervalId = intervalId;
 

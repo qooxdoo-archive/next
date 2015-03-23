@@ -234,6 +234,7 @@ qx.Class.define("qx.ui.page.Page",
      * @see #back
      * @abstract
      */
+     /* eslint no-unused-vars:0 */
     _back : function(triggeredByKeyEvent)
     {
 
@@ -420,7 +421,7 @@ qx.Class.define("qx.ui.page.Page",
 
 
     // property apply
-    _applyLifeCycleState : function(value, old) {
+    _applyLifeCycleState : function(value) {
       // TODO: better solution for event targets
       var self = this;
       var data = {

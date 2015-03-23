@@ -71,7 +71,7 @@ qx.Class.define("qx.ui.core.Root",
 
 
     // property apply
-    _applyShowScrollbarY : function(value, old) {
+    _applyShowScrollbarY : function(value) {
       this.setStyle("overflow-y", value ? "auto" : "hidden");
     },
 

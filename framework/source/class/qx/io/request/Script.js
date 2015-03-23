@@ -294,12 +294,10 @@ qx.Class.define("qx.io.request.Script",
      * Note: This method exists for compatibility reasons. The script
      * transport does not receive response headers.
      *
-     * @param key {String}
-     *  Key of the header to get the value from.
      * @return {String|null} Warning message or <code>null</code> if the request
      * is disposed
      */
-    getResponseHeader: function(key) {
+    getResponseHeader: function() {
       if (this._disposed) {
         return null;
       }

@@ -33,7 +33,6 @@ qx.Class.define("mobileshowcase.page.Canvas",
       this.__ratio = qxWeb.env.get("device.pixelRatio");
     },
 
-
     members: {
       __canvasLeft: 0,
       __canvasTop: 0,
@@ -41,7 +40,6 @@ qx.Class.define("mobileshowcase.page.Canvas",
       __lastPoint: null,
       __canvasSize: 1000,
       __ratio: 1,
-
 
       // overridden
       _initialize: function () {
@@ -157,7 +155,7 @@ qx.Class.define("mobileshowcase.page.Canvas",
       /**
        * Handles the <code>trackend</code> event on canvas.
        */
-      _onTrackEnd: function (evt) {
+      _onTrackEnd: function () {
         this.__lastPoint = {};
       },
 

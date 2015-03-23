@@ -48,6 +48,7 @@ qx.Class.define("qx.util.placement.AbstractAxis",
      * @return {Integer} The computed start position of the object.
      * @abstract
      */
+    /*eslint no-unused-vars:0 */
     computeStart : function(size, target, offsets, areaSize, position) {
       throw new Error("abstract method call!");
     },

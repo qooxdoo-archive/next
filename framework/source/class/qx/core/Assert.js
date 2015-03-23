@@ -1,4 +1,4 @@
-"use strict"
+"use strict";
 /* ************************************************************************
 
    qooxdoo - the new era of web development
@@ -47,6 +47,7 @@ qx.Class.define("qx.core.Assert",
      *                         (much better performance)
      *
      */
+    /* eslint no-unused-vars:0 */
     __fail : function(comment, msgvarargs)
     {
       // Build up message from message varargs. It's not really important
@@ -180,9 +181,9 @@ qx.Class.define("qx.core.Assert",
      */
     assertNotEquals : function(expected, found, msg)
     {
-        expected != found || this.__fail(
+      expected != found || this.__fail(
         msg || "",
-        "Expected '",expected,
+        "Expected '", expected,
         "' to be not equal with '", found, "'!"
       );
     },
@@ -336,7 +337,7 @@ qx.Class.define("qx.core.Assert",
         msg || "",
         "Wrong number of arguments given. Expected '", minCount, "' to '",
         maxCount, "' arguments but found '", argCount, "' arguments."
-      )
+      );
     },
 
 
@@ -391,7 +392,7 @@ qx.Class.define("qx.core.Assert",
     assertEventNotFired : function(obj, event, invokeFunc, msg)
     {
       var called = false;
-      var listener = function(e) {
+      var listener = function() {
         called = true;
       };
       var id = obj.on(event, listener, obj);
@@ -431,7 +432,7 @@ qx.Class.define("qx.core.Assert",
       if (exception && !(error instanceof exception)) {
         this.__fail(msg || "",
         "The raised exception does not have the expected type! ",
-        exception , " != ", error);
+        exception, " != ", error);
       }
 
       if (re) {
@@ -707,7 +708,7 @@ qx.Class.define("qx.core.Assert",
     {
       this.assertString(type, "Invalid argument 'type'");
 
-      typeof(value) === type || this.__fail(
+      typeof (value) === type || this.__fail(
         msg || "",
         "Expected value to be typeof '", type, "' but found ", value, "!"
       );

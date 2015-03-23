@@ -85,7 +85,7 @@ qx.Class.define("qx.bom.Input",
       }
 
       // Work on a copy to not modify given attributes map
-      var attributes = attributes ? qx.lang.Object.clone(attributes) : {};
+      attributes = attributes ? qx.lang.Object.clone(attributes) : {};
 
       var tag;
 
@@ -123,7 +123,6 @@ qx.Class.define("qx.bom.Input",
     {
       var tag = element.nodeName.toLowerCase();
       var type = element.type;
-      var Array = qx.lang.Array;
       var Type = qx.lang.Type;
 
       if (typeof value === "number") {
@@ -133,7 +132,7 @@ qx.Class.define("qx.bom.Input",
       if ((type === "checkbox" || type === "radio"))
       {
         if (Type.isArray(value)) {
-          element.checked = Array.contains(value, element.value);
+          element.checked = qx.lang.Array.contains(value, element.value);
         } else {
           element.checked = element.value == value;
         }
@@ -153,7 +152,7 @@ qx.Class.define("qx.bom.Input",
           }
 
           subel.selected = isArray ?
-             Array.contains(value, subval) : value == subval;
+             qx.lang.Array.contains(value, subval) : value == subval;
         }
 
         if (isArray && value.length == 0) {

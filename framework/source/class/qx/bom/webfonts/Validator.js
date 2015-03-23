@@ -43,7 +43,7 @@ qx.Class.define("qx.bom.webfonts.Validator", {
      * At least one of these fonts should be present on any system
      */
     COMPARISON_FONTS : {
-      sans : ["Arial", "Helvetica" , "sans-serif"],
+      sans : ["Arial", "Helvetica", "sans-serif"],
       serif : ["Times New Roman", "Georgia", "serif"]
     },
 
@@ -232,7 +232,7 @@ qx.Class.define("qx.bom.webfonts.Validator", {
       return {
         sans : this._getHelperElement(fontsSans),
         serif : this._getHelperElement(fontsSerif)
-      }
+      };
     },
 
 
@@ -296,7 +296,7 @@ qx.Class.define("qx.bom.webfonts.Validator", {
       cls.__defaultSizes = {
         sans : qx.bom.element.Dimension.getWidth(cls.__defaultHelpers.sans),
         serif: qx.bom.element.Dimension.getWidth(cls.__defaultHelpers.serif)
-      }
+      };
     },
 
 

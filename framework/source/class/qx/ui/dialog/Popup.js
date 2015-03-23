@@ -234,7 +234,7 @@ qx.Class.define("qx.ui.dialog.Popup",
         this.__registerEventListener();
 
         // Move outside of viewport
-        this.placeTo(-1000,-1000);
+        this.placeTo(-1000, -1000);
 
         // Needs to be added to screen, before rendering position, for calculating
         // objects height.
@@ -335,7 +335,7 @@ qx.Class.define("qx.ui.dialog.Popup",
 
       var popupLocation = this.getPosition();
 
-      var isOutsideWidget =  clientX < popupLocation.left
+      var isOutsideWidget = clientX < popupLocation.left
         || clientX > popupLocation.left + this.__lastPopupDimension.width
         || clientY > popupLocation.top + this.__lastPopupDimension.height
         || clientY < popupLocation.top;
@@ -391,7 +391,7 @@ qx.Class.define("qx.ui.dialog.Popup",
         this.__anchor.addClass("anchor-target");
 
         if (parentWidget) {
-          parentWidget.on("pointerdown",this._trackUserTap, this);
+          parentWidget.on("pointerdown", this._trackUserTap, this);
           parentWidget.on("popup", this.hide, this);
         }
       }
@@ -466,7 +466,7 @@ qx.Class.define("qx.ui.dialog.Popup",
 
 
     // property apply
-    _applyTitle : function(value, old)
+    _applyTitle : function(value)
     {
       if(value) {
         if(this.__titleWidget)
@@ -491,7 +491,7 @@ qx.Class.define("qx.ui.dialog.Popup",
 
 
     // property apply
-    _applyIcon : function(value, old)
+    _applyIcon : function(value)
     {
       if (value) {
         if (this.__titleWidget) {

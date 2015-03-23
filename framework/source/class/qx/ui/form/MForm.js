@@ -147,8 +147,8 @@ qx.Mixin.define("qx.ui.form.MForm",
         this.on("input", this._onInput, this);
       }
 
-      this.on("focus", this._onFocus,this);
-      this.on("blur", this._onBlur,this);
+      this.on("focus", this._onFocus, this);
+      this.on("blur", this._onBlur, this);
     },
 
 
@@ -314,10 +314,8 @@ qx.Mixin.define("qx.ui.form.MForm",
      * Updates the <code>valid</code> property if the
      * <code>required</code> property changes
      *
-     * @param value {Boolean} new value
-     * @param old {Boolean} previous value
      */
-    _applyRequired: function(value, old) {
+    _applyRequired: function() {
       // Required fields shouldn't initially be marked as invalid
       if (this.__oldValue !== undefined) {
         this.valid = this._validateRequired();
@@ -331,7 +329,7 @@ qx.Mixin.define("qx.ui.form.MForm",
      * @param value {Boolean} new value
      * @param old {Boolean} previous value
      */
-    _applyValid: function(value, old) {
+    _applyValid: function(value) {
       if (value) {
         this.removeClass("invalid");
       }
@@ -341,15 +339,15 @@ qx.Mixin.define("qx.ui.form.MForm",
     },
 
 
-    _applyValidator: function(value, old) {
+    _applyValidator: function(value) {
       this["_validateCustom"] = value;
       this.validate();
     },
 
 
     disposeMForm : function() {
-      this.off("focus", this._onFocus,this);
-      this.off("blur", this._onBlur,this);
+      this.off("focus", this._onFocus, this);
+      this.off("blur", this._onBlur, this);
 
       if (this._getTagName() == "input" || this._getTagName() == "textarea") {
         this.off("change", this._onChangeContent, this);

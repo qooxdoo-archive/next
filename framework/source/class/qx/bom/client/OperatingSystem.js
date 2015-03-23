@@ -204,7 +204,7 @@ qx.Class.define("qx.bom.client.OperatingSystem",
     __getVersionForMobileOs : function(userAgent) {
       var windows = userAgent.indexOf("Windows Phone") != -1;
       var android = userAgent.indexOf("Android") != -1;
-      var iOs = userAgent.match(/(iPad|iPhone|iPod)/i) ? true : false ;
+      var iOs = userAgent.match(/(iPad|iPhone|iPod)/i) ? true : false;
 
       if (windows) {
         var windowsVersionRegExp = new RegExp(/Windows Phone (\d+(?:\.\d+)+)/i);

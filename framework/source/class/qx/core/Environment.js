@@ -612,11 +612,12 @@ qx.Class.define("qx.core.Environment",
         return this.__cache[key];
       }
 
+      var value;
       // search for a matching check
       var check = this._checks[key];
       if (check) {
         // execute the check and write the result in the cache
-        var value = check();
+        value = check();
         this.__cache[key] = value;
         return value;
       }
@@ -626,7 +627,7 @@ qx.Class.define("qx.core.Environment",
       if (classAndMethod[0] != undefined) {
         var clazz = classAndMethod[0];
         var method= classAndMethod[1];
-        var value = clazz[method]();  // call the check method
+        value = clazz[method]();  // call the check method
         this.__cache[key] = value;
         return value;
       }
@@ -657,7 +658,7 @@ qx.Class.define("qx.core.Environment",
         // separate class from method
         var lastdot = implementation.lastIndexOf(".");
         if (lastdot > -1) {
-          var classname = implementation.slice(0,lastdot);
+          var classname = implementation.slice(0, lastdot);
           var methodname= implementation.slice(lastdot+1);
           var clazz = qx.Class.getByName(classname);
           if (clazz != undefined) {
@@ -750,7 +751,7 @@ qx.Class.define("qx.core.Environment",
     selectAsync : function(key, values, self) {
       this.getAsync(key, function(result) {
         var value = this.__pickFromValues(key, values);
-        value.call(self, result)
+        value.call(self, result);
       }, this);
     },
 
@@ -779,7 +780,7 @@ qx.Class.define("qx.core.Environment",
             if (ids[i] == key) {
               return values[id];
             }
-          };
+          }
         }
       }
 
@@ -965,8 +966,8 @@ qx.Class.define("qx.core.Environment",
      * @return {Function} A function which could be used by a test.
      */
     __createCheck : function(value) {
-      return function(value) {
-        return value;
+      return function(val) {
+        return val;
       }.bind(null, value);
     }
   },

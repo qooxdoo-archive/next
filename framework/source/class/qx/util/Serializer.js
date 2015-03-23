@@ -121,12 +121,12 @@ qx.Class.define("qx.util.Serializer",
       {
         return null;
       }
-
+      var i;
       // data array
       if (qx.data && qx.data.IListData && qx.Interface.classImplements(object.constructor, qx.data.IListData))
       {
         result = [];
-        for (var i = 0; i < object.getLength(); i++)
+        for (i = 0; i < object.getLength(); i++)
         {
           result.push(qx.util.Serializer.toNativeObject(
             object.getItem(i), qxSerializer)
@@ -178,7 +178,7 @@ qx.Class.define("qx.util.Serializer",
       if (qx.lang.Type.isArray(object))
       {
         result = [];
-        for (var i = 0; i < object.length; i++)
+        for (i = 0; i < object.length; i++)
         {
           result.push(qx.util.Serializer.toNativeObject(
             object[i], qxSerializer)
@@ -225,12 +225,13 @@ qx.Class.define("qx.util.Serializer",
         return "null";
       }
 
+      var i;
       // data array
       if (qx.data && qx.data.IListData && object.constructor &&
           qx.Interface.classImplements(object.constructor, qx.data.IListData))
       {
         result += "[";
-        for (var i = 0; i < object.getLength(); i++) {
+        for (i = 0; i < object.getLength(); i++) {
           result += qx.util.Serializer.toJson(object.getItem(i), qxSerializer) + ",";
         }
         if (result != "[") {
@@ -274,7 +275,7 @@ qx.Class.define("qx.util.Serializer",
       // other arrays
       if (qx.lang.Type.isArray(object)) {
         result += "[";
-        for (var i = 0; i < object.length; i++) {
+        for (i = 0; i < object.length; i++) {
           result += qx.util.Serializer.toJson(object[i], qxSerializer) + ",";
         }
         if (result != "[") {

@@ -88,7 +88,7 @@ qxWeb.define("qx.module.Blocker", {
       };
 
       styles.backgroundColor = typeof color !== 'undefined' ? color : null;
-      styles.zIndex =  typeof zIndex !== 'undefined' ? zIndex : null;
+      styles.zIndex = typeof zIndex !== 'undefined' ? zIndex : null;
 
       if (qxWeb.env.get("browser.name") === "ie" && qxWeb.env.get("browser.version") <= 8) {
         styles.opacity = typeof opacity !== 'undefined' ? opacity : 0;
@@ -119,9 +119,8 @@ qxWeb.define("qx.module.Blocker", {
      * Removes the given item's blocker element(s) from the DOM
      *
      * @param item {Element} Blocked element
-     * @param index {Number} index of the item in the collection
      */
-    __detachBlocker : function(item, index) {
+    __detachBlocker : function(item) {
       if (!item.$$blocker) {
         return;
       }
@@ -139,7 +138,7 @@ qxWeb.define("qx.module.Blocker", {
     {
       var blockerElements = qxWeb();
 
-      [].forEach.call(collection, function(item, index) {
+      [].forEach.call(collection, function(item) {
         if (typeof item.$$blocker !== "undefined") {
           blockerElements = blockerElements.concat(item.$$blocker.div);
         }

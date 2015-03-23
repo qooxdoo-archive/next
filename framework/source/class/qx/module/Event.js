@@ -77,7 +77,7 @@ qx.Class.define("qx.module.Event", {
           typeHooks[j](el, type, listener, context);
         }
 
-        var bound = function(el, event) {
+        var bound = function(elem, event) {
           // apply normalizations
           var registry = qx.module.Event.__normalizations;
           // generic
@@ -88,7 +88,7 @@ qx.Class.define("qx.module.Event", {
           }
 
           for (var x=0, y=normalizations.length; x<y; x++) {
-            event = normalizations[x](event, el, type);
+            event = normalizations[x](event, elem, type);
           }
           // call original listener with normalized event
           listener.apply(this, [event]);
@@ -107,21 +107,21 @@ qx.Class.define("qx.module.Event", {
         // save the useCapture for removing
         el.$$emitter.getEntryById(el.$$lastlistenerId).useCapture = !!useCapture;
 
-        if (!el.__listener) {
-          el.__listener = {};
+        if (!el.$$listener) {
+          el.$$listener = {};
         }
-        if (!el.__listener[type]) {
-          el.__listener[type] = {};
+        if (!el.$$listener[type]) {
+          el.$$listener[type] = {};
         }
-        el.__listener[type][el.$$lastlistenerId] = bound;
+        el.$$listener[type][el.$$lastlistenerId] = bound;
 
         if (!context) {
           // store a reference to the dynamically created context so we know
           // what to check for when removing the listener
-          if (!el.__ctx) {
-            el.__ctx = {};
+          if (!el.$$ctx) {
+            el.$$ctx = {};
           }
-          el.__ctx[el.$$lastlistenerId] = ctx;
+          el.$$ctx[el.$$lastlistenerId] = ctx;
         }
       }
       return this;
@@ -147,7 +147,7 @@ qx.Class.define("qx.module.Event", {
         var el = this[j];
 
         // continue if no listeners are available
-        if (!el.__listener) {
+        if (!el.$$listener) {
           continue;
         }
 
@@ -156,20 +156,20 @@ qx.Class.define("qx.module.Event", {
           types.push(type);
         } else {
           // no type specified, remove all listeners
-          for (var listenerType in el.__listener) {
+          for (var listenerType in el.$$listener) {
             types.push(listenerType);
           }
         }
 
         for (var i=0, l=types.length; i<l; i++) {
-          for (var id in el.__listener[types[i]]) {
-            var storedListener = el.__listener[types[i]][id];
+          for (var id in el.$$listener[types[i]]) {
+            var storedListener = el.$$listener[types[i]][id];
             if (removeAll || storedListener == listener || storedListener.original == listener) {
               // get the stored context
-              var hasStoredContext = typeof el.__ctx !== "undefined" && el.__ctx[id];
+              var hasStoredContext = typeof el.$$ctx !== "undefined" && el.$$ctx[id];
               var storedContext;
               if (!context && hasStoredContext) {
-                storedContext = el.__ctx[id];
+                storedContext = el.$$ctx[id];
               }
               // remove the listener from the emitter
               el.$$emitter.off(types[i], storedListener, storedContext || context);
@@ -180,10 +180,10 @@ qx.Class.define("qx.module.Event", {
                 qx.bom.Event.removeNativeListener(el, types[i], storedListener, useCapture);
               }
 
-              delete el.__listener[types[i]][id];
+              delete el.$$listener[types[i]][id];
 
               if (hasStoredContext) {
-                delete el.__ctx[id];
+                delete el.$$ctx[id];
               }
             }
           }
@@ -312,7 +312,7 @@ qx.Class.define("qx.module.Event", {
           }
           if (item.listener.original &&
               item.listener.original == listener) {
-            hasListener =  true;
+            hasListener = true;
           }
 
           if (hasListener) {
@@ -353,18 +353,18 @@ qx.Class.define("qx.module.Event", {
         }
       }
 
-      for (var i = targetCopy.length -1; i >= 0; i--) {
-        var descendants = targetCopy[i].getElementsByTagName("*");
-        for (var j=0; j < descendants.length; j++) {
+      for (i = targetCopy.length -1; i >= 0; i--) {
+        descendants = targetCopy[i].getElementsByTagName("*");
+        for (j = 0; j < descendants.length; j++) {
           targetCopy.push(descendants[j]);
         }
       }
       // make sure no emitter object has been copied
-      targetCopy.forEach(function(el) {
-        el.$$emitter = null;
+      targetCopy.forEach(function(elem) {
+        elem.$$emitter = null;
       });
 
-      for (var i=0; i < source.length; i++) {
+      for (i=0; i < source.length; i++) {
         var el = source[i];
         if (!el.$$emitter) {
           continue;
@@ -592,7 +592,7 @@ qx.Class.define("qx.module.Event", {
         types = [types];
       }
       var registry = qx.module.Event.__normalizations;
-      for (var i=0,l=types.length; i<l; i++) {
+      for (var i=0, l = types.length; i < l; i++) {
         var type = types[i];
         if (qx.lang.Type.isFunction(normalizer)) {
           if (!registry[type]) {
@@ -617,7 +617,7 @@ qx.Class.define("qx.module.Event", {
         types = [types];
       }
       var registry = qx.module.Event.__normalizations;
-      for (var i=0,l=types.length; i<l; i++) {
+      for (var i = 0, l = types.length; i < l; i++) {
         var type = types[i];
         if (registry[type]) {
           qx.lang.Array.remove(registry[type], normalizer);
@@ -653,7 +653,7 @@ qx.Class.define("qx.module.Event", {
         types = [types];
       }
       var onHooks = qx.module.Event.__hooks.on;
-      for (var i=0,l=types.length; i<l; i++) {
+      for (var i = 0, l = types.length; i < l; i++) {
         var type = types[i];
         if (qx.lang.Type.isFunction(registerHook)) {
           if (!onHooks[type]) {
@@ -666,8 +666,8 @@ qx.Class.define("qx.module.Event", {
         return;
       }
       var offHooks = qx.module.Event.__hooks.off;
-      for (var i=0,l=types.length; i<l; i++) {
-        var type = types[i];
+      for (i = 0, l = types.length; i < l; i++) {
+        type = types[i];
         if (qx.lang.Type.isFunction(unregisterHook)) {
           if (!offHooks[type]) {
             offHooks[type] = [];
@@ -693,7 +693,7 @@ qx.Class.define("qx.module.Event", {
         types = [types];
       }
       var onHooks = qx.module.Event.__hooks.on;
-      for (var i=0,l=types.length; i<l; i++) {
+      for (var i = 0, l = types.length; i < l; i++) {
         var type = types[i];
         if (onHooks[type]) {
           qx.lang.Array.remove(onHooks[type], registerHook);
@@ -703,8 +703,8 @@ qx.Class.define("qx.module.Event", {
         return;
       }
       var offHooks = qx.module.Event.__hooks.off;
-      for (var i=0,l=types.length; i<l; i++) {
-        var type = types[i];
+      for (i = 0, l = types.length; i < l; i++) {
+        type = types[i];
         if (offHooks[type]) {
           qx.lang.Array.remove(offHooks[type], unregisterHook);
         }

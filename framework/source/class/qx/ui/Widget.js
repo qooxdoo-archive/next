@@ -290,10 +290,9 @@ qx.Class.define("qx.ui.Widget", {
     /**
      * Sets the enable property to the new value
      * @param value {Boolean}, the new value of the widget
-     * @param old {Boolean?}, the old value of the widget
      *
      */
-    _applyEnabled : function(value, old) {
+    _applyEnabled : function(value) {
       if (value) {
         this.removeClass("disabled");
         if (!this.anonymous) {
@@ -340,9 +339,8 @@ qx.Class.define("qx.ui.Widget", {
      *
      * @param child {Widget} widget to add
      * @param index {Integer} Index, at which the widget will be inserted
-     * @param options {Map?null} Optional layout data for widget.
      */
-    appendAt : function(child, index, options) {
+    appendAt : function(child, index) {
       var ref = this.getChildren()[index];
 
       if (ref) {
@@ -466,9 +464,8 @@ qx.Class.define("qx.ui.Widget", {
     /**
      * Stores the given layout properties.
      *
-     * @param properties {Map} Incoming layout property data
      */
-    _applyLayoutPrefs : function(value, old) {
+    _applyLayoutPrefs : function() {
       // Check values through parent
       var parent = this._getParentWidget();
       if (parent && parent.length === 1) {
@@ -539,7 +536,7 @@ qx.Class.define("qx.ui.Widget", {
     /**
      * Ignore pointer events on this widget
      */
-    _applyAnonymous : function(value, old, style) {
+    _applyAnonymous : function(value) {
       this.setStyle("pointerEvents", value ? "none" : null);
     },
 
@@ -556,7 +553,7 @@ qx.Class.define("qx.ui.Widget", {
 
 
     // property apply
-    _applyVisibility : function(value, old) {
+    _applyVisibility : function(value) {
       if (value == "excluded") {
         this.addClass("exclude");
       }

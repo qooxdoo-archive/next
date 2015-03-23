@@ -138,7 +138,7 @@ qx.Class = {
     }
   },
 
-
+  /* eslint no-unused-vars:0 */
   "super" : function(clazz, name, varargs) {
     // Provide consistency that construct will call native constructor
     if (name === "construct" && typeof clazz.prototype.construct !== "function") {
@@ -166,6 +166,8 @@ qx.Class = {
 
     qx.Class.setDisplayNames(config.statics, name);
 
+    var i, l, keys;
+
     if (config.members || config.extend || config.properties) {
       qx.Class.setDisplayNames(config.members, name + ".prototype");
 
@@ -174,12 +176,12 @@ qx.Class = {
       clazz.$$name = clazz.classname = name;
 
       if (config.extend) {
-        this.extendClass(clazz, clazz, config.extend, name, basename);
+        this.extendClass(clazz, clazz, config.extend, name);
       }
 
       var statics = config.statics || {};
       // use keys to include the shadowed in IE
-      for (var i=0, keys=Object.keys(statics), l=keys.length; i<l; i++) {
+      for (i = 0, keys = Object.keys(statics), l = keys.length; i < l; i++) {
         var key = keys[i];
         clazz[key] = statics[key];
       }
@@ -205,7 +207,7 @@ qx.Class = {
           if (qx.Class.getClass(imclList) !== "Array") {
             imclList = [imclList];
           }
-          for (var i=0, l=imclList.length; i<l; i++) {
+          for (i = 0, l = imclList.length; i < l; i++) {
             qx.Mixin.add(clazz, imclList[i], false);
           }
         } else {
@@ -248,10 +250,6 @@ qx.Class = {
     var basename = name ? this.createNamespace(name, clazz) : "";
     clazz.basename = basename;
 
-    if (config.events) {
-      //this.addEvents(clazz, config.events); TODO?
-    }
-
     // add property events
     if (config.properties) {
       for (var propName in config.properties) {
@@ -272,7 +270,7 @@ qx.Class = {
         if (qx.Class.getClass(implList) !== "Array") {
           implList = [implList];
         }
-        for (var i=0, l=implList.length; i<l; i++) {
+        for (i = 0, l = implList.length; i < l; i++) {
           qx.Interface.add(clazz, implList[i]);
         }
       }
@@ -374,6 +372,7 @@ qx.Class.define("qx.Class",
      *
      * supported property keys: set, get, writable, nullable, apply, event, init, check
      */
+    /* eslint no-shadow:0 */
     addProperties : function(proto, properties) {
       var propertyMap = {};
       if (!proto.$$properties) {
@@ -414,7 +413,7 @@ qx.Class.define("qx.Class",
         }
 
         // custom getter/setter
-        var getter = undefined;
+        var getter = null;
         if (def.get instanceof Function) {
           getter = def.get;
         } else if (def.get) {
@@ -426,7 +425,7 @@ qx.Class.define("qx.Class",
           })(def.get);
         }
 
-        var setter = undefined;
+        var setter = null;
         if (def.set instanceof Function) {
           setter = def.set;
         } else if (def.set) {
@@ -553,6 +552,7 @@ qx.Class.define("qx.Class",
         proto.set = function(map) {
           for (var key in map) {
             if (!(key in this) && qx.Class.DEBUG) {
+              /* eslint no-console:0 */
               console.warn("The class '" + this.classname + "' does not support the property '" + key + "'.");
               continue;
             }
@@ -680,25 +680,23 @@ qx.Class.define("qx.Class",
      * @param construct {Function} The unwrapped constructor
      * @param superClass {Function} The super class
      * @param name {Function} fully qualified class name
-     * @param basename {Function} the base name
      * @internal
      */
-    extendClass : function(clazz, construct, superClass, name, basename)
+    extendClass : function(clazz, construct, superClass, name)
     {
       var superproto = superClass.prototype;
 
       // Use helper function/class to save the unnecessary constructor call while
       // setting up inheritance.
-      var helper = new Function();
-      helper.prototype = superproto;
-      var proto = new helper();
+      var Helper = function() {};
+      Helper.prototype = superproto;
+      var proto = new Helper();
 
-      // Apply prototype to new helper instance
+      // Apply prototype to new Helper instance
       clazz.prototype = proto;
 
       // Store names in prototype
       proto.$$name = proto.classname = name;
-      proto.basename = basename;
 
       /*
         - Store base constructor to constructor-
@@ -866,6 +864,7 @@ qx.Class.define("qx.Class",
      *   have any JavaScript data type. All data is serialized immediately and
      *   does not keep references to other objects.
      */
+    /* eslint no-unused-vars:0 */
     debug : function(object, message) {
       qx.Class.$$logs.push(["debug", arguments]);
     },
@@ -879,6 +878,7 @@ qx.Class.define("qx.Class",
      *   have any JavaScript data type. All data is serialized immediately and
      *   does not keep references to other objects.
      */
+    /* eslint no-unused-vars:0 */
     info : function(object, message) {
       qx.Class.$$logs.push(["info", arguments]);
     },
@@ -892,6 +892,7 @@ qx.Class.define("qx.Class",
      *   have any JavaScript data type. All data is serialized immediately and
      *   does not keep references to other objects.
      */
+    /* eslint no-unused-vars:0 */
     warn : function(object, message) {
       qx.Class.$$logs.push(["warn", arguments]);
     },
@@ -905,6 +906,7 @@ qx.Class.define("qx.Class",
      *   have any JavaScript data type. All data is serialized immediately and
      *   does not keep references to other objects.
      */
+    /* eslint no-unused-vars:0 */
     error : function(object, message) {
       qx.Class.$$logs.push(["error", arguments]);
     },
@@ -915,6 +917,7 @@ qx.Class.define("qx.Class",
      *
      * @param object {Object} Contextual object (either instance or static class)
      */
+    /* eslint no-unused-vars:0 */
     trace : function(object) {}
   }
 });

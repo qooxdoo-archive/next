@@ -133,7 +133,7 @@ qx.Class.define("qx.event.handler.Gesture", {
       if (type == "gesturebegin") {
         this.gestureBegin(domEvent, target);
       } else if (type == "gesturemove") {
-        this.gestureMove(domEvent, target);
+        this.gestureMove(domEvent);
       } else if (type == "gesturefinish") {
         this.gestureFinish(domEvent, target);
       } else if (type == "gesturecancel") {
@@ -188,9 +188,8 @@ qx.Class.define("qx.event.handler.Gesture", {
      * Helper method for gesture move.
      *
      * @param domEvent {Event} DOM event
-     * @param target {Element} event target
      */
-    gestureMove : function(domEvent, target) {
+    gestureMove : function(domEvent) {
       var gesture = this.__gesture[domEvent.pointerId];
 
       if (gesture) {
@@ -382,6 +381,7 @@ qx.Class.define("qx.event.handler.Gesture", {
      * @param target {Element} The target of the momentum roll events
      * @param time {Number ?} The time in ms between the last two calls
      */
+     /* eslint no-shadow:0 */
     __handleRollImpulse : function(deltaX, deltaY, domEvent, target, time) {
       var oldTimeoutId = domEvent.timeoutId;
       // do nothing if we don't need to scroll
@@ -580,10 +580,9 @@ qx.Class.define("qx.event.handler.Gesture", {
      * Returns the swipe gesture when the user performed a swipe.
      *
      * @param domEvent {Event} DOM event
-     * @param target {Element} event target
      * @return {Map|null} returns the swipe data when the user performed a swipe, null if the gesture was no swipe.
      */
-    __getSwipeGesture : function(domEvent, target) {
+    __getSwipeGesture : function(domEvent) {
       var gesture = this.__gesture[domEvent.pointerId];
       if (!gesture) {
         return null;
@@ -642,9 +641,8 @@ qx.Class.define("qx.event.handler.Gesture", {
      * Fires a rotate event.
      *
      * @param domEvent {Event} DOM event
-     * @param target {Element} event target
      */
-    __fireRotate : function(domEvent, target) {
+    __fireRotate : function(domEvent) {
       if(!domEvent.isPrimary) {
         var angle = this._calcAngle();
         domEvent.angle = Math.round((angle - this.__initialAngle) % 360);
@@ -657,9 +655,8 @@ qx.Class.define("qx.event.handler.Gesture", {
      * Fires a pinch event.
      *
      * @param domEvent {Event} DOM event
-     * @param target {Element} event target
      */
-    __firePinch: function(domEvent, target) {
+    __firePinch: function(domEvent) {
       if (!domEvent.isPrimary) {
         var distance = this._calcDistance();
         var scale = distance / this.__initialDistance;
@@ -673,9 +670,8 @@ qx.Class.define("qx.event.handler.Gesture", {
      * Fires the long tap event.
      *
      * @param domEvent {Event} DOM event
-     * @param target {Element} event target
      */
-    __fireLongTap : function(domEvent, target) {
+    __fireLongTap : function(domEvent) {
       var gesture = this.__gesture[domEvent.pointerId];
       if (gesture) {
         this._fireEvent(domEvent, "longtap", this.__defaultTarget);

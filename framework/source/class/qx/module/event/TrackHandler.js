@@ -39,9 +39,8 @@ qx.Class.define("qx.module.event.TrackHandler", {
      * is attached to it
      *
      * @param element {Element} DOM element
-     * @param type {String} event type
      */
-    register : function(element, type) {
+    register : function(element) {
       if (!element.$$trackHandler) {
         element.$$trackHandler = new qx.event.handler.Track(element);
       }

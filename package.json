@@ -10,5 +10,10 @@
     "grunt": "^0.4.5",
     "grunt-run-grunt": "^0.1.4",
     "shelljs": "^0.3.0"
+  },
+  "org_next": {
+    "namespace": "qx",
+    "class": "source/class",
+    "resource": "source/resource"
   }
 }

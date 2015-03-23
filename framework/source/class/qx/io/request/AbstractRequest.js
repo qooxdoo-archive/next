@@ -598,7 +598,7 @@ qx.Class.define("qx.io.request.AbstractRequest",
      */
     removeRequestHeader: function(key) {
       if (this.__requestHeaders[key]) {
-       delete this.__requestHeaders[key];
+        delete this.__requestHeaders[key];
       }
       return this;
     },

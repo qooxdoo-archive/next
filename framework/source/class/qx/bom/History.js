@@ -176,7 +176,7 @@ qx.Class.define("qx.bom.History",
 
 
     // property apply
-    _applyState : function(value, old) {
+    _applyState : function(value) {
       this._writeState(value);
     },
 

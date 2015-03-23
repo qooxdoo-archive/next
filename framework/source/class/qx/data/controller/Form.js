@@ -180,7 +180,7 @@ qx.Class.define("qx.data.controller.Form",
           if (i + 1 == names.length) {
             // check if the target is a selection
             var itemValue = null;
-              itemValue = item.value;
+            itemValue = item.value;
 
             // call the converter if available [BUG #4382]
             if (this.__bindingOptions[name] && this.__bindingOptions[name][1]) {
@@ -272,7 +272,7 @@ qx.Class.define("qx.data.controller.Form",
 
 
     // apply method
-    _applyModel : function(value, old) {
+    _applyModel : function(value) {
 
       // set the model to null to reset all items before removing them
       if (this.__objectController != null && value == null) {

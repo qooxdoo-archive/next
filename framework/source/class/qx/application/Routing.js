@@ -404,13 +404,14 @@ qx.Class.define("qx.application.Routing", {
 
       var entry = null;
       var length = back.length;
+      var a;
       for (var i = 0; i < length; i++)
       {
         if (back[i].path == path)
         {
           entry = back[i];
-          var toForward = back.splice(0,i);
-          for (var a=0; a<toForward.length; a++){
+          var toForward = back.splice(0, i);
+          for (a = 0; a<toForward.length; a++){
             forward.unshift(toForward[a]);
           }
           found = true;
@@ -424,14 +425,14 @@ qx.Class.define("qx.application.Routing", {
         };
       }
 
-      var length = forward.length;
-      for (var i = 0; i < length; i++)
+      length = forward.length;
+      for (i = 0; i < length; i++)
       {
         if (forward[i].path == path)
         {
           entry = forward[i];
-          var toBack = forward.splice(0,i+1);
-          for (var a=0; a<toBack.length; a++){
+          var toBack = forward.splice(0, i+1);
+          for (a = 0; a < toBack.length; a++){
             back.unshift(toBack[a]);
           }
           break;
@@ -442,7 +443,7 @@ qx.Class.define("qx.application.Routing", {
         return {
           data : entry,
           action : "forward"
-        }
+        };
       }
       return entry;
     },

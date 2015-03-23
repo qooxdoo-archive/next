@@ -82,6 +82,10 @@
      var coll2 = q("h2", q(container1));
      assert.equal(1, coll2.length);
      assert.equal("inner1", coll2[0].id);
+
+     // empty collection as context
+     var coll2 = q("h2", q());
+     assert.equal(0, coll2.length);
    });
 
 

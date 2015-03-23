@@ -75,6 +75,7 @@ qx.Class.define("qx.lang.Object",
         qx.core.Assert && qx.core.Assert.assertMap(map, "Invalid argument 'map'");
       }
 
+      /* eslint no-unused-vars:0 */
       for (var key in map) {
         return false;
       }
@@ -141,8 +142,9 @@ qx.Class.define("qx.lang.Object",
      */
     clone : function(source, deep)
     {
+      var clone;
       if (qx.lang.Type.isObject(source)) {
-        var clone = {};
+        clone = {};
         for (var key in source) {
           if (deep) {
             clone[key] = qx.lang.Object.clone(source[key], deep);
@@ -153,14 +155,14 @@ qx.Class.define("qx.lang.Object",
         return clone;
 
       } else if (qx.lang.Type.isArray(source)) {
-        var clone = [];
+        clone = [];
         for (var i=0; i < source.length; i++) {
           if (deep) {
             clone[i] = qx.lang.Object.clone(source[i]);
           } else {
             clone[i] = source[i];
           }
-        };
+        }
         return clone;
 
       }

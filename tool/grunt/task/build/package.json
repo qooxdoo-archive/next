@@ -32,6 +32,7 @@
     "test": "grunt test"
   },
   "dependencies": {
+    "glob": "^5.0.3",
     "qx-compression": "~0.1.0",
     "qx-dependency": "~0.1.0",
     "qx-library": "~0.1.0",

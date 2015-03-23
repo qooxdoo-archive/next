@@ -62,7 +62,7 @@ qx.Class.define("mobileshowcase.page.Form",
       this.__closeResultPopup = new qx.ui.Button("OK");
       this.__closeResultPopup.on("tap", function() {
         this.__resultPopup.hide();
-      },this);
+      }, this);
 
       popupContent.append(this.__result);
       popupContent.append(this.__closeResultPopup);
@@ -250,7 +250,7 @@ qx.Class.define("mobileshowcase.page.Form",
         .appendTo(licenseGroup);
       this.__items.push(slider);
 
-      var agree = new qx.ui.form.ToggleButton(false,"YES","NO",13);
+      var agree = new qx.ui.form.ToggleButton(false, "YES", "NO", 13);
       this.__items.push(agree);
       agree.on("changeValue", this._enableFormSubmitting, this);
       new qx.ui.form.Row(agree, "Agree?")
@@ -287,15 +287,16 @@ qx.Class.define("mobileshowcase.page.Form",
       ]));
 
       var hidePickerButton = new qx.ui.Button("OK").setStyle("width", "100%");
-      hidePickerButton.on("tap", function (e) {
-        pickerDialog.hide();
-      }, this);
-
       var pickerDialogContent = new qx.ui.Widget();
+      var pickerDialog = this.__pickerDialog = new qx.ui.dialog.Popup(pickerDialogContent).appendTo(qxWeb(document.body));
+
+      pickerDialog.title = "Picker";
       pickerDialogContent.append(picker);
       pickerDialogContent.append(hidePickerButton);
-      var pickerDialog = this.__pickerDialog = new qx.ui.dialog.Popup(pickerDialogContent).appendTo(qxWeb(document.body));
-      pickerDialog.title = "Picker";
+
+      hidePickerButton.on("tap", function() {
+        pickerDialog.hide();
+      }, this);
     },
 
 

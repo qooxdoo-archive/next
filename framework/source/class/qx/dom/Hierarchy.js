@@ -350,6 +350,7 @@ qx.Class.define("qx.dom.Hierarchy",
      * @param property {String} property to look for
      * @return {Array} result list
      */
+    /* eslint no-cond-assign:0 */
     _recursivelyCollect : function(element, property)
     {
       var list = [];

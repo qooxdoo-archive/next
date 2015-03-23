@@ -298,12 +298,19 @@ qx.Class.define("qx.event.type.dom.Pointer", {
 
 
   classDefined: function(statics) {
-    var isIos8 = (qxWeb.env.get("os.name") == "ios" && parseFloat(qxWeb.env.get("os.version")) >= 8);
-    var isSafari8 = (qxWeb.env.get("browser.name") == "safari" && parseFloat(qxWeb.env.get("browser.version")) >= 8);
+    var browserName = qxWeb.env.get("browser.name");
+    var browserVersion = parseFloat(qxWeb.env.get("browser.version"));
+
+    var isIos8 = qxWeb.env.get("os.name") == "ios" && parseFloat(qxWeb.env.get("os.version")) >= 8;
+    var isSafari8 = browserName == "safari" && browserVersion >= 8;
     var isGecko = qxWeb.env.get("engine.name") == "gecko";
+    var isChrome43 = browserName == "chrome" && browserVersion >= 43;
 
     if (isGecko) {
       statics.READONLY_PROPERTIES.push("buttons");
+    }
+    else if (isChrome43) {
+      statics.READONLY_PROPERTIES = statics.READONLY_PROPERTIES.concat(["which", "buttons"]);
     }
     else if (isIos8 || isSafari8) {
       statics.READONLY_PROPERTIES = statics.READONLY_PROPERTIES.concat(statics.MOUSE_PROPERTIES);

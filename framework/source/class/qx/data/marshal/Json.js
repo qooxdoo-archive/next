@@ -163,7 +163,7 @@ qx.Class.define("qx.data.marshal.Json",
       var properties = {};
       // include the disposeItem for the dispose process.
       var members = {};
-      for (var key in data) {
+      for (key in data) {
         // apply the property names mapping
         if (this.__delegate && this.__delegate.getPropertyMapping) {
           key = this.__delegate.getPropertyMapping(key, hash);
@@ -174,7 +174,7 @@ qx.Class.define("qx.data.marshal.Json",
         // check for valid JavaScript identifier (leading numbers are ok)
         if (qx.core.Environment.get("qx.debug")) {
           qx.core.Assert.assertTrue((/^[$0-9A-Za-z_]*$/).test(key),
-          "The key '" + key + "' is not a valid JavaScript identifier.")
+          "The key '" + key + "' is not a valid JavaScript identifier.");
         }
 
         properties[key] = {};
@@ -187,11 +187,12 @@ qx.Class.define("qx.data.marshal.Json",
       }
 
       // try to get the superclass, Object as default
+      var superClass;
       if (this.__delegate && this.__delegate.getModelSuperClass) {
-        var superClass =
+        superClass =
           this.__delegate.getModelSuperClass(hash, parentProperty, depth) || Object;
       } else {
-        var superClass = Object;
+        superClass = Object;
       }
 
       // try to get the mixins
@@ -237,20 +238,20 @@ qx.Class.define("qx.data.marshal.Json",
      * @return {Object} An instance of the corresponding class.
      */
     __createInstance: function(hash, data, parentProperty, depth) {
-      var delegateClass;
+      var DelegateClass;
       // get the class from the delegate
       if (this.__delegate && this.__delegate.getModelClass) {
-        delegateClass = this.__delegate.getModelClass(hash, data, parentProperty, depth);
+        DelegateClass = this.__delegate.getModelClass(hash, data, parentProperty, depth);
       }
-      if (delegateClass != null) {
-        return (new delegateClass());
+      if (DelegateClass != null) {
+        return (new DelegateClass());
       } else {
         var className = "qx.data.model." + hash;
-        var clazz = qx.Class.getByName(className);
-        if (!clazz) {
+        var Clazz = qx.Class.getByName(className);
+        if (!Clazz) {
           throw new Error("Class '" + className + "' could not be found.");
         }
-        return (new clazz());
+        return (new Clazz());
       }
     },
 
@@ -310,13 +311,13 @@ qx.Class.define("qx.data.marshal.Json",
         return data;
 
       } else if (isArray) {
-        var arrayClass = qx.data.Array;
+        var ArrayClass = qx.data.Array;
         if (this.__delegate && this.__delegate.getArrayClass) {
-          var customArrayClass = this.__delegate.getArrayClass(parentProperty, depth);
-          arrayClass = customArrayClass || arrayClass;
+          var CustomArrayClass = this.__delegate.getArrayClass(parentProperty, depth);
+          ArrayClass = CustomArrayClass || ArrayClass;
         }
 
-        var array = new arrayClass();
+        var array = new ArrayClass();
 
         for (var i = 0; i < data.length; i++) {
           array.push(this.__toModel(data[i], parentProperty + "[" + i + "]", depth+1));

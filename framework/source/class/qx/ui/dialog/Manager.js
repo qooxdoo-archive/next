@@ -100,8 +100,8 @@ qx.Class.define("qx.ui.dialog.Manager",
           if (handler) {
             handler.call(scope);
           }
-        }
-        var button = this.__processDialogButtons(button);
+        };
+        button = this.__processDialogButtons(button);
         return navigator.notification.alert(text, callback, title, button);
       }
       else
@@ -134,8 +134,8 @@ qx.Class.define("qx.ui.dialog.Manager",
         var callback = function(index)
         {
           handler.call(scope, index-1);
-        }
-        var buttons = this.__processDialogButtons(buttons);
+        };
+        buttons = this.__processDialogButtons(buttons);
         return navigator.notification.confirm(text, callback, title, buttons);
       }
       else
@@ -185,8 +185,8 @@ qx.Class.define("qx.ui.dialog.Manager",
           if (handler) {
             handler.call(scope);
           }
-        }
-        var button = this.__processDialogButtons(button);
+        };
+        button = this.__processDialogButtons(button);
         return navigator.notification.alert(text, callback, title, button);
       }
       else
@@ -218,8 +218,8 @@ qx.Class.define("qx.ui.dialog.Manager",
           if (handler) {
             handler.call(scope);
           }
-        }
-        var button = this.__processDialogButtons(button);
+        };
+        button = this.__processDialogButtons(button);
         return navigator.notification.alert(text, callback, title, button);
       }
       else

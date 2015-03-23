@@ -194,7 +194,7 @@ qx.Class.define("qx.bom.client.Css",
       if (!style) {
         //try old WebKit syntax (versions 528 - 534.16)
         value = "-webkit-gradient(linear,0% 0%,100% 100%,from(white), to(red))";
-        var style = qx.bom.Style.getAppliedStyle(el, "backgroundImage", value, false);
+        style = qx.bom.Style.getAppliedStyle(el, "backgroundImage", value, false);
         if (style) {
           qx.bom.client.Css.__WEBKIT_LEGACY_GRADIENT = true;
         }

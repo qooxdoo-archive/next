@@ -162,7 +162,7 @@ qx.Class.define("qx.util.DisposeUtil",
       trigger.dispose = function(){
         triggerDispose.call(trigger);
         disposeMe.dispose();
-      }
+      };
     },
 
 
@@ -233,7 +233,7 @@ qx.Class.define("qx.util.DisposeUtil",
         classes = [qx.ui.Widget];
       }
 
-      for (var i=0,l=classes.length; i<l; i++) {
+      for (var i = 0, l = classes.length; i<l; i++) {
         if (typeof classes[i] !== "undefined" &&
           qx.Class.isSubClassOf(obj.constructor, classes[i]))
         {

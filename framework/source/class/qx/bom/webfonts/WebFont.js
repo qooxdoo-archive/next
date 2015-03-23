@@ -54,7 +54,7 @@ qx.Class.define("qx.bom.webfonts.WebFont", {
     __families : null,
 
     // property apply
-    _applySources : function(value, old) {
+    _applySources : function(value) {
       var families = [];
 
       for (var i=0, l=value.length; i<l; i++) {

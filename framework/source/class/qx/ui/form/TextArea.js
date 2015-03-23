@@ -108,9 +108,8 @@ qx.Class.define("qx.ui.form.TextArea",
     /**
      * Synchronizes the elements.scrollHeight and its height.
      * Needed for making textArea scrollable.
-     * @param evt {qx.event.type.Data} a custom event.
      */
-    _fixChildElementsHeight : function(evt) {
+    _fixChildElementsHeight : function() {
       this.setStyle("height", "auto")
         .setStyle("height", this[0].scrollHeight + "px");
 

@@ -159,7 +159,7 @@ qx.Class.define("qx.ui.container.Scroll",
     _setCurrentY : function(value) {
       var old = this._currentY;
       this._currentY = value;
-      this._fireWaypoint(value, old,  "y");
+      this._fireWaypoint(value, old, "y");
     },
 
 
@@ -483,7 +483,7 @@ qx.Class.define("qx.ui.container.Scroll",
     {
       var contentElement = this._getScrollContentElement();
       if (contentElement) {
-        contentElement  = this;
+        contentElement = this;
       }
       if (contentElement && this._isScrollable()) {
         if (typeof time === "undefined") {

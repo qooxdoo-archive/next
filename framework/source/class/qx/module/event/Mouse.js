@@ -74,6 +74,7 @@ qx.Class.define("qx.module.event.Mouse", {
      * @return {String} One of <code>left</code>, <code>right</code> or
      * <code>middle</code>
      */
+    /* eslint no-fallthrough:0 */
     getButton : function()
     {
       switch(this.type)
@@ -191,11 +192,10 @@ qx.Class.define("qx.module.event.Mouse", {
      * already present
      *
      * @param event {Event} Native event object
-     * @param element {Element} DOM element the listener was attached to
      * @return {Event} Normalized event object
      * @internal
      */
-    normalize : function(event, element)
+    normalize : function(event)
     {
       if (!event) {
         return event;

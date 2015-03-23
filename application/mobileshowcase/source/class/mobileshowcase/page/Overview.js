@@ -48,6 +48,7 @@ qx.Class.define("mobileshowcase.page.Overview",
 
       var list = new qx.ui.List({
         configureData : function(data) {
+          /*eslint no-shadow: 0 */
           data.showArrow = true;
           return data;
         }

@@ -76,7 +76,7 @@ qx.Class.define("mobileshowcase.page.Event",
       var sclayout = new qx.ui.layout.VBox();
       sclayout.alignX = "center";
       sclayout.alignY = "middle";
-      var container =  this.__showcaseContainer = new qx.ui.Widget();
+      var container = this.__showcaseContainer = new qx.ui.Widget();
       container.layout = sclayout;
       container.addClass("eventcontainer");
 
@@ -137,9 +137,8 @@ qx.Class.define("mobileshowcase.page.Event",
       var label = this.__label = new qx.ui.Label("Touch / Tap / Swipe this area");
       containerTouchArea.append(label);
 
-      var descriptionText = "<b>Testing Pointer Events:</b> Touch / Tap / Swipe the area<br />\n\
-      <b>Testing Multi-Pointer Events:</b> Touch the area with multiple fingers<br />\n\
-      ";
+      var descriptionText = "<b>Testing Pointer Events:</b> Touch / Tap / Swipe the area<br />\n"+
+      "<b>Testing Multi-Pointer Events:</b> Touch the area with multiple fingers<br />\n";
       descriptionText += "<b>Testing Pinch/Zoom Gesture:</b> Touch HTML5 logo with two fingers<br />";
       descriptionText += "<b>Testing OrientationChange Event</b>: Rotate your device / change browser size";
 
@@ -165,7 +164,7 @@ qx.Class.define("mobileshowcase.page.Event",
      *
      * @param evt {qx.event.type.Track} The track event.
      */
-    __onTrackStart : function(evt) {
+    __onTrackStart : function() {
       this.__logoStartLeft = this.__logoLeft;
       this.__logoStartTop = this.__logoTop;
     },
@@ -216,8 +215,8 @@ qx.Class.define("mobileshowcase.page.Event",
       var scale = evt.scale * this.__initialScale;
       this.__currentScale = (Math.round(scale * 100) / 100);
 
-      this.__currentScale = Math.max(this.__currentScale,this.__minScale);
-      this.__currentScale = Math.min(this.__currentScale,this.__maxScale);
+      this.__currentScale = Math.max(this.__currentScale, this.__minScale);
+      this.__currentScale = Math.min(this.__currentScale, this.__maxScale);
 
       qxWeb.requestAnimationFrame(this._renderLogo, this);
     },
@@ -272,7 +271,7 @@ qx.Class.define("mobileshowcase.page.Event",
     * @param x {Integer} pointer position x.
     * @param y {Integer} pointer position y.
     */
-    _setPointerCirclePosition : function(pointerId,x,y) {
+    _setPointerCirclePosition : function(pointerId, x, y) {
       // Disable pointer circles Windows Phone 8 as no pointer-events:none is available.
       if (navigator.userAgent.match(/IEMobile\/10\.0/)) {
         return;
@@ -375,13 +374,13 @@ qx.Class.define("mobileshowcase.page.Event",
       var labelBuffer = "";
       for (var pointerId in this.__pointers) {
         var pointer = this.__pointers[pointerId];
-         labelBuffer = labelBuffer + "<div class='pointers'>";
+        labelBuffer = labelBuffer + "<div class='pointers'>";
         labelBuffer = labelBuffer + "<span class='pointer'>" + pointerId + "</span>";
         for (var i = 0; i < pointer.events.length; i++) {
           labelBuffer = labelBuffer + " <span class='event'>" + pointer.events[i] + "</span>";
-        };
+        }
         labelBuffer = labelBuffer + "</div>";
-      };
+      }
       this.__label.value = labelBuffer;
     }
   }

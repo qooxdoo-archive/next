@@ -1,0 +1,12 @@
+# node_modules
+**/node_modules/**
+
+# build versions of test apps
+**/source/script/**
+**/build/script/**
+
+# ignore jsdoc generated dirs
+**/api/scripts/**
+
+# ignore test dirs
+**/test/**

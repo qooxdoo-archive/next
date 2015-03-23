@@ -45,6 +45,7 @@ qx.Class.define("qx.data.Array",
    */
   construct : function(param)
   {
+    var i;
     // if no argument is given
     if (param == undefined) {
       this.__array = [];
@@ -53,7 +54,7 @@ qx.Class.define("qx.data.Array",
     } else if (arguments.length > 1) {
       // create an empty array and go through every argument and push it
       this.__array = [];
-      for (var i = 0; i < arguments.length; i++) {
+      for (i = 0; i < arguments.length; i++) {
         this.__array.push(arguments[i]);
       }
 
@@ -72,7 +73,7 @@ qx.Class.define("qx.data.Array",
     }
 
     // propagate changes
-    for (var i=0; i<this.__array.length; i++) {
+    for (i = 0; i < this.__array.length; i++) {
       this._applyEventPropagation(this.__array[i], null, i);
     }
 
@@ -125,10 +126,11 @@ qx.Class.define("qx.data.Array",
      *   arrays.
      */
     concat: function(array) {
+      var newArray;
       if (array) {
-        var newArray = this.__array.concat(array);
+        newArray = this.__array.concat(array);
       } else {
-        var newArray = this.__array.concat();
+        newArray = this.__array.concat();
       }
       return new qx.data.Array(newArray);
     },
@@ -189,6 +191,7 @@ qx.Class.define("qx.data.Array",
      *
      * @return {Number} The new length of the array.
      */
+    /* eslint no-unused-vars:0 */
     push: function(varargs) {
       for (var i = 0; i < arguments.length; i++) {
         this.__array.push(arguments[i]);
@@ -319,21 +322,22 @@ qx.Class.define("qx.data.Array",
      * @return {qx.data.Array} An data array containing the removed elements.
      *   Keep in to dispose this one, even if you don't use it!
      */
+    /* eslint no-unused-vars:0 */
     splice: function(startIndex, amount, varargs) {
       // store the old length
       var oldLength = this.__array.length;
 
       // invoke the slice on the array
       var returnArray = this.__array.splice.apply(this.__array, arguments);
-
+      var addedItems, i;
       // fire a change event for the length
       if (this.__array.length != oldLength) {
         this.__updateLength();
       } else if (amount == arguments.length - 2) {
         // if we added as much items as we removed
-        var addedItems = qx.lang.Array.fromArguments(arguments, 2)
+        addedItems = qx.lang.Array.fromArguments(arguments, 2);
         // check if the array content equals the content before the operation
-        for (var i = 0; i < addedItems.length; i++) {
+        for (i = 0; i < addedItems.length; i++) {
           if (addedItems[i] !== returnArray[i]) {
             break;
           }
@@ -348,17 +352,19 @@ qx.Class.define("qx.data.Array",
       var removed = amount > 0;
       var added = arguments.length > 2;
       if (removed || added) {
-        var addedItems = qx.lang.Array.fromArguments(arguments, 2);
+        addedItems = qx.lang.Array.fromArguments(arguments, 2);
 
+        var type;
+        var end;
         if (returnArray.length == 0) {
-          var type = "add";
-          var end = startIndex + addedItems.length;
+          type = "add";
+          end = startIndex + addedItems.length;
         } else if (addedItems.length == 0) {
-          var type = "remove";
-          var end = this.length - 1;
+          type = "remove";
+          end = this.length - 1;
         } else {
-          var type = "add/remove";
-          var end = startIndex + Math.abs(addedItems.length - returnArray.length);
+          type = "add/remove";
+          end = startIndex + Math.abs(addedItems.length - returnArray.length);
         }
         this.emit("change",
           {
@@ -372,12 +378,12 @@ qx.Class.define("qx.data.Array",
       }
 
       // remove the listeners first [BUG #7132]
-      for (var i = 0; i < returnArray.length; i++) {
+      for (i = 0; i < returnArray.length; i++) {
         this._registerEventChaining(null, returnArray[i], i);
       }
 
       // add listeners
-      for (var i = 2; i < arguments.length; i++) {
+      for (i = 2; i < arguments.length; i++) {
         this._registerEventChaining(arguments[i], null, startIndex + (i - 2));
       }
       // apply event chaining for every item moved
@@ -386,10 +392,10 @@ qx.Class.define("qx.data.Array",
       // fire the changeBubble event
       if (removed || added) {
         var value = [];
-        for (var i = 2; i < arguments.length; i++) {
+        for (i = 2; i < arguments.length; i++) {
           value[i-2] = arguments[i];
         }
-        var endIndex = (startIndex + Math.max(arguments.length - 3 , amount - 1));
+        var endIndex = (startIndex + Math.max(arguments.length - 3, amount - 1));
         var name = startIndex == endIndex ? endIndex : startIndex + "-" + endIndex;
 
         var eventData = {
@@ -413,6 +419,7 @@ qx.Class.define("qx.data.Array",
      * @param func {Function} A compare function comparing two parameters and
      *   should return a number.
      */
+     /* eslint no-unused-vars:0 */
     sort: function(func) {
       // ignore if the array is empty
       if (this.length == 0) {
@@ -451,6 +458,7 @@ qx.Class.define("qx.data.Array",
      * @param varargs {var} As many elements as you want to add to the beginning.
      * @return {Integer} The new length of the array
      */
+    /* eslint no-unused-vars:0 */
     unshift: function(varargs) {
       for (var i = arguments.length - 1; i >= 0; i--) {
         this.__array.unshift(arguments[i]);

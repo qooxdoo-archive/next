@@ -171,7 +171,7 @@ qx.Class.define("qx.bom.element.Style",
 
         // normalize name
         if(name !== "float"){
-          name = this.__styleNames[name] || this.__getStyleName(name) || name ;
+          name = this.__styleNames[name] || this.__getStyleName(name) || name;
         }
 
         if (!cssNames[name]) {
@@ -396,9 +396,7 @@ qx.Class.define("qx.bom.element.Style",
             if (computed && computed[name]) {
               return computed[name];
             }
-          }
-          else
-          {
+          } else {
             // if the element is not inserted into the document "currentStyle"
             // may be undefined. In this case always return the local style.
             if (!element.currentStyle) {
@@ -438,7 +436,6 @@ qx.Class.define("qx.bom.element.Style",
             // Just the current style
             return currentStyle;
           }
-
           return element.style[name] || "";
       }
     }

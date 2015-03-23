@@ -58,7 +58,7 @@ qx.Class.define("qx.bom.Iframe",
     create : function(attributes, win)
     {
       // Work on a copy to not modify given attributes map
-      var attributes = attributes ? qx.lang.Object.clone(attributes) : {};
+      attributes = attributes ? qx.lang.Object.clone(attributes) : {};
       var initValues = qx.bom.Iframe.DEFAULT_ATTRIBUTES;
 
       for (var key in initValues)
@@ -129,7 +129,7 @@ qx.Class.define("qx.bom.Iframe",
       }
       catch(ex)
       {
-        return null
+        return null;
       }
     },
 
@@ -180,10 +180,10 @@ qx.Class.define("qx.bom.Iframe",
           iframe.src = source;
         }
 
-      // This is a programmer provided source. Remember URL for this source
-      // for later comparison with current URL. The current URL can diverge
-      // if the end-user navigates in the Iframe.
-      this.__rememberUrl(iframe);
+        // This is a programmer provided source. Remember URL for this source
+        // for later comparison with current URL. The current URL can diverge
+        // if the end-user navigates in the Iframe.
+        this.__rememberUrl(iframe);
 
       }
       catch(ex) {
@@ -208,7 +208,7 @@ qx.Class.define("qx.bom.Iframe",
           return doc.location.href;
         }
       }
-      catch(ex) {};
+      catch(ex) {}
 
       return "";
     },
@@ -226,7 +226,7 @@ qx.Class.define("qx.bom.Iframe",
       var callback = function() {
         qx.bom.Event.removeNativeListener(iframe, "load", callback);
         iframe.$$url = qx.bom.Iframe.queryCurrentUrl(iframe);
-      }
+      };
 
       qx.bom.Event.addNativeListener(iframe, "load", callback);
     }

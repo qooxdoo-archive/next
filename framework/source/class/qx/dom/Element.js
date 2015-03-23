@@ -403,7 +403,8 @@ qx.Class.define("qx.dom.Element",
      * @return {String} empty string (new HTML content)
      */
     empty : function(element) {
-      return element.innerHTML = "";
+      element.innerHTML = "";
+      return element.innerHTML;
     }
   }
 });

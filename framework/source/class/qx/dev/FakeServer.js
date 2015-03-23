@@ -161,7 +161,7 @@ qx.Class.define("qx.dev.FakeServer", {
      * @param filter {Function} filter function to remove
      */
     removeFilter : function(filter) {
-     qx.lang.Array.remove(this.__sinon.FakeXMLHttpRequest.filters, filter);
+      qx.lang.Array.remove(this.__sinon.FakeXMLHttpRequest.filters, filter);
     },
 
 
@@ -208,6 +208,7 @@ qx.Class.define("qx.dev.FakeServer", {
     getFakeServer : function() {
       if (!this.__fakeServer) {
         if (!window.sinon) {
+          /* eslint no-console: 0 */
           console.error(this.classname + ": window.sinon not found. Please make sure SinonJS is loaded before using FakeServer.");
           return null;
         }
@@ -253,7 +254,7 @@ qx.Class.define("qx.dev.FakeServer", {
      */
     __getCombinedFilter : function() {
       var responses = this.__responses;
-      return function(method, url, async, username, password) {
+      return function(method, url) {
         for (var i=0, l=responses.length; i<l; i++) {
           var filterMethod = responses[i][0];
           var regExp = responses[i][1];

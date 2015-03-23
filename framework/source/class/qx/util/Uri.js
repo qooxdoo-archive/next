@@ -42,7 +42,7 @@ qx.Class.define("qx.util.Uri",
     parseUri: function(str, strict) {
 
       var options = {
-        key: ["source","protocol","authority","userInfo","user","password","host","port","relative","path","directory","file","query","anchor"],
+        key: ["source", "protocol", "authority", "userInfo", "user", "password", "host", "port", "relative", "path", "directory", "file", "query", "anchor"],
         q:   {
           name:   "queryKey",
           parser: /(?:^|&)([^&=]*)=?([^&]*)/g
@@ -97,8 +97,8 @@ qx.Class.define("qx.util.Uri",
       if (!params) {
         return url;
       }
-
-      return url += (/\?/).test(url) ? "&" + params : "?" + params;
+      url += (/\?/).test(url) ? "&" + params : "?" + params;
+      return url;
     },
 
 

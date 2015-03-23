@@ -54,7 +54,7 @@ qx.Class.define("qx.util.Base64", {
       }
       else
       {
-        isMultiByte = ! is8bit;
+        isMultiByte = !is8bit;
       }
 
       var padding = '=';
@@ -167,7 +167,7 @@ qx.Class.define("qx.util.Base64", {
         for (var i=0; i<bytes.length; i++)
         {
           var utfByte = bytes[i];
-
+          var nextBytes;
           if (utfByte >> 7 === 0) {
             result.push(utfByte);
           }
@@ -180,20 +180,20 @@ qx.Class.define("qx.util.Base64", {
 
           if (utfByte >> 4 === 14)
           {
-            var nextBytes = [ bytes[++i], bytes[++i] ];
+            nextBytes = [ bytes[++i], bytes[++i] ];
             result.push((utfByte & 15) << 12 | ((nextBytes[0] & 60) >> 2) << 8 | (nextBytes[0] & 3) << 6 | (nextBytes[1] & 63));
           }
 
           if (utfByte >> 3 === 30)
           {
-            var nextBytes = [ bytes[++i], bytes[++i], bytes[++i] ];
+            nextBytes = [ bytes[++i], bytes[++i], bytes[++i] ];
             result.push((utfByte & 7) << 18 | (utfByte & 48) << 16 | (nextBytes[0] & 15) << 12 | ((nextBytes[1] & 60) >> 2) << 8 | (nextBytes[1] & 3) << 6 | (nextBytes[2] & 63));
           }
         }
       }
 
-      for (var i=0, l=result.length; i<l; i++) {
-        charString += String.fromCharCode(result[i]);
+      for (var j = 0, l = result.length; j<l; j++) {
+        charString += String.fromCharCode(result[j]);
       }
 
       return charString;
@@ -227,7 +227,7 @@ qx.Class.define("qx.util.Base64", {
       }
       else
       {
-        isMultiByte = ! is8bit;
+        isMultiByte = !is8bit;
       }
 
       var ilength = input.length;

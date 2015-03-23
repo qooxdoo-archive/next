@@ -99,9 +99,9 @@ qx.Class.define("qx.bom.client.Transport",
                  && ( (versionMain >1)
                       || ((versionMain == 1) && (versionMajor > 9))
                       || ((versionMain == 1) && (versionMajor == 9) && (versionMinor >= 1)))){
-          // FF 3.5 (== Gecko 1.9.1): 6 Connections.
-          // see  http://gemal.dk/blog/2008/03/18/firefox_3_beta_5_will_have_improved_connection_parallelism/
-          maxConcurrentRequestCount = 6;
+        // FF 3.5 (== Gecko 1.9.1): 6 Connections.
+        // see  http://gemal.dk/blog/2008/03/18/firefox_3_beta_5_will_have_improved_connection_parallelism/
+        maxConcurrentRequestCount = 6;
 
       } else {
         // Default is 2, as demanded by RFC 2616

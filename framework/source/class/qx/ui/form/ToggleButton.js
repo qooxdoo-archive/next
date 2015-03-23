@@ -68,8 +68,8 @@ qx.Class.define("qx.ui.form.ToggleButton", {
     this.super(qx.ui.Widget, "construct");
 
     if (labelChecked && labelUnchecked) {
-       this.__labelUnchecked = labelUnchecked;
-       this.__labelChecked = labelChecked;
+      this.__labelUnchecked = labelUnchecked;
+      this.__labelChecked = labelChecked;
     }
 
     this
@@ -225,9 +225,8 @@ qx.Class.define("qx.ui.form.ToggleButton", {
      * Event handler. Called when the trackend event occurs.
      * Toggles the button.
      *
-     * @param evt {qx.event.type.Track} The trackend event.
      */
-    _onTrackend: function(evt) {
+    _onTrackend: function() {
       this.setValue(!this.__isSwitchLeftSided());
     },
 

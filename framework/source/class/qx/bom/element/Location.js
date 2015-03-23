@@ -217,16 +217,18 @@ qx.Class.define("qx.bom.element.Location",
      *   <code>right</code> and <code>bottom</code> which contains the distance
      *   of the element relative to the document.
      */
+    /* eslint no-fallthrough:0 */
     get : function(elem, mode)
     {
+      var left;
+      var top;
+
       if (elem.tagName == "BODY")
       {
         var location = this.__getBodyLocation(elem);
-        var left = location.left;
-        var top = location.top;
-      }
-      else
-      {
+        left = location.left;
+        top = location.top;
+      } else {
         var body = this.__computeBody(elem);
         var offset = this.__computeOffset(elem);
         // Reduce by viewport scrolling.
@@ -235,8 +237,8 @@ qx.Class.define("qx.bom.element.Location",
         // the scrolling
         var scroll = this.__computeScroll(elem);
 
-        var left = offset.left + body.left - scroll.left;
-        var top = offset.top + body.top - scroll.top;
+        left = offset.left + body.left - scroll.left;
+        top = offset.top + body.top - scroll.top;
       }
 
       var right = left + elem.offsetWidth;

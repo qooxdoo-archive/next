@@ -178,11 +178,12 @@ qx.Class.define("qx.bom.Stylesheet",
      */
     removeImport : function(sheet, url)
     {
+      var len, i;
       if (qx.core.Environment.get("html.stylesheet.removeimport")) {
         var imports = sheet.imports;
-        var len = imports.length;
+        len = imports.length;
 
-        for (var i=len-1; i>=0; i--)
+        for (i = len-1; i >= 0; i--)
         {
           if (imports[i].href == url ||
           imports[i].href == qx.util.Uri.getAbsolute(url))
@@ -193,9 +194,9 @@ qx.Class.define("qx.bom.Stylesheet",
       }
       else {
         var rules = sheet.cssRules;
-        var len = rules.length;
+        len = rules.length;
 
-        for (var i=len-1; i>=0; i--)
+        for (i = len - 1; i >= 0; i--)
         {
           if (rules[i].href == url) {
             sheet.deleteRule(i);
@@ -222,9 +223,9 @@ qx.Class.define("qx.bom.Stylesheet",
       }
       else {
         var rules = sheet.cssRules;
-        var len = rules.length;
+        len = rules.length;
 
-        for (var i=len-1; i>=0; i--)
+        for (i = len - 1; i >= 0; i--)
         {
           if (rules[i].type == rules[i].IMPORT_RULE) {
             sheet.deleteRule(i);

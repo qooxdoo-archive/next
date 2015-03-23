@@ -95,7 +95,7 @@ qx.Class.define("qx.bom.Style",
       {
         // all vendor prefixes (except for "ms") start with an uppercase letter
         cssName = propertyName.replace(/[A-Z]/g, function(match){
-          return  ('-' + match.charAt(0).toLowerCase());
+          return ('-' + match.charAt(0).toLowerCase());
         });
 
         // lowercase "ms" vendor prefix needs special handling
@@ -154,7 +154,7 @@ qx.Class.define("qx.bom.Style",
     }
   },
 
-  classDefined : function(statics) {
+  classDefined : function() {
     if (window.CSS && window.CSS.supports) {
       qx.bom.Style.__supports = window.CSS.supports.bind(window.CSS);
     } else if (window.supportsCSS) {

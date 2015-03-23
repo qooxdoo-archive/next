@@ -1,3 +1,4 @@
+"use strict";
 /* ************************************************************************
 
    qooxdoo - the new era of web development
@@ -35,6 +36,7 @@ qx.Class.define("play.Application",
 
       // Enable logging in debug variant
       if (qx.core.Environment.get("qx.debug")) {
+        /*eslint no-unused-expressions: 0 */
         qx.log.appender.Native;
       }
 
@@ -55,6 +57,7 @@ qx.Class.define("play.Application",
       var samplesMenu = new qx.ui.dialog.Menu(samples)
         .appendTo(new qx.ui.core.Root(document.body));
       samplesMenu.on("selected", function(el) {
+        /*eslint no-shadow: 0 */
         var title = samplesMenu.model.getItem(el.getData("row")).title;
         var code = samples.getCode(title);
         editor.setValue(code);
@@ -92,6 +95,7 @@ qx.Class.define("play.Application",
       this.getRoot().setHtml("");
       var code = ace.edit("editor").getValue();
       play.CodeStore.add(code);
+      /*eslint no-new-func: 0 */
       var f = new Function(code);
       f.bind(this)();
     },

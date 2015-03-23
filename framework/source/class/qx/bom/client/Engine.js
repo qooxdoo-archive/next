@@ -58,7 +58,7 @@ qx.Class.define("qx.bom.client.Engine",
      */
     getVersion : function() {
       var agent = window.navigator.userAgent;
-
+      var match;
       var version = "";
       if (qx.bom.client.Engine.__isMshtml()) {
         var isTrident = /Trident\/([^\);]+)(\)|;)/.test(agent);
@@ -77,7 +77,7 @@ qx.Class.define("qx.bom.client.Engine",
           }
         } else if (isTrident) {
           // IE 11 dropped the "MSIE" string
-          var match = /\brv\:(\d+?\.\d+?)\b/.exec(agent);
+          match = /\brv\:(\d+?\.\d+?)\b/.exec(agent);
           if (match) {
             version = match[1];
           }
@@ -92,7 +92,7 @@ qx.Class.define("qx.bom.client.Engine",
           // in a separate "Version/" postfix
           // http://my.opera.com/chooseopera/blog/2009/05/29/changes-in-operas-user-agent-string-format
           if (agent.indexOf("Version/") != -1) {
-            var match = agent.match(/Version\/(\d+)\.(\d+)/);
+            match = agent.match(/Version\/(\d+)\.(\d+)/);
             // ignore the first match, its the whole version string
             version =
               match[1] + "." +

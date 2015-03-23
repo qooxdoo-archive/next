@@ -129,7 +129,7 @@ qx.Class.define("qx.bom.client.CssAnimation",
         "MozAnimation" : "animationiteration",
         "OAnimation" : "oAnimationIteration",
         "animation" : "animationiteration"
-      }
+      };
 
       return mapping[this.getName()];
     },
@@ -147,7 +147,7 @@ qx.Class.define("qx.bom.client.CssAnimation",
         "MozAnimation" : "animationend",
         "OAnimation" : "oAnimationEnd",
         "animation" : "animationend"
-      }
+      };
 
       return mapping[this.getName()];
     },
@@ -165,16 +165,16 @@ qx.Class.define("qx.bom.client.CssAnimation",
       for (var i=0; i < prefixes.length; i++) {
         var key = "@" + qx.bom.Style.getCssName(prefixes[i]) + "-keyframes";
         keyFrames.push(key);
-      };
+      }
       keyFrames.unshift("@keyframes");
 
       var sheet = qx.bom.Stylesheet.createElement();
-      for (var i=0; i < keyFrames.length; i++) {
+      for (i = 0; i < keyFrames.length; i++) {
         try {
           qx.bom.Stylesheet.addRule(sheet, keyFrames[i] + " name", "");
           return keyFrames[i];
         } catch (e) {}
-      };
+      }
 
       return null;
     },
@@ -198,7 +198,7 @@ qx.Class.define("qx.bom.client.CssAnimation",
         if (window[choices[i]] != undefined) {
           return choices[i];
         }
-      };
+      }
 
       return null;
     }

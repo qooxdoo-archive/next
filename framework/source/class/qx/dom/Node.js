@@ -93,21 +93,21 @@ qx.Class.define("qx.dom.Node",
      * @param node {Node|Document|Window} node to inspect
      * @return {Window} the <code>defaultView</code> of the given node
      */
-    getWindow : function(node)
-    {
+    getWindow: function(node) {
       // is a window already
-        if (node.nodeType == null) {
-          return node;
-        }
+      if (node.nodeType == null) {
+        return node;
+      }
 
-        // jump to document
-        if (node.nodeType !== this.DOCUMENT) {
-          node = node.ownerDocument;
-        }
+      // jump to document
+      if (node.nodeType !== this.DOCUMENT) {
+        node = node.ownerDocument;
+      }
 
-        // jump to window
-        return node.defaultView || node.parentWindow;
+      // jump to window
+      return node.defaultView || node.parentWindow;
     },
+
 
 
     /**
@@ -300,7 +300,7 @@ qx.Class.define("qx.dom.Node",
     isBlockNode : function(node)
     {
       if (!qx.dom.Node.isElement(node)) {
-       return false;
+        return false;
       }
 
       node = qx.dom.Node.getName(node);

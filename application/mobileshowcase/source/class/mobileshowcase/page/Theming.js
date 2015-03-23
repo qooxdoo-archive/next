@@ -96,7 +96,7 @@ qx.Class.define("mobileshowcase.page.Theming",
 
 
     /** Check on possible scale changes. */
-    _onResize : qx.module.util.Function.debounce(function(e)
+    _onResize : qx.module.util.Function.debounce(function()
     {
       var appScaling = qx.application.Scaling.getInstance();
 
@@ -116,7 +116,7 @@ qx.Class.define("mobileshowcase.page.Theming",
     /** Creates the form which controls the chosen qx.Mobile theme. */
     __createThemeChooser: function() {
 
-      var  themeForm = new qx.ui.form.Form();
+      var themeForm = new qx.ui.form.Form();
       var themeGroup = new qx.ui.form.Group().appendTo(themeForm);
 
       for (var i = 0; i < mobileshowcase.page.Theming.THEMES.length; i++) {
@@ -259,7 +259,7 @@ qx.Class.define("mobileshowcase.page.Theming",
       blocker.off("transitionend", this._onAppFadedOut, this);
 
       var root = qxWeb(".root");
-      root.setStyle("color","white");
+      root.setStyle("color", "white");
 
       qxWeb("link[rel^='stylesheet']").remove();
 
@@ -270,7 +270,7 @@ qx.Class.define("mobileshowcase.page.Theming",
 
       qxWeb("head").append(newCssLink);
 
-      root.setStyle("color",null);
+      root.setStyle("color", null);
 
       window.setTimeout(function() {
         blocker.on("transitionend", this._onAppFadedIn, this)
@@ -313,8 +313,8 @@ qx.Class.define("mobileshowcase.page.Theming",
 
 
     dispose : function() {
-     q(window).off("resize", this._onResize);
-     qx.core.Init.getApplication().getRoot().off("changeAppScale", this._updateDemoImageLabel, this);
+      q(window).off("resize", this._onResize);
+      qx.core.Init.getApplication().getRoot().off("changeAppScale", this._updateDemoImageLabel, this);
     }
   }
 });
