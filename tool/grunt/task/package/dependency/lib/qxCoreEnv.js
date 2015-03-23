@@ -36,7 +36,6 @@ var estraverse = require('estraverse');
 var escodegen = require('escodegen');
 var _ = require('underscore');
 var glob = require('glob');
-var U2 = require('uglify-js');
 
 // local (modules may be injected by test env)
 var util = (util || require('./util'));
@@ -57,6 +56,18 @@ var globalEnvClassCode = "";
  */
 var globalEnvKeyProvider = null;
 
+
+/**
+ * Gets the 'foo' (i.e. env key) from a <code>qx.core.Environment.*('foo')</code> call.
+ *
+ * @param {Object} callNode - esprima AST call node
+ * @returns {String} env key
+ */
+function getKeyFromEnvCall(callNode) {
+  return util.get(callNode, 'arguments.0.value');
+}
+
+
 /**
  * Extracts env keys (first argument) from
  * <code>qx.core.Environment.add('engine.name', function(){ ... })</code> calls and
@@ -65,6 +76,7 @@ var globalEnvKeyProvider = null;
  * @param {Object} classCodeMap - js code of environment key provider classes e.g. {'qx.bom.client.Engine': 'long js code string'}
  * @returns {Object} envKeys and envProviderClasses.
  */
+
 function getFeatureTable(classCodeMap) {
 
   function isQxCoreEnvAddCall (node) {
@@ -81,7 +93,7 @@ function getFeatureTable(classCodeMap) {
 
     var controller = new estraverse.Controller();
     controller.traverse(tree, {
-      enter : function (node, parent) {
+      enter : function (node) {
         if (isQxCoreEnvAddCall(node)) {
           featureMap[getKeyFromEnvCall(node)] = className;
         }
@@ -112,14 +124,37 @@ function extractEnvDefaults(classCode) {
 
   var controller = new estraverse.Controller();
   controller.traverse(tree, {
-    enter : function (node, parent) {
+    enter : function (node) {
       if (isDefaultsMap(node)) {
         defaultsMap = node.value;
       }
     }
   });
-
+  /* eslint no-eval:0 */
   return eval('(' + escodegen.generate(defaultsMap) + ')');
+}
+
+/**
+ * Figures out if node is call of qx.core.Environment.get|select|filter.
+ *
+ * @param {Object} node - esprima node
+ * @param {String[]} methodNames - method names to check for
+ * @returns {boolean}
+ * @see {@link http://esprima.org/doc/#ast|esprima AST}
+ */
+function isQxCoreEnvironmentCall(node, methodNames) {
+  var interestingEnvMethods = ['select', 'selectAsync', 'get', 'getAsync', 'filter'];
+  var envMethods = methodNames || interestingEnvMethods;
+
+  return (node.type === 'CallExpression'
+          && util.get(node, 'callee.object.object.object.name') === 'qx'
+          && util.get(node, 'callee.object.object.property.name') === 'core'
+          && util.get(node, 'callee.object.property.name') === 'Environment'
+          && envMethods.indexOf(util.get(node, 'callee.property.name')) !== -1) ||
+          (node.type === 'CallExpression'
+          && util.get(node, 'callee.object.object.name') === 'qxWeb'
+          && util.get(node, 'callee.object.property.name') === 'env'
+          && envMethods.indexOf(util.get(node, 'callee.property.name')) !== -1);
 }
 
 /**
@@ -135,7 +170,7 @@ function findVariantNodes(tree) {
 
   var controller = new estraverse.Controller();
   controller.traverse(tree, {
-    enter : function (node, parent) {
+    enter : function (node) {
       if (isQxCoreEnvironmentCall(node)) {
         result.push(node);
       }
@@ -144,28 +179,6 @@ function findVariantNodes(tree) {
   return result;
 }
 
-/**
- * Figures out if node is call of qx.core.Environment.get|select|filter.
- *
- * @param {Object} node - esprima node
- * @param {String[]} methodNames - method names to check for
- * @returns {boolean}
- * @see {@link http://esprima.org/doc/#ast|esprima AST}
- */
-function isQxCoreEnvironmentCall(node, methodNames) {
-    var interestingEnvMethods = ['select', 'selectAsync', 'get', 'getAsync', 'filter'];
-    var envMethods = methodNames || interestingEnvMethods;
-
-    return (node.type === 'CallExpression'
-            && util.get(node, 'callee.object.object.object.name') === 'qx'
-            && util.get(node, 'callee.object.object.property.name') === 'core'
-            && util.get(node, 'callee.object.property.name') === 'Environment'
-            && envMethods.indexOf(util.get(node, 'callee.property.name')) !== -1) ||
-           (node.type === 'CallExpression'
-            && util.get(node, 'callee.object.object.name') === 'qxWeb'
-            && util.get(node, 'callee.object.property.name') === 'env'
-            && envMethods.indexOf(util.get(node, 'callee.property.name')) !== -1);
-}
 
 /**
  * Replaces get env calls with the computed value.
@@ -178,14 +191,14 @@ function isQxCoreEnvironmentCall(node, methodNames) {
 function replaceEnvCallGet(tree, envMap) {
   var controller = new estraverse.Controller();
   var resultTree = controller.replace(tree, {
-    enter : function (node, parent) {
+    enter : function (node) {
       if (isQxCoreEnvironmentCall(node, ["get"])) {
         var envKey = getKeyFromEnvCall(node);
         if (envMap && envKey in envMap) {
           return {
             "type": "Literal",
             "value": envMap[envKey],
-            "raw": ((typeof(envMap[envKey]) === "string")
+            "raw": ((typeof (envMap[envKey]) === "string")
                    ? "\""+envMap[envKey]+"\""
                    : envMap[envKey].toString())
           };
@@ -198,6 +211,38 @@ function replaceEnvCallGet(tree, envMap) {
 }
 
 /**
+ * Gets the select 'body' from a <code>qx.core.Environment.select('foo', {...})</code> call.
+ *
+ * @param {Object} callNode - esprima AST call node
+ * @param {String} key - key which will be used for value extraction of select 'body'
+ * @throws {Error} ENOENT
+ */
+function getEnvSelectValueByKey(callNode, key) {
+  var properties = util.get(callNode, 'arguments.1.properties');
+  var selectedValue = "initial";
+  var defaultValue = "initial";
+
+  var l = properties.length;
+  while (l--) {
+    if (properties[l].key.value === key.toString()) {
+      selectedValue = properties[l].value;
+    }
+    if (properties[l].key.value === "default") {
+      defaultValue = properties[l].value;
+    }
+  }
+
+  if (selectedValue !== "initial") {
+    return selectedValue;
+  } else if (defaultValue !== "initial") {
+    return defaultValue;
+  } else {
+    throw new Error("ENOENT - Given value matches no key from select map and no 'default' key defined.");
+  }
+}
+
+
+/**
  * Replaces select env calls with the computed value.
  *
  * @param {Object} tree - esprima AST
@@ -208,7 +253,7 @@ function replaceEnvCallGet(tree, envMap) {
 function replaceEnvCallSelect(tree, envMap) {
   var controller = new estraverse.Controller();
   var resultTree = controller.replace(tree, {
-    enter : function (node, parent) {
+    enter : function (node) {
       if (isQxCoreEnvironmentCall(node, ["select"])) {
         var envKey = getKeyFromEnvCall(node);
         try {
@@ -299,53 +344,13 @@ function getMethodFromEnvCall(callNode) {
 
 }
 
-/**
- * Gets the 'foo' (i.e. env key) from a <code>qx.core.Environment.*('foo')</code> call.
- *
- * @param {Object} callNode - esprima AST call node
- * @returns {String} env key
- */
-function getKeyFromEnvCall(callNode) {
-  return util.get(callNode, 'arguments.0.value');
-}
-
-/**
- * Gets the select 'body' from a <code>qx.core.Environment.select('foo', {...})</code> call.
- *
- * @param {Object} callNode - esprima AST call node
- * @param {String} key - key which will be used for value extraction of select 'body'
- * @throws {Error} ENOENT
- */
-function getEnvSelectValueByKey(callNode, key) {
-  var properties = util.get(callNode, 'arguments.1.properties');
-  var selectedValue = "initial";
-  var defaultValue = "initial";
-
-  var i = 0;
-  var l = properties.length;
-  while (l--) {
-    if (properties[l].key.value === key.toString()) {
-      selectedValue = properties[l].value;
-    }
-    if (properties[l].key.value === "default") {
-      defaultValue = properties[l].value;
-    }
-  }
-
-  if (selectedValue !== "initial") {
-    return selectedValue;
-  } else if (defaultValue !== "initial") {
-    return defaultValue;
-  } else {
-    throw new Error("ENOENT - Given value matches no key from select map and no 'default' key defined.");
-  }
-}
 
 /**
  * Provides the js code of <code>qx.core.Environment</code>.
  *
  * @returns {string} js code
  */
+/* eslint no-illegal-private-usage:0 */
 function getClassCode() {
   if (!globalEnvClassCode) {
     globalEnvClassCode = fs.readFileSync(fs.realpathSync(
@@ -362,6 +367,7 @@ function getClassCode() {
  *
  * @returns {Object} class name to js code mapping
  */
+/* eslint no-illegal-private-usage:0 */
 function getEnvKeyProviderCode() {
   if (!globalEnvKeyProvider) {
     globalEnvKeyProvider = {};

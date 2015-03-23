@@ -67,7 +67,7 @@ var _ = require('underscore');
 var U2 = require('uglify-js');
 
 // not pretty (require internals of jshint) but works
-var js_builtins = require('jshint/src/vars');
+var jsBuiltins = require('jshint/src/vars');
 
 // qx
 var Cache = (Cache || require('qx-cache'));
@@ -288,12 +288,12 @@ function findVarRoot(varNode) {
 function assemble(varNode, withMethodName) {
   var varRoot = findVarRoot(varNode);
   var assembled = escodegen.generate(varRoot);
-  withMethodName = withMethodName || false;
+  withMethodName = withMethodName || false;
 
   if (!withMethodName) {
     // cut off method name (e.g. starting with [_$a-z]+)
     // or constants (e.g. Bootstrap.DEBUG)
-    var cutOff = function(assembled) {
+    var cutOff = function() {
       var posOfLastDot = assembled.lastIndexOf('.');
 
       if (posOfLastDot === -1) {
@@ -370,17 +370,17 @@ function notBuiltin(ref) {
 
   var isBuiltin = function(category) {
     if (category === "ecmaIdentifiers") {
-      return ident.name in js_builtins[category]["3"] ||
-             ident.name in js_builtins[category]["5"] ||
-             ident.name in js_builtins[category]["6"];
+      return ident.name in jsBuiltins[category]["3"] ||
+             ident.name in jsBuiltins[category]["5"] ||
+             ident.name in jsBuiltins[category]["6"];
     }
 
-    return ident.name in js_builtins[category];
+    return ident.name in jsBuiltins[category];
   };
 
   var missingOrCustom = ["undefined", "Infinity", "performance"];
 
-  // check in various js_builtins maps
+  // check in various jsBuiltins maps
   if (['reservedVars',
        'ecmaIdentifiers',
        'browser',
@@ -388,7 +388,7 @@ function notBuiltin(ref) {
        'worker',
        'wsh',
        'nonstandard'].some(isBuiltin) || missingOrCustom.indexOf(ident.name) !== -1) {
-      return false;
+    return false;
   }
   return true;
 }
@@ -410,14 +410,15 @@ function notQxInternal(ref) {
     return true;
   }
 
-  var startsWithTwoDollars = function(propertyPath, propName) {
-    return (propertyPath[propName]
-            && propertyPath[propName][0] === "$"
-            && propertyPath[propName][1] === "$");
+  var startsWithTwoDollars = function(propPath, propName) {
+    return (propPath[propName]
+            && propPath[propName][0] === "$"
+            && propPath[propName][1] === "$");
   };
 
   // e.g. qx.$$libraries
-  if (propertyPath = util.get(ident, "parent.property")) {
+  propertyPath = util.get(ident, "parent.property");
+  if (propertyPath) {
     if (startsWithTwoDollars(propertyPath, "name")) {
       return false;
     }
@@ -425,14 +426,16 @@ function notQxInternal(ref) {
 
 
   // e.g. qx.Class.$$logs
-  if (propertyPath = util.get(ident, "parent.property.parent.parent.property")) {
+  propertyPath = util.get(ident, "parent.property.parent.parent.property");
+  if (propertyPath) {
     if (startsWithTwoDollars(propertyPath, "name")) {
       return false;
     }
   }
 
   // e.g. qx.core.Property.$$method
-  if (propertyPath = util.get(ident, "parent.property.parent.parent.property.parent.parent.property")) {
+  propertyPath = util.get(ident, "parent.property.parent.parent.property.parent.parent.property");
+  if (propertyPath) {
     if (startsWithTwoDollars(propertyPath, "name")) {
       return false;
     }
@@ -558,8 +561,8 @@ function applyIgnoreRequireAndUse(deps, className) {
   }
 
   var classesOnly = [];
-  var ignoreHashMethodAugmentation = function(hints, className) {
-    var classesOnly = [];
+  var ignoreHashMethodAugmentation = function(hints, classname) {
+    classesOnly = [];
     hints.forEach(function(dep) {
       var posHash = 0;
       var hintClass = "";
@@ -577,7 +580,7 @@ function applyIgnoreRequireAndUse(deps, className) {
       //   * ...
       if ((posHash = dep.indexOf("#")) !== -1) {
         hintClass = dep.substr(0, posHash);
-        if (hintClass === className) {
+        if (hintClass === classname) {
           return;
         }
         classesOnly.push(hintClass);
@@ -628,10 +631,10 @@ function collectAtHintsFromComments(tree) {
     'cldr': false
   };
 
-  var isFileOrClassScopeComment = function(comment, topLevelCodeUnitLines) {
+  var isFileOrClassScopeComment = function(comment, topLevelLines) {
     return (comment.type === 'Block'
-            && (topLevelCodeUnitLines.indexOf(comment.loc.end.line+1) !== -1  // class scope
-                || comment.loc.end.line < topLevelCodeUnitLines[0]));         // file scope
+            && (topLevelLines.indexOf(comment.loc.end.line+1) !== -1  // class scope
+                || comment.loc.end.line < topLevelLines[0]));         // file scope
   };
 
   // collect only file and class scope which means only top level
@@ -700,6 +703,32 @@ function convertRunDepsOfPrioDepsToLoadOnly(classesDeps, prioDeps) {
 //------------------------------------------------------------------------------
 
 module.exports = {
+
+  /**
+   * Gets the absolute file path by classId.
+   *
+   * @param {string} classId - class id (e.g. 'qx.foo.Bar')
+   * @param {Object} basePaths - namespace (key) and filePath (value) to library
+   * @return {string} absPath - absolute file path.
+   * @throws {Error} ENOENT
+   */
+  getAbsFilePath: function(classId, basePaths) {
+    var shortFilePath = util.filePathFrom(classId);
+    var namespace = util.namespaceFrom(classId, Object.keys(basePaths));
+
+    if (!namespace) {
+      throw new Error("ENOENT - Unknown global symbol. No matching library/namespace found, which introduces '" + classId + "'.");
+    }
+    // console.log(namespace, shortFilePath);
+    var absPath = path.join(basePaths[namespace], shortFilePath);
+    if (!fs.existsSync(absPath)) {
+      throw new Error("ENOENT - "+absPath+" doesn't exist.");
+    }
+
+    return absPath;
+  },
+
+
   /**
    * Analyzes an esprima tree for unresolved references (i.e. dependencies).
    *
@@ -734,10 +763,6 @@ module.exports = {
       'load': [],
       'run': []
     };
-    var envCallDepsOptimized = {
-      'load': [],
-      'run': []
-    };
     var globalScope = {};
     var globalScopeOptimized = {};
     var scopesRef = {};
@@ -758,22 +783,22 @@ module.exports = {
       }
     };
     var collectPrioritizedDeps = function(scopeRefs) {
-      var classIdRegex = /.*?[A-Z]\w+/;
+      var classIdRegexp = /.*?[A-Z]\w+/;
       var prioDeps = [];
 
-      for (var i = 0; i < scopeRefs.length; i++) {
-        var curScopeRef = scopeRefs[i];
-        var curRef;
-        var curPrioDepClassId;
+      for (var j = 0; j < scopeRefs.length; j++) {
+        var currScopeRef = scopeRefs[j];
+        var currRef;
+        var currPrioDepClassId;
 
-        if (curScopeRef.isLoadTime) {
-          curRef = escodegen.generate(curScopeRef.identifier.parent.parent);
+        if (currScopeRef.isLoadTime) {
+          currRef = escodegen.generate(currScopeRef.identifier.parent.parent);
 
-          if (classIdRegex.test(curRef)) {
-            curPrioDepClassId = classIdRegex.exec(curRef)[0];
+          if (classIdRegexp.test(currRef)) {
+            currPrioDepClassId = classIdRegexp.exec(currRef)[0];
           }
-          // console.log(curPrioDepClassId);
-          prioDeps.push(curPrioDepClassId);
+          // console.log(currPrioDepClassId);
+          prioDeps.push(currPrioDepClassId);
         }
       }
 
@@ -807,6 +832,7 @@ module.exports = {
       // and as consequence more accurate deps
       var ast = U2.AST_Node.from_mozilla_ast(tree);
       ast.figure_out_scope();
+      /* eslint new-cap:0 */
       var compressor = U2.Compressor({warnings: false});
       ast = ast.transform(compressor);
       // TODO: once 'to_mozilla_ast()' is available in the next release
@@ -904,7 +930,7 @@ module.exports = {
     deps.load = deps.load.concat(envCallDeps.load);
     deps.run = deps.run.concat(envCallDeps.run);
     if (opts && opts.variants) {
-      envCallDepsOptimized = qxCoreEnv.extract(tree, filteredScopeRefsOptimized);
+      var envCallDepsOptimized = qxCoreEnv.extract(tree, filteredScopeRefsOptimized);
       depsOptimized.load = depsOptimized.load.concat(envCallDeps.load);
       depsOptimized.run = depsOptimized.run.concat(envCallDeps.run);
     }
@@ -968,6 +994,7 @@ module.exports = {
    * @param {string} [options.cachePath] - whether (and where) to cache dependencies
    * @returns {Object} classesDeps
    */
+   /* eslint no-shadow:0 */
   collectDepsRecursive: function(basePaths, initClassIds, excludedClassIds, envMap, options) {
     var classesDeps = {};
     var prioClassIds = [];
@@ -984,8 +1011,8 @@ module.exports = {
     };
 
     var getClassNamesFromPaths = function(filePaths) {
-      return filePaths.map(function(path) {
-        return util.classNameFrom(path);
+      return filePaths.map(function(filePath) {
+        return util.classNameFrom(filePath);
       });
     };
 
@@ -1183,29 +1210,6 @@ module.exports = {
     return classList.map(augmentClassWithNamespace);
   },
 
-  /**
-   * Gets the absolute file path by classId.
-   *
-   * @param {string} classId - class id (e.g. 'qx.foo.Bar')
-   * @param {Object} basePaths - namespace (key) and filePath (value) to library
-   * @return {string} absPath - absolute file path.
-   * @throws {Error} ENOENT
-   */
-  getAbsFilePath: function(classId, basePaths) {
-    var shortFilePath = util.filePathFrom(classId);
-    var namespace = util.namespaceFrom(classId, Object.keys(basePaths));
-
-    if (!namespace) {
-      throw new Error("ENOENT - Unknown global symbol. No matching library/namespace found, which introduces '" + classId + "'.");
-    }
-    // console.log(namespace, shortFilePath);
-    var absPath = path.join(basePaths[namespace], shortFilePath);
-    if (!fs.existsSync(absPath)) {
-      throw new Error("ENOENT - "+absPath+" doesn't exist.");
-    }
-
-    return absPath;
-  },
 
   /**
    * Reads file content given for classIds and basePaths.
@@ -1329,6 +1333,8 @@ module.exports = {
 };
 
 // shortcuts
+/* eslint no-unused-vars:0 */
+/* eslint no-use-before-define:0 */
 var findUnresolvedDeps = module.exports.findUnresolvedDeps;
 var collectDepsRecursive = module.exports.collectDepsRecursive;
 var createAtHintsIndex = module.exports.createAtHintsIndex;

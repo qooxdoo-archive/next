@@ -85,7 +85,7 @@ function convertIntToChar(index) {
   var res = "";
 
   if (Math.floor(i/l) > 0) {
-      res += convertIntToChar(Math.floor(i/l));
+    res += convertIntToChar(Math.floor(i/l));
   }
   res += charTable[i % l];
   return res;
@@ -134,14 +134,14 @@ function collectAstObjectKeyValPrivates(code) {
   ast.walk(new U2.TreeWalker(function(node){
     // AST_ObjectProperty := (AST_ObjectKeyVal | AST_ObjectSetter | AST_ObjectGetter)
 
-    var isMembersOrStaticsProp = function(stack) {
-      var parentParentNode = false;
+    // var isMembersOrStaticsProp = function(stack) {
+    //   var parentParentNode = false;
 
-      if (stack.length >= 3) {
-        parentParentNode = stack[stack.length-3];
-      }
-      return (parentParentNode && ["members", "statics"].indexOf(parentParentNode.key) !== -1);
-    };
+    //   if (stack.length >= 3) {
+    //     parentParentNode = stack[stack.length-3];
+    //   }
+    //   return (parentParentNode && ["members", "statics"].indexOf(parentParentNode.key) !== -1);
+    // };
 
     if (node instanceof U2.AST_ObjectKeyVal
       // [members, statics] doesn't work with Class.js because
@@ -158,6 +158,20 @@ function collectAstObjectKeyValPrivates(code) {
   return privates;
 }
 
+
+/**
+ * Replaces from 'begin' until 'end' within the given source 'code' with the 'replacement'.
+ *
+ * @param {string} code - code to be adapted
+ * @param {number} begin
+ * @param {number} end
+ * @param {string} replacement
+ */
+function replaceSourceCode(code, begin, end, replacement) {
+  return code.substr(0, begin) + replacement + code.substr(end);
+}
+
+
 /**
  * Replaces privates occurrences of AST_ObjectKeyVal
  * with their hashed counterpart.
@@ -170,7 +184,7 @@ function collectAstObjectKeyValPrivates(code) {
  *
  * @see http://lisperator.net/uglifyjs/ast
  */
-function replaceAstObjectKeyValPrivates(classId, code, privates, globalPrivatesMap) {
+function replaceAstObjectKeyValPrivates(classId, code, privates, globPrivatesMap) {
   var l = privates.length;
   while (l--) {
     var node = privates[l];
@@ -179,9 +193,9 @@ function replaceAstObjectKeyValPrivates(classId, code, privates, globalPrivatesM
     var key = node.key;
     var classIdAndKey = classId+"#"+key;
 
-    globalPrivatesMap[classIdAndKey] = shortenPrivate(classId, key, globalPrivatesMap);
+    globPrivatesMap[classIdAndKey] = shortenPrivate(classId, key, globPrivatesMap);
     var replacement = new U2.AST_ObjectKeyVal({
-      key: globalPrivatesMap[classIdAndKey],
+      key: globPrivatesMap[classIdAndKey],
       value: privates[l].value
     }).print_to_string({ beautify: false });
     code = replaceSourceCode(code, startPos, endPos, replacement);
@@ -218,12 +232,12 @@ function collectAstStrings(code) {
  * @param {string} classId
  * @param {string} code - code to be adapted
  * @param {string} privates - nodes to be replaced
- * @param {Object} globalPrivatesMap - classIdAndName (key) and hash (value)
+ * @param {Object} globPrivatesMap - classIdAndName (key) and hash (value)
  * @return {string} code - adapted code
  *
  * @see http://lisperator.net/uglifyjs/ast
  */
-function replaceAstStrings(classId, code, privates, globalPrivatesMap) {
+function replaceAstStrings(classId, code, privates, globPrivatesMap) {
   var l = privates.length;
   while (l--) {
     var node = privates[l];
@@ -233,9 +247,9 @@ function replaceAstStrings(classId, code, privates, globalPrivatesMap) {
 
     var classIdAndValue = classId+"#"+value;
 
-    globalPrivatesMap[classIdAndValue] = shortenPrivate(classId, value, globalPrivatesMap);
+    globPrivatesMap[classIdAndValue] = shortenPrivate(classId, value, globPrivatesMap);
     var replacement = new U2.AST_String({
-      value: globalPrivatesMap[classIdAndValue]
+      value: globPrivatesMap[classIdAndValue]
     }).print_to_string({ beautify: false });
     code = replaceSourceCode(code, startPos, endPos, replacement);
   }
@@ -273,12 +287,12 @@ function collectAstDotPrivates(code) {
  * @param {string} classId
  * @param {string} code - code to be adapted
  * @param {string} privates - nodes to be replaced
- * @param {Object} globalPrivatesMap - classIdAndName (key) and hash (value)
+ * @param {Object} globPrivatesMap - classIdAndName (key) and hash (value)
  * @return {string} code - adapted code
  *
  * @see http://lisperator.net/uglifyjs/ast
  */
-function replaceAstDotPrivates(classId, code, privates, globalPrivatesMap) {
+function replaceAstDotPrivates(classId, code, privates, globPrivatesMap) {
   var l = privates.length;
   while (l--) {
     var node = privates[l];
@@ -288,27 +302,16 @@ function replaceAstDotPrivates(classId, code, privates, globalPrivatesMap) {
 
     var classIdAndProp = classId+"#"+prop;
 
-    globalPrivatesMap[classIdAndProp] = shortenPrivate(classId, prop, globalPrivatesMap);
+    globPrivatesMap[classIdAndProp] = shortenPrivate(classId, prop, globPrivatesMap);
     var replacement = new U2.AST_Dot({
       expression : node.expression,
-      property : globalPrivatesMap[classIdAndProp],
+      property : globPrivatesMap[classIdAndProp]
     }).print_to_string({ beautify: false });
     code = replaceSourceCode(code, startPos, endPos, replacement);
   }
   return code;
 }
 
-/**
- * Replaces from 'begin' until 'end' within the given source 'code' with the 'replacement'.
- *
- * @param {string} code - code to be adapted
- * @param {number} begin
- * @param {number} end
- * @param {string} replacement
- */
-function replaceSourceCode(code, begin, end, replacement) {
-  return code.substr(0, begin) + replacement + code.substr(end);
-}
 
 /**
  * Applies all replacement steps to the given code.
@@ -353,7 +356,7 @@ module.exports = {
     // merge options and default values
     opts = {
       privates: options.privates === false ? false : true,
-      cachePath: options.cachePath === undefined ? null : options.cachePath,
+      cachePath: options.cachePath === undefined ? null : options.cachePath
     };
     // Special handling for regular expression literal since we need to
     // convert it back to a regex object, otherwise it will be decoded
@@ -362,7 +365,7 @@ module.exports = {
       // deserialize regex strings (e.g. "/my[rR]egex/i") but
       // ignore strings containing paths (e.g. /source/class/foo/).
       if (key === 'value'
-          && typeof(value) === "string"
+          && typeof (value) === "string"
           && value.match(/^\/.*\/[gmsiy]*$/)
           && value.match(/^\/(\w+\/)+$/) === null) {
         if (value.slice(-1) === "/") {
@@ -374,12 +377,6 @@ module.exports = {
       }
       return value;
     };
-    var debugClass = function(classId) {
-      if (classId === "qx.REPLACE.THIS") {
-        var escg = require("escodegen");
-        console.log("comp", escg.generate(tree));
-      }
-    };
 
     // compress with UglifyJS2
 
@@ -390,10 +387,18 @@ module.exports = {
       var curCacheId = cacheOrNull.createCacheId('tree', envMap, classId);
       if (cacheOrNull.has(curCacheId)) {
         var tree = JSON.parse(cacheOrNull.read(curCacheId), adjustRegexLiteral);
-        if (tree !== null && typeof(tree) !== 'undefined') {
+        if (tree !== null && typeof (tree) !== 'undefined') {
           // debugClass(classId);
+          // var debugClass = function(id) {
+          //   if (id === "qx.REPLACE.THIS") {
+          //     var escg = require("escodegen");
+          //     console.log("comp", escg.generate(tree));
+          //   }
+          // };
+
           var ast = U2.AST_Node.from_mozilla_ast(tree);
           ast.figure_out_scope();
+          /* eslint new-cap:0 */
           var compressor = U2.Compressor({warnings: false});
           ast = ast.transform(compressor);
           compressedCode = ast.print_to_string();

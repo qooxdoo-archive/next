@@ -21,7 +21,6 @@
 
 // native
 var fs = require('fs');
-var os = require('os');
 var path = require('path');
 
 // third party
@@ -35,8 +34,8 @@ qx.tool.Cache = require('../lib/qx/tool/Cache');
 
 
 // functions
-var isSetupDone = function(path) {
-  return fs.existsSync(path);
+var isSetupDone = function(filePath) {
+  return fs.existsSync(filePath);
 };
 
 var abortOnError = function(grunt) {
@@ -126,11 +125,11 @@ var registerGeneratorJobsAsTasks = function(grunt, jobs, supersededJobs, malfunc
       // no replacement implemented in node
       // and the job can be used with grunt
       if (malfunctionedJobs.indexOf(jobName) === -1) {
-        grunt.registerTask(jobName, jobDesc, function (job) {
+        grunt.registerTask(jobName, jobDesc, function () {
           grunt.task.run(["generate:"+jobName]);
         });
       } else {
-        grunt.registerTask(jobName, jobDesc, function (job) {
+        grunt.registerTask(jobName, jobDesc, function () {
           grunt.warn("The '" + jobName + "' doesn't work with grunt, " +
             "please use the real generator './generate.py " + jobName + "' instead.");
         });

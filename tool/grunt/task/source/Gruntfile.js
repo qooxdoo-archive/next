@@ -43,11 +43,11 @@ module.exports = function(grunt) {
       all: [
         'Gruntfile.js',
         'tasks/*.js',
-        '<%= nodeunit.tests %>',
+        '<%= nodeunit.tests %>'
       ],
       options: {
-        jshintrc: '.jshintrc',
-      },
+        jshintrc: '.jshintrc'
+      }
     },
 
     clean: {
@@ -73,12 +73,12 @@ module.exports = function(grunt) {
           "<%= common.QOOXDOO_PATH %>/framework/package.json",
           "<%= common.ROOT %>/test/data/myapp/package.json"
         ]
-      },
+      }
     },
 
     nodeunit: {
-      tests: ['test/*_test.js'],
-    },
+      tests: ['test/*_test.js']
+    }
 
   });
 

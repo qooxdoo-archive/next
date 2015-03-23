@@ -33,8 +33,6 @@
  * </dl>
  */
 
-// local
-var util = require('../util');
 
 /**
  * Augmentation key for tree.

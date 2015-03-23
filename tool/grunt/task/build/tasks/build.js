@@ -54,7 +54,7 @@ function renderLoaderTmpl(tmpl, ctx) {
   var regex = "";
 
   for (tmplVar in ctx) {
-    regex = new RegExp("%\{"+tmplVar+"\}","g");
+    regex = new RegExp("%\{"+tmplVar+"\}", "g");
     if (ctx[tmplVar] === "") {
       tmpl = tmpl.replace(regex, "");
     } if (ctx[tmplVar][0] === "_") {
@@ -89,7 +89,7 @@ module.exports = function(grunt) {
     // -----------------------------------------
     var classPaths = qxLib.getPathsFor("class", opts.libraries, {withKeys: true});
     var resBasePathMap = qxLib.getPathsFor("resource", opts.libraries, {withKeys: true});
-    var allNamespaces = Object.keys(classPaths);
+    Object.keys(classPaths);
     grunt.log.ok('Done.');
 
 
@@ -123,7 +123,7 @@ module.exports = function(grunt) {
     };
     var resourcesContent = "qx.$$packageData['0']=" + JSON.stringify(resources) + ";";
 
-    var resourcesHash = createHashOver(resourcesContent).substr(0,12);
+    var resourcesHash = createHashOver(resourcesContent).substr(0, 12);
     var resourcesFileName = opts.appName + "." + resourcesHash + ".js";
 
     // {"uris":["__out__:myapp.e2c18d74cbbe.js"]};
@@ -138,7 +138,7 @@ module.exports = function(grunt) {
       libinfo[ns] = {};
       libinfo[ns] = {
         "resourceUri": "resource",
-        "sourceUri": "script",
+        "sourceUri": "script"
       };
       if (ns === "qx") {
         libinfo.qx.sourceViewUri = "https://github.com/qooxdoo/qooxdoo/blob/%{qxGitBranch}/framework/source/class/%{classFilePath}#L%{lineNumber}";
