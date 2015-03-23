@@ -121,12 +121,12 @@ qx.Class.define("qx.util.Serializer",
       {
         return null;
       }
-
+      var i;
       // data array
       if (qx.data && qx.data.IListData && qx.Interface.classImplements(object.constructor, qx.data.IListData))
       {
         result = [];
-        for (var i = 0; i < object.getLength(); i++)
+        for (i = 0; i < object.getLength(); i++)
         {
           result.push(qx.util.Serializer.toNativeObject(
             object.getItem(i), qxSerializer)
@@ -225,12 +225,13 @@ qx.Class.define("qx.util.Serializer",
         return "null";
       }
 
+      var i;
       // data array
       if (qx.data && qx.data.IListData && object.constructor &&
           qx.Interface.classImplements(object.constructor, qx.data.IListData))
       {
         result += "[";
-        for (var i = 0; i < object.getLength(); i++) {
+        for (i = 0; i < object.getLength(); i++) {
           result += qx.util.Serializer.toJson(object.getItem(i), qxSerializer) + ",";
         }
         if (result != "[") {

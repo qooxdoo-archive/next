@@ -474,7 +474,7 @@ qx.Class.define("qx.lang.Array",
     unique: function(arr)
     {
       var ret=[], doneStrings={}, doneNumbers={}, doneObjects={};
-      var value, count=0;
+      var value, hash, count=0;
       var key = "qx" + Date.now();
       var hasNull=false, hasFalse=false, hasTrue=false;
 
@@ -530,7 +530,7 @@ qx.Class.define("qx.lang.Array",
         }
         else
         {
-          var hash = value[key];
+          hash = value[key];
 
           if (hash == null) {
             hash = value[key] = count++;

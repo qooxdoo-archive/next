@@ -404,13 +404,14 @@ qx.Class.define("qx.application.Routing", {
 
       var entry = null;
       var length = back.length;
+      var a;
       for (var i = 0; i < length; i++)
       {
         if (back[i].path == path)
         {
           entry = back[i];
           var toForward = back.splice(0, i);
-          for (var a = 0; a<toForward.length; a++){
+          for (a = 0; a<toForward.length; a++){
             forward.unshift(toForward[a]);
           }
           found = true;

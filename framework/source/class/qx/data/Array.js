@@ -45,6 +45,7 @@ qx.Class.define("qx.data.Array",
    */
   construct : function(param)
   {
+    var i;
     // if no argument is given
     if (param == undefined) {
       this.__array = [];
@@ -53,7 +54,7 @@ qx.Class.define("qx.data.Array",
     } else if (arguments.length > 1) {
       // create an empty array and go through every argument and push it
       this.__array = [];
-      for (var i = 0; i < arguments.length; i++) {
+      for (i = 0; i < arguments.length; i++) {
         this.__array.push(arguments[i]);
       }
 
@@ -125,8 +126,9 @@ qx.Class.define("qx.data.Array",
      *   arrays.
      */
     concat: function(array) {
+      var newArray;
       if (array) {
-        var newArray = this.__array.concat(array);
+        newArray = this.__array.concat(array);
       } else {
         newArray = this.__array.concat();
       }
@@ -327,15 +329,15 @@ qx.Class.define("qx.data.Array",
 
       // invoke the slice on the array
       var returnArray = this.__array.splice.apply(this.__array, arguments);
-
+      var addedItems, i;
       // fire a change event for the length
       if (this.__array.length != oldLength) {
         this.__updateLength();
       } else if (amount == arguments.length - 2) {
         // if we added as much items as we removed
-        var addedItems = qx.lang.Array.fromArguments(arguments, 2);
+        addedItems = qx.lang.Array.fromArguments(arguments, 2);
         // check if the array content equals the content before the operation
-        for (var i = 0; i < addedItems.length; i++) {
+        for (i = 0; i < addedItems.length; i++) {
           if (addedItems[i] !== returnArray[i]) {
             break;
           }
@@ -352,9 +354,11 @@ qx.Class.define("qx.data.Array",
       if (removed || added) {
         addedItems = qx.lang.Array.fromArguments(arguments, 2);
 
+        var type;
+        var end;
         if (returnArray.length == 0) {
-          var type = "add";
-          var end = startIndex + addedItems.length;
+          type = "add";
+          end = startIndex + addedItems.length;
         } else if (addedItems.length == 0) {
           type = "remove";
           end = this.length - 1;

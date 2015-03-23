@@ -58,7 +58,7 @@ qx.Class.define("qx.bom.client.Engine",
      */
     getVersion : function() {
       var agent = window.navigator.userAgent;
-
+      var match;
       var version = "";
       if (qx.bom.client.Engine.__isMshtml()) {
         var isTrident = /Trident\/([^\);]+)(\)|;)/.test(agent);
@@ -77,7 +77,7 @@ qx.Class.define("qx.bom.client.Engine",
           }
         } else if (isTrident) {
           // IE 11 dropped the "MSIE" string
-          var match = /\brv\:(\d+?\.\d+?)\b/.exec(agent);
+          match = /\brv\:(\d+?\.\d+?)\b/.exec(agent);
           if (match) {
             version = match[1];
           }

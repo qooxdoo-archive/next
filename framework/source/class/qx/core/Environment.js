@@ -612,11 +612,12 @@ qx.Class.define("qx.core.Environment",
         return this.__cache[key];
       }
 
+      var value;
       // search for a matching check
       var check = this._checks[key];
       if (check) {
         // execute the check and write the result in the cache
-        var value = check();
+        value = check();
         this.__cache[key] = value;
         return value;
       }

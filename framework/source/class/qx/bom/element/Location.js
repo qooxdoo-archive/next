@@ -220,14 +220,15 @@ qx.Class.define("qx.bom.element.Location",
     /* eslint no-fallthrough:0 */
     get : function(elem, mode)
     {
+      var left;
+      var top;
+
       if (elem.tagName == "BODY")
       {
         var location = this.__getBodyLocation(elem);
-        var left = location.left;
-        var top = location.top;
-      }
-      else
-      {
+        left = location.left;
+        top = location.top;
+      } else {
         var body = this.__computeBody(elem);
         var offset = this.__computeOffset(elem);
         // Reduce by viewport scrolling.

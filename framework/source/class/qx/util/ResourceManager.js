@@ -159,8 +159,9 @@ qx.Class.define("qx.util.ResourceManager",
         return id;
       }
 
+      var lib;
       if (typeof entry === "string") {
-        var lib = entry;
+        lib = entry;
       }
       else
       {

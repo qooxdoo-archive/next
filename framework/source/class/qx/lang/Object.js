@@ -142,8 +142,9 @@ qx.Class.define("qx.lang.Object",
      */
     clone : function(source, deep)
     {
+      var clone;
       if (qx.lang.Type.isObject(source)) {
-        var clone = {};
+        clone = {};
         for (var key in source) {
           if (deep) {
             clone[key] = qx.lang.Object.clone(source[key], deep);

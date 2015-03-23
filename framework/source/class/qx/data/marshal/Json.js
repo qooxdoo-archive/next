@@ -187,8 +187,9 @@ qx.Class.define("qx.data.marshal.Json",
       }
 
       // try to get the superclass, Object as default
+      var superClass;
       if (this.__delegate && this.__delegate.getModelSuperClass) {
-        var superClass =
+        superClass =
           this.__delegate.getModelSuperClass(hash, parentProperty, depth) || Object;
       } else {
         superClass = Object;

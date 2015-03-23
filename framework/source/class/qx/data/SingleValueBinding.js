@@ -146,12 +146,12 @@ qx.Class.define("qx.data.SingleValueBinding",
       var listenerIds = [];
       var eventNames = [];
       var source = sourceObject;
-
+      var i;
       // add a try catch to make it possible to remove the listeners of the
       // chain in case the loop breaks after some listeners already added.
       try {
         // go through all property names
-        for (var i = 0; i < propertyNames.length; i++) {
+        for (i = 0; i < propertyNames.length; i++) {
           // check for the array
           if (arrayIndexValues[i] !== "") {
             // push the array change event
@@ -162,15 +162,16 @@ qx.Class.define("qx.data.SingleValueBinding",
 
           // save the current source
           sources[i] = source;
-
+          var itemIndex;
           // check for the last property
           if (i == propertyNames.length -1) {
+            var currentValue;
             // if it is an array, set the initial value and bind the event
             if (arrayIndexValues[i] !== "") {
               // getthe current value
-              var itemIndex = arrayIndexValues[i] === "last" ?
+              itemIndex = arrayIndexValues[i] === "last" ?
                 source.length - 1 : arrayIndexValues[i];
-              var currentValue = source.getItem(itemIndex);
+              currentValue = source.getItem(itemIndex);
 
               // set the initial value
               this.__setInitialValue(currentValue, targetObject, targetPropertyChain, options, sourceObject);
@@ -293,10 +294,11 @@ qx.Class.define("qx.data.SingleValueBinding",
         );
       }
 
+      var source;
       // delete all listener after the current one
       for (var j = context.index + 1; j < context.propertyNames.length; j++) {
         // remove the old sources
-        var source = context.sources[j];
+        source = context.sources[j];
         context.sources[j] = null;
         if (!source) {
           continue;
@@ -350,6 +352,7 @@ qx.Class.define("qx.data.SingleValueBinding",
           break;
         }
 
+        var currentValue, eventName;
         // if its the last property
         if (j == context.propertyNames.length - 1) {
           // if its an array
@@ -357,7 +360,7 @@ qx.Class.define("qx.data.SingleValueBinding",
             // set the inital value
             var itemIndex = context.arrayIndexValues[j] === "last" ?
               source.length - 1 : context.arrayIndexValues[j];
-            var currentValue = source.getItem(itemIndex);
+            currentValue = source.getItem(itemIndex);
             this.__setInitialValue(
               currentValue, context.targetObject, context.targetPropertyChain, context.options, context.sources[context.index]
             );
@@ -372,7 +375,7 @@ qx.Class.define("qx.data.SingleValueBinding",
               currentValue = source[context.propertyNames[j]];
               this.__setInitialValue(currentValue, context.targetObject, context.targetPropertyChain, context.options, context.sources[context.index]);
             }
-            var eventName = this.__getEventNameForProperty(source, context.propertyNames[j]);
+            eventName = this.__getEventNameForProperty(source, context.propertyNames[j]);
             // bind the last property to the new target
             context.listenerIds[j] = this.__bindEventToProperty(
               source, eventName, context.targetObject, context.targetPropertyChain, context.options
@@ -486,9 +489,10 @@ qx.Class.define("qx.data.SingleValueBinding",
               listeners.push(listener);
             }
 
+            var eventName;
             // add a new listener
             if (qx.Interface.classImplements(target.constructor, qx.data.IListData)) {
-              var eventName = "change";
+              eventName = "change";
             } else {
               try {
                 eventName =
@@ -887,6 +891,8 @@ qx.Class.define("qx.data.SingleValueBinding",
       targetProperty, options, arrayIndex)
     {
       var bindListener = function(arrayIndex, e) {
+
+        var data;
         // if an array value is given
         if (arrayIndex !== "") {
           //check if its the "last" value
@@ -895,7 +901,7 @@ qx.Class.define("qx.data.SingleValueBinding",
           }
 
           // get the data of the array
-          var data = sourceObject.getItem(arrayIndex);
+          data = sourceObject.getItem(arrayIndex);
 
           // reset the target if the data is not set
           if (data === undefined) {
@@ -1300,8 +1306,9 @@ qx.Class.define("qx.data.SingleValueBinding",
         }
       }
 
+      var message;
       if (binding === undefined) {
-        var message = "Binding does not exist!";
+        message = "Binding does not exist!";
       } else {
         message = "Binding from '" + binding[1] + "' (" + binding[2] +
           ") to the object '" + binding[3] + "' ("+ binding[4] + ").";

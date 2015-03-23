@@ -381,8 +381,9 @@ qx.Class.define("qx.bom.webfonts.Manager", {
       var reg = new RegExp("@font-face.*?" + familyName, "m");
       for (var i = 0, l = document.styleSheets.length; i < l; i++) {
         var sheet = document.styleSheets[i];
+        var cssText;
         if (sheet.cssText) {
-          var cssText = sheet.cssText.replace(/\n/g, "").replace(/\r/g, "");
+          cssText = sheet.cssText.replace(/\n/g, "").replace(/\r/g, "");
           cssText = cssText;
           if (reg.exec(cssText)) {
             cssText = cssText.replace(reg, "");

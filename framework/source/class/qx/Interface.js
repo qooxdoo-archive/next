@@ -95,6 +95,7 @@ qx.Class.define("qx.Interface",
      */
     define : function(name, config)
     {
+      var iface = {};
       if (config)
       {
         // Normalize include
@@ -108,7 +109,7 @@ qx.Class.define("qx.Interface",
         }
 
         // Create interface from statics
-        var iface = config.statics ? config.statics : {};
+        iface = config.statics ? config.statics : {};
 
         // Attach configuration
         if (config.extend) {
@@ -126,11 +127,6 @@ qx.Class.define("qx.Interface",
         if (config.events) {
           iface.$$events = config.events;
         }
-      }
-      else
-      {
-        // Create empty interface
-        iface = {};
       }
 
       // Add Basics

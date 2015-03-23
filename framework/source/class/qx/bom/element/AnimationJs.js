@@ -152,8 +152,9 @@ qx.Class.define("qx.bom.element.AnimationJs",
     __normalizeKeyFrames : function(keyFrames, el) {
       // collect all possible keys and its units
       var units = {};
+      var name;
       for (var percent in keyFrames) {
-        for (var name in keyFrames[percent]) {
+        for (name in keyFrames[percent]) {
           // prefixed key calculation
           var prefixed = qx.bom.Style.getPropertyName(name);
           if (prefixed && prefixed != name) {
@@ -268,20 +269,23 @@ qx.Class.define("qx.bom.element.AnimationJs",
         for (var name in next) {
           var nItem = next[name] + "";
 
+          var j;
+
           // transform values
           if (name in this.__transitionKeys) {
             if (!transforms) {
               transforms = {};
             }
 
+            var x;
             if (qx.lang.Type.isArray(last[name])) {
               if (!qx.lang.Type.isArray(next[name])) {
                 next[name] = [next[name]];
               }
               transforms[name] = [];
-              for (var j = 0; j < next[name].length; j++) {
+              for (j = 0; j < next[name].length; j++) {
                 var item = next[name][j] + "";
-                var x = calculationIndex / stepsToNext;
+                x = calculationIndex / stepsToNext;
                 transforms[name][j] = this.__getNextValue(item, last[name], timing, x);
               }
             } else {

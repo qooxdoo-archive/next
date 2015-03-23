@@ -228,9 +228,11 @@ qx.Class.define("qx.lang.Function",
      *
      * @param func {Function} Original function to wrap
      * @param self {Object ? null} The object that the "this" of the function will refer to.
+     * @param varargs {arguments ? null} The arguments to pass to the function.
      * @return {Function} The bound function.
      */
-    bind : function(func, self)
+    /* eslint no-unused-vars:0 */
+    bind : function(func, self, varargs)
     {
       return this.create(func,
       {
@@ -259,9 +261,11 @@ qx.Class.define("qx.lang.Function",
      * </pre>
      *
      * @param func {Function} Original function to wrap
+     * @param varargs {arguments} The arguments to pass to the function.
      * @return {var} The pre-configured function.
      */
-    curry : function(func)
+    /* eslint no-unused-vars:0 */
+    curry : function(func, varargs)
     {
       return this.create(func, {
         args  : arguments.length > 1 ? qx.lang.Array.fromArguments(arguments, 1) : null
@@ -278,9 +282,11 @@ qx.Class.define("qx.lang.Function",
      *
      * @param func {Function} Original function to wrap
      * @param self {Object ? null} The object that the "this" of the function will refer to.
+     * @param varargs {arguments} The arguments to pass to the function.
      * @return {var} The bound function.
      */
-    listener : function(func, self)
+    /* eslint no-unused-vars:0 */
+    listener : function(func, self, varargs)
     {
       if (arguments.length < 3)
       {
@@ -337,7 +343,8 @@ qx.Class.define("qx.lang.Function",
      * @param varargs {arguments ? null} The arguments to pass to the function.
      * @return {Boolean|var} <code>false</code> if an exception is thrown, else the function's return.
      */
-    attempt : function(func, self)
+    /* eslint no-unused-vars:0 */
+    attempt : function(func, self, varargs)
     {
       return this.create(func,
       {
@@ -369,9 +376,11 @@ qx.Class.define("qx.lang.Function",
      * @param func {Function} Original function to wrap
      * @param delay {Integer} The duration to wait (in milliseconds).
      * @param self {Object ? null} The object that the "this" of the function will refer to.
+     * @param varargs {arguments} The arguments to pass to the function.
      * @return {Integer} The JavaScript Timeout ID (useful for clearing delays).
      */
-    delay : function(func, delay, self)
+    /* eslint no-unused-vars:0 */
+    delay : function(func, delay, self, varargs)
     {
       return this.create(func,
       {
@@ -400,9 +409,11 @@ qx.Class.define("qx.lang.Function",
      * @param func {Function} Original function to wrap
      * @param interval {Integer} The duration of the intervals between executions.
      * @param self {Object ? null} The object that the "this" of the function will refer to.
+     * @param varargs {arguments} The arguments to pass to the function.
      * @return {Integer} The Interval ID (useful for clearing a periodical).
      */
-    periodical : function(func, interval, self)
+    /* eslint no-unused-vars:0 */
+    periodical : function(func, interval, self, varargs)
     {
       return this.create(func,
       {

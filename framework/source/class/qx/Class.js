@@ -166,6 +166,8 @@ qx.Class = {
 
     qx.Class.setDisplayNames(config.statics, name);
 
+    var i, l, keys;
+
     if (config.members || config.extend || config.properties) {
       qx.Class.setDisplayNames(config.members, name + ".prototype");
 
@@ -179,7 +181,7 @@ qx.Class = {
 
       var statics = config.statics || {};
       // use keys to include the shadowed in IE
-      for (var i=0, keys=Object.keys(statics), l=keys.length; i<l; i++) {
+      for (i = 0, keys = Object.keys(statics), l = keys.length; i < l; i++) {
         var key = keys[i];
         clazz[key] = statics[key];
       }
@@ -686,11 +688,11 @@ qx.Class.define("qx.Class",
 
       // Use helper function/class to save the unnecessary constructor call while
       // setting up inheritance.
-      var helper = new Function();
-      helper.prototype = superproto;
-      var proto = new helper();
+      var Helper = function() {};
+      Helper.prototype = superproto;
+      var proto = new Helper();
 
-      // Apply prototype to new helper instance
+      // Apply prototype to new Helper instance
       clazz.prototype = proto;
 
       // Store names in prototype

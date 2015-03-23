@@ -167,7 +167,7 @@ qx.Class.define("qx.util.Base64", {
         for (var i=0; i<bytes.length; i++)
         {
           var utfByte = bytes[i];
-
+          var nextBytes;
           if (utfByte >> 7 === 0) {
             result.push(utfByte);
           }
@@ -180,7 +180,7 @@ qx.Class.define("qx.util.Base64", {
 
           if (utfByte >> 4 === 14)
           {
-            var nextBytes = [ bytes[++i], bytes[++i] ];
+            nextBytes = [ bytes[++i], bytes[++i] ];
             result.push((utfByte & 15) << 12 | ((nextBytes[0] & 60) >> 2) << 8 | (nextBytes[0] & 3) << 6 | (nextBytes[1] & 63));
           }
 

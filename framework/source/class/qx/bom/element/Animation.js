@@ -125,9 +125,10 @@ qx.Class.define("qx.bom.element.Animation",
      */
     __hasOnlyCssKeys : function(el, keyFrames) {
       var keys = [];
+      var key;
       for (var nr in keyFrames) {
         var frame = keyFrames[nr];
-        for (var key in frame) {
+        for (key in frame) {
           if (keys.indexOf(key) == -1) {
             keys.push(key);
           }

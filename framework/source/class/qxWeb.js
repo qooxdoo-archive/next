@@ -279,9 +279,13 @@ qx.Class.define("qxWeb", {
      * This method can also add items. Take a look at the
      * <a href='https://developer.mozilla.org/en-US/docs/JavaScript/Reference/Global_Objects/Array/splice' target='_blank'>documentation of MDN</a> for more details.
      *
+     * @param index {Number} The index to begin.
+     * @param howMany {Number} the amount of items to remove.
+     * @param varargs {var} As many items as you want to add.
      * @return {q} A new collection containing the removed items.
      */
-    splice : function() {
+    /* eslint no-unused-vars:0 */
+    splice : function(index, howMany, varargs) {
       return qxWeb.$init(Array.prototype.splice.apply(this, arguments), qxWeb, true);
     },
 
@@ -291,19 +295,22 @@ qx.Class.define("qxWeb", {
      * <a href='https://developer.mozilla.org/en-US/docs/JavaScript/Reference/Global_Objects/Array/map' target='_blank'>MDN documentation</a>.
      *
      * @param callback {Function} Function which produces the new element.
+     * @param thisarg {var} Context of the callback.
      * @return {q} New collection containing the elements that passed the filter
      */
-    map : function() {
+    /* eslint no-unused-vars:0 */
+    map : function(callback, thisarg) {
       return qxWeb.$init(Array.prototype.map.apply(this, arguments), qxWeb, true);
     },
 
 
     /**
      * Returns a copy of the collection including the given elements.
-     *
+     * @param varargs {var} As many items as you want to add.
      * @return {q} A new collection containing all items.
      */
-    concat : function() {
+    /* eslint no-unused-vars:0 */
+    concat : function(varargs) {
       var clone = Array.prototype.slice.call(this, 0);
       for (var i=0; i < arguments.length; i++) {
         if (arguments[i] instanceof qxWeb) {
@@ -349,6 +356,8 @@ qx.Class.define("qxWeb", {
      * @ignore(debugger)
      */
     debug : function() {
+      /* eslint no-debugger:0 */
+      debugger;
       return this;
     },
 

@@ -251,10 +251,10 @@ qx.Class.define("qx.ui.Carousel",
         return;
       }
 
+      var left;
       if (!this._ie9) {
         var direction = this._updateOrder();
 
-        var left;
         if (direction == "right") {
           left = this._getPositionLeft() - this.__scrollContainer.getWidth();
         } else if (direction == "left") {

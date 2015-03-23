@@ -506,6 +506,7 @@ qx.Class.define("qx.log.Logger", {
       var type = this.__detect(value);
       var text = "unknown";
       var trace = [];
+      var i, l;
 
       switch (type) {
         case "null":
@@ -557,7 +558,7 @@ qx.Class.define("qx.log.Logger", {
         case "array":
           if (deep) {
             text = [];
-            for (var i = 0, l = value.length; i < l; i++) {
+            for (i = 0, l = value.length; i < l; i++) {
               if (text.length > 20) {
                 text.push("...(+" + (l - i) + ")");
                 break;

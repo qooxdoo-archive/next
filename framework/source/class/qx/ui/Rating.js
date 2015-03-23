@@ -152,8 +152,9 @@ qx.Class.define("qx.ui.Rating", {
       var children = this.getChildren("span");
       children.setHtml(this.symbol);
       var diff = this.size - children.length;
+      var i;
       if (diff > 0) {
-        for (var i = 0; i < diff; i++) {
+        for (i = 0; i < diff; i++) {
           qxWeb.create("<span>" + this.symbol + "</span>")
           .on("tap", this._onTap, this)
           .addClasses([this.defaultCssClass + "-item", this.defaultCssClass + "-item-off"])

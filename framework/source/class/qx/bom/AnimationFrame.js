@@ -135,8 +135,9 @@ qx.Class.define("qx.bom.AnimationFrame",
      * @return {Integer} The calculated value
      */
     calculateTiming : function(func, x) {
+      var a;
       if (func == "ease-in") {
-        var a = [3.1223e-7, 0.0757, 1.2646, -0.167, -0.4387, 0.2654];
+        a = [3.1223e-7, 0.0757, 1.2646, -0.167, -0.4387, 0.2654];
       } else if (func == "ease-out") {
         a = [-7.0198e-8, 1.652, -0.551, -0.0458, 0.1255, -0.1807];
       } else if (func == "linear") {

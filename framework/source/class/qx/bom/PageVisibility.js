@@ -81,10 +81,11 @@ qx.Class.define("qx.bom.PageVisibility",
      */
     __checkAttributeNames : function() {
       var prefix = qx.bom.Style.VENDOR_PREFIXES;
+      var attr;
 
       // check for the hidden attribute name
       for (var i=0; i < prefix.length; i++) {
-        var attr = prefix[i].toLowerCase() + "Hidden";
+        attr = prefix[i].toLowerCase() + "Hidden";
         if (this.__doc[attr] != undefined) {
           this.__hiddenAttr = attr;
           // also use the same prefix for the event name

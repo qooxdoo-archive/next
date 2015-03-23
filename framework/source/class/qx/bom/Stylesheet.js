@@ -178,11 +178,12 @@ qx.Class.define("qx.bom.Stylesheet",
      */
     removeImport : function(sheet, url)
     {
+      var len, i;
       if (qx.core.Environment.get("html.stylesheet.removeimport")) {
         var imports = sheet.imports;
-        var len = imports.length;
+        len = imports.length;
 
-        for (var i=len-1; i>=0; i--)
+        for (i = len-1; i >= 0; i--)
         {
           if (imports[i].href == url ||
           imports[i].href == qx.util.Uri.getAbsolute(url))
