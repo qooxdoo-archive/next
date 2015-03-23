@@ -2,7 +2,7 @@
 
 var fs = require('fs');
 var crypto = require('crypto');
-var childProcess = require('childProcess');
+var childProcess = require('child_process');
 
 /**
  * TODO: This is a quick hack from http://stackoverflow.com/a/15365656/127465
