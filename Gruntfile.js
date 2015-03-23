@@ -45,12 +45,30 @@ module.exports = function(grunt) {
           "application/mobileshowcase/Gruntfile.js",
           "framework/Gruntfile.js"
         ]
+      },
+      eslint_apps: {
+        options: {
+          log: true,
+          task: ["eslint"],
+          process: function(res) {
+            if (res.fail) {
+              grunt.log.writeln('Error during eslinting all applications');
+            }
+          }
+        },
+        src: [
+          "application/play/Gruntfile.js",
+          "application/mobileshowcase/Gruntfile.js",
+          "tool/grunt/Gruntfile.js",
+          "framework/Gruntfile.js"
+        ]
       }
     }
   });
 
   // alias
   grunt.registerTask('lint', 'run_grunt:lint_apps');
+  grunt.registerTask('eslint', 'run_grunt:eslint_apps');
   grunt.registerTask('clean', 'run_grunt:clean_apps');
   grunt.registerTask('build', 'run_grunt:build_apps');
 
