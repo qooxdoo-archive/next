@@ -119,7 +119,7 @@ qx.Class.define("qx.module.Application", {
         var eventName = event[0];
         var handler = event[1].replace("()", "");
         el.on(eventName, function(handler, e) {
-          this[handler].call(el, e, this);
+          this[handler].call(this, e, el);
         }.bind(this, handler));
       }.bind(this));
     },
@@ -200,8 +200,13 @@ qx.Class.define("qx.module.Application", {
         tagContent = tagContent.replace(converterName + "(", ""); // remove name and opening bracket
         tagContent = tagContent.substring(0, tagContent.length -1); // remove closing bracket
       }
+
       for (var i = converterList.length -1; i >= 0; i--) {
-        value = this.constructor[converterList[i]](value, this);
+        var convert = this.constructor[converterList[i]];
+        if (!convert) {
+          convert = qx.module.Application[converterList[i]];
+        }
+        value = convert(value, this);
       }
       return value;
     },
