@@ -33,12 +33,14 @@
     "node": ">= 0.10.0"
   },
   "scripts": {
-    "test": "./node_modules/mocha/bin/mocha tests/lib/rules/"
+    "test": "./node_modules/mocha/bin/mocha tests/lib/rules/",
+    "test-tap": "./node_modules/mocha/bin/mocha tests/lib/rules/ --reporter mocha-tap-reporter"
   },
   "devDependencies": {
     "eslint": "^0.16.1",
     "eslint-tester": "^0.6.0",
-    "mocha": "^2.2.1"
+    "mocha": "^2.2.1",
+    "mocha-tap-reporter": "^0.1.3"
   },
   "//": "before publishing create README.md then this can be removed",
   "private": true
