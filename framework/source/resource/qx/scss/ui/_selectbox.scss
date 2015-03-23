@@ -28,11 +28,22 @@
   font-size: rem(15);
 }
 
+.selectbox:before {
+  @include triangle-up($selectbox-arrow-size, $selectbox-arrow-color);
+
+  position: absolute;
+  top: 30%;
+  right: rem(9);
+  margin-top:-1*($selectbox-arrow-size)/2;
+  display:block;
+  content: "";
+}
+
 .selectbox:after {
   @include triangle-down($selectbox-arrow-size, $selectbox-arrow-color);
 
   position: absolute;
-  top: 50%;
+  top: 70%;
   right: rem(9);
   margin-top:-1*($selectbox-arrow-size)/2;
   display:block;
@@ -50,10 +61,6 @@
 .selectbox.active {
   @include background($selectbox-active-background);
   color: $selectbox-active-text-color;
-}
-
-.selectbox.active:after {
-  @include triangle-down($selectbox-arrow-size, $selectbox-arrow-color);
 }
 
 .selectbox-selected {
