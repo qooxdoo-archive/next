@@ -93,6 +93,20 @@ module.exports = function(grunt) {
     }
   );
 
+  // run toolchain tasks
+  grunt.task.registerTask (
+    'run_toolchain_tasks',
+    'Run toolchain tasks',
+    function() {
+      shell.cd('tool/grunt/task/source');
+      shell.exec('grunt source');
+      shell.cd('../build');
+      shell.exec('grunt build');
+      shell.cd('../info');
+      shell.exec('grunt info');
+    }
+  );
+
   // rm node_modules (grunt remove_node_modules <=> grunt setup)
   grunt.task.registerTask (
     'remove_node_modules',
