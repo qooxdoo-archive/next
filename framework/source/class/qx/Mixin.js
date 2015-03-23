@@ -420,7 +420,7 @@ qx.Class.define("qx.Mixin",
         }
       },
 
-      "default" : function(name, config) {}
+      "default" : function() {}
     })
   }
 });

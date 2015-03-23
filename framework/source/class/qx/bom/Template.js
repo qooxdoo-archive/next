@@ -161,6 +161,7 @@ qx.Class.define("qx.bom.Template", {
   }
 });
 
+/* eslint no-unused-vars:0 no-wrap-func: 0 */
 (function() {
   // prevent using CommonJS exports object,
   // by shadowing global exports object

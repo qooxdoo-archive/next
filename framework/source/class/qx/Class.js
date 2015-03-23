@@ -174,7 +174,7 @@ qx.Class = {
       clazz.$$name = clazz.classname = name;
 
       if (config.extend) {
-        this.extendClass(clazz, clazz, config.extend, name, basename);
+        this.extendClass(clazz, clazz, config.extend, name);
       }
 
       var statics = config.statics || {};
@@ -247,10 +247,6 @@ qx.Class = {
     // Create namespace
     var basename = name ? this.createNamespace(name, clazz) : "";
     clazz.basename = basename;
-
-    if (config.events) {
-    //  this.addEvents(clazz, config.events); TODO?
-    }
 
     // add property events
     if (config.properties) {
@@ -415,7 +411,7 @@ qx.Class.define("qx.Class",
         }
 
         // custom getter/setter
-        var getter = undefined;
+        var getter = null;
         if (def.get instanceof Function) {
           getter = def.get;
         } else if (def.get) {
@@ -427,7 +423,7 @@ qx.Class.define("qx.Class",
           })(def.get);
         }
 
-        var setter = undefined;
+        var setter = null;
         if (def.set instanceof Function) {
           setter = def.set;
         } else if (def.set) {
@@ -554,6 +550,7 @@ qx.Class.define("qx.Class",
         proto.set = function(map) {
           for (var key in map) {
             if (!(key in this) && qx.Class.DEBUG) {
+              /* eslint no-console:0 */
               console.warn("The class '" + this.classname + "' does not support the property '" + key + "'.");
               continue;
             }
@@ -681,10 +678,9 @@ qx.Class.define("qx.Class",
      * @param construct {Function} The unwrapped constructor
      * @param superClass {Function} The super class
      * @param name {Function} fully qualified class name
-     * @param basename {Function} the base name
      * @internal
      */
-    extendClass : function(clazz, construct, superClass, name, basename)
+    extendClass : function(clazz, construct, superClass, name)
     {
       var superproto = superClass.prototype;
 
@@ -699,7 +695,6 @@ qx.Class.define("qx.Class",
 
       // Store names in prototype
       proto.$$name = proto.classname = name;
-      proto.basename = basename;
 
       /*
         - Store base constructor to constructor-

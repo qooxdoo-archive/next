@@ -51,6 +51,7 @@ qx.Class.define("qx.log.appender.Native",
      */
     process : function(entry) {
       var level = entry.level;
+      /* eslint no-console:0 */
       if (console && console[level] && !qx.log.appender.Native.SILENT) {
         var args = qx.log.appender.Util.toText(entry);
         console[level](args);

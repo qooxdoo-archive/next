@@ -74,6 +74,7 @@ qx.Class.define("qx.module.event.Mouse", {
      * @return {String} One of <code>left</code>, <code>right</code> or
      * <code>middle</code>
      */
+    /* eslint no-fallthrough:0 */
     getButton : function()
     {
       switch(this.type)

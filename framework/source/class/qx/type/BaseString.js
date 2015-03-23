@@ -342,7 +342,7 @@ qx.Class.define("qx.type.BaseString",
    *****************************************************************************
    */
 
-   classDefined : function(statics, members)
+   classDefined : function(Statics, members)
    {
      var mappedFunctions = [
        'charAt',
@@ -367,7 +367,7 @@ qx.Class.define("qx.type.BaseString",
      // feature/bug detection:
      // Some older Firefox version (<2) break if valueOf is overridden
      members.valueOf = members.toString;
-     if (new statics("").valueOf() == null) {
+     if (new Statics("").valueOf() == null) {
        delete members.valueOf;
      }
 

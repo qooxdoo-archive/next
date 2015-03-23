@@ -78,6 +78,7 @@ qx.Class.define("qx.bom.client.Event",
      *
      * @return {Boolean} <code>true</code> if Custom Events are available
      */
+    /* eslint no-new:0 */
     getCustomEvent : function() {
       if (!window.CustomEvent) {
         return false;
@@ -96,6 +97,7 @@ qx.Class.define("qx.bom.client.Event",
      *
      * @return {Boolean} <code>true</code> if Mouse Events are available
      */
+    /* eslint no-new:0 */
     getMouseEvent : function() {
       if (!window.MouseEvent) {
         return false;

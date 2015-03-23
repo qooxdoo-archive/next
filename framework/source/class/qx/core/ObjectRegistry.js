@@ -241,6 +241,7 @@ qx.Class.define("qx.core.ObjectRegistry",
       });
 
       var obj, i=0, l=hashes.length;
+      /* eslint no-constant-condition:0 */
       while(true)
       {
         try

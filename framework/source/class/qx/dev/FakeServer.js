@@ -208,6 +208,7 @@ qx.Class.define("qx.dev.FakeServer", {
     getFakeServer : function() {
       if (!this.__fakeServer) {
         if (!window.sinon) {
+          /* eslint no-console: 0 */
           console.error(this.classname + ": window.sinon not found. Please make sure SinonJS is loaded before using FakeServer.");
           return null;
         }

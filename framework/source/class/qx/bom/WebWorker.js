@@ -95,10 +95,12 @@ qx.Class.define("qx.bom.WebWorker",
             that.emit('message', e);
           };
           //set up context vars before evaluating the code
+          /* eslint no-eval:0 */
           eval("var onmessage = null, postMessage = " + postMessage + ";" +
             req.responseText);
 
           //pick the right onmessage because of the uglifier
+          /* eslint no-eval:0 */
           return {
             onmessage: eval("onmessage"),
             postMessage: postMessage

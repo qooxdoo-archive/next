@@ -63,6 +63,7 @@ qx.Class.define("qx.bom.client.Plugin",
       // IE Support
       if (qx.bom.client.Plugin.getActiveX()) {
         try {
+          /* eslint no-new:0, no-undef:0 */
           new ActiveXObject("Skype.Detection");
           return true;
         } catch (e) {}
@@ -299,11 +300,14 @@ qx.Class.define("qx.bom.client.Plugin",
         (qx.bom.client.Browser.getDocumentMode() < 11 || forceActiveX))
       {
         try {
+          /* eslint no-undef:0 */
           var obj = new ActiveXObject(activeXName);
           var version;
 
           // pdf version detection
+          /* eslint new-cap:0 */
           if (obj.GetVersions && obj.GetVersions()) {
+            /* eslint new-cap:0 */
             version = obj.GetVersions().split(',');
             if (version.length > 1) {
               version = version[0].split('=');

@@ -200,7 +200,10 @@ qx.Class.define("qx.bom.AnimationFrame",
    */
   classDefined : function(statics) {
     // check and use the high resolution start time if available
-    statics.__START = window.performance && performance.timing && performance.timing.navigationStart;
+    statics.__START =
+      window.performance &&
+      window.performance.timing &&
+      window.performance.timing.navigationStart;
     // if not, simply use the current time
     if (statics.__START === null) {
       statics.__START = Date.now();

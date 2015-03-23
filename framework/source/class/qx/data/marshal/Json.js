@@ -237,20 +237,20 @@ qx.Class.define("qx.data.marshal.Json",
      * @return {Object} An instance of the corresponding class.
      */
     __createInstance: function(hash, data, parentProperty, depth) {
-      var delegateClass;
+      var DelegateClass;
       // get the class from the delegate
       if (this.__delegate && this.__delegate.getModelClass) {
-        delegateClass = this.__delegate.getModelClass(hash, data, parentProperty, depth);
+        DelegateClass = this.__delegate.getModelClass(hash, data, parentProperty, depth);
       }
-      if (delegateClass != null) {
-        return (new delegateClass());
+      if (DelegateClass != null) {
+        return (new DelegateClass());
       } else {
         var className = "qx.data.model." + hash;
-        var clazz = qx.Class.getByName(className);
-        if (!clazz) {
+        var Clazz = qx.Class.getByName(className);
+        if (!Clazz) {
           throw new Error("Class '" + className + "' could not be found.");
         }
-        return (new clazz());
+        return (new Clazz());
       }
     },
 
@@ -310,13 +310,13 @@ qx.Class.define("qx.data.marshal.Json",
         return data;
 
       } else if (isArray) {
-        var arrayClass = qx.data.Array;
+        var ArrayClass = qx.data.Array;
         if (this.__delegate && this.__delegate.getArrayClass) {
-          var customArrayClass = this.__delegate.getArrayClass(parentProperty, depth);
-          arrayClass = customArrayClass || arrayClass;
+          var CustomArrayClass = this.__delegate.getArrayClass(parentProperty, depth);
+          ArrayClass = CustomArrayClass || ArrayClass;
         }
 
-        var array = new arrayClass();
+        var array = new ArrayClass();
 
         for (var i = 0; i < data.length; i++) {
           array.push(this.__toModel(data[i], parentProperty + "[" + i + "]", depth+1));

@@ -445,7 +445,7 @@ qx.Class.define("qx.Interface",
         }
       },
 
-      "default" : function(name) {}
+      "default" : function() {}
     })
   }
 });

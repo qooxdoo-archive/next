@@ -33,6 +33,7 @@ qx.Class.define("qx.log.appender.PhoneGap",
      * Processes a single log entry
      * @param entry {Map} The entry to process
      */
+    /* global debug */
     process : function(entry)
     {
       var args = qx.log.appender.Util.toText(entry);

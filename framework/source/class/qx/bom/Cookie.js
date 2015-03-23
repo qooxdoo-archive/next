@@ -60,7 +60,7 @@ qx.Class.define("qx.bom.Cookie",
         end = document.cookie.length;
       }
 
-      return unescape(document.cookie.substring(len, end));
+      return window.unescape(document.cookie.substring(len, end));
     },
 
 
@@ -78,7 +78,7 @@ qx.Class.define("qx.bom.Cookie",
     set : function(key, value, expires, path, domain, secure)
     {
       // Generate cookie
-      var cookie = [ key, "=", escape(value) ];
+      var cookie = [ key, "=", window.escape(value) ];
 
       if (expires)
       {

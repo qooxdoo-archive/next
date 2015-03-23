@@ -154,7 +154,7 @@ qx.Class.define("qx.bom.Style",
     }
   },
 
-  classDefined : function(statics) {
+  classDefined : function() {
     if (window.CSS && window.CSS.supports) {
       qx.bom.Style.__supports = window.CSS.supports.bind(window.CSS);
     } else if (window.supportsCSS) {

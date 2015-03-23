@@ -195,6 +195,7 @@ qx.Class.define("qx.log.appender.Util",
             qx.log.Logger.deprecatedConstantWarning(qx.log.appender.Util,
               "FORMAT_STACK",
               "Use qx.dev.StackTrace.FORMAT_STACKTRACE instead");
+            /* eslint new-cap:0 */
             msg += "\n" + this.FORMAT_STACK(item.trace);
           } else {
             msg += "\n" + item.trace;

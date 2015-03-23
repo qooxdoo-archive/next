@@ -75,6 +75,7 @@ qx.Class.define("qx.lang.Object",
         qx.core.Assert && qx.core.Assert.assertMap(map, "Invalid argument 'map'");
       }
 
+      /* eslint no-unused-vars:0 */
       for (var key in map) {
         return false;
       }
