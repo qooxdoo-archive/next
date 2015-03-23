@@ -159,10 +159,7 @@ var getConfig = function() {
     /* grunt-eslint */
     eslint: {
       options: {
-<<<<<<< HEAD
-=======
         globals: ["<%= common.APPLICATION %>"],
->>>>>>> master
         configFile: '<%= common.QOOXDOO_PATH %>/tool/grunt/eslint/eslint.json',
         rulePaths: ['<%= common.QOOXDOO_PATH %>/tool/grunt/eslint/eslint-plugin-qx-rules/lib/rules']
       },

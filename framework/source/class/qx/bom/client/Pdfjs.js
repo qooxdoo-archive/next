@@ -107,11 +107,7 @@ qx.Class.define("qx.bom.client.Pdfjs",
  * @lint ignoreUnused(a, b, c, d, e, f, g, h, i, j, k)
  * @lint ignoreDeprecated(eval)
  */
-<<<<<<< HEAD
-/*eslint semi:0*/
-=======
 /* eslint semi:0, no-wrap-func:0, no-redeclare:0, no-eval:0, new-cap:0 */
->>>>>>> master
 (function() {
 
 /**

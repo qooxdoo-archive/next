@@ -5,12 +5,8 @@
     "qxWeb": false
   },
   "env": {
-<<<<<<< HEAD
-    "browser": true
-=======
     "browser": true,
     "node": true
->>>>>>> master
   },
   "rules": {
     "no-refs-in-members": 2,
@@ -22,14 +18,10 @@
     "space-infix-ops": 0,
     "quotes": 0,
     "no-loop-func": 0,
-<<<<<<< HEAD
-    "dot-notation": 0
-=======
     "dot-notation": 0,
     "indent": [2, 2],
     "no-unused-expressions": 0,
     "no-return-assign": 0,
     "consistent-return": 0
->>>>>>> master
   }
 }
