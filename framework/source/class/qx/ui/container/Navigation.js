@@ -74,7 +74,6 @@ qx.Class.define("qx.ui.container.Navigation",
 
   members :
   {
-    __navigationBar : null,
     __content : null,
     __navBarListeners: null,
 
@@ -183,20 +182,19 @@ qx.Class.define("qx.ui.container.Navigation",
      */
     _update : function(widget) {
       this.setStyle("transitionDuration", widget.navigationBarToggleDuration+"s");
+      this.find(".navigationbar").forEach(function(bar) {
+        bar.exclude();
+      });
 
-      if (this.__navigationBar &&
-        this.__navigationBar !== widget.getNavigationBar())
-      {
-        this.__navigationBar.remove();
+      var newNavBar = widget.getNavigationBar();
+      if (this.find(".navigationbar").indexOf(newNavBar) == -1) {
+        newNavBar.insertBefore(this.getContent());
       }
-
-      this.__navigationBar = widget.getNavigationBar();
-      this.__navigationBar.insertBefore(this.getContent());
 
       if (widget.navigationBarHidden) {
         this.addClass("hidden");
       } else {
-        this.__navigationBar.show();
+        newNavBar.show();
         this.removeClass("hidden");
       }
 
@@ -214,7 +212,6 @@ qx.Class.define("qx.ui.container.Navigation",
         .off("removedChild", this._onContentRemovedChild, this);
       this.getContent().layout.off("animationStart", this._onAnimationStart, this);
       this.getContent().layout.off("animationEnd", this._onAnimationEnd, this);
-      this.__navigationBar = null;
       this.__content.dispose();
     }
   },
