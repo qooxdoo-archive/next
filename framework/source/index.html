@@ -81,7 +81,7 @@
 
   <div>
     <h3 data-bind="underline {{classname}} -> class">Class name from model</h3>
-    <input data-bind="{{classname}} -> value" placeholder="e.g. red">
+    <input data-bind="{{classname}} <-> value" placeholder="e.g. red">
   </div>
 
   <div>
@@ -93,7 +93,7 @@
 
   <div>
     <h3>Not</h3>
-    <input type="checkbox" data-bind="{{x}} -> checked">
+    <input type="checkbox" data-bind="{{x}} <-> checked">
     <span data-bind="{{x}} -> html"></span> !=
     <span data-bind="{{not(x)}} -> html"></span>
   </div>
@@ -101,7 +101,7 @@
   <div>
     <h3>Only app code required</h3>
     <input
-      data-bind="{{mycolor}} -> value;
+      data-bind="{{mycolor}} <-> value;
                  {{mycolor}} -> style.color;
                  {{slider}}px -> style.font-size;"
       value="red"
@@ -111,22 +111,22 @@
 
   <div>
     <h3>Bidirectional binding</h3>
-    <input data-bind="{{test.name}} -> value">
+    <input data-bind="{{test.name}} <-> value;">
     <span data-bind="{{test.name}}{{postfix}} -> html"></span>
   </div>
 
 
   <div>
     <h3>Show / Hide / Enabled</h3>
-    <label>hide <input type="checkbox" data-bind="{{hidden}} -> checked"></label>
-    <label>disabled <input type="checkbox" data-bind="{{enabled}} -> checked"></label>
+    <label>hide <input type="checkbox" data-bind="{{hidden}} <-> checked"></label>
+    <label>disabled <input type="checkbox" data-bind="{{enabled}} <-> checked"></label>
     <input type="text" data-bind="{{hidden}} -> class.hidden; {{enabled}} -> disabled" value="test">
   </div>
 
 
   <div>
     <h3>Select</h3>
-    <select data-repeat="{{listModel}}" data-bind="{{selected}} -> value">
+    <select data-repeat="{{listModel}}" data-bind="{{selected}} <-> value">
       <option data-bind="{{listModel[$index]}} -> html;">AFFE</option>
     </select>
     <span data-bind="Selected: {{selected}} -> html"></span>
@@ -136,13 +136,15 @@
   <div>
     <h3>Widget Binding</h3>
     <div data-qx-widget="qx.ui.form.Slider"
-      data-bind="{{slider}} -> data-qx-config-value"
+      data-bind="{{slider}} <-> data-qx-config-value"
       data-qx-config-value="22"></div>
     <p data-bind="The slider value is {{slider}}. -> html"></p>
     <div
       data-qx-widget="qx.ui.List"
       data-bind="{{reverse(listModel)}} -> data-qx-config-model"></div>
-    <p data-bind="{{not(listModel.length)}} -> class.hidden"># <span data-bind="{{listModel.length}} -> html"></span> Items in the list</p>
+    <p data-bind="{{not(listModel.length)}} -> class.hidden">
+      # <span data-bind="{{listModel.length}} -> html"></span> Items in the list
+    </p>
   </div>
 
   <div>
@@ -155,7 +157,7 @@
 
   <div>
     <h3 data-bind="{{grayscale(customColor)}} -> style.color">Color to grayscale</h3>
-    <input type="color" data-bind="{{customColor}} -> value">
+    <input type="color" data-bind="{{customColor}} <-> value">
   </div>
 
 </body>

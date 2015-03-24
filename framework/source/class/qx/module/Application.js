@@ -68,7 +68,7 @@ qx.Class.define("qx.module.Application", {
         el.removeData("repeat");
         el.setData("qx-widget", "qx.ui.List");
         var oldBind = el.getData("bind");
-        var newBind = value + " -> data-qx-config-model";
+        var newBind = value + " <-> data-qx-config-model";
         if (oldBind) {
           newBind += "; " + oldBind;
         }
@@ -93,21 +93,20 @@ qx.Class.define("qx.module.Application", {
     _setUpElementBinding: function(el) {
       this._getBindingParts(el.getAttribute("data-bind")).forEach(function(binding) {
         var action = binding.right;
-        var content = binding.left;
 
         // special handling for style
         if (action.indexOf("style.") === 0) {
-          this._bindStyle(action, content, el);
+          this._bindStyle(binding, el);
         // special handling for class
         } else if (action.indexOf("class.") === 0) {
-          this._bindClass(action, content, el);
+          this._bindClass(binding, el);
         // special handling for widget properties
         } else if (action.indexOf("data-qx-config") === 0) {
-          this._bindWidget(action, content, el);
+          this._bindWidget(binding, el);
         } else if (qx.Class.getClass(el["set" + qx.Class.firstUp(action)]) == "Function") {
-          this._bindCollection(action, content, el);
+          this._bindCollection(binding, el);
         } else {
-          this._bindAttribute(action, content, el);
+          this._bindAttribute(binding, el);
         }
       }.bind(this));
     },
@@ -132,19 +131,20 @@ qx.Class.define("qx.module.Application", {
 
       var bindings = def.split(";");
 
-      // filter out all strings without ->
+      // filter out all strings without delimiter
       bindings = bindings.filter(function(item) {
-        return item.indexOf("->") != -1;
+        return item.indexOf("->") != -1; // also includes <->
       });
 
       return bindings.map(function(item) {
-        var binding = item.split("->");
+        var delimiter = item.indexOf("<->") != -1 ? "<->" : "->";
+        var binding = item.split(delimiter);
         binding[0] = binding[0].trim();
         binding[1] = binding[1].trim();
         return {
           left: binding[0],
           right: binding[1],
-          direction: "->"
+          twoWay: delimiter === "<->"
         };
       });
     },
@@ -223,23 +223,31 @@ qx.Class.define("qx.module.Application", {
 
 
 
-    _bindAttribute: function(action, content, el) {
+    _bindAttribute: function(binding, el) {
+      var action = binding.right;
+      var content = binding.left;
       this._getProperties(action, content, el).forEach(function(property) {
         qx.data.SingleValueBinding.bind(this, property, el, "attributes", {
           converter : this.__mapConverter.bind(this, action, content)
         });
 
         // check for two way bindable properties
-        if (action === "checked") {
-          el.on("change", function(property, el) {
-            qx.data.SingleValueBinding.__setTargetValue(this, property, el.getAttribute("checked")); // TODO no private
-          }.bind(this, property, el));
+        if (binding.twoWay) {
+          if (action === "checked") {
+            el.on("change", function(property, el) {
+              qx.data.SingleValueBinding.__setTargetValue(this, property, el.getAttribute("checked")); // TODO no private
+            }.bind(this, property, el));
+          }
         }
+
       }.bind(this));
     },
 
 
-    _bindStyle: function(action, content, el) {
+    _bindStyle: function(binding, el) {
+      var action = binding.right;
+      var content = binding.left;
+
       var style = action.split(".")[1];
 
       this._getProperties("style", content, el).forEach(function(property) {
@@ -250,7 +258,10 @@ qx.Class.define("qx.module.Application", {
     },
 
 
-    _bindClass: function(action, content, el) {
+    _bindClass: function(binding, el) {
+      var action = binding.right;
+      var content = binding.left;
+
       var classname = action.split(".")[1];
 
       this._getProperties("cssClass", content, el).forEach(function(property) {
@@ -265,7 +276,10 @@ qx.Class.define("qx.module.Application", {
     },
 
 
-    _bindWidget: function(action, content, el) {
+    _bindWidget: function(binding, el) {
+      var action = binding.right;
+      var content = binding.left;
+
       var widgetPropert = action.replace("data-qx-config-", "");
       el.removeAttribute(action);
 
@@ -278,21 +292,25 @@ qx.Class.define("qx.module.Application", {
         });
 
         // two way binding
-        el.on("change" + qx.Class.firstUp(widgetPropert), function(property, data) {
-          qx.data.SingleValueBinding.__setTargetValue(this, property, data.value); // TODO no privates
-        }.bind(this, property));
+        if (binding.twoWay) {
+          el.on("change" + qx.Class.firstUp(widgetPropert), function(property, data) {
+            qx.data.SingleValueBinding.__setTargetValue(this, property, data.value); // TODO no privates
+          }.bind(this, property));
+        }
       }.bind(this));
     },
 
 
-    _bindCollection: function(action, content, el) {
+    _bindCollection: function(binding, el) {
+      var action = binding.right;
+      var content = binding.left;
       this._getProperties(action, content, el).forEach(function(property) {
         qx.data.SingleValueBinding.bind(this, property, el, action, {converter: function(content, action) {
           return this.__textConverter(content);
         }.bind(this, content, action)});
 
         // check for two way bindable properties
-        if (action === "value") {
+        if (action === "value" && binding.twoWay) {
           el.on("input", function(property, el) {
              qx.data.SingleValueBinding.__setTargetValue(this, property, el.getValue()); // TODO no private
           }.bind(this, property, el));
