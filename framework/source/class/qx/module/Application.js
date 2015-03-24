@@ -233,7 +233,7 @@ qx.Class.define("qx.module.Application", {
 
         // check for two way bindable properties
         if (binding.twoWay) {
-          if (action === "checked") {
+          if (action === "checked") { // TODO better mapping of action to event name
             el.on("change", function(property, el) {
               qx.data.SingleValueBinding.__setTargetValue(this, property, el.getAttribute("checked")); // TODO no private
             }.bind(this, property, el));
@@ -310,7 +310,7 @@ qx.Class.define("qx.module.Application", {
         }.bind(this, content, action)});
 
         // check for two way bindable properties
-        if (action === "value" && binding.twoWay) {
+        if (action === "value" && binding.twoWay) { // TODO better mapping of action to event name
           el.on("input", function(property, el) {
              qx.data.SingleValueBinding.__setTargetValue(this, property, el.getValue()); // TODO no private
           }.bind(this, property, el));
