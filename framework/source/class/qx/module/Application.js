@@ -19,14 +19,14 @@
 ************************************************************************ */
 
 /**
- * data-bind="aaa -> {{xxx(bbb)}}ttt; ..."
+ * data-bind="{{xxx(bbb)}}ttt -> aaa; ..."
  *            ^--------------------- binding
- *            ^--                    action
- *                   ^-------------- content
- *                   ^-----------    tag
- *                     ^-------      tagContent
- *                     ^--           converter
- *                         ^--       property
+ *                               ^-- binding.right (action)
+ *            ^--------------        binding.left (content)
+ *            ^-----------           tag
+ *              ^-------             tagContent
+ *              ^--                  converter
+ *                  ^--              property
  */
 qx.Class.define("qx.module.Application", {
   extend : qx.event.Emitter,
@@ -68,7 +68,7 @@ qx.Class.define("qx.module.Application", {
         el.removeData("repeat");
         el.setData("qx-widget", "qx.ui.List");
         var oldBind = el.getData("bind");
-        var newBind = "data-qx-config-model -> " + value;
+        var newBind = value + " -> data-qx-config-model";
         if (oldBind) {
           newBind += "; " + oldBind;
         }
@@ -91,9 +91,9 @@ qx.Class.define("qx.module.Application", {
 
 
     _setUpElementBinding: function(el) {
-      this._getActionAndContent(el.getAttribute("data-bind")).forEach(function(binding) {
-        var action = binding[0];
-        var content = binding[1];
+      this._getBindingParts(el.getAttribute("data-bind")).forEach(function(binding) {
+        var action = binding.right;
+        var content = binding.left;
 
         // special handling for style
         if (action.indexOf("style.") === 0) {
@@ -115,9 +115,9 @@ qx.Class.define("qx.module.Application", {
 
     _setUpElementEvents: function(el) {
       var event = el.getData("event");
-      this._getActionAndContent(el.getAttribute("data-event")).forEach(function(event) {
-        var eventName = event[0];
-        var handler = event[1].replace("()", "");
+      this._getBindingParts(el.getAttribute("data-event")).forEach(function(event) {
+        var eventName = event.left;
+        var handler = event.right.replace("()", "");
         el.on(eventName, function(handler, e) {
           this[handler].call(this, e, el);
         }.bind(this, handler));
@@ -125,7 +125,7 @@ qx.Class.define("qx.module.Application", {
     },
 
 
-    _getActionAndContent: function(def) {
+    _getBindingParts: function(def) {
       if (!def) {
         return [];
       }
@@ -141,7 +141,11 @@ qx.Class.define("qx.module.Application", {
         var binding = item.split("->");
         binding[0] = binding[0].trim();
         binding[1] = binding[1].trim();
-        return binding;
+        return {
+          left: binding[0],
+          right: binding[1],
+          direction: "->"
+        };
       });
     },
 

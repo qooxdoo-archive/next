@@ -51,8 +51,8 @@
 
       app = q(document.body).app();
 
-      app.taptap =  function() {
-        this.setStyle("color", "red");
+      app.taptap =  function(evt, el) {
+        el.setStyle("color", "red");
       };
 
       app.postfix = "!!!";
@@ -80,81 +80,82 @@
   </div>
 
   <div>
-    <h3 data-bind="class -> underline {{classname}}">Class name from model</h3>
-    <input data-bind="value -> {{classname}}" placeholder="e.g. red">
+    <h3 data-bind="underline {{classname}} -> class">Class name from model</h3>
+    <input data-bind="{{classname}} -> value" placeholder="e.g. red">
   </div>
 
   <div>
     <h3>Repeat</h3>
     <ul data-repeat="{{listModel}}">
-      <li data-bind="html -> {{listModel[$index]}}; style.color -> {{mycolor}}"></li>
+      <li data-bind="{{listModel[$index]}} -> html; {{mycolor}} -> style.color;"></li>
     </ul>
   </div>
 
   <div>
     <h3>Not</h3>
-    <input type="checkbox" data-bind="checked -> {{x}}">
-    <span data-bind="html -> {{x}}"></span> !=
-    <span data-bind="html -> {{not(x)}}"></span>
+    <input type="checkbox" data-bind="{{x}} -> checked">
+    <span data-bind="{{x}} -> html"></span> !=
+    <span data-bind="{{not(x)}} -> html"></span>
   </div>
 
   <div>
     <h3>Only app code required</h3>
     <input
-      data-bind="value -> {{mycolor}};
-                 style.color -> {{mycolor}};
-                 style.font-size -> {{slider}}px;"
+      data-bind="{{mycolor}} -> value;
+                 {{mycolor}} -> style.color;
+                 {{slider}}px -> style.font-size;"
       value="red"
       placeholder="type in text color">
   </div>
 
+
   <div>
     <h3>Bidirectional binding</h3>
-    <input data-bind="value -> {{test.name}}">
-    <span data-bind="html -> {{test.name}}{{postfix}}"></span>
+    <input data-bind="{{test.name}} -> value">
+    <span data-bind="{{test.name}}{{postfix}} -> html"></span>
   </div>
 
 
   <div>
     <h3>Show / Hide / Enabled</h3>
-    <label>hide <input type="checkbox" data-bind="checked -> {{hidden}}"></label>
-    <label>disabled <input type="checkbox" data-bind="checked -> {{enabled}}"></label>
-    <input type="text" data-bind="class.hidden -> {{hidden}}; disabled -> {{enabled}}" value="test">
+    <label>hide <input type="checkbox" data-bind="{{hidden}} -> checked"></label>
+    <label>disabled <input type="checkbox" data-bind="{{enabled}} -> checked"></label>
+    <input type="text" data-bind="{{hidden}} -> class.hidden; {{enabled}} -> disabled" value="test">
   </div>
 
 
   <div>
     <h3>Select</h3>
-    <select data-repeat="{{listModel}}" data-bind="value -> {{selected}}">
-      <option data-bind="html -> {{listModel[$index]}};">AFFE</option>
+    <select data-repeat="{{listModel}}" data-bind="{{selected}} -> value">
+      <option data-bind="{{listModel[$index]}} -> html;">AFFE</option>
     </select>
-    <span data-bind="html -> Selected: {{selected}}"></span>
+    <span data-bind="Selected: {{selected}} -> html"></span>
   </div>
 
 
   <div>
     <h3>Widget Binding</h3>
     <div data-qx-widget="qx.ui.form.Slider"
-      data-bind="data-qx-config-value -> {{slider}}"
+      data-bind="{{slider}} -> data-qx-config-value"
       data-qx-config-value="22"></div>
-    <p data-bind="html -> The slider value is {{slider}}."></p>
+    <p data-bind="The slider value is {{slider}}. -> html"></p>
     <div
       data-qx-widget="qx.ui.List"
-      data-bind="data-qx-config-model -> {{reverse(listModel)}}"></div>
-    <p data-bind="class.hidden -> {{not(listModel.length)}}"># <span data-bind="html -> {{listModel.length}}"></span> Items in the list</p>
+      data-bind="{{reverse(listModel)}} -> data-qx-config-model"></div>
+    <p data-bind="{{not(listModel.length)}} -> class.hidden"># <span data-bind="{{listModel.length}} -> html"></span> Items in the list</p>
   </div>
 
   <div>
     <h3>Load via Json Store</h3>
-    <p data-bind="html -> {{primitive.string}}"></p>
-    <p data-bind="html -> {{primitive.number}}"></p>
-    <p data-bind="html -> {{primitive.boolean}}"></p>
+    <p data-bind="{{primitive.string}} -> html"></p>
+    <p data-bind="{{primitive.number}} -> html"></p>
+    <p data-bind="{{primitive.boolean}} -> html"></p>
   </div>
 
 
   <div>
-    <h3 data-bind="style.color -> {{grayscale(customColor)}}">Color to grayscale</h3>
-    <input type="color" data-bind="value -> {{customColor}}">
+    <h3 data-bind="{{grayscale(customColor)}} -> style.color">Color to grayscale</h3>
+    <input type="color" data-bind="{{customColor}} -> value">
   </div>
 
 </body>
