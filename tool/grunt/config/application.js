@@ -163,7 +163,15 @@ var getConfig = function() {
         configFile: '<%= common.QOOXDOO_PATH %>/tool/grunt/eslint/eslint.json',
         rulePaths: ['<%= common.QOOXDOO_PATH %>/tool/grunt/eslint/eslint-plugin-qx-rules/lib/rules']
       },
-      target: ['<%= pkg.org_next.class %>']
+      default: {
+        src: ['<%= pkg.org_next.class %>']
+      },
+      ci: {
+        options: {
+          format: 'tap'
+        },
+        src: ['<%= pkg.org_next.class %>']
+      }
     },
     /* grunt-contrib-watch */
     watch: {
