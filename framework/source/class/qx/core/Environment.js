@@ -354,18 +354,6 @@
  *     </tr>
 
  *     <tr>
- *       <td colspan="4"><b>phonegap</b></td>
- *     </tr>
- *     <tr>
- *       <td>phonegap</td><td><i>Boolean</i></td><td><code>false</code></td>
- *       <td>{@link qx.bom.client.PhoneGap#getPhoneGap}</td>
- *     </tr>
- *     <tr>
- *       <td>phonegap.notification</td><td><i>Boolean</i></td><td><code>false</code></td>
- *       <td>{@link qx.bom.client.PhoneGap#getNotification}</td>
- *     </tr>
-
- *     <tr>
  *       <td colspan="4"><b>plugin</b></td>
  *     </tr>
  *     <tr>

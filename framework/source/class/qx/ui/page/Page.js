@@ -73,47 +73,7 @@ qx.Class.define("qx.ui.page.Page",
 
 
   statics : {
-    _currentPage : null,
-
-    /**
-     * Event handler. Called when the device is ready.
-     */
-    _onDeviceReady : function() {
-      qxWeb(document).on("backbutton", qx.ui.page.Page._onBackButton)
-        .on("menubutton", qx.ui.page.Page._onMenuButton);
-    },
-
-
-    /**
-     * Event handler. Called when the back button of the device was pressed.
-     */
-    _onBackButton : function()
-    {
-      if (qx.core.Environment.get("phonegap") && qx.core.Environment.get("os.name") == "android")
-      {
-        var exit = true;
-        if (qx.ui.page.Page._currentPage) {
-          exit = qx.ui.page.Page._currentPage.back(true);
-        }
-        if (exit) {
-          navigator.app.exitApp();
-        }
-      }
-    },
-
-
-    /**
-     * Event handler. Called when the menu button of the device was pressed.
-     */
-    _onMenuButton : function()
-    {
-      if (qx.core.Environment.get("phonegap") && qx.core.Environment.get("os.name") == "android")
-      {
-        if (qx.ui.page.Page._currentPage) {
-          qx.ui.page.Page._currentPage.menu();
-        }
-      }
-    }
+    _currentPage : null
   },
 
 
@@ -207,20 +167,15 @@ qx.Class.define("qx.ui.page.Page",
 
     /**
      * Fires the <code>back</code> event. Call this method if you want to request
-     * a back action. For Android PhoneGap applications this method gets called
-     * by the used page manager when the back button was pressed. Return <code>true</code>
-     * to exit the application.
+     * a back action.
      *
      * @param triggeredByKeyEvent {Boolean} Whether the back action was triggered by a key event.
-     * @return {Boolean} Whether the exit should be exit or not. Return <code>true</code
-     *     to exit the application. Only needed for Android PhoneGap applications.
      */
     back : function(triggeredByKeyEvent)
     {
       qxWeb(document.documentElement).emit("back", triggeredByKeyEvent);
       this.emit("back", triggeredByKeyEvent);
-      var value = this._back(triggeredByKeyEvent);
-      return value || false;
+      this._back(triggeredByKeyEvent);
     },
 
 
@@ -229,8 +184,6 @@ qx.Class.define("qx.ui.page.Page",
      * is called.
      *
      * @param triggeredByKeyEvent {Boolean} Whether the back action was triggered by a key event.
-     * @return {Boolean} Whether the exit should be exit or not. Return <code>true</code
-     *     to exit the application. Only needed for Android PhoneGap applications.
      * @see #back
      * @abstract
      */
@@ -242,7 +195,7 @@ qx.Class.define("qx.ui.page.Page",
 
 
     /**
-     * Only used by Android PhoneGap applications. Called by the used page manager
+     * Called by the used page manager
      * when the menu button was pressed. Fires the <code>menu</code> event.
      */
     menu : function() {
@@ -440,9 +393,5 @@ qx.Class.define("qx.ui.page.Page",
 
   classDefined : function(statics) {
     qxWeb.$attachWidget(statics);
-    if (qx.core.Environment.get("phonegap") && qx.core.Environment.get("os.name") == "android")
-    {
-      qxWeb(document).on("deviceready", statics._onDeviceReady);
-    }
   }
 });

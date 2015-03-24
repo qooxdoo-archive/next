@@ -371,12 +371,6 @@ describe("core.Environment", function ()
   });
 
 
-  it("PhoneGap", function() {
-      assert.isBoolean(qx.core.Environment.get("phonegap"));
-      assert.isBoolean(qx.core.Environment.get("phonegap.notification"));
-  });
-
-
   it("Event", function() {
       assert.isBoolean(qx.core.Environment.get("event.touch"));
       assert.isBoolean(qx.core.Environment.get("event.help"));
