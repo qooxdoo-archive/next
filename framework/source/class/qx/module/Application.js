@@ -87,6 +87,10 @@ qx.Class.define("qx.module.Application", {
       qxWeb("*[data-event]", root).forEach(function(el) {
         this._setUpElementEvents(el);
       }.bind(this));
+
+      // remove the cloak
+      root.removeClass("cloak");
+      qxWeb(".cloak", root).removeClass("cloak");
     },
 
 

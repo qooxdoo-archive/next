@@ -68,6 +68,7 @@ qx.Class.define("qx.ui.List",
 
     // fetch the item template from the elements content
     if (element && element.innerHTML.trim() !== "") {
+      qxWeb(element).find(".cloak").removeClass("cloak");
       this.__itemTemplate = element.innerHTML.trim();
     }
     element.innerHTML = "";
