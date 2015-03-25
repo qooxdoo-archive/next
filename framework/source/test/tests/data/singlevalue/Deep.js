@@ -241,11 +241,6 @@ describe("data.singlevalue.Deep", function() {
         qx.data.SingleValueBinding.bind(a, "chiild.name", label, "value");
       }, qx.core.AssertionError, null, "Wrong property name.");
 
-      // set a wrong second parameter in the chain
-      assert.throw(function() {
-        qx.data.SingleValueBinding.bind(a, "child.naame", label, "value");
-      }, qx.core.AssertionError, null, "Wrong property name.");
-
       // set a complete wrong chain
       assert.throw(function() {
         qx.data.SingleValueBinding.bind(a, "affe", label, "value");

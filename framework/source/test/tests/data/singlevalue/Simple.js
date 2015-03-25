@@ -586,4 +586,51 @@ describe("data.singlevalue.Simple", function() {
     assert.equal(1, bindingsB.length, "There must be one binding!");
     assert.isTrue(bindingsA[0][1] === c, "Source object of the binding must be object 'c'!");
   });
+
+
+  it("NonExistingSetup", function() {
+    var a = qx.data.marshal.Json.createModel({b: {}, target: null});
+
+    qx.data.SingleValueBinding.bind(a, "b.c", a, "target");
+    assert.isNull(a.target);
+
+    a.b = qx.data.marshal.Json.createModel({c: "txt"});
+    assert.equal("txt", a.target);
+  });
+
+
+  it("NonExistingSetupDeep", function() {
+    var a = qx.data.marshal.Json.createModel({b: {c: {d: {e: {}}}}, target: null});
+
+    qx.data.SingleValueBinding.bind(a, "b.c.d.e.f", a, "target");
+    assert.isNull(a.target);
+
+    a.b.c = qx.data.marshal.Json.createModel({d: {e: {f: "txt"}}});
+    assert.equal("txt", a.target);
+  });
+
+
+  it("NonExistingChange", function() {
+    var a = qx.data.marshal.Json.createModel({b: {c: "txt"}, bb: {}, target: null});
+
+    qx.data.SingleValueBinding.bind(a, "b.c", a, "target");
+    assert.equal("txt", a.target);
+
+    a.b = a.bb;
+    assert.isNull(a.target);
+  });
+
+
+  it("NonExistingChangeDeep", function() {
+    var a = qx.data.marshal.Json.createModel({b: {c: {d: {e: {f: "txt"}}}}, target: null});
+
+    qx.data.SingleValueBinding.bind(a, "b.c.d.e.f", a, "target");
+    assert.equal("txt", a.target);
+
+    a.b.c = qx.data.marshal.Json.createModel({d: {e: {}}});
+    assert.isNull(a.target);
+
+    a.b.c = qx.data.marshal.Json.createModel({d: {}});
+    assert.isNull(a.target);
+  });
 });
