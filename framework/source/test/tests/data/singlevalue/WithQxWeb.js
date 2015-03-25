@@ -21,9 +21,10 @@
  * Test-Class for testing the single value binding
  */
 describe("data.singlevalue.WithQxWeb", function() {
+  var __c;
 
   beforeEach(function() {
-    C = qx.Class.define(null, {
+    var C = qx.Class.define(null, {
       extend: qxWeb,
       properties: {
         p1: {
