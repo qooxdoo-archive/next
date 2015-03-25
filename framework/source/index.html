@@ -55,7 +55,7 @@
 
       app = q(document.body).app();
 
-      app.taptap =  function(evt, el) {
+      app.taptap = function(evt, el) {
         el.setStyle("color", "red");
       };
 
@@ -66,10 +66,8 @@
 
       // JSON loading
       var store = new qx.data.store.Json("resource/qx/test/primitive.json");
-      app.addModel("primitive", null),
+      app.addModel("primitive", null);
       qx.data.SingleValueBinding.bind(store, "model", app, "primitive");
-
-      // binding of inhomogen structures, maybe using a silent fail option of the SingleValueBinding
     });
   </script>
 </head>
@@ -155,6 +153,7 @@
     <p data-bind="{{primitive.string}} -> html"></p>
     <p data-bind="{{primitive.number}} -> html"></p>
     <p data-bind="{{primitive.boolean}} -> html"></p>
+    <p data-bind="{{primitive.nono}} -> html; {{not(primitive.nono)}} -> class.hidden"></p>
   </div>
 
 
