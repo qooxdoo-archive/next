@@ -182,7 +182,7 @@ qx.Mixin.define("qx.ui.form.MText",
 
       if (this.type === "email") {
         try {
-          qx.util.Validate.checkEmail(this.value);
+          qx.util.Validate.email(this.value);
           return true;
         } catch(ex) {
           if (ex instanceof qx.core.ValidationError) {
@@ -194,7 +194,7 @@ qx.Mixin.define("qx.ui.form.MText",
 
       if (this.type === "url") {
         try {
-          qx.util.Validate.checkUrl(this.value);
+          qx.util.Validate.url(this.value);
           return true;
         } catch(ex) {
           if (ex instanceof qx.core.ValidationError) {

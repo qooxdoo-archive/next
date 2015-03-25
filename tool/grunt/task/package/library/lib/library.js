@@ -57,12 +57,12 @@ module.exports = {
     for (; i<l; i++) {
       jsonPath = filePaths[i];
       if (!fs.existsSync(jsonPath)) {
-        throw Error('Can\'t read package.json file from: ' + jsonPath);
+        throw new Error('Can\'t read package.json file from: ' + jsonPath);
       }
       contents = fs.readFileSync(jsonPath, {encoding: 'utf8'});
       packageJson = JSON.parse(contents);
       if (!('org_next' in packageJson)) {
-        throw Error('Missing "org_next" key of package.json file from: ' + jsonPath);
+        throw new Error('Missing "org_next" key of package.json file from: ' + jsonPath);
       }
       packageJsonFiles[packageJson.org_next.namespace] = {
         "base": {
@@ -105,11 +105,11 @@ module.exports = {
 
     // merge options and default values
     opts = {
-      withKeys: options.withKeys === true ? true : false,
+      withKeys: options.withKeys === true ? true : false
     };
 
     if (validKinds.indexOf(kind) === -1) {
-      throw Error('Invalid kind ('+kind+'). Supported: '+validKinds);
+      throw new Error('Invalid kind ('+kind+'). Supported: '+validKinds);
     }
 
     for (lib in libPaths) {
@@ -123,7 +123,6 @@ module.exports = {
     return opts.withKeys ? specificPathsWithKeys : specificPaths;
   }
 };
-
-// shortcut
-var getPathsFor = module.exports.getPathsFor;
+/* eslint no-use-before-define:0 */
 var readPackageJson = module.exports.readPackageJson;
+

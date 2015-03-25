@@ -159,7 +159,6 @@ function namespaceFrom(className, allNamespaces) {
  */
 function flattenAssetPathsByNamespace(assetPaths, namespaces) {
   var assetNsPaths = {};
-  var posFirstDot = 0;
   var className = '';
   var ns = '';
 
@@ -187,6 +186,7 @@ function flattenAssetPathsByNamespace(assetPaths, namespaces) {
  * @param {Object} resBasePathMap - base paths by namespace
  * @returns {Object} assetNsPaths
  */
+/* eslint no-shadow:0 */
 function globAndSanitizePaths(assetNsPaths, resBasePathMap) {
   var toBeGlobbed = [];
   var ns = '';
@@ -208,19 +208,20 @@ function globAndSanitizePaths(assetNsPaths, resBasePathMap) {
     return (Object.keys(obj).length === 0);
   };
 
-  var collectMatchingBases = function(resBasePathMap, resPath) {
-    var resWithBases = {};
+  var collectMatchingBases = function(resourceBasePathMap, resourcePath) {
+    var resourceWithBases = {};
     var absResPath = '';
-    var ns = '';
+    var n = '';
 
-    for (ns in resBasePathMap) {
-      absResPath = path.join(resBasePathMap[ns], resPath);
+    for (n in resourceBasePathMap) {
+      absResPath = path.join(resourceBasePathMap[n], resourcePath);
       if (fs.existsSync(absResPath)) {
-        resWithBases[ns] = resPath;
+        resourceWithBases[n] = resourcePath;
       }
     }
-    return resWithBases;
+    return resourceWithBases;
   };
+
 
   var createEmptyBasePathProperties = function(assetNsPaths) {
     var assetNsBasesPaths = {};
@@ -357,6 +358,7 @@ function createResourceInfoMaps(resources) {
  * @param {Object} resBasePathMap - base paths by namespace
  * @returns {Object} usedMetaEntries
  */
+ /** eslint no-shadow: 0 */
 function collectUsedMetaEntries(assetNsPaths, resBasePathMap) {
   var usedMetaEntries = {};
   var ns1 = '';
@@ -458,6 +460,7 @@ module.exports = {
    * @param {Object} [options.metaFiles=false] - whether to include meta entries
    * @param {Object} - resource struct/map (i.e. JSON compatible) object
    */
+  /** eslint no-shadow: 0 */
   collectResources: function(assetNsBasesPaths, resBasePathMap, options) {
     var opts = {};
     var imgs = [];
@@ -476,7 +479,7 @@ module.exports = {
 
     // merge options and default values
     opts = {
-      metaFiles: options.metaFiles === true ? true : false,
+      metaFiles: options.metaFiles === true ? true : false
     };
 
     var isImg = function(path) {

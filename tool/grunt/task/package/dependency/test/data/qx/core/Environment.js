@@ -489,18 +489,6 @@
  *     </tr>
 
  *     <tr>
- *       <td colspan="4"><b>phonegap</b></td>
- *     </tr>
- *     <tr>
- *       <td>phonegap</td><td><i>Boolean</i></td><td><code>false</code></td>
- *       <td>{@link qx.bom.client.PhoneGap#getPhoneGap}</td>
- *     </tr>
- *     <tr>
- *       <td>phonegap.notification</td><td><i>Boolean</i></td><td><code>false</code></td>
- *       <td>{@link qx.bom.client.PhoneGap#getNotification}</td>
- *     </tr>
-
- *     <tr>
  *       <td colspan="4"><b>plugin</b></td>
  *     </tr>
  *     <tr>
@@ -840,8 +828,6 @@ qx.Class.define("qx.core.Environment",
       "css.textShadow.filter" : "qx.bom.client.Css.getFilterTextShadow",
       "css.alphaimageloaderneeded" : "qx.bom.client.Css.getAlphaImageLoaderNeeded",
       "css.pointerevents" : "qx.bom.client.Css.getPointerEvents",
-      "phonegap" : "qx.bom.client.PhoneGap.getPhoneGap",
-      "phonegap.notification" : "qx.bom.client.PhoneGap.getNotification",
       "xml.implementation" : "qx.bom.client.Xml.getImplementation",
       "xml.domparser" : "qx.bom.client.Xml.getDomParser",
       "xml.selectsinglenode" : "qx.bom.client.Xml.getSelectSingleNode",

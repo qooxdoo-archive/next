@@ -2,14 +2,14 @@
 
 var fs = require('fs');
 var crypto = require('crypto');
-var child_process = require('child_process');
+var childProcess = require('child_process');
 
 /**
  * TODO: This is a quick hack from http://stackoverflow.com/a/15365656/127465
  * It should eventually be replaced by something more decent, like
  * https://npmjs.org/package/temporary
  */
-function temp_file_name(path) {
+function tempFileName(path) {
   var filename;
   do {
     filename = 'conf'+crypto.randomBytes(4).readUInt32LE(0)+'.tmp';
@@ -22,10 +22,10 @@ module.exports = function(grunt) {
   // 'generate.py' shell exit
   grunt.registerTask('generate', 'Use the generator of qooxdoo.', function(job) {
     //grunt.log.write("Args: " + job + "," + args);
-    var opt_string = grunt.option('gargs');
+    var optString = grunt.option('gargs');
     var done = this.async();
     var child;
-    var child_killed = false;
+    var childKilled = false;
 
     /*
      * Customize generator jobs from Gruntfile.
@@ -36,12 +36,12 @@ module.exports = function(grunt) {
      * level-"include"s the default config.json (or the one named with -c)
      */
 
-    var config_map = grunt.config.get('generator_config');
+    var configMap = grunt.config.get('generator_config');
     // link to original config file
-    if (!config_map.include) {
-      config_map.include = [];
+    if (!configMap.include) {
+      configMap.include = [];
     }
-    config_map.include.push(
+    configMap.include.push(
       // TODO: inspect if gargs has '-c <otherconfig>'
       // TODO: with this synthetic config file, the original 'default' job is not detected
        {
@@ -50,9 +50,9 @@ module.exports = function(grunt) {
         });
 
     // create random tmpfile name
-    var gen_conf_file = temp_file_name(".") + ".json";
+    var genConfFile = tempFileName(".") + ".json";
 
-    fs.writeFile(gen_conf_file, JSON.stringify(config_map, null, 4), function(err) {
+    fs.writeFile(genConfFile, JSON.stringify(configMap, null, 4), function(err) {
       if(err) {
         console.log(err);
         //exit(1)
@@ -64,20 +64,20 @@ module.exports = function(grunt) {
       'python generate.py',
       (job || ''),
       //'-s',
-      '-c ' + gen_conf_file,
-      (opt_string || '')
+      '-c ' + genConfFile,
+      (optString || '')
     ].join(' ');
 
     grunt.log.write("Running: '" + cmd + "'");
 
-    child = child_process.exec(cmd,
+    child = childProcess.exec(cmd,
       function (error, stdout, stderr) {
-        if (error !== null && !child_killed) {
+        if (error !== null && !childKilled) {
           grunt.log.error('stderr: ' + stderr);
           grunt.log.error('exec error: ' + error);
         }
         done(error === null);
-    });
+      });
 
     // forward child STDOUT
     child.stdout.on("data", function(data) {
@@ -90,9 +90,9 @@ module.exports = function(grunt) {
     });
 
     // clean-up on child exit
-    child.on('close', function(code) {
-      fs.unlinkSync(gen_conf_file);
-      if (child_killed) {
+    child.on('close', function() {
+      fs.unlinkSync(genConfFile);
+      if (childKilled) {
         grunt.fail.fatal("Interrupting task", 0);
       }
     });
@@ -100,8 +100,8 @@ module.exports = function(grunt) {
     // handle interrupt signal (Ctrl-C)
     process.on('SIGINT', function() {
       child.kill('SIGINT'); // forward to child
-      child_killed = true;
-      //fs.unlinkSync(gen_conf_file);  // is done automatically on 'close'
+      childKilled = true;
+      //fs.unlinkSync(genConfFile);  // is done automatically on 'close'
     });
 
   });

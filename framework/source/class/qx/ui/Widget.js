@@ -556,6 +556,7 @@ qx.Class.define("qx.ui.Widget", {
     _applyVisibility : function(value) {
       if (value == "excluded") {
         this.addClass("exclude");
+        this.setStyle("visibility", "");
       }
       else if (value == "visible")
       {

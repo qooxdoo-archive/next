@@ -1,3 +1,4 @@
+/* eslint strict:0 */
 /* ************************************************************************
 
    qooxdoo - the new era of web development
@@ -74,7 +75,7 @@ q.Class.define("Cache",
      *
      * {key: {'content':content, 'time': new Date()}}
      */
-    MEMCACHE: {},
+    MEMCACHE: {}
   },
 
   members:
@@ -151,17 +152,17 @@ q.Class.define("Cache",
     /**
      * Create cache dir (if not yet created) and update checkfile.
      *
-     * @param {String} path - Basepath for all caching dirs/files.
+     * @param {String} basePath - Basepath for all caching dirs/files.
      * @param {String} checkfilePath - Path to checkfile.
      */
-    __createCacheDir: function(path, checkfilePath) {
-      if (!fs.existsSync(path)) {
-        shell.mkdir('-p', path);
+    __createCacheDir: function(basePath, checkfilePath) {
+      if (!fs.existsSync(basePath)) {
+        shell.mkdir('-p', basePath);
         this.__updateCheckfile(checkfilePath, Cache.CACHE_REVISION);
       }
 
-      if (!fs.statSync(path).isDirectory()) {
-        throw new Error("The cache path is not a directory: " + path);
+      if (!fs.statSync(basePath).isDirectory()) {
+        throw new Error("The cache path is not a directory: " + basePath);
       }
     },
 
@@ -175,7 +176,7 @@ q.Class.define("Cache",
       try {
         fs.writeFileSync(checkfilePath, data);
       } catch (e) {
-        throw Error("Cannot write cache check file " + checkfilePath);
+        throw new Error("Cannot write cache check file " + checkfilePath);
       }
     },
 
@@ -285,4 +286,5 @@ q.Class.define("Cache",
 
 
 // exports
+/* eslint no-undef:0 */
 module.exports = Cache;

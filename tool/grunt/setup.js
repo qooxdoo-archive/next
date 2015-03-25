@@ -46,7 +46,10 @@ var usedByTasksPackages = [];
 shell.cd('task/package');
 
 // cache is used by others so install first
-shell.exec('node runNpmCmd.js install cache');
+shell.cd('cache');
+shell.exec('npm install');
+shell.cd('../');
+
 usingCachePackages = ['dependency', 'compression'];
 usingCachePackages.forEach(function(pkg) {
   shell.cd(pkg);
@@ -59,17 +62,18 @@ usingCachePackages.forEach(function(pkg) {
   shell.cd('../');
 });
 
-// exclude runNpmCmd.js through filtering (exclude cache because it's already installed)
 packages = shell.ls('.').filter(function(dirOrFile) {
   return (['cache'].indexOf(dirOrFile) === -1 && dirOrFile.indexOf('.') === -1);
 });
 packages.forEach(function(pkg) {
-  shell.exec('node runNpmCmd.js install '+pkg);
+  shell.cd(pkg);
+  shell.exec('npm install');
+  shell.cd('../');
 });
 shell.cd(rootDir);
 
 // install all tasks and symlink packages ('qx-*')
-tasks = ['source', 'build'];
+tasks = ['source', 'build', 'info'];
 usedByTasksPackages = ['compression', 'dependency', 'library', 'resource'];
 tasks.forEach(function(task){
   shell.cd('task/'+task);

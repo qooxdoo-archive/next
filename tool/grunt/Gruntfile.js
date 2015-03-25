@@ -7,8 +7,16 @@ module.exports = function(grunt) {
         configFile: 'eslint/eslint.json',
         rulePaths: ['eslint/eslint-plugin-qx-rules/lib/rules']
       },
-      target: ['lib','task']
-    },
+      default: {
+        src: ['lib','task']
+      },
+      ci: {
+        options: {
+          format: 'tap'
+        },
+        src: ['lib','task']
+      },
+    }
   });
 
   // alias

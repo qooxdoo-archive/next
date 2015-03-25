@@ -464,8 +464,6 @@ qx.Class.define("qx.ui.container.Drawer",
       var parent = this._getParentWidget();
       this._onRemovedFromParent(parent);
 
-      qx.util.DisposeUtil.disposeContainer(this);
-
       this.__pointerStartPosition = this.__transitionEnabled = null;
 
       this.super(qx.ui.Widget, "dispose");

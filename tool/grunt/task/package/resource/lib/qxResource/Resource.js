@@ -1,3 +1,4 @@
+/* eslint strict:0 */
 /* *****************************************************************************
 
    qooxdoo - the new era of web development
@@ -23,10 +24,6 @@
 //------------------------------------------------------------------------------
 // Requirements
 //------------------------------------------------------------------------------
-
-// native
-var fs = require("fs");
-var path = require("path");
 
 // qx
 var q = require('qooxdoo');
@@ -67,7 +64,7 @@ q.Class.define("qxResource.Resource",
      * @returns {Object} resMap - <code>{myRelPathToRes: 'myNamespace'}</code>
      */
     stringify: function() {
-      resEntry = {};
+      var resEntry = {};
       resEntry[this.__relpath] = this.__namespace;
       return resEntry;
     }
@@ -77,5 +74,5 @@ q.Class.define("qxResource.Resource",
 //------------------------------------------------------------------------------
 // Exports
 //------------------------------------------------------------------------------
-
+/* eslint no-undef:0 */
 module.exports = qxResource.Resource;

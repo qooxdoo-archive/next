@@ -49,10 +49,27 @@ module.exports = function(grunt) {
       eslint_apps: {
         options: {
           log: true,
-          task: ["eslint"],
+          task: ["eslint:default"],
           process: function(res) {
             if (res.fail) {
               grunt.log.writeln('Error during eslinting all applications');
+            }
+          }
+        },
+        src: [
+          "application/play/Gruntfile.js",
+          "application/mobileshowcase/Gruntfile.js",
+          "tool/grunt/Gruntfile.js",
+          "framework/Gruntfile.js"
+        ]
+      },
+      eslint_apps_ci: {
+        options: {
+          log: true,
+          task: ["eslint:ci"],
+          process: function(res) {
+            if (res.fail) {
+              grunt.log.writeln('Error during eslinting (ci) all applications');
             }
           }
         },
@@ -69,8 +86,44 @@ module.exports = function(grunt) {
   // alias
   grunt.registerTask('lint', 'run_grunt:lint_apps');
   grunt.registerTask('eslint', 'run_grunt:eslint_apps');
+  grunt.registerTask('eslintci', 'run_grunt:eslint_apps_ci');
   grunt.registerTask('clean', 'run_grunt:clean_apps');
   grunt.registerTask('build', 'run_grunt:build_apps');
+
+
+  // run toolchain tests
+  grunt.task.registerTask (
+    'test_toolchain',
+    'Run toolchain tests',
+    function() {
+      shell.cd('tool/grunt/');
+      shell.cd('eslint/eslint-plugin-qx-rules');
+      shell.exec('npm test');
+      shell.cd('../../task/package');
+      var packages = shell.ls('.');
+      packages.forEach(function(pkgPath) {
+        if (shell.test('-d', pkgPath)) {
+          shell.cd(pkgPath);
+          shell.exec('npm test');
+          shell.cd('../');
+        }
+      });
+    }
+  );
+
+  // run toolchain tasks
+  grunt.task.registerTask (
+    'run_toolchain_tasks',
+    'Run toolchain tasks',
+    function() {
+      shell.cd('tool/grunt/task/source');
+      shell.exec('grunt source');
+      shell.cd('../build');
+      shell.exec('grunt build');
+      shell.cd('../info');
+      shell.exec('grunt info');
+    }
+  );
 
   // rm node_modules (grunt remove_node_modules <=> grunt setup)
   grunt.task.registerTask (

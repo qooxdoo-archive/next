@@ -45,7 +45,7 @@ module.exports = {
    */
   pipeline: function(seed /*,funcs*/) {
     var funcs = _.toArray(arguments).slice(1);
-    return _.reduce(funcs, function (accu,func) {
+    return _.reduce(funcs, function (accu, func) {
         return func(accu);
       }, seed);
   },

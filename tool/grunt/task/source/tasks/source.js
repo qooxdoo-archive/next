@@ -52,7 +52,7 @@ function renderLoaderTmpl(tmpl, ctx) {
   var regex = "";
 
   for (tmplVar in ctx) {
-    regex = new RegExp("%\{"+tmplVar+"\}","g");
+    regex = new RegExp("%\{"+tmplVar+"\}", "g");
     if (ctx[tmplVar] === "") {
       tmpl = tmpl.replace(regex, "");
     } else {
@@ -64,7 +64,7 @@ function renderLoaderTmpl(tmpl, ctx) {
 }
 
 function calculateRelPaths(packageJsonData, qxPath, appName, ns) {
-  var resolved_qxPath = path.resolve(qxPath);
+  var resolvedQxPath = path.resolve(qxPath);
   var gruntDir = "tool/grunt";
   var frameworkDir = "framework";
   var rel = {
@@ -74,16 +74,16 @@ function calculateRelPaths(packageJsonData, qxPath, appName, ns) {
   };
 
   // qx path depending on whether app is within qooxdoo sdk or not
-  rel.qx = (pathIsInside(packageJsonData[appName].base.abs, resolved_qxPath))
-           ? path.relative(packageJsonData[appName].base.abs, resolved_qxPath)
+  rel.qx = (pathIsInside(packageJsonData[appName].base.abs, resolvedQxPath))
+           ? path.relative(packageJsonData[appName].base.abs, resolvedQxPath)
            : qxPath;
 
   // paths depending on whether app is within ...
-  if (pathIsInside(packageJsonData[appName].base.abs, path.join(resolved_qxPath, gruntDir))) {
+  if (pathIsInside(packageJsonData[appName].base.abs, path.join(resolvedQxPath, gruntDir))) {
     // ... "tool/grunt" dir ('myapp' test app) or not
     rel.res = url.resolve(path.join("../", packageJsonData[ns].resource), '');
     rel.class = url.resolve(path.join("../", packageJsonData[ns].class), '');
-  } else if (pathIsInside(packageJsonData[appName].base.abs, path.join(resolved_qxPath, frameworkDir))) {
+  } else if (pathIsInside(packageJsonData[appName].base.abs, path.join(resolvedQxPath, frameworkDir))) {
     // ... "framework" dir
     rel.res = url.resolve(path.join(packageJsonData[ns].resource), '');
     rel.class = url.resolve(path.join(packageJsonData[ns].class), '');
@@ -149,7 +149,7 @@ module.exports = function(grunt) {
     };
     var resourcesContent = "qx.$$packageData['0']=" + JSON.stringify(resources) + ";";
 
-    var resourcesHash = createHashOver(resourcesContent).substr(0,12);
+    var resourcesHash = createHashOver(resourcesContent).substr(0, 12);
     var resourcesFileName = opts.appName + "." + resourcesHash + ".js";
 
     // {"uris":["__out__:myapp.e2c18d74cbbe.js","qx:qx/Bootstrap.js", ...]};
@@ -189,7 +189,7 @@ module.exports = function(grunt) {
       BootIsInline: false,             // ...
       NoCacheParam: false,             // ...
       DecodeUrisPlug: '',              // ...
-      BootPart: '',                    // ...
+      BootPart: ''                    // ...
     };
 
     grunt.log.writeln('Generate loader script ...');

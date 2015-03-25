@@ -1,3 +1,4 @@
+/* eslint strict:0 */
 /* *****************************************************************************
 
    qooxdoo - the new era of web development
@@ -83,7 +84,7 @@ q.Class.define("qxResource.Image",
         throw new Error("ENOENT: " + absImgPath);
       }
 
-      imgData = imgsize(absImgPath);
+      var imgData = imgsize(absImgPath);
       this.__format = imgData.type;
       delete imgData.type;
       this.__dimensions = imgData;
@@ -95,12 +96,12 @@ q.Class.define("qxResource.Image",
      * @returns {Object} imageMap - <code>{myRelPathToImg: [32, 32, 'png', 'myNamespace']}</code>
      */
     stringify: function() {
-      imgEntry = {};
+      var imgEntry = {};
       imgEntry[this.__relpath] = [
         (this.__dimensions !== null ? this.__dimensions.width : null),
         (this.__dimensions !== null ? this.__dimensions.height : null),
         this.__format,
-        this.__namespace,
+        this.__namespace
       ];
       return imgEntry;
     }
@@ -110,5 +111,5 @@ q.Class.define("qxResource.Image",
 //------------------------------------------------------------------------------
 // Exports
 //------------------------------------------------------------------------------
-
+/* eslint no-undef:0 */
 module.exports = qxResource.Image;

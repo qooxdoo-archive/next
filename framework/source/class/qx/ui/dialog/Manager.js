@@ -19,8 +19,7 @@
 ************************************************************************ */
 
 /**
- * Very basic dialog manager. Displays a native alert or confirm dialog if
- * the application is running in a PhoneGap environment. For debugging in a browser
+ * Very basic dialog manager. For debugging in a browser
  * it displays the browser <code>alert</code> or <code>confirm</code> dialog. In the near
  * future this should be replaced by dialog widgets.
  *
@@ -76,9 +75,7 @@ qx.Class.define("qx.ui.dialog.Manager",
   members :
   {
     /**
-     * Displays an alert box. When the application is running in a PhoneGap
-     * environment, a native alert box is shown. When debugging in a browser, a
-     * browser alert is shown.
+     * Displays an alert box.
      *
      * @param title {String} The title of the alert box
      * @param text {String} The text to display in the alert box
@@ -87,34 +84,17 @@ qx.Class.define("qx.ui.dialog.Manager",
      * @param scope {Object} The scope of the handler
      * @param button {String} The button title
      * @return {qx.ui.dialog.Popup|Object} a reference to an alert dialog
-     *          instance. An <code>Object</code>, if environment is
-     *          <code>phonegap</code>, or a {@link qx.ui.dialog.Popup}
-     *          if not.
+     *          instance
      * @lint ignoreDeprecated(alert)
      */
     alert : function(title, text, handler, scope, button)
     {
-      // TOOD : MOVE THIS TO PHONEGAP CLASS
-      if (qx.core.Environment.get("phonegap") && qx.core.Environment.get("phonegap.notification")) {
-        var callback = function() {
-          if (handler) {
-            handler.call(scope);
-          }
-        };
-        button = this.__processDialogButtons(button);
-        return navigator.notification.alert(text, callback, title, button);
-      }
-      else
-      {
-        return this.__showNonNativeDialog(title, text, handler, scope, [button], qx.ui.dialog.Manager.MESSAGE_DIALOG);
-      }
+      return this.__showNonNativeDialog(title, text, handler, scope, [button], qx.ui.dialog.Manager.MESSAGE_DIALOG);
     },
 
 
     /**
-     * Displays a confirm box. When the application is running in a PhoneGap
-     * environment, a native confirm box is shown. When debugging in a browser, a
-     * browser confirm is shown.
+     * Displays a confirm box.
      *
      * @param title {String} The title of the confirm box
      * @param text {String} The text to display in the confirm box
@@ -129,19 +109,7 @@ qx.Class.define("qx.ui.dialog.Manager",
      */
     confirm : function(title, text, handler, scope, buttons)
     {
-      if (qx.core.Environment.get("phonegap") && qx.core.Environment.get("phonegap.notification"))
-      {
-        var callback = function(index)
-        {
-          handler.call(scope, index-1);
-        };
-        buttons = this.__processDialogButtons(buttons);
-        return navigator.notification.confirm(text, callback, title, buttons);
-      }
-      else
-      {
-        return this.__showNonNativeDialog(title, text, handler, scope, buttons, qx.ui.dialog.Manager.MESSAGE_DIALOG);
-      }
+      return this.__showNonNativeDialog(title, text, handler, scope, buttons, qx.ui.dialog.Manager.MESSAGE_DIALOG);
     },
 
     /**
@@ -164,9 +132,7 @@ qx.Class.define("qx.ui.dialog.Manager",
     },
 
     /**
-     * Displays an error dialog. When the application is running in an PhoneGap
-     * environment, a native error dialog is shown. For debugging in a browser, a
-     * browser confirm is shown.
+     * Displays an error dialog.
      *
      * @param title {String} The title of the error dialog.
      * @param text {String} The text to display in the error dialog.
@@ -180,26 +146,12 @@ qx.Class.define("qx.ui.dialog.Manager",
      */
     error : function(title, text, handler, scope, button)
     {
-      if (qx.core.Environment.get("phonegap") && qx.core.Environment.get("phonegap.notification")) {
-        var callback = function() {
-          if (handler) {
-            handler.call(scope);
-          }
-        };
-        button = this.__processDialogButtons(button);
-        return navigator.notification.alert(text, callback, title, button);
-      }
-      else
-      {
-        return this.__showNonNativeDialog(title, text, handler, scope, button, qx.ui.dialog.Manager.ERROR_DIALOG);
-      }
+      return this.__showNonNativeDialog(title, text, handler, scope, button, qx.ui.dialog.Manager.ERROR_DIALOG);
     },
 
 
     /**
-     * Displays a warning dialog. When the application is running in an PhoneGap
-     * environment, a native warning dialog is shown. For debugging in a browser, a
-     * browser confirm is shown.
+     * Displays a warning dialog.
      *
      * @param title {String} The title of the warning dialog.
      * @param text {String} The text to display in the warning dialog.
@@ -213,19 +165,7 @@ qx.Class.define("qx.ui.dialog.Manager",
      */
     warning : function(title, text, handler, scope, button)
     {
-      if (qx.core.Environment.get("phonegap") && qx.core.Environment.get("phonegap.notification")) {
-        var callback = function() {
-          if (handler) {
-            handler.call(scope);
-          }
-        };
-        button = this.__processDialogButtons(button);
-        return navigator.notification.alert(text, callback, title, button);
-      }
-      else
-      {
-        return this.__showNonNativeDialog(title, text, handler, scope, button, qx.ui.dialog.Manager.WARNING_DIALOG);
-      }
+      return this.__showNonNativeDialog(title, text, handler, scope, button, qx.ui.dialog.Manager.WARNING_DIALOG);
     },
 
 
@@ -246,26 +186,6 @@ qx.Class.define("qx.ui.dialog.Manager",
     wait : function(title, text, handler, scope, buttons)
     {
       return this.__showNonNativeDialog(title, text, handler, scope, buttons, qx.ui.dialog.Manager.WAITING_DIALOG);
-    },
-
-
-    /**
-     * Processes the dialog buttons. Converts them to PhoneGap compatible strings.
-     *
-     * @param buttons {String[]} Each text entry of the array represents a button and
-     *     its title
-     * @return {String} The concatenated, PhoneGap compatible, button string
-     */
-    __processDialogButtons: function(buttons)
-    {
-      if(buttons) {
-        if(buttons instanceof Array) {
-          buttons = buttons.join(",");
-        } else {
-          buttons = ""+buttons;
-        }
-      }
-      return buttons;
     },
 
 
