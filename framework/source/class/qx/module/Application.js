@@ -117,13 +117,11 @@ qx.Class.define("qx.module.Application", {
 
 
     _setUpElementEvents: function(el) {
-      var event = el.getData("event");
       this._getBindingParts(el.getAttribute("data-event")).forEach(function(event) {
         var eventName = event.left;
-        var handler = event.right.replace("()", "");
         el.on(eventName, function(handler, e) {
           this[handler].call(this, e, el);
-        }.bind(this, handler));
+        }.bind(this, event.right.replace("()", "")));
       }.bind(this));
     },
 
@@ -238,8 +236,10 @@ qx.Class.define("qx.module.Application", {
         // check for two way bindable properties
         if (binding.twoWay) {
           if (action === "checked") { // TODO better mapping of action to event name
-            el.on("change", function(property, el) {
-              qx.data.SingleValueBinding.__setTargetValue(this, property, el.getAttribute("checked")); // TODO no private
+            el.on("change", function(prop, targetEl) {
+              qx.data.SingleValueBinding.__setTargetValue(
+                this, prop, targetEl.getAttribute("checked")
+              ); // TODO no private
             }.bind(this, property, el));
           }
         }
@@ -270,9 +270,9 @@ qx.Class.define("qx.module.Application", {
 
       this._getProperties("cssClass", content, el).forEach(function(property) {
         qx.data.SingleValueBinding.bind(this, property, el, "classes", {
-          converter : function(classname, tagContent) {
+          converter : function(name, tagContent) {
             var map = {};
-            map[classname] = !!this._getValue(tagContent);
+            map[name] = !!this._getValue(tagContent);
             return map;
           }.bind(this, classname, this._getTagContent(content)[0]) // TODO more than one?
         });
@@ -289,16 +289,16 @@ qx.Class.define("qx.module.Application", {
 
       this._getProperties(action, content, el).forEach(function(property) {
         qx.data.SingleValueBinding.bind(this, property, el, widgetPropert, {
-          converter: function(content) {
-            var tagContent = content.substring(2, content.length - 2);
+          converter: function(txt) {
+            var tagContent = txt.substring(2, txt.length - 2);
             return this._getValue(tagContent);
           }.bind(this, content)
         });
 
         // two way binding
         if (binding.twoWay) {
-          el.on("change" + qx.Class.firstUp(widgetPropert), function(property, data) {
-            qx.data.SingleValueBinding.__setTargetValue(this, property, data.value); // TODO no privates
+          el.on("change" + qx.Class.firstUp(widgetPropert), function(prop, data) {
+            qx.data.SingleValueBinding.__setTargetValue(this, prop, data.value); // TODO no privates
           }.bind(this, property));
         }
       }.bind(this));
@@ -309,18 +309,20 @@ qx.Class.define("qx.module.Application", {
       var action = binding.right;
       var content = binding.left;
       this._getProperties(action, content, el).forEach(function(property) {
-        qx.data.SingleValueBinding.bind(this, property, el, action, {converter: function(content, action) {
-          return this.__textConverter(content);
-        }.bind(this, content, action)});
+        qx.data.SingleValueBinding.bind(this, property, el, action, {
+          converter: function(txt) {
+            return this.__textConverter(txt);
+          }.bind(this, content)
+        });
 
         // check for two way bindable properties
         if (action === "value" && binding.twoWay) { // TODO better mapping of action to event name
-          el.on("input", function(property, el) {
-             qx.data.SingleValueBinding.__setTargetValue(this, property, el.getValue()); // TODO no private
+          el.on("input", function(prop, targetEl) {
+            qx.data.SingleValueBinding.__setTargetValue(this, prop, targetEl.getValue()); // TODO no private
           }.bind(this, property, el));
 
-          el.on("change", function(property, el) {
-            qx.data.SingleValueBinding.__setTargetValue(this, property, el.getValue()); // TODO no private
+          el.on("change", function(prop, targetEl) {
+            qx.data.SingleValueBinding.__setTargetValue(this, prop, targetEl.getValue()); // TODO no private
           }.bind(this, property, el));
 
           el.setValue(qx.data.SingleValueBinding.resolvePropertyChain(this, property));
