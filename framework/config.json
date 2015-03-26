@@ -8,9 +8,6 @@
       "block" : ["build"]
     },
     {
-      "path" : "image.json"
-    },
-    {
       "path" : "./server.json"
     },
     {
@@ -32,7 +29,6 @@
     "compile-framework-scss",
     "distclean",
     "fix",
-    "images",
     "info",
     "lint",
     "npm-package-copy",
@@ -170,12 +166,6 @@
     "provider-deps" :
     {
       "include" : [ "q", "qxWeb" ]
-    },
-
-    "images" :
-    {
-      "desc" : "clip and combine all images used in the framework",
-      "run" : [ "image-clipping", "image-combine" ]
     },
 
     "api" :

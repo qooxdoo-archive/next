@@ -119,28 +119,6 @@ qx.Class.define("qx.util.ResourceManager",
       return entry ? entry[2] : null;
     },
 
-    /**
-     * Returns the format of the combined image (png, gif, ...), if the given
-     * resource identifier is an image contained in one, or the empty string
-     * otherwise.
-     *
-     * @param id {String} Resource identifier
-     * @return {String} The type of the combined image containing id
-     */
-    getCombinedFormat : function(id)
-    {
-      var clippedtype = "";
-      var entry = qx.util.ResourceManager.__registry[id];
-      var isclipped = entry && entry.length > 4 && typeof (entry[4]) == "string"
-        && this.constructor.__registry[entry[4]];
-      if (isclipped){
-        var combId = entry[4];
-        var combImg = this.constructor.__registry[combId];
-        clippedtype = combImg[2];
-      }
-      return clippedtype;
-    },
-
 
     /**
      * Converts the given resource ID to a full qualified URI
@@ -181,34 +159,8 @@ qx.Class.define("qx.util.ResourceManager",
       }
 
       return urlPrefix + qx.util.LibraryManager.getInstance().get(lib, "resourceUri") + "/" + id;
-    },
-
-    /**
-     * Construct a data: URI for an image resource.
-     *
-     * Constructs a data: URI for a given resource id, if this resource is
-     * contained in a base64 combined image. If this is not the case (e.g.
-     * because the combined image has not been loaded yet), returns the direct
-     * URI to the image file itself.
-     *
-     * @param resid {String} resource id of the image
-     * @return {String} "data:" or "http:" URI
-     */
-    toDataUri : function (resid)
-    {
-      var resentry = this.constructor.__registry[resid];
-      var combined = this.constructor.__registry[resentry[4]];
-      var uri;
-      if (combined) {
-        var resstruct = combined[4][resid];
-        uri = "data:image/" + resstruct["type"] + ";" + resstruct["encoding"] +
-              "," + resstruct["data"];
-      }
-      else {
-        uri = this.toUri(resid);
-      }
-      return uri;
     }
+
   },
 
 

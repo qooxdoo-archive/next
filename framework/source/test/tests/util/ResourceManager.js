@@ -55,12 +55,6 @@
 //     });
 
 
-//  it("IsClippedImage", function() {
-//       var ResourceManager = qx.util.ResourceManager.getInstance();
-//       assert.isFalse(ResourceManager.getCombinedFormat("../resource/qx/test/colorstrip.gif") != "");
-//     });
-
-
 //  it("ToUri", function() {
 //       var ResourceManager = qx.util.ResourceManager.getInstance();
 //       var resourceUri = qx.$$libraries["qx"].resourceUri + "/" + "../resource/qx/test/colorstrip.gif";
