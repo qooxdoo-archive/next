@@ -219,15 +219,18 @@ qx.Class.define("qx.io.request.AbstractRequest",
 
 
     /**
-     * Data to be send as part of the request.
+     * Data to be sent as part of the request.
      *
      * Supported types:
      *
      * * String
      * * Map
      * * qooxdoo Object
+     * * Blob
+     * * ArrayBuffer
+     * * FormData
      *
-     * For every supported type except strings, a URL encoded string
+     * For maps, Arrays and qooxdoo objects, a URL encoded string
      * with unsafe characters escaped is internally generated and sent
      * as part of the request.
      *
@@ -245,7 +248,8 @@ qx.Class.define("qx.io.request.AbstractRequest",
                qx.lang.Type.isArray(value) ||
                qx.lang.Type.isObject(value) ||
                qx.Class.getClass(value) == "Blob" ||
-               qx.Class.getClass(value) == "ArrayBuffer";
+               qx.Class.getClass(value) == "ArrayBuffer" ||
+               qx.Class.getClass(value) == "FormData";
       },
       nullable: true
     },
@@ -435,7 +439,7 @@ qx.Class.define("qx.io.request.AbstractRequest",
       //
 
       requestData = this.requestData;
-      if (["ArrayBuffer", "Blob"].indexOf(qx.Class.getClass(requestData)) == -1) {
+      if (["ArrayBuffer", "Blob", "FormData"].indexOf(qx.Class.getClass(requestData)) == -1) {
         requestData = this._serializeData(requestData);
       }
 
