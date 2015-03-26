@@ -423,8 +423,8 @@ qx.Class.define("qx.ui.List",
         var app;
         var parent = this;
         while (!app && parent.length > 0) {
-          if (parent[0].$$app) {
-            app = parent[0].$$app;
+          if (parent[0].$$controller) {
+            app = parent[0].$$controller;
           }
           parent = parent.getParents();
         }

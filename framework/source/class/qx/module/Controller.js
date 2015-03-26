@@ -28,14 +28,13 @@
  *              ^--                  converter
  *                  ^--              property
  */
-qx.Class.define("qx.module.Application", {
+qx.Class.define("qx.module.Controller", {
   extend : qx.event.Emitter,
 
   statics :
   {
-    app : function() {
-      var app = new qx.module.Application(this);
-      return app;
+    controller : function() {
+      return new qx.module.Controller(this);
     },
 
     not: function(data) {
@@ -53,7 +52,7 @@ qx.Class.define("qx.module.Application", {
 
   construct : function(root) {
     this.__modelProperties = [];
-    root[0].$$app = this;
+    root[0].$$controller = this;
     this._setUp(root);
   },
 
@@ -210,7 +209,7 @@ qx.Class.define("qx.module.Application", {
       for (var i = converterList.length -1; i >= 0; i--) {
         var convert = this.constructor[converterList[i]];
         if (!convert) {
-          convert = qx.module.Application[converterList[i]];
+          convert = qx.module.Controller[converterList[i]];
         }
         value = convert(value, this);
       }
@@ -376,7 +375,7 @@ qx.Class.define("qx.module.Application", {
 
   classDefined : function(statics) {
     qxWeb.$attach({
-      "app" : statics.app
+      "controller" : statics.controller
     });
   }
 });
