@@ -172,7 +172,6 @@ module.exports = function(grunt) {
       CssBefore: opts.addCss || [],
       Boot: 'boot',                    // ...
       BootIsInline: true,
-      NoCacheParam: false,             // ...
       BootPart: bootPart
     };
 
