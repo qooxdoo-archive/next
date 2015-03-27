@@ -39,6 +39,9 @@ describe("io.request.Xhr", function() {
   beforeEach(function() {
     setUpRequest();
     setUpFakeTransport();
+
+    // preparation for _MRequest
+    this.currentTest.req = req;
   });
 
   function setUpRequest() {
@@ -85,6 +88,7 @@ describe("io.request.Xhr", function() {
 
   afterEach(function() {
     req.dispose();
+    this.currentTest.req.dispose();
 
     // May fail in IE
     try {
@@ -454,5 +458,12 @@ describe("io.request.Xhr", function() {
     assert.equal(key, call.args[0]);
     assert.equal("affe:geheim", qx.util.Base64.decode(credentials));
   });
+
+  // shared tests from mixin
+  var sharedTests = _MRequest();
+  for (var testName in sharedTests) {
+    it(testName, sharedTests[testName]);
+  }
+
 
 });
