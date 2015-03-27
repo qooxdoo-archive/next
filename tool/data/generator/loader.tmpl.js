@@ -36,7 +36,6 @@ qx.$$loader = {
       } else {
         euri = compressedUris[i];
       }
-      %{DecodeUrisPlug}
       uris.push(euri);
     }
     return uris;
