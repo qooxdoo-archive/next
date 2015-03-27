@@ -14,7 +14,6 @@ for (var k in libinfo) qx.$$libraries[k] = libinfo[k];
 
 qx.$$resources = %{Resources};
 qx.$$packageData = {};
-qx.$$g = {};
 
 qx.$$loader = {
   parts : %{Parts},
@@ -44,8 +43,7 @@ qx.$$loader = {
 };
 
 var readyStateValue = {"complete" : true};
-if (document.documentMode && document.documentMode < 10 ||
-    (typeof window.ActiveXObject !== "undefined" && !document.documentMode)) {
+if (document.documentMode && document.documentMode < 10) {
   readyStateValue["loaded"] = true;
 }
 
@@ -87,7 +85,6 @@ function onLoadCss() {
   }
 }
 
-var isWebkit = /AppleWebKit\/([^ ]+)/.test(navigator.userAgent);
 var isLoadParallel = 'async' in document.createElement('script');
 
 function loadScriptList(list, callback) {
@@ -110,14 +107,7 @@ function loadScriptList(list, callback) {
   } else {
     item = list.shift();
     loadScript(item,  function() {
-      if (isWebkit) {
-        // force async, else Safari fails with a "maximum recursion depth exceeded"
-        window.setTimeout(function() {
-          loadScriptList(list, callback);
-        }, 0);
-      } else {
-        loadScriptList(list, callback);
-      }
+      loadScriptList(list, callback);
     });
   }
 }
@@ -181,11 +171,8 @@ qx.$$loader.initUris = function(){
     l.signalStartup();
   } else {
     loadScriptList(l.decodeUris(l.packages[l.parts[l.boot][0]].uris), function(){
-      // Opera needs this extra time to parse the scripts
-      window.setTimeout(function(){
-        l.importPackageData(qx.$$packageData[bootPackageHash] || {});
-        l.signalStartup();
-      }, 0);
+      l.importPackageData(qx.$$packageData[bootPackageHash] || {});
+      l.signalStartup();
     });
   }
 }
