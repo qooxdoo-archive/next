@@ -119,7 +119,18 @@ qx.Class.define("qx.module.Controller", {
       this._getBindingParts(el.getAttribute("data-event")).forEach(function(event) {
         var eventName = event.left;
         el.on(eventName, function(handler, e) {
-          this[handler].call(this, e, el);
+          var split = handler.split("."); // TODO respect arrays []
+          var ctx, func;
+          if (split.length === 1) {
+            ctx = this;
+            func = handler;
+          } else {
+            func = split.pop();
+            ctx = qx.data.SingleValueBinding.resolvePropertyChain(this, split.join("."));
+          }
+
+          ctx[func].call(ctx, e, el);
+
         }.bind(this, event.right.replace("()", "")));
       }.bind(this));
     },
