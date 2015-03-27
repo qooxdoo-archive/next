@@ -19,7 +19,6 @@ qx.$$g = {};
 qx.$$loader = {
   parts : %{Parts},
   packages : %{Packages},
-  urisBefore : %{UrisBefore},
   cssBefore : %{CssBefore},
   boot : %{Boot},
   closureParts : %{ClosureParts},
@@ -176,14 +175,7 @@ qx.$$loader.init = function() {
 
 // Init scripts...
 function initScripts() {
-  var l=qx.$$loader;
-  if (l.urisBefore.length>0){
-    loadScriptList(l.urisBefore, function(){
-      l.initUris();
-    });
-  } else {
-    l.initUris();
-  }
+  var l=qx.$$loader.initUris();
 }
 
 // Load qooxdoo boot stuff

@@ -1,5 +1,4 @@
 (function(){
-
 if (!window.qx) window.qx = {};
 
 qx.$$start = new Date();
@@ -19,7 +18,6 @@ qx.$$g = {};
 qx.$$loader = {
   parts : %{Parts},
   packages : %{Packages},
-  urisBefore : %{UrisBefore},
   cssBefore : %{CssBefore},
   boot : %{Boot},
   closureParts : %{ClosureParts},
@@ -155,13 +153,7 @@ qx.$$loader.init = function(){
       loadCss(l.cssBefore[i]);
     }
   }
-  if (l.urisBefore.length>0){
-    loadScriptList(l.urisBefore, function(){
-      l.initUris();
-    });
-  } else {
-    l.initUris();
-  }
+  l.initUris();
 }
 
 // Load qooxdoo boot stuff
