@@ -97,6 +97,21 @@ qx.Class.define("qx.ui.Widget", {
       for (var i=0, l=elements.length; i<l; i++) {
         qxWeb(elements[i]);
       }
+    },
+
+
+    /**
+     * Returns a wrapper Array that maps the widget API available on
+     * the first item in the current collection to all items in the
+     * collection.
+     *
+     * @attach {qxWeb}
+     * @return {qxWeb[]} Collection of widgets
+     */
+    toWidgetCollection: function() {
+      var args = this.toArray().map(function(el) { return qxWeb(el); });
+      var Temp = qx.Class.curryConstructor(qx.core.Wrapper, args);
+      return new Temp();
     }
   },
 
@@ -607,6 +622,10 @@ qx.Class.define("qx.ui.Widget", {
       initWidgets : statics.initWidgets,
       $attachWidget : statics.attachWidget
     });
+    qxWeb.$attach({
+      "toWidgetCollection" : statics.toWidgetCollection
+    });
+
     qxWeb.$attachWidget(statics);
   }
 });
