@@ -62,9 +62,9 @@ module.exports = function(grunt) {
           cwd: ".",
           expand: false,
           src: 'source/resource/qx/scss/indigo.scss',
-          dest: 'build/resource/qx/css/indigo.css',
+          dest: 'build/resource/qx/css/indigo.css'
         }]
-      },
+      }
     },
 
     notify: {
