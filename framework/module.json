@@ -172,7 +172,7 @@
         "paths"  :
         {
           "file" : "${BUILD_PATH}/q-${MODULE_FILENAME}${QFILES_VERSION_PART}.js",
-          "loader-template" : "${QOOXDOO_PATH}/tool/data/generator/website.loader.module.tmpl.js"
+          "loader-template" : "${QOOXDOO_PATH}/tool/data/generator/website.loader.tmpl.js"
         }
       },
       "let" : {
@@ -196,7 +196,7 @@
         "paths"  :
         {
           "file" : "${BUILD_PATH}/q-${MODULE_FILENAME}${QFILES_VERSION_PART}.min.js",
-          "loader-template" : "${QOOXDOO_PATH}/tool/data/generator/website.loader.module.tmpl.js"
+          "loader-template" : "${QOOXDOO_PATH}/tool/data/generator/website.loader.tmpl.js"
         }
       },
       "let" : {
