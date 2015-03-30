@@ -118,8 +118,11 @@ qx.Class.define("qx.module.Controller", {
     _setUpElementEvents: function(el) {
       this._getBindingParts(el.getAttribute("data-event")).forEach(function(event) {
         var eventName = event.left;
+        if (event.right.indexOf("()") == -1) {
+          throw new Error("Missing brakets for event call in '" + event.left + " -> " + event.right + "'.");
+        }
         el.on(eventName, function(handler, e) {
-          var split = handler.split("."); // TODO respect arrays []
+          var split = handler.split(".");
           var ctx, func;
           if (split.length === 1) {
             ctx = this;
@@ -224,6 +227,7 @@ qx.Class.define("qx.module.Controller", {
         }
         value = convert(value, this);
       }
+
       return value;
     },
 
@@ -279,12 +283,18 @@ qx.Class.define("qx.module.Controller", {
       var classname = action.split(".")[1];
 
       this._getProperties("cssClass", content, el).forEach(function(property) {
+        var tagContents = this._getTagContent(content);
+        if (tagContents.length > 1) {
+          var direction = binding.twoWay ? " <-> " : " -> ";
+          throw new Error("Multiple binding variables are not allowed for class binding in '" +
+            binding.left + direction + binding.right + "'.");
+        }
         qx.data.SingleValueBinding.bind(this, property, el, "classes", {
           converter : function(name, tagContent) {
             var map = {};
             map[name] = !!this._getValue(tagContent);
             return map;
-          }.bind(this, classname, this._getTagContent(content)[0]) // TODO more than one?
+          }.bind(this, classname, tagContents[0])
         });
       }.bind(this));
     },
@@ -359,6 +369,10 @@ qx.Class.define("qx.module.Controller", {
         if (content == "{{" + tagContents[i] + "}}") {
           content = value;
         } else {
+          // normalize value
+          if (value == null) {
+            value = "";
+          }
           content = content.replace("{{" + tagContents[i] + "}}", value);
         }
       }
