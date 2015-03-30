@@ -8,9 +8,6 @@
       "block" : ["build"]
     },
     {
-      "path" : "./server.json"
-    },
-    {
       "path" : "./website.json"
     }
   ],
