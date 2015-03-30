@@ -31,17 +31,13 @@ module.exports = function(grunt) {
 
     source: {
       options: {
-        "=includes": ["<%= common.APPLICATION_MAIN_CLASS %>"],
-        "=loaderTemplate": "<%= common.QOOXDOO_PATH %>/tool/data/generator/mobile.loader.tmpl.js",
-        addCss: ["./theme/indigo.css"]
+        "=includes": ["<%= common.APPLICATION_MAIN_CLASS %>"]
       }
     },
 
     build: {
       options: {
         "=includes": ["<%= common.APPLICATION_MAIN_CLASS %>"],
-        "=loaderTemplate": "<%= common.QOOXDOO_PATH %>/tool/data/generator/mobile.loader.tmpl.js",
-        addCss: ["./theme/indigo.css"],
         buildPath: "./build-<%= common.THEME %>"
       }
     }
