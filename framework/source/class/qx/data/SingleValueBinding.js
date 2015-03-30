@@ -349,7 +349,7 @@ qx.Class.define("qx.data.SingleValueBinding",
             }
 
             if (!ignoreConverter) {
-              this.__setTargetValue(
+              this.setTargetValue(
                 context.targetObject,
                 context.targetPropertyChain,
                 context.options.converter()
@@ -579,7 +579,7 @@ qx.Class.define("qx.data.SingleValueBinding",
         value, targetObject, targetPropertyChain, options, sourceObject
       );
 
-      this.__setTargetValue(targetObject, targetPropertyChain, value);
+      this.setTargetValue(targetObject, targetPropertyChain, value);
     },
 
 
@@ -652,7 +652,7 @@ qx.Class.define("qx.data.SingleValueBinding",
         // check for an array and set the value to null
         var index = this.__getArrayIndex(lastProperty);
         if (index) {
-          this.__setTargetValue(targetObject, targetPropertyChain, null);
+          this.setTargetValue(targetObject, targetPropertyChain, null);
           return;
         }
 
@@ -676,13 +676,15 @@ qx.Class.define("qx.data.SingleValueBinding",
      * Sets the given value to the given target after resolving the
      * target property chain.
      *
+     * @internal
+     *
      * @param targetObject {Object} The object where the property chain
      *   starts.
      * @param targetPropertyChain {String} The names of the properties,
      *   separated with a dot.
      * @param value {var} The value to set.
      */
-    __setTargetValue : function(targetObject, targetPropertyChain, value)
+    setTargetValue : function(targetObject, targetPropertyChain, value)
     {
       // get the last target object of the chain
       var properties = this.__getPropertyChainArray(targetPropertyChain);
@@ -809,7 +811,7 @@ qx.Class.define("qx.data.SingleValueBinding",
       }
       // only set the initial value if one is given (may be null)
       if (value !== undefined) {
-        this.__setTargetValue(targetObject, targetPropertyChain, value);
+        this.setTargetValue(targetObject, targetPropertyChain, value);
 
         // tell the user that the setter was invoked probably
         if (options && options.onUpdate) {
@@ -957,7 +959,7 @@ qx.Class.define("qx.data.SingleValueBinding",
 
         // try to set the value
         if (data !== undefined) {
-          qx.data.SingleValueBinding.__setTargetValue(targetObject, targetProperty, data);
+          qx.data.SingleValueBinding.setTargetValue(targetObject, targetProperty, data);
         } else {
           qx.data.SingleValueBinding.__resetTargetValue(targetObject, targetProperty);
         }

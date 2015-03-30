@@ -247,9 +247,9 @@ qx.Class.define("qx.module.Controller", {
         if (binding.twoWay) {
           if (action === "checked") { // TODO better mapping of action to event name
             el.on("change", function(prop, targetEl) {
-              qx.data.SingleValueBinding.__setTargetValue(
+              qx.data.SingleValueBinding.setTargetValue(
                 this, prop, targetEl.getAttribute("checked")
-              ); // TODO no private
+              );
             }.bind(this, property, el));
           }
         }
@@ -308,7 +308,7 @@ qx.Class.define("qx.module.Controller", {
         // two way binding
         if (binding.twoWay) {
           el.on("change" + qx.Class.firstUp(widgetPropert), function(prop, data) {
-            qx.data.SingleValueBinding.__setTargetValue(this, prop, data.value); // TODO no privates
+            qx.data.SingleValueBinding.setTargetValue(this, prop, data.value);
           }.bind(this, property));
         }
       }.bind(this));
@@ -328,11 +328,11 @@ qx.Class.define("qx.module.Controller", {
         // check for two way bindable properties
         if (action === "value" && binding.twoWay) { // TODO better mapping of action to event name
           el.on("input", function(prop, targetEl) {
-            qx.data.SingleValueBinding.__setTargetValue(this, prop, targetEl.getValue()); // TODO no private
+            qx.data.SingleValueBinding.setTargetValue(this, prop, targetEl.getValue());
           }.bind(this, property, el));
 
           el.on("change", function(prop, targetEl) {
-            qx.data.SingleValueBinding.__setTargetValue(this, prop, targetEl.getValue()); // TODO no private
+            qx.data.SingleValueBinding.setTargetValue(this, prop, targetEl.getValue());
           }.bind(this, property, el));
 
           el.setValue(qx.data.SingleValueBinding.resolvePropertyChain(this, property));
