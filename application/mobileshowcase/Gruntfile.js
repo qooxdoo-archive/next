@@ -21,12 +21,7 @@ module.exports = function(grunt) {
         "qx.revision":"",
         "qx.theme": "<%= common.THEME %>",
         "qx.version":"<%= common.QOOXDOO_VERSION %>"
-      },
-      "BUILD_PATH": "<%= common.ROOT %>/build-indigo",
-    },
-
-    clean: {
-      build: ["./build-<%= common.THEME %>"]
+      }
     },
 
     source: {
@@ -37,8 +32,7 @@ module.exports = function(grunt) {
 
     build: {
       options: {
-        "=includes": ["<%= common.APPLICATION_MAIN_CLASS %>"],
-        buildPath: "./build-<%= common.THEME %>"
+        "=includes": ["<%= common.APPLICATION_MAIN_CLASS %>"]
       }
     }
   };
