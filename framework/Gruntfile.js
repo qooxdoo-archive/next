@@ -18,7 +18,7 @@ module.exports = function(grunt) {
       'QOOXDOO_PATH' : '../'
     },
 
-    pkg: JSON.parse(fs.readFileSync('package.json')),
+    pkg: grunt.file.readJSON('package.json'),
 
     concat: {
       options: {
