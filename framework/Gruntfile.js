@@ -83,6 +83,52 @@ module.exports = function(grunt) {
           message: 'API samples concatenated.'
         }
       }
+    },
+
+    source: {
+      qxweb: {
+        options: {
+          "appName": "qx",
+          "includes": [
+            "qxWeb",
+            "qx.module.*"
+          ],
+          "libraries": [
+            "<%= common.ROOT %>/package.json"
+          ],
+          "loaderTemplate": "../tool/data/generator/website.loader.source.tmpl.js"
+        }
+      }
+    },
+
+    build: {
+      options: {
+        "=libraries": [
+          "<%= common.ROOT %>/package.json"
+        ]
+      },
+      qxweb: {
+        options: {
+          "appName": "qx",
+          "includes": [
+            "qxWeb",
+            "qx.module.*"
+          ],
+          "loaderTemplate": "../tool/data/generator/website.loader.tmpl.js"
+        }
+      },
+      "qx-module-animation": {
+        options: {
+          appName: "qx",
+          includes: [
+            "qx.module.Animation"
+          ],
+          exclude: [
+            "qx.module.Core"
+          ],
+          "loaderTemplate": "../tool/data/generator/website.loader.module.tmpl.js"
+        }
+      }
     }
   };
 
@@ -115,29 +161,6 @@ module.exports = function(grunt) {
     'Concat the samples and generate the API.',
     ['concat:samples', 'generate-api', 'notify:api']
   );
-
-  // 'extend' qxWeb jobs
-  var qxWebTasks = {
-    'qxweb-source': 'qx.Website source version generated.',
-    'qxweb-build': 'qx.Website unminified build version generated.',
-    'qxweb-build-min': 'qx.Website minified build version generated.',
-    'qxweb-build-module-all': 'qx.Website unminified modular build version generated.',
-    'qxweb-build-module-all-min': 'qx.Website minified modular build version generated.'
-  };
-
-  for (var task in qxWebTasks) {
-    mergedConf.notify[task] = {
-      options: {
-        message: qxWebTasks[task]
-      }
-    };
-    grunt.task.renameTask(task, 'temp');
-    grunt.task.registerTask(
-      task,
-      'Generate the build version of qx.Website and the widget CSS',
-      ['generate:' + task, 'sass:indigo', 'notify:' + task]
-    );
-  }
 
   // pre-process the index file
   grunt.registerTask('process-api-html', 'A task to preprocess the index.html', function() {

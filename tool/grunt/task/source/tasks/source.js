@@ -102,7 +102,7 @@ function calculateRelPaths(packageJsonData, qxPath, appName, ns) {
 
 module.exports = function(grunt) {
 
-  grunt.registerTask('source', 'create source version of current application', function() {
+  grunt.registerMultiTask('source', 'create source version of current application', function() {
     var opts = this.options();
     // console.log(opts);
 

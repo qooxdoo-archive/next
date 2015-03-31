@@ -76,7 +76,7 @@ function renderLoaderTmpl(tmpl, ctx) {
 
 module.exports = function(grunt) {
 
-  grunt.registerTask('build', 'create build version of current application', function() {
+  grunt.registerMultiTask('build', 'create build version of current application', function() {
     var opts = this.options();
     // console.log(opts);
 
