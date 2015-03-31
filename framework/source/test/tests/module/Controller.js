@@ -369,24 +369,57 @@ describe("module.Controller", function() {
     assert.equal("A", sandbox.getChildren().getData("a"));
   });
 
-  it("two converter ", function() {
-    sandbox.setHtml("<div data-bind='{{not(not(a))}} -> data-a'></div>");
+  it("converter: and", function() {
+    sandbox.setHtml("<div data-bind='{{and(a, b)}} -> data-a'></div>");
     var ctrl = new qx.module.Controller(sandbox);
-    ctrl.a = false;
+
+    assert.isNull(sandbox.getChildren().getAttribute("data-a"));
+
+    ctrl.b = true;
     assert.isNull(sandbox.getChildren().getAttribute("data-a"));
 
     ctrl.a = true;
     assert.equal("data-a", sandbox.getChildren().getAttribute("data-a"));
+
+    ctrl.b = false;
+    assert.isNull(sandbox.getChildren().getAttribute("data-a"));
   });
 
-
-  it("three converter ", function() {
-    sandbox.setHtml("<div data-bind='{{not(not(not(a)))}} -> data-a'></div>");
+  it("converter: and with 3", function() {
+    sandbox.setHtml("<div data-bind='{{and(a, b, c)}} -> data-a'></div>");
     var ctrl = new qx.module.Controller(sandbox);
-    ctrl.a = true;
+
     assert.isNull(sandbox.getChildren().getAttribute("data-a"));
 
-    ctrl.a = false;
+    ctrl.a = true;
+    ctrl.b = true;
+    ctrl.c = true;
+    assert.equal("data-a", sandbox.getChildren().getAttribute("data-a"));
+  });
+
+  it("converter: or", function() {
+    sandbox.setHtml("<div data-bind='{{or(a, b)}} -> data-a'></div>");
+    var ctrl = new qx.module.Controller(sandbox);
+
+    assert.isNull(sandbox.getChildren().getAttribute("data-a"));
+
+    ctrl.b = true;
+    assert.equal("data-a", sandbox.getChildren().getAttribute("data-a"));
+
+    ctrl.a = true;
+    assert.equal("data-a", sandbox.getChildren().getAttribute("data-a"));
+
+    ctrl.b = false;
+    assert.equal("data-a", sandbox.getChildren().getAttribute("data-a"));
+  });
+
+  it("converter: or with 3", function() {
+    sandbox.setHtml("<div data-bind='{{or(a, b, c)}} -> data-a'></div>");
+    var ctrl = new qx.module.Controller(sandbox);
+
+    assert.isNull(sandbox.getChildren().getAttribute("data-a"));
+
+    ctrl.b = true;
     assert.equal("data-a", sandbox.getChildren().getAttribute("data-a"));
   });
 

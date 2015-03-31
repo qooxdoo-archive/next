@@ -41,6 +41,22 @@ qx.Class.define("qx.module.Controller", {
       return !data;
     },
 
+    and: function() {
+      var ret = true;
+      for (var i = 0; i < arguments.length; i++) {
+        ret = ret && !!arguments[i];
+      }
+      return ret;
+    },
+
+    or: function() {
+      var ret = false;
+      for (var i = 0; i < arguments.length; i++) {
+        ret = ret || !!arguments[i];
+      }
+      return ret;
+    },
+
     trim: function(data) {
       if (data && data.trim) {
         data = data.trim();
@@ -180,6 +196,18 @@ qx.Class.define("qx.module.Controller", {
     _getProperties: function(action, content, el) {
       var tagContents = this._getTagContent(content);
       var properties = tagContents.map(this._getProperty);
+      // parse multiplpe arguments
+      for (var i = properties.length - 1; i >= 0; i--) {
+        if (properties[i].indexOf(",") != -1) {
+          var split = properties[i].split(",");
+          split = split.map(function(data) {
+            return data.trim();
+          });
+          split.unshift(1);
+          split.unshift(i);
+          properties.splice.apply(properties, split);
+        }
+      }
       properties.forEach(function(property) {
         var init = null;
         if (el) {
@@ -211,24 +239,28 @@ qx.Class.define("qx.module.Controller", {
 
     _getValue: function(tagContent) {
       var property = this._getProperty(tagContent);
-      var value = qx.data.SingleValueBinding.resolvePropertyChain(this, property);
-      var converterList = [];
-      while(tagContent.indexOf("(") != -1) {
-        var converterName = tagContent.substring(0, tagContent.indexOf("("));
-        converterList.push(converterName);
-        tagContent = tagContent.replace(converterName + "(", ""); // remove name and opening bracket
-        tagContent = tagContent.substring(0, tagContent.length -1); // remove closing bracket
-      }
 
-      for (var i = converterList.length -1; i >= 0; i--) {
-        var convert = this.constructor[converterList[i]];
-        if (!convert) {
-          convert = qx.module.Controller[converterList[i]];
+      var converterName;
+      if (tagContent.indexOf("(") != -1) {
+        converterName = tagContent.substring(0, tagContent.indexOf("("));
+        var values = [];
+
+        var properties = property.split(",");
+        properties = properties.map(function(txt) {
+          return txt.trim();
+        });
+        for (var i = 0; i < properties.length; i++) {
+          values[i] = qx.data.SingleValueBinding.resolvePropertyChain(this, properties[i]);
         }
-        value = convert(value, this);
-      }
 
-      return value;
+        var convert = this.constructor[converterName];
+        if (!convert) {
+          convert = qx.module.Controller[converterName];
+        }
+        return convert.apply(this, values);
+      } else {
+        return qx.data.SingleValueBinding.resolvePropertyChain(this, property);
+      }
     },
 
 
@@ -308,6 +340,7 @@ qx.Class.define("qx.module.Controller", {
       el.removeAttribute(action);
 
       this._getProperties(action, content, el).forEach(function(property) {
+
         qx.data.SingleValueBinding.bind(this, property, el, widgetPropert, {
           converter: function(txt) {
             var tagContent = txt.substring(2, txt.length - 2);
