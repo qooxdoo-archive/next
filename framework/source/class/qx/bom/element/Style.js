@@ -62,7 +62,6 @@
  * Automatically normalizes cross-browser differences for setting and reading
  * CSS attributes. Optimized for performance.
  *
- * @require(qx.lang.String)
  * @require(qx.bom.client.Css)
  */
 qx.Class.define("qx.bom.element.Style",
