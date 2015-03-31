@@ -40,6 +40,7 @@
  * Augmentation key for tree.
  */
 var annotateKey = "isLoadTime";
+var additiveAnnotateKey = "staticMethodName";
 
 /**
  * Check whether node is <code>classDefined()</code> call.
@@ -82,25 +83,72 @@ function annotateStaticMethods(scope) {
         && otherScopes[i].block.parent.parent.parent.key.name
         && otherScopes[i].block.parent.parent.parent.key.name === "statics") {
       var methodName = otherScopes[i].block.parent.key.name;
+      // annotate the scopes itself to easily find
+      // the scope by method name later on during processing
+      otherScopes[i][additiveAnnotateKey] = methodName;
+      // build map for annotation simplification
       otherScopesByName[methodName] = otherScopes[i];
     }
   }
 
+  // TODO:
+  // the following is *not* generic and should be replaced with something
+  // more abstract but at the moment I don't know how to transform the
+  // (cyclic!) esprima nodes from escope back to a proper AST which
+  // could for example be processed with esquery (looking
+  // just for MemberExpression with the name 'statics')
+
+  var annotateMatchingScope = function(methName) {
+    if (otherScopesByName[methName]) {
+      otherScopesByName[methName][annotateKey] = true;
+    }
+  };
+
+  // reuse i
+  i = 0;
+  var j;
+  var k;
+  var curArg;
+  var curExpr;
+
   var body = scope.variableScope.block.body.body;
   if (body) {
     for (var line in body) {
-      if (body[line].type && body[line].type === "ExpressionStatement") {
-        // is there a call which looks like statics.xyz()?
-        if (body[line].expression
-            && body[line].expression.callee
-            && body[line].expression.callee.object
-            && body[line].expression.callee.object.name
-            && body[line].expression.callee.object.name === staticsArgName) {
-          // this is xyz
-          var staticMethod = body[line].expression.callee.property.name;
-          // now find the matching scope and annotate it
-          if (otherScopesByName[staticMethod]) {
-            otherScopesByName[staticMethod][annotateKey] = true;
+      // find expression statements which look like:
+      //    * statics.xyz()
+      //    * statics.xyz
+      if (body[line].expression
+          && body[line].expression.callee
+          && body[line].expression.callee.object
+          && body[line].expression.callee.object.name
+          && body[line].expression.callee.object.name === staticsArgName) {
+        // this is xyz
+        annotateMatchingScope(body[line].expression.callee.property.name);
+
+      }
+      // the reread tree after an Uglify2 pass changes the AST structure :/
+      if (body[line].expression
+          && body[line].expression.expressions
+          && body[line].expression.expressions.length !== 0) {
+        for (i in body[line].expression.expressions) {
+          curExpr = body[line].expression.expressions[i];
+          for (j in curExpr.arguments) {
+            curArg = body[line].expression.expressions[i].arguments[j];
+            if (curArg.type === "MemberExpression" && curArg.object.name === staticsArgName) {
+              // this is xyz
+              annotateMatchingScope(curArg.property.name);
+            }
+          }
+        }
+      }
+      if (body[line].expression
+          && body[line].expression.arguments
+          && body[line].expression.arguments.length !== 0) {
+        for (k in body[line].expression.arguments) {
+          curArg = body[line].expression.arguments[k];
+          if (curArg.type === "MemberExpression" && curArg.object.name === staticsArgName) {
+            // this is xyz
+            annotateMatchingScope(curArg.property.name);
           }
         }
       }
