@@ -364,7 +364,7 @@ qx.Class.define("qx.module.Controller", {
       this._getProperties(action, content, el).forEach(function(property) {
         qx.data.SingleValueBinding.bind(this, property, el, action, {
           converter: function(txt) {
-            return this.__textConverter(txt);
+            return this.__resolveConverter(txt);
           }.bind(this, content)
         });
 
@@ -387,13 +387,13 @@ qx.Class.define("qx.module.Controller", {
     __mapConverter: function(action, content, data) {
       var map = {};
       if (data != null) {
-        map[action] = this.__textConverter(content);
+        map[action] = this.__resolveConverter(content);
       }
       return map;
     },
 
 
-    __textConverter : function(content) { // TODO rename
+    __resolveConverter : function(content) {
       var tagContents = this._getTagContent(content);
 
       for (var i = 0; i < tagContents.length; i++) {
