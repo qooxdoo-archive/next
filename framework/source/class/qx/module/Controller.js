@@ -427,6 +427,32 @@ qx.Class.define("qx.module.Controller", {
 
       qx.Class.addProperties(this, config);
       this.__modelProperties.push(property);
+    },
+
+
+    filterModel: function(sourceModel, targetModel, filterModels, filter) {
+      if (this.__modelProperties.indexOf(targetModel) == -1) {
+        this.addModel(targetModel);
+      }
+
+      var converter = function() {
+        var data;
+        if (this[sourceModel]) {
+          data = this[sourceModel].filter(filter.bind(this));
+        }
+        return data;
+      }.bind(this);
+
+      q.data.bind(this, sourceModel, this, targetModel, {converter: converter});
+      q.data.bind(this, sourceModel + ".length", this, targetModel, {converter: converter});
+
+      if (qx.Class.getClass(filterModels) != "Array") {
+        filterModels = [filterModels];
+      }
+
+      filterModels.forEach(function(model) {
+        q.data.bind(this, model, this, targetModel, {converter: converter});
+      }.bind(this));
     }
   },
 

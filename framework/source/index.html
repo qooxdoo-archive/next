@@ -46,14 +46,7 @@
         return data;
       };
 
-      qx.module.Controller.reverse = function(data) {
-        if (data) {
-          data.reverse();
-        }
-        return data;
-      };
-
-      ctrl = q(document.body).controller();
+      window.ctrl = q(document.body).controller();
 
       ctrl.taptap = function(evt, el) {
         el.setStyle("color", "red");
@@ -61,13 +54,17 @@
 
       ctrl.postfix = "!!!";
       ctrl.test = qx.data.marshal.Json.createModel({name: "model value"});
-
-      ctrl.listModel = new qx.data.Array(["a", "b", "c"]);
+      ctrl.addModel("listModel");
+      ctrl.listModel = new qx.data.Array(["abc", "bcd", "cde", "def", "efg", "fgh"]);
 
       // JSON loading
       var store = new qx.data.store.Json("resource/qx/test/primitive.json");
       ctrl.addModel("primitive", null);
       qx.data.SingleValueBinding.bind(store, "model", ctrl, "primitive");
+
+      ctrl.filterModel("listModel", "filteredListModel", ["filter"], function(item) {
+        return item.indexOf(this.filter || "") != -1;
+      });
     });
   </script>
 </head>
@@ -87,8 +84,9 @@
 
   <div>
     <h3>Repeat</h3>
-    <ul data-repeat="{{listModel}}">
-      <li data-bind="{{listModel[$index]}} -> html; {{mycolor}} -> style.color;"></li>
+    <p><lable>Filter:</lable><input type="text" data-bind="{{filter}} <-> value"></p>
+    <ul data-repeat="{{filteredListModel)}}">
+      <li data-bind="{{filteredListModel[$index]}} -> html; {{mycolor}} -> style.color;"></li>
     </ul>
   </div>
 
@@ -142,7 +140,7 @@
     <p data-bind="The slider value is {{slider}}. -> html"></p>
     <div
       data-qx-widget="qx.ui.List"
-      data-bind="{{reverse(listModel)}} -> data-qx-config-model"></div>
+      data-bind="{{listModel}} -> data-qx-config-model"></div>
     <p data-bind="{{not(listModel.length)}} -> class.hidden">
       # <span data-bind="{{listModel.length}} -> html"></span> Items in the list
     </p>

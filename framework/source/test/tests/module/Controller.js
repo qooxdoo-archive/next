@@ -492,6 +492,33 @@ describe("module.Controller", function() {
     assert.equal("A", ctrl.a);
   });
 
+  it("filter", function() {
+    var ctrl = new qx.module.Controller(sandbox);
+    ctrl.addModel("data");
+    ctrl.addModel("query");
+
+    ctrl.data = new qx.data.Array(["a", "ab", "abc"]);
+    ctrl.filterModel("data", "filtered", "query", function(item) {
+      return item.indexOf(this.query || "") != -1;
+    });
+
+    assert.equal(3, ctrl.filtered.length);
+
+    ctrl.query = "b";
+    assert.equal(2, ctrl.filtered.length);
+
+    ctrl.query = "bc";
+    assert.equal(1, ctrl.filtered.length);
+
+    ctrl.query = "bcd";
+    assert.equal(0, ctrl.filtered.length);
+
+    ctrl.data.push("bcd");
+    assert.equal(1, ctrl.filtered.length);
+
+    ctrl.query = "";
+    assert.equal(4, ctrl.filtered.length);
+  });
 
 
   // DATA REPEAT
