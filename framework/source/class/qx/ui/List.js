@@ -419,17 +419,17 @@ qx.Class.define("qx.ui.List",
 
         template = qxWeb.create(template);
 
-        // get app
-        var app;
+        // get controller
+        var ctrl;
         var parent = this;
-        while (!app && parent.length > 0) {
+        while (!ctrl && parent.length > 0) {
           if (parent[0].$$controller) {
-            app = parent[0].$$controller;
+            ctrl = parent[0].$$controller;
           }
           parent = parent.getParents();
         }
 
-        app._setUp(template); // TODO no protected
+        ctrl._setUp(template); // TODO no protected
       } else {
         template = qxWeb.template.renderToNode(template, data);
         template.find("[data-qx-widget]").forEach(function(el) {
