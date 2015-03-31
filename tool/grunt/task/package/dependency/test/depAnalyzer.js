@@ -105,7 +105,7 @@ module.exports = {
       test.done();
     },
 
-    dependenciesFromAst: function (test) {
+    dependenciesFromScope: function (test) {
       var scope = {
         through: [
           {},
@@ -113,7 +113,7 @@ module.exports = {
         ]
       };
 
-      test.strictEqual(this.depAnalyzer.dependenciesFromAst(scope).length, 1);
+      test.strictEqual(this.depAnalyzer.dependenciesFromScope(scope).length, 1);
 
       test.done();
     },

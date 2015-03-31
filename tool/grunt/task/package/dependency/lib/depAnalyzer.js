@@ -341,7 +341,7 @@ function assemble(varNode, withMethodName) {
  * @see {@link http://constellation.github.io/escope/Reference.html|Reference class}
  * @see {@link http://esprima.org/doc/#ast|esprima AST}
  */
-function dependenciesFromAst(scope) {
+function dependenciesFromScope(scope) {
   var dependencies = [];
 
   if (scope && scope.through) {
@@ -862,7 +862,7 @@ module.exports = {
       return scopesByName;
     };
     var discoverRefsWithinStaticMethod = function(curScope, scopesByStaticMethodName) {
-      var loadTimeScopesRefs = dependenciesFromAst(curScope);
+      var loadTimeScopesRefs = dependenciesFromScope(curScope);
       var deps = [];
       var j = 0;
       var fqClassNameOrMethodName = '';
@@ -998,9 +998,9 @@ module.exports = {
     }
 
     // deps from Scope
-    scopesRef = dependenciesFromAst(globalScope);
+    scopesRef = dependenciesFromScope(globalScope);
     if (opts && opts.variants) {
-      scopesRefOptimized = dependenciesFromAst(globalScopeOptimized);
+      scopesRefOptimized = dependenciesFromScope(globalScopeOptimized);
     }
 
     // top level atHints from tree
