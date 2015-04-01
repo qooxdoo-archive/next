@@ -57,6 +57,14 @@ qx.Class.define("qx.module.Controller", {
       return ret;
     },
 
+    is: function(value, comp) {
+      return value == comp;
+    },
+
+    isNot: function(value, comp) {
+      return value != comp;
+    },
+
     trim: function(data) {
       if (data && data.trim) {
         data = data.trim();
@@ -203,6 +211,11 @@ qx.Class.define("qx.module.Controller", {
           split = split.map(function(data) {
             return data.trim();
           });
+          // get rid of literals
+          split = split.filter(function(prop) {
+            return prop[0] != "'" && prop[0] != '"';
+          });
+          console.log(split);
           split.unshift(1);
           split.unshift(i);
           properties.splice.apply(properties, split);
@@ -250,7 +263,12 @@ qx.Class.define("qx.module.Controller", {
           return txt.trim();
         });
         for (var i = 0; i < properties.length; i++) {
-          values[i] = qx.data.SingleValueBinding.resolvePropertyChain(this, properties[i]);
+          // check for literal values
+          if (properties[i][0] == "'" || properties[i][0] == '"') {
+            values[i] = properties[i].substring(1, properties[i].length -1);
+          } else {
+            values[i] = qx.data.SingleValueBinding.resolvePropertyChain(this, properties[i]);
+          }
         }
 
         var convert = this.constructor[converterName];
