@@ -28,6 +28,38 @@ qx.Class.define("qx.module.DataBinding", {
 
     createOfflineStore : function(key, storage) {
       return new qx.data.store.Offline(key, storage);
+    },
+
+    define: function(name, config) {
+      var bubbling = !!config.bubbling;
+      delete config.bubbling;
+
+      // extend
+      if (config.extend === undefined) {
+        config.extend = qx.event.Emitter;
+      }
+
+      // include
+      if (config.include === undefined) {
+        config.include = [qx.data.marshal.MEventBubbling];
+      } else if (qx.Class.getClass(config.include) == "Array") {
+        config.include.push(qx.data.marshal.MEventBubbling);
+      } else {
+        config.include = [qx.data.marshal.MEventBubbling, config.include];
+      }
+
+
+      // update properties
+      for (var property in config.properties) {
+        if (config.properties[property].event === undefined) {
+          config.properties[property].event = true;
+        }
+        if (bubbling) {
+          config.properties[property].apply = "_applyEventPropagation";
+        }
+      }
+
+      return qx.Class.define(name, config);
     }
   },
 
@@ -39,6 +71,9 @@ qx.Class.define("qx.module.DataBinding", {
         createJsonStore : statics.createJsonStore,
         createOfflineStore : statics.createOfflineStore,
         createModel : qx.data.marshal.Json.createModel
+      },
+      model: {
+        define: statics.define
       }
     });
   }
