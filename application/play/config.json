@@ -82,14 +82,6 @@
 
       "environment" : {
         "qx.theme" : "${MOBILE_THEME}"
-      },
-
-      "compile-options" :
-      {
-        "paths" :
-        {
-          "loader-template" : "${QOOXDOO_PATH}/tool/data/generator/mobile.loader.tmpl.js"
-        }
       }
     },
 

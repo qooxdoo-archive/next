@@ -363,4 +363,28 @@ describe("ui.Widget", function() {
 
     widget.dispose();
   });
+
+
+  it("Wrapper", function() {
+    var w0 = q.create('<div id="w0" class="wrapped">').toWidget().appendTo(sandbox);
+    var w1 = q.create('<div id="w1" class="wrapped">').toWidget().appendTo(sandbox);
+
+    var wrapper = q(".wrapped").toWidgetCollection();
+    assert.instanceOf(wrapper, qx.core.Wrapper);
+    assert.equal(wrapper.length, 2);
+    assert.equal(wrapper[0], w0);
+    assert.equal(wrapper[1], w1);
+
+    assert.equal(wrapper.getAttribute("id"), "w0");
+
+    wrapper.set({enabled: false});
+    assert.isTrue(w0.hasClass("disabled"));
+    assert.isTrue(w1.hasClass("disabled"));
+
+    var spy = sinon.spy();
+    wrapper.on("removedFromParent", spy).remove();
+    sinon.assert.calledTwice(spy);
+    assert.equal(spy.firstCall.thisValue, w0);
+    assert.equal(spy.secondCall.thisValue, w1);
+  });
 });

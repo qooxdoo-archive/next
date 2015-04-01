@@ -605,8 +605,6 @@ qx.Class.define("qx.io.request.Script",
 
 
   classDefined : function() {
-    if (qx && qx.core && qx.core.Environment) {
-      qx.core.Environment.add("qx.debug.io", false);
-    }
+    qx.core.Environment.add("qx.debug.io", false);
   }
 });

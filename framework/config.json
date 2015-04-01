@@ -8,9 +8,6 @@
       "block" : ["build"]
     },
     {
-      "path" : "./server.json"
-    },
-    {
       "path" : "./website.json"
     }
   ],
@@ -31,13 +28,8 @@
     "fix",
     "info",
     "lint",
-    "npm-package-copy",
-    "npm-package-publish",
-    "npm-package-test",
     "provider",
     "pretty-test",
-    "qxserver-build",
-    "qxserver-build-min",
     "qxweb-build",
     "qxweb-build-min",
     "qxweb-build-module-all",

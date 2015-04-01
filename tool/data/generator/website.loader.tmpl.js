@@ -1,5 +1,5 @@
 (function(){
-if (!window.qx) window.qx = {};
+if (!window.qx) window.qx = (window.qxWeb && window.qxWeb.$$qx) ? window.qxWeb.$$qx : {};
 var qx = window.qx;
 
 if (!qx.$$environment) qx.$$environment = {};

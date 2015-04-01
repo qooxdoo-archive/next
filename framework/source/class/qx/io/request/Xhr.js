@@ -297,6 +297,12 @@ qx.Class.define("qx.io.request.Xhr",
     getResponseHeader: function(header) {
       this.__checkDisposed();
 
+      if (qx.core.Environment.get("browser.documentmode") === 9 &&
+        this.__nativeXhr.aborted)
+      {
+        return "";
+      }
+
       return this.__nativeXhr.getResponseHeader(header);
     },
 
@@ -308,6 +314,12 @@ qx.Class.define("qx.io.request.Xhr",
      */
     getAllResponseHeaders: function() {
       this.__checkDisposed();
+
+      if (qx.core.Environment.get("browser.documentmode") === 9 &&
+        this.__nativeXhr.aborted)
+      {
+        return "";
+      }
 
       return this.__nativeXhr.getAllResponseHeaders();
     },
@@ -539,6 +551,7 @@ qx.Class.define("qx.io.request.Xhr",
       this.__checkDisposed();
 
       this._isAbort = true;
+      this.__nativeXhr.aborted = true;
       this.__nativeXhr.abort();
 
       if (this.__nativeXhr) {

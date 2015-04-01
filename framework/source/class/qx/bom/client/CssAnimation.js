@@ -23,8 +23,6 @@
  *
  * Spec: http://www.w3.org/TR/css3-animations/
  *
- * @require(qx.bom.Style)
- * @require(qx.bom.Stylesheet)
  * @internal
  */
 qx.Class.define("qx.bom.client.CssAnimation",

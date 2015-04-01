@@ -21,20 +21,13 @@ module.exports = function(grunt) {
         "qx.revision":"",
         "qx.theme": "<%= common.THEME %>",
         "qx.version":"<%= common.QOOXDOO_VERSION %>"
-      },
-      "BUILD_PATH": "<%= common.ROOT %>/build-indigo",
-    },
-
-    clean: {
-      build: ["./build-<%= common.THEME %>"]
+      }
     },
 
     source: {
       default: {
         options: {
           includes: ["<%= common.APPLICATION_MAIN_CLASS %>"],
-          loaderTemplate: "<%= common.QOOXDOO_PATH %>/tool/data/generator/mobile.loader.tmpl.js",
-          addCss: ["./themedigo.css"]
         }
       }
     },
@@ -42,9 +35,6 @@ module.exports = function(grunt) {
       default: {
         options: {
           includes: ["<%= common.APPLICATION_MAIN_CLASS %>"],
-          loaderTemplate: "<%= common.QOOXDOO_PATH %>/tool/data/generator/mobile.loader.tmpl.js",
-          addCss: ["./theme/indigo.css"],
-          buildPath: "./build-<%= common.THEME %>"
         }
       }
     }

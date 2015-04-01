@@ -241,23 +241,6 @@ Once the final build has been made, you can put the demos created in the above s
 
 This will create the appropriate *version* subdirectory on the *demo* web server, and copy all demos underneath it, together with an *index.html* in a suitable form.
 
-
-.. _pages/project/release_how_to_build.rst#publish_the_qx-oo_package_with_npm:
-
-Publish qx-oo at NPM
-====================
-
-As soon as you have built and tested the npm package, run ``npm publish`` to upload the version. Here are the steps to achieve all that:
-
-* Make sure `Node.js <http://nodejs.org>`_ and `npm <npmjs.org>`_ is installed (tested to work with 0.6.4/1.1.13).
-* Change to ``component/standalone/server``.
-* Make sure the ``qx-oo-%{version}.js`` has been built (in /script).
-* Run ``generate.py npm-package-copy``.
-* Run ``generate.py npm-package-publish`` (needs the qooxdoo user account).
-* Check if it worked in the `online registry <http://search.npmjs.org/>`_.
-* More details can be found in the `npm documentation <https://npmjs.org/doc/misc/npm-developers.html>`_.
-
-
 .. _pages/project/release_how_to_build.rst#release_it_at_maven_central:
 
 Publish SDK at Maven Central

@@ -24,6 +24,7 @@
  * Spec: http://www.w3.org/TR/css3-transitions/
  *
  * @internal
+ * @ignore(qx.bom.Event)  // cyclic dep
  */
 qx.Class.define("qx.bom.client.CssTransition",
 {

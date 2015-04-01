@@ -63,33 +63,14 @@ module.exports = function(grunt) {
           "framework/Gruntfile.js"
         ]
       },
-      eslint_apps_ci: {
-        options: {
-          log: true,
-          task: ["eslint:ci"],
-          process: function(res) {
-            if (res.fail) {
-              grunt.log.writeln('Error during eslinting (ci) all applications');
-            }
-          }
-        },
-        src: [
-          "application/play/Gruntfile.js",
-          "application/mobileshowcase/Gruntfile.js",
-          "tool/grunt/Gruntfile.js",
-          "framework/Gruntfile.js"
-        ]
-      }
     }
   });
 
   // alias
   grunt.registerTask('lint', 'run_grunt:lint_apps');
   grunt.registerTask('eslint', 'run_grunt:eslint_apps');
-  grunt.registerTask('eslintci', 'run_grunt:eslint_apps_ci');
   grunt.registerTask('clean', 'run_grunt:clean_apps');
   grunt.registerTask('build', 'run_grunt:build_apps');
-
 
   // run toolchain tests
   grunt.task.registerTask (

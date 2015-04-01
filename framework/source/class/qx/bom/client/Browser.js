@@ -54,7 +54,6 @@
  * This class is used by {@link qx.core.Environment} and should not be used
  * directly. Please check its class comment for details how to use it.
  *
- * @require(qx.bom.client.OperatingSystem#getVersion)
  * @internal
  */
 qx.Class.define("qx.bom.client.Browser",
