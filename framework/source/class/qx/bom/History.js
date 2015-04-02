@@ -189,37 +189,6 @@ qx.Class.define("qx.bom.History",
     },
 
 
-    /**
-     * Encodes the state value into a format suitable as fragment identifier.
-     *
-     * @param value {String} The string to encode
-     * @return {String} The encoded string
-     */
-    _encode : function (value) {
-      if (qx.lang.Type.isString(value)) {
-        return encodeURIComponent(value);
-      }
-
-      return "";
-    },
-
-
-    /**
-     * Decodes a fragment identifier into a string
-     *
-     * @param value {String} The fragment identifier
-     * @return {String} The decoded fragment identifier
-     */
-    _decode : function (value)
-    {
-      if (qx.lang.Type.isString(value)) {
-        return decodeURIComponent(value);
-      }
-
-      return "";
-    },
-
-
     // property apply
     _applyTitle : function (title)
     {

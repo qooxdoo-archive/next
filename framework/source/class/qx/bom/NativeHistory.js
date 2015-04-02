@@ -79,7 +79,7 @@ qx.Class.define("qx.bom.NativeHistory",
      * @return {String} current state of the browser history
      */
     _readState : function() {
-      return this._decode(this._getHash());
+      return this._getHash();
     },
 
 
@@ -89,7 +89,7 @@ qx.Class.define("qx.bom.NativeHistory",
      * @param state {String} state to save
      */
     _writeState : function (state) {
-      this._setHash(this._encode(state));
+      this._setHash(state);
     },
 
 

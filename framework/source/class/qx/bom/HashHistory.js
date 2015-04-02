@@ -173,8 +173,7 @@ qx.Class.define("qx.bom.HashHistory",
      * @return {String} current state of the browser history
      */
     _readState : function() {
-      var hash = !this._getHash() ? "" : this._getHash().substr(1);
-      return this._decode(hash);
+      return !this._getHash() ? "" : this._getHash().substr(1);
     },
 
 
@@ -201,7 +200,7 @@ qx.Class.define("qx.bom.HashHistory",
      */
     _writeState : function(state)
     {
-      this._setHash(this._encode(state));
+      this._setHash(state);
     },
 
 
