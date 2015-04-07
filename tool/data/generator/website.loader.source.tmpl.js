@@ -31,10 +31,10 @@ for (var id in packages) {
     if (uri.indexOf("__out__") != -1) {
       continue;
     }
-    if (window.ActiveXObject) {
-      var request = new window.ActiveXObject("Microsoft.XMLHTTP");
+    if (window.XMLHttpRequest) {
+      var request = new XMLHttpRequest();
     } else {
-     var request = new XMLHttpRequest();
+      var request = new window.ActiveXObject("Microsoft.XMLHTTP");
     }
     request.open("GET", uri, false);
     request.send(null);
@@ -55,7 +55,7 @@ if (exp) {
     var root = window;
     for (var i=0; i < c.length; i++) {
       root = root[c[i]];
-    };
+    }
     window[name] = root;
   }
 }

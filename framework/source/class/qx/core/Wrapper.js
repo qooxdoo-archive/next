@@ -18,7 +18,9 @@
 qx.Class.define("qx.core.Wrapper", {
   extend : Array,
   construct : function() {
-    this.push.apply(this, arguments);
+    for (var i=0, l=arguments.length; i<l; i++) {
+      this.push(arguments[i]);
+    }
 
     var firstItem = arguments[0];
     for (var name in firstItem) {

@@ -139,6 +139,26 @@ var _MRequest = function() {
       sinon.assert.calledWith(req._open, "GET", "url?affe=true");
     },
 
+    "append FormData to URL with POST request": function() {
+      // see beforeEach()
+      req = this.test.req;
+
+      if (req instanceof qx.io.request.Jsonp) {
+        this.test.skipped = true;
+        return;
+      }
+
+      var formData = new FormData();
+      formData.append("foo", "bar");
+      formData.append("baz", "qux");
+
+      req.method = "POST";
+      req.requestData = formData;
+      req.send();
+
+      sinon.assert.calledWith(req._send, formData);
+    },
+
     //
     // Header and Params
     //

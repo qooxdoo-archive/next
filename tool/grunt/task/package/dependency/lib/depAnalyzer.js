@@ -341,14 +341,16 @@ function assemble(varNode, withMethodName) {
  * @see {@link http://constellation.github.io/escope/Reference.html|Reference class}
  * @see {@link http://esprima.org/doc/#ast|esprima AST}
  */
-function dependenciesFromAst(scope) {
+function dependenciesFromScope(scope) {
   var dependencies = [];
 
-  scope.through.forEach( function (ref) {
-    if (!ref.resolved) {
-      dependencies.push(ref);
-    }
-  });
+  if (scope && scope.through) {
+    scope.through.forEach( function(ref) {
+      if (!ref.resolved) {
+        dependencies.push(ref);
+      }
+    });
+  }
 
   return dependencies;
 }
@@ -763,6 +765,8 @@ module.exports = {
       'load': [],
       'run': []
     };
+    var allScopes = {};
+    var allScopesOptimized = {};
     var globalScope = {};
     var globalScopeOptimized = {};
     var scopesRef = {};
@@ -783,27 +787,151 @@ module.exports = {
       }
     };
     var collectPrioritizedDeps = function(scopeRefs) {
-      var classIdRegexp = /.*?[A-Z]\w+/;
+      var classIdRegex = /.*?[A-Z]\w+/;
       var prioDeps = [];
 
-      for (var j = 0; j < scopeRefs.length; j++) {
-        var currScopeRef = scopeRefs[j];
-        var currRef;
-        var currPrioDepClassId;
+      for (var i = 0; i < scopeRefs.length; i++) {
+        var curScopeRef = scopeRefs[i];
+        var curRef;
+        var curPrioDepClassId;
+        var seenIdentifiers = [];
 
-        if (currScopeRef.isLoadTime) {
-          currRef = escodegen.generate(currScopeRef.identifier.parent.parent);
+        // ignore global scope
+        if (curScopeRef.from.type === "global") {
+          continue;
+        }
 
-          if (classIdRegexp.test(currRef)) {
-            currPrioDepClassId = classIdRegexp.exec(currRef)[0];
+        if (curScopeRef.isLoadTime) {
+          // TODO:
+          // replace with generateCodeAsc(), cause this is hardcoded
+          // for something that has exact three parts (e.g. qx.core.Environment).
+          curRef = escodegen.generate(curScopeRef.identifier.parent.parent);
+          if (seenIdentifiers.indexOf(curRef) !== -1) {
+            continue;
           }
-          // console.log(currPrioDepClassId);
-          prioDeps.push(currPrioDepClassId);
+          seenIdentifiers.push(curRef);
+
+          if (classIdRegex.test(curRef)) {
+            curPrioDepClassId = classIdRegex.exec(curRef)[0];
+            prioDeps.push(curPrioDepClassId);
+          }
         }
       }
 
-      return _.uniq(prioDeps);
+      return prioDeps;
     };
+    var generateCodeAsc = function(node, subNode, exitCondFunc) {
+      var code = escodegen.generate(node[subNode]);
+
+      if (code.indexOf(" ") !== -1) {
+        // this seems to be a global symbol and code is now
+        // more than a MemberExpression (e.g. 'typeof myFoo').
+        return code.substring(code.indexOf(" ")+1);
+      }
+
+      if (!exitCondFunc(code)) {
+        return generateCodeAsc(node[subNode], subNode, exitCondFunc);
+      }
+
+      // this is a legal MemberExxpression with dots
+      // (e.g. 'qx.foo.Bar')
+      return code;
+    };
+    var isForeignClassOrStaticMethod = function(stringToCheck) {
+      if (stringToCheck === tree.qxClassName) {
+        return false;
+      } else if (stringToCheck.indexOf(tree.qxClassName) === 0) {
+        return true;
+      } else {
+        return /([^.]+\.)+[A-Z][^.]+/.test(stringToCheck);
+      }
+    };
+    var getAllScopesByStaticMethodName = function(allScopes) {
+      var scopesByName = {};
+      var curScope = {};
+      var i = 1;
+
+      // start after global scope (i=1)
+      for (; i < allScopes.length; i++) {
+        curScope = allScopes[i];
+        // for 'staticMethodName' see loadTimeAnnotator
+        if (curScope.staticMethodName) {
+          scopesByName[curScope.staticMethodName] = curScope;
+        }
+      }
+      return scopesByName;
+    };
+    var discoverRefsWithinStaticMethod = function(curScope, scopesByStaticMethodName) {
+      var loadTimeScopesRefs = dependenciesFromScope(curScope);
+      var deps = [];
+      var j = 0;
+      var fqClassNameOrMethodName = '';
+      var methodName = '';
+
+      var filteredScopeRefs = util.pipeline(loadTimeScopesRefs,
+        _.partial(util.filter, notBuiltin),     // e.g. document, window, undefined ...
+        _.partial(util.filter, notQxInternal)   // e.g. qx.$$libraries, qx$$resources ...
+        // check library classes
+      );
+
+      for (; j < filteredScopeRefs.length; j++) {
+        fqClassNameOrMethodName = generateCodeAsc(
+          filteredScopeRefs[j].identifier,
+          "parent",
+          isForeignClassOrStaticMethod
+        );
+
+        // ignore:
+        //   * private member vars
+        //   * private constants
+        //   * constants
+        //   * dynamic access
+        if (/__[a-z]+$|(__)?[A-Z_]+$/.test(fqClassNameOrMethodName)
+            || fqClassNameOrMethodName.indexOf("[") !== -1) {
+          continue;
+        }
+
+        if (fqClassNameOrMethodName.indexOf(tree.qxClassName) === 0) {
+          // it's a method name
+          methodName = fqClassNameOrMethodName.substring(fqClassNameOrMethodName.lastIndexOf('.')+1);
+          deps.push(discoverRefsWithinStaticMethod(scopesByStaticMethodName[methodName], scopesByStaticMethodName));
+        } else {
+          // it's a class name
+          deps.push(fqClassNameOrMethodName);
+        }
+      }
+
+      return _.uniq(_.flatten(deps));
+    };
+    var collectPrioritizedDepsFromClassDefined = function(allScopes) {
+      var scopesByStaticMethodName = getAllScopesByStaticMethodName(allScopes);
+      var staticDeps = [];
+      var hasKeys = function(map) {
+        return Object.keys(map).length >= 1;
+      };
+      var methodName = '';
+      var curScope = {};
+      var refs = [];
+
+      if (hasKeys(scopesByStaticMethodName)) {
+        for (methodName in scopesByStaticMethodName) {
+          curScope = scopesByStaticMethodName[methodName];
+
+          if (curScope.isLoadTime) {
+            refs = discoverRefsWithinStaticMethod(curScope, scopesByStaticMethodName);
+            if (refs.length > 1) {
+              staticDeps.push(refs);
+              staticDeps = _.uniq(_.flatten(staticDeps));
+            }
+          }
+        }
+      }
+
+      return staticDeps;
+    };
+
+    // >>> processing starts here <<<
+    // ------------------------------
 
     // replace env calls with their value
     if (opts && opts.variants) {
@@ -855,9 +983,11 @@ module.exports = {
     // ignore eval scopes for now because they are subject to different
     // scoping rules. When really in need for eval you should know what
     // you're doing, anyway!
-    globalScope = escope.analyze(tree, {ignoreEval:true}).scopes[0];
+    allScopes = escope.analyze(tree, {ignoreEval:true}).scopes;
+    globalScope = allScopes[0];
     if (opts && opts.variants) {
-      globalScopeOptimized = escope.analyze(treeOptimized, {ignoreEval:true}).scopes[0];
+      allScopesOptimized = escope.analyze(treeOptimized, {ignoreEval:true}).scopes;
+      globalScopeOptimized = allScopesOptimized[0];
     }
 
     parentAnnotator.annotate(tree);
@@ -868,9 +998,9 @@ module.exports = {
     }
 
     // deps from Scope
-    scopesRef = dependenciesFromAst(globalScope);
+    scopesRef = dependenciesFromScope(globalScope);
     if (opts && opts.variants) {
-      scopesRefOptimized = dependenciesFromAst(globalScopeOptimized);
+      scopesRefOptimized = dependenciesFromScope(globalScopeOptimized);
     }
 
     // top level atHints from tree
@@ -893,31 +1023,21 @@ module.exports = {
       );
     }
 
-    var classIdRegex = /.*?[A-Z]\w+/;
-    for (var i = 0; i < filteredScopeRefs.length; i++) {
-      var curScopeRef = filteredScopeRefs[i];
-      var curRef;
-      var curPrioDepClassId;
-
-      if (curScopeRef.isLoadTime) {
-        curRef = escodegen.generate(curScopeRef.identifier.parent.parent);
-
-        if (classIdRegex.test(curRef)) {
-          curPrioDepClassId = classIdRegex.exec(curRef)[0];
-        }
-        // console.log(curPrioDepClassId);
-        deps.prio = curPrioDepClassId;
-        if (opts && opts.variants) {
-          depsOptimized.prio = curPrioDepClassId;
-        }
-      }
-    }
-
+    // find prio deps, i.e. refs annotated with isLoadTime=true
     deps.prio = collectPrioritizedDeps(filteredScopeRefs);
     if (opts && opts.variants) {
       depsOptimized.prio = collectPrioritizedDeps(filteredScopeRefsOptimized);
     }
 
+    // find prio deps which are deps from a static method call within classDefined()
+    var classDefinedDeps = collectPrioritizedDepsFromClassDefined(allScopes);
+    deps.prio = _.uniq(deps.prio.concat(classDefinedDeps));
+    if (opts && opts.variants) {
+      var classDefinedDepsOptimized = collectPrioritizedDepsFromClassDefined(allScopesOptimized);
+      depsOptimized.prio = _.uniq(depsOptimized.prio.concat(classDefinedDepsOptimized));
+    }
+
+    // remove prio deps from run (cause they already end up in load)
     deps.load = filteredScopeRefs.filter(notRuntime);
     deps.run = _.difference(filteredScopeRefs, deps.load);
     if (opts && opts.variants) {
@@ -936,11 +1056,19 @@ module.exports = {
     }
 
     // unify
+    deps.prio = unify(deps.prio, tree.qxClassName);
     deps.load = unify(deps.load, tree.qxClassName);
     deps.run = unify(deps.run, tree.qxClassName);
     if (opts && opts.variants) {
+      depsOptimized.prio = unify(depsOptimized.prio, tree.qxClassName);
       depsOptimized.load = unify(depsOptimized.load, tree.qxClassName);
       depsOptimized.run = unify(depsOptimized.run, tree.qxClassName);
+    }
+
+    // add prio classes to load
+    deps.load = _.union(deps.load, deps.prio);
+    if (opts && opts.variants) {
+      depsOptimized.load = _.union(depsOptimized.load, depsOptimized.prio);
     }
 
     // add/remove deps according to atHints
@@ -1076,6 +1204,9 @@ module.exports = {
         return findUnresolvedDeps(tree, envMap, cache, basePaths, {flattened: false, variants: opts.variants});
       };
 
+      // >>> processing starts here <<<
+      // ------------------------------
+
       var i = 0;
       var l = classIds.length;
       var curCacheId = '';
@@ -1114,7 +1245,7 @@ module.exports = {
           classDeps = figureOutDeps(classIds[i], basePaths);
         }
 
-        prioClassIds = _.uniq(prioClassIds.concat(classDeps.prio));
+        prioClassIds = _.union(prioClassIds, classDeps.prio);
 
         // Note: Excluded classes will still be entries in load and run deps!
         // Maybe it's better to remove them here too ...
@@ -1124,7 +1255,7 @@ module.exports = {
         var loadAndRun = classDeps.load.concat(classDeps.run);
         for (var j=0; j<loadAndRun.length; j++) {
           var dep = loadAndRun[j];
-          // console.log("  ", dep);
+          // console.log(" -> ", dep);
 
           // only recurse non-skipped and non-excluded classes
           if (!isMatching(dep, seenOrSkippedClasses.concat(excludedClassIds))) {

@@ -8,12 +8,6 @@
       "block" : ["build"]
     },
     {
-      "path" : "image.json"
-    },
-    {
-      "path" : "./server.json"
-    },
-    {
       "path" : "./website.json"
     }
   ],
@@ -32,16 +26,10 @@
     "compile-framework-scss",
     "distclean",
     "fix",
-    "images",
     "info",
     "lint",
-    "npm-package-copy",
-    "npm-package-publish",
-    "npm-package-test",
     "provider",
     "pretty-test",
-    "qxserver-build",
-    "qxserver-build-min",
     "qxweb-build",
     "qxweb-build-min",
     "qxweb-build-module-all",
@@ -170,12 +158,6 @@
     "provider-deps" :
     {
       "include" : [ "q", "qxWeb" ]
-    },
-
-    "images" :
-    {
-      "desc" : "clip and combine all images used in the framework",
-      "run" : [ "image-clipping", "image-combine" ]
     },
 
     "api" :

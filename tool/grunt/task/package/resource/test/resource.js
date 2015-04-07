@@ -47,24 +47,6 @@ module.exports = {
       done();
     },
 
-    findResourceMetaFiles: function(test) {
-      var actual = this.res.findResourceMetaFiles('test/data/myapp');
-      var expected = ['source/resource/myapp/tree-combined.meta'];
-
-      test.deepEqual(actual, expected);
-
-      test.done();
-    },
-
-    processMetaFiles: function(test) {
-      var metaFile = ['source/resource/myapp/tree-combined.meta'];
-      var actual = this.res.processMetaFiles(metaFile, 'test/data/myapp');
-
-      test.equal(Object.keys(actual).length, 4);
-
-      test.done();
-    },
-
     basePathForNsExistsOrError: function(test) {
       var namespaces = ['myapp', 'qx'];
       var resBasePathMap = {myapp:[], qx:[]};

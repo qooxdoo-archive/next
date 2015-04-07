@@ -22,7 +22,7 @@ if (typeof process !== 'undefined') {
 var skipAfterTest = function(suiteTitle, testTitle) {
   var suites = qxWeb(".suite");
   for (var i = 0; i < suites.length; i++) {
-    if (suiteTitle.indexOf(suites[i].children[0].textContent) === 0) {
+    if (suiteTitle == suites[i].children[0].textContent) {
       qxWeb(suites[i]).find("h2")
         .filter(function(el) {
           return el.innerHTML.indexOf(testTitle) !== -1;

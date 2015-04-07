@@ -18,7 +18,7 @@ module.exports = function(grunt) {
       'QOOXDOO_PATH' : '../'
     },
 
-    pkg: JSON.parse(fs.readFileSync('package.json')),
+    pkg: grunt.file.readJSON('package.json'),
 
     concat: {
       options: {
@@ -62,9 +62,9 @@ module.exports = function(grunt) {
           cwd: ".",
           expand: false,
           src: 'source/resource/qx/scss/indigo.scss',
-          dest: 'build/resource/qx/css/indigo.css',
+          dest: 'build/resource/qx/css/indigo.css'
         }]
-      },
+      }
     },
 
     notify: {

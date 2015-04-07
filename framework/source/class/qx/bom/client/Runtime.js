@@ -40,18 +40,17 @@ qx.Class.define("qx.bom.client.Runtime",
      * to the browser name defined by {@link qx.bom.client.Browser#getName}.
      * @return {String} The name of the current runtime.
      * @internal
-     * @ignore(environment, process, Titanium.*)
      */
     getName : function() {
       var name = "";
 
-       // check for the Rhino runtime
+      /* eslint no-undef: 0 */
+      // check for the Rhino runtime
       if (typeof environment !== "undefined") {
         name = "rhino";
       // check for the Node.js runtime
       } else if (typeof process !== "undefined") {
         name = "node.js";
-      /* eslint no-undef: 0 */
       } else if (typeof Titanium !== "undefined" &&
         typeof Titanium.userAgent !== "undefined")
       {
