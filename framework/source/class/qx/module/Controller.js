@@ -215,7 +215,7 @@ qx.Class.define("qx.module.Controller", {
           split = split.filter(function(prop) {
             return prop[0] != "'" && prop[0] != '"';
           });
-          console.log(split);
+
           split.unshift(1);
           split.unshift(i);
           properties.splice.apply(properties, split);
