@@ -64,6 +64,9 @@ describe('bom.Attribute', function() {
 
       Attribute.set(this.sandbox.find("img")[0], "src", "../resource/qx/test/folder.png");
       assert.equal("../resource/qx/test/folder.png", this.sandbox.find("img")[0].getAttribute("src", 2));
+
+      Attribute.set(this.sandbox[0], "data-foo", true);
+      assert.equal(this.sandbox[0].getAttribute("data-foo"), "true");
   });
 
 
