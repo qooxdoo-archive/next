@@ -455,34 +455,59 @@ qx.Class.define("qx.ui.List",
      * Renders the list.
      */
     render : function() {
-      this.empty();
+      if (this.__itemTemplate) { // Data Binding mode
+        var childLength = this.getChildren().length;
+        var modelLength = this.model && this.model.length || 0;
 
-      var model = this.model;
-      var itemCount = model ? model.getLength() : 0;
-
-      var groupIndex = 0;
-
-      for (var index = 0; index < itemCount; index++) {
-        if (this.__hasGroup()) {
-          var groupElement = this._renderGroup(index, groupIndex);
-          if (groupElement) {
-            groupIndex++;
-            this.append(groupElement);
+        if (childLength > modelLength) {
+          for (var i = modelLength; i < childLength; i++) {
+            this.getChildren().getLast().remove();
+          }
+        } else if (childLength < modelLength) {
+          for (var i = childLength; i < modelLength; i++) {
+            this.__createaAndAppendItem(i);
           }
         }
-        var itemElement = this.__getRowTemplate(index);
+      } else { // template mode
+        this.empty();
 
-        var itemHeight = null;
-        if (this.itemHeight !== null) {
-          itemHeight = this.itemHeight + "px";
+        var model = this.model;
+        var itemCount = model ? model.getLength() : 0;
+
+        var groupIndex = 0;
+
+        for (var index = 0; index < itemCount; index++) {
+          if (this.__hasGroup()) {
+            var groupElement = this._renderGroup(index, groupIndex);
+            if (groupElement) {
+              groupIndex++;
+              this.append(groupElement);
+            }
+          }
+          this.__createaAndAppendItem(index);
         }
-        // Fixed height
-        qxWeb(itemElement[0]).setStyle("minHeight", itemHeight)
-          .setStyle("maxHeight", itemHeight);
-
-        this.append(itemElement);
       }
     },
+
+
+    /**
+     * Helper to create and append a list item.
+     * @param index {Number} The index of the item.
+     */
+    __createaAndAppendItem: function(index) {
+      var itemElement = this.__getRowTemplate(index);
+
+      var itemHeight = null;
+      if (this.itemHeight !== null) {
+        itemHeight = this.itemHeight + "px";
+      }
+      // Fixed height
+      qxWeb(itemElement[0]).setStyle("minHeight", itemHeight)
+        .setStyle("maxHeight", itemHeight);
+
+      this.append(itemElement);
+    },
+
 
     /**
      * @internal
