@@ -307,7 +307,7 @@ qx.Class.define("qx.bom.element.Attribute",
           name.indexOf("data-") !== 0)
         {
           if (value === true) {
-          element.setAttribute(name, name);
+            element.setAttribute(name, name);
           } else if (value === false || value === null) {
             element.removeAttribute(name);
           }
