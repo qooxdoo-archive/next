@@ -144,6 +144,8 @@ qx.Class = {
     // Provide consistency that construct will call native constructor
     if (name === "construct") {
       name = "constructor";
+    } else if (name == "constructor") {
+      id = "construct";
     }
 
     if (!this.$currentPrototpyes) {
@@ -162,14 +164,15 @@ qx.Class = {
 
     do {
       last = Object.getPrototypeOf(last);
-    } while(!last.hasOwnProperty(name));
+    } while(!last.hasOwnProperty(name) && !last.hasOwnProperty(id));
     this.$currentPrototpyes[id].push(last);
 
+    var superMethod = Object.getPrototypeOf(last)[id] || Object.getPrototypeOf(last)[name];
     var returnValue;
     if (arguments.length === 1) {
-      returnValue = Object.getPrototypeOf(last)[name].call(this);
+      returnValue = superMethod.call(this);
     } else {
-      returnValue = Object.getPrototypeOf(last)[name].apply(this, Array.prototype.slice.call(arguments, 2));
+      returnValue = superMethod.apply(this, Array.prototype.slice.call(arguments, 2));
     }
 
     this.$currentPrototpyes[id].pop();
