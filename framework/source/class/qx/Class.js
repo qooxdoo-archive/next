@@ -138,18 +138,43 @@ qx.Class = {
     }
   },
 
-  /* eslint no-unused-vars:0 */
+
   "super" : function(clazz, name, varargs) {
+    var id = name;
     // Provide consistency that construct will call native constructor
-    if (name === "construct" && typeof clazz.prototype.construct !== "function") {
+    if (name === "construct") {
       name = "constructor";
     }
 
-    if (arguments.length === 1) {
-      return clazz.prototype[name].call(this);
-    } else {
-      return clazz.prototype[name].apply(this, Array.prototype.slice.call(arguments, 2));
+    if (!this.$currentPrototpyes) {
+      this.$currentPrototpyes = {};
     }
+    if (!this.$currentPrototpyes[id]) {
+      this.$currentPrototpyes[id] = [];
+    }
+
+    var last;
+    if (this.$currentPrototpyes[id].length == 0) {
+      last = this;
+    } else {
+      last = this.$currentPrototpyes[id][this.$currentPrototpyes[id].length -1];
+    }
+
+    do {
+      last = Object.getPrototypeOf(last);
+    } while(!last.hasOwnProperty(name));
+    this.$currentPrototpyes[id].push(last);
+
+    var returnValue;
+    if (arguments.length === 1) {
+      returnValue = Object.getPrototypeOf(last)[name].call(this);
+    } else {
+      returnValue = Object.getPrototypeOf(last)[name].apply(this, Array.prototype.slice.call(arguments, 2));
+    }
+
+    this.$currentPrototpyes[id].pop();
+
+    return returnValue;
   },
 
 
