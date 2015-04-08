@@ -71,7 +71,10 @@ qx.Class.define("qx.ui.List",
       qxWeb(element).find(".cloak").removeClass("cloak");
       this.__itemTemplate = element.innerHTML.trim();
     }
-    element.innerHTML = "";
+    if (element) {
+      element.innerHTML = "";
+    }
+
 
     this.on("tap", this._onTap, this);
 
@@ -400,7 +403,7 @@ qx.Class.define("qx.ui.List",
       var oldNode = renderedItems[index];
       var newItem = this.__getRowTemplate(index);
 
-      this[0].replaceChild(newItem[0], oldNode); // TODO not necessary
+      this[0].replaceChild(newItem[0], oldNode);
     },
 
 
@@ -429,10 +432,10 @@ qx.Class.define("qx.ui.List",
           parent = parent.getParents();
         }
 
-        ctrl._setUp(template); // TODO no protected
+        ctrl.init(template);
       } else {
         template = qxWeb.template.renderToNode(template, data);
-        template.find("[data-qx-widget]").forEach(function(el) {
+        template.find("[data-qx-widget]").forEach(function() {
           // qxWeb.forEach initializes any widgets in the collection
           // automatically
         });
@@ -445,7 +448,7 @@ qx.Class.define("qx.ui.List",
 
     __getGroupHeaderTemplate : function(group, groupIndex) {
       var template = qx.ui.List.groupHeaderTemplate;
-      var fragment = qxWeb.template.renderToNode(template, group); // TODO move to binding as well
+      var fragment = qxWeb.template.renderToNode(template, group);
       qxWeb(fragment[0]).setData("group", groupIndex);
       return fragment;
     },
@@ -459,15 +462,21 @@ qx.Class.define("qx.ui.List",
         var childLength = this.getChildren().length;
         var modelLength = this.model && this.model.length || 0;
 
+        var i;
         if (childLength > modelLength) {
-          for (var i = modelLength; i < childLength; i++) {
+          for (i = modelLength; i < childLength; i++) {
             this.getChildren().getLast().remove();
           }
         } else if (childLength < modelLength) {
-          for (var i = childLength; i < modelLength; i++) {
+          for (i = childLength; i < modelLength; i++) {
             this.__createaAndAppendItem(i);
           }
         }
+
+        // update model references
+        this.getChildren().forEach(function(child, childIndex) {
+          child.setProperty("model", this.model.getItem(childIndex));
+        }.bind(this));
       } else { // template mode
         this.empty();
 

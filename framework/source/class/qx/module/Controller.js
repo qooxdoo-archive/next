@@ -77,14 +77,17 @@ qx.Class.define("qx.module.Controller", {
   construct : function(root) {
     this.__modelProperties = [];
     root[0].$$controller = this;
-    this._setUp(root);
+    this.init(root);
   },
 
 
   members : {
     __modelProperties : null,
 
-    _setUp : function(root) {
+    /**
+     * @internal
+     */
+    init : function(root) {
       // repeat preparsing
       qxWeb("*[data-repeat]", root).forEach(function(el) {
         var value = el.getData("repeat");

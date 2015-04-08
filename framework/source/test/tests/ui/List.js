@@ -248,4 +248,74 @@ describe("ui.List", function() {
 
     __cleanUp(list);
   });
+
+
+  it("binding: basic", function() {
+    var list = qxWeb.create("<ul data-bind='{{m}} -> data-qx-config-model'><li data-bind='{{m[$index]}} -> html'></li></ul>").toList();
+    var ctrl = new qx.module.Controller(list);
+    assert.isNull(list.getHtml());
+    ctrl.m = new qx.data.Array(["a", "b", "c"]);
+
+    list.getChildren().forEach(function(li, i) {
+      assert.equal(ctrl.m.getItem(i), li.getHtml());
+    });
+  });
+
+
+  it("binding: change length", function() {
+    var list = qxWeb.create("<ul data-bind='{{m}} -> data-qx-config-model'><li data-bind='{{m[$index]}} -> html'></li></ul>").toList();
+    var ctrl = new qx.module.Controller(list);
+    assert.isNull(list.getHtml());
+    ctrl.m = new qx.data.Array(["a", "b", "c"]);
+
+    list.getChildren().forEach(function(li, i) {
+      assert.equal(ctrl.m.getItem(i), li.getHtml());
+    });
+
+    ctrl.m.push("d");
+    list.getChildren().forEach(function(li, i) {
+      assert.equal(ctrl.m.getItem(i), li.getHtml());
+    });
+    assert.equal(4, list.getChildren().length);
+
+    ctrl.m.shift();
+    list.getChildren().forEach(function(li, i) {
+      assert.equal(ctrl.m.getItem(i), li.getHtml());
+    });
+    assert.equal(3, list.getChildren().length);
+  });
+
+
+  it("binding: change", function() {
+    var list = qxWeb.create("<ul data-bind='{{m}} -> data-qx-config-model'><li data-bind='{{m[$index]}} -> html'></li></ul>").toList();
+    var ctrl = new qx.module.Controller(list);
+    assert.isNull(list.getHtml());
+    ctrl.m = new qx.data.Array(["a", "b", "c"]);
+
+    ctrl.m.setItem(0, "A");
+    list.getChildren().forEach(function(li, i) {
+      assert.equal(ctrl.m.getItem(i), li.getHtml());
+    });
+
+    ctrl.m.setItem(2, "C");
+    list.getChildren().forEach(function(li, i) {
+      assert.equal(ctrl.m.getItem(i), li.getHtml());
+    });
+  });
+
+  it("binding: change bubbles", function() {
+    var list = qxWeb.create("<ul data-bind='{{m}} -> data-qx-config-model'><li data-bind='{{m[$index].c}} -> html'></li></ul>").toList();
+    var ctrl = new qx.module.Controller(list);
+    assert.isNull(list.getHtml());
+    ctrl.m = qx.data.marshal.Json.createModel([{c: "a"}, {c: "b"}], true);
+
+    list.getChildren().forEach(function(li, i) {
+      assert.equal(ctrl.m.getItem(i).c, li.getHtml());
+    });
+
+    ctrl.m.getItem(1).c = "B";
+    list.getChildren().forEach(function(li, i) {
+      assert.equal(ctrl.m.getItem(i).c, li.getHtml());
+    });
+  });
 });
