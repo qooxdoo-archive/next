@@ -45,7 +45,7 @@ qx.Class.define("qx.bom.element.Dataset",
       if (element.dataset) {
         name = qx.lang.String.camelCase(name);
         if ((value === null) || (value === undefined)) {
-           delete element.dataset[name];
+          delete element.dataset[name];
         } else {
           element.dataset[name] = value;
         }
