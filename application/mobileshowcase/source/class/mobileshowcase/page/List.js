@@ -29,7 +29,7 @@ qx.Class.define("mobileshowcase.page.List",
 
   construct : function()
   {
-    this.super(mobileshowcase.page.Abstract, "construct");
+    this.super("construct");
     this.title = "List";
   },
 
@@ -48,7 +48,7 @@ qx.Class.define("mobileshowcase.page.List",
      * @lint ignoreDeprecated(alert)
      */
     _initialize: function() {
-      this.super(mobileshowcase.page.Abstract, "_initialize");
+      this.super("_initialize");
 
       this._waypointsY = ["0%", "25%", "50%", "75%", "100%", 200];
 

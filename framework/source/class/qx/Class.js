@@ -139,7 +139,7 @@ qx.Class = {
   },
 
 
-  "super" : function(clazz, name, varargs) {
+  "super" : function(name, varargs) {
     var id = name;
     // Provide consistency that construct will call native constructor
     if (name === "construct") {
@@ -619,8 +619,8 @@ qx.Class.define("qx.Class",
     /**
      * Call the same method of the super class.
      *
-     * @signature function(args, varargs)
-     * @param args {arguments} the arguments variable of the calling method
+     * @signature function(name, varargs)
+     * @param name {String} The menthod name to call.
      * @param varargs {var} variable number of arguments passed to the overwritten function
      * @return {var} the return value of the method of the base class.
      * @internal

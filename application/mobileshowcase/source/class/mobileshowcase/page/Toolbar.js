@@ -39,7 +39,7 @@ qx.Class.define("mobileshowcase.page.Toolbar",
 
   construct : function()
   {
-    this.super(mobileshowcase.page.Abstract, "construct", false);
+    this.super("construct", false);
     this.title = "Toolbar";
   },
 
@@ -70,7 +70,7 @@ qx.Class.define("mobileshowcase.page.Toolbar",
     // overridden
     _initialize : function()
     {
-      this.super(mobileshowcase.page.Abstract, "_initialize");
+      this.super("_initialize");
 
       this.getContent().append(qxWeb.create('<h2 class="form-title">Search</h2>'));
 

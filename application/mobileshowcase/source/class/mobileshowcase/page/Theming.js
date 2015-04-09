@@ -38,7 +38,7 @@ qx.Class.define("mobileshowcase.page.Theming",
 
   construct : function()
   {
-    this.super(mobileshowcase.page.Abstract, "construct");
+    this.super("construct");
     this.title = "Theming";
 
     this.__preloadThemes();
@@ -80,7 +80,7 @@ qx.Class.define("mobileshowcase.page.Theming",
     // overridden
     _initialize : function()
     {
-      this.super(mobileshowcase.page.Abstract, "_initialize");
+      this.super("_initialize");
 
       this.getContent().append(qxWeb.create('<h2 class="form-title">Select a Theme</h2>'));
 

@@ -27,7 +27,7 @@ qx.Class.define("mobileshowcase.page.Overview",
 
   construct : function()
   {
-    this.super(qx.ui.page.NavigationPage, "construct");
+    this.super("construct");
     this.title = "Overview";
   },
 
@@ -44,7 +44,7 @@ qx.Class.define("mobileshowcase.page.Overview",
     // overridden
     _initialize : function()
     {
-      this.super(qx.ui.page.NavigationPage, "_initialize");
+      this.super("_initialize");
 
       var list = new qx.ui.List({
         configureData : function(data) {
