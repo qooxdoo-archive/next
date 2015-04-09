@@ -423,8 +423,8 @@ describe("module.Controller", function() {
     assert.equal("data-a", sandbox.getChildren().getAttribute("data-a"));
   });
 
-  it("converter: is", function() {
-    sandbox.setHtml("<div data-bind='{{is(a, \"test\")}} -> data-a'></div>");
+  it("converter: equal", function() {
+    sandbox.setHtml("<div data-bind='{{equal(a, \"test\")}} -> data-a'></div>");
     var ctrl = new qx.module.Controller(sandbox);
 
     assert.isNull(sandbox.getChildren().getAttribute("data-a"));
@@ -436,8 +436,8 @@ describe("module.Controller", function() {
     assert.isNull(sandbox.getChildren().getAttribute("data-a"));
   });
 
-  it("converter: isNot", function() {
-    sandbox.setHtml("<div data-bind='{{isNot(a, \"test\")}} -> data-a'></div>");
+  it("converter: notEqual", function() {
+    sandbox.setHtml("<div data-bind='{{notEqual(a, \"test\")}} -> data-a'></div>");
     var ctrl = new qx.module.Controller(sandbox);
 
     ctrl.a = "test";

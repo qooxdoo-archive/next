@@ -57,11 +57,11 @@ qx.Class.define("qx.module.Controller", {
       return ret;
     },
 
-    is: function(value, comp) {
+    equal: function(value, comp) {
       return value == comp;
     },
 
-    isNot: function(value, comp) {
+    notEqual: function(value, comp) {
       return value != comp;
     },
 
