@@ -20,17 +20,12 @@
 /**
  * Utility module to give some support to work with strings.
  *
- * *Info:* The <pre class='javascript'>trim</pre> method is available as <a href="#String">Polyfill</a>.
- *
  * @group (Utilities)
  */
 qx.Class.define("qx.module.util.String", {
   statics : {
     /**
      * Converts a hyphenated string (separated by '-') to camel case.
-     *
-     * Example:
-     * <pre class='javascript'>q.string.camelCase("I-like-cookies"); //returns "ILikeCookies"</pre>
      *
      * @attachStatic {qxWeb, string.camelCase}
      * @param str {String} hyphenated string
@@ -43,9 +38,6 @@ qx.Class.define("qx.module.util.String", {
 
     /**
      * Converts a camelcased string to a hyphenated (separated by '-') string.
-     *
-     * Example:
-     * <pre class='javascript'>q.string.hyphenate("weLikeCookies"); //returns "we-like-cookies"</pre>
      *
      * @attachStatic {qxWeb, string.hyphenate}
      * @param str {String} camelcased string
@@ -81,8 +73,6 @@ qx.Class.define("qx.module.util.String", {
     /**
      * Print a list of arguments using a format string
      * In the format string occurrences of %n are replaced by the n'th element of the args list.
-     * Example:
-     * <pre class='javascript'>qx.lang.String.format("Hello %1, my name is %2", ["Egon", "Franz"]) == "Hello Egon, my name is Franz"</pre>
      *
      * @signature function(pattern, args)
      * @attachStatic {qxWeb, string.format}
@@ -130,8 +120,6 @@ qx.Class.define("qx.module.util.String", {
 
     /**
      * Escapes the characters in a <code>String</code> using HTML entities.
-     *
-     * For example: <tt>"bread" & "butter"</tt> => <tt>&amp;quot;bread&amp;quot; &amp;amp; &amp;quot;butter&amp;quot;</tt>.
      * Supports all known HTML 4.0 entities, including funky accents.
      *
      * @attachStatic {qxWeb, string.escapeHtml}

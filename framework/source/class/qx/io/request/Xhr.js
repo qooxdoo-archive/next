@@ -25,23 +25,6 @@
  * various states in the life cycle of a request, such as "success". Request
  * data is transparently processed.
  *
- * Here is how to request a JSON file and listen to the "success" event:
- *
- * <pre class="javascript">
- * var req = new qx.io.request.Xhr("/some/path/file.json");
- *
- * req.on("success", function(origReq) {
- *   var req = origReq;
- *
- *   // Response parsed according to the server's
- *   // response content type, e.g. JSON
- *   req.getResponse();
- * }, this);
- *
- * // Send request
- * req.send();
- * </pre>
- *
  * Some noteable features:
  *
  * * Abstraction of low-level request

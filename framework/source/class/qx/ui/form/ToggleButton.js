@@ -25,18 +25,6 @@
  * If the user tap the button, the button toggles between the <code>ON</code>
  * and <code>OFF</code> state.
  *
- * Here is a little example of how to use the widget.
- *
- * <pre class='javascript'>
- *   var button = new qx.ui.form.ToggleButton(false,"YES","NO");
- *
- *   button.on("changeValue", function(value) {
- *     alert(value);
- *   }, this);
- *
- *   this.getRoot.append(button);
- * </pre>
- *
  * This example creates a toggle button and attaches an
  * event listener to the {@link #changeValue} event.
  *
