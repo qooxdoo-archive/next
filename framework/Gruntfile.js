@@ -268,7 +268,8 @@ module.exports = function(grunt) {
     }
   };
 
-  var mergedConf = qx.config.mergeConfig(config);
+  var mergedConf = qx.config.mergeConfig(config, {"source": "source-base"});
+
   // define custom 'clean' task
   mergedConf.clean = {
     options: {
@@ -279,6 +280,7 @@ module.exports = function(grunt) {
           "<%= common.BUILD_PATH %>",
           "<%= common.ROOT %>/api/script"]
   };
+
   // console.log(util.inspect(mergedConf, false, null));
   grunt.initConfig(mergedConf);
 
@@ -289,6 +291,14 @@ module.exports = function(grunt) {
   grunt.loadNpmTasks('grunt-contrib-sass');
   grunt.loadNpmTasks('grunt-eslint');
   grunt.loadNpmTasks('grunt-notify');
+
+  // 'extend' source job
+  grunt.task.renameTask('source', 'source-base');
+  grunt.task.registerTask(
+    'source',
+    'Build the playground and compile the stylesheets with Sass.',
+    ["sass:indigo", "source-base"]
+  );
 
   // 'extend' API job
   grunt.task.renameTask('api', 'generate-api');
