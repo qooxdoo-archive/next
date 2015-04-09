@@ -172,7 +172,7 @@ qx.Class = {
     if (arguments.length === 1) {
       returnValue = superMethod.call(this);
     } else {
-      returnValue = superMethod.apply(this, Array.prototype.slice.call(arguments, 2));
+      returnValue = superMethod.apply(this, Array.prototype.slice.call(arguments, 1));
     }
 
     this.$currentPrototpyes[id].pop();

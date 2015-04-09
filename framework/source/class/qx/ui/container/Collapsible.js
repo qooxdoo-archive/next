@@ -69,8 +69,8 @@ qx.Class.define("qx.ui.container.Collapsible",
     this.setContent(content);
 
     // use the append of the superclass to prevent recursive append calls
-    this.append(this._header);
-    this.append(this._content);
+    this.super("append", this._header);
+    this.super("append", this._content);
 
     this.collapsed = undefined;
     this.combined = undefined;
