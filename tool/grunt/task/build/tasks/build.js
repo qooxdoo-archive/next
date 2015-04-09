@@ -34,6 +34,7 @@ var fs = require("fs");
 // third-party
 var shell = require("shelljs");
 var glob = require("glob");
+var _ = require('underscore');
 
 // qx
 var qxRes = require("qx-resource");
@@ -99,8 +100,11 @@ module.exports = function(grunt) {
     var classesDeps = qxDep.collectDepsRecursive(classPaths, opts.includes, opts.excludes, opts.environment, depsCollectingOptions);
     grunt.log.ok('Done.');
 
+    // expand excludes starting with a '='
+    opts.excludes = qxDep.expandExcludes(opts.excludes, classPaths);
+    var depsWithoutExcludes = _.difference(Object.keys(classesDeps), opts.excludes);
 
-    grunt.log.writeln('Sorting ' + Object.keys(classesDeps).length + ' classes ...');
+    grunt.log.writeln('Sorting ' + depsWithoutExcludes.length + ' classes ...');
     // ------------------------------------------------------------------------------
     var classLoadOrderList = qxDep.sortDepsTopologically(classesDeps, "load", opts.excludes);
     var classCodeList = qxDep.readFileContent(classLoadOrderList, classPaths);
@@ -147,7 +151,6 @@ module.exports = function(grunt) {
 
     grunt.log.writeln('Compress code ...');
     // ------------------------------------------------------
-
     var classCodeCompressedList = [];
     var compressOpts = {privates: true, cachePath: opts.cachePath};
     var curClass = "";
@@ -155,6 +158,8 @@ module.exports = function(grunt) {
       // console.log(i, l, classLoadOrderList[i]);
       curClass = classLoadOrderList[i];
       classCodeCompressedList.push(qxCpr.compress(curClass, classCodeList[i], opts.environment, compressOpts));
+      // without compression
+      // classCodeCompressedList.push(classCodeList[i]);
     }
     grunt.log.ok('Done.');
 
@@ -203,10 +208,10 @@ module.exports = function(grunt) {
     var tmpl = grunt.file.read(opts.loaderTemplate);
     var renderedTmpl = renderLoaderTmpl(tmpl, ctx);
 
-    var appFileName = opts.appName + ".js";
+    var fileName = opts.fileName + ".js";
 
     // write script files
-    grunt.file.write(path.join(path.join(opts.buildPath, "script"), appFileName), renderedTmpl);
+    grunt.file.write(path.join(path.join(opts.buildPath, "script"), fileName), renderedTmpl);
     grunt.log.ok('Done.');
   });
 

@@ -35,7 +35,8 @@
     "path-is-inside": "~1.0.1",
     "qx-dependency": "~0.1.0",
     "qx-library": "~0.1.0",
-    "qx-resource": "~0.1.0"
+    "qx-resource": "~0.1.0",
+    "underscore": "^1.8.3"
   },
   "devDependencies": {
     "grunt": "~0.4.2",
