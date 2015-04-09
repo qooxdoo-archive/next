@@ -624,7 +624,6 @@ function applyIgnoreRequireAndUse(deps, className) {
  * @see {@link http://esprima.org/doc/#ast|esprima AST}
  */
 function collectAtHintsFromComments(tree) {
-  var topLevelCodeUnitLines = [];
   var atHints = {
     'ignore': [],
     'require': [],
@@ -633,44 +632,33 @@ function collectAtHintsFromComments(tree) {
     'cldr': false
   };
 
-  var isFileOrClassScopeComment = function(comment, topLevelLines) {
-    return (comment.type === 'Block'
-            && (topLevelLines.indexOf(comment.loc.end.line+1) !== -1  // class scope
-                || comment.loc.end.line < topLevelLines[0]));         // file scope
-  };
-
-  // collect only file and class scope which means only top level
-  // @ignore/@require/@use/@asset/@cldr are consider here for now.
-  // This may be important later cause @ignore can be used within methods
-  // (which is neglected here) also!
-  tree.body.forEach(function (codeUnit) {
-    topLevelCodeUnitLines.push(codeUnit.loc.start.line);
-  });
+  // The scope of a comment doesn't matter (e.g. file, class, method).
+  // No matter, where the atHint (@ignore/@require/@use/@asset/@cldr)
+  // is written (i.e. attached to) it is considered globally for this file
+  // (most of the time i.e this class/module).
 
   tree.comments.forEach(function (comment) {
-    if (isFileOrClassScopeComment(comment, topLevelCodeUnitLines)) {
-      var jsdoc = doctrine.parse(comment.value, { unwrap: true });
-      jsdoc.tags.forEach(function (tag) {
-        switch(tag.title) {
-          case 'ignore':
-            atHints.ignore = atHints.ignore.concat(getClassesFromTagDesc(tag.description));
-            break;
-          case 'require':
-            atHints.require = atHints.require.concat(getClassesFromTagDesc(tag.description));
-            break;
-          case 'use':
-            atHints.use = atHints.use.concat(getClassesFromTagDesc(tag.description));
-            break;
-          case 'asset':
-            atHints.asset = atHints.asset.concat(getResourcesFromTagDesc(tag.description));
-            break;
-          case 'cldr':
-            atHints.cldr = true;
-            break;
-          default:
-        }
-      });
-    }
+    var jsdoc = doctrine.parse(comment.value, { unwrap: true });
+    jsdoc.tags.forEach(function (tag) {
+      switch(tag.title) {
+        case 'ignore':
+          atHints.ignore = atHints.ignore.concat(getClassesFromTagDesc(tag.description));
+          break;
+        case 'require':
+          atHints.require = atHints.require.concat(getClassesFromTagDesc(tag.description));
+          break;
+        case 'use':
+          atHints.use = atHints.use.concat(getClassesFromTagDesc(tag.description));
+          break;
+        case 'asset':
+          atHints.asset = atHints.asset.concat(getResourcesFromTagDesc(tag.description));
+          break;
+        case 'cldr':
+          atHints.cldr = true;
+          break;
+        default:
+      }
+    });
   });
 
   return atHints;
