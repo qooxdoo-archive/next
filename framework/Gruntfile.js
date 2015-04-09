@@ -13,8 +13,7 @@ module.exports = function(grunt) {
     },
 
     common: {
-      'APPLICATION' : 'qx',
-      'LOCALES': ['en'],
+      'APPLICATION': 'qx',
       'QOOXDOO_PATH' : '../'
     },
 
@@ -88,15 +87,11 @@ module.exports = function(grunt) {
     source: {
       qxweb: {
         options: {
-          "appName": "qx",
-          "includes": [
-            "qxWeb",
-            "qx.module.*"
-          ],
-          "libraries": [
-            "<%= common.ROOT %>/package.json"
-          ],
-          "loaderTemplate": "../tool/data/generator/website.loader.source.tmpl.js"
+          includes: [ "qxWeb", "qx.module.*" ],
+          libraries: [ "<%= common.ROOT %>/package.json" ],
+          loaderTemplate: "../tool/data/generator/website.loader.source.tmpl.js",
+          appRoot: 'source',
+          fileName: "q-source"
         }
       }
     },
@@ -109,24 +104,165 @@ module.exports = function(grunt) {
       },
       qxweb: {
         options: {
-          "appName": "qx",
-          "includes": [
-            "qxWeb",
-            "qx.module.*"
-          ],
-          "loaderTemplate": "../tool/data/generator/website.loader.tmpl.js"
+          includes: [ "qxWeb", "qx.module.*" ],
+          loaderTemplate: "../tool/data/generator/website.loader.tmpl.js",
+          fileName: "q"
         }
       },
-      "qx-module-animation": {
+      "module-core": {
         options: {
-          appName: "qx",
           includes: [
-            "qx.module.Animation"
+            "qx.module.Core",
+            "qx.module.event.*",
+            "qx.bom.Event",
+            "qx.bom.Stylesheet",
+            "qx.dom.Element",
+            "qx.lang.Array",
+            "qx.util.Uri",
+            "qx.lang.Type",
+            "qx.lang.String",
+            "qx.lang.Object",
+            "qx.lang.Function",
+            "qx.Class"
           ],
-          exclude: [
-            "qx.module.Core"
+          excludes: [],
+          loaderTemplate: "../tool/data/generator/website.loader.tmpl.js",
+          fileName: "core"
+        }
+      },
+      "module-animation": {
+        options: {
+          includes: [ "qx.module.Animation" ],
+          excludes: [ "=qx.module.Core" ],
+          loaderTemplate: "../tool/data/generator/website.loader.tmpl.js",
+          fileName: "animation"
+        }
+      },
+      "module-blocker": {
+        options: {
+          includes: [ "qx.module.Blocker" ],
+          excludes: [ "=qx.module.Core" ],
+          loaderTemplate: "../tool/data/generator/website.loader.tmpl.js",
+          fileName: "blocker"
+        }
+      },
+      "module-cookie": {
+        options: {
+          includes: [ "qx.module.Cookie" ],
+          excludes: [ "=qx.module.Core" ],
+          loaderTemplate: "../tool/data/generator/website.loader.tmpl.js",
+          fileName: "cookie"
+        }
+      },
+      "module-dataset": {
+        options: {
+          includes: [ "qx.module.Dataset" ],
+          excludes: [ "=qx.module.Core" ],
+          loaderTemplate: "../tool/data/generator/website.loader.tmpl.js",
+          fileName: "dataset"
+        }
+      },
+      "module-dev": {
+        options: {
+          includes: [ "qx.module.dev.FakeServer" ],
+          excludes: [ "=qx.module.Core" ],
+          loaderTemplate: "../tool/data/generator/website.loader.tmpl.js",
+          fileName: "dev"
+        }
+      },
+      "module-io": {
+        options: {
+          includes: [ "qx.module.Io" ],
+          excludes: [ "=qx.module.Core" ],
+          loaderTemplate: "../tool/data/generator/website.loader.tmpl.js",
+          fileName: "io"
+        }
+      },
+      "module-matchmedia": {
+        options: {
+          includes: [ "qx.module.MatchMedia" ],
+          excludes: [ "=qx.module.Core" ],
+          loaderTemplate: "../tool/data/generator/website.loader.tmpl.js",
+          fileName: "matchmedia"
+        }
+      },
+      "module-messaging": {
+        options: {
+          includes: [ "qx.module.Messaging" ],
+          excludes: [ "=qx.module.Core" ],
+          loaderTemplate: "../tool/data/generator/website.loader.tmpl.js",
+          fileName: "messaging"
+        }
+      },
+      "module-placement": {
+        options: {
+          includes: [ "qx.module.Placement" ],
+          excludes: [ "=qx.module.Core" ],
+          loaderTemplate: "../tool/data/generator/website.loader.tmpl.js",
+          fileName: "placement"
+        }
+      },
+      "module-rest": {
+        options: {
+          includes: [ "qx.module.Rest" ],
+          excludes: [ "=qx.module.Core" ],
+          loaderTemplate: "../tool/data/generator/website.loader.tmpl.js",
+          fileName: "rest"
+        }
+      },
+      "module-storage": {
+        options: {
+          includes: [ "qx.module.Storage" ],
+          excludes: [ "=qx.module.Core" ],
+          loaderTemplate: "../tool/data/generator/website.loader.tmpl.js",
+          fileName: "storage"
+        }
+      },
+      "module-template": {
+        options: {
+          includes: [ "qx.module.Template" ],
+          excludes: [ "=qx.module.Core" ],
+          loaderTemplate: "../tool/data/generator/website.loader.tmpl.js",
+          fileName: "template"
+        }
+      },
+      "module-textselection": {
+        options: {
+          appName: "textselection",
+          includes: [ "qx.module.TextSelection" ],
+          excludes: [ "=qx.module.Core" ],
+          loaderTemplate: "../tool/data/generator/website.loader.tmpl.js",
+          fileName: "textselection"
+        }
+      },
+      "module-transform": {
+        options: {
+          includes: [ "qx.module.Transform" ],
+          excludes: [ "=qx.module.Core" ],
+          loaderTemplate: "../tool/data/generator/website.loader.tmpl.js",
+          fileName: "transform"
+        }
+      },
+      "module-util": {
+        options: {
+          includes: [
+           "qx.module.util.Array",
+           "qx.module.util.String",
+           "qx.module.util.Type",
+           "qx.module.util.Object",
+           "qx.module.util.Function"
           ],
-          "loaderTemplate": "../tool/data/generator/website.loader.module.tmpl.js"
+          excludes: [ "=qx.module.Core" ],
+          loaderTemplate: "../tool/data/generator/website.loader.tmpl.js",
+          fileName: "util"
+        }
+      },
+      "module-ui": {
+        options: {
+          includes: [ "qx.module.Ui" ],
+          excludes: [ "=qx.module.Core" ],
+          loaderTemplate: "../tool/data/generator/website.loader.tmpl.js",
+          fileName: "ui"
         }
       }
     }
