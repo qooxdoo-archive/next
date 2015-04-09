@@ -47,7 +47,7 @@ qx.Class.define("qx.ui.form.Slider",
    */
   construct : function(element)
   {
-    this.super(qx.ui.Widget, "construct", element);
+    this.super("construct", element);
 
     this.append(this._createKnobElement());
     this.append(this._getHiddenField());
@@ -181,7 +181,7 @@ qx.Class.define("qx.ui.form.Slider",
       if (name === "name") {
         this._getHiddenField().setAttribute("name", value);
       }
-      this.super(qx.ui.Widget, "setAttribute", name, value);
+      this.super("setAttribute", name, value);
     },
 
     // overriden
@@ -189,7 +189,7 @@ qx.Class.define("qx.ui.form.Slider",
       if (name === "name") {
         return this._getHiddenField().getAttribute("name");
       }
-      return this.super(qx.ui.Widget, "getAttribute", name);
+      return this.super("getAttribute", name);
     },
 
 
@@ -513,7 +513,7 @@ qx.Class.define("qx.ui.form.Slider",
 
 
     dispose : function() {
-      this.super(qx.ui.Widget, "dispose");
+      this.super("dispose");
       this._knobElement = null;
       this._unregisterEventListener();
       this.disposeMForm();

@@ -34,12 +34,6 @@ qx.Class.define("qx.module.Rest", {
      *  with the properties <code>method</code> and <code>url</code>.
      *  <code>check</code> is optional. Also see {@link qx.io.rest.Resource#map}.
      *
-     * For example:
-     *
-     * <pre class="javascript">
-     * { get: {method: "GET", url: "/photos/{id}", check: { id: /\d+/ } }
-     * </pre>
-     *
      * @attachStatic {qxWeb, rest.resource}
      * @return {qx.io.rest.Resource} The resource object.
      */

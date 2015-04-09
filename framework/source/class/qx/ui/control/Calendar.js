@@ -150,7 +150,7 @@ qx.Class.define("qx.ui.control.Calendar", {
    * @return {qx.ui.control.Calendar} The new calendar widget.
    */
   construct : function(date, element) {
-    this.super(qx.ui.Widget, "construct", element);
+    this.super("construct", element);
     this.__monthElements = {};
     this.showDate(date);
     this.on("keydown", this._onKeyDown, this);
@@ -530,7 +530,7 @@ qx.Class.define("qx.ui.control.Calendar", {
 
       this.setHtml("");
 
-      return this.super(qx.ui.Widget, "dispose");
+      return this.super("dispose");
     }
 
   },

@@ -30,7 +30,7 @@ qx.Class.define("mobileshowcase.page.Maps",
   extend : mobileshowcase.page.Abstract,
 
   construct : function() {
-    this.super(mobileshowcase.page.Abstract, "construct", false);
+    this.super("construct", false);
     this.title = "Maps";
   },
 
@@ -48,7 +48,7 @@ qx.Class.define("mobileshowcase.page.Maps",
     // overridden
     _initialize : function()
     {
-      this.super(mobileshowcase.page.Abstract, "_initialize");
+      this.super("_initialize");
       this._loadMapLibrary();
 
       // Listens on window orientation change and resize, and triggers redraw of map.

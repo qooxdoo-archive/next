@@ -28,7 +28,7 @@ qx.Class.define("mobileshowcase.page.Drawer",
 
   construct : function()
   {
-    this.super(mobileshowcase.page.Abstract, "construct", false);
+    this.super("construct", false);
     this.title = "Drawer";
   },
 
@@ -74,7 +74,7 @@ qx.Class.define("mobileshowcase.page.Drawer",
     // overridden
     _initialize : function()
     {
-      this.super(mobileshowcase.page.Abstract, "_initialize");
+      this.super("_initialize");
 
       // DRAWERS
 

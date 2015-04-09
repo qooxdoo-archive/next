@@ -37,7 +37,7 @@ qx.Class.define("qx.ui.TabBar", {
    * @return {qx.ui.TabBar} The new tab bar widget.
    */
   construct: function(orientation, align, element) {
-    this.super(qx.ui.Widget, "construct", element);
+    this.super("construct", element);
 
     // prevent unnecessary _render calls when adding multiple children
     this._render = qxWeb.func.throttle(this._render.bind(this), 300);

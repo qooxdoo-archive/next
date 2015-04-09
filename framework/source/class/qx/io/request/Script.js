@@ -28,21 +28,6 @@
  * that derives from the script loader.
  * </span>
  *
- * <div class="desktop">
- * Example:
- *
- * <pre class="javascript">
- *  var req = new qx.io.request.Script();
- *  req.on("load", function() {
- *    // Script is loaded and parsed and
- *    // globals set are available
- *  }, this);
- *
- *  req.open("GET", url);
- *  req.send();
- * </pre>
- * </div>
- *
  * @require(qx.io.request.Script#_success)
  * @require(qx.io.request.Script#abort)
  * @require(qx.io.request.Script#dispose)

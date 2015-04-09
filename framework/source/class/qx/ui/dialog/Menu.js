@@ -45,7 +45,7 @@ qx.Class.define("qx.ui.dialog.Menu",
 
     this.__menuContainer.append(this.__listScroller);
 
-    this.super(qx.ui.dialog.Popup, "construct", this.__menuContainer, anchor);
+    this.super("construct", this.__menuContainer, anchor);
 
     qxWeb.data.bind(this, "model", this.__list, "model");
     this.model = itemsModel;
@@ -129,7 +129,7 @@ qx.Class.define("qx.ui.dialog.Menu",
 
       this.__listScroller.setStyle("maxHeight", listScrollerHeight + "px");
 
-      this.super(qx.ui.dialog.Popup, "_updatePosition");
+      this.super("_updatePosition");
     },
 
 
@@ -165,7 +165,7 @@ qx.Class.define("qx.ui.dialog.Menu",
 
 
     dispose : function() {
-      this.super(qx.ui.dialog.Popup, "dispose");
+      this.super("dispose");
       this.__list.dispose();
       this.__listScroller.dispose();
       this.__menuContainer.dispose();

@@ -33,7 +33,7 @@ qx.Class.define("qx.ui.form.Form",
    */
   construct : function(element)
   {
-    this.super(qx.ui.Widget, "construct", element);
+    this.super("construct", element);
     this.defaultCssClass = "form";
     this._resetter = this._createResetter();
     this.on("addedChild", this._onAddedChild, this);
@@ -162,7 +162,7 @@ qx.Class.define("qx.ui.form.Form",
 
 
     dispose: function() {
-      this.super(qx.ui.Widget, "dispose");
+      this.super("dispose");
       this.off("addedChild", this._onAddedChild, this);
       this.off("removedChild", this._onRemovedChild, this);
     }

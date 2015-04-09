@@ -44,18 +44,17 @@ qx.Class.define("qx.bom.element.Dataset",
     set : function(element, name, value) {
       if (element.dataset) {
         name = qx.lang.String.camelCase(name);
-        if (value === null || value === undefined) {
-          if (typeof element.dataset[name] !== "undefined") { // Otherwise Safari throws
-            delete element.dataset[name];
-          }
+        if ((value === null) || (value === undefined)) {
+          delete element.dataset[name];
         } else {
           element.dataset[name] = value;
         }
       } else {
-        if (value === undefined) {
-          value = null;
+        if ((value === null) || (value === undefined)) {
+          qx.bom.element.Attribute.reset(element, "data-" + qx.lang.String.hyphenate(name));
+        } else {
+          qx.bom.element.Attribute.set(element, "data-" + qx.lang.String.hyphenate(name), value);
         }
-        qx.bom.element.Attribute.set(element, "data-" + qx.lang.String.hyphenate(name), value);
       }
     },
 

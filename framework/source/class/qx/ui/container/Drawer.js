@@ -57,7 +57,7 @@ qx.Class.define("qx.ui.container.Drawer",
    */
   construct : function(layout, element)
   {
-    this.super(qx.ui.Widget, "construct", element);
+    this.super("construct", element);
 
     if (layout) {
       this.layout = layout;
@@ -256,7 +256,7 @@ qx.Class.define("qx.ui.container.Drawer",
         var transitionTarget = this._getTransitionTarget();
         var transitionEnd = qx.core.Environment.get("css.transition")["end-event"];
         var onTransitionEnd = function() {
-          this.super(qx.ui.Widget, "show");
+          this.super("show");
           this._disableTransition();
           this.__inTransition = false;
           transitionTarget.off(transitionEnd, onTransitionEnd, this);
@@ -267,7 +267,7 @@ qx.Class.define("qx.ui.container.Drawer",
           this.removeClass("hidden");
         }.bind(this), 0);
       } else {
-        this.super(qx.ui.Widget, "show");
+        this.super("show");
         this.__inTransition = false;
         this.removeClass("hidden");
       }
@@ -301,7 +301,7 @@ qx.Class.define("qx.ui.container.Drawer",
         var transitionTarget = this._getTransitionTarget();
         var listenerId = transitionTarget.on(qx.core.Environment.get("css.transition")["end-event"],
           function() {
-            this.super(qx.ui.Widget, "hide");
+            this.super("hide");
             this._disableTransition();
             parent.removeClass("blocked");
             this.__inTransition = false;
@@ -313,7 +313,7 @@ qx.Class.define("qx.ui.container.Drawer",
           this.addClass("hidden");
         }.bind(this), 0);
       } else {
-        this.super(qx.ui.Widget, "hide");
+        this.super("hide");
         this.addClass("hidden");
         this.__inTransition = false;
         parent.removeClass("blocked");
@@ -466,7 +466,7 @@ qx.Class.define("qx.ui.container.Drawer",
 
       this.__pointerStartPosition = this.__transitionEnabled = null;
 
-      this.super(qx.ui.Widget, "dispose");
+      this.super("dispose");
     }
   },
 

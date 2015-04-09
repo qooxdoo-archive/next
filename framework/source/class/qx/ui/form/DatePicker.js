@@ -86,7 +86,7 @@ qx.Class.define("qx.ui.form.DatePicker", {
    * @return {qx.ui.form.DatePicker} The new date picker widget.
    */
   construct : function(date, element) {
-    this.super(qx.ui.form.Input, "construct", element);
+    this.super("construct", element);
 
     this.format = function() {
       return date;
@@ -232,7 +232,7 @@ qx.Class.define("qx.ui.form.DatePicker", {
         .remove()
         .dispose();
 
-      this.super(qx.ui.form.Input, "dispose");
+      this.super("dispose");
     }
   },
 

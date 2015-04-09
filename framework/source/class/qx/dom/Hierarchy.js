@@ -152,22 +152,23 @@ qx.Class.define("qx.dom.Hierarchy",
      * @param target {Node} Child node
      * @return {Boolean}
      */
-    contains : function(element, target)
-    {
-      if (qx.dom.Node.isDocument(element))
-      {
-        var doc = qx.dom.Node.getDocument(target);
-        return element && doc == element;
-      }
-      else if (qx.dom.Node.isDocument(target))
-      {
+    contains: function(parent, child) {
+      if (qx.dom.Node.isDocument(parent)) {
+        var doc = qx.dom.Node.getDocument(child);
+        return parent && doc == parent;
+
+      } else if (qx.dom.Node.isDocument(child)) {
         return false;
-      }
-      else
-      {
-        return element.contains(target);
+
+      } else {
+        if (parent.contains(child)) {
+          return true;
+        } else {
+          return false;
+        }
       }
     },
+
 
     /**
      * Whether the element is inserted into the document
@@ -409,7 +410,6 @@ qx.Class.define("qx.dom.Hierarchy",
     cleanWhitespace : function(element)
     {
       var node = element.firstChild;
-
       while (node)
       {
         var nextNode = node.nextSibling;

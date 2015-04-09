@@ -32,7 +32,7 @@ qx.Class.define("play.Application",
     main : function()
     {
       // Call super class
-      this.super(qx.application.Mobile, "main");
+      this.super("main");
 
       // Enable logging in debug variant
       if (qx.core.Environment.get("qx.debug")) {

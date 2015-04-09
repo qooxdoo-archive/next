@@ -64,7 +64,7 @@ qx.Class.define("qx.ui.List",
    */
   construct : function(delegate, element)
   {
-    this.super(qx.ui.Widget, "construct", element);
+    this.super("construct", element);
 
     this.on("tap", this._onTap, this);
 
@@ -528,7 +528,7 @@ qx.Class.define("qx.ui.List",
 
 
     dispose : function() {
-      this.super(qx.ui.Widget, "dispose");
+      this.super("dispose");
       this.__trackElement = null;
     }
   },

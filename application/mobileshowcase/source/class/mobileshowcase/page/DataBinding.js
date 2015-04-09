@@ -27,7 +27,7 @@ qx.Class.define("mobileshowcase.page.DataBinding",
 
   construct : function()
   {
-    this.super(mobileshowcase.page.Abstract, "construct");
+    this.super("construct");
     this.title = "Data Binding";
   },
 
@@ -76,7 +76,7 @@ qx.Class.define("mobileshowcase.page.DataBinding",
     // overridden
     _initialize : function()
     {
-      this.super(mobileshowcase.page.Abstract, "_initialize");
+      this.super("_initialize");
 
       this.__form = this.__createSliderDataBindings();
       this.__list = this.__createListDataBindings();
@@ -206,7 +206,7 @@ qx.Class.define("mobileshowcase.page.DataBinding",
       this._disposeObjects("__decreaseButton",
         "__increaseButton", "__stopTimeButton", "__dataLabel",
         "__slider", "__form", "__list");
-      this.super(mobileshowcase.page.Abstract, "dispose");
+      this.super("dispose");
     }
   }
 });

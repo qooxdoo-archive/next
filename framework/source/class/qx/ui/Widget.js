@@ -120,7 +120,7 @@ qx.Class.define("qx.ui.Widget", {
    * @return {qx.ui.Widget} The new widget.
    */
   construct : function(element) {
-    this.super(qxWeb, "construct");
+    this.super("construct");
 
     if (element) {
       this.push(element);
@@ -342,12 +342,6 @@ qx.Class.define("qx.ui.Widget", {
     },
 
 
-    // TODO: remove
-    _append : function(child) {
-      this.super(qx.ui.Widget, "append", child);
-    },
-
-
     /**
      * Add a child widget at the specified index
      * TODO: Move to Manipulating module
@@ -368,7 +362,7 @@ qx.Class.define("qx.ui.Widget", {
 
     // overridden
     append : function(child) {
-      this.super(qxWeb, "append", child);
+      this.super("append", child);
       this.emit("addedChild", child);
       qxWeb(child).emit("addedToParent", this);
       return this;
@@ -377,7 +371,7 @@ qx.Class.define("qx.ui.Widget", {
 
     // overridden
     appendTo : function(parent) {
-      this.super(qxWeb, "appendTo", parent);
+      this.super("appendTo", parent);
       this.emit("addedToParent", parent);
       return this._emitOnParent("addedChild", this);
     },
@@ -385,7 +379,7 @@ qx.Class.define("qx.ui.Widget", {
 
     // overridden
     insertAfter : function(target) {
-      this.super(qxWeb, "insertAfter", target);
+      this.super("insertAfter", target);
       this.emit("addedToParent", this._getParentWidget());
       return this._emitOnParent("addedChild", this);
     },
@@ -393,7 +387,7 @@ qx.Class.define("qx.ui.Widget", {
 
     // overridden
     insertBefore : function(target) {
-      this.super(qxWeb, "insertBefore", target);
+      this.super("insertBefore", target);
       this.emit("addedToParent", this._getParentWidget());
       return this._emitOnParent("addedChild", this);
     },
@@ -401,7 +395,7 @@ qx.Class.define("qx.ui.Widget", {
 
     // overridden
     after : function(content) {
-      this.super(qxWeb, "after", content);
+      this.super("after", content);
       qxWeb(content).emit("addedToParent", this._getParentWidget());
       return this._emitOnParent("addedChild", content);
     },
@@ -409,7 +403,7 @@ qx.Class.define("qx.ui.Widget", {
 
     // overridden
     before : function(content) {
-      this.super(qxWeb, "before", content);
+      this.super("before", content);
       qxWeb(content).emit("addedToParent", this._getParentWidget());
       return this._emitOnParent("addedChild", content);
     },
@@ -421,7 +415,7 @@ qx.Class.define("qx.ui.Widget", {
       if (parent) {
         this.priorPosition = parent.getChildren().indexOf(this);
       }
-      this.super(qxWeb, "remove");
+      this.super("remove");
       this.emit("removedFromParent", parent);
       if (parent && parent.length === 1) {
         parent.emit("removedChild", this);
@@ -433,7 +427,7 @@ qx.Class.define("qx.ui.Widget", {
     // overridden
     empty : function() {
       var removed = this.getChildren();
-      this.super(qxWeb, "empty");
+      this.super("empty");
       removed.forEach(function(child, index) {
         child.priorPosition = index;
         this.emit("removedChild", child);

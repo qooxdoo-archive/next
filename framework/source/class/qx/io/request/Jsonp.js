@@ -26,34 +26,7 @@
  * data is transparently processed.
  *
  * For an introduction to JSONP, please refer to
- * <a href="http://ajaxian.com/archives/jsonp-json-with-padding">Ajaxian.com</a>.
- *
- * Here is how to request a JSON file from a REST service and listen to
- * the "success" event:
- *
- * <pre class="javascript">
- * var req = new qx.io.request.Jsonp();
- * req.url = "http://feeds.delicious.com/v2/json/popular";
- *
- * // Some services have a fixed callback name
- * // req.setCallbackName("callback");
- *
- * req.addListener("success", function(e) {
- *   var req = e.getTarget();
- *
- *   // HTTP status code indicating success, e.g. 200
- *   req.getStatus();
- *
- *   // "success"
- *   req.phase;
- *
- *   // JSON response
- *   req.getResponse();
- * }, this);
- *
- * // Send request
- * req.send();
- * </pre>
+ * <a href="http://en.wikipedia.org/wiki/JSONP">Wikipedia</a>.
  *
  * Some noteable features:
  *
@@ -79,7 +52,7 @@ qx.Class.define("qx.io.request.Jsonp",
 
 
   construct: function(url) {
-    this.super(qx.io.request.AbstractRequest, "construct", url);
+    this.super("construct", url);
 
     this.__id = this.__generateId();
     this.transport = new qx.io.request.Script();
