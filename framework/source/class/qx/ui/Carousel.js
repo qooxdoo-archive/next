@@ -61,7 +61,7 @@ qx.Class.define("qx.ui.Carousel",
 
   // overridden
   construct: function(element) {
-    this.super(qx.ui.Widget, "construct", element);
+    this.super("construct", element);
 
     this._ie9 = qx.core.Environment.get("browser.documentmode") === 9;
 
@@ -617,7 +617,7 @@ qx.Class.define("qx.ui.Carousel",
 
     // overridden
     dispose : function() {
-      this.super(qx.ui.Widget, "dispose");
+      this.super("dispose");
       qxWeb(window).off("resize", this._onResize, this);
 
       this.off("trackstart", this._onTrackStart, this)

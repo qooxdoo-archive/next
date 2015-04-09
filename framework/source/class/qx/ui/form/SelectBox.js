@@ -41,7 +41,7 @@ qx.Class.define("qx.ui.form.SelectBox",
    */
   construct : function(element)
   {
-    this.super(qx.ui.Widget, "construct", element);
+    this.super("construct", element);
 
     this.setAttribute("type", "button");
     this.readOnly = true;
@@ -241,7 +241,7 @@ qx.Class.define("qx.ui.form.SelectBox",
 
 
     dispose : function() {
-      this.super(qx.ui.Widget, "dispose");
+      this.super("dispose");
       this.__selectionDialog.off("selected", this._onSelected, this);
       this.__selectionDialog.dispose();
 

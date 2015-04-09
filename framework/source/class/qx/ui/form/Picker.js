@@ -59,7 +59,7 @@ qx.Class.define("qx.ui.form.Picker",
    */
   construct : function(element)
   {
-    this.super(qx.ui.Widget, "construct", element);
+    this.super("construct", element);
 
     this._pickerModel = new qx.data.Array();
     this._slots = new qx.data.Array();
@@ -159,7 +159,7 @@ qx.Class.define("qx.ui.form.Picker",
         }, this);
         this._name = value;
       }
-      this.super(qx.ui.Widget, "setAttribute", name, value);
+      this.super("setAttribute", name, value);
     },
 
     // overridden
@@ -167,7 +167,7 @@ qx.Class.define("qx.ui.form.Picker",
       if (name === "name") {
         return this._name;
       }
-      return this.super(qx.ui.Widget, "getAttribute", name);
+      return this.super("getAttribute", name);
     },
 
 
@@ -461,7 +461,7 @@ qx.Class.define("qx.ui.form.Picker",
       for (var i = this._slots.length - 1; i >= 0; i--) {
         this.removeSlot(i);
       }
-      this.super(qx.ui.Widget, "dispose");
+      this.super("dispose");
     }
   },
 

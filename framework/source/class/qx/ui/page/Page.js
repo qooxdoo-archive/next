@@ -67,7 +67,7 @@ qx.Class.define("qx.ui.page.Page",
    */
   construct : function(layout, element)
   {
-    this.super(qx.ui.Widget, "construct", element);
+    this.super("construct", element);
     this.layout = layout || new qx.ui.layout.VBox();
   },
 
@@ -150,7 +150,7 @@ qx.Class.define("qx.ui.page.Page",
       this.initialize();
       this.start();
       this.$$animationProperties = properties;
-      this.super(qx.ui.Widget, "show");
+      this.super("show");
       delete this.$$animationProperties;
     },
 
@@ -160,7 +160,7 @@ qx.Class.define("qx.ui.page.Page",
     {
       this.stop();
       this.$$animationProperties = properties;
-      this.super(qx.ui.Widget, "exclude");
+      this.super("exclude");
       delete this.$$animationProperties;
     },
 

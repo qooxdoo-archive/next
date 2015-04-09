@@ -131,13 +131,13 @@ qx.Class.define("log.fixture.ClassB1",
   members :
   {
     _applyOldProperty: function () {
-      this.super(log.fixture.ClassA, "_applyOldProperty");
+      this.super("_applyOldProperty");
 
       this._callCountApplyOldProperty++;
     },
 
     _applyNewProperty: function () {
-      this.super(log.fixture.ClassA, "_applyNewProperty");
+      this.super("_applyNewProperty");
 
       this._callCountApplyNewProperty++;
     }
@@ -152,7 +152,7 @@ qx.Class.define("log.fixture.ClassB2",
   members :
   {
     _applyNewProperty: function () {
-      this.super(log.fixture.ClassA, "_applyNewProperty");
+      this.super("_applyNewProperty");
 
       this._callCountApplyNewProperty++;
     }
@@ -167,7 +167,7 @@ qx.Class.define("log.fixture.ClassC1",
   members :
   {
     _applyNewProperty: function () {
-      this.super(log.fixture.ClassB1, "_applyNewProperty");
+      this.super("_applyNewProperty");
 
       this._callCountApplyNewProperty++;
     }
@@ -182,13 +182,13 @@ qx.Class.define("log.fixture.ClassC2",
   members :
   {
     _applyOldProperty: function () {
-      this.super(log.fixture.ClassB2, "_applyOldProperty");
+      this.super("_applyOldProperty");
 
       this._callCountApplyOldProperty++;
     },
 
     _applyNewProperty: function () {
-      this.super(log.fixture.ClassB2, "_applyNewProperty");
+      this.super("_applyNewProperty");
 
       this._callCountApplyNewProperty++;
     }

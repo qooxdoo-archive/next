@@ -34,7 +34,7 @@ qx.Class.define("qx.ui.core.Root",
   construct : function(root, layout)
   {
     this.__root = root || document.body;
-    this.super(qx.ui.Widget, "construct", this.__root);
+    this.super("construct", this.__root);
     this.layout = layout || new qx.ui.layout.VBox();
   },
 
@@ -82,7 +82,7 @@ qx.Class.define("qx.ui.core.Root",
 
 
     dispose : function() {
-      this.super(qx.ui.Widget, "dispose");
+      this.super("dispose");
       this.off("touchmove", this._preventDefault);
     }
   }

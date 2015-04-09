@@ -33,7 +33,7 @@ qx.Class.define("qx.ui.layout.AbstractBox",
    */
   construct : function(alignX, alignY, reversed)
   {
-    this.super(qx.ui.layout.Abstract, "construct");
+    this.super("construct");
 
     if (alignX) {
       this.alignX = alignX;
@@ -178,14 +178,14 @@ qx.Class.define("qx.ui.layout.AbstractBox",
         this.alignY = undefined;
         this.reversed = undefined;
       }
-      this.super(qx.ui.layout.Abstract, "connectToWidget", widget);
+      this.super("connectToWidget", widget);
     },
 
 
     // overridden
     disconnectFromChildWidget : function(widget)
     {
-      this.super(qx.ui.layout.Abstract, "disconnectFromChildWidget");
+      this.super("disconnectFromChildWidget");
       for (var i = 0; i <= 6; i++) {
         widget.removeClass("qx-flex" +i);
       }
@@ -194,7 +194,7 @@ qx.Class.define("qx.ui.layout.AbstractBox",
 
     // overridden
     disconnectFromWidget: function(widget) {
-      this.super(qx.ui.layout.Abstract, "disconnectFromWidget", widget);
+      this.super("disconnectFromWidget", widget);
       if (widget) {
         var classes = this._getPropertyClasses();
         widget.removeClasses(classes);

@@ -52,7 +52,7 @@ qx.Class.define("qx.ui.form.RadioButton",
    */
   construct : function(value)
   {
-    this.super(qx.ui.form.Input, "construct");
+    this.super("construct");
 
     this.value = !!value;
     this.on("tap", this._onTap, this);
@@ -181,7 +181,7 @@ qx.Class.define("qx.ui.form.RadioButton",
 
 
     dispose : function() {
-      this.super(qx.ui.form.Input, "dispose");
+      this.super("dispose");
       this.off("tap", this._onTap, this);
     }
   }

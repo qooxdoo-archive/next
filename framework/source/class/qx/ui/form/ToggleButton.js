@@ -65,7 +65,7 @@ qx.Class.define("qx.ui.form.ToggleButton", {
    * @return {qx.ui.form.ToggleButton} The new toggle button widget.
    */
   construct: function(value, labelChecked, labelUnchecked) {
-    this.super(qx.ui.Widget, "construct");
+    this.super("construct");
 
     if (labelChecked && labelUnchecked) {
       this.__labelUnchecked = labelUnchecked;
@@ -244,7 +244,7 @@ qx.Class.define("qx.ui.form.ToggleButton", {
 
     // overridden
     dispose: function() {
-      this.super(qx.ui.Widget, "dispose");
+      this.super("dispose");
       this.off("tap", this.toggle, this);
       this.find(".togglebutton-switch")
         .off("track", this._onTrack, this)

@@ -55,7 +55,7 @@ qx.Class.define("qx.ui.container.Scroll",
   */
   construct : function(scrollProperties, element)
   {
-    this.super(qx.ui.Widget, "construct", element);
+    this.super("construct", element);
 
     if(scrollProperties) {
       this._scrollProperties = scrollProperties;
@@ -351,7 +351,7 @@ qx.Class.define("qx.ui.container.Scroll",
 
     // overridden
     _createContainerElement: function() {
-      var element = this.super(qx.ui.Widget, "_createContainerElement");
+      var element = this.super("_createContainerElement");
       var scrollElement = this._createScrollElement();
       if (scrollElement) {
         return scrollElement;
@@ -533,7 +533,7 @@ qx.Class.define("qx.ui.container.Scroll",
 
 
     dispose : function() {
-      this.super(qx.ui.Widget, "dispose");
+      this.super("dispose");
       this.off("appear", this._updateWaypoints, this);
 
       this._waypointsX = this._waypointsY = null;

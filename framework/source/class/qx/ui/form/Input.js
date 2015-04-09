@@ -43,7 +43,7 @@ qx.Class.define("qx.ui.form.Input",
    */
   construct : function(element)
   {
-    this.super(qx.ui.Widget, "construct", element);
+    this.super("construct", element);
     this._applyRequired(this.required);
     this.addClass("gap");
 
@@ -142,7 +142,7 @@ qx.Class.define("qx.ui.form.Input",
 
 
     dispose : function() {
-      this.super(qx.ui.Widget, "dispose");
+      this.super("dispose");
       this.disposeMForm();
     }
   },
