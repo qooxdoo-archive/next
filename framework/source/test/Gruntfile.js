@@ -71,16 +71,20 @@ module.exports = function (grunt) {
      },
 
      source: {
-       options: {
-         "=includes": ["qx.*"],
-         "loaderTemplate": "../../../tool/data/generator/website.loader.source.tmpl.js",
+       default: {
+         options: {
+           includes: ["qx.*"],
+           loaderTemplate: "../../../tool/data/generator/website.loader.source.tmpl.js"
+         }
        }
      },
 
      build: {
-       options: {
-         "=includes": ["qx.*"],
-         "loaderTemplate": "../../../tool/data/generator/website.loader.tmpl.js"
+       default: {
+         options: {
+           includes: ["qx.*"],
+           loaderTemplate: "../../../tool/data/generator/website.loader.tmpl.js"
+         }
        }
      }
   };
