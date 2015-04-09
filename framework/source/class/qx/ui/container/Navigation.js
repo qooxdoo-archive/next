@@ -53,7 +53,7 @@ qx.Class.define("qx.ui.container.Navigation",
     this.__navBarListeners = {};
     this.__content = this._createContent();
     this.__content.layoutPrefs = {flex: 1};
-    this._append(this.__content);
+    this.append(this.__content);
   },
 
 

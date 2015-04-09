@@ -342,12 +342,6 @@ qx.Class.define("qx.ui.Widget", {
     },
 
 
-    // TODO: remove
-    _append : function(child) {
-      this.super(qx.ui.Widget, "append", child);
-    },
-
-
     /**
      * Add a child widget at the specified index
      * TODO: Move to Manipulating module

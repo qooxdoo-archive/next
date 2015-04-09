@@ -429,7 +429,7 @@ qx.Class.define("qx.ui.dialog.Popup",
         this.__childrenContainer = new qx.ui.Widget();
         this.__childrenContainer.layout = new qx.ui.layout.VBox();
         this.__childrenContainer.defaultCssClass = "popup-content";
-        this._append(this.__childrenContainer);
+        this.append(this.__childrenContainer);
       }
 
       if (this._getTitleWidget()) {
