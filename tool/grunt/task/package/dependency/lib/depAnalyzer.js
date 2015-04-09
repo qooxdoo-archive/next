@@ -1350,6 +1350,27 @@ module.exports = {
     return classCodeList;
   },
 
+
+  /**
+   * Resolves '=' (first char before exclude), which has a special meaning:
+   * All dependencies of this class are excluded, too (i.e. appended to the excludes).
+   *
+   * @param {string[]} excludes
+   * @param {Object} basePaths - namespace (key) and filePath (value) to library
+   * @return {string[]} excludes
+   */
+  expandExcludes: function(excludes, basePaths) {
+    excludes = excludes.map(function(classId) {
+      if (classId.indexOf("=") === 0) {
+        var classesDepsExclude = collectDepsRecursive(basePaths, [classId.substr(1)], []);
+        return sortDepsTopologically(classesDepsExclude, "load", []);
+      } else {
+        return classId;
+      }
+    });
+    return _.flatten(excludes);
+  },
+
   /*
   parseAndCreateTrees: function(jsFilesContent, parserOptions) {
     var classCodeList = [];
@@ -1456,6 +1477,7 @@ module.exports = {
 /* eslint no-use-before-define:0 */
 var findUnresolvedDeps = module.exports.findUnresolvedDeps;
 var collectDepsRecursive = module.exports.collectDepsRecursive;
+var expandExcludes = module.exports.expandExcludes;
 var createAtHintsIndex = module.exports.createAtHintsIndex;
 var sortDepsTopologically = module.exports.sortDepsTopologically;
 var prependNamespace = module.exports.prependNamespace;
