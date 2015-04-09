@@ -25,18 +25,11 @@ module.exports = function(grunt) {
     },
 
     source: {
-      default: {
-        options: {
-          includes: ["<%= common.APPLICATION_MAIN_CLASS %>"],
-        }
-      }
+      default: {}
     },
+
     build: {
-      default: {
-        options: {
-          includes: ["<%= common.APPLICATION_MAIN_CLASS %>"],
-        }
-      }
+      default: {}
     }
   };
 

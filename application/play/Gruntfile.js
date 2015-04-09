@@ -14,48 +14,57 @@ module.exports = function(grunt) {
     },
 
     source: {
-      options: {
-        includes: ["<%= common.APPLICATION %>.*", "qx.*"],
-        excludes: [
-         "qx.test.*",
-         "qx.dev.unit.*",
-         "qx.dev.FakeServer",  // as this depends on qx.dev.unit classes
-         "playground.test.*"
-        ],
-        environment: {
-          "qx.debug" : true,
-          "qx.debug.ui.queue" : true,
-          "qx.nativeScrollBars" : true,
-          "qx.allowUrlSettings" : true,
-          "qx.mobile.emulatetouch" : true
-        },
-        libraries: [
-          "<%= common.QOOXDOO_PATH %>/framework/package.json",
-          "<%= common.ROOT %>/package.json"
-        ]
+      default: {
+        options: {
+          includes: ["<%= common.APPLICATION %>.*", "qx.*"],
+          excludes: [
+           "qx.test.*",
+           "qx.dev.unit.*",
+           "qx.dev.FakeServer",  // as this depends on qx.dev.unit classes
+           "playground.test.*"
+          ],
+          environment: {
+            // TODO: this should be programmatically merged with application.js
+            'qx.application': 'play.Application',
+            'qx.revision': '',
+            'qx.theme': 'custom',
+            'qx.version': '4.1',
+            'qx.debug': true,
+            'qx.debug.ui.queue': true,
+            'qx.nativeScrollBars': true,
+            'qx.allowUrlSettings': true,
+            'qx.mobile.emulatetouch': true
+          },
+        }
       }
     },
 
     build: {
-      options: {
-        includes: ["<%= common.APPLICATION %>.*", "qx.*"],
-        excludes: [
-         "qx.test.*",
-         "qx.dev.unit.*",
-         "qx.dev.FakeServer",  // as this depends on qx.dev.unit classes
-         "playground.test.*"
-        ],
-        environment: {
-          "qx.debug" : true,
-          "qx.debug.ui.queue" : true,
-          "qx.nativeScrollBars" : true,
-          "qx.allowUrlSettings" : true,
-          "qx.mobile.emulatetouch" : true
-        },
-        libraries: [
-          "<%= common.QOOXDOO_PATH %>/framework/package.json",
-          "<%= common.ROOT %>/package.json"
-        ]
+      default: {
+        options: {
+          includes: ["<%= common.APPLICATION %>.*", "qx.*"],
+          excludes: [
+           "qx.test.*",
+           "qx.dev.unit.*",
+           "qx.dev.FakeServer",  // as this depends on qx.dev.unit classes
+           "playground.test.*"
+          ],
+          environment: {
+            // TODO: this should be programmatically merged with application.js
+            'qx.application': 'play.Application',
+            'qx.revision': '',
+            'qx.theme': 'custom',
+            'qx.version': '4.1',
+            'qx.debug': true,
+            'qx.debug.databinding': false,
+            'qx.debug.dispose': false,
+            'qx.debug.ui.queue': true,
+            'qx.debug.io': false,
+            'qx.nativeScrollBars': true,
+            'qx.allowUrlSettings': true,
+            'qx.mobile.emulatetouch': true,
+          },
+        }
       }
     },
 
