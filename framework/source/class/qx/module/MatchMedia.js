@@ -31,6 +31,8 @@ qx.Class.define("qx.module.MatchMedia", {
      *
      * @param query {String} the media query to evaluate
      * @return {qx.bom.MediaQuery}  The media query
+     *
+     * @attachStatic {qxWeb}
      */
     matchMedia: function (query) {
       return new qx.bom.MediaQuery(query);
