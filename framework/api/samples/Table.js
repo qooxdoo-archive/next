@@ -37,7 +37,7 @@ addSample(".toTable", {
     '</table>'
   ],
   javascript: function () {
-    var table = q('#data').table();
+    var table = q('#data').toTable();
     q('#keyword').on('keyup', function () {
       table.filter(this.getValue());
     });
