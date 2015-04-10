@@ -21,6 +21,9 @@
 /**
  * CSS/Style property manipulation module
  * @group (Core)
+ *
+ * @require(qx.module.Util)
+ * @require(qx.module.Environment)
  */
 qx.Class.define("qx.module.Css", {
   statics: {
