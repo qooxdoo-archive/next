@@ -238,7 +238,7 @@
       "let" : {
         "Q_INCLUDES" : [
           "qx.module.Oo",
-          "qx.module.Util"
+          "qx.module.Util",
           "qx.module.Core",
           "qx.module.event.*",
           "qx.bom.Event",
