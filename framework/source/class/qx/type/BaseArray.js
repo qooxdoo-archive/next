@@ -52,8 +52,6 @@
  *
  * Through the ability to extend from this class one could add even
  * more utility features on top of it.
- *
- * @require(qx.bom.client.Engine)
  */
 qx.Class.define("qx.type.BaseArray", {
   extend: Array,
@@ -429,7 +427,7 @@ qx.Class.define("qx.type.BaseArray", {
   function createStackConstructor() {
     // In IE don't inherit from Array but use an empty object as prototype
     // and copy the methods from Array
-    if ((qx.core.Environment.get("engine.name") == "mshtml")) {
+    if (document.documentMode && document.documentMode < 10) {
       Stack.prototype = {
         length: 0,
         $$isArray: true

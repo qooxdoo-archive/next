@@ -37,6 +37,8 @@
  * Collection of helper methods operating on functions.
  *
  * @require(qx.lang.Array)
+ * @ignore(qx.core.Assert)
+ * @ignore(qx.core.Assert.assertFunction)
  */
 qx.Class.define("qx.lang.Function",
 {

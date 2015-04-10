@@ -50,6 +50,8 @@
  *
  * @ignore(qx.data)
  * @ignore(qx.data.IListData)
+ * @ignore(qx.core.Assert)
+ * @ignore(qx.core.Assert.assertArray)
  */
 qx.Class.define("qx.lang.Array",
 {
@@ -85,7 +87,7 @@ qx.Class.define("qx.lang.Array",
 
       // Some collections in mshtml are not able to be sliced.
       // These lines are a special workaround for this client.
-      if ((qx.core.Environment.get("engine.name") == "mshtml"))
+      if (document.documentMode && document.documentMode < 10)
       {
         if (object.item)
         {
@@ -130,7 +132,7 @@ qx.Class.define("qx.lang.Array",
     {
       // The native Array.slice cannot be used with some Array-like objects
       // including NodeLists in older IEs
-      if ((qx.core.Environment.get("engine.name") == "mshtml"))
+      if (document.documentMode && document.documentMode < 10)
       {
         if (coll.item)
         {

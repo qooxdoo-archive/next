@@ -222,8 +222,8 @@ qx.Class.define("qx.Interface",
       var members = iface.$$members;
       if (members) {
         for (var key in members) {
-          if (qx.lang.Type.isFunction(members[key])) {
-            if (!qx.lang.Type.isFunction(clazz.prototype[key])) {
+          if (qx.Class.getClass(members[key]) == "Function") {
+            if (qx.Class.getClass(clazz.prototype[key]) !== "Function") {
               return false;
             }
           }

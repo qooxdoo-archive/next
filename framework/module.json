@@ -67,6 +67,21 @@
           "file" : "${BUILD_PATH}/q${QFILES_VERSION_PART}.js",
           "loader-template" : "${QOOXDOO_PATH}/tool/data/generator/website.loader.tmpl.js"
         }
+      },
+
+      "log" :
+      {
+        "dependencies" : {
+          "dot" : {
+            "root" : "qxWeb",
+            "compiled-class-size" : false
+            },
+          "type"   : "using",
+          "phase" : null,
+          "include-transitive-load-deps" : true,
+          "force-fresh-deps" : true,
+          "format" : "dot"
+        }
       }
     },
 
@@ -110,23 +125,126 @@
     // qx.module.Core + qx.module.Animation + ...
     // => tailored qxWeb in n-js-files (core + ...)
 
+    "build-oo" :
+    {
+      "extend" : ["qxweb-build"],
+      "let" : {
+        "Q_INCLUDES" : [
+          "qx.module.Oo"
+        ]
+      },
+      "compile-options" :
+      {
+        "paths"  :
+        {
+          "file" : "${BUILD_PATH}/q-oo${QFILES_VERSION_PART}.js"
+        }
+      },
+      "log" :
+      {
+        "dependencies" : {
+          "dot" : {
+            "root" : "qx.Class",
+            "file" : "oo.dot"
+          }
+        }
+      }
+    },
+
+    "build-util" :
+    {
+      "extend" : ["qxweb-build"],
+      "let" : {
+        "Q_INCLUDES" : [
+          "qx.module.Util"
+        ]
+      },
+      "exclude" : [ "=qx.module.Oo" ],
+      "compile-options" :
+      {
+        "paths"  :
+        {
+          "file" : "${BUILD_PATH}/q-util${QFILES_VERSION_PART}.js"
+        }
+      },
+      "log" :
+      {
+        "dependencies" : {
+          "dot" : {
+            "root" : "qx.module.Util",
+            "file" : "util.dot"
+          }
+        }
+      }
+    },
+
+    "build-qxweb" :
+    {
+      "extend" : ["qxweb-build"],
+      "let" : {
+        "Q_INCLUDES" : [
+          "qxWeb"
+        ]
+      },
+      "exclude" : [ "=qx.module.Oo", "=qx.module.Util" ],
+      "compile-options" :
+      {
+        "paths"  :
+        {
+          "file" : "${BUILD_PATH}/qxweb${QFILES_VERSION_PART}.js"
+        }
+      },
+      "log" :
+      {
+        "dependencies" : {
+          "dot" : {
+            "root" : "qxWeb",
+            "file" : "qxweb.dot"
+          }
+        }
+      }
+    },
+
+    "build-environment" :
+    {
+      "extend" : ["qxweb-build"],
+      "let" : {
+        "Q_INCLUDES" : [
+          "qx.module.Environment"
+        ]
+      },
+      "exclude" : [ "=qx.module.Oo", "=qx.module.Util", "=qxWeb" ],
+      "compile-options" :
+      {
+        "paths"  :
+        {
+          "file" : "${BUILD_PATH}/q-environment${QFILES_VERSION_PART}.js"
+        }
+      },
+      "log" :
+      {
+        "dependencies" : {
+          "dot" : {
+            "root" : "qx.module.Environment",
+            "file" : "environment.dot"
+          }
+        }
+      }
+    },
+
     "build-core" :
     {
       "extend" : ["qxweb-build"],
       "let" : {
         "Q_INCLUDES" : [
+          "qx.module.Oo",
+          "qx.module.Util"
           "qx.module.Core",
           "qx.module.event.*",
           "qx.bom.Event",
           "qx.bom.Stylesheet",
           "qx.dom.Element",
-          "qx.lang.Array",
-          "qx.util.Uri",
-          "qx.lang.Type",
-          "qx.lang.String",
-          "qx.lang.Object",
-          "qx.lang.Function",
-          "qx.Class"
+          "qx.util.Uri"
         ]
       },
       "compile-options" :

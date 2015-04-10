@@ -36,6 +36,8 @@
  * Helper functions to handle Object as a Hash map.
  *
  * @ignore(qx.core.Assert)
+ * @ignore(qx.core.Assert.assertMap)
+ * @ignore(qx.core.Assert.assertArray)
  */
 qx.Class.define("qx.lang.Object",
 {
