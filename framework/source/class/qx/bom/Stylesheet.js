@@ -66,6 +66,7 @@ qx.Class.define("qx.bom.Stylesheet",
     createElement : function(text)
     {
       if (qx.core.Environment.get("html.stylesheet.createstylesheet")) {
+        // IE only
         var sheet = document.createStyleSheet();
 
         if (text) {
