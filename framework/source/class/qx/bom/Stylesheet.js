@@ -98,9 +98,10 @@ qx.Class.define("qx.bom.Stylesheet",
     addRule : function(sheet, selector, entry)
     {
       if (qx.core.Environment.get('qx.debug')) {
-        var msg = "qx.bom.Stylesheet.addRule: The rule '" + entry + "' for the selector '" + selector +
-        "' must not be enclosed in braces";
-        qx.core.Assert.assertFalse(/^\s*?\{.*?\}\s*?$/.test(entry), msg);
+        if (/^\s*?\{.*?\}\s*?$/.test(entry)) {
+          throw new Error("The rule '" + entry + "' for the selector '" + selector +
+            "' must not be enclosed in braces.");
+        }
       }
 
       sheet.insertRule(selector + "{" + entry + "}", sheet.cssRules.length);
@@ -133,7 +134,7 @@ qx.Class.define("qx.bom.Stylesheet",
      */
     removeSheet : function(sheet) {
       var owner = sheet.ownerNode ? sheet.ownerNode : sheet.owningElement;
-      qx.dom.Element.removeChild(owner, owner.parentNode);
+      owner.parentNode.removeChild(owner);
     },
 
 

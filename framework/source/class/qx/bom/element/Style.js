@@ -266,8 +266,12 @@ qx.Class.define("qx.bom.element.Style",
     {
       if (qx.core.Environment.get("qx.debug"))
       {
-        qx.core.Assert.assertElement(element, "Invalid argument 'element'");
-        qx.core.Assert.assertString(name, "Invalid argument 'name'");
+        if (!element || element.nodeType !== 1) {
+          throw new Error("First argument must be an element!");
+        }
+        if (typeof name !== "string") {
+          throw new Error("Second argument must be a string!");
+        }
       }
 
       // normalize name
@@ -287,8 +291,12 @@ qx.Class.define("qx.bom.element.Style",
     {
       if (qx.core.Environment.get("qx.debug"))
       {
-        qx.core.Assert.assertElement(element, "Invalid argument 'element'");
-        qx.core.Assert.assertMap(styles, "Invalid argument 'styles'");
+        if (!element || element.nodeType !== 1) {
+          throw new Error("First argument must be an element!");
+        }
+        if (qx.Class.getClass(styles) !== "Object") {
+          throw new Error("Second argument must be a map!");
+        }
       }
 
       // inline calls to "set" and "reset" because this method is very
