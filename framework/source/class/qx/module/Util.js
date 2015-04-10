@@ -18,8 +18,8 @@
 /**
  * @require(qx.lang.Array)
  * @require(qx.lang.Function)
- * TODO: Move debounce/throttle implementation to separate class w/o qxWeb dep
  * @require(qx.lang.Object)
  * @require(qx.lang.String)
+ * @require(qx.lang.Type)
  */
 qx.Class.define("qx.module.Util", {});

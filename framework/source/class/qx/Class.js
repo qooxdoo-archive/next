@@ -25,8 +25,6 @@
  *
  * @ignore(qx.data)
  * @ignore(qx.data.IListData)
- * @ignore(qx.Interface.*)
- * @ignore(qx.Mixin.*)
  */
 if (!window.qx) {
   window.qx = {};
@@ -181,6 +179,10 @@ qx.Class = {
   },
 
 
+  /**
+   * @ignore(qx.Mixin.*)
+   * @ignore(qx.Interface.*)
+   */
   define : function(name, config)
   {
     if (!config) {
@@ -399,6 +401,7 @@ qx.Class.define("qx.Class",
      * TODO
      *
      * supported property keys: set, get, writable, nullable, apply, event, init, check
+     * @ignore(qx.Interface.*)
      */
     /* eslint no-shadow:0 */
     addProperties : function(proto, properties) {

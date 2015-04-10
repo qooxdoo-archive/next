@@ -15,4 +15,9 @@
 
 ************************************************************************ */
 
+/**
+ * @require(qx.Class)
+ * @require(qx.Mixin)
+ * @require(qx.Interface)
+ */
 qx.Class.define("qx.module.Oo", {});
