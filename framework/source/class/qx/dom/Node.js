@@ -105,7 +105,7 @@ qx.Class.define("qx.dom.Node",
       }
 
       // jump to window
-      return node.defaultView || node.parentWindow;
+      return node.defaultView;
     },
 
 
