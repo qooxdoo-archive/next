@@ -22,21 +22,6 @@
 /**
  * The Checkbox is the mobile correspondent of the html checkbox.
  *
- * *Example*
- *
- * <pre class='javascript'>
- *   var checkBox = new qx.ui.form.CheckBox();
- *
- *   checkBox.model = "Title Activated";
- *   checkBox.bind("model", title, "value");
- *
- *   checkBox.on("changeValue", function(evt){
- *     this.model = evt.getdata() ? "Title Activated" : "Title Deactivated";
- *   });
- *
- *   this.getRoot.append(checkBox);
- * </pre>
- *
  * This example adds 2 widgets , a checkBox and a Title and binds them together by their model and value properties.
  * When the user taps on the checkbox, its model changes and it is reflected in the Title's value.
  * @group(Widget)
@@ -48,6 +33,7 @@ qx.Class.define("qx.ui.form.CheckBox",
 
   /**
    * @param value {Boolean?false} The value of the checkbox.
+   * @param element {Element?null} The html element that this widget build on.
    * @attach {qxWeb, toCheckBox}
    * @return {qx.ui.form.CheckBox} The new check box widget.
    */

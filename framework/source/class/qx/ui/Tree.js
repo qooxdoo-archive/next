@@ -91,25 +91,6 @@ qx.Class.define("qx.ui.Tree",
     /**
      * Set the model for the tree
      *
-     * The Data model could looks like :
-     * <pre>{
-     *   "root" :
-     *   {
-     *     "id" : "1",
-     *     "name" : "/",
-     *     "children" : [
-     *       {"name" : "Folder1_1", "id": "2"},
-     *       {"name" : "Folder1_2", "id": "3"},
-     *       { "name" : "Folder1_3", "id": "4",
-     *         "children" : [
-     *           {"name" : "Folder1_3_1", "id": "5"}
-     *         ]
-     *       }
-     *     ]
-     *   }
-     * }
-     * </pre>
-     *
      * @param data {Object} data model to use.
      * @return {qx.ui.Tree} The collection for chaining.
      */
