@@ -114,7 +114,7 @@ qx.Class.define("qx.bom.element.Dimension",
         return true;
       }
 
-      return qx.dom.Hierarchy.contains(document.msFullscreenElement, element);
+      return document.msFullscreenElement.contains(element);
     },
 
 
