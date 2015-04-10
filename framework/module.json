@@ -259,6 +259,60 @@
       }
     },
 
+    "build-css" :
+    {
+      "extend" : ["qxweb-build"],
+      "let" : {
+        "Q_INCLUDES" : [
+          "qx.module.Css"
+        ]
+      },
+      "exclude" : [ "=qx.module.Oo", "=qx.module.Util", "=qxWeb", "=qx.module.Environment" ],
+      "compile-options" :
+      {
+        "paths"  :
+        {
+          "file" : "${BUILD_PATH}/q-css${QFILES_VERSION_PART}.js"
+        }
+      },
+      "log" :
+      {
+        "dependencies" : {
+          "dot" : {
+            "root" : "qx.module.Css",
+            "file" : "css.dot"
+          }
+        }
+      }
+    },
+
+    "build-manipulating" :
+    {
+      "extend" : ["qxweb-build"],
+      "let" : {
+        "Q_INCLUDES" : [
+          "qx.module.Manipulating"
+        ]
+      },
+      "exclude" : [ "=qx.module.Oo", "=qx.module.Util", "=qxWeb", "=qx.module.Environment" ],
+      "compile-options" :
+      {
+        "paths"  :
+        {
+          "file" : "${BUILD_PATH}/q-manipulating${QFILES_VERSION_PART}.js"
+        }
+      },
+      "log" :
+      {
+        "dependencies" : {
+          "dot" : {
+            "root" : "qx.module.Manipulating",
+            "file" : "manipulating.dot"
+          }
+        }
+      }
+    },
+
 
     "build-core" :
     {
