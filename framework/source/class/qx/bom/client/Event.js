@@ -128,13 +128,13 @@ qx.Class.define("qx.bom.client.Event",
 
       for (var i = 0; i < targets.length; i++) {
         // check for the spec event (DOM-L3)
-        if (qx.bom.Event.supportsEvent(targets[i], "wheel")) {
+        if (qx.bom.client.Event.supportsEvent(targets[i], "wheel")) {
           type = "wheel";
           target = targets[i];
           break;
         }
         // check for the non spec event
-        if (qx.bom.Event.supportsEvent(targets[i], "mousewheel")) {
+        if (qx.bom.client.Event.supportsEvent(targets[i], "mousewheel")) {
           type = "mousewheel";
           target = targets[i];
           break;
@@ -142,6 +142,105 @@ qx.Class.define("qx.bom.client.Event",
       }
 
       return {type: type, target: target};
+    },
+
+    /**
+     * Whether the given target supports the given event type.
+     *
+     * Useful for testing for support of new features like
+     * touch events, gesture events, orientation change, on/offline, etc.
+     *
+     * *NOTE:* This check is *case-insensitive*.
+     * <code>supportsEvent(window, "cLicK")</code> will return <code>true</code>
+     * but <code>window.addEventListener("cLicK", callback)</code> will fail
+     * silently!
+     *
+     * @param target {var} Any valid target e.g. window, dom node, etc.
+     * @param type {String} Type of the event e.g. click, mousedown
+     * @return {Boolean} Whether the given event is supported
+     */
+    supportsEvent : function(target, type)
+    {
+      var browserName = qx.core.Environment.get("browser.name");
+      var engineName = qx.core.Environment.get("engine.name");
+
+      // transitionEnd support can not be detected generically for Internet Explorer 10+ [BUG #7875]
+      if (type.toLowerCase().indexOf("transitionend") != -1
+          && engineName === "mshtml"
+          && qx.core.Environment.get("browser.documentmode") > 9)
+      {
+        return true;
+      }
+
+      /**
+       * add exception for safari mobile ()
+       * @see http://bugzilla.qooxdoo.org/show_bug.cgi?id=8244
+       */
+      var safariBrowserNames = ["mobile safari", "safari"];
+      if (
+        engineName === "webkit" &&
+        safariBrowserNames.indexOf(browserName) > -1
+      ) {
+        var supportedEvents = [
+          'loadeddata', 'progress', 'timeupdate', 'seeked', 'canplay', 'play',
+          'playing', 'pause', 'loadedmetadata', 'ended', 'volumechange'
+        ];
+        if (supportedEvents.indexOf(type.toLowerCase()) > -1) {
+          return true;
+        }
+      }
+
+      // The 'transitionend' event can only be detected on window objects,
+      // not DOM elements [BUG #7249]
+      if (target != window && type.toLowerCase().indexOf("transitionend") != -1) {
+        var transitionSupport = qx.core.Environment.get("css.transition");
+        return (transitionSupport && transitionSupport["end-event"] == type);
+      }
+      // Using the lowercase representation is important for the
+      // detection of events like 'MSPointer*'. They have to detected
+      // using the lower case name of the event.
+      var eventName = "on" + type.toLowerCase();
+
+      var supportsEvent = (eventName in target);
+
+      if (!supportsEvent)
+      {
+        supportsEvent = typeof target[eventName] == "function";
+
+        if (!supportsEvent && target.setAttribute)
+        {
+          target.setAttribute(eventName, "return;");
+          supportsEvent = typeof target[eventName] == "function";
+
+          target.removeAttribute(eventName);
+        }
+      }
+
+      return supportsEvent;
+    },
+
+
+    /**
+     * Returns the (possibly vendor-prefixed) name of the given event type.
+     * *NOTE:* Incorrect capitalization of type names will *not* be corrected. See
+     * {@link #supportsEvent} for details.
+     *
+     * @param target {var} Any valid target e.g. window, dom node, etc.
+     * @param type {String} Type of the event e.g. click, mousedown
+     * @return {String|null} Event name or <code>null</code> if the event is not
+     * supported.
+     */
+    getEventName : function(target, type)
+    {
+      var pref = [""].concat(qx.bom.Style.VENDOR_PREFIXES);
+      for (var i=0, l=pref.length; i<l; i++) {
+        var prefix = pref[i].toLowerCase();
+        if (qx.bom.client.Event.supportsEvent(target, prefix + type)) {
+          return prefix ? prefix + qx.lang.String.firstUp(type) : type;
+        }
+      }
+
+      return null;
     }
   },
 

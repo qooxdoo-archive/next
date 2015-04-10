@@ -81,7 +81,7 @@ qx.Class.define("qx.event.handler.OrientationCore", {
       // Handle orientation change event for Android devices by the resize event.
       // See http://stackoverflow.com/questions/1649086/detect-rotation-of-android-phone-in-the-browser-with-javascript
       // for more information.
-      this.__nativeEventType = qx.bom.Event.supportsEvent(this._window, "orientationchange") ?
+      this.__nativeEventType = qx.bom.client.Event.supportsEvent(this._window, "orientationchange") ?
         "orientationchange" : "resize";
 
 

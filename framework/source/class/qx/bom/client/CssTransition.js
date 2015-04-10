@@ -24,7 +24,6 @@
  * Spec: http://www.w3.org/TR/css3-transitions/
  *
  * @internal
- * @ignore(qx.bom.Event)  // cyclic dep
  */
 qx.Class.define("qx.bom.client.CssTransition",
 {
@@ -59,7 +58,7 @@ qx.Class.define("qx.bom.client.CssTransition",
         return null;
       }
 
-      var eventName = qx.bom.Event.getEventName(window, "transitionEnd");
+      var eventName = qx.bom.client.Event.getEventName(window, "transitionEnd");
       eventName = eventName == "transitionEnd" ? eventName.toLowerCase() : eventName;
 
       // Detecting the end event's name is not possible in some browsers,
