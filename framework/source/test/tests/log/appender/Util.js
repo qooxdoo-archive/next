@@ -43,7 +43,7 @@ describe("log.appender.Util", function() {
       }]
     };
     var a = qx.log.appender.Util.toTextArray(entry);
-    console.log(a);
+
     assert.deepEqual(a[0], "000900");
   });
 
