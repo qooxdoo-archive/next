@@ -21,6 +21,15 @@
     "build-all",
     "build-core-min",
     "build-script",
+
+    "build-oo",
+    "build-util",
+    "build-qxweb",
+    "build-environment",
+    "build-attribute",
+    "build-css",
+    "build-manipulating",
+
     "clean",
     "clean-cache",
     "compile-framework-scss",
