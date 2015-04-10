@@ -93,11 +93,13 @@ var getConfig = function() {
         appName: "<%= common.APPLICATION %>",
         qxPath: "<%= common.QOOXDOO_PATH %>",
         qxIconTheme: "<%= common.QXICONTHEME %>",
+        appRoot: "<%= common.ROOT %>",
         sourcePath: "<%= common.SOURCE_PATH %>/script",
         cachePath: "<%= common.CACHE %>",
         loaderTemplate: "<%= common.QOOXDOO_PATH %>/tool/data/generator/loader.tmpl.js",
         environment: common.ENVIRONMENT,
         addCss: ["theme/<%= common.THEME %>.css"],
+        fileName: "<%= common.APPLICATION %>",
         includes: ["<%= common.APPLICATION_MAIN_CLASS %>"],
         excludes: [],
         libraries: [
@@ -124,6 +126,7 @@ var getConfig = function() {
           "qx.debug.io" : false
         }),
         addCss: ["theme/<%= common.THEME %>.css"],
+        fileName: "<%= common.APPLICATION %>",
         includes: ["<%= common.APPLICATION_MAIN_CLASS %>"],
         excludes: [],
         libraries: [

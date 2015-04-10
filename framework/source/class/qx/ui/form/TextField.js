@@ -39,7 +39,7 @@ qx.Class.define("qx.ui.form.TextField",
    */
   construct : function(value, element)
   {
-    this.super(qx.ui.form.Input, "construct", element);
+    this.super("construct", element);
     this.type = "text";
 
     if (value) {
@@ -76,7 +76,7 @@ qx.Class.define("qx.ui.form.TextField",
 
 
     dispose : function() {
-      this.super(qx.ui.form.Input, "dispose");
+      this.super("dispose");
       this.off("keypress", this._onKeyPress, this);
     }
   },

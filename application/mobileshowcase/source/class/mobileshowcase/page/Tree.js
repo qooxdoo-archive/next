@@ -24,7 +24,7 @@ qx.Class.define("mobileshowcase.page.Tree",
 
   construct : function()
   {
-    this.super(mobileshowcase.page.Abstract, "construct");
+    this.super("construct");
     this.title = "Tree";
   },
 
@@ -34,7 +34,7 @@ qx.Class.define("mobileshowcase.page.Tree",
     // overridden
     _initialize : function()
     {
-      this.super(mobileshowcase.page.Abstract, "_initialize");
+      this.super("_initialize");
 
       var data = {
         "result": {

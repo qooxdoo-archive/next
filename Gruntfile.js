@@ -6,6 +6,42 @@ module.exports = function(grunt) {
   grunt.initConfig({
     // apps
     run_grunt: {
+      source_apps: {
+        options: {
+          log: true,
+          task: ["source"],
+          process: function(res) {
+            if (res.fail) {
+              grunt.log.writeln('Error during building (source version of) all applications');
+            }
+          }
+        },
+        src: ['application/play/Gruntfile.js', "application/mobileshowcase/Gruntfile.js"]
+      },
+      source_modules: {
+        options: {
+          log: true,
+          task: ["source"],
+          process: function(res) {
+            if (res.fail) {
+              grunt.log.writeln('Error during building (source version of) all modules');
+            }
+          }
+        },
+        src: ["framework/Gruntfile.js"]
+      },
+      source_testsuite: {
+        options: {
+          log: true,
+          task: ["source", "html"],
+          process: function(res) {
+            if (res.fail) {
+              grunt.log.writeln('Error during building (source version of) test suite');
+            }
+          }
+        },
+        src: ["framework/source/test/Gruntfile.js"]
+      },
       build_apps: {
         options: {
           log: true,
@@ -18,6 +54,30 @@ module.exports = function(grunt) {
         },
         src: ['application/play/Gruntfile.js', "application/mobileshowcase/Gruntfile.js"]
       },
+      build_modules: {
+        options: {
+          log: true,
+          task: ["build"],
+          process: function(res) {
+            if (res.fail) {
+              grunt.log.writeln('Error during building all modules');
+            }
+          }
+        },
+        src: ["framework/Gruntfile.js"]
+      },
+      build_testsuite: {
+        options: {
+          log: true,
+          task: ["build", "html"],
+          process: function(res) {
+            if (res.fail) {
+              grunt.log.writeln('Error during building test suite');
+            }
+          }
+        },
+        src: ["framework/source/test/Gruntfile.js"]
+      },
       clean_apps: {
         options: {
           log: true,
@@ -29,6 +89,18 @@ module.exports = function(grunt) {
           }
         },
         src: ['application/play/Gruntfile.js', "application/mobileshowcase/Gruntfile.js"]
+      },
+      clean_modules: {
+        options: {
+          log: true,
+          task: ["clean:app"],
+          process: function(res) {
+            if (res.fail) {
+              grunt.log.writeln('Error during cleaning all modules');
+            }
+          }
+        },
+        src: ["framework/Gruntfile.js"]
       },
       lint_apps: {
         options: {
@@ -69,8 +141,9 @@ module.exports = function(grunt) {
   // alias
   grunt.registerTask('lint', 'run_grunt:lint_apps');
   grunt.registerTask('eslint', 'run_grunt:eslint_apps');
-  grunt.registerTask('clean', 'run_grunt:clean_apps');
-  grunt.registerTask('build', 'run_grunt:build_apps');
+  grunt.registerTask('clean', ['run_grunt:clean_apps', 'run_grunt:clean_modules']);
+  grunt.registerTask('build', ['run_grunt:build_apps', 'run_grunt:build_modules', 'run_grunt:build_testsuite']);
+  grunt.registerTask('source', ['run_grunt:source_apps', 'run_grunt:source_modules', 'run_grunt:source_testsuite']);
 
   // run toolchain tests
   grunt.task.registerTask (

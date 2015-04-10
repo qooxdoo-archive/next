@@ -33,6 +33,7 @@ var url = require("url");
 
 // third-party
 var pathIsInside = require("path-is-inside");
+var _ = require('underscore');
 
 // qx
 var qxRes = require("qx-resource");
@@ -63,7 +64,7 @@ function renderLoaderTmpl(tmpl, ctx) {
   return tmpl;
 }
 
-function calculateRelPaths(packageJsonData, qxPath, appName, ns) {
+function calculateRelPaths(packageJsonData, qxPath, appName, appRoot, ns) {
   var resolvedQxPath = path.resolve(qxPath);
   var gruntDir = "tool/grunt";
   var frameworkDir = "framework";
@@ -80,13 +81,15 @@ function calculateRelPaths(packageJsonData, qxPath, appName, ns) {
 
   // paths depending on whether app is within ...
   if (pathIsInside(packageJsonData[appName].base.abs, path.join(resolvedQxPath, gruntDir))) {
-    // ... "tool/grunt" dir ('myapp' test app) or not
+    // ... "tool/grunt" dir ('myapp' test app)
     rel.res = url.resolve(path.join("../", packageJsonData[ns].resource), '');
     rel.class = url.resolve(path.join("../", packageJsonData[ns].class), '');
   } else if (pathIsInside(packageJsonData[appName].base.abs, path.join(resolvedQxPath, frameworkDir))) {
     // ... "framework" dir
-    rel.res = url.resolve(path.join(packageJsonData[ns].resource), '');
-    rel.class = url.resolve(path.join(packageJsonData[ns].class), '');
+    // ...    * for source/index.html
+    // ...    * for source/test/{index,index-source,index-coverage}.html
+    rel.res = url.resolve(path.join(path.relative(appRoot, packageJsonData[ns].resource)), '');
+    rel.class = url.resolve(path.join(path.relative(appRoot, packageJsonData[ns].class)), '');
   } else {
     rel.res = url.resolve(path.join("../", packageJsonData[ns].base.rel, packageJsonData[ns].resource), '');
     rel.class = url.resolve(path.join("../", packageJsonData[ns].base.rel, packageJsonData[ns].class), '');
@@ -102,7 +105,7 @@ function calculateRelPaths(packageJsonData, qxPath, appName, ns) {
 
 module.exports = function(grunt) {
 
-  grunt.registerTask('source', 'create source version of current application', function() {
+  grunt.registerMultiTask('source', 'create source version of current application', function() {
     var opts = this.options();
     // console.log(opts);
 
@@ -125,8 +128,11 @@ module.exports = function(grunt) {
     var classesDeps = qxDep.collectDepsRecursive(classPaths, opts.includes, opts.excludes, opts.environment, depsCollectingOptions);
     grunt.log.ok('Done.');
 
+    // expand excludes starting with a '='
+    opts.excludes = qxDep.expandExcludes(opts.excludes, classPaths);
+    var depsWithoutExcludes = _.difference(Object.keys(classesDeps), opts.excludes);
 
-    grunt.log.writeln('Sorting ' + Object.keys(classesDeps).length + ' classes ...');
+    grunt.log.writeln('Sorting ' + depsWithoutExcludes.length + ' classes ...');
     // ------------------------------------------------------------------------------
     var classListLoadOrder = qxDep.sortDepsTopologically(classesDeps, "load", opts.excludes);
     classListLoadOrder = qxDep.prependNamespace(classListLoadOrder, allNamespaces);
@@ -162,7 +168,7 @@ module.exports = function(grunt) {
     var relPaths = {};
     var ns = "";
     for (ns in packageJsonData) {
-      relPaths = calculateRelPaths(packageJsonData, opts.qxPath, opts.appName, ns);
+      relPaths = calculateRelPaths(packageJsonData, opts.qxPath, opts.appName, opts.appRoot, ns);
       libinfo[ns] = {};
       if (ns === "qx" && opts.appName !== "qx") {
         libinfo[ns] = {
@@ -193,10 +199,10 @@ module.exports = function(grunt) {
     var tmpl = grunt.file.read(opts.loaderTemplate);
     var renderedTmpl = renderLoaderTmpl(tmpl, ctx);
 
-    var appFileName = opts.appName + ".js";
+    var fileName = opts.fileName + ".js";
 
     // write script files
-    grunt.file.write(path.join(opts.sourcePath, appFileName), renderedTmpl);
+    grunt.file.write(path.join(opts.sourcePath, fileName), renderedTmpl);
     grunt.file.write(path.join(opts.sourcePath, resourcesFileName), resourcesContent);
     grunt.log.ok('Done.');
   });

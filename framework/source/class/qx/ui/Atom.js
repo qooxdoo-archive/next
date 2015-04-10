@@ -40,7 +40,7 @@ qx.Class.define("qx.ui.Atom",
    */
   construct : function(label, icon, element)
   {
-    this.super(qx.ui.Widget, "construct", element);
+    this.super("construct", element);
 
     this.addClass("qx-flex-center");
 
@@ -279,7 +279,7 @@ qx.Class.define("qx.ui.Atom",
 
 
     dispose : function() {
-      this.super(qx.ui.Widget, "dispose");
+      this.super("dispose");
       this.__label && this.__label.dispose();
       this.__icon && this.__icon.dispose();
     }

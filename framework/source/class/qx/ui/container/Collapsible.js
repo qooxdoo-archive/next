@@ -53,7 +53,7 @@ qx.Class.define("qx.ui.container.Collapsible",
    */
   construct : function(title, element)
   {
-    this.super(qx.ui.Widget, "construct", element);
+    this.super("construct", element);
 
     // Get exiting content and clear it afterwards
     var content = this.getHtml();
@@ -69,8 +69,8 @@ qx.Class.define("qx.ui.container.Collapsible",
     this.setContent(content);
 
     // use the append of the superclass to prevent recursive append calls
-    this._append(this._header);
-    this._append(this._content);
+    this.super("append", this._header);
+    this.super("append", this._content);
 
     this.collapsed = undefined;
     this.combined = undefined;
@@ -216,7 +216,7 @@ qx.Class.define("qx.ui.container.Collapsible",
 
 
     dispose : function() {
-      this.super(qx.ui.Widget, "dispose");
+      this.super("dispose");
       this._header.off("tap", this._toggleCollapsed, this);
       this._header.dispose();
       this._content.dispose();

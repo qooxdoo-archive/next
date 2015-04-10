@@ -32,7 +32,7 @@
   ],
   "org_next": {
     "namespace": "qx",
-    "class": "../../source/class",
-    "resource": "../../source/resource"
+    "class": "../class",
+    "resource": "../resource"
   }
 }

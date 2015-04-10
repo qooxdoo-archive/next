@@ -80,145 +80,6 @@ var qxCoreEnv = (qxCoreEnv || require('./qxCoreEnv'));
 var util = (util || require('./util'));
 
 //------------------------------------------------------------------------------
-// Attic
-//------------------------------------------------------------------------------
-
-// This envisaged code may be useful as starting point
-// at some point - if not remove it completly someday ...
-
-/**
- * See ecmascript/frontend/tree.py#hasParentContext
- */
-/*
-function hasParentContext(node, parent_expression) {
-  var curr_node = node;
-  parent_expression.split('/').reverse().forEach(function (path_elem) {
-    if (curr_node.parent) {
-      if (path_elem == '*' || curr_node.parent.type == path_elem) {
-        curr_node = curr_node.parent;
-      } else {
-        return false;
-      }
-    } else {
-      return false;
-    }
-    return true;
-  }
-}
-*/
-
-/**
- * Return [name, map_tree] for any class map found in etree.
- * Restricted to top-level class definitions.
- */
-/*
-function getClassMaps(etree, optObj) {
-  var controller = new estraverse.Controller();
-  controller.traverse(etree, {
-    enter : function (node,parent) {
-      if (is_factory_call(node) && hasParentContext(node, "Program/ExpressionStatement")){
-
-      }
-    }
-  }
-}
-*/
-
-/**
- * Gather the remain globals that are not referenced outside of class maps.
- *
- * Approach: Take the .through references from the global escope.Scope and
- * remove those references that point inside class maps. The remaining are
- * unresolved symbols referenced in code that is not part of a class map.
- */
-/*
-function get_non_class_deps(etree, deps_map, optObj) {
-}
-*/
-
-/**
- * Better alternative to analyze_tree():
- * Get dependencies as a structured map that reflects qooxdoo's class map.
- * This allows for good caching (these deps are shallow), and is much better
- * for transitive load dependency exploration:
- * - the driver for the transitive dependencies just has to use this function
- *   and pick the deps of a specific feature *plus* the non-class deps.
- *
- * Sample return value:
- *
- *   {
- *     __non_class_code__ : []  // top-level, @require etc.
- *     "custom.Application" : {
- *       extend : [<escope.Reference>, ...],
- *       implement : [...],
- *       statics : {
- *         foo : [...],
- *         bar : [...]
- *       },
- *       members : {
- *         baz : [...],
- *         yep : [...]
- *       }
- *       destruct : [...],
- *       classDefined : [...],
- *       ...
- *     }
- *   }
- *
- * @returns {Object} map embedding dependencies { 'custom.ClassA' : { extend : [escope.References] } }
- */
-/*
-var KeysWithSubMaps = {
-  statics:true,
-  members:true,
-};
-*/
-
-
-/**
- * Get deps by analysing this paricular (sub)tree.
- */
- /*
-function analyze_tree(etree, optObj) {
-}
-*/
-
-/*
-function analyze_as_map(etree, optObj) {
-  var result = {};
-
-  // extract deps from class maps
-  getClassMaps(etree, optObj).forEach(function (class_spec) { // class_spec = ["custom.ClassA" : <esprima.Node>]
-    var class_name = class_spec[0];
-    var class_map = class_spec[1];
-    var deps_map = result[class_name] = {};
-    var curr_map;
-
-    // iterate class map
-    class_spec.properties.forEach(function (prop) {
-      var prop_name = prop.key.name;
-      // iterate sub-maps
-      if (prop_name in KeysWithSubMaps) {
-        curr_map = deps_map[prop_name] = {};
-        prop.value.properties.forEach(function (subprop) {
-          var sprop_name = subprop.key.name;
-          curr_map[sprop_name] = analyze_tree(subprop.value, optObj);
-        });
-      } else {
-        deps_map[prop_name] = analyze_tree(prop.value, optObj);
-      }
-    });
-  });
-
-  // take the remaining symbols for the remaining code in the tree
-  // this includes all code outside class maps, top-level code, @require hints, etc.
-  result['__non_class_code__'] = get_non_class_deps(etree, deps_map, optObj);
-
-  return result;
-}
-*/
-
-//------------------------------------------------------------------------------
 // Privates
 //------------------------------------------------------------------------------
 
@@ -624,7 +485,6 @@ function applyIgnoreRequireAndUse(deps, className) {
  * @see {@link http://esprima.org/doc/#ast|esprima AST}
  */
 function collectAtHintsFromComments(tree) {
-  var topLevelCodeUnitLines = [];
   var atHints = {
     'ignore': [],
     'require': [],
@@ -633,44 +493,33 @@ function collectAtHintsFromComments(tree) {
     'cldr': false
   };
 
-  var isFileOrClassScopeComment = function(comment, topLevelLines) {
-    return (comment.type === 'Block'
-            && (topLevelLines.indexOf(comment.loc.end.line+1) !== -1  // class scope
-                || comment.loc.end.line < topLevelLines[0]));         // file scope
-  };
-
-  // collect only file and class scope which means only top level
-  // @ignore/@require/@use/@asset/@cldr are consider here for now.
-  // This may be important later cause @ignore can be used within methods
-  // (which is neglected here) also!
-  tree.body.forEach(function (codeUnit) {
-    topLevelCodeUnitLines.push(codeUnit.loc.start.line);
-  });
+  // The scope of a comment doesn't matter (e.g. file, class, method).
+  // No matter, where the atHint (@ignore/@require/@use/@asset/@cldr)
+  // is written (i.e. attached to) it is considered globally for this file
+  // (most of the time i.e this class/module).
 
   tree.comments.forEach(function (comment) {
-    if (isFileOrClassScopeComment(comment, topLevelCodeUnitLines)) {
-      var jsdoc = doctrine.parse(comment.value, { unwrap: true });
-      jsdoc.tags.forEach(function (tag) {
-        switch(tag.title) {
-          case 'ignore':
-            atHints.ignore = atHints.ignore.concat(getClassesFromTagDesc(tag.description));
-            break;
-          case 'require':
-            atHints.require = atHints.require.concat(getClassesFromTagDesc(tag.description));
-            break;
-          case 'use':
-            atHints.use = atHints.use.concat(getClassesFromTagDesc(tag.description));
-            break;
-          case 'asset':
-            atHints.asset = atHints.asset.concat(getResourcesFromTagDesc(tag.description));
-            break;
-          case 'cldr':
-            atHints.cldr = true;
-            break;
-          default:
-        }
-      });
-    }
+    var jsdoc = doctrine.parse(comment.value, { unwrap: true });
+    jsdoc.tags.forEach(function (tag) {
+      switch(tag.title) {
+        case 'ignore':
+          atHints.ignore = atHints.ignore.concat(getClassesFromTagDesc(tag.description));
+          break;
+        case 'require':
+          atHints.require = atHints.require.concat(getClassesFromTagDesc(tag.description));
+          break;
+        case 'use':
+          atHints.use = atHints.use.concat(getClassesFromTagDesc(tag.description));
+          break;
+        case 'asset':
+          atHints.asset = atHints.asset.concat(getResourcesFromTagDesc(tag.description));
+          break;
+        case 'cldr':
+          atHints.cldr = true;
+          break;
+        default:
+      }
+    });
   });
 
   return atHints;
@@ -1362,6 +1211,27 @@ module.exports = {
     return classCodeList;
   },
 
+
+  /**
+   * Resolves '=' (first char before exclude), which has a special meaning:
+   * All dependencies of this class are excluded, too (i.e. appended to the excludes).
+   *
+   * @param {string[]} excludes
+   * @param {Object} basePaths - namespace (key) and filePath (value) to library
+   * @return {string[]} excludes
+   */
+  expandExcludes: function(excludes, basePaths) {
+    excludes = excludes.map(function(classId) {
+      if (classId.indexOf("=") === 0) {
+        var classesDepsExclude = collectDepsRecursive(basePaths, [classId.substr(1)], []);
+        return sortDepsTopologically(classesDepsExclude, "load", []);
+      } else {
+        return classId;
+      }
+    });
+    return _.flatten(excludes);
+  },
+
   /*
   parseAndCreateTrees: function(jsFilesContent, parserOptions) {
     var classCodeList = [];
@@ -1468,6 +1338,7 @@ module.exports = {
 /* eslint no-use-before-define:0 */
 var findUnresolvedDeps = module.exports.findUnresolvedDeps;
 var collectDepsRecursive = module.exports.collectDepsRecursive;
+var expandExcludes = module.exports.expandExcludes;
 var createAtHintsIndex = module.exports.createAtHintsIndex;
 var sortDepsTopologically = module.exports.sortDepsTopologically;
 var prependNamespace = module.exports.prependNamespace;

@@ -53,7 +53,7 @@ qx.Class.define("qx.ui.form.CheckBox",
    */
   construct : function(value, element)
   {
-    this.super(qx.ui.form.Input, "construct", element);
+    this.super("construct", element);
     this.type = "checkbox";
     value = !!value;
 
@@ -125,7 +125,7 @@ qx.Class.define("qx.ui.form.CheckBox",
 
 
     dispose : function() {
-      this.super(qx.ui.form.Input, "dispose");
+      this.super("dispose");
       this.off("tap", this._onTap, this);
     }
   },

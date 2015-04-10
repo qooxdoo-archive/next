@@ -160,7 +160,7 @@ Samples = {
         _selected: null,
 
         showDate: function(date) {
-          this.super(qx.ui.control.Calendar, "showDate", date);
+          this.super("showDate", date);
           if (this._selected) {
             this.find("." + this.defaultCssClass + "-day").forEach(function(el) {
               if (el.getAttribute("value") == this._selected) {
@@ -171,7 +171,7 @@ Samples = {
         },
 
         _selectDay : function(e) {
-          this.super(qx.ui.control.Calendar, "_selectDay", e);
+          this.super("_selectDay", e);
           this.find("td").removeClass("selected");
           qxWeb(e.target).getParents().addClass("selected");
           this._selected = e.target.getAttribute("value");

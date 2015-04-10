@@ -28,7 +28,8 @@ describe("bom.element.AnimationHandle", function() {
     }
   });
 
-  it(" stop of CSS animation", function(done) {
+
+  it("Stop of CSS animation", function(done) {
     var el = qx.dom.Element.create("div");
     var handle = qx.bom.element.Animation.animate(el, {
       "duration": 100,
@@ -47,6 +48,81 @@ describe("bom.element.AnimationHandle", function() {
     handle.stop();
     setTimeout(function() {
       sinon.assert.notCalled(spy);
+      done();
+    }, 500);
+  });
+
+
+  it("IsEnded", function(done) {
+    var el = qx.dom.Element.create("div");
+    var handle = qx.bom.element.Animation.animate(el, {
+      "duration": 100,
+      "keyFrames": {
+        0: {
+          "opacity": 1
+        },
+        100: {
+          "opacity": 0
+        }
+      },
+      "delay": 200
+    });
+    var spy = sinonSandbox.spy(qx.bom.element.AnimationJs, "stop");
+    handle.on("start", spy);
+    handle.stop();
+    setTimeout(function() {
+      sinon.assert.notCalled(spy);
+      assert.isTrue(handle.isEnded());
+      done();
+    }, 500);
+  });
+
+
+  it("IsPaused", function(done) {
+    var el = qx.dom.Element.create("div");
+    var handle = qx.bom.element.Animation.animate(el, {
+      "duration": 100,
+      "keyFrames": {
+        0: {
+          "opacity": 1
+        },
+        100: {
+          "opacity": 0
+        }
+      },
+      "delay": 200
+    });
+    var spy = sinonSandbox.spy(qx.bom.element.AnimationJs, "pause");
+    handle.on("start", spy);
+    handle.pause();
+    setTimeout(function() {
+      sinon.assert.notCalled(spy);
+      assert.isTrue(handle.isPaused());
+      done();
+    }, 500);
+  });
+
+
+  it("IsPlaying", function(done) {
+    var el = qx.dom.Element.create("div");
+    var handle = qx.bom.element.Animation.animate(el, {
+      "duration": 100,
+      "keyFrames": {
+        0: {
+          "opacity": 1
+        },
+        100: {
+          "opacity": 0
+        }
+      },
+      "delay": 200
+    });
+    var spy = sinonSandbox.spy(qx.bom.element.AnimationJs, "play");
+    handle.on("start", spy);
+    handle.play();
+    setTimeout(function() {
+      sinon.assert.notCalled(spy);
+      assert.isTrue(handle.isPlaying());
       done();
     }, 500);
   });

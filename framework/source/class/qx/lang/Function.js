@@ -125,12 +125,9 @@ qx.Class.define("qx.lang.Function",
     /**
      * Base function for creating functional closures which is used by most other methods here.
      *
-     * *Syntax*
-     *
-     * <pre class='javascript'>var createdFunction = qx.lang.Function.create(myFunction, [options]);</pre>
-     *
      * @param func {Function} Original function to wrap
      * @param options {Map?} Map of options
+     *
      * <ul>
      * <li><strong>self</strong>: The object that the "this" of the function will refer to. Default is the same as the wrapper function is called.</li>
      * <li><strong>args</strong>: An array of arguments that will be passed as arguments to the function when called.
@@ -205,24 +202,6 @@ qx.Class.define("qx.lang.Function",
     /**
      * Returns a function whose "this" is altered.
      *
-     * *Syntax*
-     *
-     * <pre class='javascript'>qx.lang.Function.bind(myFunction, [self, [varargs...]]);</pre>
-     *
-     * *Example*
-     *
-     * <pre class='javascript'>
-     * function myFunction()
-     * {
-     *   this.setStyle('color', 'red');
-     *   // note that 'this' here refers to myFunction, not an element
-     *   // we'll need to bind this function to the element we want to alter
-     * };
-     *
-     * var myBoundFunction = qx.lang.Function.bind(myFunction, myElement);
-     * myBoundFunction(); // this will make the element myElement red.
-     * </pre>
-     *
      * If you find yourself using this static method a lot, you may be
      * interested in the bindTo() method in the mixin qx.core.MBindTo.
      *
@@ -247,21 +226,6 @@ qx.Class.define("qx.lang.Function",
     /**
      * Returns a function whose arguments are pre-configured.
      *
-     * *Syntax*
-     *
-     * <pre class='javascript'>qx.lang.Function.curry(myFunction, [varargs...]);</pre>
-     *
-     * *Example*
-     *
-     * <pre class='javascript'>
-     * function myFunction(elem) {
-     *   elem.setStyle('color', 'red');
-     * };
-     *
-     * var myBoundFunction = qx.lang.Function.curry(myFunction, myElement);
-     * myBoundFunction(); // this will make the element myElement red.
-     * </pre>
-     *
      * @param func {Function} Original function to wrap
      * @param varargs {arguments} The arguments to pass to the function.
      * @return {var} The pre-configured function.
@@ -277,10 +241,6 @@ qx.Class.define("qx.lang.Function",
 
     /**
      * Returns a function which could be used as a listener for a native event callback.
-     *
-     * *Syntax*
-     *
-     * <pre class='javascript'>qx.lang.Function.listener(myFunction, [self, [varargs...]]);</pre>
      *
      * @param func {Function} Original function to wrap
      * @param self {Object ? null} The object that the "this" of the function will refer to.
@@ -319,27 +279,6 @@ qx.Class.define("qx.lang.Function",
     /**
      * Tries to execute the function.
      *
-     * *Syntax*
-     *
-     * <pre class='javascript'>var result = qx.lang.Function.attempt(myFunction, [self, [varargs...]]);</pre>
-     *
-     * *Example*
-     *
-     * <pre class='javascript'>
-     * var myObject = {
-     *   'cow': 'moo!'
-     * };
-     *
-     * var myFunction = function()
-     * {
-     *   for(var i = 0; i < arguments.length; i++) {
-     *     if(!this[arguments[i]]) throw('doh!');
-     *   }
-     * };
-     *
-     * var result = qx.lang.Function.attempt(myFunction, myObject, 'pig', 'cow'); // false
-     * </pre>
-     *
      * @param func {Function} Original function to wrap
      * @param self {Object ? null} The object that the "this" of the function will refer to.
      * @param varargs {arguments ? null} The arguments to pass to the function.
@@ -359,21 +298,6 @@ qx.Class.define("qx.lang.Function",
 
     /**
      * Delays the execution of a function by a specified duration.
-     *
-     * *Syntax*
-     *
-     * <pre class='javascript'>var timeoutID = qx.lang.Function.delay(myFunction, [delay, [self, [varargs...]]]);</pre>
-     *
-     * *Example*
-     *
-     * <pre class='javascript'>
-     * var myFunction = function(){ alert('moo! Element id is: ' + this.id); };
-     * //wait 50 milliseconds, then call myFunction and bind myElement to it
-     * qx.lang.Function.delay(myFunction, 50, myElement); // alerts: 'moo! Element id is: ... '
-     *
-     * // An anonymous function, example
-     * qx.lang.Function.delay(function(){ alert('one second later...'); }, 1000); //wait a second and alert
-     * </pre>
      *
      * @param func {Function} Original function to wrap
      * @param delay {Integer} The duration to wait (in milliseconds).
@@ -395,18 +319,6 @@ qx.Class.define("qx.lang.Function",
 
     /**
      * Executes a function in the specified intervals of time
-     *
-     * *Syntax*
-     *
-     * <pre class='javascript'>var intervalID = qx.lang.Function.periodical(myFunction, [period, [self, [varargs...]]]);</pre>
-     *
-     * *Example*
-     *
-     * <pre class='javascript'>
-     * var Site = { counter: 0 };
-     * var addCount = function(){ this.counter++; };
-     * qx.lang.Function.periodical(addCount, 1000, Site); // will add the number of seconds at the Site
-     * </pre>
      *
      * @param func {Function} Original function to wrap
      * @param interval {Integer} The duration of the intervals between executions.

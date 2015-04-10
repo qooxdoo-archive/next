@@ -38,7 +38,7 @@ qx.Class.define("qx.ui.form.TextArea",
    */
   construct : function(value, element)
   {
-    this.super(qx.ui.Widget, "construct", element);
+    this.super("construct", element);
 
     if (value) {
       this.value = value;
@@ -143,7 +143,7 @@ qx.Class.define("qx.ui.form.TextArea",
 
     dispose : function()
     {
-      this.super(qx.ui.Widget, "dispose");
+      this.super("dispose");
       if (qx.core.Environment.get("qx.mobile.nativescroll") == false) {
         this.off("appear", this._fixChildElementsHeight, this);
         this.off("input", this._fixChildElementsHeight, this);

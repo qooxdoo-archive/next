@@ -47,13 +47,13 @@ qx.Class.define("qx.ui.container.Navigation",
    */
   construct : function(element)
   {
-    this.super(qx.ui.Widget, "construct", element);
+    this.super("construct", element);
     this.layout = new qx.ui.layout.VBox();
 
     this.__navBarListeners = {};
     this.__content = this._createContent();
     this.__content.layoutPrefs = {flex: 1};
-    this._append(this.__content);
+    this.super("append", this.__content);
   },
 
 
@@ -207,7 +207,7 @@ qx.Class.define("qx.ui.container.Navigation",
 
     dispose : function()
     {
-      this.super(qx.ui.Widget, "dispose");
+      this.super("dispose");
       this.getContent().off("addedChild", this._onContentAddedChild, this)
         .off("removedChild", this._onContentRemovedChild, this);
       this.getContent().layout.off("animationStart", this._onAnimationStart, this);

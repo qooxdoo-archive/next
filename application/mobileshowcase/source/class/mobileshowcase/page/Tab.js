@@ -28,7 +28,7 @@ qx.Class.define("mobileshowcase.page.Tab",
 
   construct : function()
   {
-    this.super(mobileshowcase.page.Abstract, "construct");
+    this.super("construct");
     this.title = "Tabs";
   },
 
@@ -41,7 +41,7 @@ qx.Class.define("mobileshowcase.page.Tab",
     // overridden
     _initialize : function()
     {
-      this.super(mobileshowcase.page.Abstract, "_initialize");
+      this.super("_initialize");
 
       this.getContent()
         .append(this.__createTabBar())

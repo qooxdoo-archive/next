@@ -37,7 +37,7 @@ qx.Class.define("qx.ui.Label",
    */
   construct : function(value, element)
   {
-    this.super(qx.ui.Widget, "construct", element);
+    this.super("construct", element);
 
     var html = this.getHtml();
     this.setHtml('');
@@ -126,7 +126,7 @@ qx.Class.define("qx.ui.Label",
 
 
     dispose : function() {
-      this.super(qx.ui.Widget, "dispose");
+      this.super("dispose");
     }
   },
 

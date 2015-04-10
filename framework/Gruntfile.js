@@ -13,8 +13,7 @@ module.exports = function(grunt) {
     },
 
     common: {
-      'APPLICATION' : 'qx',
-      'LOCALES': ['en'],
+      'APPLICATION': 'qx',
       'QOOXDOO_PATH' : '../'
     },
 
@@ -83,10 +82,194 @@ module.exports = function(grunt) {
           message: 'API samples concatenated.'
         }
       }
+    },
+
+    source: {
+      qxweb: {
+        options: {
+          includes: [ "qxWeb", "qx.module.*" ],
+          libraries: [ "<%= common.ROOT %>/package.json" ],
+          loaderTemplate: "../tool/data/generator/website.loader.source.tmpl.js",
+          appRoot: 'source',
+          fileName: "q-source"
+        }
+      }
+    },
+
+    build: {
+      options: {
+        "=libraries": [
+          "<%= common.ROOT %>/package.json"
+        ]
+      },
+      qxweb: {
+        options: {
+          includes: [ "qxWeb", "qx.module.*" ],
+          loaderTemplate: "../tool/data/generator/website.loader.tmpl.js",
+          fileName: "q"
+        }
+      },
+      "module-core": {
+        options: {
+          includes: [
+            "qx.module.Core",
+            "qx.module.event.*",
+            "qx.bom.Event",
+            "qx.bom.Stylesheet",
+            "qx.dom.Element",
+            "qx.lang.Array",
+            "qx.util.Uri",
+            "qx.lang.Type",
+            "qx.lang.String",
+            "qx.lang.Object",
+            "qx.lang.Function",
+            "qx.Class"
+          ],
+          excludes: [],
+          loaderTemplate: "../tool/data/generator/website.loader.tmpl.js",
+          fileName: "core"
+        }
+      },
+      "module-animation": {
+        options: {
+          includes: [ "qx.module.Animation" ],
+          excludes: [ "=qx.module.Core" ],
+          loaderTemplate: "../tool/data/generator/website.loader.tmpl.js",
+          fileName: "animation"
+        }
+      },
+      "module-blocker": {
+        options: {
+          includes: [ "qx.module.Blocker" ],
+          excludes: [ "=qx.module.Core" ],
+          loaderTemplate: "../tool/data/generator/website.loader.tmpl.js",
+          fileName: "blocker"
+        }
+      },
+      "module-cookie": {
+        options: {
+          includes: [ "qx.module.Cookie" ],
+          excludes: [ "=qx.module.Core" ],
+          loaderTemplate: "../tool/data/generator/website.loader.tmpl.js",
+          fileName: "cookie"
+        }
+      },
+      "module-dataset": {
+        options: {
+          includes: [ "qx.module.Dataset" ],
+          excludes: [ "=qx.module.Core" ],
+          loaderTemplate: "../tool/data/generator/website.loader.tmpl.js",
+          fileName: "dataset"
+        }
+      },
+      "module-dev": {
+        options: {
+          includes: [ "qx.module.dev.FakeServer" ],
+          excludes: [ "=qx.module.Core" ],
+          loaderTemplate: "../tool/data/generator/website.loader.tmpl.js",
+          fileName: "dev"
+        }
+      },
+      "module-io": {
+        options: {
+          includes: [ "qx.module.Io" ],
+          excludes: [ "=qx.module.Core" ],
+          loaderTemplate: "../tool/data/generator/website.loader.tmpl.js",
+          fileName: "io"
+        }
+      },
+      "module-matchmedia": {
+        options: {
+          includes: [ "qx.module.MatchMedia" ],
+          excludes: [ "=qx.module.Core" ],
+          loaderTemplate: "../tool/data/generator/website.loader.tmpl.js",
+          fileName: "matchmedia"
+        }
+      },
+      "module-messaging": {
+        options: {
+          includes: [ "qx.module.Messaging" ],
+          excludes: [ "=qx.module.Core" ],
+          loaderTemplate: "../tool/data/generator/website.loader.tmpl.js",
+          fileName: "messaging"
+        }
+      },
+      "module-placement": {
+        options: {
+          includes: [ "qx.module.Placement" ],
+          excludes: [ "=qx.module.Core" ],
+          loaderTemplate: "../tool/data/generator/website.loader.tmpl.js",
+          fileName: "placement"
+        }
+      },
+      "module-rest": {
+        options: {
+          includes: [ "qx.module.Rest" ],
+          excludes: [ "=qx.module.Core" ],
+          loaderTemplate: "../tool/data/generator/website.loader.tmpl.js",
+          fileName: "rest"
+        }
+      },
+      "module-storage": {
+        options: {
+          includes: [ "qx.module.Storage" ],
+          excludes: [ "=qx.module.Core" ],
+          loaderTemplate: "../tool/data/generator/website.loader.tmpl.js",
+          fileName: "storage"
+        }
+      },
+      "module-template": {
+        options: {
+          includes: [ "qx.module.Template" ],
+          excludes: [ "=qx.module.Core" ],
+          loaderTemplate: "../tool/data/generator/website.loader.tmpl.js",
+          fileName: "template"
+        }
+      },
+      "module-textselection": {
+        options: {
+          appName: "textselection",
+          includes: [ "qx.module.TextSelection" ],
+          excludes: [ "=qx.module.Core" ],
+          loaderTemplate: "../tool/data/generator/website.loader.tmpl.js",
+          fileName: "textselection"
+        }
+      },
+      "module-transform": {
+        options: {
+          includes: [ "qx.module.Transform" ],
+          excludes: [ "=qx.module.Core" ],
+          loaderTemplate: "../tool/data/generator/website.loader.tmpl.js",
+          fileName: "transform"
+        }
+      },
+      "module-util": {
+        options: {
+          includes: [
+           "qx.module.util.Array",
+           "qx.module.util.String",
+           "qx.module.util.Type",
+           "qx.module.util.Object",
+           "qx.module.util.Function"
+          ],
+          excludes: [ "=qx.module.Core" ],
+          loaderTemplate: "../tool/data/generator/website.loader.tmpl.js",
+          fileName: "util"
+        }
+      },
+      "module-ui": {
+        options: {
+          includes: [ "qx.module.Ui" ],
+          excludes: [ "=qx.module.Core" ],
+          loaderTemplate: "../tool/data/generator/website.loader.tmpl.js",
+          fileName: "ui"
+        }
+      }
     }
   };
 
-  var mergedConf = qx.config.mergeConfig(config);
+  var mergedConf = qx.config.mergeConfig(config, {"source": "source-base"});
+
   // define custom 'clean' task
   mergedConf.clean = {
     options: {
@@ -97,6 +280,7 @@ module.exports = function(grunt) {
           "<%= common.BUILD_PATH %>",
           "<%= common.ROOT %>/api/script"]
   };
+
   // console.log(util.inspect(mergedConf, false, null));
   grunt.initConfig(mergedConf);
 
@@ -108,6 +292,14 @@ module.exports = function(grunt) {
   grunt.loadNpmTasks('grunt-eslint');
   grunt.loadNpmTasks('grunt-notify');
 
+  // 'extend' source job
+  grunt.task.renameTask('source', 'source-base');
+  grunt.task.registerTask(
+    'source',
+    'Build the playground and compile the stylesheets with Sass.',
+    ["sass:indigo", "source-base"]
+  );
+
   // 'extend' API job
   grunt.task.renameTask('api', 'generate-api');
   grunt.task.registerTask(
@@ -115,29 +307,6 @@ module.exports = function(grunt) {
     'Concat the samples and generate the API.',
     ['concat:samples', 'generate-api', 'notify:api']
   );
-
-  // 'extend' qxWeb jobs
-  var qxWebTasks = {
-    'qxweb-source': 'qx.Website source version generated.',
-    'qxweb-build': 'qx.Website unminified build version generated.',
-    'qxweb-build-min': 'qx.Website minified build version generated.',
-    'qxweb-build-module-all': 'qx.Website unminified modular build version generated.',
-    'qxweb-build-module-all-min': 'qx.Website minified modular build version generated.'
-  };
-
-  for (var task in qxWebTasks) {
-    mergedConf.notify[task] = {
-      options: {
-        message: qxWebTasks[task]
-      }
-    };
-    grunt.task.renameTask(task, 'temp');
-    grunt.task.registerTask(
-      task,
-      'Generate the build version of qx.Website and the widget CSS',
-      ['generate:' + task, 'sass:indigo', 'notify:' + task]
-    );
-  }
 
   // pre-process the index file
   grunt.registerTask('process-api-html', 'A task to preprocess the index.html', function() {

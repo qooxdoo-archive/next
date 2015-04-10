@@ -32,7 +32,7 @@ qx.Class.define("qx.ui.form.Row",
    * @return {qx.ui.form.Row} The new form row widget.
    */
   construct: function(item, label, element) {
-    this.super(qx.ui.Widget, "construct", element);
+    this.super("construct", element);
 
     this.layout = new qx.ui.layout.HBox();
 

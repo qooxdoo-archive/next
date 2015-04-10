@@ -75,7 +75,7 @@ qx.Class.define("qx.ui.dialog.Popup",
    */
   construct : function(widget, anchor, element)
   {
-    this.super(qx.ui.Widget, "construct", element);
+    this.super("construct", element);
     this.exclude();
 
     this.__anchor = anchor;
@@ -238,7 +238,7 @@ qx.Class.define("qx.ui.dialog.Popup",
 
         // Needs to be added to screen, before rendering position, for calculating
         // objects height.
-        this.super(qx.ui.Widget, "show");
+        this.super("show");
 
         // Now render position.
         this._updatePosition();
@@ -429,7 +429,7 @@ qx.Class.define("qx.ui.dialog.Popup",
         this.__childrenContainer = new qx.ui.Widget();
         this.__childrenContainer.layout = new qx.ui.layout.VBox();
         this.__childrenContainer.defaultCssClass = "popup-content";
-        this._append(this.__childrenContainer);
+        this.super("append", this.__childrenContainer);
       }
 
       if (this._getTitleWidget()) {
@@ -567,7 +567,7 @@ qx.Class.define("qx.ui.dialog.Popup",
 
 
     dispose : function() {
-      this.super(qx.ui.Widget, "dispose");
+      this.super("dispose");
       this.__unregisterEventListener();
       if (this.__childrenContainer) {
         this.__childrenContainer.dispose();

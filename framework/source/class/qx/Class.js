@@ -138,18 +138,46 @@ qx.Class = {
     }
   },
 
-  /* eslint no-unused-vars:0 */
-  "super" : function(clazz, name, varargs) {
+
+  "super" : function(name, varargs) {
+    var id = name;
     // Provide consistency that construct will call native constructor
-    if (name === "construct" && typeof clazz.prototype.construct !== "function") {
+    if (name === "construct") {
       name = "constructor";
+    } else if (name == "constructor") {
+      id = "construct";
     }
 
-    if (arguments.length === 1) {
-      return clazz.prototype[name].call(this);
-    } else {
-      return clazz.prototype[name].apply(this, Array.prototype.slice.call(arguments, 2));
+    if (!this.$currentPrototpyes) {
+      this.$currentPrototpyes = {};
     }
+    if (!this.$currentPrototpyes[id]) {
+      this.$currentPrototpyes[id] = [];
+    }
+
+    var last;
+    if (this.$currentPrototpyes[id].length == 0) {
+      last = this;
+    } else {
+      last = this.$currentPrototpyes[id][this.$currentPrototpyes[id].length -1];
+    }
+
+    do {
+      last = Object.getPrototypeOf(last);
+    } while(!last.hasOwnProperty(name) && !last.hasOwnProperty(id));
+    this.$currentPrototpyes[id].push(last);
+
+    var superMethod = Object.getPrototypeOf(last)[id] || Object.getPrototypeOf(last)[name];
+    var returnValue;
+    if (arguments.length === 1) {
+      returnValue = superMethod.call(this);
+    } else {
+      returnValue = superMethod.apply(this, Array.prototype.slice.call(arguments, 1));
+    }
+
+    this.$currentPrototpyes[id].pop();
+
+    return returnValue;
   },
 
 
@@ -591,8 +619,8 @@ qx.Class.define("qx.Class",
     /**
      * Call the same method of the super class.
      *
-     * @signature function(args, varargs)
-     * @param args {arguments} the arguments variable of the calling method
+     * @signature function(name, varargs)
+     * @param name {String} The menthod name to call.
      * @param varargs {var} variable number of arguments passed to the overwritten function
      * @return {var} the return value of the method of the base class.
      * @internal

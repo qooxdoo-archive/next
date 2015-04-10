@@ -37,33 +37,6 @@ var U2 = require("uglify-js");
 var Cache = (Cache || require('qx-cache'));
 
 //------------------------------------------------------------------------------
-// Attic
-//------------------------------------------------------------------------------
-
-/*
-function compress (classId, jsCode, options) {
-  var esprima = require("esprima");
-  var esmangle = require("esmangle");
-  var escodegen = require("escodegen");
-  var esmangleCode = function(jsCode) {
-    var ast = esprima.parse(jsCode);
-    var optimized = esmangle.optimize(ast, null);
-    var result = esmangle.mangle(optimized);
-    return (escodegen.generate(result, {
-      format: {
-        renumber: true,
-        hexadecimal: true,
-        escapeless: true,
-        compact: true,
-        semicolons: false,
-        parentheses: false
-      }
-    }));
-  };
-}
-*/
-
-//------------------------------------------------------------------------------
 // Privates
 //------------------------------------------------------------------------------
 

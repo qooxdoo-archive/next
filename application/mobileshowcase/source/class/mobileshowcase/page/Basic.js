@@ -33,7 +33,7 @@ qx.Class.define("mobileshowcase.page.Basic",
 
   construct : function()
   {
-    this.super(mobileshowcase.page.Abstract, "construct", false);
+    this.super("construct", false);
     this.title = "Basic Widgets";
     this._widgets = [];
   },
@@ -47,7 +47,7 @@ qx.Class.define("mobileshowcase.page.Basic",
     // overridden
     _initialize : function()
     {
-      this.super(mobileshowcase.page.Abstract, "_initialize");
+      this.super("_initialize");
 
       // EXAMPLE WIDGETS
       var exButton = new qx.ui.Button("Button");

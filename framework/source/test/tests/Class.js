@@ -261,17 +261,17 @@ describe("Class", function() {
       extend: qx.test.Car,
 
       construct: function affe(name, prize) {
-        this.super(qx.test.Car, "constructor", name);
+        this.super("constructor", name);
       },
 
       members: {
         startEngine: function() {
-          var ret = this.super(qx.test.Car, "startEngine");
+          var ret = this.super("startEngine");
           return "brrr " + ret;
         },
 
         stopEngine: function() {
-          var ret = this.super(qx.test.Car, "stopEngine");
+          var ret = this.super("stopEngine");
           return "brrr " + ret;
         },
 
@@ -281,7 +281,7 @@ describe("Class", function() {
 
         getMaxSpeed: function() {
           // call super in non overridden method
-          this.super(qx.test.Car, "getMaxSpeed");
+          this.super("getMaxSpeed");
         }
       },
 
@@ -321,7 +321,7 @@ describe("Class", function() {
     qx.Class.define("qx.test.ExtendSuper", {
       extend: qx.test.Super,
       construct: function () {
-        this.super(qx.test.Super, "construct");
+        this.super("construct");
       }
     });
 
@@ -350,7 +350,7 @@ describe("Class", function() {
     qx.Class.define("qx.test.ExtendSuper", {
       extend: qx.test.Super,
       construct: function () {
-        this.super(qx.test.Super, "construct");
+        this.super("construct");
       }
     });
 
@@ -382,7 +382,7 @@ describe("Class", function() {
     qx.Class.define("qx.test.ExtendSuper", {
       extend: qx.test.Super,
       construct: function () {
-        this.super(qx.test.Super, "construct");
+        this.super("construct");
       }
     });
 

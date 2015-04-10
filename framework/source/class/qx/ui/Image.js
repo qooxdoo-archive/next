@@ -35,7 +35,7 @@ qx.Class.define("qx.ui.Image",
    */
   construct : function(source, element)
   {
-    this.super(qx.ui.Widget, "construct", element);
+    this.super("construct", element);
 
     if (source) {
       this.source = source;
@@ -290,7 +290,7 @@ qx.Class.define("qx.ui.Image",
 
 
     dispose : function() {
-      this.super(qx.ui.Widget, "dispose");
+      this.super("dispose");
 
       if (qx.application.Scaling) {
         qx.application.Scaling.getInstance().on("changeAppScale", this._onChangeAppScale, this);

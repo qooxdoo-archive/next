@@ -30,7 +30,7 @@ qx.Class.define("mobileshowcase.page.Dialog",
 
   construct : function()
   {
-    this.super(mobileshowcase.page.Abstract, "construct", false);
+    this.super("construct", false);
     this.title = "Dialog Widgets";
   },
 
@@ -53,7 +53,7 @@ qx.Class.define("mobileshowcase.page.Dialog",
     {
       var body = qxWeb(document.body);
 
-      this.super(mobileshowcase.page.Abstract, "_initialize");
+      this.super("_initialize");
 
       this.__resultsLabel = new qx.ui.Label("No events received so far.");
       var resultsGroup = new qx.ui.form.Group();

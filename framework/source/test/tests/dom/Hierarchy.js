@@ -69,7 +69,83 @@ describe("dom.Hierarchy", function() {
   });
 
 
+  it("GetCommonParent", function() {
+    __siblingElement = qx.dom.Element.create("div");
+    sandbox.append(__siblingElement);
+
+    assert.equal(sandbox[0],
+      qx.dom.Hierarchy.getCommonParent(__renderedElement, __siblingElement));
+
+    __childElement = qx.dom.Element.create("div");
+    __renderedElement.appendChild(__childElement);
+    assert.equal(__renderedElement,
+      qx.dom.Hierarchy.getCommonParent(__renderedElement, __childElement));
+  });
+
+
+  it("GetNodeIndex", function() {
+    var nodeIndexSandbox = qx.dom.Hierarchy.getNodeIndex(sandbox);
+    var nodeIndexSibling = qx.dom.Hierarchy.getNodeIndex(__siblingElement);
+    assert.equal(nodeIndexSibling, 2);
+    assert.equal(nodeIndexSandbox, 0);
+  });
+
+
+  it("GetElementIndex", function() {
+    var SiblingElementIndex = qx.dom.Hierarchy.getElementIndex(__siblingElement);
+    var childElementIndex = qx.dom.Hierarchy.getElementIndex(__childElement);
+    assert.equal(SiblingElementIndex, 2);
+    assert.equal(childElementIndex, 0);
+  });
+
+
+  it("GetNextElementSibling", function() {
+    var e1 = qx.dom.Element.create("div");
+    e1.id = "elem1"
+    var e2 = qx.dom.Element.create("div");
+    e2.id = "elem2"
+    sandbox.append(e1);
+    sandbox.append(e2);
+    var next = qx.dom.Hierarchy.getNextElementSibling(e1);
+    console.log(next);
+    assert.deepEqual(e2, next);
+  });
+
+
+  it("GetPreviousElementSibling", function() {
+    var e1 = qx.dom.Element.create("div");
+    e1.id = "elem1"
+    var e2 = qx.dom.Element.create("div");
+    e2.id = "elem2"
+    sandbox.append(e1);
+    sandbox.append(e2);
+    var previous = qx.dom.Hierarchy.getPreviousElementSibling(e2);
+    assert.deepEqual(e1, previous);
+  });
+
+  it("GetPreviousSibling", function() {
+    var e1 = qx.dom.Element.create("div");
+    e1.id = "elem1"
+    var e2 = qx.dom.Element.create("div");
+    e2.id = "elem2"
+    sandbox.append(e1);
+    sandbox.append(e2);
+    var previous = qx.dom.Hierarchy.getPreviousSiblings(e2)[0];
+    assert.deepEqual(e1, previous);
+  });
+
+
   it("Contains", function() {
+    var e1 = qx.dom.Element.create("div");
+    e1.id = "elem1"
+    var e2 = qx.dom.Element.create("div");
+    e2.id = "elem2"
+    sandbox.append(e1);
+    assert.isTrue(qx.dom.Hierarchy.contains(sandbox, e1));
+    assert.isFalse(qx.dom.Hierarchy.contains(e1, sandbox));
+    assert.isTrue(qx.dom.Hierarchy.contains(document, sandbox[0]));
+    assert.isFalse(qx.dom.Hierarchy.contains(sandbox, document));
+
     assert.isTrue(qx.dom.Hierarchy.contains(document.body, __renderedElement));
 
     __childElement = qx.dom.Element.create("div");
@@ -83,16 +159,74 @@ describe("dom.Hierarchy", function() {
   });
 
 
-  it("GetCommonParent", function() {
-    __siblingElement = qx.dom.Element.create("div");
-    sandbox.append(__siblingElement);
-
-    assert.equal(sandbox[0],
-      qx.dom.Hierarchy.getCommonParent(__renderedElement, __siblingElement));
-
-    __childElement = qx.dom.Element.create("div");
-    __renderedElement.appendChild(__childElement);
-    assert.equal(__renderedElement,
-      qx.dom.Hierarchy.getCommonParent(__renderedElement, __childElement));
+  it("IsDescendantOf", function() {
+    var e1 = qx.dom.Element.create("div");
+    e1.id = "elem1"
+    var e2 = qx.dom.Element.create("div");
+    e2.id = "elem2"
+    sandbox.append(e1);
+    sandbox.append(e2);
+    assert.isTrue(qx.dom.Hierarchy.isDescendantOf(e1, sandbox));
+    assert.isTrue(qx.dom.Hierarchy.isDescendantOf(e2, sandbox));
   });
+
+
+  it("GetAncestors", function() {
+    var e1 = qx.dom.Element.create("div");
+    e1.id = "elem1"
+    var e2 = qx.dom.Element.create("div");
+    e2.id = "elem2"
+    sandbox.append(e1);
+    sandbox.append(e2);
+    assert.deepEqual(qx.dom.Hierarchy.getAncestors(e1)[0], sandbox[0]);
+    assert.deepEqual(qx.dom.Hierarchy.getAncestors(e2)[0], sandbox[0]);
+  });
+
+
+  it("GetChildElements", function() {
+    var e1 = qx.dom.Element.create("div");
+    e1.id = "elem1"
+    var e2 = qx.dom.Element.create("div");
+    e2.id = "elem2"
+    sandbox.append(e1);
+    sandbox.append(e2);
+    assert.deepEqual(qx.dom.Hierarchy.getChildElements(sandbox[0])[2], e1);
+    assert.deepEqual(qx.dom.Hierarchy.getChildElements(sandbox[0])[3], e2);
+  });
+
+
+  it("GetDescendants", function() {
+    var e1 = qx.dom.Element.create("div");
+    e1.id = "elem1"
+    var e2 = qx.dom.Element.create("div");
+    e2.id = "elem2"
+    sandbox.append(e1);
+    sandbox.append(e2);
+    assert.deepEqual(e1, qx.dom.Hierarchy.getDescendants(sandbox[0])[3]);
+    assert.deepEqual(e2, qx.dom.Hierarchy.getDescendants(sandbox[0])[4]);
+  });
+
+
+  it("GetFirstDescendant", function() {
+    assert.deepEqual(__renderedElement, qx.dom.Hierarchy.getFirstDescendant(sandbox[0]));
+  });
+
+
+  it("GetLastDescendant", function() {
+    var e1 = qx.dom.Element.create("div");
+    e1.id = "elem1"
+    sandbox.append(e1);
+    assert.deepEqual(e1, qx.dom.Hierarchy.getLastDescendant(sandbox[0]));
+  });
+
+
+  it("IsEmpty", function() {
+    var e1 = qx.dom.Element.create("div");
+    var e2 = qx.dom.Element.create("div");
+    sandbox.append(e1);
+    assert.isTrue(qx.dom.Hierarchy.isEmpty(e1));
+    e1.appendChild(e2);
+    assert.isFalse(qx.dom.Hierarchy.isEmpty(e1));
+  });
+
 });

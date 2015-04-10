@@ -42,6 +42,6 @@ qx.Class.define("qx.data.store.Yql",
     encodeURIComponent(query) +
     "&format=json&diagnostics=false&" +
     "env=store%3A%2F%2Fdatatables.org%2Falltableswithkeys";
-    this.super(arguments, url, delegate, "callback");
+    this.super("construct", url, delegate, "callback");
   }
 });

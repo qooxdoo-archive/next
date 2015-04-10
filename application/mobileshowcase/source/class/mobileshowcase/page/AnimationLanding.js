@@ -29,7 +29,7 @@ qx.Class.define("mobileshowcase.page.AnimationLanding",
 
   construct : function()
   {
-    this.super(mobileshowcase.page.Abstract, "construct", true);
+    this.super("construct", true);
     this.title = "Page Transitions";
     this.showBackButtonOnTablet = true;
   },
@@ -51,7 +51,7 @@ qx.Class.define("mobileshowcase.page.AnimationLanding",
     // overridden
     _initialize : function()
     {
-      this.super(mobileshowcase.page.Abstract, "_initialize");
+      this.super("_initialize");
 
 
       if (this._isTablet) {

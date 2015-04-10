@@ -33,7 +33,7 @@ qx.Class.define("qx.ui.ToolBar",
    */
   construct : function(layout, element)
   {
-    this.super(qx.ui.Widget, "construct", element);
+    this.super("construct", element);
     this.layout = layout;
     if (!layout) {
       layout = new qx.ui.layout.HBox();
@@ -72,7 +72,7 @@ qx.Class.define("qx.ui.ToolBar",
       layoutProperties = layoutProperties ? layoutProperties : {};
       qx.lang.Object.mergeWith(layoutProperties, {flex: 1}, false);
       child.layoutPrefs = layoutProperties;
-      this.super(qx.ui.Widget, "append", child);
+      this.super("append", child);
     }
   },
 
