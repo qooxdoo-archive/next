@@ -144,7 +144,7 @@
       {
         "dependencies" : {
           "dot" : {
-            "root" : "qx.Class",
+            "root" : "qx.module.Oo",
             "file" : "oo.dot"
           }
         }
@@ -231,6 +231,34 @@
         }
       }
     },
+
+    "build-attribute" :
+    {
+      "extend" : ["qxweb-build"],
+      "let" : {
+        "Q_INCLUDES" : [
+          "qx.module.Attribute"
+        ]
+      },
+      "exclude" : [ "=qx.module.Oo", "=qx.module.Util", "=qxWeb", "=qx.module.Environment" ],
+      "compile-options" :
+      {
+        "paths"  :
+        {
+          "file" : "${BUILD_PATH}/q-attribute${QFILES_VERSION_PART}.js"
+        }
+      },
+      "log" :
+      {
+        "dependencies" : {
+          "dot" : {
+            "root" : "qx.module.Attribute",
+            "file" : "attribute.dot"
+          }
+        }
+      }
+    },
+
 
     "build-core" :
     {
