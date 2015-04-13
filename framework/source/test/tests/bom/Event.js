@@ -31,12 +31,12 @@ describe("bom.Event", function() {
     for (var i = 0, j = eventsToCheck.length; i < j; i++) {
       el = document.createElement("div");
       el.setAttribute("name", "vanillebaer");
-      assert.isTrue(qx.bom.client.Event.supportsEvent(el, eventsToCheck[i]), "Failed to check support for '" + eventsToCheck[i] + "'");
+      assert.isTrue(qx.bom.Event.supportsEvent(el, eventsToCheck[i]), "Failed to check support for '" + eventsToCheck[i] + "'");
     }
 
     var el2 = document.createElement("div");
     el2.setAttribute("name", "schokobaer");
-    assert.isFalse(qx.bom.client.Event.supportsEvent(el2, "click2"));
+    assert.isFalse(qx.bom.Event.supportsEvent(el2, "click2"));
 
     if (qx.core.Environment.get("event.mspointer")) {
       var pointerEventsToCheck = ["MSPointerDown",
@@ -50,7 +50,7 @@ describe("bom.Event", function() {
       for (i = 0, j = pointerEventsToCheck.length; i < j; i++) {
         el = document.createElement("div");
         el.setAttribute("name", "vanillebaer");
-        assert.isTrue(qx.bom.client.Event.supportsEvent(el, pointerEventsToCheck[i]), "Failed to check support for '" + pointerEventsToCheck[i] + "'");
+        assert.isTrue(qx.bom.Event.supportsEvent(el, pointerEventsToCheck[i]), "Failed to check support for '" + pointerEventsToCheck[i] + "'");
       }
     }
   });
@@ -65,7 +65,7 @@ describe("bom.Event", function() {
     ];
 
     for (var i = 0, l = supportedEvents.length; i < l; i++) {
-      assert.isTrue(qx.bom.client.Event.supportsEvent(el, supportedEvents[i]), "Failed to check support for '" + supportedEvents[i] + "'");
+      assert.isTrue(qx.bom.Event.supportsEvent(el, supportedEvents[i]), "Failed to check support for '" + supportedEvents[i] + "'");
     }
   });
 });

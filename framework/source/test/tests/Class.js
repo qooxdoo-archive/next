@@ -652,8 +652,14 @@ describe("Class", function() {
 
 
   it("PropertyChecks", function() {
+    qx.Interface.define("ItestInterface", {
+      members: {
+        main: function() {}
+      }
+    });
+
     var O = qx.Class.define(null, {
-      implement: [qx.application.IApplication],
+      implement: [ItestInterface],
       members: {
         main : function() {},
         close : function() {},
@@ -692,7 +698,7 @@ describe("Class", function() {
         },
 
         i: {
-          check: "qx.application.IApplication"
+          check: "ItestInterface"
         }
       }
     });

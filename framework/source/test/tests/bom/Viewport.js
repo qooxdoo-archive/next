@@ -21,11 +21,15 @@ describe("bom.Viewport", function ()
 {
 
   it("GetScrollLeft", function() {
-      qx.core.Assert.assertPositiveInteger(qx.bom.Viewport.getScrollLeft());
+    var value = qx.bom.Viewport.getScrollLeft();
+    assert.isNumber(value);
+    assert.isTrue(value >= 0);
   });
 
 
   it("GetScrollTop", function() {
-      qx.core.Assert.assertPositiveInteger(qx.bom.Viewport.getScrollTop());
+    var value = qx.bom.Viewport.getScrollTop();
+    assert.isNumber(value);
+    assert.isTrue(value >= 0);
   });
 });

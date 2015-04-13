@@ -35,9 +35,12 @@ var skipAfterTest = function(suiteTitle, testTitle) {
 
 var commonBeforeEach = function() {
   // root widget (DOM sandbox)
-  sandbox = new qx.ui.core.Root(document.createElement("div"))
-    .set({layout: null})
-    .setAttribute("id", "sandbox")
+  sandbox = qxWeb.create("<div>");
+  if (qx.ui && qx.ui.core && qx.ui.core.Root) {
+    sandbox = new qx.ui.core.Root(sandbox[0])
+      .set({layout: null});
+  }
+  sandbox.setAttribute("id", "sandbox")
     .appendTo(document.body);
 
   // sinon sandbox
@@ -48,7 +51,8 @@ var commonBeforeEach = function() {
 var commonAfterEach = function() {
   // root widget
   if(sandbox){
-    sandbox.remove().dispose();
+    sandbox.remove();
+    sandbox.dispose && sandbox.dispose();
     sandbox = null;
   }
 

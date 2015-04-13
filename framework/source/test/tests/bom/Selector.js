@@ -24,13 +24,10 @@ describe("bom.Selector", function() {
     var Attribute = qx.bom.element.Attribute;
 
     for (var i = 0; i < 250; i++) {
-      var el = Element.create("ul", {
-        "class": "fromcode",
-        "html": "<li>one</li><li>two</li><li>three</li>",
-        "id": "setid" + i
-      });
-
-      sandbox.append(el);
+      var el = qxWeb.create('<ul><li>one</li><li>two</li><li>three</li></ul>')
+        .setAttribute("id", "setid" + i)
+        .addClass("fromcode")
+        .appendTo(sandbox);
     }
     assert.equal(250, qx.bom.Selector.query("#sandbox ul.fromcode", sandbox[0]).length);
     assert.equal(750, qx.bom.Selector.query("#sandbox ul > li").length);
