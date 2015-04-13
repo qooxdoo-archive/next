@@ -22,7 +22,7 @@
  * CSS/Style property manipulation module
  * @group (Core)
  *
- * @require(qx.module.Util)
+ * @require(qx.module.Lang)
  * @require(qx.module.Environment)
  */
 qx.Class.define("qx.module.Css", {

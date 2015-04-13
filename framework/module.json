@@ -151,12 +151,12 @@
       }
     },
 
-    "build-util" :
+    "build-lang" :
     {
       "extend" : ["qxweb-build"],
       "let" : {
         "Q_INCLUDES" : [
-          "qx.module.Util"
+          "qx.module.Lang"
         ]
       },
       "exclude" : [ "=qx.module.Oo" ],
@@ -164,15 +164,15 @@
       {
         "paths"  :
         {
-          "file" : "${BUILD_PATH}/q-util${QFILES_VERSION_PART}.js"
+          "file" : "${BUILD_PATH}/q-lang${QFILES_VERSION_PART}.js"
         }
       },
       "log" :
       {
         "dependencies" : {
           "dot" : {
-            "root" : "qx.module.Util",
-            "file" : "util.dot"
+            "root" : "qx.module.Lang",
+            "file" : "lang.dot"
           }
         }
       }
@@ -186,7 +186,7 @@
           "qxWeb"
         ]
       },
-      "exclude" : [ "=qx.module.Oo", "=qx.module.Util" ],
+      "exclude" : [ "=qx.module.Oo", "=qx.module.Lang" ],
       "compile-options" :
       {
         "paths"  :
@@ -213,7 +213,7 @@
           "qx.module.Environment"
         ]
       },
-      "exclude" : [ "=qx.module.Oo", "=qx.module.Util", "=qxWeb" ],
+      "exclude" : [ "=qx.module.Oo", "=qx.module.Lang", "=qxWeb" ],
       "compile-options" :
       {
         "paths"  :
@@ -240,7 +240,7 @@
           "qx.module.Attribute"
         ]
       },
-      "exclude" : [ "=qx.module.Oo", "=qx.module.Util", "=qxWeb", "=qx.module.Environment" ],
+      "exclude" : [ "=qx.module.Oo", "=qx.module.Lang", "=qxWeb", "=qx.module.Environment" ],
       "compile-options" :
       {
         "paths"  :
@@ -267,7 +267,7 @@
           "qx.module.Css"
         ]
       },
-      "exclude" : [ "=qx.module.Oo", "=qx.module.Util", "=qxWeb", "=qx.module.Environment" ],
+      "exclude" : [ "=qx.module.Oo", "=qx.module.Lang", "=qxWeb", "=qx.module.Environment" ],
       "compile-options" :
       {
         "paths"  :
@@ -294,7 +294,7 @@
           "qx.module.Manipulating"
         ]
       },
-      "exclude" : [ "=qx.module.Oo", "=qx.module.Util", "=qxWeb", "=qx.module.Environment", "=qx.module.Html" ],
+      "exclude" : [ "=qx.module.Oo", "=qx.module.Lang", "=qxWeb", "=qx.module.Environment", "=qx.module.Html" ],
       "compile-options" :
       {
         "paths"  :
@@ -321,7 +321,7 @@
           "qx.module.Html"
         ]
       },
-      "exclude" : [ "=qx.module.Oo", "=qx.module.Util", "=qxWeb", "=qx.module.Environment" ],
+      "exclude" : [ "=qx.module.Oo", "=qx.module.Lang", "=qxWeb", "=qx.module.Environment" ],
       "compile-options" :
       {
         "paths"  :
@@ -348,7 +348,7 @@
           "qx.module.Traversing"
         ]
       },
-      "exclude" : [ "=qx.module.Oo", "=qx.module.Util", "=qxWeb", "=qx.module.Environment",
+      "exclude" : [ "=qx.module.Oo", "=qx.module.Lang", "=qxWeb", "=qx.module.Environment",
         "=qx.module.Html", "=qx.module.Css" ],
       "compile-options" :
       {
@@ -376,7 +376,7 @@
           "qx.module.Event"
         ]
       },
-      "exclude" : [ "=qx.module.Oo", "=qx.module.Util", "=qxWeb", "=qx.module.Environment" ],
+      "exclude" : [ "=qx.module.Oo", "=qx.module.Lang", "=qxWeb", "=qx.module.Environment" ],
       "compile-options" :
       {
         "paths"  :
@@ -403,7 +403,7 @@
           "qx.module.event.Native"
         ]
       },
-      "exclude" : [ "=qx.module.Oo", "=qx.module.Util", "=qxWeb", "=qx.module.Environment", "=qx.module.Event" ],
+      "exclude" : [ "=qx.module.Oo", "=qx.module.Lang", "=qxWeb", "=qx.module.Environment", "=qx.module.Event" ],
       "compile-options" :
       {
         "paths"  :
@@ -430,7 +430,7 @@
           "qx.module.event.Keyboard"
         ]
       },
-      "exclude" : [ "=qx.module.Oo", "=qx.module.Util", "=qxWeb", "=qx.module.Environment", "=qx.module.Event" ],
+      "exclude" : [ "=qx.module.Oo", "=qx.module.Lang", "=qxWeb", "=qx.module.Environment", "=qx.module.Event" ],
       "compile-options" :
       {
         "paths"  :
@@ -457,7 +457,7 @@
           "qx.module.event.Mouse"
         ]
       },
-      "exclude" : [ "=qx.module.Oo", "=qx.module.Util", "=qxWeb", "=qx.module.Environment", "=qx.module.Event" ],
+      "exclude" : [ "=qx.module.Oo", "=qx.module.Lang", "=qxWeb", "=qx.module.Environment", "=qx.module.Event" ],
       "compile-options" :
       {
         "paths"  :
@@ -485,7 +485,7 @@
           "qx.module.event.Touch"
         ]
       },
-      "exclude" : [ "=qx.module.Oo", "=qx.module.Util", "=qxWeb", "=qx.module.Environment", "=qx.module.Event" ],
+      "exclude" : [ "=qx.module.Oo", "=qx.module.Lang", "=qxWeb", "=qx.module.Environment", "=qx.module.Event" ],
       "compile-options" :
       {
         "paths"  :
@@ -513,7 +513,7 @@
           "qx.module.event.Pointer"
         ]
       },
-      "exclude" : [ "=qx.module.Oo", "=qx.module.Util", "=qxWeb", "=qx.module.Environment", "=qx.module.Event" ],
+      "exclude" : [ "=qx.module.Oo", "=qx.module.Lang", "=qxWeb", "=qx.module.Environment", "=qx.module.Event" ],
       "compile-options" :
       {
         "paths"  :
@@ -545,7 +545,7 @@
           "qx.module.event.TrackHandler"
         ]
       },
-      "exclude" : [ "=qx.module.Oo", "=qx.module.Util", "=qxWeb", "=qx.module.Environment",
+      "exclude" : [ "=qx.module.Oo", "=qx.module.Lang", "=qxWeb", "=qx.module.Environment",
         "=qx.module.Event", "=qx.module.event.PointerHandler", "=qx.module.AnimationFrame" ],
       "compile-options" :
       {

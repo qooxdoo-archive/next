@@ -23,7 +23,7 @@
     "build-script",
 
     "build-oo",
-    "build-util",
+    "build-lang",
     "build-qxweb",
     "build-environment",
     "build-html",

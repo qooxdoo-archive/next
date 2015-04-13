@@ -22,4 +22,4 @@
  * @require(qx.lang.String)
  * @require(qx.lang.Type)
  */
-qx.Class.define("qx.module.Util", {});
+qx.Class.define("qx.module.Lang", {});
