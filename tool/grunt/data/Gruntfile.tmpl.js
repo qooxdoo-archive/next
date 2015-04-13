@@ -10,10 +10,22 @@ module.exports = function(grunt) {
       "APPLICATION" : "${Namespace}",
       "QOOXDOO_PATH" : "${REL_QOOXDOO_PATH}",
       "THEME": "custom"
+    },
+
+    source: {
+      default: {
+        // my custom (overridden) options
+      }
+    },
+
+    build: {
+      default: {
+        // my custom (overridden) options
+      }
     }
 
     /*
-    myTask: {
+    myThirdPartyOrSelfWrittenTask: {
       options: {},
       myTarget: {
         options: {}
