@@ -215,7 +215,7 @@ describe("bom.Template", function() {
 
   it("Get", function() {
     // add template
-    __tmpl = qx.dom.Element.create("div");
+    __tmpl = document.createElement("div");
     qx.bom.element.Attribute.set(__tmpl, "id", "qx-test-template");
     qx.bom.element.Style.set(__tmpl, "display", "none");
     __tmpl.innerHTML = "<div>{{a}}</div>";
@@ -233,7 +233,7 @@ describe("bom.Template", function() {
 
   it("PlainText", function() {
     // add template
-    __tmpl = qx.dom.Element.create("div");
+    __tmpl = document.createElement("div");
     qx.bom.element.Attribute.set(__tmpl, "id", "qx-test-template");
     qx.bom.element.Style.set(__tmpl, "display", "none");
     __tmpl.innerHTML = "{{a}}.{{b}}";
@@ -250,7 +250,7 @@ describe("bom.Template", function() {
 
   it("GetMixed", function() {
     // add template
-    __tmpl = qx.dom.Element.create("div");
+    __tmpl = document.createElement("div");
     qx.bom.element.Attribute.set(__tmpl, "id", "qx-test-template");
     qx.bom.element.Style.set(__tmpl, "display", "none");
     __tmpl.innerHTML = "<div>{{a}}<span>{{b}}</span></div>";

@@ -20,7 +20,7 @@ describe("bom.element.AnimationJs", function ()
 {
 
   it("Stop", function(done) {
-    var el = qx.dom.Element.create("div");
+    var el = document.createElement("div");
     var handle = qx.bom.element.AnimationJs.animate(el, {
       "duration": 100,
       "keyFrames": {
@@ -44,7 +44,7 @@ describe("bom.element.AnimationJs", function ()
 
 
   it("animate properties which are CSS properties and element attributes", function(done) {
-    var el = qx.dom.Element.create("div");
+    var el = document.createElement("div");
     qx.bom.element.Style.setStyles(el, { width: "200px", height: "200px",
     backgroundColor: "red" });
 

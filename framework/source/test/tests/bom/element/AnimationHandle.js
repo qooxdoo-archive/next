@@ -30,7 +30,7 @@ describe("bom.element.AnimationHandle", function() {
 
 
   it("Stop of CSS animation", function(done) {
-    var el = qx.dom.Element.create("div");
+    var el = document.createElement("div");
     var handle = qx.bom.element.Animation.animate(el, {
       "duration": 100,
       "keyFrames": {
@@ -54,7 +54,7 @@ describe("bom.element.AnimationHandle", function() {
 
 
   it("IsEnded", function(done) {
-    var el = qx.dom.Element.create("div");
+    var el = document.createElement("div");
     var handle = qx.bom.element.Animation.animate(el, {
       "duration": 100,
       "keyFrames": {
@@ -79,7 +79,7 @@ describe("bom.element.AnimationHandle", function() {
 
 
   it("IsPaused", function(done) {
-    var el = qx.dom.Element.create("div");
+    var el = document.createElement("div");
     var handle = qx.bom.element.Animation.animate(el, {
       "duration": 100,
       "keyFrames": {
@@ -104,7 +104,7 @@ describe("bom.element.AnimationHandle", function() {
 
 
   it("IsPlaying", function(done) {
-    var el = qx.dom.Element.create("div");
+    var el = document.createElement("div");
     var handle = qx.bom.element.Animation.animate(el, {
       "duration": 100,
       "keyFrames": {

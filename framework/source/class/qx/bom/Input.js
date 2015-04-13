@@ -64,48 +64,6 @@ qx.Class.define("qx.bom.Input",
 
 
     /**
-     * Creates an DOM input/textarea/select element.
-     *
-     * Attributes may be given directly with this call. This is critical
-     * for some attributes e.g. name, type, ... in many clients.
-     *
-     * Note: <code>select</code> and <code>textarea</code> elements are created
-     * using the identically named <code>type</code>.
-     *
-     * @param type {String} Any valid type for HTML, <code>select</code>
-     *   and <code>textarea</code>
-     * @param attributes {Map} Map of attributes to apply
-     * @param win {Window} Window to create the element for
-     * @return {Element} The created input node
-     */
-    create : function(type, attributes, win)
-    {
-      if (qx.core.Environment.get("qx.debug")) {
-        if (!this.__types[type]) {
-          throw new Error("Unsupported input type " + type);
-        }
-      }
-
-      // Work on a copy to not modify given attributes map
-      attributes = attributes ? qx.lang.Object.clone(attributes) : {};
-
-      var tag;
-
-      if (type === "textarea" || type === "select")
-      {
-        tag = type;
-      }
-      else
-      {
-        tag = "input";
-        attributes.type = type;
-      }
-
-      return qx.dom.Element.create(tag, attributes, win);
-    },
-
-
-    /**
      * Applies the given value to the element.
      *
      * Normally the value is given as a string/number value and applied

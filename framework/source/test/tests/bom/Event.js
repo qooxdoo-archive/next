@@ -29,15 +29,13 @@ describe("bom.Event", function() {
 
     var el;
     for (var i = 0, j = eventsToCheck.length; i < j; i++) {
-      el = qx.dom.Element.create("div", {
-        name: "vanillebaer"
-      }, window);
+      el = document.createElement("div");
+      el.setAttribute("name", "vanillebaer");
       assert.isTrue(qx.bom.client.Event.supportsEvent(el, eventsToCheck[i]), "Failed to check support for '" + eventsToCheck[i] + "'");
     }
 
-    var el2 = qx.dom.Element.create("div", {
-      name: "schokobaer"
-    }, window);
+    var el2 = document.createElement("div");
+    el2.setAttribute("name", "schokobaer");
     assert.isFalse(qx.bom.client.Event.supportsEvent(el2, "click2"));
 
     if (qx.core.Environment.get("event.mspointer")) {
@@ -50,9 +48,8 @@ describe("bom.Event", function() {
       ];
 
       for (i = 0, j = pointerEventsToCheck.length; i < j; i++) {
-        el = qx.dom.Element.create("div", {
-          name: "vanillebaer"
-        }, window);
+        el = document.createElement("div");
+        el.setAttribute("name", "vanillebaer");
         assert.isTrue(qx.bom.client.Event.supportsEvent(el, pointerEventsToCheck[i]), "Failed to check support for '" + pointerEventsToCheck[i] + "'");
       }
     }
@@ -60,7 +57,7 @@ describe("bom.Event", function() {
 
 
   it("SafariMobile", function() {
-    var el = qx.dom.Element.create("audio");
+    var el = document.createElement("audio");
 
     var supportedEvents = [
       'loadeddata', 'progress', 'timeupdate', 'seeked', 'canplay', 'play',

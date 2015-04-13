@@ -149,7 +149,7 @@ qx.Class.define("qx.bom.Template", {
       }
 
       // template has html elems so convert string into DOM nodes
-      var helper = qx.dom.Element.create("div");
+      var helper = document.createElement("div");
       helper.innerHTML = template;
 
       var fragment = document.createDocumentFragment();

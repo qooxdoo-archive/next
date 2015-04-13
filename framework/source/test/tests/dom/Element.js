@@ -31,15 +31,6 @@ describe("dom.Element", function() {
   });
 
 
-  it("Create", function() {
-    var el = qx.dom.Element.create("div", {
-      name: "juhu"
-    }, window);
-    qx.core.Assert.assertElement(el);
-    assert.equal("juhu", qx.bom.element.Attribute.get(el, "name"));
-  });
-
-
   it("Empty", function() {
     var sandbox = document.getElementById("sandbox");
     sandbox.innerHTML = "Juhu";
@@ -51,8 +42,8 @@ describe("dom.Element", function() {
   it("HasChild", function() {
     var sandbox = document.getElementById("sandbox");
     sandbox.innerHTML = "Juhu";
-    var e1 = qx.dom.Element.create("div");
-    var e2 = qx.dom.Element.create("div")
+    var e1 = document.createElement("div");
+    var e2 = document.createElement("div");
     sandbox.appendChild(e1);
     assert.isTrue(qx.dom.Element.hasChild(sandbox, e1));
     assert.isFalse(qx.dom.Element.hasChild(sandbox, e2));
@@ -62,8 +53,8 @@ describe("dom.Element", function() {
   it("HasChildren", function() {
     var sandbox = document.getElementById("sandbox");
     sandbox.innerHTML = "Juhu";
-    var e1 = qx.dom.Element.create("div");
-    var e2 = qx.dom.Element.create("div")
+    var e1 = document.createElement("div");
+    var e2 = document.createElement("div");
     sandbox.appendChild(e1);
     assert.isTrue(qx.dom.Element.hasChildren(sandbox));
     assert.isFalse(qx.dom.Element.hasChildren(e1));
@@ -73,8 +64,8 @@ describe("dom.Element", function() {
   it("HasChildElements", function() {
     var sandbox = document.getElementById("sandbox");
     sandbox.innerHTML = "Juhu";
-    var e1 = qx.dom.Element.create("div");
-    var e2 = qx.dom.Element.create("div")
+    var e1 = document.createElement("div");
+    var e2 = document.createElement("div");
     sandbox.appendChild(e1);
     assert.isTrue(qx.dom.Element.hasChildElements(sandbox));
     assert.isFalse(qx.dom.Element.hasChildElements(e1));
@@ -84,8 +75,8 @@ describe("dom.Element", function() {
   it("IsInDom", function() {
     var sandbox = document.getElementById("sandbox");
     sandbox.innerHTML = "Juhu";
-    var e1 = qx.dom.Element.create("div");
-    var e2 = qx.dom.Element.create("div")
+    var e1 = document.createElement("div");
+    var e2 = document.createElement("div");
     sandbox.appendChild(e1);
     assert.isTrue(qx.dom.Element.isInDom(sandbox));
     assert.isFalse(qx.dom.Element.isInDom(e2));
@@ -96,8 +87,8 @@ describe("dom.Element", function() {
   it("InsertAt", function() {
     var sandbox = document.getElementById("sandbox");
     sandbox.innerHTML = "Juhu";
-    var e1 = qx.dom.Element.create("div");
-    var e2 = qx.dom.Element.create("div");
+    var e1 = document.createElement("div");
+    var e2 = document.createElement("div");
     qx.dom.Element.insertAt(e1, sandbox, 0);
     assert.deepEqual(sandbox.children[0], e1);
     qx.dom.Element.insertAt(e2, sandbox, 6);
@@ -108,8 +99,8 @@ describe("dom.Element", function() {
   it("InsertBegin", function() {
     var sandbox = document.getElementById("sandbox");
     sandbox.innerHTML = "Juhu";
-    var e1 = qx.dom.Element.create("div");
-    var e2 = qx.dom.Element.create("div");
+    var e1 = document.createElement("div");
+    var e2 = document.createElement("div");
     qx.dom.Element.insertBegin(e1, sandbox);
     assert.deepEqual(sandbox.children[0], e1);
     qx.dom.Element.insertBegin(e2, sandbox);
@@ -120,8 +111,8 @@ describe("dom.Element", function() {
   it("InsertEnd", function() {
     var sandbox = document.getElementById("sandbox");
     sandbox.innerHTML = "Juhu";
-    var e1 = qx.dom.Element.create("div");
-    var e2 = qx.dom.Element.create("div");
+    var e1 = document.createElement("div");
+    var e2 = document.createElement("div");
     qx.dom.Element.insertEnd(e1, sandbox);
     assert.deepEqual(sandbox.children[0], e1);
     qx.dom.Element.insertEnd(e2, sandbox);
@@ -132,8 +123,8 @@ describe("dom.Element", function() {
   it("InsertAfter", function() {
     var sandbox = document.getElementById("sandbox");
     sandbox.innerHTML = "Juhu";
-    var e1 = qx.dom.Element.create("div");
-    var e2 = qx.dom.Element.create("div");
+    var e1 = document.createElement("div");
+    var e2 = document.createElement("div");
     sandbox.appendChild(e1);
     qx.dom.Element.insertAfter(e2, e1);
     assert.deepEqual(sandbox.children[1], e2);
@@ -143,8 +134,8 @@ describe("dom.Element", function() {
   it("RemoveChild", function() {
     var sandbox = document.getElementById("sandbox");
     sandbox.innerHTML = "Juhu";
-    var e1 = qx.dom.Element.create("div");
-    var e2 = qx.dom.Element.create("div");
+    var e1 = document.createElement("div");
+    var e2 = document.createElement("div");
     qx.dom.Element.insertEnd(e1, sandbox);
     qx.dom.Element.insertEnd(e2, sandbox);
     qx.dom.Element.removeChild(e1, sandbox);
@@ -155,9 +146,9 @@ describe("dom.Element", function() {
   it("RemoveChildAt", function() {
     var sandbox = document.getElementById("sandbox");
     sandbox.innerHTML = "Juhu";
-    var e1 = qx.dom.Element.create("div");
-    e1.id = "elem1"
-    var e2 = qx.dom.Element.create("div");
+    var e1 = document.createElement("div");
+    e1.id = "elem1";
+    var e2 = document.createElement("div");
     qx.dom.Element.insertEnd(e1, sandbox);
     qx.dom.Element.insertEnd(e2, sandbox);
     qx.dom.Element.removeChildAt(1, sandbox);
@@ -169,9 +160,9 @@ describe("dom.Element", function() {
   it("ReplaceChild", function() {
     var sandbox = document.getElementById("sandbox");
     sandbox.innerHTML = "Juhu";
-    var e1 = qx.dom.Element.create("div");
-    e1.id = "elem1"
-    var e2 = qx.dom.Element.create("div");
+    var e1 = document.createElement("div");
+    e1.id = "elem1";
+    var e2 = document.createElement("div");
     qx.dom.Element.insertEnd(e1, sandbox);
     assert.isFalse(qx.dom.Element.replaceChild(e1, e2));
     qx.dom.Element.replaceChild(e2, e1);
@@ -182,9 +173,9 @@ describe("dom.Element", function() {
   it("ReplaceAt", function() {
     var sandbox = document.getElementById("sandbox");
     sandbox.innerHTML = "Juhu";
-    var e1 = qx.dom.Element.create("div");
-    e1.id = "elem1"
-    var e2 = qx.dom.Element.create("div");
+    var e1 = document.createElement("div");
+    e1.id = "elem1";
+    var e2 = document.createElement("div");
     qx.dom.Element.insertEnd(e1, sandbox);
     assert.isFalse(qx.dom.Element.replaceAt(e1,4,sandbox));
     qx.dom.Element.replaceAt(e2, 0, sandbox);
@@ -195,8 +186,8 @@ describe("dom.Element", function() {
   it("GetHelperElement", function() {
     var sandbox = document.getElementById("sandbox");
     sandbox.innerHTML = "Juhu";
-    var e1 = qx.dom.Element.create("div");
-    var e2 = qx.dom.Element.create("div");
+    var e1 = document.createElement("div");
+    var e2 = document.createElement("div");
     var helper = qx.dom.Element.getHelperElement();
     sandbox.appendChild(helper);
     assert.isTrue(qx.dom.Element.hasChild(sandbox,helper));

@@ -368,35 +368,6 @@ qx.Class.define("qx.dom.Element",
 
 
     /**
-     * Creates a DOM element.
-     *
-     * @param name {String} Tag name of the element
-     * @param attributes {Map?} Map of attributes to apply
-     * @param win {Window?} Window to create the element for
-     * @return {Element} The created element node
-     */
-    create : function(name, attributes, win)
-    {
-      if (!win) {
-        win = window;
-      }
-
-      if (!name) {
-        throw new Error("The tag name is missing!");
-      }
-
-      var element = win.document.createElement(name);
-
-      for (var key in attributes)
-      {
-        qx.bom.element.Attribute.set(element, key, attributes[key]);
-      }
-
-      return element;
-    },
-
-
-    /**
      * Removes all content from the given element
      *
      * @param element {Element} element to clean
