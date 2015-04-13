@@ -43,7 +43,7 @@ qx.Class.define("qx.module.event.OrientationHandler", {
      */
     register : function(element)
     {
-      if (!qx.dom.Node.isWindow(element)) {
+      if (!(element && element.history && element.location && element.document)) {
         throw new Error("The 'orientationchange' event is only available on window objects!");
       }
 

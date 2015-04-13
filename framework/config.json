@@ -38,6 +38,8 @@
     "build-touch",
     "build-pointer",
     "build-gesture",
+    "build-orientation",
+    "build-rotate",
 
     "clean",
     "clean-cache",

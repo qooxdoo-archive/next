@@ -565,6 +565,62 @@
       }
     },
 
+    "build-orientation" :
+    {
+      "extend" : ["qxweb-build"],
+      "let" : {
+        "Q_INCLUDES" : [
+          "qx.module.event.OrientationHandler",
+          "qx.module.event.Orientation"
+        ]
+      },
+      "exclude" : [ "=qx.module.Oo", "=qx.module.Lang", "=qxWeb", "=qx.module.Environment", "=qx.module.Event" ],
+      "compile-options" :
+      {
+        "paths"  :
+        {
+          "file" : "${BUILD_PATH}/q-orientation${QFILES_VERSION_PART}.js"
+        }
+      },
+      "log" :
+      {
+        "dependencies" : {
+          "dot" : {
+            "root" : "qx.module.event.OrientationHandler",
+            "file" : "orientation.dot"
+          }
+        }
+      }
+    },
+
+
+    "build-rotate" :
+    {
+      "extend" : ["qxweb-build"],
+      "let" : {
+        "Q_INCLUDES" : [
+          "qx.module.event.Rotate"
+        ]
+      },
+      "exclude" : [ "=qx.module.Oo", "=qx.module.Lang", "=qxWeb", "=qx.module.Environment", "=qx.module.Event" ],
+      "compile-options" :
+      {
+        "paths"  :
+        {
+          "file" : "${BUILD_PATH}/q-rotate${QFILES_VERSION_PART}.js"
+        }
+      },
+      "log" :
+      {
+        "dependencies" : {
+          "dot" : {
+            "root" : "qx.module.event.Rotate",
+            "file" : "rotate.dot"
+          }
+        }
+      }
+    },
+
 
 
 
