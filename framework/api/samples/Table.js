@@ -65,6 +65,21 @@ addSample(".toTable", {
     '</table>'
   ],
   javascript: function () {
+    /*
+     * Each cell will be descriped as an object (value and cellKey)
+     * All cells are wrapped in an array
+    [[
+      {
+        "value": "Tiger Nixon",
+        "cellKey": "Tiger Nixon"
+      },
+      {
+        "value": "System Architect",
+        "cellKey": "System Architect"
+      },
+      ...
+    ]]
+     */
     var modelPath = "data/model.json";
     var request = new q.io.xhr(modelPath);
     request.on("load", function (event) {
