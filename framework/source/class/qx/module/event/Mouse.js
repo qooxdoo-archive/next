@@ -135,7 +135,7 @@ qx.Class.define("qx.module.event.Mouse", {
       if (this.pageX !== undefined) {
         return this.pageX;
       } else {
-        var win = qx.dom.Node.getWindow(this.srcElement);
+        var win = this.srcElement.defaultView || this.srcElement.ownerDocument.defaultView;
         return this.clientX + qx.bom.Viewport.getScrollLeft(win);
       }
     },
@@ -153,7 +153,7 @@ qx.Class.define("qx.module.event.Mouse", {
       if (this.pageY !== undefined) {
         return this.pageY;
       } else {
-        var win = qx.dom.Node.getWindow(this.srcElement);
+        var win = this.srcElement.defaultView || this.srcElement.ownerDocument.defaultView;
         return this.clientY + qx.bom.Viewport.getScrollTop(win);
       }
     },

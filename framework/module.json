@@ -395,6 +395,177 @@
       }
     },
 
+    "build-native" :
+    {
+      "extend" : ["qxweb-build"],
+      "let" : {
+        "Q_INCLUDES" : [
+          "qx.module.event.Native"
+        ]
+      },
+      "exclude" : [ "=qx.module.Oo", "=qx.module.Util", "=qxWeb", "=qx.module.Environment", "=qx.module.Event" ],
+      "compile-options" :
+      {
+        "paths"  :
+        {
+          "file" : "${BUILD_PATH}/q-native${QFILES_VERSION_PART}.js"
+        }
+      },
+      "log" :
+      {
+        "dependencies" : {
+          "dot" : {
+            "root" : "qx.module.event.Native",
+            "file" : "native.dot"
+          }
+        }
+      }
+    },
+
+    "build-keyboard" :
+    {
+      "extend" : ["qxweb-build"],
+      "let" : {
+        "Q_INCLUDES" : [
+          "qx.module.event.Keyboard"
+        ]
+      },
+      "exclude" : [ "=qx.module.Oo", "=qx.module.Util", "=qxWeb", "=qx.module.Environment", "=qx.module.Event" ],
+      "compile-options" :
+      {
+        "paths"  :
+        {
+          "file" : "${BUILD_PATH}/q-keyboard${QFILES_VERSION_PART}.js"
+        }
+      },
+      "log" :
+      {
+        "dependencies" : {
+          "dot" : {
+            "root" : "qx.module.event.Keyboard",
+            "file" : "keyboard.dot"
+          }
+        }
+      }
+    },
+
+    "build-mouse" :
+    {
+      "extend" : ["qxweb-build"],
+      "let" : {
+        "Q_INCLUDES" : [
+          "qx.module.event.Mouse"
+        ]
+      },
+      "exclude" : [ "=qx.module.Oo", "=qx.module.Util", "=qxWeb", "=qx.module.Environment", "=qx.module.Event" ],
+      "compile-options" :
+      {
+        "paths"  :
+        {
+          "file" : "${BUILD_PATH}/q-mouse${QFILES_VERSION_PART}.js"
+        }
+      },
+      "log" :
+      {
+        "dependencies" : {
+          "dot" : {
+            "root" : "qx.module.event.Mouse",
+            "file" : "mouse.dot"
+          }
+        }
+      }
+    },
+
+    "build-touch" :
+    {
+      "extend" : ["qxweb-build"],
+      "let" : {
+        "Q_INCLUDES" : [
+          "qx.module.event.TouchHandler",
+          "qx.module.event.Touch"
+        ]
+      },
+      "exclude" : [ "=qx.module.Oo", "=qx.module.Util", "=qxWeb", "=qx.module.Environment", "=qx.module.Event" ],
+      "compile-options" :
+      {
+        "paths"  :
+        {
+          "file" : "${BUILD_PATH}/q-touch${QFILES_VERSION_PART}.js"
+        }
+      },
+      "log" :
+      {
+        "dependencies" : {
+          "dot" : {
+            "root" : "qx.module.event.TouchHandler",
+            "file" : "touch.dot"
+          }
+        }
+      }
+    },
+
+    "build-pointer" :
+    {
+      "extend" : ["qxweb-build"],
+      "let" : {
+        "Q_INCLUDES" : [
+          "qx.module.event.PointerHandler",
+          "qx.module.event.Pointer"
+        ]
+      },
+      "exclude" : [ "=qx.module.Oo", "=qx.module.Util", "=qxWeb", "=qx.module.Environment", "=qx.module.Event" ],
+      "compile-options" :
+      {
+        "paths"  :
+        {
+          "file" : "${BUILD_PATH}/q-pointer${QFILES_VERSION_PART}.js"
+        }
+      },
+      "log" :
+      {
+        "dependencies" : {
+          "dot" : {
+            "root" : "qx.module.event.PointerHandler",
+            "file" : "pointer.dot"
+          }
+        }
+      }
+    },
+
+    "build-gesture" :
+    {
+      "extend" : ["qxweb-build"],
+      "let" : {
+        "Q_INCLUDES" : [
+          "qx.module.event.GestureHandler",
+          "qx.module.event.Swipe",
+          "qx.module.event.Tap",
+          "qx.module.event.Pinch",
+          "qx.module.event.Track",
+          "qx.module.event.TrackHandler"
+        ]
+      },
+      "exclude" : [ "=qx.module.Oo", "=qx.module.Util", "=qxWeb", "=qx.module.Environment",
+        "=qx.module.Event", "=qx.module.event.PointerHandler", "=qx.module.AnimationFrame" ],
+      "compile-options" :
+      {
+        "paths"  :
+        {
+          "file" : "${BUILD_PATH}/q-gesture${QFILES_VERSION_PART}.js"
+        }
+      },
+      "log" :
+      {
+        "dependencies" : {
+          "dot" : {
+            "root" : "qx.module.event.GestureHandler",
+            "file" : "gesture.dot"
+          }
+        }
+      }
+    },
+
+
 
 
     "build-core" :
