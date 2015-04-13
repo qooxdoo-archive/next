@@ -26,6 +26,8 @@
  * @require(qx.dom.Hierarchy#getNextSiblings)
  * @require(qx.dom.Hierarchy#getPreviousSiblings)
  * @require(qx.dom.Hierarchy#contains)
+ * @require(qx.module.Html)
+ * @require(qx.module.Css)
  *
  * @group (Core)
  */

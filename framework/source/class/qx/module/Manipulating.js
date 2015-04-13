@@ -23,6 +23,7 @@
  * DOM manipulation module
  *
  * @ignore(qx.bom.element, qx.bom.element.AnimationJs)
+ * @require(qx.module.Html)
  * @group (Core)
  */
 qx.Class.define("qx.module.Manipulating", {
