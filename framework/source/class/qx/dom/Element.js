@@ -327,47 +327,6 @@ qx.Class.define("qx.dom.Element",
 
 
     /**
-     * Stores helper element for element creation in WebKit
-     *
-     * @internal
-     */
-    __helperElement : {},
-
-
-
-    /**
-     * Creates and returns a DOM helper element.
-     *
-     * @param win {Window?} Window to create the element for
-     * @return {Element} The created element node
-     */
-    getHelperElement : function (win)
-    {
-      if (!win) {
-        win = window;
-      }
-
-      // key is needed to allow using different windows
-      var key = win.location.href;
-
-      if (!qx.dom.Element.__helperElement[key])
-      {
-        var helper = qx.dom.Element.__helperElement[key] = win.document.createElement("div");
-
-        // innerHTML will only parsed correctly if element is appended to document
-        if (qx.core.Environment.get("engine.name") == "webkit")
-        {
-          helper.style.display = "none";
-
-          win.document.body.appendChild(helper);
-        }
-      }
-
-      return qx.dom.Element.__helperElement[key];
-    },
-
-
-    /**
      * Removes all content from the given element
      *
      * @param element {Element} element to clean

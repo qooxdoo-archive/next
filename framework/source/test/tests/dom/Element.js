@@ -182,15 +182,4 @@ describe("dom.Element", function() {
     assert.equal(sandbox.children[0], e2);
   });
 
-
-  it("GetHelperElement", function() {
-    var sandbox = document.getElementById("sandbox");
-    sandbox.innerHTML = "Juhu";
-    var e1 = document.createElement("div");
-    var e2 = document.createElement("div");
-    var helper = qx.dom.Element.getHelperElement();
-    sandbox.appendChild(helper);
-    assert.isTrue(qx.dom.Element.hasChild(sandbox,helper));
-  });
-
 });
