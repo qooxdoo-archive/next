@@ -37,6 +37,7 @@
  * qooxdoo's event system.
  *
  * @ignore(qxWeb)
+ * @ignore(qx.type.BaseArray)
  */
 qx.Class.define("qx.bom.Html",
 {
@@ -225,8 +226,10 @@ qx.Class.define("qx.bom.Html",
         // Append or merge depending on type
         if (obj.nodeType) {
           ret.push(obj);
-        } else if (obj instanceof qx.type.BaseArray ||
-            (typeof qxWeb !== "undefined" && obj instanceof qxWeb)) {
+        } else if (
+          (typeof qx.type.BaseArray !== "undefined" && obj instanceof qx.type.BaseArray) ||
+          (typeof qxWeb !== "undefined" && obj instanceof qxWeb))
+        {
           ret.push.apply(ret, Array.prototype.slice.call(obj, 0));
         } else if (obj.toElement) {
           ret.push(obj.toElement());
