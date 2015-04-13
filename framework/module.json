@@ -294,7 +294,7 @@
           "qx.module.Manipulating"
         ]
       },
-      "exclude" : [ "=qx.module.Oo", "=qx.module.Util", "=qxWeb", "=qx.module.Environment" ],
+      "exclude" : [ "=qx.module.Oo", "=qx.module.Util", "=qxWeb", "=qx.module.Environment", "=qx.module.Html" ],
       "compile-options" :
       {
         "paths"  :
@@ -312,6 +312,89 @@
         }
       }
     },
+
+    "build-html" :
+    {
+      "extend" : ["qxweb-build"],
+      "let" : {
+        "Q_INCLUDES" : [
+          "qx.module.Html"
+        ]
+      },
+      "exclude" : [ "=qx.module.Oo", "=qx.module.Util", "=qxWeb", "=qx.module.Environment" ],
+      "compile-options" :
+      {
+        "paths"  :
+        {
+          "file" : "${BUILD_PATH}/q-html${QFILES_VERSION_PART}.js"
+        }
+      },
+      "log" :
+      {
+        "dependencies" : {
+          "dot" : {
+            "root" : "qx.module.Html",
+            "file" : "html.dot"
+          }
+        }
+      }
+    },
+
+    "build-traversing" :
+    {
+      "extend" : ["qxweb-build"],
+      "let" : {
+        "Q_INCLUDES" : [
+          "qx.module.Traversing"
+        ]
+      },
+      "exclude" : [ "=qx.module.Oo", "=qx.module.Util", "=qxWeb", "=qx.module.Environment",
+        "=qx.module.Html", "=qx.module.Css" ],
+      "compile-options" :
+      {
+        "paths"  :
+        {
+          "file" : "${BUILD_PATH}/q-traversing${QFILES_VERSION_PART}.js"
+        }
+      },
+      "log" :
+      {
+        "dependencies" : {
+          "dot" : {
+            "root" : "qx.module.Traversing",
+            "file" : "traversing.dot"
+          }
+        }
+      }
+    },
+
+    "build-event" :
+    {
+      "extend" : ["qxweb-build"],
+      "let" : {
+        "Q_INCLUDES" : [
+          "qx.module.Event"
+        ]
+      },
+      "exclude" : [ "=qx.module.Oo", "=qx.module.Util", "=qxWeb", "=qx.module.Environment" ],
+      "compile-options" :
+      {
+        "paths"  :
+        {
+          "file" : "${BUILD_PATH}/q-event${QFILES_VERSION_PART}.js"
+        }
+      },
+      "log" :
+      {
+        "dependencies" : {
+          "dot" : {
+            "root" : "qx.module.Event",
+            "file" : "event.dot"
+          }
+        }
+      }
+    },
+
 
 
     "build-core" :

@@ -26,9 +26,12 @@
     "build-util",
     "build-qxweb",
     "build-environment",
+    "build-html",
     "build-attribute",
     "build-css",
     "build-manipulating",
+    "build-traversing",
+    "build-event",
 
     "clean",
     "clean-cache",
