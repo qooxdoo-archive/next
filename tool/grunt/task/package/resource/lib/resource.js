@@ -27,7 +27,7 @@
  *
  * <ul>
  *   <li>images (e.g. png, jpg, gif ...)</li>
- *   <li>text (e.g. js, css, html, xml, txt, php, json, mxml, meta ...)</li>
+ *   <li>text (e.g. js, css, html, xml, txt, php, json, mxml ...)</li>
  *   <li>fonts (e.g. woff, tff, eot ...)</li>
  *   <li>binary data (e.g. swf ...)</li>
  *   <li>audio (mp3, wav, ogg ...)</li>
@@ -60,36 +60,6 @@ var qxResource = (qxResource || {
 //------------------------------------------------------------------------------
 // Privates
 //------------------------------------------------------------------------------
-
-/**
- * Finds resource meta files.
- *
- * @param {Object} root - file path
- * @returns {string[]} - globbed meta file entries
- */
-function findResourceMetaFiles(root) {
-  return glob.sync('**/*.meta', {cwd: root});
-}
-
-/**
- * Combines the content of all provided meta files.
- *
- * @param {string[]} metaFilePaths
- * @param {string} basePath
- * @returns {Object}
- */
-function processMetaFiles(metaFilePaths, basePath) {
-  var combinedMap = {};
-
-  metaFilePaths.forEach(function(metaPath) {
-    var curAbsPath = path.join(basePath, metaPath);
-    var content = fs.readFileSync(curAbsPath, {encoding: 'utf8'});
-    var json = JSON.parse(content);
-    q.Bootstrap.objectMergeWith(combinedMap, json);
-  });
-
-  return combinedMap;
-}
 
 /**
  * Throws an error if a namespace has no corresponding base path.
@@ -196,10 +166,6 @@ function globAndSanitizePaths(assetNsPaths, resBasePathMap) {
     return (item.slice(-1) !== '/');
   };
 
-  var nonMetaFiles = function(item) {
-    return (item.indexOf('.meta') === -1);
-  };
-
   var globifyProperly = function(expr) {
     return (expr.slice(-1) === '*') ? expr.replace('*', '**/*') : expr;
   };
@@ -290,7 +256,6 @@ function globAndSanitizePaths(assetNsPaths, resBasePathMap) {
         if (globbedPaths.length > 0) {
           // works in combination with {mark: true} from glob options
           globbedPaths = globbedPaths.filter(nonDir);
-          globbedPaths = globbedPaths.filter(nonMetaFiles);
           assetNsBasesPaths[ns][namespace] = assetNsBasesPaths[ns][namespace].concat(globbedPaths);
         }
       }
@@ -348,44 +313,6 @@ function createResourceInfoMaps(resources) {
   });
 
   return resInfo;
-}
-
-/**
- * Checks all resources whether they are part of a metra entry and
- * if so, collects their resource info map.
- *
- * @param {Object} assetNsPaths
- * @param {Object} resBasePathMap - base paths by namespace
- * @returns {Object} usedMetaEntries
- */
- /** eslint no-shadow: 0 */
-function collectUsedMetaEntries(assetNsPaths, resBasePathMap) {
-  var usedMetaEntries = {};
-  var ns1 = '';
-  var ns2 = '';
-
-  for (ns1 in assetNsPaths) {
-    for (ns2 in assetNsPaths[ns1]) {
-      var l = assetNsPaths[ns1][ns2].length;
-      var i = 0;
-      var imgPath = '';
-      var metaPaths = findResourceMetaFiles(resBasePathMap[ns2]);
-      var metaEntries = processMetaFiles(metaPaths, resBasePathMap[ns2]);
-
-      for (; i<l; i++) {
-        imgPath = assetNsPaths[ns1][ns2][i];
-        if (metaEntries[imgPath]) {
-          usedMetaEntries[imgPath] = metaEntries[imgPath];
-          // insert namespace
-          usedMetaEntries[imgPath].splice(3, 0, ns2);
-          // remove original entry
-          assetNsPaths[ns1][ns2].splice(i, 1);
-        }
-      }
-    }
-  }
-
-  return usedMetaEntries;
 }
 
 /**
@@ -457,30 +384,18 @@ module.exports = {
    * @param {Object} assetNsPaths
    * @param {Object} resBasePathMap - base paths by namespace
    * @param {Object} [options]
-   * @param {Object} [options.metaFiles=false] - whether to include meta entries
    * @param {Object} - resource struct/map (i.e. JSON compatible) object
    */
   /** eslint no-shadow: 0 */
-  collectResources: function(assetNsBasesPaths, resBasePathMap, options) {
-    var opts = {};
+  collectResources: function(assetNsBasesPaths, resBasePathMap) {
     var imgs = [];
     var images = [];
     var res = [];
     var resources = [];
-    var usedMetaEntries = {};
     var resStruct = {};
     var imgsStruct = {};
     var ns1 = '';
     var ns2 = '';
-
-    if (!options) {
-      options = {};
-    }
-
-    // merge options and default values
-    opts = {
-      metaFiles: options.metaFiles === true ? true : false
-    };
 
     var isImg = function(path) {
       return /(png|gif|jpe?g)$/.test(path);
@@ -489,10 +404,6 @@ module.exports = {
     var isNotImg = function(path) {
       return !isImg(path);
     };
-
-    if (opts.metaFiles) {
-      usedMetaEntries = collectUsedMetaEntries(assetNsBasesPaths, resBasePathMap);
-    }
 
     for (ns1 in assetNsBasesPaths) {
       for (ns2 in assetNsBasesPaths[ns1]) {
@@ -508,9 +419,6 @@ module.exports = {
     resStruct = createResourceInfoMaps(resources);
     imgsStruct = createResourceInfoMaps(images);
     q.Bootstrap.objectMergeWith(resStruct, imgsStruct);
-    if (opts.metaFiles) {
-      q.Bootstrap.objectMergeWith(resStruct, usedMetaEntries);
-    }
 
     return resStruct;
   },

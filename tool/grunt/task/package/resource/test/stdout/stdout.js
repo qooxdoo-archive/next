@@ -122,6 +122,6 @@ var assets = {
 
 var assetNsBasesPaths = resource.flattenExpandAndGlobAssets(assets, resBasePathMap, macroToExpansionMap);
 // console.log(assetNsBasesPaths);
-var imgsInfo = resource.collectResources(assetNsBasesPaths, resBasePathMap, {metaFiles:true});
+var imgsInfo = resource.collectResources(assetNsBasesPaths, resBasePathMap);
 // console.log(JSON.stringify(imgsInfo, null, 2), Object.keys(imgsInfo).length);
 console.log(imgsInfo, Object.keys(imgsInfo).length);

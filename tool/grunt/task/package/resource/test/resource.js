@@ -211,42 +211,6 @@ module.exports = {
     //  test.done();
     //},
 
-    //collectUsedMetaEntries: function(test) {
-    //  var absQxPath = '../../../../../framework';
-    //  var absAppPath = './test/data/myapp/';
-    //  var relQxResourcePath = 'source/resource';
-    //  var relAppResourcePath = 'source/resource';
-    //
-    //  var resBasePathMap = {
-    //    'qx': this.path.join(absQxPath, relQxResourcePath),
-    //    'myapp': this.path.join(absAppPath, relAppResourcePath)
-    //  };
-    //
-    //  var assetPaths = {
-    //    'myapp': {
-    //      myapp: [],
-    //      qx: ['qx/icon/Oxygen/16/places/folder-open.png']
-    //    },
-    //    'qx': {
-    //      qx: [
-    //        'qx/static/blank.gif',
-    //        'qx/decoration/Modern/tree/open-selected.png'
-    //      ]
-    //    }
-    //  };
-    //
-    //  var actual = this.res.collectUsedMetaEntries(assetPaths, resBasePathMap);
-    //  var expected = {
-    //    'qx/decoration/Modern/tree/open-selected.png': [
-    //      8, 8, 'png', 'qx', 'qx/decoration/Modern/tree-combined.png', -8, 0
-    //    ]
-    //  };
-    //
-    //  test.deepEqual(actual, expected);
-    //
-    //  test.done();
-    //},
-
     expandAssetMacros: function(test) {
       var macroToExpansionMap = {
         '${qx.icontheme}': 'Tango'
@@ -391,7 +355,6 @@ module.exports = {
     //  var actual = this.res.collectResources(
     //    assetNsBasesPaths,
     //    resBasePathMap,
-    //    {metaFiles:true}
     //  );
     //
     //  var expected = {

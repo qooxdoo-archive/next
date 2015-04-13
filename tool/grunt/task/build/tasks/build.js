@@ -118,7 +118,7 @@ module.exports = function(grunt) {
       "${qx.icontheme}": opts.qxIconTheme
     };
     var assetNsPaths = qxRes.flattenExpandAndGlobAssets(atHintIndex.asset, resBasePathMap, macroToExpansionMap);
-    var resData = qxRes.collectResources(assetNsPaths, resBasePathMap, {metaFiles: true});
+    var resData = qxRes.collectResources(assetNsPaths, resBasePathMap);
     grunt.log.ok('Done.');
 
 
