@@ -128,7 +128,7 @@ qx.Class.define("qx.bom.Style",
     getAppliedStyle : function(element, propertyName, value, prefixed)
     {
       var cssProperty = qx.bom.Style.getCssName(propertyName);
-      var win = qx.dom.Node.getWindow(element);
+      var win = element.defaultView || element.ownerDocument.defaultView;
 
       var vendorPrefixes = (prefixed !== false) ?
         [null].concat(this.VENDOR_PREFIXES) : [null];
