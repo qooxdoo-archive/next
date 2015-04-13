@@ -401,7 +401,7 @@ qx.Class.define("qx.event.handler.TouchCore", {
         // Traverse this array for the elements which has no pointer-events:none inside.
         for (var i = 0; i < hitTargets.length; i++) {
           var currentTarget = hitTargets[i];
-          var pointerEvents = qx.bom.element.Style.get(currentTarget, "pointer-events", 3);
+          var pointerEvents = currentTarget.style.pointerEvents;
 
           if (pointerEvents != "none") {
             return currentTarget;
