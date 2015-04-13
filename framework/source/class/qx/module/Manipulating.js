@@ -308,9 +308,14 @@ qx.Class.define("qx.module.Manipulating", {
      * @return {qxWeb} The collection for chaining
      */
     remove : function() {
-      this._forEachElement(function(item) {
-        qx.dom.Element.remove(item);
-      });
+      if (this.length == 1) {
+        qx.dom.Element.remove(this[0]);
+      } else {
+        // do recursive calling. we could have widgets overriding the remove method
+        this.forEach(function(item) {
+          item.remove();
+        });
+      }
       return this;
     },
 

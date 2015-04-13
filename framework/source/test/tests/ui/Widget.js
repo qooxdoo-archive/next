@@ -337,6 +337,19 @@ describe("ui.Widget", function() {
   });
 
 
+  it("RemovedChildRemoveMultiple", function() {
+    sandbox.append(new qx.ui.Widget());
+    sandbox.append(new qx.ui.Widget());
+    sandbox.append(new qx.ui.Widget());
+
+    var spy = sinon.spy();
+    sandbox.on("removedChild", spy);
+    sandbox.getChildren().remove();
+
+    sinon.assert.calledThrice(spy);
+  });
+
+
   it("RemovedChildEmpty", function() {
     var child1 = new qx.ui.Widget();
     sandbox.append(child1);
