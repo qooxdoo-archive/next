@@ -25,6 +25,8 @@
  * @require(qx.module.Event)
  * @require(qx.module.event.PointerHandler)
  * @require(qx.event.handler.Gesture)
+ * Workaround: qx.event.handler.Gesture needs the env key css.animation.requestframe
+ * @require(qx.module.AnimationFrame)
  *
  * @group (Event_Normalization)
  */

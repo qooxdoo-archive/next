@@ -17,6 +17,8 @@
 
 /**
  * AnimationFrame fallback module
+ * Workaround: bom.AnimationFrame needs the env key css.animation.requestframe
+ * @require(qx.module.Css)
  */
 qx.Class.define("qx.module.AnimationFrame", {
   statics :
