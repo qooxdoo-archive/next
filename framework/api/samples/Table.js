@@ -1,6 +1,6 @@
 addSample(".toTable", {
   html: [
-    '<-- Click on table header to sort column -->',
+    '<!-- Click on table header to sort column -->',
     ' <div class="qx-table-toolbar">',
     '   <label for="keyword">Filter: </label><input id="keyword" type="text" />',
     ' </div>',
