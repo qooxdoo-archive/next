@@ -112,22 +112,296 @@ module.exports = function(grunt) {
       "module-core": {
         options: {
           includes: [
-            "qx.module.Core",
-            "qx.module.event.*",
-            "qx.bom.Event",
-            "qx.bom.Stylesheet",
-            "qx.dom.Element",
-            "qx.lang.Array",
-            "qx.util.Uri",
-            "qx.lang.Type",
-            "qx.lang.String",
-            "qx.lang.Object",
-            "qx.lang.Function",
-            "qx.Class"
+            "qx.module.Core"
           ],
           excludes: [],
           loaderTemplate: "../tool/data/generator/website.loader.tmpl.js",
           fileName: "core"
+        }
+      },
+      "module-oo": {
+        options: {
+          includes: [
+            "qx.module.Oo"
+          ],
+          loaderTemplate: "../tool/data/generator/website.loader.tmpl.js",
+          fileName: "oo"
+        }
+      },
+      "module-lang": {
+        options: {
+          includes: [
+            "qx.module.Lang"
+          ],
+          excludes: [
+            "=qx.module.Oo"
+          ],
+          loaderTemplate: "../tool/data/generator/website.loader.tmpl.js",
+          fileName: "lang"
+        }
+      },
+      "module-qxweb": {
+        options: {
+          includes: [
+            "qxWeb"
+          ],
+          excludes: [
+            "=qx.module.Oo",
+            "=qx.module.Lang"
+          ],
+          loaderTemplate: "../tool/data/generator/website.loader.tmpl.js",
+          fileName: "qxweb"
+        }
+      },
+      "module-environment": {
+        options: {
+          includes: [
+            "qx.module.Environment"
+          ],
+          excludes: [
+            "=qx.module.Oo",
+            "=qx.module.Lang",
+            "=qxWeb"
+          ],
+          loaderTemplate: "../tool/data/generator/website.loader.tmpl.js",
+          fileName: "environment"
+        }
+      },
+      "module-attribute": {
+        options: {
+          includes: [
+            "qx.module.Attribute"
+          ],
+          excludes: [
+            "=qx.module.Oo",
+            "=qx.module.Lang",
+            "=qxWeb",
+            "=qx.module.Environment",
+            "=qx.module.Html"
+          ],
+          loaderTemplate: "../tool/data/generator/website.loader.tmpl.js",
+          fileName: "attribute"
+        }
+      },
+      "module-css": {
+        options: {
+          includes: [
+            "qx.module.Css"
+          ],
+          excludes: [
+            "=qx.module.Oo",
+            "=qx.module.Lang",
+            "=qxWeb",
+            "=qx.module.Environment",
+            "=qx.module.Html"
+          ],
+          loaderTemplate: "../tool/data/generator/website.loader.tmpl.js",
+          fileName: "css"
+        }
+      },
+      "module-manipulating": {
+        options: {
+          includes: [
+            "qx.module.Manipulating"
+          ],
+          excludes: [
+            "=qx.module.Oo",
+            "=qx.module.Lang",
+            "=qxWeb",
+            "=qx.module.Environment",
+            "=qx.module.Html"
+          ],
+          loaderTemplate: "../tool/data/generator/website.loader.tmpl.js",
+          fileName: "manipulating"
+        }
+      },
+      "module-html": {
+        options: {
+          includes: [
+            "qx.module.Html"
+          ],
+          excludes: [
+            "=qx.module.Oo",
+            "=qx.module.Lang",
+            "=qxWeb",
+            "=qx.module.Environment"
+          ],
+          loaderTemplate: "../tool/data/generator/website.loader.tmpl.js",
+          fileName: "html"
+        }
+      },
+      "module-traversing": {
+        options: {
+          includes: [
+            "qx.module.Traversing"
+          ],
+          excludes: [
+            "=qx.module.Oo",
+            "=qx.module.Lang",
+            "=qxWeb",
+            "=qx.module.Environment",
+            "=qx.module.Html",
+            "=qx.module.Css"
+          ],
+          loaderTemplate: "../tool/data/generator/website.loader.tmpl.js",
+          fileName: "traversing"
+        }
+      },
+      "module-event": {
+        options: {
+          includes: [
+            "qx.module.Event",
+            "qx.module.event.Native"
+          ],
+          excludes: [
+            "=qx.module.Oo",
+            "=qx.module.Lang",
+            "=qxWeb",
+            "=qx.module.Environment"
+          ],
+          loaderTemplate: "../tool/data/generator/website.loader.tmpl.js",
+          fileName: "event"
+        }
+      },
+      "module-keyboard": {
+        options: {
+          includes: [
+            "qx.module.event.Keyboard"
+          ],
+          excludes: [
+            "=qx.module.Oo",
+            "=qx.module.Lang",
+            "=qxWeb",
+            "=qx.module.Environment",
+            "=qx.module.Event"
+          ],
+          loaderTemplate: "../tool/data/generator/website.loader.tmpl.js",
+          fileName: "keyboard"
+        }
+      },
+      "module-mouse": {
+        options: {
+          includes: [
+            "qx.module.event.Mouse"
+          ],
+          excludes: [
+            "=qx.module.Oo",
+            "=qx.module.Lang",
+            "=qxWeb",
+            "=qx.module.Environment",
+            "=qx.module.Event"
+          ],
+          loaderTemplate: "../tool/data/generator/website.loader.tmpl.js",
+          fileName: "mouse"
+        }
+      },
+      "module-touch": {
+        options: {
+          includes: [
+            "qx.module.event.TouchHandler",
+            "qx.module.event.Touch"
+          ],
+          excludes: [
+            "=qx.module.Oo",
+            "=qx.module.Lang",
+            "=qxWeb",
+            "=qx.module.Environment",
+            "=qx.module.Event"
+          ],
+          loaderTemplate: "../tool/data/generator/website.loader.tmpl.js",
+          fileName: "touch"
+        }
+      },
+      "module-pointer": {
+        options: {
+          includes: [
+            "qx.module.event.PointerHandler",
+            "qx.module.event.Pointer"
+          ],
+          excludes: [
+            "=qx.module.Oo",
+            "=qx.module.Lang",
+            "=qxWeb",
+            "=qx.module.Environment",
+            "=qx.module.Event"
+          ],
+          loaderTemplate: "../tool/data/generator/website.loader.tmpl.js",
+          fileName: "pointer"
+        }
+      },
+      "module-gesture": {
+        options: {
+          includes: [
+            "qx.module.event.GestureHandler",
+            "qx.module.event.Swipe",
+            "qx.module.event.Tap",
+            "qx.module.event.Pinch",
+            "qx.module.event.Track",
+            "qx.module.event.TrackHandler"
+          ],
+          excludes: [
+            "=qx.module.Oo",
+            "=qx.module.Lang",
+            "=qxWeb",
+            "=qx.module.Environment",
+            "=qx.module.Event",
+            "=qx.module.event.PointerHandler",
+            "=qx.module.AnimationFrame"
+          ],
+          loaderTemplate: "../tool/data/generator/website.loader.tmpl.js",
+          fileName: "gesture"
+        }
+      },
+      "module-orientation": {
+        options: {
+          includes: [
+            "qx.module.event.OrientationHandler",
+            "qx.module.event.Orientation"
+          ],
+          excludes: [
+            "=qx.module.Oo",
+            "=qx.module.Lang",
+            "=qxWeb",
+            "=qx.module.Environment",
+            "=qx.module.Event"
+          ],
+          loaderTemplate: "../tool/data/generator/website.loader.tmpl.js",
+          fileName: "orientation"
+        }
+      },
+      "module-rotate": {
+        options: {
+          includes: [
+            "qx.module.event.Rotate"
+          ],
+          excludes: [
+            "=qx.module.Oo",
+            "=qx.module.Lang",
+            "=qxWeb",
+            "=qx.module.Environment",
+            "=qx.module.Event"
+          ],
+          loaderTemplate: "../tool/data/generator/website.loader.tmpl.js",
+          fileName: "rotate"
+        }
+      },
+      "module-util": {
+        options: {
+          includes: [
+            "qx.module.util.Array",
+            "qx.module.util.Function",
+            "qx.module.util.Object",
+            "qx.module.util.String",
+            "qx.module.util.Type"
+          ],
+          excludes: [
+            "=qx.module.Oo",
+            "=qx.module.Lang",
+            "=qxWeb",
+            "=qx.module.Environment"
+          ],
+          loaderTemplate: "../tool/data/generator/website.loader.tmpl.js",
+          fileName: "util"
         }
       },
       "module-animation": {
