@@ -27,7 +27,7 @@ describe("lang.Array", function() {
     assert.isDefined(qx.lang.Array.append);
     var a = [1, 2, 3];
     qx.lang.Array.append(a, [4, 5, 6]);
-    qx.core.Assert.assertJsonEquals(a, [1, 2, 3, 4, 5, 6]);
+    assert.equal(JSON.stringify(a), JSON.stringify([1, 2, 3, 4, 5, 6]));
 
     var error = false;
 
@@ -90,7 +90,7 @@ describe("lang.Array", function() {
     var a = [-3, -2, -1, 0, 1, 2, 3];
     qx.lang.Array.remove(a, 2);
 
-    qx.core.Assert.assertJsonEquals(a, [-3, -2, -1, 0, 1, 3]);
+    assert.equal(JSON.stringify(a), JSON.stringify([-3, -2, -1, 0, 1, 3]));
     assert.equal(6, a.length);
   });
 
@@ -99,7 +99,7 @@ describe("lang.Array", function() {
     var a = [-3, -2, -1, 0, 1, 2, 3];
     qx.lang.Array.removeAt(a, 3);
 
-    qx.core.Assert.assertJsonEquals(a, [-3, -2, -1, 1, 2, 3]);
+    assert.equal(JSON.stringify(a), JSON.stringify([-3, -2, -1, 1, 2, 3]));
     assert.equal(6, a.length);
   });
 
@@ -108,7 +108,7 @@ describe("lang.Array", function() {
     var a = [-3, -2, -1, 0, 1, 2, 3];
     qx.lang.Array.removeAll(a);
 
-    qx.core.Assert.assertJsonEquals(a, []);
+    assert.equal(JSON.stringify(a), JSON.stringify([]));
     assert.equal(0, a.length);
   });
 

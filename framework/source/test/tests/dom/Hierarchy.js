@@ -56,7 +56,12 @@ describe("dom.Hierarchy", function() {
 
 
   it("IsRenderedIframe", function(done) {
-    var iframe = qx.bom.Iframe.create();
+    if (!qx.bom.Iframe) {
+      this.test.skipped = true;
+      done();
+      return;
+    }
+    var iframe = document.createElement("iframe");
     qx.bom.Iframe.setSource(iframe, "/");
     sandbox.append(iframe);
 
@@ -101,22 +106,21 @@ describe("dom.Hierarchy", function() {
 
   it("GetNextElementSibling", function() {
     var e1 = document.createElement("div");
-    e1.id = "elem1"
+    e1.id = "elem1";
     var e2 = document.createElement("div");
-    e2.id = "elem2"
+    e2.id = "elem2";
     sandbox.append(e1);
     sandbox.append(e2);
     var next = qx.dom.Hierarchy.getNextElementSibling(e1);
-    console.log(next);
     assert.deepEqual(e2, next);
   });
 
 
   it("GetPreviousElementSibling", function() {
     var e1 = document.createElement("div");
-    e1.id = "elem1"
+    e1.id = "elem1";
     var e2 = document.createElement("div");
-    e2.id = "elem2"
+    e2.id = "elem2";
     sandbox.append(e1);
     sandbox.append(e2);
     var previous = qx.dom.Hierarchy.getPreviousElementSibling(e2);
@@ -125,9 +129,9 @@ describe("dom.Hierarchy", function() {
 
   it("GetPreviousSibling", function() {
     var e1 = document.createElement("div");
-    e1.id = "elem1"
+    e1.id = "elem1";
     var e2 = document.createElement("div");
-    e2.id = "elem2"
+    e2.id = "elem2";
     sandbox.append(e1);
     sandbox.append(e2);
     var previous = qx.dom.Hierarchy.getPreviousSiblings(e2)[0];
@@ -137,12 +141,12 @@ describe("dom.Hierarchy", function() {
 
   it("Contains", function() {
     var e1 = document.createElement("div");
-    e1.id = "elem1"
+    e1.id = "elem1";
     var e2 = document.createElement("div");
-    e2.id = "elem2"
+    e2.id = "elem2";
     sandbox.append(e1);
     assert.isTrue(qx.dom.Hierarchy.contains(sandbox, e1));
-    assert.isFalse(qx.dom.Hierarchy.contains(e1, sandbox));
+    assert.isFalse(qx.dom.Hierarchy.contains(e1, sandbox[0]));
     assert.isTrue(qx.dom.Hierarchy.contains(document, sandbox[0]));
     assert.isFalse(qx.dom.Hierarchy.contains(sandbox, document));
 
@@ -161,9 +165,9 @@ describe("dom.Hierarchy", function() {
 
   it("IsDescendantOf", function() {
     var e1 = document.createElement("div");
-    e1.id = "elem1"
+    e1.id = "elem1";
     var e2 = document.createElement("div");
-    e2.id = "elem2"
+    e2.id = "elem2";
     sandbox.append(e1);
     sandbox.append(e2);
     assert.isTrue(qx.dom.Hierarchy.isDescendantOf(e1, sandbox));
@@ -173,9 +177,9 @@ describe("dom.Hierarchy", function() {
 
   it("GetAncestors", function() {
     var e1 = document.createElement("div");
-    e1.id = "elem1"
+    e1.id = "elem1";
     var e2 = document.createElement("div");
-    e2.id = "elem2"
+    e2.id = "elem2";
     sandbox.append(e1);
     sandbox.append(e2);
     assert.deepEqual(qx.dom.Hierarchy.getAncestors(e1)[0], sandbox[0]);
@@ -185,9 +189,9 @@ describe("dom.Hierarchy", function() {
 
   it("GetChildElements", function() {
     var e1 = document.createElement("div");
-    e1.id = "elem1"
+    e1.id = "elem1";
     var e2 = document.createElement("div");
-    e2.id = "elem2"
+    e2.id = "elem2";
     sandbox.append(e1);
     sandbox.append(e2);
     assert.deepEqual(qx.dom.Hierarchy.getChildElements(sandbox[0])[2], e1);
@@ -197,9 +201,9 @@ describe("dom.Hierarchy", function() {
 
   it("GetDescendants", function() {
     var e1 = document.createElement("div");
-    e1.id = "elem1"
+    e1.id = "elem1";
     var e2 = document.createElement("div");
-    e2.id = "elem2"
+    e2.id = "elem2";
     sandbox.append(e1);
     sandbox.append(e2);
     assert.deepEqual(e1, qx.dom.Hierarchy.getDescendants(sandbox[0])[3]);
@@ -214,7 +218,7 @@ describe("dom.Hierarchy", function() {
 
   it("GetLastDescendant", function() {
     var e1 = document.createElement("div");
-    e1.id = "elem1"
+    e1.id = "elem1";
     sandbox.append(e1);
     assert.deepEqual(e1, qx.dom.Hierarchy.getLastDescendant(sandbox[0]));
   });

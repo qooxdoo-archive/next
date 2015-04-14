@@ -75,10 +75,10 @@ describe("bom.Basic", function() {
     assert(qx.lang.String.endsWith(attrib.get(document.getElementById("test6"), "href"), "/foo.html"));
 
     var test6Color = style.get(document.getElementById("test6"), "color");
-    qx.core.Assert.assertCssColor("red", test6Color);
+    assert.equal(test6Color, "rgb(255, 0, 0)");
 
     var test6BackgroundColor = style.get(document.getElementById("test6"), "backgroundColor");
-    qx.core.Assert.assertCssColor("blue", test6BackgroundColor);
+    assert.equal(test6BackgroundColor, "rgb(0, 0, 255)");
 
     assert.strictEqual("", style.get(document.getElementById("test6"), "font", style.LOCAL_MODE));
 
@@ -94,9 +94,9 @@ describe("bom.Basic", function() {
     style.set(document.getElementById("test8"), "backgroundColor", "black");
 
     var test8Color = style.get(document.getElementById("test8"), "color");
-    qx.core.Assert.assertCssColor("red", test8Color);
+    assert.equal(test8Color, "rgb(255, 0, 0)");
 
     var test8BackgroundColor = style.get(document.getElementById("test8"), "backgroundColor");
-    qx.core.Assert.assertCssColor("black", test8BackgroundColor);
+    assert.equal(test8BackgroundColor, "rgb(0, 0, 0)");
   });
 });

@@ -25,16 +25,16 @@ describe("lang.String", function() {
 
 
   it("Format", function() {
-      assert.isDefined(qx.lang.String.format);
-      var Str = qx.lang.String;
+    assert.isDefined(qx.lang.String.format);
+    var Str = qx.lang.String;
 
-      assert.equal("1-2", Str.format("%1-%2", [1, 2]));
-      assert.equal("2-1", Str.format("%2-%1", [1, 2]));
+    assert.equal("1-2", Str.format("%1-%2", [1, 2]));
+    assert.equal("2-1", Str.format("%2-%1", [1, 2]));
 
-      assert.equal("1-2", Str.format("%1-%2", ["1", "2"]));
-      assert.equal("2-1", Str.format("%2-%1", ["1", "2"]));
-      assert.equal("1-2-3-4-5-6-7-8-9-10-11", Str.format("%1-%2-%3-%4-%5-%6-%7-%8-%9-%10-%11", ["1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11"]));
-    });
+    assert.equal("1-2", Str.format("%1-%2", ["1", "2"]));
+    assert.equal("2-1", Str.format("%2-%1", ["1", "2"]));
+    assert.equal("1-2-3-4-5-6-7-8-9-10-11", Str.format("%1-%2-%3-%4-%5-%6-%7-%8-%9-%10-%11", ["1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11"]));
+  });
 
 
   it("Repeat", function() {
@@ -67,7 +67,7 @@ describe("lang.String", function() {
     var a = [1, 2, 3];
     qx.lang.Array.append(a, [4, 5, 6]);
 
-    qx.core.Assert.assertJsonEquals(a, [1, 2, 3, 4, 5, 6]);
+    assert.equal(JSON.stringify(a), JSON.stringify([1, 2, 3, 4, 5, 6]));
 
     var error = false;
 

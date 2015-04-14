@@ -33,17 +33,15 @@ describe("type.BaseArray", function() {
     var list = new type.TestArray(10);
     assert.equal(10, list.length);
     list = new type.TestArray(1, 2, 3);
-    qx.core.Assert.assertArrayEquals([1, 2, 3], list);
+    assert.deepEqual([1, 2, 3], list.toArray());
   });
 
 
   it("SingleItemConstruct", function() {
-    // ECMAScript version 3 compatible,
-    // but NOT ECMAScript version 1
     var list = new type.TestArray("42");
-    qx.core.Assert.assertArray(list);
+    assert.instanceOf(list, Array);
     assert.equal(list.length, 1);
-    assert.strictEqual("42", list[0], "The answer was not 42!");
+    assert.strictEqual("42", list.toArray()[0], "The answer was not 42!");
   });
 
 
@@ -56,19 +54,19 @@ describe("type.BaseArray", function() {
   it("Clear", function() {
     var list = new type.TestArray(1, 2, 3);
     list.length = 0;
-    qx.core.Assert.assertArrayEquals([], list);
+    assert.deepEqual([], list.toArray());
   });
 
 
   it("ArrayJoin", function() {
     var list = new type.TestArray(1, 2, 3);
-    assert.equal("1, 2, 3", list.join(", "));
+    assert.equal("1, 2, 3", list.toArray().join(", "));
   });
 
 
   it("ArrayConcat", function() {
     var list = new type.TestArray(1, 2, 3);
-    qx.core.Assert.assertArrayEquals([1, 2, 3, 4, 5], list.concat(4, 5));
+    assert.deepEqual([1, 2, 3, 4, 5], list.toArray().concat(4, 5));
     assert.instanceOf(list.concat(4, 5), type.TestArray);
   });
 
@@ -77,7 +75,7 @@ describe("type.BaseArray", function() {
     var list = new type.TestArray(1, 2, 3);
     var popped = list.pop();
     assert.equal(3, popped);
-    qx.core.Assert.assertArrayEquals([1, 2], list);
+    assert.deepEqual([1, 2], list.toArray());
   });
 
 
@@ -85,20 +83,20 @@ describe("type.BaseArray", function() {
     var list = new type.TestArray(1, 2);
     var length = list.push(3);
     assert.equal(3, length);
-    qx.core.Assert.assertArrayEquals([1, 2, 3], list);
+    assert.deepEqual([1, 2, 3], list.toArray());
 
     length = list.push(4, 5);
     assert.equal(5, length);
-    qx.core.Assert.assertArrayEquals([1, 2, 3, 4, 5], list);
+    assert.deepEqual([1, 2, 3, 4, 5], list.toArray());
   });
 
 
   it("ArrayReverse", function() {
     var list = new type.TestArray(1, 2, 3, 4, 5);
     list.reverse();
-    qx.core.Assert.assertArrayEquals([5, 4, 3, 2, 1], list);
+    assert.deepEqual([5, 4, 3, 2, 1], list.toArray());
     list.reverse();
-    qx.core.Assert.assertArrayEquals([1, 2, 3, 4, 5], list);
+    assert.deepEqual([1, 2, 3, 4, 5], list.toArray());
   });
 
 
@@ -106,22 +104,25 @@ describe("type.BaseArray", function() {
     var list = new type.TestArray(1, 2, 3, 4, 5);
     var shifted = list.shift();
     assert.equal(1, shifted);
-    qx.core.Assert.assertArrayEquals([2, 3, 4, 5], list);
+    assert.deepEqual([2, 3, 4, 5], list.toArray());
   });
 
 
   it("ArrayUnshift", function() {
     var list = new type.TestArray(2, 3, 4, 5);
     var length = list.unshift(1);
-    qx.core.Assert.assertArrayEquals([1, 2, 3, 4, 5], list);
+    assert.deepEqual([1, 2, 3, 4, 5], list.toArray());
   });
 
 
   it("ArraySlice", function() {
     var list = new type.TestArray(1, 2, 3, 4, 5);
-    qx.core.Assert.assertArrayEquals([3, 4], list.slice(2, 4));
-    qx.core.Assert.assertArrayEquals([2, 3, 4, 5], list.slice(1));
-    qx.core.Assert.assertArrayEquals([3, 4], list.slice(2, -1));
+    var res = list.slice(2, 4);
+    assert.deepEqual([3, 4], res.toArray());
+    res = list.slice(1);
+    assert.deepEqual([2, 3, 4, 5], res.toArray());
+    res = list.slice(2, -1);
+    assert.deepEqual([3, 4], res.toArray());
     assert.instanceOf(list.slice(2, 4), type.TestArray);
   });
 
@@ -129,22 +130,22 @@ describe("type.BaseArray", function() {
   it("ArraySort", function() {
     var list = new type.TestArray(3, 5, 1, -1);
     var sorted = list.sort();
-    qx.core.Assert.assertArrayEquals([-1, 1, 3, 5], list);
+    assert.deepEqual([-1, 1, 3, 5], list.toArray());
 
     list = new type.TestArray(3, 5, 1, -1);
     sorted = list.sort(function(a, b) {
       return a > b ? -1 : 1;
     });
-    qx.core.Assert.assertArrayEquals([5, 3, 1, -1], list);
+    assert.deepEqual([5, 3, 1, -1], list.toArray());
   });
 
 
   it("ArraySplice", function() {
     var list = new type.TestArray(1, 2, 3, 4, 5);
     var removed = list.splice(1, 2, 22, 33);
-    qx.core.Assert.assertArrayEquals([2, 3], removed);
+    assert.deepEqual([2, 3], removed.toArray());
     assert.instanceOf(removed, type.TestArray);
-    qx.core.Assert.assertArrayEquals([1, 22, 33, 4, 5], list);
+    assert.deepEqual([1, 22, 33, 4, 5], list.toArray());
   });
 
 
@@ -196,8 +197,8 @@ describe("type.BaseArray", function() {
       assert.equal(arr, array);
     }, this);
 
-    qx.core.Assert.assertArrayEquals(arr, values);
-    qx.core.Assert.assertArrayEquals([0, 1, 2, 3], indexes);
+    assert.deepEqual(arr.toArray(), values);
+    assert.deepEqual([0, 1, 2, 3], indexes);
   });
 
 
@@ -215,9 +216,9 @@ describe("type.BaseArray", function() {
     }, this);
 
     assert.instanceOf(odd, type.TestArray);
-    qx.core.Assert.assertArrayEquals(arr, values);
-    qx.core.Assert.assertArrayEquals([0, 1, 2, 3], indexes);
-    qx.core.Assert.assertArrayEquals([2, 4], odd);
+    assert.deepEqual(arr.toArray(), values);
+    assert.deepEqual([0, 1, 2, 3], indexes);
+    assert.deepEqual([2, 4], odd.toArray());
   });
 
 
@@ -235,9 +236,9 @@ describe("type.BaseArray", function() {
     }, this);
 
     assert.instanceOf(result, type.TestArray);
-    qx.core.Assert.assertArrayEquals([2, 3, 4, 5], result);
-    qx.core.Assert.assertArrayEquals(arr, values);
-    qx.core.Assert.assertArrayEquals([0, 1, 2, 3], indexes);
+    assert.deepEqual([2, 3, 4, 5], result.toArray());
+    assert.deepEqual(arr.toArray(), values);
+    assert.deepEqual([0, 1, 2, 3], indexes);
   });
 
 
@@ -253,8 +254,8 @@ describe("type.BaseArray", function() {
     }, this);
 
     assert.isFalse(result);
-    qx.core.Assert.assertArrayEquals(arr, values);
-    qx.core.Assert.assertArrayEquals([0, 1, 2, 3], indexes);
+    assert.deepEqual(arr.toArray(), values);
+    assert.deepEqual([0, 1, 2, 3], indexes);
 
     assert.isTrue(arr.some(function(element) {
       return element == 3;
@@ -278,8 +279,8 @@ describe("type.BaseArray", function() {
     }, this);
 
     assert.isTrue(result);
-    qx.core.Assert.assertArrayEquals(arr, values);
-    qx.core.Assert.assertArrayEquals([0, 1, 2, 3], indexes);
+    assert.deepEqual(arr.toArray(), values);
+    assert.deepEqual([0, 1, 2, 3], indexes);
 
     assert.isFalse(arr.every(function(element) {
       return element == 3;

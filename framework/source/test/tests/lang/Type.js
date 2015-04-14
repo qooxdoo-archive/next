@@ -25,7 +25,9 @@ describe("lang.Type", function() {
     assert.isTrue(Type.isString(""));
     assert.isTrue(Type.isString("Juhu"));
     assert.isTrue(Type.isString(new String("Juhu")));
-    assert.isTrue(Type.isString(new qx.type.BaseString("juhu")));
+    if (qx.type.BaseString) {
+      assert.isTrue(Type.isString(new qx.type.BaseString("juhu")));
+    }
 
     assert.isFalse(Type.isString());
     assert.isFalse(Type.isString(function() {}));

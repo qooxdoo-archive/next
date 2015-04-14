@@ -207,14 +207,16 @@ describe("lang.Object", function() {
     assert.isDefined(qx.lang.Object.invert);
     var Obj = qx.lang.Object;
 
-    qx.core.Assert.assertJsonEquals({
-        a: "1",
-        "2": "b"
-      },
-      Obj.invert({
-        1: "a",
-        b: 2
-      }));
+    var actual = Obj.invert({
+      1: "a",
+      b: 2
+    });
+
+    var expected = {
+      a: "1",
+      "2": "b"
+    };
+    assert.equal(JSON.stringify(actual), JSON.stringify(expected));
   });
 
 
