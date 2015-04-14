@@ -240,7 +240,7 @@
           "qx.module.Attribute"
         ]
       },
-      "exclude" : [ "=qx.module.Oo", "=qx.module.Lang", "=qxWeb", "=qx.module.Environment" ],
+      "exclude" : [ "=qx.module.Oo", "=qx.module.Lang", "=qxWeb", "=qx.module.Environment", "=qx.module.Html" ],
       "compile-options" :
       {
         "paths"  :
@@ -267,7 +267,7 @@
           "qx.module.Css"
         ]
       },
-      "exclude" : [ "=qx.module.Oo", "=qx.module.Lang", "=qxWeb", "=qx.module.Environment" ],
+      "exclude" : [ "=qx.module.Oo", "=qx.module.Lang", "=qxWeb", "=qx.module.Environment", "=qx.module.Html" ],
       "compile-options" :
       {
         "paths"  :
@@ -373,7 +373,8 @@
       "extend" : ["qxweb-build"],
       "let" : {
         "Q_INCLUDES" : [
-          "qx.module.Event"
+          "qx.module.Event",
+          "qx.module.event.Native"
         ]
       },
       "exclude" : [ "=qx.module.Oo", "=qx.module.Lang", "=qxWeb", "=qx.module.Environment" ],
@@ -390,33 +391,6 @@
           "dot" : {
             "root" : "qx.module.Event",
             "file" : "event.dot"
-          }
-        }
-      }
-    },
-
-    "build-native" :
-    {
-      "extend" : ["qxweb-build"],
-      "let" : {
-        "Q_INCLUDES" : [
-          "qx.module.event.Native"
-        ]
-      },
-      "exclude" : [ "=qx.module.Oo", "=qx.module.Lang", "=qxWeb", "=qx.module.Environment", "=qx.module.Event" ],
-      "compile-options" :
-      {
-        "paths"  :
-        {
-          "file" : "${BUILD_PATH}/q-native${QFILES_VERSION_PART}.js"
-        }
-      },
-      "log" :
-      {
-        "dependencies" : {
-          "dot" : {
-            "root" : "qx.module.event.Native",
-            "file" : "native.dot"
           }
         }
       }

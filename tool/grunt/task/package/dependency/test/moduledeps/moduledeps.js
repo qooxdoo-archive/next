@@ -41,16 +41,12 @@ var modules = {
     include: []
   },
   'qx.module.Traversing': {
-    exclude: ['qx.module.Html', 'qx.module.Css'],
+    exclude: ['qx.module.Css'],
     include: []
   },
   'qx.module.Event': {
     exclude: [],
-    include: []
-  },
-  'qx.module.event.Native': {
-    exclude: ['qx.module.Event'],
-    include: []
+    include: ['qx.module.event.Native']
   },
   'qx.module.event.Keyboard': {
     exclude: ['qx.module.Event'],

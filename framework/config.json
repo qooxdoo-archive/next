@@ -32,7 +32,6 @@
     "build-manipulating",
     "build-traversing",
     "build-event",
-    "build-native",
     "build-keyboard",
     "build-mouse",
     "build-touch",
