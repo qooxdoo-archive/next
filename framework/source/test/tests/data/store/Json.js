@@ -271,7 +271,7 @@ describe("data.store.Json", function() {
 
   it("OwnSuperclassWithout", function(done) {
     // define a test class
-    qx.Class.define("qx.test.O", {
+    qx.Class.define("qx.test.1", {
       extend: Object
     });
 

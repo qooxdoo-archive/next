@@ -121,7 +121,7 @@ describe("Mixin", function() {
 
 
   it("Mixin", function() {
-    qx.Mixin.define("MFoo", {
+    qx.Mixin.define("MFoo1", {
       members: {
         foo: function() {}
       }
@@ -129,7 +129,7 @@ describe("Mixin", function() {
 
     var C = qx.Class.define(null, {
       extend: Object,
-      include: [MFoo]
+      include: [MFoo1]
     });
 
     var c = new C();

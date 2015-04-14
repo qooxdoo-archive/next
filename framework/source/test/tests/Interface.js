@@ -274,7 +274,7 @@ describe("Interface", function() {
 
 
   it("ImplementMembers", function() {
-    qx.Interface.define("IFoo", {
+    qx.Interface.define("IFooIM", {
       members: {
         foo: function() {},
         bar: function() {}
@@ -283,8 +283,8 @@ describe("Interface", function() {
 
     if (qx.core.Environment.get("qx.debug")) {
       assert.throw(function() {
-        qx.Class.define(null, {
-          implement: [IFoo],
+        qx.Class.define("a", {
+          implement: [IFooIM],
           members: {
             bar: function() {}
           }
@@ -292,8 +292,8 @@ describe("Interface", function() {
       });
     }
 
-    qx.Class.define(null, {
-      implement: [IFoo],
+    qx.Class.define("b", {
+      implement: [IFooIM],
       members: {
         bar: function() {},
         foo: function() {}
@@ -303,7 +303,7 @@ describe("Interface", function() {
 
 
   it("ImplementInheritedMembers", function() {
-    qx.Interface.define("IFoo", {
+    qx.Interface.define("IFooIIM", {
       members: {
         foo: function() {},
         bar: function() {}
@@ -318,7 +318,7 @@ describe("Interface", function() {
 
     qx.Class.define(null, {
       extend: P,
-      implement: [IFoo],
+      implement: [IFooIIM],
       members: {
         bar: function() {}
       }
@@ -327,7 +327,7 @@ describe("Interface", function() {
 
 
   it("ImplementProperties", function() {
-    qx.Interface.define("IFoo", {
+    qx.Interface.define("IFooIP", {
       properties: {
         bar: {
           init: 23
@@ -338,7 +338,7 @@ describe("Interface", function() {
     if (qx.core.Environment.get("qx.debug")) {
       assert.throw(function() {
         qx.Class.define(null, {
-          implement: [IFoo],
+          implement: [IFooIP],
           properties: {
             foo: {}
           }
@@ -347,7 +347,7 @@ describe("Interface", function() {
     }
 
     qx.Class.define(null, {
-      implement: [IFoo],
+      implement: [IFooIP],
       properties: {
         bar: {
           init: 23
@@ -358,7 +358,7 @@ describe("Interface", function() {
 
 
   it("ImplementInheritedProperties", function() {
-    qx.Interface.define("IFoo", {
+    qx.Interface.define("IFooIIP", {
       properties: {
         foo: {},
         bar: {}
@@ -373,7 +373,7 @@ describe("Interface", function() {
 
     qx.Class.define(null, {
       extend: P,
-      implement: [IFoo],
+      implement: [IFooIIP],
       properties: {
         bar: {}
       }
@@ -382,7 +382,7 @@ describe("Interface", function() {
 
 
   it("InterfaceInheritance", function() {
-    qx.Interface.define("IFoo", {
+    qx.Interface.define("IFooII", {
       members: {
         foo: function() {}
       },
@@ -392,7 +392,7 @@ describe("Interface", function() {
     });
 
     qx.Interface.define("IBar", {
-      extend: IFoo,
+      extend: IFooII,
       members: {
         bar: function() {}
       },
