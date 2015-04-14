@@ -74,8 +74,16 @@ qx.Class = {
     var part = splits[0];
     var parent = qx.$$namespaceRoot && qx.$$namespaceRoot[part] ? qx.$$namespaceRoot : window;
 
-    for (var i=0, len=splits.length-1; i<len; i++, part=splits[i])
+    for (var i=0, len=splits.length-1; i<=len; i++, part=splits[i])
     {
+      if (i === len) {
+        if (parent[part] !== undefined) {
+          throw new Error("Illegal redefine of class: '"+name+"'.");
+        }
+
+        break;
+      }
+
       if (!parent[part]) {
         parent = parent[part] = {};
       } else {

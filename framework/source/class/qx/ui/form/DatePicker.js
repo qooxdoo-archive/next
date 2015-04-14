@@ -82,7 +82,7 @@ qx.Class.define("qx.ui.form.DatePicker", {
   /**
    * @attach {qxWeb, toDatePicker}
    * @param date {Date} The current shown date
-   * @param element {Element?null} The new date picker widget.
+   * @param element {Element?null} The html element that this widget build on.
    * @return {qx.ui.form.DatePicker} The new date picker widget.
    */
   construct : function(date, element) {

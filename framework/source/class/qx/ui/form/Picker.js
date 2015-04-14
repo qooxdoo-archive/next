@@ -28,20 +28,7 @@
  *
  * You can add an array with objects which contain the keys <code>title</code>, a <code>subtitle</code> or an <code>image</code> (all optional).
  *
- * <pre>
- * var picker = new qx.ui.form.Picker();
- * picker.height = 200;
- * picker.on("changeSelection", function(evt) {
- *   var data = evt.getData();
- * },this);
- *
- * var slotData1 = [{title:"Windows Phone"}, {title:"iOS",subtitle:"Version 7.1"}, {title:"Android"}];
- * var slotData2 = [{title:"Tablet"}, {title:"Smartphone"}, {title:"Phablet"}];
- *
- * picker.addSlot(new qx.data.Array(slotData1));
- * picker.addSlot(new qx.data.Array(slotData2));
- * </pre>
- *
+ * @Group(Widget)
  */
 qx.Class.define("qx.ui.form.Picker",
 {
@@ -55,6 +42,7 @@ qx.Class.define("qx.ui.form.Picker",
 
   /**
    * @param element {Element}
+   * @attach {qxWeb, toPicker}
    * @return {qx.ui.form.Picker} The new picker widget.
    */
   construct : function(element)

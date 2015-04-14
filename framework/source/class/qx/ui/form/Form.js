@@ -29,6 +29,7 @@ qx.Class.define("qx.ui.form.Form",
 
   /**
    * @attach {qxWeb, toForm}
+   * @param element {Element?null} The html element that this widget build on.
    * @return {qx.ui.form.Form} The new form widget.
    */
   construct : function(element)

@@ -22,10 +22,11 @@ describe("bom.Event", function() {
 
   it("SupportsEvent", function() {
     var eventsToCheck = ["click",
-                         "mousedown",
-                         "mousemove",
-                         "mouseup",
-                         "mouseout"];
+      "mousedown",
+      "mousemove",
+      "mouseup",
+      "mouseout"
+    ];
 
     var el;
     for (var i = 0, j = eventsToCheck.length; i < j; i++) {
@@ -68,4 +69,30 @@ describe("bom.Event", function() {
       assert.isTrue(qx.bom.Event.supportsEvent(el, supportedEvents[i]), "Failed to check support for '" + supportedEvents[i] + "'");
     }
   });
+
+
+  it("GetEventName", function() {
+    var eventsToCheck = ["click",
+      "mousedown",
+      "mousemove",
+      "mouseup",
+      "mouseout"
+    ];
+
+    for (i = 0, j = eventsToCheck.length; i < j; i++) {
+      el = qx.dom.Element.create("div", {
+        name: "vanillebaer"
+      }, window);
+      assert.equal(qx.bom.Event.getEventName(el, eventsToCheck[i]), eventsToCheck[i]);
+    }
+  });
+
+
+  it("getRelatedTarget", function() {
+    var fakeEvent = {
+      relatedTarget: "fakeHtmlElem"
+    };
+    assert.equal("fakeHtmlElem", qx.bom.Event.getRelatedTarget(fakeEvent));
+  });
+
 });

@@ -221,7 +221,7 @@ qx.Class.define("qx.ui.form.ToggleButton", {
 
     /**
      * Determines if the switch is within the left half of the button
-     * @return {Booles} <code>true</code> if the switch is on the left side
+     * @return {Boolean} <code>true</code> if the switch is on the left side
      */
     __isSwitchLeftSided: function() {
       var toggleCenter = this.getOffset().left + this.getWidth() /2;
