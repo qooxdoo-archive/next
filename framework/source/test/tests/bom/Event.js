@@ -80,9 +80,8 @@ describe("bom.Event", function() {
     ];
 
     for (i = 0, j = eventsToCheck.length; i < j; i++) {
-      el = qx.dom.Element.create("div", {
-        name: "vanillebaer"
-      }, window);
+      el = document.createElement("div");
+      el.setAttribute("name", "vanillebaer");
       assert.equal(qx.bom.Event.getEventName(el, eventsToCheck[i]), eventsToCheck[i]);
     }
   });
