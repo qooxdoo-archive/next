@@ -24,12 +24,16 @@ var libPaths = {'qx': '../../../../../framework/source/class/'};
 var moduleClasses = {};
 
 var modules = {
-  'qx.module.Attribute': {
+  'qx.module.Html': {
     exclude: [],
     include: []
   },
+  'qx.module.Attribute': {
+    exclude: ['qx.module.Html'],
+    include: []
+  },
   'qx.module.Css': {
-    exclude: [],
+    exclude: ['qx.module.Html'],
     include: []
   },
   'qx.module.Manipulating': {

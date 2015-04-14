@@ -24,6 +24,7 @@
  *
  * @require(qx.module.Lang)
  * @require(qx.module.Environment)
+ * @require(qx.module.Html)
  */
 qx.Class.define("qx.module.Css", {
   statics: {

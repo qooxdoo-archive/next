@@ -23,6 +23,7 @@
  * Attribute/Property handling for DOM elements.
  * @group (Core)
  * @require(qx.module.Environment)
+ * @require(qx.module.Html)
  */
 qx.Class.define("qx.module.Attribute", {
   statics :
