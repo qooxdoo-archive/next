@@ -1,0 +1,17 @@
+{
+  "name": "generator-next",
+  "version": "0.1.0",
+  "description": "qooxdoo.next",
+  "files": [
+    "app",
+    "router"
+  ],
+  "keywords": [
+    "yeoman-generator"
+  ],
+  "dependencies": {
+    "esutils": "^2.0.2",
+    "globals": "^6.4.1",
+    "yeoman-generator": "^0.19.1"
+  }
+}
