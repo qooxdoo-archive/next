@@ -10,6 +10,7 @@
     "yeoman-generator"
   ],
   "dependencies": {
+    "chalk": "^1.0.0",
     "esutils": "^2.0.2",
     "globals": "^6.4.1",
     "yeoman-generator": "^0.19.1"
