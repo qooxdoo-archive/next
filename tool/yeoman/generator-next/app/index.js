@@ -1,5 +1,6 @@
 var generators = require('yeoman-generator');
 var path = require('path');
+var fs = require('fs');
 var assert = require('yeoman-generator').assert;
 var esutils = require('esutils');
 var globals = require('globals');
@@ -9,7 +10,10 @@ module.exports = generators.Base.extend({
   constructor: function () {
     generators.Base.apply(this, arguments);
 
+    var nextpath = path.join(this.sourceRoot(), '..', '..', '..', '..', '..');
+    this.options.nextpath = path.relative(this.destinationRoot(), nextpath);
     this.options.appname = path.basename(this.destinationRoot());
+    this.options.gituser = this.user.git.name();
 
     this.option('appnamespace', {
       desc: 'The applications\'s top-level namespace. (Default: The application name)',
@@ -21,9 +25,9 @@ module.exports = generators.Base.extend({
   getNamespace: function() {
     if (!this.options.appnamespace) {
       var prompt = {
-        type    : 'input',
-        name    : 'appnamespace',
-        message : 'What\'s your applications\'s top-level namespace? (can be multi-part, e.g. foo.bar)',
+        type: 'input',
+        name: 'appnamespace',
+        message: 'What\'s your applications\'s top-level namespace?',
         default: this.appname
       };
       var done = this.async();
@@ -46,11 +50,13 @@ module.exports = generators.Base.extend({
     });
   },
 
-  createApplication: function() {
-    // console.log(this.sourceRoot());
-    // console.log(this.destinationRoot());
 
-    this.directory('source');
-    // TODO: rename source/custom to source/$this.options.appnamespace
+  createApplication: function() {
+    this.directory('.');
+    this.fs.commit(function() {
+      var tmplClassDir = path.join(this.destinationRoot(), 'source', 'class', 'custom');
+      var appClassDir = path.join(this.destinationRoot(), 'source', 'class', this.options.appnamespace);
+      fs.renameSync(tmplClassDir, appClassDir);
+    }.bind(this));
   }
 });

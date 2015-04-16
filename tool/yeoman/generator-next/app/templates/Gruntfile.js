@@ -1,25 +1,31 @@
 // requires
 var util = require('util');
-var qx = require("../../tool/grunt");
+var qx = require("<%= options.nextpath %>/tool/grunt");
 
 // grunt
 module.exports = function(grunt) {
   var config = {
 
-    generator_config: {
-      let: {
+    common: {
+      "APPLICATION" : "<%= options.appnamespace %>",
+      "QOOXDOO_PATH" : "<%= options.nextpath %>",
+      "THEME": "custom"
+    },
+
+    source: {
+      default: {
+        // my custom (overridden) options
       }
     },
 
-    common: {
-      "APPLICATION" : "play",
-      "QOOXDOO_PATH" : "../..",
-      "LOCALES": ["en"],
-      "QXTHEME": "play.theme.Theme"
+    build: {
+      default: {
+        // my custom (overridden) options
+      }
     }
 
     /*
-    myTask: {
+    myThirdPartyOrSelfWrittenTask: {
       options: {},
       myTarget: {
         options: {}
@@ -28,11 +34,27 @@ module.exports = function(grunt) {
     */
   };
 
-  var mergedConf = qx.config.mergeConfig(config);
+  var mergedConf = qx.config.mergeConfig(config, {"build": "build-base", "source": "source-base"});
   // console.log(util.inspect(mergedConf, false, null));
   grunt.initConfig(mergedConf);
 
   qx.task.registerTasks(grunt);
+
+  // 'extend' source job
+  grunt.task.renameTask('source', 'source-base');
+  grunt.task.registerTask(
+    'source',
+    'Build the application and compile the stylesheets with Sass.',
+    ["sass:indigo", "source-base"]
+  );
+
+  // 'extend' build job
+  grunt.task.renameTask('build', 'build-base');
+  grunt.task.registerTask(
+    'build',
+    'Build the application and compile the stylesheets with Sass.',
+    ["sass:indigo", "build-base"]
+  );
 
   // grunt.loadNpmTasks('grunt-my-plugin');
 };
