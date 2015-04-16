@@ -60,11 +60,15 @@ qx.Class.define("qx.application.Mobile",
 
     // interface method
     main : function() {
-      qxWeb(document.body).addClasses([
+      var classesToAdd = [
         qx.core.Environment.get("os.name"),
-        "v" + qx.core.Environment.get("os.version").charAt(0),
         qx.core.Environment.get("device.type")
-      ]);
+      ];
+      var osVersion = qx.core.Environment.get("os.version");
+      if (osVersion) {
+        classesToAdd.push("v" + osVersion.charAt(0));
+      }
+      qxWeb(document.body).addClasses(classesToAdd);
 
       qxWeb(window).on("orientationchange", this._onOrientationChange, this);
 
