@@ -46,9 +46,6 @@ qx.Class.define("qx.core.ObjectRegistry",
     /** @type {String} Post id for hash code creation. */
     __postId : "",
 
-    /** @type {Map} Object hashes to stack traces (for dispose profiling only) */
-    __stackTraces : {},
-
     /**
      * Registers an object into the database. This adds a hashcode
      * to the object (if not already done before) and stores it under
@@ -69,11 +66,11 @@ qx.Class.define("qx.core.ObjectRegistry",
       }
 
       var hash = obj.$$hash;
-      if (hash == null)
+      if (!hash)
       {
         // Create new hash code
         var cache = this.__freeHashes;
-        if (cache.length > 0 && !qx.core.Environment.get("qx.debug.dispose")) {
+        if (cache.length > 0) {
           hash = cache.pop();
         } else {
           hash = (this.__nextHash++) + this.__postId;
@@ -81,19 +78,6 @@ qx.Class.define("qx.core.ObjectRegistry",
 
         // Store hash code
         obj.$$hash = hash;
-
-        if (qx.core.Environment.get("qx.debug.dispose")) {
-          if (qx.dev && qx.dev.Debug && qx.dev.Debug.disposeProfilingActive) {
-            this.__stackTraces[hash] = qx.dev.StackTrace.getStackTrace();
-          }
-        }
-      }
-
-      if (qx.core.Environment.get("qx.debug"))
-      {
-        if (!obj.dispose) {
-          throw new Error("Invalid object: " + obj);
-        }
       }
 
       registry[hash] = obj;
@@ -108,7 +92,7 @@ qx.Class.define("qx.core.ObjectRegistry",
     unregister : function(obj)
     {
       var hash = obj.$$hash;
-      if (hash == null) {
+      if (!hash) {
         return;
       }
 
@@ -226,52 +210,6 @@ qx.Class.define("qx.core.ObjectRegistry",
     shutdown : function()
     {
       this.inShutDown = true;
-
-      var registry = this.__registry;
-      var hashes = [];
-
-      for (var hash in registry) {
-        hashes.push(hash);
-      }
-
-      // sort the objects! Remove the objecs created at startup
-      // as late as possible
-      hashes.sort(function(a, b) {
-        return parseInt(b, 10)-parseInt(a, 10);
-      });
-
-      var obj, i=0, l=hashes.length;
-      /* eslint no-constant-condition:0 */
-      while(true)
-      {
-        try
-        {
-          for (; i<l; i++)
-          {
-            hash = hashes[i];
-            obj = registry[hash];
-
-            if (obj && obj.dispose) {
-              obj.dispose();
-            }
-          }
-        }
-        catch(ex)
-        {
-          qx.Class.error(this, "Could not dispose object " + obj.toString() + ": " + ex, ex);
-
-          if (i !== l)
-          {
-            i++;
-            continue;
-          }
-        }
-
-        break;
-      }
-
-      qx.Class.debug(this, "Disposed " + l + " objects");
-
       delete this.__registry;
     },
 
@@ -305,34 +243,11 @@ qx.Class.define("qx.core.ObjectRegistry",
      */
     getPostId : function() {
       return this.__postId;
-    },
-
-
-    /**
-     * Returns the map of stack traces recorded when objects are registered
-     * (for dispose profiling)
-     * @return {Map} Map: object hash codes to stack traces
-     * @internal
-     */
-    getStackTraces : function() {
-      return this.__stackTraces;
     }
   },
 
   classDefined : function(statics)
   {
-    if (window && window.top)
-    {
-      var frames = window.top.frames;
-      for (var i = 0; i < frames.length; i++)
-      {
-        if (frames[i] === window)
-        {
-          statics.__postId = "-" + (i + 1);
-          return;
-        }
-      }
-    }
     statics.__postId = "-0";
   }
 });
