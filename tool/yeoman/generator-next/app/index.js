@@ -57,6 +57,14 @@ module.exports = generators.Base.extend({
       var tmplClassDir = path.join(this.destinationRoot(), 'source', 'class', 'custom');
       var appClassDir = path.join(this.destinationRoot(), 'source', 'class', this.options.appnamespace);
       fs.renameSync(tmplClassDir, appClassDir);
+
+      // copy the framework's precompiled styles
+      var stylesFrom = path.join(this.options.nextpath, 'framework/source/resource/qx/scss/theme/indigo/_styles.scss');
+      var stylesTo = path.join(this.destinationRoot(), 'source', 'theme', '_styles.scss');
+      this.fs.copy(
+        stylesFrom,
+        stylesTo
+      );
     }.bind(this));
   }
 });
