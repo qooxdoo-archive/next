@@ -44,7 +44,6 @@ describe("core.ObjectRegistry", function () {
     
     qx.core.ObjectRegistry.unregister(data);
     qx.core.ObjectRegistry.clearHashCode(data);
-    qx.core.ObjectRegistry.shutdown();
     
     if (qx.core.Environment.get("qx.debug")) {
       assert.throw(function() {
