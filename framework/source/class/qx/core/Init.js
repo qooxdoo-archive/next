@@ -46,8 +46,8 @@ qx.Class.define("qx.core.Init", {
     setApplication : function(application) {
       qx.core.Init.__application = application;
     },
-    
-    
+
+
     /**
      * Runs when the application is loaded. Automatically creates an instance
      * of the class defined by the setting <code>qx.application</code>.
