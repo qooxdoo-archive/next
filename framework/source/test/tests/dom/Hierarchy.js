@@ -141,8 +141,8 @@ describe("dom.Hierarchy", function() {
     var e2 = qx.dom.Element.create("div");
     e2.id = "elem2"
     sandbox.append(e1);
-    assert.isTrue(qx.dom.Hierarchy.contains(sandbox, e1));
-    assert.isFalse(qx.dom.Hierarchy.contains(e1, sandbox));
+    assert.isTrue(qx.dom.Hierarchy.contains(sandbox[0], e1));
+    assert.isFalse(qx.dom.Hierarchy.contains(e1, sandbox[0]));
     assert.isTrue(qx.dom.Hierarchy.contains(document, sandbox[0]));
     assert.isFalse(qx.dom.Hierarchy.contains(sandbox, document));
 
