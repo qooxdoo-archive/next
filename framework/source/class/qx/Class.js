@@ -28,15 +28,12 @@
  * @ignore(qx.Interface.*)
  * @ignore(qx.Mixin.*)
  */
-if (!window.qx) {
-  window.qx = {};
-}
 
 /**
  * Bootstrap qx.Class to create myself later
  * This is needed for the API browser etc. to let them detect me
  */
-qx.Class = {
+var tempClass = {
 
   /** @type {Map} allowed keys in non-static class definition */
   __allowedKeys : {
@@ -104,7 +101,7 @@ qx.Class = {
   getClass: function(value) {
     var classString = Object.prototype.toString.call(value);
     return (
-      qx.Class.__classToTypeMap[classString] ||
+      tempClass.__classToTypeMap[classString] ||
       classString.slice(8, -1)
     );
   },
@@ -196,17 +193,17 @@ qx.Class = {
       config = { statics : {} };
     }
 
-    qx.Class.__validateConfig(name, config);
+    tempClass.__validateConfig(name, config);
 
     var clazz;
     var proto = null;
 
-    qx.Class.setDisplayNames(config.statics, name);
+    tempClass.setDisplayNames(config.statics, name);
 
     var i, l, keys;
 
     if (config.members || config.extend || config.properties) {
-      qx.Class.setDisplayNames(config.members, name + ".prototype");
+      tempClass.setDisplayNames(config.members, name + ".prototype");
 
       clazz = config.construct ||
         (config.extend ? qx.Class.__createDefaultConstructor() : function() {});
@@ -258,7 +255,7 @@ qx.Class = {
       clazz.$$name = clazz.classname = name;
 
       // Merge class into former class (needed for 'optimize: ["statics"]')
-      var formerClass = qx.Class.getByName(name);
+      var formerClass = tempClass.getByName(name);
       if (formerClass) {
         // Add/overwrite properties and return early if necessary
         if (Object.keys(clazz).length !== 0) {
@@ -341,14 +338,14 @@ qx.Class = {
 
   __validateConfig : function(name, config) {
     for (var key in config) {
-      if (!qx.Class.__allowedKeys[key]) {
+      if (!tempClass.__allowedKeys[key]) {
         throw new Error("The key '" + key +
           "' is not allowed in the class definition for '" + name + "'.");
       }
-      if (qx.Class.__allowedKeys[key].indexOf(qx.Class.getClass(config[key])) == -1) {
+      if (tempClass.__allowedKeys[key].indexOf(tempClass.getClass(config[key])) == -1) {
         throw new Error("Illegal type of key '" + key +
           "' in the class definition for '" + name + "'. Must be '" +
-          qx.Class.__allowedKeys[key] + "'.");
+          tempClass.__allowedKeys[key] + "'.");
       }
     }
   }
@@ -613,7 +610,7 @@ qx.Class.define("qx.Class",
      * @return {String} last part of the namespace (which object is assigned to)
      * @throws {Error} when the given object already exists.
      */
-    createNamespace : qx.Class.createNamespace,
+    // createNamespace : qx.Class.createNamespace,
 
 
     /**
@@ -636,7 +633,7 @@ qx.Class.define("qx.Class",
      * @return {var} the return value of the method of the base class.
      * @internal
      */
-    "super" : qx.Class.super,
+    "super" : tempClass.super,
 
     /**
      * Define a new class using the qooxdoo class system.
@@ -656,7 +653,7 @@ qx.Class.define("qx.Class",
      *     </table>
      * @return {Class} The defined class.
      */
-    define : qx.Class.define,
+    define : tempClass.define,
 
 
     /**
@@ -665,7 +662,7 @@ qx.Class.define("qx.Class",
      *
      * @return {Function} The default constructor.
     */
-    __createDefaultConstructor : qx.Class.__createDefaultConstructor,
+    __createDefaultConstructor : tempClass.__createDefaultConstructor,
 
 
     /**
@@ -675,7 +672,7 @@ qx.Class.define("qx.Class",
      * @param name {String} The name of the class
      * @param config {Map} Configuration map
      */
-    __validateConfig : qx.Class.__validateConfig,
+    __validateConfig : tempClass.__validateConfig,
 
 
     /**
@@ -687,7 +684,7 @@ qx.Class.define("qx.Class",
      * @param name {String} the function name
      * @internal
      */
-    setDisplayName : qx.Class.setDisplayName,
+    setDisplayName : tempClass.setDisplayName,
 
 
     /**
@@ -699,7 +696,7 @@ qx.Class.define("qx.Class",
      *   defined in
      * @internal
      */
-    setDisplayNames : qx.Class.setDisplayNames,
+    setDisplayNames : tempClass.setDisplayNames,
 
     /**
      * This method will be attached to all classes to return
@@ -709,7 +706,7 @@ qx.Class.define("qx.Class",
      * @signature function()
      * @return {String} The class identifier
      */
-    genericToString : qx.Class.genericToString,
+    genericToString : tempClass.genericToString,
 
 
     /**
@@ -760,7 +757,7 @@ qx.Class.define("qx.Class",
      * @param type {String?} Optional type filter. One of "Class", "Interface", "Mixin"
      * @return {Class} the class
      */
-    getByName : qx.Class.getByName,
+    getByName : tempClass.getByName,
 
 
     /**
@@ -871,7 +868,7 @@ qx.Class.define("qx.Class",
      * @internal
      * @type {Map}
      */
-    __classToTypeMap : qx.Class.__classToTypeMap,
+    __classToTypeMap : tempClass.__classToTypeMap,
 
 
     /**
@@ -883,7 +880,7 @@ qx.Class.define("qx.Class",
      * @return {String} the internal class of the value
      * @internal
      */
-    getClass : qx.Class.getClass,
+    getClass : tempClass.getClass,
 
 
     /*
