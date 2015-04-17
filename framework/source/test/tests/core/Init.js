@@ -39,6 +39,6 @@ describe("core.Init", function () {
     setTimeout(function () {
       qx.core.Init.setApplication(currentApplication);
       done();
-    }), 1000);
+    }, 1000);
   });
 });
