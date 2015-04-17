@@ -39,6 +39,16 @@ qx.Class.define("qx.core.Init", {
 
 
     /**
+     * Sets the instantiated qooxdoo application.
+     *
+     * @param application {Object} The application instance.
+     */
+    setApplication : function(application) {
+      qx.core.Init.__application = application;
+    },
+
+
+    /**
      * Runs when the application is loaded. Automatically creates an instance
      * of the class defined by the setting <code>qx.application</code>.
      */
@@ -99,7 +109,8 @@ qx.Class.define("qx.core.Init", {
 
 
   classDefined : function(statics) {
-    qxWeb(window).on("beforeunload", statics.__close, statics)
+    qxWeb(window)
+      .on("beforeunload", statics.__close, statics)
       .on("unload", statics.__shutdown, statics);
   }
 });

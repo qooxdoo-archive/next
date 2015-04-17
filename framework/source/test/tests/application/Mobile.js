@@ -18,15 +18,18 @@
 ************************************************************************ */
 describe("application.Mobile", function () {
 
-  var app = new qx.application.Mobile();
-  app.main();
-
   it("main", function () {
     var Env = qx.core.Environment;
 
+    var app = new qx.application.Mobile();
+    app.main();
 // has body classes
     qxWeb(document.body).hasClass(Env.get("os.name"));
-    qxWeb(document.body).hasClass("v" + Env.get("os.version").charAt(0));
+
+    var osVersion = Env.get("os.version");
+    if (osVersion) {
+      qxWeb(document.body).hasClass("v" + osVersion.charAt(0));
+    }
     qxWeb(document.body).hasClass(Env.get("device.type"));
 
     assert.isTrue(qxWeb(window).hasListener("orientationchange"));
@@ -38,6 +41,8 @@ describe("application.Mobile", function () {
   });
 
   it("get and set root", function () {
+    var app = new qx.application.Mobile();
+    app.main();
     var root = app.getRoot();
     assert.instanceOf(root, qx.ui.core.Root);
 

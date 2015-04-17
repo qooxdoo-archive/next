@@ -63,8 +63,6 @@ qx.Class.define("qx.Mixin",
      * @param config {Map ? null} Mixin definition structure. The configuration map has the following keys:
      *   <table>
      *     <tr><th>Name</th><th>Type</th><th>Description</th></tr>
-     *     <tr><th>construct</th><td>Function</td><td>An optional mixin constructor. It is called on instantiation each
-     *         class including this mixin. The constructor takes no parameters.</td></tr>
      *     <tr><th>include</th><td>Mixin[]</td><td>Array of mixins, which will be merged into the mixin.</td></tr>
      *     <tr><th>statics</th><td>Map</td><td>
      *         Map of statics of the mixin. The statics will not get copied into the target class. They remain
@@ -97,12 +95,6 @@ qx.Class.define("qx.Mixin",
         // Create Interface from statics
         mixin = config.statics ? config.statics : {};
         qx.Class.setDisplayNames(mixin, name);
-
-        // Attach configuration
-        if (config.construct) {
-          mixin.$$constructor = config.construct;
-          qx.Class.setDisplayName(config.construct, name, "constructor");
-        }
 
         if (config.include) {
           mixin.$$includes = config.include;

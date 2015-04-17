@@ -47,10 +47,14 @@ describe("Mixin", function() {
     });
 
     qx.Mixin.define("qx.MMix2", {
+      include: qx.MMix1,
       members: {
         bar: function() {
           return "bar";
         }
+      },
+      events: {
+        a: "Number"
       }
     });
 
@@ -104,6 +108,8 @@ describe("Mixin", function() {
       }
     });
 
+    qx.Mixin.define("qx.Mix5");
+
     if (qx.core.Environment.get("qx.debug")) {
       assert.throw(function() {
         qx.Class.define("qx.Mix4", {
@@ -114,8 +120,11 @@ describe("Mixin", function() {
             color: {}
           }
         });
-      },
-      Error, undefined, "t3");
+      }, Error, undefined, "t3");
+      
+      assert.throw(function() {
+        qx.Mixin.add();
+      }, Error, undefined, "t3");
     }
   });
 
@@ -167,5 +176,19 @@ describe("Mixin", function() {
       }
     });
 
+  });
+  
+  it("Test compatibility", function () {
+    qx.Class.define("qx.test.Class01");
+    
+    qx.Mixin.define("qx.test.Mixin01");
+    qx.Mixin.define("qx.test.Mixin02");
+    qx.Mixin.define("qx.test.Mixin03");
+    qx.Mixin.define("qx.test.Mixin04");
+    qx.Mixin.define("qx.test.Mixin", {
+      include: [qx.test.Mixin01, qx.test.Mixin02, qx.test.Mixin03, qx.test.Mixin04]
+    });
+    
+    qx.Mixin.isCompatible(qx.test.Mixin01, qx.test.Class01);
   });
 });
