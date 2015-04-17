@@ -137,7 +137,10 @@ qx.Class.define("qx.Interface",
       iface.toString = this.genericToString;
 
       // Assign to namespace
-      iface.basename = name ? qx.Class.createNamespace(name, iface) : "";
+      // var basename = name ? qx.Class.createNamespace(name, iface) : "";
+      var basename = name.split('.');
+      basename = basename[basename.length - 1];
+      iface.basename = basename;
 
       // Return final interface
       return iface;

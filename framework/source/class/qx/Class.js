@@ -284,7 +284,9 @@ qx.Class = {
     }
 
     // Create namespace
-    var basename = name ? this.createNamespace(name, clazz) : "";
+    // var basename = name ? this.createNamespace(name, clazz) : "";
+    var basename = name.split('.');
+    basename = basename[basename.length - 1];
     clazz.basename = basename;
 
     // add property events

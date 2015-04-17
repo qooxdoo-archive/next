@@ -124,7 +124,10 @@ qx.Class.define("qx.Mixin",
       mixin.toString = this.genericToString;
 
       // Assign to namespace
-      mixin.basename = name ? qx.Class.createNamespace(name, mixin) : "";
+      // var basename = name ? qx.Class.createNamespace(name, mixin) : "";
+      var basename = name.split('.');
+      basename = basename[basename.length - 1];
+      mixin.basename = basename;
 
       // Return final mixin
       return mixin;
