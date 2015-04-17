@@ -32,7 +32,8 @@
     "test": "./node_modules/.bin/nodeunit test",
     "api": "./node_modules/.bin/jsdoc lib lib/annotator -d api",
     "stdout": "node test/stdout/stdout.js",
-    "moduledeps": "node test/moduledeps/moduledeps.js"
+    "moduledeps": "node test/moduledeps/moduledeps.js",
+    "requireWrapper": "node test/requireWrapper/requireWrapper.js"
   },
   "dependencies": {
     "doctrine": "^0.6.4",
