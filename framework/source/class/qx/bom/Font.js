@@ -1,3 +1,14 @@
+define(['qx/Class', 'qx/lang/String'], function(Dep0,Dep1) {
+var qx = {
+  "Class": Dep0,
+  "lang": {
+    "String": Dep1
+  },
+  "bom": {
+    "Font": null
+  }
+};
+
 "use strict";
 /* ************************************************************************
 
@@ -25,7 +36,7 @@
  * A wrapper for CSS font styles. Fond objects can be applied to instances
  * of {@link qx.html.Element}.
  */
-qx.Class.define("qx.bom.Font",
+var clazz = qx.Class.define("qx.bom.Font",
 {
   extend : Object,
 
@@ -313,4 +324,8 @@ qx.Class.define("qx.bom.Font",
       return this.__lookupMap;
     }
   }
+});
+
+ qx.bom.Font = clazz;
+return clazz;
 });

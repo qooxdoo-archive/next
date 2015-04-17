@@ -1,3 +1,19 @@
+define(['qx/Class', 'qxWeb', 'qx/bom/Html', 'qx/bom/Input', 'qx/bom/element/Attribute'], function(Dep0,Dep1,Dep2,Dep3,Dep4) {
+var qx = {
+  "Class": Dep0,
+  "bom": {
+    "Html": Dep2,
+    "Input": Dep3,
+    "element": {
+      "Attribute": Dep4
+    }
+  },
+  "module": {
+    "Attribute": null
+  }
+};
+var qxWeb = Dep1;
+
 "use strict";
 /* ************************************************************************
 
@@ -23,7 +39,7 @@
  * Attribute/Property handling for DOM elements.
  * @group (Core)
  */
-qx.Class.define("qx.module.Attribute", {
+var clazz = qx.Class.define("qx.module.Attribute", {
   statics :
   {
     /**
@@ -306,4 +322,8 @@ qx.Class.define("qx.module.Attribute", {
       "setValue" : statics.setValue
     });
   }
+});
+
+ qx.module.Attribute = clazz;
+return clazz;
 });

@@ -1,3 +1,35 @@
+define(['qx/Class', 'qx/bom/client/Event', 'qx/bom/AnimationFrame', 'qx/bom/Event', 'qx/core/Environment', 'qx/event/type/dom/Custom', 'qx/lang/Function', 'qx/util/Wheel', 'qxWeb'], function(Dep0,Dep1,Dep2,Dep3,Dep4,Dep5,Dep6,Dep7,Dep8) {
+var qx = {
+  "Class": Dep0,
+  "bom": {
+    "client": {
+      "Event": Dep1
+    },
+    "AnimationFrame": Dep2,
+    "Event": Dep3
+  },
+  "core": {
+    "Environment": Dep4
+  },
+  "event": {
+    "type": {
+      "dom": {
+        "Custom": Dep5
+      }
+    },
+    "handler": {
+      "Gesture": null
+    }
+  },
+  "lang": {
+    "Function": Dep6
+  },
+  "util": {
+    "Wheel": Dep7
+  }
+};
+var qxWeb = Dep8;
+
 "use strict";
 /* ************************************************************************
 
@@ -23,7 +55,7 @@
  * Listens for synthetic gesture events and fires events
  * for gestures like "tap" or "swipe".
  */
-qx.Class.define("qx.event.handler.Gesture", {
+var clazz = qx.Class.define("qx.event.handler.Gesture", {
   extend : Object,
 
   statics : {
@@ -720,4 +752,8 @@ qx.Class.define("qx.event.handler.Gesture", {
       this.__defaultTarget = null;
     }
   }
+});
+
+ qx.event.handler.Gesture = clazz;
+return clazz;
 });

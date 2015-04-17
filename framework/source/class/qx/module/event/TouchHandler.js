@@ -1,3 +1,21 @@
+define(['qx/Class', 'qx/event/Emitter', 'qx/event/handler/TouchCore', 'qxWeb', 'qx/module/Event'], function(Dep0,Dep1,Dep2,Dep3,Dep4) {
+var qx = {
+  "Class": Dep0,
+  "event": {
+    "Emitter": Dep1,
+    "handler": {
+      "TouchCore": Dep2
+    }
+  },
+  "module": {
+    "Event": Dep4,
+    "event": {
+      "TouchHandler": null
+    }
+  }
+};
+var qxWeb = Dep3;
+
 "use strict";
 /* ************************************************************************
 
@@ -26,7 +44,7 @@
  *
  * @group (Event_Normalization)
  */
-qx.Class.define("qx.module.event.TouchHandler", {
+var clazz = qx.Class.define("qx.module.event.TouchHandler", {
 
   statics :
   {
@@ -83,4 +101,8 @@ qx.Class.define("qx.module.event.TouchHandler", {
   {
     qxWeb.$registerEventHook(statics.TYPES, statics.register, statics.unregister);
   }
+});
+
+ qx.module.event.TouchHandler = clazz;
+return clazz;
 });

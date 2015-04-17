@@ -1,3 +1,17 @@
+define(['qx/Class', 'qx/type/BaseError', 'qx/dev/StackTrace'], function(Dep0,Dep1,Dep2) {
+var qx = {
+  "Class": Dep0,
+  "type": {
+    "BaseError": Dep1
+  },
+  "dev": {
+    "StackTrace": Dep2
+  },
+  "core": {
+    "AssertionError": null
+  }
+};
+
 "use strict";
 /* ************************************************************************
 
@@ -22,7 +36,7 @@
  * Assertion errors are thrown if an assertion in {@link qx.core.Assert}
  * fails.
  */
-qx.Class.define("qx.core.AssertionError",
+var clazz = qx.Class.define("qx.core.AssertionError",
 {
   extend : qx.type.BaseError,
 
@@ -52,4 +66,8 @@ qx.Class.define("qx.core.AssertionError",
       return this.__trace;
     }
   }
+});
+
+ qx.core.AssertionError = clazz;
+return clazz;
 });

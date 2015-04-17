@@ -1,3 +1,25 @@
+define(['qx/Class', 'qx/bom/client/Browser', 'qxWeb', 'qx/module/Environment', 'qx/module/Event', 'qx/bom/Viewport', 'qx/dom/Node'], function(Dep0,Dep1,Dep2,Dep3,Dep4,Dep5,Dep6) {
+var qx = {
+  "Class": Dep0,
+  "bom": {
+    "client": {
+      "Browser": Dep1
+    },
+    "Viewport": Dep5
+  },
+  "module": {
+    "Environment": Dep3,
+    "Event": Dep4,
+    "event": {
+      "Mouse": null
+    }
+  },
+  "dom": {
+    "Node": Dep6
+  }
+};
+var qxWeb = Dep2;
+
 "use strict";
 /* ************************************************************************
 
@@ -28,7 +50,7 @@
  *
  * @group (Event_Normalization)
  */
-qx.Class.define("qx.module.event.Mouse", {
+var clazz = qx.Class.define("qx.module.event.Mouse", {
   statics :
   {
     /**
@@ -214,4 +236,8 @@ qx.Class.define("qx.module.event.Mouse", {
   classDefined : function(statics) {
     qxWeb.$registerEventNormalization(qx.module.event.Mouse.TYPES, statics.normalize);
   }
+});
+
+ qx.module.event.Mouse = clazz;
+return clazz;
 });

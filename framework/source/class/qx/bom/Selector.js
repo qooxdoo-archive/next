@@ -1,3 +1,11 @@
+define(['qx/Class'], function(Dep0) {
+var qx = {
+  "Class": Dep0,
+  "bom": {
+    "Selector": null
+  }
+};
+
 "use strict";
 /* ************************************************************************
 
@@ -26,7 +34,7 @@
  * For further information check out the following documentation:
  * https://developer.mozilla.org/en-US/docs/Web/Guide/CSS/Getting_started/Selectors
  */
-qx.Class.define("qx.bom.Selector", {
+var clazz = qx.Class.define("qx.bom.Selector", {
   statics: {
     /**
      * Queries the document for the given selector. Supports all CSS3 selectors
@@ -71,4 +79,8 @@ qx.Class.define("qx.bom.Selector", {
       return found;
     }
   }
+});
+
+ qx.bom.Selector = clazz;
+return clazz;
 });

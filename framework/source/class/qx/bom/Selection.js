@@ -1,3 +1,21 @@
+define(['qx/Class', 'qx/bom/client/Engine', 'qx/bom/Range', 'qx/core/Environment', 'qx/dom/Node'], function(Dep0,Dep1,Dep2,Dep3,Dep4) {
+var qx = {
+  "Class": Dep0,
+  "bom": {
+    "client": {
+      "Engine": Dep1
+    },
+    "Range": Dep2,
+    "Selection": null
+  },
+  "core": {
+    "Environment": Dep3
+  },
+  "dom": {
+    "Node": Dep4
+  }
+};
+
 "use strict";
 /* ************************************************************************
 
@@ -26,7 +44,7 @@
  *
  * @ignore(qx.bom.Element, qx.bom.Element.blur)
  */
-qx.Class.define("qx.bom.Selection",
+var clazz = qx.Class.define("qx.bom.Selection",
 {
 
 
@@ -330,4 +348,8 @@ qx.Class.define("qx.bom.Selection",
       }
     }
   }
+});
+
+ qx.bom.Selection = clazz;
+return clazz;
 });

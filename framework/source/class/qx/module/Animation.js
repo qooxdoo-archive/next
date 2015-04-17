@@ -1,3 +1,23 @@
+define(['qx/Class', 'qx/bom/client/Browser', 'qxWeb', 'qx/module/Css', 'qx/module/Event', 'qx/module/Environment', 'qx/bom/element/Animation'], function(Dep0,Dep1,Dep2,Dep3,Dep4,Dep5,Dep6) {
+var qx = {
+  "Class": Dep0,
+  "bom": {
+    "client": {
+      "Browser": Dep1
+    },
+    "element": {
+      "Animation": Dep6
+    }
+  },
+  "module": {
+    "Css": Dep3,
+    "Event": Dep4,
+    "Environment": Dep5,
+    "Animation": null
+  }
+};
+var qxWeb = Dep2;
+
 "use strict";
 /* ************************************************************************
 
@@ -27,7 +47,7 @@
  * @require(qx.module.Event)
  * @require(qx.module.Environment)
  */
-qx.Class.define("qx.module.Animation", {
+var clazz = qx.Class.define("qx.module.Animation", {
   events : {
     /** Fired when an animation starts. */
     "animationStart" : undefined,
@@ -311,4 +331,8 @@ qx.Class.define("qx.module.Animation", {
       statics._fadeIn.keyFrames[100].opacity = 0.99;
     }
   }
+});
+
+ qx.module.Animation = clazz;
+return clazz;
 });

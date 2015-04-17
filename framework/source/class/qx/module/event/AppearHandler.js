@@ -1,3 +1,22 @@
+define(['qx/Class', 'qxWeb', 'qx/module/Event', 'qx/event/type/dom/Custom'], function(Dep0,Dep1,Dep2,Dep3) {
+var qx = {
+  "Class": Dep0,
+  "module": {
+    "Event": Dep2,
+    "event": {
+      "AppearHandler": null
+    }
+  },
+  "event": {
+    "type": {
+      "dom": {
+        "Custom": Dep3
+      }
+    }
+  }
+};
+var qxWeb = Dep1;
+
 "use strict";
 /* ************************************************************************
 
@@ -21,7 +40,7 @@
  * property
  * @require(qx.module.Event)
  */
-qx.Class.define("qx.module.event.AppearHandler", {
+var clazz = qx.Class.define("qx.module.event.AppearHandler", {
 
   statics : {
 
@@ -100,4 +119,8 @@ qx.Class.define("qx.module.event.AppearHandler", {
   classDefined : function(statics) {
     qxWeb.$registerEventHook(statics.TYPES, statics.register, statics.unregister);
   }
+});
+
+ qx.module.event.AppearHandler = clazz;
+return clazz;
 });

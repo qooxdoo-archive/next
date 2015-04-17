@@ -1,3 +1,22 @@
+define(['qx/Class', 'qx/bom/client/Engine', 'qx/bom/element/Attribute', 'qx/core/Environment'], function(Dep0,Dep1,Dep2,Dep3) {
+var qx = {
+  "Class": Dep0,
+  "bom": {
+    "client": {
+      "Engine": Dep1
+    },
+    "element": {
+      "Attribute": Dep2
+    }
+  },
+  "core": {
+    "Environment": Dep3
+  },
+  "dom": {
+    "Element": null
+  }
+};
+
 "use strict";
 /* ************************************************************************
 
@@ -22,7 +41,7 @@
  * Manages children structures of an element. Easy and convenient APIs
  * to insert, remove and replace children.
  */
-qx.Class.define("qx.dom.Element",
+var clazz = qx.Class.define("qx.dom.Element",
 {
   statics :
   {
@@ -407,4 +426,8 @@ qx.Class.define("qx.dom.Element",
       return element.innerHTML;
     }
   }
+});
+
+ qx.dom.Element = clazz;
+return clazz;
 });

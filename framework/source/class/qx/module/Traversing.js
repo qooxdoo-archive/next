@@ -1,3 +1,27 @@
+define(['qx/Class', 'qxWeb', 'qx/dom/Hierarchy', 'qx/bom/Selector', 'qx/bom/element/Location', 'qx/dom/Element', 'qx/dom/Node', 'qx/lang/Array', 'qx/lang/Type'], function(Dep0,Dep1,Dep2,Dep3,Dep4,Dep5,Dep6,Dep7,Dep8) {
+var qx = {
+  "Class": Dep0,
+  "dom": {
+    "Hierarchy": Dep2,
+    "Element": Dep5,
+    "Node": Dep6
+  },
+  "bom": {
+    "Selector": Dep3,
+    "element": {
+      "Location": Dep4
+    }
+  },
+  "lang": {
+    "Array": Dep7,
+    "Type": Dep8
+  },
+  "module": {
+    "Traversing": null
+  }
+};
+var qxWeb = Dep1;
+
 "use strict";
 /* ************************************************************************
 
@@ -29,7 +53,7 @@
  *
  * @group (Core)
  */
-qx.Class.define("qx.module.Traversing", {
+var clazz = qx.Class.define("qx.module.Traversing", {
   statics :
   {
 
@@ -887,4 +911,8 @@ qx.Class.define("qx.module.Traversing", {
       "equalNodes" : statics.equalNodes
     });
   }
+});
+
+ qx.module.Traversing = clazz;
+return clazz;
 });

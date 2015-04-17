@@ -1,3 +1,10 @@
+define(['qx/Class', 'qxWeb'], function(Dep0,Dep1) {
+var qx = {
+  "Class": Dep0
+};
+var qxWeb = Dep1;
+var q = null;
+
 "use strict";
 /* ************************************************************************
 
@@ -23,8 +30,12 @@
 /**
  * Compatibility class for {@link qxWeb}.
  */
-qx.Class.define("q", {
+var clazz = qx.Class.define("q", {
   extend : qxWeb
 });
 // make sure it's the same
 q = qxWeb;
+
+ q = clazz;
+return clazz;
+});

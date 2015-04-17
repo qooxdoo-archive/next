@@ -1,3 +1,25 @@
+define(['qx/Class', 'qx/ui/Widget', 'qx/ui/form/IForm', 'qx/ui/form/MForm', 'qxWeb', 'qx/module/event/Swipe', 'qx/module/event/GestureHandler', 'qx/module/event/Track', 'qx/module/event/TrackHandler'], function(Dep0,Dep1,Dep2,Dep3,Dep4,Dep5,Dep6,Dep7,Dep8) {
+var qx = {
+  "Class": Dep0,
+  "ui": {
+    "Widget": Dep1,
+    "form": {
+      "IForm": Dep2,
+      "MForm": Dep3,
+      "ToggleButton": null
+    }
+  },
+  "module": {
+    "event": {
+      "Swipe": Dep5,
+      "GestureHandler": Dep6,
+      "Track": Dep7,
+      "TrackHandler": Dep8
+    }
+  }
+};
+var qxWeb = Dep4;
+
 "use strict";
 /* ************************************************************************
 
@@ -35,7 +57,7 @@
  *
  * @group(Widget)
  */
-qx.Class.define("qx.ui.form.ToggleButton", {
+var clazz = qx.Class.define("qx.ui.form.ToggleButton", {
   extend: qx.ui.Widget,
   include: [
     qx.ui.form.MForm
@@ -246,4 +268,8 @@ qx.Class.define("qx.ui.form.ToggleButton", {
   classDefined: function(statics) {
     qxWeb.$attachWidget(statics);
   }
+});
+
+ qx.ui.form.ToggleButton = clazz;
+return clazz;
 });

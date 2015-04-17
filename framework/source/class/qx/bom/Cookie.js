@@ -1,3 +1,11 @@
+define(['qx/Class'], function(Dep0) {
+var qx = {
+  "Class": Dep0,
+  "bom": {
+    "Cookie": null
+  }
+};
+
 "use strict";
 /* ************************************************************************
 
@@ -22,7 +30,7 @@
 /**
  * A wrapper for Cookie handling.
  */
-qx.Class.define("qx.bom.Cookie",
+var clazz = qx.Class.define("qx.bom.Cookie",
 {
 
 
@@ -135,4 +143,8 @@ qx.Class.define("qx.bom.Cookie",
       document.cookie = cookie.join("");
     }
   }
+});
+
+ qx.bom.Cookie = clazz;
+return clazz;
 });

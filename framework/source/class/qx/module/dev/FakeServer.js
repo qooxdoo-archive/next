@@ -1,3 +1,17 @@
+define(['qx/Class', 'qxWeb', 'qx/dev/FakeServer'], function(Dep0,Dep1,Dep2) {
+var qx = {
+  "Class": Dep0,
+  "dev": {
+    "FakeServer": Dep2
+  },
+  "module": {
+    "dev": {
+      "FakeServer": null
+    }
+  }
+};
+var qxWeb = Dep1;
+
 "use strict";
 /* ************************************************************************
 
@@ -27,7 +41,7 @@
  *
  * @group (IO)
  */
-qx.Class.define("qx.module.dev.FakeServer", {
+var clazz = qx.Class.define("qx.module.dev.FakeServer", {
   statics :
   {
     /**
@@ -150,4 +164,8 @@ qx.Class.define("qx.module.dev.FakeServer", {
       }
     });
   }
+});
+
+ qx.module.dev.FakeServer = clazz;
+return clazz;
 });

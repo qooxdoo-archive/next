@@ -1,3 +1,15 @@
+define(['qx/Class', 'qx/lang/Function', 'qx/lang/Type'], function(Dep0,Dep1,Dep2) {
+var qx = {
+  "Class": Dep0,
+  "lang": {
+    "Function": Dep1,
+    "Type": Dep2
+  },
+  "io": {
+    "ImageLoader": null
+  }
+};
+
 "use strict";
 /* ************************************************************************
 
@@ -28,7 +40,7 @@
  *
  * Use {@link #load} to preload your own images.
  */
-qx.Class.define("qx.io.ImageLoader",
+var clazz = qx.Class.define("qx.io.ImageLoader",
 {
   statics :
   {
@@ -359,4 +371,8 @@ qx.Class.define("qx.io.ImageLoader",
       this.__data = {};
     }
   }
+});
+
+ qx.io.ImageLoader = clazz;
+return clazz;
 });

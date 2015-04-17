@@ -1,3 +1,12 @@
+define(['qx/Class', 'qx/bom/Viewport'], function(Dep0,Dep1) {
+var qx = {
+  "Class": Dep0,
+  "bom": {
+    "Viewport": Dep1,
+    "Document": null
+  }
+};
+
 "use strict";
 /* ************************************************************************
 
@@ -69,7 +78,7 @@
 /**
  * Includes library functions to work with the current document.
  */
-qx.Class.define("qx.bom.Document",
+var clazz = qx.Class.define("qx.bom.Document",
 {
   statics :
   {
@@ -142,4 +151,8 @@ qx.Class.define("qx.bom.Document",
       return Math.max(scroll, view);
     }
   }
+});
+
+ qx.bom.Document = clazz;
+return clazz;
 });

@@ -1,3 +1,17 @@
+define(['qx/Class', 'qx/bom/client/Engine', 'qx/core/Environment'], function(Dep0,Dep1,Dep2) {
+var qx = {
+  "Class": Dep0,
+  "bom": {
+    "client": {
+      "Engine": Dep1,
+      "Transport": null
+    }
+  },
+  "core": {
+    "Environment": Dep2
+  }
+};
+
 "use strict";
 /* ************************************************************************
 
@@ -28,7 +42,7 @@
  *
  * @internal
  */
-qx.Class.define("qx.bom.client.Transport",
+var clazz = qx.Class.define("qx.bom.client.Transport",
 {
 
 
@@ -128,4 +142,8 @@ qx.Class.define("qx.bom.client.Transport",
     qx.core.Environment.add("io.maxrequests", statics.getMaxConcurrentRequestCount);
     qx.core.Environment.add("io.ssl", statics.getSsl);
   }
+});
+
+ qx.bom.client.Transport = clazz;
+return clazz;
 });

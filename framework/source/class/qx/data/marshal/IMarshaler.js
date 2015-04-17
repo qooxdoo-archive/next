@@ -1,3 +1,13 @@
+define(['qx/Interface'], function(Dep0) {
+var qx = {
+  "Interface": Dep0,
+  "data": {
+    "marshal": {
+      "IMarshaler": null
+    }
+  }
+};
+
 "use strict";
 /* ************************************************************************
 
@@ -21,7 +31,7 @@
  * Defines the methods needed by every marshaler which should work with the
  * qooxdoo data stores.
  */
-qx.Interface.define("qx.data.marshal.IMarshaler",
+var clazz = qx.Interface.define("qx.data.marshal.IMarshaler",
 {
   members :
   {
@@ -50,4 +60,8 @@ qx.Interface.define("qx.data.marshal.IMarshaler",
      /* eslint no-unused-vars:0 */
     toModel : function(data) {}
   }
+});
+
+ qx.data.marshal.IMarshaler = clazz;
+return clazz;
 });

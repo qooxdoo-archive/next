@@ -1,3 +1,17 @@
+define(['qx/Class', 'qx/core/Environment', 'qx/bom/Stylesheet'], function(Dep0,Dep1,Dep2) {
+var qx = {
+  "Class": Dep0,
+  "core": {
+    "Environment": Dep1
+  },
+  "bom": {
+    "Stylesheet": Dep2,
+    "client": {
+      "Stylesheet": null
+    }
+  }
+};
+
 "use strict";
 /* ************************************************************************
 
@@ -26,7 +40,7 @@
  *
  * @internal
  */
-qx.Class.define("qx.bom.client.Stylesheet",
+var clazz = qx.Class.define("qx.bom.client.Stylesheet",
 {
   statics:
   {
@@ -91,4 +105,8 @@ qx.Class.define("qx.bom.client.Stylesheet",
     qx.core.Environment.add("html.stylesheet.addimport", statics.getAddImport);
     qx.core.Environment.add("html.stylesheet.removeimport", statics.getRemoveImport);
   }
+});
+
+ qx.bom.client.Stylesheet = clazz;
+return clazz;
 });

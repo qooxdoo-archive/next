@@ -1,3 +1,16 @@
+define(['qx/Class', 'qx/core/Environment'], function(Dep0,Dep1) {
+var qx = {
+  "Class": Dep0,
+  "core": {
+    "Environment": Dep1
+  },
+  "bom": {
+    "client": {
+      "Device": null
+    }
+  }
+};
+
 "use strict";
 /* ************************************************************************
 
@@ -27,7 +40,7 @@
  *
  * @internal
  */
-qx.Class.define("qx.bom.client.Device",
+var clazz = qx.Class.define("qx.bom.client.Device",
 {
   statics :
   {
@@ -153,4 +166,8 @@ qx.Class.define("qx.bom.client.Device",
     qx.core.Environment.add("device.type", statics.getType);
     qx.core.Environment.add("device.pixelRatio", statics.getDevicePixelRatio);
   }
+});
+
+ qx.bom.client.Device = clazz;
+return clazz;
 });

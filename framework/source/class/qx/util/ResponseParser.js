@@ -1,3 +1,15 @@
+define(['qx/Class', 'qx/core/Assert', 'qx/core/Environment'], function(Dep0,Dep1,Dep2) {
+var qx = {
+  "Class": Dep0,
+  "core": {
+    "Assert": Dep1,
+    "Environment": Dep2
+  },
+  "util": {
+    "ResponseParser": null
+  }
+};
+
 "use strict";
 /* ************************************************************************
 
@@ -25,7 +37,7 @@
  *
  * @require(qx.util.ResponseParser#parse)
  */
-qx.Class.define("qx.util.ResponseParser",
+var clazz = qx.Class.define("qx.util.ResponseParser",
 {
 
   /**
@@ -157,3 +169,7 @@ qx.Class.define("qx.util.ResponseParser",
   }
 });
 
+
+ qx.util.ResponseParser = clazz;
+return clazz;
+});

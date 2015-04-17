@@ -1,3 +1,22 @@
+define(['qx/Class', 'qx/bom/Event', 'qx/event/type/dom/Custom', 'qxWeb'], function(Dep0,Dep1,Dep2,Dep3) {
+var qx = {
+  "Class": Dep0,
+  "bom": {
+    "Event": Dep1
+  },
+  "event": {
+    "type": {
+      "dom": {
+        "Custom": Dep2
+      }
+    },
+    "handler": {
+      "Track": null
+    }
+  }
+};
+var qxWeb = Dep3;
+
 "use strict";
 /* ************************************************************************
 
@@ -23,7 +42,7 @@
  * Listens for synthetic gesture events and fires events
  * for track events.
  */
-qx.Class.define("qx.event.handler.Track", {
+var clazz = qx.Class.define("qx.event.handler.Track", {
   extend : Object,
 
   statics : {
@@ -241,4 +260,8 @@ qx.Class.define("qx.event.handler.Track", {
       this.__defaultTarget = null;
     }
   }
+});
+
+ qx.event.handler.Track = clazz;
+return clazz;
 });

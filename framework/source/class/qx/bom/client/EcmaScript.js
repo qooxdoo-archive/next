@@ -1,3 +1,16 @@
+define(['qx/Class', 'qx/core/Environment'], function(Dep0,Dep1) {
+var qx = {
+  "Class": Dep0,
+  "core": {
+    "Environment": Dep1
+  },
+  "bom": {
+    "client": {
+      "EcmaScript": null
+    }
+  }
+};
+
 "use strict";
 /* ************************************************************************
 
@@ -26,7 +39,7 @@
  *
  * @internal
  */
-qx.Class.define("qx.bom.client.EcmaScript",
+var clazz = qx.Class.define("qx.bom.client.EcmaScript",
 {
   statics :
   {
@@ -62,4 +75,8 @@ qx.Class.define("qx.bom.client.EcmaScript",
     // error bugfix
     qx.core.Environment.add("ecmascript.error.stacktrace", statics.getStackTrace);
   }
+});
+
+ qx.bom.client.EcmaScript = clazz;
+return clazz;
 });

@@ -1,3 +1,22 @@
+define(['qx/Class', 'qx/bom/History', 'qx/bom/Iframe', 'qx/core/Environment', 'qx/lang/Type', 'qx/util/ResourceManager'], function(Dep0,Dep1,Dep2,Dep3,Dep4,Dep5) {
+var qx = {
+  "Class": Dep0,
+  "bom": {
+    "History": Dep1,
+    "Iframe": Dep2,
+    "HashHistory": null
+  },
+  "core": {
+    "Environment": Dep3
+  },
+  "lang": {
+    "Type": Dep4
+  },
+  "util": {
+    "ResourceManager": Dep5
+  }
+};
+
 "use strict";
 /* ************************************************************************
 
@@ -28,7 +47,7 @@
  *
  * @internal
  */
-qx.Class.define("qx.bom.HashHistory",
+var clazz = qx.Class.define("qx.bom.HashHistory",
 {
   extend : qx.bom.History,
 
@@ -226,4 +245,8 @@ qx.Class.define("qx.bom.HashHistory",
       this.__iframe = null;
     }
   }
+});
+
+ qx.bom.HashHistory = clazz;
+return clazz;
 });

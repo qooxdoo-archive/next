@@ -1,3 +1,17 @@
+define(['qx/Class', 'qx/bom/client/OperatingSystem', 'qx/core/Environment'], function(Dep0,Dep1,Dep2) {
+var qx = {
+  "Class": Dep0,
+  "bom": {
+    "client": {
+      "OperatingSystem": Dep1
+    },
+    "Viewport": null
+  },
+  "core": {
+    "Environment": Dep2
+  }
+};
+
 "use strict";
 /* ************************************************************************
 
@@ -83,7 +97,7 @@
  * Includes library functions to work with the client's viewport (window).
  * Orientation related functions are point to window.top as default.
  */
-qx.Class.define("qx.bom.Viewport",
+var clazz = qx.Class.define("qx.bom.Viewport",
 {
   statics :
   {
@@ -286,4 +300,8 @@ qx.Class.define("qx.bom.Viewport",
       return orientation === 0 || orientation === 180;
     }
   }
+});
+
+ qx.bom.Viewport = clazz;
+return clazz;
 });

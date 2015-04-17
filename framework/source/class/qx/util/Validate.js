@@ -1,3 +1,15 @@
+define(['qx/Class', 'qx/core/ValidationError', 'qx/util/ColorUtil'], function(Dep0,Dep1,Dep2) {
+var qx = {
+  "Class": Dep0,
+  "core": {
+    "ValidationError": Dep1
+  },
+  "util": {
+    "ColorUtil": Dep2,
+    "Validate": null
+  }
+};
+
 "use strict";
 /* ************************************************************************
 
@@ -22,7 +34,7 @@
 /**
  * This static class contains a set of default validators.
  */
-qx.Class.define("qx.util.Validate",
+var clazz = qx.Class.define("qx.util.Validate",
 {
   statics :
   {
@@ -170,4 +182,8 @@ qx.Class.define("qx.util.Validate",
       }
     }
   }
+});
+
+ qx.util.Validate = clazz;
+return clazz;
 });

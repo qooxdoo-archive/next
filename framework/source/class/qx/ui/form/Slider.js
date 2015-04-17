@@ -1,3 +1,23 @@
+define(['qx/Class', 'qx/ui/Widget', 'qx/ui/form/IForm', 'qx/ui/form/MForm', 'qxWeb', 'qx/module/AnimationFrame', 'qx/module/event/TrackHandler'], function(Dep0,Dep1,Dep2,Dep3,Dep4,Dep5,Dep6) {
+var qx = {
+  "Class": Dep0,
+  "ui": {
+    "Widget": Dep1,
+    "form": {
+      "IForm": Dep2,
+      "MForm": Dep3,
+      "Slider": null
+    }
+  },
+  "module": {
+    "AnimationFrame": Dep5,
+    "event": {
+      "TrackHandler": Dep6
+    }
+  }
+};
+var qxWeb = Dep4;
+
 "use strict";
 /* ************************************************************************
 
@@ -30,7 +50,7 @@
  * @require(qx.module.event.TrackHandler)
  * @group(Widget)
  */
-qx.Class.define("qx.ui.form.Slider",
+var clazz = qx.Class.define("qx.ui.form.Slider",
 {
   extend : qx.ui.Widget,
   include : [
@@ -524,4 +544,8 @@ qx.Class.define("qx.ui.form.Slider",
   classDefined : function(statics) {
     qxWeb.$attachWidget(statics);
   }
+});
+
+ qx.ui.form.Slider = clazz;
+return clazz;
 });

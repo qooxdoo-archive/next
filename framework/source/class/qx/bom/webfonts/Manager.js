@@ -1,3 +1,30 @@
+define(['qx/Class', 'qx/bom/client/Browser', 'qx/bom/client/OperatingSystem', 'qx/core/MSingleton', 'qx/bom/Stylesheet', 'qx/bom/webfonts/Validator', 'qx/core/Environment', 'qx/lang/Array', 'qx/util/ResourceManager', 'qx/util/Uri'], function(Dep0,Dep1,Dep2,Dep3,Dep4,Dep5,Dep6,Dep7,Dep8,Dep9) {
+var qx = {
+  "Class": Dep0,
+  "bom": {
+    "client": {
+      "Browser": Dep1,
+      "OperatingSystem": Dep2
+    },
+    "Stylesheet": Dep4,
+    "webfonts": {
+      "Validator": Dep5,
+      "Manager": null
+    }
+  },
+  "core": {
+    "MSingleton": Dep3,
+    "Environment": Dep6
+  },
+  "lang": {
+    "Array": Dep7
+  },
+  "util": {
+    "ResourceManager": Dep8,
+    "Uri": Dep9
+  }
+};
+
 "use strict";
 /* ************************************************************************
 
@@ -19,7 +46,7 @@
  * Manages font-face definitions, making sure that each rule is only applied
  * once.
  */
-qx.Class.define("qx.bom.webfonts.Manager", {
+var clazz = qx.Class.define("qx.bom.webfonts.Manager", {
 
   extend : Object,
   include : [qx.core.MSingleton],
@@ -412,4 +439,8 @@ qx.Class.define("qx.bom.webfonts.Manager", {
       qx.bom.webfonts.Validator.removeDefaultHelperElements();
     }
   }
+});
+
+ qx.bom.webfonts.Manager = clazz;
+return clazz;
 });

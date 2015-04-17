@@ -1,3 +1,28 @@
+define(['qx/Class', 'qx/ui/Widget', 'qxWeb', 'qx/module/AnimationFrame', 'qx/module/Template', 'qx/ui/Image', 'qx/module/event/TrackHandler', 'qx/lang/Object', 'qx/lang/Type', 'qx/util/Delegate'], function(Dep0,Dep1,Dep2,Dep3,Dep4,Dep5,Dep6,Dep7,Dep8,Dep9) {
+var qx = {
+  "Class": Dep0,
+  "ui": {
+    "Widget": Dep1,
+    "Image": Dep5,
+    "List": null
+  },
+  "module": {
+    "AnimationFrame": Dep3,
+    "Template": Dep4,
+    "event": {
+      "TrackHandler": Dep6
+    }
+  },
+  "lang": {
+    "Object": Dep7,
+    "Type": Dep8
+  },
+  "util": {
+    "Delegate": Dep9
+  }
+};
+var qxWeb = Dep2;
+
 "use strict";
 /* ************************************************************************
 
@@ -28,7 +53,7 @@
  * @require(qx.module.event.TrackHandler)
  * @group(Widget)
  */
-qx.Class.define("qx.ui.List",
+var clazz = qx.Class.define("qx.ui.List",
 {
   extend : qx.ui.Widget,
 
@@ -536,4 +561,8 @@ qx.Class.define("qx.ui.List",
   classDefined : function(statics) {
     qxWeb.$attachWidget(statics);
   }
+});
+
+ qx.ui.List = clazz;
+return clazz;
 });

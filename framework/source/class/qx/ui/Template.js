@@ -1,3 +1,24 @@
+define(['qx/Class', 'qx/event/MEmitter', 'qx/module/Io', 'qx/bom/Template', 'qx/util/Serializer', 'qxWeb'], function(Dep0,Dep1,Dep2,Dep3,Dep4,Dep5) {
+var qx = {
+  "Class": Dep0,
+  "event": {
+    "MEmitter": Dep1
+  },
+  "module": {
+    "Io": Dep2
+  },
+  "bom": {
+    "Template": Dep3
+  },
+  "util": {
+    "Serializer": Dep4
+  },
+  "ui": {
+    "Template": null
+  }
+};
+var qxWeb = Dep5;
+
 "use strict";
 /* ************************************************************************
 
@@ -18,7 +39,7 @@
 /**
  * @require(qx.module.Io)
  */
-qx.Class.define("qx.ui.Template",
+var clazz = qx.Class.define("qx.ui.Template",
 {
   extend : Object,
   include : [qx.event.MEmitter],
@@ -120,4 +141,8 @@ qx.Class.define("qx.ui.Template",
       }.bind(this)).send();
     }
   }
+});
+
+ qx.ui.Template = clazz;
+return clazz;
 });

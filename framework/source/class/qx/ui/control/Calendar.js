@@ -1,3 +1,21 @@
+define(['qx/Class', 'qx/ui/Widget', 'qxWeb', 'qx/module/Template', 'qx/module/event/Keyboard'], function(Dep0,Dep1,Dep2,Dep3,Dep4) {
+var qx = {
+  "Class": Dep0,
+  "ui": {
+    "Widget": Dep1,
+    "control": {
+      "Calendar": null
+    }
+  },
+  "module": {
+    "Template": Dep3,
+    "event": {
+      "Keyboard": Dep4
+    }
+  }
+};
+var qxWeb = Dep2;
+
 "use strict";
 /* ************************************************************************
 
@@ -29,7 +47,7 @@
  *
  * @group (Widget)
  */
-qx.Class.define("qx.ui.control.Calendar", {
+var clazz = qx.Class.define("qx.ui.control.Calendar", {
   extend : qx.ui.Widget,
 
   properties: {
@@ -539,4 +557,8 @@ qx.Class.define("qx.ui.control.Calendar", {
   classDefined : function(statics) {
     qxWeb.$attachWidget(statics);
   }
+});
+
+ qx.ui.control.Calendar = clazz;
+return clazz;
 });

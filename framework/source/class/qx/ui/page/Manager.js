@@ -1,3 +1,39 @@
+define(['qx/Class', 'qx/bom/client/Device', 'qx/core/Assert', 'qx/core/Environment', 'qx/core/Init', 'qx/lang/String', 'qx/lang/Type', 'qx/ui/Button', 'qx/ui/Widget', 'qx/ui/container/Drawer', 'qx/ui/container/Navigation', 'qx/ui/layout/HBox', 'qx/ui/layout/VBox', 'qx/ui/page/NavigationPage', 'qxWeb'], function(Dep0,Dep1,Dep2,Dep3,Dep4,Dep5,Dep6,Dep7,Dep8,Dep9,Dep10,Dep11,Dep12,Dep13,Dep14) {
+var qx = {
+  "Class": Dep0,
+  "bom": {
+    "client": {
+      "Device": Dep1
+    }
+  },
+  "core": {
+    "Assert": Dep2,
+    "Environment": Dep3,
+    "Init": Dep4
+  },
+  "lang": {
+    "String": Dep5,
+    "Type": Dep6
+  },
+  "ui": {
+    "Button": Dep7,
+    "Widget": Dep8,
+    "container": {
+      "Drawer": Dep9,
+      "Navigation": Dep10
+    },
+    "layout": {
+      "HBox": Dep11,
+      "VBox": Dep12
+    },
+    "page": {
+      "NavigationPage": Dep13,
+      "Manager": null
+    }
+  }
+};
+var qxWeb = Dep14;
+
 "use strict";
 /* ************************************************************************
 
@@ -41,7 +77,7 @@
  *
  *
  */
-qx.Class.define("qx.ui.page.Manager",
+var clazz = qx.Class.define("qx.ui.page.Manager",
 {
   extend : Object,
 
@@ -553,4 +589,8 @@ qx.Class.define("qx.ui.page.Manager",
       }
     }
   }
+});
+
+ qx.ui.page.Manager = clazz;
+return clazz;
 });

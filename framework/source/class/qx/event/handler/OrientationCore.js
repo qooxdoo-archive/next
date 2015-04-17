@@ -1,3 +1,20 @@
+define(['qx/Class', 'qx/bom/Event', 'qx/bom/Viewport', 'qx/lang/Function'], function(Dep0,Dep1,Dep2,Dep3) {
+var qx = {
+  "Class": Dep0,
+  "bom": {
+    "Event": Dep1,
+    "Viewport": Dep2
+  },
+  "lang": {
+    "Function": Dep3
+  },
+  "event": {
+    "handler": {
+      "OrientationCore": null
+    }
+  }
+};
+
 "use strict";
 /* ************************************************************************
 
@@ -37,7 +54,7 @@
 /**
  * Listens for native orientation change events
  */
-qx.Class.define("qx.event.handler.OrientationCore", {
+var clazz = qx.Class.define("qx.event.handler.OrientationCore", {
 
   extend : Object,
 
@@ -146,4 +163,8 @@ qx.Class.define("qx.event.handler.OrientationCore", {
       this._stopObserver();
     }
   }
+});
+
+ qx.event.handler.OrientationCore = clazz;
+return clazz;
 });

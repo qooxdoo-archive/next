@@ -1,3 +1,19 @@
+define(['qx/Class', 'qx/event/MEmitter', 'qx/core/Environment'], function(Dep0,Dep1,Dep2) {
+var qx = {
+  "Class": Dep0,
+  "event": {
+    "MEmitter": Dep1
+  },
+  "core": {
+    "Environment": Dep2
+  },
+  "ui": {
+    "layout": {
+      "Abstract": null
+    }
+  }
+};
+
 "use strict";
 /* ************************************************************************
 
@@ -25,7 +41,7 @@
  * this class and implement the methods {@link #_getCssClasses},
  * {@link #_getSupportedChildLayoutProperties} and {@link #_setLayoutProperty}.
  */
-qx.Class.define("qx.ui.layout.Abstract",
+var clazz = qx.Class.define("qx.ui.layout.Abstract",
 {
   extend : Object,
   include : [qx.event.MEmitter],
@@ -248,4 +264,8 @@ qx.Class.define("qx.ui.layout.Abstract",
       return cache[id];
     }
   }
+});
+
+ qx.ui.layout.Abstract = clazz;
+return clazz;
 });

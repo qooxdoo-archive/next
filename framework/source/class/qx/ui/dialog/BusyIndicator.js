@@ -1,3 +1,18 @@
+define(['qx/Class', 'qx/ui/Atom', 'qx/module/Animation', 'qx/ui/Image'], function(Dep0,Dep1,Dep2,Dep3) {
+var qx = {
+  "Class": Dep0,
+  "ui": {
+    "Atom": Dep1,
+    "Image": Dep3,
+    "dialog": {
+      "BusyIndicator": null
+    }
+  },
+  "module": {
+    "Animation": Dep2
+  }
+};
+
 "use strict";
 /* ************************************************************************
 
@@ -34,7 +49,7 @@
  *
  * @require(qx.module.Animation)
  */
-qx.Class.define("qx.ui.dialog.BusyIndicator",
+var clazz = qx.Class.define("qx.ui.dialog.BusyIndicator",
 {
   extend : qx.ui.Atom,
 
@@ -145,4 +160,8 @@ qx.Class.define("qx.ui.dialog.BusyIndicator",
       }
     };
   }
+});
+
+ qx.ui.dialog.BusyIndicator = clazz;
+return clazz;
 });

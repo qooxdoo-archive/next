@@ -1,3 +1,31 @@
+define(['qx/Class', 'qx/bom/client/Scroll', 'qx/ui/Widget', 'qx/ui/form/IForm', 'qx/ui/form/MForm', 'qx/ui/form/MText', 'qx/core/Environment', 'qx/ui/container/Scroll', 'qx/ui/core/Root'], function(Dep0,Dep1,Dep2,Dep3,Dep4,Dep5,Dep6,Dep7,Dep8) {
+var qx = {
+  "Class": Dep0,
+  "bom": {
+    "client": {
+      "Scroll": Dep1
+    }
+  },
+  "ui": {
+    "Widget": Dep2,
+    "form": {
+      "IForm": Dep3,
+      "MForm": Dep4,
+      "MText": Dep5,
+      "TextArea": null
+    },
+    "container": {
+      "Scroll": Dep7
+    },
+    "core": {
+      "Root": Dep8
+    }
+  },
+  "core": {
+    "Environment": Dep6
+  }
+};
+
 "use strict";
 /* ************************************************************************
 
@@ -21,7 +49,7 @@
 /**
  * The TextArea is a multi-line text input field.
  */
-qx.Class.define("qx.ui.form.TextArea",
+var clazz = qx.Class.define("qx.ui.form.TextArea",
 {
   extend : qx.ui.Widget,
   include : [
@@ -152,4 +180,8 @@ qx.Class.define("qx.ui.form.TextArea",
       this.disposeMForm();
     }
   }
+});
+
+ qx.ui.form.TextArea = clazz;
+return clazz;
 });

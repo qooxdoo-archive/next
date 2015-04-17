@@ -1,3 +1,22 @@
+define(['qx/Class', 'qx/event/type/dom/Pointer', 'qxWeb', 'qx/module/Event'], function(Dep0,Dep1,Dep2,Dep3) {
+var qx = {
+  "Class": Dep0,
+  "event": {
+    "type": {
+      "dom": {
+        "Pointer": Dep1
+      }
+    }
+  },
+  "module": {
+    "Event": Dep3,
+    "event": {
+      "Pointer": null
+    }
+  }
+};
+var qxWeb = Dep2;
+
 "use strict";
 /* ************************************************************************
 
@@ -33,7 +52,7 @@
  *
  * @group (Event_Normalization)
  */
-qx.Class.define("qx.module.event.Pointer", {
+var clazz = qx.Class.define("qx.module.event.Pointer", {
   statics :
   {
     /**
@@ -158,4 +177,8 @@ qx.Class.define("qx.module.event.Pointer", {
   classDefined : function(statics) {
     qxWeb.$registerEventNormalization(qx.module.event.Pointer.TYPES, statics.normalize);
   }
+});
+
+ qx.module.event.Pointer = clazz;
+return clazz;
 });

@@ -1,3 +1,20 @@
+define(['qx/Class', 'qx/ui/Widget', 'qx/ui/container/MNativeScroll', 'qxWeb', 'qx/lang/String', 'qx/lang/Type'], function(Dep0,Dep1,Dep2,Dep3,Dep4,Dep5) {
+var qx = {
+  "Class": Dep0,
+  "ui": {
+    "Widget": Dep1,
+    "container": {
+      "MNativeScroll": Dep2,
+      "Scroll": null
+    }
+  },
+  "lang": {
+    "String": Dep4,
+    "Type": Dep5
+  }
+};
+var qxWeb = Dep3;
+
 "use strict";
 /* ************************************************************************
 
@@ -43,7 +60,7 @@
  *
  * @group(Widget)
  */
-qx.Class.define("qx.ui.container.Scroll",
+var clazz = qx.Class.define("qx.ui.container.Scroll",
 {
   extend : qx.ui.Widget,
   include : [qx.ui.container.MNativeScroll],
@@ -552,4 +569,8 @@ qx.Class.define("qx.ui.container.Scroll",
   classDefined : function(statics) {
     qxWeb.$attachWidget(statics);
   }
+});
+
+ qx.ui.container.Scroll = clazz;
+return clazz;
 });

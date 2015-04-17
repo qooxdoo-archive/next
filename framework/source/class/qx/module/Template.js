@@ -1,3 +1,18 @@
+define(['qx/Class', 'qx/ui/Template', 'qxWeb', 'qx/bom/Template'], function(Dep0,Dep1,Dep2,Dep3) {
+var qx = {
+  "Class": Dep0,
+  "ui": {
+    "Template": Dep1
+  },
+  "bom": {
+    "Template": Dep3
+  },
+  "module": {
+    "Template": null
+  }
+};
+var qxWeb = Dep2;
+
 "use strict";
 /* ************************************************************************
 
@@ -25,7 +40,7 @@
  * For further details, please visit the mustache.js documentation here:
  *   https://github.com/janl/mustache.js/blob/master/README.md
  */
-qx.Class.define("qx.module.Template", {
+var clazz = qx.Class.define("qx.module.Template", {
   statics :
   {
     create : function(path, selector) {
@@ -124,4 +139,8 @@ qx.Class.define("qx.module.Template", {
       }
     });
   }
+});
+
+ qx.module.Template = clazz;
+return clazz;
 });

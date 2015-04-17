@@ -1,3 +1,16 @@
+define(['qx/Class', 'qx/Interface', 'qx/lang/Type', 'qx/util/PropertyUtil'], function(Dep0,Dep1,Dep2,Dep3) {
+var qx = {
+  "Class": Dep0,
+  "Interface": Dep1,
+  "lang": {
+    "Type": Dep2
+  },
+  "util": {
+    "PropertyUtil": Dep3,
+    "Serializer": null
+  }
+};
+
 "use strict";
 /* ************************************************************************
 
@@ -24,7 +37,7 @@
  * @ignore(qx.data, qx.data.IListData)
  * @ignore(qxWeb)
  */
-qx.Class.define("qx.util.Serializer",
+var clazz = qx.Class.define("qx.util.Serializer",
 {
   statics :
   {
@@ -320,4 +333,8 @@ qx.Class.define("qx.util.Serializer",
       return object + "";
     }
   }
+});
+
+ qx.util.Serializer = clazz;
+return clazz;
 });

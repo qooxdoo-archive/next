@@ -1,3 +1,19 @@
+define(['qx/Class', 'qx/ui/Widget', 'qxWeb', 'qx/lang/Object', 'qx/ui/layout/HBox'], function(Dep0,Dep1,Dep2,Dep3,Dep4) {
+var qx = {
+  "Class": Dep0,
+  "ui": {
+    "Widget": Dep1,
+    "layout": {
+      "HBox": Dep4
+    },
+    "ToolBar": null
+  },
+  "lang": {
+    "Object": Dep3
+  }
+};
+var qxWeb = Dep2;
+
 "use strict";
 /* ************************************************************************
 
@@ -23,7 +39,7 @@
  *
  * @group(Widget)
  */
-qx.Class.define("qx.ui.ToolBar",
+var clazz = qx.Class.define("qx.ui.ToolBar",
 {
   extend : qx.ui.Widget,
 
@@ -79,4 +95,8 @@ qx.Class.define("qx.ui.ToolBar",
   classDefined : function(statics) {
     qxWeb.$attachWidget(statics);
   }
+});
+
+ qx.ui.ToolBar = clazz;
+return clazz;
 });

@@ -1,3 +1,19 @@
+define(['qx/Class', 'qx/bom/client/Browser', 'qx/bom/client/Event', 'qx/bom/client/OperatingSystem', 'qx/core/Environment'], function(Dep0,Dep1,Dep2,Dep3,Dep4) {
+var qx = {
+  "Class": Dep0,
+  "bom": {
+    "client": {
+      "Browser": Dep1,
+      "Event": Dep2,
+      "OperatingSystem": Dep3,
+      "Scroll": null
+    }
+  },
+  "core": {
+    "Environment": Dep4
+  }
+};
+
 "use strict";
 /* ************************************************************************
 
@@ -25,7 +41,7 @@
  *
  * @internal
  */
-qx.Class.define("qx.bom.client.Scroll",
+var clazz = qx.Class.define("qx.bom.client.Scroll",
 {
   statics :
   {
@@ -74,4 +90,8 @@ qx.Class.define("qx.bom.client.Scroll",
   classDefined : function(statics) {
     qx.core.Environment.add("qx.mobile.nativescroll", statics.getNativeScroll);
   }
+});
+
+ qx.bom.client.Scroll = clazz;
+return clazz;
 });

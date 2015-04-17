@@ -1,3 +1,22 @@
+define(['qx/Class', 'qx/data/SingleValueBinding', 'qx/data/marshal/Json', 'qxWeb', 'qx/data/store/Json', 'qx/data/store/Offline'], function(Dep0,Dep1,Dep2,Dep3,Dep4,Dep5) {
+var qx = {
+  "Class": Dep0,
+  "data": {
+    "SingleValueBinding": Dep1,
+    "marshal": {
+      "Json": Dep2
+    },
+    "store": {
+      "Json": Dep4,
+      "Offline": Dep5
+    }
+  },
+  "module": {
+    "DataBinding": null
+  }
+};
+var qxWeb = Dep3;
+
 "use strict";
 /* ************************************************************************
 
@@ -19,7 +38,7 @@
 ************************************************************************ */
 
 
-qx.Class.define("qx.module.DataBinding", {
+var clazz = qx.Class.define("qx.module.DataBinding", {
 
   statics: {
     createJsonStore : function(url) {
@@ -42,4 +61,8 @@ qx.Class.define("qx.module.DataBinding", {
       }
     });
   }
+});
+
+ qx.module.DataBinding = clazz;
+return clazz;
 });

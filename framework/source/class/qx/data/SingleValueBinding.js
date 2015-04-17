@@ -1,3 +1,28 @@
+define(['qx/Class', 'qx/Interface', 'qx/core/Assert', 'qx/core/AssertionError', 'qx/core/Environment', 'qx/core/ObjectRegistry', 'qx/data/IListData', 'qx/lang/Array', 'qx/lang/Function', 'qx/lang/String', 'qx/lang/Type', 'qx/log/Logger'], function(Dep0,Dep1,Dep2,Dep3,Dep4,Dep5,Dep6,Dep7,Dep8,Dep9,Dep10,Dep11) {
+var qx = {
+  "Class": Dep0,
+  "Interface": Dep1,
+  "core": {
+    "Assert": Dep2,
+    "AssertionError": Dep3,
+    "Environment": Dep4,
+    "ObjectRegistry": Dep5
+  },
+  "data": {
+    "IListData": Dep6,
+    "SingleValueBinding": null
+  },
+  "lang": {
+    "Array": Dep7,
+    "Function": Dep8,
+    "String": Dep9,
+    "Type": Dep10
+  },
+  "log": {
+    "Logger": Dep11
+  }
+};
+
 "use strict";
 /* ************************************************************************
 
@@ -22,7 +47,7 @@
  * The data binding package is still under development so there will be changes
  * to the API. This Features is for testing purpose only.
  */
-qx.Class.define("qx.data.SingleValueBinding",
+var clazz = qx.Class.define("qx.data.SingleValueBinding",
 {
 
   statics :
@@ -1327,4 +1352,8 @@ qx.Class.define("qx.data.SingleValueBinding",
       qx.log.Logger.debug(message);
     }
   }
+});
+
+ qx.data.SingleValueBinding = clazz;
+return clazz;
 });

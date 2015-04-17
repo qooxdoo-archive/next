@@ -1,3 +1,12 @@
+define(['qx/Mixin', 'qx/data/SingleValueBinding'], function(Dep0,Dep1) {
+var qx = {
+  "Mixin": Dep0,
+  "data": {
+    "SingleValueBinding": Dep1,
+    "MBinding": null
+  }
+};
+
 "use strict";
 /* ************************************************************************
 
@@ -23,7 +32,7 @@
  * {@link qx.data.SingleValueBinding} to the instance including the mixin.
  * The source object will be <code>this</code>.
  */
-qx.Mixin.define("qx.data.MBinding",
+var clazz = qx.Mixin.define("qx.data.MBinding",
 {
 
   members :
@@ -107,4 +116,8 @@ qx.Mixin.define("qx.data.MBinding",
       return qx.data.SingleValueBinding.getAllBindingsForObject(this);
     }
   }
+});
+
+ qx.data.MBinding = clazz;
+return clazz;
 });

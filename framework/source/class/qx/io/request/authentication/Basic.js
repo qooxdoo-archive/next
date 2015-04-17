@@ -1,3 +1,19 @@
+define(['qx/Class', 'qx/io/request/authentication/IAuthentication', 'qx/util/Base64'], function(Dep0,Dep1,Dep2) {
+var qx = {
+  "Class": Dep0,
+  "io": {
+    "request": {
+      "authentication": {
+        "IAuthentication": Dep1,
+        "Basic": null
+      }
+    }
+  },
+  "util": {
+    "Base64": Dep2
+  }
+};
+
 "use strict";
 /* ************************************************************************
 
@@ -21,7 +37,7 @@
 /**
  * Basic authentication.
  */
-qx.Class.define("qx.io.request.authentication.Basic",
+var clazz = qx.Class.define("qx.io.request.authentication.Basic",
 {
 
   extend: Object,
@@ -51,4 +67,8 @@ qx.Class.define("qx.io.request.authentication.Basic",
       ];
     }
   }
+});
+
+ qx.io.request.authentication.Basic = clazz;
+return clazz;
 });

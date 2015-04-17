@@ -1,3 +1,23 @@
+define(['qx/Class', 'qx/event/MEmitter', 'qx/data/marshal/Json', 'qx/lang/Function', 'qx/lang/Type'], function(Dep0,Dep1,Dep2,Dep3,Dep4) {
+var qx = {
+  "Class": Dep0,
+  "event": {
+    "MEmitter": Dep1
+  },
+  "data": {
+    "marshal": {
+      "Json": Dep2
+    },
+    "store": {
+      "Rest": null
+    }
+  },
+  "lang": {
+    "Function": Dep3,
+    "Type": Dep4
+  }
+};
+
 "use strict";
 /* ************************************************************************
 
@@ -23,7 +43,7 @@
  * populated with the marshaled response. Note the action is invoked on the
  * resource, not the store.
  */
-qx.Class.define("qx.data.store.Rest",
+var clazz = qx.Class.define("qx.data.store.Rest",
 {
   extend: Object,
   include : [qx.event.MEmitter],
@@ -137,4 +157,8 @@ qx.Class.define("qx.data.store.Rest",
       }
     }
   }
+});
+
+ qx.data.store.Rest = clazz;
+return clazz;
 });

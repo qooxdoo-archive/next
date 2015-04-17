@@ -1,3 +1,18 @@
+define(['qxWeb', 'qx/util/placement/KeepAlignAxis', 'qx/util/placement/BestFitAxis', 'qx/util/placement/DirectAxis'], function(Dep0,Dep1,Dep2,Dep3) {
+var qxWeb = Dep0;
+var qx = {
+  "util": {
+    "placement": {
+      "KeepAlignAxis": Dep1,
+      "BestFitAxis": Dep2,
+      "DirectAxis": Dep3
+    }
+  },
+  "module": {
+    "Placement": null
+  }
+};
+
 "use strict";
 /* ************************************************************************
 
@@ -298,4 +313,8 @@ qxWeb.define("qx.module.Placement", {
      "placeTo" : statics.placeTo
     });
   }
+});
+
+ qx.module.Placement = clazz;
+return clazz;
 });

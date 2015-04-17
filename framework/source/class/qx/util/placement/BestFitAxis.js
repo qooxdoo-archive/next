@@ -1,3 +1,14 @@
+define(['qx/Class', 'qx/util/placement/AbstractAxis'], function(Dep0,Dep1) {
+var qx = {
+  "Class": Dep0,
+  "util": {
+    "placement": {
+      "AbstractAxis": Dep1,
+      "BestFitAxis": null
+    }
+  }
+};
+
 "use strict";
 /* ************************************************************************
 
@@ -24,7 +35,7 @@
  * of the axis' range the object's start is adjusted so that the overlap between
  * the object and the axis is maximized.
  */
-qx.Class.define("qx.util.placement.BestFitAxis",
+var clazz = qx.Class.define("qx.util.placement.BestFitAxis",
 {
   statics :
   {
@@ -92,4 +103,8 @@ qx.Class.define("qx.util.placement.BestFitAxis",
       return start;
     }
   }
+});
+
+ qx.util.placement.BestFitAxis = clazz;
+return clazz;
 });

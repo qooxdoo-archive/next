@@ -1,3 +1,15 @@
+define(['qx/Class', 'qx/core/MSingleton', 'qx/util/ValueManager'], function(Dep0,Dep1,Dep2) {
+var qx = {
+  "Class": Dep0,
+  "core": {
+    "MSingleton": Dep1
+  },
+  "util": {
+    "ValueManager": Dep2,
+    "AliasManager": null
+  }
+};
+
 "use strict";
 /* ************************************************************************
 
@@ -44,7 +56,7 @@
  * For resources, only aliases that resolve to proper resource id's can be __managed__
  * resources, and will be considered __unmanaged__ resources otherwise.
  */
-qx.Class.define("qx.util.AliasManager",
+var clazz = qx.Class.define("qx.util.AliasManager",
 {
   extend : qx.util.ValueManager,
   include : [qx.core.MSingleton],
@@ -179,4 +191,8 @@ qx.Class.define("qx.util.AliasManager",
       return res;
     }
   }
+});
+
+ qx.util.AliasManager = clazz;
+return clazz;
 });

@@ -1,3 +1,18 @@
+define(['qx/Class', 'qx/bom/element/Attribute', 'qx/lang/String', 'qxWeb'], function(Dep0,Dep1,Dep2,Dep3) {
+var qx = {
+  "Class": Dep0,
+  "bom": {
+    "element": {
+      "Attribute": Dep1,
+      "Dataset": null
+    }
+  },
+  "lang": {
+    "String": Dep2
+  }
+};
+var qxWeb = Dep3;
+
 "use strict";
 /* ************************************************************************
 
@@ -27,7 +42,7 @@
  * the multiple implementations.
  *
  */
-qx.Class.define("qx.bom.element.Dataset",
+var clazz = qx.Class.define("qx.bom.element.Dataset",
 {
 
 
@@ -124,4 +139,8 @@ qx.Class.define("qx.bom.element.Dataset",
       this.set(element, name, undefined);
     }
   }
+});
+
+ qx.bom.element.Dataset = clazz;
+return clazz;
 });

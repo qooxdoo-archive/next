@@ -1,3 +1,15 @@
+define(['qx/Class', 'qx/core/Environment', 'qx/lang/Type'], function(Dep0,Dep1,Dep2) {
+var qx = {
+  "Class": Dep0,
+  "core": {
+    "Environment": Dep1
+  },
+  "lang": {
+    "Type": Dep2,
+    "Object": null
+  }
+};
+
 "use strict";
 /* ************************************************************************
 
@@ -37,7 +49,7 @@
  *
  * @ignore(qx.core.Assert)
  */
-qx.Class.define("qx.lang.Object",
+var clazz = qx.Class.define("qx.lang.Object",
 {
   statics :
   {
@@ -391,4 +403,8 @@ qx.Class.define("qx.lang.Object",
       return obj;
     }
   }
+});
+
+ qx.lang.Object = clazz;
+return clazz;
 });

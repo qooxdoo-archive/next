@@ -1,3 +1,17 @@
+define(['qx/Class', 'qx/core/Environment', 'qx/lang/Type'], function(Dep0,Dep1,Dep2) {
+var qx = {
+  "Class": Dep0,
+  "core": {
+    "Environment": Dep1
+  },
+  "lang": {
+    "Type": Dep2
+  },
+  "dev": {
+    "StackTrace": null
+  }
+};
+
 /* eslint strict:0 */
 /* ************************************************************************
 
@@ -25,7 +39,7 @@
  * @ignore(qx.bom.client)
  * @ignore(qx.bom)
  */
-qx.Class.define("qx.dev.StackTrace",
+var clazz = qx.Class.define("qx.dev.StackTrace",
 {
   statics:
   {
@@ -257,4 +271,8 @@ qx.Class.define("qx.dev.StackTrace",
       return trace;
     }
   }
+});
+
+ qx.dev.StackTrace = clazz;
+return clazz;
 });

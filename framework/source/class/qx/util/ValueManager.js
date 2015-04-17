@@ -1,3 +1,11 @@
+define(['qx/Class'], function(Dep0) {
+var qx = {
+  "Class": Dep0,
+  "util": {
+    "ValueManager": null
+  }
+};
+
 "use strict";
 /* ************************************************************************
 
@@ -22,7 +30,7 @@
 /**
  * Abstract base class for all managers of themed values.
  */
-qx.Class.define("qx.util.ValueManager",
+var clazz = qx.Class.define("qx.util.ValueManager",
 {
   extend : Object,
 
@@ -90,4 +98,8 @@ qx.Class.define("qx.util.ValueManager",
       return this._dynamic;
     }
   }
+});
+
+ qx.util.ValueManager = clazz;
+return clazz;
 });

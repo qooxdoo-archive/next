@@ -1,3 +1,21 @@
+define(['qx/Class', 'qx/event/handler/Gesture', 'qxWeb', 'qx/module/Event', 'qx/module/event/PointerHandler'], function(Dep0,Dep1,Dep2,Dep3,Dep4) {
+var qx = {
+  "Class": Dep0,
+  "event": {
+    "handler": {
+      "Gesture": Dep1
+    }
+  },
+  "module": {
+    "Event": Dep3,
+    "event": {
+      "PointerHandler": Dep4,
+      "GestureHandler": null
+    }
+  }
+};
+var qxWeb = Dep2;
+
 "use strict";
 /* ************************************************************************
 
@@ -28,7 +46,7 @@
  *
  * @group (Event_Normalization)
  */
-qx.Class.define("qx.module.event.GestureHandler", {
+var clazz = qx.Class.define("qx.module.event.GestureHandler", {
 
   statics : {
 
@@ -76,4 +94,8 @@ qx.Class.define("qx.module.event.GestureHandler", {
   {
     qxWeb.$registerEventHook(statics.TYPES, statics.register, statics.unregister);
   }
+});
+
+ qx.module.event.GestureHandler = clazz;
+return clazz;
 });

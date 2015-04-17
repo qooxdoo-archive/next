@@ -1,3 +1,21 @@
+define(['qx/bom/client/Browser', 'qxWeb', 'qx/module/Environment', 'qx/module/Manipulating', 'qx/module/Traversing', 'qx/module/Css', 'qx/module/Attribute'], function(Dep0,Dep1,Dep2,Dep3,Dep4,Dep5,Dep6) {
+var qx = {
+  "bom": {
+    "client": {
+      "Browser": Dep0
+    }
+  },
+  "module": {
+    "Environment": Dep2,
+    "Manipulating": Dep3,
+    "Traversing": Dep4,
+    "Css": Dep5,
+    "Attribute": Dep6,
+    "Blocker": null
+  }
+};
+var qxWeb = Dep1;
+
 "use strict";
 /* ************************************************************************
 
@@ -213,4 +231,8 @@ qxWeb.define("qx.module.Blocker", {
       "getBlocker" : statics.getBlocker
     });
   }
+});
+
+ qx.module.Blocker = clazz;
+return clazz;
 });

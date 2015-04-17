@@ -1,3 +1,15 @@
+define(['qx/Class', 'qx/ui/form/Input', 'qxWeb'], function(Dep0,Dep1,Dep2) {
+var qx = {
+  "Class": Dep0,
+  "ui": {
+    "form": {
+      "Input": Dep1,
+      "CheckBox": null
+    }
+  }
+};
+var qxWeb = Dep2;
+
 "use strict";
 /* ************************************************************************
 
@@ -26,7 +38,7 @@
  * When the user taps on the checkbox, its model changes and it is reflected in the Title's value.
  * @group(Widget)
  */
-qx.Class.define("qx.ui.form.CheckBox",
+var clazz = qx.Class.define("qx.ui.form.CheckBox",
 {
   extend : qx.ui.form.Input,
 
@@ -120,4 +132,8 @@ qx.Class.define("qx.ui.form.CheckBox",
   classDefined : function(statics) {
     qxWeb.$attachWidget(statics);
   }
+});
+
+ qx.ui.form.CheckBox = clazz;
+return clazz;
 });

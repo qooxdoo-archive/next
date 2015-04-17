@@ -1,3 +1,17 @@
+define(['qx/Class', 'qxWeb', 'qx/bom/element/Transform'], function(Dep0,Dep1,Dep2) {
+var qx = {
+  "Class": Dep0,
+  "bom": {
+    "element": {
+      "Transform": Dep2
+    }
+  },
+  "module": {
+    "Transform": null
+  }
+};
+var qxWeb = Dep1;
+
 "use strict";
 /* ************************************************************************
 
@@ -26,7 +40,7 @@
  *
  * http://www.w3.org/TR/css3-3d-transforms/
  */
-qx.Class.define("qx.module.Transform",
+var clazz = qx.Class.define("qx.module.Transform",
 {
   statics :
   {
@@ -296,4 +310,8 @@ qx.Class.define("qx.module.Transform",
       "getTransformBackfaceVisibility" : statics.getTransformBackfaceVisibility
     });
   }
+});
+
+ qx.module.Transform = clazz;
+return clazz;
 });

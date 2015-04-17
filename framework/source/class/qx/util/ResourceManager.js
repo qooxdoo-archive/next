@@ -1,3 +1,22 @@
+define(['qx/Class', 'qx/bom/client/Engine', 'qx/bom/client/Transport', 'qx/core/Environment', 'qx/core/MSingleton', 'qx/util/LibraryManager'], function(Dep0,Dep1,Dep2,Dep3,Dep4,Dep5) {
+var qx = {
+  "Class": Dep0,
+  "bom": {
+    "client": {
+      "Engine": Dep1,
+      "Transport": Dep2
+    }
+  },
+  "core": {
+    "Environment": Dep3,
+    "MSingleton": Dep4
+  },
+  "util": {
+    "LibraryManager": Dep5,
+    "ResourceManager": null
+  }
+};
+
 "use strict";
 /* ************************************************************************
 
@@ -23,7 +42,7 @@
  * Contains information about images (size, format, clipping, ...) and
  * other resources like CSS files, local data, ...
  */
-qx.Class.define("qx.util.ResourceManager",
+var clazz = qx.Class.define("qx.util.ResourceManager",
 {
   extend  : Object,
   include : [qx.core.MSingleton],
@@ -228,4 +247,8 @@ qx.Class.define("qx.util.ResourceManager",
       }
     }
   }
+});
+
+ qx.util.ResourceManager = clazz;
+return clazz;
 });

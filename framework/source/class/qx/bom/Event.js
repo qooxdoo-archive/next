@@ -1,3 +1,23 @@
+define(['qx/Class', 'qx/bom/client/Browser', 'qx/bom/client/CssTransition', 'qx/bom/client/Engine', 'qx/bom/Style', 'qx/core/Environment', 'qx/lang/String'], function(Dep0,Dep1,Dep2,Dep3,Dep4,Dep5,Dep6) {
+var qx = {
+  "Class": Dep0,
+  "bom": {
+    "client": {
+      "Browser": Dep1,
+      "CssTransition": Dep2,
+      "Engine": Dep3
+    },
+    "Style": Dep4,
+    "Event": null
+  },
+  "core": {
+    "Environment": Dep5
+  },
+  "lang": {
+    "String": Dep6
+  }
+};
+
 "use strict";
 /* ************************************************************************
 
@@ -65,7 +85,7 @@
  * Wrapper around native event management capabilities of the browser.
  * This class should not normally be used directly.
  */
-qx.Class.define("qx.bom.Event",
+var clazz = qx.Class.define("qx.bom.Event",
 {
   statics :
   {
@@ -282,4 +302,8 @@ qx.Class.define("qx.bom.Event",
       return null;
     }
   }
+});
+
+ qx.bom.Event = clazz;
+return clazz;
 });

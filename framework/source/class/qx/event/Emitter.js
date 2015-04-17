@@ -1,3 +1,12 @@
+define(['qx/Class', 'qx/event/MEmitter'], function(Dep0,Dep1) {
+var qx = {
+  "Class": Dep0,
+  "event": {
+    "MEmitter": Dep1,
+    "Emitter": null
+  }
+};
+
 "use strict";
 /* ************************************************************************
 
@@ -31,7 +40,11 @@
  * @require(qx.event.MEmitter#getListeners)
  * @require(qx.event.MEmitter#getEntryById)
  */
-qx.Class.define("qx.event.Emitter", {
+var clazz = qx.Class.define("qx.event.Emitter", {
   extend : Object,
   include : [qx.event.MEmitter]
+});
+
+ qx.event.Emitter = clazz;
+return clazz;
 });

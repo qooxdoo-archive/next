@@ -1,3 +1,14 @@
+define(['qx/Class', 'qx/event/MEmitter'], function(Dep0,Dep1) {
+var qx = {
+  "Class": Dep0,
+  "event": {
+    "MEmitter": Dep1
+  },
+  "bom": {
+    "MediaQuery": null
+  }
+};
+
 "use strict";
 /* ************************************************************************
 
@@ -22,7 +33,7 @@
  * Provides convenient access to CSS media queries including change
  * events.
  */
-qx.Class.define("qx.bom.MediaQuery", {
+var clazz = qx.Class.define("qx.bom.MediaQuery", {
 
   extend: Object,
   include : [qx.event.MEmitter],
@@ -110,4 +121,8 @@ qx.Class.define("qx.bom.MediaQuery", {
       this.__mql.removeListener(this.__boundChanged);
     }
   }
+});
+
+ qx.bom.MediaQuery = clazz;
+return clazz;
 });

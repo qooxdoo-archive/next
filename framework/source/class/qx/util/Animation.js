@@ -1,3 +1,11 @@
+define(['qx/Class'], function(Dep0) {
+var qx = {
+  "Class": Dep0,
+  "util": {
+    "Animation": null
+  }
+};
+
 "use strict";
 /* ************************************************************************
 
@@ -22,7 +30,7 @@
  * Contains property maps for the usage with qx.bom.element.Animation {@link qx.bom.element.Animation}.
  * These animations can be used for page transitions for example.
  */
-qx.Class.define("qx.util.Animation",
+var clazz = qx.Class.define("qx.util.Animation",
 {
 
   statics :
@@ -557,4 +565,8 @@ qx.Class.define("qx.util.Animation",
       }
     }
   }
+});
+
+ qx.util.Animation = clazz;
+return clazz;
 });

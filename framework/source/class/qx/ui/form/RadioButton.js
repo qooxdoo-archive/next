@@ -1,3 +1,15 @@
+define(['qx/Class', 'qx/ui/form/Input', 'qxWeb'], function(Dep0,Dep1,Dep2) {
+var qx = {
+  "Class": Dep0,
+  "ui": {
+    "form": {
+      "Input": Dep1,
+      "RadioButton": null
+    }
+  }
+};
+var qxWeb = Dep2;
+
 "use strict";
 /* ************************************************************************
 
@@ -42,7 +54,7 @@
  *
  *
  */
-qx.Class.define("qx.ui.form.RadioButton",
+var clazz = qx.Class.define("qx.ui.form.RadioButton",
 {
   extend : qx.ui.form.Input,
 
@@ -185,4 +197,8 @@ qx.Class.define("qx.ui.form.RadioButton",
       this.off("tap", this._onTap, this);
     }
   }
+});
+
+ qx.ui.form.RadioButton = clazz;
+return clazz;
 });

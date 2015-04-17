@@ -1,3 +1,16 @@
+define(['qx/Class', 'qx/core/Environment'], function(Dep0,Dep1) {
+var qx = {
+  "Class": Dep0,
+  "core": {
+    "Environment": Dep1
+  },
+  "bom": {
+    "client": {
+      "Html": null
+    }
+  }
+};
+
 "use strict";
 /* ************************************************************************
 
@@ -26,7 +39,7 @@
  *
  * @internal
  */
-qx.Class.define("qx.bom.client.Html",
+var clazz = qx.Class.define("qx.bom.client.Html",
 {
   statics:
   {
@@ -284,4 +297,8 @@ qx.Class.define("qx.bom.client.Html",
     qx.core.Environment.add("html.dataset", statics.getDataset);
     qx.core.Environment.add("html.history.state", statics.getHistoryState);
   }
+});
+
+ qx.bom.client.Html = clazz;
+return clazz;
 });

@@ -1,3 +1,17 @@
+define(['qx/Class', 'qx/core/Environment', 'qx/bom/Style'], function(Dep0,Dep1,Dep2) {
+var qx = {
+  "Class": Dep0,
+  "core": {
+    "Environment": Dep1
+  },
+  "bom": {
+    "Style": Dep2,
+    "client": {
+      "CssTransform": null
+    }
+  }
+};
+
 "use strict";
 /* ************************************************************************
 
@@ -27,7 +41,7 @@
  *
  * @internal
  */
-qx.Class.define("qx.bom.client.CssTransform",
+var clazz = qx.Class.define("qx.bom.client.CssTransform",
 {
   statics :
   {
@@ -147,4 +161,8 @@ qx.Class.define("qx.bom.client.CssTransform",
     qx.core.Environment.add("css.transform", statics.getSupport);
     qx.core.Environment.add("css.transform.3d", statics.get3D);
   }
+});
+
+ qx.bom.client.CssTransform = clazz;
+return clazz;
 });

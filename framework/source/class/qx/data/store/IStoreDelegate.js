@@ -1,3 +1,16 @@
+define(['qx/Interface', 'qx/data/marshal/IMarshalerDelegate'], function(Dep0,Dep1) {
+var qx = {
+  "Interface": Dep0,
+  "data": {
+    "marshal": {
+      "IMarshalerDelegate": Dep1
+    },
+    "store": {
+      "IStoreDelegate": null
+    }
+  }
+};
+
 "use strict";
 /* ************************************************************************
 
@@ -30,7 +43,7 @@
  * really implemented.
  */
 /* eslint no-unused-vars:0 */
-qx.Interface.define("qx.data.store.IStoreDelegate",
+var clazz = qx.Interface.define("qx.data.store.IStoreDelegate",
 {
   extend : qx.data.marshal.IMarshalerDelegate,
 
@@ -54,4 +67,8 @@ qx.Interface.define("qx.data.store.IStoreDelegate",
      */
     configureRequest : function(request) {}
   }
+});
+
+ qx.data.store.IStoreDelegate = clazz;
+return clazz;
 });

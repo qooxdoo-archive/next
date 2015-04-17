@@ -1,3 +1,27 @@
+define(['qx/Class', 'qx/ui/Widget', 'qx/ui/form/IForm', 'qx/ui/form/MForm', 'qx/ui/form/MText', 'qxWeb', 'qx/core/ValidationError', 'qx/lang/Type', 'qx/ui/dialog/Menu'], function(Dep0,Dep1,Dep2,Dep3,Dep4,Dep5,Dep6,Dep7,Dep8) {
+var qx = {
+  "Class": Dep0,
+  "ui": {
+    "Widget": Dep1,
+    "form": {
+      "IForm": Dep2,
+      "MForm": Dep3,
+      "MText": Dep4,
+      "SelectBox": null
+    },
+    "dialog": {
+      "Menu": Dep8
+    }
+  },
+  "core": {
+    "ValidationError": Dep6
+  },
+  "lang": {
+    "Type": Dep7
+  }
+};
+var qxWeb = Dep5;
+
 "use strict";
 /* ************************************************************************
 
@@ -24,7 +48,7 @@
  *
  * @group(Widget)
  */
-qx.Class.define("qx.ui.form.SelectBox",
+var clazz = qx.Class.define("qx.ui.form.SelectBox",
 {
   extend : qx.ui.Widget,
   include : [
@@ -256,4 +280,8 @@ qx.Class.define("qx.ui.form.SelectBox",
   classDefined : function(statics) {
     qxWeb.$attachWidget(statics);
   }
+});
+
+ qx.ui.form.SelectBox = clazz;
+return clazz;
 });

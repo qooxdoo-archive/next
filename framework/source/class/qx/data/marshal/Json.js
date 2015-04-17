@@ -1,3 +1,28 @@
+define(['qx/Class', 'qx/data/marshal/IMarshaler', 'qx/core/Assert', 'qx/core/Environment', 'qx/data/Array', 'qx/data/MBinding', 'qx/data/marshal/MEventBubbling', 'qx/event/MEmitter', 'qx/lang/Type', 'qxWeb'], function(Dep0,Dep1,Dep2,Dep3,Dep4,Dep5,Dep6,Dep7,Dep8,Dep9) {
+var qx = {
+  "Class": Dep0,
+  "data": {
+    "marshal": {
+      "IMarshaler": Dep1,
+      "MEventBubbling": Dep6,
+      "Json": null
+    },
+    "Array": Dep4,
+    "MBinding": Dep5
+  },
+  "core": {
+    "Assert": Dep2,
+    "Environment": Dep3
+  },
+  "event": {
+    "MEmitter": Dep7
+  },
+  "lang": {
+    "Type": Dep8
+  }
+};
+var qxWeb = Dep9;
+
 "use strict";
 /* ************************************************************************
 
@@ -22,7 +47,7 @@
  * This class is responsible for converting json data to class instances
  * including the creation of the classes.
  */
-qx.Class.define("qx.data.marshal.Json",
+var clazz = qx.Class.define("qx.data.marshal.Json",
 {
   extend : Object,
   implement : [qx.data.marshal.IMarshaler],
@@ -358,4 +383,8 @@ qx.Class.define("qx.data.marshal.Json",
       throw new Error("Unsupported type!");
     }
   }
+});
+
+ qx.data.marshal.Json = clazz;
+return clazz;
 });

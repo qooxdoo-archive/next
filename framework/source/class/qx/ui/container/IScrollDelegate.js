@@ -1,3 +1,13 @@
+define(['qx/Interface'], function(Dep0) {
+var qx = {
+  "Interface": Dep0,
+  "ui": {
+    "container": {
+      "IScrollDelegate": null
+    }
+  }
+};
+
 "use strict";
 /* ************************************************************************
 
@@ -27,7 +37,7 @@
  * listed in the <code>implement</code> key of a class unless all methods are
  * actually implemented.
  */
-qx.Interface.define("qx.ui.container.IScrollDelegate",
+var clazz = qx.Interface.define("qx.ui.container.IScrollDelegate",
 {
   members :
   {
@@ -38,4 +48,8 @@ qx.Interface.define("qx.ui.container.IScrollDelegate",
      */
     getScrollOffset: function() {}
   }
+});
+
+ qx.ui.container.IScrollDelegate = clazz;
+return clazz;
 });

@@ -1,3 +1,18 @@
+define(['qx/Class', 'qx/core/Environment', 'qx/bom/client/Browser', 'qx/bom/client/Engine'], function(Dep0,Dep1,Dep2,Dep3) {
+var qx = {
+  "Class": Dep0,
+  "core": {
+    "Environment": Dep1
+  },
+  "bom": {
+    "client": {
+      "Browser": Dep2,
+      "Engine": Dep3,
+      "Plugin": null
+    }
+  }
+};
+
 "use strict";
 /* ************************************************************************
 
@@ -27,7 +42,7 @@
  *
  * @internal
  */
-qx.Class.define("qx.bom.client.Plugin",
+var clazz = qx.Class.define("qx.bom.client.Plugin",
 {
   statics :
   {
@@ -430,4 +445,8 @@ qx.Class.define("qx.bom.client.Plugin",
     qx.core.Environment.add("plugin.activex", statics.getActiveX);
     qx.core.Environment.add("plugin.skype", statics.getSkype);
   }
+});
+
+ qx.bom.client.Plugin = clazz;
+return clazz;
 });

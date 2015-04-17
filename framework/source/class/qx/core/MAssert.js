@@ -1,3 +1,12 @@
+define(['qx/Mixin', 'qx/core/Assert'], function(Dep0,Dep1) {
+var qx = {
+  "Mixin": Dep0,
+  "core": {
+    "Assert": Dep1,
+    "MAssert": null
+  }
+};
+
 "use strict";
 /* ************************************************************************
 
@@ -25,7 +34,7 @@
  *
  * @require(qx.core.Assert)
  */
-qx.Mixin.define("qx.core.MAssert",
+var clazz = qx.Mixin.define("qx.core.MAssert",
 {
   members :
   {
@@ -488,4 +497,8 @@ qx.Mixin.define("qx.core.MAssert",
       qx.core.Assert.assertElement(value, msg);
     }
   }
+});
+
+ qx.core.MAssert = clazz;
+return clazz;
 });

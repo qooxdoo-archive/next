@@ -1,3 +1,22 @@
+define(['qx/Class', 'qx/type/BaseArray', 'qx/bom/Selector', 'qx/core/Environment', 'qx/lang/Array', 'qx/lang/Type'], function(Dep0,Dep1,Dep2,Dep3,Dep4,Dep5) {
+var qx = {
+  "Class": Dep0,
+  "type": {
+    "BaseArray": Dep1
+  },
+  "bom": {
+    "Selector": Dep2
+  },
+  "core": {
+    "Environment": Dep3
+  },
+  "lang": {
+    "Array": Dep4,
+    "Type": Dep5
+  }
+};
+var qxWeb = null;
+
 "use strict";
 /* ************************************************************************
 
@@ -39,7 +58,7 @@
  *
  * @group (Core)
  */
-qx.Class.define("qxWeb", {
+var clazz = qx.Class.define("qxWeb", {
   extend : qx.type.BaseArray,
   statics : {
     // internal storage for all initializers
@@ -421,4 +440,8 @@ qx.Class.define("qxWeb", {
       window.q = statics;
     }
   }
+});
+
+ qxWeb = clazz;
+return clazz;
 });

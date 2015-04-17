@@ -1,3 +1,15 @@
+define(['qx/Class', 'qx/bom/Cookie', 'qxWeb'], function(Dep0,Dep1,Dep2) {
+var qx = {
+  "Class": Dep0,
+  "bom": {
+    "Cookie": Dep1
+  },
+  "module": {
+    "Cookie": null
+  }
+};
+var qxWeb = Dep2;
+
 "use strict";
 /* ************************************************************************
 
@@ -21,7 +33,7 @@
 /**
  * Cookie handling module
  */
-qx.Class.define("qx.module.Cookie", {
+var clazz = qx.Class.define("qx.module.Cookie", {
   statics :
   {
     /**
@@ -75,4 +87,8 @@ qx.Class.define("qx.module.Cookie", {
       }
     });
   }
+});
+
+ qx.module.Cookie = clazz;
+return clazz;
 });

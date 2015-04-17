@@ -1,3 +1,11 @@
+define(['qx/Mixin'], function(Dep0) {
+var qx = {
+  "Mixin": Dep0,
+  "core": {
+    "MSingleton": null
+  }
+};
+
 "use strict";
 /* ************************************************************************
 
@@ -18,7 +26,7 @@
 
 ************************************************************************ */
 
-qx.Mixin.define("qx.core.MSingleton", {
+var clazz = qx.Mixin.define("qx.core.MSingleton", {
   statics : {
     __instance : null,
 
@@ -37,4 +45,8 @@ qx.Mixin.define("qx.core.MSingleton", {
       }
     }
   }
+});
+
+ qx.core.MSingleton = clazz;
+return clazz;
 });

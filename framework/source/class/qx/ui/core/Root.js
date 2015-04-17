@@ -1,3 +1,17 @@
+define(['qx/Class', 'qx/ui/Widget', 'qx/ui/layout/VBox'], function(Dep0,Dep1,Dep2) {
+var qx = {
+  "Class": Dep0,
+  "ui": {
+    "Widget": Dep1,
+    "layout": {
+      "VBox": Dep2
+    },
+    "core": {
+      "Root": null
+    }
+  }
+};
+
 "use strict";
 /* ************************************************************************
 
@@ -22,7 +36,7 @@
 /**
  * Root widget for the mobile application.
  */
-qx.Class.define("qx.ui.core.Root",
+var clazz = qx.Class.define("qx.ui.core.Root",
 {
   extend : qx.ui.Widget,
 
@@ -86,4 +100,8 @@ qx.Class.define("qx.ui.core.Root",
       this.off("touchmove", this._preventDefault);
     }
   }
+});
+
+ qx.ui.core.Root = clazz;
+return clazz;
 });

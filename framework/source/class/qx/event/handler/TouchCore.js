@@ -1,3 +1,30 @@
+define(['qx/Class', 'qx/bom/client/Engine', 'qx/bom/client/Event', 'qx/bom/client/OperatingSystem', 'qx/core/Environment', 'qx/bom/Event', 'qx/bom/element/Style', 'qx/lang/Function'], function(Dep0,Dep1,Dep2,Dep3,Dep4,Dep5,Dep6,Dep7) {
+var qx = {
+  "Class": Dep0,
+  "bom": {
+    "client": {
+      "Engine": Dep1,
+      "Event": Dep2,
+      "OperatingSystem": Dep3
+    },
+    "Event": Dep5,
+    "element": {
+      "Style": Dep6
+    }
+  },
+  "core": {
+    "Environment": Dep4
+  },
+  "lang": {
+    "Function": Dep7
+  },
+  "event": {
+    "handler": {
+      "TouchCore": null
+    }
+  }
+};
+
 "use strict";
 /* ************************************************************************
 
@@ -27,7 +54,7 @@
  *
  * @ignore(qx.event.*)
  */
-qx.Class.define("qx.event.handler.TouchCore", {
+var clazz = qx.Class.define("qx.event.handler.TouchCore", {
 
   extend : Object,
 
@@ -443,4 +470,8 @@ qx.Class.define("qx.event.handler.TouchCore", {
       this.__originalTarget = this.__target = this.__touchEventNames = this.__pointers = this.__emitter = this.__beginScalingDistance = this.__beginRotation = null;
     }
   }
+});
+
+ qx.event.handler.TouchCore = clazz;
+return clazz;
 });

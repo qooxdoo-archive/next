@@ -1,3 +1,12 @@
+define(['qx/Class', 'qx/core/Environment'], function(Dep0,Dep1) {
+var qx = {
+  "Class": Dep0,
+  "core": {
+    "Environment": Dep1
+  },
+  "Mixin": null
+};
+
 "use strict";
 /* ************************************************************************
 
@@ -27,7 +36,7 @@
  *
  * See the description of the {@link #define} method how a mixin is defined.
  */
-qx.Class.define("qx.Mixin",
+var clazz = qx.Class.define("qx.Mixin",
 {
   statics :
   {
@@ -418,4 +427,8 @@ qx.Class.define("qx.Mixin",
       "default" : function() {}
     })
   }
+});
+
+ qx.Mixin = clazz;
+return clazz;
 });

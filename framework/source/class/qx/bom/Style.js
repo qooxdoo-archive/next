@@ -1,3 +1,17 @@
+define(['qx/Class', 'qx/lang/String', 'qx/dom/Node'], function(Dep0,Dep1,Dep2) {
+var qx = {
+  "Class": Dep0,
+  "lang": {
+    "String": Dep1
+  },
+  "dom": {
+    "Node": Dep2
+  },
+  "bom": {
+    "Style": null
+  }
+};
+
 "use strict";
 /* ************************************************************************
 
@@ -27,7 +41,7 @@
  *
  * @require(qx.lang.String)
  */
-qx.Class.define("qx.bom.Style",
+var clazz = qx.Class.define("qx.bom.Style",
 {
   statics : {
     /** Vendor-specific style property prefixes */
@@ -154,11 +168,15 @@ qx.Class.define("qx.bom.Style",
     }
   },
 
-  classDefined : function() {
+  classDefined : function(statics) {
     if (window.CSS && window.CSS.supports) {
-      qx.bom.Style.__supports = window.CSS.supports.bind(window.CSS);
+      statics.__supports = window.CSS.supports.bind(window.CSS);
     } else if (window.supportsCSS) {
-      qx.bom.Style.__supports = window.supportsCSS.bind(window);
+      statics.__supports = window.supportsCSS.bind(window);
     }
   }
+});
+
+ qx.bom.Style = clazz;
+return clazz;
 });

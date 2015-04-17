@@ -1,3 +1,22 @@
+define(['qx/Class', 'qx/bom/client/Engine', 'qx/core/Environment', 'qx/lang/Type'], function(Dep0,Dep1,Dep2,Dep3) {
+var qx = {
+  "Class": Dep0,
+  "bom": {
+    "client": {
+      "Engine": Dep1
+    },
+    "element": {
+      "Attribute": null
+    }
+  },
+  "core": {
+    "Environment": Dep2
+  },
+  "lang": {
+    "Type": Dep3
+  }
+};
+
 "use strict";
 /* ************************************************************************
 
@@ -69,7 +88,7 @@
  * Supports applying text and HTML content using the attribute names
  * <code>text</code> and <code>html</code>.
  */
-qx.Class.define("qx.bom.element.Attribute",
+var clazz = qx.Class.define("qx.bom.element.Attribute",
 {
 
 
@@ -333,4 +352,8 @@ qx.Class.define("qx.bom.element.Attribute",
       }
     }
   }
+});
+
+ qx.bom.element.Attribute = clazz;
+return clazz;
 });

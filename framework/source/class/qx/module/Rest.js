@@ -1,3 +1,17 @@
+define(['qx/Class', 'qxWeb', 'qx/io/rest/Resource'], function(Dep0,Dep1,Dep2) {
+var qx = {
+  "Class": Dep0,
+  "io": {
+    "rest": {
+      "Resource": Dep2
+    }
+  },
+  "module": {
+    "Rest": null
+  }
+};
+var qxWeb = Dep1;
+
 "use strict";
 /* ************************************************************************
 
@@ -25,7 +39,7 @@
  *
  * @group (IO)
  */
-qx.Class.define("qx.module.Rest", {
+var clazz = qx.Class.define("qx.module.Rest", {
   statics :
   {
     /**
@@ -49,4 +63,8 @@ qx.Class.define("qx.module.Rest", {
       }
     });
   }
+});
+
+ qx.module.Rest = clazz;
+return clazz;
 });

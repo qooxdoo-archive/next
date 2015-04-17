@@ -1,3 +1,17 @@
+define(['qx/Class', 'qxWeb', 'qx/bom/element/Dataset'], function(Dep0,Dep1,Dep2) {
+var qx = {
+  "Class": Dep0,
+  "bom": {
+    "element": {
+      "Dataset": Dep2
+    }
+  },
+  "module": {
+    "Dataset": null
+  }
+};
+var qxWeb = Dep1;
+
 "use strict";
 /* ************************************************************************
 
@@ -21,7 +35,7 @@
 /**
  * Module for handling of HTML5 data-* attributes
  */
-qx.Class.define("qx.module.Dataset", {
+var clazz = qx.Class.define("qx.module.Dataset", {
 
   statics: {
 
@@ -112,4 +126,8 @@ qx.Class.define("qx.module.Dataset", {
       "hasData" : statics.hasData
     });
   }
+});
+
+ qx.module.Dataset = clazz;
+return clazz;
 });

@@ -1,3 +1,29 @@
+define(['qx/Class', 'qx/core/Environment', 'qx/event/MEmitter', 'qx/core/Assert', 'qx/lang/Object', 'qx/lang/Type', 'qx/util/Request', 'qx/util/Serializer', 'qx/util/Uri'], function(Dep0,Dep1,Dep2,Dep3,Dep4,Dep5,Dep6,Dep7,Dep8) {
+var qx = {
+  "Class": Dep0,
+  "core": {
+    "Environment": Dep1,
+    "Assert": Dep3
+  },
+  "event": {
+    "MEmitter": Dep2
+  },
+  "lang": {
+    "Object": Dep4,
+    "Type": Dep5
+  },
+  "util": {
+    "Request": Dep6,
+    "Serializer": Dep7,
+    "Uri": Dep8
+  },
+  "io": {
+    "request": {
+      "AbstractRequest": null
+    }
+  }
+};
+
 "use strict";
 /* ************************************************************************
 
@@ -33,7 +59,7 @@
  *
  * @group (IO)
  */
-qx.Class.define("qx.io.request.AbstractRequest",
+var clazz = qx.Class.define("qx.io.request.AbstractRequest",
 {
   extend : Object,
 
@@ -838,4 +864,8 @@ qx.Class.define("qx.io.request.AbstractRequest",
   classDefined: function() {
     qx.core.Environment.add("qx.debug.io", false);
   }
+});
+
+ qx.io.request.AbstractRequest = clazz;
+return clazz;
 });

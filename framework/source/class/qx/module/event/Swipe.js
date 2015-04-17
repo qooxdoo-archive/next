@@ -1,3 +1,15 @@
+define(['qx/Class', 'qxWeb', 'qx/module/Event'], function(Dep0,Dep1,Dep2) {
+var qx = {
+  "Class": Dep0,
+  "module": {
+    "Event": Dep2,
+    "event": {
+      "Swipe": null
+    }
+  }
+};
+var qxWeb = Dep1;
+
 "use strict";
 /* ************************************************************************
 
@@ -27,7 +39,7 @@
  *
  * @group (Event_Normalization)
  */
-qx.Class.define("qx.module.event.Swipe", {
+var clazz = qx.Class.define("qx.module.event.Swipe", {
   statics :
   {
     /**
@@ -136,4 +148,8 @@ qx.Class.define("qx.module.event.Swipe", {
   classDefined : function(statics) {
     qxWeb.$registerEventNormalization(qx.module.event.Swipe.TYPES, statics.normalize);
   }
+});
+
+ qx.module.event.Swipe = clazz;
+return clazz;
 });

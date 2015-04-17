@@ -1,3 +1,15 @@
+define(['qx/Class', 'qx/lang/Function', 'qx/lang/Type'], function(Dep0,Dep1,Dep2) {
+var qx = {
+  "Class": Dep0,
+  "lang": {
+    "Function": Dep1,
+    "Type": Dep2
+  },
+  "util": {
+    "Delegate": null
+  }
+};
+
 "use strict";
 /* ************************************************************************
 
@@ -22,7 +34,7 @@
 /**
  * Methods to work with the delegate pattern.
  */
-qx.Class.define("qx.util.Delegate",
+var clazz = qx.Class.define("qx.util.Delegate",
 {
   statics :
   {
@@ -62,4 +74,8 @@ qx.Class.define("qx.util.Delegate",
       return false;
     }
   }
+});
+
+ qx.util.Delegate = clazz;
+return clazz;
 });

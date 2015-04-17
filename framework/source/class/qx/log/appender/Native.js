@@ -1,3 +1,20 @@
+define(['qx/Class', 'qx/log/Logger', 'qx/log/appender/Util', 'qx/bom/client/Html'], function(Dep0,Dep1,Dep2,Dep3) {
+var qx = {
+  "Class": Dep0,
+  "log": {
+    "Logger": Dep1,
+    "appender": {
+      "Util": Dep2,
+      "Native": null
+    }
+  },
+  "bom": {
+    "client": {
+      "Html": Dep3
+    }
+  }
+};
+
 "use strict";
 /* ************************************************************************
 
@@ -35,7 +52,7 @@
  * @require(qx.log.appender.Util)
  * @require(qx.bom.client.Html)
  */
-qx.Class.define("qx.log.appender.Native",
+var clazz = qx.Class.define("qx.log.appender.Native",
 {
   statics :
   {
@@ -63,4 +80,8 @@ qx.Class.define("qx.log.appender.Native",
   classDefined : function(statics) {
     qx.log.Logger.register(statics);
   }
+});
+
+ qx.log.appender.Native = clazz;
+return clazz;
 });

@@ -1,3 +1,17 @@
+define(['qx/Class', 'qx/core/Environment', 'qx/lang/Type'], function(Dep0,Dep1,Dep2) {
+var qx = {
+  "Class": Dep0,
+  "core": {
+    "Environment": Dep1
+  },
+  "lang": {
+    "Type": Dep2
+  },
+  "util": {
+    "Uri": null
+  }
+};
+
 "use strict";
 /* ************************************************************************
 
@@ -21,7 +35,7 @@
 /**
  * Static helpers for parsing and modifying URIs.
  */
-qx.Class.define("qx.util.Uri",
+var clazz = qx.Class.define("qx.util.Uri",
 {
 
   statics:
@@ -172,4 +186,8 @@ qx.Class.define("qx.util.Uri",
       return div.firstChild.href;
     }
   }
+});
+
+ qx.util.Uri = clazz;
+return clazz;
 });

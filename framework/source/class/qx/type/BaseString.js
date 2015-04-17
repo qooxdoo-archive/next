@@ -1,3 +1,11 @@
+define(['qx/Class'], function(Dep0) {
+var qx = {
+  "Class": Dep0,
+  "type": {
+    "BaseString": null
+  }
+};
+
 /* eslint strict:0 */
 /* ************************************************************************
 
@@ -34,7 +42,7 @@
  *
  * Instances of this class can be used in any place a JavaScript string can.
  */
-qx.Class.define("qx.type.BaseString",
+var clazz = qx.Class.define("qx.type.BaseString",
 {
   extend : Object,
 
@@ -376,4 +384,8 @@ qx.Class.define("qx.type.BaseString",
      }
    }
 
+});
+
+ qx.type.BaseString = clazz;
+return clazz;
 });

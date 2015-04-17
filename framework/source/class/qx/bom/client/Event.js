@@ -1,3 +1,17 @@
+define(['qx/Class', 'qx/bom/Event', 'qx/core/Environment'], function(Dep0,Dep1,Dep2) {
+var qx = {
+  "Class": Dep0,
+  "bom": {
+    "Event": Dep1,
+    "client": {
+      "Event": null
+    }
+  },
+  "core": {
+    "Environment": Dep2
+  }
+};
+
 "use strict";
 /* ************************************************************************
 
@@ -27,7 +41,7 @@
  *
  * @internal
  */
-qx.Class.define("qx.bom.client.Event",
+var clazz = qx.Class.define("qx.bom.client.Event",
 {
   statics :
   {
@@ -153,4 +167,8 @@ qx.Class.define("qx.bom.client.Event",
     qx.core.Environment.add("event.help", statics.getHelp);
     qx.core.Environment.add("event.mousewheel", statics.getMouseWheel);
   }
+});
+
+ qx.bom.client.Event = clazz;
+return clazz;
 });

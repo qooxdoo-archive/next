@@ -1,3 +1,21 @@
+define(['qx/Class', 'qx/io/request/AbstractRequest', 'qx/core/Environment', 'qx/io/request/Script', 'qx/util/Uri'], function(Dep0,Dep1,Dep2,Dep3,Dep4) {
+var qx = {
+  "Class": Dep0,
+  "io": {
+    "request": {
+      "AbstractRequest": Dep1,
+      "Script": Dep3,
+      "Jsonp": null
+    }
+  },
+  "core": {
+    "Environment": Dep2
+  },
+  "util": {
+    "Uri": Dep4
+  }
+};
+
 "use strict";
 /* ************************************************************************
 
@@ -46,7 +64,7 @@
  *
  * @group (IO)
  */
-qx.Class.define("qx.io.request.Jsonp",
+var clazz = qx.Class.define("qx.io.request.Jsonp",
 {
   extend: qx.io.request.AbstractRequest,
 
@@ -490,4 +508,8 @@ qx.Class.define("qx.io.request.Jsonp",
       this.__callTransport("setRequestHeader");
     }
   }
+});
+
+ qx.io.request.Jsonp = clazz;
+return clazz;
 });

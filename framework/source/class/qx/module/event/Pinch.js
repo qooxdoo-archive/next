@@ -1,3 +1,15 @@
+define(['qx/Class', 'qxWeb', 'qx/module/Event'], function(Dep0,Dep1,Dep2) {
+var qx = {
+  "Class": Dep0,
+  "module": {
+    "Event": Dep2,
+    "event": {
+      "Pinch": null
+    }
+  }
+};
+var qxWeb = Dep1;
+
 "use strict";
 /* ************************************************************************
 
@@ -25,7 +37,7 @@
  *
  * @group (Event_Normalization)
  */
-qx.Class.define("qx.module.event.Pinch", {
+var clazz = qx.Class.define("qx.module.event.Pinch", {
   statics :
   {
     /**
@@ -75,4 +87,8 @@ qx.Class.define("qx.module.event.Pinch", {
   classDefined : function(statics) {
     qxWeb.$registerEventNormalization(qx.module.event.Pinch.TYPES, statics.normalize);
   }
+});
+
+ qx.module.event.Pinch = clazz;
+return clazz;
 });

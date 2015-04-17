@@ -1,3 +1,14 @@
+define(['qx/Class', 'qx/lang/Type'], function(Dep0,Dep1) {
+var qx = {
+  "Class": Dep0,
+  "lang": {
+    "Type": Dep1
+  },
+  "bom": {
+    "Storage": null
+  }
+};
+
 "use strict";
 /* ************************************************************************
 
@@ -30,7 +41,7 @@
  * @require(qx.bom.Storage#getKey)
  * @require(qx.bom.Storage#forEach)
  */
-qx.Class.define("qx.bom.Storage", {
+var clazz = qx.Class.define("qx.bom.Storage", {
   statics : {
     __local : null,
     __session : null,
@@ -182,4 +193,8 @@ qx.Class.define("qx.bom.Storage", {
       }
     }
   }
+});
+
+ qx.bom.Storage = clazz;
+return clazz;
 });

@@ -1,3 +1,36 @@
+define(['qx/Class', 'qx/ui/Widget', 'qxWeb', 'qx/module/Blocker', 'qx/core/Environment', 'qx/lang/Function', 'qx/log/Logger', 'qx/ui/Atom', 'qx/ui/layout/VBox', 'qx/util/placement/Placement'], function(Dep0,Dep1,Dep2,Dep3,Dep4,Dep5,Dep6,Dep7,Dep8,Dep9) {
+var qx = {
+  "Class": Dep0,
+  "ui": {
+    "Widget": Dep1,
+    "Atom": Dep7,
+    "layout": {
+      "VBox": Dep8
+    },
+    "dialog": {
+      "Popup": null
+    }
+  },
+  "module": {
+    "Blocker": Dep3
+  },
+  "core": {
+    "Environment": Dep4
+  },
+  "lang": {
+    "Function": Dep5
+  },
+  "log": {
+    "Logger": Dep6
+  },
+  "util": {
+    "placement": {
+      "Placement": Dep9
+    }
+  }
+};
+var qxWeb = Dep2;
+
 "use strict";
 /* ************************************************************************
 
@@ -63,7 +96,7 @@
  *
  * @group(Widget)
  */
-qx.Class.define("qx.ui.dialog.Popup",
+var clazz = qx.Class.define("qx.ui.dialog.Popup",
 {
   extend : qx.ui.Widget,
 
@@ -581,4 +614,8 @@ qx.Class.define("qx.ui.dialog.Popup",
   classDefined : function(statics) {
     qxWeb.$attachWidget(statics);
   }
+});
+
+ qx.ui.dialog.Popup = clazz;
+return clazz;
 });

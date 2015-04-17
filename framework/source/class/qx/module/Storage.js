@@ -1,3 +1,15 @@
+define(['qx/Class', 'qxWeb', 'qx/bom/Storage'], function(Dep0,Dep1,Dep2) {
+var qx = {
+  "Class": Dep0,
+  "bom": {
+    "Storage": Dep2
+  },
+  "module": {
+    "Storage": null
+  }
+};
+var qxWeb = Dep1;
+
 "use strict";
 /* ************************************************************************
 
@@ -23,7 +35,7 @@
  * with the API of the HTML web storage (http://www.w3.org/TR/webstorage/) which is
  * also the preferred implementation used.
  */
-qx.Class.define("qx.module.Storage", {
+var clazz = qx.Class.define("qx.module.Storage", {
   statics :
   {
     /**
@@ -205,4 +217,8 @@ qx.Class.define("qx.module.Storage", {
       }
     });
   }
+});
+
+ qx.module.Storage = clazz;
+return clazz;
 });

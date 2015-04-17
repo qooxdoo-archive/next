@@ -1,3 +1,22 @@
+define(['qx/Class', 'qx/bom/client/Html', 'qx/core/Environment', 'qx/log/Logger'], function(Dep0,Dep1,Dep2,Dep3) {
+var qx = {
+  "Class": Dep0,
+  "bom": {
+    "client": {
+      "Html": Dep1
+    },
+    "element": {
+      "Class": null
+    }
+  },
+  "core": {
+    "Environment": Dep2
+  },
+  "log": {
+    "Logger": Dep3
+  }
+};
+
 "use strict";
 /* ************************************************************************
 
@@ -40,7 +59,7 @@
  * CSS class name support for HTML elements. Supports multiple class names
  * for each element. Can query and apply class names to HTML elements.
  */
-qx.Class.define("qx.bom.element.Class",
+var clazz = qx.Class.define("qx.bom.element.Class",
 {
 
 
@@ -287,4 +306,8 @@ qx.Class.define("qx.bom.element.Class",
       }
     }[qx.core.Environment.get("html.classlist") ? "native" : "default"]
   }
+});
+
+ qx.bom.element.Class = clazz;
+return clazz;
 });

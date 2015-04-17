@@ -1,3 +1,25 @@
+define(['qx/Class', 'qx/bom/client/Browser', 'qx/event/MEmitter', 'qx/bom/HashHistory', 'qx/bom/NativeHistory', 'qx/core/Environment', 'qx/lang/Type'], function(Dep0,Dep1,Dep2,Dep3,Dep4,Dep5,Dep6) {
+var qx = {
+  "Class": Dep0,
+  "bom": {
+    "client": {
+      "Browser": Dep1
+    },
+    "HashHistory": Dep3,
+    "NativeHistory": Dep4,
+    "History": null
+  },
+  "event": {
+    "MEmitter": Dep2
+  },
+  "core": {
+    "Environment": Dep5
+  },
+  "lang": {
+    "Type": Dep6
+  }
+};
+
 "use strict";
 /* ************************************************************************
 
@@ -96,7 +118,7 @@
  *
  * @asset(qx/static/blank.html)
  */
-qx.Class.define("qx.bom.History",
+var clazz = qx.Class.define("qx.bom.History",
 {
   extend : Object,
   include : [qx.event.MEmitter],
@@ -309,4 +331,8 @@ qx.Class.define("qx.bom.History",
       return hash && hash[1] ? hash[1] : "";
     }
   }
+});
+
+ qx.bom.History = clazz;
+return clazz;
 });

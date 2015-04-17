@@ -1,3 +1,21 @@
+define(['qx/Class', 'qx/bom/History', 'qx/core/Assert', 'qx/core/Environment', 'qx/event/Messaging'], function(Dep0,Dep1,Dep2,Dep3,Dep4) {
+var qx = {
+  "Class": Dep0,
+  "bom": {
+    "History": Dep1
+  },
+  "core": {
+    "Assert": Dep2,
+    "Environment": Dep3
+  },
+  "event": {
+    "Messaging": Dep4
+  },
+  "application": {
+    "Routing": null
+  }
+};
+
 "use strict";
 /* ************************************************************************
 
@@ -82,7 +100,7 @@
  *
  * This example defines different routes to handle navigation events.
  */
-qx.Class.define("qx.application.Routing", {
+var clazz = qx.Class.define("qx.application.Routing", {
 
   extend : Object,
 
@@ -504,4 +522,8 @@ qx.Class.define("qx.application.Routing", {
       this.__navigationHandler.off("changeState", this.__onChangeHash, this);
     }
   }
+});
+
+ qx.application.Routing = clazz;
+return clazz;
 });

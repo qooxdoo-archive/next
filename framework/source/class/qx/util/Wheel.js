@@ -1,3 +1,11 @@
+define(['qx/Class'], function(Dep0) {
+var qx = {
+  "Class": Dep0,
+  "util": {
+    "Wheel": null
+  }
+};
+
 "use strict";
 /* ************************************************************************
 
@@ -21,7 +29,7 @@
 /**
  * Util for mouse wheel normalization.
  */
-qx.Class.define("qx.util.Wheel", {
+var clazz = qx.Class.define("qx.util.Wheel", {
   statics: {
     /**
      * The maximal measured scroll wheel delta.
@@ -176,4 +184,8 @@ qx.Class.define("qx.util.Wheel", {
       qx.util.Wheel.FACTOR = 6 / maxRet;
     }
   }
+});
+
+ qx.util.Wheel = clazz;
+return clazz;
 });

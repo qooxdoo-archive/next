@@ -1,3 +1,13 @@
+define(['qx/Mixin'], function(Dep0) {
+var qx = {
+  "Mixin": Dep0,
+  "ui": {
+    "form": {
+      "MForm": null
+    }
+  }
+};
+
 "use strict";
 /* ************************************************************************
 
@@ -21,7 +31,7 @@
 /**
  * Mixin handling the common properties of form widgets.
  */
-qx.Mixin.define("qx.ui.form.MForm",
+var clazz = qx.Mixin.define("qx.ui.form.MForm",
 {
 
   events: {
@@ -355,4 +365,8 @@ qx.Mixin.define("qx.ui.form.MForm",
       }
     }
   }
+});
+
+ qx.ui.form.MForm = clazz;
+return clazz;
 });

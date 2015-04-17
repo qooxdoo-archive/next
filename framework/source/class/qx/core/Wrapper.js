@@ -1,3 +1,11 @@
+define(['qx/Class'], function(Dep0) {
+var qx = {
+  "Class": Dep0,
+  "core": {
+    "Wrapper": null
+  }
+};
+
 "use strict";
 /* ************************************************************************
 
@@ -15,7 +23,7 @@
 
 ************************************************************************ */
 /* eslint no-shadow:0 */
-qx.Class.define("qx.core.Wrapper", {
+var clazz = qx.Class.define("qx.core.Wrapper", {
   extend : Array,
   construct : function() {
     for (var i=0, l=arguments.length; i<l; i++) {
@@ -64,4 +72,8 @@ qx.Class.define("qx.core.Wrapper", {
       }
     }
   }
+});
+
+ qx.core.Wrapper = clazz;
+return clazz;
 });

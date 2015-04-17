@@ -1,3 +1,32 @@
+define(['qx/Class', 'qx/bom/client/Browser', 'qx/bom/client/Engine', 'qx/bom/client/Event', 'qx/bom/client/OperatingSystem', 'qx/event/type/dom/Custom', 'qxWeb', 'qx/bom/Viewport', 'qx/core/Environment', 'qx/dom/Node'], function(Dep0,Dep1,Dep2,Dep3,Dep4,Dep5,Dep6,Dep7,Dep8,Dep9) {
+var qx = {
+  "Class": Dep0,
+  "bom": {
+    "client": {
+      "Browser": Dep1,
+      "Engine": Dep2,
+      "Event": Dep3,
+      "OperatingSystem": Dep4
+    },
+    "Viewport": Dep7
+  },
+  "event": {
+    "type": {
+      "dom": {
+        "Custom": Dep5,
+        "Pointer": null
+      }
+    }
+  },
+  "core": {
+    "Environment": Dep8
+  },
+  "dom": {
+    "Node": Dep9
+  }
+};
+var qxWeb = Dep6;
+
 "use strict";
 /* ************************************************************************
 
@@ -22,7 +51,7 @@
 /**
  * Synthetic pointer event
  */
-qx.Class.define("qx.event.type.dom.Pointer", {
+var clazz = qx.Class.define("qx.event.type.dom.Pointer", {
   extend: qx.event.type.dom.Custom,
 
   statics : {
@@ -316,4 +345,8 @@ qx.Class.define("qx.event.type.dom.Pointer", {
       statics.READONLY_PROPERTIES = statics.READONLY_PROPERTIES.concat(statics.MOUSE_PROPERTIES);
     }
   }
+});
+
+ qx.event.type.dom.Pointer = clazz;
+return clazz;
 });

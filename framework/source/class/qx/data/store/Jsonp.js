@@ -1,3 +1,22 @@
+define(['qx/Class', 'qx/data/store/Json', 'qx/io/request/Jsonp', 'qx/lang/Type'], function(Dep0,Dep1,Dep2,Dep3) {
+var qx = {
+  "Class": Dep0,
+  "data": {
+    "store": {
+      "Json": Dep1,
+      "Jsonp": null
+    }
+  },
+  "io": {
+    "request": {
+      "Jsonp": Dep2
+    }
+  },
+  "lang": {
+    "Type": Dep3
+  }
+};
+
 "use strict";
 /* ************************************************************************
 
@@ -30,7 +49,7 @@
  * also apply to this class.
  *
  */
-qx.Class.define("qx.data.store.Jsonp",
+var clazz = qx.Class.define("qx.data.store.Jsonp",
 {
   extend : qx.data.store.Json,
 
@@ -114,4 +133,8 @@ qx.Class.define("qx.data.store.Jsonp",
       req.send();
     }
   }
+});
+
+ qx.data.store.Jsonp = clazz;
+return clazz;
 });

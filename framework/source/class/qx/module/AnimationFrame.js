@@ -1,3 +1,15 @@
+define(['qx/Class', 'qx/bom/AnimationFrame', 'qxWeb'], function(Dep0,Dep1,Dep2) {
+var qx = {
+  "Class": Dep0,
+  "bom": {
+    "AnimationFrame": Dep1
+  },
+  "module": {
+    "AnimationFrame": null
+  }
+};
+var qxWeb = Dep2;
+
 "use strict";
 /* ************************************************************************
 
@@ -18,7 +30,7 @@
 /**
  * AnimationFrame fallback module
  */
-qx.Class.define("qx.module.AnimationFrame", {
+var clazz = qx.Class.define("qx.module.AnimationFrame", {
   statics :
   {
     /**
@@ -43,4 +55,8 @@ qx.Class.define("qx.module.AnimationFrame", {
       "requestAnimationFrame" : statics.requestAnimationFrame
     });
   }
+});
+
+ qx.module.AnimationFrame = clazz;
+return clazz;
 });

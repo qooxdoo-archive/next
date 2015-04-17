@@ -1,3 +1,14 @@
+define(['qx/Class', 'qx/util/placement/AbstractAxis'], function(Dep0,Dep1) {
+var qx = {
+  "Class": Dep0,
+  "util": {
+    "placement": {
+      "AbstractAxis": Dep1,
+      "KeepAlignAxis": null
+    }
+  }
+};
+
 "use strict";
 /* ************************************************************************
 
@@ -24,7 +35,7 @@
  * range this class places the object at the best "edge", "alignment"
  * combination so that the overlap between object and range is maximized.
  */
-qx.Class.define("qx.util.placement.KeepAlignAxis",
+var clazz = qx.Class.define("qx.util.placement.KeepAlignAxis",
 {
   statics :
   {
@@ -102,4 +113,8 @@ qx.Class.define("qx.util.placement.KeepAlignAxis",
       return start;
     }
   }
+});
+
+ qx.util.placement.KeepAlignAxis = clazz;
+return clazz;
 });

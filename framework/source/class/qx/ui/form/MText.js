@@ -1,3 +1,26 @@
+define(['qx/Mixin', 'qx/bom/client/Browser', 'qx/bom/client/OperatingSystem', 'qx/core/Environment', 'qx/core/ValidationError', 'qx/util/Validate'], function(Dep0,Dep1,Dep2,Dep3,Dep4,Dep5) {
+var qx = {
+  "Mixin": Dep0,
+  "bom": {
+    "client": {
+      "Browser": Dep1,
+      "OperatingSystem": Dep2
+    }
+  },
+  "core": {
+    "Environment": Dep3,
+    "ValidationError": Dep4
+  },
+  "util": {
+    "Validate": Dep5
+  },
+  "ui": {
+    "form": {
+      "MText": null
+    }
+  }
+};
+
 "use strict";
 /* ************************************************************************
 
@@ -22,7 +45,7 @@
  * The mixin contains all functionality to provide common properties for
  * text fields.
  */
-qx.Mixin.define("qx.ui.form.MText",
+var clazz = qx.Mixin.define("qx.ui.form.MText",
 {
   properties :
   {
@@ -207,4 +230,8 @@ qx.Mixin.define("qx.ui.form.MText",
       return true;
     }
   }
+});
+
+ qx.ui.form.MText = clazz;
+return clazz;
 });

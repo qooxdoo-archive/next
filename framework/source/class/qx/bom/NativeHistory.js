@@ -1,3 +1,19 @@
+define(['qx/Class', 'qx/bom/History', 'qx/module/Event', 'qx/lang/Type', 'qxWeb'], function(Dep0,Dep1,Dep2,Dep3,Dep4) {
+var qx = {
+  "Class": Dep0,
+  "bom": {
+    "History": Dep1,
+    "NativeHistory": null
+  },
+  "module": {
+    "Event": Dep2
+  },
+  "lang": {
+    "Type": Dep3
+  }
+};
+var qxWeb = Dep4;
+
 "use strict";
 /* ************************************************************************
 
@@ -27,7 +43,7 @@
  * @require(qx.module.Event)
  * @internal
  */
-qx.Class.define("qx.bom.NativeHistory",
+var clazz = qx.Class.define("qx.bom.NativeHistory",
 {
   extend : qx.bom.History,
 
@@ -98,4 +114,8 @@ qx.Class.define("qx.bom.NativeHistory",
       this.__detatchListeners();
     }
   }
+});
+
+ qx.bom.NativeHistory = clazz;
+return clazz;
 });

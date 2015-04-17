@@ -1,3 +1,24 @@
+define(['qx/Class', 'qx/ui/Widget', 'qxWeb', 'qx/core/Assert', 'qx/core/Environment', 'qx/ui/container/INavigation', 'qx/ui/layout/Card', 'qx/ui/layout/VBox'], function(Dep0,Dep1,Dep2,Dep3,Dep4,Dep5,Dep6,Dep7) {
+var qx = {
+  "Class": Dep0,
+  "ui": {
+    "Widget": Dep1,
+    "container": {
+      "INavigation": Dep5,
+      "Navigation": null
+    },
+    "layout": {
+      "Card": Dep6,
+      "VBox": Dep7
+    }
+  },
+  "core": {
+    "Assert": Dep3,
+    "Environment": Dep4
+  }
+};
+var qxWeb = Dep2;
+
 "use strict";
 /* ************************************************************************
 
@@ -37,7 +58,7 @@
  *   page.show();
  * </pre>
  */
-qx.Class.define("qx.ui.container.Navigation",
+var clazz = qx.Class.define("qx.ui.container.Navigation",
 {
   extend : qx.ui.Widget,
 
@@ -220,4 +241,8 @@ qx.Class.define("qx.ui.container.Navigation",
   classDefined : function(statics) {
     qxWeb.$attachWidget(statics);
   }
+});
+
+ qx.ui.container.Navigation = clazz;
+return clazz;
 });

@@ -1,3 +1,11 @@
+define(['qx/Class'], function(Dep0) {
+var qx = {
+  "Class": Dep0,
+  "util": {
+    "RingBuffer": null
+  }
+};
+
 "use strict";
 /* ************************************************************************
 
@@ -31,7 +39,7 @@
  * and processed. Whenever this happens, a mark() call can be used so that the
  * next extraction will only get new data.
  */
-qx.Class.define("qx.util.RingBuffer",
+var clazz = qx.Class.define("qx.util.RingBuffer",
 {
   extend : Object,
 
@@ -225,4 +233,8 @@ qx.Class.define("qx.util.RingBuffer",
       return result;
     }
   }
+});
+
+ qx.util.RingBuffer = clazz;
+return clazz;
 });

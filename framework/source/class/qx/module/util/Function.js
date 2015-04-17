@@ -1,3 +1,17 @@
+define(['qx/Class', 'qxWeb', 'qx/lang/Array'], function(Dep0,Dep1,Dep2) {
+var qx = {
+  "Class": Dep0,
+  "lang": {
+    "Array": Dep2
+  },
+  "module": {
+    "util": {
+      "Function": null
+    }
+  }
+};
+var qxWeb = Dep1;
+
 /* eslint strict:0 */
 /* eslint no-caller:0 */
 /* ************************************************************************
@@ -38,7 +52,7 @@
  * @group (Utilities)
  */
 
-qx.Class.define("qx.module.util.Function", {
+var clazz = qx.Class.define("qx.module.util.Function", {
 
   statics :
   {
@@ -170,4 +184,8 @@ qx.Class.define("qx.module.util.Function", {
       }
     });
   }
+});
+
+ qx.module.util.Function = clazz;
+return clazz;
 });

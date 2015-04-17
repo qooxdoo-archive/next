@@ -1,3 +1,23 @@
+define(['qx/Class', 'qx/log/appender/RingBuffer', 'qx/dev/StackTrace', 'qx/core/Environment', 'qx/lang/Function'], function(Dep0,Dep1,Dep2,Dep3,Dep4) {
+var qx = {
+  "Class": Dep0,
+  "log": {
+    "appender": {
+      "RingBuffer": Dep1
+    },
+    "Logger": null
+  },
+  "dev": {
+    "StackTrace": Dep2
+  },
+  "core": {
+    "Environment": Dep3
+  },
+  "lang": {
+    "Function": Dep4
+  }
+};
+
 "use strict";
 /* ************************************************************************
 
@@ -31,7 +51,7 @@
  *
  * @require(qx.dev.StackTrace)
  */
-qx.Class.define("qx.log.Logger", {
+var clazz = qx.Class.define("qx.log.Logger", {
   statics: {
     /*
     ---------------------------------------------------------------------------
@@ -627,4 +647,8 @@ qx.Class.define("qx.log.Logger", {
     qx.Class.error = statics.error;
     qx.Class.trace = statics.trace;
   }
+});
+
+ qx.log.Logger = clazz;
+return clazz;
 });

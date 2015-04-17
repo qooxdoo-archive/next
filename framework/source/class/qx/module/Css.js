@@ -1,3 +1,29 @@
+define(['qx/Class', 'qxWeb', 'qx/bom/Document', 'qx/bom/Stylesheet', 'qx/bom/Viewport', 'qx/bom/element/Class', 'qx/bom/element/Dimension', 'qx/bom/element/Location', 'qx/bom/element/Style', 'qx/dom/Node', 'qx/lang/String'], function(Dep0,Dep1,Dep2,Dep3,Dep4,Dep5,Dep6,Dep7,Dep8,Dep9,Dep10) {
+var qx = {
+  "Class": Dep0,
+  "bom": {
+    "Document": Dep2,
+    "Stylesheet": Dep3,
+    "Viewport": Dep4,
+    "element": {
+      "Class": Dep5,
+      "Dimension": Dep6,
+      "Location": Dep7,
+      "Style": Dep8
+    }
+  },
+  "dom": {
+    "Node": Dep9
+  },
+  "lang": {
+    "String": Dep10
+  },
+  "module": {
+    "Css": null
+  }
+};
+var qxWeb = Dep1;
+
 "use strict";
 /* ************************************************************************
 
@@ -22,7 +48,7 @@
  * CSS/Style property manipulation module
  * @group (Core)
  */
-qx.Class.define("qx.module.Css", {
+var clazz = qx.Class.define("qx.module.Css", {
   statics: {
 
 
@@ -627,4 +653,8 @@ qx.Class.define("qx.module.Css", {
       "includeStylesheet" : statics.includeStylesheet
     });
   }
+});
+
+ qx.module.Css = clazz;
+return clazz;
 });

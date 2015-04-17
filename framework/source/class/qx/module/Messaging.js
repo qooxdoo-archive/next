@@ -1,3 +1,15 @@
+define(['qx/Class', 'qx/event/Messaging', 'qxWeb'], function(Dep0,Dep1,Dep2) {
+var qx = {
+  "Class": Dep0,
+  "event": {
+    "Messaging": Dep1
+  },
+  "module": {
+    "Messaging": null
+  }
+};
+var qxWeb = Dep2;
+
 "use strict";
 /* ************************************************************************
 
@@ -30,7 +42,7 @@
  * @require(qx.event.Messaging#remove)
  * @require(qx.event.Messaging#emit)
  */
-qx.Class.define("qx.module.Messaging", {
+var clazz = qx.Class.define("qx.module.Messaging", {
   statics: {
     /**
      * Adds a route handler for the given channel. The route is called
@@ -90,4 +102,8 @@ qx.Class.define("qx.module.Messaging", {
       "messaging" : new qx.event.Messaging()
     });
   }
+});
+
+ qx.module.Messaging = clazz;
+return clazz;
 });

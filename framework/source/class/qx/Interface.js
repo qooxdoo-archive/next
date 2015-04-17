@@ -1,3 +1,15 @@
+define(['qx/Class', 'qx/core/Environment', 'qx/lang/Type'], function(Dep0,Dep1,Dep2) {
+var qx = {
+  "Class": Dep0,
+  "core": {
+    "Environment": Dep1
+  },
+  "lang": {
+    "Type": Dep2
+  },
+  "Interface": null
+};
+
 "use strict";
 /* ************************************************************************
 
@@ -26,7 +38,7 @@
  * defined.
  * @require(qx.Interface#define)
  */
-qx.Class.define("qx.Interface",
+var clazz = qx.Class.define("qx.Interface",
 {
   statics :
   {
@@ -447,4 +459,8 @@ qx.Class.define("qx.Interface",
       "default" : function() {}
     })
   }
+});
+
+ qx.Interface = clazz;
+return clazz;
 });

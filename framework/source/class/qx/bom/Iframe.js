@@ -1,3 +1,29 @@
+define(['qx/Class', 'qx/bom/client/Engine', 'qx/bom/client/OperatingSystem', 'qx/bom/Event', 'qx/core/Environment', 'qx/dom/Element', 'qx/dom/Hierarchy', 'qx/lang/Object', 'qx/log/Logger'], function(Dep0,Dep1,Dep2,Dep3,Dep4,Dep5,Dep6,Dep7,Dep8) {
+var qx = {
+  "Class": Dep0,
+  "bom": {
+    "client": {
+      "Engine": Dep1,
+      "OperatingSystem": Dep2
+    },
+    "Event": Dep3,
+    "Iframe": null
+  },
+  "core": {
+    "Environment": Dep4
+  },
+  "dom": {
+    "Element": Dep5,
+    "Hierarchy": Dep6
+  },
+  "lang": {
+    "Object": Dep7
+  },
+  "log": {
+    "Logger": Dep8
+  }
+};
+
 "use strict";
 /* ************************************************************************
 
@@ -24,7 +50,7 @@
 /**
  * Cross browser abstractions to work with iframes.
  */
-qx.Class.define("qx.bom.Iframe",
+var clazz = qx.Class.define("qx.bom.Iframe",
 {
 
 
@@ -232,4 +258,8 @@ qx.Class.define("qx.bom.Iframe",
     }
 
   }
+});
+
+ qx.bom.Iframe = clazz;
+return clazz;
 });

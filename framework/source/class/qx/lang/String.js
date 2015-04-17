@@ -1,3 +1,12 @@
+define(['qx/Class', 'qx/lang/Function'], function(Dep0,Dep1) {
+var qx = {
+  "Class": Dep0,
+  "lang": {
+    "Function": Dep1,
+    "String": null
+  }
+};
+
 "use strict";
 /* ************************************************************************
 
@@ -51,7 +60,7 @@
 /**
  * String helper functions
  */
-qx.Class.define("qx.lang.String",
+var clazz = qx.Class.define("qx.lang.String",
 {
   statics :
   {
@@ -372,4 +381,8 @@ qx.Class.define("qx.lang.String",
       return '"' + str.replace(/\\/g, "\\\\").replace(/\"/g, "\\\"") + '"';
     }
   }
+});
+
+ qx.lang.String = clazz;
+return clazz;
 });

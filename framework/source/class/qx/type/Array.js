@@ -1,3 +1,16 @@
+define(['qx/Class', 'qx/type/BaseArray', 'qx/core/Assert', 'qx/core/Environment'], function(Dep0,Dep1,Dep2,Dep3) {
+var qx = {
+  "Class": Dep0,
+  "type": {
+    "BaseArray": Dep1,
+    "Array": null
+  },
+  "core": {
+    "Assert": Dep2,
+    "Environment": Dep3
+  }
+};
+
 /* eslint strict:0 */
 /* ************************************************************************
 
@@ -24,7 +37,7 @@
  * convenience methods to the regular array like <code>remove</code> or
  * <code>contains</code>.
  */
-qx.Class.define("qx.type.Array",
+var clazz = qx.Class.define("qx.type.Array",
 {
   extend : qx.type.BaseArray,
 
@@ -223,4 +236,8 @@ qx.Class.define("qx.type.Array",
       return this.indexOf(obj) !== -1;
     }
   }
+});
+
+ qx.type.Array = clazz;
+return clazz;
 });

@@ -1,3 +1,14 @@
+define(['qx/Class', 'qx/ui/layout/AbstractBox'], function(Dep0,Dep1) {
+var qx = {
+  "Class": Dep0,
+  "ui": {
+    "layout": {
+      "AbstractBox": Dep1,
+      "VBox": null
+    }
+  }
+};
+
 "use strict";
 /* ************************************************************************
 
@@ -53,7 +64,7 @@
  * container.append(new qx.ui.Label("3"));
  * </pre>
  */
-qx.Class.define("qx.ui.layout.VBox",
+var clazz = qx.Class.define("qx.ui.layout.VBox",
 {
   extend : qx.ui.layout.AbstractBox,
 
@@ -65,4 +76,8 @@ qx.Class.define("qx.ui.layout.VBox",
       return ["qx-vbox"];
     }
   }
+});
+
+ qx.ui.layout.VBox = clazz;
+return clazz;
 });

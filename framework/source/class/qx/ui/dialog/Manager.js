@@ -1,3 +1,28 @@
+define(['qx/Class', 'qx/core/MSingleton', 'qx/ui/Button', 'qx/ui/Label', 'qx/ui/Widget', 'qx/ui/dialog/BusyIndicator', 'qx/ui/dialog/Popup', 'qx/ui/form/TextField', 'qx/ui/layout/HBox', 'qx/ui/layout/VBox'], function(Dep0,Dep1,Dep2,Dep3,Dep4,Dep5,Dep6,Dep7,Dep8,Dep9) {
+var qx = {
+  "Class": Dep0,
+  "core": {
+    "MSingleton": Dep1
+  },
+  "ui": {
+    "Button": Dep2,
+    "Label": Dep3,
+    "Widget": Dep4,
+    "dialog": {
+      "BusyIndicator": Dep5,
+      "Popup": Dep6,
+      "Manager": null
+    },
+    "form": {
+      "TextField": Dep7
+    },
+    "layout": {
+      "HBox": Dep8,
+      "VBox": Dep9
+    }
+  }
+};
+
 "use strict";
 /* ************************************************************************
 
@@ -42,7 +67,7 @@
  *
  * This example displays a confirm dialog and defines a button click handler.
  */
-qx.Class.define("qx.ui.dialog.Manager",
+var clazz = qx.Class.define("qx.ui.dialog.Manager",
 {
   extend : Object,
   include : [qx.core.MSingleton],
@@ -278,4 +303,8 @@ qx.Class.define("qx.ui.dialog.Manager",
       return dialog;
     }
   }
+});
+
+ qx.ui.dialog.Manager = clazz;
+return clazz;
 });

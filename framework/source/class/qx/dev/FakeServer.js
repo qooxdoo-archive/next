@@ -1,3 +1,19 @@
+define(['qx/Class', 'qx/core/MSingleton', 'qx/core/Assert', 'qx/core/Environment', 'qx/lang/Array'], function(Dep0,Dep1,Dep2,Dep3,Dep4) {
+var qx = {
+  "Class": Dep0,
+  "core": {
+    "MSingleton": Dep1,
+    "Assert": Dep2,
+    "Environment": Dep3
+  },
+  "lang": {
+    "Array": Dep4
+  },
+  "dev": {
+    "FakeServer": null
+  }
+};
+
 "use strict";
 /* ************************************************************************
 
@@ -61,7 +77,7 @@
  *   qx.dev.FakeServer.getInstance().configure(responseData);
  * </pre>
  */
-qx.Class.define("qx.dev.FakeServer", {
+var clazz = qx.Class.define("qx.dev.FakeServer", {
 
   extend : Object,
   include : [qx.core.MSingleton],
@@ -275,4 +291,8 @@ qx.Class.define("qx.dev.FakeServer", {
       this.__fakeServer = this.__sinon = null;
     }
   }
+});
+
+ qx.dev.FakeServer = clazz;
+return clazz;
 });

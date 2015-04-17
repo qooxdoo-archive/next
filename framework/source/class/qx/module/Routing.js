@@ -1,3 +1,15 @@
+define(['qx/Class', 'qx/application/Routing', 'qxWeb'], function(Dep0,Dep1,Dep2) {
+var qx = {
+  "Class": Dep0,
+  "application": {
+    "Routing": Dep1
+  },
+  "module": {
+    "Routing": null
+  }
+};
+var qxWeb = Dep2;
+
 "use strict";
 /* ************************************************************************
 
@@ -19,11 +31,15 @@
 ************************************************************************ */
 
 
-qx.Class.define("qx.module.Routing", {
+var clazz = qx.Class.define("qx.module.Routing", {
 
   classDefined : function() {
     qxWeb.$attachStatic({
       routing : new qx.application.Routing()
     });
   }
+});
+
+ qx.module.Routing = clazz;
+return clazz;
 });

@@ -1,3 +1,21 @@
+define(['qx/Class', 'qx/event/handler/Track', 'qxWeb', 'qx/module/Event', 'qx/module/event/PointerHandler'], function(Dep0,Dep1,Dep2,Dep3,Dep4) {
+var qx = {
+  "Class": Dep0,
+  "event": {
+    "handler": {
+      "Track": Dep1
+    }
+  },
+  "module": {
+    "Event": Dep3,
+    "event": {
+      "PointerHandler": Dep4,
+      "TrackHandler": null
+    }
+  }
+};
+var qxWeb = Dep2;
+
 "use strict";
 /* ************************************************************************
 
@@ -27,7 +45,7 @@
  *
  * @group (Event_Normalization)
  */
-qx.Class.define("qx.module.event.TrackHandler", {
+var clazz = qx.Class.define("qx.module.event.TrackHandler", {
 
   statics : {
 
@@ -75,4 +93,8 @@ qx.Class.define("qx.module.event.TrackHandler", {
   {
     qxWeb.$registerEventHook(statics.TYPES, statics.register, statics.unregister);
   }
+});
+
+ qx.module.event.TrackHandler = clazz;
+return clazz;
 });

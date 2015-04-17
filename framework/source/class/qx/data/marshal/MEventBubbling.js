@@ -1,3 +1,15 @@
+define(['qx/Mixin', 'qx/Interface', 'qx/data/IListData'], function(Dep0,Dep1,Dep2) {
+var qx = {
+  "Mixin": Dep0,
+  "Interface": Dep1,
+  "data": {
+    "IListData": Dep2,
+    "marshal": {
+      "MEventBubbling": null
+    }
+  }
+};
+
 "use strict";
 /* ************************************************************************
 
@@ -23,7 +35,7 @@
  * classes, be sure that every property will call the
  * {@link #_applyEventPropagation} function on every change.
  */
-qx.Mixin.define("qx.data.marshal.MEventBubbling",
+var clazz = qx.Mixin.define("qx.data.marshal.MEventBubbling",
 {
 
   statics : {
@@ -184,4 +196,8 @@ qx.Mixin.define("qx.data.marshal.MEventBubbling",
       );
     }
   }
+});
+
+ qx.data.marshal.MEventBubbling = clazz;
+return clazz;
 });

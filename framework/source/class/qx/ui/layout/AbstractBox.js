@@ -1,3 +1,14 @@
+define(['qx/Class', 'qx/ui/layout/Abstract'], function(Dep0,Dep1) {
+var qx = {
+  "Class": Dep0,
+  "ui": {
+    "layout": {
+      "Abstract": Dep1,
+      "AbstractBox": null
+    }
+  }
+};
+
 "use strict";
 /* ************************************************************************
 
@@ -21,7 +32,7 @@
 /**
  * Base class for all box layout managers.
  */
-qx.Class.define("qx.ui.layout.AbstractBox",
+var clazz = qx.Class.define("qx.ui.layout.AbstractBox",
 {
   extend : qx.ui.layout.Abstract,
 
@@ -258,4 +269,8 @@ qx.Class.define("qx.ui.layout.AbstractBox",
       }
     }
   }
+});
+
+ qx.ui.layout.AbstractBox = clazz;
+return clazz;
 });

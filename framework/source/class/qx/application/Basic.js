@@ -1,3 +1,15 @@
+define(['qx/Class', 'qx/application/IApplication', 'qx/core/Init'], function(Dep0,Dep1,Dep2) {
+var qx = {
+  "Class": Dep0,
+  "application": {
+    "IApplication": Dep1,
+    "Basic": null
+  },
+  "core": {
+    "Init": Dep2
+  }
+};
+
 "use strict";
 /* ************************************************************************
 
@@ -22,7 +34,7 @@
  * For a basic, out-of-browser application (running e.g. on Node.js, Rhino).
  * @require(qx.core.Init)
  */
-qx.Class.define("qx.application.Basic",
+var clazz = qx.Class.define("qx.application.Basic",
 {
   extend : Object,
   implement : [qx.application.IApplication],
@@ -56,4 +68,8 @@ qx.Class.define("qx.application.Basic",
       // empty
     }
   }
+});
+
+ qx.application.Basic = clazz;
+return clazz;
 });

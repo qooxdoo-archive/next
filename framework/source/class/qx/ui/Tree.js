@@ -1,3 +1,16 @@
+define(['qx/Class', 'qx/ui/Widget', 'qxWeb', 'qx/module/Template'], function(Dep0,Dep1,Dep2,Dep3) {
+var qx = {
+  "Class": Dep0,
+  "ui": {
+    "Widget": Dep1,
+    "Tree": null
+  },
+  "module": {
+    "Template": Dep3
+  }
+};
+var qxWeb = Dep2;
+
 "use strict";
 /* ************************************************************************
 
@@ -19,7 +32,7 @@
  * @require(qx.module.Template)
  * @group(Widget)
  */
-qx.Class.define("qx.ui.Tree",
+var clazz = qx.Class.define("qx.ui.Tree",
 {
   extend : qx.ui.Widget,
 
@@ -574,4 +587,8 @@ qx.Class.define("qx.ui.Tree",
   classDefined : function(statics) {
     qxWeb.$attachWidget(statics);
   }
+});
+
+ qx.ui.Tree = clazz;
+return clazz;
 });

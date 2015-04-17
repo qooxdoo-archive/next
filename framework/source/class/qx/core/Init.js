@@ -1,3 +1,19 @@
+define(['qx/Class', 'qxWeb', 'qx/module/Core', 'qx/core/Environment', 'qx/log/Logger'], function(Dep0,Dep1,Dep2,Dep3,Dep4) {
+var qx = {
+  "Class": Dep0,
+  "module": {
+    "Core": Dep2
+  },
+  "core": {
+    "Environment": Dep3,
+    "Init": null
+  },
+  "log": {
+    "Logger": Dep4
+  }
+};
+var qxWeb = Dep1;
+
 "use strict";
 /* ************************************************************************
 
@@ -23,7 +39,7 @@
  *
  * @require(qx.module.Core)
  */
-qx.Class.define("qx.core.Init", {
+var clazz = qx.Class.define("qx.core.Init", {
   statics : {
     __application : null,
 
@@ -113,4 +129,8 @@ qx.Class.define("qx.core.Init", {
       .on("beforeunload", statics.__close, statics)
       .on("unload", statics.__shutdown, statics);
   }
+});
+
+ qx.core.Init = clazz;
+return clazz;
 });

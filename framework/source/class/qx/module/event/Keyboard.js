@@ -1,3 +1,27 @@
+define(['qx/Class', 'qx/bom/client/Browser', 'qx/bom/client/Engine', 'qxWeb', 'qx/module/Event', 'qx/module/Environment', 'qx/event/util/Keyboard'], function(Dep0,Dep1,Dep2,Dep3,Dep4,Dep5,Dep6) {
+var qx = {
+  "Class": Dep0,
+  "bom": {
+    "client": {
+      "Browser": Dep1,
+      "Engine": Dep2
+    }
+  },
+  "module": {
+    "Event": Dep4,
+    "Environment": Dep5,
+    "event": {
+      "Keyboard": null
+    }
+  },
+  "event": {
+    "util": {
+      "Keyboard": Dep6
+    }
+  }
+};
+var qxWeb = Dep3;
+
 "use strict";
 /* ************************************************************************
 
@@ -30,7 +54,7 @@
  *
  * @group (Event_Normalization)
  */
-qx.Class.define("qx.module.event.Keyboard", {
+var clazz = qx.Class.define("qx.module.event.Keyboard", {
   statics :
   {
     /**
@@ -192,4 +216,8 @@ qx.Class.define("qx.module.event.Keyboard", {
       qxWeb.$registerEventHook("input", statics.registerInputFix, statics.unregisterInputFix);
     }
   }
+});
+
+ qx.module.event.Keyboard = clazz;
+return clazz;
 });

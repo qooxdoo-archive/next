@@ -1,3 +1,21 @@
+define(['qx/Class', 'qx/ui/Widget', 'qxWeb', 'qx/module/Template', 'qx/module/util/String'], function(Dep0,Dep1,Dep2,Dep3,Dep4) {
+var qx = {
+  "Class": Dep0,
+  "ui": {
+    "Widget": Dep1,
+    "control": {
+      "Table": null
+    }
+  },
+  "module": {
+    "Template": Dep3,
+    "util": {
+      "String": Dep4
+    }
+  }
+};
+var qxWeb = Dep2;
+
 "use strict";
 /* ************************************************************************
 
@@ -86,7 +104,7 @@
  * @require(qx.module.Template)
  * @require(qx.module.util.String)
  */
-qx.Class.define("qx.ui.control.Table", {
+var clazz = qx.Class.define("qx.ui.control.Table", {
 
   extend : qx.ui.Widget,
 
@@ -1247,4 +1265,8 @@ qx.Class.define("qx.ui.control.Table", {
   classDefined : function(statics) {
     qxWeb.$attachWidget(statics);
   }
+});
+
+ qx.ui.control.Table = clazz;
+return clazz;
 });

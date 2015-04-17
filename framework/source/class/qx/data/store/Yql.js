@@ -1,3 +1,14 @@
+define(['qx/Class', 'qx/data/store/Jsonp'], function(Dep0,Dep1) {
+var qx = {
+  "Class": Dep0,
+  "data": {
+    "store": {
+      "Jsonp": Dep1,
+      "Yql": null
+    }
+  }
+};
+
 "use strict";
 /* ************************************************************************
 
@@ -25,7 +36,7 @@
  * If you want to test your queries, take a look at the YQL console:
  * http://developer.yahoo.com/yql/console/
  */
-qx.Class.define("qx.data.store.Yql",
+var clazz = qx.Class.define("qx.data.store.Yql",
 {
   extend : qx.data.store.Jsonp,
 
@@ -44,4 +55,8 @@ qx.Class.define("qx.data.store.Yql",
     "env=store%3A%2F%2Fdatatables.org%2Falltableswithkeys";
     this.super("construct", url, delegate, "callback");
   }
+});
+
+ qx.data.store.Yql = clazz;
+return clazz;
 });

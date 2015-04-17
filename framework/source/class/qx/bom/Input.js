@@ -1,3 +1,26 @@
+define(['qx/Class', 'qx/bom/client/Engine', 'qx/core/Environment', 'qx/lang/Array', 'qx/core/Assert', 'qx/dom/Element', 'qx/lang/Object', 'qx/lang/Type'], function(Dep0,Dep1,Dep2,Dep3,Dep4,Dep5,Dep6,Dep7) {
+var qx = {
+  "Class": Dep0,
+  "bom": {
+    "client": {
+      "Engine": Dep1
+    },
+    "Input": null
+  },
+  "core": {
+    "Environment": Dep2,
+    "Assert": Dep4
+  },
+  "lang": {
+    "Array": Dep3,
+    "Object": Dep6,
+    "Type": Dep7
+  },
+  "dom": {
+    "Element": Dep5
+  }
+};
+
 "use strict";
 /* ************************************************************************
 
@@ -38,7 +61,7 @@
  *
  * @require(qx.lang.Array#contains)
  */
-qx.Class.define("qx.bom.Input",
+var clazz = qx.Class.define("qx.bom.Input",
 {
 
 
@@ -283,4 +306,8 @@ qx.Class.define("qx.bom.Input",
       }
     })
   }
+});
+
+ qx.bom.Input = clazz;
+return clazz;
 });

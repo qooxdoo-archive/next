@@ -1,3 +1,27 @@
+define(['qx/Class', 'qx/bom/Style', 'qx/bom/client/Css', 'qx/core/Environment', 'qx/lang/Object', 'qx/core/Assert', 'qx/dom/Node'], function(Dep0,Dep1,Dep2,Dep3,Dep4,Dep5,Dep6) {
+var qx = {
+  "Class": Dep0,
+  "bom": {
+    "Style": Dep1,
+    "client": {
+      "Css": Dep2
+    },
+    "element": {
+      "Style": null
+    }
+  },
+  "core": {
+    "Environment": Dep3,
+    "Assert": Dep5
+  },
+  "lang": {
+    "Object": Dep4
+  },
+  "dom": {
+    "Node": Dep6
+  }
+};
+
 "use strict";
 /* ************************************************************************
 
@@ -64,7 +88,7 @@
  *
  * @require(qx.bom.client.Css)
  */
-qx.Class.define("qx.bom.element.Style",
+var clazz = qx.Class.define("qx.bom.element.Style",
 {
 
 
@@ -443,4 +467,8 @@ qx.Class.define("qx.bom.element.Style",
   classDefined : function(statics) {
     statics.__detectVendorProperties();
   }
+});
+
+ qx.bom.element.Style = clazz;
+return clazz;
 });

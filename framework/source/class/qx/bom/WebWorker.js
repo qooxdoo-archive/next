@@ -1,3 +1,29 @@
+define(['qx/Class', 'qx/bom/client/Html', 'qx/event/MEmitter', 'qx/bom/Event', 'qx/core/Environment', 'qx/io/request/Xhr', 'qx/lang/Function'], function(Dep0,Dep1,Dep2,Dep3,Dep4,Dep5,Dep6) {
+var qx = {
+  "Class": Dep0,
+  "bom": {
+    "client": {
+      "Html": Dep1
+    },
+    "Event": Dep3,
+    "WebWorker": null
+  },
+  "event": {
+    "MEmitter": Dep2
+  },
+  "core": {
+    "Environment": Dep4
+  },
+  "io": {
+    "request": {
+      "Xhr": Dep5
+    }
+  },
+  "lang": {
+    "Function": Dep6
+  }
+};
+
 "use strict";
 /* ************************************************************************
 
@@ -30,7 +56,7 @@
  * For more information see:
  * http://www.w3.org/TR/workers/
  */
-qx.Class.define("qx.bom.WebWorker",
+var clazz = qx.Class.define("qx.bom.WebWorker",
 {
   extend : Object,
   include : [qx.event.MEmitter],
@@ -167,4 +193,8 @@ qx.Class.define("qx.bom.WebWorker",
       }
     }
   }
+});
+
+ qx.bom.WebWorker = clazz;
+return clazz;
 });

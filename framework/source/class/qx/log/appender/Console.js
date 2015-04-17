@@ -1,3 +1,32 @@
+define(['qx/Class', 'qx/dom/Hierarchy', 'qxWeb', 'qx/module/Core', 'qx/module/event/GestureHandler', 'qx/module/event/Keyboard', 'qx/bom/Stylesheet', 'qx/core/ObjectRegistry', 'qx/log/Logger', 'qx/log/appender/Util'], function(Dep0,Dep1,Dep2,Dep3,Dep4,Dep5,Dep6,Dep7,Dep8,Dep9) {
+var qx = {
+  "Class": Dep0,
+  "dom": {
+    "Hierarchy": Dep1
+  },
+  "module": {
+    "Core": Dep3,
+    "event": {
+      "GestureHandler": Dep4,
+      "Keyboard": Dep5
+    }
+  },
+  "bom": {
+    "Stylesheet": Dep6
+  },
+  "core": {
+    "ObjectRegistry": Dep7
+  },
+  "log": {
+    "Logger": Dep8,
+    "appender": {
+      "Util": Dep9,
+      "Console": null
+    }
+  }
+};
+var qxWeb = Dep2;
+
 "use strict";
 /* ************************************************************************
 
@@ -35,7 +64,7 @@
  * @require(qx.module.event.GestureHandler)
  * @require(qx.module.event.Keyboard)
  */
-qx.Class.define("qx.log.appender.Console",
+var clazz = qx.Class.define("qx.log.appender.Console",
 {
   statics :
   {
@@ -352,4 +381,8 @@ qx.Class.define("qx.log.appender.Console",
     qxWeb(document.documentElement).on("keypress", statics.__onKeyPress, statics);
     qxWeb(document.documentElement).on("longtap", statics.__onKeyPress, statics);
   }
+});
+
+ qx.log.appender.Console = clazz;
+return clazz;
 });

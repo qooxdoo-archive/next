@@ -1,3 +1,15 @@
+define(['qx/Interface'], function(Dep0) {
+var qx = {
+  "Interface": Dep0,
+  "io": {
+    "request": {
+      "authentication": {
+        "IAuthentication": null
+      }
+    }
+  }
+};
+
 "use strict";
 /* ************************************************************************
 
@@ -21,7 +33,7 @@
 /**
  * Interface of an authentication delegate.
  */
-qx.Interface.define("qx.io.request.authentication.IAuthentication",
+var clazz = qx.Interface.define("qx.io.request.authentication.IAuthentication",
 {
 
   members :
@@ -35,4 +47,8 @@ qx.Interface.define("qx.io.request.authentication.IAuthentication",
      */
     getAuthHeaders: function() {}
   }
+});
+
+ qx.io.request.authentication.IAuthentication = clazz;
+return clazz;
 });

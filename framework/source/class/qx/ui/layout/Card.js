@@ -1,3 +1,32 @@
+define(['qx/Class', 'qx/bom/client/CssTransform', 'qx/ui/layout/Abstract', 'qx/module/Animation', 'qx/module/AnimationFrame', 'qx/Mixin', 'qx/core/Environment', 'qx/ui/core/MResize', 'qx/ui/layout/CardAnimation', 'qxWeb'], function(Dep0,Dep1,Dep2,Dep3,Dep4,Dep5,Dep6,Dep7,Dep8,Dep9) {
+var qx = {
+  "Class": Dep0,
+  "bom": {
+    "client": {
+      "CssTransform": Dep1
+    }
+  },
+  "ui": {
+    "layout": {
+      "Abstract": Dep2,
+      "CardAnimation": Dep8,
+      "Card": null
+    },
+    "core": {
+      "MResize": Dep7
+    }
+  },
+  "module": {
+    "Animation": Dep3,
+    "AnimationFrame": Dep4
+  },
+  "Mixin": Dep5,
+  "core": {
+    "Environment": Dep6
+  }
+};
+var qxWeb = Dep9;
+
 "use strict";
 /* ************************************************************************
 
@@ -46,7 +75,7 @@
  * @require(qx.module.Animation)
  * @require(qx.module.AnimationFrame)
  */
-qx.Class.define("qx.ui.layout.Card",
+var clazz = qx.Class.define("qx.ui.layout.Card",
 {
   extend : qx.ui.layout.Abstract,
 
@@ -322,4 +351,8 @@ qx.Class.define("qx.ui.layout.Card",
       return classes;
     }
   }
+});
+
+ qx.ui.layout.Card = clazz;
+return clazz;
 });

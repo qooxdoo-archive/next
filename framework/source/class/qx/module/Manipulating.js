@@ -1,3 +1,25 @@
+define(['qx/Class', 'qxWeb', 'qx/bom/Html', 'qx/bom/Viewport', 'qx/dom/Element', 'qx/dom/Node', 'qx/lang/Array', 'qx/lang/Object', 'qx/lang/Type'], function(Dep0,Dep1,Dep2,Dep3,Dep4,Dep5,Dep6,Dep7,Dep8) {
+var qx = {
+  "Class": Dep0,
+  "bom": {
+    "Html": Dep2,
+    "Viewport": Dep3
+  },
+  "dom": {
+    "Element": Dep4,
+    "Node": Dep5
+  },
+  "lang": {
+    "Array": Dep6,
+    "Object": Dep7,
+    "Type": Dep8
+  },
+  "module": {
+    "Manipulating": null
+  }
+};
+var qxWeb = Dep1;
+
 "use strict";
 /* ************************************************************************
 
@@ -25,7 +47,7 @@
  * @ignore(qx.bom.element, qx.bom.element.AnimationJs)
  * @group (Core)
  */
-qx.Class.define("qx.module.Manipulating", {
+var clazz = qx.Class.define("qx.module.Manipulating", {
   statics :
   {
     /**
@@ -618,4 +640,8 @@ qx.Class.define("qx.module.Manipulating", {
       "blur" : statics.blur
     });
   }
+});
+
+ qx.module.Manipulating = clazz;
+return clazz;
 });

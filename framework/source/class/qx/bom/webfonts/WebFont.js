@@ -1,3 +1,24 @@
+define(['qx/Class', 'qx/bom/Font', 'qx/event/MEmitter', 'qx/bom/webfonts/Manager', 'qx/core/Environment', 'qx/log/Logger'], function(Dep0,Dep1,Dep2,Dep3,Dep4,Dep5) {
+var qx = {
+  "Class": Dep0,
+  "bom": {
+    "Font": Dep1,
+    "webfonts": {
+      "Manager": Dep3,
+      "WebFont": null
+    }
+  },
+  "event": {
+    "MEmitter": Dep2
+  },
+  "core": {
+    "Environment": Dep4
+  },
+  "log": {
+    "Logger": Dep5
+  }
+};
+
 "use strict";
 /* ************************************************************************
 
@@ -19,7 +40,7 @@
  * Requests web fonts from {@link qx.bom.webfonts.Manager} and fires events
  * when their loading status is known.
  */
-qx.Class.define("qx.bom.webfonts.WebFont", {
+var clazz = qx.Class.define("qx.bom.webfonts.WebFont", {
 
   extend : qx.bom.Font,
 
@@ -96,4 +117,8 @@ qx.Class.define("qx.bom.webfonts.WebFont", {
     }
 
   }
+});
+
+ qx.bom.webfonts.WebFont = clazz;
+return clazz;
 });

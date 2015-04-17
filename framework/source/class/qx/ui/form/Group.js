@@ -1,3 +1,15 @@
+define(['qx/Class', 'qx/ui/Widget', 'qxWeb'], function(Dep0,Dep1,Dep2) {
+var qx = {
+  "Class": Dep0,
+  "ui": {
+    "Widget": Dep1,
+    "form": {
+      "Group": null
+    }
+  }
+};
+var qxWeb = Dep2;
+
 "use strict";
 /* ************************************************************************
 
@@ -22,7 +34,7 @@
 /**
  * TODOC
  */
-qx.Class.define("qx.ui.form.Group",
+var clazz = qx.Class.define("qx.ui.form.Group",
 {
   extend : qx.ui.Widget,
 
@@ -51,4 +63,8 @@ qx.Class.define("qx.ui.form.Group",
   classDefined : function(statics) {
     qxWeb.$attachWidget(statics);
   }
+});
+
+ qx.ui.form.Group = clazz;
+return clazz;
 });

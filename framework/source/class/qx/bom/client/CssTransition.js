@@ -1,3 +1,17 @@
+define(['qx/Class', 'qx/core/Environment', 'qx/bom/Style'], function(Dep0,Dep1,Dep2) {
+var qx = {
+  "Class": Dep0,
+  "core": {
+    "Environment": Dep1
+  },
+  "bom": {
+    "Style": Dep2,
+    "client": {
+      "CssTransition": null
+    }
+  }
+};
+
 "use strict";
 /* ************************************************************************
 
@@ -26,7 +40,7 @@
  * @internal
  * @ignore(qx.bom.Event)  // cyclic dep
  */
-qx.Class.define("qx.bom.client.CssTransition",
+var clazz = qx.Class.define("qx.bom.client.CssTransition",
 {
   statics : {
     /**
@@ -79,4 +93,8 @@ qx.Class.define("qx.bom.client.CssTransition",
   classDefined : function(statics) {
     qx.core.Environment.add("css.transition", statics.getSupport);
   }
+});
+
+ qx.bom.client.CssTransition = clazz;
+return clazz;
 });

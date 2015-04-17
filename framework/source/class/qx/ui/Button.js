@@ -1,3 +1,13 @@
+define(['qx/Class', 'qx/ui/Atom', 'qxWeb'], function(Dep0,Dep1,Dep2) {
+var qx = {
+  "Class": Dep0,
+  "ui": {
+    "Atom": Dep1,
+    "Button": null
+  }
+};
+var qxWeb = Dep2;
+
 "use strict";
 /* ************************************************************************
 
@@ -23,7 +33,7 @@
  *
  * @group(Widget)
  */
-qx.Class.define("qx.ui.Button",
+var clazz = qx.Class.define("qx.ui.Button",
 {
   extend : qx.ui.Atom,
 
@@ -64,4 +74,8 @@ qx.Class.define("qx.ui.Button",
   classDefined : function(statics) {
     qxWeb.$attachWidget(statics);
   }
+});
+
+ qx.ui.Button = clazz;
+return clazz;
 });

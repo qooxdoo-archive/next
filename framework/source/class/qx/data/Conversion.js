@@ -1,3 +1,11 @@
+define(['qx/Class'], function(Dep0) {
+var qx = {
+  "Class": Dep0,
+  "data": {
+    "Conversion": null
+  }
+};
+
 "use strict";
 /* ************************************************************************
 
@@ -24,7 +32,7 @@
  * itself if it can determinate which types should be used. In all other cases,
  * you can you this methods / options for the default conversion.
  */
-qx.Class.define("qx.data.Conversion",
+var clazz = qx.Class.define("qx.data.Conversion",
 {
   statics :
   {
@@ -90,4 +98,8 @@ qx.Class.define("qx.data.Conversion",
     qx.data.Conversion.TONUMBEROPTIONS.converter = qx.data.Conversion.toNumber;
     qx.data.Conversion.TOBOOLEANOPTIONS.converter = qx.data.Conversion.toBoolean;
   }
+});
+
+ qx.data.Conversion = clazz;
+return clazz;
 });

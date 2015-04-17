@@ -1,3 +1,13 @@
+define(['qx/Interface'], function(Dep0) {
+var qx = {
+  "Interface": Dep0,
+  "ui": {
+    "form": {
+      "IForm": null
+    }
+  }
+};
+
 "use strict";
 /* ************************************************************************
 
@@ -22,7 +32,7 @@
  * Form interface for all form widgets. It includes the API for the enabled
  * and required states as well as validity.
  */
-qx.Interface.define("qx.ui.form.IForm",
+var clazz = qx.Interface.define("qx.ui.form.IForm",
 {
   events :
   {
@@ -46,4 +56,8 @@ qx.Interface.define("qx.ui.form.IForm",
      */
     validationMessage: {}
   }
+});
+
+ qx.ui.form.IForm = clazz;
+return clazz;
 });

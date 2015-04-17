@@ -1,3 +1,17 @@
+define(['qx/Class', 'qx/module/Attribute', 'qx/module/Css', 'qx/module/Environment', 'qx/module/Event', 'qx/module/Manipulating', 'qx/module/Traversing'], function(Dep0,Dep1,Dep2,Dep3,Dep4,Dep5,Dep6) {
+var qx = {
+  "Class": Dep0,
+  "module": {
+    "Attribute": Dep1,
+    "Css": Dep2,
+    "Environment": Dep3,
+    "Event": Dep4,
+    "Manipulating": Dep5,
+    "Traversing": Dep6,
+    "Core": null
+  }
+};
+
 "use strict";
 /* ************************************************************************
 
@@ -36,4 +50,8 @@
  * @require(qx.module.Manipulating)
  * @require(qx.module.Traversing)
  */
-qx.Class.define("qx.module.Core", {});
+var clazz = qx.Class.define("qx.module.Core", {});
+
+ qx.module.Core = clazz;
+return clazz;
+});

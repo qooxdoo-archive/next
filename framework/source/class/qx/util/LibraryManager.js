@@ -1,3 +1,14 @@
+define(['qx/Class', 'qx/core/MSingleton'], function(Dep0,Dep1) {
+var qx = {
+  "Class": Dep0,
+  "core": {
+    "MSingleton": Dep1
+  },
+  "util": {
+    "LibraryManager": null
+  }
+};
+
 "use strict";
 /* ************************************************************************
 
@@ -22,7 +33,7 @@
  * Provides read/write access to library-specific information such as
  * source/resource URIs.
  */
-qx.Class.define("qx.util.LibraryManager", {
+var clazz = qx.Class.define("qx.util.LibraryManager", {
 
   extend : Object,
   include : [qx.core.MSingleton],
@@ -84,4 +95,8 @@ qx.Class.define("qx.util.LibraryManager", {
       qx.util.LibraryManager.__libs[namespace][key] = value;
     }
   }
+});
+
+ qx.util.LibraryManager = clazz;
+return clazz;
 });

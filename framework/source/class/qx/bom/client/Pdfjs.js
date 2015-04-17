@@ -1,3 +1,19 @@
+define(['qx/Class', 'qx/core/Environment', 'qx/util/ResourceManager'], function(Dep0,Dep1,Dep2) {
+var qx = {
+  "Class": Dep0,
+  "core": {
+    "Environment": Dep1
+  },
+  "util": {
+    "ResourceManager": Dep2
+  },
+  "bom": {
+    "client": {
+      "Pdfjs": null
+    }
+  }
+};
+
 "use strict";
 /* ************************************************************************
 
@@ -54,7 +70,7 @@
  * @internal
  * @asset(qx/static/empty.pdf)
  */
-qx.Class.define("qx.bom.client.Pdfjs",
+var clazz = qx.Class.define("qx.bom.client.Pdfjs",
 {
   statics:
   {
@@ -1287,3 +1303,7 @@ qx.Class.define("qx.bom.client.Pdfjs",
   };
 }).call(this);
 
+
+ qx.bom.client.Pdfjs = clazz;
+return clazz;
+});

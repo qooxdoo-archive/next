@@ -1,3 +1,33 @@
+define(['qx/Class', 'qx/bom/client/Device', 'qx/ui/Widget', 'qxWeb', 'qx/application/Scaling', 'qx/core/Environment', 'qx/io/ImageLoader', 'qx/log/Logger', 'qx/util/ResourceManager'], function(Dep0,Dep1,Dep2,Dep3,Dep4,Dep5,Dep6,Dep7,Dep8) {
+var qx = {
+  "Class": Dep0,
+  "bom": {
+    "client": {
+      "Device": Dep1
+    }
+  },
+  "ui": {
+    "Widget": Dep2,
+    "Image": null
+  },
+  "application": {
+    "Scaling": Dep4
+  },
+  "core": {
+    "Environment": Dep5
+  },
+  "io": {
+    "ImageLoader": Dep6
+  },
+  "log": {
+    "Logger": Dep7
+  },
+  "util": {
+    "ResourceManager": Dep8
+  }
+};
+var qxWeb = Dep3;
+
 "use strict";
 /* ************************************************************************
 
@@ -23,7 +53,7 @@
  *
  * @group(Widget)
  */
-qx.Class.define("qx.ui.Image",
+var clazz = qx.Class.define("qx.ui.Image",
 {
   extend : qx.ui.Widget,
 
@@ -302,4 +332,8 @@ qx.Class.define("qx.ui.Image",
   classDefined : function(statics) {
     qxWeb.$attachWidget(statics);
   }
+});
+
+ qx.ui.Image = clazz;
+return clazz;
 });

@@ -1,3 +1,16 @@
+define(['qx/Class', 'qx/core/Environment'], function(Dep0,Dep1) {
+var qx = {
+  "Class": Dep0,
+  "core": {
+    "Environment": Dep1
+  },
+  "bom": {
+    "client": {
+      "OperatingSystem": null
+    }
+  }
+};
+
 "use strict";
 /* ************************************************************************
 
@@ -26,7 +39,7 @@
  *
  * @internal
  */
-qx.Class.define("qx.bom.client.OperatingSystem",
+var clazz = qx.Class.define("qx.bom.client.OperatingSystem",
 {
   statics :
   {
@@ -241,4 +254,8 @@ qx.Class.define("qx.bom.client.OperatingSystem",
     qx.core.Environment.add("os.name", statics.getName);
     qx.core.Environment.add("os.version", statics.getVersion);
   }
+});
+
+ qx.bom.client.OperatingSystem = clazz;
+return clazz;
 });

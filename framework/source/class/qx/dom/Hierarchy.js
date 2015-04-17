@@ -1,3 +1,15 @@
+define(['qx/Class', 'qx/dom/Node', 'qx/lang/Array'], function(Dep0,Dep1,Dep2) {
+var qx = {
+  "Class": Dep0,
+  "dom": {
+    "Node": Dep1,
+    "Hierarchy": null
+  },
+  "lang": {
+    "Array": Dep2
+  }
+};
+
 "use strict";
 /* ************************************************************************
 
@@ -62,7 +74,7 @@
  * supports to operate on one element and reorganize the content with
  * the insertion of new HTML or nodes.
  */
-qx.Class.define("qx.dom.Hierarchy",
+var clazz = qx.Class.define("qx.dom.Hierarchy",
 {
   statics :
   {
@@ -422,4 +434,8 @@ qx.Class.define("qx.dom.Hierarchy",
       }
     }
   }
+});
+
+ qx.dom.Hierarchy = clazz;
+return clazz;
 });

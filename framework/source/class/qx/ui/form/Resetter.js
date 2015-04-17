@@ -1,3 +1,16 @@
+define(['qx/Class', 'qx/lang/Type'], function(Dep0,Dep1) {
+var qx = {
+  "Class": Dep0,
+  "lang": {
+    "Type": Dep1
+  },
+  "ui": {
+    "form": {
+      "Resetter": null
+    }
+  }
+};
+
 "use strict";
 /* ************************************************************************
 
@@ -22,7 +35,7 @@
 * The resetter is responsible for managing a set of items and resetting these
 * items on a {@link qx.ui.form.Resetter#reset} call.
 */
-qx.Class.define("qx.ui.form.Resetter",
+var clazz = qx.Class.define("qx.ui.form.Resetter",
 {
   extend : Object,
 
@@ -202,4 +215,8 @@ qx.Class.define("qx.ui.form.Resetter",
       return qx.Class.hasProperty(formItem.constructor, "value");
     }
   }
+});
+
+ qx.ui.form.Resetter = clazz;
+return clazz;
 });

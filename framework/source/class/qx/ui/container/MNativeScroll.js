@@ -1,3 +1,25 @@
+define(['qx/Mixin', 'qx/bom/client/OperatingSystem', 'qx/module/Animation', 'qx/module/Manipulating', 'qx/core/Environment'], function(Dep0,Dep1,Dep2,Dep3,Dep4) {
+var qx = {
+  "Mixin": Dep0,
+  "bom": {
+    "client": {
+      "OperatingSystem": Dep1
+    }
+  },
+  "module": {
+    "Animation": Dep2,
+    "Manipulating": Dep3
+  },
+  "core": {
+    "Environment": Dep4
+  },
+  "ui": {
+    "container": {
+      "MNativeScroll": null
+    }
+  }
+};
+
 "use strict";
 /* ************************************************************************
 
@@ -25,7 +47,7 @@
  * Mixin for the {@link Scroll} container. Used when the variant
  * <code>qx.mobile.nativescroll</code> is set to "on".
  */
-qx.Mixin.define("qx.ui.container.MNativeScroll",
+var clazz = qx.Mixin.define("qx.ui.container.MNativeScroll",
 {
 
   members :
@@ -333,4 +355,8 @@ qx.Mixin.define("qx.ui.container.MNativeScroll",
         .off("trackend", this._onTrackEnd, this);
     }
   }
+});
+
+ qx.ui.container.MNativeScroll = clazz;
+return clazz;
 });

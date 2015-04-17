@@ -1,3 +1,11 @@
+define(['qx/Class'], function(Dep0) {
+var qx = {
+  "Class": Dep0,
+  "util": {
+    "PropertyUtil": null
+  }
+};
+
 "use strict";
 /* ************************************************************************
 
@@ -24,7 +32,7 @@
  * This class is rather to be used internally. For all regular usage of the
  * property system the default API should be sufficient.
  */
-qx.Class.define("qx.util.PropertyUtil",
+var clazz = qx.Class.define("qx.util.PropertyUtil",
 {
   statics :
   {
@@ -66,4 +74,8 @@ qx.Class.define("qx.util.PropertyUtil",
       return properties;
     }
   }
+});
+
+ qx.util.PropertyUtil = clazz;
+return clazz;
 });

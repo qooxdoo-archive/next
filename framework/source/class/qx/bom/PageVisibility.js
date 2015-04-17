@@ -1,3 +1,16 @@
+define(['qx/Class', 'qx/event/MEmitter', 'qx/bom/Event', 'qx/bom/Style'], function(Dep0,Dep1,Dep2,Dep3) {
+var qx = {
+  "Class": Dep0,
+  "event": {
+    "MEmitter": Dep1
+  },
+  "bom": {
+    "Event": Dep2,
+    "Style": Dep3,
+    "PageVisibility": null
+  }
+};
+
 "use strict";
 /* ************************************************************************
 
@@ -24,7 +37,7 @@
  * It forwards all the browsers support and provides always a fallback which is
  * of course visible all the time.
  */
-qx.Class.define("qx.bom.PageVisibility",
+var clazz = qx.Class.define("qx.bom.PageVisibility",
 {
   extend : Object,
   include : [qx.event.MEmitter],
@@ -135,4 +148,8 @@ qx.Class.define("qx.bom.PageVisibility",
       return this.__doc[this.__visibilityAttr] || "visible";
     }
   }
+});
+
+ qx.bom.PageVisibility = clazz;
+return clazz;
 });

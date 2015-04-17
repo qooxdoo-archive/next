@@ -1,3 +1,26 @@
+define(['qx/Class', 'qx/bom/client/CssTransition', 'qx/ui/Widget', 'qxWeb', 'qx/module/Transform', 'qx/core/Environment'], function(Dep0,Dep1,Dep2,Dep3,Dep4,Dep5) {
+var qx = {
+  "Class": Dep0,
+  "bom": {
+    "client": {
+      "CssTransition": Dep1
+    }
+  },
+  "ui": {
+    "Widget": Dep2,
+    "container": {
+      "Drawer": null
+    }
+  },
+  "module": {
+    "Transform": Dep4
+  },
+  "core": {
+    "Environment": Dep5
+  }
+};
+var qxWeb = Dep3;
+
 "use strict";
 /* ************************************************************************
 
@@ -43,7 +66,7 @@
  *
  * @group(Widget)
  */
-qx.Class.define("qx.ui.container.Drawer",
+var clazz = qx.Class.define("qx.ui.container.Drawer",
 {
   extend : qx.ui.Widget,
 
@@ -474,4 +497,8 @@ qx.Class.define("qx.ui.container.Drawer",
   classDefined : function(statics) {
     qxWeb.$attachWidget(statics);
   }
+});
+
+ qx.ui.container.Drawer = clazz;
+return clazz;
 });

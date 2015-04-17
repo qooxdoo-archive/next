@@ -1,3 +1,17 @@
+define(['qx/Mixin', 'qx/ui/container/Scroll', 'qx/ui/core/Root'], function(Dep0,Dep1,Dep2) {
+var qx = {
+  "Mixin": Dep0,
+  "ui": {
+    "container": {
+      "Scroll": Dep1,
+      "MScrollHandling": null
+    },
+    "core": {
+      "Root": Dep2
+    }
+  }
+};
+
 "use strict";
 /* ************************************************************************
 
@@ -23,7 +37,7 @@
  * for scroll container handling: determine the parent scroll container.
  *
  */
-qx.Mixin.define("qx.ui.container.MScrollHandling",
+var clazz = qx.Mixin.define("qx.ui.container.MScrollHandling",
 {
   members :
   {
@@ -47,4 +61,8 @@ qx.Mixin.define("qx.ui.container.MScrollHandling",
       return scroll;
     }
   }
+});
+
+ qx.ui.container.MScrollHandling = clazz;
+return clazz;
 });

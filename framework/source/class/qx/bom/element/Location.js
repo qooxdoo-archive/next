@@ -1,3 +1,24 @@
+define(['qx/Class', 'qx/bom/client/Engine', 'qx/core/Environment', 'qx/bom/Viewport', 'qx/bom/element/Style', 'qx/dom/Node'], function(Dep0,Dep1,Dep2,Dep3,Dep4,Dep5) {
+var qx = {
+  "Class": Dep0,
+  "bom": {
+    "client": {
+      "Engine": Dep1
+    },
+    "Viewport": Dep3,
+    "element": {
+      "Style": Dep4,
+      "Location": null
+    }
+  },
+  "core": {
+    "Environment": Dep2
+  },
+  "dom": {
+    "Node": Dep5
+  }
+};
+
 "use strict";
 /* ************************************************************************
 
@@ -40,7 +61,7 @@
  * Query the location of an arbitrary DOM element in relation to its top
  * level body element.
  */
-qx.Class.define("qx.bom.element.Location",
+var clazz = qx.Class.define("qx.bom.element.Location",
 {
   statics :
   {
@@ -439,4 +460,8 @@ qx.Class.define("qx.bom.element.Location",
       return offsetParent;
     }
   }
+});
+
+ qx.bom.element.Location = clazz;
+return clazz;
 });

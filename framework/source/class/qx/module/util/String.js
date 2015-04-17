@@ -1,3 +1,20 @@
+define(['qx/Class', 'qx/bom/String', 'qx/lang/String', 'qxWeb'], function(Dep0,Dep1,Dep2,Dep3) {
+var qx = {
+  "Class": Dep0,
+  "bom": {
+    "String": Dep1
+  },
+  "lang": {
+    "String": Dep2
+  },
+  "module": {
+    "util": {
+      "String": null
+    }
+  }
+};
+var qxWeb = Dep3;
+
 "use strict";
 /* ************************************************************************
 
@@ -22,7 +39,7 @@
  *
  * @group (Utilities)
  */
-qx.Class.define("qx.module.util.String", {
+var clazz = qx.Class.define("qx.module.util.String", {
   statics : {
     /**
      * Converts a hyphenated string (separated by '-') to camel case.
@@ -146,4 +163,8 @@ qx.Class.define("qx.module.util.String", {
       }
     });
   }
+});
+
+ qx.module.util.String = clazz;
+return clazz;
 });

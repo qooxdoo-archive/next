@@ -1,3 +1,30 @@
+define(['qx/Class', 'qx/bom/client/Browser', 'qx/bom/client/Engine', 'qx/ui/Widget', 'qxWeb', 'qx/Interface', 'qx/core/Environment', 'qx/ui/Label', 'qx/ui/form/IForm', 'qx/ui/layout/HBox'], function(Dep0,Dep1,Dep2,Dep3,Dep4,Dep5,Dep6,Dep7,Dep8,Dep9) {
+var qx = {
+  "Class": Dep0,
+  "bom": {
+    "client": {
+      "Browser": Dep1,
+      "Engine": Dep2
+    }
+  },
+  "ui": {
+    "Widget": Dep3,
+    "Label": Dep7,
+    "form": {
+      "IForm": Dep8,
+      "Row": null
+    },
+    "layout": {
+      "HBox": Dep9
+    }
+  },
+  "Interface": Dep5,
+  "core": {
+    "Environment": Dep6
+  }
+};
+var qxWeb = Dep4;
+
 "use strict";
 /* ************************************************************************
 
@@ -23,7 +50,7 @@
  *
  * @group(Widget)
  */
-qx.Class.define("qx.ui.form.Row",
+var clazz = qx.Class.define("qx.ui.form.Row",
 {
   extend : qx.ui.Widget,
 
@@ -118,4 +145,8 @@ qx.Class.define("qx.ui.form.Row",
   classDefined : function(statics) {
     qxWeb.$attachWidget(statics);
   }
+});
+
+ qx.ui.form.Row = clazz;
+return clazz;
 });

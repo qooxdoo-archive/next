@@ -1,3 +1,35 @@
+define(['qx/Class', 'qx/event/MEmitter', 'qx/core/Assert', 'qx/core/Environment', 'qx/core/ObjectRegistry', 'qx/io/request/Xhr', 'qx/lang/Function', 'qx/lang/Object', 'qx/lang/Type', 'qx/log/Logger', 'qx/util/Request'], function(Dep0,Dep1,Dep2,Dep3,Dep4,Dep5,Dep6,Dep7,Dep8,Dep9,Dep10) {
+var qx = {
+  "Class": Dep0,
+  "event": {
+    "MEmitter": Dep1
+  },
+  "core": {
+    "Assert": Dep2,
+    "Environment": Dep3,
+    "ObjectRegistry": Dep4
+  },
+  "io": {
+    "request": {
+      "Xhr": Dep5
+    },
+    "rest": {
+      "Resource": null
+    }
+  },
+  "lang": {
+    "Function": Dep6,
+    "Object": Dep7,
+    "Type": Dep8
+  },
+  "log": {
+    "Logger": Dep9
+  },
+  "util": {
+    "Request": Dep10
+  }
+};
+
 "use strict";
 /* ************************************************************************
 
@@ -57,7 +89,7 @@
  *
  * @group (IO)
  */
-qx.Class.define("qx.io.rest.Resource",
+var clazz = qx.Class.define("qx.io.rest.Resource",
 {
   extend: Object,
   include: [qx.event.MEmitter],
@@ -888,4 +920,8 @@ qx.Class.define("qx.io.rest.Resource",
       this.__requests = this.__routes = this.__pollTimers = null;
     }
   }
+});
+
+ qx.io.rest.Resource = clazz;
+return clazz;
 });

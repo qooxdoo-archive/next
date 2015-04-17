@@ -1,3 +1,16 @@
+define(['qx/Class', 'qx/lang/Array', 'qx/core/Assert', 'qx/core/Environment'], function(Dep0,Dep1,Dep2,Dep3) {
+var qx = {
+  "Class": Dep0,
+  "lang": {
+    "Array": Dep1,
+    "Function": null
+  },
+  "core": {
+    "Assert": Dep2,
+    "Environment": Dep3
+  }
+};
+
 /* eslint strict:0 */
 /* ************************************************************************
 
@@ -38,7 +51,7 @@
  *
  * @require(qx.lang.Array)
  */
-qx.Class.define("qx.lang.Function",
+var clazz = qx.Class.define("qx.lang.Function",
 {
   statics :
   {
@@ -335,4 +348,8 @@ qx.Class.define("qx.lang.Function",
       })();
     }
   }
+});
+
+ qx.lang.Function = clazz;
+return clazz;
 });

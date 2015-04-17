@@ -1,3 +1,8 @@
+define(function() {
+var qx = {
+  "Class": null
+};
+
 "use strict";
 /* ************************************************************************
 
@@ -355,7 +360,7 @@ var tempClass = {
 /**
  * TODO
  */
-qx.Class.define("qx.Class",
+var clazz = tempClass.define("qx.Class",
 {
   statics :
   {
@@ -507,29 +512,29 @@ qx.Class.define("qx.Class",
                     // check is a member method
                     ok = this[def.check].call(this, value);
                   } else {
-                    var type = qx.Class.getClass(value);
-                    if (!(def.nullable && type == "Null")) { // allow null for nullable properties
-                      if (!(def.init !== undefined && type == "Undefined")) { // allow undefined as reset value
-                        // check against built-in types
-                        if (type !== def.check) {
-                          var checkClass = qx.Class.getByName(def.check);
-                          // check against class
-                          if (!checkClass) {
-                            throw new Error("Error in property '" + name + "' of class '" + this.classname + "': Type '" + def.check + "' is not defined!'");
-                          }
-                          // interface
-                          if (checkClass.$$type == "Interface" && qx.Interface) {
-                            if (!value.constructor || !qx.Interface.classImplements(value.constructor, checkClass)) {
-                              throw new Error("Error in property '" + name + "' of class '" + this.classname + "': Value must implement '" + def.check + "'!");
-                            }
-                          }
-                          // class
-                          else if (!(value instanceof checkClass)) {
-                            throw new Error("Error in property '" + name + "' of class '" + this.classname + "': Value must be '" + def.check + "' but is '" + type + "'!");
-                          }
-                        }
-                      }
-                    }
+                    // var type = qx.Class.getClass(value);
+                    // if (!(def.nullable && type == "Null")) { // allow null for nullable properties
+                    //   if (!(def.init !== undefined && type == "Undefined")) { // allow undefined as reset value
+                    //     // check against built-in types
+                    //     if (type !== def.check) {
+                    //       var checkClass = qx.Class.getByName(def.check);
+                    //       // check against class
+                    //       if (!checkClass) {
+                    //         throw new Error("Error in property '" + name + "' of class '" + this.classname + "': Type '" + def.check + "' is not defined!'");
+                    //       }
+                    //       // interface
+                    //       if (checkClass.$$type == "Interface" && qx.Interface) {
+                    //         if (!value.constructor || !qx.Interface.classImplements(value.constructor, checkClass)) {
+                    //           throw new Error("Error in property '" + name + "' of class '" + this.classname + "': Value must implement '" + def.check + "'!");
+                    //         }
+                    //       }
+                    //       // class
+                    //       else if (!(value instanceof checkClass)) {
+                    //         throw new Error("Error in property '" + name + "' of class '" + this.classname + "': Value must be '" + def.check + "' but is '" + type + "'!");
+                    //       }
+                    //     }
+                    //   }
+                    // }
                   }
                 } else if (def.check instanceof Function) {
                   // inline check function
@@ -955,5 +960,16 @@ qx.Class.define("qx.Class",
      */
     /* eslint no-unused-vars:0 */
     trace : function(object) {}
+  },
+
+  classDefined: function() {
+    require(['qx/Interface', 'qx/Mixin'], function(Interface, Mixin) {
+      qx.Interface = Interface;
+      qx.Mixin = Mixin;
+    });
   }
+});
+
+ qx.Class = clazz;
+return clazz;
 });

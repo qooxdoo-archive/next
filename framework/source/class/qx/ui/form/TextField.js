@@ -1,3 +1,16 @@
+define(['qx/Class', 'qx/ui/form/Input', 'qx/ui/form/MText', 'qxWeb'], function(Dep0,Dep1,Dep2,Dep3) {
+var qx = {
+  "Class": Dep0,
+  "ui": {
+    "form": {
+      "Input": Dep1,
+      "MText": Dep2,
+      "TextField": null
+    }
+  }
+};
+var qxWeb = Dep3;
+
 "use strict";
 /* ************************************************************************
 
@@ -23,7 +36,7 @@
  *
  * @group(Widget)
  */
-qx.Class.define("qx.ui.form.TextField",
+var clazz = qx.Class.define("qx.ui.form.TextField",
 {
   extend : qx.ui.form.Input,
   include : [
@@ -85,4 +98,8 @@ qx.Class.define("qx.ui.form.TextField",
   classDefined : function(statics) {
     qxWeb.$attachWidget(statics);
   }
+});
+
+ qx.ui.form.TextField = clazz;
+return clazz;
 });

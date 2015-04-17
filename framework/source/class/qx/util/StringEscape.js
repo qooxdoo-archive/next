@@ -1,3 +1,11 @@
+define(['qx/Class'], function(Dep0) {
+var qx = {
+  "Class": Dep0,
+  "util": {
+    "StringEscape": null
+  }
+};
+
 "use strict";
 /* ************************************************************************
 
@@ -23,7 +31,7 @@
  *
  * {@link qx.bom.String} for (un)escaping of HTML strings.
  */
-qx.Class.define("qx.util.StringEscape",
+var clazz = qx.Class.define("qx.util.StringEscape",
 {
   statics :
   {
@@ -110,4 +118,8 @@ qx.Class.define("qx.util.StringEscape",
       });
     }
   }
+});
+
+ qx.util.StringEscape = clazz;
+return clazz;
 });

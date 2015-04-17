@@ -1,3 +1,32 @@
+define(['qx/Class', 'qx/bom/client/CssAnimation', 'qx/bom/client/OperatingSystem', 'qx/core/Environment', 'qx/bom/Event', 'qx/bom/Style', 'qx/bom/Stylesheet', 'qx/bom/element/AnimationHandle', 'qx/bom/element/Style', 'qx/bom/element/Transform', 'qx/lang/String', 'qx/log/Logger'], function(Dep0,Dep1,Dep2,Dep3,Dep4,Dep5,Dep6,Dep7,Dep8,Dep9,Dep10,Dep11) {
+var qx = {
+  "Class": Dep0,
+  "bom": {
+    "client": {
+      "CssAnimation": Dep1,
+      "OperatingSystem": Dep2
+    },
+    "Event": Dep4,
+    "Style": Dep5,
+    "Stylesheet": Dep6,
+    "element": {
+      "AnimationHandle": Dep7,
+      "Style": Dep8,
+      "Transform": Dep9,
+      "AnimationCss": null
+    }
+  },
+  "core": {
+    "Environment": Dep3
+  },
+  "lang": {
+    "String": Dep10
+  },
+  "log": {
+    "Logger": Dep11
+  }
+};
+
 "use strict";
 /* ************************************************************************
 
@@ -35,7 +64,7 @@
  * (CSS or JavaScript) should be used. Most likely, this implementation should
  * be the one to use.
  */
-qx.Class.define("qx.bom.element.AnimationCss",
+var clazz = qx.Class.define("qx.bom.element.AnimationCss",
 {
   statics : {
     // initialization
@@ -407,4 +436,8 @@ qx.Class.define("qx.bom.element.AnimationCss",
       }, false);
     }
   }
+});
+
+ qx.bom.element.AnimationCss = clazz;
+return clazz;
 });

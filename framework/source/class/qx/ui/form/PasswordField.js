@@ -1,3 +1,15 @@
+define(['qx/Class', 'qx/ui/form/TextField', 'qxWeb'], function(Dep0,Dep1,Dep2) {
+var qx = {
+  "Class": Dep0,
+  "ui": {
+    "form": {
+      "TextField": Dep1,
+      "PasswordField": null
+    }
+  }
+};
+var qxWeb = Dep2;
+
 "use strict";
 /* ************************************************************************
 
@@ -23,7 +35,7 @@
  *
  * @group(Widget)
  */
-qx.Class.define("qx.ui.form.PasswordField",
+var clazz = qx.Class.define("qx.ui.form.PasswordField",
 {
   extend : qx.ui.form.TextField,
 
@@ -49,4 +61,8 @@ qx.Class.define("qx.ui.form.PasswordField",
   classDefined : function(statics) {
     qxWeb.$attachWidget(statics);
   }
+});
+
+ qx.ui.form.PasswordField = clazz;
+return clazz;
 });

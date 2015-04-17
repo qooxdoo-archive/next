@@ -1,3 +1,25 @@
+define(['qx/Class', 'qx/data/IListData', 'qx/data/marshal/MEventBubbling', 'qx/event/MEmitter', 'qx/core/Assert', 'qx/core/Environment', 'qx/lang/Array'], function(Dep0,Dep1,Dep2,Dep3,Dep4,Dep5,Dep6) {
+var qx = {
+  "Class": Dep0,
+  "data": {
+    "IListData": Dep1,
+    "marshal": {
+      "MEventBubbling": Dep2
+    },
+    "Array": null
+  },
+  "event": {
+    "MEmitter": Dep3
+  },
+  "core": {
+    "Assert": Dep4,
+    "Environment": Dep5
+  },
+  "lang": {
+    "Array": Dep6
+  }
+};
+
 "use strict";
 /* ************************************************************************
 
@@ -25,7 +47,7 @@
  * also fires events if the content or the length of the array changes in
  * any way. Also the <code>.length</code> property is available on the array.
  */
-qx.Class.define("qx.data.Array",
+var clazz = qx.Class.define("qx.data.Array",
 {
   extend : Object,
   include : [qx.data.marshal.MEventBubbling, qx.event.MEmitter],
@@ -1061,4 +1083,8 @@ qx.Class.define("qx.data.Array",
       }
     }
   }
+});
+
+ qx.data.Array = clazz;
+return clazz;
 });

@@ -1,3 +1,14 @@
+define(['qx/Class', 'qx/log/Logger'], function(Dep0,Dep1) {
+var qx = {
+  "Class": Dep0,
+  "log": {
+    "Logger": Dep1,
+    "appender": {
+      "Util": null
+    }
+  }
+};
+
 "use strict";
 /* ************************************************************************
 
@@ -21,7 +32,7 @@
 /**
  * Contains some common methods available to all log appenders.
  */
-qx.Class.define("qx.log.appender.Util",
+var clazz = qx.Class.define("qx.log.appender.Util",
 {
   statics :
   {
@@ -153,4 +164,8 @@ qx.Class.define("qx.log.appender.Util",
       return output;
     }
   }
+});
+
+ qx.log.appender.Util = clazz;
+return clazz;
 });

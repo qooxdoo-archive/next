@@ -1,3 +1,24 @@
+define(['qx/Class', 'qx/dom/Node', 'qx/event/Emitter', 'qx/event/handler/OrientationCore', 'qxWeb', 'qx/module/Event'], function(Dep0,Dep1,Dep2,Dep3,Dep4,Dep5) {
+var qx = {
+  "Class": Dep0,
+  "dom": {
+    "Node": Dep1
+  },
+  "event": {
+    "Emitter": Dep2,
+    "handler": {
+      "OrientationCore": Dep3
+    }
+  },
+  "module": {
+    "Event": Dep5,
+    "event": {
+      "OrientationHandler": null
+    }
+  }
+};
+var qxWeb = Dep4;
+
 "use strict";
 /* ************************************************************************
 
@@ -26,7 +47,7 @@
  *
  * @group (Event_Normalization)
  */
-qx.Class.define("qx.module.event.OrientationHandler", {
+var clazz = qx.Class.define("qx.module.event.OrientationHandler", {
 
   statics :
   {
@@ -88,4 +109,8 @@ qx.Class.define("qx.module.event.OrientationHandler", {
   {
     qxWeb.$registerEventHook(statics.TYPES, statics.register, statics.unregister);
   }
+});
+
+ qx.module.event.OrientationHandler = clazz;
+return clazz;
 });

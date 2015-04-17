@@ -1,3 +1,11 @@
+define(['qx/Class'], function(Dep0) {
+var qx = {
+  "Class": Dep0,
+  "dom": {
+    "Node": null
+  }
+};
+
 "use strict";
 /* ************************************************************************
 
@@ -21,7 +29,7 @@
 /**
  * Basic node creation and type detection
  */
-qx.Class.define("qx.dom.Node",
+var clazz = qx.Class.define("qx.dom.Node",
 {
 
 
@@ -308,4 +316,8 @@ qx.Class.define("qx.dom.Node",
       return /^(body|form|textarea|fieldset|ul|ol|dl|dt|dd|li|div|hr|p|h[1-6]|quote|pre|table|thead|tbody|tfoot|tr|td|th|iframe|address|blockquote)$/.test(node);
     }
   }
+});
+
+ qx.dom.Node = clazz;
+return clazz;
 });

@@ -1,3 +1,28 @@
+define(['qx/Class', 'qx/event/MEmitter', 'qx/core/Environment', 'qx/data/SingleValueBinding', 'qx/data/controller/Object', 'qx/data/marshal/Json', 'qx/log/Logger', 'qxWeb'], function(Dep0,Dep1,Dep2,Dep3,Dep4,Dep5,Dep6,Dep7) {
+var qx = {
+  "Class": Dep0,
+  "event": {
+    "MEmitter": Dep1
+  },
+  "core": {
+    "Environment": Dep2
+  },
+  "data": {
+    "SingleValueBinding": Dep3,
+    "controller": {
+      "Object": Dep4,
+      "Form": null
+    },
+    "marshal": {
+      "Json": Dep5
+    }
+  },
+  "log": {
+    "Logger": Dep6
+  }
+};
+var qxWeb = Dep7;
+
 "use strict";
 /* ************************************************************************
 
@@ -44,7 +69,7 @@
  * * If you want to bind a list like widget, use {@link qx.data.controller.List}
  * * If you want to bind a tree widget, use {@link qx.data.controller.Tree}
  */
-qx.Class.define("qx.data.controller.Form",
+var clazz = qx.Class.define("qx.data.controller.Form",
 {
   extend : Object,
   include : [qx.event.MEmitter],
@@ -381,4 +406,8 @@ qx.Class.define("qx.data.controller.Form",
       }
     }
   }
+});
+
+ qx.data.controller.Form = clazz;
+return clazz;
 });

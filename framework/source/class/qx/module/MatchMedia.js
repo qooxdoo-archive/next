@@ -1,3 +1,15 @@
+define(['qx/Class', 'qxWeb', 'qx/bom/MediaQuery'], function(Dep0,Dep1,Dep2) {
+var qx = {
+  "Class": Dep0,
+  "bom": {
+    "MediaQuery": Dep2
+  },
+  "module": {
+    "MatchMedia": null
+  }
+};
+var qxWeb = Dep1;
+
 "use strict";
 /* ************************************************************************
 
@@ -23,7 +35,7 @@
  * Module for mediaqueries evaluation. The module is a wrapper for media.match.js,
  * that implements a polyfill for window.matchMedia when it's not supported natively.
  */
-qx.Class.define("qx.module.MatchMedia", {
+var clazz = qx.Class.define("qx.module.MatchMedia", {
 
   statics: {
     /**
@@ -115,4 +127,8 @@ qx.Class.define("qx.module.MatchMedia", {
       mediaQueryToClass: statics.mediaQueryToClass
     });
   }
+});
+
+ qx.module.MatchMedia = clazz;
+return clazz;
 });

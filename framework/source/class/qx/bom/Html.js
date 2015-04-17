@@ -1,3 +1,23 @@
+define(['qx/Class', 'qx/bom/client/Engine', 'qx/core/Environment', 'qx/lang/Array', 'qx/type/BaseArray'], function(Dep0,Dep1,Dep2,Dep3,Dep4) {
+var qx = {
+  "Class": Dep0,
+  "bom": {
+    "client": {
+      "Engine": Dep1
+    },
+    "Html": null
+  },
+  "core": {
+    "Environment": Dep2
+  },
+  "lang": {
+    "Array": Dep3
+  },
+  "type": {
+    "BaseArray": Dep4
+  }
+};
+
 "use strict";
 /* ************************************************************************
 
@@ -38,7 +58,7 @@
  *
  * @ignore(qxWeb)
  */
-qx.Class.define("qx.bom.Html",
+var clazz = qx.Class.define("qx.bom.Html",
 {
 
 
@@ -288,4 +308,8 @@ qx.Class.define("qx.bom.Html",
       return scripts;
     }
   }
+});
+
+ qx.bom.Html = clazz;
+return clazz;
 });

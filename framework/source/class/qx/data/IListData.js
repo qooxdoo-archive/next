@@ -1,3 +1,11 @@
+define(['qx/Interface'], function(Dep0) {
+var qx = {
+  "Interface": Dep0,
+  "data": {
+    "IListData": null
+  }
+};
+
 "use strict";
 /* ************************************************************************
 
@@ -29,7 +37,7 @@
  * @require(qx.data.IListData#getLength)
  * @require(qx.data.IListData#toArray)
  */
-qx.Interface.define("qx.data.IListData",
+var clazz = qx.Interface.define("qx.data.IListData",
 {
   events :
   {
@@ -120,4 +128,8 @@ qx.Interface.define("qx.data.IListData",
     /* eslint no-unused-vars:0 */
     toArray: function() {}
   }
+});
+
+ qx.data.IListData = clazz;
+return clazz;
 });

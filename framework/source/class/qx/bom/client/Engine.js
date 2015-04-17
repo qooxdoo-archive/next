@@ -1,3 +1,16 @@
+define(['qx/Class', 'qx/core/Environment'], function(Dep0,Dep1) {
+var qx = {
+  "Class": Dep0,
+  "core": {
+    "Environment": Dep1
+  },
+  "bom": {
+    "client": {
+      "Engine": null
+    }
+  }
+};
+
 "use strict";
 /* ************************************************************************
 
@@ -42,7 +55,7 @@
  *
  * @internal
  */
-qx.Class.define("qx.bom.client.Engine",
+var clazz = qx.Class.define("qx.bom.client.Engine",
 {
   // General: http://en.wikipedia.org/wiki/Browser_timeline
   // Webkit: https://developer.apple.com/internet/safari/uamatrix.html
@@ -255,4 +268,8 @@ qx.Class.define("qx.bom.client.Engine",
     qx.core.Environment.add("engine.version", statics.getVersion);
     qx.core.Environment.add("engine.name", statics.getName);
   }
+});
+
+ qx.bom.client.Engine = clazz;
+return clazz;
 });

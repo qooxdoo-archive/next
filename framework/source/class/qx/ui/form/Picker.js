@@ -1,3 +1,27 @@
+define(['qx/Class', 'qx/ui/Widget', 'qx/ui/form/IForm', 'qx/ui/form/MForm', 'qxWeb', 'qx/data/Array', 'qx/lang/Type', 'qx/ui/List', 'qx/ui/container/Scroll'], function(Dep0,Dep1,Dep2,Dep3,Dep4,Dep5,Dep6,Dep7,Dep8) {
+var qx = {
+  "Class": Dep0,
+  "ui": {
+    "Widget": Dep1,
+    "form": {
+      "IForm": Dep2,
+      "MForm": Dep3,
+      "Picker": null
+    },
+    "List": Dep7,
+    "container": {
+      "Scroll": Dep8
+    }
+  },
+  "data": {
+    "Array": Dep5
+  },
+  "lang": {
+    "Type": Dep6
+  }
+};
+var qxWeb = Dep4;
+
 "use strict";
 /* ************************************************************************
 
@@ -30,7 +54,7 @@
  *
  * @Group(Widget)
  */
-qx.Class.define("qx.ui.form.Picker",
+var clazz = qx.Class.define("qx.ui.form.Picker",
 {
   extend : qx.ui.Widget,
   include : [
@@ -457,4 +481,8 @@ qx.Class.define("qx.ui.form.Picker",
   classDefined : function(statics) {
     qxWeb.$attachWidget(statics);
   }
+});
+
+ qx.ui.form.Picker = clazz;
+return clazz;
 });

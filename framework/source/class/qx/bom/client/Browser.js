@@ -1,3 +1,18 @@
+define(['qx/Class', 'qx/bom/client/Engine', 'qx/bom/client/OperatingSystem', 'qx/core/Environment'], function(Dep0,Dep1,Dep2,Dep3) {
+var qx = {
+  "Class": Dep0,
+  "bom": {
+    "client": {
+      "Engine": Dep1,
+      "OperatingSystem": Dep2,
+      "Browser": null
+    }
+  },
+  "core": {
+    "Environment": Dep3
+  }
+};
+
 "use strict";
 /* ************************************************************************
 
@@ -56,7 +71,7 @@
  *
  * @internal
  */
-qx.Class.define("qx.bom.client.Browser",
+var clazz = qx.Class.define("qx.bom.client.Browser",
 {
   statics :
   {
@@ -229,4 +244,8 @@ qx.Class.define("qx.bom.client.Browser",
     qx.core.Environment.add("browser.version", statics.getVersion);
     qx.core.Environment.add("browser.documentmode", statics.getDocumentMode);
   }
+});
+
+ qx.bom.client.Browser = clazz;
+return clazz;
 });

@@ -1,3 +1,20 @@
+define(['qx/Class', 'qx/core/Assert', 'qx/core/Environment', 'qx/util/Animation'], function(Dep0,Dep1,Dep2,Dep3) {
+var qx = {
+  "Class": Dep0,
+  "core": {
+    "Assert": Dep1,
+    "Environment": Dep2
+  },
+  "util": {
+    "Animation": Dep3
+  },
+  "ui": {
+    "layout": {
+      "CardAnimation": null
+    }
+  }
+};
+
 "use strict";
 /* ************************************************************************
 
@@ -23,7 +40,7 @@
  * Provides a convenience method {@link qx.ui.layout.CardAnimation#getAnimation} which
  * makes it possibility to resolve the right animation for a pageTransition out of the cardAnimationMap.
  */
-qx.Class.define("qx.ui.layout.CardAnimation",
+var clazz = qx.Class.define("qx.ui.layout.CardAnimation",
 {
   extend : Object,
 
@@ -138,4 +155,8 @@ qx.Class.define("qx.ui.layout.CardAnimation",
       return this._cardAnimationsMap;
     }
   }
+});
+
+ qx.ui.layout.CardAnimation = clazz;
+return clazz;
 });

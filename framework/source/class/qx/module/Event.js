@@ -1,3 +1,27 @@
+define(['qx/Class', 'qx/bom/client/Browser', 'qx/bom/client/Engine', 'qxWeb', 'qx/module/Environment', 'qx/bom/Event', 'qx/event/Emitter', 'qx/lang/Array', 'qx/lang/Type'], function(Dep0,Dep1,Dep2,Dep3,Dep4,Dep5,Dep6,Dep7,Dep8) {
+var qx = {
+  "Class": Dep0,
+  "bom": {
+    "client": {
+      "Browser": Dep1,
+      "Engine": Dep2
+    },
+    "Event": Dep5
+  },
+  "module": {
+    "Environment": Dep4,
+    "Event": null
+  },
+  "event": {
+    "Emitter": Dep6
+  },
+  "lang": {
+    "Array": Dep7,
+    "Type": Dep8
+  }
+};
+var qxWeb = Dep3;
+
 "use strict";
 /* ************************************************************************
 
@@ -27,7 +51,7 @@
  * @require(qx.event.Emitter)
  * @group (Core)
  */
-qx.Class.define("qx.module.Event", {
+var clazz = qx.Class.define("qx.module.Event", {
   statics :
   {
     /**
@@ -755,4 +779,8 @@ qx.Class.define("qx.module.Event", {
 
     require(['qx/module/event/PointerHandler']);
   }
+});
+
+ qx.module.Event = clazz;
+return clazz;
 });

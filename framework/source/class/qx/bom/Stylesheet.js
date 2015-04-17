@@ -1,3 +1,24 @@
+define(['qx/Class', 'qx/bom/client/Stylesheet', 'qx/core/Assert', 'qx/core/Environment', 'qx/dom/Element', 'qx/util/Uri'], function(Dep0,Dep1,Dep2,Dep3,Dep4,Dep5) {
+var qx = {
+  "Class": Dep0,
+  "bom": {
+    "client": {
+      "Stylesheet": Dep1
+    },
+    "Stylesheet": null
+  },
+  "core": {
+    "Assert": Dep2,
+    "Environment": Dep3
+  },
+  "dom": {
+    "Element": Dep4
+  },
+  "util": {
+    "Uri": Dep5
+  }
+};
+
 "use strict";
 /* ************************************************************************
 
@@ -24,7 +45,7 @@
 /**
  * Cross-browser wrapper to work with CSS stylesheets.
  */
-qx.Class.define("qx.bom.Stylesheet",
+var clazz = qx.Class.define("qx.bom.Stylesheet",
 {
 
 
@@ -235,4 +256,8 @@ qx.Class.define("qx.bom.Stylesheet",
       }
     }
   }
+});
+
+ qx.bom.Stylesheet = clazz;
+return clazz;
 });

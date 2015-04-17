@@ -1,3 +1,29 @@
+define(['qx/Class', 'qx/event/MEmitter', 'qx/bom/Storage', 'qx/core/Assert', 'qx/core/Environment', 'qx/data/marshal/Json', 'qx/util/Serializer'], function(Dep0,Dep1,Dep2,Dep3,Dep4,Dep5,Dep6) {
+var qx = {
+  "Class": Dep0,
+  "event": {
+    "MEmitter": Dep1
+  },
+  "bom": {
+    "Storage": Dep2
+  },
+  "core": {
+    "Assert": Dep3,
+    "Environment": Dep4
+  },
+  "data": {
+    "marshal": {
+      "Json": Dep5
+    },
+    "store": {
+      "Offline": null
+    }
+  },
+  "util": {
+    "Serializer": Dep6
+  }
+};
+
 "use strict";
 /* ************************************************************************
 
@@ -24,7 +50,7 @@
  * the update functionality, you have to use a model which supports the
  * {@link qx.data.marshal.MEventBubbling#changeBubble} event.
  */
-qx.Class.define("qx.data.store.Offline",
+var clazz = qx.Class.define("qx.data.store.Offline",
 {
   extend : Object,
   include : [qx.event.MEmitter],
@@ -136,4 +162,8 @@ qx.Class.define("qx.data.store.Offline",
       return this._key;
     }
   }
+});
+
+ qx.data.store.Offline = clazz;
+return clazz;
 });

@@ -1,3 +1,15 @@
+define(['qx/Class', 'qx/application/IApplication', 'qx/core/Init'], function(Dep0,Dep1,Dep2) {
+var qx = {
+  "Class": Dep0,
+  "application": {
+    "IApplication": Dep1,
+    "Native": null
+  },
+  "core": {
+    "Init": Dep2
+  }
+};
+
 "use strict";
 /* ************************************************************************
 
@@ -24,7 +36,7 @@
  *
  * @require(qx.core.Init)
  */
-qx.Class.define("qx.application.Native",
+var clazz = qx.Class.define("qx.application.Native",
 {
   extend : Object,
   implement : [qx.application.IApplication],
@@ -58,4 +70,8 @@ qx.Class.define("qx.application.Native",
       // empty
     }
   }
+});
+
+ qx.application.Native = clazz;
+return clazz;
 });

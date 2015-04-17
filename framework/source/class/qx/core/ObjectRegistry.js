@@ -1,3 +1,12 @@
+define(['qx/Class', 'qx/core/Environment'], function(Dep0,Dep1) {
+var qx = {
+  "Class": Dep0,
+  "core": {
+    "Environment": Dep1,
+    "ObjectRegistry": null
+  }
+};
+
 "use strict";
 /* ************************************************************************
 
@@ -25,7 +34,7 @@
  *
  * @ignore(qx.dev, qx.dev.Debug.*)
  */
-qx.Class.define("qx.core.ObjectRegistry",
+var clazz = qx.Class.define("qx.core.ObjectRegistry",
 {
 
 
@@ -250,4 +259,8 @@ qx.Class.define("qx.core.ObjectRegistry",
   {
     statics.__postId = "-0";
   }
+});
+
+ qx.core.ObjectRegistry = clazz;
+return clazz;
 });

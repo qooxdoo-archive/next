@@ -1,3 +1,31 @@
+define(['qx/Class', 'qx/bom/client/Browser', 'qx/bom/client/Engine', 'qx/io/request/AbstractRequest', 'qx/core/Environment', 'qx/lang/Type', 'qx/util/Request', 'qx/util/ResponseParser', 'qx/util/Uri'], function(Dep0,Dep1,Dep2,Dep3,Dep4,Dep5,Dep6,Dep7,Dep8) {
+var qx = {
+  "Class": Dep0,
+  "bom": {
+    "client": {
+      "Browser": Dep1,
+      "Engine": Dep2
+    }
+  },
+  "io": {
+    "request": {
+      "AbstractRequest": Dep3,
+      "Xhr": null
+    }
+  },
+  "core": {
+    "Environment": Dep4
+  },
+  "lang": {
+    "Type": Dep5
+  },
+  "util": {
+    "Request": Dep6,
+    "ResponseParser": Dep7,
+    "Uri": Dep8
+  }
+};
+
 "use strict";
 /* ************************************************************************
 
@@ -46,7 +74,7 @@
  *
  * @group (IO)
  */
-qx.Class.define("qx.io.request.Xhr",
+var clazz = qx.Class.define("qx.io.request.Xhr",
 {
   extend: qx.io.request.AbstractRequest,
 
@@ -922,4 +950,8 @@ qx.Class.define("qx.io.request.Xhr",
       }
     }
   }
+});
+
+ qx.io.request.Xhr = clazz;
+return clazz;
 });

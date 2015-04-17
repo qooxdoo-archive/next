@@ -1,3 +1,24 @@
+define(['qx/Class', 'qx/bom/client/Browser', 'qx/bom/element/Style', 'qx/core/Environment', 'qx/dom/Hierarchy', 'qx/dom/Node'], function(Dep0,Dep1,Dep2,Dep3,Dep4,Dep5) {
+var qx = {
+  "Class": Dep0,
+  "bom": {
+    "client": {
+      "Browser": Dep1
+    },
+    "element": {
+      "Style": Dep2,
+      "Dimension": null
+    }
+  },
+  "core": {
+    "Environment": Dep3
+  },
+  "dom": {
+    "Hierarchy": Dep4,
+    "Node": Dep5
+  }
+};
+
 "use strict";
 /* ************************************************************************
 
@@ -27,7 +48,7 @@
  * sizes which are available via {@link #getContentWidth} and
  * {@link #getContentHeight}.
  */
-qx.Class.define("qx.bom.element.Dimension",
+var clazz = qx.Class.define("qx.bom.element.Dimension",
 {
 
 
@@ -250,4 +271,8 @@ qx.Class.define("qx.bom.element.Dimension",
       };
     }
   }
+});
+
+ qx.bom.element.Dimension = clazz;
+return clazz;
 });

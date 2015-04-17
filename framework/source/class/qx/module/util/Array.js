@@ -1,3 +1,17 @@
+define(['qx/Class', 'qx/lang/Array', 'qxWeb'], function(Dep0,Dep1,Dep2) {
+var qx = {
+  "Class": Dep0,
+  "lang": {
+    "Array": Dep1
+  },
+  "module": {
+    "util": {
+      "Array": null
+    }
+  }
+};
+var qxWeb = Dep2;
+
 "use strict";
 /* ************************************************************************
 
@@ -22,7 +36,7 @@
  *
  * @group (Utilities)
  */
-qx.Class.define("qx.module.util.Array", {
+var clazz = qx.Class.define("qx.module.util.Array", {
   statics : {
      /**
       * Converts an array like object to any other array like
@@ -209,4 +223,8 @@ qx.Class.define("qx.module.util.Array", {
       }
     });
   }
+});
+
+ qx.module.util.Array = clazz;
+return clazz;
 });

@@ -1,3 +1,13 @@
+define(['qx/Class'], function(Dep0) {
+var qx = {
+  "Class": Dep0,
+  "util": {
+    "placement": {
+      "AbstractAxis": null
+    }
+  }
+};
+
 "use strict";
 /* ************************************************************************
 
@@ -22,7 +32,7 @@
 /**
  * Abstract class to compute the position of an object on one axis.
  */
-qx.Class.define("qx.util.placement.AbstractAxis",
+var clazz = qx.Class.define("qx.util.placement.AbstractAxis",
 {
   extend : Object,
 
@@ -102,4 +112,8 @@ qx.Class.define("qx.util.placement.AbstractAxis",
       return start >= 0 && start + size <= areaSize;
     }
   }
+});
+
+ qx.util.placement.AbstractAxis = clazz;
+return clazz;
 });

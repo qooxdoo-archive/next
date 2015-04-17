@@ -1,3 +1,20 @@
+define(['qx/Class', 'qx/bom/client/CssTransform', 'qx/core/Environment', 'qx/bom/Style'], function(Dep0,Dep1,Dep2,Dep3) {
+var qx = {
+  "Class": Dep0,
+  "bom": {
+    "client": {
+      "CssTransform": Dep1
+    },
+    "Style": Dep3,
+    "element": {
+      "Transform": null
+    }
+  },
+  "core": {
+    "Environment": Dep2
+  }
+};
+
 "use strict";
 /* ************************************************************************
 
@@ -26,7 +43,7 @@
  *
  * http://www.w3.org/TR/css3-3d-transforms/
  */
-qx.Class.define("qx.bom.element.Transform",
+var clazz = qx.Class.define("qx.bom.element.Transform",
 {
   statics :
   {
@@ -370,4 +387,8 @@ qx.Class.define("qx.bom.element.Transform",
       return value;
     }
   }
+});
+
+ qx.bom.element.Transform = clazz;
+return clazz;
 });

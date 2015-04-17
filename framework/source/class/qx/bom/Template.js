@@ -1,3 +1,14 @@
+define(['qx/Class', 'qx/dom/Element'], function(Dep0,Dep1) {
+var qx = {
+  "Class": Dep0,
+  "dom": {
+    "Element": Dep1
+  },
+  "bom": {
+    "Template": null
+  }
+};
+
 "use strict";
 /* ************************************************************************
 
@@ -80,7 +91,7 @@
  *
  * @ignore(module)
  */
-qx.Class.define("qx.bom.Template", {
+var clazz = qx.Class.define("qx.bom.Template", {
   statics : {
     /** Contains the mustache.js version. */
     version: null,
@@ -789,3 +800,7 @@ qx.Class.define("qx.bom.Template", {
   qx.bom.Template.render = this.Mustache.render;
 
 }).call({});
+
+ qx.bom.Template = clazz;
+return clazz;
+});

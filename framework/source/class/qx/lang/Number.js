@@ -1,3 +1,11 @@
+define(['qx/Class'], function(Dep0) {
+var qx = {
+  "Class": Dep0,
+  "lang": {
+    "Number": null
+  }
+};
+
 "use strict";
 /* ************************************************************************
 
@@ -25,7 +33,7 @@
  * The native JavaScript Number is not modified by this class.
  *
  */
-qx.Class.define("qx.lang.Number",
+var clazz = qx.Class.define("qx.lang.Number",
 {
   statics :
   {
@@ -78,4 +86,8 @@ qx.Class.define("qx.lang.Number",
       }
     }
   }
+});
+
+ qx.lang.Number = clazz;
+return clazz;
 });

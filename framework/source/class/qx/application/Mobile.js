@@ -1,3 +1,34 @@
+define(['qx/Class', 'qx/application/IApplication', 'qx/bom/client/Css', 'qx/bom/client/Device', 'qx/bom/client/OperatingSystem', 'qx/bom/client/Scroll', 'qx/event/MEmitter', 'qx/core/Init', 'qx/application/Routing', 'qx/core/Environment', 'qx/ui/core/Root', 'qxWeb'], function(Dep0,Dep1,Dep2,Dep3,Dep4,Dep5,Dep6,Dep7,Dep8,Dep9,Dep10,Dep11) {
+var qx = {
+  "Class": Dep0,
+  "application": {
+    "IApplication": Dep1,
+    "Routing": Dep8,
+    "Mobile": null
+  },
+  "bom": {
+    "client": {
+      "Css": Dep2,
+      "Device": Dep3,
+      "OperatingSystem": Dep4,
+      "Scroll": Dep5
+    }
+  },
+  "event": {
+    "MEmitter": Dep6
+  },
+  "core": {
+    "Init": Dep7,
+    "Environment": Dep9
+  },
+  "ui": {
+    "core": {
+      "Root": Dep10
+    }
+  }
+};
+var qxWeb = Dep11;
+
 "use strict";
 /* ************************************************************************
 
@@ -23,7 +54,7 @@
  *
  * @require(qx.core.Init)
  */
-qx.Class.define("qx.application.Mobile",
+var clazz = qx.Class.define("qx.application.Mobile",
 {
   extend : Object,
   include : [qx.event.MEmitter],
@@ -161,4 +192,8 @@ qx.Class.define("qx.application.Mobile",
       // empty
     }
   }
+});
+
+ qx.application.Mobile = clazz;
+return clazz;
 });

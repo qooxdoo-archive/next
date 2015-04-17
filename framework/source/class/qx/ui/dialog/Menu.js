@@ -1,3 +1,23 @@
+define(['qx/Class', 'qx/ui/dialog/Popup', 'qxWeb', 'qx/module/DataBinding', 'qx/ui/List', 'qx/ui/Widget', 'qx/ui/container/Scroll'], function(Dep0,Dep1,Dep2,Dep3,Dep4,Dep5,Dep6) {
+var qx = {
+  "Class": Dep0,
+  "ui": {
+    "dialog": {
+      "Popup": Dep1,
+      "Menu": null
+    },
+    "List": Dep4,
+    "Widget": Dep5,
+    "container": {
+      "Scroll": Dep6
+    }
+  },
+  "module": {
+    "DataBinding": Dep3
+  }
+};
+var qxWeb = Dep2;
+
 "use strict";
 /* ************************************************************************
 
@@ -26,7 +46,7 @@
  *
  * @group(Widget)
  */
-qx.Class.define("qx.ui.dialog.Menu",
+var clazz = qx.Class.define("qx.ui.dialog.Menu",
 {
   extend : qx.ui.dialog.Popup,
 
@@ -176,4 +196,8 @@ qx.Class.define("qx.ui.dialog.Menu",
   classDefined : function(statics) {
     qxWeb.$attachWidget(statics);
   }
+});
+
+ qx.ui.dialog.Menu = clazz;
+return clazz;
 });

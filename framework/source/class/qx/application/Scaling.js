@@ -1,3 +1,20 @@
+define(['qx/Class', 'qx/core/MSingleton', 'qx/event/MEmitter', 'qx/core/Assert', 'qx/core/Environment', 'qxWeb'], function(Dep0,Dep1,Dep2,Dep3,Dep4,Dep5) {
+var qx = {
+  "Class": Dep0,
+  "core": {
+    "MSingleton": Dep1,
+    "Assert": Dep3,
+    "Environment": Dep4
+  },
+  "event": {
+    "MEmitter": Dep2
+  },
+  "application": {
+    "Scaling": null
+  }
+};
+var qxWeb = Dep5;
+
 "use strict";
 /* ************************************************************************
 
@@ -15,7 +32,7 @@
 
 ************************************************************************ */
 
-qx.Class.define("qx.application.Scaling", {
+var clazz = qx.Class.define("qx.application.Scaling", {
   extend : Object,
 
   include : [qx.event.MEmitter, qx.core.MSingleton],
@@ -110,4 +127,8 @@ qx.Class.define("qx.application.Scaling", {
       this.emit("changeAppScale");
     }
   }
+});
+
+ qx.application.Scaling = clazz;
+return clazz;
 });

@@ -1,3 +1,14 @@
+define(['qx/Class', 'qx/lang/String'], function(Dep0,Dep1) {
+var qx = {
+  "Class": Dep0,
+  "lang": {
+    "String": Dep1
+  },
+  "util": {
+    "ColorUtil": null
+  }
+};
+
 "use strict";
 /* ************************************************************************
 
@@ -23,7 +34,7 @@
 /**
  * Methods to convert colors between different color spaces.
  */
-qx.Class.define("qx.util.ColorUtil",
+var clazz = qx.Class.define("qx.util.ColorUtil",
 {
   statics :
   {
@@ -626,4 +637,8 @@ qx.Class.define("qx.util.ColorUtil",
       return this.rgbToRgbString([r, g, b]);
     }
   }
+});
+
+ qx.util.ColorUtil = clazz;
+return clazz;
 });

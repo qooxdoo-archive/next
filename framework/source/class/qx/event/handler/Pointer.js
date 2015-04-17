@@ -1,3 +1,34 @@
+define(['qx/Class', 'qx/bom/client/Browser', 'qx/bom/client/Device', 'qx/bom/client/Engine', 'qx/bom/client/Event', 'qx/lang/Function', 'qx/event/type/dom/Pointer', 'qx/bom/Event', 'qx/core/Environment', 'qx/lang/Array'], function(Dep0,Dep1,Dep2,Dep3,Dep4,Dep5,Dep6,Dep7,Dep8,Dep9) {
+var qx = {
+  "Class": Dep0,
+  "bom": {
+    "client": {
+      "Browser": Dep1,
+      "Device": Dep2,
+      "Engine": Dep3,
+      "Event": Dep4
+    },
+    "Event": Dep7
+  },
+  "lang": {
+    "Function": Dep5,
+    "Array": Dep9
+  },
+  "event": {
+    "type": {
+      "dom": {
+        "Pointer": Dep6
+      }
+    },
+    "handler": {
+      "Pointer": null
+    }
+  },
+  "core": {
+    "Environment": Dep8
+  }
+};
+
 "use strict";
 /* ************************************************************************
 
@@ -26,7 +57,7 @@
  * @require(qx.lang.Function)
  * @require(qx.event.type.dom.Pointer)
  */
-qx.Class.define("qx.event.handler.Pointer", {
+var clazz = qx.Class.define("qx.event.handler.Pointer", {
 
   extend : Object,
 
@@ -423,4 +454,8 @@ qx.Class.define("qx.event.handler.Pointer", {
       this.__defaultTarget = null;
     }
   }
+});
+
+ qx.event.handler.Pointer = clazz;
+return clazz;
 });

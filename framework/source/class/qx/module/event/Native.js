@@ -1,3 +1,18 @@
+define(['qx/Class', 'qx/bom/Event', 'qxWeb', 'qx/module/Event'], function(Dep0,Dep1,Dep2,Dep3) {
+var qx = {
+  "Class": Dep0,
+  "bom": {
+    "Event": Dep1
+  },
+  "module": {
+    "Event": Dep3,
+    "event": {
+      "Native": null
+    }
+  }
+};
+var qxWeb = Dep2;
+
 "use strict";
 /* ************************************************************************
 
@@ -27,7 +42,7 @@
  *
  * @group (Event_Normalization)
  */
-qx.Class.define("qx.module.event.Native", {
+var clazz = qx.Class.define("qx.module.event.Native", {
   statics :
   {
     /**
@@ -150,4 +165,8 @@ qx.Class.define("qx.module.event.Native", {
   classDefined : function(statics) {
     qxWeb.$registerEventNormalization(statics.TYPES, statics.normalize);
   }
+});
+
+ qx.module.event.Native = clazz;
+return clazz;
 });

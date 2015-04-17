@@ -1,3 +1,17 @@
+define(['qx/Class', 'qx/bom/client/Browser', 'qx/core/Environment'], function(Dep0,Dep1,Dep2) {
+var qx = {
+  "Class": Dep0,
+  "bom": {
+    "client": {
+      "Browser": Dep1,
+      "Runtime": null
+    }
+  },
+  "core": {
+    "Environment": Dep2
+  }
+};
+
 "use strict";
 /* ************************************************************************
 
@@ -30,7 +44,7 @@
  * @ignore(process)
  * @ignore(Titanium.*)
  */
-qx.Class.define("qx.bom.client.Runtime",
+var clazz = qx.Class.define("qx.bom.client.Runtime",
 {
   statics :
   {
@@ -67,4 +81,8 @@ qx.Class.define("qx.bom.client.Runtime",
   classDefined : function(statics) {
     qx.core.Environment.add("runtime.name", statics.getName);
   }
+});
+
+ qx.bom.client.Runtime = clazz;
+return clazz;
 });

@@ -1,3 +1,25 @@
+define(['qx/Class', 'qx/bom/AnimationFrame', 'qx/bom/Style', 'qx/bom/element/AnimationHandle', 'qx/bom/element/Transform', 'qx/lang/Object', 'qx/lang/String', 'qx/lang/Type', 'qx/util/ColorUtil'], function(Dep0,Dep1,Dep2,Dep3,Dep4,Dep5,Dep6,Dep7,Dep8) {
+var qx = {
+  "Class": Dep0,
+  "bom": {
+    "AnimationFrame": Dep1,
+    "Style": Dep2,
+    "element": {
+      "AnimationHandle": Dep3,
+      "Transform": Dep4,
+      "AnimationJs": null
+    }
+  },
+  "lang": {
+    "Object": Dep5,
+    "String": Dep6,
+    "Type": Dep7
+  },
+  "util": {
+    "ColorUtil": Dep8
+  }
+};
+
 "use strict";
 /* ************************************************************************
 
@@ -30,7 +52,7 @@
  * @ignore(qx.bom.element.Style.*)
  * @use(qx.bom.element.AnimationJs#play)
  */
-qx.Class.define("qx.bom.element.AnimationJs",
+var clazz = qx.Class.define("qx.bom.element.AnimationJs",
 {
   statics :
   {
@@ -561,4 +583,8 @@ qx.Class.define("qx.bom.element.AnimationJs",
       return keys;
     }
   }
+});
+
+ qx.bom.element.AnimationJs = clazz;
+return clazz;
 });

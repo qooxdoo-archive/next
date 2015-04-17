@@ -1,3 +1,14 @@
+define(['qx/Class', 'qxWeb'], function(Dep0,Dep1) {
+var qx = {
+  "Class": Dep0,
+  "module": {
+    "util": {
+      "Type": null
+    }
+  }
+};
+var qxWeb = Dep1;
+
 "use strict";
 /* ************************************************************************
 
@@ -24,7 +35,7 @@
  *
  * @group (Utilities)
  */
-qx.Class.define("qx.module.util.Type", {
+var clazz = qx.Class.define("qx.module.util.Type", {
   statics : {
     /**
      * Get the internal class of the value. The following classes are possible:
@@ -55,4 +66,8 @@ qx.Class.define("qx.module.util.Type", {
       }
     });
   }
+});
+
+ qx.module.util.Type = clazz;
+return clazz;
 });

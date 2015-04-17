@@ -1,3 +1,15 @@
+define(['qx/Class', 'qxWeb', 'qx/module/Event'], function(Dep0,Dep1,Dep2) {
+var qx = {
+  "Class": Dep0,
+  "module": {
+    "Event": Dep2,
+    "event": {
+      "Track": null
+    }
+  }
+};
+var qxWeb = Dep1;
+
 "use strict";
 /* ************************************************************************
 
@@ -27,7 +39,7 @@
  *
  * @group (Event_Normalization)
  */
-qx.Class.define("qx.module.event.Track", {
+var clazz = qx.Class.define("qx.module.event.Track", {
   statics :
   {
     /**
@@ -79,4 +91,8 @@ qx.Class.define("qx.module.event.Track", {
   classDefined : function(statics) {
     qxWeb.$registerEventNormalization(qx.module.event.Track.TYPES, statics.normalize);
   }
+});
+
+ qx.module.event.Track = clazz;
+return clazz;
 });

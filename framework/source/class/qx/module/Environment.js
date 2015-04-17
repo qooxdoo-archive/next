@@ -1,3 +1,25 @@
+define(['qx/Class', 'qx/bom/client/Browser', 'qx/bom/client/Device', 'qx/bom/client/Engine', 'qx/bom/client/Event', 'qx/bom/client/Scroll', 'qx/core/Environment', 'qxWeb', 'qx/bom/Viewport'], function(Dep0,Dep1,Dep2,Dep3,Dep4,Dep5,Dep6,Dep7,Dep8) {
+var qx = {
+  "Class": Dep0,
+  "bom": {
+    "client": {
+      "Browser": Dep1,
+      "Device": Dep2,
+      "Engine": Dep3,
+      "Event": Dep4,
+      "Scroll": Dep5
+    },
+    "Viewport": Dep8
+  },
+  "core": {
+    "Environment": Dep6
+  },
+  "module": {
+    "Environment": null
+  }
+};
+var qxWeb = Dep7;
+
 "use strict";
 /* ************************************************************************
 
@@ -38,7 +60,7 @@
  *
  * @group (Core)
  */
-qx.Class.define("qx.module.Environment", {
+var clazz = qx.Class.define("qx.module.Environment", {
   statics :
   {
     /**
@@ -107,4 +129,8 @@ qx.Class.define("qx.module.Environment", {
       }
     });
   }
+});
+
+ qx.module.Environment = clazz;
+return clazz;
 });

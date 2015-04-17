@@ -1,3 +1,19 @@
+define(['qx/Class', 'qx/bom/client/Engine', 'qx/core/Environment'], function(Dep0,Dep1,Dep2) {
+var qx = {
+  "Class": Dep0,
+  "bom": {
+    "client": {
+      "Engine": Dep1
+    }
+  },
+  "core": {
+    "Environment": Dep2
+  },
+  "type": {
+    "BaseArray": null
+  }
+};
+
 /* eslint strict:0 */
 /* ************************************************************************
 
@@ -55,7 +71,7 @@
  *
  * @require(qx.bom.client.Engine)
  */
-qx.Class.define("qx.type.BaseArray", {
+var clazz = qx.Class.define("qx.type.BaseArray", {
   extend: Array,
 
 
@@ -416,6 +432,8 @@ qx.Class.define("qx.type.BaseArray", {
   }
 });
 
+qx.type.BaseArray = clazz;
+
 (function() {
 
   function Stack(length) {
@@ -537,5 +555,7 @@ qx.Class.define("qx.type.BaseArray", {
   Stack.prototype.length = 0;
 
   qx.type.BaseArray = createStackConstructor();
-
 })();
+
+return qx.type.BaseArray;
+});

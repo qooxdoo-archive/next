@@ -1,3 +1,32 @@
+define(['qx/Class', 'qxWeb', 'qx/module/Core', 'qx/module/event/GestureHandler', 'qx/module/event/AppearHandler', 'qx/module/Dataset', 'qx/core/Assert', 'qx/core/Environment', 'qx/core/Wrapper', 'qx/lang/Array', 'qx/lang/String', 'qx/ui/layout/Abstract'], function(Dep0,Dep1,Dep2,Dep3,Dep4,Dep5,Dep6,Dep7,Dep8,Dep9,Dep10,Dep11) {
+var qx = {
+  "Class": Dep0,
+  "module": {
+    "Core": Dep2,
+    "event": {
+      "GestureHandler": Dep3,
+      "AppearHandler": Dep4
+    },
+    "Dataset": Dep5
+  },
+  "core": {
+    "Assert": Dep6,
+    "Environment": Dep7,
+    "Wrapper": Dep8
+  },
+  "lang": {
+    "Array": Dep9,
+    "String": Dep10
+  },
+  "ui": {
+    "layout": {
+      "Abstract": Dep11
+    },
+    "Widget": null
+  }
+};
+var qxWeb = Dep1;
+
 "use strict";
 /* ************************************************************************
 
@@ -27,7 +56,7 @@
  * @require(qx.module.Dataset)
  * @group(Widget)
  */
-qx.Class.define("qx.ui.Widget", {
+var clazz = qx.Class.define("qx.ui.Widget", {
   extend : qxWeb,
 
 
@@ -622,4 +651,8 @@ qx.Class.define("qx.ui.Widget", {
 
     qxWeb.$attachWidget(statics);
   }
+});
+
+ qx.ui.Widget = clazz;
+return clazz;
 });

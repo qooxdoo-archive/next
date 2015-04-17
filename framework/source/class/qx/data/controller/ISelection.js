@@ -1,3 +1,13 @@
+define(['qx/Interface'], function(Dep0) {
+var qx = {
+  "Interface": Dep0,
+  "data": {
+    "controller": {
+      "ISelection": null
+    }
+  }
+};
+
 "use strict";
 /* ************************************************************************
 
@@ -21,7 +31,7 @@
 /**
  * Interface for data binding classes offering a selection.
  */
-qx.Interface.define("qx.data.controller.ISelection",
+var clazz = qx.Interface.define("qx.data.controller.ISelection",
 {
   members :
   {
@@ -47,4 +57,8 @@ qx.Interface.define("qx.data.controller.ISelection",
     /* eslint no-unused-vars:0 */
     resetSelection : function() {}
   }
+});
+
+ qx.data.controller.ISelection = clazz;
+return clazz;
 });

@@ -1,3 +1,11 @@
+define(['qx/Mixin'], function(Dep0) {
+var qx = {
+  "Mixin": Dep0,
+  "event": {
+    "MEmitter": null
+  }
+};
+
 "use strict";
 /* ************************************************************************
 
@@ -22,7 +30,7 @@
  * Basic implementation for an event emitter. This supplies a basic and
  * minimalistic event mechanism.
  */
-qx.Mixin.define("qx.event.MEmitter",
+var clazz = qx.Mixin.define("qx.event.MEmitter",
 {
   statics : {
     /** global id for all events */
@@ -240,4 +248,8 @@ qx.Mixin.define("qx.event.MEmitter",
       return this.__listener[name];
     }
   }
+});
+
+ qx.event.MEmitter = clazz;
+return clazz;
 });

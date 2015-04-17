@@ -1,3 +1,17 @@
+define(['qx/Class', 'qx/lang/Object', 'qx/util/StringEscape'], function(Dep0,Dep1,Dep2) {
+var qx = {
+  "Class": Dep0,
+  "lang": {
+    "Object": Dep1
+  },
+  "util": {
+    "StringEscape": Dep2
+  },
+  "bom": {
+    "String": null
+  }
+};
+
 "use strict";
 /* ************************************************************************
 
@@ -21,7 +35,7 @@
 /**
  * A Collection of utility functions to escape and unescape strings.
  */
-qx.Class.define("qx.bom.String",
+var clazz = qx.Class.define("qx.bom.String",
 {
 
 
@@ -437,4 +451,8 @@ qx.Class.define("qx.bom.String",
     /** Mapping of char codes to HTML entity names */
     statics.FROM_CHARCODE = qx.lang.Object.invert(statics.TO_CHARCODE);
   }
+});
+
+ qx.bom.String = clazz;
+return clazz;
 });

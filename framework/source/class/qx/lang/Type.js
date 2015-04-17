@@ -1,3 +1,11 @@
+define(['qx/Class'], function(Dep0) {
+var qx = {
+  "Class": Dep0,
+  "lang": {
+    "Type": null
+  }
+};
+
 "use strict";
 /* ************************************************************************
 
@@ -23,7 +31,7 @@
  * @ignore(qx.data.*)
  * @ignore(qx.Interface.*)
  */
-qx.Class.define("qx.lang.Type",
+var clazz = qx.Class.define("qx.lang.Type",
 {
   statics :
   {
@@ -205,4 +213,8 @@ qx.Class.define("qx.lang.Type",
       );
     }
   }
+});
+
+ qx.lang.Type = clazz;
+return clazz;
 });

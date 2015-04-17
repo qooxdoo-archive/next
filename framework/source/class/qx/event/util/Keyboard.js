@@ -1,3 +1,21 @@
+define(['qx/Class', 'qx/bom/client/OperatingSystem', 'qx/core/Environment'], function(Dep0,Dep1,Dep2) {
+var qx = {
+  "Class": Dep0,
+  "bom": {
+    "client": {
+      "OperatingSystem": Dep1
+    }
+  },
+  "core": {
+    "Environment": Dep2
+  },
+  "event": {
+    "util": {
+      "Keyboard": null
+    }
+  }
+};
+
 "use strict";
 /* ************************************************************************
 
@@ -23,7 +41,7 @@
 /**
  * Utilities for working with character codes and key identifiers
  */
-qx.Class.define("qx.event.util.Keyboard", {
+var clazz = qx.Class.define("qx.event.util.Keyboard", {
 
   statics :
   {
@@ -289,4 +307,8 @@ qx.Class.define("qx.event.util.Keyboard", {
       }
     }
   }
+});
+
+ qx.event.util.Keyboard = clazz;
+return clazz;
 });

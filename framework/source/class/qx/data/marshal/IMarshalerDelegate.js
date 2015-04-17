@@ -1,3 +1,13 @@
+define(['qx/Interface'], function(Dep0) {
+var qx = {
+  "Interface": Dep0,
+  "data": {
+    "marshal": {
+      "IMarshalerDelegate": null
+    }
+  }
+};
+
 "use strict";
 /* ************************************************************************
 
@@ -29,7 +39,7 @@
  * listed in the <code>implement</code> key of a class unless all methods are
  * really implemented.
  */
-qx.Interface.define("qx.data.marshal.IMarshalerDelegate",
+var clazz = qx.Interface.define("qx.data.marshal.IMarshalerDelegate",
 {
   members :
   {
@@ -151,4 +161,8 @@ qx.Interface.define("qx.data.marshal.IMarshalerDelegate",
      /* eslint no-unused-vars:0 */
     getArrayClass : function(parentProperty, depth) {}
   }
+});
+
+ qx.data.marshal.IMarshalerDelegate = clazz;
+return clazz;
 });

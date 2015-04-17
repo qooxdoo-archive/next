@@ -1,3 +1,23 @@
+define(['qx/Class', 'qx/ui/Widget', 'qx/ui/container/MScrollHandling', 'qx/ui/form/IForm', 'qx/ui/form/MForm', 'qxWeb', 'qx/module/AnimationFrame'], function(Dep0,Dep1,Dep2,Dep3,Dep4,Dep5,Dep6) {
+var qx = {
+  "Class": Dep0,
+  "ui": {
+    "Widget": Dep1,
+    "container": {
+      "MScrollHandling": Dep2
+    },
+    "form": {
+      "IForm": Dep3,
+      "MForm": Dep4,
+      "Input": null
+    }
+  },
+  "module": {
+    "AnimationFrame": Dep6
+  }
+};
+var qxWeb = Dep5;
+
 "use strict";
 /* ************************************************************************
 
@@ -25,7 +45,7 @@
  *
  * @group(Widget)
  */
-qx.Class.define("qx.ui.form.Input",
+var clazz = qx.Class.define("qx.ui.form.Input",
 {
   extend : qx.ui.Widget,
 
@@ -151,4 +171,8 @@ qx.Class.define("qx.ui.form.Input",
   classDefined : function(statics) {
     qxWeb.$attachWidget(statics);
   }
+});
+
+ qx.ui.form.Input = clazz;
+return clazz;
 });

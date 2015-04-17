@@ -1,3 +1,11 @@
+define(['qx/Class'], function(Dep0) {
+var qx = {
+  "Class": Dep0,
+  "core": {
+    "Environment": null
+  }
+};
+
 "use strict";
 /* ************************************************************************
 
@@ -529,7 +537,7 @@
  * </table>
  *
  */
-qx.Class.define("qx.core.Environment",
+var clazz = qx.Class.define("qx.core.Environment",
 {
   statics : {
 
@@ -971,4 +979,8 @@ qx.Class.define("qx.core.Environment",
       statics.__importFromUrl();
     }
   }
+});
+
+ qx.core.Environment = clazz;
+return clazz;
 });

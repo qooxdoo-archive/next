@@ -1,3 +1,22 @@
+define(['qx/Class', 'qx/core/Environment', 'qx/event/MEmitter', 'qx/util/Uri'], function(Dep0,Dep1,Dep2,Dep3) {
+var qx = {
+  "Class": Dep0,
+  "core": {
+    "Environment": Dep1
+  },
+  "event": {
+    "MEmitter": Dep2
+  },
+  "util": {
+    "Uri": Dep3
+  },
+  "io": {
+    "request": {
+      "Script": null
+    }
+  }
+};
+
 "use strict";
 /* ************************************************************************
 
@@ -40,7 +59,7 @@
  * @group (IO)
  */
 
-qx.Class.define("qx.io.request.Script",
+var clazz = qx.Class.define("qx.io.request.Script",
 {
   include: [qx.event.MEmitter],
 
@@ -592,4 +611,8 @@ qx.Class.define("qx.io.request.Script",
   classDefined : function() {
     qx.core.Environment.add("qx.debug.io", false);
   }
+});
+
+ qx.io.request.Script = clazz;
+return clazz;
 });

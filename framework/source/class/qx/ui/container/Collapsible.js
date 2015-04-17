@@ -1,3 +1,16 @@
+define(['qx/Class', 'qx/ui/Widget', 'qxWeb', 'qx/ui/Label'], function(Dep0,Dep1,Dep2,Dep3) {
+var qx = {
+  "Class": Dep0,
+  "ui": {
+    "Widget": Dep1,
+    "Label": Dep3,
+    "container": {
+      "Collapsible": null
+    }
+  }
+};
+var qxWeb = Dep2;
+
 "use strict";
 /* ************************************************************************
 
@@ -40,7 +53,7 @@
  * </pre>
  * @group(Widget)
  */
-qx.Class.define("qx.ui.container.Collapsible",
+var clazz = qx.Class.define("qx.ui.container.Collapsible",
 {
   extend : qx.ui.Widget,
 
@@ -227,4 +240,8 @@ qx.Class.define("qx.ui.container.Collapsible",
   classDefined : function(statics) {
     qxWeb.$attachWidget(statics);
   }
+});
+
+ qx.ui.container.Collapsible = clazz;
+return clazz;
 });

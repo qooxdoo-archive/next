@@ -1,3 +1,15 @@
+define(['qx/Class', 'qx/lang/Object', 'qx/lang/Type'], function(Dep0,Dep1,Dep2) {
+var qx = {
+  "Class": Dep0,
+  "lang": {
+    "Object": Dep1,
+    "Type": Dep2
+  },
+  "event": {
+    "Messaging": null
+  }
+};
+
 "use strict";
 /* ************************************************************************
 
@@ -41,7 +53,7 @@
  *   m.emit("get", "/address/1234");
  * </pre>
  */
-qx.Class.define("qx.event.Messaging",
+var clazz = qx.Class.define("qx.event.Messaging",
 {
   construct : function()
   {
@@ -259,4 +271,8 @@ qx.Class.define("qx.event.Messaging",
       return match != undefined;
     }
   }
+});
+
+ qx.event.Messaging = clazz;
+return clazz;
 });

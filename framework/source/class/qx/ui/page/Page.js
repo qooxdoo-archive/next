@@ -1,3 +1,21 @@
+define(['qx/Class', 'qx/ui/Widget', 'qx/ui/core/MResize', 'qxWeb', 'qx/ui/layout/VBox'], function(Dep0,Dep1,Dep2,Dep3,Dep4) {
+var qx = {
+  "Class": Dep0,
+  "ui": {
+    "Widget": Dep1,
+    "core": {
+      "MResize": Dep2
+    },
+    "layout": {
+      "VBox": Dep4
+    },
+    "page": {
+      "Page": null
+    }
+  }
+};
+var qxWeb = Dep3;
+
 "use strict";
 /* ************************************************************************
 
@@ -56,7 +74,7 @@
  *
  * @group(Widget)
  */
-qx.Class.define("qx.ui.page.Page",
+var clazz = qx.Class.define("qx.ui.page.Page",
 {
   extend : qx.ui.Widget,
   include : qx.ui.core.MResize,
@@ -394,4 +412,8 @@ qx.Class.define("qx.ui.page.Page",
   classDefined : function(statics) {
     qxWeb.$attachWidget(statics);
   }
+});
+
+ qx.ui.page.Page = clazz;
+return clazz;
 });

@@ -1,3 +1,33 @@
+define(['qx/Class', 'qx/bom/client/Browser', 'qx/ui/Widget', 'qx/module/Transform', 'qx/module/event/Swipe', 'qx/module/event/GestureHandler', 'qx/module/event/Track', 'qx/module/event/TrackHandler', 'qx/core/Environment', 'qx/ui/layout/HBox', 'qxWeb'], function(Dep0,Dep1,Dep2,Dep3,Dep4,Dep5,Dep6,Dep7,Dep8,Dep9,Dep10) {
+var qx = {
+  "Class": Dep0,
+  "bom": {
+    "client": {
+      "Browser": Dep1
+    }
+  },
+  "ui": {
+    "Widget": Dep2,
+    "layout": {
+      "HBox": Dep9
+    },
+    "Carousel": null
+  },
+  "module": {
+    "Transform": Dep3,
+    "event": {
+      "Swipe": Dep4,
+      "GestureHandler": Dep5,
+      "Track": Dep6,
+      "TrackHandler": Dep7
+    }
+  },
+  "core": {
+    "Environment": Dep8
+  }
+};
+var qxWeb = Dep10;
+
 "use strict";
 /* ************************************************************************
 
@@ -28,7 +58,7 @@
  * @require(qx.module.event.Track)
  * @require(qx.module.event.TrackHandler)
  */
-qx.Class.define("qx.ui.Carousel",
+var clazz = qx.Class.define("qx.ui.Carousel",
 {
   extend : qx.ui.Widget,
 
@@ -627,4 +657,8 @@ qx.Class.define("qx.ui.Carousel",
       this.__scrollContainer.off("trackend", this._onTrackEnd, this);
     }
   }
+});
+
+ qx.ui.Carousel = clazz;
+return clazz;
 });

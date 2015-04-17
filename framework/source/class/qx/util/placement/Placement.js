@@ -1,3 +1,20 @@
+define(['qx/Class', 'qx/core/Assert', 'qx/core/Environment', 'qx/util/placement/BestFitAxis', 'qx/util/placement/DirectAxis', 'qx/util/placement/KeepAlignAxis'], function(Dep0,Dep1,Dep2,Dep3,Dep4,Dep5) {
+var qx = {
+  "Class": Dep0,
+  "core": {
+    "Assert": Dep1,
+    "Environment": Dep2
+  },
+  "util": {
+    "placement": {
+      "BestFitAxis": Dep3,
+      "DirectAxis": Dep4,
+      "KeepAlignAxis": Dep5,
+      "Placement": null
+    }
+  }
+};
+
 "use strict";
 /* ************************************************************************
 
@@ -24,7 +41,7 @@
  * Contains methods to compute a position for any object which should
  * be positioned relative to another object.
  */
-qx.Class.define("qx.util.placement.Placement",
+var clazz = qx.Class.define("qx.util.placement.Placement",
 {
   extend : Object,
 
@@ -288,4 +305,8 @@ qx.Class.define("qx.util.placement.Placement",
       }
     }
   }
+});
+
+ qx.util.placement.Placement = clazz;
+return clazz;
 });

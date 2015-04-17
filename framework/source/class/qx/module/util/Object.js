@@ -1,3 +1,17 @@
+define(['qx/Class', 'qx/lang/Object', 'qxWeb'], function(Dep0,Dep1,Dep2) {
+var qx = {
+  "Class": Dep0,
+  "lang": {
+    "Object": Dep1
+  },
+  "module": {
+    "util": {
+      "Object": null
+    }
+  }
+};
+var qxWeb = Dep2;
+
 "use strict";
 /* ************************************************************************
 
@@ -23,7 +37,7 @@
  *
  * @group (Utilities)
  */
-qx.Class.define("qx.module.util.Object", {
+var clazz = qx.Class.define("qx.module.util.Object", {
   statics : {
     /**
      * Return a copy of an Object
@@ -109,4 +123,8 @@ qx.Class.define("qx.module.util.Object", {
       }
     });
   }
+});
+
+ qx.module.util.Object = clazz;
+return clazz;
 });

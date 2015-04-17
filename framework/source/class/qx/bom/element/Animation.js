@@ -1,3 +1,25 @@
+define(['qx/Class', 'qx/bom/client/CssAnimation', 'qx/bom/Style', 'qx/bom/element/AnimationCss', 'qx/bom/element/AnimationJs', 'qx/core/Environment', 'qx/lang/String'], function(Dep0,Dep1,Dep2,Dep3,Dep4,Dep5,Dep6) {
+var qx = {
+  "Class": Dep0,
+  "bom": {
+    "client": {
+      "CssAnimation": Dep1
+    },
+    "Style": Dep2,
+    "element": {
+      "AnimationCss": Dep3,
+      "AnimationJs": Dep4,
+      "Animation": null
+    }
+  },
+  "core": {
+    "Environment": Dep5
+  },
+  "lang": {
+    "String": Dep6
+  }
+};
+
 "use strict";
 /* ************************************************************************
 
@@ -26,7 +48,7 @@
  * If you use this class, the restrictions of the JavaScript animations apply.
  * This means that you can not use transforms and custom bezier timing functions.
  */
-qx.Class.define("qx.bom.element.Animation",
+var clazz = qx.Class.define("qx.bom.element.Animation",
 {
   statics : {
 
@@ -153,4 +175,8 @@ qx.Class.define("qx.bom.element.Animation",
       return true;
     }
   }
+});
+
+ qx.bom.element.Animation = clazz;
+return clazz;
 });

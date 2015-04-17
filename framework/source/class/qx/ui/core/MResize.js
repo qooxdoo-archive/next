@@ -1,3 +1,21 @@
+define(['qx/Mixin', 'qx/bom/client/Scroll', 'qx/core/Environment'], function(Dep0,Dep1,Dep2) {
+var qx = {
+  "Mixin": Dep0,
+  "bom": {
+    "client": {
+      "Scroll": Dep1
+    }
+  },
+  "core": {
+    "Environment": Dep2
+  },
+  "ui": {
+    "core": {
+      "MResize": null
+    }
+  }
+};
+
 "use strict";
 /* ************************************************************************
 
@@ -24,7 +42,7 @@
  * Use this when the height can not be set by CSS.
  *
  */
-qx.Mixin.define("qx.ui.core.MResize",
+var clazz = qx.Mixin.define("qx.ui.core.MResize",
 {
 
   members :
@@ -98,4 +116,8 @@ qx.Mixin.define("qx.ui.core.MResize",
       }
     }
   }
+});
+
+ qx.ui.core.MResize = clazz;
+return clazz;
 });

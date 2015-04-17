@@ -1,3 +1,13 @@
+define(['qx/Interface'], function(Dep0) {
+var qx = {
+  "Interface": Dep0,
+  "ui": {
+    "container": {
+      "INavigation": null
+    }
+  }
+};
+
 "use strict";
 /* ************************************************************************
 
@@ -21,7 +31,7 @@
 /**
  * All widgets that are added to the navigation container should implement this interface.
  */
-qx.Interface.define("qx.ui.container.INavigation",
+var clazz = qx.Interface.define("qx.ui.container.INavigation",
 {
   members :
   {
@@ -40,4 +50,8 @@ qx.Interface.define("qx.ui.container.INavigation",
      */
     getRightContainer : function() {}
   }
+});
+
+ qx.ui.container.INavigation = clazz;
+return clazz;
 });

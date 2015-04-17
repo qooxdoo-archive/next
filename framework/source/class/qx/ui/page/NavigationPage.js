@@ -1,3 +1,24 @@
+define(['qx/Class', 'qx/ui/container/INavigation', 'qx/ui/page/Page', 'qxWeb', 'qx/ui/Button', 'qx/ui/Widget', 'qx/ui/container/Scroll', 'qx/ui/layout/HBox'], function(Dep0,Dep1,Dep2,Dep3,Dep4,Dep5,Dep6,Dep7) {
+var qx = {
+  "Class": Dep0,
+  "ui": {
+    "container": {
+      "INavigation": Dep1,
+      "Scroll": Dep6
+    },
+    "page": {
+      "Page": Dep2,
+      "NavigationPage": null
+    },
+    "Button": Dep4,
+    "Widget": Dep5,
+    "layout": {
+      "HBox": Dep7
+    }
+  }
+};
+var qxWeb = Dep3;
+
 "use strict";
 /* ************************************************************************
 
@@ -54,7 +75,7 @@
  *
  * @group(Widget)
  */
-qx.Class.define("qx.ui.page.NavigationPage",
+var clazz = qx.Class.define("qx.ui.page.NavigationPage",
 {
   extend : qx.ui.page.Page,
   implement : qx.ui.container.INavigation,
@@ -570,4 +591,8 @@ qx.Class.define("qx.ui.page.NavigationPage",
   classDefined : function(statics) {
     qxWeb.$attachWidget(statics);
   }
+});
+
+ qx.ui.page.NavigationPage = clazz;
+return clazz;
 });

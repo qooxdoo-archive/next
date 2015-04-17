@@ -1,3 +1,18 @@
+define(['qx/Class', 'qx/core/Environment', 'qx/bom/Style', 'qx/bom/Stylesheet'], function(Dep0,Dep1,Dep2,Dep3) {
+var qx = {
+  "Class": Dep0,
+  "core": {
+    "Environment": Dep1
+  },
+  "bom": {
+    "Style": Dep2,
+    "Stylesheet": Dep3,
+    "client": {
+      "CssAnimation": null
+    }
+  }
+};
+
 "use strict";
 /* ************************************************************************
 
@@ -25,7 +40,7 @@
  *
  * @internal
  */
-qx.Class.define("qx.bom.client.CssAnimation",
+var clazz = qx.Class.define("qx.bom.client.CssAnimation",
 {
   statics : {
     /**
@@ -207,4 +222,8 @@ qx.Class.define("qx.bom.client.CssAnimation",
     qx.core.Environment.add("css.animation", statics.getSupport);
     qx.core.Environment.add("css.animation.requestframe", statics.getRequestAnimationFrame);
   }
+});
+
+ qx.bom.client.CssAnimation = clazz;
+return clazz;
 });

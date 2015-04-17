@@ -1,3 +1,16 @@
+define(['qx/Class', 'qx/util/RingBuffer'], function(Dep0,Dep1) {
+var qx = {
+  "Class": Dep0,
+  "util": {
+    "RingBuffer": Dep1
+  },
+  "log": {
+    "appender": {
+      "RingBuffer": null
+    }
+  }
+};
+
 "use strict";
 /* ************************************************************************
 
@@ -31,7 +44,7 @@
  * and f. i. sent to a logging system. Whenever this happens, a mark() call
  * can be used so that the next extraction will only get new data.
  */
-qx.Class.define("qx.log.appender.RingBuffer",
+var clazz = qx.Class.define("qx.log.appender.RingBuffer",
 {
   extend : qx.util.RingBuffer,
 
@@ -111,4 +124,8 @@ qx.Class.define("qx.log.appender.RingBuffer",
       this.clear();
     }
   }
+});
+
+ qx.log.appender.RingBuffer = clazz;
+return clazz;
 });

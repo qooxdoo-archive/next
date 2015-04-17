@@ -1,3 +1,23 @@
+define(['qx/Class', 'qx/event/MEmitter', 'qx/bom/element/Dimension', 'qx/bom/element/Style', 'qx/lang/Object'], function(Dep0,Dep1,Dep2,Dep3,Dep4) {
+var qx = {
+  "Class": Dep0,
+  "event": {
+    "MEmitter": Dep1
+  },
+  "bom": {
+    "element": {
+      "Dimension": Dep2,
+      "Style": Dep3
+    },
+    "webfonts": {
+      "Validator": null
+    }
+  },
+  "lang": {
+    "Object": Dep4
+  }
+};
+
 "use strict";
 /* ************************************************************************
 
@@ -19,7 +39,7 @@
  * Checks whether a given font is available on the document and fires events
  * accordingly.
  */
-qx.Class.define("qx.bom.webfonts.Validator", {
+var clazz = qx.Class.define("qx.bom.webfonts.Validator", {
 
   extend : Object,
   include : [qx.event.MEmitter],
@@ -335,4 +355,8 @@ qx.Class.define("qx.bom.webfonts.Validator", {
     }
 
   }
+});
+
+ qx.bom.webfonts.Validator = clazz;
+return clazz;
 });

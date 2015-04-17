@@ -1,3 +1,14 @@
+define(['qx/Class', 'qx/type/BaseError'], function(Dep0,Dep1) {
+var qx = {
+  "Class": Dep0,
+  "type": {
+    "BaseError": Dep1
+  },
+  "core": {
+    "ValidationError": null
+  }
+};
+
 "use strict";
 /* ************************************************************************
 
@@ -21,7 +32,11 @@
 /**
  * A validation Error which should be thrown if a validation fails.
  */
-qx.Class.define("qx.core.ValidationError",
+var clazz = qx.Class.define("qx.core.ValidationError",
 {
   extend : qx.type.BaseError
+});
+
+ qx.core.ValidationError = clazz;
+return clazz;
 });

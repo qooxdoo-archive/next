@@ -1,3 +1,17 @@
+define(['qx/Class', 'qx/lang/Type', 'qx/Interface', 'qx/core/AssertionError', 'qx/lang/String'], function(Dep0,Dep1,Dep2,Dep3,Dep4) {
+var qx = {
+  "Class": Dep0,
+  "lang": {
+    "Type": Dep1,
+    "String": Dep4
+  },
+  "Interface": Dep2,
+  "core": {
+    "AssertionError": Dep3,
+    "Assert": null
+  }
+};
+
 "use strict";
 /* ************************************************************************
 
@@ -28,7 +42,7 @@
  *
  * @require(qx.lang.Type)
  */
-qx.Class.define("qx.core.Assert",
+var clazz = qx.Class.define("qx.core.Assert",
 {
   statics :
   {
@@ -805,4 +819,8 @@ qx.Class.define("qx.core.Assert",
       );
     }
   }
+});
+
+ qx.core.Assert = clazz;
+return clazz;
 });

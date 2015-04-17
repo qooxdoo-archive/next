@@ -1,3 +1,11 @@
+define(['qx/Interface'], function(Dep0) {
+var qx = {
+  "Interface": Dep0,
+  "application": {
+    "IApplication": null
+  }
+};
+
 "use strict";
 /* ************************************************************************
 
@@ -21,7 +29,7 @@
 /**
  * This interface defines what an application class has to implement.
  */
-qx.Interface.define("qx.application.IApplication",
+var clazz = qx.Interface.define("qx.application.IApplication",
 {
   members :
   {
@@ -49,4 +57,8 @@ qx.Interface.define("qx.application.IApplication",
      */
     terminate : function() {}
   }
+});
+
+ qx.application.IApplication = clazz;
+return clazz;
 });

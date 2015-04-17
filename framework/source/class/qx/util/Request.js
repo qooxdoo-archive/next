@@ -1,3 +1,12 @@
+define(['qx/Class', 'qx/util/Uri'], function(Dep0,Dep1) {
+var qx = {
+  "Class": Dep0,
+  "util": {
+    "Uri": Dep1,
+    "Request": null
+  }
+};
+
 "use strict";
 /* ************************************************************************
 
@@ -22,7 +31,7 @@
 /**
  * Static helpers for handling HTTP requests.
  */
-qx.Class.define("qx.util.Request",
+var clazz = qx.Class.define("qx.util.Request",
 {
   statics:
   {
@@ -90,4 +99,8 @@ qx.Class.define("qx.util.Request",
       return !((/^(GET|HEAD)$/).test(method));
     }
   }
+});
+
+ qx.util.Request = clazz;
+return clazz;
 });

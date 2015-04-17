@@ -1,3 +1,23 @@
+define(['qx/Class', 'qx/ui/form/Input', 'qx/ui/form/MText', 'qxWeb', 'qx/module/Template', 'qx/module/Placement', 'qx/ui/control/Calendar'], function(Dep0,Dep1,Dep2,Dep3,Dep4,Dep5,Dep6) {
+var qx = {
+  "Class": Dep0,
+  "ui": {
+    "form": {
+      "Input": Dep1,
+      "MText": Dep2,
+      "DatePicker": null
+    },
+    "control": {
+      "Calendar": Dep6
+    }
+  },
+  "module": {
+    "Template": Dep4,
+    "Placement": Dep5
+  }
+};
+var qxWeb = Dep3;
+
 "use strict";
 /* ************************************************************************
 
@@ -29,7 +49,7 @@
  *
  * @group (Widget)
  */
-qx.Class.define("qx.ui.form.DatePicker", {
+var clazz = qx.Class.define("qx.ui.form.DatePicker", {
   extend: qx.ui.form.Input,
 
   include: [
@@ -239,4 +259,8 @@ qx.Class.define("qx.ui.form.DatePicker", {
   classDefined : function(statics) {
     qxWeb.$attachWidget(statics);
   }
+});
+
+ qx.ui.form.DatePicker = clazz;
+return clazz;
 });

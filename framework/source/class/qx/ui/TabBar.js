@@ -1,3 +1,26 @@
+define(['qx/Class', 'qx/ui/Widget', 'qxWeb', 'qx/module/MatchMedia', 'qx/module/event/Keyboard', 'qx/module/util/Function', 'qx/ui/layout/HBox', 'qx/ui/layout/VBox'], function(Dep0,Dep1,Dep2,Dep3,Dep4,Dep5,Dep6,Dep7) {
+var qx = {
+  "Class": Dep0,
+  "ui": {
+    "Widget": Dep1,
+    "layout": {
+      "HBox": Dep6,
+      "VBox": Dep7
+    },
+    "TabBar": null
+  },
+  "module": {
+    "MatchMedia": Dep3,
+    "event": {
+      "Keyboard": Dep4
+    },
+    "util": {
+      "Function": Dep5
+    }
+  }
+};
+var qxWeb = Dep2;
+
 "use strict";
 /* ************************************************************************
 
@@ -28,7 +51,7 @@
  *
  * @group (Widget)
  */
-qx.Class.define("qx.ui.TabBar", {
+var clazz = qx.Class.define("qx.ui.TabBar", {
 
   extend : qx.ui.Widget,
 
@@ -429,4 +452,8 @@ qx.Class.define("qx.ui.TabBar", {
   classDefined : function(statics) {
     qxWeb.$attachWidget(statics);
   }
+});
+
+ qx.ui.TabBar = clazz;
+return clazz;
 });

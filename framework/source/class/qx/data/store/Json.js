@@ -1,3 +1,31 @@
+define(['qx/Class', 'qx/event/MEmitter', 'qx/data/marshal/Json', 'qx/io/request/Xhr', 'qx/lang/Type', 'qx/util/AliasManager', 'qx/util/ResourceManager'], function(Dep0,Dep1,Dep2,Dep3,Dep4,Dep5,Dep6) {
+var qx = {
+  "Class": Dep0,
+  "event": {
+    "MEmitter": Dep1
+  },
+  "data": {
+    "marshal": {
+      "Json": Dep2
+    },
+    "store": {
+      "Json": null
+    }
+  },
+  "io": {
+    "request": {
+      "Xhr": Dep3
+    }
+  },
+  "lang": {
+    "Type": Dep4
+  },
+  "util": {
+    "AliasManager": Dep5,
+    "ResourceManager": Dep6
+  }
+};
+
 "use strict";
 /* ************************************************************************
 
@@ -41,7 +69,7 @@
  * the {@link qx.io.request.Xhr} request.
  *
  */
-qx.Class.define("qx.data.store.Json",
+var clazz = qx.Class.define("qx.data.store.Json",
 {
   extend : Object,
   include : [qx.event.MEmitter],
@@ -298,4 +326,8 @@ qx.Class.define("qx.data.store.Json",
       }
     }
   }
+});
+
+ qx.data.store.Json = clazz;
+return clazz;
 });

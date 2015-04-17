@@ -1,3 +1,19 @@
+define(['qx/Class', 'qxWeb', 'qx/io/request/Jsonp', 'qx/io/request/Script', 'qx/io/request/Xhr'], function(Dep0,Dep1,Dep2,Dep3,Dep4) {
+var qx = {
+  "Class": Dep0,
+  "io": {
+    "request": {
+      "Jsonp": Dep2,
+      "Script": Dep3,
+      "Xhr": Dep4
+    }
+  },
+  "module": {
+    "Io": null
+  }
+};
+var qxWeb = Dep1;
+
 "use strict";
 /* ************************************************************************
 
@@ -28,7 +44,7 @@
  *
  * @group (IO)
  */
-qx.Class.define("qx.module.Io", {
+var clazz = qx.Class.define("qx.module.Io", {
   statics :
   {
     /**
@@ -116,4 +132,8 @@ qx.Class.define("qx.module.Io", {
       }
     });
   }
+});
+
+ qx.module.Io = clazz;
+return clazz;
 });

@@ -1,3 +1,20 @@
+define(['qx/Class', 'qx/event/handler/Pointer', 'qxWeb', 'qx/module/Event'], function(Dep0,Dep1,Dep2,Dep3) {
+var qx = {
+  "Class": Dep0,
+  "event": {
+    "handler": {
+      "Pointer": Dep1
+    }
+  },
+  "module": {
+    "Event": Dep3,
+    "event": {
+      "PointerHandler": null
+    }
+  }
+};
+var qxWeb = Dep2;
+
 "use strict";
 /* ************************************************************************
 
@@ -26,7 +43,7 @@
  *
  * @group (Event_Normalization)
  */
-qx.Class.define("qx.module.event.PointerHandler", {
+var clazz = qx.Class.define("qx.module.event.PointerHandler", {
 
   statics :
   {
@@ -87,4 +104,8 @@ qx.Class.define("qx.module.event.PointerHandler", {
   classDefined : function(statics) {
     qxWeb.$registerEventHook(statics.TYPES, statics.register, statics.unregister);
   }
+});
+
+ qx.module.event.PointerHandler = clazz;
+return clazz;
 });

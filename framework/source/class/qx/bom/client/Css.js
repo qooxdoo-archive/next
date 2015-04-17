@@ -1,3 +1,19 @@
+define(['qx/Class', 'qx/bom/Style', 'qx/bom/client/Browser', 'qx/bom/client/Engine', 'qx/core/Environment'], function(Dep0,Dep1,Dep2,Dep3,Dep4) {
+var qx = {
+  "Class": Dep0,
+  "bom": {
+    "Style": Dep1,
+    "client": {
+      "Browser": Dep2,
+      "Engine": Dep3,
+      "Css": null
+    }
+  },
+  "core": {
+    "Environment": Dep4
+  }
+};
+
 "use strict";
 /* ************************************************************************
 
@@ -27,7 +43,7 @@
  * @internal
  * @ignore(WebKitCSSMatrix)
  */
-qx.Class.define("qx.bom.client.Css",
+var clazz = qx.Class.define("qx.bom.client.Css",
 {
   statics :
   {
@@ -485,4 +501,8 @@ qx.Class.define("qx.bom.client.Css",
     qx.core.Environment.add("css.pointerevents", statics.getPointerEvents);
     qx.core.Environment.add("css.flexboxSyntax", statics.getFlexboxSyntax);
   }
+});
+
+ qx.bom.client.Css = clazz;
+return clazz;
 });

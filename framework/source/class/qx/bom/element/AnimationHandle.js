@@ -1,3 +1,22 @@
+define(['qx/Class', 'qx/bom/client/CssAnimation', 'qx/event/MEmitter', 'qx/core/Environment'], function(Dep0,Dep1,Dep2,Dep3) {
+var qx = {
+  "Class": Dep0,
+  "bom": {
+    "client": {
+      "CssAnimation": Dep1
+    },
+    "element": {
+      "AnimationHandle": null
+    }
+  },
+  "event": {
+    "MEmitter": Dep2
+  },
+  "core": {
+    "Environment": Dep3
+  }
+};
+
 "use strict";
 /* ************************************************************************
 
@@ -25,7 +44,7 @@
  *
  * @ignore(qx.bom.element.AnimationJs)
  */
-qx.Class.define("qx.bom.element.AnimationHandle",
+var clazz = qx.Class.define("qx.bom.element.AnimationHandle",
 {
   extend : Object,
   include : [qx.event.MEmitter],
@@ -135,4 +154,8 @@ qx.Class.define("qx.bom.element.AnimationHandle",
       }
     }
   }
+});
+
+ qx.bom.element.AnimationHandle = clazz;
+return clazz;
 });

@@ -1,3 +1,15 @@
+define(['qx/Class', 'qxWeb', 'qx/bom/Selection'], function(Dep0,Dep1,Dep2) {
+var qx = {
+  "Class": Dep0,
+  "bom": {
+    "Selection": Dep2
+  },
+  "module": {
+    "TextSelection": null
+  }
+};
+var qxWeb = Dep1;
+
 "use strict";
 /* ************************************************************************
 
@@ -21,7 +33,7 @@
 /**
  * Text selection manipulation module
  */
-qx.Class.define("qx.module.TextSelection", {
+var clazz = qx.Class.define("qx.module.TextSelection", {
   statics: {
 
     /**
@@ -193,4 +205,8 @@ qx.Class.define("qx.module.TextSelection", {
     });
 
   }
+});
+
+ qx.module.TextSelection = clazz;
+return clazz;
 });

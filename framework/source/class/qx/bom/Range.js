@@ -1,3 +1,15 @@
+define(['qx/Class', 'qx/bom/Selection', 'qx/dom/Node'], function(Dep0,Dep1,Dep2) {
+var qx = {
+  "Class": Dep0,
+  "bom": {
+    "Selection": Dep1,
+    "Range": null
+  },
+  "dom": {
+    "Node": Dep2
+  }
+};
+
 "use strict";
 /* ************************************************************************
 
@@ -25,7 +37,7 @@
  * This is especially useful whenever a developer want to work on text level,
  * e.g. for an editor.
  */
-qx.Class.define("qx.bom.Range",
+var clazz = qx.Class.define("qx.bom.Range",
 {
 
 
@@ -53,4 +65,8 @@ qx.Class.define("qx.bom.Range",
       }
     }
   }
+});
+
+ qx.bom.Range = clazz;
+return clazz;
 });

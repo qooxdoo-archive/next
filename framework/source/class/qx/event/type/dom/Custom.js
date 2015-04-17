@@ -1,3 +1,23 @@
+define(['qx/Class', 'qx/bom/client/Event', 'qx/core/Environment'], function(Dep0,Dep1,Dep2) {
+var qx = {
+  "Class": Dep0,
+  "bom": {
+    "client": {
+      "Event": Dep1
+    }
+  },
+  "core": {
+    "Environment": Dep2
+  },
+  "event": {
+    "type": {
+      "dom": {
+        "Custom": null
+      }
+    }
+  }
+};
+
 "use strict";
 /* ************************************************************************
 
@@ -22,7 +42,7 @@
 /**
  * Cross-browser custom UI event
  */
-qx.Class.define("qx.event.type.dom.Custom", {
+var clazz = qx.Class.define("qx.event.type.dom.Custom", {
 
   extend : Object,
 
@@ -127,4 +147,8 @@ qx.Class.define("qx.event.type.dom.Custom", {
       }
     }
   }
+});
+
+ qx.event.type.dom.Custom = clazz;
+return clazz;
 });

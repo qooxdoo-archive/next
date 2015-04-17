@@ -1,3 +1,21 @@
+define(['qx/Class', 'qx/bom/client/Engine', 'qx/Interface', 'qx/core/Assert', 'qx/core/Environment'], function(Dep0,Dep1,Dep2,Dep3,Dep4) {
+var qx = {
+  "Class": Dep0,
+  "bom": {
+    "client": {
+      "Engine": Dep1
+    }
+  },
+  "Interface": Dep2,
+  "core": {
+    "Assert": Dep3,
+    "Environment": Dep4
+  },
+  "lang": {
+    "Array": null
+  }
+};
+
 "use strict";
 /* ************************************************************************
 
@@ -51,7 +69,7 @@
  * @ignore(qx.data)
  * @ignore(qx.data.IListData)
  */
-qx.Class.define("qx.lang.Array",
+var clazz = qx.Class.define("qx.lang.Array",
 {
   statics :
   {
@@ -595,4 +613,8 @@ qx.Class.define("qx.lang.Array",
       return range;
     }
   }
+});
+
+ qx.lang.Array = clazz;
+return clazz;
 });
