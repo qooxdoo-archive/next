@@ -59,7 +59,8 @@ var convertToRequire = function(classId) {
 
   return "define(['" + deps.join("', '") + "'], function(" + classDeps.join(',') + ") {\n" +
     createNamespace + "\n" +
-    jsCode.join('').replace(/qx\.Class\.define\(/, 'var clazz = qx.Class.define(') +
+    jsCode.join('')
+      .replace(/qx\.(Class|Interface|Mixin)\.define\(/, 'var clazz = qx.$1.define(') +
       "\n " + classId + " = clazz;\nreturn clazz;\n" + "});\n";
 };
 

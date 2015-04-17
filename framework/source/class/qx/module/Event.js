@@ -25,7 +25,6 @@
  * @require(qx.module.Environment)
  * @require(qx.bom.Event)
  * @require(qx.event.Emitter)
- * @use(qx.module.event.PointerHandler)
  * @group (Core)
  */
 qx.Class.define("qx.module.Event", {
@@ -753,5 +752,7 @@ qx.Class.define("qx.module.Event", {
       "$unregisterEventHook" : statics.$unregisterEventHook,
       "$getEventHookRegistry" : statics.$getHookRegistry
     });
+
+    require(['qx/module/event/PointerHandler']);
   }
 });
