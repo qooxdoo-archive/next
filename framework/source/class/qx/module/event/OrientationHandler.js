@@ -22,6 +22,7 @@
  * Orientation handler which is responsible for registering and unregistering a
  * {@link qx.event.handler.OrientationCore} handler for each given element.
  *
+ * @require(qx.module.event.Orientation)
  * @require(qx.module.Event)
  *
  * @group (Event_Normalization)

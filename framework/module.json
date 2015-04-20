@@ -373,8 +373,7 @@
       "extend" : ["qxweb-build"],
       "let" : {
         "Q_INCLUDES" : [
-          "qx.module.Event",
-          "qx.module.event.Native"
+          "qx.module.Event"
         ]
       },
       "exclude" : [ "=qx.module.Oo", "=qx.module.Lang", "=qxWeb", "=qx.module.Environment" ],
@@ -455,8 +454,7 @@
       "extend" : ["qxweb-build"],
       "let" : {
         "Q_INCLUDES" : [
-          "qx.module.event.TouchHandler",
-          "qx.module.event.Touch"
+          "qx.module.event.TouchHandler"
         ]
       },
       "exclude" : [ "=qx.module.Oo", "=qx.module.Lang", "=qxWeb", "=qx.module.Environment", "=qx.module.Event" ],
@@ -483,8 +481,7 @@
       "extend" : ["qxweb-build"],
       "let" : {
         "Q_INCLUDES" : [
-          "qx.module.event.PointerHandler",
-          "qx.module.event.Pointer"
+          "qx.module.event.PointerHandler"
         ]
       },
       "exclude" : [ "=qx.module.Oo", "=qx.module.Lang", "=qxWeb", "=qx.module.Environment", "=qx.module.Event" ],
@@ -511,12 +508,7 @@
       "extend" : ["qxweb-build"],
       "let" : {
         "Q_INCLUDES" : [
-          "qx.module.event.GestureHandler",
-          "qx.module.event.Swipe",
-          "qx.module.event.Tap",
-          "qx.module.event.Pinch",
-          "qx.module.event.Track",
-          "qx.module.event.TrackHandler"
+          "qx.module.event.Gesture"
         ]
       },
       "exclude" : [ "=qx.module.Oo", "=qx.module.Lang", "=qxWeb", "=qx.module.Environment",
@@ -544,8 +536,7 @@
       "extend" : ["qxweb-build"],
       "let" : {
         "Q_INCLUDES" : [
-          "qx.module.event.OrientationHandler",
-          "qx.module.event.Orientation"
+          "qx.module.event.OrientationHandler"
         ]
       },
       "exclude" : [ "=qx.module.Oo", "=qx.module.Lang", "=qxWeb", "=qx.module.Environment", "=qx.module.Event" ],
@@ -599,11 +590,7 @@
       "extend" : ["qxweb-build"],
       "let" : {
         "Q_INCLUDES" : [
-          "qx.module.util.Array",
-          "qx.module.util.Function",
-          "qx.module.util.Object",
-          "qx.module.util.String",
-          "qx.module.util.Type"
+          "qx.module.Util"
         ]
       },
       "exclude" : [ "=qx.module.Oo", "=qx.module.Lang", "=qxWeb", "=qx.module.Environment" ],
@@ -618,7 +605,7 @@
       {
         "dependencies" : {
           "dot" : {
-            "root" : "qx.module.util.Array",
+            "root" : "qx.module.Util",
             "file" : "util.dot"
           }
         }

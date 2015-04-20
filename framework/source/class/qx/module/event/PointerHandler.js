@@ -21,6 +21,7 @@
 /**
  * TODOC
  *
+ * @require(qx.module.event.Pointer)
  * @require(qx.module.Event)
  * @require(qx.event.handler.Pointer)
  *

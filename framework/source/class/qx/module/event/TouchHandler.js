@@ -23,6 +23,7 @@
  * based on low-level event sequences on the given element
  *
  * @require(qx.module.Event)
+ * @require(qx.module.event.Touch)
  *
  * @group (Event_Normalization)
  */

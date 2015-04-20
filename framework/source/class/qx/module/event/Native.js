@@ -21,7 +21,6 @@
 /**
  * Common normalizations for native events
  *
- * @require(qx.module.Event)
  * @require(qx.bom.Event#getTarget)
  * @require(qx.bom.Event#getRelatedTarget)
  *

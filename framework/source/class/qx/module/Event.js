@@ -22,6 +22,7 @@
 /**
  * Support for native and custom events.
  *
+ * @use(qx.module.event.Native)
  * @require(qx.module.Environment)
  * @require(qx.bom.Event)
  * @require(qx.event.Emitter)

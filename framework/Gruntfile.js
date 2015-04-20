@@ -111,9 +111,7 @@ module.exports = function(grunt) {
       },
       "module-core": {
         options: {
-          includes: [
-            "qx.module.Core"
-          ],
+          includes: [ "qx.module.Core" ],
           excludes: [],
           loaderTemplate: "../tool/data/generator/website.loader.tmpl.js",
           fileName: "core"
@@ -121,18 +119,14 @@ module.exports = function(grunt) {
       },
       "module-oo": {
         options: {
-          includes: [
-            "qx.module.Oo"
-          ],
+          includes: [ "qx.module.Oo" ],
           loaderTemplate: "../tool/data/generator/website.loader.tmpl.js",
           fileName: "oo"
         }
       },
       "module-lang": {
         options: {
-          includes: [
-            "qx.module.Lang"
-          ],
+          includes: [ "qx.module.Lang" ],
           excludes: [
             "=qx.module.Oo"
           ],
@@ -142,9 +136,7 @@ module.exports = function(grunt) {
       },
       "module-qxweb": {
         options: {
-          includes: [
-            "qxWeb"
-          ],
+          includes: [ "qxWeb" ],
           excludes: [
             "=qx.module.Oo",
             "=qx.module.Lang"
@@ -155,9 +147,7 @@ module.exports = function(grunt) {
       },
       "module-environment": {
         options: {
-          includes: [
-            "qx.module.Environment"
-          ],
+          includes: [ "qx.module.Environment" ],
           excludes: [
             "=qx.module.Oo",
             "=qx.module.Lang",
@@ -169,9 +159,7 @@ module.exports = function(grunt) {
       },
       "module-attribute": {
         options: {
-          includes: [
-            "qx.module.Attribute"
-          ],
+          includes: [ "qx.module.Attribute" ],
           excludes: [
             "=qx.module.Oo",
             "=qx.module.Lang",
@@ -185,9 +173,7 @@ module.exports = function(grunt) {
       },
       "module-css": {
         options: {
-          includes: [
-            "qx.module.Css"
-          ],
+          includes: [ "qx.module.Css" ],
           excludes: [
             "=qx.module.Oo",
             "=qx.module.Lang",
@@ -201,9 +187,7 @@ module.exports = function(grunt) {
       },
       "module-manipulating": {
         options: {
-          includes: [
-            "qx.module.Manipulating"
-          ],
+          includes: [ "qx.module.Manipulating" ],
           excludes: [
             "=qx.module.Oo",
             "=qx.module.Lang",
@@ -217,9 +201,7 @@ module.exports = function(grunt) {
       },
       "module-html": {
         options: {
-          includes: [
-            "qx.module.Html"
-          ],
+          includes: [ "qx.module.Html" ],
           excludes: [
             "=qx.module.Oo",
             "=qx.module.Lang",
@@ -232,9 +214,7 @@ module.exports = function(grunt) {
       },
       "module-traversing": {
         options: {
-          includes: [
-            "qx.module.Traversing"
-          ],
+          includes: [ "qx.module.Traversing" ],
           excludes: [
             "=qx.module.Oo",
             "=qx.module.Lang",
@@ -249,10 +229,7 @@ module.exports = function(grunt) {
       },
       "module-event": {
         options: {
-          includes: [
-            "qx.module.Event",
-            "qx.module.event.Native"
-          ],
+          includes: [ "qx.module.Event" ],
           excludes: [
             "=qx.module.Oo",
             "=qx.module.Lang",
@@ -265,9 +242,7 @@ module.exports = function(grunt) {
       },
       "module-keyboard": {
         options: {
-          includes: [
-            "qx.module.event.Keyboard"
-          ],
+          includes: [ "qx.module.event.Keyboard" ],
           excludes: [
             "=qx.module.Oo",
             "=qx.module.Lang",
@@ -281,9 +256,7 @@ module.exports = function(grunt) {
       },
       "module-mouse": {
         options: {
-          includes: [
-            "qx.module.event.Mouse"
-          ],
+          includes: [ "qx.module.event.Mouse" ],
           excludes: [
             "=qx.module.Oo",
             "=qx.module.Lang",
@@ -297,10 +270,7 @@ module.exports = function(grunt) {
       },
       "module-touch": {
         options: {
-          includes: [
-            "qx.module.event.TouchHandler",
-            "qx.module.event.Touch"
-          ],
+          includes: [ "qx.module.event.TouchHandler" ],
           excludes: [
             "=qx.module.Oo",
             "=qx.module.Lang",
@@ -314,10 +284,7 @@ module.exports = function(grunt) {
       },
       "module-pointer": {
         options: {
-          includes: [
-            "qx.module.event.PointerHandler",
-            "qx.module.event.Pointer"
-          ],
+          includes: [ "qx.module.event.PointerHandler" ],
           excludes: [
             "=qx.module.Oo",
             "=qx.module.Lang",
@@ -331,14 +298,7 @@ module.exports = function(grunt) {
       },
       "module-gesture": {
         options: {
-          includes: [
-            "qx.module.event.GestureHandler",
-            "qx.module.event.Swipe",
-            "qx.module.event.Tap",
-            "qx.module.event.Pinch",
-            "qx.module.event.Track",
-            "qx.module.event.TrackHandler"
-          ],
+          includes: [ "qx.module.event.Gesture" ],
           excludes: [
             "=qx.module.Oo",
             "=qx.module.Lang",
@@ -354,10 +314,7 @@ module.exports = function(grunt) {
       },
       "module-orientation": {
         options: {
-          includes: [
-            "qx.module.event.OrientationHandler",
-            "qx.module.event.Orientation"
-          ],
+          includes: [ "qx.module.event.OrientationHandler" ],
           excludes: [
             "=qx.module.Oo",
             "=qx.module.Lang",
@@ -371,9 +328,7 @@ module.exports = function(grunt) {
       },
       "module-rotate": {
         options: {
-          includes: [
-            "qx.module.event.Rotate"
-          ],
+          includes: [ "qx.module.event.Rotate" ],
           excludes: [
             "=qx.module.Oo",
             "=qx.module.Lang",
@@ -387,13 +342,7 @@ module.exports = function(grunt) {
       },
       "module-util": {
         options: {
-          includes: [
-            "qx.module.util.Array",
-            "qx.module.util.Function",
-            "qx.module.util.Object",
-            "qx.module.util.String",
-            "qx.module.util.Type"
-          ],
+          includes: [ "qx.module.Util" ],
           excludes: [
             "=qx.module.Oo",
             "=qx.module.Lang",
