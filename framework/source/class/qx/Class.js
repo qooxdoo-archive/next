@@ -80,7 +80,6 @@ qx.Class = {
     {
       if (i === len) {
         if (parent[part] !== undefined) {
-          // throw new Error("Illegal redefine of class: '"+name+"'.");
           console.warn("Illegal redefine of class: '"+name+"'.");
         }
 
