@@ -35,10 +35,10 @@ var calculateClassLoadList = function() {
       buildType: "source"
     };
 
-    var expandedExcludes = qxDep.expandExcludes(opts.excludes, opts.includes, opts.classPaths);
     var classesDeps = qxDep.collectDepsRecursive(opts.classPaths, opts.includes, opts.excludes, opts.environment, depsCollectingOptions);
-    var classListLoadOrder = qxDep.sortDepsTopologically(classesDeps, "load", opts.includes, expandedExcludes);
-    var classListPaths = qxDep.translateClassIdsToPaths(classListLoadOrder);
+    var augmented = qxDep.resolveAndExpandInAndExcludes(opts.includes, opts.excludes, Object.keys(classesDeps), opts.classPaths);
+    var classLoadOrderList = qxDep.sortDepsTopologically(classesDeps, "load", augmented.includes, augmented.excludes, augmented.explicitExcludes);
+    var classListPaths = qxDep.translateClassIdsToPaths(classLoadOrderList);
     classListPaths.forEach(function(path, i) {
       classListPaths[i] = "../class/" + path;
     });

@@ -549,6 +549,63 @@ function convertRunDepsOfPrioDepsToLoadOnly(classesDeps, prioDeps) {
   return classesDeps;
 }
 
+/**
+ * Resolve wildcards ('*' char) in wildcardList by matching against classList.
+ *
+ * @param {string[]} wildcardList - class ids (e.g. 'qx.foo.*')
+ * @param {string[]} classList - class ids (should be superset of wildcardList)
+ * @return {string[]} resolvedClassList
+ */
+function resolveWildcards(wildcardList, classList) {
+  var resolvedList = [];
+
+  var matchOrKeep = function(classList, classId) {
+    var matches = minimatch.match(classList, classId);
+    return (matches.length > 0) ? matches : classId;
+  };
+
+  for (var i = 0; i < wildcardList.length; i++) {
+    resolvedList.push(matchOrKeep(classList, wildcardList[i]));
+  }
+  return _.uniq(_.flatten(resolvedList));
+}
+
+/**
+ * Resolves '=' (first char before exclude), which has a special meaning:
+ * All dependencies of this class are excluded, too (i.e. appended to the excludes).
+ *
+ * @param {string[]} excludes - may contain equal sign ('=') but may *not* contain wildcards ('*')
+ * @param {string[]} includes - may *not* contain equal sign ('=') or wildcards ('*')
+ * @param {Object} basePaths - namespace (key) and filePath (value) to library
+ * @return {Object} excludesList
+ */
+function expandExcludes(excludes, includes, basePaths) {
+  var expandClassIds = function(classId, includes, explicitExcludes) {
+    if (classId.indexOf("=") === 0) {
+      var classesDepsExclude = collectDepsRecursive(basePaths, [classId.substr(1)], []);
+      return sortDepsTopologically(classesDepsExclude, "load", includes, [], explicitExcludes);
+    } else {
+      return classId;
+    }
+  };
+  var adjustClassIds = function(classId) {
+    return (classId.indexOf("=") === 0)
+           ? classId.substr(1)
+           : classId;
+  };
+  var i = 0;
+  var l = excludes.length;
+  var explicitExcludes = [];
+  var expandedExcludes = [];
+
+  explicitExcludes = excludes.map(adjustClassIds);
+  for (; i<l; i++) {
+    expandedExcludes = expandClassIds(excludes[i], includes, _.without(explicitExcludes, excludes[i]));
+  }
+
+  return _.uniq(_.flatten(expandedExcludes));
+}
+
 //------------------------------------------------------------------------------
 // Public Interface
 //------------------------------------------------------------------------------
@@ -1123,48 +1180,32 @@ module.exports = {
     return convertRunDepsOfPrioDepsToLoadOnly(result, prioClassIds);
   },
 
-
-
   /**
    * Sorts classes topologically (after their dependencies) to ensure a
    * proper class list sorted by a specific order ('load' most of the time).
+   * Class list can be influenced by includes, excludes and explicitExcludes.
    *
    * @param {} classesDeps
    * @param {string} subkey - 'load' or 'run'
-   * @param {string[]} includes - classIds (may contain wildcards)
-   * @param {Object} excludes - raw (unaltered), adjusted (without '='), adjustedAndExpanded (with trans. deps)
+   * @param {string[]} includes - classIds (may *not* contain wildcards)
+   * @param {Object} excludes - classIds (may *not* contain wildcards), which will probably be excluded
+   * @param {Object} explicitExcludes - classIds (may *not* contain wildcards), which will definitely be excluded
    * @returns {string[]} classListSorted
    */
-  sortDepsTopologically: function(classesDeps, subkey, includes, excludes) {
+  sortDepsTopologically: function(classesDeps, subkey, includes, excludes, explicitExcludes) {
     var tsort = new Toposort();
     var classListSorted = [];
     var i = 0;
     var j = 0;
-    var k = 0;
     var curClass = '';
-    var curClassDeps = [];
-    var curExclude = '';
     var toBeRemoved = [];
 
-    var resolveWildcards = function(wildcardList, classList) {
-      var resolvedList = [];
-
-      for (var i = 0; i < wildcardList.length; i++) {
-        resolvedList.push(minimatch.match(classList, wildcardList[i]));
-      }
-      return _.flatten(resolvedList);
-    };
-
-    var allClasses = Object.keys(classesDeps);
-    var includesResolved = resolveWildcards(includes, allClasses);
-    var excludesResolved = resolveWildcards(excludes.adjustedAndExpanded, allClasses);
-
-    var directDepsOfIncludes = includesResolved.map(function(incl) {
-      return classesDeps[incl].load.concat(classesDeps[incl].run);
+    var directDepsOfIncludes = includes.map(function(incl) {
+      return (incl in classesDeps)
+             ? classesDeps[incl].load.concat(classesDeps[incl].run)
+             : [];
     });
-    directDepsOfIncludes = _.flatten(directDepsOfIncludes);
-
-    var includesAndDirectDepsOfIncludes = _.union(includesResolved, directDepsOfIncludes);
+    var includesAndDirectDepsOfIncludes = _.union(includes, _.flatten(directDepsOfIncludes));
 
     for (var clazz in classesDeps) {
       tsort.add(clazz, classesDeps[clazz][subkey]);
@@ -1178,20 +1219,20 @@ module.exports = {
 
       // exclude class if
       // ... it's an exclusion from a resolved wildcard (e.g. "qx.dev.*")
-      //      but at the same time *no* include or a direct dep of an include
+      //     but at the same time *no* include or a direct dep of an include
       // ... OR it's an the exclusion root from a '=' notation (e.g. "=qxWeb")
 
       if (
-            (excludesResolved.indexOf(curClass) !== -1 &&
+            (excludes.indexOf(curClass) !== -1 &&
              includesAndDirectDepsOfIncludes.indexOf(curClass) === -1) ||
-            excludes.adjusted.indexOf(curClass) !== -1
+            explicitExcludes.indexOf(curClass) !== -1
       ) {
         toBeRemoved.push(curClass);
       }
     }
     var rmLen = toBeRemoved.length;
-    for (; k<rmLen; k++) {
-      classListSorted = _.without(classListSorted, toBeRemoved[k]);
+    for (; j<rmLen; j++) {
+      classListSorted = _.without(classListSorted, toBeRemoved[j]);
     }
 
     return classListSorted;
@@ -1219,7 +1260,6 @@ module.exports = {
     return classList.map(augmentClassWithNamespace);
   },
 
-
   /**
    * Reads file content given for classIds and basePaths.
    *
@@ -1240,36 +1280,35 @@ module.exports = {
     return classCodeList;
   },
 
-
   /**
-   * Resolves '=' (first char before exclude), which has a special meaning:
-   * All dependencies of this class are excluded, too (i.e. appended to the excludes).
+   * Resolves wildcards ('*') and equal signs ('=').
    *
-   * @param {string[]} excludes
+   * @param {string[]} includes - may *not* contain equal sign ('=') but wildcards ('*')
+   * @param {string[]} excludes - may contain equal sign ('=') and wildcards ('*')
+   * @param {string[]} overallClassList - class ids (should be superset of wildcardList)
    * @param {Object} basePaths - namespace (key) and filePath (value) to library
-   * @return {Object} excludes - raw (unaltered), adjusted (without '='), adjustedAndExpanded (with trans. deps)
    */
-  expandExcludes: function(excludes, includes, basePaths) {
-    var expandClassIds = function(classId) {
-      if (classId.indexOf("=") === 0) {
-        var classesDepsExclude = collectDepsRecursive(basePaths, [classId.substr(1)], []);
-        var emptyExcludes = {raw: [], adjusted: [], adjustedAndExpanded: []};
-        return sortDepsTopologically(classesDepsExclude, "load", includes, emptyExcludes);
-      } else {
-        return classId;
-      }
-    };
-    var adjustClassIds = function(classId) {
+  resolveAndExpandInAndExcludes: function(includes, excludes, overallClassList, basePaths) {
+    var includesResolved = resolveWildcards(includes, overallClassList);
+    var excludesResolved = resolveWildcards(excludes, overallClassList);
+
+    var excludesExpandedAndResolved = expandExcludes(excludesResolved, includesResolved, basePaths);
+
+    var explicitExcludes = [];
+    // remove star entries
+    explicitExcludes = _.without(excludes.map(function(classId) {
+      return (classId.indexOf("*") !== -1)
+             ? classId
+             : false;
+    }), false);
+    // remove equal signs but keep class
+    explicitExcludes = excludes.map(function(classId) {
       return (classId.indexOf("=") === 0)
              ? classId.substr(1)
              : classId;
-    };
+    });
 
-    return {
-      raw: excludes,
-      adjusted: excludes.map(adjustClassIds),
-      adjustedAndExpanded: _.flatten(excludes.map(expandClassIds))
-    };
+    return {'includes': includesResolved, 'excludes': excludesExpandedAndResolved, 'explicitExcludes': explicitExcludes};
   },
 
   /*
@@ -1378,7 +1417,7 @@ module.exports = {
 /* eslint no-use-before-define:0 */
 var findUnresolvedDeps = module.exports.findUnresolvedDeps;
 var collectDepsRecursive = module.exports.collectDepsRecursive;
-var expandExcludes = module.exports.expandExcludes;
+var resolveAndExpandInAndExcludes = module.exports.resolveAndExpandInAndExcludes;
 var createAtHintsIndex = module.exports.createAtHintsIndex;
 var sortDepsTopologically = module.exports.sortDepsTopologically;
 var prependNamespace = module.exports.prependNamespace;

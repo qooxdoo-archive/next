@@ -496,7 +496,31 @@ module.exports = {
       test.deepEqual(actual, expected);
 
       test.done();
-    }
+    },
+
+    resolveWildcards: function(test) {
+      var actual = this.depAnalyzer.resolveWildcards(['A*', '=C'], ['A', 'Aa', 'B', 'C']);
+      var expected = ['A', 'Aa', '=C'];
+
+      test.deepEqual(actual, expected);
+
+      test.done();
+    },
+
+    expandExcludes: function (test) {
+      var basePaths = {'myapp': './test/data/myapp/source/class/',
+                       'qx': '../../../../../framework/source/class/'};
+
+      // removing button class will sabotage app - just for testing
+      var excludes = ['=qx.ui.Button'];
+      var includes = ['myapp.Application'];
+
+      var actual = this.depAnalyzer.expandExcludes(excludes, includes, basePaths);
+
+      test.ok(actual.length > 30);
+
+      test.done();
+    },
   },
 
   // test exported functions
@@ -638,19 +662,20 @@ module.exports = {
       test.done();
     },
 
-    expandExcludes: function (test) {
+    resolveAndExpandInAndExcludes: function(test) {
       var basePaths = {'myapp': './test/data/myapp/source/class/',
                        'qx': '../../../../../framework/source/class/'};
 
-      // destroys app - just for testing
+      // removing button class will sabotage app - just for testing
       var excludes = ['=qx.ui.Button'];
-      var includes = ['myapp.Application'];
+      var includes = ['myapp.*'];
+      var overallClassList = ['qx.ui.Button', 'qx.ui.Atom', 'myapp.Application'];
 
-      var actual = this.depAnalyzer.expandExcludes(excludes, includes, basePaths);
+      var actual = this.depAnalyzer.resolveAndExpandInAndExcludes(includes, excludes, overallClassList, basePaths);
 
-      test.deepEqual(actual.raw, ['=qx.ui.Button']);
-      test.deepEqual(actual.adjusted, ['qx.ui.Button']);
-      test.ok(actual.adjustedAndExpanded.length > 10);
+      test.deepEqual(actual.includes, ['myapp.Application']);
+      test.ok(actual.excludes.length > 30);
+      test.deepEqual(actual.explicitExcludes, ['qx.ui.Button']);
 
       test.done();
     },
@@ -664,29 +689,25 @@ module.exports = {
         'D':  { load: [], run: [] },
         'E':  { load: [], run: ['D'] }
       };
-      var emptyExcludes = {raw: [], adjusted: [], adjustedAndExpanded: []};
-      var aExcludes = {raw: ['A'], adjusted: ['A'], adjustedAndExpanded: ['A']};
-      var aStarExcludes = {raw: ['A*'], adjusted: ['A*'], adjustedAndExpanded: ['A*']};
-      var aEqualExcludes = {raw: ['=B'], adjusted: ['B'], adjustedAndExpanded: ['B', 'C', 'E', 'D']};
 
       // no excludes
-      var actual = this.depAnalyzer.sortDepsTopologically(deps, 'load', [], emptyExcludes);
+      var actual = this.depAnalyzer.sortDepsTopologically(deps, 'load', [], [], []);
       var expected = ['E', 'C', 'B', 'A', 'D', 'Aa'];
       test.deepEqual(actual, expected);
 
-      // excludes w/o glob
-      actual = this.depAnalyzer.sortDepsTopologically(deps, 'load', [], aExcludes);
+      // exclude
+      actual = this.depAnalyzer.sortDepsTopologically(deps, 'load', [], ['A'], []);
       expected = ['E', 'C', 'B', 'D', 'Aa'];
       test.deepEqual(actual, expected);
 
-      // excludes w/ glob
-      actual = this.depAnalyzer.sortDepsTopologically(deps, 'load', [], aStarExcludes);
-      expected = ['E', 'C', 'B', 'D'];
+      // includes and exclude (=> dep B of include A is prioritized)
+      actual = this.depAnalyzer.sortDepsTopologically(deps, 'load', ['A'], ['B', 'Aa'], []);
+      expected = ['E', 'C', 'B', 'A', 'D'];
       test.deepEqual(actual, expected);
 
-      // excludes w/ equal sign
-      actual = this.depAnalyzer.sortDepsTopologically(deps, 'load', ['A', 'Aa'], aEqualExcludes);
-      expected = ['C', 'A', 'D', 'Aa'];
+      // includes and explicit excludes (=> dep B is an explicit exclude - even if needed by A)
+      actual = this.depAnalyzer.sortDepsTopologically(deps, 'load', ['A'], [], ['B']);
+      expected = ['E', 'C', 'A', 'D', 'Aa'];
       test.deepEqual(actual, expected);
 
       test.done();

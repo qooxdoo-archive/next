@@ -33,7 +33,6 @@ var url = require("url");
 
 // third-party
 var pathIsInside = require("path-is-inside");
-var _ = require('underscore');
 
 // qx
 var qxRes = require("qx-resource");
@@ -128,11 +127,13 @@ module.exports = function(grunt) {
     var classesDeps = qxDep.collectDepsRecursive(classPaths, opts.includes, opts.excludes, opts.environment, depsCollectingOptions);
     grunt.log.ok('Done.');
 
-    // expand excludes starting with a '='
-    var excludesAugmented = qxDep.expandExcludes(opts.excludes, opts.includes, classPaths);
+    // includes may end with wildcards ('*')
+    // excludes may start with equal signs ('=') and end with wildcards ('*')
 
-    // sort topological
-    var classLoadOrderList = qxDep.sortDepsTopologically(classesDeps, "load", opts.includes, excludesAugmented);
+    var allClasses = Object.keys(classesDeps);
+    var augmented = qxDep.resolveAndExpandInAndExcludes(opts.includes, opts.excludes, allClasses, classPaths);
+    var classLoadOrderList = qxDep.sortDepsTopologically(classesDeps, "load", augmented.includes, augmented.excludes, augmented.explicitExcludes);
+
 
     grunt.log.writeln('Processing ' + classLoadOrderList.length + ' classes ...');
     // ---------------------------------------------------------------------------
