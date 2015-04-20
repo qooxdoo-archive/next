@@ -161,7 +161,7 @@ qx.Class.define("qx.bom.HashHistory",
     {
       var currentState = this._readState();
 
-      if (qx.lang.Type.isString(currentState) && currentState != this.getState()) {
+      if (qx.lang.Type.isString(currentState) && currentState != this.state) {
         this._onHistoryLoad(currentState);
       }
     },
