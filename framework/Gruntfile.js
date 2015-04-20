@@ -112,18 +112,7 @@ module.exports = function(grunt) {
       "module-core": {
         options: {
           includes: [
-            "qx.module.Core",
-            "qx.module.event.*",
-            "qx.bom.Event",
-            "qx.bom.Stylesheet",
-            "qx.dom.Element",
-            "qx.lang.Array",
-            "qx.util.Uri",
-            "qx.lang.Type",
-            "qx.lang.String",
-            "qx.lang.Object",
-            "qx.lang.Function",
-            "qx.Class"
+            "qx.module.Core"
           ],
           excludes: [],
           loaderTemplate: "../tool/data/generator/website.loader.tmpl.js",
@@ -133,7 +122,7 @@ module.exports = function(grunt) {
       "module-animation": {
         options: {
           includes: [ "qx.module.Animation" ],
-          excludes: [ "=qx.module.Core" ],
+          excludes: [ "qx.Class", "qxWeb", "=qx.module.Core" ],
           loaderTemplate: "../tool/data/generator/website.loader.tmpl.js",
           fileName: "animation"
         }
@@ -141,7 +130,7 @@ module.exports = function(grunt) {
       "module-blocker": {
         options: {
           includes: [ "qx.module.Blocker" ],
-          excludes: [ "=qx.module.Core" ],
+          excludes: [ "qx.Class", "qxWeb", "=qx.module.Core" ],
           loaderTemplate: "../tool/data/generator/website.loader.tmpl.js",
           fileName: "blocker"
         }
@@ -149,7 +138,7 @@ module.exports = function(grunt) {
       "module-cookie": {
         options: {
           includes: [ "qx.module.Cookie" ],
-          excludes: [ "=qx.module.Core" ],
+          excludes: [ "qx.Class", "qxWeb", "=qx.module.Core" ],
           loaderTemplate: "../tool/data/generator/website.loader.tmpl.js",
           fileName: "cookie"
         }
@@ -157,7 +146,7 @@ module.exports = function(grunt) {
       "module-dataset": {
         options: {
           includes: [ "qx.module.Dataset" ],
-          excludes: [ "=qx.module.Core" ],
+          excludes: [ "qx.Class", "qxWeb", "=qx.module.Core" ],
           loaderTemplate: "../tool/data/generator/website.loader.tmpl.js",
           fileName: "dataset"
         }
@@ -165,7 +154,7 @@ module.exports = function(grunt) {
       "module-dev": {
         options: {
           includes: [ "qx.module.dev.FakeServer" ],
-          excludes: [ "=qx.module.Core" ],
+          excludes: [ "qx.Class", "qxWeb", "=qx.module.Core" ],
           loaderTemplate: "../tool/data/generator/website.loader.tmpl.js",
           fileName: "dev"
         }
@@ -173,7 +162,7 @@ module.exports = function(grunt) {
       "module-io": {
         options: {
           includes: [ "qx.module.Io" ],
-          excludes: [ "=qx.module.Core" ],
+          excludes: [ "qx.Class", "qxWeb", "=qx.module.Core" ],
           loaderTemplate: "../tool/data/generator/website.loader.tmpl.js",
           fileName: "io"
         }
@@ -181,7 +170,7 @@ module.exports = function(grunt) {
       "module-matchmedia": {
         options: {
           includes: [ "qx.module.MatchMedia" ],
-          excludes: [ "=qx.module.Core" ],
+          excludes: [ "qx.Class", "qxWeb", "=qx.module.Core" ],
           loaderTemplate: "../tool/data/generator/website.loader.tmpl.js",
           fileName: "matchmedia"
         }
@@ -189,7 +178,7 @@ module.exports = function(grunt) {
       "module-messaging": {
         options: {
           includes: [ "qx.module.Messaging" ],
-          excludes: [ "=qx.module.Core" ],
+          excludes: [ "qx.Class", "qxWeb", "=qx.module.Core" ],
           loaderTemplate: "../tool/data/generator/website.loader.tmpl.js",
           fileName: "messaging"
         }
@@ -197,7 +186,7 @@ module.exports = function(grunt) {
       "module-placement": {
         options: {
           includes: [ "qx.module.Placement" ],
-          excludes: [ "=qx.module.Core" ],
+          excludes: [ "qx.Class", "qxWeb", "=qx.module.Core" ],
           loaderTemplate: "../tool/data/generator/website.loader.tmpl.js",
           fileName: "placement"
         }
@@ -205,7 +194,7 @@ module.exports = function(grunt) {
       "module-rest": {
         options: {
           includes: [ "qx.module.Rest" ],
-          excludes: [ "=qx.module.Core" ],
+          excludes: [ "qx.Class", "qxWeb", "=qx.module.Core" ],
           loaderTemplate: "../tool/data/generator/website.loader.tmpl.js",
           fileName: "rest"
         }
@@ -213,7 +202,7 @@ module.exports = function(grunt) {
       "module-storage": {
         options: {
           includes: [ "qx.module.Storage" ],
-          excludes: [ "=qx.module.Core" ],
+          excludes: [ "qx.Class", "qxWeb", "=qx.module.Core" ],
           loaderTemplate: "../tool/data/generator/website.loader.tmpl.js",
           fileName: "storage"
         }
@@ -221,7 +210,7 @@ module.exports = function(grunt) {
       "module-template": {
         options: {
           includes: [ "qx.module.Template" ],
-          excludes: [ "=qx.module.Core" ],
+          excludes: [ "qx.Class", "qxWeb", "=qx.module.Core" ],
           loaderTemplate: "../tool/data/generator/website.loader.tmpl.js",
           fileName: "template"
         }
@@ -230,7 +219,7 @@ module.exports = function(grunt) {
         options: {
           appName: "textselection",
           includes: [ "qx.module.TextSelection" ],
-          excludes: [ "=qx.module.Core" ],
+          excludes: [ "qx.Class", "qxWeb", "=qx.module.Core" ],
           loaderTemplate: "../tool/data/generator/website.loader.tmpl.js",
           fileName: "textselection"
         }
@@ -238,7 +227,7 @@ module.exports = function(grunt) {
       "module-transform": {
         options: {
           includes: [ "qx.module.Transform" ],
-          excludes: [ "=qx.module.Core" ],
+          excludes: [ "qx.Class", "qxWeb", "=qx.module.Core" ],
           loaderTemplate: "../tool/data/generator/website.loader.tmpl.js",
           fileName: "transform"
         }
@@ -252,7 +241,7 @@ module.exports = function(grunt) {
            "qx.module.util.Object",
            "qx.module.util.Function"
           ],
-          excludes: [ "=qx.module.Core" ],
+          excludes: [ "qx.Class", "qxWeb", "=qx.module.Core" ],
           loaderTemplate: "../tool/data/generator/website.loader.tmpl.js",
           fileName: "util"
         }
@@ -260,7 +249,7 @@ module.exports = function(grunt) {
       "module-ui": {
         options: {
           includes: [ "qx.module.Ui" ],
-          excludes: [ "=qx.module.Core" ],
+          excludes: [ "qx.Class", "qxWeb", "=qx.module.Core" ],
           loaderTemplate: "../tool/data/generator/website.loader.tmpl.js",
           fileName: "ui"
         }
