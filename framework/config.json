@@ -40,6 +40,8 @@
     "build-orientation",
     "build-rotate",
     "build-util",
+    "build-animation",
+    "build-blocker",
 
     "clean",
     "clean-cache",

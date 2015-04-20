@@ -356,7 +356,15 @@ module.exports = function(grunt) {
       "module-animation": {
         options: {
           includes: [ "qx.module.Animation" ],
-          excludes: [ "=qx.module.Core" ],
+          excludes: [
+            "=qx.module.Oo",
+            "=qx.module.Lang",
+            "=qxWeb",
+            "=qx.module.Environment",
+            "=qx.module.Css",
+            "=qx.module.Html",
+            "=qx.module.Event"
+          ],
           loaderTemplate: "../tool/data/generator/website.loader.tmpl.js",
           fileName: "animation"
         }
@@ -364,7 +372,17 @@ module.exports = function(grunt) {
       "module-blocker": {
         options: {
           includes: [ "qx.module.Blocker" ],
-          excludes: [ "=qx.module.Core" ],
+          excludes: [
+            "=qx.module.Oo",
+            "=qx.module.Lang",
+            "=qxWeb",
+            "=qx.module.Environment",
+            "=qx.module.Html",
+            "=qx.module.Css",
+            "=qx.module.Attribute",
+            "=qx.module.Traversing",
+            "=qx.module.Manipulating"
+          ],
           loaderTemplate: "../tool/data/generator/website.loader.tmpl.js",
           fileName: "blocker"
         }

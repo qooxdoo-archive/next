@@ -79,6 +79,14 @@ var modules = {
   'qx.module.Util': {
     exclude: [],
     include: []
+  },
+  'qx.module.Animation': {
+    exclude: ['qx.module.Css', 'qx.module.Html', 'qx.module.Event'],
+    include: []
+  },
+  'qx.module.Blocker': {
+    exclude: ['qx.module.Css', 'qx.module.Html', 'qx.module.Attribute', 'qx.module.Traversing', 'qx.module.Manipulating'],
+    include: []
   }
 };
 

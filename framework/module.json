@@ -612,6 +612,75 @@
       }
     },
 
+    "build-animation" :
+    {
+      "extend" : ["qxweb-build"],
+      "let" : {
+        "Q_INCLUDES" : [
+          "qx.module.Animation"
+        ]
+      },
+      "exclude" : [
+        "=qx.module.Oo",
+        "=qx.module.Lang",
+        "=qxWeb",
+        "=qx.module.Environment",
+        "=qx.module.Css",
+        "=qx.module.Html",
+        "=qx.module.Event"
+      ],
+      "compile-options" :
+      {
+        "paths"  :
+        {
+          "file" : "${BUILD_PATH}/q-animation${QFILES_VERSION_PART}.js"
+        }
+      },
+      "log" :
+      {
+        "dependencies" : {
+          "dot" : {
+            "root" : "qx.module.Animation",
+            "file" : "animation.dot"
+          }
+        }
+      }
+    },
+
+    "build-blocker" :
+    {
+      "extend" : ["qxweb-build"],
+      "let" : {
+        "Q_INCLUDES": ["qx.module.Blocker"]
+      },
+      "exclude" : [
+        "=qx.module.Oo",
+        "=qx.module.Lang",
+        "=qxWeb",
+        "=qx.module.Environment",
+        "=qx.module.Html",
+        "=qx.module.Css",
+        "=qx.module.Attribute",
+        "=qx.module.Traversing",
+        "=qx.module.Manipulating"
+      ],
+      "compile-options" :
+      {
+        "paths"  :
+        {
+          "file" : "${BUILD_PATH}/q-blocker${QFILES_VERSION_PART}.js"
+        }
+      },
+      "log" :
+      {
+        "dependencies" : {
+          "dot" : {
+            "root" : "qx.module.Blocker",
+            "file" : "blocker.dot"
+          }
+        }
+      }
+    },
 
 
     "build-core" :
@@ -750,18 +819,6 @@
       ]
     },
 
-    "build-module-animation" :
-    {
-      "extend" : ["build-module"],
-      "lint-check" : {
-        "allowed-globals" : [ "qx.core", "qx.lang", "qx.bom", "qx.event" ]
-      },
-      "let" : {
-        "Q_INCLUDES": ["qx.module.Animation"],
-        "MODULE_FILENAME" : "animation"
-      }
-    },
-
     "build-module-animation-min" :
     {
       "extend" : ["build-module-min"],
@@ -771,15 +828,6 @@
       "let" : {
         "Q_INCLUDES": ["qx.module.Animation"],
         "MODULE_FILENAME" : "animation"
-      }
-    },
-
-    "build-module-blocker" :
-    {
-      "extend" : ["build-module"],
-      "let" : {
-        "Q_INCLUDES": ["qx.module.Blocker"],
-        "MODULE_FILENAME" : "blocker"
       }
     },
 
