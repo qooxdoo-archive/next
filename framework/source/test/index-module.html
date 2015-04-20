@@ -1,0 +1,270 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>Next Tests</title>
+  <link rel="stylesheet" href="node_modules/mocha/mocha.css" />
+  <link rel="stylesheet" href="build/resource/qx/css/indigo.css" />
+  <style type="text/css">
+    body {
+      overflow: auto;
+    }
+  </style>
+</head>
+<body>
+  <div id="mocha"></div>
+  <div id="messages"></div>
+  <div id="fixtures"></div>
+  <script src="node_modules/chai/chai.js"></script>
+  <script src="node_modules/mocha/mocha.js"></script>
+  <script src="sinon-1.11.1.js"></script>
+
+  <script type="text/javascript" src="../../build/script/oo.js"></script>
+  <script type="text/javascript" src="../../build/script/lang.js"></script>
+  <script type="text/javascript" src="../../build/script/qxweb.js"></script>
+  <script type="text/javascript" src="../../build/script/environment.js"></script>
+  <script type="text/javascript" src="../../build/script/attribute.js"></script>
+  <script type="text/javascript" src="../../build/script/css.js"></script>
+  <script type="text/javascript" src="../../build/script/html.js"></script>
+  <script type="text/javascript" src="../../build/script/manipulating.js"></script>
+  <script type="text/javascript" src="../../build/script/traversing.js"></script>
+  <script type="text/javascript" src="../../build/script/event.js"></script>
+  <script type="text/javascript" src="../../build/script/native.js"></script>
+  <script type="text/javascript" src="../../build/script/keyboard.js"></script>
+  <script type="text/javascript" src="../../build/script/mouse.js"></script>
+  <script type="text/javascript" src="../../build/script/touch.js"></script>
+  <script type="text/javascript" src="../../build/script/pointer.js"></script>
+  <script type="text/javascript" src="../../build/script/gesture.js"></script>
+  <script type="text/javascript" src="../../build/script/orientation.js"></script>
+  <script type="text/javascript" src="../../build/script/rotate.js"></script>
+  <script type="text/javascript" src="../../build/script/util.js"></script>
+
+  <script src="setup.js"></script>
+  <!-- injector:js -->
+  <script src="tests/Browser.js"></script>
+  <script src="tests/Class.js"></script>
+  <script src="tests/Dom.js"></script>
+  <script src="tests/Interface.js"></script>
+  <script src="tests/Mixin.js"></script>
+  <!--
+  <script src="tests/application/Routing.js"></script>
+  <script src="tests/bom/AnimationFrame.js"></script>
+  -->
+  <script src="tests/bom/Attribute.js"></script>
+  <script src="tests/bom/Basic.js"></script>
+  <script src="tests/bom/Class.js"></script>
+  <!--
+  <script src="tests/bom/Cookie.js"></script>
+  <script src="tests/bom/Dataset.js"></script>
+-->
+  <script src="tests/bom/Event.js"></script>
+<!--
+  <script src="tests/bom/Font.js"></script>
+  <script src="tests/bom/History.js"></script>
+  <script src="tests/bom/Iframe.js"></script>
+-->
+  <script src="tests/bom/Location.js"></script>
+  <!--
+  <script src="tests/bom/PageVisibility.js"></script>
+-->
+  <script src="tests/bom/Selector.js"></script>
+<!--
+  <script src="tests/bom/Storage.js"></script>
+  <script src="tests/bom/String.js"></script>
+-->
+  <script src="tests/bom/Stylesheet.js"></script>
+<!--
+  <script src="tests/bom/Template.js"></script>
+-->
+  <script src="tests/bom/Viewport.js"></script>
+  <!--
+  <script src="tests/bom/WebWorker.js"></script>
+-->
+  <script src="tests/bom/client/Css.js"></script>
+  <script src="tests/bom/client/Device.js"></script>
+  <script src="tests/bom/client/OperatingSystem.js"></script>
+  <!--
+  <script src="tests/bom/client/Pdfjs.js"></script>
+  <script src="tests/bom/element/AnimationHandle.js"></script>
+  <script src="tests/bom/element/AnimationJs.js"></script>
+-->
+  <script src="tests/bom/element/Class.js"></script>
+  <script src="tests/bom/element/Dimension.js"></script>
+  <script src="tests/bom/element/Style.js"></script>
+  <!--
+  <script src="tests/bom/element/Transform.js"></script>
+  <script src="tests/bom/webfonts/Manager.js"></script>
+  <script src="tests/bom/webfonts/Validator.js"></script>
+  <script src="tests/core/Assert.js"></script>
+  <script src="tests/core/Environment.js"></script>
+  <script src="tests/data/DataArray.js"></script>
+  <script src="tests/data/DataArrayWithChangeBubble.js"></script>
+  <script src="tests/data/controller/Form.js"></script>
+  <script src="tests/data/controller/Object.js"></script>
+  <script src="tests/data/marshal/Json.js"></script>
+  <script src="tests/data/singlevalue/Array.js"></script>
+  <script src="tests/data/singlevalue/Deep.js"></script>
+  <script src="tests/data/singlevalue/Resolve.js"></script>
+  <script src="tests/data/singlevalue/Simple.js"></script>
+  <script src="tests/data/singlevalue/TextFieldDummy.js"></script>
+  <script src="tests/data/singlevalue/WithQxWeb.js"></script>
+  <script src="tests/data/store/Json.js"></script>
+  <script src="tests/data/store/Jsonp.js"></script>
+  <script src="tests/data/store/Offline.js"></script>
+  <script src="tests/data/store/Rest.js"></script>
+  <script src="tests/data/store/RestWithRemote.js"></script>
+  <script src="tests/dev/StackTrace.js"></script>
+-->
+  <script src="tests/dom/Element.js"></script>
+  <script src="tests/dom/Hierarchy.js"></script>
+  <script src="tests/dom/Node.js"></script>
+  <script src="tests/event/Emitter.js"></script>
+  <!--
+  <script src="tests/event/Messaging.js"></script>
+-->
+  <script src="tests/event/util/Keyboard.js"></script>
+  <!--
+  <script src="tests/io/ImageLoader.js"></script>
+  <script src="tests/io/request-MRequest.js"></script>
+  <script src="tests/io/request/Jsonp.js"></script>
+  <script src="tests/io/request/JsonpLowLevel.js"></script>
+  <script src="tests/io/request/JsonpWithRemote.js"></script>
+  <script src="tests/io/request/Script.js"></script>
+  <script src="tests/io/request/Xhr.js"></script>
+  <script src="tests/io/request/XhrLowLevel.js"></script>
+  <script src="tests/io/request/XhrWithRemote.js"></script>
+  <script src="tests/io/request/XhrWithRemoteLowLevel.js"></script>
+  <script src="tests/io/rest/Resource.js"></script>
+  <script src="tests/io/rest/ResourceWithRemote.js"></script>
+-->
+  <script src="tests/lang/Array.js"></script>
+  <script src="tests/lang/Function.js"></script>
+  <!--
+  <script src="tests/lang/Number.js"></script>
+-->
+  <script src="tests/lang/Object.js"></script>
+  <script src="tests/lang/String.js"></script>
+  <script src="tests/lang/Type.js"></script>
+  <!--
+  <script src="tests/log/DeprecationMethodOverriding.js"></script>
+  <script src="tests/log/Logger.js"></script>
+  <script src="tests/log/RingBuffer.js"></script>
+  <script src="tests/log/Util.js"></script>
+  <script src="tests/log/appender/Util.js"></script>
+  <script src="tests/module/Animation.js"></script>
+-->
+  <script src="tests/module/Attribute.js"></script>
+  <script src="tests/module/Basic.js"></script>
+  <!--
+  <script src="tests/module/Blocker.js"></script>
+  <script src="tests/module/Cookie.js"></script>
+-->
+  <script src="tests/module/Css.js"></script>
+<!--
+  <script src="tests/module/Dataset.js"></script>
+-->
+  <script src="tests/module/Environment.js"></script>
+  <script src="tests/module/Event.js"></script>
+  <!--
+  <script src="tests/module/Io.js"></script>
+  -->
+  <script src="tests/module/Manipulating.js"></script>
+  <!--
+  <script src="tests/module/MatchMedia.js"></script>
+  <script src="tests/module/Messaging.js"></script>
+  <script src="tests/module/Placement.js"></script>
+-->
+  <script src="tests/module/QxWeb.js"></script>
+  <script src="tests/module/Selector.js"></script>
+  <!--
+  <script src="tests/module/Storage.js"></script>
+  <script src="tests/module/Templates.js"></script>
+  <script src="tests/module/TextSelection.js"></script>
+  <script src="tests/module/Transform.js"></script>
+-->
+  <script src="tests/module/Traversing.js"></script>
+  <!--
+  <script src="tests/module/dev/FakeServer.js"></script>
+-->
+  <script src="tests/module/event/GestureHandler.js"></script>
+  <script src="tests/module/event/Keyboard.js"></script>
+  <script src="tests/module/event/Mouse.js"></script>
+  <script src="tests/module/event/Native.js"></script>
+  <script src="tests/module/event/Normalization.js"></script>
+  <script src="tests/module/event/PointerHandler.js"></script>
+  <script src="tests/module/event/RegistrationHooks.js"></script>
+  <script src="tests/module/event/Touch.js"></script>
+  <script src="tests/module/event/TouchHandler.js"></script>
+  <script src="tests/module/event/TrackHandler.js"></script>
+  <script src="tests/module/util/Array.js"></script>
+  <script src="tests/module/util/Function.js"></script>
+  <script src="tests/module/util/Object.js"></script>
+  <script src="tests/module/util/String.js"></script>
+  <script src="tests/module/util/Type.js"></script>
+  <!--
+  <script src="tests/type/Array.js"></script>
+-->
+  <script src="tests/type/BaseArray.js"></script>
+  <!--
+  <script src="tests/type/BaseString.js"></script>
+  <script src="tests/ui/Atom.js"></script>
+  <script src="tests/ui/Button.js"></script>
+  <script src="tests/ui/Carousel.js"></script>
+  <script src="tests/ui/Image.js"></script>
+  <script src="tests/ui/Label.js"></script>
+  <script src="tests/ui/List.js"></script>
+  <script src="tests/ui/Rating.js"></script>
+  <script src="tests/ui/TabBar.js"></script>
+  <script src="tests/ui/ToolBar.js"></script>
+  <script src="tests/ui/Tree.js"></script>
+  <script src="tests/ui/Widget.js"></script>
+  <script src="tests/ui/container/Collapsible.js"></script>
+  <script src="tests/ui/container/Composite.js"></script>
+  <script src="tests/ui/container/Drawer.js"></script>
+  <script src="tests/ui/container/Navigation.js"></script>
+  <script src="tests/ui/container/Scroll.js"></script>
+  <script src="tests/ui/control/Calendar.js"></script>
+  <script src="tests/ui/dialog/Menu.js"></script>
+  <script src="tests/ui/dialog/Popup.js"></script>
+  <script src="tests/ui/form/CheckBox.js"></script>
+  <script src="tests/ui/form/DatePicker.js"></script>
+  <script src="tests/ui/form/Form.js"></script>
+  <script src="tests/ui/form/Group.js"></script>
+  <script src="tests/ui/form/Input.js"></script>
+  <script src="tests/ui/form/NumberField.js"></script>
+  <script src="tests/ui/form/PasswordField.js"></script>
+  <script src="tests/ui/form/Picker.js"></script>
+  <script src="tests/ui/form/RadioButton.js"></script>
+  <script src="tests/ui/form/Resetter.js"></script>
+  <script src="tests/ui/form/Row.js"></script>
+  <script src="tests/ui/form/SelectBox.js"></script>
+  <script src="tests/ui/form/Slider.js"></script>
+  <script src="tests/ui/form/TextArea.js"></script>
+  <script src="tests/ui/form/TextField.js"></script>
+  <script src="tests/ui/form/ToggleButton.js"></script>
+  <script src="tests/ui/layout/Card.js"></script>
+  <script src="tests/ui/layout/HBox.js"></script>
+  <script src="tests/ui/layout/VBox.js"></script>
+  <script src="tests/ui/page/Manager.js"></script>
+  <script src="tests/ui/page/NavigationPage.js"></script>
+  <script src="tests/ui/page/Page.js"></script>
+  <script src="tests/util/Base64.js"></script>
+  <script src="tests/util/ColorUtil.js"></script>
+  <script src="tests/util/DateMock.js"></script>
+  <script src="tests/util/Delegate.js"></script>
+  <script src="tests/util/LibraryManager.js"></script>
+  <script src="tests/util/Request.js"></script>
+  <script src="tests/util/ResourceManager.js"></script>
+  <script src="tests/util/ResponseParser.js"></script>
+  <script src="tests/util/RingBuffer.js"></script>
+  <script src="tests/util/Serializer.js"></script>
+  <script src="tests/util/Uri.js"></script>
+  <script src="tests/util/Validate.js"></script>
+  <script src="tests/util/placement/BestFitAxis.js"></script>
+  <script src="tests/util/placement/DirectAxis.js"></script>
+  <script src="tests/util/placement/KeepAlignAxis.js"></script>
+  <script src="tests/util/placement/Placement.js"></script>
+-->
+  <!-- endinjector -->
+</body>
+</html>
