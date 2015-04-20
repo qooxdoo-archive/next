@@ -17,8 +17,10 @@
 describe("ui.Carousel", function() {
 
   var carousel;
-  var orderStyle = qxWeb.env.get("engine.name") == "mshtml" &&
-   qxWeb.env.get("browser.documentmode") == 10 ? "msFlexOrder" : "order";
+  var orderStyle = qxWeb.env.get("engine.name") === "mshtml" &&
+    qxWeb.env.get("browser.documentmode") === 10 ? "msFlexOrder" : "order";
+  var isIeLt10 = qxWeb.env.get("engine.name") === "mshtml" &&
+    qxWeb.env.get("browser.documentmode") < 10;
 
   beforeEach(function() {
     carousel = new qx.ui.Carousel()
@@ -49,6 +51,12 @@ describe("ui.Carousel", function() {
 
 
   it("order first active", function() {
+    // All ie's lower than 10 doesn't support the order attribute
+    if (isIeLt10) {
+      this.test.skipped = true;
+      return;
+    }
+
     var p1 = new qx.ui.Widget();
     p1.appendTo(carousel);
     var p2 = new qx.ui.Widget();
@@ -63,6 +71,12 @@ describe("ui.Carousel", function() {
 
 
   it("order last active", function() {
+    // All ie's lower than 10 doesn't support the order attribute
+    if (isIeLt10) {
+      this.test.skipped = true;
+      return;
+    }
+
     var p1 = new qx.ui.Widget();
     p1.appendTo(carousel);
     var p2 = new qx.ui.Widget();
@@ -79,6 +93,12 @@ describe("ui.Carousel", function() {
 
 
   it("order middle active", function() {
+    // All ie's lower than 10 doesn't support the order attribute
+    if (isIeLt10) {
+      this.test.skipped = true;
+      return;
+    }
+
     var p1 = new qx.ui.Widget();
     p1.appendTo(carousel);
     var p2 = new qx.ui.Widget();
@@ -94,6 +114,12 @@ describe("ui.Carousel", function() {
   });
 
   it("remove active", function() {
+    // All ie's lower than 10 doesn't support the order attribute
+    if (isIeLt10) {
+      this.test.skipped = true;
+      return;
+    }
+
     var p1 = new qx.ui.Widget();
     p1.appendTo(carousel);
     var p2 = new qx.ui.Widget();

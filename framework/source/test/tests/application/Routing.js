@@ -95,13 +95,14 @@ describe("application.Routing", function() {
 
 
   it("GetCustomDataTwoInstances", function() {
+    debugger;
     var r2 = new qx.application.Routing();
     var handler = sinonSandbox.spy();
     __r.onGet("/abc", handler);
     r2.executeGet("/abc", {
       a: true
     });
-    fakeHistory.emit("changeState", {value: "/abc"})
+    fakeHistory.emit("changeState", {value: "/abc"});
 
     sinon.assert.calledOnce(handler);
     assert.isTrue(handler.args[0][0].customData.a);

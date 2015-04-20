@@ -87,13 +87,13 @@ qx.Class.define("qx.bom.WebWorker",
      * @lint ignoreDeprecated(eval)
      */
     __initFake: function(src) {
-      var that = this;
-      var req = new qx.io.request.Xhr();
+      var req = new qx.io.request.Xhr(src, "GET");
+      req.async = false;
       req.onload = function() {
-        that.__fake = (function() {
+        this.__fake = (function() {
           var postMessage = function(e) {
-            that.emit('message', e);
-          };
+            this.emit('message', e);
+          }.bind(this);
           //set up context vars before evaluating the code
           /* eslint no-eval:0 */
           eval("var onmessage = null, postMessage = " + postMessage + ";" +
@@ -106,9 +106,7 @@ qx.Class.define("qx.bom.WebWorker",
             postMessage: postMessage
           };
         })();
-      };
-
-      req.open("GET", src, false);
+      }.bind(this);
       req.send();
     },
 
@@ -118,18 +116,16 @@ qx.Class.define("qx.bom.WebWorker",
      * @param msg {String} the message
      */
     postMessage: function(msg) {
-      var that = this;
-
       if (this.__isNative) {
         this._worker.postMessage(msg);
       } else {
         setTimeout(function() {
           try {
-            that.__fake.onmessage && that.__fake.onmessage({data: msg});
+            this.__fake.onmessage && this.__fake.onmessage({data: msg});
           } catch (ex) {
-            that.emit("error", ex);
+            this.emit("error", ex);
           }
-        }, 0);
+        }.bind(this), 0);
       }
     },
 

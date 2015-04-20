@@ -145,9 +145,11 @@ describe("io.request.XhrWithRemote", function() {
 
 
   it("timeout", function(done) {
+    debugger;
     var url = noCache("../resource/qx/test/xmlhttp/loading.php") + "&duration=100";
 
     req.on("timeout", function() {
+      debugger;
       assert.equal("timeout", req.phase);
       done();
     });

@@ -39,7 +39,7 @@ describe("bom.History", function() {
 
   it("Instance", function() {
     var runsInIframe = !(window == window.top);
-    // in iframe + IE9
+    // in iFrame + IE9
     if (runsInIframe && qx.core.Environment.get("browser.documentmode") == 9) {
       assert.instanceOf(__history, qx.bom.HashHistory);
     }
@@ -58,7 +58,7 @@ describe("bom.History", function() {
 
 
   it("RequestEvent", function(done) {
-    // "request" event just will be fired, if a user goes back or farward in
+    // "request" event just will be fired, if a user goes back or forward in
     // the history
     __history.once("request", function() {
       setTimeout(function() {

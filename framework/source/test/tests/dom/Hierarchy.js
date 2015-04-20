@@ -107,7 +107,6 @@ describe("dom.Hierarchy", function() {
     sandbox.append(e1);
     sandbox.append(e2);
     var next = qx.dom.Hierarchy.getNextElementSibling(e1);
-    console.log(next);
     assert.deepEqual(e2, next);
   });
 

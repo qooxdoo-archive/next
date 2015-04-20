@@ -21,6 +21,7 @@ describe("module.Animation", function() {
     var test = q.create("<div id='testdiv'/>");
     test.appendTo(sandbox[0]);
     test.on("animationEnd", function() {
+      debugger;
       assert.equal(1, test.getStyle("opacity"), "not visible after the animation");
       test.remove();
       done();
@@ -38,6 +39,7 @@ describe("module.Animation", function() {
 
     test.on('animationEnd', function() {
       setTimeout(function() {
+        debugger;
         assert.equal(1, test.getStyle('opacity'), 'not visible after the animation');
         test.remove();
         var sheets = [].filter.call(document.styleSheets, function(sheet) {

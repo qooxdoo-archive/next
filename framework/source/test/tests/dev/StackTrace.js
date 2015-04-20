@@ -25,7 +25,8 @@ describe("dev.StackTrace", function() {
 
   it("GetStackTraceFromError", function() {
     if (!qx.core.Environment.get("ecmascript.error.stacktrace")) {
-      skip("Test skipped since the client doesn't provide stack traces");
+      this.test.skipped = true;
+      return;
     }
     var trace = [];
     try {
@@ -39,7 +40,8 @@ describe("dev.StackTrace", function() {
 
   it("GetStackTraceFromErrorQx", function() {
     if (!qx.core.Environment.get("ecmascript.error.stacktrace")) {
-      skip("Test skipped since the client doesn't provide stack traces");
+      this.test.skipped = true;
+      return;
     }
     var qxErrorClasses = [qx.type.BaseError];
     for (var i = 0, l = qxErrorClasses.length; i < l; i++) {

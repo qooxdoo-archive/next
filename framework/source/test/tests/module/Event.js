@@ -224,7 +224,7 @@ describe("module.Event", function() {
     setTimeout(function() {
       assert.equal(1, ctx.ready);
       done();
-    }, 200);
+    }, 400);
   });
 
 

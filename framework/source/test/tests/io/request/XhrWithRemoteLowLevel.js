@@ -263,6 +263,7 @@ describe("io.request.XhrWithRemoteLowLevel", function() {
     var states = [];
 
     req.on("readystatechange", function() {
+      debugger;
       states.push(req.readyState);
       if (req.readyState == 4) {
         assert.deepEqual([1, 2, 3, 4], states);
@@ -584,6 +585,7 @@ describe("io.request.XhrWithRemoteLowLevel", function() {
 
     var emitOrig = req.emit;
     sinonSandbox.stub(req, "emit", function(evt) {
+      debugger;
       globalStack.push(evt);
       emitOrig.call(this, evt);
     });
@@ -665,6 +667,7 @@ describe("io.request.XhrWithRemoteLowLevel", function() {
     req.on("loadend", function() {
       // May take a while to detect network error
       setTimeout(function() {
+        debugger;
         assert.deepEqual(globalStack, expected);
         done();
       }, 500);
