@@ -25,6 +25,11 @@ module.exports = function (grunt) {
            template: "index.tmpl"
          }
        },
+       testModule: {
+         options: {
+           template: "index-module.tmpl"
+         }
+       },
        testSource: {
          options: {
            template: "index-source.tmpl"
@@ -112,7 +117,20 @@ module.exports = function (grunt) {
   grunt.task.registerTask(
     'build',
     'Build the test artifact (build version)',
-    ['sass:indigo', 'build-base']
+    ['sass:indigo', 'build-base', 'build-and-copy-modules']
+  );
+
+  grunt.task.registerTask(
+    // grunt-run-grunt plugin doesn't flush so using shelljs
+    'build-and-copy-modules',
+    'Copies the module builds into the test dir',
+    function() {
+      var restoreDir = shell.pwd();
+      shell.cd('../../');
+      shell.exec('grunt build');
+      shell.cp('-f', 'build/script/*.js', 'source/test/build/script/');
+      shell.cd(restoreDir);
+    }
   );
 
   grunt.registerTask('default', ['source', 'build', 'html']);

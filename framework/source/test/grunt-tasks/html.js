@@ -35,8 +35,9 @@ var calculateClassLoadList = function() {
       buildType: "source"
     };
 
+    var expandedExcludes = qxDep.expandExcludes(opts.excludes, opts.includes, opts.classPaths);
     var classesDeps = qxDep.collectDepsRecursive(opts.classPaths, opts.includes, opts.excludes, opts.environment, depsCollectingOptions);
-    var classListLoadOrder = qxDep.sortDepsTopologically(classesDeps, "load", opts.excludes);
+    var classListLoadOrder = qxDep.sortDepsTopologically(classesDeps, "load", opts.includes, expandedExcludes);
     var classListPaths = qxDep.translateClassIdsToPaths(classListLoadOrder);
     classListPaths.forEach(function(path, i) {
       classListPaths[i] = "../class/" + path;
@@ -51,15 +52,13 @@ module.exports = function(grunt) {
     var injectorConfig = grunt.config.get('injector');
 
     var sourcePaths = getSourcePaths(scope);
-    injectorConfig.testBuild.files = {
-      "index.html": sourcePaths
-    };
-    injectorConfig.testSource.files = {
-      "index-source.html": sourcePaths
-    };
+    injectorConfig.testBuild.files = { "index.html": sourcePaths };
+    injectorConfig.testModule.files = { "index-module.html": ['tests/module/*.js' ] };
+    injectorConfig.testSource.files = { "index-source.html": sourcePaths };
     injectorConfig.testSourceCoverage.files = {
       "index-coverage.html": calculateClassLoadList().concat(['setup.js']).concat(sourcePaths)
     };
+
     grunt.config.set('injector', injectorConfig);
     grunt.task.run(['injector']);
   });
