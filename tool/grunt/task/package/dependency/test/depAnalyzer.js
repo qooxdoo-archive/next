@@ -638,6 +638,23 @@ module.exports = {
       test.done();
     },
 
+    expandExcludes: function (test) {
+      var basePaths = {'myapp': './test/data/myapp/source/class/',
+                       'qx': '../../../../../framework/source/class/'};
+
+      // destroys app - just for testing
+      var excludes = ['=qx.ui.Button'];
+      var includes = ['myapp.Application'];
+
+      var actual = this.depAnalyzer.expandExcludes(excludes, includes, basePaths);
+
+      test.deepEqual(actual.raw, ['=qx.ui.Button']);
+      test.deepEqual(actual.adjusted, ['qx.ui.Button']);
+      test.ok(actual.adjustedAndExpanded.length > 10);
+
+      test.done();
+    },
+
     sortDepsTopologically: function (test) {
       var deps = {
         'A':  { load: ['B','C'], run: ['D'] },
@@ -647,20 +664,29 @@ module.exports = {
         'D':  { load: [], run: [] },
         'E':  { load: [], run: ['D'] }
       };
+      var emptyExcludes = {raw: [], adjusted: [], adjustedAndExpanded: []};
+      var aExcludes = {raw: ['A'], adjusted: ['A'], adjustedAndExpanded: ['A']};
+      var aStarExcludes = {raw: ['A*'], adjusted: ['A*'], adjustedAndExpanded: ['A*']};
+      var aEqualExcludes = {raw: ['=B'], adjusted: ['B'], adjustedAndExpanded: ['B', 'C', 'E', 'D']};
 
       // no excludes
-      var actual = this.depAnalyzer.sortDepsTopologically(deps, 'load', []);
+      var actual = this.depAnalyzer.sortDepsTopologically(deps, 'load', [], emptyExcludes);
       var expected = ['E', 'C', 'B', 'A', 'D', 'Aa'];
       test.deepEqual(actual, expected);
 
       // excludes w/o glob
-      actual = this.depAnalyzer.sortDepsTopologically(deps, 'load', ['A']);
+      actual = this.depAnalyzer.sortDepsTopologically(deps, 'load', [], aExcludes);
       expected = ['E', 'C', 'B', 'D', 'Aa'];
       test.deepEqual(actual, expected);
 
       // excludes w/ glob
-      actual = this.depAnalyzer.sortDepsTopologically(deps, 'load', ['A*']);
+      actual = this.depAnalyzer.sortDepsTopologically(deps, 'load', [], aStarExcludes);
       expected = ['E', 'C', 'B', 'D'];
+      test.deepEqual(actual, expected);
+
+      // excludes w/ equal sign
+      actual = this.depAnalyzer.sortDepsTopologically(deps, 'load', ['A', 'Aa'], aEqualExcludes);
+      expected = ['C', 'A', 'D', 'Aa'];
       test.deepEqual(actual, expected);
 
       test.done();

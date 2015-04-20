@@ -29,6 +29,7 @@ var classListLoadOrder = [];
 var classListPaths = [];
 var classesDeps = {};
 var atHintIndex = {};
+var expandedExcludes = {};
 
 var excludedClassIds = ['myapp.test.*'];
 
@@ -51,17 +52,15 @@ classesDeps = depAnalyzer.collectDepsRecursive(
 );
 */
 
+var includes = ['qx.module.Core'];
 classesDeps = depAnalyzer.collectDepsRecursive(
   {'qx': '../../../../../framework/source/class/'},
-  // ['qx.Interface'],
-  // ['qx.util.Uri']
-  // ['qxWeb'],
-  // ['qx.core.Init'],
-  ['qx.Interface'],
+  includes,
   []
 );
 
-classListLoadOrder = depAnalyzer.sortDepsTopologically(classesDeps, 'load', excludedClassIds);
+expandedExcludes = depAnalyzer.expandExcludes(excludedClassIds, includes, {});
+classListLoadOrder = depAnalyzer.sortDepsTopologically(classesDeps, 'load', includes, expandedExcludes);
 classListLoadOrder = depAnalyzer.prependNamespace(classListLoadOrder, ['qx', 'myapp']);
 classListPaths = depAnalyzer.translateClassIdsToPaths(classListLoadOrder);
 atHintIndex = depAnalyzer.createAtHintsIndex(classesDeps);

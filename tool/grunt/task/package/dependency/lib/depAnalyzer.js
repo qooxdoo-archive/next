@@ -1131,19 +1131,40 @@ module.exports = {
    *
    * @param {} classesDeps
    * @param {string} subkey - 'load' or 'run'
-   * @param {string[]} excludedClassIds
+   * @param {string[]} includes - classIds (may contain wildcards)
+   * @param {Object} excludes - raw (unaltered), adjusted (without '='), adjustedAndExpanded (with trans. deps)
    * @returns {string[]} classListSorted
    */
-  sortDepsTopologically: function(classesDeps, subkey, excludedClassIds) {
+  sortDepsTopologically: function(classesDeps, subkey, includes, excludes) {
     var tsort = new Toposort();
     var classListSorted = [];
     var i = 0;
     var j = 0;
     var k = 0;
-    var l = excludedClassIds.length;
-    var l2 = 0;
-    var l3 = 0;
+    var curClass = '';
+    var curClassDeps = [];
+    var curExclude = '';
     var toBeRemoved = [];
+
+    var resolveWildcards = function(wildcardList, classList) {
+      var resolvedList = [];
+
+      for (var i = 0; i < wildcardList.length; i++) {
+        resolvedList.push(minimatch.match(classList, wildcardList[i]));
+      }
+      return _.flatten(resolvedList);
+    };
+
+    var allClasses = Object.keys(classesDeps);
+    var includesResolved = resolveWildcards(includes, allClasses);
+    var excludesResolved = resolveWildcards(excludes.adjustedAndExpanded, allClasses);
+
+    var directDepsOfIncludes = includesResolved.map(function(incl) {
+      return classesDeps[incl].load.concat(classesDeps[incl].run);
+    });
+    directDepsOfIncludes = _.flatten(directDepsOfIncludes);
+
+    var includesAndDirectDepsOfIncludes = _.union(includesResolved, directDepsOfIncludes);
 
     for (var clazz in classesDeps) {
       tsort.add(clazz, classesDeps[clazz][subkey]);
@@ -1151,17 +1172,25 @@ module.exports = {
     classListSorted = tsort.sort().reverse();
 
     // take care of excludes
-    l2 = classListSorted.length;
-    for (; i<l; i++) {
-      j = 0;
-      for (; j<l2; j++) {
-        if (minimatch(classListSorted[j], excludedClassIds[i])) {
-          toBeRemoved.push(classListSorted[j]);
-        }
+    var clLen = classListSorted.length;
+    for (; i<clLen; i++) {
+      curClass = classListSorted[i];
+
+      // exclude class if
+      // ... it's an exclusion from a resolved wildcard (e.g. "qx.dev.*")
+      //      but at the same time *no* include or a direct dep of an include
+      // ... OR it's an the exclusion root from a '=' notation (e.g. "=qxWeb")
+
+      if (
+            (excludesResolved.indexOf(curClass) !== -1 &&
+             includesAndDirectDepsOfIncludes.indexOf(curClass) === -1) ||
+            excludes.adjusted.indexOf(curClass) !== -1
+      ) {
+        toBeRemoved.push(curClass);
       }
     }
-    l3 = toBeRemoved.length;
-    for (; k<l3; k++) {
+    var rmLen = toBeRemoved.length;
+    for (; k<rmLen; k++) {
       classListSorted = _.without(classListSorted, toBeRemoved[k]);
     }
 
@@ -1218,18 +1247,29 @@ module.exports = {
    *
    * @param {string[]} excludes
    * @param {Object} basePaths - namespace (key) and filePath (value) to library
-   * @return {string[]} excludes
+   * @return {Object} excludes - raw (unaltered), adjusted (without '='), adjustedAndExpanded (with trans. deps)
    */
-  expandExcludes: function(excludes, basePaths) {
-    excludes = excludes.map(function(classId) {
+  expandExcludes: function(excludes, includes, basePaths) {
+    var expandClassIds = function(classId) {
       if (classId.indexOf("=") === 0) {
         var classesDepsExclude = collectDepsRecursive(basePaths, [classId.substr(1)], []);
-        return sortDepsTopologically(classesDepsExclude, "load", []);
+        var emptyExcludes = {raw: [], adjusted: [], adjustedAndExpanded: []};
+        return sortDepsTopologically(classesDepsExclude, "load", includes, emptyExcludes);
       } else {
         return classId;
       }
-    });
-    return _.flatten(excludes);
+    };
+    var adjustClassIds = function(classId) {
+      return (classId.indexOf("=") === 0)
+             ? classId.substr(1)
+             : classId;
+    };
+
+    return {
+      raw: excludes,
+      adjusted: excludes.map(adjustClassIds),
+      adjustedAndExpanded: _.flatten(excludes.map(expandClassIds))
+    };
   },
 
   /*
