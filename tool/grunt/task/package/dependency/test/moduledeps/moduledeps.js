@@ -62,23 +62,23 @@ var modules = {
   },
   'qx.module.event.PointerHandler': {
     exclude: ['qx.module.Event'],
-    include: ['qx.module.event.Pointer']
+    include: []
   },
-  'qx.module.event.GestureHandler': {
+  'qx.module.event.Gesture': {
     exclude: ['qx.module.Event', 'qx.module.event.PointerHandler', 'qx.module.AnimationFrame' ],
-    include: ['qx.module.event.Swipe', 'qx.module.event.Tap', 'qx.module.event.Pinch', 'qx.module.event.Track', 'qx.module.event.TrackHandler' ]
+    include: []
   },
   'qx.module.event.OrientationHandler': {
     exclude: ['qx.module.Event'],
-    include: ['qx.module.event.Orientation']
+    include: []
   },
   'qx.module.event.Rotate': {
     exclude: ['qx.module.Event'],
     include: []
   },
-  'qx.module.util.Array': {
+  'qx.module.Util': {
     exclude: [],
-    include: ['qx.module.util.Function', 'qx.module.util.Object', 'qx.module.util.String', 'qx.module.util.Type']
+    include: []
   }
 };
 
