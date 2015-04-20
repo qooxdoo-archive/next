@@ -40,6 +40,9 @@ qx.Class.define("play.Application",
         qx.log.appender.Native;
       }
 
+      // deactivate routing (interferes with CodeStore)
+      qxWeb.routing.dispose();
+
       var editor = ace.edit("editor");
       editor.getSession().setMode("ace/mode/javascript");
       editor.getSession().setTabSize(2);

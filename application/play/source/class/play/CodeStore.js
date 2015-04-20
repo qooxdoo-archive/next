@@ -51,7 +51,7 @@ qx.Class.define("play.CodeStore", {
     __onHistoryChanged : function(data) {
       var state = data.value;
       if (state != "") {
-        var code = play.CodeStore.__parseURLCode(state);
+        var code = play.CodeStore.__parseURLCode(decodeURIComponent(state));
         var editor = ace.edit("editor");
         editor.setValue(code);
         editor.clearSelection();
@@ -83,7 +83,7 @@ qx.Class.define("play.CodeStore", {
      */
     add : function(code) {
       var codeJson = '{"code":' + '"' + encodeURIComponent(code) + '"}';
-      qx.bom.History.getInstance().addToHistory(codeJson);
+      qx.bom.History.getInstance().addToHistory(encodeURIComponent(codeJson));
     }
   }
 });

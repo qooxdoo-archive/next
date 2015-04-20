@@ -291,7 +291,7 @@ qx.Class.define("qx.bom.History",
       var url = this._baseUrl + (value || "");
       var loc = window.location;
 
-      if (url != loc.href) {
+      if (url != loc.href && url.indexOf("#") !== url.length - 1) {
         loc.href = url;
       }
     },
