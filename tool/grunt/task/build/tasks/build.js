@@ -101,12 +101,13 @@ module.exports = function(grunt) {
     grunt.log.ok('Done.');
 
     // expand excludes starting with a '='
-    opts.excludes = qxDep.expandExcludes(opts.excludes, classPaths);
-    var depsWithoutExcludes = _.difference(Object.keys(classesDeps), opts.excludes);
+    var excludesAugmented = qxDep.expandExcludes(opts.excludes, opts.includes, classPaths);
 
-    grunt.log.writeln('Sorting ' + depsWithoutExcludes.length + ' classes ...');
-    // ------------------------------------------------------------------------------
-    var classLoadOrderList = qxDep.sortDepsTopologically(classesDeps, "load", opts.excludes);
+    // sort topological
+    var classLoadOrderList = qxDep.sortDepsTopologically(classesDeps, "load", opts.includes, excludesAugmented);
+
+    grunt.log.writeln('Processing ' + classLoadOrderList.length + ' classes ...');
+    // ---------------------------------------------------------------------------
     var classCodeList = qxDep.readFileContent(classLoadOrderList, classPaths);
     var atHintIndex = qxDep.createAtHintsIndex(classesDeps);
     grunt.log.ok('Done.');
@@ -156,8 +157,10 @@ module.exports = function(grunt) {
     var curClass = "";
     for (var i=0, l=classCodeList.length; i<l; i++) {
       // console.log(i, l, classLoadOrderList[i]);
+
       curClass = classLoadOrderList[i];
       classCodeCompressedList.push(qxCpr.compress(curClass, classCodeList[i], opts.environment, compressOpts));
+
       // without compression
       // classCodeCompressedList.push(classCodeList[i]);
     }

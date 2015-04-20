@@ -129,14 +129,15 @@ module.exports = function(grunt) {
     grunt.log.ok('Done.');
 
     // expand excludes starting with a '='
-    opts.excludes = qxDep.expandExcludes(opts.excludes, classPaths);
-    var depsWithoutExcludes = _.difference(Object.keys(classesDeps), opts.excludes);
+    var excludesAugmented = qxDep.expandExcludes(opts.excludes, opts.includes, classPaths);
 
-    grunt.log.writeln('Sorting ' + depsWithoutExcludes.length + ' classes ...');
-    // ------------------------------------------------------------------------------
-    var classListLoadOrder = qxDep.sortDepsTopologically(classesDeps, "load", opts.excludes);
-    classListLoadOrder = qxDep.prependNamespace(classListLoadOrder, allNamespaces);
-    var classListPaths = qxDep.translateClassIdsToPaths(classListLoadOrder);
+    // sort topological
+    var classLoadOrderList = qxDep.sortDepsTopologically(classesDeps, "load", opts.includes, excludesAugmented);
+
+    grunt.log.writeln('Processing ' + classLoadOrderList.length + ' classes ...');
+    // ---------------------------------------------------------------------------
+    classLoadOrderList = qxDep.prependNamespace(classLoadOrderList, allNamespaces);
+    var classPathsList = qxDep.translateClassIdsToPaths(classLoadOrderList);
     var atHintIndex = qxDep.createAtHintsIndex(classesDeps);
     grunt.log.ok('Done.');
 
@@ -160,7 +161,7 @@ module.exports = function(grunt) {
 
     // {"uris":["__out__:myapp.e2c18d74cbbe.js","qx:qx/Bootstrap.js", ...]};
     var packagesUris = {
-      "uris": ["__out__:"+resourcesFileName].concat(classListPaths)
+      "uris": ["__out__:"+resourcesFileName].concat(classPathsList)
     };
 
     var libinfo = { "__out__":{"sourceUri":"script"} };
