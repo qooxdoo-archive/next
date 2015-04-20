@@ -74,8 +74,9 @@ module.exports = function (grunt) {
        default: {
          options: {
            includes: ["qx.*"],
-           loaderTemplate: "../../../tool/data/generator/website.loader.source.tmpl.js"
-         }
+           loaderTemplate: "../../../tool/data/generator/website.loader.source.tmpl.js",
+           fileName: "q-all-source"
+         },
        }
      },
 
@@ -83,8 +84,9 @@ module.exports = function (grunt) {
        default: {
          options: {
            includes: ["qx.*"],
-           loaderTemplate: "../../../tool/data/generator/website.loader.tmpl.js"
-         }
+           loaderTemplate: "../../../tool/data/generator/website.loader.tmpl.js",
+           fileName: "q-all"
+         },
        }
      }
   };
