@@ -207,6 +207,7 @@ qx.Class.define("qx.ui.Carousel",
       // reset the active page if we don' have any page at all
       if (this._getPages().length == 0) {
         this.__pagination.empty();
+        this.__paginationLabels = [];
         this.active = null;
         return;
       }
