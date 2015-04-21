@@ -24,7 +24,7 @@ qx.Class.define("qx.module.Routing", {
     qxWeb.$attachStatic({
       getRouting : function() {
         if (!this.$$routingInstance || this.$$routingInstance.$$disposed) {
-           this.$$routingInstance = new qx.application.Routing()
+          this.$$routingInstance = new qx.application.Routing();
         }
         return this.$$routingInstance;
       }
