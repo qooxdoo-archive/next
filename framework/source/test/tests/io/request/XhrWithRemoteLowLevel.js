@@ -263,7 +263,6 @@ describe("io.request.XhrWithRemoteLowLevel", function() {
     var states = [];
 
     req.on("readystatechange", function() {
-      debugger;
       states.push(req.readyState);
       if (req.readyState == 4) {
         assert.deepEqual([1, 2, 3, 4], states);
@@ -289,7 +288,12 @@ describe("io.request.XhrWithRemoteLowLevel", function() {
 
     // There is no HEADERS_RECEIVED and LOADING when sync.
     // See http://www.w3.org/TR/XMLHttpRequest/#the-send-method
-    assert.deepEqual([1, 4], states);
+    // IE lower than 9 will receive all readystatechange events before reaching this line
+    if (qxWeb.env.get("browser.name") === "ie" && qxWeb.env.get("browser.version") <= 9) {
+      assert.deepEqual([1, 2, 3, 4], states);
+    } else {
+      assert.deepEqual([1, 4], states);
+    }
   });
 
 
@@ -576,16 +580,15 @@ describe("io.request.XhrWithRemoteLowLevel", function() {
     var url = "../resource/qx/test/xmlhttp/loading.php",
       globalStack = [];
 
+    req.timeout = 1;
+
     req.on("timeout", function() {
       assert.isTrue(globalStack.indexOf("abort") === -1);
       done();
     });
 
-    req.timeout = 100;
-
     var emitOrig = req.emit;
     sinonSandbox.stub(req, "emit", function(evt) {
-      debugger;
       globalStack.push(evt);
       emitOrig.call(this, evt);
     });
@@ -663,11 +666,14 @@ describe("io.request.XhrWithRemoteLowLevel", function() {
       // different readyState sequence in Firefox, see bug #8924
       expected.unshift("readystatechange");
     }
+    // ie 9 lower then 9 triggers the readystatechange only once
+    if (qxWeb.env.get("browser.name") === "ie" && qxWeb.env.get("browser.version") <= 9) {
+      expected.shift();
+    }
 
     req.on("loadend", function() {
       // May take a while to detect network error
       setTimeout(function() {
-        debugger;
         assert.deepEqual(globalStack, expected);
         done();
       }, 500);
