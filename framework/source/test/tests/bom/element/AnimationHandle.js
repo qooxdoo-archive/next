@@ -19,17 +19,12 @@
 
 describe("bom.element.AnimationHandle", function() {
 
-  beforeEach(function() {
-    __keys = qx.core.Environment.get("css.animation");
-    if (__keys === null) {
-      // skip the test
-      this.test.skipped = true;
-      return;
-    }
-  });
-
-
   it("Stop of CSS animation", function(done) {
+    if (!qx.core.Environment.get("css.animation")) {
+      this.test.skipped = true;
+      done();
+    }
+
     var el = qx.dom.Element.create("div");
     var handle = qx.bom.element.Animation.animate(el, {
       "duration": 100,
@@ -54,6 +49,11 @@ describe("bom.element.AnimationHandle", function() {
 
 
   it("IsEnded", function(done) {
+    if (!qx.core.Environment.get("css.animation")) {
+      this.test.skipped = true;
+      done();
+    }
+
     var el = qx.dom.Element.create("div");
     var handle = qx.bom.element.Animation.animate(el, {
       "duration": 100,
@@ -79,6 +79,11 @@ describe("bom.element.AnimationHandle", function() {
 
 
   it("IsPaused", function(done) {
+    if (!qx.core.Environment.get("css.animation")) {
+      this.test.skipped = true;
+      done();
+    }
+
     var el = qx.dom.Element.create("div");
     var handle = qx.bom.element.Animation.animate(el, {
       "duration": 100,
@@ -104,6 +109,11 @@ describe("bom.element.AnimationHandle", function() {
 
 
   it("IsPlaying", function(done) {
+    if (!qx.core.Environment.get("css.animation")) {
+      this.test.skipped = true;
+      done();
+    }
+
     var el = qx.dom.Element.create("div");
     var handle = qx.bom.element.Animation.animate(el, {
       "duration": 100,
