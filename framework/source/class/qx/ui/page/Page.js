@@ -375,12 +375,9 @@ qx.Class.define("qx.ui.page.Page",
 
     // property apply
     _applyLifeCycleState : function(value) {
-      // TODO: better solution for event targets
       var self = this;
       var data = {
-        getTarget: function() {
-          return self;
-        }
+        target: self
       };
       if(value == "start" || value == "stop") {
         qxWeb(document.documentElement).emit(value, data);

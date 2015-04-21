@@ -346,7 +346,7 @@ qx.Class.define("qx.ui.page.Manager",
      * @param evt {qx.event.type.Event} source event.
      */
     _onMasterPageStart : function(evt) {
-      var masterPage = evt.getTarget();
+      var masterPage = evt.getTarget ? evt.getTarget() : evt.target;
       var masterPageTitle = masterPage.title;
       this.masterTitle = masterPageTitle;
     },
