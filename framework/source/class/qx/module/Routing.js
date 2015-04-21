@@ -20,10 +20,14 @@
 
 
 qx.Class.define("qx.module.Routing", {
-
   classDefined : function() {
     qxWeb.$attachStatic({
-      routing : new qx.application.Routing()
+      getRouting : function() {
+        if (!this.$$routingInstance || this.$$routingInstance.$$disposed) {
+           this.$$routingInstance = new qx.application.Routing()
+        }
+        return this.$$routingInstance;
+      }
     });
   }
 });

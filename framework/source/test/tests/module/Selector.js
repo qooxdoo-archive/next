@@ -1,4 +1,4 @@
- describe("module.Selector", function() {
+describe("module.Selector", function() {
 
    it("Id", function() {
      var test = q.create("<div id='testdiv'/>");

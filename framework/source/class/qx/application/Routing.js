@@ -502,6 +502,7 @@ qx.Class.define("qx.application.Routing", {
      */
     dispose : function() {
       this.__navigationHandler.off("changeState", this.__onChangeHash, this);
+      this.$$disposed = true;
     }
   }
 });
