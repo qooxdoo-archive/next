@@ -1,5 +1,7 @@
 // requires
 var shell = require("shelljs");
+var path = require('path');
+var fs = require('fs');
 
 // grunt
 module.exports = function(grunt) {
@@ -180,6 +182,7 @@ module.exports = function(grunt) {
     'setup',
     'Setup toolchain and apps',
     function() {
+      var rootDir = shell.pwd();
       shell.cd('tool/grunt');
       shell.exec('npm install');
       shell.exec('node setup.js');
@@ -194,6 +197,19 @@ module.exports = function(grunt) {
       });
       shell.cd('../framework/source/test');
       shell.exec('npm install');
+
+      // symlink yeoman generator
+      shell.cd(rootDir);
+      var homeDir = process.env[(process.platform === 'win32') ? 'USERPROFILE' : 'HOME'];
+      var homeGeneratorPath = path.join(homeDir, 'node_modules/generator-next');
+      var yeomanPath = path.join(rootDir, 'tool/yeoman/generator-next');
+      grunt.log.ok('Creating a symlink for next\'s yeoman generator in ' + homeGeneratorPath);
+      grunt.log.ok('If you intend to create applications outside of your home directory, please run \'npm link\' in ' + yeomanPath);
+      if (shell.test('-L', homeGeneratorPath)) {
+        fs.unlinkSync(homeGeneratorPath);
+      }
+      shell.mkdir('-p', path.join(homeDir, 'node_modules'));
+      fs.symlinkSync(yeomanPath, homeGeneratorPath, 'dir');
     }
   );
 
