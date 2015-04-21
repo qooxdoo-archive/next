@@ -95,7 +95,6 @@ describe("application.Routing", function() {
 
 
   it("GetCustomDataTwoInstances", function() {
-    debugger;
     var r2 = new qx.application.Routing();
     var handler = sinonSandbox.spy();
     __r.onGet("/abc", handler);

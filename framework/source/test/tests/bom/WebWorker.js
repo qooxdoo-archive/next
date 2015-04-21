@@ -71,7 +71,6 @@ describe("bom.WebWorker", function() {
     var message = "error";
 
     _worker.on("error", function(message) {
-      debugger;
       assert.isTrue(/error/.test(message));
     }, this);
     _worker.postMessage(message);
