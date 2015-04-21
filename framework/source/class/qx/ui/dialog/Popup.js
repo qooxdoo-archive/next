@@ -217,9 +217,7 @@ qx.Class.define("qx.ui.dialog.Popup",
      * Update position on scroll
      */
     _onRoll: function() {
-      setTimeout(function() {
-        this._updatePosition();
-      }.bind(this), 0);
+      this._updatePosition();
     },
 
 
@@ -387,7 +385,8 @@ qx.Class.define("qx.ui.dialog.Popup",
       qxWeb(window).on("resize", this._updatePosition, this);
 
       if (this.__anchor) {
-        qxWeb(document.documentElement).on("roll", this._onRoll, this);
+        this.__throttledRoll = qxWeb.func.throttle(this._onRoll.bind(this), 100);
+        qxWeb(document.documentElement).on("roll", this.__throttledRoll, this);
         this.__anchor.addClass("anchor-target");
 
         if (parentWidget) {
@@ -413,7 +412,7 @@ qx.Class.define("qx.ui.dialog.Popup",
         qxWeb(this.__anchor).removeClass("anchor-target");
       }
       qxWeb(window).off("resize", this._updatePosition, this);
-      qxWeb(document.documentElement).off("roll", this._onRoll, this);
+      qxWeb(document.documentElement).off("roll", this.__throttledRoll, this);
     },
 
 
