@@ -40,9 +40,6 @@ qx.Class.define("play.Application",
         qx.log.appender.Native;
       }
 
-      // deactivate routing (interferes with CodeStore)
-      qxWeb.routing.dispose();
-
       var editor = ace.edit("editor");
       editor.getSession().setMode("ace/mode/javascript");
       editor.getSession().setTabSize(2);
@@ -84,20 +81,27 @@ qx.Class.define("play.Application",
       var root = new qx.ui.core.Root(document.getElementById("playroot"));
       this.setRoot(root);
 
-      // run initial app
-      if (!play.CodeStore.init()) {
+      // init routing
+      this.getRouting().onGet("/", function() {
         var title = samplesMenu.model.getItem(0).title;
         var code = samples.getCode(title);
         editor.setValue(code);
         this.run();
-      }
+      }, this);
+
+      this.getRouting().onGet("/{code}", function(data) {
+        editor.setValue(decodeURIComponent(data.params.code));
+        this.run();
+      }, this);
+
+      this.getRouting().init();
     },
 
 
     run : function() {
       this.getRoot().setHtml("");
       var code = ace.edit("editor").getValue();
-      play.CodeStore.add(code);
+      qx.bom.History.getInstance().addToHistory('/' + encodeURIComponent(code));
       /*eslint no-new-func: 0 */
       var f = new Function(code);
       f.bind(this)();
