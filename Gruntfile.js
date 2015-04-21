@@ -203,6 +203,9 @@ module.exports = function(grunt) {
       var homeDir = process.env[(process.platform === 'win32') ? 'USERPROFILE' : 'HOME'];
       var homeGeneratorPath = path.join(homeDir, 'node_modules/generator-next');
       var yeomanPath = path.join(rootDir, 'tool/yeoman/generator-next');
+      shell.cd(yeomanPath);
+      shell.exec('npm install');
+      shell.cd(rootDir);
       grunt.log.ok('Creating a symlink for next\'s yeoman generator in ' + homeGeneratorPath);
       grunt.log.ok('If you intend to create applications outside of your home directory, please run \'npm link\' in ' + yeomanPath);
       if (shell.test('-L', homeGeneratorPath)) {
