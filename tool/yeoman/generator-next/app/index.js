@@ -14,9 +14,10 @@
 
 ***************************************************************************** */
 
-var generators = require('yeoman-generator');
 var path = require('path');
 var fs = require('fs');
+
+var generators = require('yeoman-generator');
 var assert = require('yeoman-generator').assert;
 var esutils = require('esutils');
 var globals = require('globals');
