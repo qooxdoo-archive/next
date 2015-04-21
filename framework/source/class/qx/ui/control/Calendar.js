@@ -153,7 +153,9 @@ qx.Class.define("qx.ui.control.Calendar", {
     this.super("construct", element);
     this.__monthElements = {};
     this.showDate(date);
-    this.on("keydown", this._onKeyDown, this);
+
+    this.on("tap", this._onTap, this)
+      .on("keydown", this._onKeyDown, this);
   },
 
 
@@ -198,10 +200,7 @@ qx.Class.define("qx.ui.control.Calendar", {
 
       this.setHtml(this._getTable(date));
 
-      this.find("." + this.defaultCssClass + "-prev").on("tap", this.showPreviousMonth, this);
-      this.find("." + this.defaultCssClass + "-next").on("tap", this.showNextMonth, this);
       this.find("." + this.defaultCssClass + "-day")
-        .on("tap", this._selectDay, this)
         .forEach(function(button) {
           button.model = new Date(button.getAttribute("value"));
         });
@@ -213,6 +212,25 @@ qx.Class.define("qx.ui.control.Calendar", {
       this.emit('rendered');
 
       return this;
+    },
+
+
+    /**
+     * Handles all tap events
+     *
+     * @param e {Event} tap event
+     */
+    _onTap: function(e) {
+      var target = qxWeb(e.target);
+      if (target.is("." + this.defaultCssClass + "-day")) {
+        this._selectDay(e);
+      }
+      else if (target.is("." + this.defaultCssClass + "-prev")) {
+        this.showPreviousMonth();
+      }
+      else if (target.is("." + this.defaultCssClass + "-next")) {
+        this.showNextMonth();
+      }
     },
 
 
@@ -502,20 +520,8 @@ qx.Class.define("qx.ui.control.Calendar", {
     },
 
 
-    /**
-     * Removes tap listeners from the calendar's buttons
-     *
-     * @param el {qxWeb} Collection containing the table element
-     */
-    _removeListeners: function(el) {
-      el.find("." + this.defaultCssClass + "-prev").off("tap", this.showPreviousMonth, this);
-      el.find("." + this.defaultCssClass + "-next").off("tap", this.showNextMonth, this);
-      el.find("." + this.defaultCssClass + "-day").off("tap", this._selectDay, this);
-    },
-
     _disposeMonthElements: function() {
       for (var key in this.__monthElements) {
-        this._removeListeners(this.__monthElements[key]);
         this.__monthElements[key].setHtml("");
         this.__monthElements[key] = undefined;
       }
@@ -525,8 +531,8 @@ qx.Class.define("qx.ui.control.Calendar", {
 
     dispose : function() {
       this._disposeMonthElements();
-      this._removeListeners(this);
-      this.off("keydown", this._onKeyDown, this);
+      this.off("keydown", this._onKeyDown, this)
+        .off("tap", this._onTap, this);
 
       this.setHtml("");
 

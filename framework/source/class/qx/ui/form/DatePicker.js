@@ -88,7 +88,7 @@ qx.Class.define("qx.ui.form.DatePicker", {
   construct : function(date, element) {
     this.super("construct", element);
 
-    this.format = function() {
+    this.format = function(date) {
       return date;
     };
 
