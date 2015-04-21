@@ -206,6 +206,17 @@ qx.Class.define("qx.ui.dialog.Popup",
         }
 
         this.placeTo(computedPopupPosition.left, computedPopupPosition.top);
+
+        // calculate size
+        var styles = this.getStyles(["margin-top", "margin-bottom", "border-top-width", "border-bottom-width", "padding-top", "padding-bottom"]);
+        var diff = 0;
+        for (var style in styles) {
+          diff += parseInt(styles[style]);
+        }
+
+        var height = (rootHeight - diff - parseInt(this.getStyle("top")));
+        this.setStyle("height", height + "px");
+        this.find("*[data-qx-widget='qx.ui.container.Scroll']").setStyle("height", height + "px");
       } else if (this.__childrenContainer) {
         // No Anchor
         this._positionToCenter();
@@ -351,10 +362,20 @@ qx.Class.define("qx.ui.dialog.Popup",
     {
       var container = this[0];
       container.style.position = "absolute";
+      container.style.height = Math.min(qx.bom.Viewport.getHeight(), container.offsetHeight) + "px";
       container.style.marginLeft = -(container.offsetWidth/2) + "px";
       container.style.marginTop = -(container.offsetHeight/2) + "px";
       container.style.left = "50%";
       container.style.top = "50%";
+
+      var styles = this.getStyles(["border-top-width", "border-bottom-width", "padding-top", "padding-bottom"]);
+      var diff = 0;
+      for (var style in styles) {
+        diff += parseInt(styles[style]);
+      }
+
+      var height = (parseInt(container.style.height) - diff);
+      this.find("*[data-qx-widget='qx.ui.container.Scroll']").setStyle("height", height + "px");
     },
 
 
