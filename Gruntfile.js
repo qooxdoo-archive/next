@@ -206,8 +206,10 @@ module.exports = function(grunt) {
       shell.cd(yeomanPath);
       shell.exec('npm install');
       shell.cd(rootDir);
-      grunt.log.ok('Creating a symlink for next\'s yeoman generator in ' + homeGeneratorPath);
-      grunt.log.ok('If you intend to create applications outside of your home directory, please run \'npm link\' in ' + yeomanPath);
+      grunt.log.subhead("Installing yeoman generator for next");
+      grunt.log.oklns('Creating a symlink for next\'s yeoman generator in: ' + homeGeneratorPath);
+      grunt.log.oklns('If you intend to create applications outside of your home directory, '+
+                      'run \'npm link\' (may require sudo) in: ' + yeomanPath);
       if (shell.test('-L', homeGeneratorPath)) {
         fs.unlinkSync(homeGeneratorPath);
       }
