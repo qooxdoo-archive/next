@@ -80,7 +80,9 @@ qx.Class = {
     {
       if (i === len) {
         if (parent[part] !== undefined) {
-          console.warn("Illegal redefine of class: '"+name+"'.");
+          if (console && console.warn) {
+            console.warn("Illegal redefine of class: '"+name+"'.");
+          }
         }
 
         break;
@@ -589,7 +591,9 @@ qx.Class.define("qx.Class",
           for (var key in map) {
             if (!(key in this) && qx.Class.DEBUG) {
               /* eslint no-console:0 */
-              console.warn("The class '" + this.classname + "' does not support the property '" + key + "'.");
+              if (console && console.warn) {
+                console.warn("The class '" + this.classname + "' does not support the property '" + key + "'.");
+              }
               continue;
             }
             this[key] = map[key];
