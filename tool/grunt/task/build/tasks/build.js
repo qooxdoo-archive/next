@@ -209,13 +209,24 @@ module.exports = function(grunt) {
 
     grunt.log.writeln('Generate loader script ...');
     // ---------------------------------------------
-    var tmpl = grunt.file.read(opts.loaderTemplate);
-    var renderedTmpl = renderLoaderTmpl(tmpl, ctx);
-
+    var loaderTmpl = grunt.file.read(opts.loaderTemplate);
     var fileName = opts.fileName + ".js";
 
+    // add copyright header to build file
+    var copyrightTemplate = grunt.file.read(opts.qxPath + "/tool/grunt/data/copyright.include.js");
+    var version = grunt.file.read(opts.qxPath + "/version.txt");
+    var revision = shell.exec("git rev-parse --short HEAD");
+
+    var contents = grunt.template.process(copyrightTemplate, {
+      data: {
+        revision: revision.output.replace("\n", ""),
+        version: version
+      }
+    });
+    contents += renderLoaderTmpl(loaderTmpl, ctx);
+
     // write script files
-    grunt.file.write(path.join(path.join(opts.buildPath, "script"), fileName), renderedTmpl);
+    grunt.file.write(path.join(path.join(opts.buildPath, "script"), fileName), contents);
     grunt.log.ok('Done.');
   });
 
