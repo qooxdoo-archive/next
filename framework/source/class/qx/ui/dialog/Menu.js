@@ -23,6 +23,7 @@
  * list, which provides the user the possibility to select one value.
  * The selected value is identified through selected index.
  * @require(qx.module.DataBinding)
+ * @require(qx.module.util.Function)
  *
  * @group(Widget)
  */
