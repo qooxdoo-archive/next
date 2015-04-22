@@ -216,9 +216,11 @@ qx.Class.define("qx.ui.dialog.Popup",
           diff += parseInt(styles[style]);
         }
 
-        var height = (rootHeight - diff - parseInt(this.getStyle("top")));
-        this.setStyle("height", height + "px");
-        this.find("*[data-qx-widget='qx.ui.container.Scroll']").setStyle("height", height + "px");
+        var computedHeight = (rootHeight - diff - parseInt(this.getStyle("top")));
+        var height = this[0].offsetHeight > computedHeight ? computedHeight + "px" : "auto";
+        this.setStyle("height", height);
+        this.find("*[data-qx-widget='qx.ui.container.Scroll']").setStyle("height", height);
+
       } else if (this.__childrenContainer) {
         // No Anchor
         this._positionToCenter();
@@ -364,6 +366,7 @@ qx.Class.define("qx.ui.dialog.Popup",
     {
       var container = this[0];
       container.style.position = "absolute";
+      container.style.boxSizing = "border-box";
       container.style.height = Math.min(qx.bom.Viewport.getHeight(), container.offsetHeight) + "px";
       container.style.marginLeft = -(container.offsetWidth/2) + "px";
       container.style.marginTop = -(container.offsetHeight/2) + "px";
