@@ -199,6 +199,14 @@ module.exports = function(grunt) {
           fileName: "rest"
         }
       },
+      "module-routing": {
+        options: {
+          includes: [ "qx.module.Routing" ],
+          excludes: [ "qx.Class", "qxWeb", "=qx.module.Core" ],
+          loaderTemplate: "../tool/data/generator/website.loader.tmpl.js",
+          fileName: "routing"
+        }
+      },
       "module-storage": {
         options: {
           includes: [ "qx.module.Storage" ],
