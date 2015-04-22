@@ -26,10 +26,10 @@ describe("core.Wrapper", function () {
       key: "value",
       fn: spyMethod
     });
-    console.log(wrapper.key, "value");
+    assert.equal("value", wrapper.key);
     wrapper.key = "value 2";
-    console.log(wrapper.key, "value 2");
-    
+    assert.equal("value 2", wrapper.key);
+
     wrapper.fn();
     
     sinon.assert.calledOnce(spyMethod);
