@@ -88,8 +88,8 @@ qx.Class.define("qx.ui.form.DatePicker", {
   construct : function(date, element) {
     this.super("construct", element);
 
-    this.format = function(date) {
-      return date;
+    this.format = function(d) {
+      return d;
     };
 
     this.__uniqueId = Math.round(Math.random() * 10000);

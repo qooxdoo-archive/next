@@ -150,6 +150,8 @@ qx.Class.define("qx.ui.dialog.Popup",
     __widget: null,
     __titleWidget: null,
     __lastPopupDimension : null,
+    __throttledRoll: null,
+
 
     /**
      * Event handler. Called whenever the position of the popup should be updated.
