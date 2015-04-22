@@ -364,6 +364,7 @@ describe("Class", function() {
     delete qx.test.ExtendDeafult;
   });
 
+
   it("super constructor with default constructor only in first level", function() {
     qx.Class.define("qx.test.Super", {
       members: {}
@@ -390,13 +391,56 @@ describe("Class", function() {
     });
 
     new qx.test.ExtendDeafult();
-
     assert.equal(1, called);
+
+    new qx.test.ExtendDeafult();
+    assert.equal(2, called);
 
     delete qx.test.Super;
     delete qx.test.ExtendSuper;
+    delete qx.test.ExtendSuper2;
+    delete qx.test.ExtendDeafult;
+  });
+
+
+  it("super constructor with default constructor mixed", function() {
+    var called1 = 0;
+    qx.Class.define("qx.test.Super1", {
+      extend: Object,
+      construct: function () {
+        called1++;
+      }
+    });
+
+    qx.Class.define("qx.test.Super2", {
+      extend: qx.test.Super1
+    });
+
+    var called3 = 0;
+    qx.Class.define("qx.test.Super3", {
+      extend: qx.test.Super2,
+      construct: function() {
+        called3++;
+        this.super("construct");
+      }
+    });
+
+    qx.Class.define("qx.test.Super4", {
+      extend: qx.test.Super3
+    });
+
+    new qx.test.Super4();
+    assert.equal(1, called1);
+    assert.equal(1, called3);
+
+    new qx.test.Super4();
+    assert.equal(2, called1);
+    assert.equal(2, called3);
+
+    delete qx.test.Super1;
     delete qx.test.Super2;
-    delete qx.test.ExtendDeafult2;
+    delete qx.test.Super3;
+    delete qx.test.Super4;
   });
 
 

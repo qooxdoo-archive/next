@@ -172,15 +172,16 @@ qx.Class = {
       last = this.$currentPrototpyes[id][this.$currentPrototpyes[id].length -1];
     }
 
-    if (id === "construct" && last.constructor.$$isDefaultConstructor) {
+    if (id === "construct") {
       do {
         last = Object.getPrototypeOf(last);
-      } while(last.constructor.$$isDefaultConstructor);
+      } while((last.constructor.$$isDefaultConstructor))
+    } else {
+      do {
+        last = Object.getPrototypeOf(last);
+      } while(!last.hasOwnProperty(name));
     }
 
-    do {
-      last = Object.getPrototypeOf(last);
-    } while(!last.hasOwnProperty(name) && !last.hasOwnProperty(id));
     this.$currentPrototpyes[id].push(last);
 
     var superMethod = Object.getPrototypeOf(last)[id] || Object.getPrototypeOf(last)[name];
