@@ -337,6 +337,72 @@ describe("Class", function() {
   });
 
 
+  it("super constructor with default constructor", function() {
+    qx.Class.define("qx.test.Super", {
+      members: {}
+    });
+
+    var called = 0;
+    qx.Class.define("qx.test.ExtendSuper", {
+      extend: qx.test.Super,
+      construct: function () {
+        called++;
+        this.super("construct");
+      }
+    });
+
+    qx.Class.define("qx.test.ExtendDeafult", {
+      extend: qx.test.ExtendSuper
+    });
+
+    new qx.test.ExtendDeafult();
+
+    assert.equal(1, called);
+
+    delete qx.test.Super;
+    delete qx.test.ExtendSuper;
+    delete qx.test.ExtendDeafult;
+  });
+
+
+  it("super constructor with default constructor depth three", function() {
+    qx.Class.define("qx.test.Super", {
+      members: {}
+    });
+
+    var called = 0;
+    qx.Class.define("qx.test.ExtendSuper", {
+      extend: qx.test.Super,
+      construct: function () {
+        called++;
+        this.super("construct");
+      }
+    });
+
+    qx.Class.define("qx.test.ExtendDeafult", {
+      extend: qx.test.ExtendSuper
+    });
+
+    qx.Class.define("qx.test.ExtendDeafult2", {
+      extend: qx.test.ExtendDeafult
+    });
+
+    qx.Class.define("qx.test.ExtendDeafult3", {
+      extend: qx.test.ExtendDeafult2
+    });
+
+    new qx.test.ExtendDeafult3();
+
+    assert.equal(1, called);
+
+    delete qx.test.Super;
+    delete qx.test.ExtendSuper;
+    delete qx.test.ExtendDeafult;
+    delete qx.test.ExtendDeafult2;
+    delete qx.test.ExtendDeafult3;
+  });
+
+
   it("Try to rename construct to constructor at super call when construct already defined as a member", function() {
     var constructSpyMethod = sinonSandbox.spy();
     var memberConstructSpyMethod = sinonSandbox.spy();
@@ -580,7 +646,7 @@ describe("Class", function() {
     assert.equal(12, c.b);
 
     assert.equal(13, c.c);
-    
+
     if (isIeLt10) {
       c.c = 12323;
     } else {
@@ -588,7 +654,7 @@ describe("Class", function() {
         c.c = 12323;
       });
     }
-    
+
     assert.equal(13, c.c);
   });
 
@@ -617,7 +683,7 @@ describe("Class", function() {
         d.a = 123211;
       });
     }
-    
+
     assert.equal(11, d.a);
   });
 

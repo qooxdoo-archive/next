@@ -172,6 +172,12 @@ qx.Class = {
       last = this.$currentPrototpyes[id][this.$currentPrototpyes[id].length -1];
     }
 
+    if (id === "construct" && last.constructor.$$isDefaultConstructor) {
+      do {
+        last = Object.getPrototypeOf(last);
+      } while(last.constructor.$$isDefaultConstructor);
+    }
+
     do {
       last = Object.getPrototypeOf(last);
     } while(!last.hasOwnProperty(name) && !last.hasOwnProperty(id));
