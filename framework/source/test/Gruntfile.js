@@ -18,7 +18,7 @@ module.exports = function (grunt) {
            'tests/setup.js',
            'tests/mochaSetup.js',
            'tests/TestCase.js'
-         ],
+         ]
        },
        testBuild: {
          options: {
@@ -58,9 +58,9 @@ module.exports = function (grunt) {
            cwd: ".",
            expand: false,
            src: '../../source/resource/qx/scss/indigo.scss',
-           dest: 'build/resource/qx/css/indigo.css',
+           dest: 'build/resource/qx/css/indigo.css'
          }]
-       },
+       }
      },
 
      webdriver: {
@@ -81,7 +81,7 @@ module.exports = function (grunt) {
            includes: ["qx.*"],
            loaderTemplate: "../../../tool/data/generator/website.loader.source.tmpl.js",
            fileName: "q-all-source"
-         },
+         }
        }
      },
 
@@ -91,7 +91,7 @@ module.exports = function (grunt) {
            includes: ["qx.*"],
            loaderTemplate: "../../../tool/data/generator/website.loader.tmpl.js",
            fileName: "q-all"
-         },
+         }
        }
      }
   };
