@@ -215,7 +215,6 @@ module.exports = function(grunt) {
     // add copyright header to build file
     var copyrightTemplate = grunt.file.read(opts.qxPath + "/tool/grunt/data/copyright.include.js");
     var version = grunt.file.read(opts.qxPath + "/version.txt");
-    console.log("git rev-parse --short HEAD --git-dir " + opts.qxPath);
     var revision = shell.exec("git rev-parse --short HEAD --git-dir " + opts.qxPath);
 
     var contents = grunt.template.process(copyrightTemplate, {
