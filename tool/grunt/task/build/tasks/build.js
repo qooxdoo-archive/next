@@ -213,11 +213,17 @@ module.exports = function(grunt) {
     var fileName = opts.fileName + ".js";
 
     // add copyright header to build file
-    var copyrightTemplate = grunt.file.read(opts.qxPath + "/tool/grunt/data/copyright.include.js");
-    var version = grunt.file.read(opts.qxPath + "/version.txt");
-    var revision = shell.exec("git rev-parse --short HEAD --git-dir " + opts.qxPath);
+    var copyrightTmplPath = path.join(opts.qxPath, "tool/grunt/data/copyright.include.js");
+    var copyrightTmpl = grunt.file.read(copyrightTmplPath);
+    var version = grunt.file.read(path.join(opts.qxPath, "version.txt"));
 
-    var contents = grunt.template.process(copyrightTemplate, {
+    // get git revision from qooxdoo
+    var pwd = shell.pwd();
+    shell.cd(opts.qxPath);
+    var revision = shell.exec("git rev-parse --short HEAD");
+    shell.cd(pwd);
+
+    var contents = grunt.template.process(copyrightTmpl, {
       data: {
         revision: revision.output.replace("\n", ""),
         version: version
