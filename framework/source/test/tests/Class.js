@@ -364,6 +364,41 @@ describe("Class", function() {
     delete qx.test.ExtendDeafult;
   });
 
+  it("super constructor with default constructor only in first level", function() {
+    qx.Class.define("qx.test.Super", {
+      members: {}
+    });
+
+    var called = 0;
+    qx.Class.define("qx.test.ExtendSuper", {
+      extend: qx.test.Super,
+      construct: function () {
+        called++;
+        this.super("construct");
+      }
+    });
+
+    qx.Class.define("qx.test.ExtendSuper2", {
+      extend: qx.test.ExtendSuper,
+      construct: function() {
+        this.super("construct");
+      }
+    });
+
+    qx.Class.define("qx.test.ExtendDeafult", {
+      extend: qx.test.ExtendSuper2
+    });
+
+    new qx.test.ExtendDeafult();
+
+    assert.equal(1, called);
+
+    delete qx.test.Super;
+    delete qx.test.ExtendSuper;
+    delete qx.test.Super2;
+    delete qx.test.ExtendDeafult2;
+  });
+
 
   it("super constructor with default constructor depth three", function() {
     qx.Class.define("qx.test.Super", {
