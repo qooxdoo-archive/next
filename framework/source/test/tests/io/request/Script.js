@@ -148,7 +148,7 @@ describe("io.request.Script", function() {
       done();
     }
 
-    req.timeout = 25;
+    req.timeout = 250;
     req.on("timeout", function() {
       assert.equal(4, req.readyState);
       assert.equal(0, req.status);
@@ -367,7 +367,7 @@ describe("io.request.Script", function() {
       done();
     }
 
-    req.timeout = 25;
+    req.timeout = 250;
     requestPending();
 
     setTimeout(function() {
@@ -378,7 +378,7 @@ describe("io.request.Script", function() {
 
 
   it("call ontimeout when request exceeds timeout limit", function(done) {
-    req.timeout = 25;
+    req.timeout = 250;
     req.on("timeout", function() {
       done();
     });
@@ -395,7 +395,7 @@ describe("io.request.Script", function() {
       done();
     });
 
-    req.timeout = 100;
+    req.timeout = 250;
     request();
   });
 
@@ -442,7 +442,7 @@ describe("io.request.Script", function() {
   it("remove script from DOM when request timed out", function(done) {
     var script;
 
-    req.timeout = 25;
+    req.timeout = 250;
     req.on("timeout", function() {
       script = req._getScriptElement();
       assert.isFalse(isInDom(script));
@@ -477,14 +477,13 @@ describe("io.request.Script", function() {
   }
 
 
-  function isIe(version) {
+  function isIe() {
     return (qx.core.Environment.get("engine.name") === "mshtml");
   }
 
 
   function isIeBelow(version) {
-    return qx.core.Environment.get("engine.name") === "mshtml" &&
-      qx.core.Environment.get("browser.documentmode") < version;
+    return isIe() && qx.core.Environment.get("browser.documentmode") < version;
   }
 
 
