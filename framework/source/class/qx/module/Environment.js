@@ -97,8 +97,6 @@ qx.Class.define("qx.module.Environment", {
     qx.core.Environment.get("event.touch");
     qx.core.Environment.get("event.mspointer");
 
-    qx.core.Environment.get("qx.mobile.nativescroll");
-
     qxWeb.$attachStatic({
       "env" : {
         get: statics.get,

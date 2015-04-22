@@ -457,10 +457,6 @@
  *       <td><i>default:</i> <code>true</code></td>
  *     </tr>
  *     <tr>
- *       <td>qx.mobile.nativescroll</td><td><i>Boolean</i></td><td><code>false</code></td>
- *       <td>{@link qx.bom.client.Scroll#getNativeScroll}</td>
- *     </tr>
- *     <tr>
  *       <td>qx.optimization.basecalls</td><td><i>Boolean</i></td><td><code>true</code></td>
  *       <td>true if the corresp. <i>optimize</i> key is set in the config</td>
  *     </tr>

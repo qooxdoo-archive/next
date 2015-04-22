@@ -406,7 +406,6 @@ describe("core.Environment", function ()
       assert.isBoolean(qx.core.Environment.get("qx.nativeScrollBars"), "9");
       assert.isNumber(qx.core.Environment.get("qx.debug.property.level"), "10");
       assert.isBoolean(qx.core.Environment.get("qx.debug"), "11");
-      assert.isBoolean(qx.core.Environment.get("qx.mobile.nativescroll"), "15");
   });
 
 

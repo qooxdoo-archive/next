@@ -88,8 +88,7 @@
       {
         "qx.version"     : "${APPLICATION}",
         "qx.application" : "${APPLICATION}.Application",
-        "qx.theme" : "${THEME}",
-        "qx.mobile.nativescroll" : true
+        "qx.theme" : "${THEME}"
       }
     },
 

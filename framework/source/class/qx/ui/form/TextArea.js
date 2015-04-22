@@ -44,11 +44,6 @@ qx.Class.define("qx.ui.form.TextArea",
       this.value = value;
     }
 
-    if (qx.core.Environment.get("qx.mobile.nativescroll") == false) {
-      this.on("appear", this._fixChildElementsHeight, this);
-      this.on("input", this._fixChildElementsHeight, this);
-      this.on("changeValue", this._fixChildElementsHeight, this);
-    }
     this.initMForm();
     this.initMText();
   },
@@ -144,11 +139,6 @@ qx.Class.define("qx.ui.form.TextArea",
     dispose : function()
     {
       this.super("dispose");
-      if (qx.core.Environment.get("qx.mobile.nativescroll") == false) {
-        this.off("appear", this._fixChildElementsHeight, this);
-        this.off("input", this._fixChildElementsHeight, this);
-        this.off("changeValue", this._fixChildElementsHeight, this);
-      }
       this.disposeMForm();
     }
   }

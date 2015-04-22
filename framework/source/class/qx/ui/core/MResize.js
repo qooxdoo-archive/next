@@ -76,11 +76,7 @@ qx.Mixin.define("qx.ui.core.MResize",
      * @param height {Integer} The height to set
      */
     _setHeight : function(height) {
-      if (qx.core.Environment.get("qx.mobile.nativescroll")) {
-        this.setStyle("minHeight", height + "px");
-      } else {
-        this.setStyle("height", height + "px");
-      }
+      this.setStyle("minHeight", height + "px");
     },
 
 
@@ -91,11 +87,7 @@ qx.Mixin.define("qx.ui.core.MResize",
      * @param width {Integer} The width to set
      */
     _setWidth : function(width) {
-      if (qx.core.Environment.get("qx.mobile.nativescroll")) {
-        this.setStyle("minWidth", width + "px");
-      } else {
-        this.setStyle("width", width + "px");
-      }
+      this.setStyle("minWidth", width + "px");
     }
   }
 });

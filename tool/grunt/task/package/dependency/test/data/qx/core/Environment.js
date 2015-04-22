@@ -635,10 +635,6 @@
  *       <td><i>default:</i> <code>false</code></td>
  *     </tr>
  *     <tr>
- *       <td>qx.mobile.nativescroll</td><td><i>Boolean</i></td><td><code>false</code></td>
- *       <td>{@link qx.bom.client.Scroll#getNativeScroll}</td>
- *     </tr>
- *     <tr>
  *       <td>qx.optimization.basecalls</td><td><i>Boolean</i></td><td><code>true</code></td>
  *       <td>true if the corresp. <i>optimize</i> key is set in the config</td>
  *     </tr>
@@ -837,8 +833,7 @@ qx.Class.define("qx.core.Environment",
       "xml.attributens" : "qx.bom.client.Xml.getAttributeNS",
       "xml.createnode" : "qx.bom.client.Xml.getCreateNode",
       "xml.getqualifieditem" : "qx.bom.client.Xml.getQualifiedItem",
-      "xml.createelementns" : "qx.bom.client.Xml.getCreateElementNS",
-      "qx.mobile.nativescroll" : "qx.bom.client.Scroll.getNativeScroll"
+      "xml.createelementns" : "qx.bom.client.Xml.getCreateElementNS"
     },
 
 

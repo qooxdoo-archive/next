@@ -78,8 +78,6 @@ Environment Keys
 
 The following environment keys are available:
 
-* ``qx.mobile.nativescroll: true|false`` - Whether to use native scrolling or
-  `iScroll`_ for scrolling.
 * ``device.pixelRatio: Number`` - the ratio between physical pixels and device-independent pixels (dips) on the device.
 * ``device.type: String`` - Determines on what type of device the application is running. Valid values are: "mobile", "tablet" or "desktop".
 

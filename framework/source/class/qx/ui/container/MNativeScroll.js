@@ -22,8 +22,7 @@
  * @require(qx.module.Animation)
  * @require(qx.module.Manipulating)
  *
- * Mixin for the {@link Scroll} container. Used when the variant
- * <code>qx.mobile.nativescroll</code> is set to "on".
+ * Mixin for the {@link Scroll} container.
  */
 qx.Mixin.define("qx.ui.container.MNativeScroll",
 {

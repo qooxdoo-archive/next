@@ -45,12 +45,7 @@ describe("application.Mobile", function () {
     app.main();
     var root = app.getRoot();
     assert.instanceOf(root, qx.ui.core.Root);
-
-    if (qx.core.Environment.get("qx.mobile.nativescroll") === false) {
-      assert.isFalse(root.showScrollbarY);
-    } else {
-      assert.isTrue(root.showScrollbarY);
-    }
+    assert.isTrue(root.showScrollbarY);
 
     var myRoot = new qx.ui.core.Root();
     app.setRoot(myRoot);
