@@ -57,8 +57,8 @@ q.ready(function() {
   else {
     var version = q.$$qx.core.Environment.get("qx.version");
     if (version) {
-      title = "API Documentation <span>qx.Website " + version + "</span>";
-      docTitle = "qx.Website " + version + " API Documentation";
+      title = "API Documentation <span>next " + version + "</span>";
+      docTitle = "next " + version + " API Documentation";
     }
   }
   q("h1#headline").setHtml(title);
