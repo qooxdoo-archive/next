@@ -26,10 +26,13 @@
 describe("bom.client.Pdfjs", function() {
 
   it("is PDF.js available", function(done) {
-    //this.require(["firefox"]);
+    if (qx.core.Environment.get("browser.name") !== "firefox") {
+      this.test.skipped = true;
+      return;
+    }
     qx.core.Environment.getAsync("plugin.pdfjs", function(result) {
       setTimeout(function() {
-        assert.equal(qx.core.Environment.get("browser.name") === "Firefox", result);
+        assert.isTrue(result);
         done();
       }, 0);
     }, this);
