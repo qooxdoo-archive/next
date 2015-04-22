@@ -1,13 +1,5 @@
 describe("module.Messaging", function() {
 
-  beforeEach(function() {
-    qx.log.appender.Native.SILENT = true;
-  });
-
-  afterEach(function() {
-    qx.log.appender.Native.SILENT = false;
-  });
-
   it("On", function() {
     var called = 0;
     var id = q.messaging.on("X", "test", function() {
