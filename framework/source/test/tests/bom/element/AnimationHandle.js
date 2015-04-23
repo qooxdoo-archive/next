@@ -23,6 +23,7 @@ describe("bom.element.AnimationHandle", function() {
     if (!qx.core.Environment.get("css.animation")) {
       this.test.skipped = true;
       done();
+      return;
     }
 
     var el = qx.dom.Element.create("div");
@@ -52,6 +53,7 @@ describe("bom.element.AnimationHandle", function() {
     if (!qx.core.Environment.get("css.animation")) {
       this.test.skipped = true;
       done();
+      return;
     }
 
     var el = qx.dom.Element.create("div");
@@ -82,6 +84,7 @@ describe("bom.element.AnimationHandle", function() {
     if (!qx.core.Environment.get("css.animation")) {
       this.test.skipped = true;
       done();
+      return;
     }
 
     var el = qx.dom.Element.create("div");
@@ -112,6 +115,7 @@ describe("bom.element.AnimationHandle", function() {
     if (!qx.core.Environment.get("css.animation")) {
       this.test.skipped = true;
       done();
+      return;
     }
 
     var el = qx.dom.Element.create("div");

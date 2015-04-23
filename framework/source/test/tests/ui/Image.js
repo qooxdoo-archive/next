@@ -31,6 +31,7 @@ describe("ui.Image", function() {
     var source = "../resource/qx/static/blank.png";
     if (qx.io.ImageLoader.isLoaded(source)) {
       this.test.skipped = true;
+      done();
       return;
     }
     var image = new qx.ui.Image("../resource/qx/static/blank.png");

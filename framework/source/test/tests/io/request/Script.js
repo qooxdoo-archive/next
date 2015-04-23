@@ -146,9 +146,10 @@ describe("io.request.Script", function() {
     if (isIeBelow(9)) {
       this.test.skipped = true;
       done();
+      return;
     }
 
-    req.timeout = isIeBelow(10) ? 250 : 25;
+    req.timeout = 25;
     req.on("timeout", function() {
       assert.equal(4, req.readyState);
       assert.equal(0, req.status);
@@ -365,9 +366,10 @@ describe("io.request.Script", function() {
     if (!supportsErrorHandler()) {
       this.test.skipped = true;
       done();
+      return;
     }
 
-    req.timeout = 250;
+    req.timeout = 25;
     requestPending();
 
     setTimeout(function() {
@@ -378,9 +380,10 @@ describe("io.request.Script", function() {
 
 
   it("call ontimeout when request exceeds timeout limit", function(done) {
-    req.timeout = isIeBelow(10) ? 250 : 25;
+    req.timeout = isIeBelow(10) ? 25 : 25;
     req.on("timeout", function() {
       done();
+      return;
     });
 
     requestPending();
@@ -393,9 +396,10 @@ describe("io.request.Script", function() {
     req.on("load", function() {
       sinon.assert.notCalled(spy);
       done();
+      return;
     });
 
-    req.timeout = isIeBelow(10) ? 250 : 25;
+    req.timeout = isIeBelow(10) ? 25 : 25;
     request();
   });
 
@@ -442,11 +446,12 @@ describe("io.request.Script", function() {
   it("remove script from DOM when request timed out", function(done) {
     var script;
 
-    req.timeout = isIeBelow(10) ? 250 : 25;
+    req.timeout = 25;
     req.on("timeout", function() {
       script = req._getScriptElement();
       assert.isFalse(isInDom(script));
       done();
+      return;
     });
 
     requestPending();

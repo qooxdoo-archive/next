@@ -150,10 +150,12 @@ describe("io.request.XhrWithRemote", function() {
     req.on("timeout", function() {
       assert.equal("timeout", req.phase);
       done();
+      return;
     });
 
     req.url = url;
-    req.timeout = 1 / 1000;
+    //req.timeout = 1 / 1000;
+    req.timeout = 1;
     req.send();
   });
 
