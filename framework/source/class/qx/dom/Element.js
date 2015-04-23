@@ -152,7 +152,7 @@ qx.Class.define("qx.dom.Element",
     insertBegin : function(node, parent)
     {
       if (parent.firstChild) {
-        this.insertBefore(node, parent.firstChild);
+        qx.dom.Element.insertBefore(node, parent.firstChild);
       } else {
         parent.appendChild(node);
       }
@@ -201,7 +201,7 @@ qx.Class.define("qx.dom.Element",
       if (ref == parent.lastChild) {
         parent.appendChild(node);
       } else {
-        return this.insertBefore(node, ref.nextSibling);
+        return qx.dom.Element.insertBefore(node, ref.nextSibling);
       }
 
       return true;

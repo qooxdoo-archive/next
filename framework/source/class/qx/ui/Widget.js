@@ -342,29 +342,17 @@ qx.Class.define("qx.ui.Widget", {
     },
 
 
-    /**
-     * Add a child widget at the specified index
-     * TODO: Move to Manipulating module
-     *
-     * @param child {Widget} widget to add
-     * @param index {Integer} Index, at which the widget will be inserted
-     */
-    appendAt : function(child, index) {
-      var ref = this.getChildren()[index];
-
-      if (ref) {
-        child.insertBefore(ref);
-      } else {
-        this.append(child);
-      }
-    },
-
-
     // overridden
-    append : function(child) {
-      this.super("append", child);
-      this.emit("addedChild", child);
-      qxWeb(child).emit("addedToParent", this);
+    append : function(html) {
+      var arr = qx.bom.Html.clean([html]);
+      var children = qxWeb.$init(arr, qxWeb);
+
+      this.super("append", children);
+
+      children.forEach(function(item) {
+        this.emit("addedChild", item);
+        item.emit("addedToParent", this);
+      }.bind(this));
       return this;
     },
 
@@ -390,22 +378,6 @@ qx.Class.define("qx.ui.Widget", {
       this.super("insertBefore", target);
       this.emit("addedToParent", this._getParentWidget());
       return this._emitOnParent("addedChild", this);
-    },
-
-
-    // overridden
-    after : function(content) {
-      this.super("after", content);
-      qxWeb(content).emit("addedToParent", this._getParentWidget());
-      return this._emitOnParent("addedChild", content);
-    },
-
-
-    // overridden
-    before : function(content) {
-      this.super("before", content);
-      qxWeb(content).emit("addedToParent", this._getParentWidget());
-      return this._emitOnParent("addedChild", content);
     },
 
 

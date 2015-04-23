@@ -252,31 +252,97 @@ describe("ui.Widget", function() {
 
   function _testAddedChild(invokeFunc) {
     var child = new qx.ui.Widget();
-    qx.core.Assert.assertEventFired(sandbox,
-      "addedChild",
-      invokeFunc.bind(this, child),
-      function(newChild) {
-        assert.equal(child, newChild);
-      }.bind(this)
+
+    var spyChild = sinon.spy();
+    child.on("addedToParent", spyChild);
+
+    var spyParent = sinon.spy();
+    sandbox.on("addedChild", spyParent);
+
+    invokeFunc.call(this, child);
+
+    sinon.assert.calledOnce(spyParent);
+    sinon.assert.calledWith(spyParent, child);
+
+    sinon.assert.calledOnce(spyChild);
+    sinon.assert.calledWith(spyChild, sandbox);
+  };
+
+
+  function _testAddedChildTwice(invokeFunc) {
+    var children = qxWeb.create(
+      "<div data-qx-widget='qx.ui.Widget'></div>" +
+      "<div data-qx-widget='qx.ui.Widget'></div>"
     );
-  }
+
+    var spyChild1 = sinon.spy();
+    children.eq(0).on("addedToParent", spyChild1);
+
+    var spyChild2 = sinon.spy();
+    children.eq(1).on("addedToParent", spyChild2);
+
+    var spyParent = sinon.spy();
+    sandbox.on("addedChild", spyParent);
+
+    invokeFunc.call(this, children);
+
+    sinon.assert.calledTwice(spyParent);
+    assert.isTrue(children.contains(spyParent.args[0][0][0]).length > 0);
+    assert.isTrue(children.contains(spyParent.args[1][0][0]).length > 0);
+
+    sinon.assert.calledOnce(spyChild1);
+    sinon.assert.calledWith(spyChild1, sandbox);
+
+    sinon.assert.calledOnce(spyChild2);
+    sinon.assert.calledWith(spyChild2, sandbox);
+  };
 
 
-  it("AddedChildAppend", function() {
+  function _testAddedChildHtml(invokeFunc) {
+    var child = "<div></div>";
+
+    var spy = sinon.spy();
+    sandbox.on("addedChild", spy);
+
+    invokeFunc.call(this, child);
+
+    sinon.assert.calledOnce(spy);
+    assert.equal(child, spy.args[0][0][0].outerHTML);
+  };
+
+
+  it("addedChild - append", function() {
     _testAddedChild(function(child) {
       sandbox.append(child);
     });
   });
 
+  it("addedChild - append - multiple", function() {
+    _testAddedChildTwice(function(children) {
+      sandbox.append(children);
+    });
+  });
 
-  it("AddedChildAppendAt", function() {
+  it("addedChild - append - html", function() {
+    _testAddedChildHtml(function(html) {
+      sandbox.append(html);
+    });
+  });
+
+
+  it("addedChild - appendAt", function() {
     _testAddedChild(function(child) {
       sandbox.appendAt(child, 0);
     });
   });
 
+  it("addedChild - appendAt - multiple", function() {
+    _testAddedChildTwice(function(children) {
+      sandbox.appendAt(children, 0);
+    });
+  });
 
-  it("AddedChildInsertAfter", function() {
+  it("addedChild - insertAfter", function() {
     var sibling = new qx.ui.Widget();
     sandbox.append(sibling);
     _testAddedChild(function(child) {
@@ -284,8 +350,15 @@ describe("ui.Widget", function() {
     });
   });
 
+  it("addedChild - insertAfter - multiplie", function() {
+    var sibling = new qx.ui.Widget();
+    sandbox.append(sibling);
+    _testAddedChildTwice(function(children) {
+      children.insertAfter(sibling);
+    });
+  });
 
-  it("AddedChildInsertBefore", function() {
+  it("addedChild - insertBefore", function() {
     var sibling = new qx.ui.Widget();
     sandbox.append(sibling);
     _testAddedChild(function(child) {
@@ -293,8 +366,16 @@ describe("ui.Widget", function() {
     });
   });
 
+  it("addedChild - insertBefore - multiple", function() {
+    var sibling = new qx.ui.Widget();
+    sandbox.append(sibling);
+    _testAddedChildTwice(function(children) {
+      children.insertBefore(sibling);
+    });
+  });
 
-  it("AddedChildAfter", function() {
+
+  it("addedChild - after", function() {
     var sibling = new qx.ui.Widget();
     sandbox.append(sibling);
     _testAddedChild(function(child) {
@@ -302,8 +383,16 @@ describe("ui.Widget", function() {
     });
   });
 
+  it("addedChild - after - multiple", function() {
+    var sibling = new qx.ui.Widget();
+    sandbox.append(sibling);
+    _testAddedChildTwice(function(children) {
+      sibling.after(children);
+    });
+  });
 
-  it("AddedChildBefore", function() {
+
+  it("addedChild - before", function() {
     var sibling = new qx.ui.Widget();
     sandbox.append(sibling);
     _testAddedChild(function(child) {
@@ -311,15 +400,29 @@ describe("ui.Widget", function() {
     });
   });
 
+  it("addedChild - before - multiple", function() {
+    var sibling = new qx.ui.Widget();
+    sandbox.append(sibling);
+    _testAddedChildTwice(function(children) {
+      sibling.before(children);
+    });
+  });
 
-  it("AddedChildAppendTo", function() {
+
+  it("addedChild - appendTo", function() {
     _testAddedChild(function(child) {
       child.appendTo(sandbox);
     });
   });
 
+  it("addedChild - appendTo - multiple", function() {
+    _testAddedChildTwice(function(children) {
+      children.appendTo(sandbox);
+    });
+  });
 
-  it("RemovedChildRemove", function() {
+
+  it("removedChild - remove", function() {
     sandbox.append(qxWeb.create("<div>"));
     var child = new qx.ui.Widget();
     sandbox.append(child);
@@ -337,7 +440,7 @@ describe("ui.Widget", function() {
   });
 
 
-  it("RemovedChildRemoveMultiple", function() {
+  it("removedChild - remove - multiple", function() {
     sandbox.append(new qx.ui.Widget());
     sandbox.append(new qx.ui.Widget());
     sandbox.append(new qx.ui.Widget());
@@ -350,7 +453,7 @@ describe("ui.Widget", function() {
   });
 
 
-  it("RemovedChildEmpty", function() {
+  it("removedChild - empty", function() {
     var child1 = new qx.ui.Widget();
     sandbox.append(child1);
     var child2 = new qx.ui.Widget();

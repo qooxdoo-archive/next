@@ -104,6 +104,29 @@ qx.Class.define("qx.module.Manipulating", {
 
 
     /**
+     * Add a child widget at the specified index
+     *
+     * @param html {String|Element[]|qxWeb} HTML string or DOM element(s) to append
+     * @param index {Integer} Index, at which the widget will be inserted
+     * @return {qxWeb} The collection for chaining
+     */
+    appendAt : function(html, index) {
+      var ref = this.getChildren()[index];
+
+      if (ref) {
+        var arr = qx.bom.Html.clean([html]);
+        var children = qxWeb.$init(arr, qxWeb);
+
+        children.insertBefore(ref);
+      } else {
+        this.append(html);
+      }
+
+      return this;
+    },
+
+
+    /**
      * Appends all items in the collection to the specified parents. If multiple
      * parents are given, the items will be moved to the first parent, while
      * clones of the items will be appended to subsequent parents.
@@ -115,53 +138,86 @@ qx.Class.define("qx.module.Manipulating", {
      */
     appendTo : function(parent) {
       parent = qx.module.Manipulating.__getElementArray(parent);
-      for (var i=0, l=parent.length; i < l; i++) {
-        this._forEachElement(function(item, j) {
+
+      if (this.length == 1) {
+        for (var i=0, l=parent.length; i < l; i++) {
           if (i == 0) {
             // first parent: move the target node(s)
-            qx.dom.Element.insertEnd(this[j], parent[i]);
+            qx.dom.Element.insertEnd(this[0], parent[i]);
           }
           else {
             // further parents: clone the target node(s)
-            qx.dom.Element.insertEnd(this.eq(j).clone(true)[0], parent[i]);
+            qx.dom.Element.insertEnd(this.clone(true)[0], parent[i]);
           }
+        }
+      } else {
+        this._forEachElement(function(item) {
+          qxWeb(item).appendTo(parent);
         }, this);
       }
+
 
       return this;
     },
 
 
     /**
-     * Inserts the current collection before each target item. The collection
-     * items are moved before the first target. For subsequent targets,
-     * clones of the collection items are created and inserted.
-     *
+     * Generic insert function used for insertBefore and insertAfter.
      * @attach{qxWeb}
-     * @param target {String|Element|Element[]|qxWeb} Selector expression, DOM element,
-     * Array of DOM elements or collection
+     * @param parent {String|Element[]|qxWeb} Parent selector expression or list of
+     * parent elements
+     * @param method {String} Either <code>insertBefore</code> or <code>insertAfter</code>
      * @return {qxWeb} The collection for chaining
      */
-    insertBefore : function(target)
-    {
+    _insert: function(target, method) {
       target = qx.module.Manipulating.__getElementArray(target);
-      for (var i=0, l=target.length; i < l; i++) {
-        this._forEachElement(function(item, index) {
+
+      var i, l;
+      if (this.length == 1) {
+        for (i = 0, l = target.length; i < l; i++) {
+          if (!this[0] || this[0].nodeType !== 1) {
+            continue;
+          }
           if (i == 0) {
             // first target: move the target node(s)
-            qx.dom.Element.insertBefore(item, target[i]);
+            qx.dom.Element[method](this[0], target[i]);
           }
           else {
             // further targets: clone the target node(s)
-            qx.dom.Element.insertBefore(this.eq(index).clone(true)[0], target[i]);
+            qx.dom.Element[method](this.clone(true)[0], target[i]);
           }
-        }, this);
+
+        }
+      } else {
+        if (method == "insertBefore") {
+          this.forEach(function(item) {
+            item[method](target, method);
+          });
+        } else {
+          for (i = this.length - 1; i >= 0; i--) {
+            qxWeb(this[i])[method](target, method);
+          }
+        }
+
       }
 
       return this;
     },
 
 
+   /**
+    * Inserts the current collection before each target item. The collection
+    * items are moved before the first target. For subsequent targets,
+    * clones of the collection items are created and inserted.
+    *
+    * @attach{qxWeb}
+    * @param target {String|Element|Element[]|qxWeb} Selector expression, DOM element,
+    * Array of DOM elements or collection
+    * @return {qxWeb} The collection for chaining
+    */
+   insertBefore : function(target) {
+     return this._insert(target, "insertBefore");
+   },
 
     /**
      * Inserts the current collection after each target item. The collection
@@ -173,26 +229,8 @@ qx.Class.define("qx.module.Manipulating", {
      * Array of DOM elements or collection
      * @return {qxWeb} The collection for chaining
      */
-    insertAfter : function(target)
-    {
-      target = qx.module.Manipulating.__getElementArray(target);
-      for (var i=0, l=target.length; i < l; i++) {
-        for (var j=this.length - 1; j >= 0; j--) {
-          if (!this[j] || this[j].nodeType !== 1) {
-            continue;
-          }
-          if (i == 0) {
-            // first target: move the target node(s)
-            qx.dom.Element.insertAfter(this[j], target[i]);
-          }
-          else {
-            // further targets: clone the target node(s)
-            qx.dom.Element.insertAfter(this.eq(j).clone(true)[0], target[i]);
-          }
-        }
-      }
-
-      return this;
+    insertAfter : function(target) {
+      return this._insert(target, "insertAfter");
     },
 
 
@@ -354,19 +392,22 @@ qx.Class.define("qx.module.Manipulating", {
       }
       var fragment = document.createDocumentFragment();
       qx.bom.Html.clean(content, document, fragment);
-      this._forEachElement(function(item, index) {
-        var kids = qx.lang.Array.cast(fragment.childNodes, Array);
+      var kids = qx.lang.Array.cast(fragment.childNodes, Array);
+
+      if (this.length == 1) {
         for (var i = 0, l = kids.length; i < l; i++) {
-          var child;
-          if (index < this.length - 1) {
-            child = kids[i].cloneNode(true);
-          }
-          else {
-            child = kids[i];
-          }
-          item.parentNode.insertBefore(child, item);
+          qxWeb(kids[i]).insertBefore(this);
         }
-      }, this);
+      } else {
+        this._forEachElement(function(item, index) {
+          if (index > 0) {
+            kids = kids.map(function(kid) {
+              return kid.cloneNode(true);
+            });
+          }
+          qxWeb(item).before(kids);
+        }, this);
+      }
 
       return this;
     },
@@ -388,19 +429,22 @@ qx.Class.define("qx.module.Manipulating", {
       }
       var fragment = document.createDocumentFragment();
       qx.bom.Html.clean(content, document, fragment);
-      this._forEachElement(function(item, index) {
-        var kids = qx.lang.Array.cast(fragment.childNodes, Array);
-        for (var i=kids.length-1; i>=0; i--) {
-          var child;
-          if (index < this.length - 1) {
-            child = kids[i].cloneNode(true);
-          }
-          else {
-            child = kids[i];
-          }
-          item.parentNode.insertBefore(child, item.nextSibling);
+      var kids = qx.lang.Array.cast(fragment.childNodes, Array);
+
+      if (this.length == 1) {
+        for (var i = kids.length - 1; i >= 0; i--) {
+          qxWeb(kids[i]).insertAfter(this);
         }
-      }, this);
+      } else {
+        this._forEachElement(function(item, index) {
+          if (index > 0) {
+            kids = kids.map(function(kid) {
+              return kid.cloneNode(true);
+            });
+          }
+          qxWeb(item).after(kids);
+        }, this);
+      }
 
       return this;
     },
@@ -596,6 +640,7 @@ qx.Class.define("qx.module.Manipulating", {
 
     qxWeb.$attach({
       "append" : statics.append,
+      "appendAt" : statics.appendAt,
       "appendTo" : statics.appendTo,
       "remove" : statics.remove,
       "empty" : statics.empty,
@@ -604,6 +649,7 @@ qx.Class.define("qx.module.Manipulating", {
       "insertBefore" : statics.insertBefore,
       "after" : statics.after,
       "insertAfter" : statics.insertAfter,
+      "_insert" : statics._insert,
 
       "wrap" : statics.wrap,
 
