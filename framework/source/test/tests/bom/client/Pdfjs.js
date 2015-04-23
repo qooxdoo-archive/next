@@ -25,16 +25,14 @@
  */
 describe("bom.client.Pdfjs", function() {
 
-  it("is PDF.js available", function(done) {
-    if (qx.core.Environment.get("browser.name") !== "firefox") {
-      this.test.skipped = true;
-      return;
-    }
-    qx.core.Environment.getAsync("plugin.pdfjs", function(result) {
-      setTimeout(function() {
-        assert.isTrue(result);
-        done();
-      }, 0);
-    }, this);
-  });
+  if (qx.core.Environment.get("browser.name") === "firefox") {
+    it("is PDF.js available", function (done) {
+      qx.core.Environment.getAsync("plugin.pdfjs", function (result) {
+        setTimeout(function () {
+          assert.isTrue(result);
+          done();
+        }, 0);
+      }, this);
+    });
+  }
 });
