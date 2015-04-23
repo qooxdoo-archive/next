@@ -23,7 +23,7 @@ describe("application.Mobile", function () {
 
     var app = new qx.application.Mobile();
     app.main();
-// has body classes
+    // has body classes
     qxWeb(document.body).hasClass(Env.get("os.name"));
 
     var osVersion = Env.get("os.version");
@@ -43,11 +43,16 @@ describe("application.Mobile", function () {
   it("get and set root", function () {
     var app = new qx.application.Mobile();
     app.main();
+
+    // mock _createRootWidget to prevent the usage of document body as root
+    app._createRootWidget = function() {
+      return new qx.ui.core.Root(sandbox[0]);
+    };
     var root = app.getRoot();
     assert.instanceOf(root, qx.ui.core.Root);
     assert.isTrue(root.showScrollbarY);
 
-    var myRoot = new qx.ui.core.Root();
+    var myRoot = new qx.ui.core.Root(sandbox[0]);
     app.setRoot(myRoot);
     assert.isTrue(app.getRoot() === myRoot);
   });
