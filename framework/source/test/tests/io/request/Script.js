@@ -148,7 +148,7 @@ describe("io.request.Script", function() {
       done();
     }
 
-    req.timeout = 250;
+    req.timeout = isIeBelow(10) ? 250 : 25;
     req.on("timeout", function() {
       assert.equal(4, req.readyState);
       assert.equal(0, req.status);
@@ -378,7 +378,7 @@ describe("io.request.Script", function() {
 
 
   it("call ontimeout when request exceeds timeout limit", function(done) {
-    req.timeout = 250;
+    req.timeout = isIeBelow(10) ? 250 : 25;
     req.on("timeout", function() {
       done();
     });
@@ -395,7 +395,7 @@ describe("io.request.Script", function() {
       done();
     });
 
-    req.timeout = 250;
+    req.timeout = isIeBelow(10) ? 250 : 25;
     request();
   });
 
@@ -442,7 +442,7 @@ describe("io.request.Script", function() {
   it("remove script from DOM when request timed out", function(done) {
     var script;
 
-    req.timeout = 250;
+    req.timeout = isIeBelow(10) ? 250 : 25;
     req.on("timeout", function() {
       script = req._getScriptElement();
       assert.isFalse(isInDom(script));
