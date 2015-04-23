@@ -138,6 +138,48 @@ describe("ui.Carousel", function() {
   });
 
 
+  it("empty", function() {
+    var p1 = new qx.ui.Widget();
+    p1.appendTo(carousel);
+    var p2 = new qx.ui.Widget();
+    p2.appendTo(carousel);
+    var p3 = new qx.ui.Widget();
+    p3.appendTo(carousel);
+
+    carousel.find(".carousel-page").remove();
+
+    assert.equal(0, carousel.find(".carousel-pagination").getChildren().length);
+    assert.isNull(carousel.active);
+  });
+
+
+  it("empty and append", function(done) {
+    var p1 = new qx.ui.Widget();
+    p1.appendTo(carousel);
+    var p2 = new qx.ui.Widget();
+    p2.appendTo(carousel);
+    var p3 = new qx.ui.Widget();
+    p3.appendTo(carousel);
+
+    carousel.find(".carousel-page").remove();
+
+    assert.isNull(carousel.active);
+
+    carousel.append(p1);
+    assert.equal(p1, carousel.active);
+
+    p2.appendTo(carousel);
+    assert.equal(p1, carousel.active);
+
+    carousel.on("changeActive", function(e) {
+      assert.equal(p2[0], e.value[0]);
+      assert.equal(p2[0], carousel.active[0]);
+      done();
+    })
+    carousel.nextPage();
+  });
+
+
   it("nextPage", function(done) {
     var p1 = new qx.ui.Widget()
       .setHtml("page1")

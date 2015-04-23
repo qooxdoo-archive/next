@@ -366,16 +366,8 @@ qx.Class.define("qx.ui.Widget", {
 
 
     // overridden
-    insertAfter : function(target) {
-      this.super("insertAfter", target);
-      this.emit("addedToParent", this._getParentWidget());
-      return this._emitOnParent("addedChild", this);
-    },
-
-
-    // overridden
-    insertBefore : function(target) {
-      this.super("insertBefore", target);
+    _insert : function(target, method) {
+      this.super("_insert", target, method);
       this.emit("addedToParent", this._getParentWidget());
       return this._emitOnParent("addedChild", this);
     },
