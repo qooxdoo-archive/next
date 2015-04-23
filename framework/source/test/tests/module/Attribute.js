@@ -112,4 +112,63 @@ describe("module.Attribute", function() {
     assert.isNull(q(document).getValue());
     assert.isNull(q(window).getValue());
   });
+
+
+  it("boolean attribues should return 'false'", function () {
+    var value = qxWeb.create("<input>").getAttribute("disabled");
+    assert.isFalse(value);
+  });
+
+
+	it("boolean attribues should set 'true'", function () {
+    var element = qxWeb.create("<input>");
+
+    element.setAttribute("disabled", true);
+
+    var value = element.getAttribute("disabled");
+    assert.isTrue(value);
+	});
+
+
+  it("string attribute should return 'null'", function () {
+    var value = qxWeb.create("<span>").getAttribute("contenteditable");
+    assert.isNull(value);
+  });
+
+
+  it("string attribute should set 'true'", function () {
+    var element = qxWeb.create("<span>");
+    element.setAttribute("contenteditable", true);
+
+    var value = element.getAttribute("contenteditable");
+    assert.equal("true", value);
+  });
+
+
+  it("string attribute should get 'true'", function () {
+    var value = qxWeb.create("<span contenteditable='true'>").getAttribute("contenteditable");
+    assert.equal("true", value);
+  });
+
+
+  it("data attribues should return 'null'", function () {
+    var value = qxWeb.create("<input>").getAttribute("data-test");
+    assert.isNull(value);
+  });
+
+
+  it("data attribues should set 'true'", function () {
+    var element = qxWeb.create("<input>");
+
+    element.setAttribute("data-test", true);
+
+    var value = element.getAttribute("data-test");
+    assert.equal("true", value);
+  });
+
+
+  it("data attribues should get 'true'", function () {
+    var value = qxWeb.create("<input data-test='true'>").getAttribute("data-test");
+    assert.equal("true", value);
+  });
 });
