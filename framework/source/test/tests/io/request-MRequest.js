@@ -140,6 +140,11 @@ var _MRequest = function() {
     },
 
     "append FormData to URL with POST request": function() {
+      // FormData is required
+      if (typeof FormData === "undefined") {
+        this.test.skipped;
+        return;
+      }
       // see beforeEach()
       req = this.test.req;
 
