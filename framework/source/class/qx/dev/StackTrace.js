@@ -92,7 +92,6 @@ qx.Class.define("qx.dev.StackTrace",
           hit,
           className,
           lineNumber,
-          columnNumber,
           fileName,
           url;
 
@@ -134,39 +133,6 @@ qx.Class.define("qx.dev.StackTrace",
           }
         }
       }
-      else if (error.stacktrace) {
-        // Opera
-        var stacktrace = error.stacktrace;
-        if (!stacktrace) {
-          return trace;
-        }
-        if (stacktrace.indexOf("Error created at") >= 0) {
-          stacktrace = stacktrace.split("Error created at")[0];
-        }
-
-        // new Opera style (10.6+)
-        lineRe = /line\ (\d+?),\ column\ (\d+?)\ in\ (?:.*?)\ in\ (.*?):[^\/]/gm;
-        while ((hit = lineRe.exec(stacktrace)) != null) {
-          lineNumber = hit[1];
-          columnNumber = hit[2];
-          url = hit[3];
-          className = this.__fileNameToClassName(url);
-          trace.push(className + ":" + lineNumber + ":" + columnNumber);
-        }
-
-        if (trace.length > 0) {
-          return this.__formatStackTrace(trace);
-        }
-
-        // older Opera style
-        lineRe = /Line\ (\d+?)\ of\ linked\ script\ (.*?)$/gm;
-        while ((hit = lineRe.exec(stacktrace)) != null) {
-          lineNumber = hit[1];
-          url = hit[2];
-          className = this.__fileNameToClassName(url);
-          trace.push(className + ":" + lineNumber);
-        }
-      }
       else if (error.message && error.message.indexOf("Backtrace:") >= 0) {
         // Some old Opera versions append the trace to the message property
         var traceString = error.message.split("Backtrace:")[1].trim();
@@ -180,10 +146,6 @@ qx.Class.define("qx.dev.StackTrace",
             trace.push(fileName + ":" + lineNumber);
           }
         }
-      }
-      else if (error.sourceURL && error.line) {
-        // Safari
-        trace.push(this.__fileNameToClassName(error.sourceURL) + ":" + error.line);
       }
 
       return this.__formatStackTrace(trace);
