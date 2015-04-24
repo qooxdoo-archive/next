@@ -1,253 +1,175 @@
 <!DOCTYPE html>
 <html>
-<head profile="http://dublincore.org/documents/dcq-html">
+<head>
   <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 
-  <title>qooxdoo &raquo; Welcome</title>
+  <title>next &raquo; Welcome</title>
   <style type="text/css">
 
-html,body{
+html, body {
   padding: 0;
   margin: 0;
   background: #FFFFFF;
   color: #262626;
+  background-color: #00ad00;
 }
 
-body{
+body {
   font-family: "Lucida Grande", Verdana, Arial, sans-serif;
-  font-size: 12px;
+  font-size: 13px;
   line-height: 180%;
+  letter-spacing: 0.1em;
 }
 
-*{
-  padding: 0;
-  margin: 0;
-}
-
-.header {
-  background-color: #323335;
-  color: white;
+header {
+  color: #00ad00;
+  background-color: white;
   padding: 10px 40px;
   font-size: 18px;
   font-family: 'Lucida Grande', 'Verdana', sans-serif;
-  border-bottom: 4px solid #3d72c9;;
+  border-bottom: 4px solid #00ad00;;
 }
 
 a:link,
 a:visited{
   text-decoration: underline;
-  color: #444444;
+  color: #262626;
 }
+
 
 a:hover,
 a:active{
   text-decoration: underline;
-  color: #3D72C9;
+  color: #00ad00;
 }
 
-h1{
-  color: white;
-  font-size: 14px;
-}
-
-h2{
-  color: #3D72C9;
-  font-size: 14px;
-}
-
-h3{
-  font-size: 12px;
-  font-weight: bold;
-  color: #000000;
-}
-
-h3 span{
-  font-weight: bold;
-  font-size: 11px;
-}
-
-p{
-  margin: 12px 0;
-  max-width: 800px;
-}
-
-ul{
-  list-style: square;
-  padding-left: 16px;
-  color: #565656;
-}
-
-li{
-  margin-bottom: 10px;
-}
-
-li p{
-  color: black;
+h1 {
+  font-size: 28px;
+  line-height: 100%;
   margin: 0;
 }
 
-pre,
-code{
-  font-family: Consolas, "Bitstream Vera Sans Mono", "Courier New", monospace;
-  font-size: 11px;
-  line-height: 160%;
-  padding: 1px 4px;
-
+h1 a {
+  font-size: 12px;
+  float: right;
 }
 
-.main{
-  background: #F0F0F0;
-  padding: 16px 40px;
+h2 {
+  color: #00ad00;
+  font-size: 18px;
+  margin: 0;
+  border-bottom: 1px solid #00ad00;
 }
 
-.main pre,
-.main code{
-  background: #FFFFFF;
+h3 {
+  margin-bottom: 0;
 }
 
-.block pre,
-.block code{
-  background: #F0F0F0;
+p {
+  margin: 3px 0;
 }
 
-.block{
-  width: 300px;
-  margin: 16px 40px;
-  margin-top: 40px;
-  float: left;
+ul {
+  list-style: square;
+  padding-left: 16px;
+  color: #565656;
+  margin-top: 0;
 }
 
-.hide, .publish {
-  display: none;
+section {
+  padding: 20px;
+  -webkit-columns: 350px 2;
+  -moz-columns: 350px 2;
+  columns: 350px 2;
+
+  -webkit-column-gap: 20px;
+  -moz-column-gap: 20px;
+  column-gap: 20px;
+
+  background-color: white;
+}
+
+article {
+  -webkit-column-break-inside: avoid;
+  page-break-inside: avoid;
+  break-inside: avoid;
+  background-color: #eee;
+  border: 1px solid #ddd;
+  padding: 10px;
+  margin-bottom: 10px;
+}
+
+footer {
+  color: white;
+  padding: 10px;
+}
+
+footer p {
+  font-size: 13px;
+  width: 80%;
+  margin-left: auto;
+  margin-right: auto;
 }
 
   </style>
 
-  <script type="text/javascript">
-  var qxversion = "4.1";
-
-  /**
-   * Replace occurrences of $(qxversion) with the value of var qxversion.
-   */
-  function expandVersion(s){
-    while (s.indexOf('$(qxversion)') > -1) {
-      s  = s.replace('$(qxversion)', qxversion);
-    }
-    return s;
-  }
-
-  function myOnLoad(){
-    var elems = document.getElementsByName("verslink");
-    for (var i=0, l=elems.length; i<l; i++){
-      var e = elems[i];
-      e.href = expandVersion(e.href);
-    }
-  }
-  </script>
 </head>
-<body onload="myOnLoad();">
+<body>
 
-  <div class="header">qooxdoo - a universal JavaScript framework</div>
-  <div class="main">
-    <p>
-      Welcome to the qooxdoo SDK! It is easy to create your own impressive and
-      versatile applications. For detailed information on how to create such
-      apps, for instance a typical rich internet application (RIA), please see
-      the manual to
-      <span class="local"><a href="documentation/manual/build/html/pages/getting_started.html">get started</a> <i>(needs generation)</i>.</span>
-      <span class="publish"><a href="documentation/manual/pages/getting_started.html">get started</a>.</span>
-    </p>
-    <p>
-      For the impatient, here is a short version:
+  <header>
+    <h1>next <a href="https://github.com/qooxdoo/next" target="_blank">Code on github</a></h1>
+  </header>
+  <section>
+    <article>
+      <h2>Demos</h2>
+
+      <h3>Play</h3>
+      <p>Explore next programming interactively: edit code in one pane, and see the result running in another.</p>
       <ul>
-
-        <li> Use the <code>./create-application.py</code> script to set
-            up a new application.  This will create a minimal directory structure of
-            an application which is ready to be built and run.
-        <li> Within the newly created application folder run the command
-            <code>generate.py</code> to generate a development version of your app.
-        <li> Open <code>source/index.html</code> in your browser and see your
-            first application in action.
-        <li> You can then go on and extend it into an application of your liking by changing the
-            <code>Application.js</code> class file below the <code>source/class/</code> folder.
-        <li> The command <code>generate.py build</code> generates an optimized
-            and compressed version of your application, located at
-            <code>build/index.html</code>.
+        <li><a href="application/play/source/index.html">Source</a></li>
+        <li><a href="application/play/build/index.html">Build</a></li>
       </ul>
-    </p>
+
+      <h3>Mobile Showcase</h3>
+      <p>Showcase for the widgetset of the framework.</p>
+      <ul>
+        <li><a href="application/mobileshowcase/source/index.html">Source</a></li>
+        <li><a href="application/mobileshowcase/build/index.html">Build</a></li>
+      </ul>
+    </article>
+
+    <article>
+      <h2>Development</h2>
+
+      <h3>API Viewer</h3>
+      <p>Searchable API reference of the next framework.</p>
+      <ul>
+        <li><a href="framework/api/index.html">Source</a></li>
+      </ul>
+      <h3>Unit Tests</h3>
+      <p>Unit test suit based on Mocha.js and chai.</p>
+      <ul>
+        <li><a href="framework/source/test/index-source.html">Source</a></li>
+        <li><a href="framework/source/test/index-coverage.html">Source (Including code coverage)</a></li>
+        <li><a href="framework/source/test/index.html">Build</a></li>
+        <li><a href="framework/source/test/index-module.html">Build (Separate modules)</a></li>
+      </ul>
+
+      <h3>Manual</h3>
+      <p>The manual, including user guide and reference sections.</p>
+      <ul>
+        <li><a href="documentation/manual/build/html/index.html">Manual</a></li>
+      </ul>
+    </article>
+  </section>
+
+  <footer>
     <p>
-      Open the included <a href="framework/api/index.html">API viewer</a> to
-      display and search the entire API reference of the framework.
-      Also have a look at the
-    <span class="local"><a href="readme.rst">readme</a></span>
-    <span class="publish"><a href="readme.html">readme</a></span>
-    and <a href="license.txt">license text</a>.
-  </p>
-  </div>
+      As browsers sometimes restrict functionality when a local HTML file is
+      loaded directly (with the "file://" protocol), it might be advantageous
+      to run this index file through a web server.
+    </p>
+  </footer>
 
-  <div class="block">
-    <h2>Demo Applications</h2>
-    <p>Please note that the following applications, except for the
-        <a href="application/showcase/build/index.html">Showcase</a>, are not
-        pre-built. To create working applications</a> locally use the appropriate commands
-        <code>generate.py source</code> or <code>generate.py build</code> in
-        the corresponding application's directory.
-    <ul>
-      <li>
-        <h3>Play <span>(<a name="verslink" href="http://demo.qooxdoo.org/$(qxversion)/playplay">Online</a>)</span></h3>
-        <p>Explore qooxdoo programming interactively: edit qooxdoo code in one pane, and see the result running in another.</p>
-        <a href="application/play/source/index.html">Source</a> |
-        <a href="application/play/build/index.html">Build</a> <i>(both need generation)</i>
-      </li>
-      <li>
-        <h3>Mobile Showcase <span>(<a name="verslink" href="http://demo.qooxdoo.org/$(qxversion)/mobileshowcase">Online</a>)</span></h3>
-        <p>An experimental showcase for mobile widgets (Smartphones: Android, iOS; Desktop: Chrome, IE 11, Firefox, Safari).</p>
-        <a href="application/mobileshowcase/source/index.html">Source</a> |
-        <a href="application/mobileshowcase/build/index.html">Build</a>
-        <i>(all need generation)</i>
-      </li>
-    </ul>
-  </div>
-
-  <div class="block">
-    <h2>Developer Tools</h2>
-    <p>The following applications work with data from the qooxdoo framework itself.
-      Versions can also be generated that are specific to your custom application.
-      While the API Viewer is pre-built and runs out-of-the-box, you need to generate
-      the others yourself.</p>
-    <ul>
-      <li>
-        <h3>API Viewer <span>(Online: <a name="verslink" href="http://demo.qooxdoo.org/$(qxversion)/website-api/index.html">Website</a>)</span></h3>
-        <p>Searchable API reference of the qooxdoo framework.</p>
-        <b><a href="framework/api/index.html">qx.Website API</a></b> <i>(ready to run)<a href="#F1"><b>(*)</b></a></i>
-      </li>
-      <li>
-        <h3>Tests <span>(Online: <a name="verslink" href="http://demo.qooxdoo.org/$(qxversion)/website-tests/index.html">All</a>)</h3>
-        <p>TBD</p>
-        <a href="framework/source/test/index-source.html">Source</a> |
-        <a href="framework/source/test/index-coverage.html">Source (Including code coverage)</a><br>
-        <a href="framework/source/test/index.html">Build</a> |
-        <a href="framework/source/test/index-module.html">Build (Separate modules)</a>
-      </li>
-      <li>
-        <h3>Manual <span>(<a name="verslink" href="http://manual.qooxdoo.org/$(qxversion)/">Online</a>)</span></h3>
-        <p>The qooxdoo manual, including user guide and reference sections.</p>
-        <span class="local"><a href="documentation/manual/build/html/index.html">Manual</a> <i>(needs generation)</i></span>
-        <span class="publish"><a href="documentation/manual/index.html">Manual</a> <i>(ready to use)<a href="#F1"><b>(*)</b></a></i></span>
-      </li>
-    </ul>
-  </div>
-
-  <p>
-    <div class="main" style="clear:both">
-      <div style="width:80%; margin-left:auto; margin-right:auto">
-        <a id="F1"><b>(*)</b></a> <em>As browsers sometimes restrict
-        functionality when a local HTML file is loaded directly (with the "file://"
-        protocol), it might be advantageous to run this index file through a web
-        server.
-        </em>
-      </div>
-    </div>
-  </p>
 </body>
 </html>
