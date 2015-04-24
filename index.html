@@ -1,167 +1,172 @@
-<!DOCTYPE html>
-<html>
+<!doctype html>
+<html lang="en">
 <head>
-  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <meta charset="utf-8">
 
-  <title>next &raquo; Welcome</title>
+  <title>next » Welcome</title>
   <style type="text/css">
+    html, body {
+      padding: 0;
+      margin: 0;
+      background: #FFFFFF;
+      color: #262626;
+      background-color: #00ad00;
+    }
 
-html, body {
-  padding: 0;
-  margin: 0;
-  background: #FFFFFF;
-  color: #262626;
-  background-color: #00ad00;
-}
+    body {
+      font-family: "Lucida Grande", Verdana, Arial, sans-serif;
+      font-size: 13px;
+      line-height: 180%;
+      letter-spacing: 0.1em;
+    }
 
-body {
-  font-family: "Lucida Grande", Verdana, Arial, sans-serif;
-  font-size: 13px;
-  line-height: 180%;
-  letter-spacing: 0.1em;
-}
+    header {
+      color: #00ad00;
+      background-color: white;
+      padding: 10px 40px;
+      font-size: 18px;
+      font-family: 'Lucida Grande', 'Verdana', sans-serif;
+      border-bottom: 4px solid #00ad00;;
+    }
 
-header {
-  color: #00ad00;
-  background-color: white;
-  padding: 10px 40px;
-  font-size: 18px;
-  font-family: 'Lucida Grande', 'Verdana', sans-serif;
-  border-bottom: 4px solid #00ad00;;
-}
+    a:link,
+    a:visited{
+      text-decoration: underline;
+      color: #262626;
+    }
 
-a:link,
-a:visited{
-  text-decoration: underline;
-  color: #262626;
-}
+    a:hover,
+    a:active{
+      text-decoration: underline;
+      color: #00ad00;
+    }
 
+    h1 {
+      font-size: 28px;
+      line-height: 100%;
+      margin: 0;
+    }
 
-a:hover,
-a:active{
-  text-decoration: underline;
-  color: #00ad00;
-}
+    h1 a {
+      font-size: 12px;
+      float: right;
+    }
 
-h1 {
-  font-size: 28px;
-  line-height: 100%;
-  margin: 0;
-}
+    h2 {
+      color: #00ad00;
+      font-size: 18px;
+      margin: 0;
+      border-bottom: 1px solid #00ad00;
+    }
 
-h1 a {
-  font-size: 12px;
-  float: right;
-}
+    h3 {
+      margin-bottom: 0;
+    }
 
-h2 {
-  color: #00ad00;
-  font-size: 18px;
-  margin: 0;
-  border-bottom: 1px solid #00ad00;
-}
+    p {
+      margin: 3px 0;
+    }
 
-h3 {
-  margin-bottom: 0;
-}
+    ul {
+      list-style: square;
+      padding-left: 16px;
+      color: #565656;
+      margin-top: 0;
+    }
 
-p {
-  margin: 3px 0;
-}
+    div {
+      padding: 20px;
+      -webkit-columns: 350px 2;
+      -moz-columns: 350px 2;
+      columns: 350px 2;
 
-ul {
-  list-style: square;
-  padding-left: 16px;
-  color: #565656;
-  margin-top: 0;
-}
+      -webkit-column-gap: 20px;
+      -moz-column-gap: 20px;
+      column-gap: 20px;
 
-section {
-  padding: 20px;
-  -webkit-columns: 350px 2;
-  -moz-columns: 350px 2;
-  columns: 350px 2;
+      background-color: white;
+    }
 
-  -webkit-column-gap: 20px;
-  -moz-column-gap: 20px;
-  column-gap: 20px;
+    section {
+      -webkit-column-break-inside: avoid;
+      page-break-inside: avoid;
+      break-inside: avoid;
+    }
 
-  background-color: white;
-}
+    article {
+      background-color: #eee;
+      border: 1px solid #ddd;
+      padding: 10px;
+      margin-bottom: 10px;
+    }
 
-article {
-  -webkit-column-break-inside: avoid;
-  page-break-inside: avoid;
-  break-inside: avoid;
-  background-color: #eee;
-  border: 1px solid #ddd;
-  padding: 10px;
-  margin-bottom: 10px;
-}
+    footer {
+      color: white;
+      padding: 10px;
+    }
 
-footer {
-  color: white;
-  padding: 10px;
-}
-
-footer p {
-  font-size: 13px;
-  width: 80%;
-  margin-left: auto;
-  margin-right: auto;
-}
-
+    footer p {
+      font-size: 13px;
+      width: 80%;
+      margin-left: auto;
+      margin-right: auto;
+    }
   </style>
 
 </head>
 <body>
-
   <header>
-    <h1>next <a href="https://github.com/qooxdoo/next" target="_blank">Code on github</a></h1>
+    <h1>next <a href="https://github.com/qooxdoo/next">Code on github</a></h1>
   </header>
-  <section>
-    <article>
+  <div>
+    <section>
       <h2>Demos</h2>
+      <article>
+        <h3>Play</h3>
+        <p>Explore next programming interactively: edit code in one pane, and see the result running in another.</p>
+        <ul>
+          <li><a href="application/play/source/index.html">Source</a></li>
+          <li><a href="application/play/build/index.html">Build</a></li>
+        </ul>
+      </article>
+      <article>
+        <h3>Mobile Showcase</h3>
+        <p>Showcase for the widgetset of the framework.</p>
+        <ul>
+          <li><a href="application/mobileshowcase/source/index.html">Source</a></li>
+          <li><a href="application/mobileshowcase/build/index.html">Build</a></li>
+        </ul>
+      </article>
+    </section>
 
-      <h3>Play</h3>
-      <p>Explore next programming interactively: edit code in one pane, and see the result running in another.</p>
-      <ul>
-        <li><a href="application/play/source/index.html">Source</a></li>
-        <li><a href="application/play/build/index.html">Build</a></li>
-      </ul>
-
-      <h3>Mobile Showcase</h3>
-      <p>Showcase for the widgetset of the framework.</p>
-      <ul>
-        <li><a href="application/mobileshowcase/source/index.html">Source</a></li>
-        <li><a href="application/mobileshowcase/build/index.html">Build</a></li>
-      </ul>
-    </article>
-
-    <article>
+    <section>
       <h2>Development</h2>
-
-      <h3>API Viewer</h3>
-      <p>Searchable API reference of the next framework.</p>
-      <ul>
-        <li><a href="framework/api/index.html">Source</a></li>
-      </ul>
-      <h3>Unit Tests</h3>
-      <p>Unit test suit based on Mocha.js and chai.</p>
-      <ul>
-        <li><a href="framework/source/test/index-source.html">Source</a></li>
-        <li><a href="framework/source/test/index-coverage.html">Source (Including code coverage)</a></li>
-        <li><a href="framework/source/test/index.html">Build</a></li>
-        <li><a href="framework/source/test/index-module.html">Build (Separate modules)</a></li>
-      </ul>
-
-      <h3>Manual</h3>
-      <p>The manual, including user guide and reference sections.</p>
-      <ul>
-        <li><a href="documentation/manual/build/html/index.html">Manual</a></li>
-      </ul>
-    </article>
-  </section>
+      <article>
+        <h3>API Viewer</h3>
+        <p>Searchable API reference of the next framework.</p>
+        <ul>
+          <li><a href="framework/api/index.html">Source</a></li>
+        </ul>
+      </article>
+      <article>
+        <h3>Unit Tests</h3>
+        <p>Unit test suit based on Mocha.js and chai.</p>
+        <ul>
+          <li><a href="framework/source/test/index-source.html">Source</a></li>
+          <li><a href="framework/source/test/index-coverage.html">Source (Including code coverage)</a></li>
+          <li><a href="framework/source/test/index.html">Build</a></li>
+          <li><a href="framework/source/test/index-module.html">Build (Separate modules)</a></li>
+        </ul>
+      </article>
+      <article>
+        <h3>Manual</h3>
+        <p>The manual, including user guide and reference sections.</p>
+        <ul>
+          <li><a href="documentation/manual/build/html/index.html">Manual</a></li>
+        </ul>
+      </article>
+    </section>
+  </div>
 
   <footer>
     <p>
@@ -170,6 +175,5 @@ footer p {
       to run this index file through a web server.
     </p>
   </footer>
-
 </body>
 </html>
