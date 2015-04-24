@@ -220,7 +220,7 @@ module.exports = function(grunt) {
     // get git revision from qooxdoo
     var pwd = shell.pwd();
     shell.cd(opts.qxPath);
-    var revision = shell.exec("git rev-parse --short HEAD");
+    var revision = shell.exec("git rev-parse --short HEAD", {silent:true});
     shell.cd(pwd);
 
     var contents = grunt.template.process(copyrightTmpl, {
