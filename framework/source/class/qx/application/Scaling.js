@@ -14,7 +14,9 @@
      See the LICENSE file in the project's top-level directory for details.
 
 ************************************************************************ */
-
+/**
+ * Singleton for accessing / manipulating the application scalling.
+ */
 qx.Class.define("qx.application.Scaling", {
   extend : Object,
 

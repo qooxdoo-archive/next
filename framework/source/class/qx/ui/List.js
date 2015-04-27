@@ -172,6 +172,10 @@ qx.Class.define("qx.ui.List",
     },
 
 
+    /**
+     * Pointer down handler setting the active element.
+     * @param evt {qx.event.type.dom.Pointer} The down event.
+     */
     _onPointerDown : function(evt) {
       var element = this._getElement(evt);
       if(!element) {
@@ -302,7 +306,7 @@ qx.Class.define("qx.ui.List",
 
     /**
      * Reacts on model 'change' event.
-     * @param evt {qx.event.type.Data} data event which contains model change data.
+     * @param data {Map} contains model change data.
      */
     __onModelChange : function(data) {
       if (data.type == "order") {
@@ -313,7 +317,7 @@ qx.Class.define("qx.ui.List",
 
     /**
      * Reacts on model 'changeBubble' event.
-     * @param evt {qx.event.type.Data} data event which contains model changeBubble data.
+     * @param data {Map} contains model changeBubble data.
      */
     __onModelChangeBubble : function(data) {
       var isArray = (qx.lang.Type.isArray(data.old) && qx.lang.Type.isArray(data.value));
@@ -392,6 +396,11 @@ qx.Class.define("qx.ui.List",
     },
 
 
+    /**
+     * Returns the rendered row templated.
+     * @param index {Number} The index to render.
+     * @return {qxWeb} The row.
+     */
     __getRowTemplate : function(index) {
       var template = qx.ui.List.itemTemplate;
       var data = this.model.getItem(index);
@@ -412,6 +421,12 @@ qx.Class.define("qx.ui.List",
     },
 
 
+    /**
+     * Returns the rendered group header template.
+     * @param group {String} The group name
+     * @param groupIndex {Number} the index of the group
+     * @return {qxWeb} The new group header.
+     */
     __getGroupHeaderTemplate : function(group, groupIndex) {
       var template = qx.ui.List.groupHeaderTemplate;
       var fragment = qxWeb.template.renderToNode(template, group);
@@ -490,6 +505,11 @@ qx.Class.define("qx.ui.List",
     },
 
 
+    /**
+     * Helper to confure the data based on the delegate.
+     * @param data {var} The original data.
+     * @return {var} The manipulated data.
+     */
     __configureData : function(data) {
       var configureDataMethod = qx.util.Delegate.getMethod(this.delegate, "configureData");
       if (data.selectable !== false) {

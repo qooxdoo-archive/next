@@ -30,15 +30,15 @@ qx.Class.define("qx.ui.form.PasswordField",
   properties :
   {
     // overridden
-    defaultCssClass :
-    {
+    defaultCssClass : {
       init : "password-field"
     }
   },
 
   /**
    * @attach {qxWeb, toPasswordField}
-   * @return {qx.ui.form.PasswordField} The new password field widget.
+   * @param value {String} The initial value.
+   * @param element {Element?} The element used to create the widget.
    */
   construct: function(value, element) {
     this.super("construct", value, element);

@@ -50,7 +50,6 @@ qx.Class.define("qx.ui.form.ToggleButton", {
    * @param labelChecked {Boolean?"ON"} The value of the text display when toggleButton is active
    * @param labelUnchecked {Boolean?"OFF"} The value of the text display when toggleButton is inactive
    * @attach {qxWeb, toToggleButton}
-   * @return {qx.ui.form.ToggleButton} The new toggle button widget.
    */
   construct: function(value, labelChecked, labelUnchecked) {
     this.super("construct");
@@ -98,7 +97,10 @@ qx.Class.define("qx.ui.form.ToggleButton", {
     __labelChecked: "ON",
 
 
-    // overridden
+    /**
+     * Sets the given value.
+     * @param value {Booelan} the new value.
+     */
     setValue: function(value) {
       this.value = value;
       if (this.value) {
@@ -109,7 +111,10 @@ qx.Class.define("qx.ui.form.ToggleButton", {
     },
 
 
-    // overridden
+    /**
+     * Returns the set value.
+     * @return {Boolean} The value.
+     */
     getValue: function() {
       return this.value;
     },

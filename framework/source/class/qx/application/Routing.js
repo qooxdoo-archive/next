@@ -245,7 +245,7 @@ qx.Class.define("qx.application.Routing", {
     /**
      * Hash change event handler.
      *
-     * @param evt {qx.event.type.Data} The changeHash event.
+     * @param data {Map} Map containing a <code>value</code> property.
      */
     __onChangeHash : function(data)
     {

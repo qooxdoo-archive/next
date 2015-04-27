@@ -43,7 +43,7 @@ qx.Class.define("qx.ui.form.Slider",
 
   /**
    * @attach {qxWeb, toSlider}
-   * @return {qx.ui.form.Slider} The new Slider widget.
+   * @param element {Element?} The element used to create the widget.
    */
   construct : function(element)
   {
@@ -165,18 +165,30 @@ qx.Class.define("qx.ui.form.Slider",
     _pixelPerStep : null,
 
 
-    // overridden
+    /**
+     * Sets the given value.
+     * @param value {Number} The new value.
+     */
     setValue: function(value) {
       this.value = value;
     },
 
 
-    // overridden
+    /**
+     * Returns the set value.
+     * @return {Number} The value.
+     */
     getValue: function() {
       return this.value;
     },
 
-    // overriden
+
+    /**
+     * Overridden setAttribute which has a special treatment for the name attribute which
+     * will be mapped to the hidden field as well.
+     * @param name {String} The attribute name.
+     * @param value {String} The attribute value.
+     */
     setAttribute: function (name, value) {
       if (name === "name") {
         this._getHiddenField().setAttribute("name", value);
@@ -184,7 +196,13 @@ qx.Class.define("qx.ui.form.Slider",
       this.super("setAttribute", name, value);
     },
 
-    // overriden
+
+    /**
+     * Overridden getAttribute which has a special treatment for the name attribute which
+     * will be mapped to the hidden field as well.
+     * @param name {String} The attribute name.
+     * @return {String} The attribute value.
+     */
     getAttribute: function (name) {
       if (name === "name") {
         return this._getHiddenField().getAttribute("name");
@@ -214,15 +232,15 @@ qx.Class.define("qx.ui.form.Slider",
      *
      * @return {Element} The created knob element
      */
-    _createKnobElement : function()
-    {
+    _createKnobElement : function() {
       return qxWeb.create("<div>")[0];
     },
+
 
     /**
      * Creates hidden field to sync the value to make sure the form can get the value on submit
      *
-     * @returns {qx.ui.form.Slider}
+     * @return {qxWeb} The hidden input field.
      */
     _createHiddenField: function () {
       this._hiddenField = qxWeb.create("<input>")[0];
@@ -232,6 +250,11 @@ qx.Class.define("qx.ui.form.Slider",
       return this._hiddenField;
     },
 
+
+    /**
+     * Create the hidden field used for form data on demand and returns it.
+     * @return {qxWeb} The hidden input field.
+     */
     _getHiddenField: function() {
       if (!this._hiddenField) {
         this._createHiddenField();

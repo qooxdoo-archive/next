@@ -30,11 +30,14 @@ qx.Class.define("qx.ui.Rating", {
 
 
   properties : {
-
+    // overridden
     defaultCssClass: {
       init : "rating"
     },
 
+    /**
+     * The value of the rating widget as number.
+     */
     value: {
       init: 0,
       event: true,
@@ -65,7 +68,9 @@ qx.Class.define("qx.ui.Rating", {
 
   /**
    * @attach {qxWeb, toRating}
-   * @return {qx.ui.Rating} The new rating widget.
+   * @param size {Number?} The maximal value or length of the rating.
+   * @param symbol {String?} The Symbol used to render the rating.
+   * @param element {Element} The element used to create the widget.
    */
   construct : function(size, symbol, element) {
     this.super("construct", element);
@@ -182,7 +187,6 @@ qx.Class.define("qx.ui.Rating", {
 
     /**
      * Attaches the keydown listener.
-     * @param e {Event} The native focus event.
      */
     _onFocus : function() {
       qxWeb(document.documentElement).on("keydown", this._onKeyDown, this);
@@ -191,8 +195,6 @@ qx.Class.define("qx.ui.Rating", {
 
     /**
      * Removes the keydown listener if the widget loses focus.
-     *
-     * @param e {Event} The native blur event.
      */
     _onBlur : function() {
       qxWeb(document.documentElement).off("keydown", this._onKeyDown, this);

@@ -384,6 +384,12 @@ qx.Class.define("qx.Class",
     })(),
 
 
+    /**
+     * Process the members section of the class definition.
+     *
+     * @param proto {Object} The prototype taking the members
+     * @param members {Map} The members definition.
+     */
     addMembers : function(proto, members) {
       var key, member;
 
@@ -413,9 +419,12 @@ qx.Class.define("qx.Class",
 
 
     /**
-     * TODO
+     * Append properties to the given prototype object.
      *
      * supported property keys: set, get, writable, nullable, apply, event, init, check
+     *
+     * @param proto {Object} The prototype object
+     * @param properties {Map} The property definition.
      */
     /* eslint no-shadow:0 */
     addProperties : function(proto, properties) {
@@ -848,6 +857,14 @@ qx.Class.define("qx.Class",
       return index;
     },
 
+
+    /**
+     * Adds a predefined set of arguments to the a constructor function.
+     *
+     * @param clazz {Function} The class to curry.
+     * @param args {var} The arguments to use.
+     * @return {Function} the new constructor function.
+     */
     curryConstructor : function(clazz, args) {
       // Set the context for the 'bind' call (will be replaced by new)
       Array.prototype.unshift.call(args, null);

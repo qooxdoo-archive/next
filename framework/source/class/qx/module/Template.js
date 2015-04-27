@@ -28,6 +28,10 @@
 qx.Class.define("qx.module.Template", {
   statics :
   {
+    /**
+     * Creates a new ui Temaplte.
+     * @return {qx.ui.Template} The new Template.
+     */
     create : function(path, selector) {
       return new qx.ui.Template(path, selector);
     },

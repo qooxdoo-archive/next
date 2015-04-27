@@ -520,6 +520,9 @@ qx.Class.define("qx.ui.control.Calendar", {
     },
 
 
+    /**
+     * Dispose helper to dispose the month elements.
+     */
     _disposeMonthElements: function() {
       for (var key in this.__monthElements) {
         this.__monthElements[key].setHtml("");
@@ -529,6 +532,7 @@ qx.Class.define("qx.ui.control.Calendar", {
     },
 
 
+    // overridden
     dispose : function() {
       this._disposeMonthElements();
       this.off("keydown", this._onKeyDown, this)

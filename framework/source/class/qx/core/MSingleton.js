@@ -18,10 +18,19 @@
 
 ************************************************************************ */
 
+/**
+ * Mixin to supply the singleton pattern. To use that singleton, you have to forward the
+ * static <code>getInstance</code> to your class and call the <code>initMSingleton</code>
+ * methon in you constuctor.
+ */
 qx.Mixin.define("qx.core.MSingleton", {
   statics : {
     __instance : null,
 
+    /**
+     * Returns the singleton.
+     * @return {Object} The singleton object.
+     */
     getInstance: function() {
       if (!this.__instance) {
         this.__instance = new this();
@@ -31,6 +40,9 @@ qx.Mixin.define("qx.core.MSingleton", {
   },
 
   members : {
+    /**
+     * Initialized the mixin. It makes sure there will be only one instance of this singleton.
+     */
     initMSingleton : function() {
       if (this.constructor.__instance) {
         throw new Error("'" + this.classname + "' is a singleton class and can not be instantiated directly. Please use '" + this.classnme + ".getInstance()' instead.");

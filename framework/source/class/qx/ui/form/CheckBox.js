@@ -35,7 +35,6 @@ qx.Class.define("qx.ui.form.CheckBox",
    * @param value {Boolean?false} The value of the checkbox.
    * @param element {Element?null} The html element that this widget build on.
    * @attach {qxWeb, toCheckBox}
-   * @return {qx.ui.form.CheckBox} The new check box widget.
    */
   construct : function(value, element)
   {

@@ -41,9 +41,8 @@ qx.Class.define("qx.ui.form.Picker",
   ],
 
   /**
-   * @param element {Element}
+   * @param element {Element?} The element used to create the widget.
    * @attach {qxWeb, toPicker}
-   * @return {qx.ui.form.Picker} The new picker widget.
    */
   construct : function(element)
   {
@@ -104,7 +103,8 @@ qx.Class.define("qx.ui.form.Picker",
 
 
     /**
-     * @param value {Array}
+     * Sets the given value.
+     * @param value {qx.data.Array} The new value.
      */
     _setValue: function (value) {
       for (var i = 0; i < this.__value.length; i++) {
@@ -119,27 +119,39 @@ qx.Class.define("qx.ui.form.Picker",
     },
 
 
-    // overridden
+    /**
+     * Sets the given value.
+     * @param value {qx.data.Array} The new value.
+     */
     setValue: function(value) {
       this._setValue(value);
     },
 
 
     /**
-     * @returns {Array}
+     * Returns the set value.
+     * @return {qx.data.Array} The value.
      */
     _getValue: function () {
       return this.__value;
     },
 
 
-    // overridden
+    /**
+     * Returns the set value.
+     * @return {qx.data.Array} The value.
+     */
     getValue: function() {
       return this._getValue();
     },
 
 
-    // overridden
+    /**
+     * Overridden setAttribute which has a special treatment for the name attribute which
+     * will be mapped to the hidden field as well.
+     * @param name {String} The attribute name.
+     * @param value {String} The attribute value.
+     */
     setAttribute: function (name, value) {
       if (name === "name") {
         this._slots.forEach(function (slot) {
@@ -150,7 +162,13 @@ qx.Class.define("qx.ui.form.Picker",
       this.super("setAttribute", name, value);
     },
 
-    // overridden
+
+    /**
+     * Overridden getAttribute which has a special treatment for the name attribute which
+     * will be mapped to the hidden field as well.
+     * @param name {String} The attribute name.
+     * @return {String} The attribute value.
+     */
     getAttribute: function (name) {
       if (name === "name") {
         return this._name;
@@ -250,7 +268,7 @@ qx.Class.define("qx.ui.form.Picker",
      * Creates hidden field to store value to provide form api
      *
      * @param currentItem {String|Object}
-     * @returns {Element} the hidden field
+     * @return {Element} the hidden field
      */
     _createHiddenField: function (currentItem) {
       var hiddenField = qxWeb.create("<input>")[0];
@@ -265,7 +283,7 @@ qx.Class.define("qx.ui.form.Picker",
      * Extracts the value from the passed item.
      *
      * @param item {String|Object}
-     * @returns {String} The current item value
+     * @return {String} The current item value
      */
     _serializeItemValue: function (item) {
       var Type = qx.lang.Type;

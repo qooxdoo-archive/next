@@ -39,7 +39,7 @@ qx.Class.define("qx.ui.form.Input",
 
   /**
    * @attach {qxWeb, toInput}
-   * @return {qx.ui.form.Input} The new input widget.
+   * @param element {Element?} The element used to create the widget.
    */
   construct : function(element)
   {
@@ -50,13 +50,8 @@ qx.Class.define("qx.ui.form.Input",
     this.initMForm();
   },
 
-  events: {
-    changeModel: null
-  },
 
-
-  properties :
-  {
+  properties : {
     /**
      * Model property for storing additional information for the input
      * widget. It can act as value property for example.
@@ -79,6 +74,9 @@ qx.Class.define("qx.ui.form.Input",
       event : true
     },
 
+    /**
+     * The type of the input e.g. 'password'
+     */
     type: {
       check: "String",
       apply: "_applyType"
@@ -103,13 +101,19 @@ qx.Class.define("qx.ui.form.Input",
     },
 
 
-    // overridden
+    /**
+     * Sets the given value.
+     * @param value {String} The new value.
+     */
     setValue: function(value) {
       this.value = value;
     },
 
 
-    // overridden
+    /**
+     * Returns the set value.
+     * @return {String} The value.
+     */
     getValue: function() {
       return this.value;
     },

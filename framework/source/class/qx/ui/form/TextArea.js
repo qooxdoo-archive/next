@@ -35,6 +35,7 @@ qx.Class.define("qx.ui.form.TextArea",
 
   /**
    * @param value {var?null} The value of the widget.
+   * @param element {Element?} The element used to create the widget.
    */
   construct : function(value, element)
   {
@@ -84,17 +85,24 @@ qx.Class.define("qx.ui.form.TextArea",
   members :
   {
     // overridden
-    _getTagName : function()
-    {
+    _getTagName : function() {
       return "textarea";
     },
 
-    // overridden
+
+    /**
+     * Sets the given value.
+     * @param value {String} The new value.
+     */
     _setValue: function (value) {
       this.setHtml(value);
     },
 
-    // overridden
+
+    /**
+     * Returns the set value.
+     * @return {String} The value.
+     */
     _getValue: function () {
       return this.getHtml();
     },

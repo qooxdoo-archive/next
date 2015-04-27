@@ -37,7 +37,7 @@ qx.Class.define("qx.ui.form.SelectBox",
 
   /**
    * @attach {qxWeb, toSelectBox}
-   * @return {qx.ui.form.SelectBox} The new select box widget.
+   * @param element {Element?} The element used to create the widget.
    */
   construct : function(element)
   {
@@ -148,6 +148,9 @@ qx.Class.define("qx.ui.form.SelectBox",
     },
 
 
+    /**
+     * Updates the value basend on the current model.
+     */
     _updateValue : function() {
       if (this.model) {
         if (this.model.indexOf(this.value) === -1) {
@@ -156,6 +159,11 @@ qx.Class.define("qx.ui.form.SelectBox",
       }
     },
 
+
+    /**
+     * Sets the given value.
+     * @param value {Object} The model object.
+     */
     _setValue : function(value) {
       if (value === undefined) {
         value = null;
@@ -182,7 +190,7 @@ qx.Class.define("qx.ui.form.SelectBox",
 
     /**
      * Gets the selectedIndex out of change selection event and renders view.
-     * @param evt {qx.event.type.Data} data event.
+     * @param el {Element} The selected element.
      */
     _onSelected : function (el) {
       var row = parseInt(el.getData("row"), 10);
@@ -209,6 +217,7 @@ qx.Class.define("qx.ui.form.SelectBox",
     /**
      * Validates the selected value.
      * @param value {Integer} the selected value to validate.
+     * @return {Boolean} <code>true</code> if the check was successful.
      */
     _checkSelected : function(value) {
       if(value != null && qx.lang.Type.isNumber(value) == false)

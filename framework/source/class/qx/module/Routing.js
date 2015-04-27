@@ -18,7 +18,9 @@
 
 ************************************************************************ */
 
-
+/**
+ * Routing module forwarding a singleton of the application routing.
+ */
 qx.Class.define("qx.module.Routing", {
   classDefined : function() {
     qxWeb.$attachStatic({

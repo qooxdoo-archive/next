@@ -1054,6 +1054,9 @@ qx.Class.define("qx.data.Array",
     },
 
 
+    /**
+     * Disposes the data array by removing the listeners.
+     */
     dispose : function() {
       for (var i = 0; i < this.__array.length; i++) {
         var item = this.__array[i];

@@ -205,7 +205,10 @@ qx.Class.define("qx.ui.page.NavigationPage",
     __rightContainer : null,
 
 
-    // interface implementation
+    /**
+     * Creates a title element on demand and returns it.
+     * @return {qxWeb} The titel element.
+     */
     getTitleElement: function () {
       if (!this.__title) {
         this.__title = qxWeb.create("<h1>").setHtml(this.title)

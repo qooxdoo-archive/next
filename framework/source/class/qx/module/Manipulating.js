@@ -164,7 +164,7 @@ qx.Class.define("qx.module.Manipulating", {
     /**
      * Generic insert function used for insertBefore and insertAfter.
      * @attach{qxWeb}
-     * @param parent {String|Element[]|qxWeb} Parent selector expression or list of
+     * @param target {String|Element[]|qxWeb} Parent selector expression or list of
      * parent elements
      * @param method {String} Either <code>insertBefore</code> or <code>insertAfter</code>
      * @return {qxWeb} The collection for chaining

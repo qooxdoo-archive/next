@@ -215,6 +215,7 @@ qx.Class.define("qx.Interface",
      *
      * @param clazz {Class} class of the object
      * @param iface {Interface} the interface to verify
+     * @return {Boolean} <code>true</code> if the check was successful
      */
     __checkMembers : function(clazz, iface)
     {
@@ -238,6 +239,7 @@ qx.Class.define("qx.Interface",
      *
      * @param clazz {Class} class to check interface for
      * @param iface {Interface} the interface to verify
+     * @return {Boolean} <code>true</code> if the check was successful
      */
     __checkProperties : function(clazz, iface)
     {

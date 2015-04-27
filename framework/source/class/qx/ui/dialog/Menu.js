@@ -36,7 +36,6 @@ qx.Class.define("qx.ui.dialog.Menu",
    * @param itemsModel {qx.data.Array ?}, the model which contains the choosable items of the menu.
    * @param anchor {qx.ui.Widget ?} The anchor widget for this item. If no anchor is available, the menu will be displayed modal and centered on screen.
    * @attach {qxWeb, toMenu}
-   * @return {qx.ui.dialog.Menu} The new dialog menu widget.
    */
   construct : function(itemsModel, anchor) {
     this.__list = this._createList();
@@ -146,6 +145,10 @@ qx.Class.define("qx.ui.dialog.Menu",
     },
 
 
+    /**
+     * Handler for the selected event of the list.
+     * @param data {Map} The selected event data.
+     */
     _onSelected : function(data) {
       this.emit("selected", data);
       this.hideWithDelay(500);

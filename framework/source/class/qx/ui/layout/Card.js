@@ -130,7 +130,10 @@ qx.Class.define("qx.ui.layout.Card",
     },
 
 
-    // overridden
+    /**
+     * Updastes the layout.
+     * @param e {Map} The change event data.
+     */
     updateLayout : function(e) {
       if (e.value == "visible") {
         this._showWidget(e.target);

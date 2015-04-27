@@ -125,8 +125,8 @@ qx.Mixin.define("qx.data.marshal.MEventBubbling",
      * for the changed property.
      *
      * @param name {String} The name of the former properties.
-     * @param e {qx.event.type.Data} The date event fired by the property
-     *   change.
+     * @param data {Map} The change event data containing <code>value</code>
+     *   <code>old</code> <code>name</code>, and <code>target</code>
      */
     __changePropertyListener : function(name, data)
     {

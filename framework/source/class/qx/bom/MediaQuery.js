@@ -106,6 +106,10 @@ qx.Class.define("qx.bom.MediaQuery", {
       this.emit("change", {matches: this.matches, query: this.query});
     },
 
+
+    /**
+     * Disposes the MediaQuery obejct by removing the listeners.
+     */
     dispose: function() {
       this.__mql.removeListener(this.__boundChanged);
     }

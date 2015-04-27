@@ -46,6 +46,7 @@ qx.Class.define("qx.ui.layout.Abstract",
       if (qx.core.Environment.get("qx.debug")) {
         throw new Error("Abstract method call");
       }
+      return [];
     },
 
 
@@ -80,7 +81,6 @@ qx.Class.define("qx.ui.layout.Abstract",
      * Sets the given layout properties to a widget.
      *
      * @param widget {qx.ui.Widget} The target widget
-     * @param properties {Map} The layout properties to set. Key / value pairs.
      */
     setLayoutProperties : function(widget) {
       var properties = widget.layoutPrefs;
@@ -103,11 +103,21 @@ qx.Class.define("qx.ui.layout.Abstract",
       }
     },
 
+
+    /**
+     * Helper called when a child is added.
+     * @param child {qx.ui.Widget} The added child.
+     */
     _onAddedChild : function(child) {
       this.setLayoutProperties(child);
       this.connectToChildWidget(child);
     },
 
+
+    /**
+     * Helper called when a child is removed.
+     * @param child {qx.ui.Widget} The removed child.
+     */
     _onRemovedChild : function(child) {
       this.disconnectFromChildWidget(child);
     },

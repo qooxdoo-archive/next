@@ -76,11 +76,18 @@ qx.Class.define("qx.ui.core.Root",
     },
 
 
+    /**
+     * Helper to prevent the default for the touchmove.
+     * @param evt {Event} The touchmove event
+     */
     _preventDefault : function(evt) {
       evt.preventDefault();
     },
 
 
+    /**
+     * Disposes the root widet by removing the listener.
+     */
     dispose : function() {
       this.super("dispose");
       this.off("touchmove", this._preventDefault);

@@ -221,6 +221,9 @@ qx.Class.define("qx.bom.HashHistory",
     },
 
 
+    /**
+     * Disposes the history object by detatching all listeners.
+     */
     dispose : function() {
       this.__detatchListeners();
       this.__iframe = null;

@@ -168,7 +168,7 @@ qx.Mixin.define("qx.event.MEmitter",
      *
      * @param name {String} The name of the event to check.
      * @param listener {Function} The function execute on {@link #emit}.
-     * @param ctx {var?Window} The context of the listener.
+     * @param context {var?Window} The context of the listener.
      * @return {Boolean} <code>true</code>, if the listener is already attached
      */
     hasListener : function(name, listener, context) {

@@ -345,6 +345,9 @@ qx.Mixin.define("qx.ui.form.MForm",
     },
 
 
+    /**
+     * Disposes the mixin by removing the listeners.
+     */
     disposeMForm : function() {
       this.off("focus", this._onFocus, this);
       this.off("blur", this._onBlur, this);

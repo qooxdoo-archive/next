@@ -18,14 +18,29 @@
 
 ************************************************************************ */
 
-
+/**
+ * Data binding module forwarding the data stores, marshaling and basic binding mechanisms.
+ */
 qx.Class.define("qx.module.DataBinding", {
 
   statics: {
+    /**
+     * Creates and returns a Json data store.
+     * @param url {String?} The url to load.
+     * @return {qx.data.store.Json} The new data store
+     */
     createJsonStore : function(url) {
       return new qx.data.store.Json(url);
     },
 
+
+    /**
+     * Creates and returns a offline data store.
+     * @param key {String} A unique key which is used to store the data.
+     * @param storage {String?} Either "local" or "session" to determinate which
+     *   storage should be used. Default: "local"
+     * @return {qx.data.store.Offline} The new data store
+     */
     createOfflineStore : function(key, storage) {
       return new qx.data.store.Offline(key, storage);
     }

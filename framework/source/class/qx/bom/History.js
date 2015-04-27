@@ -274,7 +274,6 @@ qx.Class.define("qx.bom.History",
 
     /**
      * Save a state into the browser history.
-     *
      */
     _writeState : function() {
       throw new Error("Abstract method call");

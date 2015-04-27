@@ -168,6 +168,7 @@ qx.Class.define("qx.ui.Carousel",
     /**
      * Handler for the 'addedChild' event. Updates the pagination,
      * scroll position, active property and the sizing.
+     * @param child {qxWeb} The added child.
      */
     _onAddedChild: function(child) {
       child.addClasses(["qx-flex1", this.defaultCssClass + "-page"])
@@ -202,6 +203,7 @@ qx.Class.define("qx.ui.Carousel",
     /**
      * Handler for the 'removedChild' event. Updates the pagination,
      * scroll position, active property and the sizing.
+     * @param child {qxWeb} The added child.
      */
     _onRemovedChild: function(child) {
       // reset the active page if we don' have any page at all
@@ -296,7 +298,7 @@ qx.Class.define("qx.ui.Carousel",
      */
     _updateOrder: function() {
       if (this._ie9) {
-        return;
+        return "left";
       }
 
       var scrollDirection;
@@ -386,6 +388,7 @@ qx.Class.define("qx.ui.Carousel",
 
     /**
      * Track handler which updates the scroll position.
+     * @param e {Event} The track event.
      */
     _onTrack: function(e) {
       if (this.__blocked) {
@@ -445,6 +448,7 @@ qx.Class.define("qx.ui.Carousel",
     /**
      * Swipe handler which triggers page changes based on the
      * velocity and the direction.
+     * @param e {Event} The swipe event.
      */
     _onSwipe: function(e) {
       if (this.__blocked) {
@@ -476,6 +480,7 @@ qx.Class.define("qx.ui.Carousel",
 
     /**
      * Handles the tap on pagination labels and changes to the desired page.
+     * @param e {Event} The tap event.
      */
     _onPaginationLabelTap: function(e) {
       this.__paginationLabels.forEach(function(label, index) {

@@ -170,6 +170,10 @@ qx.Mixin.define("qx.ui.form.MText",
     },
 
 
+    /**
+     * Validates the type of the input field.
+     * @return {Boolean} <code>true</code>, if the validation succeeded.
+     */
     _validateType: function() {
       if (this[0].validity !== undefined && this[0].validity.typeMismatch !== undefined) {
         return !this[0].validity.typeMismatch;

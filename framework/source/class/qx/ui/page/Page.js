@@ -63,7 +63,8 @@ qx.Class.define("qx.ui.page.Page",
 
   /**
    * @attach {qxWeb, toPage}
-   * @return {qx.ui.page.Page} The new page widget.
+   * @param layout {qx.ui.layout.Abstract} The page layout.
+   * @param element {Element?} The element used to create the page.
    */
   construct : function(layout, element)
   {
@@ -140,7 +141,10 @@ qx.Class.define("qx.ui.page.Page",
   {
     __initialized : false,
 
-    // overridden
+    /**
+     * Show the page.
+     * @param properties {Map} The animation properties
+     */
     show : function(properties)
     {
       if (qx.ui.page.Page._currentPage) {
@@ -155,7 +159,10 @@ qx.Class.define("qx.ui.page.Page",
     },
 
 
-    // overridden
+    /**
+     * Exclude the page.
+     * @param properties {Map} The animation properties
+     */
     exclude : function(properties)
     {
       this.stop();

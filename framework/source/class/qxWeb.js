@@ -56,6 +56,7 @@ qx.Class.define("qxWeb", {
      *   either a window object, a DOM element node or a DOM document node will
      *   be ignored.
      * @param clazz {Class} The class of the new collection.
+     * @param forceNew {Boolean?false} Force a creation of a new collection.
      * @return {q} A new initialized collection.
      */
     $init : function(arg, clazz, forceNew) {
@@ -125,6 +126,7 @@ qx.Class.define("qxWeb", {
      * to {@link q}.
      *
      * @param module {Map} A map containing the methods to attach.
+     * @param override {Boolean?false} Allow overriding of already attached values.
      */
     $attachStatic : function(module, override) {
       for (var name in module) {

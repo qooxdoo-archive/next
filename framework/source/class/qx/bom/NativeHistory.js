@@ -93,7 +93,9 @@ qx.Class.define("qx.bom.NativeHistory",
     },
 
 
-    // overridden
+    /**
+     * Disposes the History obejct by removing the listeners.
+     */
     dispose : function() {
       this.__detatchListeners();
     }

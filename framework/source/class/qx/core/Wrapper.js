@@ -14,6 +14,10 @@
      See the LICENSE file in the project's top-level directory for details.
 
 ************************************************************************ */
+/**
+ * Generic wrapper instance which wrappes a set of objects and forwards the API of
+ * the first object to all objects in the array.
+ */
 /* eslint no-shadow:0 */
 qx.Class.define("qx.core.Wrapper", {
   extend : Array,

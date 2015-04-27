@@ -148,8 +148,8 @@ qx.Class.define("qx.dom.Hierarchy",
      * Uses native non-standard contains() in Internet Explorer,
      * Opera and Webkit (supported since Safari 3.0 beta)
      *
-     * @param element {Element} Parent element
-     * @param target {Node} Child node
+     * @param parent {Element} Parent element
+     * @param child {Node} Child node
      * @return {Boolean}
      */
     contains: function(parent, child) {

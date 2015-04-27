@@ -29,7 +29,9 @@ qx.Class.define("qx.ui.form.Row",
 
   /**
    * @attach {qxWeb, toRow}
-   * @return {qx.ui.form.Row} The new form row widget.
+   * @param item {qxWeb} The for item.
+   * @param label {String} The label to show for the given item.
+   * @param element {Element?} The element used to create the widget.
    */
   construct: function(item, label, element) {
     this.super("construct", element);

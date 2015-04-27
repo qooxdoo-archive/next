@@ -35,7 +35,6 @@ qx.Class.define("qx.ui.form.TextField",
    * @param value {var?null} The value of the widget.
    * @param element {Element?null} The new list widget.
    * @attach {qxWeb, toTextField}
-   * @return {qx.ui.form.TextField} The new text field widget.
    */
   construct : function(value, element)
   {

@@ -208,7 +208,7 @@ qx.Class.define("qx.data.store.Json",
      *
      * Sets the store’s state.
      *
-     * @param ev {qx.event.type.Data} The request’s changePhase event.
+     * @param data {Map} Event data of the change event.
      */
     _onChangePhase : function(data) {
       var requestPhase = data.value,
@@ -291,6 +291,9 @@ qx.Class.define("qx.data.store.Json",
     },
 
 
+    /**
+     * Disposes the store obejct by disposing its request.
+     */
     dispose: function() {
       this.$$dispose = true;
       if (this.__request != null) {
