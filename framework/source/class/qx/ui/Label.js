@@ -32,8 +32,8 @@ qx.Class.define("qx.ui.Label",
 
   /**
    * @param value {String?null} Text or HTML content to display
+   * @param element {Element?} The element used to create the widget.
    * @attach {qxWeb, toLabel}
-   * @return {qx.ui.Label} The new label widget.
    */
   construct : function(value, element)
   {

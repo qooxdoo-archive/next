@@ -417,6 +417,7 @@ qx.Class.define("qx.io.request.Jsonp",
 
     /**
      * Generate ID.
+     * @return {String} The generated ID.
      */
     __generateId: function() {
       // Add random digits to date to allow immediately following requests
@@ -476,18 +477,21 @@ qx.Class.define("qx.io.request.Jsonp",
     },
 
 
+    // overridden
     _send: function() {
       this.__callTransport("send");
     },
 
 
+    // overridden
     _abort: function() {
       this.__callTransport("abort");
     },
 
 
-    _setRequestHeader: function() {
-      this.__callTransport("setRequestHeader");
+    // overridden
+    _setRequestHeader: function(key, value) {
+      this.__callTransport("setRequestHeader", [key, value]);
     }
   }
 });

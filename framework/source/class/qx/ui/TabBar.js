@@ -33,8 +33,11 @@ qx.Class.define("qx.ui.TabBar", {
   extend : qx.ui.Widget,
 
   /**
+   * @param orientation {String} The TabBar's orientation.
+   * @param align {String} The TabBar's align.
+   * @param element {Element?} The element used to create the widget.
+   *
    * @attach {qxWeb, toTabBar}
-   * @return {qx.ui.TabBar} The new tab bar widget.
    */
   construct: function(orientation, align, element) {
     this.super("construct", element);
@@ -150,6 +153,12 @@ qx.Class.define("qx.ui.TabBar", {
     },
 
 
+    /**
+     * Handler for the 'removedChild' event.
+     * Checks and updates the active page.
+     *
+     * @param child {qxWeb} The added child.
+     */
     _onRemovedChild : function(child) {
       child.removeClass("selected");
       if (this.orientation === "horizontal" &&

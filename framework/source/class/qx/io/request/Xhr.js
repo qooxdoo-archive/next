@@ -436,6 +436,8 @@ qx.Class.define("qx.io.request.Xhr",
       }
 
       this.__nativeXhr.setRequestHeader(key, value);
+
+      return this;
     },
 
 

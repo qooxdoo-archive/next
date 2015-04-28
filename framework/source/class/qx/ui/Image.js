@@ -30,8 +30,9 @@ qx.Class.define("qx.ui.Image",
 
   /**
    * @param source {String?null} The URL of the image to display.
+   * @param element {Element?} The element used to create the widget.
+   *
    * @attach {qxWeb, toImage}
-   * @return {qx.ui.Image} The new image widget.
    */
   construct : function(source, element)
   {

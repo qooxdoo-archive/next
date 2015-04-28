@@ -49,10 +49,10 @@ qx.Class.define("qx.ui.container.Scroll",
   include : [qx.ui.container.MNativeScroll],
 
   /**
-  * @param scrollProperties {Object?} A map with scroll properties which are passed to the scrolling container (may contain iScroll properties).
-  * @attach {qxWeb, toScroll}
-  * @return {qx.ui.container.Scroll} The new scroll widget.
-  */
+   * @param scrollProperties {Object?} A map with scroll properties which are passed to the scrolling container (may contain iScroll properties).
+   * @param element {Element?} The element used to create the widget.
+   * @attach {qxWeb, toScroll}
+   */
   construct : function(scrollProperties, element)
   {
     this.super("construct", element);

@@ -25,7 +25,7 @@ qx.Class.define("qx.ui.Tree",
 
   /**
    * @attach {qxWeb, toTree}
-   * @return {qx.ui.Tree} The new tree widget.
+   * @param element {Element?} The element used to create the widget.
    */
   construct : function(element)
   {
@@ -78,6 +78,9 @@ qx.Class.define("qx.ui.Tree",
     },
 
 
+    /**
+     * Initializes the tree by adding listeners and creating new folder id's.
+     */
     _init : function ()
     {
       this.__newFolderId = parseInt(Math.random() * 10000, 10);

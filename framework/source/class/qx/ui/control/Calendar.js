@@ -146,8 +146,7 @@ qx.Class.define("qx.ui.control.Calendar", {
   /**
    * @attach {qxWeb, toCalendar}
    * @param date {Date?} Date to display. Default: The current month
-   * @param element {Element?} Container element (DIV) for this widget
-   * @return {qx.ui.control.Calendar} The new calendar widget.
+   * @param element {Element?} The element used to create the widget.
    */
   construct : function(date, element) {
     this.super("construct", element);
@@ -160,6 +159,9 @@ qx.Class.define("qx.ui.control.Calendar", {
 
 
   events : {
+    /**
+     * Event fired as soon as a new date has been selected.
+     */
     "selected" : null,
 
     /** Fired whenvever a render process finished. This event can be used as hook to add

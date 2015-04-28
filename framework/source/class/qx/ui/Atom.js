@@ -36,7 +36,7 @@ qx.Class.define("qx.ui.Atom",
    * @attach {qxWeb, toAtom}
    * @param label {String?} Label to use
    * @param icon {String?null} Icon to use
-   * @return {qx.ui.Atom} The new atom widget.
+   * @param element {Element?} The element used to create the widget.
    */
   construct : function(label, icon, element)
   {

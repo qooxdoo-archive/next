@@ -172,7 +172,7 @@ qx.Class.define("qx.io.request.Script",
      */
     open: function(method, url) {
       if (this._disposed) {
-        return;
+        return this;
       }
 
       // Reset XHR properties that may have been set by previous request

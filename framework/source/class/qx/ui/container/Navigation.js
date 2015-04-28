@@ -43,7 +43,7 @@ qx.Class.define("qx.ui.container.Navigation",
 
   /**
    * @param element {Element?null} The new navigation widget.
-   * @return {qx.ui.container.Navigation} The new navigation widget.
+   * @param element {Element?} The element used to create the widget.
    */
   construct : function(element)
   {
@@ -79,12 +79,13 @@ qx.Class.define("qx.ui.container.Navigation",
 
 
     // overridden
-    append : function(widget) {
+    append : function(html) {
       if (qx.core.Environment.get("qx.debug")) {
-        qx.core.Assert.assertInterface(widget, qx.ui.container.INavigation);
+        qx.core.Assert.assertInterface(html, qx.ui.container.INavigation);
       }
 
-      this.getContent().append(widget);
+      this.getContent().append(html);
+      return this;
     },
 
 

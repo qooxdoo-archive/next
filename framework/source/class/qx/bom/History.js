@@ -263,9 +263,10 @@ qx.Class.define("qx.bom.History",
 
 
     /**
-     * Browser dependent function to read the current state of the history
+     * Abstract method
      *
-     * @return {String} current state of the browser history
+     * Browser dependent function to read the current state of the history.
+     * It should return the current state of the browser history as string.
      */
     _readState : function() {
       throw new Error("Abstract method call");
@@ -273,6 +274,8 @@ qx.Class.define("qx.bom.History",
 
 
     /**
+     * Abstract method
+     *
      * Save a state into the browser history.
      */
     _writeState : function() {

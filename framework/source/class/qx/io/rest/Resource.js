@@ -186,6 +186,17 @@ qx.Class.define("qx.io.rest.Resource",
      */
     __begetRequest: null,
 
+
+    /**
+     * Creates the event data with the given arguments.
+     *
+     * @param response {var} The response
+     * @param request {qx.io.request.Xhr} The used request object
+     * @param action {String} The action (e.g. "get", "post" ...).
+     * @param phase {String} The request phase.
+     *
+     * @return {Map} The event data.
+     */
     _createEventData: function(response, request, action, phase) {
       return {
         response: response,

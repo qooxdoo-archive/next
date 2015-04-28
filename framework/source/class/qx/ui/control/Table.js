@@ -92,7 +92,8 @@ qx.Class.define("qx.ui.control.Table", {
 
   /**
    * @attach {qxWeb, toTable}
-   * @return {qx.ui.control.Table} The new table widget.
+   * @param model {Array} The initial model
+   * @param element {Element?} The element used to create the widget.
    */
   construct : function(model, element) {
     this.super("construct", element);
@@ -136,6 +137,9 @@ qx.Class.define("qx.ui.control.Table", {
 
   properties: {
 
+    /**
+     * The model for the table. The model should be an array of arrays containg the data.
+     */
     model: {
       check: "Array",
       event: true
@@ -261,6 +265,11 @@ qx.Class.define("qx.ui.control.Table", {
     __sortingFunction: null,
 
 
+    /**
+     * Returns the template with the given name.
+     * @param name {String} the template name
+     * @return {String} The template.
+     */
     getTemplate: function(name) {
       return qx.ui.control.Table._templates[name];
     },
@@ -552,7 +561,10 @@ qx.Class.define("qx.ui.control.Table", {
     },
 
 
-    //overriden
+    /**
+     * Renders the table.
+     * @return {qx.ui.control.Table} Self for chaining.
+     */
     render : function() {
       var sortingData = this.getSortingData();
       var rowSelection = this.rowSelection;

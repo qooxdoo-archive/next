@@ -30,6 +30,8 @@ qx.Class.define("qx.module.Template", {
   {
     /**
      * Creates a new ui Temaplte.
+     * @param path {String} The URI to load the template from.
+     * @param selector {String} The selector to render the template to.
      * @return {qx.ui.Template} The new Template.
      */
     create : function(path, selector) {

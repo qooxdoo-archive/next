@@ -117,7 +117,7 @@ qx.Class.define("qx.ui.Widget", {
 
   /**
    * @attach {qxWeb, toWidget}
-   * @return {qx.ui.Widget} The new widget.
+   * @param element {Element?} The element used to create the widget.
    */
   construct : function(element) {
     this.super("construct");
@@ -342,7 +342,13 @@ qx.Class.define("qx.ui.Widget", {
     },
 
 
-    // overridden
+   /**
+    * Appends content to each element in the current widget. Accepts an HTML string,
+    * a single DOM element or an array of elements
+    *
+    * @param html {String|Element[]|qxWeb} HTML string or DOM element(s) to append
+    * @return {qx.ui.Widget} The widget for chaining
+    */
     append : function(html) {
       var arr = qx.bom.Html.clean([html]);
       var children = qxWeb.$init(arr, qxWeb);
@@ -357,7 +363,15 @@ qx.Class.define("qx.ui.Widget", {
     },
 
 
-    // overridden
+    /**
+     * Appends the widget to the specified parents. If multiple
+     * parents are given, the widget will be moved to the first parent, while
+     * clones of widget will be appended to subsequent parents.
+     *
+     * @param parent {String|Element[]|qxWeb} Parent selector expression or list of
+     * parent elements
+     * @return {qx.ui.Widget} The widget for chaining
+     */
     appendTo : function(parent) {
       this.super("appendTo", parent);
       this.emit("addedToParent", parent);
@@ -365,7 +379,14 @@ qx.Class.define("qx.ui.Widget", {
     },
 
 
-    // overridden
+    /**
+     * Generic insert function used for insertBefore and insertAfter.
+     *
+     * @param target {String|Element[]|qxWeb} Parent selector expression or list of
+     * parent elements
+     * @param method {String} Either <code>insertBefore</code> or <code>insertAfter</code>
+     * @return {qx.ui.Widget} The widget for chaining
+     */
     _insert : function(target, method) {
       this.super("_insert", target, method);
       this.emit("addedToParent", this._getParentWidget());
@@ -373,7 +394,11 @@ qx.Class.define("qx.ui.Widget", {
     },
 
 
-    // overridden
+    /**
+     * Removes the widget from the DOM.
+     *
+     * @return {qx.ui.Widget} The widget for chaining
+     */
     remove : function() {
       var parent = this._getParentWidget();
       if (parent) {
@@ -388,7 +413,11 @@ qx.Class.define("qx.ui.Widget", {
     },
 
 
-    // overridden
+    /**
+     * Removes all content from the widget.
+     *
+     * @return {qx.ui.Widget} The widget for chaining
+     */
     empty : function() {
       var removed = this.getChildren();
       this.super("empty");
@@ -544,6 +573,7 @@ qx.Class.define("qx.ui.Widget", {
 
     /**
      * Make this widget visible.
+     * @return {qx.ui.Widget} The widget for chaining
      */
     show : function() {
       this.visibility = "visible";
@@ -553,6 +583,7 @@ qx.Class.define("qx.ui.Widget", {
 
     /**
      * Hide this widget.
+     * @return {qx.ui.Widget} The widget for chaining
      */
     hide : function() {
       this.visibility = "hidden";
@@ -562,6 +593,7 @@ qx.Class.define("qx.ui.Widget", {
 
     /**
      * Hide this widget and exclude it from the underlying layout.
+     * @return {qx.ui.Widget} The widget for chaining
      */
     exclude : function() {
       this.visibility = "excluded";
@@ -569,6 +601,9 @@ qx.Class.define("qx.ui.Widget", {
     },
 
 
+    /**
+     * Disposed the widget by removing it from the DOM.
+     */
     dispose : function() {
       this.remove();
     }

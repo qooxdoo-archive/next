@@ -46,7 +46,9 @@ qx.Class.define("qx.ui.Button",
 
   /**
    * @attach {qxWeb, toButton}
-   * @return {qx.ui.Button} The new Button widget.
+   * @param label {String} The buttons label.
+   * @param icon {String?} The URI to the buttons icon.
+   * @param element {Element?} The element used to create the widget.
    */
   construct : function(label, icon, element) {
     this.super("construct", label, icon, element);

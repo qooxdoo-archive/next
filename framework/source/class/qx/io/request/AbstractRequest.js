@@ -369,7 +369,7 @@ qx.Class.define("qx.io.request.AbstractRequest",
      * before the request is initialized. Without an URL no
      * request is possible.
      *
-     * @return {String} The configured URL.
+     * Should return the configured URL as string.
      */
     _getConfiguredUrl: function() {
       throw new Error("Abstract method call");
@@ -384,10 +384,14 @@ qx.Class.define("qx.io.request.AbstractRequest",
      *
      * @return {Map} Map of request headers.
      */
-    _getConfiguredRequestHeaders: function() {},
+    _getConfiguredRequestHeaders: function() {
+      return {};
+    },
 
 
     /**
+     * Abstract method
+     *
      * Get parsed response.
      *
      * Is called in the {@link #_onReadyStateChange} event handler
@@ -395,7 +399,7 @@ qx.Class.define("qx.io.request.AbstractRequest",
      *
      * This method MUST be overridden.
      *
-     * @return {String} The parsed response of the request.
+     * Should return the parsed response of the request as string.
      */
     _getParsedResponse: function() {
       throw new Error("Abstract method call");
@@ -521,8 +525,20 @@ qx.Class.define("qx.io.request.AbstractRequest",
     },
 
 
-    _setRequestHeader: function() {
-      throw new Error("Abstract method call");
+    /**
+     * Abstract method
+     *
+     * Sets a given request header.
+     *
+     * Should return self for chaining.
+     *
+     * @param key {String}
+     *  The name of the header whose value is to be set.
+     * @param value {String}
+     *  The value to set as the body of the header.
+     */
+    _setRequestHeader: function(key, value) {
+      throw new Error("Abstract method call with " + key + ":" + value);
     },
 
 
@@ -661,12 +677,17 @@ qx.Class.define("qx.io.request.AbstractRequest",
 
     /**
      * Whether request completed (is done).
+     * @return {Boolean} <code>true</code>, if the request is done.
      */
     isDone: function() {
       return this.readyState === 4;
     },
 
 
+    /**
+     * Checks if the request is already disposed.
+     * @return {Boolean} <code>true</code>, if the request is disposed.
+     */
     isDisposed: function() {
       return !!this.$$disposed;
     },
@@ -811,6 +832,10 @@ qx.Class.define("qx.io.request.AbstractRequest",
       return null;
     },
 
+
+    /**
+     * Disposes the request by removing the listeners.
+     */
     dispose: function() {
       this.$$disposed = true;
       var noop = function() {};
@@ -829,6 +854,12 @@ qx.Class.define("qx.io.request.AbstractRequest",
       );
     },
 
+
+    /**
+     * Abstract method
+     *
+     * Custom dispose method which will be called on dispose.
+     */
     _dispose: function() {
       throw new Error("Abstract method call");
     }

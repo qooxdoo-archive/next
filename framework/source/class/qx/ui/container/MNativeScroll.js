@@ -324,6 +324,9 @@ qx.Mixin.define("qx.ui.container.MNativeScroll",
     },
 
 
+    /**
+     * Disposes the scoll mixin by removing all event listeners.
+     */
     disposeMNativeScroll : function() {
       this.off("scroll", this._onScroll, this)
         .off("touchmove", this._onTouchMove, this)

@@ -51,9 +51,8 @@ qx.Class.define("qx.ui.container.Drawer",
   /**
    * @param layout {qx.ui.layout.Abstract?null} The layout that should be
    * used for this container.
-   * @param element {Element?null} The new drawer widget.
+   * @param element {Element?} The element used to create the widget.
    * @attach {qxWeb, toDrawer}
-   * @return {qx.ui.container.Drawer} The new drawer widget.
    */
   construct : function(layout, element)
   {
@@ -164,6 +163,12 @@ qx.Class.define("qx.ui.container.Drawer",
       this.forceHide();
     },
 
+
+    /**
+     * Handler for the 'removedFromParent' event.
+     *
+     * @param parent {qxWeb} The former parent widget.
+     */
     _onRemovedFromParent: function (parent) {
       parent.removeClass("drawer-parent")
         .off("swipe", this._onParentSwipe, this)
@@ -219,6 +224,7 @@ qx.Class.define("qx.ui.container.Drawer",
 
     /**
      * Shows the drawer.
+     * @return {qx.ui.Widget} The widget for chaining
      */
     show : function()
     {
@@ -278,6 +284,7 @@ qx.Class.define("qx.ui.container.Drawer",
 
     /**
      * Hides the drawer.
+     * @return {qx.ui.Widget} The widget for chaining
      */
     hide : function() {
       var parent = this._getParentWidget();
@@ -327,6 +334,8 @@ qx.Class.define("qx.ui.container.Drawer",
      * Strict way to hide this drawer. Removes the blocker from the parent,
      * and hides the drawer without any animation. Should be called when drawer's
      * parent is animated and drawer should hide immediately.
+     *
+     * @return {qx.ui.Widget} The widget for chaining
      */
     forceHide : function() {
       var parent = this._getParentWidget();
@@ -346,7 +355,10 @@ qx.Class.define("qx.ui.container.Drawer",
     },
 
 
-    // overridden
+    /**
+     * Checks if the drawer has the hidden class.
+     * @return {Boolean} <code>true</code>, if the drawer is hidden
+     */
     isHidden : function() {
       return this.hasClass("hidden");
     },

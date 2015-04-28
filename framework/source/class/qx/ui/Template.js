@@ -16,6 +16,10 @@
 ************************************************************************ */
 
 /**
+ * EXPERIMENTAL
+ *
+ * Class responsible for loading and rendering templates into the DOM.
+ *
  * @require(qx.module.Io)
  */
 qx.Class.define("qx.ui.Template",
@@ -24,11 +28,18 @@ qx.Class.define("qx.ui.Template",
   include : [qx.event.MEmitter],
 
   statics : {
+    /**
+     * internal registry for all loaded templates.
+     */
     __registry : {},
 
     // TODO register fail / 404 template
 
 
+    /**
+     * Initializes all templates within the given root.
+     * @param root {Element} The root element for the initialization.
+     */
     init : function(root) {
       var nodes = root.querySelectorAll("*[data-qx-template]");
       for (var i = 0; i < nodes.length; i++) {
@@ -39,6 +50,13 @@ qx.Class.define("qx.ui.Template",
       }
     },
 
+
+    /**
+     * Returns a template based on the given id.
+     *
+     * @param id {String} The template id.
+     * @return {String} The template.
+     */
     get : function(id) {
       var node = document.querySelectorAll('*[data-qx-template="' + id + '"]');
       if (node.length === 0) {
@@ -48,12 +66,21 @@ qx.Class.define("qx.ui.Template",
     },
 
 
+    /**
+     * Add a template to the registry.
+     * @param path {String} The template path.
+     * @param template {String} The template string.
+     */
     add : function(path, template) {
       qx.ui.Template.__registry[path] = template;
     }
   },
 
 
+  /**
+   * @param path {String} The URI to the template file.
+   * @param selector {String} The selector for the templates targe element.
+   */
   construct : function(path, selector) {
     if (!qx.ui.Template.__registry[path]) {
       this._load(path);
@@ -65,6 +92,9 @@ qx.Class.define("qx.ui.Template",
 
 
   properties : {
+    /**
+     * The data model for the template.
+     */
     model : {
       event: true,
       nullable: true,
@@ -87,6 +117,9 @@ qx.Class.define("qx.ui.Template",
     },
 
 
+    /**
+     * Renders the template based on the set model property.
+     */
     render : function() {
       var template = qx.ui.Template.__registry[this._path];
       if (!template) {
@@ -108,6 +141,10 @@ qx.Class.define("qx.ui.Template",
     },
 
 
+    /**
+     * Helper to load the temapltes files.
+     * @param path {String} The URI of the template file.
+     */
     _load : function(path) {
       qxWeb.io.xhr(path).on('loadend', function(xhr) {
         if (xhr.responseText && xhr.status != 404) {
