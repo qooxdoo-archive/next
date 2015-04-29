@@ -17,10 +17,34 @@
 
  ************************************************************************
  */
-describe("event.util.Keyboard", function () {
-  it("testCommaAsValidKeyIdentifier", function () {
-    var isValidKeyIdentifier = qx.event.util.Keyboard.isValidKeyIdentifier(',');
+describe("event.util.Keyboard", function() {
 
-    assert.equal(true, isValidKeyIdentifier);
+  it("isValidKeyIdentifier", function() {
+    var keys = [",", "A", "1", "3"];
+
+    for (var i = 0; i < keys.length; i++) {
+      var isValidKeyIdentifier = qx.event.util.Keyboard.isValidKeyIdentifier(keys[i]);
+      assert.equal(true, isValidKeyIdentifier);
+    }
   });
+
+
+  it("isInvalidKeyIdentifier", function() {
+    var keys = ["k", ":", "123", "abc", ""];
+
+    for (var i = 0; i < keys.length; i++) {
+      var isValidKeyIdentifier = qx.event.util.Keyboard.isValidKeyIdentifier(keys[i]);
+      assert.equal(false, isValidKeyIdentifier);
+    }
+  });
+
+
+  it("isPrintableKeyIdentifier", function() {
+    var isPrintable = qx.event.util.Keyboard.isPrintableKeyIdentifier("Space");
+    assert.isTrue(isPrintable);
+
+    var isPrintable = qx.event.util.Keyboard.isPrintableKeyIdentifier("");
+    assert.isTrue(isPrintable);
+  });
+
 });
