@@ -40,9 +40,6 @@ qx.Class.define("qx.type.BaseError",
     if (inst.stack) {
       this.stack = inst.stack;
     }
-    if (inst.stacktrace) {
-      this.stacktrace = inst.stacktrace;
-    }
 
     this.__comment = comment || "";
     // opera 10 crashes if the message is an empty string!!!?!?!
