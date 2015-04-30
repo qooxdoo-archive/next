@@ -1,4 +1,4 @@
-/* eslint strict:0 */
+"use strict";
 /* ************************************************************************
 
    qooxdoo - the new era of web development
