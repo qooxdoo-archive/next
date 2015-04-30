@@ -157,7 +157,7 @@ qx.Class.define("qx.ui.TabBar", {
      * Handler for the 'removedChild' event.
      * Checks and updates the active page.
      *
-     * @param child {qxWeb} The added child.
+     * @param child {qxWeb} The removed child.
      */
     _onRemovedChild : function(child) {
       child.removeClass("selected");

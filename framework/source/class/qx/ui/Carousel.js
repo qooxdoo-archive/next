@@ -203,7 +203,7 @@ qx.Class.define("qx.ui.Carousel",
     /**
      * Handler for the 'removedChild' event. Updates the pagination,
      * scroll position, active property and the sizing.
-     * @param child {qxWeb} The added child.
+     * @param child {qxWeb} The removed child.
      */
     _onRemovedChild: function(child) {
       // reset the active page if we don' have any page at all
