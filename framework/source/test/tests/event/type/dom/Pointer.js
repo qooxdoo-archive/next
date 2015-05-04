@@ -1,8 +1,8 @@
 describe("event.type.dom.Pointer", function() {
 
   beforeEach(function() {
-    elem = q.create("<div id='main'><h2>first header</h2><p>para 1 (within)</p><p>para 2 (within)</p><div>div 1</div></div>").appendTo(sandbox[0]);
-    this.evt = new qx.event.type.dom.Pointer("pointerdown", elem, "detail");
+    var domEvent = createMouseEvent("mousedown");
+    this.evt = new qx.event.type.dom.Pointer("pointerdown", domEvent, "detail");
     qx.event.type.dom.Pointer.normalize(this.evt);
   });
 

@@ -1,28 +1,5 @@
 describe('event.PointerHandler', function() {
 
-  var createMouseEvent = function(type) {
-    var domEvent;
-    if (qxWeb.env.get("event.customevent")) {
-      domEvent = new MouseEvent(type, {
-        canBubble: true,
-        cancelable: true,
-        view: window,
-      });
-      domEvent.initMouseEvent(type, true, true, window,
-        1, 0, 0, 0, 0,
-        false, false, false, false,
-        0, null);
-    } else if (document.createEvent) {
-      domEvent = document.createEvent("UIEvents");
-      domEvent.initEvent(type, true, true);
-    } else if (document.createEventObject) {
-      domEvent = document.createEventObject();
-      domEvent.type = type;
-    }
-    return domEvent;
-  };
-
-
   it("Register", function() {
     //this.require(["qx.debug"]);
     if (q.$$qx.core.Environment.get("event.mspointer")) {

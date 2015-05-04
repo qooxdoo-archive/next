@@ -113,3 +113,33 @@ qxWeb.ready(function() {
 
 
 })();
+
+var createMouseEvent = function(type) {
+  var domEvent;
+  if (qxWeb.env.get("event.customevent")) {
+    domEvent = new MouseEvent(type, {
+      canBubble: true,
+      cancelable: true,
+      view: window,
+    });
+    domEvent.initMouseEvent(type, true, true, window,
+      1, 0, 0, 0, 0,
+      false, false, false, false,
+      0, null);
+  } else {
+    if (document.createEvent) {
+      domEvent = document.createEvent("UIEvents");
+      domEvent.initEvent(type, true, true);
+    } else if (document.createEventObject) {
+      domEvent = document.createEventObject();
+      domEvent.type = type;
+    }
+    domEvent.screenX = 0;
+    domEvent.screenY = 0;
+    domEvent.clientX = 0;
+    domEvent.clientY = 0;
+    domEvent.pageX = 0;
+    domEvent.pageY = 0;
+  }
+  return domEvent;
+};
